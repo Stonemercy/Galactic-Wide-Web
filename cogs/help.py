@@ -8,7 +8,7 @@ class HelpCog(commands.Cog):
         self.bot = bot
         print("Help cog has finished loading")
 
-    async def help_autocomp(inter, user_input: str):
+    async def help_autocomp(inter: AppCmdInter, user_input: str):
         commands_list = []
         for i in inter.bot.global_slash_commands:
             commands_list.append(i.name)

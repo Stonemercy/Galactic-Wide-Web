@@ -29,7 +29,7 @@ class DashboardCog(commands.Cog):
         await dashboard.get_data()
         dashboard.set_data()
         for i in guilds:
-            if i[1] != "0":
+            if i[1] != 0:
                 try:
                     channel = self.bot.get_channel(
                         int(i[1])
@@ -46,6 +46,7 @@ class DashboardCog(commands.Cog):
                     await log_channel.send(
                         f"I had an issue updating dashboard in `{guild.name}`, owner is `{guild.owner.name}`."
                     )
+                    print(f"Guild and channel of error: {guild.id, channel.id}")
                 else:
                     if len(message.attachments) > 0:
                         await message.edit(embeds=dashboard.embeds)
@@ -73,7 +74,7 @@ class DashboardCog(commands.Cog):
         await dashboard.get_data()
         dashboard.set_data()
         for i in guilds:
-            if i[1] != "0":
+            if i[1] != 0:
                 try:
                     channel = self.bot.get_channel(
                         int(i[1])
@@ -88,7 +89,7 @@ class DashboardCog(commands.Cog):
                     ) or await self.bot.fetch_channel(int(getenv("MODERATION_CHANNEL")))
                     guild = self.bot.get_guild(int(i[0]))
                     await log_channel.send(
-                        f"I had an issue updating dashboard in `{guild.name}`, owner is {guild.owner.name}."
+                        f"I had an issue updating dashboard in `{guild.name}`, owner is `{guild.owner.name}`."
                     )
                 else:
                     if len(message.attachments) > 0:

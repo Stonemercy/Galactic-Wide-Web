@@ -92,36 +92,13 @@ class Dashboard:
 class Planet(Embed):
     def __init__(self, planet: str):
         super().__init__()
-        self.planet = planet.lower()
+        self.planet = planet
         self.data = None
-        self.planet_dict = {
-            "crimsica": "crimsica",
-            "draupnir": "draupnir",
-            "durgen": "durgen",
-            "erate prime": "erate prime",
-            "erate-prime": "erate prime",
-            "estanu": "estanu",
-            "fenrir 3": "fenrir III",
-            "fenrir iii": "fenrir III",
-            "hellmire": "hellmire",
-            "malevelon creek": "malevelon creek",
-            "mantes": "mantes",
-            "meridia": "meridia",
-            "popli 4": "popli IX",
-            "popli iv": "popli IX",
-            "troost": "troost",
-            "turing": "turing",
-            "vandalon 4": "vandalon IV",
-            "vandalon iv": "vandalon IV",
-            "veld": "veld",
-        }
 
     async def get_data(self):
         api = getenv("API")
         async with ClientSession() as session:
-            async with session.get(
-                f"{api}/activePlanets/{self.planet_dict[self.planet]}"
-            ) as r:
+            async with session.get(f"{api}/activePlanets/{self.planet}") as r:
                 if r.status == 200:
                     js = await r.json()
                     self.data = loads(dumps(js))

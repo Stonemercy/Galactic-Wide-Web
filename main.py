@@ -1,3 +1,4 @@
+from datetime import datetime
 from disnake.ext import commands
 from dotenv import load_dotenv
 from os import getenv
@@ -15,6 +16,7 @@ activity = Activity(name="for Socialism", type=ActivityType.watching)
 bot = commands.InteractionBot(
     owner_id=OWNER, intents=intents, activity=activity, reload=True
 )
+
 
 bot.load_extensions("cogs")
 

@@ -36,7 +36,9 @@ class GuildManagementCog(commands.Cog):
 
     @commands.slash_command(guild_ids=[int(getenv("SUPPORT_SERVER"))])
     async def info(self, inter: AppCmdInter):
-        await inter.send((f"Guilds: {len(inter.bot.guilds)}"))
+        await inter.send(
+            (f"Guilds: {len(inter.bot.guilds)}\n", f"Users: {len(inter.bot.users)}")
+        )
 
     @commands.slash_command(guild_ids=[int(getenv("SUPPORT_SERVER"))])
     async def delete_message(self, inter: AppCmdInter, channel_id, message_id):
