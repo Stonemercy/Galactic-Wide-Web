@@ -10,16 +10,6 @@ pwd = getenv("DB_pwd")
 port_id = getenv("DB_port_id")
 
 
-def db_startup():
-    with connect(
-        host=hostname, dbname=database, user=username, password=pwd, port=port_id
-    ) as conn:
-        with conn.cursor() as curs:
-            curs.execute(
-                "CREATE TABLE IF NOT EXISTS guilds(guild_id BIGINT PRIMARY KEY NOT NULL, channel_id BIGINT DEFAULT 0, message_id BIGINT DEFAULT 0)"
-            )
-
-
 class Guilds:
     def get_info(guild_id: int):
         with connect(
@@ -70,3 +60,37 @@ class Guilds:
         ) as conn:
             with conn.cursor() as curs:
                 curs.execute("Delete from guilds where guild_id = %s", (guild_id,))
+
+    def not_setup():
+        with connect(
+            host=hostname, dbname=database, user=username, password=pwd, port=port_id
+        ) as conn:
+            with conn.cursor() as curs:
+                curs.execute(
+                    "Select * from guilds where channel_id = 0 or message_id = 0"
+                )
+                results = curs.fetchall()
+                return results
+
+
+class BotDashboard:
+    def get_info():
+        with connect(
+            host=hostname, dbname=database, user=username, password=pwd, port=port_id
+        ) as conn:
+            with conn.cursor() as curs:
+                curs.execute("SELECT * FROM bot_dashboard")
+                record = curs.fetchone()
+                return record if record else False
+
+    def set_info(channel_id: int, message_id: int):
+        with connect(
+            host=hostname, dbname=database, user=username, password=pwd, port=port_id
+        ) as conn:
+            with conn.cursor() as curs:
+                curs.execute("Delete from bot_dashboard")
+                conn.commit()
+                curs.execute(
+                    "Insert into bot_dashboard (channel_id, message_id) VALUES (%s, %s)",
+                    (channel_id, message_id),
+                )

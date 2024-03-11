@@ -1,4 +1,4 @@
-from disnake import AppCmdInter, File, TextChannel
+from disnake import AppCmdInter, File, Message, TextChannel
 from disnake.ext import commands
 from helpers.db import Guilds
 from helpers.embeds import Dashboard
@@ -13,6 +13,7 @@ class SetupCog(commands.Cog):
         description="Choose which channel the dashboard will be in for your server (this can be changed later)"
     )
     async def setup(self, inter: AppCmdInter, channel: TextChannel):
+        await inter.response.defer()
         dashboard = Dashboard()
         await dashboard.get_data()
         dashboard.set_data()
@@ -31,7 +32,7 @@ class SetupCog(commands.Cog):
             await inter.send(
                 "Something went wrong, please contact my owner",
                 ephemeral=True,
-                delete_after=300.0,
+                delete_after=10.0,
             )
         await inter.send(
             (
@@ -39,7 +40,19 @@ class SetupCog(commands.Cog):
                 f"Message link: {message.jump_url}"
             ),
             ephemeral=True,
-            delete_after=300.0,
+            delete_after=10.0,
+        )
+        messages: list[Message] = self.bot.get_cog("DashboardCog").messages
+        for i in messages:
+            if i.guild == inter.guild:
+                try:
+                    await i.delete()
+                except Exception as e:
+                    print("Setup", e)
+                messages.remove(i)
+        messages.append(message)
+        print(
+            f"Setup complete, {len(self.bot.get_cog('DashboardCog').messages)} messages cached"
         )
 
 

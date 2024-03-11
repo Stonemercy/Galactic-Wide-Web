@@ -9,54 +9,74 @@ from datetime import datetime
 class DashboardCog(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
+        self.messages = []
         self.dashboard.start()
         self.db_cleanup.start()
+        self.cache_messages.start()
         print("Dashboard cog has finished loading")
 
     def cog_unload(self):
         self.dashboard.stop()
         self.db_cleanup.stop()
+        self.cache_messages.stop()
+
+    async def _message_list_gen(self, i):
+        try:
+            channel = self.bot.get_channel(int(i[1])) or await self.bot.fetch_channel(
+                int(i[1])
+            )
+            try:
+                message = await channel.fetch_message(int(i[2]))
+                self.messages.append(message)
+            except:
+                guild = self.bot.get_guild(int(i[0]))
+                print(f"Guild and channel of error: {guild.id, channel.id}")
+        except:
+            pass
+
+    async def _update_message(self, dashboard, i):
+        if len(i.attachments) > 0:
+            try:
+                await i.edit(embeds=dashboard.embeds)
+            except:
+                pass
+        else:
+            try:
+                await i.edit(embeds=dashboard.embeds, file=File("resources/banner.jpg"))
+            except:
+                pass
 
     @tasks.loop(minutes=1)
     async def dashboard(self):
         now = datetime.now()
-        if now.minute not in [0, 15, 30, 45]:
-            return
-        guilds = Guilds.get_all_info()
-        if not guilds:
+        if now.minute not in [0, 15, 30, 45] or self.messages == []:
             return
         dashboard = Dashboard()
         await dashboard.get_data()
-        dashboard.set_data()
-        for i in guilds:
-            if i[1] != 0:
-                try:
-                    channel = self.bot.get_channel(
-                        int(i[1])
-                    ) or await self.bot.fetch_channel(int(i[1]))
-                except:
-                    continue
-                try:
-                    message = await channel.fetch_message(int(i[2]))
-                except:
-                    log_channel = self.bot.get_channel(
-                        int(getenv("MODERATION_CHANNEL"))
-                    ) or await self.bot.fetch_channel(int(getenv("MODERATION_CHANNEL")))
-                    guild = self.bot.get_guild(int(i[0]))
-                    await log_channel.send(
-                        f"I had an issue updating dashboard in `{guild.name}`, owner is `{guild.owner.name}`."
-                    )
-                    print(f"Guild and channel of error: {guild.id, channel.id}")
-                else:
-                    if len(message.attachments) > 0:
-                        await message.edit(embeds=dashboard.embeds)
-                    else:
-                        await message.edit(
-                            embeds=dashboard.embeds, file=File("resources/banner.jpg")
-                        )
+        data_check = dashboard.set_data()
+        if data_check == False:
+            dashboard.defend_embed.add_field(
+                "There has been a disruption to our communications", "Please stand by."
+            )
+            print("API IS DOWN")
+        for i in self.messages:
+            self.bot.loop.create_task(self._update_message(dashboard, i))
 
     @dashboard.before_loop
     async def before_dashboard(self):
+        await self.bot.wait_until_ready()
+
+    @tasks.loop(count=1)
+    async def cache_messages(self):
+        guilds = Guilds.get_all_info()
+        if not guilds:
+            return
+        self.messages = []
+        for i in guilds:
+            self.bot.loop.create_task(self._message_list_gen(i))
+
+    @cache_messages.before_loop
+    async def before_caching(self):
         await self.bot.wait_until_ready()
 
     @commands.slash_command(guild_ids=[int(getenv("SUPPORT_SERVER"))])
@@ -66,39 +86,18 @@ class DashboardCog(commands.Cog):
                 "You can't use this", ephemeral=True, delete_after=3.0
             )
         await inter.response.defer(ephemeral=True)
-        guilds = Guilds.get_all_info()
-        if not guilds:
-            return await inter.send("No dashboards found")
         dashboards_updated = 0
         dashboard = Dashboard()
-        await dashboard.get_data()
+        data_check = await dashboard.get_data()
+        if data_check == False:
+            dashboard.defend_embed.add_field(
+                "There has been a disruption to our communications", "Please stand by."
+            )
+            print("API IS DOWN")
         dashboard.set_data()
-        for i in guilds:
-            if i[1] != 0:
-                try:
-                    channel = self.bot.get_channel(
-                        int(i[1])
-                    ) or await self.bot.fetch_channel(int(i[1]))
-                except:
-                    continue
-                try:
-                    message = await channel.fetch_message(int(i[2]))
-                except:
-                    log_channel = channel = self.bot.get_channel(
-                        int(getenv("MODERATION_CHANNEL"))
-                    ) or await self.bot.fetch_channel(int(getenv("MODERATION_CHANNEL")))
-                    guild = self.bot.get_guild(int(i[0]))
-                    await log_channel.send(
-                        f"I had an issue updating dashboard in `{guild.name}`, owner is `{guild.owner.name}`."
-                    )
-                else:
-                    if len(message.attachments) > 0:
-                        await message.edit(embeds=dashboard.embeds)
-                    else:
-                        await message.edit(
-                            embeds=dashboard.embeds, file=File("resources/banner.jpg")
-                        )
-                    dashboards_updated += 1
+        for i in self.messages:
+            self.bot.loop.create_task(self._update_message(dashboard, i))
+            dashboards_updated += 1
         await inter.send(f"Updated {dashboards_updated} dashboards", ephemeral=True)
 
     @tasks.loop(hours=1)
@@ -111,7 +110,7 @@ class DashboardCog(commands.Cog):
             guild_ids.append(i.id)
         for guild in guilds_in_db:
             if guild[0] not in guild_ids:
-                print("Anomoly found, removing")
+                print(f"Anomoly found, removing")
                 Guilds.remove_from_db(guild[0])
             continue
 

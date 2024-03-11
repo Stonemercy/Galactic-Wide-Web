@@ -29,7 +29,7 @@ class PlanetCog(commands.Cog):
                 "Error when getting data",
                 delete_after=10.0,
             )
-        if embed.data == None:
+        if embed.status == None:
             return await inter.send(
                 "Data on that planet isn't available, please try an active planet",
                 delete_after=10.0,
