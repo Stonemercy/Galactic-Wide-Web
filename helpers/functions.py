@@ -7,6 +7,7 @@ def health_bar(current_health: int, max_health: int, atk_def: str = "def"):
     }
     prog_dict = prog_dict[atk_def]
     perc = int((current_health / max_health) * 10)
+    prog_ico = ""
     for i in prog_dict:
         if perc >= i:
             prog_ico = prog_dict[i]

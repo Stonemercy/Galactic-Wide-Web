@@ -81,6 +81,67 @@ class BotDashboardEmbed(Embed):
         self.set_footer(text=f"Updated at {dt.strftime('%H:%M')}GMT")
 
 
+class Weapons:
+    class All(Embed):
+        def __init__(self, data: list):
+            super().__init__(colour=Colour.blue(), title="The Arsenal")
+            self.data = data
+            for i in data:
+                self.fire_modes = []
+                stats = i[1]
+                if stats["fire modes"]["semi"]:
+                    self.fire_modes.append("Semi-automatic")
+                if stats["fire modes"]["burst"]:
+                    self.fire_modes.append("Burst")
+                if stats["fire modes"]["auto"]:
+                    self.fire_modes.append("Automatic")
+                self.fire_modes = ", ".join(self.fire_modes)
+
+                self.add_field(
+                    name=i[0],
+                    value=(
+                        f"Type: `{stats['type']}`\n"
+                        f"Damage: `{stats['damage']}`\n"
+                        f"Fire Rate: `{stats['fire rate']}`\n"
+                        f"DPS: `{stats['dps']}`\n"
+                        f"Recoil: `{stats['recoil']}`\n"
+                        f"Capacity: `{stats['capacity']}`\n"
+                        f"Armour Pen: `{stats['armour penetration']}`\n"
+                        f"Fire Modes: `{self.fire_modes}`\n"
+                        f"Special Effects: `{stats['effects']}`\n"
+                    ),
+                    inline=False,
+                )
+
+    class Single(Embed):
+        def __init__(self, name: str, data: dict):
+            super().__init__(colour=Colour.blue())
+            self.data = data
+            self.fire_modes = []
+            if self.data["fire modes"]["semi"]:
+                self.fire_modes.append("Semi-automatic")
+            if self.data["fire modes"]["burst"]:
+                self.fire_modes.append("Burst")
+            if self.data["fire modes"]["auto"]:
+                self.fire_modes.append("Automatic")
+            self.fire_modes = ", ".join(self.fire_modes)
+
+            self.add_field(
+                name=name,
+                value=(
+                    f"Type: `{self.data['type']}`\n"
+                    f"Damage: `{self.data['damage']}`\n"
+                    f"Fire Rate: `{self.data['fire rate']}`\n"
+                    f"DPS: `{self.data['dps']}`\n"
+                    f"Recoil: `{self.data['recoil']}`\n"
+                    f"Capacity: `{self.data['capacity']}`\n"
+                    f"Armour Pen: `{self.data['armour penetration']}`\n"
+                    f"Fire Modes: `{self.fire_modes}`\n"
+                    f"Special Effects: `{self.data['effects']}`\n"
+                ),
+            )
+
+
 class Dashboard:
     def __init__(self):
         self.defend_embed = Embed(title="Defending", colour=Colour.blue())
@@ -121,9 +182,8 @@ class Dashboard:
         self.planets_list = []
 
         # Major Orders
-        if self.major_order is not None:
-            title, description = self.major_order["title"].split("\n")
-
+        title = self.major_order["title"]
+        description = self.major_order["message"]["en"]
         self.major_orders_embed.add_field(
             f"MESSAGE #{self.major_order['id']} - {title}",
             f"`{description}`\n\u200b\n",
