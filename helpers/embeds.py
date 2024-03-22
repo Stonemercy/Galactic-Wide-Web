@@ -228,7 +228,7 @@ class Dashboard:
                 self.major_orders_embed.add_field(
                     "Latest update:", self.feed[-1]["message"]["en"]
                 )
-        elif self.major_order_backup != None:
+        elif self.major_order_backup not in (None, []):
             title = self.major_order_backup[0]["setting"]["overrideTitle"]
             description = f"{self.major_order_backup[0]['setting']['overrideBrief']}\n{self.major_order_backup[0]['setting']['taskDescription']}"
             self.major_orders_embed.add_field(
