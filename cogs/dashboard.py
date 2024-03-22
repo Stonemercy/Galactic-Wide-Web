@@ -1,5 +1,5 @@
 from os import getenv
-from disnake import AppCmdInter, File
+from disnake import AppCmdInter, Message
 from disnake.ext import commands, tasks
 from helpers.embeds import Dashboard
 from helpers.db import Guilds
@@ -28,22 +28,18 @@ class DashboardCog(commands.Cog):
             try:
                 message = await channel.fetch_message(int(i[2]))
                 self.messages.append(message)
-            except:
+            except Exception as e:
                 guild = self.bot.get_guild(int(i[0]))
-                print(f"Guild and channel of error: {guild.id, channel.id}")
+                print("message_list_gen", guild.id, e)
         except:
             pass
 
-    async def _update_message(self, dashboard, i):
+    async def _update_message(self, dashboard: Dashboard, i: Message):
         if len(i.attachments) > 0:
             try:
                 await i.edit(embeds=dashboard.embeds)
-            except:
-                pass
-        else:
-            try:
-                await i.edit(embeds=dashboard.embeds, file=File("resources/banner.jpg"))
-            except:
+            except Exception as e:
+                print("Update message", e, i)
                 pass
 
     @tasks.loop(minutes=1)
@@ -53,12 +49,7 @@ class DashboardCog(commands.Cog):
             return
         dashboard = Dashboard()
         await dashboard.get_data()
-        data_check = dashboard.set_data()
-        if data_check == False:
-            dashboard.defend_embed.add_field(
-                "There has been a disruption to our communications", "Please stand by."
-            )
-            print("API IS DOWN")
+        dashboard.set_data()
         for i in self.messages:
             self.bot.loop.create_task(self._update_message(dashboard, i))
 
@@ -88,20 +79,16 @@ class DashboardCog(commands.Cog):
         await inter.response.defer(ephemeral=True)
         dashboards_updated = 0
         dashboard = Dashboard()
-        data_check = await dashboard.get_data()
-        if data_check == False:
-            dashboard.defend_embed.add_field(
-                "There has been a disruption to our communications", "Please stand by."
-            )
-            print("API IS DOWN")
+        await dashboard.get_data()
         dashboard.set_data()
         for i in self.messages:
             self.bot.loop.create_task(self._update_message(dashboard, i))
             dashboards_updated += 1
         await inter.send(f"Updated {dashboards_updated} dashboards", ephemeral=True)
 
-    @tasks.loop(hours=1)
+    @tasks.loop(minutes=5)
     async def db_cleanup(self):
+        messages: list[Message] = self.messages
         guilds_in_db = Guilds.get_all_info()
         if not guilds_in_db:
             return
@@ -112,6 +99,9 @@ class DashboardCog(commands.Cog):
             if guild[0] not in guild_ids:
                 print(f"Anomoly found, removing")
                 Guilds.remove_from_db(guild[0])
+                for j in messages:
+                    if j.guild.id == guild[0]:
+                        messages.remove(j)
             continue
 
     @db_cleanup.before_loop

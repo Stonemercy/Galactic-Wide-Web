@@ -86,7 +86,7 @@ class Weapons:
         def __init__(self, data: list):
             super().__init__(colour=Colour.blue(), title="The Arsenal")
             self.data = data
-            for i in data:
+            for n, i in enumerate(self.data):
                 self.fire_modes = []
                 stats = i[1]
                 if stats["fire modes"]["semi"]:
@@ -98,7 +98,7 @@ class Weapons:
                 self.fire_modes = ", ".join(self.fire_modes)
 
                 self.add_field(
-                    name=i[0],
+                    name=f"{n + 1} - {i[0]}",
                     value=(
                         f"Type: `{stats['type']}`\n"
                         f"Damage: `{stats['damage']}`\n"
@@ -110,7 +110,6 @@ class Weapons:
                         f"Fire Modes: `{self.fire_modes}`\n"
                         f"Special Effects: `{stats['effects']}`\n"
                     ),
-                    inline=False,
                 )
 
     class Single(Embed):
@@ -140,10 +139,18 @@ class Weapons:
                     f"Special Effects: `{self.data['effects']}`\n"
                 ),
             )
+            try:
+                file_name = name.replace(" ", "-")
+                self.set_thumbnail(file=File(f"resources/weapons/{file_name}.png"))
+            except Exception as e:
+                print("passing", e)
+                pass
 
 
 class Dashboard:
     def __init__(self):
+        self.major_order = None
+        self.major_order_backup = None
         self.defend_embed = Embed(title="Defending", colour=Colour.blue())
         self.attack_embed = Embed(title="Attacking", colour=Colour.red())
         self.major_orders_embed = Embed(title="Major Orders", colour=Colour.red())
@@ -160,9 +167,9 @@ class Dashboard:
                         self.status = loads(dumps(js))
                         await session.close()
                     else:
-                        return False
+                        pass
             except Exception as e:
-                print(("Dashboard Embed", e))
+                print(("Dashboard Embed - status", e))
         async with ClientSession() as session:
             try:
                 async with session.get(f"{api}/events/latest") as r:
@@ -171,9 +178,36 @@ class Dashboard:
                         self.major_order = loads(dumps(js))
                         await session.close()
                     else:
-                        return False
+                        pass
             except Exception as e:
-                print(("Dashboard Embed", e))
+                print(("Dashboard Embed - events", e))
+        async with ClientSession() as session:
+            try:
+                async with session.get(f"{api}/feed") as r:
+                    if r.status == 200:
+                        js = await r.json()
+                        self.feed = loads(dumps(js))
+                        await session.close()
+                    else:
+                        pass
+            except Exception as e:
+                print(("Dashboard Embed - feed", e))
+        if self.major_order == None:
+            async with ClientSession(
+                headers={"Accept-Language": "en-GB,en;q=0.5"}
+            ) as session:
+                try:
+                    async with session.get(
+                        f"https://api.live.prod.thehelldiversgame.com/api/v2/Assignment/War/801"
+                    ) as r:
+                        if r.status == 200:
+                            js = await r.json()
+                            self.major_order_backup = loads(dumps(js))
+                            await session.close()
+                        else:
+                            pass
+                except Exception as e:
+                    print(("Dashboard Embed - major order backup", e))
 
     def set_data(self):
         self.defending_planets = self.status["planet_events"]
@@ -182,13 +216,26 @@ class Dashboard:
         self.planets_list = []
 
         # Major Orders
-        title = self.major_order["title"]
-        description = self.major_order["message"]["en"]
-        self.major_orders_embed.add_field(
-            f"MESSAGE #{self.major_order['id']} - {title}",
-            f"`{description}`\n\u200b\n",
-            inline=False,
-        )
+        if self.major_order != None:
+            title = self.major_order["title"]
+            description = self.major_order["message"]["en"]
+            self.major_orders_embed.add_field(
+                f"MESSAGE #{self.major_order['id']} - {title}",
+                f"`{description}`\n\u200b\n",
+                inline=False,
+            )
+            if self.feed != None:
+                self.major_orders_embed.add_field(
+                    "Latest update:", self.feed[-1]["message"]["en"]
+                )
+        elif self.major_order_backup != None:
+            title = self.major_order_backup[0]["setting"]["overrideTitle"]
+            description = f"{self.major_order_backup[0]['setting']['overrideBrief']}\n{self.major_order_backup[0]['setting']['taskDescription']}"
+            self.major_orders_embed.add_field(
+                f"MESSAGE #BU{self.major_order_backup[0]['id32']} - {title}",
+                f"`{description}`\n\u200b\n",
+                inline=False,
+            )
 
         # Defending
         for i in self.defending_planets:
@@ -207,17 +254,17 @@ class Dashboard:
             planet_health_bar = health_bar(
                 self.planet["health"], i["planet"]["max_health"]
             )
-            event_health_bar = health_bar(i["health"], i["max_health"])
+            event_health_bar = health_bar(i["health"], i["max_health"], "atk")
             self.defend_embed.add_field(
                 f"{faction_icon} - __**{i['planet']['name']}**__",
                 (
                     f"Time left: {time_remaining}\n"
                     f"Liberation: `{(self.planet['liberation']):.0f}%`\n"
                     f"Heroes: `{self.planet['players']:,}`\n\n"
-                    f"Event health:"
+                    f"Event health:\n"
                     f"{event_health_bar}\n"
                     f"`{i['health']:>10,}/{i['max_health']:<11,}`\n\n"
-                    f"Planet health:"
+                    f"Planet health:\n"
                     f"{planet_health_bar}\n"
                     f"`{self.planet['health']:>10,}/{i['planet']['max_health']:<11,} +{self.planet_status[i['planet']['index']]['regen_per_second']:.0f}/s`\n"
                     "\u200b\n"
@@ -269,13 +316,103 @@ class Dashboard:
                 )
 
         # Other
-        self.attack_embed.set_footer(text=f"Updated at {self.now.strftime('%H:%M')}GMT")
+        self.timestamp = int(self.now.timestamp())
+        self.attack_embed.add_field(
+            "\u200b",
+            f"Updated on <t:{self.timestamp}:f> - <t:{self.timestamp}:R>",
+            inline=False,
+        )
         if len(self.defend_embed.fields) < 1:
             self.defend_embed.add_field(
                 "There are no threats to our Freedom", "||for now...||"
             )
+        if len(self.major_orders_embed.fields) < 1:
+            self.major_orders_embed.add_field("There are no Major Orders", "\u200b")
+        self.attack_embed.set_image("https://i.imgur.com/cThNy4f.png")
+        self.defend_embed.set_image("https://i.imgur.com/cThNy4f.png")
+        self.major_orders_embed.set_image("https://i.imgur.com/cThNy4f.png")
         self.embeds = [
             self.major_orders_embed,
             self.defend_embed,
             self.attack_embed,
         ]
+
+
+class Terminid(Embed):
+    def __init__(self, species_name: str, species_data: dict, variation: bool = False):
+        super().__init__(
+            colour=Colour.dark_gold(),
+            title=species_name,
+            description=species_data["desc"],
+        )
+        difficulty_dict = {
+            1: "<:trivial:1219233272987648070>",
+            2: "<:easy:1219232432671428608>",
+            3: "<:medium:1219232485536432138>",
+            4: "<:challenging:1219232486693928970>",
+            5: "<:hard:1219232488602337291>",
+            6: ":extreme:1219232490288451595>",
+            7: "<:suicide_mission:1219239152332312696>",
+            8: "<:impossible:1219234932145131570>",
+            9: "<:helldive:1219238179551318067>",
+            "?": "?",
+        }
+        file_name = species_name.replace(" ", "-")
+        self.add_field(
+            "Introduced",
+            f"Difficulty {species_data['start']} {difficulty_dict[species_data['start']]}",
+            inline=False,
+        ).add_field("Tactics", species_data["tactics"], inline=False).add_field(
+            "Weak Spots", species_data["weak spots"], inline=False
+        )
+        variations = []
+        if variation == False and species_data["variations"] != None:
+            for i in species_data["variations"]:
+                variations.append(i)
+            self.add_field("Variations", ", ".join(variations))
+        try:
+            self.set_thumbnail(
+                file=File(f"resources/enemies/terminids/{file_name}.png")
+            )
+        except:
+            pass
+
+
+class Automaton(Embed):
+    def __init__(self, bot_name: str, bot_data: dict, variation: bool = False):
+        super().__init__(
+            colour=Colour.brand_red(),
+            title=bot_name,
+            description=bot_data["desc"],
+        )
+        difficulty_dict = {
+            1: "<:trivial:1219233272987648070>",
+            2: "<:easy:1219232432671428608>",
+            3: "<:medium:1219232485536432138>",
+            4: "<:challenging:1219232486693928970>",
+            5: "<:hard:1219232488602337291>",
+            6: ":extreme:1219232490288451595>",
+            7: "<:suicide_mission:1219239152332312696>",
+            8: "<:impossible:1219234932145131570>",
+            9: "<:helldive:1219238179551318067>",
+            "?": "?",
+        }
+        file_name = bot_name.replace(" ", "-")
+        self.add_field(
+            "Introduced",
+            f"Difficulty {bot_data['start']} {difficulty_dict[bot_data['start']]}",
+            inline=False,
+        ).add_field("Tactics", bot_data["tactics"], inline=False).add_field(
+            "Weak Spots", bot_data["weak spots"], inline=False
+        )
+        variations = []
+        if variation == False and bot_data["variations"] != None:
+            for i in bot_data["variations"]:
+                variations.append(i)
+            self.add_field("Variations", ", ".join(variations))
+        try:
+            self.set_thumbnail(
+                file=File(f"resources/enemies/automatons/{file_name}.png")
+            )
+        except:
+            pass

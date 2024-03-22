@@ -9,14 +9,14 @@ class HelpCog(commands.Cog):
         print("Help cog has finished loading")
 
     async def help_autocomp(inter: AppCmdInter, user_input: str):
-        commands_list = []
+        commands_list: list[str] = []
         for i in inter.bot.global_slash_commands:
             commands_list.append(i.name)
         commands_list.append("all")
         return [command for command in commands_list if user_input in command.lower()]
 
     @commands.slash_command(
-        description="Get some help for a specific command, or a list of every command!"
+        description="Get some help for a specific command, or a list of every command"
     )
     async def help(
         self,

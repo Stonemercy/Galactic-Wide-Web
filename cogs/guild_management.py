@@ -1,5 +1,6 @@
+from asyncio import sleep
 from datetime import datetime
-from disnake import AppCmdInter, Guild
+from disnake import Activity, ActivityType, AppCmdInter, Guild
 from disnake.ext import commands, tasks
 from helpers.db import Guilds, BotDashboard
 from helpers.embeds import BotDashboardEmbed
@@ -25,6 +26,13 @@ class GuildManagementCog(commands.Cog):
         Guilds.set_info(guild_id=guild.id)
         await channel.send(
             f"Just joined server #{len(self.bot.guilds)} `{guild.name}` with {guild.member_count} members"
+        )
+        await self.bot.change_presence(
+            activity=Activity(name="for alien sympathisers", type=ActivityType.watching)
+        )
+        await sleep(10.0)
+        await self.bot.change_presence(
+            activity=Activity(name="for socialism", type=ActivityType.watching)
         )
 
     @commands.Cog.listener()
@@ -94,7 +102,10 @@ class GuildManagementCog(commands.Cog):
             channel = self.bot.get_channel(data[0]) or await self.bot.fetch_channel(
                 data[0]
             )
-            message = await channel.fetch_message(data[1])
+            try:
+                message = await channel.fetch_message(data[1])
+            except Exception as e:
+                print(f"bot_dashboard ", e)
             await message.edit(embed=dashboard_embed, content="")
 
     @bot_dashboard.before_loop

@@ -13,17 +13,32 @@ class SetupCog(commands.Cog):
         description="Choose which channel the dashboard will be in for your server (this can be changed later)"
     )
     async def setup(self, inter: AppCmdInter, channel: TextChannel):
-        await inter.response.defer()
         dashboard = Dashboard()
         await dashboard.get_data()
         dashboard.set_data()
+        if not channel.permissions_for(inter.guild.me).send_messages:
+            return await inter.send(
+                "I don't have the `Send Messages` permission for that channel",
+                ephemeral=True,
+            )
+        elif not channel.permissions_for(inter.guild.me).embed_links:
+            return await inter.send(
+                "I don't have the `Embed Links` permission for that channel",
+                ephemeral=True,
+            )
+        elif not channel.permissions_for(inter.guild.me).attach_files:
+            return await inter.send(
+                "I don't have the `Attach Files` permission for that channel",
+                ephemeral=True,
+            )
         try:
             message = await channel.send(
-                embeds=dashboard.embeds, file=File("resources/banner.jpg")
+                embeds=dashboard.embeds, file=File("resources/banner.png")
             )
-        except:
+        except Exception as e:
+            print(e)
             return await inter.send(
-                "I don't have permission to post in that channel, please check the permissions",
+                "An error has occured, I have contacted my Administrator.",
                 ephemeral=True,
             )
         Guilds.set_info(inter.guild.id, channel.id, message.id)
@@ -42,6 +57,11 @@ class SetupCog(commands.Cog):
             ephemeral=True,
             delete_after=10.0,
         )
+        if not channel.permissions_for(inter.guild.me).external_emojis:
+            await inter.send(
+                "I'm missing the `External Emojis` permission\nWhile not required, it makes the dashboard look better",
+                ephemeral=True,
+            )
         messages: list[Message] = self.bot.get_cog("DashboardCog").messages
         for i in messages:
             if i.guild == inter.guild:
