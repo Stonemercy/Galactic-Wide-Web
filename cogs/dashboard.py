@@ -35,12 +35,11 @@ class DashboardCog(commands.Cog):
             pass
 
     async def _update_message(self, dashboard: Dashboard, i: Message):
-        if len(i.attachments) > 0:
-            try:
-                await i.edit(embeds=dashboard.embeds)
-            except Exception as e:
-                print("Update message", e, i)
-                pass
+        try:
+            await i.edit(embeds=dashboard.embeds)
+        except Exception as e:
+            print("Update message", e, i)
+            pass
 
     @tasks.loop(minutes=1)
     async def dashboard(self):

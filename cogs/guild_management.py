@@ -6,6 +6,7 @@ from helpers.db import Guilds, BotDashboard
 from helpers.embeds import BotDashboardEmbed
 from os import getenv, getpid
 from psutil import Process, cpu_percent
+from helpers.functions import health_bar
 
 
 class GuildManagementCog(commands.Cog):
@@ -13,6 +14,7 @@ class GuildManagementCog(commands.Cog):
         self.bot = bot
         self.bot_dashboard.start()
         print("Guild Management cog has finished loading")
+        self.startup_time = datetime.now()
 
     def cog_unload(self):
         self.bot_dashboard.stop()
@@ -90,13 +92,24 @@ class GuildManagementCog(commands.Cog):
             memory_used = process.memory_info().rss / 1024**2
             dashboard_embed.add_field(
                 "------------------\nHardware Info",
-                (f"**CPU**: {cpu_percent()}%\n**RAM**: {memory_used:.2f}MB"),
+                (
+                    f"**CPU**: {cpu_percent()}%\n"
+                    f"**RAM**: {memory_used:.2f}MB\n"
+                    f"**Last restart**: <t:{int(self.startup_time.timestamp())}:R>"
+                ),
                 inline=False,
             )
             not_setup = len(Guilds.not_setup())
+            healthbar = health_bar(
+                (len(self.bot.guilds) - not_setup), len(self.bot.guilds)
+            )
             dashboard_embed.add_field(
                 "------------------\nDashboards Info",
-                f"**Setup**: {len(self.bot.guilds) - not_setup}\n**Not Setup**: {not_setup}",
+                (
+                    f"**Setup**: {len(self.bot.guilds) - not_setup}\n"
+                    f"**Not Setup**: {not_setup}\n"
+                    f"{healthbar}"
+                ),
             )
 
             channel = self.bot.get_channel(data[0]) or await self.bot.fetch_channel(
