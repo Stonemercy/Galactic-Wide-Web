@@ -1,5 +1,5 @@
 from os import getenv
-from disnake import AppCmdInter, Message
+from disnake import AppCmdInter, ChannelType, PartialMessage
 from disnake.ext import commands, tasks
 from helpers.embeds import Dashboard
 from helpers.db import Guilds
@@ -26,15 +26,16 @@ class DashboardCog(commands.Cog):
                 int(i[1])
             )
             try:
-                message = await channel.fetch_message(int(i[2]))
+                message = channel.get_partial_message(int(i[2]))
                 self.messages.append(message)
             except Exception as e:
                 guild = self.bot.get_guild(int(i[0]))
                 print("message_list_gen", guild.id, e)
         except:
+            print(i[1], "channel not found")
             pass
 
-    async def _update_message(self, dashboard: Dashboard, i: Message):
+    async def _update_message(self, dashboard: Dashboard, i: PartialMessage):
         try:
             await i.edit(embeds=dashboard.embeds)
         except Exception as e:
@@ -63,6 +64,8 @@ class DashboardCog(commands.Cog):
             return
         self.messages = []
         for i in guilds:
+            if i[1] == 0:
+                continue
             self.bot.loop.create_task(self._message_list_gen(i))
 
     @cache_messages.before_loop
@@ -87,7 +90,7 @@ class DashboardCog(commands.Cog):
 
     @tasks.loop(minutes=5)
     async def db_cleanup(self):
-        messages: list[Message] = self.messages
+        messages: list[PartialMessage] = self.messages
         guilds_in_db = Guilds.get_all_info()
         if not guilds_in_db:
             return
