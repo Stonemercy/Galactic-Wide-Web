@@ -1,10 +1,6 @@
 from asyncio import sleep
 from os import getenv
-<<<<<<< Updated upstream
-from disnake import AppCmdInter, Message
-=======
 from disnake import AppCmdInter, PartialMessage
->>>>>>> Stashed changes
 from disnake.ext import commands, tasks
 from helpers.embeds import Dashboard
 from helpers.db import Guilds
@@ -32,23 +28,15 @@ class DashboardCog(commands.Cog):
                 int(i[1])
             )
             try:
-                message = await channel.fetch_message(int(i[2]))
+                message = channel.get_partial_message(int(i[2]))
                 self.messages.append(message)
             except Exception as e:
                 guild = self.bot.get_guild(int(i[0]))
                 print("message_list_gen", guild.id, e)
         except:
+            print(i[1], "channel not found")
             pass
 
-<<<<<<< Updated upstream
-    async def _update_message(self, dashboard: Dashboard, i: Message):
-        if len(i.attachments) > 0:
-            try:
-                await i.edit(embeds=dashboard.embeds)
-            except Exception as e:
-                print("Update message", e, i)
-                pass
-=======
     async def update_message(self, i: PartialMessage):
         language = Guilds.get_info(i.guild.id)[4]
         reverse_dict = {v: k for k, v in language_dict.items()}
@@ -61,7 +49,6 @@ class DashboardCog(commands.Cog):
         except Exception as e:
             print("Update message", e, i)
             pass
->>>>>>> Stashed changes
 
     @tasks.loop(minutes=1)
     async def dashboard(self):
@@ -85,13 +72,9 @@ class DashboardCog(commands.Cog):
             return
         self.messages = []
         for i in guilds:
-<<<<<<< Updated upstream
-            self.bot.loop.create_task(self._message_list_gen(i))
-=======
             if i[1] == 0:
                 continue
             self.bot.loop.create_task(self.message_list_gen(i))
->>>>>>> Stashed changes
 
     @cache_messages.before_loop
     async def before_caching(self):
@@ -112,13 +95,8 @@ class DashboardCog(commands.Cog):
 
     @tasks.loop(minutes=5)
     async def db_cleanup(self):
-<<<<<<< Updated upstream
-        messages: list[Message] = self.messages
-        guilds_in_db = Guilds.get_all_info()
-=======
         messages: list[PartialMessage] = self.messages
         guilds_in_db = Guilds.get_all_guilds()
->>>>>>> Stashed changes
         if not guilds_in_db:
             return
         guild_ids = []
