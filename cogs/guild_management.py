@@ -3,9 +3,7 @@ from datetime import datetime
 from disnake import (
     Activity,
     ActivityType,
-    AppCmdInter,
     ButtonStyle,
-    Component,
     Guild,
 )
 from disnake.ext import commands, tasks
@@ -42,7 +40,7 @@ class GuildManagementCog(commands.Cog):
         )
         await sleep(10.0)
         await self.bot.change_presence(
-            activity=Activity(name="for socialism", type=ActivityType.watching)
+            activity=Activity(name="for Socialism", type=ActivityType.watching)
         )
 
     @commands.Cog.listener()

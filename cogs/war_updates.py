@@ -34,7 +34,7 @@ class WarUpdatesCog(commands.Cog):
         try:
             await channel.send(embed=embed)
         except Exception as e:
-            print("Send major order", e, channel.id)
+            print("Send campaign", e, channel.id)
             pass
 
     @tasks.loop(count=1)
@@ -132,7 +132,9 @@ class WarUpdatesCog(commands.Cog):
                     embed = CampaignEmbeds.CampaignVictory(
                         self.planet_status[old_campaign[4]],
                         defended=True,
-                        liberated_from=self.planet_status["planet"]["initial_owner"],
+                        liberated_from=self.planet_status[old_campaign[4]]["planet"][
+                            "initial_owner"
+                        ],
                     )
                     for channel in self.channels:
                         self.bot.loop.create_task(self.send_campaign(channel, embed))

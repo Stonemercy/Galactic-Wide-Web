@@ -57,7 +57,7 @@ class DashboardCog(commands.Cog):
             return
         for i in self.messages[:100]:
             self.bot.loop.create_task(self.update_message(i))
-        await sleep(1.0)
+        await sleep(2.0)
         for i in self.messages[101:]:
             self.bot.loop.create_task(self.update_message(i))
 
