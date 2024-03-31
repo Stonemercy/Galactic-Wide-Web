@@ -133,10 +133,14 @@ class CampaignEmbeds:
             super().__init__(colour=Colour.brand_green(), title="VICTORY!")
             if defended == True:
                 self.description = f"{planet_status['planet']['name']} has successfully pushed back the attacks thanks to the brave actions of **{planet_status['players']} Helldivers**"
-                self.set_image(file=File("resources/freedom.gif"))
+                self.set_image(
+                    "https://cdn.discordapp.com/attachments/1212735927223590974/1224112019070914643/freedom.gif?ex=661c4e28&is=6609d928&hm=c11af86d63a4f965ee6e3da6cd4b0d851aeb34166809b44838178a155b73f15b&"
+                )
             else:
                 self.description = f"{planet_status['planet']['name']} has been successfully liberated from the {liberated_from.capitalize()} thanks to the brave actions of **{planet_status['players']} Helldivers**"
-                self.set_image(file=File("resources/freedom.gif"))
+                self.set_image(
+                    "https://cdn.discordapp.com/attachments/1212735927223590974/1224112019070914643/freedom.gif?ex=661c4e28&is=6609d928&hm=c11af86d63a4f965ee6e3da6cd4b0d851aeb34166809b44838178a155b73f15b&"
+                )
 
     class CampaignLoss(Embed):
         def __init__(self, planet_status, defended: bool, liberator: str = None):
