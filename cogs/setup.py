@@ -31,7 +31,7 @@ class SetupCog(commands.Cog):
             return await inter.send(
                 "You need `Manager Server` permissions to use this command"
             )
-
+        await inter.response.defer(ephemeral=True)
         guild_in_db = Guilds.get_info(inter.guild_id)
         if not guild_in_db:
             Guilds.insert_new_guild(inter.guild_id)
