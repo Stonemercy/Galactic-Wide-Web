@@ -12,7 +12,9 @@ class WeaponsCog(commands.Cog):
     async def weapon_autocomp(inter: AppCmdInter, user_input: str):
         return [command for command in weapons if user_input in command.lower()]
 
-    @commands.slash_command()
+    @commands.slash_command(
+        description="Get info on one of the weapons used in the fight for democracy"
+    )
     async def weapons(
         self,
         inter: AppCmdInter,

@@ -1,9 +1,11 @@
+from asyncio import sleep
 from os import getenv
-from disnake import AppCmdInter, ChannelType, PartialMessage
+from disnake import AppCmdInter, PartialMessage
 from disnake.ext import commands, tasks
 from helpers.embeds import Dashboard
 from helpers.db import Guilds
 from datetime import datetime
+from data.lists import language_dict
 
 
 class DashboardCog(commands.Cog):
@@ -20,7 +22,7 @@ class DashboardCog(commands.Cog):
         self.db_cleanup.stop()
         self.cache_messages.stop()
 
-    async def _message_list_gen(self, i):
+    async def message_list_gen(self, i):
         try:
             channel = self.bot.get_channel(int(i[1])) or await self.bot.fetch_channel(
                 int(i[1])
@@ -35,7 +37,13 @@ class DashboardCog(commands.Cog):
             print(i[1], "channel not found")
             pass
 
-    async def _update_message(self, dashboard: Dashboard, i: PartialMessage):
+    async def update_message(self, i: PartialMessage):
+        language = Guilds.get_info(i.guild.id)[4]
+        reverse_dict = {v: k for k, v in language_dict.items()}
+        language = reverse_dict[language]
+        dashboard = Dashboard(language)
+        await dashboard.get_data()
+        dashboard.set_data()
         try:
             await i.edit(embeds=dashboard.embeds)
         except Exception as e:
@@ -47,11 +55,11 @@ class DashboardCog(commands.Cog):
         now = datetime.now()
         if now.minute not in [0, 15, 30, 45] or self.messages == []:
             return
-        dashboard = Dashboard()
-        await dashboard.get_data()
-        dashboard.set_data()
-        for i in self.messages:
-            self.bot.loop.create_task(self._update_message(dashboard, i))
+        for i in self.messages[:100]:
+            self.bot.loop.create_task(self.update_message(i))
+        await sleep(1.0)
+        for i in self.messages[101:]:
+            self.bot.loop.create_task(self.update_message(i))
 
     @dashboard.before_loop
     async def before_dashboard(self):
@@ -59,14 +67,14 @@ class DashboardCog(commands.Cog):
 
     @tasks.loop(count=1)
     async def cache_messages(self):
-        guilds = Guilds.get_all_info()
+        guilds = Guilds.get_all_guilds()
         if not guilds:
             return
         self.messages = []
         for i in guilds:
             if i[1] == 0:
                 continue
-            self.bot.loop.create_task(self._message_list_gen(i))
+            self.bot.loop.create_task(self.message_list_gen(i))
 
     @cache_messages.before_loop
     async def before_caching(self):
@@ -80,18 +88,15 @@ class DashboardCog(commands.Cog):
             )
         await inter.response.defer(ephemeral=True)
         dashboards_updated = 0
-        dashboard = Dashboard()
-        await dashboard.get_data()
-        dashboard.set_data()
         for i in self.messages:
-            self.bot.loop.create_task(self._update_message(dashboard, i))
+            self.bot.loop.create_task(self.update_message(i))
             dashboards_updated += 1
         await inter.send(f"Updated {dashboards_updated} dashboards", ephemeral=True)
 
     @tasks.loop(minutes=5)
     async def db_cleanup(self):
         messages: list[PartialMessage] = self.messages
-        guilds_in_db = Guilds.get_all_info()
+        guilds_in_db = Guilds.get_all_guilds()
         if not guilds_in_db:
             return
         guild_ids = []
