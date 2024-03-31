@@ -95,9 +95,7 @@ class Guilds:
             host=hostname, dbname=database, user=username, password=pwd, port=port_id
         ) as conn:
             with conn.cursor() as curs:
-                curs.execute(
-                    "Select * from guilds where dashboard_channel_id = 0 or dashboard_message_id = 0"
-                )
+                curs.execute("Select * from guilds where announcement_channel_id = 0")
                 results = curs.fetchall()
                 return results
 

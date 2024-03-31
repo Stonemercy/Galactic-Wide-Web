@@ -22,9 +22,9 @@ class WarUpdatesCog(commands.Cog):
 
     async def channel_list_gen(self, channel_id: int):
         try:
-            channel = self.bot.get_channel(
-                int(channel_id)
-            ) or await self.bot.fetch_channel(int(channel_id))
+            channel = self.bot.get_channel(channel_id) or await self.bot.fetch_channel(
+                channel_id
+            )
             self.channels.append(channel)
         except:
             print(channel_id, "channel not found")
@@ -34,7 +34,7 @@ class WarUpdatesCog(commands.Cog):
         try:
             await channel.send(embed=embed)
         except Exception as e:
-            print("Send campaign", e, channel.id)
+            print("Send campaign", e, channel)
             pass
 
     @tasks.loop(count=1)

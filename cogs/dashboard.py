@@ -55,11 +55,13 @@ class DashboardCog(commands.Cog):
         now = datetime.now()
         if now.minute not in [0, 15, 30, 45] or self.messages == []:
             return
-        for i in self.messages[:100]:
-            self.bot.loop.create_task(self.update_message(i))
-        await sleep(2.0)
-        for i in self.messages[101:]:
-            self.bot.loop.create_task(self.update_message(i))
+        chunked_messages = [
+            self.messages[i : i + 50] for i in range(0, len(self.messages), 50)
+        ]
+        for chunk in chunked_messages:
+            for message in chunk:
+                self.bot.loop.create_task(self.update_message(message))
+            await sleep(2.0)
 
     @dashboard.before_loop
     async def before_dashboard(self):
