@@ -11,7 +11,9 @@ OWNER = int(getenv("OWNER"))
 activity = Activity(name="for Socialism", type=ActivityType.watching)
 
 bot = commands.InteractionBot(
-    owner_id=OWNER, intents=intents, activity=activity, reload=True
+    owner_id=OWNER,
+    intents=intents,
+    activity=activity,
 )
 
 bot.load_extensions("cogs")

@@ -1,11 +1,23 @@
 from asyncio import sleep
 from datetime import datetime
-from disnake import Activity, ActivityType, AppCmdInter, Guild
+from disnake import (
+    Activity,
+    ActivityType,
+    AppCmdInter,
+    ButtonStyle,
+    Component,
+    Guild,
+)
 from disnake.ext import commands, tasks
 from helpers.db import Guilds, BotDashboard
 from helpers.embeds import BotDashboardEmbed
 from os import getenv, getpid
 from psutil import Process, cpu_percent
+<<<<<<< Updated upstream
+=======
+from helpers.functions import health_bar
+from disnake.ui import Button
+>>>>>>> Stashed changes
 
 
 class GuildManagementCog(commands.Cog):
@@ -23,7 +35,7 @@ class GuildManagementCog(commands.Cog):
         channel = self.bot.get_channel(channel_id) or await self.bot.fetch_channel(
             channel_id
         )
-        Guilds.set_info(guild_id=guild.id)
+        Guilds.insert_new_guild(guild.id)
         await channel.send(
             f"Just joined server #{len(self.bot.guilds)} `{guild.name}` with {guild.member_count} members"
         )
@@ -45,29 +57,6 @@ class GuildManagementCog(commands.Cog):
         await channel.send(
             f"Just left `{guild.name}`, down to {len(self.bot.guilds)} servers"
         )
-
-    @commands.slash_command(guild_ids=[int(getenv("SUPPORT_SERVER"))])
-    async def info(self, inter: AppCmdInter):
-        await inter.send(
-            (f"Guilds: {len(inter.bot.guilds)}\n", f"Users: {len(inter.bot.users)}")
-        )
-
-    @commands.slash_command(guild_ids=[int(getenv("SUPPORT_SERVER"))])
-    async def delete_message(self, inter: AppCmdInter, channel_id, message_id):
-        try:
-            channel = self.bot.get_channel(
-                int(channel_id)
-            ) or await self.bot.fetch_channel(int(channel_id))
-            message = await channel.fetch_message(int(message_id))
-            if message.author != self.bot.user:
-                await inter.send(
-                    "I won't delete messages that arent my own", ephemeral=True
-                )
-            await message.delete()
-        except Exception as e:
-            await inter.send(f"Couldn't do it:\n{e}", ephemeral=True)
-        else:
-            await inter.send("That worked", ephemeral=True)
 
     @tasks.loop(minutes=1)
     async def bot_dashboard(self):
@@ -93,20 +82,61 @@ class GuildManagementCog(commands.Cog):
                 (f"**CPU**: {cpu_percent()}%\n**RAM**: {memory_used:.2f}MB"),
                 inline=False,
             )
+<<<<<<< Updated upstream
             not_setup = len(Guilds.not_setup())
             dashboard_embed.add_field(
                 "------------------\nDashboards Info",
                 f"**Setup**: {len(self.bot.guilds) - not_setup}\n**Not Setup**: {not_setup}",
+=======
+            dashboard_not_setup = len(Guilds.dashboard_not_setup())
+            healthbar = health_bar(
+                (len(self.bot.guilds) - dashboard_not_setup), len(self.bot.guilds)
+            )
+            dashboard_embed.add_field(
+                "------------------\nDashboards Info",
+                (
+                    f"**Setup**: {len(self.bot.guilds) - dashboard_not_setup}\n"
+                    f"**Not Setup**: {dashboard_not_setup}\n"
+                    f"{healthbar}"
+                ),
+            )
+
+            feed_not_setup = len(Guilds.feed_not_setup())
+            healthbar = health_bar(
+                (len(self.bot.guilds) - feed_not_setup), len(self.bot.guilds)
+            )
+            dashboard_embed.add_field(
+                "------------------\nWar Feeds Info",
+                (
+                    f"**Setup**: {len(self.bot.guilds) - feed_not_setup}\n"
+                    f"**Not Setup**: {feed_not_setup}\n"
+                    f"{healthbar}"
+                ),
+>>>>>>> Stashed changes
             )
 
             channel = self.bot.get_channel(data[0]) or await self.bot.fetch_channel(
                 data[0]
             )
             try:
-                message = await channel.fetch_message(data[1])
+                message = channel.get_partial_message(data[1])
             except Exception as e:
                 print(f"bot_dashboard ", e)
-            await message.edit(embed=dashboard_embed, content="")
+            await message.edit(
+                embed=dashboard_embed,
+                components=[
+                    Button(
+                        label="Top.GG",
+                        style=ButtonStyle.link,
+                        url="https://top.gg/bot/1212535586972369008",
+                    ),
+                    Button(
+                        label="App Directory",
+                        style=ButtonStyle.link,
+                        url="https://discord.com/application-directory/1212535586972369008",
+                    ),
+                ],
+            ),
 
     @bot_dashboard.before_loop
     async def before_bot_dashboard(self):

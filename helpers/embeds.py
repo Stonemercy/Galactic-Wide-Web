@@ -4,6 +4,7 @@ from aiohttp import ClientSession
 from json import dumps, loads
 from datetime import datetime
 from helpers.functions import health_bar
+from data.lists import api_lang_dict, language_dict
 
 
 class Planet(Embed):
@@ -81,83 +82,89 @@ class BotDashboardEmbed(Embed):
         self.set_footer(text=f"Updated at {dt.strftime('%H:%M')}GMT")
 
 
-class Weapons:
-    class All(Embed):
-        def __init__(self, data: list):
-            super().__init__(colour=Colour.blue(), title="The Arsenal")
-            self.data = data
-            for n, i in enumerate(self.data):
-                self.fire_modes = []
-                stats = i[1]
-                if stats["fire modes"]["semi"]:
-                    self.fire_modes.append("Semi-automatic")
-                if stats["fire modes"]["burst"]:
-                    self.fire_modes.append("Burst")
-                if stats["fire modes"]["auto"]:
-                    self.fire_modes.append("Automatic")
-                self.fire_modes = ", ".join(self.fire_modes)
+class MajorOrderEmbed(Embed):
+    def __init__(self, language: str, event):
+        super().__init__(title="War Announcement", colour=Colour.brand_red())
+        self.language = language
+        self.event = event
 
-                self.add_field(
-                    name=f"{n + 1} - {i[0]}",
-                    value=(
-                        f"Type: `{stats['type']}`\n"
-                        f"Damage: `{stats['damage']}`\n"
-                        f"Fire Rate: `{stats['fire rate']}`\n"
-                        f"DPS: `{stats['dps']}`\n"
-                        f"Recoil: `{stats['recoil']}`\n"
-                        f"Capacity: `{stats['capacity']}`\n"
-                        f"Armour Pen: `{stats['armour penetration']}`\n"
-                        f"Fire Modes: `{self.fire_modes}`\n"
-                        f"Special Effects: `{stats['effects']}`\n"
-                    ),
-                )
-
-    class Single(Embed):
-        def __init__(self, name: str, data: dict):
-            super().__init__(colour=Colour.blue())
-            self.data = data
-            self.fire_modes = []
-            if self.data["fire modes"]["semi"]:
-                self.fire_modes.append("Semi-automatic")
-            if self.data["fire modes"]["burst"]:
-                self.fire_modes.append("Burst")
-            if self.data["fire modes"]["auto"]:
-                self.fire_modes.append("Automatic")
-            self.fire_modes = ", ".join(self.fire_modes)
-
+        if self.event != None:
+            self.set_footer(text=f"WAR LOG #{self.event['id']}")
+            self.add_field(self.event["title"], self.event["message"][self.language])
+        elif self.event != None:
+            planet_index = self.latest_bu_update["setting"]["tasks"][0]["values"][2]
+            planet_status = self.status["planet_status"][planet_index]
+            self.set_footer(text=f"WAR LOG #{self.latest_bu_update['id32']}")
             self.add_field(
-                name=name,
-                value=(
-                    f"Type: `{self.data['type']}`\n"
-                    f"Damage: `{self.data['damage']}`\n"
-                    f"Fire Rate: `{self.data['fire rate']}`\n"
-                    f"DPS: `{self.data['dps']}`\n"
-                    f"Recoil: `{self.data['recoil']}`\n"
-                    f"Capacity: `{self.data['capacity']}`\n"
-                    f"Armour Pen: `{self.data['armour penetration']}`\n"
-                    f"Fire Modes: `{self.fire_modes}`\n"
-                    f"Special Effects: `{self.data['effects']}`\n"
-                ),
+                self.latest_bu_update["setting"]["taskDescription"],
+                self.latest_bu_update["setting"]["overrideBrief"],
+            ).add_field(
+                planet_status["planet"]["name"],
+                f"Liberation: {planet_status['liberation']}",
+                inline=False,
             )
-            try:
-                file_name = name.replace(" ", "-")
-                self.set_thumbnail(file=File(f"resources/weapons/{file_name}.png"))
-            except Exception as e:
-                print("passing", e)
-                pass
+
+
+class CampaignEmbeds:
+    class NewCampaign(Embed):
+        def __init__(
+            self,
+            campaign,
+            planet_status,
+            attacker: str = "traitors to Democracy",
+            thumbnail_link: str = None,
+        ):
+            super().__init__(
+                title="**URGENT CALL TO ALL HELLDIVERS**", colour=Colour.brand_red()
+            )
+            self.planet_status = planet_status
+            self.attacker = attacker
+            if thumbnail_link != None:
+                self.set_thumbnail(thumbnail_link)
+            if self.planet_status["owner"] != "Humans":
+                self.description = f"**{campaign['planet']['name']}** requires liberation from the **{self.planet_status['owner']}**!\n\nAssist the other **{self.planet_status['players']} Helldivers** in the fight for **Democracy**"
+                self.add_field("Objective", "Liberate")
+            elif self.planet_status["owner"] == "Humans":
+                self.description = f"**{campaign['planet']['name']}** requires defending from the **{self.attacker}**!\n\nAssist the other **{self.planet_status['players']}** Helldivers in the fight for **Democracy**"
+                self.add_field("Objective", "Defend")
+
+    class CampaignVictory(Embed):
+        def __init__(self, planet_status, defended: bool, liberated_from: str = None):
+            super().__init__(colour=Colour.brand_green(), title="VICTORY!")
+            if defended == True:
+                self.description = f"{planet_status['planet']['name']} has successfully pushed back the attacks thanks to the brave actions of **{planet_status['players']} Helldivers**"
+                self.set_image(file=File("resources/freedom.gif"))
+            else:
+                self.description = f"{planet_status['planet']['name']} has been successfully liberated from the {liberated_from.capitalize()} thanks to the brave actions of **{planet_status['players']} Helldivers**"
+                self.set_image(file=File("resources/freedom.gif"))
+
+    class CampaignLoss(Embed):
+        def __init__(self, planet_status, defended: bool, liberator: str = None):
+            super().__init__(colour=Colour.brand_red(), title="Tragic Loss")
+            if defended == True:
+                self.description = f"{planet_status['planet']['name']} has been taken by the **{liberator}**\nWe must not let them keep it!"
+            else:
+                self.description = f"We have failed to take {planet_status['planet']['name']} from the {planet_status['owner']}.\nWe must try harder next time!"
 
 
 class Dashboard:
-    def __init__(self):
+    def __init__(self, language: str):
         self.major_order = None
         self.major_order_backup = None
         self.defend_embed = Embed(title="Defending", colour=Colour.blue())
         self.attack_embed = Embed(title="Attacking", colour=Colour.red())
         self.major_orders_embed = Embed(title="Major Orders", colour=Colour.red())
         self.embeds = []
+        if language in api_lang_dict:
+            self.language = api_lang_dict[language]
+        if language in language_dict:
+            self.feed_language = language_dict[language]
+        else:
+            self.language = "en"
 
     async def get_data(self):
         api = getenv("API")
+        bu_api = getenv("BU_API")
         self.now = datetime.now()
         async with ClientSession() as session:
             try:
@@ -181,25 +188,12 @@ class Dashboard:
                         pass
             except Exception as e:
                 print(("Dashboard Embed - events", e))
-        async with ClientSession() as session:
-            try:
-                async with session.get(f"{api}/feed") as r:
-                    if r.status == 200:
-                        js = await r.json()
-                        self.feed = loads(dumps(js))
-                        await session.close()
-                    else:
-                        pass
-            except Exception as e:
-                print(("Dashboard Embed - feed", e))
         if self.major_order == None:
             async with ClientSession(
-                headers={"Accept-Language": "en-GB,en;q=0.5"}
+                headers={"Accept-Language": self.language}
             ) as session:
                 try:
-                    async with session.get(
-                        f"https://api.live.prod.thehelldiversgame.com/api/v2/Assignment/War/801"
-                    ) as r:
+                    async with session.get(f"{bu_api}") as r:
                         if r.status == 200:
                             js = await r.json()
                             self.major_order_backup = loads(dumps(js))
@@ -212,23 +206,27 @@ class Dashboard:
     def set_data(self):
         self.defending_planets = self.status["planet_events"]
         self.planet_status = self.status["planet_status"]
-        self.attacking_planets = self.status["planet_attacks"][::2]
+        self.attacking_planets = self.status["planet_attacks"]
         self.planets_list = []
 
         # Major Orders
         if self.major_order != None:
             title = self.major_order["title"]
-            description = self.major_order["message"]["en"]
+            description = self.major_order["message"][self.feed_language]
             self.major_orders_embed.add_field(
                 f"MESSAGE #{self.major_order['id']} - {title}",
                 f"`{description}`\n\u200b\n",
                 inline=False,
             )
+<<<<<<< Updated upstream
             if self.feed != None:
                 self.major_orders_embed.add_field(
                     "Latest update:", self.feed[-1]["message"]["en"]
                 )
         elif self.major_order_backup != None:
+=======
+        elif self.major_order_backup not in (None, []):
+>>>>>>> Stashed changes
             title = self.major_order_backup[0]["setting"]["overrideTitle"]
             description = f"{self.major_order_backup[0]['setting']['overrideBrief']}\n{self.major_order_backup[0]['setting']['taskDescription']}"
             self.major_orders_embed.add_field(
@@ -247,9 +245,12 @@ class Dashboard:
                 faction_icon = "<:automaton:1215036421551685672>"
             elif i["race"] == "Terminids":
                 faction_icon = "<:terminid:1215036423090999376> "
-            time = datetime.fromisoformat(i["expire_time"]).replace(tzinfo=None)
+            try:
+                time = datetime.fromisoformat(i["expire_time"]).replace(tzinfo=None)
+            except:
+                time = None
             time_remaining = "N/A"
-            if time > datetime.now():
+            if time != None and time > datetime.now():
                 time_remaining = f"<t:{time.timestamp():.0f}:f>"
             planet_health_bar = health_bar(
                 self.planet["health"], i["planet"]["max_health"]
@@ -336,6 +337,72 @@ class Dashboard:
             self.defend_embed,
             self.attack_embed,
         ]
+
+
+class Weapons:
+    class All(Embed):
+        def __init__(self, data: list):
+            super().__init__(colour=Colour.blue(), title="The Arsenal")
+            self.data = data
+            for n, i in enumerate(self.data):
+                self.fire_modes = []
+                stats = i[1]
+                if stats["fire modes"]["semi"]:
+                    self.fire_modes.append("Semi-automatic")
+                if stats["fire modes"]["burst"]:
+                    self.fire_modes.append("Burst")
+                if stats["fire modes"]["auto"]:
+                    self.fire_modes.append("Automatic")
+                self.fire_modes = ", ".join(self.fire_modes)
+
+                self.add_field(
+                    name=f"{n + 1} - {i[0]}",
+                    value=(
+                        f"Type: `{stats['type']}`\n"
+                        f"Damage: `{stats['damage']}`\n"
+                        f"Fire Rate: `{stats['fire rate']}`\n"
+                        f"DPS: `{stats['dps']}`\n"
+                        f"Recoil: `{stats['recoil']}`\n"
+                        f"Capacity: `{stats['capacity']}`\n"
+                        f"Armour Pen: `{stats['armour penetration']}`\n"
+                        f"Fire Modes: `{self.fire_modes}`\n"
+                        f"Special Effects: `{stats['effects']}`\n"
+                    ),
+                )
+
+    class Single(Embed):
+        def __init__(self, name: str, data: dict):
+            super().__init__(colour=Colour.blue())
+            self.data = data
+            self.fire_modes = []
+            if self.data["fire modes"]["semi"]:
+                self.fire_modes.append("Semi-automatic")
+            if self.data["fire modes"]["burst"]:
+                self.fire_modes.append("Burst")
+            if self.data["fire modes"]["auto"]:
+                self.fire_modes.append("Automatic")
+            self.fire_modes = ", ".join(self.fire_modes)
+
+            self.add_field(
+                name=name,
+                value=(
+                    f"Type: `{self.data['type']}`\n"
+                    f"Damage: `{self.data['damage']}`\n"
+                    f"Fire Rate: `{self.data['fire rate']}`\n"
+                    f"DPS: `{self.data['dps']}`\n"
+                    f"Recoil: `{self.data['recoil']}`\n"
+                    f"Capacity: `{self.data['capacity']}`\n"
+                    f"Armour Pen: `{self.data['armour penetration']}`\n"
+                    f"Fire Modes: `{self.fire_modes}`\n"
+                    f"Special Effects: `{self.data['effects']}`\n"
+                ),
+            )
+            try:
+                file_name = name.replace(" ", "-")
+                self.set_thumbnail(file=File(f"resources/weapons/{file_name}.png"))
+            except Exception as e:
+                print("passing", e)
+                pass
 
 
 class Terminid(Embed):
