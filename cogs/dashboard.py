@@ -38,7 +38,7 @@ class DashboardCog(commands.Cog):
             pass
 
     async def update_message(self, i: PartialMessage):
-        language = Guilds.get_info(i.guild.id)[4]
+        language = Guilds.get_info(i.guild.id)[4] or "en"
         reverse_dict = {v: k for k, v in language_dict.items()}
         language = reverse_dict[language]
         dashboard = Dashboard(language)

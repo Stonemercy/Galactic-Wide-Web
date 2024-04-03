@@ -18,7 +18,7 @@ class Guilds:
             with conn.cursor() as curs:
                 curs.execute("SELECT * FROM guilds WHERE guild_id = %s", (guild_id,))
                 record = curs.fetchone()
-                return record if record != [] else False
+                return record
 
     def insert_new_guild(guild_id: int):
         with connect(

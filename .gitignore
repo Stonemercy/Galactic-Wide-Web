@@ -7,6 +7,7 @@ Dockerfile
 *.code-workspace
 .vscode/
 emojis/
+requirements.txt
 
 # Created by https://www.gitignore.io/api/python,visualstudiocode
 # Edit at https://www.gitignore.io/?templates=python,visualstudiocode

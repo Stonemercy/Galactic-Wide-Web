@@ -331,7 +331,7 @@ weapons = {
         "dps": 746.6,
         "recoil": 53,
         "capacity": 15,
-        "armour penetration": "Light",
+        "armour penetration": "Medium",
         "fire modes": {
             "semi": True,
             "burst": False,
@@ -386,7 +386,7 @@ weapons = {
     },
     "SG-8S Slugger": {
         "type": "Shotgun",
-        "damage": 280,
+        "damage": 250,
         "fire rate": 80,
         "dps": 373.3,
         "recoil": 110,
@@ -416,7 +416,7 @@ weapons = {
     },
     "SG-225IE Breaker Incendiary": {
         "type": "Shotgun",
-        "damage": 180,
+        "damage": 240,
         "fire rate": 300,
         "dps": 900,
         "recoil": 28,
@@ -476,7 +476,7 @@ weapons = {
     },
     "JAR-5 Dominator": {
         "type": "Explosive",
-        "damage": 200,
+        "damage": 300,
         "fire rate": 250,
         "dps": 833.3,
         "recoil": 75,
@@ -689,7 +689,7 @@ enemies = {
         "Bile Titan": {
             "start": 4,
             "desc": "The largest known Terminid strain; a single Bile Titan can destroy an entire SEAF platoon on its own, a testament to the bugs' mindless brutality. Bile Titans are massive but still move quickly, and behave similarly to Bile Spewers, spitting out streams of corrosive bile at their target.",
-            "tactics": "Stay as far from them as possible, using terrain to your advantage if you can. It is possible to outrun in light **and** medium armour, but not heavy. It is recommended to use heavy strategems like the Railcannon Strike, or anti-tank weaponry.",
+            "tactics": "Stay as far from them as possible, using terrain to your advantage if you can. It is possible to outrun in light **and** medium armour, but not heavy. It is recommended to use heavy strategems like the Railcannon Strike, or anti-tank weaponry. **CAN'T BE STUNNED**",
             "weak spots": None,
             "variations": None,
         },
@@ -698,6 +698,13 @@ enemies = {
             "desc": "Mainly found in hives; Brood Commanders have the ability to summon Warriors and Hive Guards which can cause a **bug breach** if not dealt with swiftly enough.",
             "tactics": "Aim for the weak spots or the head, sentry guns and medium penetration guns are very good for them. They can survive with multiple limbs removed so make sure to fully kill them.\nSimilar to Warriors, they will have increased speed after decapitations (for about 3 seconds).",
             "weak spots": "Legs",
+            "variations": None,
+        },
+        "Shrieker": {
+            "start": 7,
+            "desc": "The Shrieker is a flying Terminid with large wings that engage in hit-and-run tactics, diving in to attack Helldivers before flying back up to the skies. They only spawn at Shrieker Nests if one is present and undestroyed, and otherwise do not appear in Missions.",
+            "tactics": "Aim for the weak spots if some spawn. It is advised to bring explosives to blow up the nests. Being close to them will also let you call in a Hellbomb to destroy the entire nest in one blast.\nDrop to the ground if you are being divebombed.",
+            "weak spots": "Wings",
             "variations": None,
         },
     },

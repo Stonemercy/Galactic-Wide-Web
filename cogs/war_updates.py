@@ -122,10 +122,10 @@ class WarUpdatesCog(commands.Cog):
                 await sleep(1.0)
                 continue
         campaign_ids = []
-        for old_campaign in old_campaigns:
+        for old_campaign in old_campaigns:  # loop through old campaigns
             campaign_ids.append(old_campaign[0])
-            if old_campaign[0] not in new_campaign_ids:
-                if (
+            if old_campaign[0] not in new_campaign_ids:  # if campaign is still active
+                if (  # if current owner of the planet is human and the old owner is human (successful defence campaign)
                     self.planet_status[old_campaign[4]]["owner"] == "Humans"
                     and old_campaign[2] == "Humans"
                 ):
@@ -139,8 +139,12 @@ class WarUpdatesCog(commands.Cog):
                     for channel in self.channels:
                         self.bot.loop.create_task(self.send_campaign(channel, embed))
                     Campaigns.remove_campaign(old_campaign[0])
-                if self.planet_status[old_campaign[4]]["owner"] != old_campaign[2]:
-                    if old_campaign[2] == "Humans":
+                if (
+                    self.planet_status[old_campaign[4]]["owner"] != old_campaign[2]
+                ):  # if new owner doesnt equal old owner
+                    if (
+                        old_campaign[2] == "Humans"
+                    ):  # if old owner was humans (defence campaign loss)
                         embed = CampaignEmbeds.CampaignLoss(
                             self.planet_status[old_campaign[4]],
                             defended=True,
@@ -151,7 +155,9 @@ class WarUpdatesCog(commands.Cog):
                                 self.send_campaign(channel, embed)
                             )
                         Campaigns.remove_campaign(old_campaign[0])
-                    elif self.planet_status[old_campaign[4]]["owner"] == "Humans":
+                    elif (
+                        self.planet_status[old_campaign[4]]["owner"] == "Humans"
+                    ):  # if new owner is humans (attack campaign win)
                         embed = CampaignEmbeds.CampaignVictory(
                             self.planet_status[old_campaign[4]],
                             defended=False,
@@ -163,10 +169,16 @@ class WarUpdatesCog(commands.Cog):
                             )
                         Campaigns.remove_campaign(old_campaign[0])
         attacker_race = "traitors to Democracy"
-        for def_campaign in self.new_campaigns:
-            if def_campaign["id"] not in campaign_ids:
-                for attacker in self.status["planet_events"]:
-                    if def_campaign["planet"]["index"] == attacker["planet"]["index"]:
+        for new_campaign in self.new_campaigns:  # loop through new campaigns
+            if (
+                new_campaign["id"] not in campaign_ids
+            ):  # if campaign is brand new (not in db)
+                for attacker in self.status[
+                    "planet_events"
+                ]:  # loop through defence campaigns
+                    if (
+                        new_campaign["planet"]["index"] == attacker["planet"]["index"]
+                    ):  # check if campaign is a defence campaign (for attacker_race)
                         attacker_race = attacker["race"]
                 async with ClientSession() as session:
                     try:
@@ -175,32 +187,39 @@ class WarUpdatesCog(commands.Cog):
                         ) as r:
                             if r.status == 200:
                                 js = await r.json()
-                                self.planet_thumbnails = loads(dumps(js))
+                                self.planet_thumbnails = loads(
+                                    dumps(js)
+                                )  # getting planet thumbnails
                                 await session.close()
                             else:
                                 pass
                     except Exception as e:
                         print(("Planet Thumbnail", e))
                 planet_thumbnail = None
-                for planet_tn in self.planet_thumbnails:
-                    if def_campaign["planet"]["name"] == planet_tn["planet"]["name"]:
-                        planet_thumbnail = (
-                            f"https://helldivers.news{planet_tn['planet']['image']}"
-                        )
+                for (
+                    planet_tn
+                ) in self.planet_thumbnails:  # loop through posted thumbnails
+                    if (
+                        new_campaign["planet"]["name"] == planet_tn["planet"]["name"]
+                    ):  # check if new campaign planet name is in the list of planet thumbnails
+                        thumbnail_url: str = planet_tn["planet"]["image"]
+                        if " " in thumbnail_url:
+                            thumbnail_url = thumbnail_url.replace(" ", "%20")
+                        planet_thumbnail = f"https://helldivers.news{thumbnail_url}"
                 embed = CampaignEmbeds.NewCampaign(
-                    def_campaign,
-                    self.planet_status[def_campaign["planet"]["index"]],
+                    new_campaign,
+                    self.planet_status[new_campaign["planet"]["index"]],
                     attacker_race,
                     planet_thumbnail,
                 )
                 for j in self.channels:
                     self.bot.loop.create_task(self.send_campaign(j, embed))
                 Campaigns.new_campaign(
-                    def_campaign["id"],
-                    def_campaign["planet"]["name"],
-                    self.planet_status[def_campaign["planet"]["index"]]["owner"],
-                    self.planet_status[def_campaign["planet"]["index"]]["liberation"],
-                    def_campaign["planet"]["index"],
+                    new_campaign["id"],
+                    new_campaign["planet"]["name"],
+                    self.planet_status[new_campaign["planet"]["index"]]["owner"],
+                    self.planet_status[new_campaign["planet"]["index"]]["liberation"],
+                    new_campaign["planet"]["index"],
                 )
             continue
 

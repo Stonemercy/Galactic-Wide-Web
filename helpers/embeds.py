@@ -134,12 +134,12 @@ class CampaignEmbeds:
             if defended == True:
                 self.description = f"{planet_status['planet']['name']} has successfully pushed back the attacks thanks to the brave actions of **{planet_status['players']} Helldivers**"
                 self.set_image(
-                    "https://cdn.discordapp.com/attachments/1212735927223590974/1224112019070914643/freedom.gif?ex=661c4e28&is=6609d928&hm=c11af86d63a4f965ee6e3da6cd4b0d851aeb34166809b44838178a155b73f15b&"
+                    "https://cdn.discordapp.com/attachments/1212735927223590974/1224286105726222386/freedom.gif?ex=661cf049&is=660a7b49&hm=ac1f27724e7b998593793abab579e4cfd8b52972c54a03a6c21aaace35a9dd09&"
                 )
             else:
                 self.description = f"{planet_status['planet']['name']} has been successfully liberated from the {liberated_from.capitalize()} thanks to the brave actions of **{planet_status['players']} Helldivers**"
                 self.set_image(
-                    "https://cdn.discordapp.com/attachments/1212735927223590974/1224112019070914643/freedom.gif?ex=661c4e28&is=6609d928&hm=c11af86d63a4f965ee6e3da6cd4b0d851aeb34166809b44838178a155b73f15b&"
+                    "https://cdn.discordapp.com/attachments/1212735927223590974/1224286105726222386/freedom.gif?ex=661cf049&is=660a7b49&hm=ac1f27724e7b998593793abab579e4cfd8b52972c54a03a6c21aaace35a9dd09&"
                 )
 
     class CampaignLoss(Embed):
