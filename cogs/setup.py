@@ -78,8 +78,6 @@ class SetupCog(commands.Cog):
                 language = reverse_dict[guild_in_db[4]]
             info = await get_info()
             dashboard = Dashboard(language, info)
-            await dashboard.get_data()
-            dashboard.set_data()
             try:
                 message = await dashboard_channel.send(
                     embeds=dashboard.embeds, file=File("resources/banner.png")
