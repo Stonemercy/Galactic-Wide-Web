@@ -3,6 +3,7 @@ from disnake.ext import commands
 from helpers.db import Guilds
 from helpers.embeds import Dashboard
 from data.lists import language_dict, language_change_dict
+from helpers.functions import get_info
 
 
 class SetupCog(commands.Cog):
@@ -75,7 +76,8 @@ class SetupCog(commands.Cog):
             if language == None:
                 reverse_dict = {v: k for k, v in language_dict.items()}
                 language = reverse_dict[guild_in_db[4]]
-            dashboard = Dashboard(language)
+            info = await get_info()
+            dashboard = Dashboard(language, info)
             await dashboard.get_data()
             dashboard.set_data()
             try:
