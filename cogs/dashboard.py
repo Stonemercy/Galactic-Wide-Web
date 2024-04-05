@@ -6,6 +6,7 @@ from helpers.embeds import Dashboard
 from helpers.db import Guilds
 from datetime import datetime
 from data.lists import language_dict
+from helpers.functions import get_info
 
 
 class DashboardCog(commands.Cog):
@@ -15,6 +16,7 @@ class DashboardCog(commands.Cog):
         self.dashboard.start()
         self.db_cleanup.start()
         self.cache_messages.start()
+        self.api = getenv("API")
         print("Dashboard cog has finished loading")
 
     def cog_unload(self):
@@ -37,13 +39,14 @@ class DashboardCog(commands.Cog):
             print(i[1], "channel not found")
             pass
 
-    async def update_message(self, i: PartialMessage):
-        language = Guilds.get_info(i.guild.id)[4] or "en"
+    async def update_message(self, i: PartialMessage, data):
+        guild = Guilds.get_info(i.guild.id)
+        if guild == None:
+            print("Update message - Guild not in DB")
+            return
         reverse_dict = {v: k for k, v in language_dict.items()}
-        language = reverse_dict[language]
-        dashboard = Dashboard(language)
-        await dashboard.get_data()
-        dashboard.set_data()
+        language = reverse_dict[guild[4]]
+        dashboard = Dashboard(language, data)
         try:
             await i.edit(embeds=dashboard.embeds)
         except Exception as e:
@@ -55,13 +58,14 @@ class DashboardCog(commands.Cog):
         now = datetime.now()
         if now.minute not in [0, 15, 30, 45] or self.messages == []:
             return
+        data = await get_info()
         chunked_messages = [
             self.messages[i : i + 50] for i in range(0, len(self.messages), 50)
         ]
         for chunk in chunked_messages:
             for message in chunk:
-                self.bot.loop.create_task(self.update_message(message))
-            await sleep(2.0)
+                self.bot.loop.create_task(self.update_message(message, data))
+            await sleep(2.0)  # keep at 2.0
 
     @dashboard.before_loop
     async def before_dashboard(self):
@@ -90,10 +94,15 @@ class DashboardCog(commands.Cog):
             )
         await inter.response.defer(ephemeral=True)
         dashboards_updated = 0
+        data = await get_info()
         for i in self.messages:
-            self.bot.loop.create_task(self.update_message(i))
+            self.bot.loop.create_task(self.update_message(i, data))
             dashboards_updated += 1
-        await inter.send(f"Updated {dashboards_updated} dashboards", ephemeral=True)
+        await inter.send(
+            f"Attempted to updat {dashboards_updated} dashboards",
+            ephemeral=True,
+            delete_after=5,
+        )
 
     @tasks.loop(minutes=5)
     async def db_cleanup(self):

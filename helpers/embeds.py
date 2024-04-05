@@ -14,6 +14,7 @@ class Planet(Embed):
         self.status = None
 
     async def get_data(self):
+        self.now = datetime.now()
         api = getenv("API")
         async with ClientSession() as session:
             try:
@@ -32,7 +33,6 @@ class Planet(Embed):
     def set_data(self):
         if self.status == None:
             return False
-        self.set_footer(text=f"As of {datetime.now().strftime('%H:%M')}GMT")
         self.planet_status = self.status["planet_status"]
         for i in self.planet_status:
             if i["planet"]["name"] == self.planet_name:
@@ -66,6 +66,9 @@ class Planet(Embed):
                     )
                 break
         self.set_thumbnail(file=File(f"resources/freedom.gif"))
+        self.add_field(
+            "", f"As of <t:{int(datetime.now().timestamp())}:R>", inline=False
+        )
 
 
 class HelpEmbed(Embed):
@@ -115,22 +118,32 @@ class CampaignEmbeds:
             thumbnail_link: str = None,
         ):
             super().__init__(
-                title="**URGENT CALL TO ALL HELLDIVERS**", colour=Colour.brand_red()
+                title="**⚠️ URGENT CALL TO ALL HELLDIVERS ⚠️**", colour=Colour.brand_red()
             )
             self.planet_status = planet_status
             self.attacker = attacker
             if thumbnail_link != None:
                 self.set_thumbnail(thumbnail_link)
             if self.planet_status["owner"] != "Humans":
-                self.description = f"**{campaign['planet']['name']}** requires liberation from the **{self.planet_status['owner']}**!\n\nAssist the other **{self.planet_status['players']} Helldivers** in the fight for **Democracy**"
-                self.add_field("Objective", "Liberate")
+                self.description = (
+                    f"**{campaign['planet']['name']}** requires liberation from the **{self.planet_status['owner']}**!\n\n"
+                    f"Assist the other **{self.planet_status['players']} Helldivers** in the fight for **Democracy**"
+                )
+                self.add_field("Objective", "Attack")
             elif self.planet_status["owner"] == "Humans":
-                self.description = f"**{campaign['planet']['name']}** requires defending from the **{self.attacker}**!\n\nAssist the other **{self.planet_status['players']}** Helldivers in the fight for **Democracy**"
+                self.description = (
+                    f"**{campaign['planet']['name']}** requires defending from the **{self.attacker}**!\n\n"
+                    f"Assist the other **{self.planet_status['players']}** Helldivers in the fight for **Democracy**"
+                )
+                self.colour = Colour.blue()
                 self.add_field("Objective", "Defend")
 
     class CampaignVictory(Embed):
         def __init__(self, planet_status, defended: bool, liberated_from: str = None):
-            super().__init__(colour=Colour.brand_green(), title="VICTORY!")
+            super().__init__(
+                colour=Colour.brand_green(),
+                title=f"VICTORY IN {planet_status['planet']['name']}!",
+            )
             if defended == True:
                 self.description = f"{planet_status['planet']['name']} has successfully pushed back the attacks thanks to the brave actions of **{planet_status['players']} Helldivers**"
                 self.set_image(
@@ -152,62 +165,23 @@ class CampaignEmbeds:
 
 
 class Dashboard:
-    def __init__(self, language: str):
-        self.major_order = None
-        self.major_order_backup = None
+    def __init__(self, language: str, data):
+        # organise data
+        self.now = datetime.now()
+        self.status = data["status"]
+        self.major_order = data["major order"]
+        if self.major_order == None:
+            self.major_order_backup = data["major order backup"]
+
+        # make embeds
         self.defend_embed = Embed(title="Defending", colour=Colour.blue())
         self.attack_embed = Embed(title="Attacking", colour=Colour.red())
         self.major_orders_embed = Embed(title="Major Orders", colour=Colour.red())
-        self.embeds = []
-        if language in api_lang_dict:
-            self.language = api_lang_dict[language]
-        if language in language_dict:
-            self.feed_language = language_dict[language]
-        else:
-            self.language = "en"
 
-    async def get_data(self):
-        api = getenv("API")
-        bu_api = getenv("BU_API")
-        self.now = datetime.now()
-        async with ClientSession() as session:
-            try:
-                async with session.get(f"{api}/status") as r:
-                    if r.status == 200:
-                        js = await r.json()
-                        self.status = loads(dumps(js))
-                        await session.close()
-                    else:
-                        pass
-            except Exception as e:
-                print(("Dashboard Embed - status", e))
-        async with ClientSession() as session:
-            try:
-                async with session.get(f"{api}/events/latest") as r:
-                    if r.status == 200:
-                        js = await r.json()
-                        self.major_order = loads(dumps(js))
-                        await session.close()
-                    else:
-                        pass
-            except Exception as e:
-                print(("Dashboard Embed - events", e))
-        if self.major_order == None:
-            async with ClientSession(
-                headers={"Accept-Language": self.language}
-            ) as session:
-                try:
-                    async with session.get(f"{bu_api}") as r:
-                        if r.status == 200:
-                            js = await r.json()
-                            self.major_order_backup = loads(dumps(js))
-                            await session.close()
-                        else:
-                            pass
-                except Exception as e:
-                    print(("Dashboard Embed - major order backup", e))
+        # set languages
+        self.language = api_lang_dict[language]
+        self.feed_language = language_dict[language]
 
-    def set_data(self):
         self.defending_planets = self.status["planet_events"]
         self.planet_status = self.status["planet_status"]
         self.attacking_planets = self.status["planet_attacks"]
