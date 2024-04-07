@@ -60,6 +60,7 @@ class SetupCog(commands.Cog):
                 get_campaigns=True,
                 get_assignments=True,
                 get_planet_events=True,
+                get_planets=True,
             )
             dashboard = Dashboard(data)
             try:
