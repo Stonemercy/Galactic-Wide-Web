@@ -701,7 +701,7 @@ enemies = {
             "variations": None,
         },
         "Shrieker": {
-            "start": 7,
+            "start": 5,
             "desc": "The Shrieker is a flying Terminid with large wings that engage in hit-and-run tactics, diving in to attack Helldivers before flying back up to the skies. They only spawn at Shrieker Nests if one is present and undestroyed, and otherwise do not appear in Missions.",
             "tactics": "Aim for the weak spots if some spawn. It is advised to bring explosives to blow up the nests. Being close to them will also let you call in a Hellbomb to destroy the entire nest in one blast.\nDrop to the ground if you are being divebombed.",
             "weak spots": "Wings",
@@ -861,3 +861,5 @@ language_change_dict = {
     "Русский язык": "Язык GWW для этого сервера обновлен до русского.",
     "中文": "该服务器的GWW语言已更新为中文。",
 }
+
+reward_types = {1: "Medals"}

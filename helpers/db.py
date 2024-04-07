@@ -41,17 +41,6 @@ class Guilds:
                 )
                 conn.commit()
 
-    def update_language(guild_id: int, language: str):
-        with connect(
-            host=hostname, dbname=database, user=username, password=pwd, port=port_id
-        ) as conn:
-            with conn.cursor() as curs:
-                curs.execute(
-                    "Update guilds set language = %s where guild_id = %s",
-                    (language, guild_id),
-                )
-                conn.commit()
-
     def update_announcement_channel(guild_id: int, channel_id: str):
         with connect(
             host=hostname, dbname=database, user=username, password=pwd, port=port_id
@@ -138,7 +127,7 @@ class MajorOrders:
             with conn.cursor() as curs:
                 curs.execute("SELECT * FROM major_orders")
                 record = curs.fetchone()
-                return record[0] if record != None else 0
+                return record[0] if record != None else None
 
     def set_new_id(id: int):
         with connect(
@@ -171,16 +160,14 @@ class Campaigns:
                 record = curs.fetchone
                 return record
 
-    def new_campaign(
-        id: int, planet_name: str, owner: str, liberation: float, planet_index: int
-    ):
+    def new_campaign(id: int, planet_name: str, owner: str, planet_index: int):
         with connect(
             host=hostname, dbname=database, user=username, password=pwd, port=port_id
         ) as conn:
             with conn.cursor() as curs:
                 curs.execute(
-                    "Insert into campaigns (id, planet_name, owner, liberation, planet_index) VALUES (%s, %s, %s, %s, %s)",
-                    (id, planet_name, owner, liberation, planet_index),
+                    "Insert into campaigns (id, planet_name, owner, planet_index) VALUES (%s, %s, %s, %s)",
+                    (id, planet_name, owner, planet_index),
                 )
                 conn.commit()
 
@@ -199,6 +186,64 @@ class Campaigns:
             with conn.cursor() as curs:
                 curs.execute(
                     "Delete from campaigns where ID = %s",
+                    (id,),
+                )
+                conn.commit()
+
+
+class Dispatches:
+    def setup():
+        with connect(
+            host=hostname, dbname=database, user=username, password=pwd, port=port_id
+        ) as conn:
+            with conn.cursor() as curs:
+                curs.execute("Insert into dispatches (id) VALUES (%s)", (0,))
+
+    def get_last_id():
+        with connect(
+            host=hostname, dbname=database, user=username, password=pwd, port=port_id
+        ) as conn:
+            with conn.cursor() as curs:
+                curs.execute("SELECT * FROM dispatches")
+                record = curs.fetchone()
+                return record[0] if record != None else None
+
+    def set_new_id(id: int):
+        with connect(
+            host=hostname, dbname=database, user=username, password=pwd, port=port_id
+        ) as conn:
+            with conn.cursor() as curs:
+                curs.execute(
+                    "Update dispatches set id = %s",
+                    (id,),
+                )
+                conn.commit()
+
+
+class Steam:
+    def setup():
+        with connect(
+            host=hostname, dbname=database, user=username, password=pwd, port=port_id
+        ) as conn:
+            with conn.cursor() as curs:
+                curs.execute("Insert into steam (id) VALUES (%s)", (0,))
+
+    def get_last_id():
+        with connect(
+            host=hostname, dbname=database, user=username, password=pwd, port=port_id
+        ) as conn:
+            with conn.cursor() as curs:
+                curs.execute("SELECT * FROM steam")
+                record = curs.fetchone()
+                return record[0] if record != None else None
+
+    def set_new_id(id: int):
+        with connect(
+            host=hostname, dbname=database, user=username, password=pwd, port=port_id
+        ) as conn:
+            with conn.cursor() as curs:
+                curs.execute(
+                    "Update steam set id = %s",
                     (id,),
                 )
                 conn.commit()

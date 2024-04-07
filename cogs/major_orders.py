@@ -1,11 +1,8 @@
-from json import dumps, loads
-from os import getenv
-from aiohttp import ClientSession
-from disnake import TextChannel
+from disnake import Embed, TextChannel
 from disnake.ext import commands, tasks
-from helpers.embeds import MajorOrderEmbed
-from helpers.db import MajorOrders, Guilds
-from data.lists import language_dict
+from helpers.embeds import DispatchesEmbed, MajorOrderEmbed, SteamEmbed
+from helpers.db import Dispatches, MajorOrders, Guilds, Steam
+from helpers.functions import pull_from_api
 
 
 class MOAnnouncementsCog(commands.Cog):
@@ -14,11 +11,15 @@ class MOAnnouncementsCog(commands.Cog):
         self.channels = []
         self.major_order_check.start()
         self.cache_channels.start()
+        self.dispatch_check.start()
+        self.steam_check.start()
         print("Major Orders cog has finished loading")
 
     def cog_unload(self):
         self.major_order_check.stop()
         self.cache_channels.stop()
+        self.dispatch_check.stop()
+        self.steam_check.stop()
 
     async def channel_list_gen(self, channel_id: int):
         try:
@@ -26,21 +27,17 @@ class MOAnnouncementsCog(commands.Cog):
                 int(channel_id)
             ) or await self.bot.fetch_channel(int(channel_id))
             self.channels.append(channel)
-        except:
-            print(channel_id, "channel not found")
-            pass
+        except Exception as e:
+            return print("MO channel list gen", channel_id, e)
 
-    async def send_major_order(self, channel: TextChannel, event):
-        language = Guilds.get_info(channel.guild.id)[4]
-        for a, j in language_dict.items():
-            if a == language:
-                language = j
-        embed = MajorOrderEmbed(language, event)
+    async def send_embed(self, channel: TextChannel, embed: Embed):
+        guild = Guilds.get_info(channel.guild.id)
+        if guild == None:
+            return print("send_embed - Guild not in DB")
         try:
             await channel.send(embed=embed)
         except Exception as e:
-            print("Send major order", e, channel.id)
-            pass
+            return print("Send embed", e, channel.id)
 
     @tasks.loop(count=1)
     async def cache_channels(self):
@@ -59,33 +56,54 @@ class MOAnnouncementsCog(commands.Cog):
 
     @tasks.loop(minutes=1)
     async def major_order_check(self):
-        self.newest_mo = None
         last_id = MajorOrders.get_last_id()
-        api = getenv("API")
-        async with ClientSession() as session:
-            try:
-                async with session.get(f"{api}/events/latest") as r:
-                    if r.status == 200:
-                        js = await r.json()
-                        self.newest_mo = loads(dumps(js))
-                        await session.close()
-                    else:
-                        pass
-            except Exception as e:
-                print(("Announcement Embed", e))
-        if self.newest_mo == None:
-            return
-        if last_id == 0:
+        data = await pull_from_api(get_assignments=True, get_planets=True)
+        self.newest_id = data["assignments"][0]["id"]
+        if last_id == None:
             MajorOrders.setup()
-        if last_id == self.newest_mo["id"]:
-            return
-        else:
-            MajorOrders.set_new_id(self.newest_mo["id"])
+            last_id = MajorOrders.get_last_id()
+        if last_id == 0 or last_id != self.newest_id:
+            MajorOrders.set_new_id(self.newest_id)
+            embed = MajorOrderEmbed(data["assignments"][0], data["planets"])
             for i in self.channels:
-                self.bot.loop.create_task(self.send_major_order(i, self.newest_mo))
+                self.bot.loop.create_task(self.send_embed(i, embed))
 
     @major_order_check.before_loop
-    async def before_dashboard(self):
+    async def before_mo_check(self):
+        await self.bot.wait_until_ready()
+
+    @tasks.loop(minutes=1)
+    async def dispatch_check(self):
+        last_id = Dispatches.get_last_id()
+        data = await pull_from_api(get_dispatches=True)
+        self.newest_id = data["dispatches"][0]["id"]
+        if last_id == None:
+            Dispatches.setup()
+        if last_id == 0 or last_id != self.newest_id:
+            Dispatches.set_new_id(self.newest_id)
+            embed = DispatchesEmbed(data["dispatches"][0])
+            for i in self.channels:
+                self.bot.loop.create_task(self.send_embed(i, embed))
+
+    @dispatch_check.before_loop
+    async def before_dispatch_check(self):
+        await self.bot.wait_until_ready()
+
+    @tasks.loop(minutes=1)
+    async def steam_check(self):
+        last_id = Steam.get_last_id()
+        data = await pull_from_api(get_steam=True)
+        self.newest_id = int(data["steam"][0]["id"])
+        if last_id == None:
+            Steam.setup()
+        if last_id == 0 or last_id != self.newest_id:
+            Steam.set_new_id(self.newest_id)
+            embed = SteamEmbed(data["steam"][0])
+            for i in self.channels:
+                self.bot.loop.create_task(self.send_embed(i, embed))
+
+    @steam_check.before_loop
+    async def before_steam_check(self):
         await self.bot.wait_until_ready()
 
 

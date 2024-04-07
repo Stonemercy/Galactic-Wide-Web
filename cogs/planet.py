@@ -2,6 +2,7 @@ from disnake import AppCmdInter
 from disnake.ext import commands
 from helpers.embeds import Planet
 from data.lists import planets
+from helpers.functions import pull_from_api
 
 
 class PlanetCog(commands.Cog):
@@ -12,29 +13,31 @@ class PlanetCog(commands.Cog):
     async def planet_autocomp(inter: AppCmdInter, user_input: str):
         return [command for command in planets if user_input in command.lower()][:25]
 
-    @commands.slash_command(
-        description="Get details on a specific planet (only active planets available)"
-    )
+    @commands.slash_command(description="Get details on a specific planet")
     async def planet(
         self,
         inter: AppCmdInter,
         planet: str = commands.Param(autocomplete=planet_autocomp),
     ):
+        planets_list = planets
+        if planet not in planets_list:
+            return await inter.send(
+                "Please select a planet from the list or capitalize appropriately.",
+                ephemeral=True,
+            )
         await inter.response.defer()
-        embed = Planet(planet)
-        try:
-            await embed.get_data()
-        except:
+        data = await pull_from_api(get_planets=True)
+        planets_data = data["planets"]
+        for i in planets_data:
+            if i["name"] != planet:
+                continue
+            else:
+                planet_data = i
+        if not planet_data:
             return await inter.send(
-                "Error when getting data",
-                delete_after=10.0,
+                "I couldn't get info on that planet, please try again", ephemeral=True
             )
-        if embed.status == None:
-            return await inter.send(
-                "Data on that planet isn't available, please try an active planet",
-                delete_after=10.0,
-            )
-        embed.set_data()
+        embed = Planet(planet_data)
         await inter.send(embed=embed)
 
 

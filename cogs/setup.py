@@ -2,8 +2,7 @@ from disnake import AppCmdInter, File, Message, Permissions, TextChannel
 from disnake.ext import commands
 from helpers.db import Guilds
 from helpers.embeds import Dashboard
-from data.lists import language_dict, language_change_dict
-from helpers.functions import get_info
+from helpers.functions import pull_from_api
 
 
 class SetupCog(commands.Cog):
@@ -22,11 +21,6 @@ class SetupCog(commands.Cog):
             default=None,
             description="The channel you want War Announcements and Major Orders sent to",
         ),
-        language: str = commands.Param(
-            choices=list(language_dict.keys()),
-            default=None,
-            description="The language you want some of the dashboard in. Default = English",
-        ),
     ):
         if not inter.author.guild_permissions.manage_guild:
             return await inter.send(
@@ -38,20 +32,9 @@ class SetupCog(commands.Cog):
             Guilds.insert_new_guild(inter.guild_id)
             guild_in_db = Guilds.get_info(inter.guild_id)
 
-        if (
-            dashboard_channel == None
-            and announcement_channel == None
-            and language == None
-        ):
+        if not dashboard_channel and not announcement_channel:
             return await inter.send(
                 "You need to choose something to setup, you can't setup nothing",
-                ephemeral=True,
-            )
-
-        if language != None:
-            Guilds.update_language(inter.guild_id, language_dict[language])
-            await inter.send(
-                language_change_dict[language],
                 ephemeral=True,
             )
 
@@ -73,11 +56,12 @@ class SetupCog(commands.Cog):
                     ),
                     ephemeral=True,
                 )
-            if language == None:
-                reverse_dict = {v: k for k, v in language_dict.items()}
-                language = reverse_dict[guild_in_db[4]]
-            info = await get_info()
-            dashboard = Dashboard(language, info)
+            data = await pull_from_api(
+                get_campaigns=True,
+                get_assignments=True,
+                get_planet_events=True,
+            )
+            dashboard = Dashboard(data)
             try:
                 message = await dashboard_channel.send(
                     embeds=dashboard.embeds, file=File("resources/banner.png")
@@ -89,12 +73,6 @@ class SetupCog(commands.Cog):
                     ephemeral=True,
                 )
             Guilds.update_dashboard(inter.guild_id, dashboard_channel.id, message.id)
-            dashboard_info = Guilds.get_info(inter.guild.id)
-            if not dashboard_info:
-                return await inter.send(
-                    "It appears the data used to setup the dashboard was lost in cyberspace.\nSuper Earth High Command has been notified.",
-                    ephemeral=True,
-                )
             await inter.send(
                 (
                     f"Dashboard Channel: {dashboard_channel.mention}\n"
@@ -134,7 +112,10 @@ class SetupCog(commands.Cog):
                 )
             Guilds.update_announcement_channel(inter.guild_id, announcement_channel.id)
             await inter.send(
-                f"Your announcements channel has been updated to {announcement_channel.mention}.",
+                (
+                    f"Your announcements channel has been updated to {announcement_channel.mention}.\n"
+                    "While no announcements show up straight away, they will when events happen"
+                ),
                 ephemeral=True,
             )
             channels: list[TextChannel] = self.bot.get_cog(
