@@ -72,7 +72,7 @@ class WarUpdatesCog(commands.Cog):
                 Campaigns.new_campaign(
                     new_campaign["id"],
                     new_campaign["planet"]["name"],
-                    new_campaign["planet"]["index"]["currentOwner"],
+                    new_campaign["planet"]["currentOwner"],
                     new_campaign["planet"]["index"],
                 )
 
@@ -109,17 +109,15 @@ class WarUpdatesCog(commands.Cog):
         campaign_ids = []
         for old_campaign in old_campaigns:  # loop through old campaigns
             campaign_ids.append(old_campaign[0])
-            if old_campaign[0] not in new_campaign_ids:  # if campaign is still active
-                if (  # if current owner of the planet is human and the old owner is human (successful defence campaign)
+            if old_campaign[0] not in new_campaign_ids:  # if campaign is not active
+                if (
                     self.planets[old_campaign[3]]["currentOwner"] == "Humans"
                     and old_campaign[2] == "Humans"
+                    # if current owner of the planet is human and the old owner is human (successful defence campaign)
                 ):
                     embed = CampaignEmbeds.CampaignVictory(
                         self.planets[old_campaign[3]],
                         defended=True,
-                        liberated_from=self.planets[old_campaign[3]]["planet"][
-                            "initialOwner"
-                        ],
                     )
                     for channel in self.channels:
                         self.bot.loop.create_task(self.send_campaign(channel, embed))
@@ -186,8 +184,7 @@ class WarUpdatesCog(commands.Cog):
                         new_campaign["planet"]["name"] == planet_tn["planet"]["name"]
                     ):  # check if new campaign planet name is in the list of planet thumbnails
                         thumbnail_url: str = planet_tn["planet"]["image"]
-                        if " " in thumbnail_url:
-                            thumbnail_url = thumbnail_url.replace(" ", "%20")
+                        thumbnail_url = thumbnail_url.replace(" ", "%20")
                         planet_thumbnail = f"https://helldivers.news{thumbnail_url}"
                 embed = CampaignEmbeds.NewCampaign(
                     new_campaign,
@@ -200,8 +197,7 @@ class WarUpdatesCog(commands.Cog):
                 Campaigns.new_campaign(
                     new_campaign["id"],
                     new_campaign["planet"]["name"],
-                    self.planets[new_campaign["planet"]["index"]]["owner"],
-                    self.planets[new_campaign["planet"]["index"]]["liberation"],
+                    self.planets[new_campaign["planet"]["index"]]["currentOwner"],
                     new_campaign["planet"]["index"],
                 )
             continue

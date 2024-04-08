@@ -52,6 +52,17 @@ class Guilds:
                 )
                 conn.commit()
 
+    def update_patch_notes(guild_id: int, patch_notes: bool):
+        with connect(
+            host=hostname, dbname=database, user=username, password=pwd, port=port_id
+        ) as conn:
+            with conn.cursor() as curs:
+                curs.execute(
+                    "Update guilds set patch_notes = %s where guild_id = %s",
+                    (patch_notes, guild_id),
+                )
+                conn.commit()
+
     def get_all_guilds():
         with connect(
             host=hostname, dbname=database, user=username, password=pwd, port=port_id

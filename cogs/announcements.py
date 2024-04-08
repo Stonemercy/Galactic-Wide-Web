@@ -1,3 +1,4 @@
+from datetime import datetime
 from disnake import Embed, TextChannel
 from disnake.ext import commands, tasks
 from helpers.embeds import DispatchesEmbed, MajorOrderEmbed, SteamEmbed
@@ -5,19 +6,22 @@ from helpers.db import Dispatches, MajorOrders, Guilds, Steam
 from helpers.functions import pull_from_api
 
 
-class MOAnnouncementsCog(commands.Cog):
+class AnnouncementsCog(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
         self.channels = []
+        self.patch_channels = []
         self.major_order_check.start()
         self.cache_channels.start()
+        self.cache_patch_channels.start()
         self.dispatch_check.start()
         self.steam_check.start()
-        print("Major Orders cog has finished loading")
+        print("Announcements cog has finished loading")
 
     def cog_unload(self):
         self.major_order_check.stop()
         self.cache_channels.stop()
+        self.cache_patch_channels.stop()
         self.dispatch_check.stop()
         self.steam_check.stop()
 
@@ -28,7 +32,16 @@ class MOAnnouncementsCog(commands.Cog):
             ) or await self.bot.fetch_channel(int(channel_id))
             self.channels.append(channel)
         except Exception as e:
-            return print("MO channel list gen", channel_id, e)
+            return print("announcement channel list gen", channel_id, e)
+
+    async def patch_channel_list_gen(self, channel_id: int):
+        try:
+            channel = self.bot.get_channel(
+                int(channel_id)
+            ) or await self.bot.fetch_channel(int(channel_id))
+            self.patch_channels.append(channel)
+        except Exception as e:
+            return print("patch channel list gen", channel_id, e)
 
     async def send_embed(self, channel: TextChannel, embed: Embed):
         guild = Guilds.get_info(channel.guild.id)
@@ -52,6 +65,21 @@ class MOAnnouncementsCog(commands.Cog):
 
     @cache_channels.before_loop
     async def before_caching(self):
+        await self.bot.wait_until_ready()
+
+    @tasks.loop(count=1)
+    async def cache_patch_channels(self):
+        guilds = Guilds.get_all_guilds()
+        if not guilds:
+            return
+        self.patch_channels = []
+        for i in guilds:
+            if i[4] == False:
+                continue
+            self.bot.loop.create_task(self.patch_channel_list_gen(i[3]))
+
+    @cache_patch_channels.before_loop
+    async def before_patch_caching(self):
         await self.bot.wait_until_ready()
 
     @tasks.loop(minutes=1)
@@ -96,10 +124,11 @@ class MOAnnouncementsCog(commands.Cog):
         self.newest_id = int(data["steam"][0]["id"])
         if last_id == None:
             Steam.setup()
+            last_id = Steam.get_last_id()
         if last_id == 0 or last_id != self.newest_id:
             Steam.set_new_id(self.newest_id)
             embed = SteamEmbed(data["steam"][0])
-            for i in self.channels:
+            for i in self.patch_channels:
                 self.bot.loop.create_task(self.send_embed(i, embed))
 
     @steam_check.before_loop
@@ -108,4 +137,4 @@ class MOAnnouncementsCog(commands.Cog):
 
 
 def setup(bot: commands.Bot):
-    bot.add_cog(MOAnnouncementsCog(bot))
+    bot.add_cog(AnnouncementsCog(bot))

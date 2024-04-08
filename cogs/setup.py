@@ -1,4 +1,4 @@
-from disnake import AppCmdInter, File, Message, Permissions, TextChannel
+from disnake import AppCmdInter, File, Permissions, TextChannel
 from disnake.ext import commands
 from helpers.db import Guilds
 from helpers.embeds import Dashboard
@@ -15,26 +15,53 @@ class SetupCog(commands.Cog):
         self,
         inter: AppCmdInter,
         dashboard_channel: TextChannel = commands.Param(
-            default=None, description="The channel you want the dashboard to be sent to"
+            default=None,
+            description="The channel you want the dashboard to be sent to, default = None",
         ),
         announcement_channel: TextChannel = commands.Param(
             default=None,
-            description="The channel you want War Announcements and Major Orders sent to",
+            description="The channel you want announcements sent to, default = None",
+        ),
+        patch_notes: str = commands.Param(
+            default=None,
+            description="Toggle if you want patch notes sent to the announcements channel, default = No",
+            choices=["Yes", "No"],
         ),
     ):
+        await inter.response.defer(ephemeral=True)
         if not inter.author.guild_permissions.manage_guild:
             return await inter.send(
                 "You need `Manager Server` permissions to use this command"
             )
-        await inter.response.defer(ephemeral=True)
         guild_in_db = Guilds.get_info(inter.guild_id)
         if not guild_in_db:
             Guilds.insert_new_guild(inter.guild_id)
             guild_in_db = Guilds.get_info(inter.guild_id)
 
-        if not dashboard_channel and not announcement_channel:
+        if not dashboard_channel and not announcement_channel and not patch_notes:
+            dashboard_channel = inter.guild.get_channel(
+                guild_in_db[1]
+            ) or await inter.guild.fetch_channel(guild_in_db[1])
+            dashboard_channel = (
+                dashboard_channel if dashboard_channel != None else "Not set"
+            )
+            dashboard_message = dashboard_channel.get_partial_message(
+                guild_in_db[2]
+            ).jump_url
+            announcement_channel = inter.guild.get_channel(
+                guild_in_db[3]
+            ) or await inter.guild.fetch_channel(guild_in_db[3])
+            announcement_channel = (
+                announcement_channel if announcement_channel != None else "Not Set"
+            )
             return await inter.send(
-                "You need to choose something to setup, you can't setup nothing",
+                (
+                    "Here are your current settings:\n"
+                    f"Dashboard channel: {dashboard_channel.mention}\n"
+                    f"Dashboard message: {dashboard_message}\n"
+                    f"Announcement channel: {announcement_channel.mention}\n"
+                    f"Patch notes enabled: {'Yes' if guild_in_db[6] == True else 'No'}"
+                ),
                 ephemeral=True,
             )
 
@@ -87,7 +114,7 @@ class SetupCog(commands.Cog):
                     "I'm missing the `External Emojis` permission\nWhile not required, it makes the dashboard look better",
                     ephemeral=True,
                 )
-            messages: list[Message] = self.bot.get_cog("DashboardCog").messages
+            messages: list = self.bot.get_cog("DashboardCog").messages
             for i in messages:
                 if i.guild == inter.guild:
                     try:
@@ -96,6 +123,7 @@ class SetupCog(commands.Cog):
                         print("Setup - Dashboard", e)
                     messages.remove(i)
             messages.append(message)
+
         if announcement_channel != None:
             annnnouncement_perms_needed = Permissions(
                 view_channel=True, send_messages=True, embed_links=True
@@ -119,13 +147,67 @@ class SetupCog(commands.Cog):
                 ),
                 ephemeral=True,
             )
-            channels: list[TextChannel] = self.bot.get_cog(
-                "MOAnnouncementsCog"
-            ).channels
+            channels: list = self.bot.get_cog("AnnouncementsCog").channels
             for i in channels:
                 if i.guild == inter.guild:
                     channels.remove(i)
             channels.append(announcement_channel)
+
+        if patch_notes != None:
+            patch_notes_enabled = guild_in_db[4]
+            want_patch_notes = {"Yes": True, "No": False}[patch_notes]
+            if guild_in_db[3] == 0 and dashboard_channel == None:
+                return await inter.send(
+                    "You need to setup the announcement channel before enabling patch notes",
+                    ephemeral=True,
+                )
+            if guild_in_db[4] == want_patch_notes:
+                return await inter.send(
+                    f"Your patch_notes setting was already set to **{patch_notes}**, nothing has changed.",
+                    ephemeral=True,
+                )
+            if patch_notes_enabled != want_patch_notes:
+                Guilds.update_patch_notes(inter.guild_id, want_patch_notes)
+                if want_patch_notes == True:
+                    try:
+                        channel = inter.guild.get_channel(
+                            guild_in_db[3]
+                        ) or await inter.guild.fetch_channel(guild_in_db[3])
+                    except:
+                        return await inter.send(
+                            "I had trouble getting your announcement channel, please make sure I have appropriate permissions."
+                        )
+                    patch_channels: list = self.bot.get_cog(
+                        "AnnouncementsCog"
+                    ).patch_channels
+                    for i in patch_channels:
+                        if i.guild.id == inter.guild_id:
+                            patch_channels.remove(i)
+                    patch_channels.append(channel)
+                    return await inter.send(
+                        (
+                            f"Patch notes will now show up in {channel.mention}\n"
+                            "While no patch notes show up straight away, they will when patches are released"
+                        ),
+                        ephemeral=True,
+                    )
+                else:
+                    try:
+                        channel = inter.guild.get_channel(
+                            guild_in_db[3]
+                        ) or await inter.guild.fetch_channel(guild_in_db[3])
+                    except:
+                        return await inter.send(
+                            "I had trouble getting your announcement channel, please make sure I have appropriate permissions."
+                        )
+                    patch_channels: list = self.bot.get_cog(
+                        "AnnouncementsCog"
+                    ).patch_channels
+                    patch_channels.remove(channel)
+                    return await inter.send(
+                        (f"Patch notes will no longer show up in {channel.mention}\n"),
+                        ephemeral=True,
+                    )
 
 
 def setup(bot: commands.Bot):

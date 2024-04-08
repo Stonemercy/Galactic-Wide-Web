@@ -1,7 +1,4 @@
-from os import getenv
 from disnake import Embed, Colour, File
-from aiohttp import ClientSession
-from json import dumps, loads
 from datetime import datetime
 from helpers.functions import dispatch_format, health_bar, short_format, steam_format
 from data.lists import reward_types
@@ -151,13 +148,13 @@ class CampaignEmbeds:
             self.attacker = attacker
             if thumbnail_link != None:
                 self.set_thumbnail(thumbnail_link)
-            if self.planet_status["owner"] != "Humans":
+            if self.planet_status["currentOwner"] != "Humans":
                 self.description = (
                     f"**{campaign['planet']['name']}** requires liberation from the **{self.planet_status['currentOwner']}**!\n\n"
                     f"Assist the other **{self.planet_status['statistics']['playerCount']} Helldivers** in the fight for **Democracy**"
                 )
                 self.add_field("Objective", "Attack")
-            elif self.planet_status["owner"] == "Humans":
+            elif self.planet_status["currentOwner"] == "Humans":
                 self.description = (
                     f"**{campaign['planet']['name']}** requires defending from the **{self.attacker}**!\n\n"
                     f"Assist the other **{self.planet_status['statistics']['playerCount']}** Helldivers in the fight for **Democracy**"
@@ -211,7 +208,7 @@ class Dashboard:
         self.attack_embed = Embed(title="Attacking", colour=Colour.red())
         self.major_orders_embed = Embed(title="Major Order", colour=Colour.red())
 
-        # Major Orders ###### FINISH LATER ########
+        # Major Orders
         if self.assignment != None:
             self.major_orders_embed.add_field(
                 f"MESSAGE #{self.assignment['id']} - {self.assignment['description']}",
@@ -221,13 +218,21 @@ class Dashboard:
             for i in self.assignment["tasks"]:
                 if i["type"] == 11:
                     planet = self.planets[i["values"][2]]
+                    atk_def = "def" if planet["currentOwner"] == "Humans" else "atk"
+                    completed = (
+                        "LIBERATED" if planet["currentOwner"] == "Humans" else ""
+                    )
                     planet_health_bar = health_bar(
-                        planet["health"], planet["maxHealth"], "atk"
+                        planet["health"], planet["maxHealth"], atk_def
                     )
                     self.major_orders_embed.add_field(
                         planet["name"],
-                        f"Heroes: **{planet['statistics']['playerCount']:,}\n{planet_health_bar}**",
+                        f"Heroes: **{planet['statistics']['playerCount']:,}\n{planet_health_bar}** {completed}",
                         inline=False,
+                    )
+                else:
+                    self.major_orders_embed.add_field(
+                        i["values"], i["valuesTypes"], inline=False
                     )
 
             self.major_orders_embed.add_field(
