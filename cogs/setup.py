@@ -39,28 +39,36 @@ class SetupCog(commands.Cog):
             guild_in_db = Guilds.get_info(inter.guild_id)
 
         if not dashboard_channel and not announcement_channel and not patch_notes:
-            dashboard_channel = inter.guild.get_channel(
-                guild_in_db[1]
-            ) or await inter.guild.fetch_channel(guild_in_db[1])
-            dashboard_channel = (
-                dashboard_channel if dashboard_channel != None else "Not set"
-            )
-            dashboard_message = dashboard_channel.get_partial_message(
-                guild_in_db[2]
-            ).jump_url
-            announcement_channel = inter.guild.get_channel(
-                guild_in_db[3]
-            ) or await inter.guild.fetch_channel(guild_in_db[3])
-            announcement_channel = (
-                announcement_channel if announcement_channel != None else "Not Set"
-            )
+            try:
+                dashboard_channel = inter.guild.get_channel(
+                    guild_in_db[1]
+                ) or await inter.guild.fetch_channel(guild_in_db[1])
+                dashboard_channel
+            except:
+                dashboard_channel = "Not set"
+            try:
+                dashboard_message = dashboard_channel.get_partial_message(
+                    guild_in_db[2]
+                ).jump_url
+            except:
+                dashboard_message = "Not Set"
+            try:
+                announcement_channel = (
+                    inter.guild.get_channel(guild_in_db[3]).mention
+                    or await inter.guild.fetch_channel(guild_in_db[3]).mention
+                )
+            except:
+                announcement_channel = "Not set"
+            if isinstance(dashboard_channel, TextChannel):
+                dashboard_channel = dashboard_channel.mention
             return await inter.send(
                 (
                     "Here are your current settings:\n"
-                    f"Dashboard channel: {dashboard_channel.mention}\n"
+                    f"Dashboard channel: {dashboard_channel}\n"
                     f"Dashboard message: {dashboard_message}\n"
-                    f"Announcement channel: {announcement_channel.mention}\n"
-                    f"Patch notes enabled: {'Yes' if guild_in_db[4] == True else 'No'}"
+                    f"Announcement channel: {announcement_channel}\n"
+                    f"Patch notes enabled: {'Yes' if guild_in_db[4] == True else 'No'}\n\n"
+                    "If you're seeing `Not set` where a channel/message should be, check the permissions for the bot!"
                 ),
                 ephemeral=True,
             )
