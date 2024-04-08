@@ -60,7 +60,7 @@ class SetupCog(commands.Cog):
                     f"Dashboard channel: {dashboard_channel.mention}\n"
                     f"Dashboard message: {dashboard_message}\n"
                     f"Announcement channel: {announcement_channel.mention}\n"
-                    f"Patch notes enabled: {'Yes' if guild_in_db[6] == True else 'No'}"
+                    f"Patch notes enabled: {'Yes' if guild_in_db[4] == True else 'No'}"
                 ),
                 ephemeral=True,
             )
