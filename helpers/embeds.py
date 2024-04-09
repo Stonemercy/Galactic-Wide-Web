@@ -251,14 +251,17 @@ class Dashboard:
         if self.planet_events != None:
             try:
                 war_now = datetime.fromisoformat(self.war["now"]).timestamp()
-            except:
+            except Exception as e:
+                print("war_now", e)
                 war_now = None
             current_time = datetime.now().timestamp()
+            print(f"{current_time = }")
             for i in self.planet_events:
                 faction_icon = self.faction_dict[i["event"]["faction"]]
                 try:
                     end_time = datetime.fromisoformat(i["event"]["endTime"]).timestamp()
-                except:
+                except Exception as e:
+                    print("end_time", e)
                     end_time = None
                 if war_now != None and current_time != None and end_time != None:
                     time_remaining = (
