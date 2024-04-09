@@ -196,6 +196,7 @@ class Dashboard:
         self.assignment = data["assignments"]
         self.planet_events = data["planet_events"]
         self.planets = data["planets"]
+        self.war = data["war_state"]
         if self.planets in (None, []):
             print(True)
         self.faction_dict = {
@@ -248,15 +249,23 @@ class Dashboard:
 
         # Defending
         if self.planet_events != None:
+            try:
+                war_now = datetime.fromisoformat(self.war["now"]).timestamp()
+            except:
+                war_now = None
+            current_time = datetime.now().timestamp()
             for i in self.planet_events:
                 faction_icon = self.faction_dict[i["event"]["faction"]]
                 try:
-                    time = datetime.fromisoformat(i["event"]["endTime"])
+                    end_time = datetime.fromisoformat(i["event"]["endTime"]).timestamp()
                 except:
-                    time = None
-                time_remaining = (
-                    f"<t:{time.timestamp():.0f}:R>" if time != None else "Unavailable"
-                )
+                    end_time = None
+                if war_now != None and current_time != None and end_time != None:
+                    time_remaining = (
+                        f"<t:{((current_time - war_now) + end_time):.0f}:R>"
+                    )
+                else:
+                    time_remaining = "Unavailable"
                 planet_health_bar = health_bar(i["health"], i["maxHealth"])
                 event_health_bar = health_bar(
                     i["event"]["health"], i["event"]["maxHealth"], "atk"
@@ -264,14 +273,14 @@ class Dashboard:
                 self.defend_embed.add_field(
                     f"{faction_icon} - __**{i['name']}**__",
                     (
-                        f"Time left: {time_remaining}\n"
-                        f"Heroes: **{i['statistics']['playerCount']:,}**\n\n"
+                        f"Finishes: {time_remaining}\n"
+                        f"Heroes: **{i['statistics']['playerCount']:,}**\n"
                         f"Event health:\n"
                         f"{event_health_bar}\n"
-                        f"`{i['health']:>10,}/{i['maxHealth']:<11,}`\n\n"
+                        f"`{i['health']:>13,}/{i['maxHealth']:<11,}`\n"
                         f"Planet health:\n"
                         f"{planet_health_bar}\n"
-                        f"`{i['event']['health']:>10,}/{i['event']['maxHealth']:<11,} +{i['regenPerSecond']:.0f}/s`\n"
+                        f"`{i['event']['health']:>10,}/{i['event']['maxHealth']:<8,} +{i['regenPerSecond']:.0f}/s`\n"
                         "\u200b\n"
                     ),
                     inline=False,

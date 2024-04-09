@@ -72,6 +72,7 @@ class DashboardCog(commands.Cog):
             get_assignments=True,
             get_planet_events=True,
             get_planets=True,
+            get_war_state=True,
         )
         chunked_messages = [
             self.messages[i : i + 50] for i in range(0, len(self.messages), 50)
@@ -98,6 +99,7 @@ class DashboardCog(commands.Cog):
             get_assignments=True,
             get_planet_events=True,
             get_planets=True,
+            get_war_state=True,
         )
         chunked_messages = [
             self.messages[i : i + 50] for i in range(0, len(self.messages), 50)
