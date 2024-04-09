@@ -255,7 +255,7 @@ class Dashboard:
                 except:
                     time = None
                 time_remaining = (
-                    f"<t:{time.timestamp():.0f}:f>" if time != None else "Unavailable"
+                    f"<t:{time.timestamp():.0f}:R>" if time != None else "Unavailable"
                 )
                 planet_health_bar = health_bar(i["health"], i["maxHealth"])
                 event_health_bar = health_bar(
@@ -265,13 +265,13 @@ class Dashboard:
                     f"{faction_icon} - __**{i['name']}**__",
                     (
                         f"Time left: {time_remaining}\n"
-                        f"Heroes: **{i['planet']['statistics']['players']:,}**\n\n"
+                        f"Heroes: **{i['statistics']['playerCount']:,}**\n\n"
                         f"Event health:\n"
                         f"{event_health_bar}\n"
                         f"`{i['health']:>10,}/{i['maxHealth']:<11,}`\n\n"
                         f"Planet health:\n"
                         f"{planet_health_bar}\n"
-                        f"`{i['event']['health']:>10,}/{i['event']['maxHealth']:<11,} +{i['planet']['regenPerSecond']:.0f}/s`\n"
+                        f"`{i['event']['health']:>10,}/{i['event']['maxHealth']:<11,} +{i['regenPerSecond']:.0f}/s`\n"
                         "\u200b\n"
                     ),
                     inline=False,
