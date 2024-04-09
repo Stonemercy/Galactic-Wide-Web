@@ -132,7 +132,15 @@ def short_format(num):
 
 
 def dispatch_format(message: str):
-    message = message.replace("<i=3>", "").replace("</i>", "")
+    try:
+        message = (
+            message.replace("<i=3>", "")
+            .replace("</i>", "")
+            .replace("<i=1>", "")
+            .replace("<i=2>", "")
+        )
+    except:
+        print("Failed to format dispatch")
     return message
 
 

@@ -115,7 +115,7 @@ class DispatchesEmbed(Embed):
         super().__init__(colour=Colour.brand_red())
         self.dispatch = dispatch
         self.set_footer(text=f"MESSAGE #{self.dispatch['id']}")
-        message: str = self.dispatch["message"]
+        message = self.dispatch["message"]
         message = dispatch_format(message)
         self.add_field("Message Content", message)
 
@@ -250,7 +250,10 @@ class Dashboard:
         if self.planet_events != None:
             for i in self.planet_events:
                 faction_icon = self.faction_dict[i["event"]["faction"]]
-                time = datetime.fromisoformat(i["event"]["endTime"]) or None
+                try:
+                    time = datetime.fromisoformat(i["event"]["endTime"])
+                except:
+                    time = None
                 time_remaining = (
                     f"<t:{time.timestamp():.0f}:f>" if time != None else "Unavailable"
                 )
