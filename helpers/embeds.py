@@ -259,7 +259,7 @@ class Dashboard:
                 )
                 planet_health_bar = health_bar(i["health"], i["maxHealth"])
                 event_health_bar = health_bar(
-                    i["event"]["health"], i["event"]["max_health"], "atk"
+                    i["event"]["health"], i["event"]["maxHealth"], "atk"
                 )
                 self.defend_embed.add_field(
                     f"{faction_icon} - __**{i['name']}**__",
@@ -271,7 +271,7 @@ class Dashboard:
                         f"`{i['health']:>10,}/{i['maxHealth']:<11,}`\n\n"
                         f"Planet health:\n"
                         f"{planet_health_bar}\n"
-                        f"`{i['event']['health']:>10,}/{i['event']['max_health']:<11,} +{i['planet']['regenPerSecond']:.0f}/s`\n"
+                        f"`{i['event']['health']:>10,}/{i['event']['maxHealth']:<11,} +{i['planet']['regenPerSecond']:.0f}/s`\n"
                         "\u200b\n"
                     ),
                     inline=False,
