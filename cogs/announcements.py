@@ -86,6 +86,8 @@ class AnnouncementsCog(commands.Cog):
     async def major_order_check(self):
         last_id = MajorOrders.get_last_id()
         data = await pull_from_api(get_assignments=True, get_planets=True)
+        if data["assignments"] in (None, []):
+            return
         self.newest_id = data["assignments"][0]["id"]
         if last_id == None:
             MajorOrders.setup()

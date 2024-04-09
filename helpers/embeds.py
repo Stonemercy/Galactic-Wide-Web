@@ -193,10 +193,10 @@ class Dashboard:
         # organise data
         self.now = datetime.now()
         self.campaigns = data["campaigns"]
-        self.assignment = data["assignments"][0]
+        self.assignment = data["assignments"]
         self.planet_events = data["planet_events"]
         self.planets = data["planets"]
-        if self.planets == None:
+        if self.planets in (None, []):
             print(True)
         self.faction_dict = {
             "Automaton": "<:automaton:1215036421551685672>",
@@ -209,7 +209,8 @@ class Dashboard:
         self.major_orders_embed = Embed(title="Major Order", colour=Colour.red())
 
         # Major Orders
-        if self.assignment != None:
+        if self.assignment not in (None, []):
+            self.assignment = self.assignment[0]
             self.major_orders_embed.add_field(
                 f"MESSAGE #{self.assignment['id']} - {self.assignment['description']}",
                 f"`{self.assignment['briefing']}`\n\u200b\n",
@@ -240,6 +241,8 @@ class Dashboard:
                 f"{self.assignment['reward']['amount']} {reward_types[self.assignment['reward']['type']]} <:medal:1226254158278037504>",
                 inline=False,
             )
+        if len(self.major_orders_embed.fields) < 1:
+            self.major_orders_embed.add_field("There are no Major Orders", "\u200b")
 
         # Defending
         if self.planet_events != None:
@@ -322,8 +325,6 @@ class Dashboard:
             inline=False,
         )
 
-        if len(self.major_orders_embed.fields) < 1:
-            self.major_orders_embed.add_field("There are no Major Orders", "\u200b")
         self.attack_embed.set_image("https://i.imgur.com/cThNy4f.png")
         self.defend_embed.set_image("https://i.imgur.com/cThNy4f.png")
         self.major_orders_embed.set_image("https://i.imgur.com/cThNy4f.png")
