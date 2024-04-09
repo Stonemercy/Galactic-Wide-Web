@@ -233,7 +233,9 @@ class Dashboard:
                     )
                 else:
                     self.major_orders_embed.add_field(
-                        i["values"], i["valuesTypes"], inline=False
+                        "ERROR",
+                        "New Major Order type, data is being organised.",
+                        inline=False,
                     )
 
             self.major_orders_embed.add_field(
