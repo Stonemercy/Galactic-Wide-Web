@@ -3,9 +3,9 @@
     <a  href="https://github.com/Stonemercy/Galactic-Wide-Web/commits/main"><img  src="https://img.shields.io/github/last-commit/Stonemercy/Galactic-Wide-Web"></a>
     <a  href="https://github.com/Stonemercy/Galactic-Wide-Web"><img  src="https://img.shields.io/github/languages/code-size/Stonemercy/Galactic-Wide-Web"></a>
     <a  href="https://github.com/psf/black"><img  src="https://img.shields.io/badge/code%20style-black-000000.svg"></a>
-	[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/Z8Z6WR2CS)
 </p>
 
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/Z8Z6WR2CS)
 
 While this bot not designed for others to setup, you can use this repo as bad inspiration for your projects.
 If you wish to use the GWW bot itself, I have it hosted and you can invite it [here](https://discord.com/channels/1212722266392109088/1212736310947741768/1212739169336434768)
