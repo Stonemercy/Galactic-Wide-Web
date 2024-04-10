@@ -183,7 +183,7 @@ class CampaignEmbeds:
         def __init__(self, planet_status, defended: bool, liberator: str = None):
             super().__init__(colour=Colour.brand_red(), title="Tragic Loss")
             if defended == True:
-                self.description = f"{planet_status['planet']['name']} has been taken by the **{liberator}**\nWe must not let them keep it!"
+                self.description = f"{planet_status['name']} has been taken by the **{liberator}**\nWe must not let them keep it!"
             else:
                 self.description = f"We have failed to take {planet_status['name']} from the {planet_status['currentOwner']}.\nWe must try harder next time!"
 
