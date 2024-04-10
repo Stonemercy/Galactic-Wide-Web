@@ -96,6 +96,7 @@ class SetupCog(commands.Cog):
                 get_assignments=True,
                 get_planet_events=True,
                 get_planets=True,
+                get_war_state=True,
             )
             dashboard = Dashboard(data)
             try:

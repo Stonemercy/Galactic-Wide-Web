@@ -102,9 +102,13 @@ class WarUpdatesCog(commands.Cog):
                     attacker_race,
                     planet_thumbnail,
                 )
-                for channel in self.channels:
-                    self.bot.loop.create_task(self.send_campaign(channel, embed))
-                await sleep(1)
+                chunked_channels = [
+                    self.channels[i : i + 50] for i in range(0, len(self.channels), 50)
+                ]
+                for chunk in chunked_channels:
+                    for channel in chunk:
+                        self.bot.loop.create_task(self.send_campaign(channel, embed))
+                    await sleep(2)
                 continue
         campaign_ids = []
         for old_campaign in old_campaigns:  # loop through old campaigns
@@ -119,8 +123,16 @@ class WarUpdatesCog(commands.Cog):
                         self.planets[old_campaign[3]],
                         defended=True,
                     )
-                    for channel in self.channels:
-                        self.bot.loop.create_task(self.send_campaign(channel, embed))
+                    chunked_channels = [
+                        self.channels[i : i + 50]
+                        for i in range(0, len(self.channels), 50)
+                    ]
+                    for chunk in chunked_channels:
+                        for channel in chunk:
+                            self.bot.loop.create_task(
+                                self.send_campaign(channel, embed)
+                            )
+                        await sleep(2)
                     Campaigns.remove_campaign(old_campaign[0])
                 if (
                     self.planets[old_campaign[3]]["currentOwner"] != old_campaign[2]
@@ -133,10 +145,16 @@ class WarUpdatesCog(commands.Cog):
                             defended=True,
                             liberator=self.planets[old_campaign[3]]["currentOwner"],
                         )
-                        for channel in self.channels:
-                            self.bot.loop.create_task(
-                                self.send_campaign(channel, embed)
-                            )
+                        chunked_channels = [
+                            self.channels[i : i + 50]
+                            for i in range(0, len(self.channels), 50)
+                        ]
+                        for chunk in chunked_channels:
+                            for channel in chunk:
+                                self.bot.loop.create_task(
+                                    self.send_campaign(channel, embed)
+                                )
+                            await sleep(2)
                         Campaigns.remove_campaign(old_campaign[0])
                     elif (
                         self.planets[old_campaign[3]]["currentOwner"] == "Humans"
@@ -146,11 +164,16 @@ class WarUpdatesCog(commands.Cog):
                             defended=False,
                             liberated_from=old_campaign[2],
                         )
-                        for channel in self.channels:
-                            self.bot.loop.create_task(
-                                self.send_campaign(channel, embed)
-                            )
-                        await sleep(1)
+                        chunked_channels = [
+                            self.channels[i : i + 50]
+                            for i in range(0, len(self.channels), 50)
+                        ]
+                        for chunk in chunked_channels:
+                            for channel in chunk:
+                                self.bot.loop.create_task(
+                                    self.send_campaign(channel, embed)
+                                )
+                        await sleep(2)
                         Campaigns.remove_campaign(old_campaign[0])
         attacker_race = "traitors to Democracy"
         for new_campaign in self.new_campaigns:  # loop through new campaigns
@@ -192,8 +215,13 @@ class WarUpdatesCog(commands.Cog):
                     attacker_race,
                     planet_thumbnail,
                 )
-                for j in self.channels:
-                    self.bot.loop.create_task(self.send_campaign(j, embed))
+                chunked_channels = [
+                    self.channels[i : i + 50] for i in range(0, len(self.channels), 50)
+                ]
+                for chunk in chunked_channels:
+                    for channel in chunk:
+                        self.bot.loop.create_task(self.send_campaign(channel, embed))
+                    await sleep(2)
                 Campaigns.new_campaign(
                     new_campaign["id"],
                     new_campaign["planet"]["name"],
