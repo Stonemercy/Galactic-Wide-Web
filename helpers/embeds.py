@@ -197,8 +197,6 @@ class Dashboard:
         self.planet_events = data["planet_events"]
         self.planets = data["planets"]
         self.war = data["war_state"]
-        if self.planets in (None, []):
-            print(True)
         self.faction_dict = {
             "Automaton": "<:automaton:1215036421551685672>",
             "Terminids": "<:terminid:1215036423090999376>",
@@ -232,10 +230,14 @@ class Dashboard:
                         f"Heroes: **{planet['statistics']['playerCount']:,}\n{planet_health_bar}** {completed}",
                         inline=False,
                     )
-                else:
+                elif i["type"] == 12:
+                    event_health_bar = health_bar(i["values"][2], i["values"][0], "atk")
                     self.major_orders_embed.add_field(
-                        "ERROR",
-                        "New Major Order type, data is being organised.",
+                        f"Succeed in the defence of at least {i['values'][0]} planets",
+                        (
+                            f"Currently liberated {i['values'][2]}/{i['values'][0]}\n"
+                            f"{event_health_bar}"
+                        ),
                         inline=False,
                     )
 
@@ -255,7 +257,6 @@ class Dashboard:
                 print("war_now", e)
                 war_now = None
             current_time = datetime.now().timestamp()
-            print(f"{current_time = }")
             for i in self.planet_events:
                 faction_icon = self.faction_dict[i["event"]["faction"]]
                 try:
