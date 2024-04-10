@@ -88,7 +88,7 @@ class GuildManagementCog(commands.Cog):
                 (len(self.bot.guilds) - dashboard_not_setup), len(self.bot.guilds)
             )
             dashboard_embed.add_field(
-                "------------------\nDashboards Info",
+                "------------------\nDashboards Setup",
                 (
                     f"**Setup**: {len(self.bot.guilds) - dashboard_not_setup}\n"
                     f"**Not Setup**: {dashboard_not_setup}\n"
@@ -101,12 +101,26 @@ class GuildManagementCog(commands.Cog):
                 (len(self.bot.guilds) - feed_not_setup), len(self.bot.guilds)
             )
             dashboard_embed.add_field(
-                "------------------\nWar Feeds Info",
+                "------------------\nAnnouncements Setup",
                 (
                     f"**Setup**: {len(self.bot.guilds) - feed_not_setup}\n"
                     f"**Not Setup**: {feed_not_setup}\n"
                     f"{healthbar}"
                 ),
+            )
+
+            patch_notes_not_setup = len(Guilds.patch_notes_not_setup())
+            healthbar = health_bar(
+                (len(self.bot.guilds) - patch_notes_not_setup), len(self.bot.guilds)
+            )
+            dashboard_embed.add_field(
+                "------------------\nPatch Notes Enabled",
+                (
+                    f"**Setup**: {len(self.bot.guilds) - patch_notes_not_setup}\n"
+                    f"**Not Setup**: {patch_notes_not_setup}\n"
+                    f"{healthbar}"
+                ),
+                inline=False,
             )
 
             channel = self.bot.get_channel(data[0]) or await self.bot.fetch_channel(
@@ -128,6 +142,16 @@ class GuildManagementCog(commands.Cog):
                         label="App Directory",
                         style=ButtonStyle.link,
                         url="https://discord.com/application-directory/1212535586972369008",
+                    ),
+                    Button(
+                        label="Ko-Fi",
+                        style=ButtonStyle.link,
+                        url="https://ko-fi.com/galacticwideweb",
+                    ),
+                    Button(
+                        label="GitHub",
+                        style=ButtonStyle.link,
+                        url="https://github.com/Stonemercy/Galactic-Wide-Web",
                     ),
                 ],
             ),

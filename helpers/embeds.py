@@ -212,7 +212,7 @@ class Dashboard:
             self.assignment = self.assignment[0]
             self.major_orders_embed.add_field(
                 f"MESSAGE #{self.assignment['id']} - {self.assignment['description']}",
-                f"`{self.assignment['briefing']}`\n\u200b\n",
+                f"{self.assignment['briefing']}\n\u200b\n",
                 inline=False,
             )
             for i in self.assignment["tasks"]:
@@ -231,13 +231,10 @@ class Dashboard:
                         inline=False,
                     )
                 elif i["type"] == 12:
-                    event_health_bar = health_bar(i["values"][2], i["values"][0], "atk")
+                    # event_health_bar = health_bar(i["values"][2], i["values"][0], "atk")
                     self.major_orders_embed.add_field(
                         f"Succeed in the defence of at least {i['values'][0]} planets",
-                        (
-                            f"Currently liberated {i['values'][2]}/{i['values'][0]}\n"
-                            f"{event_health_bar}"
-                        ),
+                        "",
                         inline=False,
                     )
 
@@ -281,10 +278,10 @@ class Dashboard:
                         f"Heroes: **{i['statistics']['playerCount']:,}**\n"
                         f"Event health:\n"
                         f"{event_health_bar}\n"
-                        f"`{i['health']:>13,}/{i['maxHealth']:<11,}`\n"
+                        f"`{i['health']:>12,}/{i['maxHealth']:<12,}`\n"
                         f"Planet health:\n"
                         f"{planet_health_bar}\n"
-                        f"`{i['event']['health']:>10,}/{i['event']['maxHealth']:<8,} +{i['regenPerSecond']:.0f}/s`\n"
+                        f"`{i['event']['health']:>8,}/{i['event']['maxHealth']:<8,} +{i['regenPerSecond']:.0f}/s`\n"
                         "\u200b\n"
                     ),
                     inline=False,
@@ -314,7 +311,7 @@ class Dashboard:
                         f"Automaton kill count: **{short_format(i['planet']['statistics']['automatonKills'])}**\n"
                         f"Planet health:\n"
                         f"{planet_health_bar}\n"
-                        f"`{i['planet']['health']:>10,}/{i['planet']['maxHealth']:<11,} +{i['planet']['regenPerSecond']:.0f}/s`\n"
+                        f"`{i['planet']['health']:>10,}/{i['planet']['maxHealth']:<9,} +{i['planet']['regenPerSecond']:.0f}/s`\n"
                         "\u200b\n"
                     ),
                     inline=False,
@@ -329,7 +326,7 @@ class Dashboard:
                         f"Terminid kill count: **{short_format(i['planet']['statistics']['terminidKills'])}**\n"
                         f"Planet Health:\n"
                         f"{planet_health_bar}\n"
-                        f"`{i['planet']['health']:>10,}/{i['planet']['maxHealth']:<11,} +{i['planet']['regenPerSecond']:.0f}/s`\n"
+                        f"`{i['planet']['health']:>9,}/{i['planet']['maxHealth']:<9,} +{i['planet']['regenPerSecond']:.0f}/s`\n"
                         "\u200b\n"
                     ),
                     inline=False,

@@ -99,6 +99,15 @@ class Guilds:
                 results = curs.fetchall()
                 return results
 
+    def patch_notes_not_setup():
+        with connect(
+            host=hostname, dbname=database, user=username, password=pwd, port=port_id
+        ) as conn:
+            with conn.cursor() as curs:
+                curs.execute("Select * from guilds where patch_notes = false")
+                results = curs.fetchall()
+                return results
+
 
 class BotDashboard:
     def get_info():
