@@ -278,10 +278,10 @@ class Dashboard:
                         f"Heroes: **{i['statistics']['playerCount']:,}**\n"
                         f"Event health:\n"
                         f"{event_health_bar}\n"
-                        f"`{i['health']:>12,}/{i['maxHealth']:<12,}`\n"
+                        f"`{i['event']['health']:>12,}/{i['event']['maxHealth']:<12,}`\n"
                         f"Planet health:\n"
                         f"{planet_health_bar}\n"
-                        f"`{i['event']['health']:>8,}/{i['event']['maxHealth']:<8,} +{i['regenPerSecond']:.0f}/s`\n"
+                        f"`{i['health']:>8,}/{i['maxHealth']:<8,} +{i['regenPerSecond']:.0f}/s`\n"
                         "\u200b\n"
                     ),
                     inline=False,
