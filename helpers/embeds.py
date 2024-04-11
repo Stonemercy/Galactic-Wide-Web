@@ -231,10 +231,15 @@ class Dashboard:
                         inline=False,
                     )
                 elif i["type"] == 12:
-                    # event_health_bar = health_bar(i["values"][2], i["values"][0], "atk")
+                    event_health_bar = health_bar(
+                        self.assignment["progress"][0], i["values"][0], "atk"
+                    )
                     self.major_orders_embed.add_field(
                         f"Succeed in the defence of at least {i['values'][0]} planets",
-                        "",
+                        (
+                            f"Current progress: {self.assignment['progress'][0]}/{i['values'][0]}\n"
+                            f"{event_health_bar}"
+                        ),
                         inline=False,
                     )
 
