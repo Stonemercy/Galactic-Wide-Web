@@ -22,21 +22,21 @@ class PlanetCog(commands.Cog):
         planets_list = planets
         if planet not in planets_list:
             return await inter.send(
-                "Please select a planet from the list or capitalize appropriately.",
+                "Please select a planet from the list.",
                 ephemeral=True,
             )
         await inter.response.defer()
         data = await pull_from_api(get_planets=True)
         planets_data = data["planets"]
+        planet_data = None
         for i in planets_data:
             if i["name"] != planet:
                 continue
             else:
                 planet_data = i
-        if not planet_data:
-            return await inter.send(
-                "I couldn't get info on that planet, please try again", ephemeral=True
-            )
+                break
+        if planet_data == None:
+            return await inter.send("Information on that planet is unavailable.")
         embed = Planet(planet_data)
         await inter.send(embed=embed)
 

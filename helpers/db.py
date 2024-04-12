@@ -119,16 +119,24 @@ class BotDashboard:
                 record = curs.fetchone()
                 return record if record else False
 
-    def set_info(channel_id: int, message_id: int):
+    def set_message(message_id: int):
         with connect(
             host=hostname, dbname=database, user=username, password=pwd, port=port_id
         ) as conn:
             with conn.cursor() as curs:
-                curs.execute("Delete from bot_dashboard")
-                conn.commit()
                 curs.execute(
-                    "Insert into bot_dashboard (channel_id, message_id) VALUES (%s, %s)",
-                    (channel_id, message_id),
+                    "Update bot_dashboard set message_id = %s",
+                    (message_id,),
+                )
+
+    def set_react_role(message_id: int):
+        with connect(
+            host=hostname, dbname=database, user=username, password=pwd, port=port_id
+        ) as conn:
+            with conn.cursor() as curs:
+                curs.execute(
+                    "Update bot_dashboard set react_role_message_id = %s",
+                    (message_id,),
                 )
 
 

@@ -13,7 +13,7 @@ class Planet(Embed):
         else:
             atk_def = "def"
         planet_health_bar = health_bar(
-            self.planet["health"], self.planet["maxHealth"], atk_def
+            self.planet["health"], self.planet["maxHealth"], self.planet["currentOwner"]
         )
         self.add_field(
             f"__**{self.planet['name']}**__",
@@ -96,7 +96,7 @@ class MajorOrderEmbed(Embed):
             if i["type"] == 11:
                 planet = self.planets[i["values"][2]]
                 planet_health_bar = health_bar(
-                    planet["health"], planet["maxHealth"], "atk"
+                    planet["health"], planet["maxHealth"], "Humans"
                 )
                 self.add_field(
                     planet["name"],
@@ -200,15 +200,19 @@ class Dashboard:
         self.faction_dict = {
             "Automaton": "<:automaton:1215036421551685672>",
             "Terminids": "<:terminid:1215036423090999376>",
+            "Illuminate": "<:illuminate:1218283483240206576>",
         }
 
         # make embeds
         self.defend_embed = Embed(title="Defending", colour=Colour.blue())
         self.attack_embed = Embed(title="Attacking", colour=Colour.red())
-        self.major_orders_embed = Embed(title="Major Order", colour=Colour.red())
+        self.major_orders_embed = Embed(title="Major Order", colour=Colour.yellow())
 
         # Major Orders
         if self.assignment not in (None, []):
+            self.major_orders_embed.set_thumbnail(
+                "https://helldivers.io/img/majororder.png"
+            )
             self.assignment = self.assignment[0]
             self.major_orders_embed.add_field(
                 f"MESSAGE #{self.assignment['id']} - {self.assignment['description']}",
@@ -216,23 +220,28 @@ class Dashboard:
                 inline=False,
             )
             for i in self.assignment["tasks"]:
-                if i["type"] == 11:
+                if i["type"] == 11 or 13:
                     planet = self.planets[i["values"][2]]
-                    atk_def = "def" if planet["currentOwner"] == "Humans" else "atk"
                     completed = (
                         "LIBERATED" if planet["currentOwner"] == "Humans" else ""
                     )
                     planet_health_bar = health_bar(
-                        planet["health"], planet["maxHealth"], atk_def
+                        planet["health"],
+                        planet["maxHealth"],
+                        "MO",
                     )
                     self.major_orders_embed.add_field(
                         planet["name"],
-                        f"Heroes: **{planet['statistics']['playerCount']:,}\n{planet_health_bar}** {completed}",
+                        (
+                            f"Heroes: **{planet['statistics']['playerCount']:,}\n"
+                            f"Occupied by: **{planet['currentOwner']}**\n"
+                            f"{planet_health_bar}** {completed}"
+                        ),
                         inline=False,
                     )
                 elif i["type"] == 12:
                     event_health_bar = health_bar(
-                        self.assignment["progress"][0], i["values"][0], "atk"
+                        self.assignment["progress"][0], i["values"][0], "MO"
                     )
                     self.major_orders_embed.add_field(
                         f"Succeed in the defence of at least {i['values'][0]} planets",
@@ -248,11 +257,16 @@ class Dashboard:
                 f"{self.assignment['reward']['amount']} {reward_types[self.assignment['reward']['type']]} <:medal:1226254158278037504>",
                 inline=False,
             )
+            self.major_orders_embed.add_field(
+                "Ends",
+                f"<t:{int(datetime.fromisoformat(self.assignment['expiration']).timestamp())}:R>",
+            )
         if len(self.major_orders_embed.fields) < 1:
             self.major_orders_embed.add_field("There are no Major Orders", "\u200b")
 
         # Defending
         if self.planet_events != None:
+            self.defend_embed.set_thumbnail("https://helldivers.io/img/defense.png")
             try:
                 war_now = datetime.fromisoformat(self.war["now"]).timestamp()
             except Exception as e:
@@ -272,9 +286,8 @@ class Dashboard:
                     )
                 else:
                     time_remaining = "Unavailable"
-                planet_health_bar = health_bar(i["health"], i["maxHealth"])
                 event_health_bar = health_bar(
-                    i["event"]["health"], i["event"]["maxHealth"], "atk"
+                    i["event"]["health"], i["event"]["maxHealth"], "Humans"
                 )
                 self.defend_embed.add_field(
                     f"{faction_icon} - __**{i['name']}**__",
@@ -284,9 +297,6 @@ class Dashboard:
                         f"Event health:\n"
                         f"{event_health_bar}\n"
                         f"`{i['event']['health']:>12,}/{i['event']['maxHealth']:<12,}`\n"
-                        f"Planet health:\n"
-                        f"{planet_health_bar}\n"
-                        f"`{i['health']:>8,}/{i['maxHealth']:<8,} +{i['regenPerSecond']:.0f}/s`\n"
                         "\u200b\n"
                     ),
                     inline=False,
@@ -298,12 +308,15 @@ class Dashboard:
             )
 
         # Attacking
+        self.attack_embed.set_thumbnail("https://helldivers.io/img/attack.png")
         for i in self.campaigns:
             if i["planet"]["event"] != None:
                 continue
             faction_icon = self.faction_dict[i["planet"]["currentOwner"]]
             planet_health_bar = health_bar(
-                i["planet"]["health"], i["planet"]["maxHealth"], "atk"
+                i["planet"]["health"],
+                i["planet"]["maxHealth"],
+                i["planet"]["currentOwner"],
             )
             if i["planet"]["currentOwner"] == "Automaton":
                 self.attack_embed.insert_field_at(
@@ -499,3 +512,12 @@ class Automaton(Embed):
             )
         except:
             pass
+
+
+class ReactRoleDashboard(Embed):
+    def __init__(self):
+        super().__init__(title="Roles", colour=Colour.dark_theme())
+        self.add_field(
+            "Select the buttons below to be given specific roles.",
+            "These buttons only give roles in this server.",
+        )

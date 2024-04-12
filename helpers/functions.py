@@ -5,23 +5,23 @@ from re import sub
 from aiohttp import ClientSession
 
 
-def health_bar(current_health: int, max_health: int, atk_def: str = "def"):
-    if atk_def not in ["atk", "def"]:
+def health_bar(
+    current_health: int,
+    max_health: int,
+    race: str,
+):
+    if race not in ("Terminids", "Automaton", "Illuminate", "Humans", "MO"):
+        print(race, "race not in health_bar func")
         return ""
-    prog_dict = {
-        "def": {10: "🟦", 7: "🟩", 5: "🟨", 3: "🟧", 0: "🟥"},
-        "atk": {9: "🟥", 6: "🟧", 3: "🟨", 1: "🟩", 0: "🟦"},
+    perc = ceil((current_health / max_health) * 10)
+    health_icon_dict = {
+        "Terminids": "🟧",
+        "Automaton": "🟥",
+        "Illuminate": "🟦",
+        "Humans": "🟩",
+        "MO": "🟨",
     }
-    prog_dict = prog_dict[atk_def]
-    perc = (current_health / max_health) * 10
-    prog_ico = ""
-    for i in prog_dict:
-        if perc >= i:
-            prog_ico = prog_dict[i]
-            break
-        else:
-            continue
-    progress_bar = prog_ico * ceil(perc)
+    progress_bar = health_icon_dict[race] * perc
     while len(progress_bar) < 10:
         progress_bar += "⬛"
     return progress_bar
