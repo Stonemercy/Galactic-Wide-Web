@@ -1,4 +1,4 @@
-from datetime import datetime
+from asyncio import sleep
 from disnake import Embed, TextChannel
 from disnake.ext import commands, tasks
 from helpers.embeds import DispatchesEmbed, MajorOrderEmbed, SteamEmbed
@@ -95,8 +95,13 @@ class AnnouncementsCog(commands.Cog):
         if last_id == 0 or last_id != self.newest_id:
             MajorOrders.set_new_id(self.newest_id)
             embed = MajorOrderEmbed(data["assignments"][0], data["planets"])
-            for i in self.channels:
-                self.bot.loop.create_task(self.send_embed(i, embed))
+            chunked_channels = [
+                self.channels[i : i + 50] for i in range(0, len(self.channels), 50)
+            ]
+            for chunk in chunked_channels:
+                for channel in chunk:
+                    self.bot.loop.create_task(self.send_embed(channel, embed))
+                await sleep(2)  # keep at 2
 
     @major_order_check.before_loop
     async def before_mo_check(self):
@@ -112,8 +117,13 @@ class AnnouncementsCog(commands.Cog):
         if last_id == 0 or last_id != self.newest_id:
             Dispatches.set_new_id(self.newest_id)
             embed = DispatchesEmbed(data["dispatches"][0])
-            for i in self.channels:
-                self.bot.loop.create_task(self.send_embed(i, embed))
+            chunked_channels = [
+                self.channels[i : i + 50] for i in range(0, len(self.channels), 50)
+            ]
+            for chunk in chunked_channels:
+                for channel in chunk:
+                    self.bot.loop.create_task(self.send_embed(channel, embed))
+                await sleep(2)  # keep at 2
 
     @dispatch_check.before_loop
     async def before_dispatch_check(self):
@@ -130,8 +140,14 @@ class AnnouncementsCog(commands.Cog):
         if last_id == 0 or last_id != self.newest_id:
             Steam.set_new_id(self.newest_id)
             embed = SteamEmbed(data["steam"][0])
-            for i in self.patch_channels:
-                self.bot.loop.create_task(self.send_embed(i, embed))
+            chunked_patch_channels = [
+                self.patch_channels[i : i + 50]
+                for i in range(0, len(self.patch_channels), 50)
+            ]
+            for chunk in chunked_patch_channels:
+                for channel in chunk:
+                    self.bot.loop.create_task(self.send_embed(channel, embed))
+                await sleep(2)  # keep at 2
 
     @steam_check.before_loop
     async def before_steam_check(self):

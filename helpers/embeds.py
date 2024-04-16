@@ -8,10 +8,6 @@ class Planet(Embed):
     def __init__(self, data):
         super().__init__(colour=Colour.blue())
         self.planet = data
-        if self.planet["currentOwner"] != "Humans":
-            atk_def = "atk"
-        else:
-            atk_def = "def"
         planet_health_bar = health_bar(
             self.planet["health"], self.planet["maxHealth"], self.planet["currentOwner"]
         )
@@ -140,6 +136,7 @@ class CampaignEmbeds:
             planet_status,
             attacker: str,
             thumbnail_link: str = None,
+            time_remaining=None,
         ):
             super().__init__(
                 title="**⚠️ URGENT CALL TO ALL HELLDIVERS ⚠️**", colour=Colour.brand_red()
@@ -161,6 +158,12 @@ class CampaignEmbeds:
                 )
                 self.colour = Colour.blue()
                 self.add_field("Objective", "Defend")
+                self.add_field("Ends", time_remaining)
+            self.add_field(
+                "",
+                "[More info](https://helldivers.news/)",
+                inline=False,
+            )
 
     class CampaignVictory(Embed):
         def __init__(self, planet_status, defended: bool, liberated_from: str = None):
@@ -228,14 +231,15 @@ class Dashboard:
                     planet_health_bar = health_bar(
                         planet["health"],
                         planet["maxHealth"],
-                        "MO",
+                        ("MO" if planet["currentOwner"] != "Humans" else "Humans"),
                     )
                     self.major_orders_embed.add_field(
                         planet["name"],
                         (
                             f"Heroes: **{planet['statistics']['playerCount']:,}\n"
                             f"Occupied by: **{planet['currentOwner']}**\n"
-                            f"{planet_health_bar}** {completed}"
+                            f"{planet_health_bar}** {completed}\n"
+                            f"`{(planet['health'] / planet['maxHealth']):^25,.2%}`\n"
                         ),
                         inline=False,
                     )
@@ -292,11 +296,11 @@ class Dashboard:
                 self.defend_embed.add_field(
                     f"{faction_icon} - __**{i['name']}**__",
                     (
-                        f"Finishes: {time_remaining}\n"
+                        f"Ends: {time_remaining}\n"
                         f"Heroes: **{i['statistics']['playerCount']:,}**\n"
                         f"Event health:\n"
                         f"{event_health_bar}\n"
-                        f"`{i['event']['health']:>12,}/{i['event']['maxHealth']:<12,}`\n"
+                        f"`{(i['health'] / i['maxHealth']):^25,.2%}`\n"
                         "\u200b\n"
                     ),
                     inline=False,
@@ -329,7 +333,7 @@ class Dashboard:
                         f"Automaton kill count: **{short_format(i['planet']['statistics']['automatonKills'])}**\n"
                         f"Planet health:\n"
                         f"{planet_health_bar}\n"
-                        f"`{i['planet']['health']:>10,}/{i['planet']['maxHealth']:<9,} +{i['planet']['regenPerSecond']:.0f}/s`\n"
+                        f"`{(i['planet']['health'] / i['planet']['maxHealth']):^25,.2%}`\n"
                         "\u200b\n"
                     ),
                     inline=False,
@@ -344,7 +348,7 @@ class Dashboard:
                         f"Terminid kill count: **{short_format(i['planet']['statistics']['terminidKills'])}**\n"
                         f"Planet Health:\n"
                         f"{planet_health_bar}\n"
-                        f"`{i['planet']['health']:>9,}/{i['planet']['maxHealth']:<9,} +{i['planet']['regenPerSecond']:.0f}/s`\n"
+                        f"`{(i['planet']['health'] / i['planet']['maxHealth']):^25,.2%}`\n"
                         "\u200b\n"
                     ),
                     inline=False,

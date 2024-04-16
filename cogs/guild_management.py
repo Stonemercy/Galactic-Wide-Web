@@ -206,12 +206,14 @@ class GuildManagementCog(commands.Cog):
             if role in inter.author.roles:
                 await inter.author.remove_roles(role)
                 return await inter.send(
-                    "Gave you the Bot Update role", ephemeral=True, delete_after=10
+                    "Removed the Bot Update role from you",
+                    ephemeral=True,
+                    delete_after=10,
                 )
             else:
                 await inter.author.add_roles(role)
                 return await inter.send(
-                    "Removed the Bot Update role from you",
+                    "Gave you the Bot Update role",
                     ephemeral=True,
                     delete_after=10,
                 )

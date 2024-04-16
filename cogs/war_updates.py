@@ -6,6 +6,7 @@ from disnake.ext import commands, tasks
 from helpers.db import Campaigns, Guilds
 from helpers.embeds import CampaignEmbeds
 from helpers.functions import pull_from_api
+from datetime import datetime
 
 
 class WarUpdatesCog(commands.Cog):
@@ -54,8 +55,11 @@ class WarUpdatesCog(commands.Cog):
 
     @tasks.loop(minutes=1)
     async def campaign_check(self):
-        data = await pull_from_api(get_planets=True, get_campaigns=True)
+        data = await pull_from_api(
+            get_planets=True, get_campaigns=True, get_war_state=True
+        )
         self.planets = data["planets"]
+        self.war = data["war_state"]
         self.new_campaigns = data["campaigns"]
         old_campaigns = Campaigns.get_all()
 
@@ -209,11 +213,31 @@ class WarUpdatesCog(commands.Cog):
                         thumbnail_url: str = planet_tn["planet"]["image"]
                         thumbnail_url = thumbnail_url.replace(" ", "%20")
                         planet_thumbnail = f"https://helldivers.news{thumbnail_url}"
+                try:
+                    war_now = datetime.fromisoformat(self.war["now"]).timestamp()
+                except Exception as e:
+                    print("war_now", e)
+                    war_now = None
+                try:
+                    end_time = datetime.fromisoformat(
+                        new_campaign["planet"]["event"]["endTime"]
+                    ).timestamp()
+                except Exception as e:
+                    print("end_time", e)
+                    end_time = None
+                current_time = datetime.now().timestamp()
+                if war_now != None and current_time != None and end_time != None:
+                    time_remaining = (
+                        f"<t:{((current_time - war_now) + end_time):.0f}:R>"
+                    )
+                else:
+                    time_remaining = "Unavailable"
                 embed = CampaignEmbeds.NewCampaign(
                     new_campaign,
                     self.planets[new_campaign["planet"]["index"]],
                     attacker_race,
                     planet_thumbnail,
+                    time_remaining,
                 )
                 chunked_channels = [
                     self.channels[i : i + 50] for i in range(0, len(self.channels), 50)
