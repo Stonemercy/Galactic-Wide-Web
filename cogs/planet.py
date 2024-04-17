@@ -26,9 +26,15 @@ class PlanetCog(commands.Cog):
                 ephemeral=True,
             )
         await inter.response.defer()
-        data = await pull_from_api(get_planets=True)
+        data = await pull_from_api(get_planets=True, get_thumbnail=True)
         planets_data = data["planets"]
         planet_data = None
+        planet_thumbnail = None
+        for thumbnail in data["thumbnails"]:
+            if planet == thumbnail["planet"]["name"]:
+                thumbnail_url = thumbnail["planet"]["image"].replace(" ", "%20")
+                planet_thumbnail = f"https://helldivers.news{thumbnail_url}"
+                break
         for i in planets_data:
             if i["name"] != planet:
                 continue
@@ -37,7 +43,7 @@ class PlanetCog(commands.Cog):
                 break
         if planet_data == None:
             return await inter.send("Information on that planet is unavailable.")
-        embed = Planet(planet_data)
+        embed = Planet(planet_data, planet_thumbnail)
         await inter.send(embed=embed)
 
 

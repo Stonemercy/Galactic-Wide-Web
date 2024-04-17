@@ -36,6 +36,7 @@ async def pull_from_api(
     get_planets: bool = False,
     get_planet_events: bool = False,
     get_steam: bool = False,  # first index is newest
+    get_thumbnail: bool = False,
     language: str = "en-GB",
 ):
 
@@ -48,6 +49,7 @@ async def pull_from_api(
         "planets": None,
         "planet_events": None,
         "steam": None,
+        "thumbnails": None,
     }
     if get_war_state:
         async with ClientSession(headers={"Accept-Language": language}) as session:
@@ -96,8 +98,6 @@ async def pull_from_api(
                     if r.status == 200:
                         js = await r.json()
                         results["planets"] = loads(dumps(js))
-                        if results["planets"] == None:
-                            print("Planets = None")
                         await session.close()
             except Exception as e:
                 print(("API/PLANETS", e))
@@ -121,6 +121,18 @@ async def pull_from_api(
                         await session.close()
             except Exception as e:
                 print(("API/STEAM", e))
+    if get_thumbnail:
+        async with ClientSession() as session:
+            try:
+                async with session.get(f"https://helldivers.news/api/planets") as r:
+                    if r.status == 200:
+                        js = await r.json()
+                        results["thumbnails"] = loads(dumps(js))
+                        await session.close()
+                    else:
+                        pass
+            except Exception as e:
+                print(("API/THUMBNAILS", e))
     return results
 
 

@@ -5,7 +5,7 @@ from data.lists import reward_types
 
 
 class Planet(Embed):
-    def __init__(self, data):
+    def __init__(self, data, thumbnail_url: str):
         super().__init__(colour=Colour.blue())
         self.planet = data
         planet_health_bar = health_bar(
@@ -17,7 +17,7 @@ class Planet(Embed):
                 f"Sector: **{self.planet['sector']}**\n"
                 f"Planet health:\n"
                 f"{planet_health_bar}\n"
-                f"`{self.planet['health']:>9,}/{self.planet['maxHealth']:<10,} +{self.planet['regenPerSecond']:.1f}/s`\n"
+                f"`{(self.planet['health'] / self.planet['maxHealth']):^25,.2%}`\n"
                 "\u200b\n"
             ),
             inline=False,
@@ -40,6 +40,13 @@ class Planet(Embed):
                 f"Hero Accuracy: **{self.planet['statistics']['accuracy']}%**\n"
             ),
         )
+        faction_colour = {
+            "Automaton": Colour.from_rgb(r=252, g=76, b=79),
+            "Terminids": Colour.from_rgb(r=253, g=165, b=58),
+            "Illuminate": Colour.from_rgb(r=116, g=163, b=180),
+            "Humans": Colour.from_rgb(r=36, g=205, b=76),
+        }
+        self.colour = faction_colour[self.planet["currentOwner"]]
         if self.planet["currentOwner"] == "Automaton":
             self.add_field(
                 "Automaton Kills:",
@@ -60,7 +67,8 @@ class Planet(Embed):
                 name="Liberation Progress",
                 icon_url="https://cdn.discordapp.com/emojis/1215036423090999376.webp?size=44&quality=lossless",
             )
-        self.set_thumbnail(file=File(f"resources/freedom.gif"))
+        if thumbnail_url is not None:
+            self.set_thumbnail(url=thumbnail_url)
         self.add_field(
             "", f"As of <t:{int(datetime.now().timestamp())}:R>", inline=False
         )
@@ -77,7 +85,7 @@ class BotDashboardEmbed(Embed):
         self.description = (
             "This is the dashboard for all information about the GWW itself"
         )
-        self.set_footer(text=f"Updated at {dt.strftime('%H:%M')}GMT")
+        self.set_footer(text=f"Updated at {dt.strftime('%H:%M')}BST")
 
 
 class MajorOrderEmbed(Embed):
@@ -134,27 +142,41 @@ class CampaignEmbeds:
             self,
             campaign,
             planet_status,
-            attacker: str,
             thumbnail_link: str = None,
             time_remaining=None,
         ):
             super().__init__(
                 title="**⚠️ URGENT CALL TO ALL HELLDIVERS ⚠️**", colour=Colour.brand_red()
             )
-            self.planet_status = planet_status
-            self.attacker = attacker
+            faction_dict = {
+                "Automaton": "<:automaton:1215036421551685672>",
+                "Terminids": "<:terminid:1215036423090999376>",
+                "Illuminate": "<:illuminate:1218283483240206576>",
+            }
+            faction_colour = {
+                "Automaton": Colour.from_rgb(r=252, g=76, b=79),
+                "Terminids": Colour.from_rgb(r=253, g=165, b=58),
+                "Illuminate": Colour.from_rgb(r=116, g=163, b=180),
+            }
             if thumbnail_link != None:
                 self.set_thumbnail(thumbnail_link)
-            if self.planet_status["currentOwner"] != "Humans":
+            if planet_status["currentOwner"] != "Humans":
+                self.colour = faction_colour[planet_status["currentOwner"]]
                 self.description = (
-                    f"**{campaign['planet']['name']}** requires liberation from the **{self.planet_status['currentOwner']}**!\n\n"
-                    f"Assist the other **{self.planet_status['statistics']['playerCount']} Helldivers** in the fight for **Democracy**"
+                    f"**{campaign['planet']['name']}** has been under **{planet_status['currentOwner']}** {faction_dict[planet_status['currentOwner']]} control for too long!\n\n"
+                    f"Assist the other **{planet_status['statistics']['playerCount']}** Helldivers in the fight for **Democracy**"
                 )
                 self.add_field("Objective", "Attack")
-            elif self.planet_status["currentOwner"] == "Humans":
+                self.add_field("Battle", f"#{campaign['count']}")
+                self.add_field(
+                    "Time spent in missions",
+                    f"{planet_status['statistics']['missionTime']/31556952:.1f} years",
+                )
+            elif planet_status["currentOwner"] == "Humans":
+                attacker = planet_status["event"]["faction"]
                 self.description = (
-                    f"**{campaign['planet']['name']}** requires defending from the **{self.attacker}**!\n\n"
-                    f"Assist the other **{self.planet_status['statistics']['playerCount']}** Helldivers in the fight for **Democracy**"
+                    f"**{campaign['planet']['name']}** requires defending from the **{attacker}** {faction_dict[attacker]}!\n\n"
+                    f"Assist the other **{planet_status['statistics']['playerCount']}** Helldivers in the fight for **Democracy**"
                 )
                 self.colour = Colour.blue()
                 self.add_field("Objective", "Defend")
@@ -184,7 +206,7 @@ class CampaignEmbeds:
 
     class CampaignLoss(Embed):
         def __init__(self, planet_status, defended: bool, liberator: str = None):
-            super().__init__(colour=Colour.brand_red(), title="Tragic Loss")
+            super().__init__(colour=Colour.dark_grey(), title="Tragic Loss")
             if defended == True:
                 self.description = f"{planet_status['name']} has been taken by the **{liberator}**\nWe must not let them keep it!"
             else:
@@ -433,8 +455,7 @@ class Weapons:
             try:
                 file_name = name.replace(" ", "-")
                 self.set_thumbnail(file=File(f"resources/weapons/{file_name}.png"))
-            except Exception as e:
-                print("passing", e)
+            except:
                 pass
 
 

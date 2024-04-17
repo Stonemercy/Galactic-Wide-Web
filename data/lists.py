@@ -829,6 +829,20 @@ enemies = {
             "weak spots": "Thruster",
             "variations": None,
         },
+        "Gunship": {
+            "start": 6,
+            "desc": "Gunships are large flying machines that are used to patrol the surroundings of Automaton Gunship Facilities and scan nearby activity. When Helldiver activity is detected, Gunships will quickly be dispatched to scan and investigate the area. When spotted, Gunships will shoot with a turret mounted on their underside and a barrage of rockets. ",
+            "tactics": "They can be easily dealt with via a well-placed shot from any High-Explosive Anti-Tank type support weapon like the LAS-99 Quasar Cannon to any part of the ship.",
+            "weak spots": None,
+            "variations": None,
+        },
+        "Factory Strider": {
+            "start": 7,
+            "desc": 'Called "Walkers" by some Helldivers, Factory Striders are simply walking Factories. Factory Striders in their default state can stride into battle firing their cannons at Helldivers and fabricating batches of Standard Devastators, or roam across the planet\'s surface providing fire support where it can.',
+            "tactics": 'The underside turrets can be destroyed fairly easily with most weapons. Orbital Lasers can 100-0 a Strider by itself, taking the entire duration however. A 500kg bomb will get it close to "death". Try to stay behind them.',
+            "weak spots": "Head, Underside",
+            "variations": None,
+        },
     },
 }
 

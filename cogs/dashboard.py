@@ -1,6 +1,6 @@
 from asyncio import sleep
 from os import getenv
-from disnake import AppCmdInter, PartialMessage
+from disnake import AppCmdInter, NotFound, PartialMessage
 from disnake.ext import commands, tasks
 from helpers.embeds import Dashboard
 from helpers.db import Guilds
@@ -39,13 +39,16 @@ class DashboardCog(commands.Cog):
     async def update_message(self, i: PartialMessage, data):
         guild = Guilds.get_info(i.guild.id)
         if guild == None:
+            self.messages.remove(i)
             return print("Update message - Guild not in DB")
         dashboard = Dashboard(data)
         try:
             await i.edit(embeds=dashboard.embeds)
+        except NotFound:
+            self.messages.remove(i)
+            return print("Dashboard not found, removing", i.channel.name)
         except Exception as e:
-            print("Update message", e, i)
-            pass
+            return print("Update message error", e, i.channel.name)
 
     @tasks.loop(count=1)
     async def cache_messages(self):
@@ -75,12 +78,12 @@ class DashboardCog(commands.Cog):
             get_war_state=True,
         )
         chunked_messages = [
-            self.messages[i : i + 50] for i in range(0, len(self.messages), 50)
+            self.messages[i : i + 20] for i in range(0, len(self.messages), 20)
         ]
         for chunk in chunked_messages:
             for message in chunk:
                 self.bot.loop.create_task(self.update_message(message, data))
-            await sleep(2)  # keep at 2
+            await sleep(1)
 
     @dashboard.before_loop
     async def before_dashboard(self):
@@ -102,13 +105,13 @@ class DashboardCog(commands.Cog):
             get_war_state=True,
         )
         chunked_messages = [
-            self.messages[i : i + 50] for i in range(0, len(self.messages), 50)
+            self.messages[i : i + 20] for i in range(0, len(self.messages), 20)
         ]
         for chunk in chunked_messages:
             for message in chunk:
                 self.bot.loop.create_task(self.update_message(message, data))
                 dashboards_updated += 1
-            await sleep(2.0)  # keep at 2.0
+            await sleep(1)
         await inter.send(
             f"Attempted to update {dashboards_updated} dashboards",
             ephemeral=True,
@@ -126,11 +129,11 @@ class DashboardCog(commands.Cog):
             guild_ids.append(i.id)
         for guild in guilds_in_db:
             if guild[0] not in guild_ids:
-                print(f"Anomoly found, removing")
+                print(f"Guild found in DB but not in bot list, removing")
                 Guilds.remove_from_db(guild[0])
-                for j in messages:
-                    if j.guild.id == guild[0]:
-                        messages.remove(j)
+                for message in messages:
+                    if message.guild.id == guild[0]:
+                        messages.remove(message)
             continue
 
     @db_cleanup.before_loop

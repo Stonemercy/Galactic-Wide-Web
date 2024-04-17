@@ -70,9 +70,12 @@ class GuildManagementCog(commands.Cog):
         else:
             now = datetime.now()
             dashboard_embed = BotDashboardEmbed(now)
+            commands = ""
+            for command in self.bot.global_slash_commands:
+                commands += f"`/{command.name}`\n"
             dashboard_embed.add_field(
                 "The GWW has",
-                f"{len(self.bot.global_slash_commands)} commands available",
+                f"{len(self.bot.global_slash_commands)} commands available:\n{commands}",
             ).add_field("Currently in", f"{len(self.bot.guilds)} discord servers")
             pid = getpid()
             process = Process(pid)
@@ -82,7 +85,8 @@ class GuildManagementCog(commands.Cog):
                 (
                     f"**CPU**: {cpu_percent()}%\n"
                     f"**RAM**: {memory_used:.2f}MB\n"
-                    f"**Last restart**: <t:{int(self.startup_time.timestamp())}:R>"
+                    f"**Last restart**: <t:{int(self.startup_time.timestamp())}:R>\n"
+                    f"**Latency**: {int(self.bot.latency * 1000)}ms"
                 ),
                 inline=False,
             )
@@ -132,6 +136,15 @@ class GuildManagementCog(commands.Cog):
                 ),
                 inline=False,
             )
+            dashboard_embed.add_field(
+                "Credits",
+                (
+                    "https://helldivers.fandom.com/wiki/Helldivers_Wiki - Most of my enemy information is from them, as well as a lot of the enemy images.\n\n"
+                    "https://helldivers.news/ - Planet images are from them, their website is also amazing.\n\n"
+                    "https://github.com/helldivers-2/ - The people over here are kind and helpful, great work too!\n\n"
+                    "and **You**\n"
+                ),
+            )
 
             channel = self.bot.get_channel(data[0]) or await self.bot.fetch_channel(
                 data[0]
@@ -140,31 +153,34 @@ class GuildManagementCog(commands.Cog):
                 message = channel.get_partial_message(data[1])
             except Exception as e:
                 print(f"bot_dashboard ", e)
-            await message.edit(
-                embed=dashboard_embed,
-                components=[
-                    Button(
-                        label="Top.GG",
-                        style=ButtonStyle.link,
-                        url="https://top.gg/bot/1212535586972369008",
-                    ),
-                    Button(
-                        label="App Directory",
-                        style=ButtonStyle.link,
-                        url="https://discord.com/application-directory/1212535586972369008",
-                    ),
-                    Button(
-                        label="Ko-Fi",
-                        style=ButtonStyle.link,
-                        url="https://ko-fi.com/galacticwideweb",
-                    ),
-                    Button(
-                        label="GitHub",
-                        style=ButtonStyle.link,
-                        url="https://github.com/Stonemercy/Galactic-Wide-Web",
-                    ),
-                ],
-            ),
+            try:
+                await message.edit(
+                    embed=dashboard_embed,
+                    components=[
+                        Button(
+                            label="Top.GG",
+                            style=ButtonStyle.link,
+                            url="https://top.gg/bot/1212535586972369008",
+                        ),
+                        Button(
+                            label="App Directory",
+                            style=ButtonStyle.link,
+                            url="https://discord.com/application-directory/1212535586972369008",
+                        ),
+                        Button(
+                            label="Ko-Fi",
+                            style=ButtonStyle.link,
+                            url="https://ko-fi.com/galacticwideweb",
+                        ),
+                        Button(
+                            label="GitHub",
+                            style=ButtonStyle.link,
+                            url="https://github.com/Stonemercy/Galactic-Wide-Web",
+                        ),
+                    ],
+                ),
+            except:
+                pass
 
     @bot_dashboard.before_loop
     async def before_bot_dashboard(self):
@@ -194,6 +210,8 @@ class GuildManagementCog(commands.Cog):
             except NotFound:
                 message = await channel.send(embed=embed, components=components)
                 BotDashboard.set_react_role(message.id)
+            except:
+                pass
 
     @react_role_dashboard.before_loop
     async def before_react_role(self):

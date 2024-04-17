@@ -1,6 +1,4 @@
 from asyncio import sleep
-from json import dumps, loads
-from aiohttp import ClientSession
 from disnake import TextChannel
 from disnake.ext import commands, tasks
 from helpers.db import Campaigns, Guilds
@@ -58,163 +56,122 @@ class WarUpdatesCog(commands.Cog):
         data = await pull_from_api(
             get_planets=True, get_campaigns=True, get_war_state=True
         )
-        self.planets = data["planets"]
-        self.war = data["war_state"]
-        self.new_campaigns = data["campaigns"]
+        planets = data["planets"]
+        war = data["war_state"]
+        new_campaigns = data["campaigns"]
         old_campaigns = Campaigns.get_all()
 
         new_campaign_ids = []
-        for campaign in self.new_campaigns:
+        for campaign in new_campaigns:
             new_campaign_ids.append(campaign["id"])
 
         if old_campaigns == []:
-            for new_campaign in self.new_campaigns:
-                if new_campaign["planet"]["event"] != None:
-                    attacker_race = new_campaign["planet"]["event"]["faction"]
-                else:
-                    attacker_race = "traitors to Democracy"
+            for new_campaign in new_campaigns:
                 Campaigns.new_campaign(
                     new_campaign["id"],
                     new_campaign["planet"]["name"],
                     new_campaign["planet"]["currentOwner"],
                     new_campaign["planet"]["index"],
                 )
-
-                async with ClientSession() as session:
-                    try:
-                        async with session.get(
-                            f"https://helldivers.news/api/planets"
-                        ) as r:
-                            if r.status == 200:
-                                js = await r.json()
-                                self.planet_thumbnails = loads(dumps(js))
-                                await session.close()
-                            else:
-                                pass
-                    except Exception as e:
-                        print(("Planet Thumbnail", e))
+                planet_thumbnails = await pull_from_api(get_thumbnail=True)
                 planet_thumbnail = None
-                for planet_tn in self.planet_thumbnails:
-                    if new_campaign["planet"]["name"] == planet_tn["planet"]["name"]:
-                        planet_thumbnail = (
-                            f"https://helldivers.news{planet_tn['planet']['image']}"
-                        )
+                for thumbnail in planet_thumbnails["thumbnails"]:
+                    if new_campaign["planet"]["name"] == thumbnail["planet"]["name"]:
+                        thumbnail_url = thumbnail["planet"]["image"].replace(" ", "%20")
+                        planet_thumbnail = f"https://helldivers.news{thumbnail_url}"
+                        break
 
                 embed = CampaignEmbeds.NewCampaign(
                     new_campaign,
                     new_campaign["planet"],
-                    attacker_race,
                     planet_thumbnail,
                 )
                 chunked_channels = [
-                    self.channels[i : i + 50] for i in range(0, len(self.channels), 50)
+                    self.channels[i : i + 20] for i in range(0, len(self.channels), 20)
                 ]
                 for chunk in chunked_channels:
                     for channel in chunk:
                         self.bot.loop.create_task(self.send_campaign(channel, embed))
                     await sleep(2)
-                continue
-        campaign_ids = []
+            return
+
+        old_campaign_ids = []
         for old_campaign in old_campaigns:  # loop through old campaigns
-            campaign_ids.append(old_campaign[0])
-            if old_campaign[0] not in new_campaign_ids:  # if campaign is not active
+            old_campaign_ids.append(old_campaign[0])
+            if (
+                old_campaign[0] not in new_campaign_ids
+            ):  # if campaign is no longer active
+                planet = planets[old_campaign[3]]
                 if (
-                    self.planets[old_campaign[3]]["currentOwner"] == "Humans"
+                    planet["currentOwner"] == "Humans"
                     and old_campaign[2] == "Humans"
-                    # if current owner of the planet is human and the old owner is human (successful defence campaign)
+                    # if successful defence campaign
                 ):
                     embed = CampaignEmbeds.CampaignVictory(
-                        self.planets[old_campaign[3]],
+                        planet,
                         defended=True,
                     )
                     chunked_channels = [
-                        self.channels[i : i + 50]
-                        for i in range(0, len(self.channels), 50)
+                        self.channels[i : i + 20]
+                        for i in range(0, len(self.channels), 20)
                     ]
                     for chunk in chunked_channels:
                         for channel in chunk:
                             self.bot.loop.create_task(
                                 self.send_campaign(channel, embed)
                             )
-                        await sleep(2)
+                        await sleep(1)
                     Campaigns.remove_campaign(old_campaign[0])
-                if (
-                    self.planets[old_campaign[3]]["currentOwner"] != old_campaign[2]
-                ):  # if new owner doesnt equal old owner
-                    if (
-                        old_campaign[2] == "Humans"
-                    ):  # if old owner was humans (defence campaign loss)
+                if planet["currentOwner"] != old_campaign[2]:  # if owner has changed
+                    if old_campaign[2] == "Humans":  # if defence campaign loss
                         embed = CampaignEmbeds.CampaignLoss(
-                            self.planets[old_campaign[3]],
+                            planet,
                             defended=True,
-                            liberator=self.planets[old_campaign[3]]["currentOwner"],
+                            liberator=planet["currentOwner"],
                         )
                         chunked_channels = [
-                            self.channels[i : i + 50]
-                            for i in range(0, len(self.channels), 50)
+                            self.channels[i : i + 20]
+                            for i in range(0, len(self.channels), 20)
                         ]
                         for chunk in chunked_channels:
                             for channel in chunk:
                                 self.bot.loop.create_task(
                                     self.send_campaign(channel, embed)
                                 )
-                            await sleep(2)
+                            await sleep(1)
                         Campaigns.remove_campaign(old_campaign[0])
-                    elif (
-                        self.planets[old_campaign[3]]["currentOwner"] == "Humans"
-                    ):  # if new owner is humans (attack campaign win)
+                    elif planet["currentOwner"] == "Humans":  # if attack campaign win
                         embed = CampaignEmbeds.CampaignVictory(
-                            self.planets[old_campaign[3]],
+                            planet,
                             defended=False,
                             liberated_from=old_campaign[2],
                         )
                         chunked_channels = [
-                            self.channels[i : i + 50]
-                            for i in range(0, len(self.channels), 50)
+                            self.channels[i : i + 20]
+                            for i in range(0, len(self.channels), 20)
                         ]
                         for chunk in chunked_channels:
                             for channel in chunk:
                                 self.bot.loop.create_task(
                                     self.send_campaign(channel, embed)
                                 )
-                        await sleep(2)
+                        await sleep(1)
                         Campaigns.remove_campaign(old_campaign[0])
-        attacker_race = "traitors to Democracy"
-        for new_campaign in self.new_campaigns:  # loop through new campaigns
-            if (
-                new_campaign["id"] not in campaign_ids
-            ):  # if campaign is brand new (not in db)
-                if (
-                    new_campaign["planet"]["event"] != None
-                ):  # check if campaign is a defence campaign (for attacker_race)
-                    attacker_race = new_campaign["planet"]["event"]["faction"]
-                async with ClientSession() as session:
-                    try:
-                        async with session.get(
-                            f"https://helldivers.news/api/planets"
-                        ) as r:
-                            if r.status == 200:
-                                js = await r.json()
-                                self.planet_thumbnails = loads(
-                                    dumps(js)
-                                )  # getting planet thumbnails
-                                await session.close()
-                            else:
-                                pass
-                    except Exception as e:
-                        print(("Planet Thumbnail", e))
+
+        for new_campaign in new_campaigns:  # loop through new campaigns
+            if new_campaign["id"] not in old_campaign_ids:  # if campaign is brand new
+                planet = planets[new_campaign["planet"]["index"]]
+                planet_thumbnails = await pull_from_api(get_thumbnail=True)
                 planet_thumbnail = None
-                for (
-                    planet_tn
-                ) in self.planet_thumbnails:  # loop through posted thumbnails
-                    if (
-                        new_campaign["planet"]["name"] == planet_tn["planet"]["name"]
-                    ):  # check if new campaign planet name is in the list of planet thumbnails
-                        thumbnail_url: str = planet_tn["planet"]["image"]
-                        thumbnail_url = thumbnail_url.replace(" ", "%20")
+                for thumbnail in planet_thumbnails[
+                    "thumbnails"
+                ]:  # loop through posted thumbnails
+                    if new_campaign["planet"]["name"] == thumbnail["planet"]["name"]:
+                        thumbnail_url = thumbnail["planet"]["image"].replace(" ", "%20")
                         planet_thumbnail = f"https://helldivers.news{thumbnail_url}"
+                        break
                 try:
-                    war_now = datetime.fromisoformat(self.war["now"]).timestamp()
+                    war_now = datetime.fromisoformat(war["now"]).timestamp()
                 except Exception as e:
                     print("war_now", e)
                     war_now = None
@@ -222,8 +179,7 @@ class WarUpdatesCog(commands.Cog):
                     end_time = datetime.fromisoformat(
                         new_campaign["planet"]["event"]["endTime"]
                     ).timestamp()
-                except Exception as e:
-                    print("end_time", e)
+                except:
                     end_time = None
                 current_time = datetime.now().timestamp()
                 if war_now != None and current_time != None and end_time != None:
@@ -234,22 +190,21 @@ class WarUpdatesCog(commands.Cog):
                     time_remaining = "Unavailable"
                 embed = CampaignEmbeds.NewCampaign(
                     new_campaign,
-                    self.planets[new_campaign["planet"]["index"]],
-                    attacker_race,
+                    planet,
                     planet_thumbnail,
                     time_remaining,
                 )
                 chunked_channels = [
-                    self.channels[i : i + 50] for i in range(0, len(self.channels), 50)
+                    self.channels[i : i + 20] for i in range(0, len(self.channels), 20)
                 ]
                 for chunk in chunked_channels:
                     for channel in chunk:
                         self.bot.loop.create_task(self.send_campaign(channel, embed))
-                    await sleep(2)
+                    await sleep(1)
                 Campaigns.new_campaign(
                     new_campaign["id"],
                     new_campaign["planet"]["name"],
-                    self.planets[new_campaign["planet"]["index"]]["currentOwner"],
+                    planet["currentOwner"],
                     new_campaign["planet"]["index"],
                 )
             continue
