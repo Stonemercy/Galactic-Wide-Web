@@ -245,7 +245,8 @@ class Dashboard:
                 inline=False,
             )
             for i in self.assignment["tasks"]:
-                if i["type"] == 11 or 13:
+                if i["type"] == 11 or i["type"] == 13:
+
                     planet = self.planets[i["values"][2]]
                     completed = (
                         "LIBERATED" if planet["currentOwner"] == "Humans" else ""
@@ -274,6 +275,26 @@ class Dashboard:
                         (
                             f"Current progress: {self.assignment['progress'][0]}/{i['values'][0]}\n"
                             f"{event_health_bar}"
+                            f"`{(self.assignment['progress'][0] / i['values'][0]):^25,.2%}`\n"
+                        ),
+                        inline=False,
+                    )
+                elif i["type"] == 3:
+                    faction_dict = {
+                        0: "Humans",
+                        1: "Automaton <:automaton:1215036421551685672>",
+                        2: "Terminids <:terminid:1215036423090999376>",
+                        3: "Illuminate <:illuminate:1218283483240206576>",
+                    }
+                    event_health_bar = health_bar(
+                        self.assignment["progress"][0], i["values"][2], "MO"
+                    )
+                    self.major_orders_embed.add_field(
+                        f"Kill {short_format(i['values'][2])} {faction_dict[i['values'][0]]}",
+                        (
+                            f"Current progress: {short_format(self.assignment['progress'][0])}/{short_format(i['values'][2])}\n"
+                            f"{event_health_bar}\n"
+                            f"`{(self.assignment['progress'][0] / i['values'][2]):^25,.2%}`\n"
                         ),
                         inline=False,
                     )
