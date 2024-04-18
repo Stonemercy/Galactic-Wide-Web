@@ -79,7 +79,6 @@ class WarUpdatesCog(commands.Cog):
                     if new_campaign["planet"]["name"] == thumbnail["planet"]["name"]:
                         thumbnail_url = thumbnail["planet"]["image"].replace(" ", "%20")
                         planet_thumbnail = f"https://helldivers.news{thumbnail_url}"
-                        break
 
                 embed = CampaignEmbeds.NewCampaign(
                     new_campaign,
@@ -120,7 +119,7 @@ class WarUpdatesCog(commands.Cog):
                             self.bot.loop.create_task(
                                 self.send_campaign(channel, embed)
                             )
-                        await sleep(1)
+                        await sleep(2)
                     Campaigns.remove_campaign(old_campaign[0])
                 if planet["currentOwner"] != old_campaign[2]:  # if owner has changed
                     if old_campaign[2] == "Humans":  # if defence campaign loss
@@ -138,7 +137,7 @@ class WarUpdatesCog(commands.Cog):
                                 self.bot.loop.create_task(
                                     self.send_campaign(channel, embed)
                                 )
-                            await sleep(1)
+                            await sleep(2)
                         Campaigns.remove_campaign(old_campaign[0])
                     elif planet["currentOwner"] == "Humans":  # if attack campaign win
                         embed = CampaignEmbeds.CampaignVictory(
@@ -155,8 +154,25 @@ class WarUpdatesCog(commands.Cog):
                                 self.bot.loop.create_task(
                                     self.send_campaign(channel, embed)
                                 )
-                        await sleep(1)
+                        await sleep(2)
                         Campaigns.remove_campaign(old_campaign[0])
+                else:
+                    embed = CampaignEmbeds.CampaignLoss(
+                        planet,
+                        defended=False,
+                        liberator=planet["currentOwner"],
+                    )
+                    chunked_channels = [
+                        self.channels[i : i + 20]
+                        for i in range(0, len(self.channels), 20)
+                    ]
+                    for chunk in chunked_channels:
+                        for channel in chunk:
+                            self.bot.loop.create_task(
+                                self.send_campaign(channel, embed)
+                            )
+                        await sleep(2)
+                    Campaigns.remove_campaign(old_campaign[0])
 
         for new_campaign in new_campaigns:  # loop through new campaigns
             if new_campaign["id"] not in old_campaign_ids:  # if campaign is brand new
@@ -169,7 +185,6 @@ class WarUpdatesCog(commands.Cog):
                     if new_campaign["planet"]["name"] == thumbnail["planet"]["name"]:
                         thumbnail_url = thumbnail["planet"]["image"].replace(" ", "%20")
                         planet_thumbnail = f"https://helldivers.news{thumbnail_url}"
-                        break
                 try:
                     war_now = datetime.fromisoformat(war["now"]).timestamp()
                 except Exception as e:
@@ -200,7 +215,7 @@ class WarUpdatesCog(commands.Cog):
                 for chunk in chunked_channels:
                     for channel in chunk:
                         self.bot.loop.create_task(self.send_campaign(channel, embed))
-                    await sleep(1)
+                    await sleep(2)
                 Campaigns.new_campaign(
                     new_campaign["id"],
                     new_campaign["planet"]["name"],

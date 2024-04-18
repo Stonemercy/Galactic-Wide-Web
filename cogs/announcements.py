@@ -111,6 +111,8 @@ class AnnouncementsCog(commands.Cog):
     async def dispatch_check(self):
         last_id = Dispatches.get_last_id()
         data = await pull_from_api(get_dispatches=True)
+        if data == None:
+            return
         self.newest_id = data["dispatches"][0]["id"]
         if last_id == None:
             Dispatches.setup()

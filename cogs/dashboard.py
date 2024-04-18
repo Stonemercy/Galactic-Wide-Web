@@ -83,7 +83,7 @@ class DashboardCog(commands.Cog):
         for chunk in chunked_messages:
             for message in chunk:
                 self.bot.loop.create_task(self.update_message(message, data))
-            await sleep(1)
+            await sleep(2)
 
     @dashboard.before_loop
     async def before_dashboard(self):
@@ -111,7 +111,7 @@ class DashboardCog(commands.Cog):
             for message in chunk:
                 self.bot.loop.create_task(self.update_message(message, data))
                 dashboards_updated += 1
-            await sleep(1)
+            await sleep(2)
         await inter.send(
             f"Attempted to update {dashboards_updated} dashboards",
             ephemeral=True,

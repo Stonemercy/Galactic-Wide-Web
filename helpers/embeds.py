@@ -194,23 +194,23 @@ class CampaignEmbeds:
                 title=f"VICTORY IN {planet_status['name']}!",
             )
             if defended == True:
-                self.description = f"{planet_status['name']} has successfully pushed back the attacks thanks to the brave actions of **{planet_status['statistics']['playerCount']} Helldivers**"
+                self.description = f"**{planet_status['name']}** has successfully pushed back the attacks thanks to the brave actions of **{planet_status['statistics']['playerCount']}** Helldivers"
                 self.set_image(
                     "https://cdn.discordapp.com/attachments/1212735927223590974/1224286105726222386/freedom.gif?ex=661cf049&is=660a7b49&hm=ac1f27724e7b998593793abab579e4cfd8b52972c54a03a6c21aaace35a9dd09&"
                 )
             else:
-                self.description = f"{planet_status['name']} has been successfully liberated from the {liberated_from.capitalize()} thanks to the brave actions of **{planet_status['statistics']['playerCount']} Helldivers**"
+                self.description = f"**{planet_status['name']}** has been successfully liberated from the **{liberated_from.capitalize()}** thanks to the brave actions of **{planet_status['statistics']['playerCount']}** Helldivers"
                 self.set_image(
                     "https://cdn.discordapp.com/attachments/1212735927223590974/1224286105726222386/freedom.gif?ex=661cf049&is=660a7b49&hm=ac1f27724e7b998593793abab579e4cfd8b52972c54a03a6c21aaace35a9dd09&"
                 )
 
     class CampaignLoss(Embed):
         def __init__(self, planet_status, defended: bool, liberator: str = None):
-            super().__init__(colour=Colour.dark_grey(), title="Tragic Loss")
+            super().__init__(colour=Colour.from_rgb(0, 0, 0), title="Tragic Loss")
             if defended == True:
                 self.description = f"{planet_status['name']} has been taken by the **{liberator}**\nWe must not let them keep it!"
             else:
-                self.description = f"We have failed to take {planet_status['name']} from the {planet_status['currentOwner']}.\nWe must try harder next time!"
+                self.description = f"We have failed to take **{planet_status['name']}** from the **{planet_status['currentOwner']}**.\nWe must try harder next time!"
 
 
 class Dashboard:
