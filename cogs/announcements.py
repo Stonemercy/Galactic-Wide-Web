@@ -101,7 +101,7 @@ class AnnouncementsCog(commands.Cog):
             for chunk in chunked_channels:
                 for channel in chunk:
                     self.bot.loop.create_task(self.send_embed(channel, embed))
-                await sleep(2)  # keep at 2
+                await sleep(2)
 
     @major_order_check.before_loop
     async def before_mo_check(self):
@@ -111,7 +111,7 @@ class AnnouncementsCog(commands.Cog):
     async def dispatch_check(self):
         last_id = Dispatches.get_last_id()
         data = await pull_from_api(get_dispatches=True)
-        if data == None:
+        if data["dispatches"] == None:
             return
         self.newest_id = data["dispatches"][0]["id"]
         if last_id == None:
@@ -125,7 +125,7 @@ class AnnouncementsCog(commands.Cog):
             for chunk in chunked_channels:
                 for channel in chunk:
                     self.bot.loop.create_task(self.send_embed(channel, embed))
-                await sleep(2)  # keep at 2
+                await sleep(2)
 
     @dispatch_check.before_loop
     async def before_dispatch_check(self):
@@ -149,7 +149,7 @@ class AnnouncementsCog(commands.Cog):
             for chunk in chunked_patch_channels:
                 for channel in chunk:
                     self.bot.loop.create_task(self.send_embed(channel, embed))
-                await sleep(2)  # keep at 2
+                await sleep(2)
 
     @steam_check.before_loop
     async def before_steam_check(self):
