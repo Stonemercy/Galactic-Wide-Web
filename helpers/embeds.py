@@ -343,7 +343,7 @@ class Dashboard:
                         f"Heroes: **{i['statistics']['playerCount']:,}**\n"
                         f"Event health:\n"
                         f"{event_health_bar}\n"
-                        f"`{(i['health'] / i['maxHealth']):^25,.2%}`\n"
+                        f"`{(i['event']['health'] / i['event']['maxHealth']):^25,.2%}`\n"
                         "\u200b\n"
                     ),
                     inline=False,
