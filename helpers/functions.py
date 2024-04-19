@@ -15,15 +15,15 @@ def health_bar(
         return ""
     perc = ceil((current_health / max_health) * 10)
     health_icon_dict = {
-        "Terminids": "<:terminid_colour:1229360523217342475>",
-        "Automaton": "<:auto_colour:1229360519689801738>",
-        "Illuminate": "<:illuminate_colour:1229360521002618890>",
-        "Humans": "<:human_colour:1229362077974401024>",
-        "MO": "<:mo_colour:1229360522181476403>",
+        "Terminids": "<:tc:1229360523217342475>",
+        "Automaton": "<:ac:1229360519689801738>",
+        "Illuminate": "<:ic:1229360521002618890>",
+        "Humans": "<:hc:1229362077974401024>",
+        "MO": "<:moc:1229360522181476403>",
     }
     progress_bar = health_icon_dict[race] * perc
     while perc < 10:
-        progress_bar += "<:no_colour:1229450109901606994>"
+        progress_bar += "<:nc:1229450109901606994>"
         perc += 1
     return progress_bar
 

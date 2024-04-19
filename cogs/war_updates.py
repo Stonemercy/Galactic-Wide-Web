@@ -86,12 +86,13 @@ class WarUpdatesCog(commands.Cog):
                     planet_thumbnail,
                 )
                 chunked_channels = [
-                    self.channels[i : i + 20] for i in range(0, len(self.channels), 20)
+                    self.channels[i : i + 100]
+                    for i in range(0, len(self.channels), 100)
                 ]
                 for chunk in chunked_channels:
                     for channel in chunk:
                         self.bot.loop.create_task(self.send_campaign(channel, embed))
-                    await sleep(2)
+                    await sleep(60)
             return
 
         old_campaign_ids = []
@@ -111,15 +112,15 @@ class WarUpdatesCog(commands.Cog):
                         defended=True,
                     )
                     chunked_channels = [
-                        self.channels[i : i + 20]
-                        for i in range(0, len(self.channels), 20)
+                        self.channels[i : i + 100]
+                        for i in range(0, len(self.channels), 100)
                     ]
                     for chunk in chunked_channels:
                         for channel in chunk:
                             self.bot.loop.create_task(
                                 self.send_campaign(channel, embed)
                             )
-                        await sleep(2)
+                        await sleep(60)
                     Campaigns.remove_campaign(old_campaign[0])
                 if planet["currentOwner"] != old_campaign[2]:  # if owner has changed
                     if old_campaign[2] == "Humans":  # if defence campaign loss
@@ -129,15 +130,15 @@ class WarUpdatesCog(commands.Cog):
                             liberator=planet["currentOwner"],
                         )
                         chunked_channels = [
-                            self.channels[i : i + 20]
-                            for i in range(0, len(self.channels), 20)
+                            self.channels[i : i + 100]
+                            for i in range(0, len(self.channels), 100)
                         ]
                         for chunk in chunked_channels:
                             for channel in chunk:
                                 self.bot.loop.create_task(
                                     self.send_campaign(channel, embed)
                                 )
-                            await sleep(2)
+                            await sleep(60)
                         Campaigns.remove_campaign(old_campaign[0])
                     elif planet["currentOwner"] == "Humans":  # if attack campaign win
                         embed = CampaignEmbeds.CampaignVictory(
@@ -146,32 +147,32 @@ class WarUpdatesCog(commands.Cog):
                             liberated_from=old_campaign[2],
                         )
                         chunked_channels = [
-                            self.channels[i : i + 20]
-                            for i in range(0, len(self.channels), 20)
+                            self.channels[i : i + 100]
+                            for i in range(0, len(self.channels), 100)
                         ]
                         for chunk in chunked_channels:
                             for channel in chunk:
                                 self.bot.loop.create_task(
                                     self.send_campaign(channel, embed)
                                 )
-                        await sleep(2)
+                        await sleep(60)
                         Campaigns.remove_campaign(old_campaign[0])
-                else:
+                elif planet["currentOwner"] != "Humans":
                     embed = CampaignEmbeds.CampaignLoss(
                         planet,
                         defended=False,
                         liberator=planet["currentOwner"],
                     )
                     chunked_channels = [
-                        self.channels[i : i + 20]
-                        for i in range(0, len(self.channels), 20)
+                        self.channels[i : i + 100]
+                        for i in range(0, len(self.channels), 100)
                     ]
                     for chunk in chunked_channels:
                         for channel in chunk:
                             self.bot.loop.create_task(
                                 self.send_campaign(channel, embed)
                             )
-                        await sleep(2)
+                        await sleep(60)
                     Campaigns.remove_campaign(old_campaign[0])
 
         for new_campaign in new_campaigns:  # loop through new campaigns
@@ -210,12 +211,13 @@ class WarUpdatesCog(commands.Cog):
                     time_remaining,
                 )
                 chunked_channels = [
-                    self.channels[i : i + 20] for i in range(0, len(self.channels), 20)
+                    self.channels[i : i + 100]
+                    for i in range(0, len(self.channels), 100)
                 ]
                 for chunk in chunked_channels:
                     for channel in chunk:
                         self.bot.loop.create_task(self.send_campaign(channel, embed))
-                    await sleep(2)
+                    await sleep(60)
                 Campaigns.new_campaign(
                     new_campaign["id"],
                     new_campaign["planet"]["name"],

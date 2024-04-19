@@ -5,16 +5,21 @@ from data.lists import reward_types
 
 
 class Planet(Embed):
-    def __init__(self, data, thumbnail_url: str):
+    def __init__(self, data, thumbnail_url: str, biome, enviros):
         super().__init__(colour=Colour.blue())
         self.planet = data
         planet_health_bar = health_bar(
             self.planet["health"], self.planet["maxHealth"], self.planet["currentOwner"]
         )
+        enviros_text = ""
+        for i in enviros:
+            enviros_text += f"**\n{i['name']}**\n*{i['description']}*\n"
         self.add_field(
             f"__**{self.planet['name']}**__",
             (
                 f"Sector: **{self.planet['sector']}**\n"
+                f"Biome: **{biome['name']}**\n*{biome['description']}*\n"
+                f"Environmentals: {enviros_text}\n"
                 f"Planet health:\n"
                 f"{planet_health_bar}\n"
                 f"`{(self.planet['health'] / self.planet['maxHealth']):^25,.2%}`\n"
@@ -230,7 +235,8 @@ class Dashboard:
 
         # make embeds
         self.defend_embed = Embed(title="Defending", colour=Colour.blue())
-        self.attack_embed = Embed(title="Attacking", colour=Colour.red())
+        self.automaton_embed = Embed(title="Attacking Automatons", colour=Colour.red())
+        self.terminids_embed = Embed(title="Attacking Terminids", colour=Colour.red())
         self.major_orders_embed = Embed(title="Major Order", colour=Colour.yellow())
 
         # Major Orders
@@ -274,7 +280,7 @@ class Dashboard:
                         f"Succeed in the defence of at least {i['values'][0]} planets",
                         (
                             f"Current progress: {self.assignment['progress'][0]}/{i['values'][0]}\n"
-                            f"{event_health_bar}"
+                            f"{event_health_bar}\n"
                             f"`{(self.assignment['progress'][0] / i['values'][0]):^25,.2%}`\n"
                         ),
                         inline=False,
@@ -309,7 +315,9 @@ class Dashboard:
                 f"<t:{int(datetime.fromisoformat(self.assignment['expiration']).timestamp())}:R>",
             )
         if len(self.major_orders_embed.fields) < 1:
-            self.major_orders_embed.add_field("There are no Major Orders", "\u200b")
+            self.major_orders_embed.add_field(
+                "Stand by for further orders from Super Earth High Command", "\u200b"
+            )
 
         # Defending
         if self.planet_events != None:
@@ -355,7 +363,8 @@ class Dashboard:
             )
 
         # Attacking
-        self.attack_embed.set_thumbnail("https://helldivers.io/img/attack.png")
+        self.terminids_embed.set_thumbnail("https://helldivers.io/img/attack.png")
+        self.automaton_embed.set_thumbnail("https://helldivers.io/img/attack.png")
         for i in self.campaigns:
             if i["planet"]["event"] != None:
                 continue
@@ -366,8 +375,7 @@ class Dashboard:
                 i["planet"]["currentOwner"],
             )
             if i["planet"]["currentOwner"] == "Automaton":
-                self.attack_embed.insert_field_at(
-                    0,
+                self.automaton_embed.add_field(
                     f"{faction_icon} - __**{i['planet']['name']}**__ - Battle **#{i['count']}**",
                     (
                         f"Sector: **{i['planet']['sector']}**\n"
@@ -382,7 +390,7 @@ class Dashboard:
                     inline=False,
                 )
             else:
-                self.attack_embed.add_field(
+                self.terminids_embed.add_field(
                     f"{faction_icon} - __**{i['planet']['name']}**__ - Battle **#{i['count']}**",
                     (
                         f"Sector: **{i['planet']['sector']}**\n"
@@ -399,20 +407,191 @@ class Dashboard:
 
         # Other
         self.timestamp = int(self.now.timestamp())
-        self.attack_embed.add_field(
+        self.terminids_embed.add_field(
             "\u200b",
             f"Updated on <t:{self.timestamp}:f> - <t:{self.timestamp}:R>",
             inline=False,
         )
 
-        self.attack_embed.set_image("https://i.imgur.com/cThNy4f.png")
+        self.automaton_embed.set_image("https://i.imgur.com/cThNy4f.png")
+        self.terminids_embed.set_image("https://i.imgur.com/cThNy4f.png")
         self.defend_embed.set_image("https://i.imgur.com/cThNy4f.png")
         self.major_orders_embed.set_image("https://i.imgur.com/cThNy4f.png")
         self.embeds = [
             self.major_orders_embed,
             self.defend_embed,
-            self.attack_embed,
+            self.automaton_embed,
+            self.terminids_embed,
         ]
+
+
+class Items:
+    class Weapons:
+        class Primary(Embed):
+            def __init__(
+                self, primary: dict, types: dict, fire_modes: dict, traits: dict
+            ):
+                super().__init__(
+                    colour=Colour.blue(),
+                    title=primary["name"],
+                    description=primary["description"],
+                )
+                gun_fire_modes = ""
+                features = ""
+                for i in primary["fire_mode"]:
+                    gun_fire_modes += f"\n- {fire_modes[str(i)]}"
+                for i in primary["traits"]:
+                    features += f"\n- {traits[str(i)]}"
+                if types[str(primary["type"])] == "Energy-based":
+                    primary["capacity"] = (
+                        f"{primary['capacity']} seconds of constant fire"
+                    )
+                self.add_field(
+                    "Information",
+                    (
+                        f"Type: **{types[str(primary['type'])]}**\n"
+                        f"Damage: **{primary['damage']}**\n"
+                        f"Fire Rate: **{primary['fire_rate']}rpm**\n"
+                        f"DPS: **{(primary['damage']*primary['fire_rate'])/60:.2f}/s**\n"
+                        f"Capacity: **{primary['capacity']}**\n"
+                        f"Fire Modes:**{gun_fire_modes}**"
+                        f"Features:**{features}**"
+                    ),
+                )
+                try:
+                    self.set_thumbnail(
+                        file=File(
+                            f"resources/weapons/{primary['name'].replace(' ', '-')}.png"
+                        )
+                    )
+                except:
+                    pass
+
+        class Secondary(Embed):
+            def __init__(self, secondary: dict, fire_modes: dict, traits: dict):
+                super().__init__(
+                    colour=Colour.blue(),
+                    title=secondary["name"],
+                    description=secondary["description"],
+                )
+                gun_fire_modes = ""
+                features = ""
+                for i in secondary["fire_mode"]:
+                    gun_fire_modes += f"\n- {fire_modes[str(i)]}"
+                for i in secondary["traits"]:
+                    features += f"\n- {traits[str(i)]}"
+                if secondary["fire_rate"] == 0:
+                    secondary["capacity"] = (
+                        f"{secondary['capacity']} seconds of constant fire"
+                    )
+                self.add_field(
+                    "Information",
+                    (
+                        f"Damage: **{secondary['damage']}**\n"
+                        f"Fire Rate: **{secondary['fire_rate']}rpm**\n"
+                        f"DPS: **{(secondary['damage']*secondary['fire_rate'])/60:.2f}/s**\n"
+                        f"Capacity: **{secondary['capacity']}**\n"
+                        f"Fire Modes:**{gun_fire_modes}**"
+                        f"Features:**{features}**"
+                    ),
+                )
+                try:
+                    self.set_thumbnail(
+                        file=File(
+                            f"resources/weapons/{secondary['name'].replace(' ', '-')}.png"
+                        )
+                    )
+                except:
+                    pass
+
+        class Grenade(Embed):
+            def __init__(self, grenade: dict):
+                super().__init__(
+                    colour=Colour.blue(),
+                    title=grenade["name"],
+                    description=grenade["description"],
+                )
+                self.add_field(
+                    "Information",
+                    (
+                        f"Damage: **{grenade['damage']}**\n"
+                        f"Fuse Time: **{grenade['fuse_time']} seconds**\n"
+                        f"Penetration: **{grenade['penetration']}**\n"
+                        f"Radius: **{grenade['outer_radius']}**"
+                    ),
+                )
+                try:
+                    self.set_thumbnail(
+                        file=File(
+                            f"resources/weapons/{grenade['name'].replace(' ', '-')}.png"
+                        )
+                    )
+                except:
+                    pass
+
+    class Armour(Embed):
+        def __init__(self, armour: dict, passives: dict, slots: dict):
+            super().__init__(
+                colour=Colour.blue(),
+                title=armour["name"],
+                description=armour["description"],
+            )
+            self.add_field(
+                "Information",
+                (
+                    f"Slot: **{slots[str(armour['slot'])]}**\n"
+                    f"Armour Rating: **{armour['armor_rating']}**\n"
+                    f"Speed: **{armour['speed']}**\n"
+                    f"Stamina Regen: **{armour['stamina_regen']}**\n"
+                    f"Passive effect:\n"
+                    f"- {passives[str(armour['passive'])]}"
+                ),
+            )
+            try:
+                self.set_thumbnail(
+                    file=File(
+                        f"resources/armour/{armour['name'].replace(' ', '-')}.png"
+                    )
+                )
+            except:
+                pass
+
+    class Booster(Embed):
+        def __init__(self, booster: dict):
+            super().__init__(
+                colour=Colour.blue(),
+                title=booster["name"],
+                description=booster["description"],
+            )
+            try:
+                self.set_thumbnail(file=File(f"resources/boosters/booster.png"))
+            except:
+                pass
+
+    class Warbond(list):
+        def __init__(
+            self,
+            warbond: dict,
+            formatted_name: str,
+            item_names: dict,
+        ):
+            super().__init__()
+            for i, j in warbond.items():
+                embed = Embed(
+                    colour=Colour.blue(),
+                    title=formatted_name,
+                    description=f"Page {i}\nMedals to unlock: {j['medals_to_unlock']}",
+                )
+                item_number = 1
+                for item in j["items"]:
+                    embed.add_field(
+                        f"{item_names[str(item['item_id'])]['name']}",
+                        f"Medal cost: **{item['medal_cost']}**",
+                    )
+                    if item_number % 2 == 0:
+                        embed.add_field("", "")
+                    item_number += 1
+                self.append(embed)
 
 
 class Weapons:

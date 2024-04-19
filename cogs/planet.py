@@ -3,11 +3,19 @@ from disnake.ext import commands
 from helpers.embeds import Planet
 from data.lists import planets
 from helpers.functions import pull_from_api
+from json import load
 
 
 class PlanetCog(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
+        self.planets_json = load(
+            open("data/json/planets/planets.json", encoding="UTF-8")
+        )
+        self.biomes = load(open("data/json/planets/biomes.json", encoding="UTF-8"))
+        self.environmentals = load(
+            open("data/json/planets/environmentals.json", encoding="UTF-8")
+        )
         print("Planet cog has finished loading")
 
     async def planet_autocomp(inter: AppCmdInter, user_input: str):
@@ -43,7 +51,12 @@ class PlanetCog(commands.Cog):
                 break
         if planet_data == None:
             return await inter.send("Information on that planet is unavailable.")
-        embed = Planet(planet_data, planet_thumbnail)
+        planet_json = self.planets_json[str(planet_data["index"])]
+        planet_biome = self.biomes[planet_json["biome"]]
+        planet_enviros = []
+        for i in planet_json["environmentals"]:
+            planet_enviros.append(self.environmentals[i])
+        embed = Planet(planet_data, planet_thumbnail, planet_biome, planet_enviros)
         await inter.send(embed=embed)
 
 

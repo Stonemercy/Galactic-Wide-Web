@@ -1,16 +1,64 @@
 from disnake import AppCmdInter
 from disnake.ext import commands
-from helpers.embeds import Weapons
-from data.lists import weapons
+from helpers.embeds import Items
+from json import load
 
 
 class WeaponsCog(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
+
+        self.types = load(open("data/json/items/weapons/types.json"))
+        self.fire_modes = load(open("data/json/items/weapons/fire_modes.json"))
+        self.traits = load(open("data/json/items/weapons/traits.json"))
+
+        self.primaries = load(open("data/json/items/weapons/primary.json"))
+        self.primaries["item_list"] = {}
+        for i, j in self.primaries.items():
+            if i == "item_list":
+                continue
+            self.primaries["item_list"][j["name"]] = j
+        self.primaries = self.primaries["item_list"]
+
+        self.secondaries = load(open("data/json/items/weapons/secondary.json"))
+        self.secondaries["item_list"] = {}
+        for i, j in self.secondaries.items():
+            if i == "item_list":
+                continue
+            self.secondaries["item_list"][j["name"]] = j
+        self.secondaries = self.secondaries["item_list"]
+
+        self.grenades = load(open("data/json/items/weapons/grenades.json"))
+        self.grenades["item_list"] = {}
+        for i, j in self.grenades.items():
+            if i == "item_list":
+                continue
+            self.grenades["item_list"][j["name"]] = j
+        self.grenades = self.grenades["item_list"]
         print("Weapons cog has finished loading")
 
-    async def weapon_autocomp(inter: AppCmdInter, user_input: str):
-        return [command for command in weapons if user_input in command.lower()]
+    async def primary_autocomp(inter: AppCmdInter, user_input: str):
+        primaries_json = load(open("data/json/items/weapons/primary.json"))
+        primaries = []
+        for i in primaries_json.values():
+            primaries.append(i["name"])
+        return [primary for primary in primaries if user_input in primary.lower()]
+
+    async def secondary_autocomp(inter: AppCmdInter, user_input: str):
+        secondaries_json = load(open("data/json/items/weapons/secondary.json"))
+        secondaries = []
+        for i in secondaries_json.values():
+            secondaries.append(i["name"])
+        return [
+            secondary for secondary in secondaries if user_input in secondary.lower()
+        ]
+
+    async def grenade_autocomp(inter: AppCmdInter, user_input: str):
+        grenades_json = load(open("data/json/items/weapons/grenades.json"))
+        grenades = []
+        for i in grenades_json.values():
+            grenades.append(i["name"])
+        return [grenade for grenade in grenades if user_input in grenade.lower()]
 
     @commands.slash_command(
         description="Get info on one of the weapons used in the fight for democracy"
@@ -21,67 +69,64 @@ class WeaponsCog(commands.Cog):
     ):
         pass
 
-    @weapons.sub_command(description="Get a specific weapon's stats")
-    async def specific(
+    @weapons.sub_command(description="Get a specific primary weapon's stats")
+    async def primary(
         self,
         inter: AppCmdInter,
-        weapon: str = commands.Param(autocomplete=weapon_autocomp),
+        primary: str = commands.Param(autocomplete=primary_autocomp),
     ):
-        if weapon not in weapons:
+        if primary not in self.primaries:
             return await inter.send(
                 (
                     "That weapon isn't in my list, please try again.\n"
                     "||If you believe this is a mistake, please contact my Support Server||"
                 ),
                 ephemeral=True,
+                delete_after=10,
             )
-        weapon_info = weapons[weapon]
-        embed = Weapons.Single(weapon, weapon_info)
+        chosen_primary = self.primaries[primary]
+        embed = Items.Weapons.Primary(
+            chosen_primary, self.types, self.fire_modes, self.traits
+        )
         return await inter.send(embed=embed)
 
-    # SORT BY #####################################################################
-    @weapons.sub_command(description="Returns 6 weapons")
-    async def by(
+    @weapons.sub_command(description="Get a specific secondary weapon's stats")
+    async def secondary(
         self,
         inter: AppCmdInter,
-        stat: str = commands.Param(
-            default=None,
-            choices=["DPS", "Damage", "Fire Rate"],
-            description="The stat you want the weapons sorted by",
-        ),
-        weapon_type: str = commands.Param(
-            name="type",
-            default=None,
-            choices=[
-                "Pistol",
-                "Shotgun",
-                "Energy-Based",
-                "Explosive",
-                "Submachine Gun",
-                "Marksman Rifle",
-                "Assault Rifle",
-            ],
-            description="The weapon type you want to get",
-        ),
+        secondary: str = commands.Param(autocomplete=secondary_autocomp),
     ):
-        if stat is not None and weapon_type is not None:
+        if secondary not in self.secondaries_id_dict:
             return await inter.send(
-                "Please only use one filter/sort at a time", ephemeral=True
+                (
+                    "That weapon isn't in my list, please try again.\n"
+                    "||If you believe this is a mistake, please contact my Support Server||"
+                ),
+                ephemeral=True,
+                delete_after=10,
             )
-        elif stat is not None:
-            stat = stat.lower()
-            sorted_by_stat = sorted(
-                weapons.items(), key=lambda x: x[1][stat], reverse=True
-            )[0:6]
-            embed = Weapons.All(sorted_by_stat)
-            return await inter.send(embed=embed)
-        elif weapon_type is not None:
-            sorted_by_type = []
-            for i, j in weapons.items():
-                if weapon_type == j["type"]:
-                    sorted_by_type.append((i, j))
-            embed = Weapons.All(sorted_by_type)
-            return await inter.send(embed=embed)
+        chosen_secondary = self.secondaries[self.secondaries_id_dict[secondary]]
+        embed = Items.Weapons.Secondary(chosen_secondary, self.fire_modes, self.traits)
+        return await inter.send(embed=embed)
+
+    @weapons.sub_command(description="Get a specific secondary weapon's stats")
+    async def grenade(
+        self,
+        inter: AppCmdInter,
+        grenade: str = commands.Param(autocomplete=grenade_autocomp),
+    ):
+        if grenade not in self.grenades_id_dict:
+            return await inter.send(
+                (
+                    "That grenade isn't in my list, please try again.\n"
+                    "||If you believe this is a mistake, please contact my Support Server||"
+                ),
+                ephemeral=True,
+                delete_after=10,
+            )
+        chosen_grenade = self.grenades[self.grenades_id_dict[grenade]]
+        embed = Items.Weapons.Grenade(chosen_grenade)
+        return await inter.send(embed=embed)
 
 
 def setup(bot: commands.Bot):
