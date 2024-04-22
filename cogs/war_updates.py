@@ -2,7 +2,7 @@ from asyncio import sleep
 from disnake import TextChannel
 from disnake.ext import commands, tasks
 from helpers.db import Campaigns, Guilds
-from helpers.embeds import CampaignEmbed, CampaignEmbeds
+from helpers.embeds import CampaignEmbed
 from helpers.functions import pull_from_api
 from datetime import datetime
 
