@@ -11,9 +11,9 @@ class AnnouncementsCog(commands.Cog):
         self.bot = bot
         self.channels = []
         self.patch_channels = []
-        self.major_order_check.start()
         self.cache_channels.start()
         self.cache_patch_channels.start()
+        self.major_order_check.start()
         self.dispatch_check.start()
         self.steam_check.start()
         print("Announcements cog has finished loading")
@@ -112,6 +112,8 @@ class AnnouncementsCog(commands.Cog):
         last_id = Dispatches.get_last_id()
         data = await pull_from_api(get_dispatches=True)
         if data["dispatches"] == None:
+            return
+        if data["dispatches"][0]["message"] == None:
             return
         self.newest_id = data["dispatches"][0]["id"]
         if last_id == None:

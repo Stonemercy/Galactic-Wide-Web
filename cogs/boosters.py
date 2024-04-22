@@ -40,7 +40,7 @@ class BoostersCog(commands.Cog):
             )
         chosen_booster = self.boosters[booster]
         embed = Items.Booster(chosen_booster)
-        return await inter.send(embed=embed)
+        return await inter.send(embed=embed, ephemeral=True)
 
 
 def setup(bot: commands.Bot):

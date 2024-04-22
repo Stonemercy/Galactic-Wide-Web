@@ -74,6 +74,12 @@ class SetupCog(commands.Cog):
             )
 
         if dashboard_channel != None:
+            if dashboard_channel.id == guild_in_db[1]:
+                Guilds.update_dashboard(inter.guild_id, 0, 0)
+                return await inter.send(
+                    "I have unset your Dashboard. You are free to delete any old Dashboards in this server.",
+                    ephemeral=True,
+                )
             dashboard_perms_needed = Permissions(
                 send_messages=True,
                 view_channel=True,
@@ -134,6 +140,12 @@ class SetupCog(commands.Cog):
             messages.append(message)
 
         if announcement_channel != None:
+            if announcement_channel.id == guild_in_db[3]:
+                Guilds.update_announcement_channel(inter.guild_id, 0)
+                return await inter.send(
+                    "I have unset your Announcements channel.",
+                    ephemeral=True,
+                )
             annnnouncement_perms_needed = Permissions(
                 view_channel=True, send_messages=True, embed_links=True
             )

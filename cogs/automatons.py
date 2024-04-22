@@ -77,7 +77,7 @@ class AutomatonsCog(commands.Cog):
         elif variation != None:
             variation_info = self.variations_dict[variation]
             embed = Automaton(variation, variation_info, variation=True)
-        return await inter.send(embed=embed)
+        return await inter.send(embed=embed, ephemeral=True)
 
 
 def setup(bot: commands.Bot):

@@ -18,6 +18,7 @@ class Planet(Embed):
             f"__**{self.planet['name']}**__",
             (
                 f"Sector: **{self.planet['sector']}**\n"
+                f"Owner: **{self.planet['currentOwner']}**\n"
                 f"Biome: **{biome['name']}**\n*{biome['description']}*\n"
                 f"Environmentals: {enviros_text}\n"
                 f"Planet health:\n"
@@ -62,7 +63,7 @@ class Planet(Embed):
                 name="Liberation Progress",
                 icon_url="https://cdn.discordapp.com/emojis/1215036421551685672.webp?size=44&quality=lossless",
             )
-        elif self.planet["currentOwner"] == "Terminid":
+        elif self.planet["currentOwner"] == "Terminids":
             self.add_field(
                 "Terminid Kills:",
                 f"**{short_format(self.planet['statistics']['terminidKills'])}**",
@@ -141,81 +142,42 @@ class SteamEmbed(Embed):
         self.description = content
 
 
-class CampaignEmbeds:
-    class NewCampaign(Embed):
-        def __init__(
-            self,
-            campaign,
-            planet_status,
-            thumbnail_link: str = None,
-            time_remaining=None,
-        ):
-            super().__init__(
-                title="**⚠️ URGENT CALL TO ALL HELLDIVERS ⚠️**", colour=Colour.brand_red()
-            )
-            faction_dict = {
-                "Automaton": "<:automaton:1215036421551685672>",
-                "Terminids": "<:terminid:1215036423090999376>",
-                "Illuminate": "<:illuminate:1218283483240206576>",
-            }
-            faction_colour = {
-                "Automaton": Colour.from_rgb(r=252, g=76, b=79),
-                "Terminids": Colour.from_rgb(r=253, g=165, b=58),
-                "Illuminate": Colour.from_rgb(r=116, g=163, b=180),
-            }
-            if thumbnail_link != None:
-                self.set_thumbnail(thumbnail_link)
-            if planet_status["currentOwner"] != "Humans":
-                self.colour = faction_colour[planet_status["currentOwner"]]
-                self.description = (
-                    f"**{campaign['planet']['name']}** has been under **{planet_status['currentOwner']}** {faction_dict[planet_status['currentOwner']]} control for too long!\n\n"
-                    f"Assist the other **{planet_status['statistics']['playerCount']}** Helldivers in the fight for **Democracy**"
-                )
-                self.add_field("Objective", "Attack")
-                self.add_field("Battle", f"#{campaign['count']}")
-                self.add_field(
-                    "Time spent in missions",
-                    f"{planet_status['statistics']['missionTime']/31556952:.1f} years",
-                )
-            elif planet_status["currentOwner"] == "Humans":
-                attacker = planet_status["event"]["faction"]
-                self.description = (
-                    f"**{campaign['planet']['name']}** requires defending from the **{attacker}** {faction_dict[attacker]}!\n\n"
-                    f"Assist the other **{planet_status['statistics']['playerCount']}** Helldivers in the fight for **Democracy**"
-                )
-                self.colour = Colour.blue()
-                self.add_field("Objective", "Defend")
-                self.add_field("Ends", time_remaining)
-            self.add_field(
-                "",
-                "[More info](https://helldivers.news/)",
-                inline=False,
-            )
+class CampaignEmbed(Embed):
+    def __init__(self):
+        super().__init__(title="⚠️Critical War Updates!⚠️", colour=Colour.brand_red())
+        self.add_field("New Battles", "", inline=False)
+        self.add_field("Battle Victories", "", inline=False)
+        self.faction_dict = {
+            "Automaton": "<:automaton:1215036421551685672>",
+            "Terminids": "<:terminid:1215036423090999376>",
+            "Illuminate": "<:illuminate:1218283483240206576>",
+        }
 
-    class CampaignVictory(Embed):
-        def __init__(self, planet_status, defended: bool, liberated_from: str = None):
-            super().__init__(
-                colour=Colour.brand_green(),
-                title=f"VICTORY IN {planet_status['name']}!",
-            )
-            if defended == True:
-                self.description = f"**{planet_status['name']}** has successfully pushed back the attacks thanks to the brave actions of **{planet_status['statistics']['playerCount']}** Helldivers"
-                self.set_image(
-                    "https://cdn.discordapp.com/attachments/1212735927223590974/1224286105726222386/freedom.gif?ex=661cf049&is=660a7b49&hm=ac1f27724e7b998593793abab579e4cfd8b52972c54a03a6c21aaace35a9dd09&"
-                )
-            else:
-                self.description = f"**{planet_status['name']}** has been successfully liberated from the **{liberated_from.capitalize()}** thanks to the brave actions of **{planet_status['statistics']['playerCount']}** Helldivers"
-                self.set_image(
-                    "https://cdn.discordapp.com/attachments/1212735927223590974/1224286105726222386/freedom.gif?ex=661cf049&is=660a7b49&hm=ac1f27724e7b998593793abab579e4cfd8b52972c54a03a6c21aaace35a9dd09&"
-                )
+    def add_new_campaign(self, campaign, time_remaining):
+        name = self.fields[0].name
+        description = self.fields[0].value
+        if time_remaining:
+            description += f"🛡️ Defend **{campaign['planet']['name']}**. Ends {time_remaining} {self.faction_dict[campaign['planet']['event']['faction']]}\n"
+        else:
+            description += f"⚔️ Liberate {campaign['planet']['name']} {self.faction_dict[campaign['planet']['currentOwner']]}\n"
+        self.set_field_at(0, name, description, inline=self.fields[0].inline)
 
-    class CampaignLoss(Embed):
-        def __init__(self, planet_status, defended: bool, liberator: str = None):
-            super().__init__(colour=Colour.from_rgb(0, 0, 0), title="Tragic Loss")
-            if defended == True:
-                self.description = f"{planet_status['name']} has been taken by the **{liberator}**\nWe must not let them keep it!"
-            else:
-                self.description = f"We have failed to take **{planet_status['name']}** from the **{planet_status['currentOwner']}**.\nWe must try harder next time!"
+    def add_campaign_victory(self, planet, liberatee):
+        name = self.fields[1].name
+        description = self.fields[1].value
+        description += f"**{planet['name']}** liberated from {liberatee} {self.faction_dict[liberatee]}!\n"
+        self.set_field_at(1, name, description, inline=self.fields[1].inline)
+
+    def add_def_victory(self, planet):
+        name = self.fields[1].name
+        description = self.fields[1].value
+        description += f"**{planet['name']}** has been successfully defended!\n"
+        self.set_field_at(1, name, description, inline=self.fields[1].inline)
+
+    def remove_empty(self):
+        for index, i in enumerate(self.fields):
+            if len(i.value) == 0:
+                self.remove_field(index)
 
 
 class Dashboard:
@@ -380,8 +342,6 @@ class Dashboard:
                     (
                         f"Sector: **{i['planet']['sector']}**\n"
                         f"Heroes: **{i['planet']['statistics']['playerCount']:,}**\n"
-                        f"Mission sucess rate: **{i['planet']['statistics']['missionSuccessRate']}%**\n"
-                        f"Automaton kill count: **{short_format(i['planet']['statistics']['automatonKills'])}**\n"
                         f"Planet health:\n"
                         f"{planet_health_bar}\n"
                         f"`{(i['planet']['health'] / i['planet']['maxHealth']):^25,.2%}`\n"
@@ -395,8 +355,6 @@ class Dashboard:
                     (
                         f"Sector: **{i['planet']['sector']}**\n"
                         f"Heroes: **{i['planet']['statistics']['playerCount']:,}**\n"
-                        f"Mission sucess rate: **{i['planet']['statistics']['missionSuccessRate']}%**\n"
-                        f"Terminid kill count: **{short_format(i['planet']['statistics']['terminidKills'])}**\n"
                         f"Planet Health:\n"
                         f"{planet_health_bar}\n"
                         f"`{(i['planet']['health'] / i['planet']['maxHealth']):^25,.2%}`\n"

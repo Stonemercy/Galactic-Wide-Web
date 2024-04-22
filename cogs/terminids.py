@@ -47,7 +47,7 @@ class TerminidsCog(commands.Cog):
     ):
         if not species and not variation:
             return await inter.send(
-                "<a:explodeybug:1219248670482890752>", delete_after=10.0
+                "<a:explodeybug:1219248670482890752>", delete_after=10.0, ephemeral=True
             )
         if species and variation:
             return await inter.send(
@@ -77,7 +77,7 @@ class TerminidsCog(commands.Cog):
         elif variation != None:
             variation_info = self.variations_dict[variation]
             embed = Terminid(variation, variation_info, variation=True)
-        return await inter.send(embed=embed)
+        return await inter.send(embed=embed, ephemeral=True)
 
 
 def setup(bot: commands.Bot):

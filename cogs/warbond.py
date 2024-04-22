@@ -40,7 +40,7 @@ class WarbondCog(commands.Cog):
             open(f"data/json/warbonds/{warbond.replace(' ', '_').lower()}.json")
         )
         embeds = Items.Warbond(chosen_warbond, warbond, self.item_names)
-        return await inter.send(embeds=embeds)
+        return await inter.send(embeds=embeds, ephemeral=True)
 
 
 def setup(bot: commands.Bot):

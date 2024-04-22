@@ -88,7 +88,7 @@ class WeaponsCog(commands.Cog):
         embed = Items.Weapons.Primary(
             chosen_primary, self.types, self.fire_modes, self.traits
         )
-        return await inter.send(embed=embed)
+        return await inter.send(embed=embed, ephemeral=True)
 
     @weapons.sub_command(description="Get a specific secondary weapon's stats")
     async def secondary(
@@ -96,7 +96,7 @@ class WeaponsCog(commands.Cog):
         inter: AppCmdInter,
         secondary: str = commands.Param(autocomplete=secondary_autocomp),
     ):
-        if secondary not in self.secondaries_id_dict:
+        if secondary not in self.secondaries:
             return await inter.send(
                 (
                     "That weapon isn't in my list, please try again.\n"
@@ -105,9 +105,9 @@ class WeaponsCog(commands.Cog):
                 ephemeral=True,
                 delete_after=10,
             )
-        chosen_secondary = self.secondaries[self.secondaries_id_dict[secondary]]
+        chosen_secondary = self.secondaries[secondary]
         embed = Items.Weapons.Secondary(chosen_secondary, self.fire_modes, self.traits)
-        return await inter.send(embed=embed)
+        return await inter.send(embed=embed, ephemeral=True)
 
     @weapons.sub_command(description="Get a specific secondary weapon's stats")
     async def grenade(
@@ -115,7 +115,7 @@ class WeaponsCog(commands.Cog):
         inter: AppCmdInter,
         grenade: str = commands.Param(autocomplete=grenade_autocomp),
     ):
-        if grenade not in self.grenades_id_dict:
+        if grenade not in self.grenades:
             return await inter.send(
                 (
                     "That grenade isn't in my list, please try again.\n"
@@ -124,9 +124,9 @@ class WeaponsCog(commands.Cog):
                 ephemeral=True,
                 delete_after=10,
             )
-        chosen_grenade = self.grenades[self.grenades_id_dict[grenade]]
+        chosen_grenade = self.grenades[grenade]
         embed = Items.Weapons.Grenade(chosen_grenade)
-        return await inter.send(embed=embed)
+        return await inter.send(embed=embed, ephemeral=True)
 
 
 def setup(bot: commands.Bot):
