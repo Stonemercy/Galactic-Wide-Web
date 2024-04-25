@@ -29,7 +29,7 @@ class TerminidsCog(commands.Cog):
         return [command for command in variations_list if user_input in command.lower()]
 
     @commands.slash_command(
-        description="Get information on a bug",
+        description="Returns information on a Terminid or variation.",
     )
     async def terminid(
         self,

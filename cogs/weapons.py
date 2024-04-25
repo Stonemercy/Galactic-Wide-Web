@@ -60,16 +60,14 @@ class WeaponsCog(commands.Cog):
             grenades.append(i["name"])
         return [grenade for grenade in grenades if user_input in grenade.lower()]
 
-    @commands.slash_command(
-        description="Get info on one of the weapons used in the fight for democracy"
-    )
+    @commands.slash_command(description="Returns information on a specific weapon.")
     async def weapons(
         self,
         inter: AppCmdInter,
     ):
         pass
 
-    @weapons.sub_command(description="Get a specific primary weapon's stats")
+    @weapons.sub_command(description="Use this for primary weapons")
     async def primary(
         self,
         inter: AppCmdInter,
@@ -90,7 +88,7 @@ class WeaponsCog(commands.Cog):
         )
         return await inter.send(embed=embed, ephemeral=True)
 
-    @weapons.sub_command(description="Get a specific secondary weapon's stats")
+    @weapons.sub_command(description="Use this for secondary weapons")
     async def secondary(
         self,
         inter: AppCmdInter,
@@ -109,7 +107,7 @@ class WeaponsCog(commands.Cog):
         embed = Items.Weapons.Secondary(chosen_secondary, self.fire_modes, self.traits)
         return await inter.send(embed=embed, ephemeral=True)
 
-    @weapons.sub_command(description="Get a specific secondary weapon's stats")
+    @weapons.sub_command(description="Use this for grenades")
     async def grenade(
         self,
         inter: AppCmdInter,

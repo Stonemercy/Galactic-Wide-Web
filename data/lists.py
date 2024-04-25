@@ -543,4 +543,18 @@ language_change_dict = {
     "中文": "该服务器的GWW语言已更新为中文。",
 }
 
-reward_types = {1: "Medals"}
+emojis_dict = {
+    "Semi Automatic": "<:semiautomatic:1233068104029044838>",
+    "Burst": "<:burst:1233068096885882932>",
+    "Automatic": "<:automatic:1233068105442263121>",
+    "Pump Action": "",
+    "Double Action": "",
+    "Beam": "<:beam:1233068107065458858>",
+    "Heat": "<:heat:1233071845612191874>",
+    "Explosive": "<:explosive:1233069923539091476>",
+    "Light Armor Penetrating": "<:lightarmorpenetrating:1233068100992106498>",
+    "Medium Armor Penetrating": "<:mediumarmorpenetrating:1233068102451724422>",
+    "Heavy Armor Penetrating": "<:heavyarmorpenetrating:1233068099587018773>",
+    "One Handed": "",
+    "Rounds Reload": "",
+}

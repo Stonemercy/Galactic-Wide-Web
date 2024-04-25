@@ -23,7 +23,9 @@ class BoostersCog(commands.Cog):
             boosters.append(i["name"])
         return [booster for booster in boosters if user_input in booster.lower()]
 
-    @commands.slash_command(description="Get info on some armour.")
+    @commands.slash_command(
+        description="Returns the description of a specific booster."
+    )
     async def booster(
         self,
         inter: AppCmdInter,

@@ -31,7 +31,7 @@ class AutomatonsCog(commands.Cog):
         return [command for command in variations_list if user_input in command.lower()]
 
     @commands.slash_command(
-        description="Get information on a bot",
+        description="Returns information on an Automaton or variation.",
     )
     async def automaton(
         self,
@@ -39,12 +39,12 @@ class AutomatonsCog(commands.Cog):
         species: str = commands.Param(
             autocomplete=automatons_autocomp,
             default=None,
-            description="A specific 'main' bot",
+            description="A specific 'main' automaton",
         ),
         variation: str = commands.Param(
             autocomplete=variations_autocomp,
             default=None,
-            description="A specific variant of a bot",
+            description="A specific variant of an automaton",
         ),
     ):
         if not species and not variation:

@@ -16,24 +16,28 @@ class HelpCog(commands.Cog):
         return [command for command in commands_list if user_input in command.lower()]
 
     @commands.slash_command(
-        description="Get some help for a specific command, or a list of every command"
+        description='Get some help for a specific command, or a list of every command by using "all".'
     )
     async def help(
         self,
         inter: AppCmdInter,
         command: str = commands.Param(autocomplete=help_autocomp),
     ):
-        await inter.response.defer()
+        await inter.response.defer(ephemeral=True)
         help_embed = HelpEmbed()
         if command == "all":
             for i in inter.bot.global_slash_commands:
-                help_embed.add_field(i.name, i.description, inline=False)
+                help_embed.add_field(f"/{i.name}", i.description, inline=False)
             return await inter.send(embed=help_embed, ephemeral=True)
         else:
-            for i in inter.bot.global_slash_commands:
-                if i.name == command:
-                    help_embed.add_field(i.name, i.description)
-                    return await inter.send(embed=help_embed, ephemeral=True)
+            command_help = list(
+                filter(
+                    lambda cmd: cmd.name == command,
+                    self.bot.global_application_commands,
+                )
+            )[0]
+            help_embed.add_field(command_help.name, command_help.description)
+            return await inter.send(embed=help_embed, ephemeral=True)
 
 
 def setup(bot: commands.Bot):

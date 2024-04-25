@@ -1,4 +1,4 @@
-from disnake import AppCmdInter
+from disnake import AppCmdInter, File
 from disnake.ext import commands
 from helpers.embeds import Planet
 from data.lists import planets
@@ -21,11 +21,12 @@ class PlanetCog(commands.Cog):
     async def planet_autocomp(inter: AppCmdInter, user_input: str):
         return [command for command in planets if user_input in command.lower()][:25]
 
-    @commands.slash_command(description="Get details on a specific planet")
+    @commands.slash_command(description="Returns the war details on a specific planet.")
     async def planet(
         self,
         inter: AppCmdInter,
         planet: str = commands.Param(autocomplete=planet_autocomp),
+        public: str = commands.Param(choices=["Yes", "No"], default="No"),
     ):
         planets_list = planets
         if planet not in planets_list:
@@ -33,7 +34,8 @@ class PlanetCog(commands.Cog):
                 "Please select a planet from the list.",
                 ephemeral=True,
             )
-        await inter.response.defer(ephemeral=True)
+        ephemeral = {"Yes": False, "No": True}[public]
+        await inter.response.defer(ephemeral=ephemeral)
         data = await pull_from_api(get_planets=True, get_thumbnail=True)
         planets_data = data["planets"]
         planet_data = None
@@ -57,7 +59,9 @@ class PlanetCog(commands.Cog):
         for i in planet_json["environmentals"]:
             planet_enviros.append(self.environmentals[i])
         embed = Planet(planet_data, planet_thumbnail, planet_biome, planet_enviros)
-        await inter.send(embed=embed, ephemeral=True)
+        if planet_json["biome"] not in ("unknown", "toxic", "canyon"):
+            embed.set_image(file=File(f"resources/biomes/{planet_json['biome']}.png"))
+        await inter.send(embed=embed, ephemeral=ephemeral)
 
 
 def setup(bot: commands.Bot):

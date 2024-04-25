@@ -1,5 +1,5 @@
 # Galactic World Web
-<p  align="center">
+<p align="center">
     <a href="https://github.com/Stonemercy/Galactic-Wide-Web/commits/main"><img src="https://img.shields.io/github/last-commit/Stonemercy/Galactic-Wide-Web"></a>
     <a href="https://github.com/Stonemercy/Galactic-Wide-Web"><img src="https://img.shields.io/github/languages/code-size/Stonemercy/Galactic-Wide-Web"></a>
     <a href="https://github.com/psf/black"><img src="https://img.shields.io/badge/code%20style-black-000000.svg"></a>
@@ -15,11 +15,14 @@ If you wish to use the GWW bot itself, I have it hosted and you can invite it [h
 	<li>Setup a dashboard in a specific channel with one command</li>
 	<ul>
 		<li>The dashboard updates every 15 minutes automatically without sending any more messages. No pesky notifications!</li>
-		<li>All planets that helldivers are currently marching on are listed, with most of their individual stats shown</li>
-		<li>Planets are organised by Defense > Attack > Other</li>
+		<li>All planets that helldivers are currently marching on are listed, with the important stats shown.</li>
 	</ul>
-	<li>Grab info on a specific planet in the war effort whenever you want using the /planet command</li>
-	<li>Recieve war updates to a specific channel the minute they happen - Game patch notes can also be enabled</li>
+	<li>Grab info on a specific planet in the war effort whenever you want using the `/planet` command</li>
+	<li>Recieve war updates to a specific channel the minute they happen!</li>
+	<ul>
+		<li>Game patch notes can also be enabled</li>
+	</ul>
+	<li>Get some info and images on the enemies to democracy</li>
 </ul>
 
 

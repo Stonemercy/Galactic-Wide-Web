@@ -1,7 +1,8 @@
+from json import loads
 from disnake import Embed, Colour, File
 from datetime import datetime
 from helpers.functions import dispatch_format, health_bar, short_format, steam_format
-from data.lists import reward_types
+from data.lists import emojis_dict
 
 
 class Planet(Embed):
@@ -13,14 +14,14 @@ class Planet(Embed):
         )
         enviros_text = ""
         for i in enviros:
-            enviros_text += f"**\n{i['name']}**\n*{i['description']}*\n"
+            enviros_text += f"**\n{i['name']}**\n{i['description']}\n"
         self.add_field(
             f"__**{self.planet['name']}**__",
             (
                 f"Sector: **{self.planet['sector']}**\n"
-                f"Owner: **{self.planet['currentOwner']}**\n"
-                f"Biome: **{biome['name']}**\n*{biome['description']}*\n"
-                f"Environmentals: {enviros_text}\n"
+                f"Owner: **{self.planet['currentOwner']}**\n\n"
+                f"Biome: \n**{biome['name']}**\n{biome['description']}\n\n"
+                f"Environmental(s): {enviros_text}\n\n"
                 f"Planet health:\n"
                 f"{planet_health_bar}\n"
                 f"`{(self.planet['health'] / self.planet['maxHealth']):^25,.2%}`\n"
@@ -97,14 +98,12 @@ class BotDashboardEmbed(Embed):
 class MajorOrderEmbed(Embed):
     def __init__(self, assignment, planets):
         super().__init__(title="MAJOR ORDER UPDATE", colour=Colour.brand_red())
-        self.assignment = assignment
-        self.planets = planets
-
-        self.set_footer(text=f"MESSAGE #{self.assignment['id']}")
-        self.add_field(self.assignment["description"], self.assignment["briefing"])
-        for i in self.assignment["tasks"]:
+        reward_types = loads(open("data/json/assignments/reward_types.json"))
+        self.set_footer(text=f"MESSAGE #{assignment['id']}")
+        self.add_field(assignment["description"], assignment["briefing"])
+        for i in assignment["tasks"]:
             if i["type"] == 11:
-                planet = self.planets[i["values"][2]]
+                planet = planets[i["values"][2]]
                 planet_health_bar = health_bar(
                     planet["health"], planet["maxHealth"], "Humans"
                 )
@@ -145,8 +144,9 @@ class SteamEmbed(Embed):
 class CampaignEmbed(Embed):
     def __init__(self):
         super().__init__(title="⚠️Critical War Updates!⚠️", colour=Colour.brand_red())
+        self.add_field("Victories", "", inline=False)
         self.add_field("New Battles", "", inline=False)
-        self.add_field("Battle Victories", "", inline=False)
+        self.add_field("Planets Lost", "", inline=False)
         self.faction_dict = {
             "Automaton": "<:automaton:1215036421551685672>",
             "Terminids": "<:terminid:1215036423090999376>",
@@ -154,30 +154,36 @@ class CampaignEmbed(Embed):
         }
 
     def add_new_campaign(self, campaign, time_remaining):
-        name = self.fields[0].name
-        description = self.fields[0].value
+        name = self.fields[1].name
+        description = self.fields[1].value
         if time_remaining:
             description += f"🛡️ Defend **{campaign['planet']['name']}**. Ends {time_remaining} {self.faction_dict[campaign['planet']['event']['faction']]}\n"
         else:
             description += f"⚔️ Liberate {campaign['planet']['name']} {self.faction_dict[campaign['planet']['currentOwner']]}\n"
-        self.set_field_at(0, name, description, inline=self.fields[0].inline)
+        self.set_field_at(1, name, description, inline=self.fields[1].inline)
 
     def add_campaign_victory(self, planet, liberatee):
-        name = self.fields[1].name
-        description = self.fields[1].value
-        description += f"**{planet['name']}** liberated from {liberatee} {self.faction_dict[liberatee]}!\n"
-        self.set_field_at(1, name, description, inline=self.fields[1].inline)
+        name = self.fields[0].name
+        description = self.fields[0].value
+        description += f"**{planet['name']}** has been liberated from the {liberatee} {self.faction_dict[liberatee]}!\n"
+        self.set_field_at(0, name, description, inline=self.fields[0].inline)
 
     def add_def_victory(self, planet):
-        name = self.fields[1].name
-        description = self.fields[1].value
-        description += f"**{planet['name']}** has been successfully defended!\n"
-        self.set_field_at(1, name, description, inline=self.fields[1].inline)
+        name = self.fields[0].name
+        description = self.fields[0].value
+        description += f"**🛡️ {planet['name']}** has been successfully defended!\n"
+        self.set_field_at(0, name, description, inline=self.fields[0].inline)
+
+    def add_planet_lost(self, planet):
+        name = self.fields[2].name
+        description = self.fields[2].value
+        description += f"**💀 {planet['name']}** has been lost to the {planet['currentOwner']} {self.faction_dict[planet['currentOwner']]}.\n"
+        self.set_field_at(2, name, description, inline=self.fields[2].inline)
 
     def remove_empty(self):
-        for index, i in enumerate(self.fields):
-            if len(i.value) == 0:
-                self.remove_field(index)
+        for field in self.fields:
+            if field.value == "":
+                self.remove_field(self.fields.index(field))
 
 
 class Dashboard:
@@ -203,6 +209,7 @@ class Dashboard:
 
         # Major Orders
         if self.assignment not in (None, []):
+            reward_types = loads(open("data/json/assignments/reward_types.json"))
             self.major_orders_embed.set_thumbnail(
                 "https://helldivers.io/img/majororder.png"
             )
@@ -397,13 +404,23 @@ class Items:
                 gun_fire_modes = ""
                 features = ""
                 for i in primary["fire_mode"]:
-                    gun_fire_modes += f"\n- {fire_modes[str(i)]}"
+                    gun_fire_modes += (
+                        f"\n- {fire_modes[str(i)]} {emojis_dict[fire_modes[str(i)]]}"
+                    )
                 for i in primary["traits"]:
-                    features += f"\n- {traits[str(i)]}"
+                    if i != 0:
+                        features += (
+                            f"\n- {traits[str(i)]} {emojis_dict[traits[str(i)]]}"
+                        )
+                    else:
+                        features = "\n- None"
                 if types[str(primary["type"])] == "Energy-based":
                     primary["capacity"] = (
                         f"{primary['capacity']} seconds of constant fire"
                     )
+                    primary["fire_rate"] = 60
+                if primary["capacity"] == 999:
+                    primary["capacity"] = "♾️"
                 self.add_field(
                     "Information",
                     (
@@ -435,9 +452,11 @@ class Items:
                 gun_fire_modes = ""
                 features = ""
                 for i in secondary["fire_mode"]:
-                    gun_fire_modes += f"\n- {fire_modes[str(i)]}"
+                    gun_fire_modes += (
+                        f"\n- {fire_modes[str(i)]} {emojis_dict[fire_modes[str(i)]]}"
+                    )
                 for i in secondary["traits"]:
-                    features += f"\n- {traits[str(i)]}"
+                    features += f"\n- {traits[str(i)]} {emojis_dict[traits[str(i)]]}"
                 if secondary["fire_rate"] == 0:
                     secondary["capacity"] = (
                         f"{secondary['capacity']} seconds of constant fire"
@@ -526,30 +545,35 @@ class Items:
             except:
                 pass
 
-    class Warbond(list):
+    class Warbond(Embed):
         def __init__(
             self,
             warbond: dict,
-            formatted_name: str,
+            warbond_json: str,
             item_names: dict,
+            page,
         ):
-            super().__init__()
-            for i, j in warbond.items():
-                embed = Embed(
-                    colour=Colour.blue(),
-                    title=formatted_name,
-                    description=f"Page {i}\nMedals to unlock: {j['medals_to_unlock']}",
+            warbond_page = warbond[str(page)]
+            premium = {True: "Yes", False: "No"}[warbond_json["premium"]]
+            super().__init__(
+                colour=Colour.blue(),
+                title=warbond_json["name"],
+                description=(
+                    f"Page {page}/{[i for i in warbond][-1]}\n"
+                    f"Medals to unlock: **{warbond_page['medals_to_unlock']}** <:medal:1226254158278037504>\n"
+                    f"Premium: **{premium}**\n"
+                ),
+            )
+
+            item_number = 1
+            for item in warbond_page["items"]:
+                self.add_field(
+                    f"{item_names[str(item['item_id'])]['name']}",
+                    f"Medal cost: **{item['medal_cost']} <:medal:1226254158278037504>**",
                 )
-                item_number = 1
-                for item in j["items"]:
-                    embed.add_field(
-                        f"{item_names[str(item['item_id'])]['name']}",
-                        f"Medal cost: **{item['medal_cost']}**",
-                    )
-                    if item_number % 2 == 0:
-                        embed.add_field("", "")
-                    item_number += 1
-                self.append(embed)
+                if item_number % 2 == 0:
+                    self.add_field("", "")
+                item_number += 1
 
 
 class Weapons:

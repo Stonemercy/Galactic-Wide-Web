@@ -9,6 +9,16 @@ Dockerfile
 emojis/
 requirements.txt
 
+# JSON
+data/json/.github
+data/json/.editorconfig
+data/json/.gitignore
+data/json/items/armor/README.md
+data/json/items/weapons/README.md
+data/json/LICENSE
+data/json/README.md
+data/json/Writerside/*
+
 # Created by https://www.gitignore.io/api/python,visualstudiocode
 # Edit at https://www.gitignore.io/?templates=python,visualstudiocode
 

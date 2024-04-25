@@ -90,6 +90,8 @@ class WarUpdatesCog(commands.Cog):
                     Campaigns.remove_campaign(old_campaign[0])
                 if planet["currentOwner"] != old_campaign[2]:  # if owner has changed
                     if old_campaign[2] == "Humans":  # if defence campaign loss
+                        embed.add_planet_lost(planet)
+                        new_updates = True
                         Campaigns.remove_campaign(old_campaign[0])
                     elif planet["currentOwner"] == "Humans":  # if attack campaign win
                         embed.add_campaign_victory(planet, old_campaign[2])

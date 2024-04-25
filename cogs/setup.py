@@ -10,17 +10,19 @@ class SetupCog(commands.Cog):
         self.bot = bot
         print("Setup cog has finished loading")
 
-    @commands.slash_command(description="Change the GWW settings for your server")
+    @commands.slash_command(
+        description="Change the GWW settings for your server. Use this without arguments to see your set settings."
+    )
     async def setup(
         self,
         inter: AppCmdInter,
         dashboard_channel: TextChannel = commands.Param(
             default=None,
-            description="The channel you want the dashboard to be sent to, default = None",
+            description="The channel you want the dashboard to be sent to. Set this to your current set channel to unset it.",
         ),
         announcement_channel: TextChannel = commands.Param(
             default=None,
-            description="The channel you want announcements sent to, default = None",
+            description="The channel you want announcements sent to. Set this to your current set channel to unset it.",
         ),
         patch_notes: str = commands.Param(
             default=None,
@@ -37,7 +39,6 @@ class SetupCog(commands.Cog):
         if not guild_in_db:
             Guilds.insert_new_guild(inter.guild_id)
             guild_in_db = Guilds.get_info(inter.guild_id)
-
         if not dashboard_channel and not announcement_channel and not patch_notes:
             try:
                 dashboard_channel = inter.guild.get_channel(
