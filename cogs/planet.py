@@ -59,7 +59,7 @@ class PlanetCog(commands.Cog):
         for i in planet_json["environmentals"]:
             planet_enviros.append(self.environmentals[i])
         embed = Planet(planet_data, planet_thumbnail, planet_biome, planet_enviros)
-        if planet_json["biome"] not in ("unknown", "toxic", "canyon"):
+        if planet_json["biome"] not in ("unknown"):
             embed.set_image(file=File(f"resources/biomes/{planet_json['biome']}.png"))
         await inter.send(embed=embed, ephemeral=ephemeral)
 

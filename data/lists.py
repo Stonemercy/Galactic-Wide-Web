@@ -557,4 +557,8 @@ emojis_dict = {
     "Heavy Armor Penetrating": "<:heavyarmorpenetrating:1233068099587018773>",
     "One Handed": "",
     "Rounds Reload": "",
+    "Left Banner": "<:left_banner:1233129580089446560>",
+    "Right Banner": "<:right_banner:1233129581112856596>",
+    "Capacity": "<:capacity:1233129432852729961>",
+    "Super Credits": "<:super_credits:1233145615031074946>",
 }

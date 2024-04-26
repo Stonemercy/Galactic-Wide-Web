@@ -1,4 +1,4 @@
-from json import loads
+from json import load
 from disnake import Embed, Colour, File
 from datetime import datetime
 from helpers.functions import dispatch_format, health_bar, short_format, steam_format
@@ -98,7 +98,7 @@ class BotDashboardEmbed(Embed):
 class MajorOrderEmbed(Embed):
     def __init__(self, assignment, planets):
         super().__init__(title="MAJOR ORDER UPDATE", colour=Colour.brand_red())
-        reward_types = loads(open("data/json/assignments/reward_types.json"))
+        reward_types = load(open("data/json/assignments/reward/type.json"))
         self.set_footer(text=f"MESSAGE #{assignment['id']}")
         self.add_field(assignment["description"], assignment["briefing"])
         for i in assignment["tasks"]:
@@ -114,7 +114,7 @@ class MajorOrderEmbed(Embed):
                 )
         self.add_field(
             "Reward",
-            f"{self.assignment['reward']['amount']} {reward_types[self.assignment['reward']['type']]} <:medal:1226254158278037504>",
+            f"{self.assignment['reward']['amount']} {reward_types[str(self.assignment['reward']['type'])]} <:medal:1226254158278037504>",
             inline=False,
         )
 
@@ -143,7 +143,10 @@ class SteamEmbed(Embed):
 
 class CampaignEmbed(Embed):
     def __init__(self):
-        super().__init__(title="⚠️Critical War Updates!⚠️", colour=Colour.brand_red())
+        super().__init__(
+            title=f"{emojis_dict['Left Banner']} Critical War Updates! {emojis_dict['Right Banner']}",
+            colour=Colour.brand_red(),
+        )
         self.add_field("Victories", "", inline=False)
         self.add_field("New Battles", "", inline=False)
         self.add_field("Planets Lost", "", inline=False)
@@ -209,7 +212,7 @@ class Dashboard:
 
         # Major Orders
         if self.assignment not in (None, []):
-            reward_types = loads(open("data/json/assignments/reward_types.json"))
+            reward_types = load(open("data/json/assignments/reward/type.json"))
             self.major_orders_embed.set_thumbnail(
                 "https://helldivers.io/img/majororder.png"
             )
@@ -273,10 +276,14 @@ class Dashboard:
                         ),
                         inline=False,
                     )
+                else:
+                    self.major_orders_embed.add_field(
+                        "New Major Order format provided", "Calibrating output..."
+                    )
 
             self.major_orders_embed.add_field(
                 "Reward",
-                f"{self.assignment['reward']['amount']} {reward_types[self.assignment['reward']['type']]} <:medal:1226254158278037504>",
+                f"{self.assignment['reward']['amount']} {reward_types[str(self.assignment['reward']['type'])]} <:medal:1226254158278037504>",
                 inline=False,
             )
             self.major_orders_embed.add_field(
@@ -334,41 +341,46 @@ class Dashboard:
         # Attacking
         self.terminids_embed.set_thumbnail("https://helldivers.io/img/attack.png")
         self.automaton_embed.set_thumbnail("https://helldivers.io/img/attack.png")
-        for i in self.campaigns:
-            if i["planet"]["event"] != None:
-                continue
-            faction_icon = self.faction_dict[i["planet"]["currentOwner"]]
-            planet_health_bar = health_bar(
-                i["planet"]["health"],
-                i["planet"]["maxHealth"],
-                i["planet"]["currentOwner"],
-            )
-            if i["planet"]["currentOwner"] == "Automaton":
-                self.automaton_embed.add_field(
-                    f"{faction_icon} - __**{i['planet']['name']}**__ - Battle **#{i['count']}**",
-                    (
-                        f"Sector: **{i['planet']['sector']}**\n"
-                        f"Heroes: **{i['planet']['statistics']['playerCount']:,}**\n"
-                        f"Planet health:\n"
-                        f"{planet_health_bar}\n"
-                        f"`{(i['planet']['health'] / i['planet']['maxHealth']):^25,.2%}`\n"
-                        "\u200b\n"
-                    ),
-                    inline=False,
+        if self.campaigns != None:
+            for i in self.campaigns:
+                if i["planet"]["event"] != None:
+                    continue
+                faction_icon = self.faction_dict[i["planet"]["currentOwner"]]
+                planet_health_bar = health_bar(
+                    i["planet"]["health"],
+                    i["planet"]["maxHealth"],
+                    i["planet"]["currentOwner"],
                 )
-            else:
-                self.terminids_embed.add_field(
-                    f"{faction_icon} - __**{i['planet']['name']}**__ - Battle **#{i['count']}**",
-                    (
-                        f"Sector: **{i['planet']['sector']}**\n"
-                        f"Heroes: **{i['planet']['statistics']['playerCount']:,}**\n"
-                        f"Planet Health:\n"
-                        f"{planet_health_bar}\n"
-                        f"`{(i['planet']['health'] / i['planet']['maxHealth']):^25,.2%}`\n"
-                        "\u200b\n"
-                    ),
-                    inline=False,
-                )
+                if i["planet"]["currentOwner"] == "Automaton":
+                    if i["planet"]["sector"] == "L_estrade":  # remove when API updated
+                        i["planet"]["sector"] = "Le'strade"
+                    self.automaton_embed.add_field(
+                        f"{faction_icon} - __**{i['planet']['name']}**__ - Battle **#{i['count']}**",
+                        (
+                            f"Sector: **{i['planet']['sector']}**\n"
+                            f"Heroes: **{i['planet']['statistics']['playerCount']:,}**\n"
+                            f"Planet health:\n"
+                            f"{planet_health_bar}\n"
+                            f"`{(i['planet']['health'] / i['planet']['maxHealth']):^25,.2%}`\n"
+                            "\u200b\n"
+                        ),
+                        inline=False,
+                    )
+                else:
+                    if i["planet"]["sector"] == "L_estrade":  # remove when API updated
+                        i["planet"]["sector"] = "Le'strade"
+                    self.terminids_embed.add_field(
+                        f"{faction_icon} - __**{i['planet']['name']}**__ - Battle **#{i['count']}**",
+                        (
+                            f"Sector: **{i['planet']['sector']}**\n"
+                            f"Heroes: **{i['planet']['statistics']['playerCount']:,}**\n"
+                            f"Planet Health:\n"
+                            f"{planet_health_bar}\n"
+                            f"`{(i['planet']['health'] / i['planet']['maxHealth']):^25,.2%}`\n"
+                            "\u200b\n"
+                        ),
+                        inline=False,
+                    )
 
         # Other
         self.timestamp = int(self.now.timestamp())
@@ -377,7 +389,12 @@ class Dashboard:
             f"Updated on <t:{self.timestamp}:f> - <t:{self.timestamp}:R>",
             inline=False,
         )
-
+        if self.now.strftime("%d/%m") == "26/10":
+            self.major_orders_embed.set_footer("The GWW wishes you a happy Liberty Day")
+        if self.now.strftime("%d/%m") == "03/04":
+            self.major_orders_embed.set_footer(
+                "The GWW wishes you a happy Malevelon Creek Memorial Day"
+            )
         self.automaton_embed.set_image("https://i.imgur.com/cThNy4f.png")
         self.terminids_embed.set_image("https://i.imgur.com/cThNy4f.png")
         self.defend_embed.set_image("https://i.imgur.com/cThNy4f.png")
@@ -428,7 +445,7 @@ class Items:
                         f"Damage: **{primary['damage']}**\n"
                         f"Fire Rate: **{primary['fire_rate']}rpm**\n"
                         f"DPS: **{(primary['damage']*primary['fire_rate'])/60:.2f}/s**\n"
-                        f"Capacity: **{primary['capacity']}**\n"
+                        f"Capacity: **{primary['capacity']}** {emojis_dict['Capacity'] if primary['fire_rate'] != 0 else ''}\n"
                         f"Fire Modes:**{gun_fire_modes}**"
                         f"Features:**{features}**"
                     ),
@@ -467,7 +484,7 @@ class Items:
                         f"Damage: **{secondary['damage']}**\n"
                         f"Fire Rate: **{secondary['fire_rate']}rpm**\n"
                         f"DPS: **{(secondary['damage']*secondary['fire_rate'])/60:.2f}/s**\n"
-                        f"Capacity: **{secondary['capacity']}**\n"
+                        f"Capacity: **{secondary['capacity']}** {emojis_dict['Capacity'] if secondary['fire_rate'] != 0 else ''}\n"
                         f"Fire Modes:**{gun_fire_modes}**"
                         f"Features:**{features}**"
                     ),
@@ -554,17 +571,16 @@ class Items:
             page,
         ):
             warbond_page = warbond[str(page)]
-            premium = {True: "Yes", False: "No"}[warbond_json["premium"]]
+            cost = warbond_json["credits_to_unlock"]
             super().__init__(
                 colour=Colour.blue(),
                 title=warbond_json["name"],
                 description=(
                     f"Page {page}/{[i for i in warbond][-1]}\n"
-                    f"Medals to unlock: **{warbond_page['medals_to_unlock']}** <:medal:1226254158278037504>\n"
-                    f"Premium: **{premium}**\n"
+                    f"Cost to unlock warbond: **{cost}** {emojis_dict['Super Credits']}\n"
+                    f"Medals to unlock page: **{warbond_page['medals_to_unlock'] }** <:medal:1226254158278037504>\n"
                 ),
             )
-
             item_number = 1
             for item in warbond_page["items"]:
                 self.add_field(
