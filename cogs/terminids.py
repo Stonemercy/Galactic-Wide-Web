@@ -59,7 +59,7 @@ class TerminidsCog(commands.Cog):
             return await inter.send(
                 (
                     "That species isn't in my list, please try again.\n"
-                    "||If you believe this is a mistake, please contact my Support Server||"
+                    "||If you believe this is a mistake, please get let us know [here](<https://discord.gg/Z8Ae5H5DjZ>).||"
                 ),
                 ephemeral=True,
             )
@@ -67,7 +67,7 @@ class TerminidsCog(commands.Cog):
             return await inter.send(
                 (
                     "That variation isn't in my list, please try again.\n"
-                    "||If you believe this is a mistake, please contact my Support Server||"
+                    "||If you believe this is a mistake, please get let us know [here](<https://discord.gg/Z8Ae5H5DjZ>).||"
                 ),
                 ephemeral=True,
             )

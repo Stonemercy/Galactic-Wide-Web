@@ -102,19 +102,54 @@ class MajorOrderEmbed(Embed):
         self.set_footer(text=f"MESSAGE #{assignment['id']}")
         self.add_field(assignment["description"], assignment["briefing"])
         for i in assignment["tasks"]:
-            if i["type"] == 11:
+            if i["type"] == 11 or i["type"] == 13:
                 planet = planets[i["values"][2]]
                 planet_health_bar = health_bar(
                     planet["health"], planet["maxHealth"], "Humans"
                 )
                 self.add_field(
                     planet["name"],
-                    f"Heroes: **{planet['statistics']['playerCount']:,}\n{planet_health_bar}**",
+                    (
+                        f"Heroes: **{planet['statistics']['playerCount']:,}\n{planet_health_bar}**\n"
+                        f"`{(planet['health'] / planet['maxHealth']):^25,.2%}`\n"
+                    ),
                     inline=False,
+                )
+            elif i["type"] == 12:
+                event_health_bar = health_bar(i["progress"][0], i["values"][0], "MO")
+                self.add_field(
+                    f"Succeed in the defence of at least {i['values'][0]} planets",
+                    (
+                        f"Current progress: {i['progress'][0]}/{i['values'][0]}\n"
+                        f"{event_health_bar}\n"
+                        f"`{(i['progress'][0] / i['values'][0]):^25,.2%}`\n"
+                    ),
+                    inline=False,
+                )
+            elif i["type"] == 3:
+                faction_dict = {
+                    0: "Humans",
+                    1: "Automaton <:a_:1215036421551685672>",
+                    2: "Terminids <:t_:1215036423090999376>",
+                    3: "Illuminate <:i_:1218283483240206576>",
+                }
+                event_health_bar = health_bar(i["progress"][0], i["values"][2], "MO")
+                self.add_field(
+                    f"Kill {short_format(i['values'][2])} {faction_dict[i['values'][0]]}",
+                    (
+                        f"Current progress: {short_format(i['progress'][0])}/{short_format(i['values'][2])}\n"
+                        f"{event_health_bar}\n"
+                        f"`{(i['progress'][0] / i['values'][2]):^25,.2%}`\n"
+                    ),
+                    inline=False,
+                )
+            else:
+                self.add_field(
+                    "New Major Order format provided", "Calibrating output..."
                 )
         self.add_field(
             "Reward",
-            f"{self.assignment['reward']['amount']} {reward_types[str(self.assignment['reward']['type'])]} <:medal:1226254158278037504>",
+            f"{assignment['reward']['amount']} {reward_types[str(assignment['reward']['type'])]} <:medal:1226254158278037504>",
             inline=False,
         )
 
@@ -138,6 +173,8 @@ class SteamEmbed(Embed):
         self.set_footer(text=f"MESSAGE #{self.steam['id']}")
         content = self.steam["content"]
         content = steam_format(content)
+        if len(content) > 5750:
+            content = f"Please head [here](<{steam['url']}>) to see the full patch notes as they are too long for Discord."
         self.description = content
 
 
@@ -151,9 +188,9 @@ class CampaignEmbed(Embed):
         self.add_field("New Battles", "", inline=False)
         self.add_field("Planets Lost", "", inline=False)
         self.faction_dict = {
-            "Automaton": "<:automaton:1215036421551685672>",
-            "Terminids": "<:terminid:1215036423090999376>",
-            "Illuminate": "<:illuminate:1218283483240206576>",
+            "Automaton": "<:a_:1215036421551685672>",
+            "Terminids": "<:t_:1215036423090999376>",
+            "Illuminate": "<:i_:1218283483240206576>",
         }
 
     def add_new_campaign(self, campaign, time_remaining):
@@ -199,10 +236,11 @@ class Dashboard:
         self.planets = data["planets"]
         self.war = data["war_state"]
         self.faction_dict = {
-            "Automaton": "<:automaton:1215036421551685672>",
-            "Terminids": "<:terminid:1215036423090999376>",
-            "Illuminate": "<:illuminate:1218283483240206576>",
+            "Automaton": "<:a_:1215036421551685672>",
+            "Terminids": "<:t_:1215036423090999376>",
+            "Illuminate": "<:i_:1218283483240206576>",
         }
+        self.planets_listed = []
 
         # make embeds
         self.defend_embed = Embed(title="Defending", colour=Colour.blue())
@@ -224,8 +262,8 @@ class Dashboard:
             )
             for i in self.assignment["tasks"]:
                 if i["type"] == 11 or i["type"] == 13:
-
                     planet = self.planets[i["values"][2]]
+                    self.planets_listed.append(planet["name"])
                     completed = (
                         "LIBERATED" if planet["currentOwner"] == "Humans" else ""
                     )
@@ -260,9 +298,9 @@ class Dashboard:
                 elif i["type"] == 3:
                     faction_dict = {
                         0: "Humans",
-                        1: "Automaton <:automaton:1215036421551685672>",
-                        2: "Terminids <:terminid:1215036423090999376>",
-                        3: "Illuminate <:illuminate:1218283483240206576>",
+                        1: "Automaton <:a_:1215036421551685672>",
+                        2: "Terminids <:t_:1215036423090999376>",
+                        3: "Illuminate <:i_:1218283483240206576>",
                     }
                     event_health_bar = health_bar(
                         self.assignment["progress"][0], i["values"][2], "MO"
@@ -343,7 +381,10 @@ class Dashboard:
         self.automaton_embed.set_thumbnail("https://helldivers.io/img/attack.png")
         if self.campaigns != None:
             for i in self.campaigns:
-                if i["planet"]["event"] != None:
+                if (
+                    i["planet"]["event"] != None
+                    or i["planet"]["name"] in self.planets_listed
+                ):
                     continue
                 faction_icon = self.faction_dict[i["planet"]["currentOwner"]]
                 planet_health_bar = health_bar(
@@ -355,7 +396,7 @@ class Dashboard:
                     if i["planet"]["sector"] == "L_estrade":  # remove when API updated
                         i["planet"]["sector"] = "Le'strade"
                     self.automaton_embed.add_field(
-                        f"{faction_icon} - __**{i['planet']['name']}**__ - Battle **#{i['count']}**",
+                        f"{faction_icon} - __**{i['planet']['name']}**__",
                         (
                             f"Sector: **{i['planet']['sector']}**\n"
                             f"Heroes: **{i['planet']['statistics']['playerCount']:,}**\n"
@@ -370,7 +411,7 @@ class Dashboard:
                     if i["planet"]["sector"] == "L_estrade":  # remove when API updated
                         i["planet"]["sector"] = "Le'strade"
                     self.terminids_embed.add_field(
-                        f"{faction_icon} - __**{i['planet']['name']}**__ - Battle **#{i['count']}**",
+                        f"{faction_icon} - __**{i['planet']['name']}**__",
                         (
                             f"Sector: **{i['planet']['sector']}**\n"
                             f"Heroes: **{i['planet']['statistics']['playerCount']:,}**\n"

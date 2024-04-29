@@ -148,6 +148,9 @@ def dispatch_format(message: str):
     try:
         message = (
             message.replace("<i=3>", "")
+            .replace("</i=2>", "")
+            .replace("</i=3>", "")
+            .replace("</i=1>", "")
             .replace("</i>", "")
             .replace("<i=1>", "")
             .replace("<i=2>", "")

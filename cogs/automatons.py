@@ -48,7 +48,7 @@ class AutomatonsCog(commands.Cog):
         ),
     ):
         if not species and not variation:
-            return await inter.send(":robot:", delete_after=10.0)
+            return await inter.send(":robot:", delete_after=10.0, ephemeral=True)
         if species and variation:
             return await inter.send(
                 "Please choose species **or** variation",
@@ -59,7 +59,7 @@ class AutomatonsCog(commands.Cog):
             return await inter.send(
                 (
                     "That bot isn't in my list, please try again.\n"
-                    "||If you believe this is a mistake, please contact my Support Server||"
+                    "||If you believe this is a mistake, please get let us know [here](<https://discord.gg/Z8Ae5H5DjZ>).||"
                 ),
                 ephemeral=True,
             )
@@ -67,7 +67,7 @@ class AutomatonsCog(commands.Cog):
             return await inter.send(
                 (
                     "That variation isn't in my list, please try again.\n"
-                    "||If you believe this is a mistake, please contact my Support Server||"
+                    "||If you believe this is a mistake, please get let us know [here](<https://discord.gg/Z8Ae5H5DjZ>).||"
                 ),
                 ephemeral=True,
             )

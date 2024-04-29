@@ -77,110 +77,119 @@ class SetupCog(commands.Cog):
         if dashboard_channel != None:
             if dashboard_channel.id == guild_in_db[1]:
                 Guilds.update_dashboard(inter.guild_id, 0, 0)
-                return await inter.send(
+                await inter.send(
                     "I have unset your Dashboard. You are free to delete any old Dashboards in this server.",
                     ephemeral=True,
                 )
-            dashboard_perms_needed = Permissions(
-                send_messages=True,
-                view_channel=True,
-                attach_files=True,
-                embed_links=True,
-            )
-            dashboard_perms_have = dashboard_channel.permissions_for(
-                inter.guild.me
-            ).is_superset(dashboard_perms_needed)
-            if not dashboard_perms_have:
-                return await inter.send(
+            else:
+                dashboard_perms_needed = Permissions(
+                    send_messages=True,
+                    view_channel=True,
+                    attach_files=True,
+                    embed_links=True,
+                )
+                dashboard_perms_have = dashboard_channel.permissions_for(
+                    inter.guild.me
+                ).is_superset(dashboard_perms_needed)
+                if not dashboard_perms_have:
+                    await inter.send(
+                        (
+                            f"I am missing one of the following permissions for {dashboard_channel.mention}:\n"
+                            f"`View Channel\nSend MEssages\nEmbed Links\nAttach Files`"
+                        ),
+                        ephemeral=True,
+                    )
+                data = await pull_from_api(
+                    get_campaigns=True,
+                    get_assignments=True,
+                    get_planet_events=True,
+                    get_planets=True,
+                    get_war_state=True,
+                )
+                dashboard = Dashboard(data)
+                try:
+                    message = await dashboard_channel.send(
+                        embeds=dashboard.embeds, file=File("resources/banner.png")
+                    )
+                except Exception as e:
+                    print("setup", e)
+                    await inter.send(
+                        "An error has occured, I have contacted Super Earth High Command.",
+                        ephemeral=True,
+                    )
+                Guilds.update_dashboard(
+                    inter.guild_id, dashboard_channel.id, message.id
+                )
+                await inter.send(
                     (
-                        f"I am missing one of the following permissions for {dashboard_channel.mention}:\n"
-                        f"`View Channel\nSend MEssages\nEmbed Links\nAttach Files`"
+                        f"Dashboard Channel: {dashboard_channel.mention}\n"
+                        f"Message link: {message.jump_url}\n"
+                        "# GLORY TO SUPER EARTH"
                     ),
                     ephemeral=True,
                 )
-            data = await pull_from_api(
-                get_campaigns=True,
-                get_assignments=True,
-                get_planet_events=True,
-                get_planets=True,
-                get_war_state=True,
-            )
-            dashboard = Dashboard(data)
-            try:
-                message = await dashboard_channel.send(
-                    embeds=dashboard.embeds, file=File("resources/banner.png")
-                )
-            except Exception as e:
-                print("setup", e)
-                return await inter.send(
-                    "An error has occured, I have contacted Super Earth High Command.",
-                    ephemeral=True,
-                )
-            Guilds.update_dashboard(inter.guild_id, dashboard_channel.id, message.id)
-            await inter.send(
-                (
-                    f"Dashboard Channel: {dashboard_channel.mention}\n"
-                    f"Message link: {message.jump_url}\n"
-                    "# GLORY TO SUPER EARTH"
-                ),
-                ephemeral=True,
-            )
-            if not dashboard_channel.permissions_for(inter.guild.me).external_emojis:
-                await inter.send(
-                    "I'm missing the `External Emojis` permission\nWhile not required, it makes the dashboard look better",
-                    ephemeral=True,
-                )
-            messages: list = self.bot.get_cog("DashboardCog").messages
-            for i in messages:
-                if i.guild == inter.guild:
-                    try:
-                        await i.delete()
-                    except Exception as e:
-                        print("Setup - Dashboard", e)
-                    messages.remove(i)
-            messages.append(message)
+                if not dashboard_channel.permissions_for(
+                    inter.guild.me
+                ).external_emojis:
+                    await inter.send(
+                        "I'm missing the `External Emojis` permission\nWhile not required, it makes the dashboard look better",
+                        ephemeral=True,
+                    )
+                messages: list = self.bot.get_cog("DashboardCog").messages
+                for i in messages:
+                    if i.guild == inter.guild:
+                        try:
+                            await i.delete()
+                        except Exception as e:
+                            print("Setup - Dashboard", e)
+                        messages.remove(i)
+                messages.append(message)
 
         if announcement_channel != None:
             if announcement_channel.id == guild_in_db[3]:
                 Guilds.update_announcement_channel(inter.guild_id, 0)
-                return await inter.send(
-                    "I have unset your Announcements channel.",
+                Guilds.update_patch_notes(inter.guild_id, False)
+                await inter.send(
+                    "I have unset your Announcements channel and set your patch notes have been disabled.",
                     ephemeral=True,
                 )
-            annnnouncement_perms_needed = Permissions(
-                view_channel=True, send_messages=True, embed_links=True
-            )
-            annnnouncement_perms_have = announcement_channel.permissions_for(
-                inter.guild.me
-            ).is_superset(annnnouncement_perms_needed)
-            if not annnnouncement_perms_have:
-                return await inter.send(
+            else:
+                annnnouncement_perms_needed = Permissions(
+                    view_channel=True, send_messages=True, embed_links=True
+                )
+                annnnouncement_perms_have = announcement_channel.permissions_for(
+                    inter.guild.me
+                ).is_superset(annnnouncement_perms_needed)
+                if not annnnouncement_perms_have:
+                    await inter.send(
+                        (
+                            f"I am missing one of the following permissions for {announcement_channel.mention}:\n"
+                            f"`View Channel\nSend MEssages\nEmbed Links`"
+                        ),
+                        ephemeral=True,
+                    )
+                Guilds.update_announcement_channel(
+                    inter.guild_id, announcement_channel.id
+                )
+                await inter.send(
                     (
-                        f"I am missing one of the following permissions for {announcement_channel.mention}:\n"
-                        f"`View Channel\nSend MEssages\nEmbed Links`"
+                        f"Your announcements channel has been updated to {announcement_channel.mention}.\n"
+                        "While no announcements show up straight away, they will when events happen"
                     ),
                     ephemeral=True,
                 )
-            Guilds.update_announcement_channel(inter.guild_id, announcement_channel.id)
-            await inter.send(
-                (
-                    f"Your announcements channel has been updated to {announcement_channel.mention}.\n"
-                    "While no announcements show up straight away, they will when events happen"
-                ),
-                ephemeral=True,
-            )
-            channels: list = self.bot.get_cog("AnnouncementsCog").channels
-            for i in channels:
-                if i.guild == inter.guild:
-                    channels.remove(i)
-            channels.append(announcement_channel)
+                channels: list = self.bot.get_cog("AnnouncementsCog").channels
+                for i in channels:
+                    if i.guild == inter.guild:
+                        channels.remove(i)
+                channels.append(announcement_channel)
 
         if patch_notes != None:
             patch_notes_enabled = guild_in_db[4]
             want_patch_notes = {"Yes": True, "No": False}[patch_notes]
             if guild_in_db[3] == 0 and dashboard_channel == None:
                 return await inter.send(
-                    "You need to setup the announcement channel before enabling patch notes",
+                    "You need to setup the announcement channel before enabling patch notes.",
                     ephemeral=True,
                 )
             if guild_in_db[4] == want_patch_notes:
@@ -190,18 +199,24 @@ class SetupCog(commands.Cog):
                 )
             if patch_notes_enabled != want_patch_notes:
                 Guilds.update_patch_notes(inter.guild_id, want_patch_notes)
+                patch_channels: list = self.bot.get_cog(
+                    "AnnouncementsCog"
+                ).patch_channels
                 if want_patch_notes == True:
+                    channel_id = (
+                        announcement_channel.id
+                        if announcement_channel != None
+                        else guild_in_db[3]
+                    )
                     try:
                         channel = inter.guild.get_channel(
-                            guild_in_db[3]
-                        ) or await inter.guild.fetch_channel(guild_in_db[3])
+                            channel_id
+                        ) or await inter.guild.fetch_channel(channel_id)
                     except:
                         return await inter.send(
-                            "I had trouble getting your announcement channel, please make sure I have appropriate permissions."
+                            "I had trouble getting your announcement channel, please make sure I have appropriate permissions.",
+                            ephemeral=True,
                         )
-                    patch_channels: list = self.bot.get_cog(
-                        "AnnouncementsCog"
-                    ).patch_channels
                     for i in patch_channels:
                         if i.guild.id == inter.guild_id:
                             patch_channels.remove(i)
@@ -220,12 +235,12 @@ class SetupCog(commands.Cog):
                         ) or await inter.guild.fetch_channel(guild_in_db[3])
                     except:
                         return await inter.send(
-                            "I had trouble getting your announcement channel, please make sure I have appropriate permissions."
+                            "I had trouble getting your announcement channel, please make sure I have appropriate permissions.",
+                            ephemeral=True,
                         )
-                    patch_channels: list = self.bot.get_cog(
-                        "AnnouncementsCog"
-                    ).patch_channels
-                    patch_channels.remove(channel)
+                    for i in patch_channels:
+                        if i.guild.id == inter.guild.id:
+                            patch_channels.remove(i)
                     return await inter.send(
                         (f"Patch notes will no longer show up in {channel.mention}\n"),
                         ephemeral=True,
