@@ -2,7 +2,7 @@ from json import load
 from disnake import Embed, Colour, File
 from datetime import datetime
 from helpers.functions import dispatch_format, health_bar, short_format, steam_format
-from data.lists import emojis_dict
+from data.lists import emojis_dict, warbond_images_dict
 
 
 class Planet(Embed):
@@ -387,38 +387,43 @@ class Dashboard:
                 ):
                     continue
                 faction_icon = self.faction_dict[i["planet"]["currentOwner"]]
-                planet_health_bar = health_bar(
-                    i["planet"]["health"],
-                    i["planet"]["maxHealth"],
-                    i["planet"]["currentOwner"],
-                )
+                if len(self.campaigns) < 10:
+                    planet_health_bar = health_bar(
+                        i["planet"]["health"],
+                        i["planet"]["maxHealth"],
+                        i["planet"]["currentOwner"],
+                    )
+                    planet_health_text = f"\n`{(i['planet']['health'] / i['planet']['maxHealth']):^25.2%}`"
+                else:
+                    planet_health_bar = ""
+                    planet_health_text = (
+                        f"`{(i['planet']['health'] / i['planet']['maxHealth']):^12.2%}`"
+                    )
+                if i["planet"]["sector"] == "L_estrade":  # remove when API updated
+                    i["planet"]["sector"] = "L'estrade"
                 if i["planet"]["currentOwner"] == "Automaton":
-                    if i["planet"]["sector"] == "L_estrade":  # remove when API updated
-                        i["planet"]["sector"] = "Le'strade"
                     self.automaton_embed.add_field(
                         f"{faction_icon} - __**{i['planet']['name']}**__",
                         (
-                            f"Sector: **{i['planet']['sector']}**\n"
+                            # f"Sector: **{i['planet']['sector']}**\n"
                             f"Heroes: **{i['planet']['statistics']['playerCount']:,}**\n"
                             f"Planet health:\n"
-                            f"{planet_health_bar}\n"
-                            f"`{(i['planet']['health'] / i['planet']['maxHealth']):^25,.2%}`\n"
-                            "\u200b\n"
+                            f"{planet_health_bar}"
+                            f"{planet_health_text}"
+                            "\n\u200b\n"
                         ),
                         inline=False,
                     )
                 else:
-                    if i["planet"]["sector"] == "L_estrade":  # remove when API updated
-                        i["planet"]["sector"] = "Le'strade"
                     self.terminids_embed.add_field(
                         f"{faction_icon} - __**{i['planet']['name']}**__",
                         (
-                            f"Sector: **{i['planet']['sector']}**\n"
+                            # f"Sector: **{i['planet']['sector']}**\n"
                             f"Heroes: **{i['planet']['statistics']['playerCount']:,}**\n"
                             f"Planet Health:\n"
-                            f"{planet_health_bar}\n"
-                            f"`{(i['planet']['health'] / i['planet']['maxHealth']):^25,.2%}`\n"
-                            "\u200b\n"
+                            f"{planet_health_bar}"
+                            f"{planet_health_text}"
+                            "\n\u200b\n"
                         ),
                         inline=False,
                     )
@@ -430,6 +435,11 @@ class Dashboard:
             f"Updated on <t:{self.timestamp}:f> - <t:{self.timestamp}:R>",
             inline=False,
         )
+        if len(self.campaigns) > 10:
+            self.terminids_embed.add_field(
+                "",
+                "*This dashboard is in lite mode due to more than 10 planets being active.\nIt will revert to normal if the active planet count drops.*",
+            )
         if self.now.strftime("%d/%m") == "26/10":
             self.major_orders_embed.set_footer("The GWW wishes you a happy Liberty Day")
         if self.now.strftime("%d/%m") == "03/04":
@@ -472,7 +482,7 @@ class Items:
                         )
                     else:
                         features = "\n- None"
-                if types[str(primary["type"])] == "Energy-based":
+                if 9 in primary["traits"]:
                     primary["capacity"] = (
                         f"{primary['capacity']} seconds of constant fire"
                     )
@@ -515,7 +525,7 @@ class Items:
                     )
                 for i in secondary["traits"]:
                     features += f"\n- {traits[str(i)]} {emojis_dict[traits[str(i)]]}"
-                if secondary["fire_rate"] == 0:
+                if 9 in secondary["traits"]:
                     secondary["capacity"] = (
                         f"{secondary['capacity']} seconds of constant fire"
                     )
@@ -622,6 +632,7 @@ class Items:
                     f"Medals to unlock page: **{warbond_page['medals_to_unlock'] }** <:medal:1226254158278037504>\n"
                 ),
             )
+            self.set_image(warbond_images_dict[warbond_json["name"]])
             item_number = 1
             for item in warbond_page["items"]:
                 self.add_field(

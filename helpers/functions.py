@@ -154,6 +154,7 @@ def dispatch_format(message: str):
             .replace("</i>", "")
             .replace("<i=1>", "")
             .replace("<i=2>", "")
+            .replace("<br>", "\n")
         )
     except:
         print("Failed to format dispatch")

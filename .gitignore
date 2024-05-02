@@ -18,6 +18,7 @@ data/json/items/weapons/README.md
 data/json/LICENSE
 data/json/README.md
 data/json/Writerside/*
+resources/warbonds/*
 
 # Created by https://www.gitignore.io/api/python,visualstudiocode
 # Edit at https://www.gitignore.io/?templates=python,visualstudiocode
