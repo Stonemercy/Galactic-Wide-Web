@@ -1,5 +1,6 @@
 from disnake import AppCmdInter
 from disnake.ext import commands
+from helpers.db import Guilds
 from helpers.embeds import Items
 from json import load
 
@@ -7,11 +8,9 @@ from json import load
 class WeaponsCog(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
-
         self.types = load(open("data/json/items/weapons/types.json"))
         self.fire_modes = load(open("data/json/items/weapons/fire_modes.json"))
         self.traits = load(open("data/json/items/weapons/traits.json"))
-
         self.primaries = load(open("data/json/items/weapons/primary.json"))
         self.primaries["item_list"] = {}
         for i, j in self.primaries.items():
@@ -73,18 +72,18 @@ class WeaponsCog(commands.Cog):
         inter: AppCmdInter,
         primary: str = commands.Param(autocomplete=primary_autocomp),
     ):
+        guild_in_db = Guilds.get_info(inter.guild_id)
+        guild_language = load(
+            open(f"data/languages/{guild_in_db[5]}.json", encoding="UTF-8")
+        )
         if primary not in self.primaries:
             return await inter.send(
-                (
-                    "That weapon isn't in my list, please try again.\n"
-                    "||If you believe this is a mistake, please contact my Support Server||"
-                ),
+                guild_language["weapon.missing"],
                 ephemeral=True,
-                delete_after=10,
             )
         chosen_primary = self.primaries[primary]
         embed = Items.Weapons.Primary(
-            chosen_primary, self.types, self.fire_modes, self.traits
+            chosen_primary, self.types, self.fire_modes, self.traits, guild_language
         )
         return await inter.send(embed=embed, ephemeral=True)
 
@@ -94,17 +93,20 @@ class WeaponsCog(commands.Cog):
         inter: AppCmdInter,
         secondary: str = commands.Param(autocomplete=secondary_autocomp),
     ):
+        guild_in_db = Guilds.get_info(inter.guild_id)
+        guild_language = load(
+            open(f"data/languages/{guild_in_db[5]}.json", encoding="UTF-8")
+        )
         if secondary not in self.secondaries:
             return await inter.send(
-                (
-                    "That weapon isn't in my list, please try again.\n"
-                    "||If you believe this is a mistake, please contact my Support Server||"
-                ),
+                guild_language["weapon.missing"],
                 ephemeral=True,
                 delete_after=10,
             )
         chosen_secondary = self.secondaries[secondary]
-        embed = Items.Weapons.Secondary(chosen_secondary, self.fire_modes, self.traits)
+        embed = Items.Weapons.Secondary(
+            chosen_secondary, self.fire_modes, self.traits, guild_language
+        )
         return await inter.send(embed=embed, ephemeral=True)
 
     @weapons.sub_command(description="Use this for grenades")
@@ -113,17 +115,18 @@ class WeaponsCog(commands.Cog):
         inter: AppCmdInter,
         grenade: str = commands.Param(autocomplete=grenade_autocomp),
     ):
+        guild_in_db = Guilds.get_info(inter.guild_id)
+        guild_language = load(
+            open(f"data/languages/{guild_in_db[5]}.json", encoding="UTF-8")
+        )
         if grenade not in self.grenades:
             return await inter.send(
-                (
-                    "That grenade isn't in my list, please try again.\n"
-                    "||If you believe this is a mistake, please contact my Support Server||"
-                ),
+                guild_language["weapon.missing"],
                 ephemeral=True,
                 delete_after=10,
             )
         chosen_grenade = self.grenades[grenade]
-        embed = Items.Weapons.Grenade(chosen_grenade)
+        embed = Items.Weapons.Grenade(chosen_grenade, guild_language)
         return await inter.send(embed=embed, ephemeral=True)
 
 

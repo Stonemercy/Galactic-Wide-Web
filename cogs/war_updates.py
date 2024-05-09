@@ -29,9 +29,13 @@ class WarUpdatesCog(commands.Cog):
             print(channel_id, "channel not found")
             pass
 
-    async def send_campaign(self, channel: TextChannel, embed):
+    async def send_campaign(self, channel: TextChannel, embeds):
+        guild = Guilds.get_info(channel.guild.id)
+        if guild == None:
+            self.channels.remove(channel)
+            return print("Update message - Guild not in DB")
         try:
-            await channel.send(embed=embed)
+            await channel.send(embed=embeds[guild[5]])
         except Exception as e:
             print("Send campaign", e, channel)
             pass
@@ -56,14 +60,24 @@ class WarUpdatesCog(commands.Cog):
         data = await pull_from_api(
             get_planets=True, get_campaigns=True, get_war_state=True
         )
+        for i, j in data.items():
+            if j == None:
+                print("campaign_check", i, j)
+                return
         planets = data["planets"]
         war = data["war_state"]
         new_campaigns = data["campaigns"]
         old_campaigns = Campaigns.get_all()
-        embed = CampaignEmbed()
-        new_updates = False
 
+        languages = Guilds.get_used_languages()
+        embeds: dict[str, CampaignEmbed] = {}
+        for lang in languages:
+            embeds[lang] = CampaignEmbed(lang)
+
+        new_updates = False
         new_campaign_ids = []
+        if new_campaigns == None:
+            return
         for campaign in new_campaigns:
             new_campaign_ids.append(campaign["id"])
 
@@ -85,16 +99,19 @@ class WarUpdatesCog(commands.Cog):
                 planet = planets[old_campaign[3]]
                 if planet["currentOwner"] == "Humans" and old_campaign[2] == "Humans":
                     # if successful defence campaign
-                    embed.add_def_victory(planet)
+                    for lang, embed in embeds.items():
+                        embed.add_def_victory(planet)
                     new_updates = True
                     Campaigns.remove_campaign(old_campaign[0])
                 if planet["currentOwner"] != old_campaign[2]:  # if owner has changed
                     if old_campaign[2] == "Humans":  # if defence campaign loss
-                        embed.add_planet_lost(planet)
+                        for lang, embed in embeds.items():
+                            embed.add_planet_lost(planet)
                         new_updates = True
                         Campaigns.remove_campaign(old_campaign[0])
                     elif planet["currentOwner"] == "Humans":  # if attack campaign win
-                        embed.add_campaign_victory(planet, old_campaign[2])
+                        for lang, embed in embeds.items():
+                            embed.add_campaign_victory(planet, old_campaign[2])
                         new_updates = True
                         Campaigns.remove_campaign(old_campaign[0])
                 elif planet["currentOwner"] != "Humans":
@@ -103,25 +120,11 @@ class WarUpdatesCog(commands.Cog):
         for new_campaign in new_campaigns:  # loop through new campaigns
             if new_campaign["id"] not in old_campaign_ids:  # if campaign is brand new
                 planet = planets[new_campaign["planet"]["index"]]
-                try:
-                    war_now = datetime.fromisoformat(war["now"]).timestamp()
-                except Exception as e:
-                    print("war_now", e)
-                    war_now = None
-                try:
-                    end_time = datetime.fromisoformat(
-                        new_campaign["planet"]["event"]["endTime"]
-                    ).timestamp()
-                except:
-                    end_time = None
-                current_time = datetime.now().timestamp()
-                if war_now != None and current_time != None and end_time != None:
-                    time_remaining = (
-                        f"<t:{((current_time - war_now) + end_time):.0f}:R>"
-                    )
-                else:
-                    time_remaining = None
-                embed.add_new_campaign(new_campaign, time_remaining)
+                time_remaining = None
+                if new_campaign["planet"]["event"] != None:
+                    time_remaining = f"<t:{datetime.fromisoformat(new_campaign['planet']['event']['endTime']).timestamp():.0f}:R>"
+                for lang, embed in embeds.items():
+                    embed.add_new_campaign(new_campaign, time_remaining)
                 new_updates = True
                 Campaigns.new_campaign(
                     new_campaign["id"],
@@ -131,13 +134,14 @@ class WarUpdatesCog(commands.Cog):
                 )
             continue
         if new_updates:
-            embed.remove_empty()
+            for lang, embed in embeds.items():
+                embed.remove_empty()
             chunked_channels = [
                 self.channels[i : i + 100] for i in range(0, len(self.channels), 100)
             ]
             for chunk in chunked_channels:
                 for channel in chunk:
-                    self.bot.loop.create_task(self.send_campaign(channel, embed))
+                    self.bot.loop.create_task(self.send_campaign(channel, embeds))
                 await sleep(60)
 
     @campaign_check.before_loop

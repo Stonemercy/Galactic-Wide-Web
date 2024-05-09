@@ -514,33 +514,23 @@ enemies = {
 }
 
 language_dict = {
-    "Español": "es",
-    "Français": "fr",
-    "Deutsch": "de",
     "English": "en",
-    "Italiano": "it",
-    "Русский язык": "ru",
-    "中文": "zh",
+    "Français": "fr",
 }
 
-api_lang_dict = {
-    "Español": "es-ES",
-    "Français": "fr-FR",
-    "Deutsch": "de-DE",
-    "English": "en-US",
-    "Italiano": "it-IT",
-    "Русский язык": "ru-RU",
-    "中文": "zh-Hans",
-}
-
-language_change_dict = {
-    "Español": "El idioma GWW para este servidor se ha actualizado al español.",
-    "Français": "La langue GWW de ce serveur a été mise à jour en français.",
-    "Deutsch": "Die GWW-Sprache für diesen Server wurde auf Deutsch aktualisiert.",
-    "English": "The GWW language for this server has been updated to English.",
-    "Italiano": "La lingua GWW per questo server è stata aggiornata all'italiano.",
-    "Русский язык": "Язык GWW для этого сервера обновлен до русского.",
-    "中文": "该服务器的GWW语言已更新为中文。",
+supported_languages = {
+    "en": "en-GB",
+    "de": "de-DE",
+    "es": "es-ES",
+    "fr": "fr-FR",
+    "it": "it-IT",
+    "jp": "ja-JP",
+    "ko": "ko-KO",
+    "my": "ms-MY",
+    "pl": "pl-PL",
+    "pt": "pt-PT",
+    "ru": "ru-RU",
+    "zh": "zh-Hans",
 }
 
 emojis_dict = {

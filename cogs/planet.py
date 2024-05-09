@@ -1,5 +1,6 @@
 from disnake import AppCmdInter, File
 from disnake.ext import commands
+from helpers.db import Guilds
 from helpers.embeds import Planet
 from data.lists import planets
 from helpers.functions import pull_from_api
@@ -36,6 +37,8 @@ class PlanetCog(commands.Cog):
             )
         ephemeral = {"Yes": False, "No": True}[public]
         await inter.response.defer(ephemeral=ephemeral)
+        guild = Guilds.get_info(inter.guild_id)
+        language = guild[5]
         data = await pull_from_api(get_planets=True, get_thumbnail=True)
         planets_data = data["planets"]
         planet_data = None
@@ -46,7 +49,7 @@ class PlanetCog(commands.Cog):
                 planet_thumbnail = f"https://helldivers.news{thumbnail_url}"
                 break
         for i in planets_data:
-            if i["name"] != planet:
+            if i["name"] != planet.upper():
                 continue
             else:
                 planet_data = i
@@ -58,7 +61,9 @@ class PlanetCog(commands.Cog):
         planet_enviros = []
         for i in planet_json["environmentals"]:
             planet_enviros.append(self.environmentals[i])
-        embed = Planet(planet_data, planet_thumbnail, planet_biome, planet_enviros)
+        embed = Planet(
+            planet_data, planet_thumbnail, planet_biome, planet_enviros, language
+        )
         if planet_json["biome"] not in ("unknown"):
             embed.set_image(file=File(f"resources/biomes/{planet_json['biome']}.png"))
         await inter.send(embed=embed, ephemeral=ephemeral)

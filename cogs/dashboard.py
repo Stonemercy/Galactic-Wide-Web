@@ -36,14 +36,13 @@ class DashboardCog(commands.Cog):
         except Exception as e:
             return print("message_list_gen channel", i[1], e)
 
-    async def update_message(self, i: PartialMessage, data):
+    async def update_message(self, i: PartialMessage, dashboard_dict: dict):
         guild = Guilds.get_info(i.guild.id)
         if guild == None:
             self.messages.remove(i)
             return print("Update message - Guild not in DB")
-        dashboard = Dashboard(data)
         try:
-            await i.edit(embeds=dashboard.embeds)
+            await i.edit(embeds=dashboard_dict[guild[5]].embeds)
         except NotFound:
             self.messages.remove(i)
             return print("Dashboard not found, removing", i.channel.name)
@@ -77,12 +76,20 @@ class DashboardCog(commands.Cog):
             get_planets=True,
             get_war_state=True,
         )
+        if data["campaigns"] == None:
+            return
+        languages = Guilds.get_used_languages()
+        dashboard_dict = {}
+
+        for lang in languages:
+            dashboard = Dashboard(data, lang)
+            dashboard_dict[lang] = dashboard
         chunked_messages = [
             self.messages[i : i + 20] for i in range(0, len(self.messages), 20)
         ]
         for chunk in chunked_messages:
             for message in chunk:
-                self.bot.loop.create_task(self.update_message(message, data))
+                self.bot.loop.create_task(self.update_message(message, dashboard_dict))
             await sleep(2)
 
     @dashboard.before_loop
@@ -104,12 +111,17 @@ class DashboardCog(commands.Cog):
             get_planets=True,
             get_war_state=True,
         )
+        languages = Guilds.get_used_languages()
+        dashboard_dict = {}
+        for lang in languages:
+            dashboard = Dashboard(data, lang)
+            dashboard_dict[lang] = dashboard
         chunked_messages = [
             self.messages[i : i + 20] for i in range(0, len(self.messages), 20)
         ]
         for chunk in chunked_messages:
             for message in chunk:
-                self.bot.loop.create_task(self.update_message(message, data))
+                self.bot.loop.create_task(self.update_message(message, dashboard_dict))
                 dashboards_updated += 1
             await sleep(2)
         await inter.send(
@@ -118,7 +130,7 @@ class DashboardCog(commands.Cog):
             delete_after=5,
         )
 
-    @tasks.loop(minutes=5)
+    @tasks.loop(hours=24)
     async def db_cleanup(self):
         messages: list[PartialMessage] = self.messages
         guilds_in_db = Guilds.get_all_guilds()

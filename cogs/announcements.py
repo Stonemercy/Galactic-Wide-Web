@@ -43,14 +43,14 @@ class AnnouncementsCog(commands.Cog):
         except Exception as e:
             return print("patch channel list gen", channel_id, e)
 
-    async def send_embed(self, channel: TextChannel, embed: Embed):
+    async def send_embed(self, channel: TextChannel, embeds):
         guild = Guilds.get_info(channel.guild.id)
         if guild == None:
             return print("send_embed - Guild not in DB")
         try:
-            await channel.send(embed=embed)
+            await channel.send(embed=embeds[guild[5]])
         except Exception as e:
-            return print("Send embed", e, channel.id)
+            return print("Send embed announcements", e, channel.id)
 
     @tasks.loop(count=1)
     async def cache_channels(self):
@@ -86,7 +86,11 @@ class AnnouncementsCog(commands.Cog):
     async def major_order_check(self):
         last_id = MajorOrders.get_last_id()
         data = await pull_from_api(get_assignments=True, get_planets=True)
-        if data["assignments"] in (None, []):
+        if (
+            data["assignments"] in (None, [])
+            or data["assignments"][0]["briefing"] == None
+            or data["assignments"][0]["description"] == 0
+        ):
             return
         self.newest_id = data["assignments"][0]["id"]
         if last_id == None:
@@ -94,13 +98,19 @@ class AnnouncementsCog(commands.Cog):
             last_id = MajorOrders.get_last_id()
         if last_id == 0 or last_id != self.newest_id:
             MajorOrders.set_new_id(self.newest_id)
-            embed = MajorOrderEmbed(data["assignments"][0], data["planets"])
+
+            languages = Guilds.get_used_languages()
+            embeds = {}
+            for lang in languages:
+                embed = MajorOrderEmbed(data["assignments"][0], data["planets"], lang)
+                embeds[lang] = embed
+
             chunked_channels = [
                 self.channels[i : i + 50] for i in range(0, len(self.channels), 50)
             ]
             for chunk in chunked_channels:
                 for channel in chunk:
-                    self.bot.loop.create_task(self.send_embed(channel, embed))
+                    self.bot.loop.create_task(self.send_embed(channel, embeds))
                 await sleep(2)
 
     @major_order_check.before_loop

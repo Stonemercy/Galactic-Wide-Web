@@ -1,5 +1,7 @@
+from json import load
 from disnake import AppCmdInter
 from disnake.ext import commands
+from helpers.db import Guilds
 from helpers.embeds import Terminid
 from data.lists import enemies
 
@@ -49,34 +51,31 @@ class TerminidsCog(commands.Cog):
             return await inter.send(
                 "<a:explodeybug:1219248670482890752>", delete_after=10.0, ephemeral=True
             )
+        guild_in_db = Guilds.get_info(inter.guild_id)
+        guild_language = load(
+            open(f"data/languages/{guild_in_db[5]}.json", encoding="UTF-8")
+        )
         if species and variation:
             return await inter.send(
-                "Please choose species **or** variation",
+                guild_language["enemy.species_or_variation"],
                 ephemeral=True,
-                delete_after=5.0,
             )
         elif species != None and species not in self.terminids_dict:
             return await inter.send(
-                (
-                    "That species isn't in my list, please try again.\n"
-                    "||If you believe this is a mistake, please get let us know [here](<https://discord.gg/Z8Ae5H5DjZ>).||"
-                ),
+                guild_language["enemy.missing"],
                 ephemeral=True,
             )
         elif variation != None and variation not in self.variations_dict:
             return await inter.send(
-                (
-                    "That variation isn't in my list, please try again.\n"
-                    "||If you believe this is a mistake, please get let us know [here](<https://discord.gg/Z8Ae5H5DjZ>).||"
-                ),
+                guild_language["enemy.missing"],
                 ephemeral=True,
             )
         if species != None:
             species_info = self.terminids_dict[species]
-            embed = Terminid(species, species_info)
+            embed = Terminid(species, species_info, guild_language)
         elif variation != None:
             variation_info = self.variations_dict[variation]
-            embed = Terminid(variation, variation_info, variation=True)
+            embed = Terminid(variation, variation_info, guild_language, variation=True)
         return await inter.send(embed=embed, ephemeral=True)
 
 

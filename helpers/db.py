@@ -63,6 +63,17 @@ class Guilds:
                 )
                 conn.commit()
 
+    def update_language(guild_id: int, language: str):
+        with connect(
+            host=hostname, dbname=database, user=username, password=pwd, port=port_id
+        ) as conn:
+            with conn.cursor() as curs:
+                curs.execute(
+                    "Update guilds set language = %s where guild_id = %s",
+                    (language, guild_id),
+                )
+                conn.commit()
+
     def get_all_guilds():
         with connect(
             host=hostname, dbname=database, user=username, password=pwd, port=port_id
@@ -71,6 +82,19 @@ class Guilds:
                 curs.execute("Select * from guilds")
                 records = curs.fetchall()
                 return records if records != [] else False
+
+    def get_used_languages() -> list[str]:
+        with connect(
+            host=hostname, dbname=database, user=username, password=pwd, port=port_id
+        ) as conn:
+            with conn.cursor() as curs:
+                curs.execute("Select * from guilds")
+                records = curs.fetchall()
+                languages = []
+                for i in records:
+                    if i[5] not in languages:
+                        languages.append(i[5])
+                return languages
 
     def remove_from_db(guild_id: int):
         with connect(

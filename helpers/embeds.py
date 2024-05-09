@@ -2,49 +2,50 @@ from json import load
 from disnake import Embed, Colour, File
 from datetime import datetime
 from helpers.functions import dispatch_format, health_bar, short_format, steam_format
-from data.lists import emojis_dict, warbond_images_dict
+from data.lists import emojis_dict, warbond_images_dict, supported_languages
 
 
 class Planet(Embed):
-    def __init__(self, data, thumbnail_url: str, biome, enviros):
+    def __init__(self, data, thumbnail_url: str, biome, enviros, language):
         super().__init__(colour=Colour.blue())
         self.planet = data
+        self.language = load(open(f"data/languages/{language}.json", encoding="UTF-8"))
         planet_health_bar = health_bar(
             self.planet["health"], self.planet["maxHealth"], self.planet["currentOwner"]
         )
         enviros_text = ""
         for i in enviros:
-            enviros_text += f"**\n{i['name']}**\n{i['description']}\n"
+            enviros_text += f"\n- **{i['name']}**\n - {i['description']}"
         self.add_field(
             f"__**{self.planet['name']}**__",
             (
-                f"Sector: **{self.planet['sector']}**\n"
-                f"Owner: **{self.planet['currentOwner']}**\n\n"
-                f"Biome: \n**{biome['name']}**\n{biome['description']}\n\n"
-                f"Environmental(s): {enviros_text}\n\n"
-                f"Planet health:\n"
+                f"{self.language['planet.sector']}: **{self.planet['sector']}**\n"
+                f"{self.language['planet.owner']}: **{self.language[self.planet['currentOwner'].lower()]}**\n\n"
+                f"🏔️ {self.language['planet.biome']} \n- **{biome['name']}**\n - {biome['description']}\n\n"
+                f"🌪️ {self.language['planet.environmentals']}:{enviros_text}\n\n"
+                f"{self.language['planet.planet_health']}\n"
                 f"{planet_health_bar}\n"
                 f"`{(self.planet['health'] / self.planet['maxHealth']):^25,.2%}`\n"
                 "\u200b\n"
             ),
             inline=False,
         ).add_field(
-            "Missions Stats",
+            f"📊 {self.language['planet.mission_stats']}",
             (
-                f"Missions Won: **{short_format(self.planet['statistics']['missionsWon'])}**\n"
-                f"Missions Lost: **{short_format(self.planet['statistics']['missionsLost'])}**\n"
-                f"Mission Winrate: **{self.planet['statistics']['missionSuccessRate']}%**\n"
-                f"Time spent in missions: **{self.planet['statistics']['missionTime']/31556952:.1f} years**"
+                f"{self.language['planet.missions_won']}: **`{short_format(self.planet['statistics']['missionsWon'])}`**\n"
+                f"{self.language['planet.missions_lost']}: **`{short_format(self.planet['statistics']['missionsLost'])}`**\n"
+                f"{self.language['planet.missions_winrate']}: **`{self.planet['statistics']['missionSuccessRate']}%`**\n"
+                f"{self.language['planet.missions_time_spent']}: **`{self.planet['statistics']['missionTime']/31556952:.1f} years`**"
             ),
         ).add_field(
-            "Hero Stats",
+            f"📈 {self.language['planet.hero_stats']}",
             (
-                f"Active heroes: **{self.planet['statistics']['playerCount']:,}**\n"
-                f"Heroes lost: **{short_format(self.planet['statistics']['deaths'])}**\n"
-                f"Friendly-fire Accidents: **{short_format(self.planet['statistics']['friendlies'])}**\n"
-                f"Shots Fired: **{short_format(self.planet['statistics']['bulletsFired'])}**\n"
-                f"Shots Hit: **{short_format(self.planet['statistics']['bulletsHit'])}**\n"
-                f"Hero Accuracy: **{self.planet['statistics']['accuracy']}%**\n"
+                f"{self.language['planet.active_heroes']}: **`{self.planet['statistics']['playerCount']:,}`**\n"
+                f"{self.language['planet.heroes_lost']}: **`{short_format(self.planet['statistics']['deaths'])}`**\n"
+                f"{self.language['planet.accidents']}: **`{short_format(self.planet['statistics']['friendlies'])}`**\n"
+                f"{self.language['planet.shots_fired']}: **`{short_format(self.planet['statistics']['bulletsFired'])}`**\n"
+                f"{self.language['planet.shots_hit']}: **`{short_format(self.planet['statistics']['bulletsHit'])}`**\n"
+                f"{self.language['planet.accuracy']}: **`{self.planet['statistics']['accuracy']}%`**\n"
             ),
         )
         faction_colour = {
@@ -56,29 +57,26 @@ class Planet(Embed):
         self.colour = faction_colour[self.planet["currentOwner"]]
         if self.planet["currentOwner"] == "Automaton":
             self.add_field(
-                "Automaton Kills:",
+                f"💀 {self.language['automatons']} {self.language['planet.kills']}:",
                 f"**{short_format(self.planet['statistics']['automatonKills'])}**",
                 inline=False,
             )
             self.set_author(
-                name="Liberation Progress",
+                name=self.language["planet.liberation_progress"],
                 icon_url="https://cdn.discordapp.com/emojis/1215036421551685672.webp?size=44&quality=lossless",
             )
         elif self.planet["currentOwner"] == "Terminids":
             self.add_field(
-                "Terminid Kills:",
-                f"**{short_format(self.planet['statistics']['terminidKills'])}**",
+                f"💀 {self.language['terminids']} {self.language['planet.kills']}:",
+                f"**`{short_format(self.planet['statistics']['terminidKills'])}`**",
                 inline=False,
             )
             self.set_author(
-                name="Liberation Progress",
+                name=self.language["planet.liberation_progress"],
                 icon_url="https://cdn.discordapp.com/emojis/1215036423090999376.webp?size=44&quality=lossless",
             )
         if thumbnail_url is not None:
             self.set_thumbnail(url=thumbnail_url)
-        self.add_field(
-            "", f"As of <t:{int(datetime.now().timestamp())}:R>", inline=False
-        )
 
 
 class HelpEmbed(Embed):
@@ -96,11 +94,20 @@ class BotDashboardEmbed(Embed):
 
 
 class MajorOrderEmbed(Embed):
-    def __init__(self, assignment, planets):
-        super().__init__(title="MAJOR ORDER UPDATE", colour=Colour.brand_red())
+    def __init__(self, assignment, planets, language):
+        self.language = load(open(f"data/languages/{language}.json", encoding="UTF-8"))
+        super().__init__(
+            title=f"{emojis_dict['Left Banner']} {self.language['major_order.title']} {emojis_dict['Right Banner']}",
+            colour=Colour.yellow(),
+        )
         reward_types = load(open("data/json/assignments/reward/type.json"))
-        self.set_footer(text=f"MESSAGE #{assignment['id']}")
+        self.set_footer(
+            text=f"{self.language['major_order.message']} #{assignment['id']}"
+        )
         self.add_field(assignment["description"], assignment["briefing"])
+        self.planet_names_loc = load(
+            open(f"data/json/planets/planets.json", encoding="UTF-8")
+        )
         for i in assignment["tasks"]:
             if i["type"] == 11 or i["type"] == 13:
                 planet = planets[i["values"][2]]
@@ -108,9 +115,12 @@ class MajorOrderEmbed(Embed):
                     planet["health"], planet["maxHealth"], "Humans"
                 )
                 self.add_field(
-                    planet["name"],
+                    self.planet_names_loc[str(planet["index"])]["names"][
+                        supported_languages[language]
+                    ],
                     (
-                        f"Heroes: **{planet['statistics']['playerCount']:,}\n{planet_health_bar}**\n"
+                        f"{self.language['major_order.heroes']}: **{planet['statistics']['playerCount']:,}**\n"
+                        f"{planet_health_bar}\n"
                         f"`{(planet['health'] / planet['maxHealth']):^25,.2%}`\n"
                     ),
                     inline=False,
@@ -118,9 +128,9 @@ class MajorOrderEmbed(Embed):
             elif i["type"] == 12:
                 event_health_bar = health_bar(i["progress"][0], i["values"][0], "MO")
                 self.add_field(
-                    f"Succeed in the defence of at least {i['values'][0]} planets",
+                    f"{self.language['major_order.succeed_in_defense']} {i['values'][0]} {self.language['major_order.planets']}",
                     (
-                        f"Current progress: {i['progress'][0]}/{i['values'][0]}\n"
+                        f"{self.language['major_order.progress']}: {i['progress'][0]}/{i['values'][0]}\n"
                         f"{event_health_bar}\n"
                         f"`{(i['progress'][0] / i['values'][0]):^25,.2%}`\n"
                     ),
@@ -128,16 +138,22 @@ class MajorOrderEmbed(Embed):
                 )
             elif i["type"] == 3:
                 faction_dict = {
-                    0: "Humans",
-                    1: "Automaton <:a_:1215036421551685672>",
-                    2: "Terminids <:t_:1215036423090999376>",
-                    3: "Illuminate <:i_:1218283483240206576>",
+                    0: "",
+                    1: "<:a_:1215036421551685672>",
+                    2: "<:t_:1215036423090999376>",
+                    3: "<:i_:1218283483240206576>",
+                }
+                loc_faction = {
+                    0: self.language["humans"],
+                    1: self.language["automatons"],
+                    2: self.language["terminids"],
+                    3: self.language["illuminate"],
                 }
                 event_health_bar = health_bar(i["progress"][0], i["values"][2], "MO")
                 self.add_field(
-                    f"Kill {short_format(i['values'][2])} {faction_dict[i['values'][0]]}",
+                    f"{self.language['major_order.kill']} {short_format(i['values'][2])} **{loc_faction}**{faction_dict[i['values'][0]]}",
                     (
-                        f"Current progress: {short_format(i['progress'][0])}/{short_format(i['values'][2])}\n"
+                        f"{self.language['major_order.progress']}: {short_format(i['progress'][0])}/{short_format(i['values'][2])}\n"
                         f"{event_health_bar}\n"
                         f"`{(i['progress'][0] / i['values'][2]):^25,.2%}`\n"
                     ),
@@ -145,12 +161,17 @@ class MajorOrderEmbed(Embed):
                 )
             else:
                 self.add_field(
-                    "New Major Order format provided", "Calibrating output..."
+                    self.language["major_order.new_title"],
+                    self.language["major_order.new_value"],
                 )
         self.add_field(
-            "Reward",
-            f"{assignment['reward']['amount']} {reward_types[str(assignment['reward']['type'])]} <:medal:1226254158278037504>",
+            self.language["major_order.reward"],
+            f"{assignment['reward']['amount']} {self.language[reward_types[str(assignment['reward']['type'])].lower()]} <:medal:1226254158278037504>",
             inline=False,
+        )
+        self.add_field(
+            self.language["major_order.ends"],
+            f"<t:{int(datetime.fromisoformat(assignment['expiration']).timestamp())}:R>",
         )
 
 
@@ -179,14 +200,17 @@ class SteamEmbed(Embed):
 
 
 class CampaignEmbed(Embed):
-    def __init__(self):
+    def __init__(self, language):
+        self.language = load(open(f"data/languages/{language}.json", encoding="UTF-8"))
         super().__init__(
-            title=f"{emojis_dict['Left Banner']} Critical War Updates! {emojis_dict['Right Banner']}",
+            title=f"{emojis_dict['Left Banner']} {self.language['campaigns.critical_war_updates']} {emojis_dict['Right Banner']}",
             colour=Colour.brand_red(),
         )
-        self.add_field("Victories", "", inline=False)
-        self.add_field("New Battles", "", inline=False)
-        self.add_field("Planets Lost", "", inline=False)
+
+        self.add_field(self.language["campaigns.victories"], "", inline=False)
+        self.add_field(self.language["campaigns.planets_lost"], "", inline=False)
+        self.add_field(self.language["campaigns.new_battles"], "", inline=False)
+
         self.faction_dict = {
             "Automaton": "<:a_:1215036421551685672>",
             "Terminids": "<:t_:1215036423090999376>",
@@ -194,31 +218,31 @@ class CampaignEmbed(Embed):
         }
 
     def add_new_campaign(self, campaign, time_remaining):
-        name = self.fields[1].name
-        description = self.fields[1].value
+        name = self.fields[2].name
+        description = self.fields[2].value
         if time_remaining:
-            description += f"🛡️ Defend **{campaign['planet']['name']}**. Ends {time_remaining} {self.faction_dict[campaign['planet']['event']['faction']]}\n"
+            description += f"🛡️ {self.language['campaigns.defend']} **{campaign['planet']['name']}**{self.faction_dict[campaign['planet']['event']['faction']]}\n> *{self.language['campaigns.ends']} {time_remaining}*\n"
         else:
-            description += f"⚔️ Liberate {campaign['planet']['name']} {self.faction_dict[campaign['planet']['currentOwner']]}\n"
-        self.set_field_at(1, name, description, inline=self.fields[1].inline)
+            description += f"⚔️ {self.language['campaigns.liberate']} **{campaign['planet']['name']}** {self.faction_dict[campaign['planet']['currentOwner']]}\n"
+        self.set_field_at(2, name, description, inline=self.fields[1].inline)
 
     def add_campaign_victory(self, planet, liberatee):
         name = self.fields[0].name
         description = self.fields[0].value
-        description += f"**{planet['name']}** has been liberated from the {liberatee} {self.faction_dict[liberatee]}!\n"
+        description += f"**<:victory:1238069280508215337> {planet['name']}** {self.language['campaigns.been_liberated']} **{liberatee}** {self.faction_dict[liberatee]}!\n"
         self.set_field_at(0, name, description, inline=self.fields[0].inline)
 
     def add_def_victory(self, planet):
         name = self.fields[0].name
         description = self.fields[0].value
-        description += f"**🛡️ {planet['name']}** has been successfully defended!\n"
+        description += f"**<:victory:1238069280508215337> {planet['name']}** {self.language['campaigns.been_defended']}!\n"
         self.set_field_at(0, name, description, inline=self.fields[0].inline)
 
     def add_planet_lost(self, planet):
-        name = self.fields[2].name
-        description = self.fields[2].value
-        description += f"**💀 {planet['name']}** has been lost to the {planet['currentOwner']} {self.faction_dict[planet['currentOwner']]}.\n"
-        self.set_field_at(2, name, description, inline=self.fields[2].inline)
+        name = self.fields[1].name
+        description = self.fields[1].value
+        description += f"**💀 {planet['name']}** {self.language['campaigns.been_lost']} **{self.language[planet['currentOwner'].lower()]}** {self.faction_dict[planet['currentOwner']]}\n"
+        self.set_field_at(1, name, description, inline=self.fields[1].inline)
 
     def remove_empty(self):
         for field in self.fields:
@@ -227,9 +251,12 @@ class CampaignEmbed(Embed):
 
 
 class Dashboard:
-    def __init__(self, data):
-        # organise data
+    def __init__(self, data, language):
         self.now = datetime.now()
+        self.language = load(open(f"data/languages/{language}.json", encoding="UTF-8"))
+        self.planet_names_loc = load(
+            open(f"data/json/planets/planets.json", encoding="UTF-8")
+        )
         self.campaigns = data["campaigns"]
         self.assignment = data["assignments"]
         self.planet_events = data["planet_events"]
@@ -243,10 +270,18 @@ class Dashboard:
         self.planets_listed = []
 
         # make embeds
-        self.defend_embed = Embed(title="Defending", colour=Colour.blue())
-        self.automaton_embed = Embed(title="Attacking Automatons", colour=Colour.red())
-        self.terminids_embed = Embed(title="Attacking Terminids", colour=Colour.red())
-        self.major_orders_embed = Embed(title="Major Order", colour=Colour.yellow())
+        self.defend_embed = Embed(
+            title=self.language["dashboard.defending"], colour=Colour.blue()
+        )
+        self.automaton_embed = Embed(
+            title=self.language["dashboard.attacking_automatons"], colour=Colour.red()
+        )
+        self.terminids_embed = Embed(
+            title=self.language["dashboard.attacking_terminids"], colour=Colour.red()
+        )
+        self.major_orders_embed = Embed(
+            title=self.language["dashboard.major_order"], colour=Colour.yellow()
+        )
 
         # Major Orders
         if self.assignment not in (None, []):
@@ -256,7 +291,7 @@ class Dashboard:
             )
             self.assignment = self.assignment[0]
             self.major_orders_embed.add_field(
-                f"MESSAGE #{self.assignment['id']} - {self.assignment['description']}",
+                f"{self.language['dashboard.major_order_message']} #{self.assignment['id']} - {self.assignment['description']}",
                 f"{self.assignment['briefing']}\n\u200b\n",
                 inline=False,
             )
@@ -265,7 +300,9 @@ class Dashboard:
                     planet = self.planets[i["values"][2]]
                     self.planets_listed.append(planet["name"])
                     completed = (
-                        "LIBERATED" if planet["currentOwner"] == "Humans" else ""
+                        self.language["dashboard.major_order_liberated"]
+                        if planet["currentOwner"] == "Humans"
+                        else ""
                     )
                     planet_health_bar = health_bar(
                         planet["health"],
@@ -273,11 +310,13 @@ class Dashboard:
                         ("MO" if planet["currentOwner"] != "Humans" else "Humans"),
                     )
                     self.major_orders_embed.add_field(
-                        planet["name"],
+                        self.planet_names_loc[str(planet["index"])]["names"][
+                            supported_languages[language]
+                        ],
                         (
-                            f"Heroes: **{planet['statistics']['playerCount']:,}\n"
-                            f"Occupied by: **{planet['currentOwner']}**\n"
-                            f"{planet_health_bar}** {completed}\n"
+                            f"{self.language['dashboard.heroes']} **{planet['statistics']['playerCount']:,}**\n"
+                            f"{self.language['dashboard.major_order_occupied_by']} **{planet['currentOwner']}**\n"
+                            f"{planet_health_bar} {completed}\n"
                             f"`{(planet['health'] / planet['maxHealth']):^25,.2%}`\n"
                         ),
                         inline=False,
@@ -287,9 +326,9 @@ class Dashboard:
                         self.assignment["progress"][0], i["values"][0], "MO"
                     )
                     self.major_orders_embed.add_field(
-                        f"Succeed in the defence of at least {i['values'][0]} planets",
+                        f"{self.language['dashboard.major_order_succeed_in_defense']} {i['values'][0]} {self.language['dashboard.planets']}",
                         (
-                            f"Current progress: {self.assignment['progress'][0]}/{i['values'][0]}\n"
+                            f"{self.language['dashboard.major_order_progress']} {self.assignment['progress'][0]}/{i['values'][0]}\n"
                             f"{event_health_bar}\n"
                             f"`{(self.assignment['progress'][0] / i['values'][0]):^25,.2%}`\n"
                         ),
@@ -306,9 +345,9 @@ class Dashboard:
                         self.assignment["progress"][0], i["values"][2], "MO"
                     )
                     self.major_orders_embed.add_field(
-                        f"Kill {short_format(i['values'][2])} {faction_dict[i['values'][0]]}",
+                        f"{self.language['dashboard.major_order_kill']} {short_format(i['values'][2])} {faction_dict[i['values'][0]]}",
                         (
-                            f"Current progress: {short_format(self.assignment['progress'][0])}/{short_format(i['values'][2])}\n"
+                            f"{self.language['major_order.progress']} {short_format(self.assignment['progress'][0])}/{short_format(i['values'][2])}\n"
                             f"{event_health_bar}\n"
                             f"`{(self.assignment['progress'][0] / i['values'][2]):^25,.2%}`\n"
                         ),
@@ -316,54 +355,39 @@ class Dashboard:
                     )
                 else:
                     self.major_orders_embed.add_field(
-                        "New Major Order format provided", "Calibrating output..."
+                        self.language["dashboard_major_order_new_title"],
+                        self.language["major_order_new_value"],
                     )
 
             self.major_orders_embed.add_field(
-                "Reward",
-                f"{self.assignment['reward']['amount']} {reward_types[str(self.assignment['reward']['type'])]} <:medal:1226254158278037504>",
+                self.language["dashboard.major_order_reward"],
+                f"{self.assignment['reward']['amount']} {self.language[reward_types[str(self.assignment['reward']['type'])].lower()]} <:medal:1226254158278037504>",
                 inline=False,
             )
             self.major_orders_embed.add_field(
-                "Ends",
+                self.language["dashboard.major_order_ends"],
                 f"<t:{int(datetime.fromisoformat(self.assignment['expiration']).timestamp())}:R>",
             )
         if len(self.major_orders_embed.fields) < 1:
             self.major_orders_embed.add_field(
-                "Stand by for further orders from Super Earth High Command", "\u200b"
+                self.language["dashboard.major_order_none"], "\u200b"
             )
 
         # Defending
         if self.planet_events != None:
             self.defend_embed.set_thumbnail("https://helldivers.io/img/defense.png")
-            try:
-                war_now = datetime.fromisoformat(self.war["now"]).timestamp()
-            except Exception as e:
-                print("war_now", e)
-                war_now = None
-            current_time = datetime.now().timestamp()
             for i in self.planet_events:
                 faction_icon = self.faction_dict[i["event"]["faction"]]
-                try:
-                    end_time = datetime.fromisoformat(i["event"]["endTime"]).timestamp()
-                except Exception as e:
-                    print("end_time", e)
-                    end_time = None
-                if war_now != None and current_time != None and end_time != None:
-                    time_remaining = (
-                        f"<t:{((current_time - war_now) + end_time):.0f}:R>"
-                    )
-                else:
-                    time_remaining = "Unavailable"
+                time_remaining = f"<t:{datetime.fromisoformat(i['event']['endTime']).timestamp():.0f}:R>"
                 event_health_bar = health_bar(
                     i["event"]["health"], i["event"]["maxHealth"], "Humans"
                 )
                 self.defend_embed.add_field(
-                    f"{faction_icon} - __**{i['name']}**__",
+                    f"{faction_icon} - __**{self.planet_names_loc[str(i['index'])]['names'][supported_languages[language]]}**__",
                     (
-                        f"Ends: {time_remaining}\n"
-                        f"Heroes: **{i['statistics']['playerCount']:,}**\n"
-                        f"Event health:\n"
+                        f"{self.language['dashboard.defend_embed_ends']}: {time_remaining}\n"
+                        f"{self.language['dashboard.heroes']}: **{i['statistics']['playerCount']:,}**\n"
+                        f"{self.language['dashboard.defend_embed_event_health']}\n"
                         f"{event_health_bar}\n"
                         f"`{(i['event']['health'] / i['event']['maxHealth']):^25,.2%}`\n"
                         "\u200b\n"
@@ -373,7 +397,8 @@ class Dashboard:
 
         if len(self.defend_embed.fields) < 1:
             self.defend_embed.add_field(
-                "There are currently no threats to our Freedom", "||for now...||"
+                self.language["dashboard.defend_embed_no_threats"],
+                self.language["dashboard.defend_embed_for_now"],
             )
 
         # Attacking
@@ -403,11 +428,11 @@ class Dashboard:
                     i["planet"]["sector"] = "L'estrade"
                 if i["planet"]["currentOwner"] == "Automaton":
                     self.automaton_embed.add_field(
-                        f"{faction_icon} - __**{i['planet']['name']}**__",
+                        f"{faction_icon} - __**{self.planet_names_loc[str(i['planet']['index'])]['names'][supported_languages[language]]}**__",
                         (
                             # f"Sector: **{i['planet']['sector']}**\n"
-                            f"Heroes: **{i['planet']['statistics']['playerCount']:,}**\n"
-                            f"Planet health:\n"
+                            f"{self.language['dashboard.heroes']} **{i['planet']['statistics']['playerCount']:,}**\n"
+                            f"{self.language['dashboard.attack_embed_planet_health']}\n"
                             f"{planet_health_bar}"
                             f"{planet_health_text}"
                             "\n\u200b\n"
@@ -416,11 +441,11 @@ class Dashboard:
                     )
                 else:
                     self.terminids_embed.add_field(
-                        f"{faction_icon} - __**{i['planet']['name']}**__",
+                        f"{faction_icon} - __**{self.planet_names_loc[str(i['planet']['index'])]['names'][supported_languages[language]]}**__",
                         (
                             # f"Sector: **{i['planet']['sector']}**\n"
-                            f"Heroes: **{i['planet']['statistics']['playerCount']:,}**\n"
-                            f"Planet Health:\n"
+                            f"{self.language['dashboard.heroes']} **{i['planet']['statistics']['playerCount']:,}**\n"
+                            f"{self.language['dashboard.attack_embed_planet_health']}\n"
                             f"{planet_health_bar}"
                             f"{planet_health_text}"
                             "\n\u200b\n"
@@ -432,19 +457,19 @@ class Dashboard:
         self.timestamp = int(self.now.timestamp())
         self.terminids_embed.add_field(
             "\u200b",
-            f"Updated on <t:{self.timestamp}:f> - <t:{self.timestamp}:R>",
+            f"{self.language['dashboard.other_updated']} <t:{self.timestamp}:f> - <t:{self.timestamp}:R>",
             inline=False,
         )
         if len(self.campaigns) > 10:
             self.terminids_embed.add_field(
                 "",
-                "*This dashboard is in lite mode due to more than 10 planets being active.\nIt will revert to normal if the active planet count drops.*",
+                f"*{self.language['dashboard.lite_mode']}*",
             )
         if self.now.strftime("%d/%m") == "26/10":
-            self.major_orders_embed.set_footer("The GWW wishes you a happy Liberty Day")
+            self.major_orders_embed.set_footer(self.language["dashboard.liberty_day"])
         if self.now.strftime("%d/%m") == "03/04":
             self.major_orders_embed.set_footer(
-                "The GWW wishes you a happy Malevelon Creek Memorial Day"
+                self.language["dashboard.malevelon_creek_day"]
             )
         self.automaton_embed.set_image("https://i.imgur.com/cThNy4f.png")
         self.terminids_embed.set_image("https://i.imgur.com/cThNy4f.png")
@@ -462,7 +487,12 @@ class Items:
     class Weapons:
         class Primary(Embed):
             def __init__(
-                self, primary: dict, types: dict, fire_modes: dict, traits: dict
+                self,
+                primary: dict,
+                types: dict,
+                fire_modes: dict,
+                traits: dict,
+                language,
             ):
                 super().__init__(
                     colour=Colour.blue(),
@@ -484,21 +514,21 @@ class Items:
                         features = "\n- None"
                 if 9 in primary["traits"]:
                     primary["capacity"] = (
-                        f"{primary['capacity']} seconds of constant fire"
+                        f"{primary['capacity']} {language['weapons.constant_fire']}"
                     )
                     primary["fire_rate"] = 60
                 if primary["capacity"] == 999:
                     primary["capacity"] = "♾️"
                 self.add_field(
-                    "Information",
+                    language["weapons.information"],
                     (
-                        f"Type: **{types[str(primary['type'])]}**\n"
-                        f"Damage: **{primary['damage']}**\n"
-                        f"Fire Rate: **{primary['fire_rate']}rpm**\n"
-                        f"DPS: **{(primary['damage']*primary['fire_rate'])/60:.2f}/s**\n"
-                        f"Capacity: **{primary['capacity']}** {emojis_dict['Capacity'] if primary['fire_rate'] != 0 else ''}\n"
-                        f"Fire Modes:**{gun_fire_modes}**"
-                        f"Features:**{features}**"
+                        f"{language['weapons.type']}: **`{types[str(primary['type'])]}`**\n"
+                        f"{language['weapons.damage']}: **`{primary['damage']}`**\n"
+                        f"{language['weapons.fire_rate']}: **`{primary['fire_rate']}rpm`**\n"
+                        f"{language['weapons.dps']}: **`{(primary['damage']*primary['fire_rate'])/60:.2f}/s`**\n"
+                        f"{language['weapons.capacity']}: **`{primary['capacity']}`** {emojis_dict['Capacity'] if primary['fire_rate'] != 0 else ''}\n"
+                        f"{language['weapons.fire_modes']}:**{gun_fire_modes}**"
+                        f"{language['weapons.features']}:**{features}**"
                     ),
                 )
                 try:
@@ -511,7 +541,9 @@ class Items:
                     pass
 
         class Secondary(Embed):
-            def __init__(self, secondary: dict, fire_modes: dict, traits: dict):
+            def __init__(
+                self, secondary: dict, fire_modes: dict, traits: dict, language
+            ):
                 super().__init__(
                     colour=Colour.blue(),
                     title=secondary["name"],
@@ -524,20 +556,28 @@ class Items:
                         f"\n- {fire_modes[str(i)]} {emojis_dict[fire_modes[str(i)]]}"
                     )
                 for i in secondary["traits"]:
-                    features += f"\n- {traits[str(i)]} {emojis_dict[traits[str(i)]]}"
+                    if i != 0:
+                        features += (
+                            f"\n- {traits[str(i)]} {emojis_dict[traits[str(i)]]}"
+                        )
+                    else:
+                        features = "\n- None"
                 if 9 in secondary["traits"]:
                     secondary["capacity"] = (
-                        f"{secondary['capacity']} seconds of constant fire"
+                        f"{secondary['capacity']} {language['weapons.constant_fire']}"
                     )
+                    secondary["fire_rate"] = 60
+                if secondary["capacity"] == 999:
+                    secondary["capacity"] = "♾️"
                 self.add_field(
-                    "Information",
+                    language["weapons.information"],
                     (
-                        f"Damage: **{secondary['damage']}**\n"
-                        f"Fire Rate: **{secondary['fire_rate']}rpm**\n"
-                        f"DPS: **{(secondary['damage']*secondary['fire_rate'])/60:.2f}/s**\n"
-                        f"Capacity: **{secondary['capacity']}** {emojis_dict['Capacity'] if secondary['fire_rate'] != 0 else ''}\n"
-                        f"Fire Modes:**{gun_fire_modes}**"
-                        f"Features:**{features}**"
+                        f"{language['weapons.damage']}: **`{secondary['damage']}`**\n"
+                        f"{language['weapons.fire_rate']}: **`{secondary['fire_rate']}rpm`**\n"
+                        f"{language['weapons.dps']}: **`{(secondary['damage']*secondary['fire_rate'])/60:.2f}/s`**\n"
+                        f"{language['weapons.capacity']}: **`{secondary['capacity']}`** {emojis_dict['Capacity'] if secondary['fire_rate'] != 0 else ''}\n"
+                        f"{language['weapons.fire_modes']}:**{gun_fire_modes}**"
+                        f"{language['weapons.features']}:**{features}**"
                     ),
                 )
                 try:
@@ -550,19 +590,19 @@ class Items:
                     pass
 
         class Grenade(Embed):
-            def __init__(self, grenade: dict):
+            def __init__(self, grenade: dict, language):
                 super().__init__(
                     colour=Colour.blue(),
                     title=grenade["name"],
                     description=grenade["description"],
                 )
                 self.add_field(
-                    "Information",
+                    language["weapons.information"],
                     (
-                        f"Damage: **{grenade['damage']}**\n"
-                        f"Fuse Time: **{grenade['fuse_time']} seconds**\n"
-                        f"Penetration: **{grenade['penetration']}**\n"
-                        f"Radius: **{grenade['outer_radius']}**"
+                        f"{language['weapons.damage']}: **{grenade['damage']}**\n"
+                        f"{language['weapons.fuse_time']}: **{grenade['fuse_time']} seconds**\n"
+                        f"{language['weapons.penetration']}: **{grenade['penetration']}**\n"
+                        f"{language['weapons.radius']}: **{grenade['outer_radius']}**"
                     ),
                 )
                 try:
@@ -644,73 +684,10 @@ class Items:
                 item_number += 1
 
 
-class Weapons:
-    class All(Embed):
-        def __init__(self, data: list):
-            super().__init__(colour=Colour.blue(), title="The Arsenal")
-            self.data = data
-            for n, i in enumerate(self.data):
-                self.fire_modes = []
-                stats = i[1]
-                if stats["fire modes"]["semi"]:
-                    self.fire_modes.append("Semi-automatic")
-                if stats["fire modes"]["burst"]:
-                    self.fire_modes.append("Burst")
-                if stats["fire modes"]["auto"]:
-                    self.fire_modes.append("Automatic")
-                self.fire_modes = ", ".join(self.fire_modes)
-
-                self.add_field(
-                    name=f"{n + 1} - {i[0]}",
-                    value=(
-                        f"Type: `{stats['type']}`\n"
-                        f"Damage: `{stats['damage']}`\n"
-                        f"Fire Rate: `{stats['fire rate']}`\n"
-                        f"DPS: `{stats['dps']}`\n"
-                        f"Recoil: `{stats['recoil']}`\n"
-                        f"Capacity: `{stats['capacity']}`\n"
-                        f"Armour Pen: `{stats['armour penetration']}`\n"
-                        f"Fire Modes: `{self.fire_modes}`\n"
-                        f"Special Effects: `{stats['effects']}`\n"
-                    ),
-                )
-
-    class Single(Embed):
-        def __init__(self, name: str, data: dict):
-            super().__init__(colour=Colour.blue())
-            self.data = data
-            self.fire_modes = []
-            if self.data["fire modes"]["semi"]:
-                self.fire_modes.append("Semi-automatic")
-            if self.data["fire modes"]["burst"]:
-                self.fire_modes.append("Burst")
-            if self.data["fire modes"]["auto"]:
-                self.fire_modes.append("Automatic")
-            self.fire_modes = ", ".join(self.fire_modes)
-
-            self.add_field(
-                name=name,
-                value=(
-                    f"Type: `{self.data['type']}`\n"
-                    f"Damage: `{self.data['damage']}`\n"
-                    f"Fire Rate: `{self.data['fire rate']}`\n"
-                    f"DPS: `{self.data['dps']}`\n"
-                    f"Recoil: `{self.data['recoil']}`\n"
-                    f"Capacity: `{self.data['capacity']}`\n"
-                    f"Armour Pen: `{self.data['armour penetration']}`\n"
-                    f"Fire Modes: `{self.fire_modes}`\n"
-                    f"Special Effects: `{self.data['effects']}`\n"
-                ),
-            )
-            try:
-                file_name = name.replace(" ", "-")
-                self.set_thumbnail(file=File(f"resources/weapons/{file_name}.png"))
-            except:
-                pass
-
-
 class Terminid(Embed):
-    def __init__(self, species_name: str, species_data: dict, variation: bool = False):
+    def __init__(
+        self, species_name: str, species_data: dict, language, variation: bool = False
+    ):
         super().__init__(
             colour=Colour.dark_gold(),
             title=species_name,
@@ -730,17 +707,19 @@ class Terminid(Embed):
         }
         file_name = species_name.replace(" ", "-")
         self.add_field(
-            "Introduced",
-            f"Difficulty {species_data['start']} {difficulty_dict[species_data['start']]}",
+            language["enemy.introduced"],
+            f"{language['enemy.difficulty']} {species_data['start']} {difficulty_dict[species_data['start']]}",
             inline=False,
-        ).add_field("Tactics", species_data["tactics"], inline=False).add_field(
-            "Weak Spots", species_data["weak spots"], inline=False
+        ).add_field(
+            language["enemy.tactics"], species_data["tactics"], inline=False
+        ).add_field(
+            language["enemy.weak_spots"], species_data["weak spots"], inline=False
         )
         variations = []
         if variation == False and species_data["variations"] != None:
             for i in species_data["variations"]:
                 variations.append(i)
-            self.add_field("Variations", ", ".join(variations))
+            self.add_field(language["enemy.variations"], ", ".join(variations))
         try:
             self.set_thumbnail(
                 file=File(f"resources/enemies/terminids/{file_name}.png")
@@ -750,7 +729,9 @@ class Terminid(Embed):
 
 
 class Automaton(Embed):
-    def __init__(self, bot_name: str, bot_data: dict, variation: bool = False):
+    def __init__(
+        self, bot_name: str, bot_data: dict, language, variation: bool = False
+    ):
         super().__init__(
             colour=Colour.brand_red(),
             title=bot_name,
@@ -770,17 +751,19 @@ class Automaton(Embed):
         }
         file_name = bot_name.replace(" ", "-")
         self.add_field(
-            "Introduced",
-            f"Difficulty {bot_data['start']} {difficulty_dict[bot_data['start']]}",
+            language["enemy.introduced"],
+            f"{language['enemy.difficulty']} {bot_data['start']} {difficulty_dict[bot_data['start']]}",
             inline=False,
-        ).add_field("Tactics", bot_data["tactics"], inline=False).add_field(
-            "Weak Spots", bot_data["weak spots"], inline=False
+        ).add_field(
+            language["enemy.tactics"], bot_data["tactics"], inline=False
+        ).add_field(
+            language["enemy.weak_spots"], bot_data["weak spots"], inline=False
         )
         variations = []
         if variation == False and bot_data["variations"] != None:
             for i in bot_data["variations"]:
                 variations.append(i)
-            self.add_field("Variations", ", ".join(variations))
+            self.add_field(language["enemy.variations"], ", ".join(variations))
         try:
             self.set_thumbnail(
                 file=File(f"resources/enemies/automatons/{file_name}.png")

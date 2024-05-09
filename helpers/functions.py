@@ -41,16 +41,7 @@ async def pull_from_api(
 ):
 
     api = getenv("API")
-    results = {
-        "war_state": None,
-        "assignments": None,
-        "campaigns": None,
-        "dispatches": None,
-        "planets": None,
-        "planet_events": None,
-        "steam": None,
-        "thumbnails": None,
-    }
+    results = {}
     if get_war_state:
         async with ClientSession(headers={"Accept-Language": language}) as session:
             try:
@@ -180,7 +171,8 @@ def steam_format(content: str):  # thanks Chats
     content = sub(r"\[/u\]", r"__", content)
     content = sub(r"\[list\]", r"", content)
     content = sub(r"\[/list\]", r"", content)
-    content = sub(r"\[\*\]", r"  - ", content)
+    content = sub(r"\[\*\]", r" - ", content)
+    content = sub(r"/\[img\](.*?)\[\/img\]/", r"", content)
     content = sub(
         r"\[previewyoutube=(.+);full\]\[/previewyoutube\]",
         "[YouTube](https://www.youtube.com/watch?v=" + r"\1)",
