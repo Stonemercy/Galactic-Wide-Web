@@ -1,7 +1,7 @@
 {
     "terminids": "Terminides",
     "humans": "Humains",
-    "automatons": "Automatons",
+    "automaton": "Automatons",
     "illuminate": "Illuminates",
     "medals": "Médailles",
 
@@ -126,7 +126,7 @@
     "setup.language": "Langue",
     "setup.message": "Si vous voyez `Non défini` à l'endroit où un canal/message devrait être, vérifiez les autorisations du bot !",
     "setup.unset_dashboard": "J'ai désinitialisé votre tableau de bord. Vous êtes libre de supprimer tous les anciens tableaux de bord de ce serveur.",
-    "setup.missing_perm": "J'ai besoin de ces autorisations pour publier sur cette chaîne:\n>>> Afficher la chaîne\n>>> Envoyer des messages\n>>> Intégrer des liens\n>>> Joindre des fichiers\n>>> Utiliser des émojis externes",
+    "setup.missing_perm": "J'ai besoin de ces autorisations pour publier sur cette chaîne:\n> Afficher la chaîne\n> Envoyer des messages\n> Intégrer des liens\n> Joindre des fichiers\n> Utiliser des émojis externes",
     "setup.unset_announce": "J'ai désactivé votre canal d'annonces et j'ai désactivé vos notes de mise à jour.",
     "setup.announce_warn": "Bien qu'aucune annonce n'apparaisse immédiatement, elle le sera lorsque des événements se produiront",
     "setup.need_announce": "Vous devez configurer le canal d'annonce avant d'activer les notes de mise à jour.",

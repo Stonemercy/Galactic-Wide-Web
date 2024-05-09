@@ -1,7 +1,7 @@
 {
     "terminids": "Terminids",
     "humans": "Humans",
-    "automatons": "Automatons",
+    "automaton": "Automaton",
     "illuminate": "Illuminate",
     "medals": "Medals",
 
@@ -126,7 +126,7 @@
     "setup.language": "Language",
     "setup.message": "If you're seeing `Not set` where a channel/message should be, check the permissions for the bot!",
     "setup.unset_dashboard": "I have unset your Dashboard. You are free to delete any old Dashboards in this server.",
-    "setup.missing_perm": "I need these permissions to post in that channel:\n>>> View Channel\n>>> Send Messages\n>>> Embed Links\n>>> Attach Files\n>>> Use External Emojis",
+    "setup.missing_perm": "I need these permissions to post in that channel:\n> View Channel\n> Send Messages\n> Embed Links\n> Attach Files\n> Use External Emojis",
     "setup.unset_announce": "I have unset your Announcements channel and set your patch notes have been disabled.",
     "setup.announce_warn": "While no announcements show up straight away, they will when events happen",
     "setup.need_announce": "You need to setup the announcement channel before enabling patch notes.",

@@ -398,7 +398,7 @@ class Dashboard:
         if len(self.defend_embed.fields) < 1:
             self.defend_embed.add_field(
                 self.language["dashboard.defend_embed_no_threats"],
-                self.language["dashboard.defend_embed_for_now"],
+                f"||{self.language["dashboard.defend_embed_for_now"]}||",
             )
 
         # Attacking
@@ -424,14 +424,11 @@ class Dashboard:
                     planet_health_text = (
                         f"`{(i['planet']['health'] / i['planet']['maxHealth']):^12.2%}`"
                     )
-                if i["planet"]["sector"] == "L_estrade":  # remove when API updated
-                    i["planet"]["sector"] = "L'estrade"
                 if i["planet"]["currentOwner"] == "Automaton":
                     self.automaton_embed.add_field(
                         f"{faction_icon} - __**{self.planet_names_loc[str(i['planet']['index'])]['names'][supported_languages[language]]}**__",
                         (
-                            # f"Sector: **{i['planet']['sector']}**\n"
-                            f"{self.language['dashboard.heroes']} **{i['planet']['statistics']['playerCount']:,}**\n"
+                            f"{self.language['dashboard.heroes']}: **{i['planet']['statistics']['playerCount']:,}**\n"
                             f"{self.language['dashboard.attack_embed_planet_health']}\n"
                             f"{planet_health_bar}"
                             f"{planet_health_text}"
@@ -444,7 +441,7 @@ class Dashboard:
                         f"{faction_icon} - __**{self.planet_names_loc[str(i['planet']['index'])]['names'][supported_languages[language]]}**__",
                         (
                             # f"Sector: **{i['planet']['sector']}**\n"
-                            f"{self.language['dashboard.heroes']} **{i['planet']['statistics']['playerCount']:,}**\n"
+                            f"{self.language['dashboard.heroes']}: **{i['planet']['statistics']['playerCount']:,}**\n"
                             f"{self.language['dashboard.attack_embed_planet_health']}\n"
                             f"{planet_health_bar}"
                             f"{planet_health_text}"
