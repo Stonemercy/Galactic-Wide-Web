@@ -80,17 +80,20 @@ class DashboardCog(commands.Cog):
             return
         languages = Guilds.get_used_languages()
         dashboard_dict = {}
-
         for lang in languages:
             dashboard = Dashboard(data, lang)
             dashboard_dict[lang] = dashboard
         chunked_messages = [
             self.messages[i : i + 20] for i in range(0, len(self.messages), 20)
         ]
+        update_start = datetime.now()
         for chunk in chunked_messages:
             for message in chunk:
                 self.bot.loop.create_task(self.update_message(message, dashboard_dict))
             await sleep(2)
+        print(
+            f"Dashboard updates finished in {(datetime.now() - update_start).total_seconds()} seconds"
+        )
 
     @dashboard.before_loop
     async def before_dashboard(self):
@@ -119,13 +122,17 @@ class DashboardCog(commands.Cog):
         chunked_messages = [
             self.messages[i : i + 20] for i in range(0, len(self.messages), 20)
         ]
+        update_start = datetime.now()
         for chunk in chunked_messages:
             for message in chunk:
                 self.bot.loop.create_task(self.update_message(message, dashboard_dict))
                 dashboards_updated += 1
             await sleep(2)
+        print(
+            f"Dashboard updates finished in {(datetime.now() - update_start).total_seconds()} seconds"
+        )
         await inter.send(
-            f"Attempted to update {dashboards_updated} dashboards",
+            f"Attempted to update {dashboards_updated} dashboards in {(datetime.now() - update_start).total_seconds()} seconds",
             ephemeral=True,
             delete_after=5,
         )

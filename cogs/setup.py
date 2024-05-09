@@ -213,7 +213,7 @@ class SetupCog(commands.Cog):
             want_patch_notes = {"Yes": True, "No": False}[patch_notes]
             if guild_in_db[3] == 0 and dashboard_channel == None:
                 return await inter.send(
-                    guild_language["need_announce"],
+                    guild_language["setup.need_announce"],
                     ephemeral=True,
                 )
             if guild_in_db[4] == want_patch_notes:

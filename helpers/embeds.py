@@ -314,8 +314,8 @@ class Dashboard:
                             supported_languages[language]
                         ],
                         (
-                            f"{self.language['dashboard.heroes']} **{planet['statistics']['playerCount']:,}**\n"
-                            f"{self.language['dashboard.major_order_occupied_by']} **{planet['currentOwner']}**\n"
+                            f"{self.language['dashboard.heroes']}: **{planet['statistics']['playerCount']:,}**\n"
+                            f"{self.language['dashboard.major_order_occupied_by']}: **{planet['currentOwner']}**\n"
                             f"{planet_health_bar} {completed}\n"
                             f"`{(planet['health'] / planet['maxHealth']):^25,.2%}`\n"
                         ),
