@@ -5,7 +5,7 @@ labels: ["localization"]
 body:
   - type: markdown
     attributes:
-      value: |
+      value:
         **This form is only for submitting translation requests or assisting in translations.**
   - type: dropdown
     id: language
@@ -13,7 +13,7 @@ body:
       label: The language
       description: |
         The language that this request is about
-      options: |
+      options:
         - English
         - Deutsch
         - Español
@@ -35,7 +35,7 @@ body:
       description: |
         If this language is chosen to be added to the bot, would you be able to assist with translation?
         This will likely include editing a JSON file with template text.
-      options: |
+      options:
         - Yes
         - No
     validations:
