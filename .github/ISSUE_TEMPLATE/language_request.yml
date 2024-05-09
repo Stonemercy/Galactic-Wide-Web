@@ -5,7 +5,7 @@ labels: ["localization"]
 body:
   - type: markdown
     attributes:
-      value:
+      value: |
         **This form is only for submitting translation requests or assisting in translations.**
   - type: dropdown
     id: language
