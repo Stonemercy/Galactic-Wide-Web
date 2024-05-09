@@ -9,7 +9,6 @@
 While this bot not designed for others to setup, you can use this repo as bad inspiration for your projects.
 If you wish to use the GWW bot itself, I have it hosted and you can invite it [here](https://discord.com/channels/1212722266392109088/1212736310947741768/1212739169336434768)
 
-
 ## Features
 <ul>
 	<li>Setup a dashboard in a specific channel with one command</li>
@@ -23,6 +22,7 @@ If you wish to use the GWW bot itself, I have it hosted and you can invite it [h
 		<li>Game patch notes can also be enabled</li>
 	</ul>
 	<li>Get some info and images on the enemies to democracy</li>
+	<li>Also get info on warbonds and weapons!</li>
 </ul>
 
 
@@ -32,4 +32,9 @@ Available here: [Discord Support Server](https://discord.gg/Z8Ae5H5DjZ)
 
 ## Contributing
 Contributions are welcome!
-I have no idea how to handle them but we all have to learn sometime.
+
+To contribute to localization:
+<ul>
+	<li>Open an issue with the Language Request template</li>
+	<li>Create a pull request and add a .json file with your language's code (found [here](https://github.com/Stonemercy/Galactic-Wide-Web/blob/d28d96b81c43655ed7be0c07e118f4752ba11acf/data/lists.py#L521))</li>
+</ul>
