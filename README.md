@@ -10,21 +10,15 @@ While this bot not designed for others to setup, you can use this repo as bad in
 If you wish to use the GWW bot itself, I have it hosted and you can invite it [here](https://discord.com/channels/1212722266392109088/1212736310947741768/1212739169336434768)
 
 ## Features
-<ul>
-	<li>Setup a dashboard in a specific channel with one command</li>
-	<ul>
-		<li>The dashboard updates every 15 minutes automatically without sending any more messages. No pesky notifications!</li>
-		<li>All planets that helldivers are currently marching on are listed, with the important stats shown.</li>
-	</ul>
-	<li>Grab info on a specific planet in the war effort whenever you want using the `/planet` command</li>
-	<li>Recieve war updates to a specific channel the minute they happen!</li>
-	<ul>
-		<li>Game patch notes can also be enabled</li>
-	</ul>
-	<li>Get some info and images on the enemies to democracy</li>
-	<li>Also get info on warbonds and weapons!</li>
-</ul>
-
+- Setup a dashboard in a specific channel with one command
+  - The dashboard updates every 15 minutes automatically without sending any more messages. No pesky notifications!
+  - All planets that helldivers are currently marching on are listed, with the important stats shown.
+- Grab info on a specific planet in the war effort whenever you want
+- Recieve war updates to a specific channel the minute they happen!
+  - Game patch notes can also be enabled
+- Get some info and images on the enemies to democracy
+- Also get info on warbonds and weapons!
+- **and more!**
 
 ## Support
 Available here: [Discord Support Server](https://discord.gg/Z8Ae5H5DjZ)
@@ -34,7 +28,5 @@ Available here: [Discord Support Server](https://discord.gg/Z8Ae5H5DjZ)
 Contributions are welcome!
 
 To contribute to localization:
-<ul>
-	<li>Open an issue with the Language Request template</li>
-	<li>Create a pull request and add a .json file with your language's code (found [here](https://github.com/Stonemercy/Galactic-Wide-Web/blob/d28d96b81c43655ed7be0c07e118f4752ba11acf/data/lists.py#L521))</li>
-</ul>
+1. Open an issue with the Language Request template
+2. Create a pull request and add a .json file with your language's code found [here](https://github.com/Stonemercy/Galactic-Wide-Web/blob/d28d96b81c43655ed7be0c07e118f4752ba11acf/data/lists.py)
