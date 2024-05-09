@@ -398,7 +398,7 @@ class Dashboard:
         if len(self.defend_embed.fields) < 1:
             self.defend_embed.add_field(
                 self.language["dashboard.defend_embed_no_threats"],
-                f"||{self.language["dashboard.defend_embed_for_now"]}||",
+                f"||{self.language['dashboard.defend_embed_for_now']}||",
             )
 
         # Attacking
