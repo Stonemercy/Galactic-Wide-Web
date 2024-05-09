@@ -1,7 +1,7 @@
 {
     "terminids": "Terminiden",
     "humans": "Menschen",
-    "automatons": "Automaten",
+    "automaton": "Automaten",
     "illuminate": "Erleuchten",
     "medals": "Medaillen",
 
@@ -126,7 +126,7 @@
     "setup.language": "Sprache",
     "setup.message": "Wenn Sie 'Nicht festgelegt' sehen, wo ein Kanal/eine Nachricht sein sollte, überprüfen Sie die Berechtigungen für den Bot!",
     "setup.unset_dashboard": "Ich habe Ihr Dashboard entfernt. Sie können alle alten Dashboards in diesem Server löschen.",
-    "setup.missing_perm": "Ich benötige diese Berechtigungen, um in diesem Kanal zu posten:\n>>> Kanal anzeigen\n>>> Nachrichten senden\n>>> Einbetten von Links\n>>> Dateien anhängen\n>>> Externe Emojis verwenden",
+    "setup.missing_perm": "Ich benötige diese Berechtigungen, um in diesem Kanal zu posten:\n> Kanal anzeigen\n> Nachrichten senden\n> Einbetten von Links\n> Dateien anhängen\n> Externe Emojis verwenden",
     "setup.unset_announce": "Ich habe Ihren Ankündigungskanal entfernt und Ihre Patch-Hinweise wurden deaktiviert.",
     "setup.announce_warn": "Obwohl keine Ankündigungen sofort angezeigt werden, werden sie angezeigt, wenn Ereignisse eintreten",
     "setup.need_announce": "Sie müssen den Ankündigungskanal einrichten, bevor Sie Patch-Hinweise aktivieren können.",

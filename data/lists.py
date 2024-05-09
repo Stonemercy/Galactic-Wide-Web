@@ -516,6 +516,7 @@ enemies = {
 language_dict = {
     "English": "en",
     "Français": "fr",
+    "Deutsch": "de",
 }
 
 supported_languages = {
