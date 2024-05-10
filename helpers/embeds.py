@@ -145,7 +145,7 @@ class MajorOrderEmbed(Embed):
                 }
                 loc_faction = {
                     0: self.language["humans"],
-                    1: self.language["automatons"],
+                    1: self.language["automaton"],
                     2: self.language["terminids"],
                     3: self.language["illuminate"],
                 }
@@ -336,10 +336,10 @@ class Dashboard:
                     )
                 elif i["type"] == 3:
                     faction_dict = {
-                        0: "Humans",
-                        1: "Automaton <:a_:1215036421551685672>",
+                        1: "Humans",
                         2: "Terminids <:t_:1215036423090999376>",
-                        3: "Illuminate <:i_:1218283483240206576>",
+                        3: "Automaton <:a_:1215036421551685672>",
+                        4: "Illuminate <:i_:1218283483240206576>",
                     }
                     event_health_bar = health_bar(
                         self.assignment["progress"][0], i["values"][2], "MO"
