@@ -57,7 +57,7 @@ class Planet(Embed):
         self.colour = faction_colour[self.planet["currentOwner"]]
         if self.planet["currentOwner"] == "Automaton":
             self.add_field(
-                f"💀 {self.language['automatons']} {self.language['planet.kills']}:",
+                f"💀 {self.language['automaton']} {self.language['planet.kills']}:",
                 f"**{short_format(self.planet['statistics']['automatonKills'])}**",
                 inline=False,
             )

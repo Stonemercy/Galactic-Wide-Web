@@ -130,43 +130,44 @@ class SetupCog(commands.Cog):
                         guild_language["setup.missing_perm"],
                         ephemeral=True,
                     )
-                data = await pull_from_api(
-                    get_campaigns=True,
-                    get_assignments=True,
-                    get_planet_events=True,
-                    get_planets=True,
-                    get_war_state=True,
-                )
-                dashboard = Dashboard(data, guild_in_db[5])
-                try:
-                    message = await dashboard_channel.send(
-                        embeds=dashboard.embeds, file=File("resources/banner.png")
+                else:
+                    data = await pull_from_api(
+                        get_campaigns=True,
+                        get_assignments=True,
+                        get_planet_events=True,
+                        get_planets=True,
+                        get_war_state=True,
                     )
-                except Exception as e:
-                    print("setup", e)
+                    dashboard = Dashboard(data, guild_in_db[5])
+                    try:
+                        message = await dashboard_channel.send(
+                            embeds=dashboard.embeds, file=File("resources/banner.png")
+                        )
+                    except Exception as e:
+                        print("setup", e)
+                        await inter.send(
+                            "An error has occured, I have contacted Super Earth High Command.",
+                            ephemeral=True,
+                        )
+                    Guilds.update_dashboard(
+                        inter.guild_id, dashboard_channel.id, message.id
+                    )
                     await inter.send(
-                        "An error has occured, I have contacted Super Earth High Command.",
+                        (
+                            f"{guild_language['setup.dashboard_channel']}: {dashboard_channel.mention}\n"
+                            f"{guild_language['setup.dashboard_message']}: {message.jump_url}\n"
+                        ),
                         ephemeral=True,
                     )
-                Guilds.update_dashboard(
-                    inter.guild_id, dashboard_channel.id, message.id
-                )
-                await inter.send(
-                    (
-                        f"{guild_language['setup.dashboard_channel']}: {dashboard_channel.mention}\n"
-                        f"{guild_language['setup.dashboard_message']}: {message.jump_url}\n"
-                    ),
-                    ephemeral=True,
-                )
-                messages: list = self.bot.get_cog("DashboardCog").messages
-                for i in messages:
-                    if i.guild == inter.guild:
-                        try:
-                            await i.delete()
-                        except Exception as e:
-                            print("Setup - Dashboard", e)
-                        messages.remove(i)
-                messages.append(message)
+                    messages: list = self.bot.get_cog("DashboardCog").messages
+                    for i in messages:
+                        if i.guild == inter.guild:
+                            try:
+                                await i.delete()
+                            except Exception as e:
+                                print("Setup - Dashboard", e)
+                            messages.remove(i)
+                    messages.append(message)
 
         if announcement_channel != None:
             if announcement_channel.id == guild_in_db[3]:
@@ -192,21 +193,22 @@ class SetupCog(commands.Cog):
                         guild_language["setup.missing_perm"],
                         ephemeral=True,
                     )
-                Guilds.update_announcement_channel(
-                    inter.guild_id, announcement_channel.id
-                )
-                await inter.send(
-                    (
-                        f"{guild_language['setup.announcement_channel']}: {announcement_channel.mention}.\n"
-                        f"{guild_language['setup.announce_warn']}"
-                    ),
-                    ephemeral=True,
-                )
-                channels: list = self.bot.get_cog("AnnouncementsCog").channels
-                for i in channels:
-                    if i.guild == inter.guild:
-                        channels.remove(i)
-                channels.append(announcement_channel)
+                else:
+                    Guilds.update_announcement_channel(
+                        inter.guild_id, announcement_channel.id
+                    )
+                    await inter.send(
+                        (
+                            f"{guild_language['setup.announcement_channel']}: {announcement_channel.mention}.\n"
+                            f"{guild_language['setup.announce_warn']}"
+                        ),
+                        ephemeral=True,
+                    )
+                    channels: list = self.bot.get_cog("AnnouncementsCog").channels
+                    for i in channels:
+                        if i.guild == inter.guild:
+                            channels.remove(i)
+                    channels.append(announcement_channel)
 
         if patch_notes != None:
             patch_notes_enabled = guild_in_db[4]
