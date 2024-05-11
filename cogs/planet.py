@@ -40,6 +40,8 @@ class PlanetCog(commands.Cog):
         guild = Guilds.get_info(inter.guild_id)
         language = guild[5]
         data = await pull_from_api(get_planets=True, get_thumbnail=True)
+        if len(data) == 0:
+            return
         planets_data = data["planets"]
         planet_data = None
         planet_thumbnail = None

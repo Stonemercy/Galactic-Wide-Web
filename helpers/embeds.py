@@ -328,7 +328,7 @@ class Dashboard:
                     self.major_orders_embed.add_field(
                         f"{self.language['dashboard.major_order_succeed_in_defense']} {i['values'][0]} {self.language['dashboard.planets']}",
                         (
-                            f"{self.language['dashboard.major_order_progress']} {self.assignment['progress'][0]}/{i['values'][0]}\n"
+                            f"{self.language['dashboard.major_order_progress']}: {self.assignment['progress'][0]}/{i['values'][0]}\n"
                             f"{event_health_bar}\n"
                             f"`{(self.assignment['progress'][0] / i['values'][0]):^25,.2%}`\n"
                         ),
@@ -336,18 +336,24 @@ class Dashboard:
                     )
                 elif i["type"] == 3:
                     faction_dict = {
-                        1: "Humans",
-                        2: "Terminids <:t_:1215036423090999376>",
-                        3: "Automaton <:a_:1215036421551685672>",
-                        4: "Illuminate <:i_:1218283483240206576>",
+                        1: "",
+                        2: "<:t_:1215036423090999376>",
+                        3: "<:a_:1215036421551685672>",
+                        4: "<:i_:1218283483240206576>",
+                    }
+                    loc_faction = {
+                        1: self.language["humans"],
+                        2: self.language["terminids"],
+                        3: self.language["automaton"],
+                        4: self.language["illuminate"],
                     }
                     event_health_bar = health_bar(
                         self.assignment["progress"][0], i["values"][2], "MO"
                     )
                     self.major_orders_embed.add_field(
-                        f"{self.language['dashboard.major_order_kill']} {short_format(i['values'][2])} {faction_dict[i['values'][0]]}",
+                        f"{self.language['dashboard.major_order_kill']} {short_format(i['values'][2])} {loc_faction[i['values'][0]]} {faction_dict[i['values'][0]]}",
                         (
-                            f"{self.language['major_order.progress']} {short_format(self.assignment['progress'][0])}/{short_format(i['values'][2])}\n"
+                            f"{self.language['major_order.progress']}: **{short_format(self.assignment['progress'][0])}**/**{short_format(i['values'][2])}**\n"
                             f"{event_health_bar}\n"
                             f"`{(self.assignment['progress'][0] / i['values'][2]):^25,.2%}`\n"
                         ),
@@ -380,16 +386,16 @@ class Dashboard:
                 faction_icon = self.faction_dict[i["event"]["faction"]]
                 time_remaining = f"<t:{datetime.fromisoformat(i['event']['endTime']).timestamp():.0f}:R>"
                 event_health_bar = health_bar(
-                    i["event"]["health"], i["event"]["maxHealth"], "Humans"
+                    i["event"]["health"], i["event"]["maxHealth"], "Humans", True
                 )
                 self.defend_embed.add_field(
                     f"{faction_icon} - __**{self.planet_names_loc[str(i['index'])]['names'][supported_languages[language]]}**__",
                     (
                         f"{self.language['dashboard.defend_embed_ends']}: {time_remaining}\n"
                         f"{self.language['dashboard.heroes']}: **{i['statistics']['playerCount']:,}**\n"
-                        f"{self.language['dashboard.defend_embed_event_health']}\n"
+                        f"{self.language['dashboard.defend_embed_event_health']}:\n"
                         f"{event_health_bar}\n"
-                        f"`{(i['event']['health'] / i['event']['maxHealth']):^25,.2%}`\n"
+                        f"`{(1 - (i['event']['health'] / i['event']['maxHealth'])):^25,.2%}`\n"
                         "\u200b\n"
                     ),
                     inline=False,
@@ -417,19 +423,18 @@ class Dashboard:
                         i["planet"]["health"],
                         i["planet"]["maxHealth"],
                         i["planet"]["currentOwner"],
+                        True,
                     )
-                    planet_health_text = f"\n`{(i['planet']['health'] / i['planet']['maxHealth']):^25.2%}`"
+                    planet_health_text = f"\n`{(1 - (i['planet']['health'] / i['planet']['maxHealth'])):^25.2%}`"
                 else:
                     planet_health_bar = ""
-                    planet_health_text = (
-                        f"`{(i['planet']['health'] / i['planet']['maxHealth']):^12.2%}`"
-                    )
+                    planet_health_text = f"`{(1 - (i['planet']['health'] / i['planet']['maxHealth'])):^15.2%}`"
                 if i["planet"]["currentOwner"] == "Automaton":
                     self.automaton_embed.add_field(
                         f"{faction_icon} - __**{self.planet_names_loc[str(i['planet']['index'])]['names'][supported_languages[language]]}**__",
                         (
                             f"{self.language['dashboard.heroes']}: **{i['planet']['statistics']['playerCount']:,}**\n"
-                            f"{self.language['dashboard.attack_embed_planet_health']}\n"
+                            f"{self.language['dashboard.attack_embed_planet_health']}:\n"
                             f"{planet_health_bar}"
                             f"{planet_health_text}"
                             "\n\u200b\n"

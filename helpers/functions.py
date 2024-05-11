@@ -5,15 +5,15 @@ from re import sub
 from aiohttp import ClientSession
 
 
-def health_bar(
-    current_health: int,
-    max_health: int,
-    race: str,
-):
+def health_bar(current_health: int, max_health: int, race: str, reverse: bool = False):
     if race not in ("Terminids", "Automaton", "Illuminate", "Humans", "MO"):
         print(race, "race not in health_bar func")
         return ""
-    perc = ceil((current_health / max_health) * 10)
+    perc = (
+        10 - ceil((current_health / max_health) * 10)
+        if reverse
+        else ceil((current_health / max_health) * 10)
+    )
     health_icon_dict = {
         "Terminids": "<:tc:1229360523217342475>",
         "Automaton": "<:ac:1229360519689801738>",

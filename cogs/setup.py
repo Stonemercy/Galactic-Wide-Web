@@ -138,6 +138,11 @@ class SetupCog(commands.Cog):
                         get_planets=True,
                         get_war_state=True,
                     )
+                    if len(data) < 5:
+                        return await inter.send(
+                            "There was an issue connecting to the datacentre. Please try again.",
+                            ephemeral=True,
+                        )
                     dashboard = Dashboard(data, guild_in_db[5])
                     try:
                         message = await dashboard_channel.send(

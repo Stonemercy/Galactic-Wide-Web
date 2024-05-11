@@ -76,7 +76,7 @@ class DashboardCog(commands.Cog):
             get_planets=True,
             get_war_state=True,
         )
-        if data["campaigns"] == None:
+        if len(data) < 5:
             return
         languages = Guilds.get_used_languages()
         dashboard_dict = {}
@@ -114,6 +114,8 @@ class DashboardCog(commands.Cog):
             get_planets=True,
             get_war_state=True,
         )
+        if len(data) < 5:
+            return
         languages = Guilds.get_used_languages()
         dashboard_dict = {}
         for lang in languages:

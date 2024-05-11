@@ -87,7 +87,7 @@ class AnnouncementsCog(commands.Cog):
         last_id = MajorOrders.get_last_id()
         data = await pull_from_api(get_assignments=True, get_planets=True)
         if (
-            data["assignments"] in (None, [])
+            len(data) < 2
             or data["assignments"][0]["briefing"] == None
             or data["assignments"][0]["description"] == 0
         ):
@@ -121,7 +121,7 @@ class AnnouncementsCog(commands.Cog):
     async def dispatch_check(self):
         last_id = Dispatches.get_last_id()
         data = await pull_from_api(get_dispatches=True)
-        if data["dispatches"] == None:
+        if len(data) == 0:
             return
         if data["dispatches"][0]["message"] == None:
             return
@@ -147,6 +147,8 @@ class AnnouncementsCog(commands.Cog):
     async def steam_check(self):
         last_id = Steam.get_last_id()
         data = await pull_from_api(get_steam=True)
+        if len(data) == 0:
+            return
         self.newest_id = int(data["steam"][0]["id"])
         if last_id == None:
             Steam.setup()

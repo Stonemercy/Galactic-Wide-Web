@@ -58,14 +58,16 @@ class WarUpdatesCog(commands.Cog):
     @tasks.loop(minutes=1)
     async def campaign_check(self):
         data = await pull_from_api(
-            get_planets=True, get_campaigns=True, get_war_state=True
+            get_planets=True,
+            get_campaigns=True,
         )
+        if len(data) < 2:
+            return
         for i, j in data.items():
             if j == None:
                 print("campaign_check", i, j)
                 return
         planets = data["planets"]
-        war = data["war_state"]
         new_campaigns = data["campaigns"]
         old_campaigns = Campaigns.get_all()
 

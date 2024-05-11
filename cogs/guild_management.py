@@ -1,5 +1,6 @@
 from asyncio import sleep
 from datetime import datetime
+from math import inf
 from disnake import (
     Activity,
     ActivityType,
@@ -80,13 +81,14 @@ class GuildManagementCog(commands.Cog):
             pid = getpid()
             process = Process(pid)
             memory_used = process.memory_info().rss / 1024**2
+            latency = 9999.999 if self.bot.latency == float(inf) else self.bot.latency
             dashboard_embed.add_field(
                 "------------------\nHardware Info",
                 (
                     f"**CPU**: {cpu_percent()}%\n"
                     f"**RAM**: {memory_used:.2f}MB\n"
                     f"**Last restart**: <t:{int(self.startup_time.timestamp())}:R>\n"
-                    f"**Latency**: {int(self.bot.latency * 1000)}ms"
+                    f"**Latency**: {int(latency * 1000)}ms"
                 ),
                 inline=False,
             )
