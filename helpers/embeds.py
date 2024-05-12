@@ -227,9 +227,10 @@ class CampaignEmbed(Embed):
         self.set_field_at(2, name, description, inline=self.fields[1].inline)
 
     def add_campaign_victory(self, planet, liberatee):
+        liberatee_loc = self.language[liberatee.lower()]
         name = self.fields[0].name
         description = self.fields[0].value
-        description += f"**<:victory:1238069280508215337> {planet['name']}** {self.language['campaigns.been_liberated']} **{liberatee}** {self.faction_dict[liberatee]}!\n"
+        description += f"**<:victory:1238069280508215337> {planet['name']}** {self.language['campaigns.been_liberated']} **{liberatee_loc}** {self.faction_dict[liberatee]}!\n"
         self.set_field_at(0, name, description, inline=self.fields[0].inline)
 
     def add_def_victory(self, planet):
