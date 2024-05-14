@@ -419,7 +419,7 @@ class Dashboard:
                 ):
                     continue
                 faction_icon = self.faction_dict[i["planet"]["currentOwner"]]
-                if len(self.campaigns) < 10:
+                if len(self.campaigns) < 11:
                     planet_health_bar = health_bar(
                         i["planet"]["health"],
                         i["planet"]["maxHealth"],
@@ -446,9 +446,8 @@ class Dashboard:
                     self.terminids_embed.add_field(
                         f"{faction_icon} - __**{self.planet_names_loc[str(i['planet']['index'])]['names'][supported_languages[language]]}**__",
                         (
-                            # f"Sector: **{i['planet']['sector']}**\n"
                             f"{self.language['dashboard.heroes']}: **{i['planet']['statistics']['playerCount']:,}**\n"
-                            f"{self.language['dashboard.attack_embed_planet_health']}\n"
+                            f"{self.language['dashboard.attack_embed_planet_health']}:\n"
                             f"{planet_health_bar}"
                             f"{planet_health_text}"
                             "\n\u200b\n"
@@ -463,7 +462,7 @@ class Dashboard:
             f"{self.language['dashboard.other_updated']} <t:{self.timestamp}:f> - <t:{self.timestamp}:R>",
             inline=False,
         )
-        if len(self.campaigns) > 10:
+        if len(self.campaigns) >= 11:
             self.terminids_embed.add_field(
                 "",
                 f"*{self.language['dashboard.lite_mode']}*",
