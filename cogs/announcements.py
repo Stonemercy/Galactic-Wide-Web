@@ -98,7 +98,6 @@ class AnnouncementsCog(commands.Cog):
             last_id = MajorOrders.get_last_id()
         if last_id == 0 or last_id != self.newest_id:
             MajorOrders.set_new_id(self.newest_id)
-
             languages = Guilds.get_used_languages()
             embeds = {}
             for lang in languages:
@@ -130,13 +129,17 @@ class AnnouncementsCog(commands.Cog):
             Dispatches.setup()
         if last_id == 0 or last_id != self.newest_id:
             Dispatches.set_new_id(self.newest_id)
-            embed = DispatchesEmbed(data["dispatches"][0])
+            languages = Guilds.get_used_languages()
+            embeds = {}
+            for lang in languages:
+                embed = DispatchesEmbed(data["dispatches"][0])
+                embeds[lang] = embed
             chunked_channels = [
                 self.channels[i : i + 50] for i in range(0, len(self.channels), 50)
             ]
             for chunk in chunked_channels:
                 for channel in chunk:
-                    self.bot.loop.create_task(self.send_embed(channel, embed))
+                    self.bot.loop.create_task(self.send_embed(channel, embeds))
                 await sleep(2)
 
     @dispatch_check.before_loop
@@ -155,14 +158,18 @@ class AnnouncementsCog(commands.Cog):
             last_id = Steam.get_last_id()
         if last_id == 0 or last_id != self.newest_id:
             Steam.set_new_id(self.newest_id)
-            embed = SteamEmbed(data["steam"][0])
+            languages = Guilds.get_used_languages()
+            embeds = {}
+            for lang in languages:
+                embed = SteamEmbed(data["steam"][0])
+                embeds[lang] = embed
             chunked_patch_channels = [
                 self.patch_channels[i : i + 50]
                 for i in range(0, len(self.patch_channels), 50)
             ]
             for chunk in chunked_patch_channels:
                 for channel in chunk:
-                    self.bot.loop.create_task(self.send_embed(channel, embed))
+                    self.bot.loop.create_task(self.send_embed(channel, embeds))
                 await sleep(2)
 
     @steam_check.before_loop
