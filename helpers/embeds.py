@@ -384,6 +384,8 @@ class Dashboard:
         if self.planet_events != None:
             self.defend_embed.set_thumbnail("https://helldivers.io/img/defense.png")
             for i in self.planet_events:
+                if i["name"] in self.planets_listed:
+                    continue
                 faction_icon = self.faction_dict[i["event"]["faction"]]
                 time_remaining = f"<t:{datetime.fromisoformat(i['event']['endTime']).timestamp():.0f}:R>"
                 event_health_bar = health_bar(
