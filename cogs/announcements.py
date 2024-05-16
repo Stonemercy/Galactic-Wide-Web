@@ -1,5 +1,5 @@
 from asyncio import sleep
-from disnake import Embed, TextChannel
+from disnake import TextChannel
 from disnake.ext import commands, tasks
 from helpers.embeds import DispatchesEmbed, MajorOrderEmbed, SteamEmbed
 from helpers.db import Dispatches, MajorOrders, Guilds, Steam

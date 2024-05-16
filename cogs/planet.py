@@ -13,10 +13,6 @@ class PlanetCog(commands.Cog):
         self.planets_json = load(
             open("data/json/planets/planets.json", encoding="UTF-8")
         )
-        self.biomes = load(open("data/json/planets/biomes.json", encoding="UTF-8"))
-        self.environmentals = load(
-            open("data/json/planets/environmentals.json", encoding="UTF-8")
-        )
         print("Planet cog has finished loading")
 
     async def planet_autocomp(inter: AppCmdInter, user_input: str):
@@ -58,16 +54,15 @@ class PlanetCog(commands.Cog):
                 break
         if planet_data == None:
             return await inter.send("Information on that planet is unavailable.")
-        planet_json = self.planets_json[str(planet_data["index"])]
-        planet_biome = self.biomes[planet_json["biome"]]
-        planet_enviros = []
-        for i in planet_json["environmentals"]:
-            planet_enviros.append(self.environmentals[i])
-        embed = Planet(
-            planet_data, planet_thumbnail, planet_biome, planet_enviros, language
-        )
-        if planet_json["biome"] not in ("unknown"):
-            embed.set_image(file=File(f"resources/biomes/{planet_json['biome']}.png"))
+        embed = Planet(planet_data, planet_thumbnail, language)
+        try:
+            embed.set_image(
+                file=File(
+                    f"resources/biomes/{planet_data['biome']['name'].lower()}.png"
+                )
+            )
+        except:
+            pass
         await inter.send(embed=embed, ephemeral=ephemeral)
 
 
