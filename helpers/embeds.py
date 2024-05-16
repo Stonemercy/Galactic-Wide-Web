@@ -411,7 +411,9 @@ class Dashboard:
                 event_health_bar = health_bar(
                     i["event"]["health"], i["event"]["maxHealth"], "Humans", True
                 )
-                exclamation = ":exclamation:" if i["name"] in self.MO_planets else ""
+                exclamation = (
+                    "<:MO:1240706769043456031>" if i["name"] in self.MO_planets else ""
+                )
                 self.defend_embed.add_field(
                     f"{faction_icon} - __**{self.planet_names_loc[str(i['index'])]['names'][supported_languages[language]]}**__ {exclamation}",
                     (
