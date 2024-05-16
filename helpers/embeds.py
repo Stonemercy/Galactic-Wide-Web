@@ -288,7 +288,7 @@ class Dashboard:
         if self.assignment not in (None, []):
             reward_types = load(open("data/json/assignments/reward/type.json"))
             self.major_orders_embed.set_thumbnail(
-                "https://helldivers.io/img/majororder.png"
+                "https://media.discordapp.net/attachments/1212735927223590974/1240708455040548997/MO_defend.png?ex=66478b4a&is=664639ca&hm=2593a504f96bd5e889772762c2e9790caa08fc279ca48ea0f03c70fa74efecb5&=&format=webp&quality=lossless"
             )
             self.assignment = self.assignment[0]
             self.major_orders_embed.add_field(
@@ -355,6 +355,9 @@ class Dashboard:
                         inline=False,
                     )
                 elif i["type"] == 3:
+                    self.major_orders_embed.set_thumbnail(
+                        "https://media.discordapp.net/attachments/1212735927223590974/1240708455250133142/MO_exterminate.png?ex=66478b4a&is=664639ca&hm=301a0766d3bf6e48c335a7dbafec801ecbe176d65624e69a63cb030dad9b4d82&=&format=webp&quality=lossless"
+                    )
                     faction_dict = {
                         1: "",
                         2: "<:t_:1215036423090999376>",
