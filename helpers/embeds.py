@@ -149,7 +149,9 @@ class MajorOrderEmbed(Embed):
                     2: self.language["terminids"],
                     3: self.language["illuminate"],
                 }
-                event_health_bar = health_bar(i["progress"][0], i["values"][2], "MO")
+                event_health_bar = health_bar(
+                    assignment["progress"][0], i["values"][2], "MO"
+                )
                 self.add_field(
                     f"{self.language['major_order.kill']} {short_format(i['values'][2])} **{loc_faction}**{faction_dict[i['values'][0]]}",
                     (
@@ -341,6 +343,10 @@ class Dashboard:
                         ),
                         inline=False,
                     )
+                    self.major_orders_embed.add_field(
+                        "Progress",
+                        f"{progress_made} / {len(self.assignment['progress'])}",
+                    )
                 elif i["type"] == 12:
                     event_health_bar = health_bar(
                         self.assignment["progress"][0], i["values"][0], "MO"
@@ -359,12 +365,14 @@ class Dashboard:
                         "https://media.discordapp.net/attachments/1212735927223590974/1240708455250133142/MO_exterminate.png?ex=66478b4a&is=664639ca&hm=301a0766d3bf6e48c335a7dbafec801ecbe176d65624e69a63cb030dad9b4d82&=&format=webp&quality=lossless"
                     )
                     faction_dict = {
+                        0: "",
                         1: "",
                         2: "<:t_:1215036423090999376>",
                         3: "<:a_:1215036421551685672>",
                         4: "<:i_:1218283483240206576>",
                     }
                     loc_faction = {
+                        0: self.language["enemies_of_freedom"],
                         1: self.language["humans"],
                         2: self.language["terminids"],
                         3: self.language["automaton"],
@@ -391,10 +399,6 @@ class Dashboard:
                 self.language["dashboard.major_order_reward"],
                 f"{self.assignment['reward']['amount']} {self.language[reward_types[str(self.assignment['reward']['type'])].lower()]} <:medal:1226254158278037504>",
                 inline=False,
-            )
-            self.major_orders_embed.add_field(
-                "Progress",
-                f"{progress_made} / {len(self.assignment['progress'])}",
             )
             self.major_orders_embed.add_field(
                 self.language["dashboard.major_order_ends"],
