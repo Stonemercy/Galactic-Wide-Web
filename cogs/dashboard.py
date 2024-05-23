@@ -1,11 +1,14 @@
 from asyncio import sleep
+from logging import getLogger
 from os import getenv
-from disnake import AppCmdInter, NotFound, PartialMessage
+from disnake import AppCmdInter, Forbidden, NotFound, PartialMessage
 from disnake.ext import commands, tasks
 from helpers.embeds import Dashboard
 from helpers.db import Guilds
 from datetime import datetime
 from helpers.functions import pull_from_api
+
+logger = getLogger("disnake")
 
 
 class DashboardCog(commands.Cog):
@@ -15,7 +18,6 @@ class DashboardCog(commands.Cog):
         self.dashboard.start()
         self.db_cleanup.start()
         self.cache_messages.start()
-        print("Dashboard cog has finished loading")
 
     def cog_unload(self):
         self.dashboard.stop()
@@ -32,22 +34,29 @@ class DashboardCog(commands.Cog):
                 self.messages.append(message)
             except Exception as e:
                 guild = self.bot.get_guild(int(i[0]))
-                print("message_list_gen message", guild.id, e)
+                logger.error(("DashboardCog message_list_gen message", guild.id, e))
         except Exception as e:
-            return print("message_list_gen channel", i[1], e)
+            return logger.error("DashboardCog message_list_gen channel", i[1], e)
 
     async def update_message(self, i: PartialMessage, dashboard_dict: dict):
         guild = Guilds.get_info(i.guild.id)
         if guild == None:
             self.messages.remove(i)
-            return print("Update message - Guild not in DB")
+            return logger.error("DashboardCog update_message - Guild not in DB")
         try:
             await i.edit(embeds=dashboard_dict[guild[5]].embeds)
         except NotFound:
             self.messages.remove(i)
-            return print("Dashboard not found, removing", i.channel.name)
+            return logger.error(
+                ("DashboardCog dashboard not found, removing", i.channel.name)
+            )
+        except Forbidden:
+            self.messages.remove(i)
+            return logger.error(
+                ("DashboardCog dashboard forbidden, removing", i.channel.name)
+            )
         except Exception as e:
-            return print("Update message error", e, i.channel.name)
+            return logger.error(("DashboardCog update_message", e, i.channel.name))
 
     @tasks.loop(count=1)
     async def cache_messages(self):
@@ -87,11 +96,12 @@ class DashboardCog(commands.Cog):
             self.messages[i : i + 20] for i in range(0, len(self.messages), 20)
         ]
         update_start = datetime.now()
+        logger.info("Dashboard updates started")
         for chunk in chunked_messages:
             for message in chunk:
                 self.bot.loop.create_task(self.update_message(message, dashboard_dict))
             await sleep(2)
-        print(
+        logger.info(
             f"Dashboard updates finished in {(datetime.now() - update_start).total_seconds()} seconds"
         )
 
@@ -101,6 +111,7 @@ class DashboardCog(commands.Cog):
 
     @commands.slash_command(guild_ids=[int(getenv("SUPPORT_SERVER"))])
     async def force_update_dashboard(self, inter: AppCmdInter):
+        logger.critical("force_update_dashboard command used")
         if inter.author.id != self.bot.owner_id:
             return await inter.send(
                 "You can't use this", ephemeral=True, delete_after=3.0
@@ -125,13 +136,14 @@ class DashboardCog(commands.Cog):
             self.messages[i : i + 20] for i in range(0, len(self.messages), 20)
         ]
         update_start = datetime.now()
+        logger.info("Dashboard forced updates started")
         for chunk in chunked_messages:
             for message in chunk:
                 self.bot.loop.create_task(self.update_message(message, dashboard_dict))
                 dashboards_updated += 1
             await sleep(2)
-        print(
-            f"Dashboard updates finished in {(datetime.now() - update_start).total_seconds()} seconds"
+        logger.info(
+            f"Dashboard force updates finished in {(datetime.now() - update_start).total_seconds()} seconds"
         )
         await inter.send(
             f"Attempted to update {dashboards_updated} dashboards in {(datetime.now() - update_start).total_seconds()} seconds",
@@ -150,7 +162,7 @@ class DashboardCog(commands.Cog):
             guild_ids.append(i.id)
         for guild in guilds_in_db:
             if guild[0] not in guild_ids:
-                print(f"Guild found in DB but not in bot list, removing")
+                logger.error(f"Guild found in DB but not in bot list, removing")
                 Guilds.remove_from_db(guild[0])
                 for message in messages:
                     if message.guild.id == guild[0]:

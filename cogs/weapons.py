@@ -1,8 +1,11 @@
+from logging import getLogger
 from disnake import AppCmdInter
 from disnake.ext import commands
 from helpers.db import Guilds
 from helpers.embeds import Items
 from json import load
+
+logger = getLogger("disnake")
 
 
 class WeaponsCog(commands.Cog):
@@ -34,7 +37,6 @@ class WeaponsCog(commands.Cog):
                 continue
             self.grenades["item_list"][j["name"]] = j
         self.grenades = self.grenades["item_list"]
-        print("Weapons cog has finished loading")
 
     async def primary_autocomp(inter: AppCmdInter, user_input: str):
         primaries_json = load(open("data/json/items/weapons/primary.json"))
@@ -72,6 +74,7 @@ class WeaponsCog(commands.Cog):
         inter: AppCmdInter,
         primary: str = commands.Param(autocomplete=primary_autocomp),
     ):
+        logger.info("weapons_primary command used")
         guild_in_db = Guilds.get_info(inter.guild_id)
         guild_language = load(
             open(f"data/languages/{guild_in_db[5]}.json", encoding="UTF-8")
@@ -93,6 +96,7 @@ class WeaponsCog(commands.Cog):
         inter: AppCmdInter,
         secondary: str = commands.Param(autocomplete=secondary_autocomp),
     ):
+        logger.info("weapons_secondary command used")
         guild_in_db = Guilds.get_info(inter.guild_id)
         guild_language = load(
             open(f"data/languages/{guild_in_db[5]}.json", encoding="UTF-8")
@@ -115,6 +119,7 @@ class WeaponsCog(commands.Cog):
         inter: AppCmdInter,
         grenade: str = commands.Param(autocomplete=grenade_autocomp),
     ):
+        logger.info("weapons_grenade command used")
         guild_in_db = Guilds.get_info(inter.guild_id)
         guild_language = load(
             open(f"data/languages/{guild_in_db[5]}.json", encoding="UTF-8")

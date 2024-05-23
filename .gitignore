@@ -8,6 +8,11 @@ Dockerfile
 .vscode/
 emojis/
 requirements.txt
+resources/map_2.webp
+resources/map_en.webp
+resources/map_fr.webp
+resources/map_setup.webp
+resources/mapbackup.webp
 
 # JSON
 data/json/.github
@@ -19,9 +24,6 @@ data/json/LICENSE
 data/json/README.md
 data/json/Writerside/*
 resources/warbonds/*
-
-# Created by https://www.gitignore.io/api/python,visualstudiocode
-# Edit at https://www.gitignore.io/?templates=python,visualstudiocode
 
 ### Python ###
 # Byte-compiled / optimized / DLL files
@@ -142,5 +144,3 @@ dmypy.json
 
 # jetbrains
 .idea/
-
-

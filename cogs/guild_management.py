@@ -1,5 +1,6 @@
 from asyncio import sleep
 from datetime import datetime
+from logging import getLogger
 from math import inf
 from disnake import (
     Activity,
@@ -17,13 +18,14 @@ from psutil import Process, cpu_percent
 from helpers.functions import health_bar
 from disnake.ui import Button
 
+logger = getLogger("disnake")
+
 
 class GuildManagementCog(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
         self.bot_dashboard.start()
         self.react_role_dashboard.start()
-        print("Guild Management cog has finished loading")
         self.startup_time = datetime.now()
 
     def cog_unload(self):
@@ -154,7 +156,7 @@ class GuildManagementCog(commands.Cog):
             try:
                 message = channel.get_partial_message(data[1])
             except Exception as e:
-                print(f"bot_dashboard ", e)
+                logger.error((f"GuildManagementCog bot_dashboard", e))
             try:
                 await message.edit(
                     embed=dashboard_embed,
@@ -237,6 +239,10 @@ class GuildManagementCog(commands.Cog):
                     ephemeral=True,
                     delete_after=10,
                 )
+
+    # @commands.slash_command(guild_ids=[int(getenv("SUPPORT_SERVER"))])
+    # async def global_announcement(self, inter: AppCmdInter):
+    #     return await inter.send("WIP", delete_after=10)
 
 
 def setup(bot: commands.Bot):

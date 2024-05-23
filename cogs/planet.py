@@ -1,3 +1,4 @@
+from logging import getLogger
 from disnake import AppCmdInter, File
 from disnake.ext import commands
 from helpers.db import Guilds
@@ -6,6 +7,8 @@ from data.lists import planets
 from helpers.functions import pull_from_api
 from json import load
 
+logger = getLogger("disnake")
+
 
 class PlanetCog(commands.Cog):
     def __init__(self, bot: commands.Bot):
@@ -13,7 +16,6 @@ class PlanetCog(commands.Cog):
         self.planets_json = load(
             open("data/json/planets/planets.json", encoding="UTF-8")
         )
-        print("Planet cog has finished loading")
 
     async def planet_autocomp(inter: AppCmdInter, user_input: str):
         return [command for command in planets if user_input in command.lower()][:25]
@@ -25,6 +27,7 @@ class PlanetCog(commands.Cog):
         planet: str = commands.Param(autocomplete=planet_autocomp),
         public: str = commands.Param(choices=["Yes", "No"], default="No"),
     ):
+        logger.info("planet command used")
         planets_list = planets
         if planet not in planets_list:
             return await inter.send(

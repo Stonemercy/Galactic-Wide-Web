@@ -41,7 +41,7 @@ class Guilds:
                 )
                 conn.commit()
 
-    def update_announcement_channel(guild_id: int, channel_id: str):
+    def update_announcement_channel(guild_id: int, channel_id: int):
         with connect(
             host=hostname, dbname=database, user=username, password=pwd, port=port_id
         ) as conn:
@@ -49,6 +49,17 @@ class Guilds:
                 curs.execute(
                     "Update guilds set announcement_channel_id = %s where guild_id = %s",
                     (channel_id, guild_id),
+                )
+                conn.commit()
+
+    def update_map(guild_id: int, channel_id: int, message_id: int):
+        with connect(
+            host=hostname, dbname=database, user=username, password=pwd, port=port_id
+        ) as conn:
+            with conn.cursor() as curs:
+                curs.execute(
+                    "Update guilds set map_channel_id = %s, map_message_id = %s where guild_id = %s",
+                    (channel_id, message_id, guild_id),
                 )
                 conn.commit()
 

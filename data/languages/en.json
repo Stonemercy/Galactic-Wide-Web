@@ -137,5 +137,8 @@
     "setup.patch_notes_enabled": "Patch notes will now show up in your announcement channel.\nWhile no patch notes show up straight away, they will when patches are released",
     "setup.patch_notes_disabled": "Patch notes will no longer show up in your announcement channel",
     "setup.language_same": "Your language is already set to that, nothing has been changed.",
-    "setup.language_set": "Your bot language has been changed.\nPlease note that not everything will change immediately."
+    "setup.language_set": "Your bot language has been changed.\nPlease note that not everything will change immediately.",
+    "setup.map_channel": "Map Channel",
+    "setup.map_message": "Map Message",
+    "setup.unset_map": "I have unset your Map. You are free to delete any old Maps in this server."
 }

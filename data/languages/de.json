@@ -137,5 +137,8 @@
     "setup.patch_notes_enabled": "Patch-Hinweise werden jetzt in Ihrem Ankündigungskanal angezeigt.\nObwohl keine Patch-Hinweise sofort angezeigt werden, werden sie angezeigt, wenn Patches veröffentlicht werden.",
     "setup.patch_notes_disabled": "Patch-Hinweise werden nicht mehr in Ihrem Ankündigungskanal angezeigt",
     "setup.language_same": "Ihre Sprache war bereits auf diese Einstellung gesetzt, es wurde nichts geändert.",
-    "setup.language_set": "Ihre Bot-Sprache wurde geändert.\nBitte beachten Sie, dass sich nicht alles sofort ändern wird."
+    "setup.language_set": "Ihre Bot-Sprache wurde geändert.\nBitte beachten Sie, dass sich nicht alles sofort ändern wird.",
+    "setup.map_channel": "Kartenkanal",
+    "setup.map_message": "Kartennachricht",
+    "setup.unset_map": "Ich habe Ihre Karte gelöscht. Sie können alle alten Karten auf diesem Server löschen."
 }

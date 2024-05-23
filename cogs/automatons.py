@@ -1,9 +1,12 @@
 from json import load
+from logging import getLogger
 from disnake import AppCmdInter
 from disnake.ext import commands
 from helpers.db import Guilds
 from helpers.embeds import Automaton
 from data.lists import enemies
+
+logger = getLogger("disnake")
 
 
 class AutomatonsCog(commands.Cog):
@@ -15,7 +18,6 @@ class AutomatonsCog(commands.Cog):
             if i["variations"] != None:
                 for n, j in i["variations"].items():
                     self.variations_dict[n] = j
-        print("Automatons cog has finished loading")
 
     async def automatons_autocomp(inter: AppCmdInter, user_input: str):
         return [
@@ -49,6 +51,7 @@ class AutomatonsCog(commands.Cog):
             description="A specific variant of an automaton",
         ),
     ):
+        logger.info("automaton command used")
         if not species and not variation:
             return await inter.send(":robot:", delete_after=10.0, ephemeral=True)
         guild_in_db = Guilds.get_info(inter.guild_id)

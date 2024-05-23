@@ -1,10 +1,13 @@
 from asyncio import sleep
+from logging import getLogger
 from disnake import TextChannel
 from disnake.ext import commands, tasks
 from helpers.db import Campaigns, Guilds
 from helpers.embeds import CampaignEmbed
 from helpers.functions import pull_from_api
 from datetime import datetime
+
+logger = getLogger("disnake")
 
 
 class WarUpdatesCog(commands.Cog):
@@ -13,7 +16,6 @@ class WarUpdatesCog(commands.Cog):
         self.channels = []
         self.cache_channels.start()
         self.campaign_check.start()
-        print("War Updates cog has finished loading")
 
     def cog_unload(self):
         self.campaign_check.stop()
@@ -25,19 +27,19 @@ class WarUpdatesCog(commands.Cog):
                 channel_id
             )
             self.channels.append(channel)
-        except:
-            print(channel_id, "channel not found")
+        except Exception as e:
+            logger.error(("WarUpdatesCog channel_list_gen", e, channel_id))
             pass
 
     async def send_campaign(self, channel: TextChannel, embeds):
         guild = Guilds.get_info(channel.guild.id)
         if guild == None:
             self.channels.remove(channel)
-            return print("Update message - Guild not in DB")
+            return logger.error("WarUpdatesCog send_campaign - Guild not in DB")
         try:
             await channel.send(embed=embeds[guild[5]])
         except Exception as e:
-            print("Send campaign", e, channel)
+            logger.error(("WarUpdatesCog send_campaign", e, channel))
             pass
 
     @tasks.loop(count=1)
@@ -65,7 +67,7 @@ class WarUpdatesCog(commands.Cog):
             return
         for i, j in data.items():
             if j == None:
-                print("campaign_check", i, j)
+                logger.warn(("WarUpdatesCog campaign_check data", i, j))
                 return
         planets = data["planets"]
         new_campaigns = data["campaigns"]

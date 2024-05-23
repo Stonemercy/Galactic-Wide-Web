@@ -1,3 +1,4 @@
+from logging import getLogger
 from re import findall
 from disnake import AppCmdInter, ButtonStyle, MessageInteraction
 from disnake.ext import commands
@@ -5,11 +6,12 @@ from disnake.ui import Button, ActionRow
 from helpers.embeds import Items
 from json import load
 
+logger = getLogger("disnake")
+
 
 class WarbondCog(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
-
         self.warbond_names = load(open("data/json/warbonds.json"))
         self.warbond_names["item_list"] = {}
         for i, j in self.warbond_names.items():
@@ -18,7 +20,6 @@ class WarbondCog(commands.Cog):
             self.warbond_names["item_list"][j["name"]] = j
         self.warbond_names = self.warbond_names["item_list"]
         self.item_names = load(open("data/json/items/item_names.json"))
-        print("Warbonds cog has finished loading")
 
     async def warbond_autocomp(inter: AppCmdInter, user_input: str):
         warbond_names = load(open("data/json/warbonds.json"))
@@ -38,7 +39,7 @@ class WarbondCog(commands.Cog):
         inter: AppCmdInter,
         warbond: str = commands.Param(autocomplete=warbond_autocomp),
     ):
-
+        logger.info("warbond command used")
         if warbond not in self.warbond_names:
             return await inter.send(
                 (

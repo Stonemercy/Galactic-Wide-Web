@@ -137,5 +137,8 @@
     "setup.patch_notes_enabled": "Les notes de patch apparaîtront désormais dans votre canal d'annonce.\nBien qu'aucune note de patch n'apparaisse immédiatement, elles le seront lorsque les patchs seront publiés",
     "setup.patch_notes_disabled": "Les notes de patch n'apparaîtront plus dans votre canal d'annonce",
     "setup.language_same": "Votre langue est déjà configurée ainsi, rien n'a été modifié.",
-    "setup.language_set": "La langue de votre bot a été modifiée.\nVeuillez noter que tout ne changera pas immédiatement."
+    "setup.language_set": "La langue de votre bot a été modifiée.\nVeuillez noter que tout ne changera pas immédiatement.",
+    "setup.map_channel": "Carte du canal",
+    "setup.map_message": "Message de carte",
+    "setup.unset_map": "J'ai supprimé votre carte. Vous êtes libre de supprimer toutes les anciennes cartes de ce serveur."
 }

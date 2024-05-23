@@ -1,14 +1,14 @@
 from disnake.ext import commands
 from dotenv import load_dotenv
-from os import getenv
+from os import getenv, listdir
 from disnake import ActivityType, Intents, Activity
 import logging
 
 logger = logging.getLogger("disnake")
-logger.setLevel(logging.DEBUG)
+logger.setLevel(logging.INFO)
 handler = logging.FileHandler(filename="disnake.log", encoding="utf-8", mode="w")
 handler.setFormatter(
-    logging.Formatter("%(asctime)s:%(levelname)s:%(name)s: %(message)s")
+    logging.Formatter("%(asctime)s: %(levelname)s: %(name)s: %(message)s")
 )
 logger.addHandler(handler)
 
@@ -26,7 +26,9 @@ bot = commands.InteractionBot(
 )
 
 bot.load_extensions("cogs")
-
+print(
+    f"Loaded {len(bot.cogs)}/{len([f for f in listdir('cogs') if f.endswith('.py')])} cogs successfully"
+)
 
 if __name__ == "__main__":
     bot.run(getenv("TOKEN"))

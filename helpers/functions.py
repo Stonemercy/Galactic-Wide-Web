@@ -1,8 +1,11 @@
 from json import dumps, loads
+from logging import getLogger
 from math import ceil
 from os import getenv
 from re import sub
 from aiohttp import ClientSession
+
+logger = getLogger("disnake")
 
 
 def health_bar(current_health: int, max_health: int, race: str, reverse: bool = False):
@@ -49,7 +52,7 @@ async def pull_from_api(
                         results["war_state"] = loads(dumps(js))
                         await session.close()
             except Exception as e:
-                print(("API/WAR", e))
+                logger.error(("API/WAR", e))
     if get_assignments:
         async with ClientSession(headers={"Accept-Language": language}) as session:
             try:
@@ -59,7 +62,7 @@ async def pull_from_api(
                         results["assignments"] = loads(dumps(js))
                         await session.close()
             except Exception as e:
-                print(("API/ASSIGNMENTS", e))
+                logger.error(("API/ASSIGNMENTS", e))
     if get_campaigns:
         async with ClientSession(headers={"Accept-Language": language}) as session:
             try:
@@ -69,7 +72,7 @@ async def pull_from_api(
                         results["campaigns"] = loads(dumps(js))
                         await session.close()
             except Exception as e:
-                print(("API/CAMPAIGNS", e))
+                logger.error(("API/CAMPAIGNS", e))
     if get_dispatches:
         async with ClientSession(headers={"Accept-Language": language}) as session:
             try:
@@ -79,7 +82,7 @@ async def pull_from_api(
                         results["dispatches"] = loads(dumps(js))
                         await session.close()
             except Exception as e:
-                print(("API/DISPATCHES", e))
+                logger.error(("API/DISPATCHES", e))
     if get_planets:
         async with ClientSession(headers={"Accept-Language": language}) as session:
             try:
@@ -89,7 +92,7 @@ async def pull_from_api(
                         results["planets"] = loads(dumps(js))
                         await session.close()
             except Exception as e:
-                print(("API/PLANETS", e))
+                logger.error(("API/PLANETS", e))
     if get_planet_events:
         async with ClientSession(headers={"Accept-Language": language}) as session:
             try:
@@ -99,7 +102,7 @@ async def pull_from_api(
                         results["planet_events"] = loads(dumps(js)) or None
                         await session.close()
             except Exception as e:
-                print(("API/PLANET-EVENTS", e))
+                logger.error(("API/PLANET-EVENTS", e))
     if get_steam:
         async with ClientSession(headers={"Accept-Language": language}) as session:
             try:
@@ -109,7 +112,7 @@ async def pull_from_api(
                         results["steam"] = loads(dumps(js))
                         await session.close()
             except Exception as e:
-                print(("API/STEAM", e))
+                logger.error(("API/STEAM", e))
     if get_thumbnail:
         async with ClientSession() as session:
             try:
@@ -121,7 +124,7 @@ async def pull_from_api(
                     else:
                         pass
             except Exception as e:
-                print(("API/THUMBNAILS", e))
+                logger.error(("API/THUMBNAILS", e))
     return results
 
 
@@ -145,8 +148,8 @@ def dispatch_format(message: str):
             .replace("<i=2>", "")
             .replace("<br>", "\n")
         )
-    except:
-        print("Failed to format dispatch")
+    except Exception as e:
+        logger.error(("dispatch_format", e))
     return message
 
 

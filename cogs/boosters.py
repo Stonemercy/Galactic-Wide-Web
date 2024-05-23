@@ -1,7 +1,10 @@
+from logging import getLogger
 from disnake import AppCmdInter
 from disnake.ext import commands
 from helpers.embeds import Items
 from json import load
+
+logger = getLogger("disnake")
 
 
 class BoostersCog(commands.Cog):
@@ -14,7 +17,6 @@ class BoostersCog(commands.Cog):
                 continue
             self.boosters["item_list"][j["name"]] = j
         self.boosters = self.boosters["item_list"]
-        print("Armours cog has finished loading")
 
     async def booster_autocomp(inter: AppCmdInter, user_input: str):
         boosters_json = load(open("data/json/items/boosters.json"))
@@ -31,6 +33,7 @@ class BoostersCog(commands.Cog):
         inter: AppCmdInter,
         booster: str = commands.Param(autocomplete=booster_autocomp),
     ):
+        logger.info("booster command used")
         if booster not in self.boosters:
             return await inter.send(
                 (

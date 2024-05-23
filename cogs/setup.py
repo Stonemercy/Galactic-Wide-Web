@@ -1,16 +1,31 @@
 from json import load
+from logging import getLogger
 from disnake import AppCmdInter, File, Permissions, TextChannel
 from disnake.ext import commands
 from helpers.db import Guilds
-from helpers.embeds import Dashboard
+from helpers.embeds import Dashboard, Map
 from helpers.functions import pull_from_api
-from data.lists import language_dict
+from data.lists import language_dict, supported_languages
+from PIL import Image
+from PIL.ImageDraw import Draw
+from PIL.ImageFont import truetype
+
+logger = getLogger("disnake")
 
 
 class SetupCog(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
-        print("Setup cog has finished loading")
+        self.faction_colour = {
+            "Automaton": (252, 76, 79),
+            "automaton": (126, 38, 22),
+            "Terminids": (253, 165, 58),
+            "terminids": (126, 82, 29),
+            "Illuminate": (116, 163, 180),
+            "illuminate": (58, 81, 90),
+            "Humans": (36, 205, 76),
+            "humans": (18, 102, 38),
+        }
 
     @commands.slash_command(
         description="Change the GWW settings for your server. Use this without arguments to see your set settings."
@@ -30,6 +45,10 @@ class SetupCog(commands.Cog):
             default=None,
             description="Toggle if you want patch notes sent to the announcements channel, default = No",
             choices=["Yes", "No"],
+        ),
+        map_channel: TextChannel = commands.Param(
+            default=None,
+            description="The channel you want the map sent to. Set this to your current set channel to unset it.",
         ),
         language: str = commands.Param(
             default=None,
@@ -54,6 +73,7 @@ class SetupCog(commands.Cog):
             not dashboard_channel
             and not announcement_channel
             and not patch_notes
+            and not map_channel
             and not language
         ):
             try:
@@ -76,8 +96,23 @@ class SetupCog(commands.Cog):
                 )
             except:
                 announcement_channel = guild_language["setup.not_set"]
+            try:
+                map_channel = (
+                    inter.guild.get_channel(guild_in_db[6]).mention
+                    or await inter.guild.fetch_channel(guild_in_db[6]).mention
+                )
+            except:
+                map_channel = guild_language["setup.not_set"]
+            try:
+                map_message = dashboard_channel.get_partial_message(
+                    guild_in_db[7]
+                ).jump_url
+            except:
+                map_message = guild_language["setup.not_set"]
             if isinstance(dashboard_channel, TextChannel):
                 dashboard_channel = dashboard_channel.mention
+            if isinstance(map_channel, TextChannel):
+                map_channel = map_channel.mention
             inv_lang_dict = {v: k for k, v in language_dict.items()}
             return await inter.send(
                 (
@@ -85,6 +120,8 @@ class SetupCog(commands.Cog):
                     f"{guild_language['setup.dashboard_channel']}: {dashboard_channel}\n"
                     f"{guild_language['setup.dashboard_message']}: {dashboard_message}\n"
                     f"{guild_language['setup.announcement_channel']}: {announcement_channel}\n"
+                    f"{guild_language['setup.map_channel']}: {map_channel}\n"
+                    f"{guild_language['setup.map_channel']}: {map_message}\n"
                     f"{guild_language['setup.patch_notes']}: {'Yes' if guild_in_db[4] == True else 'No'}\n"
                     f"{guild_language['setup.language']}: {inv_lang_dict[guild_in_db[5]]}\n"
                     f"\n{guild_language['setup.message']}"
@@ -149,7 +186,7 @@ class SetupCog(commands.Cog):
                             embeds=dashboard.embeds, file=File("resources/banner.png")
                         )
                     except Exception as e:
-                        print("setup", e)
+                        logger.error(("SetupCog dashboard setup", e))
                         await inter.send(
                             "An error has occured, I have contacted Super Earth High Command.",
                             ephemeral=True,
@@ -170,7 +207,7 @@ class SetupCog(commands.Cog):
                             try:
                                 await i.delete()
                             except Exception as e:
-                                print("Setup - Dashboard", e)
+                                logger.error(("SetupCog dashboard setup", e))
                             messages.remove(i)
                     messages.append(message)
 
@@ -204,7 +241,7 @@ class SetupCog(commands.Cog):
                     )
                     await inter.send(
                         (
-                            f"{guild_language['setup.announcement_channel']}: {announcement_channel.mention}.\n"
+                            f"{guild_language['setup.announcement_channel']}: {announcement_channel.mention}\n"
                             f"{guild_language['setup.announce_warn']}"
                         ),
                         ephemeral=True,
@@ -214,6 +251,123 @@ class SetupCog(commands.Cog):
                         if i.guild == inter.guild:
                             channels.remove(i)
                     channels.append(announcement_channel)
+
+        if map_channel != None:
+            if map_channel.id == guild_in_db[6]:
+                Guilds.update_map(inter.guild_id, 0, 0)
+                await inter.send(
+                    guild_language["setup.unset_map"],
+                    ephemeral=True,
+                )
+            else:
+                map_perms_needed = Permissions(
+                    view_channel=True,
+                    send_messages=True,
+                    embed_links=True,
+                    attach_files=True,
+                )
+                map_perms_have = map_channel.permissions_for(
+                    inter.guild.me
+                ).is_superset(map_perms_needed)
+                if not map_perms_have:
+                    message = await inter.send(
+                        guild_language["setup.missing_perm"],
+                        ephemeral=True,
+                    )
+                else:
+                    data = await pull_from_api(
+                        get_campaigns=True,
+                        get_planets=True,
+                    )
+                    if data["campaigns"] in (None, []) or data["planets"] in (None, []):
+                        await inter.send(
+                            "There was an error getting data for the map. Please try again later.",
+                            ephemeral=True,
+                        )
+                    else:
+                        self.planet_names_loc = load(
+                            open(f"data/json/planets/planets.json", encoding="UTF-8")
+                        )
+                        planets_coords = {}
+                        available_planets = [
+                            planet["planet"]["name"] for planet in data["campaigns"]
+                        ]
+                        for i in data["planets"]:
+                            planets_coords[i["index"]] = (
+                                (i["position"]["x"] * 2000) + 2000,
+                                ((i["position"]["y"] - (i["position"]["y"] * 2)) * 2000)
+                                + 2000,
+                            )
+                        map_dict = {}
+                        with Image.open("resources/map.webp") as background:
+                            background_draw = Draw(background)
+                            for index, coords in planets_coords.items():
+                                for i in data["planets"][index]["waypoints"]:
+                                    try:
+                                        background_draw.line(
+                                            (
+                                                planets_coords[i][0],
+                                                planets_coords[i][1],
+                                                coords[0],
+                                                coords[1],
+                                            ),
+                                            width=5,
+                                        )
+                                    except:
+                                        continue
+                            for index, coords in planets_coords.items():
+                                background_draw.ellipse(
+                                    [
+                                        (coords[0] - 35, coords[1] - 35),
+                                        (coords[0] + 35, coords[1] + 35),
+                                    ],
+                                    fill=(
+                                        self.faction_colour[
+                                            data["planets"][index]["currentOwner"]
+                                        ]
+                                        if data["planets"][index]["name"]
+                                        in available_planets
+                                        else self.faction_colour[
+                                            data["planets"][index][
+                                                "currentOwner"
+                                            ].lower()
+                                        ]
+                                    ),
+                                )
+                                if data["planets"][index]["name"] in available_planets:
+                                    font = truetype("impact.ttf", 75)
+                                    background_draw.text(
+                                        xy=coords,
+                                        text=self.planet_names_loc[str(index)]["names"][
+                                            supported_languages[guild_in_db[5]]
+                                        ],
+                                        anchor="mm",
+                                        font=font,
+                                        stroke_width=3,
+                                        stroke_fill="black",
+                                    )
+                            background.save(f"resources/map_setup.webp")
+                        map_embed = Map(file=File("resources/map_setup.webp"))
+                        message = await map_channel.send(
+                            embed=map_embed,
+                        )
+                        Guilds.update_map(inter.guild_id, map_channel.id, message.id)
+                        await inter.send(
+                            (
+                                f"{guild_language['setup.map_channel']}: {map_channel.mention}\n"
+                                f"{guild_language['setup.map_message']}: {message.jump_url}\n"
+                            ),
+                            ephemeral=True,
+                        )
+                        messages: list = self.bot.get_cog("MapCog").messages
+                        for i in messages:
+                            if i.guild == inter.guild:
+                                try:
+                                    await i.delete()
+                                except Exception as e:
+                                    logger.error(("SetupCog map setup", e))
+                                messages.remove(i)
+                        messages.append(message)
 
         if patch_notes != None:
             patch_notes_enabled = guild_in_db[4]

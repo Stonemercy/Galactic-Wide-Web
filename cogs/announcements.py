@@ -1,9 +1,12 @@
 from asyncio import sleep
+from logging import getLogger
 from disnake import TextChannel
 from disnake.ext import commands, tasks
 from helpers.embeds import DispatchesEmbed, MajorOrderEmbed, SteamEmbed
 from helpers.db import Dispatches, MajorOrders, Guilds, Steam
 from helpers.functions import pull_from_api
+
+logger = getLogger("disnake")
 
 
 class AnnouncementsCog(commands.Cog):
@@ -16,7 +19,6 @@ class AnnouncementsCog(commands.Cog):
         self.major_order_check.start()
         self.dispatch_check.start()
         self.steam_check.start()
-        print("Announcements cog has finished loading")
 
     def cog_unload(self):
         self.major_order_check.stop()
@@ -32,7 +34,7 @@ class AnnouncementsCog(commands.Cog):
             ) or await self.bot.fetch_channel(int(channel_id))
             self.channels.append(channel)
         except Exception as e:
-            return print("announcement channel list gen", channel_id, e)
+            return logger.error(("AnnouncementsCog channel_list_gen", channel_id, e))
 
     async def patch_channel_list_gen(self, channel_id: int):
         try:
@@ -41,16 +43,18 @@ class AnnouncementsCog(commands.Cog):
             ) or await self.bot.fetch_channel(int(channel_id))
             self.patch_channels.append(channel)
         except Exception as e:
-            return print("patch channel list gen", channel_id, e)
+            return logger.error(
+                ("AnnouncementsCog patch_channel_list_gen", channel_id, e)
+            )
 
     async def send_embed(self, channel: TextChannel, embeds):
         guild = Guilds.get_info(channel.guild.id)
         if guild == None:
-            return print("send_embed - Guild not in DB")
+            return logger.error("AnnouncementsCog send_embed - Guild not in DB")
         try:
             await channel.send(embed=embeds[guild[5]])
         except Exception as e:
-            return print("Send embed announcements", e, channel.id)
+            return logger.error(("AnnouncementsCog send_embed", e, channel.id))
 
     @tasks.loop(count=1)
     async def cache_channels(self):

@@ -1,12 +1,14 @@
+from logging import getLogger
 from disnake import AppCmdInter
 from disnake.ext import commands
 from helpers.embeds import HelpEmbed
+
+logger = getLogger("disnake")
 
 
 class HelpCog(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
-        print("Help cog has finished loading")
 
     async def help_autocomp(inter: AppCmdInter, user_input: str):
         commands_list: list[str] = []
@@ -23,6 +25,7 @@ class HelpCog(commands.Cog):
         inter: AppCmdInter,
         command: str = commands.Param(autocomplete=help_autocomp),
     ):
+        logger.info("help command used")
         await inter.response.defer(ephemeral=True)
         help_embed = HelpEmbed()
         if command == "all":

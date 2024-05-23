@@ -1,9 +1,12 @@
 from json import load
+from logging import getLogger
 from disnake import AppCmdInter
 from disnake.ext import commands
 from helpers.db import Guilds
 from helpers.embeds import Terminid
 from data.lists import enemies
+
+logger = getLogger("disnake")
 
 
 class TerminidsCog(commands.Cog):
@@ -15,7 +18,6 @@ class TerminidsCog(commands.Cog):
             if i["variations"] != None:
                 for n, j in i["variations"].items():
                     self.variations_dict[n] = j
-        print("Terminids cog has finished loading")
 
     async def terminids_autocomp(inter: AppCmdInter, user_input: str):
         return [
@@ -47,6 +49,7 @@ class TerminidsCog(commands.Cog):
             description="A specific variant of a species",
         ),
     ):
+        logger.info("terminid command used")
         if not species and not variation:
             return await inter.send(
                 "<a:explodeybug:1219248670482890752>", delete_after=10.0, ephemeral=True
