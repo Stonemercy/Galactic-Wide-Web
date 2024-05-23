@@ -324,7 +324,7 @@ class Dashboard:
                             else ""
                         )
                         health_text = (
-                            f"{(planet['health'] / planet['maxHealth']):^25,.2%}"
+                            f"{1 - (planet['health'] / planet['maxHealth']):^25,.2%}"
                         )
                     progress_made = 0
                     for progress in self.assignment["progress"]:
@@ -465,6 +465,11 @@ class Dashboard:
             for i in self.campaigns:
                 if i["planet"]["event"] != None:
                     continue
+                exclamation = (
+                    "<:MO:1240706769043456031>"
+                    if i["planet"]["name"] in self.MO_planets
+                    else ""
+                )
                 faction_icon = self.faction_dict[i["planet"]["currentOwner"]]
                 if len(self.campaigns) < 10:
                     planet_health_bar = health_bar(
@@ -478,8 +483,9 @@ class Dashboard:
                     planet_health_bar = ""
                     planet_health_text = f"**`{(1 - (i['planet']['health'] / i['planet']['maxHealth'])):^15.2%}`**"
                 if i["planet"]["currentOwner"] == "Automaton":
+
                     self.automaton_embed.add_field(
-                        f"{faction_icon} - __**{self.planet_names_loc[str(i['planet']['index'])]['names'][supported_languages[language]]}**__",
+                        f"{faction_icon} - __**{self.planet_names_loc[str(i['planet']['index'])]['names'][supported_languages[language]]}**__ {exclamation}",
                         (
                             f"{self.language['dashboard.heroes']}: **{i['planet']['statistics']['playerCount']:,}**\n"
                             f"{self.language['dashboard.attack_embed_planet_health']}:\n"
@@ -491,7 +497,7 @@ class Dashboard:
                     )
                 else:
                     self.terminids_embed.add_field(
-                        f"{faction_icon} - __**{self.planet_names_loc[str(i['planet']['index'])]['names'][supported_languages[language]]}**__",
+                        f"{faction_icon} - __**{self.planet_names_loc[str(i['planet']['index'])]['names'][supported_languages[language]]}**__ {exclamation}",
                         (
                             f"{self.language['dashboard.heroes']}: **{i['planet']['statistics']['playerCount']:,}**\n"
                             f"{self.language['dashboard.attack_embed_planet_health']}:\n"
@@ -846,3 +852,13 @@ class ReactRoleDashboard(Embed):
             "Select the buttons below to be given specific roles.",
             "These buttons only give roles in this server.",
         )
+
+
+class Map(Embed):
+    def __init__(self, url=None, file: File = None):
+        super().__init__(title="Galactic Map", colour=Colour.dark_purple())
+        if url:
+            self.set_image(url)
+        elif file:
+            self.set_image(file=file)
+        self.add_field("", f"Updated <t:{int(datetime.now().timestamp())}:R>")
