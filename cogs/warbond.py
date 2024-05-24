@@ -53,7 +53,6 @@ class WarbondCog(commands.Cog):
         chosen_warbond = load(
             open(f"data/json/warbonds/{self.warbond_names[warbond]['id']}.json")
         )
-
         embed = Items.Warbond(
             chosen_warbond, self.warbond_names[warbond], self.item_names, 1
         )

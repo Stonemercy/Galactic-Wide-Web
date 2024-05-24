@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta
 from json import load
+from os import getenv
 from disnake import AppCmdInter, File, PartialMessage, NotFound, Forbidden
 from disnake.ext import commands, tasks
 from helpers.db import Guilds
@@ -173,15 +174,11 @@ class MapCog(commands.Cog):
             self.latest_map_url = message_for_url.attachments[0].url
             map_embed = Map(message_for_url.attachments[0].url)
             map_dict[lang] = map_embed
-        chunked_messages = [
-            self.messages[i : i + 10] for i in range(0, len(self.messages), 10)
-        ]
         update_start = datetime.now()
         logger.info("Map update started")
-        for chunk in chunked_messages:
-            for message in chunk:
-                self.bot.loop.create_task(self.update_message(message, map_dict))
-            await sleep(10)
+        for message in self.messages:
+            self.bot.loop.create_task(self.update_message(message, map_dict))
+            await sleep(1)
         logger.info(
             f"Map updates finished in {(datetime.now() - update_start).total_seconds()} seconds"
         )
@@ -298,6 +295,100 @@ class MapCog(commands.Cog):
         await inter.send(
             file=File("resources/map_2.webp"),
             ephemeral=public,
+        )
+
+    @commands.slash_command(guild_ids=[int(getenv("SUPPORT_SERVER"))])
+    async def force_update_maps(self, inter: AppCmdInter):
+        logger.critical("force_update_maps command used")
+        if inter.author.id != self.bot.owner_id:
+            return await inter.send(
+                "You can't use this", ephemeral=True, delete_after=3.0
+            )
+        await inter.response.defer(ephemeral=True)
+        maps_updated = 0
+        data = await pull_from_api(
+            get_campaigns=True,
+            get_planets=True,
+        )
+        if data["campaigns"] in (None, []) or data["planets"] in (None, []):
+            return
+        languages = Guilds.get_used_languages()
+        planets_coords = {}
+        available_planets = [planet["planet"]["name"] for planet in data["campaigns"]]
+        for i in data["planets"]:
+            planets_coords[i["index"]] = (
+                (i["position"]["x"] * 2000) + 2000,
+                ((i["position"]["y"] - (i["position"]["y"] * 2)) * 2000) + 2000,
+            )
+        channel = self.bot.get_channel(1242843098363596883)
+        map_dict = {}
+        for lang in languages:
+            with Image.open("resources/map.webp") as background:
+                background_draw = Draw(background)
+                for index, coords in planets_coords.items():
+                    for i in data["planets"][index]["waypoints"]:
+                        try:
+                            background_draw.line(
+                                (
+                                    planets_coords[i][0],
+                                    planets_coords[i][1],
+                                    coords[0],
+                                    coords[1],
+                                ),
+                                width=5,
+                            )
+                        except:
+                            continue
+                for index, coords in planets_coords.items():
+                    background_draw.ellipse(
+                        [
+                            (coords[0] - 35, coords[1] - 35),
+                            (coords[0] + 35, coords[1] + 35),
+                        ],
+                        fill=(
+                            self.faction_colour[data["planets"][index]["currentOwner"]]
+                            if data["planets"][index]["name"] in available_planets
+                            else self.faction_colour[
+                                data["planets"][index]["currentOwner"].lower()
+                            ]
+                        ),
+                    )
+                for index, coords in planets_coords.items():
+                    if data["planets"][index]["name"] in available_planets:
+
+                        font = truetype("gww-font.ttf", 50)
+                        background_draw.multiline_text(
+                            xy=coords,
+                            text=self.planet_names_loc[str(index)]["names"][
+                                supported_languages[lang]
+                            ].replace(" ", "\n"),
+                            anchor="md",
+                            font=font,
+                            stroke_width=3,
+                            stroke_fill="black",
+                            align="center",
+                            spacing=-15,
+                        )
+                background.save(f"resources/map_{lang}.webp")
+            message_for_url = await channel.send(
+                file=File(f"resources/map_{lang}.webp"),
+            )
+            self.latest_map_url = message_for_url.attachments[0].url
+            map_embed = Map(message_for_url.attachments[0].url)
+            map_dict[lang] = map_embed
+        update_start = datetime.now()
+        logger.info("Dashboard forced updates started")
+        for message in self.messages:
+            self.bot.loop.create_task(self.update_message(message, map_dict))
+            maps_updated += 1
+            await sleep(1)
+        logger.info(
+            f"Dashboard force updates finished in {(datetime.now() - update_start).total_seconds()} seconds"
+        )
+        await inter.send(
+            f"Attempted to update {maps_updated} dashboards in {(datetime.now() - update_start).total_seconds()} seconds",
+            ephemeral=True,
+            delete_after=5,
         )
 
 

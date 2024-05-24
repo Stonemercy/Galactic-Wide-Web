@@ -121,7 +121,7 @@ class SetupCog(commands.Cog):
                     f"{guild_language['setup.dashboard_message']}: {dashboard_message}\n"
                     f"{guild_language['setup.announcement_channel']}: {announcement_channel}\n"
                     f"{guild_language['setup.map_channel']}: {map_channel}\n"
-                    f"{guild_language['setup.map_channel']}: {map_message}\n"
+                    f"{guild_language['setup.map_message']}: {map_message}\n"
                     f"{guild_language['setup.patch_notes']}: {'Yes' if guild_in_db[4] == True else 'No'}\n"
                     f"{guild_language['setup.language']}: {inv_lang_dict[guild_in_db[5]]}\n"
                     f"\n{guild_language['setup.message']}"
