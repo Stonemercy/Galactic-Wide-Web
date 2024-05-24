@@ -31,6 +31,9 @@ class MapCog(commands.Cog):
         }
         self.map_poster.start()
         self.cache_messages.start()
+        self.planet_names_loc = load(
+            open(f"data/json/planets/planets.json", encoding="UTF-8")
+        )
 
     def cog_unload(self):
         self.map_poster.stop()
@@ -90,9 +93,6 @@ class MapCog(commands.Cog):
         )
         if data["campaigns"] in (None, []) or data["planets"] in (None, []):
             return
-        self.planet_names_loc = load(
-            open(f"data/json/planets/planets.json", encoding="UTF-8")
-        )
         languages = Guilds.get_used_languages()
         planets_coords = {}
         available_planets = [planet["planet"]["name"] for planet in data["campaigns"]]
@@ -136,16 +136,18 @@ class MapCog(commands.Cog):
                 for index, coords in planets_coords.items():
                     if data["planets"][index]["name"] in available_planets:
 
-                        background_draw.text(
+                        font = truetype("gww-font.ttf", 50)
+                        background_draw.multiline_text(
                             xy=coords,
                             text=self.planet_names_loc[str(index)]["names"][
                                 supported_languages[lang]
-                            ],
-                            anchor="lb",
-                            font_size=75,
+                            ].replace(" ", "\n"),
+                            anchor="md",
+                            font=font,
                             stroke_width=3,
                             stroke_fill="black",
                             align="center",
+                            spacing=-15,
                         )
                 background.save(f"resources/map_{lang}.webp")
             message_for_url = await channel.send(
@@ -189,6 +191,7 @@ class MapCog(commands.Cog):
     ):
         logger.info("map command used")
         public = {"Yes": False, "No": True}[public]
+        guild = Guilds.get_info(inter.guild_id)
         await inter.response.defer(ephemeral=public)
         data = await pull_from_api(get_planets=True, get_campaigns=True)
         planets_coords = {}
@@ -247,14 +250,18 @@ class MapCog(commands.Cog):
                     faction != None
                     and data["planets"][index]["name"] in available_planets
                 ):
-                    background_draw.text(
+                    font = truetype("gww-font.ttf", 50)
+                    background_draw.multiline_text(
                         xy=coords,
-                        text=data["planets"][index]["name"],
-                        anchor="mm",
-                        font_size=35,
+                        text=self.planet_names_loc[str(index)]["names"][
+                            supported_languages[guild[5]]
+                        ].replace(" ", "\n"),
+                        anchor="md",
+                        font=font,
                         stroke_width=3,
                         stroke_fill="black",
                         align="center",
+                        spacing=-15,
                     )
             if faction != None:
                 min_x = min(planets_coords.values(), key=lambda x: x[0])[0]
