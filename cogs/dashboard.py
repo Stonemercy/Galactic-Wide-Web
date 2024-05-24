@@ -36,7 +36,7 @@ class DashboardCog(commands.Cog):
                 guild = self.bot.get_guild(int(i[0]))
                 logger.error(("DashboardCog message_list_gen message", guild.id, e))
         except Exception as e:
-            return logger.error("DashboardCog message_list_gen channel", i[1], e)
+            return logger.error(("DashboardCog message_list_gen channel", i[1], e))
 
     async def update_message(self, i: PartialMessage, dashboard_dict: dict):
         guild = Guilds.get_info(i.guild.id)
@@ -162,7 +162,7 @@ class DashboardCog(commands.Cog):
             guild_ids.append(i.id)
         for guild in guilds_in_db:
             if guild[0] not in guild_ids:
-                logger.error(f"Guild found in DB but not in bot list, removing")
+                logger.error("Guild found in DB but not in bot list, removing")
                 Guilds.remove_from_db(guild[0])
                 for message in messages:
                     if message.guild.id == guild[0]:
