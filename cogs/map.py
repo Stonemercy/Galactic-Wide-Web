@@ -91,7 +91,7 @@ class MapCog(commands.Cog):
             self.bot.loop.create_task(self.map_message_list_gen(i))
 
     @cache_messages.before_loop
-    async def before_dashboard(self):
+    async def before_cache_messages(self):
         await self.bot.wait_until_ready()
 
     @tasks.loop(minutes=1)
@@ -184,7 +184,7 @@ class MapCog(commands.Cog):
         )
 
     @map_poster.before_loop
-    async def before_dashboard(self):
+    async def before_map_poster(self):
         await self.bot.wait_until_ready()
 
     @commands.slash_command(
@@ -377,16 +377,16 @@ class MapCog(commands.Cog):
             map_embed = Map(message_for_url.attachments[0].url)
             map_dict[lang] = map_embed
         update_start = datetime.now()
-        logger.info("Dashboard forced updates started")
+        logger.info("Maps forced updates started")
         for message in self.messages:
             self.bot.loop.create_task(self.update_message(message, map_dict))
             maps_updated += 1
             await sleep(1)
         logger.info(
-            f"Dashboard force updates finished in {(datetime.now() - update_start).total_seconds()} seconds"
+            f"Maps force updates finished in {(datetime.now() - update_start).total_seconds()} seconds"
         )
         await inter.send(
-            f"Attempted to update {maps_updated} dashboards in {(datetime.now() - update_start).total_seconds()} seconds",
+            f"Attempted to update {maps_updated} maps in {(datetime.now() - update_start).total_seconds()} seconds",
             ephemeral=True,
             delete_after=5,
         )
