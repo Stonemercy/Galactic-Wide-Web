@@ -335,14 +335,13 @@ class SetupCog(commands.Cog):
                                     ),
                                 )
                                 if data["planets"][index]["name"] in available_planets:
-                                    font = truetype("impact.ttf", 75)
                                     background_draw.text(
                                         xy=coords,
                                         text=self.planet_names_loc[str(index)]["names"][
                                             supported_languages[guild_in_db[5]]
                                         ],
                                         anchor="mm",
-                                        font=font,
+                                        font_size=75,
                                         stroke_width=3,
                                         stroke_fill="black",
                                     )

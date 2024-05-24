@@ -136,14 +136,13 @@ class MapCog(commands.Cog):
                 for index, coords in planets_coords.items():
                     if data["planets"][index]["name"] in available_planets:
 
-                        font = truetype("impact.ttf", 75)
                         background_draw.text(
                             xy=coords,
                             text=self.planet_names_loc[str(index)]["names"][
                                 supported_languages[lang]
                             ],
                             anchor="lb",
-                            font=font,
+                            font_size=75,
                             stroke_width=3,
                             stroke_fill="black",
                             align="center",
@@ -248,12 +247,11 @@ class MapCog(commands.Cog):
                     faction != None
                     and data["planets"][index]["name"] in available_planets
                 ):
-                    font = truetype("impact.ttf", 35)
                     background_draw.text(
                         xy=coords,
                         text=data["planets"][index]["name"],
                         anchor="mm",
-                        font=font,
+                        font_size=35,
                         stroke_width=3,
                         stroke_fill="black",
                         align="center",
