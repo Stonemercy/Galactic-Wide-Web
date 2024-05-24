@@ -204,9 +204,9 @@ class MapCog(commands.Cog):
             description="MAP PUBLIC DESCRIPTION",
         ),
     ):
+        public = {"Yes": False, "No": True}[public]
         await inter.response.defer(ephemeral=public)
         logger.info("map command used")
-        public = {"Yes": False, "No": True}[public]
         guild = Guilds.get_info(inter.guild_id)
         data = await pull_from_api(get_planets=True, get_campaigns=True)
         planets_coords = {}
