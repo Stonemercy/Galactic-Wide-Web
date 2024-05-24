@@ -143,6 +143,15 @@ class Guilds:
                 results = curs.fetchall()
                 return results
 
+    def maps_not_setup():
+        with connect(
+            host=hostname, dbname=database, user=username, password=pwd, port=port_id
+        ) as conn:
+            with conn.cursor() as curs:
+                curs.execute("Select * from guilds where map_message_id = 0")
+                results = curs.fetchall()
+                return results
+
 
 class BotDashboard:
     def get_info():

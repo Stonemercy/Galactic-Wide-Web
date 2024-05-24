@@ -156,14 +156,14 @@ class MapCog(commands.Cog):
             map_embed = Map(message_for_url.attachments[0].url)
             map_dict[lang] = map_embed
         chunked_messages = [
-            self.messages[i : i + 20] for i in range(0, len(self.messages), 20)
+            self.messages[i : i + 10] for i in range(0, len(self.messages), 10)
         ]
         update_start = datetime.now()
         logger.info("Map update started")
         for chunk in chunked_messages:
             for message in chunk:
                 self.bot.loop.create_task(self.update_message(message, map_dict))
-            await sleep(2)
+            await sleep(10)
         logger.info(
             f"Map updates finished in {(datetime.now() - update_start).total_seconds()} seconds"
         )

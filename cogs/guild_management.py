@@ -124,7 +124,21 @@ class GuildManagementCog(commands.Cog):
                     f"{healthbar}"
                 ),
             )
-
+            dashboard_embed.add_field("", "", inline=False)
+            maps_not_setup = len(Guilds.maps_not_setup())
+            healthbar = health_bar(
+                (len(self.bot.guilds) - maps_not_setup),
+                len(self.bot.guilds),
+                "Illuminate",
+            )
+            dashboard_embed.add_field(
+                "------------------\nMaps Setup",
+                (
+                    f"**Setup**: {len(self.bot.guilds) - maps_not_setup}\n"
+                    f"**Not Setup**: {maps_not_setup}\n"
+                    f"{healthbar}"
+                ),
+            )
             patch_notes_not_setup = len(Guilds.patch_notes_not_setup())
             healthbar = health_bar(
                 (len(self.bot.guilds) - patch_notes_not_setup),
@@ -138,7 +152,6 @@ class GuildManagementCog(commands.Cog):
                     f"**Not Setup**: {patch_notes_not_setup}\n"
                     f"{healthbar}"
                 ),
-                inline=False,
             )
             dashboard_embed.add_field(
                 "Credits",
@@ -148,6 +161,7 @@ class GuildManagementCog(commands.Cog):
                     "https://github.com/helldivers-2/ - The people over here are kind and helpful, great work too!\n\n"
                     "and **You**\n"
                 ),
+                inline=False,
             )
 
             channel = self.bot.get_channel(data[0]) or await self.bot.fetch_channel(
