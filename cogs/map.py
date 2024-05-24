@@ -83,7 +83,7 @@ class MapCog(commands.Cog):
     @tasks.loop(minutes=1)
     async def map_poster(self):
         now = datetime.now()
-        if now.minute % 15 != 0 or self.messages == []:
+        if now.minute != 0 or self.messages == []:
             return
         channel = self.bot.get_channel(1242843098363596883)
         await channel.purge(limit=2)
