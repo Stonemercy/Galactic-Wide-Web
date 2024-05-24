@@ -178,7 +178,7 @@ class MapCog(commands.Cog):
         logger.info("Map update started")
         for message in self.messages:
             self.bot.loop.create_task(self.update_message(message, map_dict))
-            await sleep(1)
+            await sleep(1.25)
         logger.info(
             f"Map updates finished in {(datetime.now() - update_start).total_seconds()} seconds"
         )
@@ -204,10 +204,10 @@ class MapCog(commands.Cog):
             description="MAP PUBLIC DESCRIPTION",
         ),
     ):
+        await inter.response.defer(ephemeral=public)
         logger.info("map command used")
         public = {"Yes": False, "No": True}[public]
         guild = Guilds.get_info(inter.guild_id)
-        await inter.response.defer(ephemeral=public)
         data = await pull_from_api(get_planets=True, get_campaigns=True)
         planets_coords = {}
         available_planets = [planet["planet"]["name"] for planet in data["campaigns"]]
@@ -381,7 +381,7 @@ class MapCog(commands.Cog):
         for message in self.messages:
             self.bot.loop.create_task(self.update_message(message, map_dict))
             maps_updated += 1
-            await sleep(1)
+            await sleep(1.25)
         logger.info(
             f"Maps force updates finished in {(datetime.now() - update_start).total_seconds()} seconds"
         )
