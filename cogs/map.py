@@ -76,7 +76,10 @@ class MapCog(commands.Cog):
             1242843098363596883
         ) or await self.bot.fetch_channel(1242843098363596883)
         message = await channel.fetch_message(channel.last_message_id)
-        self.latest_map_url = message.attachments[0].url
+        try:
+            self.latest_map_url = message.attachments[0].url
+        except:
+            pass
         guilds = Guilds.get_all_guilds()
         if not guilds:
             return
