@@ -855,10 +855,7 @@ class ReactRoleDashboard(Embed):
 
 
 class Map(Embed):
-    def __init__(self, url=None, file: File = None):
+    def __init__(self, url=None):
         super().__init__(title="Galactic Map", colour=Colour.dark_purple())
-        if url:
-            self.set_image(url)
-        elif file:
-            self.set_image(file=file)
+        self.set_image(url)
         self.add_field("", f"Updated <t:{int(datetime.now().timestamp())}:R>")

@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 from json import load
 from disnake import AppCmdInter, File, PartialMessage, NotFound, Forbidden
 from disnake.ext import commands, tasks
@@ -34,6 +34,7 @@ class MapCog(commands.Cog):
         self.planet_names_loc = load(
             open(f"data/json/planets/planets.json", encoding="UTF-8")
         )
+        self.latest_map_url = ""
 
     def cog_unload(self):
         self.map_poster.stop()
@@ -71,6 +72,11 @@ class MapCog(commands.Cog):
 
     @tasks.loop(count=1)
     async def cache_messages(self):
+        channel = self.bot.get_channel(
+            1242843098363596883
+        ) or await self.bot.fetch_channel(1242843098363596883)
+        message = await channel.fetch_message(channel.last_message_id)
+        self.latest_map_url = message.attachments[0].url
         guilds = Guilds.get_all_guilds()
         if not guilds:
             return
@@ -80,13 +86,21 @@ class MapCog(commands.Cog):
                 continue
             self.bot.loop.create_task(self.map_message_list_gen(i))
 
+    @cache_messages.before_loop
+    async def before_dashboard(self):
+        await self.bot.wait_until_ready()
+
     @tasks.loop(minutes=1)
     async def map_poster(self):
+        channel = self.bot.get_channel(1242843098363596883)
         now = datetime.now()
+        if now.strftime("%H:%M") == "01:00":
+            try:
+                await channel.purge(before=now - timedelta(minutes=5))
+            except:
+                pass
         if now.minute != 0 or self.messages == []:
             return
-        channel = self.bot.get_channel(1242843098363596883)
-        await channel.purge(limit=2)
         data = await pull_from_api(
             get_campaigns=True,
             get_planets=True,
@@ -153,6 +167,7 @@ class MapCog(commands.Cog):
             message_for_url = await channel.send(
                 file=File(f"resources/map_{lang}.webp"),
             )
+            self.latest_map_url = message_for_url.attachments[0].url
             map_embed = Map(message_for_url.attachments[0].url)
             map_dict[lang] = map_embed
         chunked_messages = [

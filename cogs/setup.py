@@ -275,98 +275,28 @@ class SetupCog(commands.Cog):
                         ephemeral=True,
                     )
                 else:
-                    data = await pull_from_api(
-                        get_campaigns=True,
-                        get_planets=True,
+                    latest_map_url = self.bot.get_cog("MapCog").latest_map_url
+                    map_embed = Map(url=latest_map_url)
+                    message = await map_channel.send(
+                        embed=map_embed,
                     )
-                    if data["campaigns"] in (None, []) or data["planets"] in (None, []):
-                        await inter.send(
-                            "There was an error getting data for the map. Please try again later.",
-                            ephemeral=True,
-                        )
-                    else:
-                        self.planet_names_loc = load(
-                            open(f"data/json/planets/planets.json", encoding="UTF-8")
-                        )
-                        planets_coords = {}
-                        available_planets = [
-                            planet["planet"]["name"] for planet in data["campaigns"]
-                        ]
-                        for i in data["planets"]:
-                            planets_coords[i["index"]] = (
-                                (i["position"]["x"] * 2000) + 2000,
-                                ((i["position"]["y"] - (i["position"]["y"] * 2)) * 2000)
-                                + 2000,
-                            )
-                        map_dict = {}
-                        with Image.open("resources/map.webp") as background:
-                            background_draw = Draw(background)
-                            for index, coords in planets_coords.items():
-                                for i in data["planets"][index]["waypoints"]:
-                                    try:
-                                        background_draw.line(
-                                            (
-                                                planets_coords[i][0],
-                                                planets_coords[i][1],
-                                                coords[0],
-                                                coords[1],
-                                            ),
-                                            width=5,
-                                        )
-                                    except:
-                                        continue
-                            for index, coords in planets_coords.items():
-                                background_draw.ellipse(
-                                    [
-                                        (coords[0] - 35, coords[1] - 35),
-                                        (coords[0] + 35, coords[1] + 35),
-                                    ],
-                                    fill=(
-                                        self.faction_colour[
-                                            data["planets"][index]["currentOwner"]
-                                        ]
-                                        if data["planets"][index]["name"]
-                                        in available_planets
-                                        else self.faction_colour[
-                                            data["planets"][index][
-                                                "currentOwner"
-                                            ].lower()
-                                        ]
-                                    ),
-                                )
-                                if data["planets"][index]["name"] in available_planets:
-                                    background_draw.text(
-                                        xy=coords,
-                                        text=self.planet_names_loc[str(index)]["names"][
-                                            supported_languages[guild_in_db[5]]
-                                        ],
-                                        anchor="mm",
-                                        font_size=75,
-                                        stroke_width=3,
-                                        stroke_fill="black",
-                                    )
-                            background.save(f"resources/map_setup.webp")
-                        map_embed = Map(file=File("resources/map_setup.webp"))
-                        message = await map_channel.send(
-                            embed=map_embed,
-                        )
-                        Guilds.update_map(inter.guild_id, map_channel.id, message.id)
-                        await inter.send(
-                            (
-                                f"{guild_language['setup.map_channel']}: {map_channel.mention}\n"
-                                f"{guild_language['setup.map_message']}: {message.jump_url}\n"
-                            ),
-                            ephemeral=True,
-                        )
-                        messages: list = self.bot.get_cog("MapCog").messages
-                        for i in messages:
-                            if i.guild == inter.guild:
-                                try:
-                                    await i.delete()
-                                except Exception as e:
-                                    logger.error(("SetupCog map setup", e))
-                                messages.remove(i)
-                        messages.append(message)
+                    Guilds.update_map(inter.guild_id, map_channel.id, message.id)
+                    await inter.send(
+                        (
+                            f"{guild_language['setup.map_channel']}: {map_channel.mention}\n"
+                            f"{guild_language['setup.map_message']}: {message.jump_url}\n"
+                        ),
+                        ephemeral=True,
+                    )
+                    messages: list = self.bot.get_cog("MapCog").messages
+                    for i in messages:
+                        if i.guild == inter.guild:
+                            try:
+                                await i.delete()
+                            except Exception as e:
+                                logger.error(("SetupCog map setup", e))
+                            messages.remove(i)
+                    messages.append(message)
 
         if patch_notes != None:
             patch_notes_enabled = guild_in_db[4]
