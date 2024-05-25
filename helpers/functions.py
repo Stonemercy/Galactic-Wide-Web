@@ -52,6 +52,7 @@ async def pull_from_api(
                         results["war_state"] = loads(dumps(js))
                         await session.close()
             except Exception as e:
+                results["war_state"] = None
                 logger.error(("API/WAR", e))
     if get_assignments:
         async with ClientSession(headers={"Accept-Language": language}) as session:
@@ -62,6 +63,7 @@ async def pull_from_api(
                         results["assignments"] = loads(dumps(js))
                         await session.close()
             except Exception as e:
+                results["assignments"] = None
                 logger.error(("API/ASSIGNMENTS", e))
     if get_campaigns:
         async with ClientSession(headers={"Accept-Language": language}) as session:
@@ -72,6 +74,7 @@ async def pull_from_api(
                         results["campaigns"] = loads(dumps(js))
                         await session.close()
             except Exception as e:
+                results["campaigns"] = None
                 logger.error(("API/CAMPAIGNS", e))
     if get_dispatches:
         async with ClientSession(headers={"Accept-Language": language}) as session:
@@ -82,6 +85,7 @@ async def pull_from_api(
                         results["dispatches"] = loads(dumps(js))
                         await session.close()
             except Exception as e:
+                results["dispatches"] = None
                 logger.error(("API/DISPATCHES", e))
     if get_planets:
         async with ClientSession(headers={"Accept-Language": language}) as session:
@@ -92,6 +96,7 @@ async def pull_from_api(
                         results["planets"] = loads(dumps(js))
                         await session.close()
             except Exception as e:
+                results["planets"] = None
                 logger.error(("API/PLANETS", e))
     if get_planet_events:
         async with ClientSession(headers={"Accept-Language": language}) as session:
@@ -102,6 +107,7 @@ async def pull_from_api(
                         results["planet_events"] = loads(dumps(js)) or None
                         await session.close()
             except Exception as e:
+                results["planet_events"] = None
                 logger.error(("API/PLANET-EVENTS", e))
     if get_steam:
         async with ClientSession(headers={"Accept-Language": language}) as session:
@@ -112,6 +118,7 @@ async def pull_from_api(
                         results["steam"] = loads(dumps(js))
                         await session.close()
             except Exception as e:
+                results["steam"] = None
                 logger.error(("API/STEAM", e))
     if get_thumbnail:
         async with ClientSession() as session:
@@ -124,6 +131,7 @@ async def pull_from_api(
                     else:
                         pass
             except Exception as e:
+                results["thumbnails"] = None
                 logger.error(("API/THUMBNAILS", e))
     return results
 
