@@ -81,7 +81,7 @@ class WeaponsCog(commands.Cog):
         )
         if primary not in self.primaries:
             return await inter.send(
-                guild_language["weapon.missing"],
+                guild_language["weapons.missing"],
                 ephemeral=True,
             )
         chosen_primary = self.primaries[primary]
@@ -103,7 +103,7 @@ class WeaponsCog(commands.Cog):
         )
         if secondary not in self.secondaries:
             return await inter.send(
-                guild_language["weapon.missing"],
+                guild_language["weapons.missing"],
                 ephemeral=True,
                 delete_after=10,
             )
@@ -126,7 +126,7 @@ class WeaponsCog(commands.Cog):
         )
         if grenade not in self.grenades:
             return await inter.send(
-                guild_language["weapon.missing"],
+                guild_language["weapons.missing"],
                 ephemeral=True,
                 delete_after=10,
             )
