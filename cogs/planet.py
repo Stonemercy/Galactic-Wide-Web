@@ -4,7 +4,7 @@ from disnake.ext import commands
 from helpers.db import Guilds
 from helpers.embeds import Planet
 from data.lists import planets
-from helpers.functions import pull_from_api
+from helpers.functions import planet_map, pull_from_api
 from json import load
 
 logger = getLogger("disnake")
@@ -29,18 +29,24 @@ class PlanetCog(commands.Cog):
     ):
         logger.info("planet command used")
         planets_list = planets
+        ephemeral = {"Yes": False, "No": True}[public]
         if planet not in planets_list:
             return await inter.send(
                 "Please select a planet from the list.",
-                ephemeral=True,
+                ephemeral=ephemeral,
             )
-        ephemeral = {"Yes": False, "No": True}[public]
         await inter.response.defer(ephemeral=ephemeral)
         guild = Guilds.get_info(inter.guild_id)
         language = guild[5]
-        data = await pull_from_api(get_planets=True, get_thumbnail=True)
-        if len(data) == 0:
-            return
+        data = await pull_from_api(
+            get_planets=True, get_thumbnail=True, get_campaigns=True
+        )
+        for data_value in data.values():
+            if data_value == None:
+                return await inter.send(
+                    "There was an issue getting the data. Please try again later",
+                    ephemeral=ephemeral,
+                )
         planets_data = data["planets"]
         planet_data = None
         planet_thumbnail = None
@@ -66,7 +72,9 @@ class PlanetCog(commands.Cog):
             )
         except:
             pass
-        await inter.send(embed=embed, ephemeral=ephemeral)
+        map_embed = planet_map(data, planet_data, language)
+        embeds = [embed, map_embed]
+        await inter.send(embeds=embeds, ephemeral=ephemeral)
 
 
 def setup(bot: commands.Bot):

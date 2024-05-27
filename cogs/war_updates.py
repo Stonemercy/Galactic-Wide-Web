@@ -14,22 +14,10 @@ class WarUpdatesCog(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
         self.channels = []
-        self.cache_channels.start()
         self.campaign_check.start()
 
     def cog_unload(self):
         self.campaign_check.stop()
-        self.cache_channels.stop()
-
-    async def channel_list_gen(self, channel_id: int):
-        try:
-            channel = self.bot.get_channel(channel_id) or await self.bot.fetch_channel(
-                channel_id
-            )
-            self.channels.append(channel)
-        except Exception as e:
-            logger.error(("WarUpdatesCog channel_list_gen", e, channel_id))
-            pass
 
     async def send_campaign(self, channel: TextChannel, embeds):
         guild = Guilds.get_info(channel.guild.id)
@@ -39,35 +27,19 @@ class WarUpdatesCog(commands.Cog):
         try:
             await channel.send(embed=embeds[guild[5]])
         except Exception as e:
-            logger.error(("WarUpdatesCog send_campaign", e, channel))
+            logger.error(f"WarUpdatesCog send_campaign, {e}, {channel}")
             pass
-
-    @tasks.loop(count=1)
-    async def cache_channels(self):
-        guilds = Guilds.get_all_guilds()
-        if not guilds:
-            return
-        self.channels = []
-        for guild in guilds:
-            if guild[3] == 0:
-                continue
-            self.bot.loop.create_task(self.channel_list_gen(guild[3]))
-
-    @cache_channels.before_loop
-    async def before_caching(self):
-        await self.bot.wait_until_ready()
 
     @tasks.loop(minutes=1)
     async def campaign_check(self):
+        if len(self.channels) == 0:
+            return
         data = await pull_from_api(
             get_planets=True,
             get_campaigns=True,
         )
-        if len(data) < 2:
-            return
-        for i, j in data.items():
-            if j == None:
-                logger.warn(("WarUpdatesCog campaign_check data", i, j))
+        for data_value in data.values():
+            if data_value == None:
                 return
         planets = data["planets"]
         new_campaigns = data["campaigns"]
@@ -141,12 +113,12 @@ class WarUpdatesCog(commands.Cog):
             for lang, embed in embeds.items():
                 embed.remove_empty()
             chunked_channels = [
-                self.channels[i : i + 100] for i in range(0, len(self.channels), 100)
+                self.channels[i : i + 20] for i in range(0, len(self.channels), 20)
             ]
             for chunk in chunked_channels:
                 for channel in chunk:
                     self.bot.loop.create_task(self.send_campaign(channel, embeds))
-                await sleep(60)
+                await sleep(20)
 
     @campaign_check.before_loop
     async def before_dashboard(self):

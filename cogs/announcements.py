@@ -1,6 +1,6 @@
 from asyncio import sleep
 from logging import getLogger
-from disnake import TextChannel
+from disnake import Forbidden, TextChannel
 from disnake.ext import commands, tasks
 from helpers.embeds import DispatchesEmbed, MajorOrderEmbed, SteamEmbed
 from helpers.db import Dispatches, MajorOrders, Guilds, Steam
@@ -14,80 +14,37 @@ class AnnouncementsCog(commands.Cog):
         self.bot = bot
         self.channels = []
         self.patch_channels = []
-        self.cache_channels.start()
-        self.cache_patch_channels.start()
         self.major_order_check.start()
         self.dispatch_check.start()
         self.steam_check.start()
 
     def cog_unload(self):
         self.major_order_check.stop()
-        self.cache_channels.stop()
-        self.cache_patch_channels.stop()
         self.dispatch_check.stop()
         self.steam_check.stop()
 
-    async def channel_list_gen(self, channel_id: int):
-        try:
-            channel = self.bot.get_channel(
-                int(channel_id)
-            ) or await self.bot.fetch_channel(int(channel_id))
-            self.channels.append(channel)
-        except Exception as e:
-            return logger.error(("AnnouncementsCog channel_list_gen", channel_id, e))
-
-    async def patch_channel_list_gen(self, channel_id: int):
-        try:
-            channel = self.bot.get_channel(
-                int(channel_id)
-            ) or await self.bot.fetch_channel(int(channel_id))
-            self.patch_channels.append(channel)
-        except Exception as e:
-            return logger.error(
-                ("AnnouncementsCog patch_channel_list_gen", channel_id, e)
-            )
-
-    async def send_embed(self, channel: TextChannel, embeds):
+    async def send_embed(self, channel: TextChannel, embeds, type: str):
         guild = Guilds.get_info(channel.guild.id)
         if guild == None:
+            if type == "Patch":
+                self.patch_channels.remove(channel)
+                Guilds.update_patch_notes(channel.guild.id, False)
+            else:
+                self.channels.remove(channel)
+                Guilds.update_announcement_channel(channel.guild.id, 0)
             return logger.error("AnnouncementsCog send_embed - Guild not in DB")
         try:
             await channel.send(embed=embeds[guild[5]])
+        except Forbidden:
+            Guilds.update_announcement_channel(channel.guild.id, 0)
+            return logger.error(f"AnnouncementsCog send_embed forbidden {channel.id}")
         except Exception as e:
-            return logger.error(("AnnouncementsCog send_embed", e, channel.id))
-
-    @tasks.loop(count=1)
-    async def cache_channels(self):
-        guilds = Guilds.get_all_guilds()
-        if not guilds:
-            return
-        self.channels = []
-        for i in guilds:
-            if i[3] == 0:
-                continue
-            self.bot.loop.create_task(self.channel_list_gen(i[3]))
-
-    @cache_channels.before_loop
-    async def before_caching(self):
-        await self.bot.wait_until_ready()
-
-    @tasks.loop(count=1)
-    async def cache_patch_channels(self):
-        guilds = Guilds.get_all_guilds()
-        if not guilds:
-            return
-        self.patch_channels = []
-        for i in guilds:
-            if i[4] == False:
-                continue
-            self.bot.loop.create_task(self.patch_channel_list_gen(i[3]))
-
-    @cache_patch_channels.before_loop
-    async def before_patch_caching(self):
-        await self.bot.wait_until_ready()
+            return logger.error(f"AnnouncementsCog send_embed, {e}, {channel.id}")
 
     @tasks.loop(minutes=1)
     async def major_order_check(self):
+        if len(self.channels) == 0:
+            return
         last_id = MajorOrders.get_last_id()
         data = await pull_from_api(get_assignments=True, get_planets=True)
         if (
@@ -114,7 +71,7 @@ class AnnouncementsCog(commands.Cog):
             ]
             for chunk in chunked_channels:
                 for channel in chunk:
-                    self.bot.loop.create_task(self.send_embed(channel, embeds))
+                    self.bot.loop.create_task(self.send_embed(channel, embeds, "MO"))
                 await sleep(2)
 
     @major_order_check.before_loop
@@ -144,7 +101,9 @@ class AnnouncementsCog(commands.Cog):
             ]
             for chunk in chunked_channels:
                 for channel in chunk:
-                    self.bot.loop.create_task(self.send_embed(channel, embeds))
+                    self.bot.loop.create_task(
+                        self.send_embed(channel, embeds, "Dispatch")
+                    )
                 await sleep(2)
 
     @dispatch_check.before_loop
@@ -174,7 +133,7 @@ class AnnouncementsCog(commands.Cog):
             ]
             for chunk in chunked_patch_channels:
                 for channel in chunk:
-                    self.bot.loop.create_task(self.send_embed(channel, embeds))
+                    self.bot.loop.create_task(self.send_embed(channel, embeds, "Patch"))
                 await sleep(2)
 
     @steam_check.before_loop

@@ -326,10 +326,6 @@ class Dashboard:
                         health_text = (
                             f"{1 - (planet['health'] / planet['maxHealth']):^25,.2%}"
                         )
-                    progress_made = 0
-                    for progress in self.assignment["progress"]:
-                        if progress == 1:
-                            progress_made += 1
                     self.major_orders_embed.add_field(
                         self.planet_names_loc[str(planet["index"])]["names"][
                             supported_languages[language]
@@ -342,10 +338,6 @@ class Dashboard:
                             f"`{health_text}`\n"
                         ),
                         inline=False,
-                    )
-                    self.major_orders_embed.add_field(
-                        "Progress",
-                        f"{progress_made} / {len(self.assignment['progress'])}",
                     )
                 elif i["type"] == 12:
                     event_health_bar = health_bar(
@@ -395,6 +387,14 @@ class Dashboard:
                         self.language["dashboard_major_order_new_title"],
                         self.language["major_order_new_value"],
                     )
+            progress_made = 0
+            for progress in self.assignment["progress"]:
+                if progress == 1:
+                    progress_made += 1
+            self.major_orders_embed.add_field(
+                "Progress",
+                f"{progress_made} / {len(self.assignment['progress'])}",
+            )
             self.major_orders_embed.add_field(
                 self.language["dashboard.major_order_reward"],
                 f"{self.assignment['reward']['amount']} {self.language[reward_types[str(self.assignment['reward']['type'])].lower()]} <:medal:1226254158278037504>",
@@ -854,8 +854,14 @@ class ReactRoleDashboard(Embed):
         )
 
 
-class Map(Embed):
-    def __init__(self, url=None):
-        super().__init__(title="Galactic Map", colour=Colour.dark_purple())
-        self.set_image(url)
-        self.add_field("", f"Updated <t:{int(datetime.now().timestamp())}:R>")
+class AnnouncementEmbed(Embed):
+    def __init__(self):
+        super().__init__(
+            title="Galactic Wide Web Update",
+            description="A new update has been released for the GWW",
+            timestamp=datetime.now(),
+            colour=Colour.blue(),
+        )
+        self.add_field(
+            "This is just a test", "I'll likely put more info on it next time lol"
+        )

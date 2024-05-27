@@ -3,12 +3,9 @@ from logging import getLogger
 from disnake import AppCmdInter, File, Permissions, TextChannel
 from disnake.ext import commands
 from helpers.db import Guilds
-from helpers.embeds import Dashboard, Map
-from helpers.functions import pull_from_api
-from data.lists import language_dict, supported_languages
-from PIL import Image
-from PIL.ImageDraw import Draw
-from PIL.ImageFont import truetype
+from helpers.embeds import Dashboard
+from helpers.functions import dashboard_maps, pull_from_api
+from data.lists import language_dict
 
 logger = getLogger("disnake")
 
@@ -186,7 +183,7 @@ class SetupCog(commands.Cog):
                             embeds=dashboard.embeds, file=File("resources/banner.png")
                         )
                     except Exception as e:
-                        logger.error(("SetupCog dashboard setup", e))
+                        logger.error(f"SetupCog dashboard setup, {e}")
                         await inter.send(
                             "An error has occured, I have contacted Super Earth High Command.",
                             ephemeral=True,
@@ -207,7 +204,7 @@ class SetupCog(commands.Cog):
                             try:
                                 await i.delete()
                             except Exception as e:
-                                logger.error(("SetupCog dashboard setup", e))
+                                logger.error(f"SetupCog dashboard setup, {e}")
                             messages.remove(i)
                     messages.append(message)
 
@@ -275,28 +272,40 @@ class SetupCog(commands.Cog):
                         ephemeral=True,
                     )
                 else:
-                    latest_map_url = self.bot.get_cog("MapCog").latest_map_url
-                    map_embed = Map(url=latest_map_url)
-                    message = await map_channel.send(
-                        embed=map_embed,
+                    data = await pull_from_api(
+                        get_campaigns=True,
+                        get_planets=True,
                     )
-                    Guilds.update_map(inter.guild_id, map_channel.id, message.id)
-                    await inter.send(
-                        (
-                            f"{guild_language['setup.map_channel']}: {map_channel.mention}\n"
-                            f"{guild_language['setup.map_message']}: {message.jump_url}\n"
-                        ),
-                        ephemeral=True,
-                    )
-                    messages: list = self.bot.get_cog("MapCog").messages
-                    for i in messages:
-                        if i.guild == inter.guild:
-                            try:
-                                await i.delete()
-                            except Exception as e:
-                                logger.error(("SetupCog map setup", e))
-                            messages.remove(i)
-                    messages.append(message)
+                    for data_value in data.values():
+                        if data_value == None:
+                            return await inter.send(
+                                "There was an issue getting data for the map. Please try again",
+                                ephemeral=True,
+                            )
+                    else:
+                        channel = self.bot.get_channel(1242843098363596883)
+                        map_embeds = await dashboard_maps(data, channel)
+                        map_embed = map_embeds[guild_in_db[5]]
+                        message = await map_channel.send(
+                            embed=map_embed,
+                        )
+                        Guilds.update_map(inter.guild_id, map_channel.id, message.id)
+                        await inter.send(
+                            (
+                                f"{guild_language['setup.map_channel']}: {map_channel.mention}\n"
+                                f"{guild_language['setup.map_message']}: {message.jump_url}\n"
+                            ),
+                            ephemeral=True,
+                        )
+                        messages: list = self.bot.get_cog("MapCog").messages
+                        for i in messages:
+                            if i.guild == inter.guild:
+                                try:
+                                    await i.delete()
+                                except Exception as e:
+                                    logger.error(f"SetupCog map setup, {e}")
+                                messages.remove(i)
+                        messages.append(message)
 
         if patch_notes != None:
             patch_notes_enabled = guild_in_db[4]

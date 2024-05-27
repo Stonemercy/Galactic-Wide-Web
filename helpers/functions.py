@@ -1,9 +1,17 @@
-from json import dumps, loads
+from datetime import datetime
+from json import dumps, load, loads
 from logging import getLogger
 from math import ceil
 from os import getenv
 from re import sub
 from aiohttp import ClientSession
+from PIL import Image
+from disnake import Colour, Embed, File, TextChannel
+from helpers.db import Guilds
+from PIL.ImageDraw import Draw
+from PIL.ImageFont import truetype
+from data.lists import supported_languages
+
 
 logger = getLogger("disnake")
 
@@ -189,3 +197,166 @@ def steam_format(content: str):  # thanks Chats
     )
     content = sub(r"\[img\](.*?\..{3,4})\[/img\]\n\n", "", content)
     return content
+
+
+async def dashboard_maps(data: dict, channel: TextChannel):
+    faction_colour = {
+        "Automaton": (252, 76, 79),
+        "automaton": (126, 38, 22),
+        "Terminids": (253, 165, 58),
+        "terminids": (126, 82, 29),
+        "Illuminate": (116, 163, 180),
+        "illuminate": (58, 81, 90),
+        "Humans": (36, 205, 76),
+        "humans": (18, 102, 38),
+    }
+    planet_names_loc = load(open(f"data/json/planets/planets.json", encoding="UTF-8"))
+    languages = Guilds.get_used_languages()
+    planets_coords = {}
+    available_planets = [planet["planet"]["name"] for planet in data["campaigns"]]
+    for i in data["planets"]:
+        planets_coords[i["index"]] = (
+            (i["position"]["x"] * 2000) + 2000,
+            ((i["position"]["y"] - (i["position"]["y"] * 2)) * 2000) + 2000,
+        )
+    map_dict = {}
+    for lang in languages:
+        embed = Embed()
+        embed.add_field("Updated", f"<t:{int(datetime.now().timestamp())}:R>")
+        embed.colour = Colour.dark_purple()
+        with Image.open("resources/map.webp") as background:
+            background_draw = Draw(background)
+            for index, coords in planets_coords.items():
+                for i in data["planets"][index]["waypoints"]:
+                    try:
+                        background_draw.line(
+                            (
+                                planets_coords[i][0],
+                                planets_coords[i][1],
+                                coords[0],
+                                coords[1],
+                            ),
+                            width=5,
+                        )
+                    except:
+                        continue
+            for index, coords in planets_coords.items():
+                background_draw.ellipse(
+                    [
+                        (coords[0] - 35, coords[1] - 35),
+                        (coords[0] + 35, coords[1] + 35),
+                    ],
+                    fill=(
+                        faction_colour[data["planets"][index]["currentOwner"]]
+                        if data["planets"][index]["name"] in available_planets
+                        else faction_colour[
+                            data["planets"][index]["currentOwner"].lower()
+                        ]
+                    ),
+                )
+            for index, coords in planets_coords.items():
+                if data["planets"][index]["name"] in available_planets:
+                    font = truetype("gww-font.ttf", 50)
+                    background_draw.multiline_text(
+                        xy=coords,
+                        text=planet_names_loc[str(index)]["names"][
+                            supported_languages[lang]
+                        ].replace(" ", "\n"),
+                        anchor="md",
+                        font=font,
+                        stroke_width=3,
+                        stroke_fill="black",
+                        align="center",
+                        spacing=-15,
+                    )
+            background.save(f"resources/map_{lang}.webp")
+        message_for_url = await channel.send(
+            file=File(f"resources/map_{lang}.webp"),
+        )
+        embed.set_image(message_for_url.attachments[0].url)
+        map_dict[lang] = embed
+        continue
+
+    return map_dict
+
+
+def planet_map(data: dict, planet, language):
+    embed = Embed()
+    embed.colour = Colour.dark_purple()
+    faction_colour = {
+        "Automaton": (252, 76, 79),
+        "automaton": (126, 38, 22),
+        "Terminids": (253, 165, 58),
+        "terminids": (126, 82, 29),
+        "Illuminate": (116, 163, 180),
+        "illuminate": (58, 81, 90),
+        "Humans": (36, 205, 76),
+        "humans": (18, 102, 38),
+    }
+    planet_names_loc = load(open(f"data/json/planets/planets.json", encoding="UTF-8"))
+    planets_coords = {}
+    available_planets = [planet["planet"]["name"] for planet in data["campaigns"]]
+    for i in data["planets"]:
+        planets_coords[i["index"]] = (
+            (i["position"]["x"] * 2000) + 2000,
+            ((i["position"]["y"] - (i["position"]["y"] * 2)) * 2000) + 2000,
+        )
+    with Image.open("resources/map.webp") as background:
+        background_draw = Draw(background)
+        for index, coords in planets_coords.items():
+            for i in data["planets"][index]["waypoints"]:
+                try:
+                    background_draw.line(
+                        (
+                            planets_coords[i][0],
+                            planets_coords[i][1],
+                            coords[0],
+                            coords[1],
+                        ),
+                        width=5,
+                    )
+                except:
+                    continue
+        for index, coords in planets_coords.items():
+            background_draw.ellipse(
+                [
+                    (coords[0] - 35, coords[1] - 35),
+                    (coords[0] + 35, coords[1] + 35),
+                ],
+                fill=(
+                    faction_colour[data["planets"][index]["currentOwner"]]
+                    if data["planets"][index]["name"] in available_planets
+                    else faction_colour[data["planets"][index]["currentOwner"].lower()]
+                ),
+            )
+        target_coords = planets_coords[planet["index"]]
+        background_draw.line(
+            (
+                target_coords[0] - 7,
+                target_coords[1] + 25,
+                target_coords[0] + 75,
+                target_coords[1] + 100,
+            ),
+            width=30,
+        )
+        background_draw.line(
+            (
+                target_coords[0] + 7,
+                target_coords[1] + 25,
+                target_coords[0] - 75,
+                target_coords[1] + 100,
+            ),
+            width=30,
+        )
+        background_draw.line(
+            (
+                target_coords[0],
+                target_coords[1] + 25,
+                target_coords[0],
+                target_coords[1] + 250,
+            ),
+            width=30,
+        )
+        background.save(f"resources/map_{language}.webp")
+    embed.set_image(file=File(f"resources/map_{language}.webp"))
+    return embed

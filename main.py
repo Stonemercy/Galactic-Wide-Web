@@ -26,8 +26,10 @@ bot = commands.InteractionBot(
 )
 
 bot.load_extensions("cogs")
+bot.load_extensions("cogs/admin")
+
 print(
-    f"Loaded {len(bot.cogs)}/{len([f for f in listdir('cogs') if f.endswith('.py')])} cogs successfully"
+    f"Loaded {len(bot.cogs)}/{len([f for f in listdir('cogs') if f.endswith('.py')]) + len([f for f in listdir('cogs/admin') if f.endswith('.py')])} cogs successfully"
 )
 
 if __name__ == "__main__":
