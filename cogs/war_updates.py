@@ -1,6 +1,6 @@
 from asyncio import sleep
 from logging import getLogger
-from disnake import TextChannel
+from disnake import Forbidden, TextChannel
 from disnake.ext import commands, tasks
 from helpers.db import Campaigns, Guilds
 from helpers.embeds import CampaignEmbed
@@ -26,8 +26,13 @@ class WarUpdatesCog(commands.Cog):
             return logger.error("WarUpdatesCog send_campaign - Guild not in DB")
         try:
             await channel.send(embed=embeds[guild[5]])
+        except Forbidden:
+            self.channels.remove(channel)
+            logger.error(
+                f"WarUpdatesCog send_campaign, Forbidden, removing, {channel.name}"
+            )
         except Exception as e:
-            logger.error(f"WarUpdatesCog send_campaign, {e}, {channel}")
+            logger.error(f"WarUpdatesCog send_campaign, {e}, {channel.name}")
             pass
 
     @tasks.loop(minutes=1)

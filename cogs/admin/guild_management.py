@@ -80,6 +80,11 @@ class GuildManagementCog(commands.Cog):
                 "The GWW has",
                 f"{len(self.bot.global_slash_commands)} commands available:\n{commands}",
             ).add_field("Currently in", f"{len(self.bot.guilds)} discord servers")
+            member_count = 0
+            for i in self.bot.guilds:
+                member_count += i.member_count
+            dashboard_embed.add_field("Members of Democracy", member_count)
+
             pid = getpid()
             process = Process(pid)
             memory_used = process.memory_info().rss / 1024**2

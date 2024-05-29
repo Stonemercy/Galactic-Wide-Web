@@ -48,7 +48,6 @@ async def pull_from_api(
     get_thumbnail: bool = False,
     language: str = "en-GB",
 ):
-
     api = getenv("API")
     results = {}
     if get_war_state:

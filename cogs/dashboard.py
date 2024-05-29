@@ -68,13 +68,13 @@ class DashboardCog(commands.Cog):
             dashboard = Dashboard(data, lang)
             dashboard_dict[lang] = dashboard
         chunked_messages = [
-            self.messages[i : i + 20] for i in range(0, len(self.messages), 20)
+            self.messages[i : i + 50] for i in range(0, len(self.messages), 50)
         ]
         update_start = datetime.now()
         for chunk in chunked_messages:
             for message in chunk:
                 self.bot.loop.create_task(self.update_message(message, dashboard_dict))
-            await sleep(2)
+            await sleep(1)
         logger.info(
             f"Dashboard updates finished in {(datetime.now() - update_start).total_seconds()} seconds"
         )

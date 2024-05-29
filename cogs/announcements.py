@@ -36,6 +36,7 @@ class AnnouncementsCog(commands.Cog):
         try:
             await channel.send(embed=embeds[guild[5]])
         except Forbidden:
+            self.channels.remove(channel)
             Guilds.update_announcement_channel(channel.guild.id, 0)
             return logger.error(f"AnnouncementsCog send_embed forbidden {channel.id}")
         except Exception as e:
