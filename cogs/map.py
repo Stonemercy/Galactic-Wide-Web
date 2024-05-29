@@ -58,7 +58,7 @@ class MapCog(commands.Cog):
     async def map_poster(self):
         channel = self.bot.get_channel(1242843098363596883)
         now = datetime.now()
-        if now.minute != 0 or self.messages == []:
+        if now.minute != 5 or self.messages == []:
             return
         try:
             await channel.purge(before=now - timedelta(hours=2))
@@ -72,10 +72,16 @@ class MapCog(commands.Cog):
             if data_value == None:
                 return
         dashboard_maps_dict = await dashboard_maps(data, channel)
+        chunked_messages = [
+            self.messages[i : i + 50] for i in range(0, len(self.messages), 50)
+        ]
         update_start = datetime.now()
-        for message in self.messages:
-            self.bot.loop.create_task(self.update_message(message, dashboard_maps_dict))
-            await sleep(1)
+        for chunk in chunked_messages:
+            for message in chunk:
+                self.bot.loop.create_task(
+                    self.update_message(message, dashboard_maps_dict)
+                )
+            await sleep(1.025)
         logger.info(
             f"Map updates finished in {(datetime.now() - update_start).total_seconds()} seconds"
         )
