@@ -33,7 +33,6 @@ class AdminCommandsCog(commands.Cog):
                 "You can't use this", ephemeral=True, delete_after=3.0
             )
         await inter.response.defer(ephemeral=True)
-        dashboards_updated = 0
         data = await pull_from_api(
             get_campaigns=True,
             get_assignments=True,
@@ -54,6 +53,7 @@ class AdminCommandsCog(commands.Cog):
             for i in range(0, len(self.bot.get_cog("DashboardCog").messages), 50)
         ]
         update_start = datetime.now()
+        dashboards_updated = 0
         for chunk in chunked_messages:
             for message in chunk:
                 self.bot.loop.create_task(
