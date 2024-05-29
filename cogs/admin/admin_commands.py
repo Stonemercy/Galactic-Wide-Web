@@ -50,8 +50,8 @@ class AdminCommandsCog(commands.Cog):
             dashboard = Dashboard(data, lang)
             dashboard_dict[lang] = dashboard
         chunked_messages = [
-            self.bot.get_cog("DashboardCog").messages[i : i + 20]
-            for i in range(0, len(self.bot.get_cog("DashboardCog").messages), 20)
+            self.bot.get_cog("DashboardCog").messages[i : i + 50]
+            for i in range(0, len(self.bot.get_cog("DashboardCog").messages), 50)
         ]
         update_start = datetime.now()
         for chunk in chunked_messages:
@@ -62,7 +62,7 @@ class AdminCommandsCog(commands.Cog):
                     )
                 )
                 dashboards_updated += 1
-            await sleep(2)
+            await sleep(1.025)
         logger.info(
             f"Dashboard force updates finished in {(datetime.now() - update_start).total_seconds()} seconds"
         )
