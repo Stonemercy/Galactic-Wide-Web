@@ -83,7 +83,7 @@ class DashboardCog(commands.Cog):
                 dashboards_updated += 1
             await sleep(1.025)
         logger.info(
-            f"Updated {dashboards_updated} dashboards in {(datetime.now() - update_start).total_seconds():.2} seconds"
+            f"Updated {dashboards_updated} dashboards in {(datetime.now() - update_start).total_seconds():.2f} seconds"
         )
 
     @dashboard.before_loop

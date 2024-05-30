@@ -98,7 +98,7 @@ class AnnouncementsCog(commands.Cog):
                     major_orders_sent += 1
                 await sleep(1.025)
             logger.info(
-                f"{major_orders_sent} announcements sent out in {(datetime.now() - announcement_start).total_seconds():.2} seconds"
+                f"{major_orders_sent} announcements sent out in {(datetime.now() - announcement_start).total_seconds():.2f} seconds"
             )
 
     @major_order_check.before_loop
@@ -142,7 +142,7 @@ class AnnouncementsCog(commands.Cog):
                     announcements_sent += 1
                 await sleep(1.025)
             logger.info(
-                f"{announcements_sent} announcements sent out in {(datetime.now() - announcement_start).total_seconds():.2} seconds"
+                f"{announcements_sent} announcements sent out in {(datetime.now() - announcement_start).total_seconds():.2f} seconds"
             )
 
     @dispatch_check.before_loop
@@ -179,7 +179,7 @@ class AnnouncementsCog(commands.Cog):
                     patch_notes_sent += 1
                 await sleep(1.025)
             logger.info(
-                f"{patch_notes_sent} announcements sent out in {(datetime.now() - patch_notes_start).total_seconds():.2} seconds"
+                f"{patch_notes_sent} announcements sent out in {(datetime.now() - patch_notes_start).total_seconds():.2f} seconds"
             )
 
     @steam_check.before_loop

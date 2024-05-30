@@ -92,7 +92,7 @@ class MapCog(commands.Cog):
                 maps_updated += 1
             await sleep(1.025)
         logger.info(
-            f"Updated {maps_updated} maps in {(datetime.now() - update_start).total_seconds()} seconds"
+            f"Updated {maps_updated} maps in {(datetime.now() - update_start).total_seconds():.2f} seconds"
         )
 
     @map_poster.before_loop

@@ -71,7 +71,7 @@ class ListGenCog(commands.Cog):
                     pass
         logger.info(
             (
-                f"message_gen finished going through {guilds_done} guilds in {(datetime.now() - start_time).total_seconds():.2} seconds. "
+                f"message_gen finished going through {guilds_done} guilds in {(datetime.now() - start_time).total_seconds():.2f} seconds. "
                 f"Dashboards: {len(dashboard_messages)}. "
                 f"Announcement channels: {len(announcement_channels)}. "
                 f"Patch channels: {len(patch_channels)}. "

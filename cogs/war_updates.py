@@ -128,7 +128,7 @@ class WarUpdatesCog(commands.Cog):
                     announcements_sent += 1
                 await sleep(1.025)
             logger.info(
-                f"Sent {announcements_sent} announcements in {(datetime.now() - update_start).total_seconds():.2} seconds"
+                f"Sent {announcements_sent} announcements in {(datetime.now() - update_start).total_seconds():.2f} seconds"
             )
 
     @campaign_check.before_loop

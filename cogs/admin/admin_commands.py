@@ -69,10 +69,10 @@ class AdminCommandsCog(commands.Cog):
                 dashboards_updated += 1
             await sleep(1.025)
         logger.info(
-            f"Forced updates of {dashboards_updated} dashboards in {(datetime.now() - update_start).total_seconds():.2} seconds"
+            f"Forced updates of {dashboards_updated} dashboards in {(datetime.now() - update_start).total_seconds():.2f} seconds"
         )
         await inter.send(
-            f"Attempted to update {dashboards_updated} dashboards in {(datetime.now() - update_start).total_seconds():.2} seconds",
+            f"Attempted to update {dashboards_updated} dashboards in {(datetime.now() - update_start).total_seconds():.2f} seconds",
             ephemeral=True,
         )
 
@@ -110,10 +110,10 @@ class AdminCommandsCog(commands.Cog):
                 maps_updated += 1
             await sleep(1.025)
         logger.info(
-            f"Forced updates of {maps_updated} maps in {(datetime.now() - update_start).total_seconds():.2} seconds"
+            f"Forced updates of {maps_updated} maps in {(datetime.now() - update_start).total_seconds():.2f} seconds"
         )
         await inter.send(
-            f"Attempted to update {maps_updated} maps in {(datetime.now() - update_start).total_seconds():.2} seconds",
+            f"Attempted to update {maps_updated} maps in {(datetime.now() - update_start).total_seconds():.2f} seconds",
             ephemeral=True,
         )
 
@@ -143,7 +143,7 @@ class AdminCommandsCog(commands.Cog):
                 )
             await sleep(1.025)
         await inter.send(
-            f"Attempted to send out an announcement to {len(self.bot.get_cog('AnnouncementsCog').channels)} channels in {(datetime.now() - update_start).total_seconds():.2} seconds",
+            f"Attempted to send out an announcement to {len(self.bot.get_cog('AnnouncementsCog').channels)} channels in {(datetime.now() - update_start).total_seconds():.2f} seconds",
             ephemeral=True,
             delete_after=5,
         )
