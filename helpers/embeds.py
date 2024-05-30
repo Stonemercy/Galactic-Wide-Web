@@ -733,7 +733,14 @@ class Items:
             warbond_json: str,
             item_names: dict,
             page,
+            armor_json: dict,
+            armor_perks_json: dict,
+            primary_json: dict,
+            secondary_json: dict,
+            grenade_json: dict,
+            weapon_types: dict,
         ):
+            slots = {"0": "Head", "1": "Cloak", "2": "Body"}
             warbond_page = warbond[str(page)]
             cost = warbond_json["credits_to_unlock"]
             super().__init__(
@@ -748,10 +755,89 @@ class Items:
             self.set_image(warbond_images_dict[warbond_json["name"]])
             item_number = 1
             for item in warbond_page["items"]:
-                self.add_field(
-                    f"{item_names[str(item['item_id'])]['name']}",
-                    f"Medal cost: **{item['medal_cost']} <:medal:1226254158278037504>**",
-                )
+                item_json = None
+                item_type = None
+                for item_key, item_value in armor_json.items():
+                    if int(item_key) == item["item_id"]:
+                        item_json = item_value
+                        item_type = "armor"
+                        break
+                for item_key, item_value in primary_json.items():
+                    if item_type != None:
+                        break
+                    if int(item_key) == item["item_id"]:
+                        item_json = item_value
+                        item_type = "primary"
+                        break
+                for item_key, item_value in secondary_json.items():
+                    if item_type != None:
+                        break
+                    if int(item_key) == item["item_id"]:
+                        item_json = item_value
+                        item_type = "secondary"
+                        break
+                for item_key, item_value in grenade_json.items():
+                    if item_type != None:
+                        break
+                    if int(item_key) == item["item_id"]:
+                        item_json = item_value
+                        item_type = "grenade"
+                        break
+                if item_json != None:
+                    if item_type == "armor":
+                        self.add_field(
+                            f"{item_json['name']}",
+                            (
+                                "Type: Armor\n"
+                                f"Slot: {slots[str(item_json['slot'])]}\n"
+                                f"Armor Rating: {item_json['armor_rating']}\n"
+                                f"Speed: {item_json['speed']}\n"
+                                f"Stamina Regen: {item_json['stamina_regen']}\n"
+                                f"Passive: {armor_perks_json[str(item_json['passive'])]['name']}\n"
+                                f"Medal Cost: **{item['medal_cost']} <:medal:1226254158278037504>**\n\n"
+                            ),
+                        )
+                    elif item_type == "primary":
+                        self.add_field(
+                            f"{item_json['name']}",
+                            (
+                                f"Type: {weapon_types[str(item_json['type'])]}\n"
+                                f"Damage: {item_json['damage']}\n"
+                                f"Capacity: {item_json['capacity']}\n"
+                                f"Recoil: {item_json['recoil']}\n"
+                                f"Fire Rate: {item_json['fire_rate']}\n"
+                                f"Medal Cost: **{item['medal_cost']} <:medal:1226254158278037504>**\n\n"
+                            ),
+                        )
+                    elif item_type == "secondary":
+                        self.add_field(
+                            f"{item_json['name']}",
+                            (
+                                "Type: Secondary\n"
+                                f"Damage: {item_json['damage']}\n"
+                                f"Capacity: {item_json['capacity']}\n"
+                                f"Recoil: {item_json['recoil']}\n"
+                                f"Fire Rate: {item_json['fire_rate']}\n"
+                                f"Medal Cost: **{item['medal_cost']} <:medal:1226254158278037504>**\n\n"
+                            ),
+                        )
+                    elif item_type == "grenade":
+                        self.add_field(
+                            f"{item_json['name']}",
+                            (
+                                "Type: Grenade\n"
+                                f"Damage: {item_json['damage']}\n"
+                                f"Penetration: {item_json['penetration']}\n"
+                                f"Outer Radius: {item_json['outer_radius']}\n"
+                                f"Fuse Time: {item_json['fuse_time']}\n"
+                                f"Medal Cost: **{item['medal_cost']} <:medal:1226254158278037504>**\n\n"
+                            ),
+                        )
+                else:
+                    self.add_field(
+                        f"{item_names[str(item['item_id'])]['name']}",
+                        f"Medal cost: **{item['medal_cost']} <:medal:1226254158278037504>**",
+                    )
                 if item_number % 2 == 0:
                     self.add_field("", "")
                 item_number += 1

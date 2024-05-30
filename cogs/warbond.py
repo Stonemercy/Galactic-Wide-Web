@@ -55,8 +55,23 @@ class WarbondCog(commands.Cog):
         chosen_warbond = load(
             open(f"data/json/warbonds/{self.warbond_names[warbond]['id']}.json")
         )
+        armour_json = load(open(f"data/json/items/armor/armor.json", encoding="UTF-8"))
+        armor_perks_json = load(open(f"data/json/items/armor/passive.json"))
+        primary_json = load(open(f"data/json/items/weapons/primary.json"))
+        secondary_json = load(open(f"data/json/items/weapons/secondary.json"))
+        grenade_json = load(open(f"data/json/items/weapons/grenades.json"))
+        weapon_types = load(open(f"data/json/items/weapons/types.json"))
         embed = Items.Warbond(
-            chosen_warbond, self.warbond_names[warbond], self.item_names, 1
+            chosen_warbond,
+            self.warbond_names[warbond],
+            self.item_names,
+            1,
+            armour_json,
+            armor_perks_json,
+            primary_json,
+            secondary_json,
+            grenade_json,
+            weapon_types,
         )
         components = [
             Button(
@@ -85,6 +100,12 @@ class WarbondCog(commands.Cog):
         action_row = ActionRow.rows_from_message(inter.message)[0]
         warbond_json = self.warbond_names[button_id[:-10]]
         warbond = load(open(f"data/json/warbonds/{warbond_json['id']}.json"))
+        armour_json = load(open(f"data/json/items/armor/armor.json", encoding="UTF-8"))
+        armor_perks_json = load(open(f"data/json/items/armor/passive.json"))
+        primary_json = load(open(f"data/json/items/weapons/primary.json"))
+        secondary_json = load(open(f"data/json/items/weapons/secondary.json"))
+        grenade_json = load(open(f"data/json/items/weapons/grenades.json"))
+        weapon_types = load(open(f"data/json/items/weapons/types.json"))
         page_count = [int(i) for i in warbond]
         current_page = int(findall(r"\d+", inter.message.embeds[0].description)[0])
         new_page = (
@@ -99,7 +120,18 @@ class WarbondCog(commands.Cog):
         else:
             action_row.children[0].disabled = False
             action_row.children[1].disabled = False
-        embed = Items.Warbond(warbond, warbond_json, self.item_names, new_page)
+        embed = Items.Warbond(
+            warbond,
+            warbond_json,
+            self.item_names,
+            new_page,
+            armour_json,
+            armor_perks_json,
+            primary_json,
+            secondary_json,
+            grenade_json,
+            weapon_types,
+        )
         await inter.response.edit_message(
             embed=embed,
             components=action_row,

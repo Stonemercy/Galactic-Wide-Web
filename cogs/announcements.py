@@ -75,6 +75,8 @@ class AnnouncementsCog(commands.Cog):
                     f"AnnouncementsCog, major_order_check, {data_key} returned {data_value}"
                 )
                 return
+        if len(data["assignments"]) < 1:
+            return
         self.newest_id = data["assignments"][0]["id"]
         if last_id == None:
             MajorOrders.setup()
