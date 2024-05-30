@@ -27,24 +27,26 @@ class DashboardCog(commands.Cog):
         guild = Guilds.get_info(message.guild.id)
         if guild == None:
             self.messages.remove(message)
-            return logger.error("DashboardCog update_message - Guild not in DB")
+            return logger.error(
+                f"DashboardCog, update_message, guild == None, {message.guild.id}"
+            )
         try:
             await message.edit(embeds=dashboard_dict[guild[5]].embeds)
         except NotFound:
             self.messages.remove(message)
             Guilds.update_dashboard(message.guild.id, 0, 0)
             return logger.error(
-                f"DashboardCog dashboard not found, removing, {message.channel.name}"
+                f"DashboardCog, update_message, NotFound, removing from message list, {message.channel.id}"
             )
         except Forbidden:
             self.messages.remove(message)
             Guilds.update_dashboard(message.guild.id, 0, 0)
             return logger.error(
-                f"DashboardCog dashboard forbidden, removing, {message.channel.name}"
+                f"DashboardCog, update_message, Forbidden, removing from message list, {message.channel.id}"
             )
         except Exception as e:
             return logger.error(
-                f"DashboardCog update_message, {e}, {message.channel.name}"
+                f"DashboardCog, update_message, {e}, {message.channel.id}"
             )
 
     @tasks.loop(minutes=1)
@@ -59,8 +61,11 @@ class DashboardCog(commands.Cog):
             get_planets=True,
             get_war_state=True,
         )
-        for data_key, data_item in data.items():
-            if data_item == None and data_key != "planet_events":
+        for data_key, data_value in data.items():
+            if data_value == None and data_key != "planet_events":
+                logger.error(
+                    f"DashboardCog, dashboard, {data_key} returned {data_value}"
+                )
                 return
         languages = Guilds.get_used_languages()
         dashboard_dict = {}

@@ -25,7 +25,7 @@ class SetupCog(commands.Cog):
         }
 
     @commands.slash_command(
-        description="Change the GWW settings for your server. Use this without arguments to see your set settings."
+        description="Change the GWW settings for your server. Use this without options to see your set settings."
     )
     async def setup(
         self,
@@ -53,13 +53,12 @@ class SetupCog(commands.Cog):
             choices=language_dict,
         ),
     ):
-        await inter.response.defer(ephemeral=True)
         if not inter.author.guild_permissions.manage_guild:
             return await inter.send(
                 "You need `Manager Server` permissions to use this command"
             )
+        await inter.response.defer(ephemeral=True)
         guild_in_db = Guilds.get_info(inter.guild_id)
-
         if not guild_in_db:
             Guilds.insert_new_guild(inter.guild_id)
             guild_in_db = Guilds.get_info(inter.guild_id)

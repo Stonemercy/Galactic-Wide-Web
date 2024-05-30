@@ -37,9 +37,11 @@ class WarbondCog(commands.Cog):
     async def warbond(
         self,
         inter: AppCmdInter,
-        warbond: str = commands.Param(autocomplete=warbond_autocomp),
+        warbond: str = commands.Param(
+            autocomplete=warbond_autocomp, description="The warbond you want to lookup"
+        ),
     ):
-        logger.info("warbond command used")
+        logger.info("WarbondCog, warbond command used")
         if warbond not in self.warbond_names:
             return await inter.send(
                 (
@@ -70,7 +72,9 @@ class WarbondCog(commands.Cog):
             ),
         ]
         return await inter.send(
-            embed=embed, ephemeral=True, components=components, delete_after=900
+            embed=embed,
+            ephemeral=True,
+            components=components,
         )
 
     @commands.Cog.listener("on_button_click")

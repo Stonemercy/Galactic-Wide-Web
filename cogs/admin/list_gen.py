@@ -19,8 +19,8 @@ class ListGenCog(commands.Cog):
     async def message_gen(self):
         start_time = datetime.now()
         guilds = Guilds.get_all_guilds()
-        if not guilds:
-            return
+        if guilds == False:
+            return logger.error(f"ListGenCog, message_gen, guilds == False")
         dashboard_messages: list[PartialMessage] = self.bot.get_cog(
             "DashboardCog"
         ).messages
@@ -80,7 +80,7 @@ class ListGenCog(commands.Cog):
         )
 
     @message_gen.before_loop
-    async def before_bot_dashboard(self):
+    async def before_message_gen(self):
         await self.bot.wait_until_ready()
 
 

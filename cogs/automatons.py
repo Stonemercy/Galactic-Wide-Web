@@ -51,9 +51,10 @@ class AutomatonsCog(commands.Cog):
             description="A specific variant of an automaton",
         ),
     ):
-        logger.info("automaton command used")
+        logger.info("AutomatonsCog, automaton command used")
         if not species and not variation:
             return await inter.send(":robot:", delete_after=10.0, ephemeral=True)
+        await inter.response.defer(ephemeral=True)
         guild_in_db = Guilds.get_info(inter.guild_id)
         guild_language = load(
             open(f"data/languages/{guild_in_db[5]}.json", encoding="UTF-8")

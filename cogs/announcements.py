@@ -1,10 +1,12 @@
 from asyncio import sleep
+from datetime import datetime
 from logging import getLogger
-from disnake import Forbidden, TextChannel
+from disnake import Forbidden, TextChannel, ButtonStyle
 from disnake.ext import commands, tasks
 from helpers.embeds import DispatchesEmbed, MajorOrderEmbed, SteamEmbed
 from helpers.db import Dispatches, MajorOrders, Guilds, Steam
 from helpers.functions import pull_from_api
+from disnake.ui import Button
 
 logger = getLogger("disnake")
 
@@ -27,20 +29,39 @@ class AnnouncementsCog(commands.Cog):
         guild = Guilds.get_info(channel.guild.id)
         if guild == None:
             if type == "Patch":
+                logger.error(
+                    f"AnnouncementsCog, send_embed, guild == None for {channel.id}, {type}"
+                )
                 self.patch_channels.remove(channel)
                 Guilds.update_patch_notes(channel.guild.id, False)
             else:
+                logger.error(
+                    f"AnnouncementsCog, send_embed, guild == None for {channel.id}, {type}"
+                )
                 self.channels.remove(channel)
                 Guilds.update_announcement_channel(channel.guild.id, 0)
-            return logger.error("AnnouncementsCog send_embed - Guild not in DB")
         try:
-            await channel.send(embed=embeds[guild[5]])
+            if type == "Announcement":
+                await channel.send(
+                    embed=embeds[guild[5]],
+                    components=[
+                        Button(
+                            style=ButtonStyle.link,
+                            label="Support Server",
+                            url="https://discord.gg/Z8Ae5H5DjZ",
+                        )
+                    ],
+                )
+            else:
+                await channel.send(embed=embeds[guild[5]])
         except Forbidden:
             self.channels.remove(channel)
             Guilds.update_announcement_channel(channel.guild.id, 0)
-            return logger.error(f"AnnouncementsCog send_embed forbidden {channel.id}")
+            return logger.error(
+                f"AnnouncementsCog, send_embed, Forbidden, {channel.id}"
+            )
         except Exception as e:
-            return logger.error(f"AnnouncementsCog send_embed, {e}, {channel.id}")
+            return logger.error(f"AnnouncementsCog, send_embed, {e}, {channel.id}")
 
     @tasks.loop(minutes=1)
     async def major_order_check(self):
@@ -48,13 +69,12 @@ class AnnouncementsCog(commands.Cog):
             return
         last_id = MajorOrders.get_last_id()
         data = await pull_from_api(get_assignments=True, get_planets=True)
-        if (
-            data["assignments"] in (None, [])
-            or data["planets"] in (None, [])
-            or data["assignments"][0]["briefing"] == None
-            or data["assignments"][0]["description"] == 0
-        ):
-            return
+        for data_key, data_value in data.items():
+            if data_value == None:
+                logger.error(
+                    f"AnnouncementsCog, major_order_check, {data_key} returned {data_value}"
+                )
+                return
         self.newest_id = data["assignments"][0]["id"]
         if last_id == None:
             MajorOrders.setup()
@@ -70,10 +90,16 @@ class AnnouncementsCog(commands.Cog):
             chunked_channels = [
                 self.channels[i : i + 50] for i in range(0, len(self.channels), 50)
             ]
+            announcement_start = datetime.now()
+            major_orders_sent = 0
             for chunk in chunked_channels:
                 for channel in chunk:
                     self.bot.loop.create_task(self.send_embed(channel, embeds, "MO"))
-                await sleep(2)
+                    major_orders_sent += 1
+                await sleep(1.025)
+            logger.info(
+                f"{major_orders_sent} announcements sent out in {(datetime.now() - announcement_start).total_seconds():.2} seconds"
+            )
 
     @major_order_check.before_loop
     async def before_mo_check(self):
@@ -83,9 +109,15 @@ class AnnouncementsCog(commands.Cog):
     async def dispatch_check(self):
         last_id = Dispatches.get_last_id()
         data = await pull_from_api(get_dispatches=True)
-        if data["dispatches"] in (None, []):
-            return
-        if data["dispatches"][0]["message"] == None:
+        if data["dispatches"] == None:
+            if data["dispatches"][0]["message"] == None:
+                logger.error(
+                    f'AnnouncementsCog, dispatch_check, data["dispatches"][0]["message"] == None'
+                )
+                return
+            logger.error(
+                f'AnnouncementsCog, dispatch_check, data["dispatches"] == None'
+            )
             return
         self.newest_id = data["dispatches"][0]["id"]
         if last_id == None:
@@ -100,12 +132,18 @@ class AnnouncementsCog(commands.Cog):
             chunked_channels = [
                 self.channels[i : i + 50] for i in range(0, len(self.channels), 50)
             ]
+            announcements_sent = 0
+            announcement_start = datetime.now()
             for chunk in chunked_channels:
                 for channel in chunk:
                     self.bot.loop.create_task(
                         self.send_embed(channel, embeds, "Dispatch")
                     )
-                await sleep(2)
+                    announcements_sent += 1
+                await sleep(1.025)
+            logger.info(
+                f"{announcements_sent} announcements sent out in {(datetime.now() - announcement_start).total_seconds():.2} seconds"
+            )
 
     @dispatch_check.before_loop
     async def before_dispatch_check(self):
@@ -115,7 +153,8 @@ class AnnouncementsCog(commands.Cog):
     async def steam_check(self):
         last_id = Steam.get_last_id()
         data = await pull_from_api(get_steam=True)
-        if data["steam"] in (None, []):
+        if data["steam"] == None:
+            logger.info(f'AnnouncementsCog, steam_check, data["steam"] == None')
             return
         self.newest_id = int(data["steam"][0]["id"])
         if last_id == None:
@@ -132,10 +171,16 @@ class AnnouncementsCog(commands.Cog):
                 self.patch_channels[i : i + 50]
                 for i in range(0, len(self.patch_channels), 50)
             ]
+            patch_notes_sent = 0
+            patch_notes_start = datetime.now()
             for chunk in chunked_patch_channels:
                 for channel in chunk:
                     self.bot.loop.create_task(self.send_embed(channel, embeds, "Patch"))
-                await sleep(2)
+                    patch_notes_sent += 1
+                await sleep(1.025)
+            logger.info(
+                f"{patch_notes_sent} announcements sent out in {(datetime.now() - patch_notes_start).total_seconds():.2} seconds"
+            )
 
     @steam_check.before_loop
     async def before_steam_check(self):

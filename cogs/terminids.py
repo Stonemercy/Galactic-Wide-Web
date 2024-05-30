@@ -49,11 +49,12 @@ class TerminidsCog(commands.Cog):
             description="A specific variant of a species",
         ),
     ):
-        logger.info("terminid command used")
+        logger.info("TerminidsCog, terminid command used")
         if not species and not variation:
             return await inter.send(
                 "<a:explodeybug:1219248670482890752>", delete_after=10.0, ephemeral=True
             )
+        await inter.response.defer(ephemeral=True)
         guild_in_db = Guilds.get_info(inter.guild_id)
         guild_language = load(
             open(f"data/languages/{guild_in_db[5]}.json", encoding="UTF-8")
@@ -63,12 +64,9 @@ class TerminidsCog(commands.Cog):
                 guild_language["enemy.species_or_variation"],
                 ephemeral=True,
             )
-        elif species != None and species not in self.terminids_dict:
-            return await inter.send(
-                guild_language["enemy.missing"],
-                ephemeral=True,
-            )
-        elif variation != None and variation not in self.variations_dict:
+        elif (species != None and species not in self.terminids_dict) or (
+            variation != None and variation not in self.variations_dict
+        ):
             return await inter.send(
                 guild_language["enemy.missing"],
                 ephemeral=True,

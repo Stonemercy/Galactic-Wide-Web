@@ -858,10 +858,21 @@ class AnnouncementEmbed(Embed):
     def __init__(self):
         super().__init__(
             title="Galactic Wide Web Update",
-            description="A new update has been released for the GWW",
-            timestamp=datetime.now(),
+            description="Some new features have been released",
             colour=Colour.blue(),
         )
         self.add_field(
-            "This is just a test", "I'll likely put more info on it next time lol"
+            "Maps!",
+            (
+                "I have added dynamic maps to the bot which you can access via:\n"
+                "- </map:1243481163788587038>\n"
+                " - Use the <faction> option to get a map of a specific faction\n"
+                " - Use the <public> option to allow others to see the map too\n"
+                '\nYou can also get a "dashboard" map that updates once an hour using the </setup:1223994859053121640> command'
+            ),
+            inline=False,
+        )
+        self.add_field(
+            "Help!",
+            "I have also upgraded the </help:1244357692659859568> command to look *soooo* much better\nGive it a try!\n",
         )

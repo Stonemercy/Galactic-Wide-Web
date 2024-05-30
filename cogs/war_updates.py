@@ -23,45 +23,47 @@ class WarUpdatesCog(commands.Cog):
         guild = Guilds.get_info(channel.guild.id)
         if guild == None:
             self.channels.remove(channel)
-            return logger.error("WarUpdatesCog send_campaign - Guild not in DB")
+            return logger.error(
+                f"WarUpdatesCog, send_campaign, guild == None, {channel.guild.id}"
+            )
         try:
             await channel.send(embed=embeds[guild[5]])
         except Forbidden:
             self.channels.remove(channel)
             logger.error(
-                f"WarUpdatesCog send_campaign, Forbidden, removing, {channel.name}"
+                f"WarUpdatesCog, send_campaign, Forbidden, removing, {channel.id}"
             )
         except Exception as e:
-            logger.error(f"WarUpdatesCog send_campaign, {e}, {channel.name}")
+            logger.error(f"WarUpdatesCog, send_campaign, {e}, {channel.id}")
             pass
 
     @tasks.loop(minutes=1)
     async def campaign_check(self):
-        if len(self.channels) == 0:
+        if len(self.channels) == 0 or datetime.now().minute in (0, 1, 15, 30, 45):
             return
         data = await pull_from_api(
             get_planets=True,
             get_campaigns=True,
         )
-        for data_value in data.values():
+        for data_key, data_value in data.items():
             if data_value == None:
+                logger.error(
+                    f"WarUpdatesCog, campaign_check, {data_key} returned {data_value}"
+                )
                 return
         planets = data["planets"]
         new_campaigns = data["campaigns"]
         old_campaigns = Campaigns.get_all()
-
         languages = Guilds.get_used_languages()
         embeds: dict[str, CampaignEmbed] = {}
         for lang in languages:
             embeds[lang] = CampaignEmbed(lang)
-
         new_updates = False
         new_campaign_ids = []
         if new_campaigns == None:
             return
         for campaign in new_campaigns:
             new_campaign_ids.append(campaign["id"])
-
         if old_campaigns == []:
             for new_campaign in new_campaigns:
                 Campaigns.new_campaign(
@@ -71,7 +73,6 @@ class WarUpdatesCog(commands.Cog):
                     new_campaign["planet"]["index"],
                 )
             return
-
         old_campaign_ids = []
         for old_campaign in old_campaigns:  # loop through old campaigns
             old_campaign_ids.append(old_campaign[0])
@@ -97,7 +98,6 @@ class WarUpdatesCog(commands.Cog):
                         Campaigns.remove_campaign(old_campaign[0])
                 elif planet["currentOwner"] != "Humans":
                     Campaigns.remove_campaign(old_campaign[0])
-
         for new_campaign in new_campaigns:  # loop through new campaigns
             if new_campaign["id"] not in old_campaign_ids:  # if campaign is brand new
                 planet = planets[new_campaign["planet"]["index"]]
@@ -118,15 +118,21 @@ class WarUpdatesCog(commands.Cog):
             for lang, embed in embeds.items():
                 embed.remove_empty()
             chunked_channels = [
-                self.channels[i : i + 20] for i in range(0, len(self.channels), 20)
+                self.channels[i : i + 50] for i in range(0, len(self.channels), 50)
             ]
+            update_start = datetime.now()
+            announcements_sent = 0
             for chunk in chunked_channels:
                 for channel in chunk:
                     self.bot.loop.create_task(self.send_campaign(channel, embeds))
-                await sleep(20)
+                    announcements_sent += 1
+                await sleep(1.025)
+            logger.info(
+                f"Sent {announcements_sent} announcements in {(datetime.now() - update_start).total_seconds():.2} seconds"
+            )
 
     @campaign_check.before_loop
-    async def before_dashboard(self):
+    async def before_campaign_check(self):
         await self.bot.wait_until_ready()
 
 

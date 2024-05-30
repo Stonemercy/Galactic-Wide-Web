@@ -561,3 +561,42 @@ warbond_images_dict = {
     "Democratic Detonation": "https://media.discordapp.net/attachments/1212735927223590974/1234539582671032441/democratic_detonation.png?ex=66311a15&is=662fc895&hm=a7ea39cebf97692bce42f0f1ef04b535b4e241279860439f87a1b13dda7c13b6&=&format=webp&quality=lossless",
     "Polar Patriots": "https://cdn.discordapp.com/attachments/1212735927223590974/1243556076113235978/polar_patriots.png?ex=6651e758&is=665095d8&hm=5892cb4b53945d328c6cc8e322f96a6dd42bbc1ab00af03ca8f0026564c13e8a&",
 }
+
+help_dict = {
+    "automaton": {
+        "long_description": "Returns information on an Automaton or variation. This information is manually updated by the GWW's owner, if there are any inaccuracies please contact our support server.",
+        "example_usage": "**`/automaton species:Hulk`** would return information on the Hulk unit.",
+    },
+    "booster": {
+        "long_description": "Returns the description of a specific booster. This information is updated by the folks at [helldivers-2/json](<https://github.com/helldivers-2/json>).",
+        "example_usage": "**`/booster booster: Motivational Shocks`** would return the description for the Motivational Shocks booster.",
+    },
+    "help": {
+        "long_description": "Get some help for a specific command or all commands. You can obtain longer descriptions and examples when you lookup a specific command.",
+        "example_usage": "**`/help command: Automatons`** would return an embed with useful information about the Automatons command including example usage.",
+    },
+    "map": {
+        "long_description": "Get an up-to-date map of the galaxy. This is generated upon use of the command so it may take a couple of seconds.",
+        "example_usage": "**`/map faction: Automaton public: Yes`** would return a map of the galaxy zoomed in on Automaton planets with names over active planets. It can also be seen by others in discord.",
+    },
+    "planet": {
+        "long_description": "Returns the war details on a specific planet. This includes a lot of stats that arent available in the dashboard.",
+        "example_usage": "**`/planet planet: Heeth public: Yes`** returns a large embed with all of the stats the planet has. It also includes a map with an arrow pointing to the planet. It can also be seen by others in discord.",
+    },
+    "setup": {
+        "long_description": "Change the GWW settings for your server. Using this command with no options shows what your current setup is.",
+        "example_usage": "**`/setup`** would return a list of the settings for the bot.\n- **`/setup dashboard_channel:#dashboard language:Français`** would setup a dashboard in the #dashboard channel and change the bot's language to French.",
+    },
+    "terminid": {
+        "long_description": "Returns information on a Terminid species or variation. This information is manually updated by the GWW's owner, if there are any inaccuracies please contact our support server.",
+        "example_usage": "**`/terminid species:Shrieker`** would return information on the Shrieker species.",
+    },
+    "warbond": {
+        "long_description": "Returns a basic summary of the items in a specific warbond, showing each item's name and cost, as well as the cost per page and base warbond cost.",
+        "example_usage": "**`/warbond warbond:Polar Patriots`** would return a paged embed with the warbond items in it.",
+    },
+    "weapons": {
+        "long_description": "Returns information on a specific weapon. This command has 3 sub-commands for each weapon slot, Primary, Secondary and Grenade.",
+        "example_usage": "**`/weapons primary primary:AR-23C Liberator Concussive`** would return details on the AR-23 Liberator Concussive, including an image of the weapon.",
+    },
+}

@@ -83,7 +83,7 @@ class GuildManagementCog(commands.Cog):
             member_count = 0
             for i in self.bot.guilds:
                 member_count += i.member_count
-            dashboard_embed.add_field("Members of Democracy", member_count)
+            dashboard_embed.add_field("Members of Democracy", f"{member_count:,}")
 
             pid = getpid()
             process = Process(pid)
@@ -99,7 +99,6 @@ class GuildManagementCog(commands.Cog):
                 ),
                 inline=False,
             )
-
             dashboard_not_setup = len(Guilds.dashboard_not_setup())
             healthbar = health_bar(
                 (len(self.bot.guilds) - dashboard_not_setup),
@@ -114,7 +113,6 @@ class GuildManagementCog(commands.Cog):
                     f"{healthbar}"
                 ),
             )
-
             feed_not_setup = len(Guilds.feed_not_setup())
             healthbar = health_bar(
                 (len(self.bot.guilds) - feed_not_setup),
@@ -175,7 +173,7 @@ class GuildManagementCog(commands.Cog):
             try:
                 message = channel.get_partial_message(data[1])
             except Exception as e:
-                logger.error(f"GuildManagementCog bot_dashboard, {e}")
+                logger.error(f"GuildManagementCog, bot_dashboard, {e}, {channel.id}")
             try:
                 await message.edit(
                     embed=dashboard_embed,
@@ -202,7 +200,8 @@ class GuildManagementCog(commands.Cog):
                         ),
                     ],
                 ),
-            except:
+            except Exception as e:
+                logger.error(f"GuildManagementCog, bot_dashboard, {e}, {message.id}")
                 pass
 
     @bot_dashboard.before_loop
@@ -222,6 +221,7 @@ class GuildManagementCog(commands.Cog):
             channel_id
         )
         if channel == None:
+            logger.error("GuildManagementCog, react_role_dashboard, channel == None")
             return
         if message_id == None:
             message = await channel.send(embed=embed, components=components)

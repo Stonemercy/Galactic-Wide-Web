@@ -31,9 +31,11 @@ class BoostersCog(commands.Cog):
     async def booster(
         self,
         inter: AppCmdInter,
-        booster: str = commands.Param(autocomplete=booster_autocomp),
+        booster: str = commands.Param(
+            autocomplete=booster_autocomp, description="The booster you want to lookup"
+        ),
     ):
-        logger.info("booster command used")
+        logger.info("BoostersCog, booster command used")
         if booster not in self.boosters:
             return await inter.send(
                 (
@@ -41,7 +43,6 @@ class BoostersCog(commands.Cog):
                     "||If you believe this is a mistake, please contact my Support Server||"
                 ),
                 ephemeral=True,
-                delete_after=10,
             )
         chosen_booster = self.boosters[booster]
         embed = Items.Booster(chosen_booster)

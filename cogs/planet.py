@@ -24,10 +24,16 @@ class PlanetCog(commands.Cog):
     async def planet(
         self,
         inter: AppCmdInter,
-        planet: str = commands.Param(autocomplete=planet_autocomp),
-        public: str = commands.Param(choices=["Yes", "No"], default="No"),
+        planet: str = commands.Param(
+            autocomplete=planet_autocomp, description="The planet you want to lookup"
+        ),
+        public: str = commands.Param(
+            choices=["Yes", "No"],
+            default="No",
+            description="Do you want other people to see the response to this command?",
+        ),
     ):
-        logger.info("planet command used")
+        logger.info("PlanetCog, planet command used")
         planets_list = planets
         ephemeral = {"Yes": False, "No": True}[public]
         if planet not in planets_list:
@@ -41,8 +47,11 @@ class PlanetCog(commands.Cog):
         data = await pull_from_api(
             get_planets=True, get_thumbnail=True, get_campaigns=True
         )
-        for data_value in data.values():
+        for data_key, data_value in data.items():
             if data_value == None:
+                logger.error(
+                    f"PlanetCog, planet command, {data_key} returned {data_value}"
+                )
                 return await inter.send(
                     "There was an issue getting the data. Please try again later",
                     ephemeral=ephemeral,

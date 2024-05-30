@@ -27,7 +27,9 @@ class AdminCommandsCog(commands.Cog):
 
     @commands.slash_command(guild_ids=[int(getenv("SUPPORT_SERVER"))])
     async def force_update_dashboard(self, inter: AppCmdInter):
-        logger.critical("force_update_dashboard command used")
+        logger.critical(
+            f"AdminCommandsCog, force_update_dashboard command used by {inter.author.id} - {inter.author.name}"
+        )
         if inter.author.id != self.bot.owner_id:
             return await inter.send(
                 "You can't use this", ephemeral=True, delete_after=3.0
@@ -42,6 +44,9 @@ class AdminCommandsCog(commands.Cog):
         )
         for data_key, data_value in data.items():
             if data_value == None and data_key != "planet_events":
+                logger.error(
+                    f"AdminCommandsCog, force_update_dashboard, {data_key} has returned {data_value}"
+                )
                 return await inter.send(f"{data_key} return None", ephemeral=True)
         languages = Guilds.get_used_languages()
         dashboard_dict = {}
@@ -64,17 +69,18 @@ class AdminCommandsCog(commands.Cog):
                 dashboards_updated += 1
             await sleep(1.025)
         logger.info(
-            f"Dashboard force updates finished in {(datetime.now() - update_start).total_seconds()} seconds"
+            f"Forced updates of {dashboards_updated} dashboards in {(datetime.now() - update_start).total_seconds():.2} seconds"
         )
         await inter.send(
-            f"Attempted to update {dashboards_updated} dashboards in {(datetime.now() - update_start).total_seconds()} seconds",
+            f"Attempted to update {dashboards_updated} dashboards in {(datetime.now() - update_start).total_seconds():.2} seconds",
             ephemeral=True,
-            delete_after=5,
         )
 
     @commands.slash_command(guild_ids=[int(getenv("SUPPORT_SERVER"))])
     async def force_update_maps(self, inter: AppCmdInter):
-        logger.critical("force_update_maps command used")
+        logger.critical(
+            f"AdminCommandsCog, force_update_maps command used by {inter.author.id} - {inter.author.name}"
+        )
         if inter.author.id != self.bot.owner_id:
             return await inter.send(
                 "You can't use this", ephemeral=True, delete_after=3.0
@@ -87,28 +93,35 @@ class AdminCommandsCog(commands.Cog):
         )
         for data_key, data_value in data.items():
             if data_value == None:
+                logger.error(
+                    f"AdminCommandsCog, force_update_maps, {data_key} has returned {data_value}"
+                )
                 return await inter.send(f"{data_key} return None", ephemeral=True)
         channel = self.bot.get_channel(1242843098363596883)
         map_embeds = await dashboard_maps(data, channel)
+        messages = self.bot.get_cog("MapCog").messages
+        chunked_messages = [messages[i : i + 50] for i in range(0, len(messages), 50)]
         update_start = datetime.now()
-        for message in self.bot.get_cog("MapCog").messages:
-            self.bot.loop.create_task(
-                self.bot.get_cog("MapCog").update_message(message, map_embeds)
-            )
-            maps_updated += 1
-            await sleep(1.5)
+        for chunk in chunked_messages:
+            for message in chunk:
+                self.bot.loop.create_task(
+                    self.bot.get_cog("MapCog").update_message(message, map_embeds)
+                )
+                maps_updated += 1
+            await sleep(1.025)
         logger.info(
-            f"Maps force updates finished in {(datetime.now() - update_start).total_seconds()} seconds"
+            f"Forced updates of {maps_updated} maps in {(datetime.now() - update_start).total_seconds():.2} seconds"
         )
         await inter.send(
-            f"Attempted to update {maps_updated} maps in {(datetime.now() - update_start).total_seconds()} seconds",
+            f"Attempted to update {maps_updated} maps in {(datetime.now() - update_start).total_seconds():.2} seconds",
             ephemeral=True,
-            delete_after=5,
         )
 
     @commands.slash_command(guild_ids=[int(getenv("SUPPORT_SERVER"))])
     async def send_announcement(self, inter: AppCmdInter):
-        logger.critical("announcement sent")
+        logger.critical(
+            f"AdminCommandsCog, send_announcement command used by {inter.author.id} - {inter.author.name}"
+        )
         if inter.author.id != self.bot.owner_id:
             return await inter.send(
                 "You can't use this", ephemeral=True, delete_after=3.0
@@ -119,15 +132,18 @@ class AdminCommandsCog(commands.Cog):
         for lang in languages:
             embeds[lang] = AnnouncementEmbed()
         update_start = datetime.now()
-        for channel in self.bot.get_cog("AnnouncementsCog").channels:
-            self.bot.loop.create_task(
-                self.bot.get_cog("AnnouncementsCog").send_embed(
-                    channel, embeds, "Announcement"
+        channels = self.bot.get_cog("AnnouncementsCog").channels
+        chunked_channels = [channels[i : i + 50] for i in range(0, len(channels), 50)]
+        for chunk in chunked_channels:
+            for channel in chunk:
+                self.bot.loop.create_task(
+                    self.bot.get_cog("AnnouncementsCog").send_embed(
+                        channel, embeds, "Announcement"
+                    )
                 )
-            )
-            await sleep(1.5)
+            await sleep(1.025)
         await inter.send(
-            f"Attempted to send out announcements to {len(self.bot.get_cog('AnnouncementsCog').channels)} channels in {(datetime.now() - update_start).total_seconds():.2} seconds",
+            f"Attempted to send out an announcement to {len(self.bot.get_cog('AnnouncementsCog').channels)} channels in {(datetime.now() - update_start).total_seconds():.2} seconds",
             ephemeral=True,
             delete_after=5,
         )
