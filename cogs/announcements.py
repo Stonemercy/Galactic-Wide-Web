@@ -76,7 +76,10 @@ class AnnouncementsCog(commands.Cog):
                 )
                 return
         if len(data["assignments"]) < 1:
-            return
+            logger.error(
+                f'AnnouncementsCog, dispatch_check, data["dispatches"] length < 1'
+            )
+            return  # sometimes it returns but with an empty list so keep this
         self.newest_id = data["assignments"][0]["id"]
         if last_id == None:
             MajorOrders.setup()
@@ -112,13 +115,13 @@ class AnnouncementsCog(commands.Cog):
         last_id = Dispatches.get_last_id()
         data = await pull_from_api(get_dispatches=True)
         if data["dispatches"] == None:
-            if data["dispatches"][0]["message"] == None:
-                logger.error(
-                    f'AnnouncementsCog, dispatch_check, data["dispatches"][0]["message"] == None'
-                )
-                return
             logger.error(
                 f'AnnouncementsCog, dispatch_check, data["dispatches"] == None'
+            )
+            return
+        if data["dispatches"][0]["message"] == None:
+            logger.error(
+                f'AnnouncementsCog, dispatch_check, data["dispatches"][0]["message"] == None'
             )
             return
         self.newest_id = data["dispatches"][0]["id"]
