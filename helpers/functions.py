@@ -26,7 +26,7 @@ def health_bar(current_health: int, max_health: int, race: str, reverse: bool = 
     health_icon_dict = {
         "Terminids": "<:tc:1229360523217342475>",
         "Automaton": "<:ac:1229360519689801738>",
-        "Illuminate": "<:ic:1229360521002618890>",
+        "Illuminate": "<:ic:1246938273734197340>",
         "Humans": "<:hc:1229362077974401024>",
         "MO": "<:moc:1229360522181476403>",
     }
