@@ -2,7 +2,13 @@ from json import load
 from disnake import Embed, Colour, File
 from datetime import datetime
 from helpers.functions import dispatch_format, health_bar, short_format, steam_format
-from data.lists import emojis_dict, warbond_images_dict, supported_languages
+from data.lists import (
+    emojis_dict,
+    warbond_images_dict,
+    supported_languages,
+    emotes_list,
+    victory_poses_list,
+)
 
 
 class Planet(Embed):
@@ -111,17 +117,34 @@ class MajorOrderEmbed(Embed):
         for i in assignment["tasks"]:
             if i["type"] == 11 or i["type"] == 13:
                 planet = planets[i["values"][2]]
-                planet_health_bar = health_bar(
-                    planet["health"], planet["maxHealth"], "Humans"
-                )
+                if planet["event"] != None:
+                    planet_health_bar = health_bar(
+                        planet["event"]["health"],
+                        planet["event"]["maxHealth"],
+                        "MO",
+                        True,
+                    )
+                    health_text = f"{1 - (planet['event']['health'] / planet['event']['maxHealth']):^25,.2%}"
+                else:
+                    planet_health_bar = health_bar(
+                        planet["health"],
+                        planet["maxHealth"],
+                        "MO" if planet["currentOwner"] != "Humans" else "Humans",
+                        True if planet["currentOwner"] != "Humans" else False,
+                    )
+                    health_text = (
+                        f"{1 - (planet['health'] / planet['maxHealth']):^25,.2%}"
+                    )
                 self.add_field(
                     self.planet_names_loc[str(planet["index"])]["names"][
                         supported_languages[language]
                     ],
                     (
                         f"{self.language['major_order.heroes']}: **{planet['statistics']['playerCount']:,}**\n"
+                        f"{self.language['dashboard.major_order_occupied_by']}: **{planet['currentOwner']}**\n"
+                        f"{self.language['dashboard.major_order_event_health']}:\n"
                         f"{planet_health_bar}\n"
-                        f"`{(planet['health'] / planet['maxHealth']):^25,.2%}`\n"
+                        f"`{health_text}`\n"
                     ),
                     inline=False,
                 )
@@ -139,15 +162,17 @@ class MajorOrderEmbed(Embed):
             elif i["type"] == 3:
                 faction_dict = {
                     0: "",
-                    1: "<:a_:1215036421551685672>",
+                    1: "",
                     2: "<:t_:1215036423090999376>",
-                    3: "<:i_:1218283483240206576>",
+                    3: "<:a_:1215036421551685672>",
+                    4: "<:i_:1218283483240206576>",
                 }
                 loc_faction = {
-                    0: self.language["humans"],
-                    1: self.language["automaton"],
+                    0: self.language["enemies_of_freedom"],
+                    1: self.language["humans"],
                     2: self.language["terminids"],
-                    3: self.language["illuminate"],
+                    3: self.language["automaton"],
+                    4: self.language["illuminate"],
                 }
                 event_health_bar = health_bar(
                     assignment["progress"][0], i["values"][2], "MO"
@@ -223,7 +248,7 @@ class CampaignEmbed(Embed):
         name = self.fields[2].name
         description = self.fields[2].value
         if time_remaining:
-            description += f"🛡️ {self.language['campaigns.defend']} **{campaign['planet']['name']}**{self.faction_dict[campaign['planet']['event']['faction']]}\n> *{self.language['campaigns.ends']} {time_remaining}*\n"
+            description += f"🛡️ {self.language['campaigns.defend']} **{campaign['planet']['name']}** {self.faction_dict[campaign['planet']['event']['faction']]}\n> *{self.language['campaigns.ends']} {time_remaining}*\n"
         else:
             description += f"⚔️ {self.language['campaigns.liberate']} **{campaign['planet']['name']}** {self.faction_dict[campaign['planet']['currentOwner']]}\n"
         self.set_field_at(2, name, description, inline=self.fields[1].inline)
@@ -273,6 +298,9 @@ class Dashboard:
         self.MO_planets = []
 
         # make embeds
+        self.major_orders_embed = Embed(
+            title=self.language["dashboard.major_order"], colour=Colour.yellow()
+        )
         self.defend_embed = Embed(
             title=self.language["dashboard.defending"], colour=Colour.blue()
         )
@@ -282,8 +310,11 @@ class Dashboard:
         self.terminids_embed = Embed(
             title=self.language["dashboard.attacking_terminids"], colour=Colour.red()
         )
-        self.major_orders_embed = Embed(
-            title=self.language["dashboard.major_order"], colour=Colour.yellow()
+        self.illuminate_embed = Embed(
+            title=self.language["dashboard.attacking_illuminate"], colour=Colour.red()
+        )
+        self.updated_embed = Embed(
+            title=self.language["dashboard.other_updated"], colour=Colour.dark_theme()
         )
 
         # Major Orders
@@ -325,6 +356,8 @@ class Dashboard:
                         )
                         health_text = (
                             f"{1 - (planet['health'] / planet['maxHealth']):^25,.2%}"
+                            if planet["currentOwner"] != "Humans"
+                            else f"{(planet['health'] / planet['maxHealth']):^25,.2%}"
                         )
                     self.major_orders_embed.add_field(
                         self.planet_names_loc[str(planet["index"])]["names"][
@@ -433,7 +466,6 @@ class Dashboard:
                     ),
                     inline=False,
                 )
-
         if len(self.defend_embed.fields) < 1:
             self.defend_embed.add_field(
                 self.language["dashboard.defend_embed_no_threats"],
@@ -443,19 +475,26 @@ class Dashboard:
         # Attacking
         self.terminids_embed.set_thumbnail("https://helldivers.io/img/attack.png")
         self.automaton_embed.set_thumbnail("https://helldivers.io/img/attack.png")
+        self.illuminate_embed.set_thumbnail("https://helldivers.io/img/attack.png")
 
         if self.campaigns != None:
-            skipped_t_planets = {
+            skipped_terminid_planets = {
                 str(i["planet"]["index"]): i["planet"]["currentOwner"]
                 for i in self.campaigns
                 if i["planet"]["statistics"]["playerCount"] <= 500
                 and i["planet"]["currentOwner"] == "Terminids"
             }
-            skipped_a_planets = {
+            skipped_automaton_planets = {
                 str(i["planet"]["index"]): i["planet"]["currentOwner"]
                 for i in self.campaigns
                 if i["planet"]["statistics"]["playerCount"] <= 500
                 and i["planet"]["currentOwner"] == "Automaton"
+            }
+            skipped_illuminate_planets = {
+                str(i["planet"]["index"]): i["planet"]["currentOwner"]
+                for i in self.campaigns
+                if i["planet"]["statistics"]["playerCount"] <= 500
+                and i["planet"]["currentOwner"] == "Illuminate"
             }
             self.campaigns = [
                 i
@@ -483,7 +522,6 @@ class Dashboard:
                     planet_health_bar = ""
                     planet_health_text = f"**`{(1 - (i['planet']['health'] / i['planet']['maxHealth'])):^15.2%}`**"
                 if i["planet"]["currentOwner"] == "Automaton":
-
                     self.automaton_embed.add_field(
                         f"{faction_icon} - __**{self.planet_names_loc[str(i['planet']['index'])]['names'][supported_languages[language]]}**__ {exclamation}",
                         (
@@ -495,8 +533,20 @@ class Dashboard:
                         ),
                         inline=False,
                     )
-                else:
+                elif i["planet"]["currentOwner"] == "Terminids":
                     self.terminids_embed.add_field(
+                        f"{faction_icon} - __**{self.planet_names_loc[str(i['planet']['index'])]['names'][supported_languages[language]]}**__ {exclamation}",
+                        (
+                            f"{self.language['dashboard.heroes']}: **{i['planet']['statistics']['playerCount']:,}**\n"
+                            f"{self.language['dashboard.attack_embed_planet_health']}:\n"
+                            f"{planet_health_bar}"
+                            f"{planet_health_text}"
+                            "\n\u200b\n"
+                        ),
+                        inline=False,
+                    )
+                elif i["planet"]["currentOwner"] == "Illuminate":
+                    self.illuminate_embed.add_field(
                         f"{faction_icon} - __**{self.planet_names_loc[str(i['planet']['index'])]['names'][supported_languages[language]]}**__ {exclamation}",
                         (
                             f"{self.language['dashboard.heroes']}: **{i['planet']['statistics']['playerCount']:,}**\n"
@@ -511,7 +561,7 @@ class Dashboard:
         # Other
         self.timestamp = int(self.now.timestamp())
         s_t_p_string = ""
-        for planet, owner in skipped_t_planets.items():
+        for planet, owner in skipped_terminid_planets.items():
             s_t_p_string += f"{self.planet_names_loc[planet]['names'][supported_languages[language]]} - {self.faction_dict[owner]}\n"
         if s_t_p_string != "":
             self.terminids_embed.add_field(
@@ -520,7 +570,7 @@ class Dashboard:
                 inline=False,
             )
         s_a_p_string = ""
-        for planet, owner in skipped_a_planets.items():
+        for planet, owner in skipped_automaton_planets.items():
             s_a_p_string += f"{self.planet_names_loc[planet]['names'][supported_languages[language]]} - {self.faction_dict[owner]}\n"
         if s_a_p_string != "":
             self.automaton_embed.add_field(
@@ -528,13 +578,22 @@ class Dashboard:
                 s_a_p_string,
                 inline=False,
             )
-        self.terminids_embed.add_field(
-            "\u200b",
-            f"{self.language['dashboard.other_updated']} <t:{self.timestamp}:f> - <t:{self.timestamp}:R>",
+        s_i_p_string = ""
+        for planet, owner in skipped_illuminate_planets.items():
+            s_i_p_string += f"{self.planet_names_loc[planet]['names'][supported_languages[language]]} - {self.faction_dict[owner]}\n"
+        if s_i_p_string != "":
+            self.automaton_embed.add_field(
+                "Empty/low-pop planets",
+                s_i_p_string,
+                inline=False,
+            )
+        self.updated_embed.add_field(
+            "",
+            f"<t:{self.timestamp}:f> - <t:{self.timestamp}:R>",
             inline=False,
         )
         if len(self.campaigns) >= 10:
-            self.terminids_embed.add_field(
+            self.updated_embed.add_field(
                 "",
                 f"*{self.language['dashboard.lite_mode']}*",
             )
@@ -544,16 +603,22 @@ class Dashboard:
             self.major_orders_embed.set_footer(
                 self.language["dashboard.malevelon_creek_day"]
             )
+        self.major_orders_embed.set_image("https://i.imgur.com/cThNy4f.png")
+        self.defend_embed.set_image("https://i.imgur.com/cThNy4f.png")
         self.automaton_embed.set_image("https://i.imgur.com/cThNy4f.png")
         self.terminids_embed.set_image("https://i.imgur.com/cThNy4f.png")
-        self.defend_embed.set_image("https://i.imgur.com/cThNy4f.png")
-        self.major_orders_embed.set_image("https://i.imgur.com/cThNy4f.png")
+        self.illuminate_embed.set_image("https://i.imgur.com/cThNy4f.png")
+        self.updated_embed.set_image("https://i.imgur.com/cThNy4f.png")
         self.embeds = [
             self.major_orders_embed,
             self.defend_embed,
             self.automaton_embed,
             self.terminids_embed,
+            self.illuminate_embed,
+            self.updated_embed,
         ]
+        if len(self.illuminate_embed.fields) == 0:
+            self.embeds.remove(self.illuminate_embed)
 
 
 class Items:
@@ -600,8 +665,8 @@ class Items:
                         f"{language['weapons.fire_rate']}: **`{primary['fire_rate']}rpm`**\n"
                         f"{language['weapons.dps']}: **`{(primary['damage']*primary['fire_rate'])/60:.2f}/s`**\n"
                         f"{language['weapons.capacity']}: **`{primary['capacity']}`** {emojis_dict['Capacity'] if primary['fire_rate'] != 0 else ''}\n"
-                        f"{language['weapons.fire_modes']}:**{gun_fire_modes}**"
-                        f"{language['weapons.features']}:**{features}**"
+                        f"{language['weapons.fire_modes']}:**{gun_fire_modes}**\n"
+                        f"{language['weapons.features']}:{features}"
                     ),
                 )
                 try:
@@ -783,56 +848,79 @@ class Items:
                         item_json = item_value
                         item_type = "grenade"
                         break
+
                 if item_json != None:
                     if item_type == "armor":
                         self.add_field(
                             f"{item_json['name']}",
                             (
-                                "Type: Armor\n"
-                                f"Slot: {slots[str(item_json['slot'])]}\n"
-                                f"Armor Rating: {item_json['armor_rating']}\n"
-                                f"Speed: {item_json['speed']}\n"
-                                f"Stamina Regen: {item_json['stamina_regen']}\n"
-                                f"Passive: {armor_perks_json[str(item_json['passive'])]['name']}\n"
+                                "Type: **Armor**\n"
+                                f"Slot: **{slots[str(item_json['slot'])]}** {emojis_dict[slots[str(item_json['slot'])]]}\n"
+                                f"Armor Rating: **{item_json['armor_rating']}**\n"
+                                f"Speed: **{item_json['speed']}**\n"
+                                f"Stamina Regen: **{item_json['stamina_regen']}**\n"
+                                f"Passive: **{armor_perks_json[str(item_json['passive'])]['name']}**\n"
                                 f"Medal Cost: **{item['medal_cost']} <:medal:1226254158278037504>**\n\n"
                             ),
                         )
                     elif item_type == "primary":
                         self.add_field(
-                            f"{item_json['name']}",
+                            f"{item_json['name']} {emojis_dict['Primary']}",
                             (
-                                f"Type: {weapon_types[str(item_json['type'])]}\n"
-                                f"Damage: {item_json['damage']}\n"
-                                f"Capacity: {item_json['capacity']}\n"
-                                f"Recoil: {item_json['recoil']}\n"
-                                f"Fire Rate: {item_json['fire_rate']}\n"
+                                "Type: **Primary**\n"
+                                f"Weapon type: **{weapon_types[str(item_json['type'])]}**\n"
+                                f"Damage: **{item_json['damage']}**\n"
+                                f"Capacity: **{item_json['capacity']}** {emojis_dict['Capacity']}\n"
+                                f"Recoil: **{item_json['recoil']}**\n"
+                                f"Fire Rate: **{item_json['fire_rate']}**\n"
                                 f"Medal Cost: **{item['medal_cost']} <:medal:1226254158278037504>**\n\n"
                             ),
                         )
                     elif item_type == "secondary":
                         self.add_field(
-                            f"{item_json['name']}",
+                            f"{item_json['name']} {emojis_dict['Secondary']}",
                             (
-                                "Type: Secondary\n"
-                                f"Damage: {item_json['damage']}\n"
-                                f"Capacity: {item_json['capacity']}\n"
-                                f"Recoil: {item_json['recoil']}\n"
-                                f"Fire Rate: {item_json['fire_rate']}\n"
+                                "Type: **Secondary**\n"
+                                f"Damage: **{item_json['damage']}**\n"
+                                f"Capacity: **{item_json['capacity']}** {emojis_dict['Capacity']}\n"
+                                f"Recoil: **{item_json['recoil']}**\n"
+                                f"Fire Rate: **{item_json['fire_rate']}**\n"
                                 f"Medal Cost: **{item['medal_cost']} <:medal:1226254158278037504>**\n\n"
                             ),
                         )
                     elif item_type == "grenade":
                         self.add_field(
-                            f"{item_json['name']}",
+                            f"{item_json['name']} {emojis_dict['Grenade']}",
                             (
-                                "Type: Grenade\n"
-                                f"Damage: {item_json['damage']}\n"
-                                f"Penetration: {item_json['penetration']}\n"
-                                f"Outer Radius: {item_json['outer_radius']}\n"
-                                f"Fuse Time: {item_json['fuse_time']}\n"
+                                "Type: **Grenade**\n"
+                                f"Damage: **{item_json['damage']}**\n"
+                                f"Penetration: **{item_json['penetration']}**\n"
+                                f"Outer Radius: **{item_json['outer_radius']}**\n"
+                                f"Fuse Time: **{item_json['fuse_time']}**\n"
                                 f"Medal Cost: **{item['medal_cost']} <:medal:1226254158278037504>**\n\n"
                             ),
                         )
+                elif "Super Credits" in item_names[str(item["item_id"])]["name"]:
+                    self.add_field(
+                        f"{item_names[str(item['item_id'])]['name']} {emojis_dict['Super Credits']}",
+                        f"Medal cost: **{item['medal_cost']} <:medal:1226254158278037504>**",
+                    )
+                elif item_names[str(item["item_id"])]["name"] in emotes_list:
+                    self.add_field(
+                        f"{item_names[str(item['item_id'])]['name']}",
+                        (
+                            "Type: Emote\n"
+                            f"Medal cost: **{item['medal_cost']} <:medal:1226254158278037504>**"
+                        ),
+                    )
+                elif item_names[str(item["item_id"])]["name"] in victory_poses_list:
+                    self.add_field(
+                        f"{item_names[str(item['item_id'])]['name']} {emojis_dict['Super Credits']}",
+                        (
+                            "Type: Victory Pose\n"
+                            f"Medal cost: **{item['medal_cost']} <:medal:1226254158278037504>**"
+                        ),
+                    )
                 else:
                     self.add_field(
                         f"{item_names[str(item['item_id'])]['name']}",
@@ -874,11 +962,11 @@ class Terminid(Embed):
         ).add_field(
             language["enemy.weak_spots"], species_data["weak spots"], inline=False
         )
-        variations = []
+        variations = ""
         if variation == False and species_data["variations"] != None:
             for i in species_data["variations"]:
-                variations.append(i)
-            self.add_field(language["enemy.variations"], ", ".join(variations))
+                variations += f"\n- {i}"
+            self.add_field(language["enemy.variations"], variations)
         try:
             self.set_thumbnail(
                 file=File(f"resources/enemies/terminids/{file_name}.png")
@@ -918,11 +1006,59 @@ class Automaton(Embed):
         ).add_field(
             language["enemy.weak_spots"], bot_data["weak spots"], inline=False
         )
-        variations = []
+        variations = ""
         if variation == False and bot_data["variations"] != None:
             for i in bot_data["variations"]:
-                variations.append(i)
-            self.add_field(language["enemy.variations"], ", ".join(variations))
+                variations += f"\n- {i}"
+            self.add_field(language["enemy.variations"], variations)
+        try:
+            self.set_thumbnail(
+                file=File(f"resources/enemies/automatons/{file_name}.png")
+            )
+        except:
+            pass
+
+
+class Illuminate(Embed):
+    def __init__(
+        self,
+        illuminate_name: str,
+        illuminate_data: dict,
+        language,
+        variation: bool = False,
+    ):
+        super().__init__(
+            colour=Colour.blue(),
+            title=illuminate_name,
+            description=illuminate_data["desc"],
+        )
+        difficulty_dict = {
+            1: "<:trivial:1219233272987648070>",
+            2: "<:easy:1219232432671428608>",
+            3: "<:medium:1219232485536432138>",
+            4: "<:challenging:1219232486693928970>",
+            5: "<:hard:1219232488602337291>",
+            6: ":extreme:1219232490288451595>",
+            7: "<:suicide_mission:1219239152332312696>",
+            8: "<:impossible:1219234932145131570>",
+            9: "<:helldive:1219238179551318067>",
+            "?": "?",
+        }
+        file_name = illuminate_name.replace(" ", "-")
+        self.add_field(
+            language["enemy.introduced"],
+            f"{language['enemy.difficulty']} {illuminate_data['start']} {difficulty_dict[illuminate_data['start']]}",
+            inline=False,
+        ).add_field(
+            language["enemy.tactics"], illuminate_data["tactics"], inline=False
+        ).add_field(
+            language["enemy.weak_spots"], illuminate_data["weak spots"], inline=False
+        )
+        variations = ""
+        if variation == False and illuminate_data["variations"] != None:
+            for i in illuminate_data["variations"]:
+                variations += f"\n- {i}"
+            self.add_field(language["enemy.variations"], variations)
         try:
             self.set_thumbnail(
                 file=File(f"resources/enemies/automatons/{file_name}.png")

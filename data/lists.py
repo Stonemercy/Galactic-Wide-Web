@@ -375,7 +375,7 @@ enemies = {
             "variations": None,
         },
     },
-    "automatons": {
+    "automaton": {
         "Trooper": {
             "start": 1,
             "desc": "Troopers are little more than guns with legs, base caricatures of conciousness fused to machine guns and rocket launchers.",
@@ -511,6 +511,15 @@ enemies = {
             "variations": None,
         },
     },
+    "illuminate": {
+        "Unknown": {
+            "start": "?",
+            "desc": "Unknown.",
+            "tactics": "Unknown.",
+            "weak spots": None,
+            "variations": None,
+        },
+    },
 }
 
 language_dict = {
@@ -546,12 +555,19 @@ emojis_dict = {
     "Light Armor Penetrating": "<:lightarmorpenetrating:1233068100992106498>",
     "Medium Armor Penetrating": "<:mediumarmorpenetrating:1233068102451724422>",
     "Heavy Armor Penetrating": "<:heavyarmorpenetrating:1233068099587018773>",
+    "Chargeup": "",
     "One Handed": "",
     "Rounds Reload": "",
     "Left Banner": "<:left_banner:1233129580089446560>",
     "Right Banner": "<:right_banner:1233129581112856596>",
     "Capacity": "<:capacity:1233129432852729961>",
     "Super Credits": "<:super_credits:1233145615031074946>",
+    "Primary": "<:primary:1248032009968681111>",
+    "Secondary": "<:secondary:1248032011617173624>",
+    "Grenade": "<:grenade:1248032017736532101>",
+    "Head": "<:helmet:1247853903509327942>",
+    "Body": "<:body:1247853233330847754>",
+    "Cloak": "<:cape:1247852505547935794>",
 }
 
 warbond_images_dict = {
@@ -600,3 +616,33 @@ help_dict = {
         "example_usage": "**`/weapons primary primary:AR-23C Liberator Concussive`** would return details on the AR-23 Liberator Concussive, including an image of the weapon.",
     },
 }
+
+emotes_list = [
+    "Casual Salute",
+    "High-Five",
+    "Rock Paper Scissors",
+    "Hug",
+    "Explosive Handshake",
+    "Scout Handshake",
+]
+
+victory_poses_list = [
+    "Clapping",
+    "Flex",
+    "Loosen Up",
+    "Roll 'Em",
+    "Finger Guns",
+    "Salute",
+    "Super Person",
+    "Big Whoop",
+    "You're Next",
+    "Head Tap",
+    "Shotgun Show",
+    "Presentable",
+    "Squat",
+    "Courtly Bow",
+    "Boxer",
+    "Mime Instrumentation",
+    "Call the Helldivers",
+    "Distribute Ballots",
+]

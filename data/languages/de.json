@@ -57,6 +57,7 @@
     "dashboard.defending": "Verteidigung",
     "dashboard.attacking_automatons": "Angriff auf Automaten",
     "dashboard.attacking_terminids": "Angriff auf Terminiden",
+    "dashboard.attacking_illuminate": "Attacking Illuminaten",
     "dashboard.major_order": "Hauptauftrag",
     "dashboard.major_order_message": "NACHRICHT",
     "dashboard.major_order_liberated": "BEFREIT",

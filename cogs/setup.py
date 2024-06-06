@@ -53,6 +53,9 @@ class SetupCog(commands.Cog):
             choices=language_dict,
         ),
     ):
+        logger.info(
+            f"SetupCog, setup dashboard_channel:{dashboard_channel} announcement_channel:{announcement_channel} patch_notes:{patch_notes} map_channel:{map_channel} language:{language} command used"
+        )
         if not inter.author.guild_permissions.manage_guild:
             return await inter.send(
                 "You need `Manager Server` permissions to use this command"

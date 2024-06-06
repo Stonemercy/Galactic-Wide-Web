@@ -13,7 +13,7 @@ class TerminidsCog(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
         self.terminids_dict = enemies["terminids"]
-        self.variations_dict: dict = {}
+        self.variations_dict = {}
         for i in enemies["terminids"].values():
             if i["variations"] != None:
                 for n, j in i["variations"].items():
@@ -49,7 +49,9 @@ class TerminidsCog(commands.Cog):
             description="A specific variant of a species",
         ),
     ):
-        logger.info("TerminidsCog, terminid command used")
+        logger.info(
+            f"TerminidsCog, terminid species:{species} variation:{variation} command used"
+        )
         if not species and not variation:
             return await inter.send(
                 "<a:explodeybug:1219248670482890752>", delete_after=10.0, ephemeral=True

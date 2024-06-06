@@ -20,6 +20,14 @@ class WarbondCog(commands.Cog):
             self.warbond_names["item_list"][j["name"]] = j
         self.warbond_names = self.warbond_names["item_list"]
         self.item_names = load(open("data/json/items/item_names.json"))
+        self.armour_json = load(
+            open(f"data/json/items/armor/armor.json", encoding="UTF-8")
+        )
+        self.armor_perks_json = load(open(f"data/json/items/armor/passive.json"))
+        self.primary_json = load(open(f"data/json/items/weapons/primary.json"))
+        self.secondary_json = load(open(f"data/json/items/weapons/secondary.json"))
+        self.grenade_json = load(open(f"data/json/items/weapons/grenades.json"))
+        self.weapon_types = load(open(f"data/json/items/weapons/types.json"))
 
     async def warbond_autocomp(inter: AppCmdInter, user_input: str):
         warbond_names = load(open("data/json/warbonds.json"))
@@ -41,7 +49,7 @@ class WarbondCog(commands.Cog):
             autocomplete=warbond_autocomp, description="The warbond you want to lookup"
         ),
     ):
-        logger.info("WarbondCog, warbond command used")
+        logger.info(f"WarbondCog, warbond warbond:{warbond} command used")
         if warbond not in self.warbond_names:
             return await inter.send(
                 (
@@ -49,29 +57,21 @@ class WarbondCog(commands.Cog):
                     "||If you believe this is a mistake, please contact my Support Server||"
                 ),
                 ephemeral=True,
-                delete_after=10,
             )
-
         chosen_warbond = load(
             open(f"data/json/warbonds/{self.warbond_names[warbond]['id']}.json")
         )
-        armour_json = load(open(f"data/json/items/armor/armor.json", encoding="UTF-8"))
-        armor_perks_json = load(open(f"data/json/items/armor/passive.json"))
-        primary_json = load(open(f"data/json/items/weapons/primary.json"))
-        secondary_json = load(open(f"data/json/items/weapons/secondary.json"))
-        grenade_json = load(open(f"data/json/items/weapons/grenades.json"))
-        weapon_types = load(open(f"data/json/items/weapons/types.json"))
         embed = Items.Warbond(
             chosen_warbond,
             self.warbond_names[warbond],
             self.item_names,
             1,
-            armour_json,
-            armor_perks_json,
-            primary_json,
-            secondary_json,
-            grenade_json,
-            weapon_types,
+            self.armour_json,
+            self.armor_perks_json,
+            self.primary_json,
+            self.secondary_json,
+            self.grenade_json,
+            self.weapon_types,
         )
         components = [
             Button(
@@ -100,12 +100,6 @@ class WarbondCog(commands.Cog):
         action_row = ActionRow.rows_from_message(inter.message)[0]
         warbond_json = self.warbond_names[button_id[:-10]]
         warbond = load(open(f"data/json/warbonds/{warbond_json['id']}.json"))
-        armour_json = load(open(f"data/json/items/armor/armor.json", encoding="UTF-8"))
-        armor_perks_json = load(open(f"data/json/items/armor/passive.json"))
-        primary_json = load(open(f"data/json/items/weapons/primary.json"))
-        secondary_json = load(open(f"data/json/items/weapons/secondary.json"))
-        grenade_json = load(open(f"data/json/items/weapons/grenades.json"))
-        weapon_types = load(open(f"data/json/items/weapons/types.json"))
         page_count = [int(i) for i in warbond]
         current_page = int(findall(r"\d+", inter.message.embeds[0].description)[0])
         new_page = (
@@ -125,12 +119,12 @@ class WarbondCog(commands.Cog):
             warbond_json,
             self.item_names,
             new_page,
-            armour_json,
-            armor_perks_json,
-            primary_json,
-            secondary_json,
-            grenade_json,
-            weapon_types,
+            self.armour_json,
+            self.armor_perks_json,
+            self.primary_json,
+            self.secondary_json,
+            self.grenade_json,
+            self.weapon_types,
         )
         await inter.response.edit_message(
             embed=embed,

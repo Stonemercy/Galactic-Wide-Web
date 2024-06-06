@@ -33,15 +33,15 @@ class PlanetCog(commands.Cog):
             description="Do you want other people to see the response to this command?",
         ),
     ):
-        logger.info("PlanetCog, planet command used")
+        logger.info(f"PlanetCog, planet planet:{planet} public:{public} command used")
         planets_list = planets
-        ephemeral = {"Yes": False, "No": True}[public]
+        public = public != "Yes"
         if planet not in planets_list:
             return await inter.send(
                 "Please select a planet from the list.",
-                ephemeral=ephemeral,
+                ephemeral=public,
             )
-        await inter.response.defer(ephemeral=ephemeral)
+        await inter.response.defer(ephemeral=public)
         guild = Guilds.get_info(inter.guild_id)
         language = guild[5]
         data = await pull_from_api(
@@ -54,9 +54,9 @@ class PlanetCog(commands.Cog):
                 )
                 return await inter.send(
                     "There was an issue getting the data. Please try again later",
-                    ephemeral=ephemeral,
+                    ephemeral=public,
                 )
-        planets_data = data["planets"]
+        planets_data: list = data["planets"]
         planet_data = None
         planet_thumbnail = None
         for thumbnail in data["thumbnails"]:
@@ -80,10 +80,13 @@ class PlanetCog(commands.Cog):
                 )
             )
         except:
+            logger.error(
+                f"PlanetCog, planet command, {planet_data['biome']['name'].lower()} biome image unavailable"
+            )
             pass
         map_embed = planet_map(data, planet_data, language)
         embeds = [embed, map_embed]
-        await inter.send(embeds=embeds, ephemeral=ephemeral)
+        await inter.send(embeds=embeds, ephemeral=public)
 
 
 def setup(bot: commands.Bot):

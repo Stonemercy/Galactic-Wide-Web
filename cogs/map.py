@@ -62,12 +62,12 @@ class MapCog(commands.Cog):
 
     @tasks.loop(minutes=1)
     async def map_poster(self):
+        update_start = datetime.now()
         channel = self.bot.get_channel(1242843098363596883)
-        now = datetime.now()
-        if now.minute != 1 or self.messages == []:
+        if update_start.minute != 1 or self.messages == []:
             return
         try:
-            await channel.purge(before=now - timedelta(hours=2))
+            await channel.purge(before=update_start - timedelta(hours=2))
         except:
             pass
         data = await pull_from_api(
@@ -76,13 +76,13 @@ class MapCog(commands.Cog):
         )
         for data_key, data_value in data.items():
             if data_value == None:
-                logger.error(f"MapCog, map_poster, {data_key} returned {data_value}")
-                return
+                return logger.error(
+                    f"MapCog, map_poster, {data_key} returned {data_value}"
+                )
         dashboard_maps_dict = await dashboard_maps(data, channel)
         chunked_messages = [
             self.messages[i : i + 50] for i in range(0, len(self.messages), 50)
         ]
-        update_start = datetime.now()
         maps_updated = 0
         for chunk in chunked_messages:
             for message in chunk:
@@ -106,7 +106,7 @@ class MapCog(commands.Cog):
         self,
         inter: AppCmdInter,
         faction=commands.Param(
-            choices=["Humans", "Automaton", "Terminids"],
+            choices=["Humans", "Automaton", "Terminids", "Illuminate"],
             default=None,
             description="The faction to focus on",
         ),
@@ -116,9 +116,9 @@ class MapCog(commands.Cog):
             description="Do you want other people to see the response to this command?",
         ),
     ):
-        public = {"Yes": False, "No": True}[public]
+        logger.info(f"MapCog, map faction:{faction} public:{public} command used")
+        public = public != "Yes"
         await inter.response.defer(ephemeral=public)
-        logger.info("MapCog, map command used")
         guild = Guilds.get_info(inter.guild_id)
         data = await pull_from_api(get_planets=True, get_campaigns=True)
         for data_key, data_value in data.items():
@@ -196,7 +196,7 @@ class MapCog(commands.Cog):
                         align="center",
                         spacing=-15,
                     )
-            if faction != None:
+            if faction != None and planets_coords != {}:
                 min_x = min(planets_coords.values(), key=lambda x: x[0])[0]
                 max_x = max(planets_coords.values(), key=lambda x: x[0])[0]
                 min_y = min(planets_coords.values(), key=lambda x: x[1])[1]

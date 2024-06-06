@@ -60,7 +60,7 @@ async def pull_from_api(
                         await session.close()
             except Exception as e:
                 results["war_state"] = None
-                logger.error(("API/WAR", e))
+                logger.error(f"API/WAR, {e}")
     if get_assignments:
         async with ClientSession(headers={"Accept-Language": language}) as session:
             try:
@@ -71,7 +71,7 @@ async def pull_from_api(
                         await session.close()
             except Exception as e:
                 results["assignments"] = None
-                logger.error(("API/ASSIGNMENTS", e))
+                logger.error(f"API/ASSIGNMENTS, {e}")
     if get_campaigns:
         async with ClientSession(headers={"Accept-Language": language}) as session:
             try:
@@ -82,7 +82,7 @@ async def pull_from_api(
                         await session.close()
             except Exception as e:
                 results["campaigns"] = None
-                logger.error(("API/CAMPAIGNS", e))
+                logger.error(f"API/CAMPAIGNS, {e}")
     if get_dispatches:
         async with ClientSession(headers={"Accept-Language": language}) as session:
             try:
@@ -93,7 +93,7 @@ async def pull_from_api(
                         await session.close()
             except Exception as e:
                 results["dispatches"] = None
-                logger.error(("API/DISPATCHES", e))
+                logger.error(f"API/DISPATCHES, {e}")
     if get_planets:
         async with ClientSession(headers={"Accept-Language": language}) as session:
             try:
@@ -104,7 +104,7 @@ async def pull_from_api(
                         await session.close()
             except Exception as e:
                 results["planets"] = None
-                logger.error(("API/PLANETS", e))
+                logger.error(f"API/PLANETS, {e}")
     if get_planet_events:
         async with ClientSession(headers={"Accept-Language": language}) as session:
             try:
@@ -115,7 +115,7 @@ async def pull_from_api(
                         await session.close()
             except Exception as e:
                 results["planet_events"] = None
-                logger.error(("API/PLANET-EVENTS", e))
+                logger.error(f"API/PLANET-EVENTS, {e}")
     if get_steam:
         async with ClientSession(headers={"Accept-Language": language}) as session:
             try:
@@ -126,7 +126,7 @@ async def pull_from_api(
                         await session.close()
             except Exception as e:
                 results["steam"] = None
-                logger.error(("API/STEAM", e))
+                logger.error(f"API/STEAM, {e}")
     if get_thumbnail:
         async with ClientSession() as session:
             try:
@@ -139,7 +139,7 @@ async def pull_from_api(
                         pass
             except Exception as e:
                 results["thumbnails"] = None
-                logger.error(("API/THUMBNAILS", e))
+                logger.error(f"API/THUMBNAILS, {e}")
     return results
 
 
@@ -204,8 +204,8 @@ async def dashboard_maps(data: dict, channel: TextChannel):
         "automaton": (126, 38, 22),
         "Terminids": (253, 165, 58),
         "terminids": (126, 82, 29),
-        "Illuminate": (116, 163, 180),
-        "illuminate": (58, 81, 90),
+        "Illuminate": (103, 43, 166),
+        "illuminate": (51, 21, 83),
         "Humans": (36, 205, 76),
         "humans": (18, 102, 38),
     }
@@ -287,8 +287,8 @@ def planet_map(data: dict, planet, language):
         "automaton": (126, 38, 22),
         "Terminids": (253, 165, 58),
         "terminids": (126, 82, 29),
-        "Illuminate": (116, 163, 180),
-        "illuminate": (58, 81, 90),
+        "Illuminate": (103, 43, 166),
+        "illuminate": (51, 21, 83),
         "Humans": (36, 205, 76),
         "humans": (18, 102, 38),
     }

@@ -63,6 +63,7 @@ class GuildManagementCog(commands.Cog):
 
     @tasks.loop(minutes=1)
     async def bot_dashboard(self):
+        now = datetime.now()
         data = BotDashboard.get_info()
         if data[1] == 0:
             channel = self.bot.get_channel(data[0]) or await self.bot.fetch_channel(
@@ -71,7 +72,6 @@ class GuildManagementCog(commands.Cog):
             message = await channel.send("Placeholder message, please ignore.")
             BotDashboard.set_message(message.id)
         else:
-            now = datetime.now()
             dashboard_embed = BotDashboardEmbed(now)
             commands = ""
             for command in self.bot.global_slash_commands:
@@ -103,7 +103,7 @@ class GuildManagementCog(commands.Cog):
             healthbar = health_bar(
                 (len(self.bot.guilds) - dashboard_not_setup),
                 len(self.bot.guilds),
-                "Illuminate",
+                "Humans",
             )
             dashboard_embed.add_field(
                 "------------------\nDashboards Setup",
@@ -117,7 +117,7 @@ class GuildManagementCog(commands.Cog):
             healthbar = health_bar(
                 (len(self.bot.guilds) - feed_not_setup),
                 len(self.bot.guilds),
-                "Illuminate",
+                "Humans",
             )
             dashboard_embed.add_field(
                 "------------------\nAnnouncements Setup",
@@ -132,7 +132,7 @@ class GuildManagementCog(commands.Cog):
             healthbar = health_bar(
                 (len(self.bot.guilds) - maps_not_setup),
                 len(self.bot.guilds),
-                "Illuminate",
+                "Humans",
             )
             dashboard_embed.add_field(
                 "------------------\nMaps Setup",
@@ -146,7 +146,7 @@ class GuildManagementCog(commands.Cog):
             healthbar = health_bar(
                 (len(self.bot.guilds) - patch_notes_not_setup),
                 len(self.bot.guilds),
-                "Illuminate",
+                "Humans",
             )
             dashboard_embed.add_field(
                 "------------------\nPatch Notes Enabled",

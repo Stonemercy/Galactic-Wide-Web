@@ -10,7 +10,7 @@ logger = getLogger("disnake")
 class BoostersCog(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
-        self.boosters = load(open("data/json/items/boosters.json"))
+        self.boosters: dict = load(open("data/json/items/boosters.json"))
         self.boosters["item_list"] = {}
         for i, j in self.boosters.items():
             if i == "item_list":
@@ -19,10 +19,8 @@ class BoostersCog(commands.Cog):
         self.boosters = self.boosters["item_list"]
 
     async def booster_autocomp(inter: AppCmdInter, user_input: str):
-        boosters_json = load(open("data/json/items/boosters.json"))
-        boosters = []
-        for i in boosters_json.values():
-            boosters.append(i["name"])
+        boosters_json: dict = load(open("data/json/items/boosters.json"))
+        boosters = [i["name"] for i in boosters_json.values()]
         return [booster for booster in boosters if user_input in booster.lower()]
 
     @commands.slash_command(
@@ -35,7 +33,7 @@ class BoostersCog(commands.Cog):
             autocomplete=booster_autocomp, description="The booster you want to lookup"
         ),
     ):
-        logger.info("BoostersCog, booster command used")
+        logger.info(f"BoostersCog, booster booster:{booster} command used")
         if booster not in self.boosters:
             return await inter.send(
                 (

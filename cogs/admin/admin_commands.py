@@ -19,14 +19,18 @@ class AdminCommandsCog(commands.Cog):
             "automaton": (126, 38, 22),
             "Terminids": (253, 165, 58),
             "terminids": (126, 82, 29),
-            "Illuminate": (116, 163, 180),
-            "illuminate": (58, 81, 90),
+            "Illuminate": (103, 43, 166),
+            "illuminate": (51, 21, 83),
             "Humans": (36, 205, 76),
             "humans": (18, 102, 38),
         }
 
-    @commands.slash_command(guild_ids=[int(getenv("SUPPORT_SERVER"))])
+    @commands.slash_command(
+        guild_ids=[int(getenv("SUPPORT_SERVER"))],
+        description="You shouldn't be able to see this",
+    )
     async def force_update_dashboard(self, inter: AppCmdInter):
+        update_start = datetime.now()
         logger.critical(
             f"AdminCommandsCog, force_update_dashboard command used by {inter.author.id} - {inter.author.name}"
         )
@@ -57,7 +61,6 @@ class AdminCommandsCog(commands.Cog):
             self.bot.get_cog("DashboardCog").messages[i : i + 50]
             for i in range(0, len(self.bot.get_cog("DashboardCog").messages), 50)
         ]
-        update_start = datetime.now()
         dashboards_updated = 0
         for chunk in chunked_messages:
             for message in chunk:
@@ -76,8 +79,12 @@ class AdminCommandsCog(commands.Cog):
             ephemeral=True,
         )
 
-    @commands.slash_command(guild_ids=[int(getenv("SUPPORT_SERVER"))])
+    @commands.slash_command(
+        guild_ids=[int(getenv("SUPPORT_SERVER"))],
+        description="You shouldn't be able to see this",
+    )
     async def force_update_maps(self, inter: AppCmdInter):
+        update_start = datetime.now()
         logger.critical(
             f"AdminCommandsCog, force_update_maps command used by {inter.author.id} - {inter.author.name}"
         )
@@ -101,7 +108,6 @@ class AdminCommandsCog(commands.Cog):
         map_embeds = await dashboard_maps(data, channel)
         messages = self.bot.get_cog("MapCog").messages
         chunked_messages = [messages[i : i + 50] for i in range(0, len(messages), 50)]
-        update_start = datetime.now()
         for chunk in chunked_messages:
             for message in chunk:
                 self.bot.loop.create_task(
@@ -117,8 +123,12 @@ class AdminCommandsCog(commands.Cog):
             ephemeral=True,
         )
 
-    @commands.slash_command(guild_ids=[int(getenv("SUPPORT_SERVER"))])
+    @commands.slash_command(
+        guild_ids=[int(getenv("SUPPORT_SERVER"))],
+        description="You shouldn't be able to see this",
+    )
     async def send_announcement(self, inter: AppCmdInter):
+        update_start = datetime.now()
         logger.critical(
             f"AdminCommandsCog, send_announcement command used by {inter.author.id} - {inter.author.name}"
         )
@@ -131,7 +141,6 @@ class AdminCommandsCog(commands.Cog):
         languages = Guilds.get_used_languages()
         for lang in languages:
             embeds[lang] = AnnouncementEmbed()
-        update_start = datetime.now()
         channels = self.bot.get_cog("AnnouncementsCog").channels
         chunked_channels = [channels[i : i + 50] for i in range(0, len(channels), 50)]
         for chunk in chunked_channels:

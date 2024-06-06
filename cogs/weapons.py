@@ -40,25 +40,19 @@ class WeaponsCog(commands.Cog):
 
     async def primary_autocomp(inter: AppCmdInter, user_input: str):
         primaries_json = load(open("data/json/items/weapons/primary.json"))
-        primaries = []
-        for i in primaries_json.values():
-            primaries.append(i["name"])
+        primaries = [i["name"] for i in primaries_json.values()]
         return [primary for primary in primaries if user_input in primary.lower()]
 
     async def secondary_autocomp(inter: AppCmdInter, user_input: str):
         secondaries_json = load(open("data/json/items/weapons/secondary.json"))
-        secondaries = []
-        for i in secondaries_json.values():
-            secondaries.append(i["name"])
+        secondaries = [i["name"] for i in secondaries_json.values()]
         return [
             secondary for secondary in secondaries if user_input in secondary.lower()
         ]
 
     async def grenade_autocomp(inter: AppCmdInter, user_input: str):
         grenades_json = load(open("data/json/items/weapons/grenades.json"))
-        grenades = []
-        for i in grenades_json.values():
-            grenades.append(i["name"])
+        grenades = [i["name"] for i in grenades_json.values()]
         return [grenade for grenade in grenades if user_input in grenade.lower()]
 
     @commands.slash_command(description="Returns information on a specific weapon.")
@@ -77,7 +71,7 @@ class WeaponsCog(commands.Cog):
             description="The Primary weapon you want to lookup",
         ),
     ):
-        logger.info("WeaponsCog, weapons_primary command used")
+        logger.info(f"WeaponsCog, weapons primary primary:{primary} command used")
         guild_in_db = Guilds.get_info(inter.guild_id)
         guild_language = load(
             open(f"data/languages/{guild_in_db[5]}.json", encoding="UTF-8")
@@ -102,7 +96,7 @@ class WeaponsCog(commands.Cog):
             description="The Secondary weapon you want to lookup",
         ),
     ):
-        logger.info("WeaponsCog, weapons_secondary command used")
+        logger.info(f"WeaponsCog, weapons secondary secondary:{secondary} command used")
         guild_in_db = Guilds.get_info(inter.guild_id)
         guild_language = load(
             open(f"data/languages/{guild_in_db[5]}.json", encoding="UTF-8")
@@ -127,7 +121,7 @@ class WeaponsCog(commands.Cog):
             autocomplete=grenade_autocomp, description="The Grenade you want to lookup"
         ),
     ):
-        logger.info("WeaponsCog, weapons_grenade command used")
+        logger.info(f"WeaponsCog, weapons grenade grenade:{grenade} command used")
         guild_in_db = Guilds.get_info(inter.guild_id)
         guild_language = load(
             open(f"data/languages/{guild_in_db[5]}.json", encoding="UTF-8")

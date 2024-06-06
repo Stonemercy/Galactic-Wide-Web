@@ -39,7 +39,8 @@ class WarUpdatesCog(commands.Cog):
 
     @tasks.loop(minutes=1)
     async def campaign_check(self):
-        if len(self.channels) == 0 or datetime.now().minute in (0, 1, 15, 30, 45):
+        update_start = datetime.now()
+        if len(self.channels) == 0 or update_start.minute in (0, 1, 15, 30, 45):
             return
         data = await pull_from_api(
             get_planets=True,
@@ -47,10 +48,9 @@ class WarUpdatesCog(commands.Cog):
         )
         for data_key, data_value in data.items():
             if data_value == None:
-                logger.error(
+                return logger.error(
                     f"WarUpdatesCog, campaign_check, {data_key} returned {data_value}"
                 )
-                return
         planets = data["planets"]
         new_campaigns = data["campaigns"]
         old_campaigns = Campaigns.get_all()
@@ -120,7 +120,6 @@ class WarUpdatesCog(commands.Cog):
             chunked_channels = [
                 self.channels[i : i + 50] for i in range(0, len(self.channels), 50)
             ]
-            update_start = datetime.now()
             announcements_sent = 0
             for chunk in chunked_channels:
                 for channel in chunk:
@@ -128,7 +127,7 @@ class WarUpdatesCog(commands.Cog):
                     announcements_sent += 1
                 await sleep(1.025)
             logger.info(
-                f"Sent {announcements_sent} announcements in {(datetime.now() - update_start).total_seconds():.2f} seconds"
+                f"{announcements_sent} war updates sent in {(datetime.now() - update_start).total_seconds():.2f} seconds"
             )
 
     @campaign_check.before_loop

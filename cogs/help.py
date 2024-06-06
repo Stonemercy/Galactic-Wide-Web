@@ -14,9 +14,7 @@ class HelpCog(commands.Cog):
         self.bot = bot
 
     async def help_autocomp(inter: AppCmdInter, user_input: str):
-        commands_list: list[str] = []
-        for i in inter.bot.global_slash_commands:
-            commands_list.append(i.name)
+        commands_list: list[str] = [i.name for i in inter.bot.global_slash_commands]
         commands_list.append("all")
         return [command for command in commands_list if user_input in command.lower()]
 
@@ -31,7 +29,7 @@ class HelpCog(commands.Cog):
             description='The command you want to lookup, use "all" for a list of all available commands',
         ),
     ):
-        logger.info(f"HelpCog, help <{command}> command used")
+        logger.info(f"HelpCog, help command:{command} command used")
         await inter.response.defer(ephemeral=True)
         help_embed = HelpEmbed()
         if command == "all":

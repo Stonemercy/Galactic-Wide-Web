@@ -57,6 +57,7 @@
     "dashboard.defending": "Défense",
     "dashboard.attacking_automatons": "Attaque des Automatons",
     "dashboard.attacking_terminids": "Attaque des Terminides",
+    "dashboard.attacking_illuminate": "Attacking Illuminates",
     "dashboard.major_order": "Ordre Prioritaire",
     "dashboard.major_order_message": "MESSAGE",
     "dashboard.major_order_liberated": "LIBÉRÉ",

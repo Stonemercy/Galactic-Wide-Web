@@ -51,8 +51,8 @@ class DashboardCog(commands.Cog):
 
     @tasks.loop(minutes=1)
     async def dashboard(self):
-        now = datetime.now()
-        if now.minute not in (0, 15, 30, 45) or self.messages == []:
+        update_start = datetime.now()
+        if update_start.minute not in (0, 15, 30, 45) or self.messages == []:
             return
         data = await pull_from_api(
             get_campaigns=True,
@@ -63,10 +63,9 @@ class DashboardCog(commands.Cog):
         )
         for data_key, data_value in data.items():
             if data_value == None and data_key != "planet_events":
-                logger.error(
+                return logger.error(
                     f"DashboardCog, dashboard, {data_key} returned {data_value}"
                 )
-                return
         languages = Guilds.get_used_languages()
         dashboard_dict = {}
         for lang in languages:
@@ -75,7 +74,6 @@ class DashboardCog(commands.Cog):
         chunked_messages = [
             self.messages[i : i + 50] for i in range(0, len(self.messages), 50)
         ]
-        update_start = datetime.now()
         dashboards_updated = 0
         for chunk in chunked_messages:
             for message in chunk:
