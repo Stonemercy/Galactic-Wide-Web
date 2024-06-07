@@ -141,5 +141,5 @@
     "setup.language_set": "Your bot language has been changed.\nPlease note that not everything will change immediately.",
     "setup.map_channel": "Map Channel",
     "setup.map_message": "Map Message",
-    "setup.unset_map": "I have unset your Map. You are free to delete any old Maps in this server."
+    "setup.unset_map": "I have unset your map. You are free to delete any old maps in this server."
 }

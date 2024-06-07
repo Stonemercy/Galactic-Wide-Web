@@ -1115,3 +1115,8 @@ class AnnouncementEmbed(Embed):
             "Help!",
             "I have also upgraded the </help:1244357692659859568> command to look *soooo* much better\nGive it a try!\n",
         )
+
+
+class SetupEmbed(Embed):
+    def __init__(self):
+        super().__init__(colour=Colour.brand_green())
