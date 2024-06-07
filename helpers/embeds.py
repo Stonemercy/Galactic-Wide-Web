@@ -285,11 +285,28 @@ class Dashboard:
         self.planet_names_loc = load(
             open(f"data/json/planets/planets.json", encoding="UTF-8")
         )
-        self.campaigns = data["campaigns"]
+        self.campaigns = [
+            item
+            for item in sorted(
+                data["campaigns"],
+                key=lambda item: item["planet"]["statistics"]["playerCount"],
+                reverse=True,
+            )
+        ]
         self.assignment = data["assignments"]
-        self.planet_events = data["planet_events"]
+        self.planet_events = (
+            [
+                item
+                for item in sorted(
+                    data["planet_events"],
+                    key=lambda item: item["planet"]["statistics"]["playerCount"],
+                    reverse=True,
+                )
+            ]
+            if data["planet_events"] != None
+            else None
+        )
         self.planets = data["planets"]
-        self.war = data["war_state"]
         self.faction_dict = {
             "Automaton": "<:a_:1215036421551685672>",
             "Terminids": "<:t_:1215036423090999376>",

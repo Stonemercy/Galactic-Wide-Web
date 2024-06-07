@@ -37,6 +37,7 @@ class AnnouncementsCog(commands.Cog):
             else:
                 self.channels.remove(channel)
                 Guilds.update_announcement_channel(channel.guild.id, 0)
+            return
         try:
             if type == "Announcement":
                 await channel.send(
