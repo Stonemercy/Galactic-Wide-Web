@@ -556,6 +556,7 @@ emojis_dict = {
     "Medium Armor Penetrating": "<:mediumarmorpenetrating:1233068102451724422>",
     "Heavy Armor Penetrating": "<:heavyarmorpenetrating:1233068099587018773>",
     "Chargeup": "",
+    "Incendiary": "",
     "One Handed": "",
     "Rounds Reload": "",
     "Left Banner": "<:left_banner:1233129580089446560>",
