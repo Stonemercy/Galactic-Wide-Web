@@ -51,7 +51,7 @@ class GuildManagementCog(commands.Cog):
         ).add_field(
             "Owner", f"<@{guild.owner_id}>", inline=False
         )
-        embed.set_thumbnail(guild.icon.url).set_image(
+        embed.set_thumbnail(guild.icon.url if guild.icon != None else None).set_image(
             guild.banner.url if guild.banner != None else None
         )
         await channel.send(embed=embed)
