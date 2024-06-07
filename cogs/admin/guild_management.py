@@ -6,6 +6,8 @@ from disnake import (
     Activity,
     ActivityType,
     ButtonStyle,
+    Colour,
+    Embed,
     Guild,
     MessageInteraction,
     NotFound,
@@ -39,9 +41,20 @@ class GuildManagementCog(commands.Cog):
             channel_id
         )
         Guilds.insert_new_guild(guild.id)
-        await channel.send(
-            f"Just joined server #{len(self.bot.guilds)} `{guild.name}` with {guild.member_count} members"
+        embed = Embed(title="New guild joined!", colour=Colour.brand_green())
+        embed.add_field("Name", guild.name, inline=False).add_field(
+            "Users", guild.member_count, inline=False
+        ).add_field(
+            "Big guild?", {True: "Yes", False: "No"}[guild.large], inline=False
+        ).add_field(
+            "Created", f"<t:{int(guild.created_at.timestamp())}:R>", inline=False
+        ).add_field(
+            "Owner", f"<@{guild.owner_id}>", inline=False
         )
+        embed.set_thumbnail(guild.icon.url).set_image(
+            guild.banner.url if guild.banner != None else None
+        )
+        await channel.send(embed=embed)
         await self.bot.change_presence(
             activity=Activity(name="for alien sympathisers", type=ActivityType.watching)
         )
@@ -57,9 +70,20 @@ class GuildManagementCog(commands.Cog):
             channel_id
         )
         Guilds.remove_from_db(guild.id)
-        await channel.send(
-            f"Just left `{guild.name}`, down to {len(self.bot.guilds)} servers"
+        embed = Embed(title="Guild left...", colour=Colour.brand_red())
+        embed.add_field("Name", guild.name, inline=False).add_field(
+            "Users", guild.member_count, inline=False
+        ).add_field(
+            "Big guild?", {True: "Yes", False: "No"}[guild.large], inline=False
+        ).add_field(
+            "Created", f"<t:{int(guild.created_at.timestamp())}:R>", inline=False
+        ).add_field(
+            "Owner", f"<@{guild.owner_id}>", inline=False
         )
+        embed.set_thumbnail(guild.icon.url).set_image(
+            guild.banner.url if guild.banner != None else None
+        )
+        await channel.send(embed=embed)
 
     @tasks.loop(minutes=1)
     async def bot_dashboard(self):
