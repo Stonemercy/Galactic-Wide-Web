@@ -299,7 +299,7 @@ class Dashboard:
                 item
                 for item in sorted(
                     data["planet_events"],
-                    key=lambda item: item["planet"]["statistics"]["playerCount"],
+                    key=lambda item: item["statistics"]["playerCount"],
                     reverse=True,
                 )
             ]
