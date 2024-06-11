@@ -23,11 +23,15 @@ class WarbondCog(commands.Cog):
         self.armour_json = load(
             open(f"data/json/items/armor/armor.json", encoding="UTF-8")
         )
-        self.armor_perks_json = load(open(f"data/json/items/armor/passive.json"))
-        self.primary_json = load(open(f"data/json/items/weapons/primary.json"))
-        self.secondary_json = load(open(f"data/json/items/weapons/secondary.json"))
-        self.grenade_json = load(open(f"data/json/items/weapons/grenades.json"))
-        self.weapon_types = load(open(f"data/json/items/weapons/types.json"))
+        self.armor_perks_json = load(open("data/json/items/armor/passive.json"))
+        self.primary_json = load(open("data/json/items/weapons/primary.json"))
+        self.secondary_json = load(open("data/json/items/weapons/secondary.json"))
+        self.grenade_json = load(open("data/json/items/weapons/grenades.json"))
+        self.weapon_types = load(open("data/json/items/weapons/types.json"))
+        self.boosters = load(open("data/json/items/boosters.json"))
+        self.boosters = [
+            booster_values["name"] for booster, booster_values in self.boosters.items()
+        ]
 
     async def warbond_autocomp(inter: AppCmdInter, user_input: str):
         warbond_names = load(open("data/json/warbonds.json"))
@@ -72,6 +76,7 @@ class WarbondCog(commands.Cog):
             self.secondary_json,
             self.grenade_json,
             self.weapon_types,
+            self.boosters,
         )
         components = [
             Button(
@@ -125,6 +130,7 @@ class WarbondCog(commands.Cog):
             self.secondary_json,
             self.grenade_json,
             self.weapon_types,
+            self.boosters,
         )
         await inter.response.edit_message(
             embed=embed,

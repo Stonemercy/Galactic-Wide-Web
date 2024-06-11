@@ -95,8 +95,7 @@ class AdminCommandsCog(commands.Cog):
         await inter.response.defer(ephemeral=True)
         maps_updated = 0
         data = await pull_from_api(
-            get_campaigns=True,
-            get_planets=True,
+            get_campaigns=True, get_planets=True, get_assignments=True
         )
         for data_key, data_value in data.items():
             if data_value == None:

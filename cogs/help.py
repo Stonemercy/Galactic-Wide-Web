@@ -39,7 +39,7 @@ class HelpCog(commands.Cog):
                     if option.type == OptionType.sub_command:
                         options += f"- </{global_command.name} {option.name}:{global_command.id}>\n"
                         for sub_option in option.options:
-                            options += f" - **`{sub_option.name}`** `{sub_option.type.name}` {'[Required]' if sub_option.required else '<Optional>'}- {sub_option.description} \n"
+                            options += f" - **`{sub_option.name}`**: `{sub_option.type.name}` {'[Required]' if sub_option.required else '<Optional>'}- {sub_option.description} \n"
                     else:
                         options += f"- **`{option.name}`**: `{option.type.name}` {'[Required]' if option.required else '<Optional>'} - {option.description}\n"
                 help_embed.add_field(

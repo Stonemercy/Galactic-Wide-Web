@@ -23,10 +23,11 @@ class MapCog(commands.Cog):
             "automaton": (126, 38, 22),
             "Terminids": (253, 165, 58),
             "terminids": (126, 82, 29),
-            "Illuminate": (116, 163, 180),
-            "illuminate": (58, 81, 90),
+            "Illuminate": (103, 43, 166),
+            "illuminate": (51, 21, 83),
             "Humans": (36, 205, 76),
             "humans": (18, 102, 38),
+            "MO": (254, 226, 76),
         }
         self.map_poster.start()
         self.planet_names_loc = load(
@@ -71,8 +72,7 @@ class MapCog(commands.Cog):
         except:
             pass
         data = await pull_from_api(
-            get_campaigns=True,
-            get_planets=True,
+            get_campaigns=True, get_planets=True, get_assignments=True
         )
         for data_key, data_value in data.items():
             if data_value == None:
@@ -120,7 +120,9 @@ class MapCog(commands.Cog):
         public = public != "Yes"
         await inter.response.defer(ephemeral=public)
         guild = Guilds.get_info(inter.guild_id)
-        data = await pull_from_api(get_planets=True, get_campaigns=True)
+        data = await pull_from_api(
+            get_planets=True, get_campaigns=True, get_assignments=True
+        )
         for data_key, data_value in data.items():
             if data_value == None:
                 logger.error(f"MapCog, map command, {data_key} returned {data_value}")
@@ -149,6 +151,10 @@ class MapCog(commands.Cog):
                 (i["position"]["x"] * 2000) + 2000,
                 ((i["position"]["y"] - (i["position"]["y"] * 2)) * 2000) + 2000,
             )
+        if planets_coords == {}:
+            return await inter.send(
+                f"There are no planets under {faction} control. Let's keep it that way!"
+            )
         with Image.open("resources/map.webp") as background:
             background_draw = Draw(background)
             for index, coords in planets_coords.items():
@@ -165,6 +171,24 @@ class MapCog(commands.Cog):
                         )
                     except:
                         continue
+            for i in data["assignments"][0]["tasks"]:
+                if i["type"] in (11, 13):
+                    try:
+                        background_draw.ellipse(
+                            [
+                                (
+                                    planets_coords[i["values"][2]][0] - 50,
+                                    planets_coords[i["values"][2]][1] - 50,
+                                ),
+                                (
+                                    planets_coords[i["values"][2]][0] + 50,
+                                    planets_coords[i["values"][2]][1] + 50,
+                                ),
+                            ],
+                            fill=self.faction_colour["MO"],
+                        )
+                    except:
+                        pass
             for index, coords in planets_coords.items():
                 background_draw.ellipse(
                     [

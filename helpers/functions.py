@@ -208,6 +208,7 @@ async def dashboard_maps(data: dict, channel: TextChannel):
         "illuminate": (51, 21, 83),
         "Humans": (36, 205, 76),
         "humans": (18, 102, 38),
+        "MO": (254, 226, 76),
     }
     planet_names_loc = load(open(f"data/json/planets/planets.json", encoding="UTF-8"))
     languages = Guilds.get_used_languages()
@@ -239,6 +240,21 @@ async def dashboard_maps(data: dict, channel: TextChannel):
                         )
                     except:
                         continue
+            for i in data["assignments"][0]["tasks"]:
+                if i["type"] in (11, 13):
+                    background_draw.ellipse(
+                        [
+                            (
+                                planets_coords[i["values"][2]][0] - 50,
+                                planets_coords[i["values"][2]][1] - 50,
+                            ),
+                            (
+                                planets_coords[i["values"][2]][0] + 50,
+                                planets_coords[i["values"][2]][1] + 50,
+                            ),
+                        ],
+                        fill=faction_colour["MO"],
+                    )
             for index, coords in planets_coords.items():
                 background_draw.ellipse(
                     [

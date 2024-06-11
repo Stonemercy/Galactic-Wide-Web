@@ -8,6 +8,8 @@ from data.lists import (
     supported_languages,
     emotes_list,
     victory_poses_list,
+    player_cards_list,
+    titles_list,
 )
 
 
@@ -117,34 +119,13 @@ class MajorOrderEmbed(Embed):
         for i in assignment["tasks"]:
             if i["type"] == 11 or i["type"] == 13:
                 planet = planets[i["values"][2]]
-                if planet["event"] != None:
-                    planet_health_bar = health_bar(
-                        planet["event"]["health"],
-                        planet["event"]["maxHealth"],
-                        "MO",
-                        True,
-                    )
-                    health_text = f"{1 - (planet['event']['health'] / planet['event']['maxHealth']):^25,.2%}"
-                else:
-                    planet_health_bar = health_bar(
-                        planet["health"],
-                        planet["maxHealth"],
-                        "MO" if planet["currentOwner"] != "Humans" else "Humans",
-                        True if planet["currentOwner"] != "Humans" else False,
-                    )
-                    health_text = (
-                        f"{1 - (planet['health'] / planet['maxHealth']):^25,.2%}"
-                    )
                 self.add_field(
                     self.planet_names_loc[str(planet["index"])]["names"][
                         supported_languages[language]
                     ],
                     (
                         f"{self.language['major_order.heroes']}: **{planet['statistics']['playerCount']:,}**\n"
-                        f"{self.language['dashboard.major_order_occupied_by']}: **{planet['currentOwner']}**\n"
-                        f"{self.language['dashboard.major_order_event_health']}:\n"
-                        f"{planet_health_bar}\n"
-                        f"`{health_text}`\n"
+                        f"{self.language['dashboard.major_order_occupied_by']}: **{self.language[planet['currentOwner'].lower()]}**\n"
                     ),
                     inline=False,
                 )
@@ -821,6 +802,7 @@ class Items:
             secondary_json: dict,
             grenade_json: dict,
             weapon_types: dict,
+            boosters_list: dict,
         ):
             slots = {"0": "Head", "1": "Cloak", "2": "Body"}
             warbond_page = warbond[str(page)]
@@ -932,9 +914,33 @@ class Items:
                     )
                 elif item_names[str(item["item_id"])]["name"] in victory_poses_list:
                     self.add_field(
-                        f"{item_names[str(item['item_id'])]['name']} {emojis_dict['Super Credits']}",
+                        f"{item_names[str(item['item_id'])]['name']}",
                         (
                             "Type: Victory Pose\n"
+                            f"Medal cost: **{item['medal_cost']} <:medal:1226254158278037504>**"
+                        ),
+                    )
+                elif item_names[str(item["item_id"])]["name"] in player_cards_list:
+                    self.add_field(
+                        f"{item_names[str(item['item_id'])]['name']}",
+                        (
+                            "Type: Player Card\n"
+                            f"Medal cost: **{item['medal_cost']} <:medal:1226254158278037504>**"
+                        ),
+                    )
+                elif item_names[str(item["item_id"])]["name"] in boosters_list:
+                    self.add_field(
+                        f"{item_names[str(item['item_id'])]['name']}",
+                        (
+                            "Type: Booster\n"
+                            f"Medal cost: **{item['medal_cost']} <:medal:1226254158278037504>**"
+                        ),
+                    )
+                elif item_names[str(item["item_id"])]["name"] in titles_list:
+                    self.add_field(
+                        f"{item_names[str(item['item_id'])]['name']}",
+                        (
+                            "Type: Title\n"
                             f"Medal cost: **{item['medal_cost']} <:medal:1226254158278037504>**"
                         ),
                     )

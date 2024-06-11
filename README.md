@@ -6,23 +6,76 @@
 	<a href="https://ko-fi.com/Z8Z6WR2CS"><img src="https://ko-fi.com/img/githubbutton_sm.svg"></a>
 </p>
 
-While this bot not designed for others to setup, you can use this repo as bad inspiration for your projects.
+While this bot not designed for others to setup, you can use this repo for ideas for your projects.
 If you wish to use the GWW bot itself, I have it hosted and you can invite it [here](https://discord.com/channels/1212722266392109088/1212736310947741768/1212739169336434768)
 
-## Features
-- Setup a dashboard in a specific channel with one command
-  - The dashboard updates every 15 minutes automatically without sending any more messages. No pesky notifications!
-  - All planets that helldivers are currently marching on are listed, with the important stats shown.
-- Grab info on a specific planet in the war effort whenever you want
-- Recieve war updates to a specific channel the minute they happen!
-  - Game patch notes can also be enabled
-- Get some info and images on the enemies to democracy
-- Also get info on warbonds and weapons!
-- **and more!**
+## Commands
+`/automaton`
+- Returns information on an Automaton or variation.
+  - Options:
+    - `species`: string <Optional> - A specific 'main' automaton
+    - `variation`: string <Optional> - A specific variant of an automaton
+
+`/booster`
+- Returns the description of a specific booster.
+  - Options:
+    - `booster`: string [Required] - The booster you want to lookup
+
+`/help`
+- Get some help for a specific command, or a list of every command by using "all".
+  - Options:
+    - `command`: string [Required] - The command you want to lookup, use "all" for a list of all available commands
+
+`/map`
+- Get an up-to-date map of the galaxy
+  - Options:
+    - `faction`: string <Optional> - The faction to focus on
+    - `public`: string <Optional> - Do you want other people to see the response to this command?
+
+`/planet`
+- Returns the war details on a specific planet.
+  - Options:
+    - `planet`: string [Required] - The planet you want to lookup
+    - `public`: string <Optional> - Do you want other people to see the response to this command?
+
+`/setup`
+- Change the GWW settings for your server. Use this without options to see your set settings.
+  - Options:
+    - `dashboard_channel`: channel <Optional> - The channel you want the dashboard to be sent to. Set this to your current set channel to unset it.
+    - `announcement_channel`: channel <Optional> - The channel you want announcements sent to. Set this to your current set channel to unset it.
+    - `patch_notes`: string <Optional> - Toggle if you want patch notes sent to the announcements channel, default = No
+    - `map_channel`: channel <Optional> - The channel you want the map sent to. Set this to your current set channel to unset it.
+    - `language`: string <Optional> - The language you want the bot to respond in
+
+`/terminid`
+- Returns information on a Terminid or variation.
+  - Options:
+    - `species`: string <Optional> - A specific 'main' species
+    - `variation`: string <Optional> - A specific variant of a species
+
+`/warbond`
+- Returns a basic summary of the items in a specific warbond.
+  - Options:
+    - `warbond`: string [Required] - The warbond you want to lookup
+
+`/weapons`
+- Returns information on a specific weapon.
+  - Options:
+    - `/weapons primary`
+      - `primary`: string [Required]- The Primary weapon you want to lookup
+    - `/weapons secondary`
+      - `secondary`: string [Required]- The Secondary weapon you want to lookup
+    - `/weapons grenade`
+      - `grenade`: string [Required]- The Grenade you want to lookup
+
+`/illuminate`
+- Returns information on an Illuminate or variation.
+  - Options:
+    - `species`: string <Optional> - A specific 'main' illuminate
+    - `variation`: string <Optional> - A specific variant of an illuminate
 
 ## Support
 Available here: [Discord Support Server](https://discord.gg/Z8Ae5H5DjZ)
-
 
 ## Contributing
 Contributions are welcome!

@@ -313,8 +313,7 @@ class SetupCog(commands.Cog):
                     )
                 else:
                     data = await pull_from_api(
-                        get_campaigns=True,
-                        get_planets=True,
+                        get_campaigns=True, get_planets=True, get_assignments=True
                     )
                     for data_key, data_value in data.items():
                         if data_value == None and data_key != "planet_events":
