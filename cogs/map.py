@@ -120,6 +120,9 @@ class MapCog(commands.Cog):
         public = public != "Yes"
         await inter.response.defer(ephemeral=public)
         guild = Guilds.get_info(inter.guild_id)
+        if guild == None:
+            Guilds.insert_new_guild(inter.guild.id)
+            guild = Guilds.get_info(inter.guild_id)
         data = await pull_from_api(
             get_planets=True, get_campaigns=True, get_assignments=True
         )

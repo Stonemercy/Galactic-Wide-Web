@@ -83,7 +83,7 @@ class SetupCog(commands.Cog):
         await inter.response.defer(ephemeral=True)
         embed = SetupEmbed()
         guild_in_db = Guilds.get_info(inter.guild_id)
-        if not guild_in_db:
+        if guild_in_db == None:
             Guilds.insert_new_guild(inter.guild_id)
             guild_in_db = Guilds.get_info(inter.guild_id)
         guild_language = load(
@@ -316,7 +316,9 @@ class SetupCog(commands.Cog):
                         get_campaigns=True, get_planets=True, get_assignments=True
                     )
                     for data_key, data_value in data.items():
-                        if data_value == None and data_key != "planet_events":
+                        if (data_value == None and data_key != "planet_events") or (
+                            data_value == [] and data_key == "assignments"
+                        ):
                             logger.error(
                                 f"SetupCog, map, {data_key} returned {data_value}"
                             )

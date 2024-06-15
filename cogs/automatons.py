@@ -56,6 +56,9 @@ class AutomatonCog(commands.Cog):
             return await inter.send(":robot:", delete_after=10.0, ephemeral=True)
         await inter.response.defer(ephemeral=True)
         guild_in_db = Guilds.get_info(inter.guild_id)
+        if guild_in_db == None:
+            Guilds.insert_new_guild(inter.guild.id)
+            guild_in_db = Guilds.get_info(inter.guild_id)
         guild_language = load(
             open(f"data/languages/{guild_in_db[5]}.json", encoding="UTF-8")
         )
