@@ -61,6 +61,14 @@ class DashboardCog(commands.Cog):
             get_planets=True,
         )
         for data_key, data_value in data.items():
+            if data_key == "assignments" and data_value != []:
+                if (
+                    data_value[0]["briefing"] == ""
+                    or data_value[0]["description"] == ""
+                ):
+                    return logger.error(
+                        f'DashboardCog, dashboard, data_value[0]["briefing"] or data_value[0]["description"] == ""'
+                    )
             if data_value == None and data_key != "planet_events":
                 return logger.error(
                     f"DashboardCog, dashboard, {data_key} returned {data_value}"

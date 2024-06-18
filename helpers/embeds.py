@@ -202,7 +202,7 @@ class SteamEmbed(Embed):
         self.set_footer(text=f"MESSAGE #{self.steam['id']}")
         content = self.steam["content"]
         content = steam_format(content)
-        if len(content) > 5750:
+        if len(content) > 4000:
             content = f"Please head [here](<{steam['url']}>) to see the full patch notes as they are too long for Discord."
         self.description = content
 
