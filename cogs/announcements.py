@@ -73,7 +73,7 @@ class AnnouncementsCog(commands.Cog):
                 return logger.error(
                     f"AnnouncementsCog, major_order_check, {data_key} returned {data_value}"
                 )
-        if len(data["assignments"]) < 1:
+        if len(data["assignments"]) == 0:
             return  # return nothing because this happens when there's no MO
         self.newest_id = data["assignments"][0]["id"]
         if last_id == None:

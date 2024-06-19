@@ -1,5 +1,5 @@
 from json import load
-from disnake import Embed, Colour, File
+from disnake import Embed, Colour, File, ModalInteraction
 from datetime import datetime
 from helpers.functions import (
     dispatch_format,
@@ -1130,3 +1130,16 @@ class AnnouncementEmbed(Embed):
 class SetupEmbed(Embed):
     def __init__(self):
         super().__init__(colour=Colour.brand_green())
+
+
+class FeedbackEmbed(Embed):
+    def __init__(self, inter: ModalInteraction):
+        super().__init__(
+            title=inter.text_values["title"],
+            description=inter.text_values["description"],
+            colour=Colour.og_blurple(),
+        )
+        self.set_author(
+            name=inter.author.name,
+            icon_url=inter.author.avatar.url if inter.author.avatar != None else None,
+        )

@@ -589,9 +589,17 @@ help_dict = {
         "long_description": "Returns the description of a specific booster. This information is updated by the folks at [helldivers-2/json](<https://github.com/helldivers-2/json>).",
         "example_usage": "**`/booster booster: Motivational Shocks`** would return the description for the Motivational Shocks booster.",
     },
+    "feedback": {
+        "long_description": "Provide feedback for the bot. The feedback sent through this modal will go directly to a private channel for me to review.",
+        "example_usage": "**`/feedback`** opens a pop-up modal for you to enter your feedback into.",
+    },
     "help": {
         "long_description": "Get some help for a specific command or all commands. You can obtain longer descriptions and examples when you lookup a specific command.",
         "example_usage": "**`/help command: Automatons`** would return an embed with useful information about the Automatons command including example usage.",
+    },
+    "illuminate": {
+        "long_description": "Returns information on an Illuminate or variation. This information is manually updated by the GWW's owner, if there are any inaccuracies please contact our support server.",
+        "example_usage": "This command has no use as the Illuminate were removed from our galaxy in the first Galactic War.",
     },
     "map": {
         "long_description": "Get an up-to-date map of the galaxy. This is generated upon use of the command so it may take a couple of seconds.",
@@ -604,6 +612,10 @@ help_dict = {
     "setup": {
         "long_description": "Change the GWW settings for your server. Using this command with no options shows what your current setup is.",
         "example_usage": "**`/setup`** would return a list of the settings for the bot.\n- **`/setup dashboard_channel:#dashboard language:Français`** would setup a dashboard in the #dashboard channel and change the bot's language to French.",
+    },
+    "stratagem": {
+        "long_description": "Returns information on a stratagem. **THIS COMMAND IS A WORK IN PROGRESS**",
+        "example_usage": "**`/strategem strategem:Reinforce`** would return information on the Reinforce stratagem",
     },
     "terminid": {
         "long_description": "Returns information on a Terminid species or variation. This information is manually updated by the GWW's owner, if there are any inaccuracies please contact our support server.",
