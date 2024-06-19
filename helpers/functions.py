@@ -375,3 +375,25 @@ def planet_map(data: dict, planet, language):
         background.save(f"resources/map_{language}.webp")
     embed.set_image(file=File(f"resources/map_{language}.webp"))
     return embed
+
+
+def skipped_planets(campaigns, total_players):
+    factions = ("Terminids", "Automaton", "Illuminate")
+    results = []
+    for faction in factions:
+        results.append(
+            {
+                str(i["planet"]["index"]): i["planet"]["currentOwner"]
+                for i in campaigns
+                if i["planet"]["statistics"]["playerCount"] <= total_players * 0.01
+                and i["planet"]["currentOwner"] == faction
+            }
+        )
+    results.append(
+        [
+            i
+            for i in campaigns
+            if i["planet"]["statistics"]["playerCount"] > total_players * 0.01
+        ]
+    )
+    return results
