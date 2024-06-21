@@ -456,7 +456,7 @@ class Dashboard:
             )
 
         # Defending
-        if self.planet_events != []:
+        if self.planet_events not in ([], None):
             self.defend_embed.set_thumbnail("https://helldivers.io/img/defense.png")
             for planet in self.planet_events:
                 faction_icon = self.faction_dict[planet["event"]["faction"]]
