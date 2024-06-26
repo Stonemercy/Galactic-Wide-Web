@@ -174,24 +174,25 @@ class MapCog(commands.Cog):
                         )
                     except:
                         continue
-            for i in data["assignments"][0]["tasks"]:
-                if i["type"] in (11, 13):
-                    try:
-                        background_draw.ellipse(
-                            [
-                                (
-                                    planets_coords[i["values"][2]][0] - 50,
-                                    planets_coords[i["values"][2]][1] - 50,
-                                ),
-                                (
-                                    planets_coords[i["values"][2]][0] + 50,
-                                    planets_coords[i["values"][2]][1] + 50,
-                                ),
-                            ],
-                            fill=self.faction_colour["MO"],
-                        )
-                    except:
-                        pass
+            if data["assignments"] != []:
+                for i in data["assignments"][0]["tasks"]:
+                    if i["type"] in (11, 13):
+                        try:
+                            background_draw.ellipse(
+                                [
+                                    (
+                                        planets_coords[i["values"][2]][0] - 50,
+                                        planets_coords[i["values"][2]][1] - 50,
+                                    ),
+                                    (
+                                        planets_coords[i["values"][2]][0] + 50,
+                                        planets_coords[i["values"][2]][1] + 50,
+                                    ),
+                                ],
+                                fill=self.faction_colour["MO"],
+                            )
+                        except:
+                            pass
             for index, coords in planets_coords.items():
                 background_draw.ellipse(
                     [

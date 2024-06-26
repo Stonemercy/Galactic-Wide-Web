@@ -57,7 +57,9 @@ async def pull_from_api(
                     if r.status == 200:
                         js = await r.json()
                         results["war_state"] = loads(dumps(js))
-                        await session.close()
+                    else:
+                        results["war_state"] = None
+                        logger.error(f"API/WAR, {r.status}")
             except Exception as e:
                 results["war_state"] = None
                 logger.error(f"API/WAR, {e}")
@@ -68,7 +70,9 @@ async def pull_from_api(
                     if r.status == 200:
                         js = await r.json()
                         results["assignments"] = loads(dumps(js))
-                        await session.close()
+                    else:
+                        results["assignments"] = None
+                        logger.error(f"API/ASSIGNMENTS, {r.status}")
             except Exception as e:
                 results["assignments"] = None
                 logger.error(f"API/ASSIGNMENTS, {e}")
@@ -79,7 +83,9 @@ async def pull_from_api(
                     if r.status == 200:
                         js = await r.json()
                         results["campaigns"] = loads(dumps(js))
-                        await session.close()
+                    else:
+                        results["campaigns"] = None
+                        logger.error(f"API/CAMPAIGNS, {r.status}")
             except Exception as e:
                 results["campaigns"] = None
                 logger.error(f"API/CAMPAIGNS, {e}")
@@ -90,7 +96,9 @@ async def pull_from_api(
                     if r.status == 200:
                         js = await r.json()
                         results["dispatches"] = loads(dumps(js))
-                        await session.close()
+                    else:
+                        results["dispatches"] = None
+                        logger.error(f"API/DISPATCHES, {r.status}")
             except Exception as e:
                 results["dispatches"] = None
                 logger.error(f"API/DISPATCHES, {e}")
@@ -101,7 +109,9 @@ async def pull_from_api(
                     if r.status == 200:
                         js = await r.json()
                         results["planets"] = loads(dumps(js))
-                        await session.close()
+                    else:
+                        results["planets"] = None
+                        logger.error(f"API/PLANETS, {r.status}")
             except Exception as e:
                 results["planets"] = None
                 logger.error(f"API/PLANETS, {e}")
@@ -112,7 +122,9 @@ async def pull_from_api(
                     if r.status == 200:
                         js = await r.json()
                         results["planet_events"] = loads(dumps(js)) or None
-                        await session.close()
+                    else:
+                        results["planet_events"] = None
+                        logger.error(f"API/PLANET-EVENTS, {r.status}")
             except Exception as e:
                 results["planet_events"] = None
                 logger.error(f"API/PLANET-EVENTS, {e}")
@@ -123,7 +135,9 @@ async def pull_from_api(
                     if r.status == 200:
                         js = await r.json()
                         results["steam"] = loads(dumps(js))
-                        await session.close()
+                    else:
+                        results["steam"] = None
+                        logger.error(f"API/STEAM, {r.status}")
             except Exception as e:
                 results["steam"] = None
                 logger.error(f"API/STEAM, {e}")
@@ -134,9 +148,9 @@ async def pull_from_api(
                     if r.status == 200:
                         js = await r.json()
                         results["thumbnails"] = loads(dumps(js))
-                        await session.close()
                     else:
-                        pass
+                        results["thumbnails"] = None
+                        logger.error(f"API/THUMBNAILS, {r.status}")
             except Exception as e:
                 results["thumbnails"] = None
                 logger.error(f"API/THUMBNAILS, {e}")
@@ -240,21 +254,22 @@ async def dashboard_maps(data: dict, channel: TextChannel):
                         )
                     except:
                         continue
-            for i in data["assignments"][0]["tasks"]:
-                if i["type"] in (11, 13):
-                    background_draw.ellipse(
-                        [
-                            (
-                                planets_coords[i["values"][2]][0] - 50,
-                                planets_coords[i["values"][2]][1] - 50,
-                            ),
-                            (
-                                planets_coords[i["values"][2]][0] + 50,
-                                planets_coords[i["values"][2]][1] + 50,
-                            ),
-                        ],
-                        fill=faction_colour["MO"],
-                    )
+            if data["assignments"] != []:
+                for i in data["assignments"][0]["tasks"]:
+                    if i["type"] in (11, 13):
+                        background_draw.ellipse(
+                            [
+                                (
+                                    planets_coords[i["values"][2]][0] - 50,
+                                    planets_coords[i["values"][2]][1] - 50,
+                                ),
+                                (
+                                    planets_coords[i["values"][2]][0] + 50,
+                                    planets_coords[i["values"][2]][1] + 50,
+                                ),
+                            ],
+                            fill=faction_colour["MO"],
+                        )
             for index, coords in planets_coords.items():
                 background_draw.ellipse(
                     [
@@ -385,7 +400,7 @@ def skipped_planets(campaigns, total_players):
             {
                 str(i["planet"]["index"]): i["planet"]["currentOwner"]
                 for i in campaigns
-                if i["planet"]["statistics"]["playerCount"] <= total_players * 0.01
+                if i["planet"]["statistics"]["playerCount"] <= total_players * 0.02
                 and i["planet"]["currentOwner"] == faction
             }
         )
@@ -393,7 +408,7 @@ def skipped_planets(campaigns, total_players):
         [
             i
             for i in campaigns
-            if i["planet"]["statistics"]["playerCount"] > total_players * 0.01
+            if i["planet"]["statistics"]["playerCount"] > total_players * 0.02
         ]
     )
     return results
