@@ -513,7 +513,7 @@ class Dashboard:
                     else ""
                 )
                 faction_icon = self.faction_dict[i["planet"]["currentOwner"]]
-                if len(self.campaigns) < 10:
+                if len(self.campaigns) < 9:
                     planet_health_bar = health_bar(
                         i["planet"]["health"],
                         i["planet"]["maxHealth"],

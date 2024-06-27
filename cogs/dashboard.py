@@ -61,7 +61,7 @@ class DashboardCog(commands.Cog):
             get_planets=True,
         )
         for data_key, data_value in data.items():
-            if data_key == "assignments" and data_value != []:
+            if data_key == "assignments" and data_value not in ([], None):
                 if (
                     data_value[0]["briefing"] == ""
                     or data_value[0]["description"] == ""
