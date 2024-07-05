@@ -297,8 +297,8 @@ class GuildManagementCog(commands.Cog):
                 tzinfo=None, hour=message.edited_at.hour + 1
             ) < (datetime.now() - timedelta(minutes=16)):
                 error_channel = self.bot.get_channel(
-                    1213146233825271818
-                ) or await self.bot.fetch_channel(1213146233825271818)
+                    1212735927223590974
+                ) or await self.bot.fetch_channel(1212735927223590974)
                 await error_channel.send(
                     f"<@164862382185644032> {message.jump_url} was last edited <t:{int(message.edited_at.timestamp())}:R> :warning:"
                 )
