@@ -34,7 +34,6 @@ class SetupCog(commands.Cog):
             view_channel=True,
             send_messages=True,
             embed_links=True,
-            attach_files=True,
             use_external_emojis=True,
         )
         self.map_perms_needed = Permissions(
@@ -326,7 +325,7 @@ class SetupCog(commands.Cog):
                                 ephemeral=True,
                             )
                     else:
-                        channel = self.bot.get_channel(1242843098363596883)
+                        channel = self.bot.get_channel(1242843098363596883)  # waste-bin
                         map_embeds = await dashboard_maps(data, channel)
                         map_embed = map_embeds[guild_in_db[5]]
                         message = await map_channel.send(
@@ -382,24 +381,24 @@ class SetupCog(commands.Cog):
                         channel = inter.guild.get_channel(
                             channel_id
                         ) or await inter.guild.fetch_channel(channel_id)
+                        for i in patch_channels.copy():
+                            if i.guild.id == inter.guild_id:
+                                patch_channels.remove(i)
+                        patch_channels.append(channel)
+                        embed.add_field(
+                            "Patch Notes",
+                            (
+                                f"**{guild_in_db[4]}** ➡️ **{want_patch_notes}**\n"
+                                f"*{guild_language['setup.patch_notes_enabled']}*"
+                            ),
+                            inline=False,
+                        )
                     except:
                         embed.add_field(
                             "Patch Notes",
                             f"*{guild_language['setup.cant_get_announce_channel']}*",
                             inline=False,
                         )
-                    for i in patch_channels:
-                        if i.guild.id == inter.guild_id:
-                            patch_channels.remove(i)
-                    patch_channels.append(channel)
-                    embed.add_field(
-                        "Patch Notes",
-                        (
-                            f"**{guild_in_db[4]}** ➡️ **{want_patch_notes}**\n"
-                            f"*{guild_language['setup.patch_notes_enabled']}*"
-                        ),
-                        inline=False,
-                    )
                 else:
                     try:
                         channel = inter.guild.get_channel(

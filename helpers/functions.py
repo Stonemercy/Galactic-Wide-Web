@@ -50,110 +50,108 @@ async def pull_from_api(
 ):
     api = getenv("API")
     results = {}
-    if get_war_state:
-        async with ClientSession(headers={"Accept-Language": language}) as session:
-            try:
-                async with session.get(f"{api}/war") as r:
-                    if r.status == 200:
-                        js = await r.json()
-                        results["war_state"] = loads(dumps(js))
-                    else:
-                        results["war_state"] = None
-                        logger.error(f"API/WAR, {r.status}")
-            except Exception as e:
-                results["war_state"] = None
-                logger.error(f"API/WAR, {e}")
-    if get_assignments:
-        async with ClientSession(headers={"Accept-Language": language}) as session:
-            try:
-                async with session.get(f"{api}/assignments") as r:
-                    if r.status == 200:
-                        js = await r.json()
-                        results["assignments"] = loads(dumps(js))
-                    else:
-                        results["assignments"] = None
-                        logger.error(f"API/ASSIGNMENTS, {r.status}")
-            except Exception as e:
-                results["assignments"] = None
-                logger.error(f"API/ASSIGNMENTS, {e}")
-    if get_campaigns:
-        async with ClientSession(headers={"Accept-Language": language}) as session:
-            try:
-                async with session.get(f"{api}/campaigns") as r:
-                    if r.status == 200:
-                        js = await r.json()
-                        results["campaigns"] = loads(dumps(js))
-                    else:
-                        results["campaigns"] = None
-                        logger.error(f"API/CAMPAIGNS, {r.status}")
-            except Exception as e:
-                results["campaigns"] = None
-                logger.error(f"API/CAMPAIGNS, {e}")
-    if get_dispatches:
-        async with ClientSession(headers={"Accept-Language": language}) as session:
-            try:
-                async with session.get(f"{api}/dispatches") as r:
-                    if r.status == 200:
-                        js = await r.json()
-                        results["dispatches"] = loads(dumps(js))
-                    else:
-                        results["dispatches"] = None
-                        logger.error(f"API/DISPATCHES, {r.status}")
-            except Exception as e:
-                results["dispatches"] = None
-                logger.error(f"API/DISPATCHES, {e}")
-    if get_planets:
-        async with ClientSession(headers={"Accept-Language": language}) as session:
-            try:
-                async with session.get(f"{api}/planets") as r:
-                    if r.status == 200:
-                        js = await r.json()
-                        results["planets"] = loads(dumps(js))
-                    else:
-                        results["planets"] = None
-                        logger.error(f"API/PLANETS, {r.status}")
-            except Exception as e:
-                results["planets"] = None
-                logger.error(f"API/PLANETS, {e}")
-    if get_planet_events:
-        async with ClientSession(headers={"Accept-Language": language}) as session:
-            try:
-                async with session.get(f"{api}/planet-events") as r:
-                    if r.status == 200:
-                        js = await r.json()
-                        results["planet_events"] = loads(dumps(js)) or None
-                    else:
-                        results["planet_events"] = None
-                        logger.error(f"API/PLANET-EVENTS, {r.status}")
-            except Exception as e:
-                results["planet_events"] = None
-                logger.error(f"API/PLANET-EVENTS, {e}")
-    if get_steam:
-        async with ClientSession(headers={"Accept-Language": language}) as session:
-            try:
-                async with session.get(f"{api}/steam") as r:
-                    if r.status == 200:
-                        js = await r.json()
-                        results["steam"] = loads(dumps(js))
-                    else:
-                        results["steam"] = None
-                        logger.error(f"API/STEAM, {r.status}")
-            except Exception as e:
-                results["steam"] = None
-                logger.error(f"API/STEAM, {e}")
-    if get_thumbnail:
-        async with ClientSession() as session:
-            try:
-                async with session.get(f"https://helldivers.news/api/planets") as r:
-                    if r.status == 200:
-                        js = await r.json()
-                        results["thumbnails"] = loads(dumps(js))
-                    else:
-                        results["thumbnails"] = None
-                        logger.error(f"API/THUMBNAILS, {r.status}")
-            except Exception as e:
-                results["thumbnails"] = None
-                logger.error(f"API/THUMBNAILS, {e}")
+    async with ClientSession(headers={"Accept-Language": language}) as session:
+        async with session.get(f"{api}") as r:
+            if r.status != 200:
+                api = getenv("BU_API")
+                logger.critical("API/USING BACKUP")
+
+            if get_war_state:
+                try:
+                    async with session.get(f"{api}/api/v1/war") as r:
+                        if r.status == 200:
+                            js = await r.json()
+                            results["war_state"] = loads(dumps(js))
+                        else:
+                            results["war_state"] = None
+                            logger.error(f"API/WAR, {r.status}")
+                except Exception as e:
+                    results["war_state"] = None
+                    logger.error(f"API/WAR, {e}")
+            if get_assignments:
+                try:
+                    async with session.get(f"{api}/api/v1/assignments") as r:
+                        if r.status == 200:
+                            js = await r.json()
+                            results["assignments"] = loads(dumps(js))
+                        else:
+                            results["assignments"] = None
+                            logger.error(f"API/ASSIGNMENTS, {r.status}")
+                except Exception as e:
+                    results["assignments"] = None
+                    logger.error(f"API/ASSIGNMENTS, {e}")
+            if get_campaigns:
+                try:
+                    async with session.get(f"{api}/api/v1/campaigns") as r:
+                        if r.status == 200:
+                            js = await r.json()
+                            results["campaigns"] = loads(dumps(js))
+                        else:
+                            results["campaigns"] = None
+                            logger.error(f"API/CAMPAIGNS, {r.status}")
+                except Exception as e:
+                    results["campaigns"] = None
+                    logger.error(f"API/CAMPAIGNS, {e}")
+            if get_dispatches:
+                try:
+                    async with session.get(f"{api}/api/v1/dispatches") as r:
+                        if r.status == 200:
+                            js = await r.json()
+                            results["dispatches"] = loads(dumps(js))
+                        else:
+                            results["dispatches"] = None
+                            logger.error(f"API/DISPATCHES, {r.status}")
+                except Exception as e:
+                    results["dispatches"] = None
+                    logger.error(f"API/DISPATCHES, {e}")
+            if get_planets:
+                try:
+                    async with session.get(f"{api}/api/v1/planets") as r:
+                        if r.status == 200:
+                            js = await r.json()
+                            results["planets"] = loads(dumps(js))
+                        else:
+                            results["planets"] = None
+                            logger.error(f"API/PLANETS, {r.status}")
+                except Exception as e:
+                    results["planets"] = None
+                    logger.error(f"API/PLANETS, {e}")
+            if get_planet_events:
+                try:
+                    async with session.get(f"{api}/api/v1/planet-events") as r:
+                        if r.status == 200:
+                            js = await r.json()
+                            results["planet_events"] = loads(dumps(js)) or None
+                        else:
+                            results["planet_events"] = None
+                            logger.error(f"API/PLANET-EVENTS, {r.status}")
+                except Exception as e:
+                    results["planet_events"] = None
+                    logger.error(f"API/PLANET-EVENTS, {e}")
+            if get_steam:
+                try:
+                    async with session.get(f"{api}/api/v1/steam") as r:
+                        if r.status == 200:
+                            js = await r.json()
+                            results["steam"] = loads(dumps(js))
+                        else:
+                            results["steam"] = None
+                            logger.error(f"API/STEAM, {r.status}")
+                except Exception as e:
+                    results["steam"] = None
+                    logger.error(f"API/STEAM, {e}")
+            if get_thumbnail:
+                try:
+                    async with session.get(f"https://helldivers.news/api/planets") as r:
+                        if r.status == 200:
+                            js = await r.json()
+                            results["thumbnails"] = loads(dumps(js))
+                        else:
+                            results["thumbnails"] = None
+                            logger.error(f"API/THUMBNAILS, {r.status}")
+                except Exception as e:
+                    results["thumbnails"] = None
+                    logger.error(f"API/THUMBNAILS, {e}")
     return results
 
 

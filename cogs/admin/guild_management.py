@@ -1,5 +1,5 @@
 from asyncio import sleep
-from datetime import datetime
+from datetime import datetime, timedelta
 from disnake import (
     Activity,
     ActivityType,
@@ -28,11 +28,13 @@ class GuildManagementCog(commands.Cog):
         self.bot = bot
         self.bot_dashboard.start()
         self.react_role_dashboard.start()
+        self.dashboard_checking.start()
         self.startup_time = datetime.now()
 
     def cog_unload(self):
         self.bot_dashboard.stop()
         self.react_role_dashboard.stop()
+        self.dashboard_checking.stop()
 
     @commands.Cog.listener()
     async def on_guild_join(self, guild: Guild):
@@ -282,6 +284,29 @@ class GuildManagementCog(commands.Cog):
                     ephemeral=True,
                     delete_after=10,
                 )
+
+    @tasks.loop(minutes=1)
+    async def dashboard_checking(self):
+        guild = Guilds.get_info(1212722266392109088)
+        if guild != None:
+            channel = self.bot.get_channel(guild[1]) or await self.bot.fetch_channel(
+                guild[1]
+            )
+            message = await channel.fetch_message(guild[2])
+            if message.edited_at.replace(
+                tzinfo=None, hour=message.edited_at.hour + 1
+            ) < (datetime.now() - timedelta(minutes=16)):
+                error_channel = self.bot.get_channel(
+                    1213146233825271818
+                ) or await self.bot.fetch_channel(1213146233825271818)
+                await error_channel.send(
+                    f"<@164862382185644032> {message.jump_url} was last edited <t:{int(message.edited_at.timestamp())}:R> :warning:"
+                )
+                await sleep(5 * 60)
+
+    @dashboard_checking.before_loop
+    async def before_dashboard_check(self):
+        await self.bot.wait_until_ready()
 
 
 def setup(bot: commands.Bot):

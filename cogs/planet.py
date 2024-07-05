@@ -34,14 +34,14 @@ class PlanetCog(commands.Cog):
         ),
     ):
         logger.info(f"PlanetCog, planet planet:{planet} public:{public} command used")
-        planets_list = planets
         public = public != "Yes"
+        await inter.response.defer(ephemeral=public)
+        planets_list = planets
         if planet not in planets_list:
             return await inter.send(
                 "Please select a planet from the list.",
                 ephemeral=public,
             )
-        await inter.response.defer(ephemeral=public)
         guild = Guilds.get_info(inter.guild_id)
         if guild == None:
             Guilds.insert_new_guild(inter.guild.id)
