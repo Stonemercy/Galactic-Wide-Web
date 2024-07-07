@@ -62,13 +62,13 @@ class DashboardCog(commands.Cog):
         )
         for data_key, data_value in data.items():
             if data_key == "assignments" and data_value not in ([], None):
-                if (
-                    data_value[0]["briefing"] == ""
-                    or data_value[0]["description"] == ""
-                ):
-                    return logger.error(
-                        f'DashboardCog, dashboard, data_value[0]["briefing"] or data_value[0]["description"] == ""'
-                    )
+                for assignment in data_value:
+                    if assignment["briefing"] in (None, "") or assignment[
+                        "description"
+                    ] in (None, ""):
+                        return logger.error(
+                            f'DashboardCog, dashboard, assignment["briefing"] or assignment["description"] in (None, "")'
+                        )
             if data_value == None and data_key != "planet_events":
                 return logger.error(
                     f"DashboardCog, dashboard, {data_key} returned {data_value}"

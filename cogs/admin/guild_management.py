@@ -9,6 +9,7 @@ from disnake import (
     Guild,
     MessageInteraction,
     NotFound,
+    OptionType,
 )
 from disnake.ext import commands, tasks
 from disnake.ui import Button
@@ -100,8 +101,12 @@ class GuildManagementCog(commands.Cog):
         else:
             dashboard_embed = BotDashboardEmbed(now)
             commands = ""
-            for command in self.bot.global_slash_commands:
-                commands += f"`/{command.name}`\n"
+            for global_command in self.bot.global_slash_commands:
+                for option in global_command.options:
+                    if option.type == OptionType.sub_command:
+                        commands += f"</{global_command.name} {option.name}:{global_command.id}>\n"
+                if global_command.name != "weapons":
+                    commands += f"</{global_command.name}:{global_command.id}>\n"
             dashboard_embed.add_field(
                 "The GWW has",
                 f"{len(self.bot.global_slash_commands)} commands available:\n{commands}",
@@ -302,7 +307,7 @@ class GuildManagementCog(commands.Cog):
                 await error_channel.send(
                     f"<@164862382185644032> {message.jump_url} was last edited <t:{int(message.edited_at.timestamp())}:R> :warning:"
                 )
-                await sleep(5 * 60)
+                await sleep(15 * 60)
 
     @dashboard_checking.before_loop
     async def before_dashboard_check(self):

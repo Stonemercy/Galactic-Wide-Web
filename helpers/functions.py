@@ -396,9 +396,19 @@ def skipped_planets(campaigns, total_players):
     for faction in factions:
         results.append(
             {
-                str(i["planet"]["index"]): i["planet"]["currentOwner"]
+                str(i["planet"]["index"]): {
+                    "owner": i["planet"]["currentOwner"],
+                    "players": i["planet"]["statistics"]["playerCount"],
+                }
                 for i in campaigns
-                if i["planet"]["statistics"]["playerCount"] <= total_players * 0.02
+                if (
+                    i["planet"]["statistics"]["playerCount"] <= total_players * 0.05
+                    or (
+                        10
+                        - ceil((i["planet"]["health"] / i["planet"]["maxHealth"]) * 10)
+                    )
+                    <= 0.00001
+                )
                 and i["planet"]["currentOwner"] == faction
             }
         )
@@ -406,7 +416,11 @@ def skipped_planets(campaigns, total_players):
         [
             i
             for i in campaigns
-            if i["planet"]["statistics"]["playerCount"] > total_players * 0.02
+            if (
+                i["planet"]["statistics"]["playerCount"] > total_players * 0.05
+                and (10 - ceil((i["planet"]["health"] / i["planet"]["maxHealth"]) * 10))
+                > 0.00001
+            )
         ]
     )
     return results

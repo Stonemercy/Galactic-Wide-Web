@@ -566,33 +566,35 @@ class Dashboard:
 
         # Other
         self.timestamp = int(self.now.timestamp())
-        s_t_p_string = ""
-        for planet, owner in skipped_terminid_planets.items():
-            s_t_p_string += f"{self.planet_names_loc[planet]['names'][supported_languages[language]]} - {self.faction_dict[owner]}\n"
-        if s_t_p_string != "":
-            self.terminids_embed.add_field(
-                "Empty/low-pop planets",
-                s_t_p_string,
-                inline=False,
-            )
-        s_a_p_string = ""
-        for planet, owner in skipped_automaton_planets.items():
-            s_a_p_string += f"{self.planet_names_loc[planet]['names'][supported_languages[language]]} - {self.faction_dict[owner]}\n"
-        if s_a_p_string != "":
-            self.automaton_embed.add_field(
-                "Empty/low-pop planets",
-                s_a_p_string,
-                inline=False,
-            )
-        s_i_p_string = ""
-        for planet, owner in skipped_illuminate_planets.items():
-            s_i_p_string += f"{self.planet_names_loc[planet]['names'][supported_languages[language]]} - {self.faction_dict[owner]}\n"
-        if s_i_p_string != "":
-            self.automaton_embed.add_field(
-                "Empty/low-pop planets",
-                s_i_p_string,
-                inline=False,
-            )
+        skipped_dict = {
+            "terminid": {
+                "string": "",
+                "planets": skipped_terminid_planets,
+                "embed": self.terminids_embed,
+            },
+            "automaton": {
+                "string": "",
+                "planets": skipped_automaton_planets,
+                "embed": self.automaton_embed,
+            },
+            "illuminate": {
+                "string": "",
+                "planets": skipped_illuminate_planets,
+                "embed": self.illuminate_embed,
+            },
+        }
+        for values in skipped_dict.values():
+            for planet, planet_values in values["planets"].items():
+                values[
+                    "string"
+                ] += f"{self.planet_names_loc[planet]['names'][supported_languages[language]]} - {self.faction_dict[planet_values['owner']]} - {planet_values['players']}\n"
+            if values["string"] != "":
+                values["embed"].add_field(
+                    self.language["dashboard.low_impact"],
+                    values["string"],
+                    inline=False,
+                )
+
         self.updated_embed.add_field(
             "",
             f"<t:{self.timestamp}:f> - <t:{self.timestamp}:R>",
