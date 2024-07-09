@@ -319,3 +319,67 @@ class Steam:
                     (id,),
                 )
                 conn.commit()
+
+
+class Feedback:
+    def new_user(user_id: int):
+        with connect(
+            host=hostname, dbname=database, user=username, password=pwd, port=port_id
+        ) as conn:
+            with conn.cursor() as curs:
+                curs.execute("Insert into feedback (user_id) VALUES (%s)", (user_id,))
+                user = Feedback.get_user(user_id)
+                return user
+
+    def get_user(user_id: int):
+        with connect(
+            host=hostname, dbname=database, user=username, password=pwd, port=port_id
+        ) as conn:
+            with conn.cursor() as curs:
+                curs.execute("SELECT * FROM feedback where user_id = %s", (user_id,))
+                record = curs.fetchone()
+                return record if record != None else None
+
+    def ban_user(user_id: int):
+        with connect(
+            host=hostname, dbname=database, user=username, password=pwd, port=port_id
+        ) as conn:
+            with conn.cursor() as curs:
+                curs.execute(
+                    "Update feedback set banned = True where user_id = %s",
+                    (user_id,),
+                )
+                conn.commit()
+
+    def set_reason(user_id: int, reason: str):
+        with connect(
+            host=hostname, dbname=database, user=username, password=pwd, port=port_id
+        ) as conn:
+            with conn.cursor() as curs:
+                curs.execute(
+                    "Update feedback set reason = %s where user_id = %s",
+                    (reason, user_id),
+                )
+                conn.commit()
+
+    def unban_user(user_id: int):
+        with connect(
+            host=hostname, dbname=database, user=username, password=pwd, port=port_id
+        ) as conn:
+            with conn.cursor() as curs:
+                curs.execute(
+                    "Update feedback set banned = False, reason = null where user_id = %s",
+                    (user_id,),
+                )
+                conn.commit()
+
+    def good_user(user_id: int):
+        with connect(
+            host=hostname, dbname=database, user=username, password=pwd, port=port_id
+        ) as conn:
+            with conn.cursor() as curs:
+                curs.execute(
+                    "Update feedback set good_feedback = True where user_id = %s",
+                    (user_id,),
+                )
+                conn.commit()

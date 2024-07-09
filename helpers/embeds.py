@@ -1112,23 +1112,22 @@ class AnnouncementEmbed(Embed):
     def __init__(self):
         super().__init__(
             title="Galactic Wide Web Update",
-            description="Some new features have been released",
+            description="An update has been released!",
             colour=Colour.blue(),
         )
         self.add_field(
-            "Maps!",
+            "Direct Feedback",
             (
-                "I have added dynamic maps to the bot which you can access via:\n"
-                "- </map:1243481163788587038>\n"
-                " - Use the <faction> option to get a map of a specific faction\n"
-                " - Use the <public> option to allow others to see the map too\n"
-                '\nYou can also get a "dashboard" map that updates once an hour using the </setup:1223994859053121640> command'
+                "Fancy giving me some feedback but don't want to join the support server? Well now you can!\n"
+                "- </feedback:1253094891513184356>\n"
+                "Using this command gives you a text box to let me know if something isnt working for you or provide feedback about the bot\n"
+                "*This gets sent to a channel that only I can read.*"
             ),
             inline=False,
         )
         self.add_field(
-            "Help!",
-            "I have also upgraded the </help:1244357692659859568> command to look *soooo* much better\nGive it a try!\n",
+            "Feedback",
+            "I have also changed the dashboard to not show planets that have less than 1\% liberation\n",
         )
 
 

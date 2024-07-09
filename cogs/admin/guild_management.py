@@ -294,20 +294,27 @@ class GuildManagementCog(commands.Cog):
     async def dashboard_checking(self):
         guild = Guilds.get_info(1212722266392109088)
         if guild != None:
-            channel = self.bot.get_channel(guild[1]) or await self.bot.fetch_channel(
-                guild[1]
-            )
-            message = await channel.fetch_message(guild[2])
-            if message.edited_at.replace(
-                tzinfo=None, hour=message.edited_at.hour + 1
-            ) < (datetime.now() - timedelta(minutes=16)):
-                error_channel = self.bot.get_channel(
-                    1212735927223590974
-                ) or await self.bot.fetch_channel(1212735927223590974)
-                await error_channel.send(
-                    f"<@164862382185644032> {message.jump_url} was last edited <t:{int(message.edited_at.timestamp())}:R> :warning:"
+            try:
+                channel = self.bot.get_channel(
+                    guild[1]
+                ) or await self.bot.fetch_channel(guild[1])
+                message = await channel.fetch_message(guild[2])
+                updated_time = message.edited_at.replace(
+                    tzinfo=None,
+                    hour=(
+                        message.edited_at.hour + 1 if message.edited_at.hour < 23 else 0
+                    ),
                 )
-                await sleep(15 * 60)
+                if updated_time < (datetime.now() - timedelta(minutes=16)):
+                    error_channel = self.bot.get_channel(
+                        1212735927223590974
+                    ) or await self.bot.fetch_channel(1212735927223590974)
+                    await error_channel.send(
+                        f"<@164862382185644032> {message.jump_url} was last edited <t:{int(message.edited_at.timestamp())}:R> :warning:"
+                    )
+                    await sleep(15 * 60)
+            except Exception as e:
+                logger.error(f"GuildManagementCog, dashboard_checking, {e}")
 
     @dashboard_checking.before_loop
     async def before_dashboard_check(self):
