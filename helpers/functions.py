@@ -18,7 +18,7 @@ logger = getLogger("disnake")
 
 def health_bar(current_health: int, max_health: int, race: str, reverse: bool = False):
     if race not in ("Terminids", "Automaton", "Illuminate", "Humans", "MO"):
-        print(race, "race not in health_bar func")
+        logger.critical(f"health_bar function, {race}, race not in race set")
         return ""
     perc = ceil((current_health / max_health) * 10)
     if reverse:
