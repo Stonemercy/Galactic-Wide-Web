@@ -440,7 +440,7 @@ class Dashboard:
                             assignment["progress"][0], task["values"][2], "MO"
                         )
                         self.major_orders_embed.add_field(
-                            f"{self.language['dashboard.major_order_kill']} {short_format(task['values'][2])} {loc_faction[task['values'][0]]} {faction_dict[i['values'][0]]}",
+                            f"{self.language['dashboard.major_order_kill']} {short_format(task['values'][2])} {loc_faction[task['values'][0]]} {faction_dict[task['values'][0]]}",
                             (
                                 f"{self.language['major_order.progress']}: **{short_format(assignment['progress'][0])}**/**{short_format(task['values'][2])}**\n"
                                 f"{event_health_bar}\n"
