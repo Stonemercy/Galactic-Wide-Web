@@ -111,9 +111,9 @@ class AnnouncementsCog(commands.Cog):
         announcement_start = datetime.now()
         last_id = Dispatches.get_last_id()
         data = await pull_from_api(get_dispatches=True)
-        if data["dispatches"] == None:
+        if data["dispatches"] in (None, []):
             return logger.error(
-                f'AnnouncementsCog, dispatch_check, data["dispatches"] == None'
+                f'AnnouncementsCog, dispatch_check, data["dispatches"] in (None, [])'
             )
         if data["dispatches"][0]["message"] == None:
             return logger.error(
