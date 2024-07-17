@@ -549,11 +549,7 @@ class Dashboard:
                 skipped_illuminate_planets,
                 self.campaigns,
             ) = skipped_planets(self.campaigns, self.total_players)
-            for (
-                i
-            ) in (
-                self.campaigns
-            ):  # idea for time to completion: (100-liberation_change["liberation"])/sum(liberation_change["liberation_change"]) = amount of hours to completion
+            for i in self.campaigns:
                 liberation_text = ""
                 if liberation_changes != {}:
                     liberation_change = liberation_changes[i["planet"]["name"]]
@@ -1197,8 +1193,12 @@ class AnnouncementEmbed(Embed):
             inline=False,
         )
         self.add_field(
-            "Feedback",
-            "I have also changed the dashboard to not show planets that have less than 1\% liberation\n",
+            "Liberation rate",
+            (
+                "I have also been working on the liberation rate for planets that are active\n"
+                "This is based off a 4-point rolling average over the last hour so I *think* it's pretty accurate\n"
+                "I'll be working on time-to-victory/defeat soon!"
+            ),
         )
 
 
