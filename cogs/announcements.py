@@ -3,10 +3,11 @@ from datetime import datetime
 from logging import getLogger
 from disnake import Forbidden, TextChannel, ButtonStyle
 from disnake.ext import commands, tasks
+from disnake.ui import Button
 from helpers.embeds import DispatchesEmbed, MajorOrderEmbed, SteamEmbed
 from helpers.db import Dispatches, MajorOrders, Guilds, Steam
 from helpers.functions import pull_from_api
-from disnake.ui import Button
+
 
 logger = getLogger("disnake")
 
@@ -67,21 +68,28 @@ class AnnouncementsCog(commands.Cog):
     @tasks.loop(minutes=1)
     async def major_order_check(self):
         announcement_start = datetime.now()
-        if len(self.channels) == 0:
-            return logger.error("AnnouncementsCog, len(self.channels) == 0")
+        if self.channels == []:
+            return
         last_id = MajorOrders.get_last_id()
         data = await pull_from_api(get_assignments=True, get_planets=True)
         for data_key, data_value in data.items():
-            if data_value == None:
+            if data_key == "assignments" and data_value not in ([], None):
+                for assignment in data_value:
+                    if assignment["briefing"] in (None, "") or assignment[
+                        "description"
+                    ] in (None, ""):
+                        return logger.error(
+                            f"AnnouncementsCog, major-order_check, {assignment['title']} briefing is {assignment['briefing']} and description is {assignment['description']}"
+                        )
+            elif data_value == None:
                 return logger.error(
                     f"AnnouncementsCog, major_order_check, {data_key} returned {data_value}"
                 )
-        if len(data["assignments"]) == 0:
-            return  # return nothing because this happens when there's no MO
+        if data["assignments"] == []:
+            return
         self.newest_id = data["assignments"][0]["id"]
         if last_id == None:
-            MajorOrders.setup()
-            last_id = MajorOrders.get_last_id()
+            last_id = MajorOrders.setup()
         if last_id == 0 or last_id != self.newest_id:
             MajorOrders.set_new_id(self.newest_id)
             languages = Guilds.get_used_languages()
@@ -108,7 +116,9 @@ class AnnouncementsCog(commands.Cog):
 
     @tasks.loop(minutes=1)
     async def dispatch_check(self):
-        announcement_start = datetime.now()
+        dispatch_start = datetime.now()
+        if self.channels == []:
+            return
         last_id = Dispatches.get_last_id()
         data = await pull_from_api(get_dispatches=True)
         if data["dispatches"] in (None, []):
@@ -121,8 +131,7 @@ class AnnouncementsCog(commands.Cog):
             )
         self.newest_id = data["dispatches"][0]["id"]
         if last_id == None:
-            Dispatches.setup()
-            last_id = Dispatches.get_last_id()
+            last_id = Dispatches.setup()
         if last_id == 0 or last_id != self.newest_id:
             Dispatches.set_new_id(self.newest_id)
             languages = Guilds.get_used_languages()
@@ -133,16 +142,16 @@ class AnnouncementsCog(commands.Cog):
             chunked_channels = [
                 self.channels[i : i + 50] for i in range(0, len(self.channels), 50)
             ]
-            announcements_sent = 0
+            dispatches_sent = 0
             for chunk in chunked_channels:
                 for channel in chunk:
                     self.bot.loop.create_task(
                         self.send_embed(channel, embeds, "Dispatch")
                     )
-                    announcements_sent += 1
+                    dispatches_sent += 1
                 await sleep(1.025)
             logger.info(
-                f"{announcements_sent} dispatch announcements sent out in {(datetime.now() - announcement_start).total_seconds():.2f} seconds"
+                f"{dispatches_sent} dispatch announcements sent out in {(datetime.now() - dispatch_start).total_seconds():.2f} seconds"
             )
 
     @dispatch_check.before_loop
@@ -152,14 +161,15 @@ class AnnouncementsCog(commands.Cog):
     @tasks.loop(minutes=1)
     async def steam_check(self):
         patch_notes_start = datetime.now()
+        if self.channels == []:
+            return
         last_id = Steam.get_last_id()
         data = await pull_from_api(get_steam=True)
         if data["steam"] == None:
             return logger.info(f'AnnouncementsCog, steam_check, data["steam"] == None')
         self.newest_id = int(data["steam"][0]["id"])
         if last_id == None:
-            Steam.setup()
-            last_id = Steam.get_last_id()
+            last_id = Steam.setup()
         if last_id == 0 or last_id != self.newest_id:
             Steam.set_new_id(self.newest_id)
             languages = Guilds.get_used_languages()

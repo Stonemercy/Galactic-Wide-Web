@@ -34,8 +34,16 @@ class Planet(Embed):
             health_text = f"{1 - (self.planet['event']['health'] / self.planet['event']['maxHealth']):^25,.2%}"
         else:
             planet_health_bar = health_bar(
-                self.planet["health"],
-                self.planet["maxHealth"],
+                (
+                    self.planet["health"]
+                    if self.planet["event"] == None
+                    else self.planet["event"]["health"]
+                ),
+                (
+                    self.planet["maxHealth"]
+                    if self.planet["event"] == None
+                    else self.planet["event"]["maxHealth"]
+                ),
                 self.planet["currentOwner"],
                 True if self.planet["currentOwner"] != "Humans" else False,
             )
@@ -283,7 +291,7 @@ class CampaignEmbed(Embed):
 
 
 class Dashboard:
-    def __init__(self, data, language):
+    def __init__(self, data, language, liberation_changes):
         self.now = datetime.now()
         self.language = load(open(f"data/languages/{language}.json", encoding="UTF-8"))
         self.planet_names_loc = load(
@@ -479,6 +487,23 @@ class Dashboard:
         if self.planet_events not in ([], None):
             self.defend_embed.set_thumbnail("https://helldivers.io/img/defense.png")
             for planet in self.planet_events:
+                liberation_text = ""
+                if liberation_changes != {}:
+                    liberation_change = liberation_changes[planet["name"]]
+                    if len(liberation_change["liberation_change"]) > 0:
+                        above_zero = (
+                            "+"
+                            if (
+                                sum(liberation_change["liberation_change"])
+                                / len(liberation_change["liberation_change"])
+                            )
+                            > 0
+                            else ""
+                        )
+                        change = (
+                            f"{(sum(liberation_change['liberation_change'])):.2%}/hour"
+                        )
+                        liberation_text = f"`{(above_zero + change):^25}`"
                 faction_icon = self.faction_dict[planet["event"]["faction"]]
                 time_remaining = f"<t:{datetime.fromisoformat(planet['event']['endTime']).timestamp():.0f}:R>"
                 event_health_bar = health_bar(
@@ -499,7 +524,7 @@ class Dashboard:
                         f"{self.language['dashboard.heroes']}: **{planet['statistics']['playerCount']:,}**\n"
                         f"{self.language['dashboard.defend_embed_event_health']}:\n"
                         f"{event_health_bar}\n"
-                        f"`{(1 - (planet['event']['health'] / planet['event']['maxHealth'])):^25,.2%}`\n"
+                        f"`{(1 - (planet['event']['health'] / planet['event']['maxHealth'])), liberation_text:^25,.2%}`\n"
                         "\u200b\n"
                     ),
                     inline=False,
@@ -524,7 +549,28 @@ class Dashboard:
                 skipped_illuminate_planets,
                 self.campaigns,
             ) = skipped_planets(self.campaigns, self.total_players)
-            for i in self.campaigns:
+            for (
+                i
+            ) in (
+                self.campaigns
+            ):  # idea for time to completion: (100-liberation_change["liberation"])/sum(liberation_change["liberation_change"]) = amount of hours to completion
+                liberation_text = ""
+                if liberation_changes != {}:
+                    liberation_change = liberation_changes[i["planet"]["name"]]
+                    if len(liberation_change["liberation_change"]) > 0:
+                        above_zero = (
+                            "+"
+                            if (
+                                sum(liberation_change["liberation_change"])
+                                / len(liberation_change["liberation_change"])
+                            )
+                            > 0
+                            else ""
+                        )
+                        change = (
+                            f"{(sum(liberation_change['liberation_change'])):.2%}/hour"
+                        )
+                        liberation_text = f"`{(above_zero + change):^25}`"
                 if i["planet"]["event"] != None:
                     continue
                 exclamation = (
@@ -551,7 +597,8 @@ class Dashboard:
                             f"{self.language['dashboard.heroes']}: **{i['planet']['statistics']['playerCount']:,}**\n"
                             f"{self.language['dashboard.attack_embed_planet_health']}:\n"
                             f"{planet_health_bar}"
-                            f"{planet_health_text}"
+                            f"{planet_health_text}\n"
+                            f"{liberation_text}"
                             "\n\u200b\n"
                         ),
                         inline=False,
@@ -563,7 +610,8 @@ class Dashboard:
                             f"{self.language['dashboard.heroes']}: **{i['planet']['statistics']['playerCount']:,}**\n"
                             f"{self.language['dashboard.attack_embed_planet_health']}:\n"
                             f"{planet_health_bar}"
-                            f"{planet_health_text}"
+                            f"{planet_health_text}\n"
+                            f"{liberation_text}"
                             "\n\u200b\n"
                         ),
                         inline=False,
@@ -575,7 +623,8 @@ class Dashboard:
                             f"{self.language['dashboard.heroes']}: **{i['planet']['statistics']['playerCount']:,}**\n"
                             f"{self.language['dashboard.attack_embed_planet_health']}:\n"
                             f"{planet_health_bar}"
-                            f"{planet_health_text}"
+                            f"{planet_health_text}\n"
+                            f"{liberation_text}"
                             "\n\u200b\n"
                         ),
                         inline=False,
@@ -602,9 +651,14 @@ class Dashboard:
         }
         for values in skipped_dict.values():
             for planet, planet_values in values["planets"].items():
+                exclamation = (
+                    "<:MO:1240706769043456031>"
+                    if self.planets[int(planet)]["name"] in self.MO_planets
+                    else ""
+                )
                 values[
                     "string"
-                ] += f"{self.planet_names_loc[planet]['names'][supported_languages[language]]} - {self.faction_dict[planet_values['owner']]} - {planet_values['players']}\n"
+                ] += f"{self.planet_names_loc[planet]['names'][supported_languages[language]]} - {self.faction_dict[planet_values['owner']]} - {planet_values['players']} {exclamation}\n"
             if values["string"] != "":
                 values["embed"].add_field(
                     self.language["dashboard.low_impact"],
@@ -1138,7 +1192,7 @@ class AnnouncementEmbed(Embed):
                 "Fancy giving me some feedback but don't want to join the support server? Well now you can!\n"
                 "- </feedback:1253094891513184356>\n"
                 "Using this command gives you a text box to let me know if something isnt working for you or provide feedback about the bot\n"
-                "*This gets sent to a channel that only I can read.*"
+                "-# This gets sent to a channel that only I can read."
             ),
             inline=False,
         )

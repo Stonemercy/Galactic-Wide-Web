@@ -191,6 +191,7 @@ class MajorOrders:
         ) as conn:
             with conn.cursor() as curs:
                 curs.execute("Insert into major_orders (id) VALUES (%s)", (0,))
+                return 0
 
     def get_last_id():
         with connect(
@@ -270,6 +271,7 @@ class Dispatches:
         ) as conn:
             with conn.cursor() as curs:
                 curs.execute("Insert into dispatches (id) VALUES (%s)", (0,))
+                return 0
 
     def get_last_id():
         with connect(
@@ -299,6 +301,7 @@ class Steam:
         ) as conn:
             with conn.cursor() as curs:
                 curs.execute("Insert into steam (id) VALUES (%s)", (0,))
+                return 0
 
     def get_last_id():
         with connect(

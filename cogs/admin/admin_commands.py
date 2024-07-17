@@ -9,6 +9,7 @@ from helpers.embeds import AnnouncementEmbed, Dashboard
 from helpers.functions import dashboard_maps, pull_from_api
 
 logger = getLogger("disnake")
+support_server = [int(getenv("SUPPORT_SERVER"))]
 
 
 class AdminCommandsCog(commands.Cog):
@@ -26,109 +27,53 @@ class AdminCommandsCog(commands.Cog):
         }
 
     @commands.slash_command(
-        guild_ids=[int(getenv("SUPPORT_SERVER"))],
+        guild_ids=support_server,
         description="You shouldn't be able to see this",
     )
     async def force_update_dashboard(self, inter: AppCmdInter):
         update_start = datetime.now()
         logger.critical(
-            f"AdminCommandsCog, force_update_dashboard command used by {inter.author.id} - {inter.author.name}"
+            f"AdminCommandsCog, {inter.application_command.name} command used by {inter.author.id} - {inter.author.name}"
         )
         if inter.author.id != self.bot.owner_id:
             return await inter.send(
                 "You can't use this", ephemeral=True, delete_after=3.0
             )
         await inter.response.defer(ephemeral=True)
-        data = await pull_from_api(
-            get_campaigns=True,
-            get_assignments=True,
-            get_planet_events=True,
-            get_planets=True,
+        dashboards_updated = await self.bot.get_cog("DashboardCog").dashboard(
+            force=True
         )
-        for data_key, data_value in data.items():
-            if data_value == None and data_key != "planet_events":
-                logger.error(
-                    f"AdminCommandsCog, force_update_dashboard, {data_key} has returned {data_value}"
-                )
-                return await inter.send(f"{data_key} return None", ephemeral=True)
-        languages = Guilds.get_used_languages()
-        dashboard_dict = {}
-        for lang in languages:
-            dashboard = Dashboard(data, lang)
-            dashboard_dict[lang] = dashboard
-        chunked_messages = [
-            self.bot.get_cog("DashboardCog").messages[i : i + 50]
-            for i in range(0, len(self.bot.get_cog("DashboardCog").messages), 50)
-        ]
-        dashboards_updated = 0
-        for chunk in chunked_messages:
-            for message in chunk:
-                self.bot.loop.create_task(
-                    self.bot.get_cog("DashboardCog").update_message(
-                        message, dashboard_dict
-                    )
-                )
-                dashboards_updated += 1
-            await sleep(1.025)
-        logger.info(
-            f"Forced updates of {dashboards_updated} dashboards in {(datetime.now() - update_start).total_seconds():.2f} seconds"
-        )
-        await inter.send(
-            f"Attempted to update {dashboards_updated} dashboards in {(datetime.now() - update_start).total_seconds():.2f} seconds",
-            ephemeral=True,
-        )
+        text = f"Forced updates of {dashboards_updated} dashboards in {(datetime.now() - update_start).total_seconds():.2f} seconds"
+        logger.info(text)
+        await inter.send(text, ephemeral=True)
 
     @commands.slash_command(
-        guild_ids=[int(getenv("SUPPORT_SERVER"))],
+        guild_ids=support_server,
         description="You shouldn't be able to see this",
     )
     async def force_update_maps(self, inter: AppCmdInter):
         update_start = datetime.now()
         logger.critical(
-            f"AdminCommandsCog, force_update_maps command used by {inter.author.id} - {inter.author.name}"
+            f"AdminCommandsCog, {inter.application_command.name} command used by {inter.author.id} - {inter.author.name}"
         )
         if inter.author.id != self.bot.owner_id:
             return await inter.send(
                 "You can't use this", ephemeral=True, delete_after=3.0
             )
         await inter.response.defer(ephemeral=True)
-        maps_updated = 0
-        data = await pull_from_api(
-            get_campaigns=True, get_planets=True, get_assignments=True
-        )
-        for data_key, data_value in data.items():
-            if data_value == None:
-                logger.error(
-                    f"AdminCommandsCog, force_update_maps, {data_key} has returned {data_value}"
-                )
-                return await inter.send(f"{data_key} return None", ephemeral=True)
-        channel = self.bot.get_channel(1242843098363596883)
-        map_embeds = await dashboard_maps(data, channel)
-        messages = self.bot.get_cog("MapCog").messages
-        chunked_messages = [messages[i : i + 50] for i in range(0, len(messages), 50)]
-        for chunk in chunked_messages:
-            for message in chunk:
-                self.bot.loop.create_task(
-                    self.bot.get_cog("MapCog").update_message(message, map_embeds)
-                )
-                maps_updated += 1
-            await sleep(1.025)
-        logger.info(
-            f"Forced updates of {maps_updated} maps in {(datetime.now() - update_start).total_seconds():.2f} seconds"
-        )
-        await inter.send(
-            f"Attempted to update {maps_updated} maps in {(datetime.now() - update_start).total_seconds():.2f} seconds",
-            ephemeral=True,
-        )
+        maps_updated = await self.bot.get_cog("MapCog").map_poster(force=True)
+        text = f"Forced updates of {maps_updated} maps in {(datetime.now() - update_start).total_seconds():.2f} seconds"
+        logger.info(text)
+        await inter.send(text, ephemeral=True)
 
     @commands.slash_command(
-        guild_ids=[int(getenv("SUPPORT_SERVER"))],
+        guild_ids=support_server,
         description="You shouldn't be able to see this",
     )
     async def send_announcement(self, inter: AppCmdInter, test: bool = False):
         update_start = datetime.now()
         logger.critical(
-            f"AdminCommandsCog, send_announcement command used by {inter.author.id} - {inter.author.name}"
+            f"AdminCommandsCog, {inter.application_command.name} command used by {inter.author.id} - {inter.author.name}"
         )
         if inter.author.id != self.bot.owner_id:
             return await inter.send(
@@ -152,24 +97,31 @@ class AdminCommandsCog(commands.Cog):
                 )
             await sleep(1.025)
         await inter.send(
-            f"Attempted to send out an announcement to {len(self.bot.get_cog('AnnouncementsCog').channels)} channels in {(datetime.now() - update_start).total_seconds():.2f} seconds",
+            f"Attempted to send out an announcement to {len(channels)} channels in {(datetime.now() - update_start).total_seconds():.2f} seconds",
             ephemeral=True,
-            delete_after=5,
         )
 
     @commands.slash_command(
-        guild_ids=[int(getenv("SUPPORT_SERVER"))],
+        guild_ids=support_server,
         description="You shouldn't be able to see this",
     )
     async def feedback_unban(self, inter: AppCmdInter, user_id):
         Feedback.unban_user(user_id)
+        if inter.author.id != self.bot.owner_id:
+            return await inter.send(
+                "You can't use this", ephemeral=True, delete_after=3.0
+            )
         await inter.send(f"Unbanned {user_id}", ephemeral=True)
 
     @commands.slash_command(
-        guild_ids=[int(getenv("SUPPORT_SERVER"))],
+        guild_ids=support_server,
         description="You shouldn't be able to see this",
     )
     async def feedback_ban_reason(self, inter: AppCmdInter, user_id, reason):
+        if inter.author.id != self.bot.owner_id:
+            return await inter.send(
+                "You can't use this", ephemeral=True, delete_after=3.0
+            )
         user = Feedback.get_user(user_id)
         if user == None:
             return await inter.send("That user doesn't exist in the db", ephemeral=True)

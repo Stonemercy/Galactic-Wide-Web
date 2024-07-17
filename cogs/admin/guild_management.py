@@ -299,11 +299,8 @@ class GuildManagementCog(commands.Cog):
                     guild[1]
                 ) or await self.bot.fetch_channel(guild[1])
                 message = await channel.fetch_message(guild[2])
-                updated_time = message.edited_at.replace(
-                    tzinfo=None,
-                    hour=(
-                        message.edited_at.hour + 1 if message.edited_at.hour < 23 else 0
-                    ),
+                updated_time = message.edited_at.replace(tzinfo=None) + timedelta(
+                    hours=1
                 )
                 if updated_time < (datetime.now() - timedelta(minutes=16)):
                     error_channel = self.bot.get_channel(

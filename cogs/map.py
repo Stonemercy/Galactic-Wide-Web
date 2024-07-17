@@ -62,11 +62,11 @@ class MapCog(commands.Cog):
             return logger.error(f"MapCog, update_message, {e}, {message.channel.name}")
 
     @tasks.loop(minutes=1)
-    async def map_poster(self):
+    async def map_poster(self, force: bool = False):
         update_start = datetime.now()
-        channel = self.bot.get_channel(1242843098363596883)
-        if update_start.minute != 1 or self.messages == []:
+        if (update_start.minute != 5 and force == False) or self.messages == []:
             return
+        channel = self.bot.get_channel(1242843098363596883)
         try:
             await channel.purge(before=update_start - timedelta(hours=2))
         except:
@@ -91,9 +91,11 @@ class MapCog(commands.Cog):
                 )
                 maps_updated += 1
             await sleep(1.025)
-        logger.info(
-            f"Updated {maps_updated} maps in {(datetime.now() - update_start).total_seconds():.2f} seconds"
-        )
+        if not force:
+            logger.info(
+                f"Updated {maps_updated} maps in {(datetime.now() - update_start).total_seconds():.2f} seconds"
+            )
+        return maps_updated
 
     @map_poster.before_loop
     async def before_map_poster(self):

@@ -30,7 +30,6 @@ class ListGenCog(commands.Cog):
         war_updates_channels: list = self.bot.get_cog("WarUpdatesCog").channels
         guilds_done = 0
         for guild in guilds:
-            guilds_done += 1
             if guild[1] != 0:
                 try:
                     dashboard_channel = self.bot.get_channel(
@@ -69,13 +68,14 @@ class ListGenCog(commands.Cog):
                     map_messages.append(map_message)
                 except:
                     pass
+            guilds_done += 1
         logger.info(
             (
-                f"message_gen finished going through {guilds_done} guilds in {(datetime.now() - start_time).total_seconds():.2f} seconds. "
-                f"Dashboards: {len(dashboard_messages)}. "
-                f"Announcement channels: {len(announcement_channels)}. "
-                f"Patch channels: {len(patch_channels)}. "
-                f"Maps: {len(map_messages)}. "
+                f"\nmessage_gen finished going through {guilds_done} guilds in {(datetime.now() - start_time).total_seconds():.2f} seconds.\n"
+                f"Dashboards: {len(dashboard_messages)}.\n"
+                f"Announcement channels: {len(announcement_channels)}.\n"
+                f"Patch channels: {len(patch_channels)}.\n"
+                f"Maps: {len(map_messages)}.\n"
             )
         )
 
