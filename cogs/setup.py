@@ -221,7 +221,10 @@ class SetupCog(commands.Cog):
                                 "There was an issue connecting to the datacentre. Please try again.",
                                 ephemeral=True,
                             )
-                    dashboard = Dashboard(data, guild_in_db[5])
+                    liberation_changes = self.bot.get_cog(
+                        "DashboardCog"
+                    ).liberation_changes
+                    dashboard = Dashboard(data, guild_in_db[5], liberation_changes)
                     try:
                         message = await dashboard_channel.send(
                             embeds=dashboard.embeds, file=File("resources/banner.png")
