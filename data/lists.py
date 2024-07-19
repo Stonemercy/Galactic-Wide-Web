@@ -638,6 +638,7 @@ emotes_list = [
     "Hug",
     "Explosive Handshake",
     "Scout Handshake",
+    "Test of Conviction",
 ]
 
 victory_poses_list = [
@@ -659,6 +660,8 @@ victory_poses_list = [
     "Mime Instrumentation",
     "Call the Helldivers",
     "Distribute Ballots",
+    "Welcome Adoration",
+    "Guns of Liberty",
 ]
 
 player_cards_list = [

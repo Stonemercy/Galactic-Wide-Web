@@ -85,6 +85,8 @@ class WeaponsCog(commands.Cog):
         embed = Items.Weapons.Primary(
             chosen_primary, self.types, self.fire_modes, self.traits, guild_language
         )
+        if embed.image.url == None:
+            logger.critical(f"WeaponsCog, primary, no image provided for {primary}")
         return await inter.send(embed=embed, ephemeral=True)
 
     @weapons.sub_command(description="Use this for secondary weapons")
@@ -111,6 +113,9 @@ class WeaponsCog(commands.Cog):
         embed = Items.Weapons.Secondary(
             chosen_secondary, self.fire_modes, self.traits, guild_language
         )
+        if embed.image.url == None:
+            logger.critical(f"WeaponsCog, secondary, no image provided for {secondary}")
+
         return await inter.send(embed=embed, ephemeral=True)
 
     @weapons.sub_command(description="Use this for grenades")
@@ -137,6 +142,9 @@ class WeaponsCog(commands.Cog):
             )
         chosen_grenade = self.grenades[grenade]
         embed = Items.Weapons.Grenade(chosen_grenade, guild_language)
+        if embed.image.url == None:
+            logger.critical(f"WeaponsCog, grenade, no image provided for {grenade}")
+
         return await inter.send(embed=embed, ephemeral=True)
 
 

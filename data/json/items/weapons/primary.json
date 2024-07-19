@@ -362,5 +362,22 @@
 			10,
 			6
 		]
+	},
+	"1160920394": {
+		"name": "AR-23A Liberator Carbine",
+		"description": "A compact version of the Liberator designed for increased viability in close quarters. Has an increased fire rate at the cost of higher spread.",
+		"type": 1,
+		"damage": 60,
+		"capacity": 45,
+		"recoil": 26,
+		"fire_rate": 920,
+		"fire_mode": [
+			0,
+			1,
+			2
+		],
+		"traits": [
+			1
+		]
 	}
 }

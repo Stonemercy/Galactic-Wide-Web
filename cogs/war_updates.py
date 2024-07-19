@@ -40,7 +40,7 @@ class WarUpdatesCog(commands.Cog):
     @tasks.loop(minutes=1)
     async def campaign_check(self):
         update_start = datetime.now()
-        if self.channels == [] or update_start.minute in (0, 1, 15, 30, 45):
+        if self.channels == [] or update_start.minute in (0, 15, 30, 45):
             return
         data = await pull_from_api(
             get_planets=True,

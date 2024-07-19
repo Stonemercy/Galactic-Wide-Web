@@ -92,5 +92,21 @@
 			1,
 			4
 		]
+	},
+	"2264358800": {
+		"name": "SG-22 Bushwhacker",
+		"description": "A triple-barreled, break-action, sawed-off shotgun. Switch firing modes to fire all three barrels at once.",
+		"type": 2,
+		"damage": 405,
+		"capacity": 3,
+		"recoil": 170,
+		"fire_rate": 650,
+		"fire_mode": [
+			0
+		],
+		"traits": [
+			1,
+			4
+		]
 	}
 }
