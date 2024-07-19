@@ -524,7 +524,8 @@ class Dashboard:
                         f"{self.language['dashboard.heroes']}: **{planet['statistics']['playerCount']:,}**\n"
                         f"{self.language['dashboard.defend_embed_event_health']}:\n"
                         f"{event_health_bar}\n"
-                        f"`{1 - (planet['event']['health'] / planet['event']['maxHealth']):^25,.2%}` {liberation_text}\n"
+                        f"`{1 - (planet['event']['health'] / planet['event']['maxHealth']):^25,.2%}`\n"
+                        f"{liberation_text}\n"
                         "\u200b\n"
                     ),
                     inline=False,
