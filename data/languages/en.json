@@ -82,6 +82,9 @@
     "dashboard.lite_mode": "This dashboard is in lite mode due to more than 10 planets being active.\nIt will revert to normal if the active planet count drops.",
     "dashboard.liberty_day": "The GWW wishes you a happy Liberty Day",
     "dashboard.malevelon_creek_day": "The GWW wishes you a happy Malevelon Creek Memorial Day",
+    "dashboard.victory": "Victory",
+    "dashboard.defeat": "Defeat",
+    "dashboard.outlook": "Outlook",
 
     "attack.sector": "Sector: ",
     "attack.heroes": "Heroes: ",

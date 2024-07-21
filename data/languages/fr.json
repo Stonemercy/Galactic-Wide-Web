@@ -82,6 +82,9 @@
     "dashboard.lite_mode": "Ce tableau de bord est en mode simplifié car plus de 10 planètes sont actives.\nIl reviendra à la normale si le nombre de planètes actives diminue.",
     "dashboard.liberty_day": "La GWW vous souhaite une bonne fête de la Liberté",
     "dashboard.malevelon_creek_day": "Le GWW vous souhaite un joyeux Malevelon Creek Memorial Day",
+    "dashboard.victory": "La victoire",
+    "dashboard.defeat": "Défaite",
+    "dashboard.outlook": "Perspectives",
 
     "attack.sector": "Secteur",
     "attack.heroes": "Héros",

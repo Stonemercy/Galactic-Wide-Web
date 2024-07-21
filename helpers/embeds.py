@@ -488,6 +488,8 @@ class Dashboard:
             self.defend_embed.set_thumbnail("https://helldivers.io/img/defense.png")
             for planet in self.planet_events:
                 liberation_text = ""
+                time_to_complete = ""
+                winning = ""
                 if liberation_changes != {}:
                     liberation_change = liberation_changes[planet["name"]]
                     if len(liberation_change["liberation_change"]) > 0:
@@ -500,10 +502,32 @@ class Dashboard:
                             > 0
                             else ""
                         )
+                        now = int(datetime.now().timestamp())
+                        seconds_to_complete = (
+                            int(
+                                (1 - liberation_change["liberation"])
+                                / sum(liberation_change["liberation_change"])
+                            )
+                            * 3600
+                        )
+                        winning = {
+                            True: f"**{self.language['dashboard.victory']}**",
+                            False: f"**{self.language['dashboard.defeat']}**",
+                        }[
+                            datetime.fromtimestamp(now + seconds_to_complete)
+                            < datetime.fromisoformat(
+                                planet["event"]["endTime"]
+                            ).replace(tzinfo=None)
+                        ]
+                        time_to_complete = (
+                            f"<t:{now + seconds_to_complete}:R>"
+                            if winning == f"**{self.language['dashboard.victory']}**"
+                            else ""
+                        )
                         change = (
                             f"{(sum(liberation_change['liberation_change'])):.2%}/hour"
                         )
-                        liberation_text = f"`{(above_zero + change):^25}`"
+                        liberation_text = f"\n`{(above_zero + change):^25}` "
                 faction_icon = self.faction_dict[planet["event"]["faction"]]
                 time_remaining = f"<t:{datetime.fromisoformat(planet['event']['endTime']).timestamp():.0f}:R>"
                 event_health_bar = health_bar(
@@ -520,12 +544,13 @@ class Dashboard:
                 self.defend_embed.add_field(
                     f"{faction_icon} - __**{self.planet_names_loc[str(planet['index'])]['names'][supported_languages[language]]}**__ {exclamation}",
                     (
-                        f"{self.language['dashboard.defend_embed_ends']}: {time_remaining}\n"
-                        f"{self.language['dashboard.heroes']}: **{planet['statistics']['playerCount']:,}**\n"
-                        f"{self.language['dashboard.defend_embed_event_health']}:\n"
-                        f"{event_health_bar}\n"
-                        f"`{1 - (planet['event']['health'] / planet['event']['maxHealth']):^25,.2%}`\n"
-                        f"{liberation_text}\n"
+                        f"{self.language['dashboard.defend_embed_ends']}: {time_remaining}"
+                        f"\n{self.language['dashboard.heroes']}: **{planet['statistics']['playerCount']:,}**"
+                        f"\n{self.language["dashboard.outlook"]}: {winning} {time_to_complete}"
+                        f"\n{self.language['dashboard.defend_embed_event_health']}:"
+                        f"\n{event_health_bar}"
+                        f"\n**`{1 - (planet['event']['health'] / planet['event']['maxHealth']):^25,.2%}`**"
+                        f"{liberation_text}"
                         "\u200b\n"
                     ),
                     inline=False,
@@ -551,6 +576,7 @@ class Dashboard:
                 self.campaigns,
             ) = skipped_planets(self.campaigns, self.total_players)
             for i in self.campaigns:
+                time_to_complete = ""
                 liberation_text = ""
                 if liberation_changes != {}:
                     liberation_change = liberation_changes[i["planet"]["name"]]
@@ -564,10 +590,23 @@ class Dashboard:
                             > 0
                             else ""
                         )
+                        if above_zero == "+":
+                            now = int(datetime.now().timestamp())
+                            seconds_to_complete = int(
+                                (
+                                    (1 - liberation_change["liberation"])
+                                    / sum(liberation_change["liberation_change"])
+                                )
+                                * 3600
+                            )
+                            time_to_complete = (
+                                f"\n{self.language["dashboard.outlook"]}: {self.language["dashboard.victory"]} <t:{now + seconds_to_complete}:R>"
+                            )
                         change = (
                             f"{(sum(liberation_change['liberation_change'])):.2%}/hour"
                         )
                         liberation_text = f"`{(above_zero + change):^25}`"
+
                 if i["planet"]["event"] != None:
                     continue
                 exclamation = (
@@ -583,7 +622,7 @@ class Dashboard:
                         i["planet"]["currentOwner"],
                         True,
                     )
-                    planet_health_text = f"\n`{(1 - (i['planet']['health'] / i['planet']['maxHealth'])):^25.2%}`"
+                    planet_health_text = f"`{(1 - (i['planet']['health'] / i['planet']['maxHealth'])):^25.2%}`"
                 else:
                     planet_health_bar = ""
                     planet_health_text = f"**`{(1 - (i['planet']['health'] / i['planet']['maxHealth'])):^15.2%}`**"
@@ -591,11 +630,12 @@ class Dashboard:
                     self.automaton_embed.add_field(
                         f"{faction_icon} - __**{self.planet_names_loc[str(i['planet']['index'])]['names'][supported_languages[language]]}**__ {exclamation}",
                         (
-                            f"{self.language['dashboard.heroes']}: **{i['planet']['statistics']['playerCount']:,}**\n"
-                            f"{self.language['dashboard.attack_embed_planet_health']}:\n"
-                            f"{planet_health_bar}"
-                            f"{planet_health_text}\n"
-                            f"{liberation_text}"
+                            f"{self.language['dashboard.heroes']}: **{i['planet']['statistics']['playerCount']:,}**"
+                            f"{time_to_complete}"
+                            f"\n{self.language['dashboard.attack_embed_planet_health']}:"
+                            f"\n{planet_health_bar}"
+                            f"\n**{planet_health_text}**"
+                            f"\n{liberation_text}"
                             "\n\u200b\n"
                         ),
                         inline=False,
@@ -604,11 +644,12 @@ class Dashboard:
                     self.terminids_embed.add_field(
                         f"{faction_icon} - __**{self.planet_names_loc[str(i['planet']['index'])]['names'][supported_languages[language]]}**__ {exclamation}",
                         (
-                            f"{self.language['dashboard.heroes']}: **{i['planet']['statistics']['playerCount']:,}**\n"
-                            f"{self.language['dashboard.attack_embed_planet_health']}:\n"
-                            f"{planet_health_bar}"
-                            f"{planet_health_text}\n"
-                            f"{liberation_text}"
+                            f"{self.language['dashboard.heroes']}: **{i['planet']['statistics']['playerCount']:,}**"
+                            f"{time_to_complete}"
+                            f"\n{self.language['dashboard.attack_embed_planet_health']}:"
+                            f"\n{planet_health_bar}"
+                            f"\n**{planet_health_text}**"
+                            f"\n{liberation_text}"
                             "\n\u200b\n"
                         ),
                         inline=False,
@@ -617,11 +658,12 @@ class Dashboard:
                     self.illuminate_embed.add_field(
                         f"{faction_icon} - __**{self.planet_names_loc[str(i['planet']['index'])]['names'][supported_languages[language]]}**__ {exclamation}",
                         (
-                            f"{self.language['dashboard.heroes']}: **{i['planet']['statistics']['playerCount']:,}**\n"
-                            f"{self.language['dashboard.attack_embed_planet_health']}:\n"
-                            f"{planet_health_bar}"
-                            f"{planet_health_text}\n"
-                            f"{liberation_text}"
+                            f"{self.language['dashboard.heroes']}: **{i['planet']['statistics']['playerCount']:,}**"
+                            f"{time_to_complete}"
+                            f"\n{self.language['dashboard.attack_embed_planet_health']}:"
+                            f"\n{planet_health_bar}"
+                            f"\n**{planet_health_text}**"
+                            f"\n{liberation_text}"
                             "\n\u200b\n"
                         ),
                         inline=False,
