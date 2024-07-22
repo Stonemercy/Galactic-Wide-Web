@@ -546,7 +546,7 @@ class Dashboard:
                     (
                         f"{self.language['dashboard.defend_embed_ends']}: {time_remaining}"
                         f"\n{self.language['dashboard.heroes']}: **{planet['statistics']['playerCount']:,}**"
-                        f"\n{self.language["dashboard.outlook"]}: {winning} {time_to_complete}"
+                        f"\n{self.language['dashboard.outlook']}: {winning} {time_to_complete}"
                         f"\n{self.language['dashboard.defend_embed_event_health']}:"
                         f"\n{event_health_bar}"
                         f"\n**`{1 - (planet['event']['health'] / planet['event']['maxHealth']):^25,.2%}`**"
@@ -599,9 +599,7 @@ class Dashboard:
                                 )
                                 * 3600
                             )
-                            time_to_complete = (
-                                f"\n{self.language["dashboard.outlook"]}: {self.language["dashboard.victory"]} <t:{now + seconds_to_complete}:R>"
-                            )
+                            time_to_complete = f"\n{self.language['dashboard.outlook']}: {self.language['dashboard.victory']} <t:{now + seconds_to_complete}:R>"
                         change = (
                             f"{(sum(liberation_change['liberation_change'])):.2%}/hour"
                         )
