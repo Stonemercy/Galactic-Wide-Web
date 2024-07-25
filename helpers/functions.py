@@ -163,23 +163,6 @@ def short_format(num):
     return "{:.{}f}{}".format(num, 2, ["", "K", "M", "B", "T", "Q"][magnitude])
 
 
-def dispatch_format(message: str):
-    try:
-        message = (
-            message.replace("<i=3>", "")
-            .replace("</i=2>", "")
-            .replace("</i=3>", "")
-            .replace("</i=1>", "")
-            .replace("</i>", "")
-            .replace("<i=1>", "")
-            .replace("<i=2>", "")
-            .replace("<br>", "\n")
-        )
-    except Exception as e:
-        logger.error(("dispatch_format", e))
-    return message
-
-
 def steam_format(content: str):  # thanks Chats
     content = sub(r"\[h1\](.*?)\[/h1\]", r"# \1", content)
     content = sub(r"\[h2\](.*?)\[/h2\]", r"## \1", content)
@@ -188,6 +171,8 @@ def steam_format(content: str):  # thanks Chats
     content = sub(r"\[h5\](.*?)\[/h5\]", r"### \1", content)
     content = sub(r"\[h6\](.*?)\[/h6\]", r"### \1", content)
     content = sub(r"\[url=(.+?)](.+?)\[/url\]", r"[\2]\(\1\)", content)
+    content = sub(r"<i=1>(.*?)</i>", r"** \1 **", content)
+    content = sub(r"<i=3>(.*?)</i>", r"** \1 **", content)
     content = sub(r"\[quote\]", r"> ", content)
     content = sub(r"\[quote\]", r"> ", content)
     content = sub(r"\[/quote\]", r"", content)
