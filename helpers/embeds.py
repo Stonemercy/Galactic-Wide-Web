@@ -613,7 +613,6 @@ class Dashboard:
                             f"\n{planet_health_bar}"
                             f"\n{planet_health_text}"
                             f"{liberation_text}"
-                            "\n\u200b\n"
                         ),
                         inline=False,
                     )
@@ -627,7 +626,6 @@ class Dashboard:
                             f"\n{planet_health_bar}"
                             f"\n{planet_health_text}"
                             f"{liberation_text}"
-                            "\n\u200b\n"
                         ),
                         inline=False,
                     )
@@ -641,7 +639,6 @@ class Dashboard:
                             f"\n{planet_health_bar}"
                             f"\n{planet_health_text}"
                             f"{liberation_text}"
-                            "\n\u200b\n"
                         ),
                         inline=False,
                     )
