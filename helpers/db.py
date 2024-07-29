@@ -331,6 +331,7 @@ class Feedback:
         ) as conn:
             with conn.cursor() as curs:
                 curs.execute("Insert into feedback (user_id) VALUES (%s)", (user_id,))
+                conn.commit()
                 user = Feedback.get_user(user_id)
                 return user
 
