@@ -344,9 +344,18 @@ class Dashboard:
                 "https://media.discordapp.net/attachments/1212735927223590974/1240708455040548997/MO_defend.png?ex=66478b4a&is=664639ca&hm=2593a504f96bd5e889772762c2e9790caa08fc279ca48ea0f03c70fa74efecb5&=&format=webp&quality=lossless"
             )
             for assignment in self.assignments:
-                assignment["briefing"] = steam_format(assignment["briefing"])
+                assignment["briefing"] = (
+                    steam_format(assignment["briefing"])
+                    if assignment not in ([], None)
+                    else ""
+                )
+                assignment["description"] = (
+                    ""
+                    if assignment["description"] in ([], None)
+                    else f" - {assignment['description']}"
+                )
                 self.major_orders_embed.add_field(
-                    f"{self.language['dashboard.major_order_message']} #{assignment['id']} - {assignment['description']}",
+                    f"{self.language['dashboard.major_order_message']} #{assignment['id']}{assignment['description']}",
                     f"{assignment['briefing']}\n\u200b\n",
                     inline=False,
                 )
