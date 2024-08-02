@@ -130,6 +130,23 @@ class AdminCommandsCog(commands.Cog):
         Feedback.set_reason(user_id, reason)
         await inter.send(f"Reason set for {user_id}:\n{reason}", ephemeral=True)
 
+    @commands.slash_command(
+        guild_ids=support_server,
+        description="You shouldn't be able to see this",
+    )
+    async def not_good_feedback(self, inter: AppCmdInter, user_id):
+        if inter.author.id != self.bot.owner_id:
+            return await inter.send(
+                "You can't use this", ephemeral=True, delete_after=3.0
+            )
+        user = Feedback.get_user(user_id)
+        if user == None:
+            return await inter.send("That user doesn't exist in the db", ephemeral=True)
+        elif user[3] == False:
+            return await inter.send("That user isn't a good user", ephemeral=True)
+        Feedback.not_good_user(user_id)
+        await inter.send(f"User **{user_id}** set as not-good feedback", ephemeral=True)
+
 
 def setup(bot: commands.Bot):
     bot.add_cog(AdminCommandsCog(bot))

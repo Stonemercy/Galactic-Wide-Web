@@ -387,3 +387,14 @@ class Feedback:
                     (user_id,),
                 )
                 conn.commit()
+
+    def not_good_user(user_id: int):
+        with connect(
+            host=hostname, dbname=database, user=username, password=pwd, port=port_id
+        ) as conn:
+            with conn.cursor() as curs:
+                curs.execute(
+                    "Update feedback set good_feedback = False where user_id = %s",
+                    (user_id,),
+                )
+                conn.commit()
