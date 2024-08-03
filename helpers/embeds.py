@@ -134,6 +134,12 @@ class MajorOrderEmbed(Embed):
         self.set_footer(
             text=f"{self.language['major_order.message']} #{assignment['id']}"
         )
+        assignment["description"] = (
+            "" if assignment["description"] == None else assignment["description"]
+        )
+        assignment["briefing"] = (
+            "" if assignment["briefing"] == None else assignment["briefing"]
+        )
         self.add_field(assignment["description"], assignment["briefing"])
         self.planet_names_loc = load(
             open(f"data/json/planets/planets.json", encoding="UTF-8")

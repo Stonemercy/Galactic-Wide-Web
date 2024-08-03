@@ -73,15 +73,7 @@ class AnnouncementsCog(commands.Cog):
         last_id = MajorOrders.get_last_id()
         data = await pull_from_api(get_assignments=True, get_planets=True)
         for data_key, data_value in data.items():
-            if data_key == "assignments" and data_value not in ([], None):
-                for assignment in data_value:
-                    if assignment["briefing"] in (None, "") or assignment[
-                        "description"
-                    ] in (None, ""):
-                        return logger.error(
-                            f"AnnouncementsCog, major-order_check, {assignment['title']} briefing is {assignment['briefing']} and description is {assignment['description']}"
-                        )
-            elif data_value == None:
+            if data_value == None:
                 return logger.error(
                     f"AnnouncementsCog, major_order_check, {data_key} returned {data_value}"
                 )
