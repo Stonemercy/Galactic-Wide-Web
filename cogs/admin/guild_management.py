@@ -292,6 +292,7 @@ class GuildManagementCog(commands.Cog):
 
     @tasks.loop(minutes=1)
     async def dashboard_checking(self):
+        now = datetime.now()
         guild = Guilds.get_info(1212722266392109088)
         if guild != None:
             try:
@@ -302,7 +303,9 @@ class GuildManagementCog(commands.Cog):
                 updated_time = message.edited_at.replace(tzinfo=None) + timedelta(
                     hours=1
                 )
-                if updated_time < (datetime.now() - timedelta(minutes=16)):
+                if updated_time < (
+                    now - timedelta(minutes=16)
+                ) and self.startup_time < (now - timedelta(minutes=16)):
                     error_channel = self.bot.get_channel(
                         1212735927223590974
                     ) or await self.bot.fetch_channel(1212735927223590974)
