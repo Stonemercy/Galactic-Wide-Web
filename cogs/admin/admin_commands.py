@@ -5,8 +5,8 @@ from os import getenv
 from disnake import AppCmdInter
 from disnake.ext import commands
 from helpers.db import Feedback, Guilds
-from helpers.embeds import AnnouncementEmbed, Dashboard
-from helpers.functions import dashboard_maps, pull_from_api
+from helpers.embeds import AnnouncementEmbed
+
 
 logger = getLogger("disnake")
 support_server = [int(getenv("SUPPORT_SERVER"))]
@@ -28,7 +28,7 @@ class AdminCommandsCog(commands.Cog):
 
     @commands.slash_command(
         guild_ids=support_server,
-        description="You shouldn't be able to see this",
+        description="Forces dashboards to update ASAP",
     )
     async def force_update_dashboard(self, inter: AppCmdInter):
         update_start = datetime.now()
@@ -49,7 +49,7 @@ class AdminCommandsCog(commands.Cog):
 
     @commands.slash_command(
         guild_ids=support_server,
-        description="You shouldn't be able to see this",
+        description="Forces maps to update ASAP",
     )
     async def force_update_maps(self, inter: AppCmdInter):
         update_start = datetime.now()
@@ -68,7 +68,7 @@ class AdminCommandsCog(commands.Cog):
 
     @commands.slash_command(
         guild_ids=support_server,
-        description="You shouldn't be able to see this",
+        description="Send out the prepared announcement",
     )
     async def send_announcement(self, inter: AppCmdInter, test: bool = False):
         update_start = datetime.now()
@@ -103,19 +103,24 @@ class AdminCommandsCog(commands.Cog):
 
     @commands.slash_command(
         guild_ids=support_server,
-        description="You shouldn't be able to see this",
+        description="Unban someone you accidentally banned from giving feedback",
     )
     async def feedback_unban(self, inter: AppCmdInter, user_id):
-        Feedback.unban_user(user_id)
         if inter.author.id != self.bot.owner_id:
             return await inter.send(
                 "You can't use this", ephemeral=True, delete_after=3.0
             )
+        user = Feedback.get_user(user_id)
+        if user == None:
+            return await inter.send("That user doesn't exist in the db", ephemeral=True)
+        elif user[1] == False:
+            return await inter.send("That user isn't banned", ephemeral=True)
+        Feedback.unban_user(user_id)
         await inter.send(f"Unbanned {user_id}", ephemeral=True)
 
     @commands.slash_command(
         guild_ids=support_server,
-        description="You shouldn't be able to see this",
+        description="Provide the reason for a ban",
     )
     async def feedback_ban_reason(self, inter: AppCmdInter, user_id, reason):
         if inter.author.id != self.bot.owner_id:
@@ -132,7 +137,7 @@ class AdminCommandsCog(commands.Cog):
 
     @commands.slash_command(
         guild_ids=support_server,
-        description="You shouldn't be able to see this",
+        description="Un-mark a user as good",
     )
     async def not_good_feedback(self, inter: AppCmdInter, user_id):
         if inter.author.id != self.bot.owner_id:

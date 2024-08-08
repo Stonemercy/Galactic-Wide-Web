@@ -27,6 +27,9 @@ class AnnouncementsCog(commands.Cog):
         self.steam_check.stop()
 
     async def send_embed(self, channel: TextChannel, embeds, type: str):
+        """embeds must be a dict in the following format:\n
+        { language: embed }\n
+        and needs to have all languages used by the userbase"""
         guild = Guilds.get_info(channel.guild.id)
         if guild == None:
             logger.error(
