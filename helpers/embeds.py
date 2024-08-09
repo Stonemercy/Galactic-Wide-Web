@@ -496,8 +496,8 @@ class Dashboard:
                             else ""
                         )
                         now = int(datetime.now().timestamp())
-                        seconds_to_complete = (
-                            int(
+                        seconds_to_complete = int(
+                            (
                                 (1 - liberation_change["liberation"])
                                 / sum(liberation_change["liberation_change"])
                             )

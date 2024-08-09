@@ -96,12 +96,22 @@ class DashboardCog(commands.Cog):
                     self.liberation_changes[campaign["planet"]["name"]][
                         "liberation_change"
                     ].pop(0)
-                self.liberation_changes[campaign["planet"]["name"]][
-                    "liberation_change"
-                ].append(
-                    liberation
-                    - self.liberation_changes[campaign["planet"]["name"]]["liberation"]
-                )
+                while (
+                    len(
+                        self.liberation_changes[campaign["planet"]["name"]][
+                            "liberation_change"
+                        ]
+                    )
+                    < 4
+                ):
+                    self.liberation_changes[campaign["planet"]["name"]][
+                        "liberation_change"
+                    ].append(
+                        liberation
+                        - self.liberation_changes[campaign["planet"]["name"]][
+                            "liberation"
+                        ]
+                    )
             self.liberation_changes[campaign["planet"]["name"]][
                 "liberation"
             ] = liberation
