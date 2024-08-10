@@ -64,7 +64,7 @@
     "dashboard.major_order_occupied_by": "Occupation",
     "dashboard.major_order_reward": "Récompense",
     "dashboard.major_order_none": "Attendez-vous à recevoir d'autres ordres du Haut Commandement de la Super Terre",
-    "dashboard.major_order_succed_in_defense": "Réussir la défense d'au moins",
+    "dashboard.major_order_succeed_in_defense": "Réussir la défense d'au moins",
     "dashboard.major_order_progress": "Progression",
     "dashboard.major_order_kill": "Tuer",
     "dashboard.major_order_new_title": "Nouveau format de commande majeure fourni",
