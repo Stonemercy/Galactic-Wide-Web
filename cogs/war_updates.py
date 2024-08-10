@@ -74,6 +74,7 @@ class WarUpdatesCog(commands.Cog):
                 )
             return
         old_campaign_ids = []
+        liberation_changes: dict = self.bot.get_cog("DashboardCog").liberation_changes
         for old_campaign in old_campaigns:  # loop through old campaigns
             old_campaign_ids.append(old_campaign[0])
             if old_campaign[0] not in new_campaign_ids:
@@ -84,17 +85,20 @@ class WarUpdatesCog(commands.Cog):
                     for lang, embed in embeds.items():
                         embed.add_def_victory(planet)
                     new_updates = True
+                    liberation_changes.pop(planet["name"], None)
                     Campaigns.remove_campaign(old_campaign[0])
                 if planet["currentOwner"] != old_campaign[2]:  # if owner has changed
                     if old_campaign[2] == "Humans":  # if defence campaign loss
                         for lang, embed in embeds.items():
                             embed.add_planet_lost(planet)
                         new_updates = True
+                        liberation_changes.pop(planet["name"], None)
                         Campaigns.remove_campaign(old_campaign[0])
                     elif planet["currentOwner"] == "Humans":  # if attack campaign win
                         for lang, embed in embeds.items():
                             embed.add_campaign_victory(planet, old_campaign[2])
                         new_updates = True
+                        liberation_changes.pop(planet["name"], None)
                         Campaigns.remove_campaign(old_campaign[0])
                 elif planet["currentOwner"] != "Humans":
                     Campaigns.remove_campaign(old_campaign[0])

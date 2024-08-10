@@ -144,9 +144,9 @@ class MajorOrderEmbed(Embed):
         self.planet_names_loc = load(
             open(f"data/json/planets/planets.json", encoding="UTF-8")
         )
-        for i in assignment["tasks"]:
-            if i["type"] == 11 or i["type"] == 13:
-                planet = planets[i["values"][2]]
+        for index, task in enumerate(assignment["tasks"]):
+            if task["type"] == 11 or task["type"] == 13:
+                planet = planets[task["values"][2]]
                 self.add_field(
                     self.planet_names_loc[str(planet["index"])]["names"][
                         supported_languages[language]
@@ -157,18 +157,20 @@ class MajorOrderEmbed(Embed):
                     ),
                     inline=False,
                 )
-            elif i["type"] == 12:
-                event_health_bar = health_bar(i["progress"][0], i["values"][0], "MO")
+            elif task["type"] == 12:
+                event_health_bar = health_bar(
+                    assignment["progress"][index], task["values"][0], "MO"
+                )
                 self.add_field(
-                    f"{self.language['major_order.succeed_in_defense']} {i['values'][0]} {self.language['major_order.planets']}",
+                    f"{self.language['major_order.succeed_in_defense']} {task['values'][0]} {self.language['major_order.planets']}",
                     (
-                        f"{self.language['major_order.progress']}: {assignment['progress'][0]}/{i['values'][0]}\n"
+                        f"{self.language['major_order.progress']}: {assignment['progress'][index]}/{task['values'][0]}\n"
                         f"{event_health_bar}\n"
-                        f"`{(i['progress'][0] / i['values'][0]):^25,.2%}`\n"
+                        f"`{(assignment['progress'][index] / task['values'][0]):^25,.2%}`\n"
                     ),
                     inline=False,
                 )
-            elif i["type"] == 3:
+            elif task["type"] == 3:
                 faction_dict = {
                     0: "",
                     1: "",
@@ -184,14 +186,14 @@ class MajorOrderEmbed(Embed):
                     4: self.language["illuminate"],
                 }
                 event_health_bar = health_bar(
-                    assignment["progress"][0], i["values"][2], "MO"
+                    assignment["progress"][index], task["values"][2], "MO"
                 )
                 self.add_field(
-                    f"{self.language['major_order.kill']} {short_format(i['values'][2])} **{loc_faction[i['values'][0]]}**{faction_dict[i['values'][0]]}",
+                    f"{self.language['major_order.kill']} {short_format(task['values'][2])} **{loc_faction[task['values'][0]]}**{faction_dict[task['values'][0]]}",
                     (
-                        f"{self.language['major_order.progress']}: {short_format(assignment['progress'][0])}/{short_format(i['values'][2])}\n"
+                        f"{self.language['major_order.progress']}: {short_format(assignment['progress'][index])}/{short_format(task['values'][2])}\n"
                         f"{event_health_bar}\n"
-                        f"`{(assignment['progress'][0] / i['values'][2]):^25,.2%}`\n"
+                        f"`{(assignment['progress'][index] / task['values'][2]):^25,.2%}`\n"
                     ),
                     inline=False,
                 )
@@ -365,7 +367,7 @@ class Dashboard:
                     f"{assignment['briefing']}\n\u200b\n",
                     inline=False,
                 )
-                for task in assignment["tasks"]:
+                for index, task in enumerate(assignment["tasks"]):
                     if task["type"] == 11 or task["type"] == 13:
                         planet = self.planets[task["values"][2]]
                         self.MO_planets.append(planet["name"])
@@ -416,14 +418,21 @@ class Dashboard:
                         )
                     elif task["type"] == 12:
                         event_health_bar = health_bar(
-                            assignment["progress"][0], i["values"][0], "MO"
+                            assignment["progress"][index],
+                            task["values"][0],
+                            (
+                                "MO"
+                                if assignment["progress"][index] / task["values"][0]
+                                != 1
+                                else "Humans"
+                            ),
                         )
                         self.major_orders_embed.add_field(
                             f"{self.language['dashboard.major_order_succeed_in_defense']} {task['values'][0]} {self.language['dashboard.planets']}",
                             (
-                                f"{self.language['dashboard.major_order_progress']}: {assignment['progress'][0]}/{task['values'][0]}\n"
+                                f"{self.language['dashboard.major_order_progress']}: {assignment['progress'][index]}/{task['values'][0]}\n"
                                 f"{event_health_bar}\n"
-                                f"`{(assignment['progress'][0] / task['values'][0]):^25,.2%}`\n"
+                                f"`{(assignment['progress'][index] / task['values'][0]):^25,.2%}`\n"
                             ),
                             inline=False,
                         )
@@ -446,14 +455,21 @@ class Dashboard:
                             4: self.language["illuminate"],
                         }
                         event_health_bar = health_bar(
-                            assignment["progress"][0], task["values"][2], "MO"
+                            assignment["progress"][index],
+                            task["values"][2],
+                            (
+                                "MO"
+                                if (assignment["progress"][index] / task["values"][2])
+                                != 1
+                                else "Humans"
+                            ),
                         )
                         self.major_orders_embed.add_field(
                             f"{self.language['dashboard.major_order_kill']} {short_format(task['values'][2])} {loc_faction[task['values'][0]]} {faction_dict[task['values'][0]]}",
                             (
-                                f"{self.language['major_order.progress']}: **{short_format(assignment['progress'][0])}**/**{short_format(task['values'][2])}**\n"
+                                f"{self.language['major_order.progress']}: **{short_format(assignment['progress'][index])}**/**{short_format(task['values'][2])}**\n"
                                 f"{event_health_bar}\n"
-                                f"`{(assignment['progress'][0] / task['values'][2]):^25,.2%}`\n"
+                                f"`{(assignment['progress'][index] / task['values'][2]):^25,.2%}`\n"
                             ),
                             inline=False,
                         )
