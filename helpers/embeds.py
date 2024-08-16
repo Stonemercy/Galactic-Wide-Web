@@ -392,7 +392,7 @@ class Dashboard:
                     self.major_orders_embed.add_field(
                         f"{self.language['dashboard.major_order_kill']} {short_format(task.values[2])} {faction_dict[task.values[0]]} {faction_dict[task.values[0]]}",
                         (
-                            f"{self.language['major_order.progress']}: **{task.progress}**\n"
+                            f"{self.language['major_order.progress']}: **{task.values[2]*task.progress}**\n"
                             f"{task.health_bar}\n"
                             f"`{(task.progress):^25,.2%}`\n"
                         ),
@@ -403,15 +403,12 @@ class Dashboard:
                         3992382197: "Common Sample",
                         2985106497: "Rare Sample",
                     }
-                    item_id = task.values[4]
-                    amount = task.values[2]
-                    planet = task.values[8]
                     task.health_bar = health_bar(
                         task.progress,
                         "MO",
                     )
                     self.major_orders_embed.add_field(
-                        f"{self.language['dashboard.major_order_extract_items']} {short_format(amount)} {items_dict[item_id]} on {self.data.planets[planet].name}",
+                        f"{self.language['dashboard.major_order_extract_items']} {short_format(task.values[2])} {items_dict[task.values[4]]} on {self.data.planets[task.values[8]].name}",
                         (
                             f"{self.language['major_order.progress']}: **{task.values[2]*task.progress:,.0f}**\n"
                             f"{task.health_bar}\n"
