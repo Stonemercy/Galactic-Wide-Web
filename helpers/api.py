@@ -237,8 +237,8 @@ class Assignment:
         )
         self.description = (
             steam_format(self.__assignment["description"])
-            if steam_format(self.__assignment["description"])
-            not in ([], None, self.title)
+            if self.__assignment["description"]
+            not in ([], None, self.__assignment["briefing"])
             else ""
         )
         self.tasks = Tasks(self.__assignment)
@@ -264,12 +264,16 @@ class Tasks(list):
         self.__assignment = assignment
         for index, task in enumerate(self.__assignment["tasks"]):
             formatted_task = self.Task(task)
-            task_progress = {
-                11: formatted_task.values[0],
+            progress_value = {
                 13: formatted_task.values[0],
+                12: formatted_task.values[1],
+                11: formatted_task.values[0],
+                3: formatted_task.values[2],
                 2: formatted_task.values[2],
             }[formatted_task.type]
-            formatted_task.progress = assignment["progress"][index] / task_progress
+            formatted_task.progress = (
+                self.__assignment["progress"][index] / progress_value
+            )
             self.append(formatted_task)
 
     class Task:
