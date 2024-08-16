@@ -134,14 +134,14 @@ class MapCog(commands.Cog):
         guild = Guilds.get_info(inter.guild_id)
         if guild == None:
             guild = Guilds.insert_new_guild(inter.guild.id)
-        data = Data()
-        await data.pull_from_api(
+        api = API()
+        await api.pull_from_api(
             get_planets=True,
             get_campaigns=True,
-            get_assignments=True,
+            get_assignment=True,
             get_planet_events=True,
         )
-        if data.error:
+        if api.error:
             error_channel = self.bot.get_channel(
                 1212735927223590974
             ) or await self.bot.fetch_channel(1212735927223590974)
@@ -152,27 +152,28 @@ class MapCog(commands.Cog):
                 "There was an issue getting the data for the map.\nPlease try again later.",
                 ephemeral=True,
             )
+        data = Data(data_from_api=api)
         planets_coords = {}
-        available_planets = [planet["planet"]["name"] for planet in data.campaigns]
-        for i in data.planets:
-            if faction != None:
-                if i["currentOwner"] != faction:
+        available_planets = [campaign.planet.name for campaign in data.campaigns]
+        for planet in data.planets.values():
+            if faction:
+                if planet.current_owner != faction:
                     continue
-                for j in i["waypoints"]:
-                    planets_coords[j] = (
-                        (data.planets[j]["position"]["x"] * 2000) + 2000,
+                for waypoint in planet.waypoints:
+                    planets_coords[waypoint] = (
+                        (data.planets[waypoint].position["x"] * 2000) + 2000,
                         (
                             (
-                                data.planets[j]["position"]["y"]
-                                - (data.planets[j]["position"]["y"] * 2)
+                                data.planets[waypoint].position["y"]
+                                - (data.planets[waypoint].position["y"] * 2)
                             )
                             * 2000
                         )
                         + 2000,
                     )
-            planets_coords[i["index"]] = (
-                (i["position"]["x"] * 2000) + 2000,
-                ((i["position"]["y"] - (i["position"]["y"] * 2)) * 2000) + 2000,
+            planets_coords[planet.index] = (
+                (planet.position["x"] * 2000) + 2000,
+                ((planet.position["y"] - (planet.position["y"] * 2)) * 2000) + 2000,
             )
         if planets_coords == {}:
             return await inter.send(
@@ -181,12 +182,12 @@ class MapCog(commands.Cog):
         with Image.open("resources/map.webp") as background:
             background_draw = Draw(background)
             for index, coords in planets_coords.items():
-                for i in data.planets[index]["waypoints"]:
+                for waypoint in data.planets[index].waypoints:
                     try:
                         background_draw.line(
                             (
-                                planets_coords[i][0],
-                                planets_coords[i][1],
+                                planets_coords[waypoint][0],
+                                planets_coords[waypoint][1],
                                 coords[0],
                                 coords[1],
                             ),
@@ -194,19 +195,19 @@ class MapCog(commands.Cog):
                         )
                     except:
                         continue
-            if data.assignments != []:
-                for i in data.assignments[0]["tasks"]:
-                    if i["type"] in (11, 13):
+            if data.assignment:
+                for task in data.assignment.tasks:
+                    if task.type in (11, 13):
                         try:
                             background_draw.ellipse(
                                 [
                                     (
-                                        planets_coords[i["values"][2]][0] - 50,
-                                        planets_coords[i["values"][2]][1] - 50,
+                                        planets_coords[task.values[2]][0] - 50,
+                                        planets_coords[task.values[2]][1] - 50,
                                     ),
                                     (
-                                        planets_coords[i["values"][2]][0] + 50,
-                                        planets_coords[i["values"][2]][1] + 50,
+                                        planets_coords[task.values[2]][0] + 50,
+                                        planets_coords[task.values[2]][1] + 50,
                                     ),
                                 ],
                                 fill=self.faction_colour["MO"],
@@ -220,14 +221,14 @@ class MapCog(commands.Cog):
                         (coords[0] + 35, coords[1] + 35),
                     ],
                     fill=(
-                        self.faction_colour[data.planets[index]["currentOwner"]]
-                        if data.planets[index]["name"] in available_planets
+                        self.faction_colour[data.planets[index].current_owner]
+                        if data.planets[index].name in available_planets
                         else self.faction_colour[
-                            data.planets[index]["currentOwner"].lower()
+                            data.planets[index].current_owner.lower()
                         ]
                     ),
                 )
-                if faction != None and data.planets[index]["name"] in available_planets:
+                if faction != None and data.planets[index].name in available_planets:
                     font = truetype("gww-font.ttf", 50)
                     background_draw.multiline_text(
                         xy=coords,
