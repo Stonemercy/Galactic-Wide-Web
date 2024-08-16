@@ -159,6 +159,20 @@ async def dashboard_maps(data, channel: TextChannel):
                                     ],
                                     fill=faction_colour["MO"],
                                 )
+                    if task.type == 2:
+                        background_draw.ellipse(
+                            [
+                                (
+                                    planets_coords[task.values[8]][0] - 50,
+                                    planets_coords[task.values[8]][1] - 50,
+                                ),
+                                (
+                                    planets_coords[task.values[8]][0] + 50,
+                                    planets_coords[task.values[8]][1] + 50,
+                                ),
+                            ],
+                            fill=faction_colour["MO"],
+                        )
             for index, coords in planets_coords.items():
                 background_draw.ellipse(
                     [
