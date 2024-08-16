@@ -1,6 +1,5 @@
 from asyncio import sleep
 from datetime import datetime
-from logging import getLogger
 from os import getenv
 from disnake import AppCmdInter
 from disnake.ext import commands
@@ -8,23 +7,12 @@ from helpers.db import Feedback, Guilds
 from helpers.embeds import AnnouncementEmbed
 
 
-logger = getLogger("disnake")
 support_server = [int(getenv("SUPPORT_SERVER"))]
 
 
 class AdminCommandsCog(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
-        self.faction_colour = {
-            "Automaton": (252, 76, 79),
-            "automaton": (126, 38, 22),
-            "Terminids": (253, 165, 58),
-            "terminids": (126, 82, 29),
-            "Illuminate": (103, 43, 166),
-            "illuminate": (51, 21, 83),
-            "Humans": (36, 205, 76),
-            "humans": (18, 102, 38),
-        }
 
     @commands.slash_command(
         guild_ids=support_server,
@@ -32,7 +20,7 @@ class AdminCommandsCog(commands.Cog):
     )
     async def force_update_dashboard(self, inter: AppCmdInter):
         update_start = datetime.now()
-        logger.critical(
+        self.bot.logger.critical(
             f"AdminCommandsCog, {inter.application_command.name} command used by {inter.author.id} - {inter.author.name}"
         )
         if inter.author.id != self.bot.owner_id:
@@ -44,7 +32,7 @@ class AdminCommandsCog(commands.Cog):
             force=True
         )
         text = f"Forced updates of {dashboards_updated} dashboards in {(datetime.now() - update_start).total_seconds():.2f} seconds"
-        logger.info(text)
+        self.bot.logger.info(text)
         await inter.send(text, ephemeral=True)
 
     @commands.slash_command(
@@ -53,7 +41,7 @@ class AdminCommandsCog(commands.Cog):
     )
     async def force_update_maps(self, inter: AppCmdInter):
         update_start = datetime.now()
-        logger.critical(
+        self.bot.logger.critical(
             f"AdminCommandsCog, {inter.application_command.name} command used by {inter.author.id} - {inter.author.name}"
         )
         if inter.author.id != self.bot.owner_id:
@@ -63,7 +51,7 @@ class AdminCommandsCog(commands.Cog):
         await inter.response.defer(ephemeral=True)
         maps_updated = await self.bot.get_cog("MapCog").map_poster(force=True)
         text = f"Forced updates of {maps_updated} maps in {(datetime.now() - update_start).total_seconds():.2f} seconds"
-        logger.info(text)
+        self.bot.logger.info(text)
         await inter.send(text, ephemeral=True)
 
     @commands.slash_command(
@@ -72,7 +60,7 @@ class AdminCommandsCog(commands.Cog):
     )
     async def send_announcement(self, inter: AppCmdInter, test: bool = False):
         update_start = datetime.now()
-        logger.critical(
+        self.bot.logger.critical(
             f"AdminCommandsCog, {inter.application_command.name} command used by {inter.author.id} - {inter.author.name}"
         )
         if inter.author.id != self.bot.owner_id:
@@ -110,6 +98,9 @@ class AdminCommandsCog(commands.Cog):
             return await inter.send(
                 "You can't use this", ephemeral=True, delete_after=3.0
             )
+        self.bot.logger.critical(
+            f"AdminCommandsCog, {inter.application_command.name}: {user_id} command used by {inter.author.id} - {inter.author.name}"
+        )
         user = Feedback.get_user(user_id)
         if user == None:
             return await inter.send("That user doesn't exist in the db", ephemeral=True)
@@ -127,6 +118,9 @@ class AdminCommandsCog(commands.Cog):
             return await inter.send(
                 "You can't use this", ephemeral=True, delete_after=3.0
             )
+        self.bot.logger.critical(
+            f"AdminCommandsCog, {inter.application_command.name}: {user_id}, {reason} command used by {inter.author.id} - {inter.author.name}"
+        )
         user = Feedback.get_user(user_id)
         if user == None:
             return await inter.send("That user doesn't exist in the db", ephemeral=True)
@@ -144,6 +138,9 @@ class AdminCommandsCog(commands.Cog):
             return await inter.send(
                 "You can't use this", ephemeral=True, delete_after=3.0
             )
+        self.bot.logger.critical(
+            f"AdminCommandsCog, {inter.application_command.name}: {user_id} command used by {inter.author.id} - {inter.author.name}"
+        )
         user = Feedback.get_user(user_id)
         if user == None:
             return await inter.send("That user doesn't exist in the db", ephemeral=True)

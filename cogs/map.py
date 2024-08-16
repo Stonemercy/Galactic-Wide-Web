@@ -3,15 +3,13 @@ from json import load
 from disnake import AppCmdInter, File, NotFound, Forbidden, PartialMessage
 from disnake.ext import commands, tasks
 from helpers.db import Guilds
-from helpers.functions import dashboard_maps, pull_from_api
+from helpers.functions import dashboard_maps
+from helpers.api import API, Data
 from PIL import Image
 from PIL.ImageDraw import Draw
 from PIL.ImageFont import truetype
 from asyncio import sleep
 from data.lists import supported_languages
-from logging import getLogger
-
-logger = getLogger("disnake")
 
 
 class MapCog(commands.Cog):
@@ -41,7 +39,7 @@ class MapCog(commands.Cog):
         guild = Guilds.get_info(message.guild.id)
         if guild == None:
             self.messages.remove(message)
-            return logger.error(
+            return self.bot.logger.error(
                 "MapCog, update_message, guild == None, {message.guild.id}"
             )
         try:
@@ -49,17 +47,19 @@ class MapCog(commands.Cog):
         except NotFound:
             self.messages.remove(message)
             Guilds.update_map(message.guild.id, 0, 0)
-            return logger.error(
+            return self.bot.logger.error(
                 f"MapCog, update_message, NotFound, removing, {message.channel.name}"
             )
         except Forbidden:
             self.messages.remove(message)
             Guilds.update_map(message.guild.id, 0, 0)
-            return logger.error(
+            return self.bot.logger.error(
                 f"MapCog, update_message, Forbidden, removing, {message.channel.name}"
             )
         except Exception as e:
-            return logger.error(f"MapCog, update_message, {e}, {message.channel.name}")
+            return self.bot.logger.error(
+                f"MapCog, update_message, {e}, {message.channel.name}"
+            )
 
     @tasks.loop(minutes=1)
     async def map_poster(self, force: bool = False):
@@ -71,14 +71,21 @@ class MapCog(commands.Cog):
             await channel.purge(before=update_start - timedelta(hours=2))
         except:
             pass
-        data = await pull_from_api(
-            get_campaigns=True, get_planets=True, get_assignments=True
+        api = API()
+        await api.pull_from_api(
+            get_campaigns=True,
+            get_planets=True,
+            get_assignment=True,
+            get_planet_events=True,
         )
-        for data_key, data_value in data.items():
-            if data_value == None:
-                return logger.error(
-                    f"MapCog, map_poster, {data_key} returned {data_value}"
-                )
+        if api.error:
+            error_channel = self.bot.get_channel(
+                1212735927223590974
+            ) or await self.bot.fetch_channel(1212735927223590974)
+            return await error_channel.send(
+                f"<@164862382185644032>\n{api.error[0]}\n{api.error[1]}\n:warning:"
+            )
+        data = Data(data_from_api=api)
         dashboard_maps_dict = await dashboard_maps(data, channel)
         chunked_messages = [
             self.messages[i : i + 50] for i in range(0, len(self.messages), 50)
@@ -92,9 +99,10 @@ class MapCog(commands.Cog):
                 maps_updated += 1
             await sleep(1.025)
         if not force:
-            logger.info(
+            self.bot.logger.info(
                 f"Updated {maps_updated} maps in {(datetime.now() - update_start).total_seconds():.2f} seconds"
             )
+        self.bot.get_cog("StatsCog").maps_updated += maps_updated
         return maps_updated
 
     @map_poster.before_loop
@@ -118,35 +126,45 @@ class MapCog(commands.Cog):
             description="Do you want other people to see the response to this command?",
         ),
     ):
-        logger.info(f"MapCog, map faction:{faction} public:{public} command used")
+        self.bot.logger.info(
+            f"MapCog, map faction:{faction} public:{public} command used"
+        )
         public = public != "Yes"
         await inter.response.defer(ephemeral=public)
         guild = Guilds.get_info(inter.guild_id)
         if guild == None:
-            Guilds.insert_new_guild(inter.guild.id)
-            guild = Guilds.get_info(inter.guild_id)
-        data = await pull_from_api(
-            get_planets=True, get_campaigns=True, get_assignments=True
+            guild = Guilds.insert_new_guild(inter.guild.id)
+        data = Data()
+        await data.pull_from_api(
+            get_planets=True,
+            get_campaigns=True,
+            get_assignments=True,
+            get_planet_events=True,
         )
-        for data_key, data_value in data.items():
-            if data_value == None:
-                logger.error(f"MapCog, map command, {data_key} returned {data_value}")
-                return await inter.send(
-                    "Something went wrong, please try again later", ephemeral=True
-                )
+        if data.error:
+            error_channel = self.bot.get_channel(
+                1212735927223590974
+            ) or await self.bot.fetch_channel(1212735927223590974)
+            await error_channel.send(
+                f"<@164862382185644032>\n{data.error[0]}\n{data.error[1]}\n:warning:"
+            )
+            return await inter.send(
+                "There was an issue getting the data for the map.\nPlease try again later.",
+                ephemeral=True,
+            )
         planets_coords = {}
-        available_planets = [planet["planet"]["name"] for planet in data["campaigns"]]
-        for i in data["planets"]:
+        available_planets = [planet["planet"]["name"] for planet in data.campaigns]
+        for i in data.planets:
             if faction != None:
                 if i["currentOwner"] != faction:
                     continue
                 for j in i["waypoints"]:
                     planets_coords[j] = (
-                        (data["planets"][j]["position"]["x"] * 2000) + 2000,
+                        (data.planets[j]["position"]["x"] * 2000) + 2000,
                         (
                             (
-                                data["planets"][j]["position"]["y"]
-                                - (data["planets"][j]["position"]["y"] * 2)
+                                data.planets[j]["position"]["y"]
+                                - (data.planets[j]["position"]["y"] * 2)
                             )
                             * 2000
                         )
@@ -163,7 +181,7 @@ class MapCog(commands.Cog):
         with Image.open("resources/map.webp") as background:
             background_draw = Draw(background)
             for index, coords in planets_coords.items():
-                for i in data["planets"][index]["waypoints"]:
+                for i in data.planets[index]["waypoints"]:
                     try:
                         background_draw.line(
                             (
@@ -176,8 +194,8 @@ class MapCog(commands.Cog):
                         )
                     except:
                         continue
-            if data["assignments"] != []:
-                for i in data["assignments"][0]["tasks"]:
+            if data.assignments != []:
+                for i in data.assignments[0]["tasks"]:
                     if i["type"] in (11, 13):
                         try:
                             background_draw.ellipse(
@@ -202,17 +220,14 @@ class MapCog(commands.Cog):
                         (coords[0] + 35, coords[1] + 35),
                     ],
                     fill=(
-                        self.faction_colour[data["planets"][index]["currentOwner"]]
-                        if data["planets"][index]["name"] in available_planets
+                        self.faction_colour[data.planets[index]["currentOwner"]]
+                        if data.planets[index]["name"] in available_planets
                         else self.faction_colour[
-                            data["planets"][index]["currentOwner"].lower()
+                            data.planets[index]["currentOwner"].lower()
                         ]
                     ),
                 )
-                if (
-                    faction != None
-                    and data["planets"][index]["name"] in available_planets
-                ):
+                if faction != None and data.planets[index]["name"] in available_planets:
                     font = truetype("gww-font.ttf", 50)
                     background_draw.multiline_text(
                         xy=coords,

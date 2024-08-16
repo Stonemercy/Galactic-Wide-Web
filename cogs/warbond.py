@@ -1,12 +1,9 @@
-from logging import getLogger
 from re import findall
 from disnake import AppCmdInter, ButtonStyle, MessageInteraction
 from disnake.ext import commands
 from disnake.ui import Button, ActionRow
 from helpers.embeds import Items
 from json import load
-
-logger = getLogger("disnake")
 
 
 class WarbondCog(commands.Cog):
@@ -53,7 +50,7 @@ class WarbondCog(commands.Cog):
             autocomplete=warbond_autocomp, description="The warbond you want to lookup"
         ),
     ):
-        logger.info(f"WarbondCog, warbond warbond:{warbond} command used")
+        self.bot.logger.info(f"WarbondCog, warbond warbond:{warbond} command used")
         if warbond not in self.warbond_names:
             return await inter.send(
                 (

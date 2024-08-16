@@ -1,12 +1,8 @@
-from logging import getLogger
 from disnake import AppCmdInter, OptionType, ButtonStyle
 from disnake.ext import commands
 from disnake.ui import Button
 from helpers.embeds import HelpEmbed
 from data.lists import help_dict
-
-
-logger = getLogger("disnake")
 
 
 class HelpCog(commands.Cog):
@@ -29,7 +25,7 @@ class HelpCog(commands.Cog):
             description='The command you want to lookup, use "all" for a list of all available commands',
         ),
     ):
-        logger.info(f"HelpCog, help command:{command} command used")
+        self.bot.logger.info(f"HelpCog, help command:{command} command used")
         await inter.response.defer(ephemeral=True)
         help_embed = HelpEmbed()
         if command == "all":

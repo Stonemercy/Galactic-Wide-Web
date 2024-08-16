@@ -559,8 +559,8 @@ emojis_dict = {
     "Incendiary": "",
     "One Handed": "",
     "Rounds Reload": "",
-    "Left Banner": "<:left_banner:1233129580089446560>",
-    "Right Banner": "<:right_banner:1233129581112856596>",
+    "Left Banner": "<:left_banner:1272562768897376328>",
+    "Right Banner": "<:right_banner:1272562767597015151>",
     "Capacity": "<:capacity:1233129432852729961>",
     "Super Credits": "<:super_credits:1233145615031074946>",
     "Primary": "<:primary:1248032009968681111>",
@@ -569,6 +569,9 @@ emojis_dict = {
     "Head": "<:helmet:1247853903509327942>",
     "Body": "<:body:1247853233330847754>",
     "Cloak": "<:cape:1247852505547935794>",
+    "Automaton": "<:a_:1215036421551685672>",
+    "Terminids": "<:t_:1215036423090999376>",
+    "Illuminate": "<:i_:1218283483240206576>",
 }
 
 warbond_images_dict = {

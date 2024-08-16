@@ -1,13 +1,12 @@
-from logging import getLogger
 from disnake import AppCmdInter, File
 from disnake.ext import commands
+from helpers.api import API
 from helpers.db import Guilds
-from helpers.embeds import Planet
+from helpers.embeds import PlanetEmbed
 from data.lists import planets
-from helpers.functions import planet_map, pull_from_api
+from helpers.functions import planet_map
+from helpers.api import Data, API
 from json import load
-
-logger = getLogger("disnake")
 
 
 class PlanetCog(commands.Cog):
@@ -33,7 +32,9 @@ class PlanetCog(commands.Cog):
             description="Do you want other people to see the response to this command?",
         ),
     ):
-        logger.info(f"PlanetCog, planet planet:{planet} public:{public} command used")
+        self.bot.logger.info(
+            f"PlanetCog, planet planet:{planet} public:{public} command used"
+        )
         public = public != "Yes"
         await inter.response.defer(ephemeral=public)
         planets_list = planets
@@ -44,50 +45,46 @@ class PlanetCog(commands.Cog):
             )
         guild = Guilds.get_info(inter.guild_id)
         if guild == None:
-            Guilds.insert_new_guild(inter.guild.id)
-            guild = Guilds.get_info(inter.guild_id)
+            guild = Guilds.insert_new_guild(inter.guild.id)
         language = guild[5]
-        data = await pull_from_api(
+        api = API()
+        await api.pull_from_api(
             get_planets=True, get_thumbnail=True, get_campaigns=True
         )
-        for data_key, data_value in data.items():
-            if data_value == None:
-                logger.error(
-                    f"PlanetCog, planet command, {data_key} returned {data_value}"
-                )
-                return await inter.send(
-                    "There was an issue getting the data. Please try again later",
-                    ephemeral=public,
-                )
-        planets_data: list = data["planets"]
-        planet_data = None
-        planet_thumbnail = None
-        for thumbnail in data["thumbnails"]:
-            if planet == thumbnail["planet"]["name"]:
-                thumbnail_url = thumbnail["planet"]["image"].replace(" ", "%20")
-                planet_thumbnail = f"https://helldivers.news{thumbnail_url}"
-                break
-        for i in planets_data:
-            if i["name"] != planet.upper():
-                continue
-            else:
-                planet_data = i
-                break
-        if planet_data == None:
+        if api.error:
+            error_channel = self.bot.get_channel(
+                1212735927223590974
+            ) or await self.bot.fetch_channel(1212735927223590974)
+            await error_channel.send(
+                f"<@164862382185644032>\n{api.error[0]}\n{api.error[1]}\n:warning:"
+            )
+            return await inter.send(
+                "There was an issue getting the data. Please try again later",
+                ephemeral=public,
+            )
+        data = Data(data_from_api=api)
+        planet_thumbnail = [
+            f"https://helldivers.news{thumbnail['planet']['image'].replace(' ', '%20')}"
+            for thumbnail in data.thumbnails
+            if thumbnail["planet"]["name"] == planet
+        ]
+        planet_thumbnail = planet_thumbnail[0] if planet_thumbnail != [] else None
+        planet_data = [i for i in data.planets.values() if i.name == planet.upper()]
+        if planet_data == []:
             return await inter.send("Information on that planet is unavailable.")
-        embed = Planet(planet_data, planet_thumbnail, language)
+        else:
+            planet_data = planet_data[0]
+        embed = PlanetEmbed(planet_data, planet_thumbnail, language)
         try:
             embed.set_image(
-                file=File(
-                    f"resources/biomes/{planet_data['biome']['name'].lower()}.png"
-                )
+                file=File(f"resources/biomes/{planet_data.biome['name'].lower()}.png")
             )
         except:
-            logger.error(
-                f"PlanetCog, planet command, {planet_data['biome']['name'].lower()} biome image unavailable"
+            self.bot.logger.error(
+                f"PlanetCog, planet command, {planet_data.biome['name'].lower()} biome image unavailable"
             )
             pass
-        map_embed = planet_map(data, planet_data, language)
+        map_embed = planet_map(data, planet_data.index, language)
         embeds = [embed, map_embed]
         await inter.send(embeds=embeds, ephemeral=public)
 

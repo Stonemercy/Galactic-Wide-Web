@@ -1,12 +1,9 @@
 from json import load
-from logging import getLogger
 from disnake import AppCmdInter
 from disnake.ext import commands
 from helpers.db import Guilds
 from helpers.embeds import Illuminate
 from data.lists import enemies
-
-logger = getLogger("disnake")
 
 
 class IlluminateCog(commands.Cog):
@@ -51,7 +48,7 @@ class IlluminateCog(commands.Cog):
             description="A specific variant of an illuminate",
         ),
     ):
-        logger.info(
+        self.bot.logger.info(
             f"IlluminateCog, illuminate species:{species} variation:{variation} command used"
         )
         if not species and not variation:
@@ -59,8 +56,7 @@ class IlluminateCog(commands.Cog):
         await inter.response.defer(ephemeral=True)
         guild_in_db = Guilds.get_info(inter.guild_id)
         if guild_in_db == None:
-            Guilds.insert_new_guild(inter.guild.id)
-            guild_in_db = Guilds.get_info(inter.guild_id)
+            guild_in_db = Guilds.insert_new_guild(inter.guild.id)
         guild_language = load(
             open(f"data/languages/{guild_in_db[5]}.json", encoding="UTF-8")
         )

@@ -1,11 +1,8 @@
-from logging import getLogger
 from disnake import AppCmdInter
 from disnake.ext import commands
 from helpers.db import Guilds
 from helpers.embeds import Items
 from json import load
-
-logger = getLogger("disnake")
 
 
 class WeaponsCog(commands.Cog):
@@ -71,7 +68,9 @@ class WeaponsCog(commands.Cog):
             description="The Primary weapon you want to lookup",
         ),
     ):
-        logger.info(f"WeaponsCog, weapons primary primary:{primary} command used")
+        self.bot.logger.info(
+            f"WeaponsCog, weapons primary primary:{primary} command used"
+        )
         guild_in_db = Guilds.get_info(inter.guild_id)
         guild_language = load(
             open(f"data/languages/{guild_in_db[5]}.json", encoding="UTF-8")
@@ -86,7 +85,9 @@ class WeaponsCog(commands.Cog):
             chosen_primary, self.types, self.fire_modes, self.traits, guild_language
         )
         if embed.has_image == False:
-            logger.critical(f"WeaponsCog, primary, no image provided for {primary}")
+            self.bot.logger.critical(
+                f"WeaponsCog, primary, no image provided for {primary}"
+            )
         return await inter.send(embed=embed, ephemeral=True)
 
     @weapons.sub_command(description="Use this for secondary weapons")
@@ -98,7 +99,9 @@ class WeaponsCog(commands.Cog):
             description="The Secondary weapon you want to lookup",
         ),
     ):
-        logger.info(f"WeaponsCog, weapons secondary secondary:{secondary} command used")
+        self.bot.logger.info(
+            f"WeaponsCog, weapons secondary secondary:{secondary} command used"
+        )
         guild_in_db = Guilds.get_info(inter.guild_id)
         guild_language = load(
             open(f"data/languages/{guild_in_db[5]}.json", encoding="UTF-8")
@@ -114,7 +117,9 @@ class WeaponsCog(commands.Cog):
             chosen_secondary, self.fire_modes, self.traits, guild_language
         )
         if embed.has_image == False:
-            logger.critical(f"WeaponsCog, secondary, no image provided for {secondary}")
+            self.bot.logger.critical(
+                f"WeaponsCog, secondary, no image provided for {secondary}"
+            )
 
         return await inter.send(embed=embed, ephemeral=True)
 
@@ -126,11 +131,12 @@ class WeaponsCog(commands.Cog):
             autocomplete=grenade_autocomp, description="The Grenade you want to lookup"
         ),
     ):
-        logger.info(f"WeaponsCog, weapons grenade grenade:{grenade} command used")
+        self.bot.logger.info(
+            f"WeaponsCog, weapons grenade grenade:{grenade} command used"
+        )
         guild_in_db = Guilds.get_info(inter.guild_id)
         if guild_in_db == None:
-            Guilds.insert_new_guild(inter.guild.id)
-            guild_in_db = Guilds.get_info(inter.guild_id)
+            guild_in_db = Guilds.insert_new_guild(inter.guild.id)
         guild_language = load(
             open(f"data/languages/{guild_in_db[5]}.json", encoding="UTF-8")
         )
@@ -143,7 +149,9 @@ class WeaponsCog(commands.Cog):
         chosen_grenade = self.grenades[grenade]
         embed = Items.Weapons.Grenade(chosen_grenade, guild_language)
         if embed.has_image == False:
-            logger.critical(f"WeaponsCog, grenade, no image provided for {grenade}")
+            self.bot.logger.critical(
+                f"WeaponsCog, grenade, no image provided for {grenade}"
+            )
 
         return await inter.send(embed=embed, ephemeral=True)
 

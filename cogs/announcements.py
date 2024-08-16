@@ -1,15 +1,11 @@
 from asyncio import sleep
 from datetime import datetime
-from logging import getLogger
 from disnake import Forbidden, TextChannel, ButtonStyle
 from disnake.ext import commands, tasks
 from disnake.ui import Button
 from helpers.embeds import DispatchesEmbed, MajorOrderEmbed, SteamEmbed
 from helpers.db import Dispatches, MajorOrders, Guilds, Steam
-from helpers.functions import pull_from_api
-
-
-logger = getLogger("disnake")
+from helpers.api import API, Data
 
 
 class AnnouncementsCog(commands.Cog):
@@ -32,7 +28,7 @@ class AnnouncementsCog(commands.Cog):
         and needs to have all languages used by the userbase"""
         guild = Guilds.get_info(channel.guild.id)
         if guild == None:
-            logger.error(
+            self.bot.logger.error(
                 f"AnnouncementsCog, send_embed, guild == None for {channel.id}, {type}"
             )
             if type == "Patch":
@@ -62,11 +58,13 @@ class AnnouncementsCog(commands.Cog):
             except:
                 pass
             Guilds.update_announcement_channel(channel.guild.id, 0)
-            return logger.error(
+            return self.bot.logger.error(
                 f"AnnouncementsCog, send_embed, Forbidden, {channel.id}"
             )
         except Exception as e:
-            return logger.error(f"AnnouncementsCog, send_embed, {e}, {channel.id}")
+            return self.bot.logger.error(
+                f"AnnouncementsCog, send_embed, {e}, {channel.id}"
+            )
 
     @tasks.loop(minutes=1)
     async def major_order_check(self):
@@ -74,34 +72,38 @@ class AnnouncementsCog(commands.Cog):
         if self.channels == []:
             return
         last_id = MajorOrders.get_last_id()
-        data = await pull_from_api(get_assignments=True, get_planets=True)
-        for data_key, data_value in data.items():
-            if data_value == None:
-                return logger.error(
-                    f"AnnouncementsCog, major_order_check, {data_key} returned {data_value}"
-                )
-        if data["assignments"] == []:
+        api = API()
+        await api.pull_from_api(get_assignment=True, get_planets=True)
+        if api.error:
+            error_channel = self.bot.get_channel(
+                1212735927223590974
+            ) or await self.bot.fetch_channel(1212735927223590974)
+            return await error_channel.send(
+                f"<@164862382185644032>\n{api.error[0]}\n{api.error[1]}\n:warning:"
+            )
+        data = Data(data_from_api=api)
+        if not data.assignment:
             return
-        self.newest_id = data["assignments"][0]["id"]
+        self._newest_id = data.assignment.id
         if last_id == None:
             last_id = MajorOrders.setup()
-        if last_id == 0 or last_id != self.newest_id:
-            MajorOrders.set_new_id(self.newest_id)
+        if last_id == 0 or last_id != self._newest_id:
             languages = Guilds.get_used_languages()
             embeds = {}
             for lang in languages:
-                embed = MajorOrderEmbed(data["assignments"][0], data["planets"], lang)
+                embed = MajorOrderEmbed(data.assignment, data.planets, lang)
                 embeds[lang] = embed
             chunked_channels = [
                 self.channels[i : i + 50] for i in range(0, len(self.channels), 50)
             ]
             major_orders_sent = 0
+            MajorOrders.set_new_id(self._newest_id)
             for chunk in chunked_channels:
                 for channel in chunk:
                     self.bot.loop.create_task(self.send_embed(channel, embeds, "MO"))
                     major_orders_sent += 1
                 await sleep(1.025)
-            logger.info(
+            self.bot.logger.info(
                 f"{major_orders_sent} MO announcements sent out in {(datetime.now() - announcement_start).total_seconds():.2f} seconds"
             )
 
@@ -115,29 +117,38 @@ class AnnouncementsCog(commands.Cog):
         if self.channels == []:
             return
         last_id = Dispatches.get_last_id()
-        data = await pull_from_api(get_dispatches=True)
-        if data["dispatches"] in (None, []):
-            return logger.error(
-                f'AnnouncementsCog, dispatch_check, data["dispatches"] in (None, [])'
+        api = API()
+        await api.pull_from_api(get_dispatches=True)
+        if api.error:
+            error_channel = self.bot.get_channel(
+                1212735927223590974
+            ) or await self.bot.fetch_channel(1212735927223590974)
+            return await error_channel.send(
+                f"<@164862382185644032>\n{api.error[0]}\n{api.error[1]}\n:warning:"
             )
-        if data["dispatches"][0]["message"] == None:
-            return logger.error(
-                f'AnnouncementsCog, dispatch_check, data["dispatches"][0]["message"] == None'
+        if api.dispatches in (None, []):
+            return self.bot.logger.error(
+                f"AnnouncementsCog, dispatch_check, data.dispatches in (None, [])"
             )
-        self.newest_id = data["dispatches"][0]["id"]
+        if api.dispatches[0]["message"] == None:
+            return self.bot.logger.error(
+                f'AnnouncementsCog, dispatch_check, data.dispatches[0]["message"] == None'
+            )
+        data = Data(data_from_api=api)
+        self._newest_id = data.dispatch.id
         if last_id == None:
             last_id = Dispatches.setup()
-        if last_id == 0 or last_id != self.newest_id:
-            Dispatches.set_new_id(self.newest_id)
+        if last_id == 0 or last_id != self._newest_id:
             languages = Guilds.get_used_languages()
             embeds = {}
             for lang in languages:
-                embed = DispatchesEmbed(data["dispatches"][0])
+                embed = DispatchesEmbed(data.dispatch)
                 embeds[lang] = embed
             chunked_channels = [
                 self.channels[i : i + 50] for i in range(0, len(self.channels), 50)
             ]
             dispatches_sent = 0
+            Dispatches.set_new_id(self._newest_id)
             for chunk in chunked_channels:
                 for channel in chunk:
                     self.bot.loop.create_task(
@@ -145,7 +156,7 @@ class AnnouncementsCog(commands.Cog):
                     )
                     dispatches_sent += 1
                 await sleep(1.025)
-            logger.info(
+            self.bot.logger.info(
                 f"{dispatches_sent} dispatch announcements sent out in {(datetime.now() - dispatch_start).total_seconds():.2f} seconds"
             )
 
@@ -159,30 +170,37 @@ class AnnouncementsCog(commands.Cog):
         if self.channels == []:
             return
         last_id = Steam.get_last_id()
-        data = await pull_from_api(get_steam=True)
-        if data["steam"] == None:
-            return logger.info(f'AnnouncementsCog, steam_check, data["steam"] == None')
-        self.newest_id = int(data["steam"][0]["id"])
+        api = API()
+        await api.pull_from_api(get_steam=True)
+        if api.error:
+            error_channel = self.bot.get_channel(
+                1212735927223590974
+            ) or await self.bot.fetch_channel(1212735927223590974)
+            return await error_channel.send(
+                f"<@164862382185644032>\n{api.error[0]}\n{api.error[1]}\n:warning:"
+            )
+        data = Data(data_from_api=api)
+        self._newest_id = int(data.steam.id)
         if last_id == None:
             last_id = Steam.setup()
-        if last_id == 0 or last_id != self.newest_id:
-            Steam.set_new_id(self.newest_id)
+        if last_id == 0 or last_id != self._newest_id:
             languages = Guilds.get_used_languages()
             embeds = {}
             for lang in languages:
-                embed = SteamEmbed(data["steam"][0])
+                embed = SteamEmbed(data.steam)
                 embeds[lang] = embed
             chunked_patch_channels = [
                 self.patch_channels[i : i + 50]
                 for i in range(0, len(self.patch_channels), 50)
             ]
             patch_notes_sent = 0
+            Steam.set_new_id(self._newest_id)
             for chunk in chunked_patch_channels:
                 for channel in chunk:
                     self.bot.loop.create_task(self.send_embed(channel, embeds, "Patch"))
                     patch_notes_sent += 1
                 await sleep(1.025)
-            logger.info(
+            self.bot.logger.info(
                 f"{patch_notes_sent} patch notes sent out in {(datetime.now() - patch_notes_start).total_seconds():.2f} seconds"
             )
 

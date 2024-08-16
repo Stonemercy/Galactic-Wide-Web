@@ -53,7 +53,7 @@
     "campaigns.been_lost": "ist verloren an die",
 
     "dashboard.heroes": "Helden",
-    "dashboard.planets": "Planeten",
+    "dashboard.planets": "planeten aus dem",
     "dashboard.defending": "Verteidigung",
     "dashboard.attacking_automatons": "Angriff auf Automaten",
     "dashboard.attacking_terminids": "Angriff auf Terminiden",
@@ -71,6 +71,7 @@
     "dashboard.major_order_new_value": "Ausgabe wird kalibriert...",
     "dashboard.major_order_ends": "Endet",
     "dashboard.major_order_event_health": "Planeteneroberung",
+    "dashboard.major_order_extract_items": "Erfolgreiche Extraktion mit",
     "dashboard.defend_embed_no_threats": "Derzeit bestehen keine Bedrohungen für unsere Freiheit",
     "dashboard.defend_embed_for_now": "vorübergehend...",
     "dashboard.defend_embed_time_unavailable": "Nicht verfügbar",

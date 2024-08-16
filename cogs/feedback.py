@@ -1,4 +1,3 @@
-from logging import getLogger
 from disnake import (
     AppCmdInter,
     Member,
@@ -11,8 +10,6 @@ from disnake.ui import Button
 from helpers.db import Feedback
 from helpers.embeds import FeedbackEmbed
 from helpers.modals import FeedbackModal
-
-logger = getLogger("disnake")
 
 
 class FeedbackCog(commands.Cog):
@@ -39,7 +36,7 @@ class FeedbackCog(commands.Cog):
         self,
         inter: AppCmdInter,
     ):
-        logger.info(f"FeedbackCog, feedback command used")
+        self.bot.logger.info(f"FeedbackCog, feedback command used")
         user_in_db = Feedback.get_user(inter.user.id)
         if user_in_db == None:
             user_in_db = Feedback.new_user(inter.user.id)

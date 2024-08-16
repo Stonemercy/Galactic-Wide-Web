@@ -1,13 +1,11 @@
 from json import load
-from logging import getLogger
 from disnake import AppCmdInter, File, Permissions, TextChannel
 from disnake.ext import commands
+from helpers.api import API, Data
 from helpers.db import Guilds
 from helpers.embeds import Dashboard, SetupEmbed
-from helpers.functions import dashboard_maps, pull_from_api
+from helpers.functions import dashboard_maps
 from data.lists import language_dict
-
-logger = getLogger("disnake")
 
 
 class SetupCog(commands.Cog):
@@ -72,7 +70,7 @@ class SetupCog(commands.Cog):
             choices=language_dict,
         ),
     ):
-        logger.info(
+        self.bot.logger.info(
             f"SetupCog, setup dashboard_channel:{dashboard_channel} announcement_channel:{announcement_channel} patch_notes:{patch_notes} map_channel:{map_channel} language:{language} command used"
         )
         if not inter.author.guild_permissions.manage_guild:
@@ -83,8 +81,7 @@ class SetupCog(commands.Cog):
         embed = SetupEmbed()
         guild_in_db = Guilds.get_info(inter.guild_id)
         if guild_in_db == None:
-            Guilds.insert_new_guild(inter.guild_id)
-            guild_in_db = Guilds.get_info(inter.guild_id)
+            guild_in_db = Guilds.insert_new_guild(inter.guild_id)
         guild_language = load(
             open(f"data/languages/{guild_in_db[5]}.json", encoding="UTF-8")
         )
@@ -206,21 +203,25 @@ class SetupCog(commands.Cog):
                         inline=False,
                     )
                 else:
-                    data = await pull_from_api(
+                    api = API()
+                    await api.pull_from_api(
                         get_campaigns=True,
-                        get_assignments=True,
+                        get_assignment=True,
                         get_planet_events=True,
                         get_planets=True,
                     )
-                    for data_key, data_value in data.items():
-                        if data_value == None and data_key != "planet_events":
-                            logger.error(
-                                f"SetupCog, dashboard, {data_key} returned {data_value}"
-                            )
-                            return await inter.send(
-                                "There was an issue connecting to the datacentre. Please try again.",
-                                ephemeral=True,
-                            )
+                    if api.error:
+                        error_channel = self.bot.get_channel(
+                            1212735927223590974
+                        ) or await self.bot.fetch_channel(1212735927223590974)
+                        await error_channel.send(
+                            f"<@164862382185644032>{api.error[0]}\n{api.error[1]}\n:warning:"
+                        )
+                        return await inter.send(
+                            "There was an issue connecting to the datacentre. Please try again.",
+                            ephemeral=True,
+                        )
+                    data = Data(data_from_api=api)
                     liberation_changes = self.bot.get_cog(
                         "DashboardCog"
                     ).liberation_changes
@@ -230,7 +231,7 @@ class SetupCog(commands.Cog):
                             embeds=dashboard.embeds, file=File("resources/banner.png")
                         )
                     except Exception as e:
-                        logger.error(f"SetupCog, dashboard setup, {e}")
+                        self.bot.logger.error(f"SetupCog, dashboard setup, {e}")
                         return await inter.send(
                             "An error has occured, I have contacted Super Earth High Command.",
                             ephemeral=True,
@@ -252,7 +253,7 @@ class SetupCog(commands.Cog):
                             try:
                                 await i.delete()
                             except Exception as e:
-                                logger.error(f"SetupCog, dashboard setup, {e}")
+                                self.bot.logger.error(f"SetupCog, dashboard setup, {e}")
                             messages.remove(i)
                     messages.append(message)
 
@@ -328,21 +329,23 @@ class SetupCog(commands.Cog):
                         inline=False,
                     )
                 else:
-                    data = await pull_from_api(
-                        get_campaigns=True, get_planets=True, get_assignments=True
+                    api = API()
+                    await api.pull_from_api(
+                        get_campaigns=True, get_planets=True, get_assignment=True
                     )
-                    for data_key, data_value in data.items():
-                        if (data_value == None and data_key != "planet_events") or (
-                            data_value == [] and data_key == "assignments"
-                        ):
-                            logger.error(
-                                f"SetupCog, map, {data_key} returned {data_value}"
-                            )
-                            return await inter.send(
-                                "There was an issue connecting to the datacentre. Please try again.",
-                                ephemeral=True,
-                            )
+                    if api.error:
+                        error_channel = self.bot.get_channel(
+                            1212735927223590974
+                        ) or await self.bot.fetch_channel(1212735927223590974)
+                        await error_channel.send(
+                            f"<@164862382185644032>{api.error[0]}\n{api.error[1]}\n:warning:"
+                        )
+                        return await inter.send(
+                            "There was an issue connecting to the datacentre. Please try again.",
+                            ephemeral=True,
+                        )
                     else:
+                        data = Data(data_from_api=api)
                         channel = self.bot.get_channel(1242843098363596883)  # waste-bin
                         map_embeds = await dashboard_maps(data, channel)
                         map_embed = map_embeds[guild_in_db[5]]
@@ -360,12 +363,12 @@ class SetupCog(commands.Cog):
                         )
                         guild_in_db = Guilds.get_info(inter.guild_id)
                         messages: list = self.bot.get_cog("MapCog").messages
-                        for i in messages:
+                        for i in messages.copy():
                             if i.guild == inter.guild:
                                 try:
                                     await i.delete()
                                 except Exception as e:
-                                    logger.error(f"SetupCog, map setup, {e}")
+                                    self.bot.logger.error(f"SetupCog, map setup, {e}")
                                 messages.remove(i)
                         messages.append(message)
 
@@ -428,7 +431,7 @@ class SetupCog(commands.Cog):
                             f"*{guild_language['setup.cant_get_announce_channel']}*",
                             inline=False,
                         )
-                    for i in patch_channels:
+                    for i in patch_channels.copy():
                         if i.guild.id == inter.guild.id:
                             patch_channels.remove(i)
                     embed.add_field(

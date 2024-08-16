@@ -1,10 +1,7 @@
-from logging import getLogger
 from disnake import AppCmdInter
 from disnake.ext import commands
 from helpers.embeds import Items
 from json import load
-
-logger = getLogger("disnake")
 
 
 class BoostersCog(commands.Cog):
@@ -33,7 +30,7 @@ class BoostersCog(commands.Cog):
             autocomplete=booster_autocomp, description="The booster you want to lookup"
         ),
     ):
-        logger.info(f"BoostersCog, booster booster:{booster} command used")
+        self.bot.logger.info(f"BoostersCog, booster booster:{booster} command used")
         if booster not in self.boosters:
             return await inter.send(
                 (

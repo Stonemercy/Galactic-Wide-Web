@@ -16,12 +16,9 @@ from disnake.ui import Button
 from helpers.db import Guilds, BotDashboard
 from helpers.embeds import BotDashboardEmbed, ReactRoleDashboard
 from helpers.functions import health_bar
-from logging import getLogger
 from math import inf
 from os import getenv, getpid
 from psutil import Process, cpu_percent
-
-logger = getLogger("disnake")
 
 
 class GuildManagementCog(commands.Cog):
@@ -54,17 +51,16 @@ class GuildManagementCog(commands.Cog):
         ).add_field(
             "Owner", f"<@{guild.owner_id}>", inline=False
         )
-        embed.set_thumbnail(guild.icon.url if guild.icon != None else None).set_image(
-            guild.banner.url if guild.banner != None else None
+        embed.set_thumbnail(guild.icon.url if guild.icon else None).set_image(
+            guild.banner.url if guild.banner else None
         )
         await channel.send(embed=embed)
+        old_activity = self.bot.activity
         await self.bot.change_presence(
             activity=Activity(name="for alien sympathisers", type=ActivityType.watching)
         )
         await sleep(10.0)
-        await self.bot.change_presence(
-            activity=Activity(name="for Socialism", type=ActivityType.watching)
-        )
+        await self.bot.change_presence(activity=old_activity)
 
     @commands.Cog.listener()
     async def on_guild_remove(self, guild: Guild):
@@ -83,8 +79,8 @@ class GuildManagementCog(commands.Cog):
         ).add_field(
             "Owner", f"<@{guild.owner_id}>", inline=False
         )
-        embed.set_thumbnail(guild.icon.url if guild.icon != None else None).set_image(
-            guild.banner.url if guild.banner != None else None
+        embed.set_thumbnail(guild.icon.url if guild.icon else None).set_image(
+            guild.banner.url if guild.banner else None
         )
         await channel.send(embed=embed)
 
@@ -111,17 +107,14 @@ class GuildManagementCog(commands.Cog):
                 "The GWW has",
                 f"{len(self.bot.global_slash_commands)} commands available:\n{commands}",
             ).add_field("Currently in", f"{len(self.bot.guilds)} discord servers")
-            member_count = 0
-            for i in self.bot.guilds:
-                member_count += i.member_count
+            member_count = sum([guild.member_count for guild in self.bot.guilds])
             dashboard_embed.add_field("Members of Democracy", f"{member_count:,}")
-
             pid = getpid()
             process = Process(pid)
             memory_used = process.memory_info().rss / 1024**2
             latency = 9999.999 if self.bot.latency == float(inf) else self.bot.latency
             dashboard_embed.add_field(
-                "------------------\nHardware Info",
+                "Hardware Info",
                 (
                     f"**CPU**: {cpu_percent()}%\n"
                     f"**RAM**: {memory_used:.2f}MB\n"
@@ -132,12 +125,11 @@ class GuildManagementCog(commands.Cog):
             )
             dashboard_not_setup = len(Guilds.dashboard_not_setup())
             healthbar = health_bar(
-                (len(self.bot.guilds) - dashboard_not_setup),
-                len(self.bot.guilds),
+                (len(self.bot.guilds) - dashboard_not_setup) / len(self.bot.guilds),
                 "Humans",
             )
             dashboard_embed.add_field(
-                "------------------\nDashboards Setup",
+                "Dashboards Setup",
                 (
                     f"**Setup**: {len(self.bot.guilds) - dashboard_not_setup}\n"
                     f"**Not Setup**: {dashboard_not_setup}\n"
@@ -146,12 +138,11 @@ class GuildManagementCog(commands.Cog):
             )
             feed_not_setup = len(Guilds.feed_not_setup())
             healthbar = health_bar(
-                (len(self.bot.guilds) - feed_not_setup),
-                len(self.bot.guilds),
+                (len(self.bot.guilds) - feed_not_setup) / len(self.bot.guilds),
                 "Humans",
             )
             dashboard_embed.add_field(
-                "------------------\nAnnouncements Setup",
+                "Announcements Setup",
                 (
                     f"**Setup**: {len(self.bot.guilds) - feed_not_setup}\n"
                     f"**Not Setup**: {feed_not_setup}\n"
@@ -161,12 +152,11 @@ class GuildManagementCog(commands.Cog):
             dashboard_embed.add_field("", "", inline=False)
             maps_not_setup = len(Guilds.maps_not_setup())
             healthbar = health_bar(
-                (len(self.bot.guilds) - maps_not_setup),
-                len(self.bot.guilds),
+                (len(self.bot.guilds) - maps_not_setup) / len(self.bot.guilds),
                 "Humans",
             )
             dashboard_embed.add_field(
-                "------------------\nMaps Setup",
+                "Maps Setup",
                 (
                     f"**Setup**: {len(self.bot.guilds) - maps_not_setup}\n"
                     f"**Not Setup**: {maps_not_setup}\n"
@@ -175,12 +165,11 @@ class GuildManagementCog(commands.Cog):
             )
             patch_notes_not_setup = len(Guilds.patch_notes_not_setup())
             healthbar = health_bar(
-                (len(self.bot.guilds) - patch_notes_not_setup),
-                len(self.bot.guilds),
+                (len(self.bot.guilds) - patch_notes_not_setup) / len(self.bot.guilds),
                 "Humans",
             )
             dashboard_embed.add_field(
-                "------------------\nPatch Notes Enabled",
+                "Patch Notes Enabled",
                 (
                     f"**Setup**: {len(self.bot.guilds) - patch_notes_not_setup}\n"
                     f"**Not Setup**: {patch_notes_not_setup}\n"
@@ -204,7 +193,9 @@ class GuildManagementCog(commands.Cog):
             try:
                 message = channel.get_partial_message(data[1])
             except Exception as e:
-                logger.error(f"GuildManagementCog, bot_dashboard, {e}, {channel.id}")
+                self.bot.logger.error(
+                    f"GuildManagementCog, bot_dashboard, {e}, {channel.id}"
+                )
             try:
                 await message.edit(
                     embed=dashboard_embed,
@@ -232,8 +223,9 @@ class GuildManagementCog(commands.Cog):
                     ],
                 ),
             except Exception as e:
-                logger.error(f"GuildManagementCog, bot_dashboard, {e}, {message.id}")
-                pass
+                self.bot.logger.error(
+                    f"GuildManagementCog, bot_dashboard, {e}, {message.id}"
+                )
 
     @bot_dashboard.before_loop
     async def before_bot_dashboard(self):
@@ -252,7 +244,9 @@ class GuildManagementCog(commands.Cog):
             channel_id
         )
         if channel == None:
-            logger.error("GuildManagementCog, react_role_dashboard, channel == None")
+            self.bot.logger.error(
+                "GuildManagementCog, react_role_dashboard, channel == None"
+            )
             return
         if message_id == None:
             message = await channel.send(embed=embed, components=components)
@@ -314,7 +308,7 @@ class GuildManagementCog(commands.Cog):
                     )
                     await sleep(15 * 60)
             except Exception as e:
-                logger.error(f"GuildManagementCog, dashboard_checking, {e}")
+                self.bot.logger.error(f"GuildManagementCog, dashboard_checking, {e}")
 
     @dashboard_checking.before_loop
     async def before_dashboard_check(self):

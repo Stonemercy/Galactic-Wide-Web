@@ -29,6 +29,9 @@ class Guilds:
                     "Insert into guilds (guild_id) VALUES (%s)",
                     (guild_id,),
                 )
+                conn.commit()
+                guild = Guilds.get_info(guild_id)
+                return guild
 
     def update_dashboard(guild_id: int, channel_id: int, message_id: int):
         with connect(

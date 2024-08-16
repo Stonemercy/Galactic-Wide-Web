@@ -53,7 +53,7 @@
     "campaigns.been_lost": "has been lost to the",
 
     "dashboard.heroes": "Heroes",
-    "dashboard.planets": "Planets",
+    "dashboard.planets": "planets from the",
     "dashboard.defending": "Defending",
     "dashboard.attacking_automatons": "Attacking Automaton",
     "dashboard.attacking_terminids": "Attacking Terminids",
@@ -71,6 +71,7 @@
     "dashboard.major_order_new_value": "Calibrating output...",
     "dashboard.major_order_ends": "Ends",
     "dashboard.major_order_event_health": "Planet Liberation",
+    "dashboard.major_order_extract_items": "Successfully extract with",
     "dashboard.defend_embed_no_threats": "There are currently no threats to our Freedom",
     "dashboard.defend_embed_for_now": "for now...",
     "dashboard.defend_embed_time_unavailable": "Unavailble",

@@ -1,10 +1,7 @@
 from datetime import datetime
-from logging import getLogger
 from disnake import PartialMessage
 from disnake.ext import commands, tasks
 from helpers.db import Guilds
-
-logger = getLogger("disnake")
 
 
 class ListGenCog(commands.Cog):
@@ -20,7 +17,7 @@ class ListGenCog(commands.Cog):
         start_time = datetime.now()
         guilds = Guilds.get_all_guilds()
         if guilds == False:
-            return logger.error(f"ListGenCog, message_gen, guilds == False")
+            return self.bot.logger.error(f"ListGenCog, message_gen, guilds == False")
         dashboard_messages: list[PartialMessage] = self.bot.get_cog(
             "DashboardCog"
         ).messages
@@ -69,7 +66,7 @@ class ListGenCog(commands.Cog):
                 except:
                     pass
             guilds_done += 1
-        logger.info(
+        self.bot.logger.info(
             (
                 f"\nmessage_gen finished going through {guilds_done} guilds in {(datetime.now() - start_time).total_seconds():.2f} seconds.\n"
                 f"Dashboards: {len(dashboard_messages)}.\n"

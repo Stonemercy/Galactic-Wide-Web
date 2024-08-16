@@ -12,18 +12,18 @@ handler.setFormatter(
 )
 logger.addHandler(handler)
 
-intents = Intents.default()
-
 load_dotenv("data/.env")
 OWNER = int(getenv("OWNER"))
 
 activity = Activity(name="for Socialism", type=ActivityType.watching)
 
+intents = Intents.default()
 bot = commands.InteractionBot(
     owner_id=OWNER,
     intents=intents,
     activity=activity,
 )
+bot.logger = logger
 
 bot.load_extensions("cogs")
 bot.load_extensions("cogs/admin")

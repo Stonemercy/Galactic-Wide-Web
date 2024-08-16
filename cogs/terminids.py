@@ -1,12 +1,9 @@
 from json import load
-from logging import getLogger
 from disnake import AppCmdInter
 from disnake.ext import commands
 from helpers.db import Guilds
 from helpers.embeds import Terminid
 from data.lists import enemies
-
-logger = getLogger("disnake")
 
 
 class TerminidsCog(commands.Cog):
@@ -49,7 +46,7 @@ class TerminidsCog(commands.Cog):
             description="A specific variant of a species",
         ),
     ):
-        logger.info(
+        self.bot.logger.info(
             f"TerminidsCog, terminid species:{species} variation:{variation} command used"
         )
         if not species and not variation:
@@ -59,8 +56,7 @@ class TerminidsCog(commands.Cog):
         await inter.response.defer(ephemeral=True)
         guild_in_db = Guilds.get_info(inter.guild_id)
         if guild_in_db == None:
-            Guilds.insert_new_guild(inter.guild.id)
-            guild_in_db = Guilds.get_info(inter.guild_id)
+            guild_in_db = Guilds.insert_new_guild(inter.guild.id)
         guild_language = load(
             open(f"data/languages/{guild_in_db[5]}.json", encoding="UTF-8")
         )

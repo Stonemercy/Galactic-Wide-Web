@@ -1,17 +1,15 @@
 from asyncio import sleep
-from logging import getLogger
 from disnake import (
     Forbidden,
     NotFound,
     PartialMessage,
 )
 from disnake.ext import commands, tasks
+from cogs.stats import DashboardStats
 from helpers.embeds import Dashboard
 from helpers.db import Guilds
 from datetime import datetime
-from helpers.functions import pull_from_api
-
-logger = getLogger("disnake")
+from helpers.api import API, Data
 
 
 class DashboardCog(commands.Cog):
@@ -28,25 +26,19 @@ class DashboardCog(commands.Cog):
         guild = Guilds.get_info(message.guild.id)
         if guild == None:
             self.messages.remove(message)
-            return logger.error(
+            return self.bot.logger.error(
                 f"DashboardCog, update_message, guild == None, {message.guild.id}"
             )
         try:
             await message.edit(embeds=dashboard_dict[guild[5]].embeds)
-        except NotFound:
+        except (NotFound, Forbidden) as e:
             self.messages.remove(message)
             Guilds.update_dashboard(message.guild.id, 0, 0)
-            return logger.error(
-                f"DashboardCog, update_message, NotFound, removing from message list, {message.channel.id}"
-            )
-        except Forbidden:
-            self.messages.remove(message)
-            Guilds.update_dashboard(message.guild.id, 0, 0)
-            return logger.error(
-                f"DashboardCog, update_message, Forbidden, removing from message list, {message.channel.id}"
+            return self.bot.logger.error(
+                f"DashboardCog, update_message, {e}, removing from message list, {message.channel.id}"
             )
         except Exception as e:
-            return logger.error(
+            return self.bot.logger.error(
                 f"DashboardCog, update_message, {e}, {message.channel.id}"
             )
 
@@ -57,64 +49,60 @@ class DashboardCog(commands.Cog):
             update_start.minute not in (0, 15, 30, 45) and force == False
         ) or self.messages == []:
             return
-        data = await pull_from_api(
+        api = API()
+        await api.pull_from_api(
             get_campaigns=True,
-            get_assignments=True,
+            get_assignment=True,
             get_planet_events=True,
             get_planets=True,
         )
-        for data_key, data_value in data.items():
-            if data_value == None and data_key != "planet_events":
-                return logger.error(
-                    f"DashboardCog, dashboard, {data_key} returned {data_value}"
-                )
-
-        for campaign in data["campaigns"]:
-            liberation = (
-                1 - (campaign["planet"]["health"] / campaign["planet"]["maxHealth"])
-                if campaign["planet"]["event"] == None
-                else 1
-                - (
-                    campaign["planet"]["event"]["health"]
-                    / campaign["planet"]["event"]["maxHealth"]
-                )
+        if api.error:
+            error_channel = self.bot.get_channel(
+                1212735927223590974
+            ) or await self.bot.fetch_channel(1212735927223590974)
+            return await error_channel.send(
+                f"<@164862382185644032>\n{api.error[0]}\n{api.error[1]}\n:warning:"
             )
-            if campaign["planet"]["name"] not in self.liberation_changes:
-                self.liberation_changes[campaign["planet"]["name"]] = {
+        data = Data(data_from_api=api)
+        for campaign in data.campaigns:
+            liberation = (
+                1 - (campaign.planet.health / campaign.planet.max_health)
+                if not campaign.planet.event
+                else 1
+                - (campaign.planet.event.health / campaign.planet.event.max_health)
+            )
+            if campaign.planet.name not in self.liberation_changes:
+                self.liberation_changes[campaign.planet.name] = {
                     "liberation": liberation,
                     "liberation_change": [],
                 }
             else:
                 if (
                     len(
-                        self.liberation_changes[campaign["planet"]["name"]][
+                        self.liberation_changes[campaign.planet.name][
                             "liberation_change"
                         ]
                     )
                     == 4
                 ):
-                    self.liberation_changes[campaign["planet"]["name"]][
+                    self.liberation_changes[campaign.planet.name][
                         "liberation_change"
                     ].pop(0)
                 while (
                     len(
-                        self.liberation_changes[campaign["planet"]["name"]][
+                        self.liberation_changes[campaign.planet.name][
                             "liberation_change"
                         ]
                     )
                     < 4
                 ):
-                    self.liberation_changes[campaign["planet"]["name"]][
+                    self.liberation_changes[campaign.planet.name][
                         "liberation_change"
                     ].append(
                         liberation
-                        - self.liberation_changes[campaign["planet"]["name"]][
-                            "liberation"
-                        ]
+                        - self.liberation_changes[campaign.planet.name]["liberation"]
                     )
-            self.liberation_changes[campaign["planet"]["name"]][
-                "liberation"
-            ] = liberation
+            self.liberation_changes[campaign.planet.name]["liberation"] = liberation
         languages = Guilds.get_used_languages()
         dashboard_dict = {}
         for lang in languages:
@@ -130,9 +118,12 @@ class DashboardCog(commands.Cog):
                 dashboards_updated += 1
             await sleep(1.025)
         if not force:
-            logger.info(
+            self.bot.logger.info(
                 f"Updated {dashboards_updated} dashboards in {(datetime.now() - update_start).total_seconds():.2f} seconds"
             )
+        dashboard_stats: DashboardStats = self.bot.get_cog("StatsCog").dashboard_stats
+        dashboard_stats.new_count(dashboards_updated)
+        dashboard_stats.new_time((datetime.now() - update_start).total_seconds())
         return dashboards_updated
 
     @dashboard.before_loop
