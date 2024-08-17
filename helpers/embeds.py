@@ -489,11 +489,13 @@ class Dashboard:
                     "Humans",
                     True,
                 )
-                exclamation = (
-                    "<:MO:1240706769043456031>"
-                    if planet.name in data.assignment_planets
-                    else ""
-                )
+                exclamation = ""
+                if data.assignment_planets:
+                    exclamation = (
+                        "<:MO:1240706769043456031>"
+                        if planet.name in data.assignment_planets
+                        else ""
+                    )
                 self.defend_embed.add_field(
                     f"{faction_icon} - __**{self.planet_names_loc[str(planet.index)]['names'][supported_languages[language]]}**__ {exclamation}",
                     (
