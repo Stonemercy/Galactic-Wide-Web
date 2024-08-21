@@ -165,25 +165,28 @@ class MajorOrderEmbed(Embed):
                     inline=False,
                 )
             elif task.type == 3:
-                faction_dict = {
+                en_faction_dict = {
                     0: "",
-                    1: "",
-                    2: "<:t_:1215036423090999376>",
-                    3: "<:a_:1215036421551685672>",
-                    4: "<:i_:1218283483240206576>",
+                    2: "Terminids",
+                    3: "Automaton",
+                    4: "Illuminate",
                 }
-                loc_faction = {
+                loc_faction_dict = {
                     0: self.language["enemies_of_freedom"],
-                    1: self.language["humans"],
                     2: self.language["terminids"],
                     3: self.language["automaton"],
                     4: self.language["illuminate"],
                 }
-                event_health_bar = health_bar(task.progress, "MO")
+                species_dict = {2514244534: "Bile Titan"}
+                species = species_dict[task.values[3]] if task.values[3] != 0 else None
+                event_health_bar = health_bar(
+                    task.progress, en_faction_dict[task.values[0]]
+                )
+                target = loc_faction_dict[task.values[0]] if not species else species
                 self.add_field(
-                    f"{self.language['major_order.kill']} {short_format(task.values[2])} **{loc_faction[task.values[0]]}**{faction_dict[task.values[0]]}",
+                    f"{self.language['major_order.kill']} {short_format(task.values[2])} **{target}**{emojis_dict[en_faction_dict[task.values[0]]]}",
                     (
-                        f"{self.language['major_order.progress']}: {task.progress * task.values[2]}/{short_format(task.values[2])}\n"
+                        f"{self.language['major_order.progress']}: {task.progress * task.values[2]}\n"
                         f"{event_health_bar}\n"
                         f"`{(task.progress):^25,.2%}`\n"
                     ),
@@ -315,7 +318,7 @@ class Dashboard:
             )
             for task in data.assignment.tasks:
                 task: Tasks.Task
-                if task.type == 11 or task.type == 13:
+                if task.type in (11, 13):
                     planet: Planet = self.data.planets[task.values[2]]
                     if planet.event:
                         task.health_bar = health_bar(
@@ -378,24 +381,30 @@ class Dashboard:
                     self.major_orders_embed.set_thumbnail(
                         "https://media.discordapp.net/attachments/1212735927223590974/1240708455250133142/MO_exterminate.png?ex=66478b4a&is=664639ca&hm=301a0766d3bf6e48c335a7dbafec801ecbe176d65624e69a63cb030dad9b4d82&=&format=webp&quality=lossless"
                     )
-                    faction_dict = {
-                        0: "Enemies of Freedom",
-                        1: "Humans",
-                        2: "Terminids",
+                    en_faction_dict = {
+                        0: "",
+                        2: "Terminid",
                         3: "Automaton",
                         4: "Illuminate",
+                    }
+                    loc_faction_dict = {
+                        0: self.language["enemies_of_freedom"],
+                        2: self.language["terminids"],
+                        3: self.language["automaton"],
+                        4: self.language["illuminate"],
                     }
                     species_dict = {2514244534: "Bile Titan"}
                     species = (
                         species_dict[task.values[3]] if task.values[3] != 0 else None
                     )
                     task.health_bar = health_bar(
-                        task.progress,
-                        faction_dict[task.values[0]],
+                        task.progress, en_faction_dict[task.values[0]]
                     )
-                    target = faction_dict[task.values[0]] if not species else species
+                    target = (
+                        loc_faction_dict[task.values[0]] if not species else species
+                    )
                     self.major_orders_embed.add_field(
-                        f"{self.language['dashboard.major_order_kill']} {short_format(task.values[2])} {target} {emojis_dict[faction_dict[task.values[0]]]}",
+                        f"{self.language['dashboard.major_order_kill']} {short_format(task.values[2])} {target} {emojis_dict[en_faction_dict[task.values[0]]]}",
                         (
                             f"{self.language['major_order.progress']}: **{(task.values[2]*task.progress):,.0f}**\n"
                             f"{task.health_bar}\n"
