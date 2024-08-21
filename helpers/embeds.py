@@ -383,7 +383,7 @@ class Dashboard:
                     )
                     en_faction_dict = {
                         0: "",
-                        2: "Terminid",
+                        2: "Terminids",
                         3: "Automaton",
                         4: "Illuminate",
                     }
