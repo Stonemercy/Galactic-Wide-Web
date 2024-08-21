@@ -38,7 +38,7 @@ class FeedbackCog(commands.Cog):
     ):
         self.bot.logger.info(f"FeedbackCog, feedback command used")
         user_in_db = Feedback.get_user(inter.user.id)
-        if user_in_db == None:
+        if not user_in_db:
             user_in_db = Feedback.new_user(inter.user.id)
         if user_in_db[1] == True:
             return await inter.send(

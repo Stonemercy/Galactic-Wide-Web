@@ -16,7 +16,7 @@ class ListGenCog(commands.Cog):
     async def message_gen(self):
         start_time = datetime.now()
         guilds = Guilds.get_all_guilds()
-        if guilds == False:
+        if not guilds:
             return self.bot.logger.error(f"ListGenCog, message_gen, guilds == False")
         dashboard_messages: list[PartialMessage] = self.bot.get_cog(
             "DashboardCog"
@@ -72,7 +72,7 @@ class ListGenCog(commands.Cog):
                 f"Dashboards: {len(dashboard_messages)}.\n"
                 f"Announcement channels: {len(announcement_channels)}.\n"
                 f"Patch channels: {len(patch_channels)}.\n"
-                f"Maps: {len(map_messages)}.\n"
+                f"Maps: {len(map_messages)}."
             )
         )
 

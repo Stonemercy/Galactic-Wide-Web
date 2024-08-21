@@ -7,18 +7,14 @@ from json import load
 class BoostersCog(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
-        self.boosters: dict = load(open("data/json/items/boosters.json"))
-        self.boosters["item_list"] = {}
-        for i, j in self.boosters.items():
-            if i == "item_list":
-                continue
-            self.boosters["item_list"][j["name"]] = j
-        self.boosters = self.boosters["item_list"]
+        self.boosters = load(open("data/json/items/boosters.json"))
+        self.boosters = {j["name"]: j for j in self.boosters.values()}
 
     async def booster_autocomp(inter: AppCmdInter, user_input: str):
         boosters_json: dict = load(open("data/json/items/boosters.json"))
-        boosters = [i["name"] for i in boosters_json.values()]
-        return [booster for booster in boosters if user_input in booster.lower()]
+        return [
+            i["name"] for i in boosters_json.values() if user_input in i["name"].lower()
+        ]
 
     @commands.slash_command(
         description="Returns the description of a specific booster."

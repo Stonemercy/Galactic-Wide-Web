@@ -37,24 +37,18 @@ class MapCog(commands.Cog):
 
     async def update_message(self, message: PartialMessage, embed_dict):
         guild = Guilds.get_info(message.guild.id)
-        if guild == None:
+        if not guild:
             self.messages.remove(message)
             return self.bot.logger.error(
-                "MapCog, update_message, guild == None, {message.guild.id}"
+                f"MapCog, update_message, guild == None, {message.guild.id}"
             )
         try:
             await message.edit(embed=embed_dict[guild[5]])
-        except NotFound:
+        except (NotFound, Forbidden) as e:
             self.messages.remove(message)
             Guilds.update_map(message.guild.id, 0, 0)
             return self.bot.logger.error(
-                f"MapCog, update_message, NotFound, removing, {message.channel.name}"
-            )
-        except Forbidden:
-            self.messages.remove(message)
-            Guilds.update_map(message.guild.id, 0, 0)
-            return self.bot.logger.error(
-                f"MapCog, update_message, Forbidden, removing, {message.channel.name}"
+                f"MapCog, update_message, {e}, removing, {message.channel.name}"
             )
         except Exception as e:
             return self.bot.logger.error(
@@ -126,13 +120,13 @@ class MapCog(commands.Cog):
             description="Do you want other people to see the response to this command?",
         ),
     ):
+        public = public != "Yes"
+        await inter.response.defer(ephemeral=public)
         self.bot.logger.info(
             f"MapCog, map faction:{faction} public:{public} command used"
         )
-        public = public != "Yes"
-        await inter.response.defer(ephemeral=public)
         guild = Guilds.get_info(inter.guild_id)
-        if guild == None:
+        if not guild:
             guild = Guilds.insert_new_guild(inter.guild.id)
         api = API()
         await api.pull_from_api(
@@ -228,7 +222,7 @@ class MapCog(commands.Cog):
                         ]
                     ),
                 )
-                if faction != None and data.planets[index].name in available_planets:
+                if faction and data.planets[index].name in available_planets:
                     font = truetype("gww-font.ttf", 50)
                     background_draw.multiline_text(
                         xy=coords,
@@ -242,7 +236,7 @@ class MapCog(commands.Cog):
                         align="center",
                         spacing=-15,
                     )
-            if faction != None and planets_coords != {}:
+            if faction and planets_coords != {}:
                 min_x = min(planets_coords.values(), key=lambda x: x[0])[0]
                 max_x = max(planets_coords.values(), key=lambda x: x[0])[0]
                 min_y = min(planets_coords.values(), key=lambda x: x[1])[1]

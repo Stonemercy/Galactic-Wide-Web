@@ -18,7 +18,7 @@ class WarUpdatesCog(commands.Cog):
 
     async def send_campaign(self, channel: TextChannel, embeds):
         guild = Guilds.get_info(channel.guild.id)
-        if guild == None:
+        if not guild:
             self.channels.remove(channel)
             return self.bot.logger.error(
                 f"WarUpdatesCog, send_campaign, guild == None, {channel.guild.id}"
@@ -52,21 +52,15 @@ class WarUpdatesCog(commands.Cog):
                 f"<@164862382185644032>{api.error[0]}\n{api.error[1]}\n:warning:"
             )
         data = Data(data_from_api=api)
-        planets = data.planets
-        new_campaigns = data.campaigns
         old_campaigns = Campaigns.get_all()
         languages = Guilds.get_used_languages()
-        embeds: dict[str, CampaignEmbed] = {}
-        for lang in languages:
-            embeds[lang] = CampaignEmbed(lang)
+        embeds = {lang: CampaignEmbed(lang) for lang in languages}
         new_updates = False
-        new_campaign_ids = []
-        if new_campaigns == None:
+        new_campaign_ids = [campaign.id for campaign in data.campaigns]
+        if not data.campaigns:
             return
-        for campaign in new_campaigns:
-            new_campaign_ids.append(campaign.id)
         if old_campaigns == []:
-            for new_campaign in new_campaigns:
+            for new_campaign in data.campaigns:
                 Campaigns.new_campaign(
                     new_campaign.id,
                     new_campaign.planet.name,
@@ -74,41 +68,40 @@ class WarUpdatesCog(commands.Cog):
                     new_campaign.planet.index,
                 )
             return
-        old_campaign_ids = []
+        old_campaign_ids = [old_campaign[0] for old_campaign in old_campaigns]
         liberation_changes: dict = self.bot.get_cog("DashboardCog").liberation_changes
         for old_campaign in old_campaigns:  # loop through old campaigns
-            old_campaign_ids.append(old_campaign[0])
             if old_campaign[0] not in new_campaign_ids:
                 # if campaign is no longer active
-                planet = planets[old_campaign[3]]
+                planet = data.planets[old_campaign[3]]
                 if planet.current_owner == "Humans" and old_campaign[2] == "Humans":
                     # if successful defence campaign
-                    for lang, embed in embeds.items():
+                    for embed in embeds.values():
                         embed.add_def_victory(planet)
                     new_updates = True
                     liberation_changes.pop(planet.name, None)
                     Campaigns.remove_campaign(old_campaign[0])
                 if planet.current_owner != old_campaign[2]:  # if owner has changed
                     if old_campaign[2] == "Humans":  # if defence campaign loss
-                        for lang, embed in embeds.items():
+                        for embed in embeds.values():
                             embed.add_planet_lost(planet)
                         new_updates = True
                         liberation_changes.pop(planet.name, None)
                         Campaigns.remove_campaign(old_campaign[0])
                     elif planet.current_owner == "Humans":  # if attack campaign win
-                        for lang, embed in embeds.items():
+                        for embed in embeds.values():
                             embed.add_campaign_victory(planet, old_campaign[2])
                         new_updates = True
                         liberation_changes.pop(planet.name, None)
                         Campaigns.remove_campaign(old_campaign[0])
                 elif planet.current_owner != "Humans":
                     Campaigns.remove_campaign(old_campaign[0])
-        for new_campaign in new_campaigns:  # loop through new campaigns
+        for new_campaign in data.campaigns:  # loop through new campaigns
             if new_campaign.id not in old_campaign_ids:  # if campaign is brand new
                 time_remaining = None
                 if new_campaign.planet.event:
                     time_remaining = f"<t:{datetime.fromisoformat(new_campaign.planet.event.end_time).timestamp():.0f}:R>"
-                for lang, embed in embeds.items():
+                for embed in embeds.values():
                     embed.add_new_campaign(new_campaign, time_remaining)
                 new_updates = True
                 Campaigns.new_campaign(
@@ -119,7 +112,7 @@ class WarUpdatesCog(commands.Cog):
                 )
             continue
         if new_updates:
-            for lang, embed in embeds.items():
+            for embed in embeds.values():
                 embed.remove_empty()
             chunked_channels = [
                 self.channels[i : i + 50] for i in range(0, len(self.channels), 50)

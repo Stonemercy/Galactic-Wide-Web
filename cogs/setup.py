@@ -374,7 +374,7 @@ class SetupCog(commands.Cog):
 
         if patch_notes != None:
             want_patch_notes = patch_notes == "Yes"
-            if guild_in_db[3] == 0 and dashboard_channel == None:
+            if guild_in_db[3] == 0 and not dashboard_channel:
                 embed.add_field(
                     "Patch Notes", guild_language["setup.need_announce"], inline=False
                 )

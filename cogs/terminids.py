@@ -65,17 +65,17 @@ class TerminidsCog(commands.Cog):
                 guild_language["enemy.species_or_variation"],
                 ephemeral=True,
             )
-        elif (species != None and species not in self.terminids_dict) or (
-            variation != None and variation not in self.variations_dict
+        elif (species and species not in self.terminids_dict) or (
+            variation and variation not in self.variations_dict
         ):
             return await inter.send(
                 guild_language["enemy.missing"],
                 ephemeral=True,
             )
-        if species != None:
+        if species:
             species_info = self.terminids_dict[species]
             embed = Terminid(species, species_info, guild_language)
-        elif variation != None:
+        elif variation:
             variation_info = self.variations_dict[variation]
             embed = Terminid(variation, variation_info, guild_language, variation=True)
         return await inter.send(embed=embed, ephemeral=True)

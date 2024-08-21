@@ -1,5 +1,5 @@
 from asyncio import sleep
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, time
 from disnake import (
     Activity,
     ActivityType,
@@ -27,32 +27,38 @@ class GuildManagementCog(commands.Cog):
         self.bot_dashboard.start()
         self.react_role_dashboard.start()
         self.dashboard_checking.start()
+        self.guild_checking.start()
+        self.guilds_to_remove = []
         self.startup_time = datetime.now()
+        self.channel_id = int(getenv("MODERATION_CHANNEL"))
 
     def cog_unload(self):
         self.bot_dashboard.stop()
         self.react_role_dashboard.stop()
         self.dashboard_checking.stop()
+        self.guild_checking.stop()
 
     @commands.Cog.listener()
     async def on_guild_join(self, guild: Guild):
-        channel_id = int(getenv("MODERATION_CHANNEL"))
-        channel = self.bot.get_channel(channel_id) or await self.bot.fetch_channel(
-            channel_id
+        channel = self.bot.get_channel(self.channel_id) or await self.bot.fetch_channel(
+            self.channel_id
         )
         Guilds.insert_new_guild(guild.id)
-        embed = Embed(title="New guild joined!", colour=Colour.brand_green())
-        embed.add_field("Name", guild.name, inline=False).add_field(
-            "Users", guild.member_count, inline=False
-        ).add_field(
-            "Big guild?", {True: "Yes", False: "No"}[guild.large], inline=False
-        ).add_field(
-            "Created", f"<t:{int(guild.created_at.timestamp())}:R>", inline=False
-        ).add_field(
-            "Owner", f"<@{guild.owner_id}>", inline=False
-        )
-        embed.set_thumbnail(guild.icon.url if guild.icon else None).set_image(
-            guild.banner.url if guild.banner else None
+        embed = (
+            Embed(title="New guild joined!", colour=Colour.brand_green())
+            .add_field("Name", guild.name, inline=False)
+            .add_field("Users", guild.member_count, inline=False)
+            .add_field(
+                "Big guild?", {True: "Yes", False: "No"}[guild.large], inline=False
+            )
+            .add_field(
+                "Created",
+                f"<t:{int(guild.created_at.timestamp())}:R>",
+                inline=False,
+            )
+            .add_field("Owner", f"<@{guild.owner_id}>", inline=False)
+            .set_thumbnail(guild.icon.url if guild.icon else None)
+            .set_image(guild.banner.url if guild.banner else None)
         )
         await channel.send(embed=embed)
         old_activity = self.bot.activity
@@ -64,23 +70,23 @@ class GuildManagementCog(commands.Cog):
 
     @commands.Cog.listener()
     async def on_guild_remove(self, guild: Guild):
-        channel_id = int(getenv("MODERATION_CHANNEL"))
-        channel = self.bot.get_channel(channel_id) or await self.bot.fetch_channel(
-            channel_id
+        channel = self.bot.get_channel(self.channel_id) or await self.bot.fetch_channel(
+            self.channel_id
         )
         Guilds.remove_from_db(guild.id)
-        embed = Embed(title="Guild left...", colour=Colour.brand_red())
-        embed.add_field("Name", guild.name, inline=False).add_field(
-            "Users", guild.member_count, inline=False
-        ).add_field(
-            "Big guild?", {True: "Yes", False: "No"}[guild.large], inline=False
-        ).add_field(
-            "Created", f"<t:{int(guild.created_at.timestamp())}:R>", inline=False
-        ).add_field(
-            "Owner", f"<@{guild.owner_id}>", inline=False
-        )
-        embed.set_thumbnail(guild.icon.url if guild.icon else None).set_image(
-            guild.banner.url if guild.banner else None
+        embed = (
+            Embed(title="Guild left...", colour=Colour.brand_red())
+            .add_field("Name", guild.name, inline=False)
+            .add_field("Users", guild.member_count, inline=False)
+            .add_field(
+                "Big guild?", {True: "Yes", False: "No"}[guild.large], inline=False
+            )
+            .add_field(
+                "Created", f"<t:{int(guild.created_at.timestamp())}:R>", inline=False
+            )
+            .add_field("Owner", f"<@{guild.owner_id}>", inline=False)
+            .set_thumbnail(guild.icon.url if guild.icon else None)
+            .set_image(guild.banner.url if guild.banner else None)
         )
         await channel.send(embed=embed)
 
@@ -103,15 +109,16 @@ class GuildManagementCog(commands.Cog):
                         commands += f"</{global_command.name} {option.name}:{global_command.id}>\n"
                 if global_command.name != "weapons":
                     commands += f"</{global_command.name}:{global_command.id}>\n"
+            member_count = sum([guild.member_count for guild in self.bot.guilds])
             dashboard_embed.add_field(
                 "The GWW has",
                 f"{len(self.bot.global_slash_commands)} commands available:\n{commands}",
-            ).add_field("Currently in", f"{len(self.bot.guilds)} discord servers")
-            member_count = sum([guild.member_count for guild in self.bot.guilds])
-            dashboard_embed.add_field("Members of Democracy", f"{member_count:,}")
-            pid = getpid()
-            process = Process(pid)
-            memory_used = process.memory_info().rss / 1024**2
+            ).add_field(
+                "Currently in", f"{len(self.bot.guilds)} discord servers"
+            ).add_field(
+                "Members of Democracy", f"{member_count:,}"
+            )
+            memory_used = Process(getpid()).memory_info().rss / 1024**2
             latency = 9999.999 if self.bot.latency == float(inf) else self.bot.latency
             dashboard_embed.add_field(
                 "Hardware Info",
@@ -123,59 +130,29 @@ class GuildManagementCog(commands.Cog):
                 ),
                 inline=False,
             )
-            dashboard_not_setup = len(Guilds.dashboard_not_setup())
-            healthbar = health_bar(
-                (len(self.bot.guilds) - dashboard_not_setup) / len(self.bot.guilds),
-                "Humans",
-            )
-            dashboard_embed.add_field(
-                "Dashboards Setup",
-                (
-                    f"**Setup**: {len(self.bot.guilds) - dashboard_not_setup}\n"
-                    f"**Not Setup**: {dashboard_not_setup}\n"
-                    f"{healthbar}"
-                ),
-            )
-            feed_not_setup = len(Guilds.feed_not_setup())
-            healthbar = health_bar(
-                (len(self.bot.guilds) - feed_not_setup) / len(self.bot.guilds),
-                "Humans",
-            )
-            dashboard_embed.add_field(
-                "Announcements Setup",
-                (
-                    f"**Setup**: {len(self.bot.guilds) - feed_not_setup}\n"
-                    f"**Not Setup**: {feed_not_setup}\n"
-                    f"{healthbar}"
-                ),
-            )
-            dashboard_embed.add_field("", "", inline=False)
-            maps_not_setup = len(Guilds.maps_not_setup())
-            healthbar = health_bar(
-                (len(self.bot.guilds) - maps_not_setup) / len(self.bot.guilds),
-                "Humans",
-            )
-            dashboard_embed.add_field(
-                "Maps Setup",
-                (
-                    f"**Setup**: {len(self.bot.guilds) - maps_not_setup}\n"
-                    f"**Not Setup**: {maps_not_setup}\n"
-                    f"{healthbar}"
-                ),
-            )
-            patch_notes_not_setup = len(Guilds.patch_notes_not_setup())
-            healthbar = health_bar(
-                (len(self.bot.guilds) - patch_notes_not_setup) / len(self.bot.guilds),
-                "Humans",
-            )
-            dashboard_embed.add_field(
-                "Patch Notes Enabled",
-                (
-                    f"**Setup**: {len(self.bot.guilds) - patch_notes_not_setup}\n"
-                    f"**Not Setup**: {patch_notes_not_setup}\n"
-                    f"{healthbar}"
-                ),
-            )
+            stats_dict = {
+                "Dashboard Setup": len(Guilds.dashboard_not_setup()),
+                "Announcements Setup": len(Guilds.feed_not_setup()),
+                None: None,
+                "Maps Setup": len(Guilds.maps_not_setup()),
+                "Patch Notes Enabled": len(Guilds.patch_notes_not_setup()),
+            }
+            for title, amount in stats_dict.items():
+                if not title:
+                    dashboard_embed.add_field("", "", inline=False)
+                    continue
+                healthbar = health_bar(
+                    (len(self.bot.guilds) - amount) / len(self.bot.guilds),
+                    "Humans",
+                )
+                dashboard_embed.add_field(
+                    title,
+                    (
+                        f"**Setup**: {len(self.bot.guilds) - amount}\n"
+                        f"**Not Setup**: {amount}\n"
+                        f"{healthbar}"
+                    ),
+                )
             dashboard_embed.add_field(
                 "Credits",
                 (
@@ -186,7 +163,6 @@ class GuildManagementCog(commands.Cog):
                 ),
                 inline=False,
             )
-
             channel = self.bot.get_channel(data[0]) or await self.bot.fetch_channel(
                 data[0]
             )
@@ -231,28 +207,24 @@ class GuildManagementCog(commands.Cog):
     async def before_bot_dashboard(self):
         await self.bot.wait_until_ready()
 
-    @tasks.loop(hours=1)
+    @tasks.loop(count=1)
     async def react_role_dashboard(self):
-        embed = ReactRoleDashboard()
         data = BotDashboard.get_info()
-        channel_id = data[0]
-        message_id = data[2]
         components = [
             Button(label="Subscribe to Bot Updates", custom_id="BotUpdatesButton")
         ]
-        channel = self.bot.get_channel(channel_id) or await self.bot.fetch_channel(
-            channel_id
-        )
+        channel = self.bot.get_channel(data[0]) or await self.bot.fetch_channel(data[0])
         if channel == None:
             self.bot.logger.error(
                 "GuildManagementCog, react_role_dashboard, channel == None"
             )
             return
-        if message_id == None:
+        if data[2] == None:
+            embed = ReactRoleDashboard()
             message = await channel.send(embed=embed, components=components)
             BotDashboard.set_react_role(message.id)
         else:
-            message = channel.get_partial_message(message_id)
+            message = channel.get_partial_message(data[2])
             try:
                 await message.edit(embed=embed, components=components)
             except NotFound:
@@ -287,8 +259,10 @@ class GuildManagementCog(commands.Cog):
     @tasks.loop(minutes=1)
     async def dashboard_checking(self):
         now = datetime.now()
+        if now.minute not in (2, 17, 32, 47):
+            return
         guild = Guilds.get_info(1212722266392109088)
-        if guild != None:
+        if guild:
             try:
                 channel = self.bot.get_channel(
                     guild[1]
@@ -313,6 +287,52 @@ class GuildManagementCog(commands.Cog):
     @dashboard_checking.before_loop
     async def before_dashboard_check(self):
         await self.bot.wait_until_ready()
+
+    @tasks.loop(time=[time(hour=0, minute=0, second=0, microsecond=0)])
+    async def guild_checking(self):
+        guilds_in_db = Guilds.get_all_guilds()
+        if guilds_in_db:
+            for guild_in_db in guilds_in_db:
+                if guild_in_db[0] not in [guild.id for guild in self.bot.guilds]:
+                    self.guilds_to_remove.append(str(guild_in_db[0]))
+            if self.guilds_to_remove != []:
+                channel = self.bot.get_channel(
+                    self.channel_id
+                ) or await self.bot.fetch_channel(self.channel_id)
+                embed = Embed(
+                    title="Servers in DB that don't have the bot installed",
+                    colour=Colour.brand_red(),
+                    description="These servers are in the PostgreSQL database but not in the `self.bot.guilds` list.",
+                ).add_field("Guilds:", "\n".join(self.guilds_to_remove), inline=False)
+                await channel.send(
+                    embed=embed,
+                    components=[
+                        Button(
+                            label="Remove",
+                            style=ButtonStyle.danger,
+                            custom_id="guild_remove",
+                        )
+                    ],
+                )
+
+    @guild_checking.before_loop
+    async def before_guild_check(self):
+        await self.bot.wait_until_ready()
+
+    @commands.Cog.listener("on_button_click")
+    async def ban_listener(self, inter: MessageInteraction):
+        if inter.component.custom_id == "guild_remove":
+            for guild in self.guilds_to_remove:
+                Guilds.remove_from_db(guild)
+                self.bot.logger.error(
+                    f"GuildManagementCog, ban_listener, removed {guild} from the DB"
+                )
+                await inter.send(f"Deleted guilds `{guild}` from the DB")
+            embed: Embed = inter.message.embeds[0].add_field(
+                "GUILDS DELETED", "You did this", inline=False
+            )
+            await inter.message.edit(components=[], embed=embed)
+            self.guilds_to_remove.clear()
 
 
 def setup(bot: commands.Bot):

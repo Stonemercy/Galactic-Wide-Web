@@ -10,11 +10,10 @@ class AutomatonCog(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
         self.automaton_dict = enemies["automaton"]
-        self.variations_dict: dict = {}
+        self.variations_dict = {}
         for i in enemies["automaton"].values():
-            if i["variations"] != None:
-                for n, j in i["variations"].items():
-                    self.variations_dict[n] = j
+            if i["variations"]:
+                self.variations_dict.update(i["variations"])
 
     async def automaton_autocomp(inter: AppCmdInter, user_input: str):
         return [
@@ -24,9 +23,8 @@ class AutomatonCog(commands.Cog):
     async def variations_autocomp(inter: AppCmdInter, user_input: str):
         variations_list: list[str] = []
         for i in enemies["automaton"].values():
-            if i["variations"] != None:
-                for n in i["variations"]:
-                    variations_list.append(n)
+            if i["variations"]:
+                variations_list.extend([variation for variation in i["variations"]])
         return [command for command in variations_list if user_input in command.lower()]
 
     @commands.slash_command(
@@ -53,7 +51,7 @@ class AutomatonCog(commands.Cog):
             return await inter.send(":robot:", delete_after=10.0, ephemeral=True)
         await inter.response.defer(ephemeral=True)
         guild_in_db = Guilds.get_info(inter.guild_id)
-        if guild_in_db == None:
+        if not guild_in_db:
             guild_in_db = Guilds.insert_new_guild(inter.guild.id)
         guild_language = load(
             open(f"data/languages/{guild_in_db[5]}.json", encoding="UTF-8")
@@ -63,17 +61,17 @@ class AutomatonCog(commands.Cog):
                 guild_language["enemy.species_or_variation"],
                 ephemeral=True,
             )
-        elif (species != None and species not in self.automaton_dict) or (
-            variation != None and variation not in self.variations_dict
+        elif (species and species not in self.automaton_dict) or (
+            variation and variation not in self.variations_dict
         ):
             return await inter.send(
                 guild_language["enemy.missing"],
                 ephemeral=True,
             )
-        if species != None:
+        if species:
             species_info = self.automaton_dict[species]
             embed = Automaton(species, species_info, guild_language)
-        elif variation != None:
+        elif variation:
             variation_info = self.variations_dict[variation]
             embed = Automaton(variation, variation_info, guild_language, variation=True)
         return await inter.send(embed=embed, ephemeral=True)

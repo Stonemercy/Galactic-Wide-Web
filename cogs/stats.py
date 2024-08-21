@@ -77,15 +77,6 @@ class StatsCog(commands.Cog):
             "Announcements sent:", f"{self.announcements_sent}", inline=False
         )
         liberation_changes: dict = self.bot.get_cog("DashboardCog").liberation_changes
-        if liberation_changes != {}:
-            for values in liberation_changes.values():
-                lib_change_length = len(values["liberation_change"])
-                break
-        else:
-            lib_change_length = 0
-        embed.add_field(
-            "Data points", f"Dashboard estimations: {lib_change_length}/4", inline=False
-        )
         embed.add_field(
             "liberation_changes",
             [

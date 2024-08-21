@@ -24,7 +24,7 @@ class DashboardCog(commands.Cog):
 
     async def update_message(self, message: PartialMessage, dashboard_dict: dict):
         guild = Guilds.get_info(message.guild.id)
-        if guild == None:
+        if not guild:
             self.messages.remove(message)
             return self.bot.logger.error(
                 f"DashboardCog, update_message, guild == None, {message.guild.id}"
@@ -104,10 +104,9 @@ class DashboardCog(commands.Cog):
                     )
             self.liberation_changes[campaign.planet.name]["liberation"] = liberation
         languages = Guilds.get_used_languages()
-        dashboard_dict = {}
-        for lang in languages:
-            dashboard = Dashboard(data, lang, self.liberation_changes)
-            dashboard_dict[lang] = dashboard
+        dashboard_dict = {
+            lang: Dashboard(data, lang, self.liberation_changes) for lang in languages
+        }
         chunked_messages = [
             self.messages[i : i + 50] for i in range(0, len(self.messages), 50)
         ]

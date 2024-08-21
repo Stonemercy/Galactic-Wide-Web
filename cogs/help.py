@@ -25,8 +25,8 @@ class HelpCog(commands.Cog):
             description='The command you want to lookup, use "all" for a list of all available commands',
         ),
     ):
-        self.bot.logger.info(f"HelpCog, help command:{command} command used")
         await inter.response.defer(ephemeral=True)
+        self.bot.logger.info(f"HelpCog, help command:{command} command used")
         help_embed = HelpEmbed()
         if command == "all":
             for global_command in inter.bot.global_slash_commands:

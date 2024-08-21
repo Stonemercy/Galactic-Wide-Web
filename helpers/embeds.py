@@ -123,7 +123,7 @@ class BotDashboardEmbed(Embed):
 
 
 class MajorOrderEmbed(Embed):
-    def __init__(self, assignment: Assignment, planets: list[Planet], language):
+    def __init__(self, assignment: Assignment, planets: dict[int, Planet], language):
         self.language = load(open(f"data/languages/{language}.json", encoding="UTF-8"))
         super().__init__(
             title=f"{emojis_dict['Left Banner']} {self.language['major_order.title']} {emojis_dict['Right Banner']}",
@@ -385,14 +385,19 @@ class Dashboard:
                         3: "Automaton",
                         4: "Illuminate",
                     }
+                    species_dict = {2514244534: "Bile Titan"}
+                    species = (
+                        species_dict[task.values[3]] if task.values[3] != 0 else None
+                    )
                     task.health_bar = health_bar(
                         task.progress,
-                        faction_dict[task.values[2]],
+                        faction_dict[task.values[0]],
                     )
+                    target = faction_dict[task.values[0]] if not species else species
                     self.major_orders_embed.add_field(
-                        f"{self.language['dashboard.major_order_kill']} {short_format(task.values[2])} {faction_dict[task.values[0]]} {faction_dict[task.values[0]]}",
+                        f"{self.language['dashboard.major_order_kill']} {short_format(task.values[2])} {target} {emojis_dict[faction_dict[task.values[0]]]}",
                         (
-                            f"{self.language['major_order.progress']}: **{task.values[2]*task.progress}**\n"
+                            f"{self.language['major_order.progress']}: **{(task.values[2]*task.progress):,.0f}**\n"
                             f"{task.health_bar}\n"
                             f"`{(task.progress):^25,.2%}`\n"
                         ),

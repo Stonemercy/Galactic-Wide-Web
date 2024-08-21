@@ -24,10 +24,10 @@ class AnnouncementsCog(commands.Cog):
 
     async def send_embed(self, channel: TextChannel, embeds, type: str):
         """embeds must be a dict in the following format:\n
-        { language: embed }\n
+        `{ language: embed }`\n
         and needs to have all languages used by the userbase"""
         guild = Guilds.get_info(channel.guild.id)
-        if guild == None:
+        if not guild:
             self.bot.logger.error(
                 f"AnnouncementsCog, send_embed, guild == None for {channel.id}, {type}"
             )
@@ -68,9 +68,9 @@ class AnnouncementsCog(commands.Cog):
 
     @tasks.loop(minutes=1)
     async def major_order_check(self):
-        announcement_start = datetime.now()
         if self.channels == []:
             return
+        announcement_start = datetime.now()
         last_id = MajorOrders.get_last_id()
         api = API()
         await api.pull_from_api(get_assignment=True, get_planets=True)
@@ -85,14 +85,14 @@ class AnnouncementsCog(commands.Cog):
         if not data.assignment:
             return
         self._newest_id = data.assignment.id
-        if last_id == None:
+        if not last_id:
             last_id = MajorOrders.setup()
         if last_id == 0 or last_id != self._newest_id:
             languages = Guilds.get_used_languages()
-            embeds = {}
-            for lang in languages:
-                embed = MajorOrderEmbed(data.assignment, data.planets, lang)
-                embeds[lang] = embed
+            embeds = {
+                lang: MajorOrderEmbed(data.assignment, data.planets, lang)
+                for lang in languages
+            }
             chunked_channels = [
                 self.channels[i : i + 50] for i in range(0, len(self.channels), 50)
             ]
@@ -113,9 +113,9 @@ class AnnouncementsCog(commands.Cog):
 
     @tasks.loop(minutes=1)
     async def dispatch_check(self):
-        dispatch_start = datetime.now()
         if self.channels == []:
             return
+        dispatch_start = datetime.now()
         last_id = Dispatches.get_last_id()
         api = API()
         await api.pull_from_api(get_dispatches=True)
@@ -136,14 +136,11 @@ class AnnouncementsCog(commands.Cog):
             )
         data = Data(data_from_api=api)
         self._newest_id = data.dispatch.id
-        if last_id == None:
+        if not last_id:
             last_id = Dispatches.setup()
         if last_id == 0 or last_id != self._newest_id:
             languages = Guilds.get_used_languages()
-            embeds = {}
-            for lang in languages:
-                embed = DispatchesEmbed(data.dispatch)
-                embeds[lang] = embed
+            embeds = {lang: DispatchesEmbed(data.dispatch) for lang in languages}
             chunked_channels = [
                 self.channels[i : i + 50] for i in range(0, len(self.channels), 50)
             ]
@@ -166,9 +163,9 @@ class AnnouncementsCog(commands.Cog):
 
     @tasks.loop(minutes=1)
     async def steam_check(self):
-        patch_notes_start = datetime.now()
         if self.channels == []:
             return
+        patch_notes_start = datetime.now()
         last_id = Steam.get_last_id()
         api = API()
         await api.pull_from_api(get_steam=True)
@@ -181,14 +178,11 @@ class AnnouncementsCog(commands.Cog):
             )
         data = Data(data_from_api=api)
         self._newest_id = int(data.steam.id)
-        if last_id == None:
+        if not last_id:
             last_id = Steam.setup()
         if last_id == 0 or last_id != self._newest_id:
             languages = Guilds.get_used_languages()
-            embeds = {}
-            for lang in languages:
-                embed = SteamEmbed(data.steam)
-                embeds[lang] = embed
+            embeds = {lang: SteamEmbed(data.steam) for lang in languages}
             chunked_patch_channels = [
                 self.patch_channels[i : i + 50]
                 for i in range(0, len(self.patch_channels), 50)

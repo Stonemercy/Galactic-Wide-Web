@@ -32,11 +32,11 @@ class PlanetCog(commands.Cog):
             description="Do you want other people to see the response to this command?",
         ),
     ):
+        public = public != "Yes"
+        await inter.response.defer(ephemeral=public)
         self.bot.logger.info(
             f"PlanetCog, planet planet:{planet} public:{public} command used"
         )
-        public = public != "Yes"
-        await inter.response.defer(ephemeral=public)
         planets_list = planets
         if planet not in planets_list:
             return await inter.send(
@@ -44,7 +44,7 @@ class PlanetCog(commands.Cog):
                 ephemeral=public,
             )
         guild = Guilds.get_info(inter.guild_id)
-        if guild == None:
+        if not guild:
             guild = Guilds.insert_new_guild(inter.guild.id)
         language = guild[5]
         api = API()
@@ -83,10 +83,8 @@ class PlanetCog(commands.Cog):
             self.bot.logger.error(
                 f"PlanetCog, planet command, {planet_data.biome['name'].lower()} biome image unavailable"
             )
-            pass
         map_embed = planet_map(data, planet_data.index, language)
-        embeds = [embed, map_embed]
-        await inter.send(embeds=embeds, ephemeral=public)
+        await inter.send(embeds=[embed, map_embed], ephemeral=public)
 
 
 def setup(bot: commands.Bot):
