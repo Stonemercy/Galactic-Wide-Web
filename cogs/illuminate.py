@@ -4,10 +4,11 @@ from disnake.ext import commands
 from helpers.db import Guilds
 from helpers.embeds import Illuminate
 from data.lists import enemies
+from main import GalacticWideWebBot
 
 
 class IlluminateCog(commands.Cog):
-    def __init__(self, bot: commands.Bot):
+    def __init__(self, bot: GalacticWideWebBot):
         self.bot = bot
         self.illuminate_dict = enemies["illuminate"]
         self.variations_dict: dict = {}
@@ -84,5 +85,5 @@ class IlluminateCog(commands.Cog):
         return await inter.send(embed=embed, ephemeral=True)
 
 
-def setup(bot: commands.Bot):
+def setup(bot: GalacticWideWebBot):
     bot.add_cog(IlluminateCog(bot))

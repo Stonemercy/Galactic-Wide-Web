@@ -5,31 +5,18 @@ from disnake import (
     ModalInteraction,
     ButtonStyle,
 )
-from disnake.ext import commands, tasks
+from disnake.ext import commands
 from disnake.ui import Button
 from helpers.db import Feedback
 from helpers.embeds import FeedbackEmbed
 from helpers.modals import FeedbackModal
+from main import GalacticWideWebBot
 
 
 class FeedbackCog(commands.Cog):
-    def __init__(self, bot: commands.Bot):
+    def __init__(self, bot: GalacticWideWebBot):
         self.bot = bot
         self.feedback_users = {}
-        self.get_feedback_channel.start()
-
-    def cog_unload(self):
-        self.get_feedback_channel.stop()
-
-    @tasks.loop(count=1)
-    async def get_feedback_channel(self):
-        self.channel = self.bot.get_channel(
-            1253032256339968153
-        ) or await self.bot.fetch_channel(1253032256339968153)
-
-    @get_feedback_channel.before_loop
-    async def before_feedback_channel(self):
-        await self.bot.wait_until_ready()
 
     @commands.slash_command(description="Provide feedback for the bot")
     async def feedback(
@@ -59,7 +46,7 @@ class FeedbackCog(commands.Cog):
             return
         embed = FeedbackEmbed(inter)
         self.feedback_users[inter.author.name] = inter.author
-        await self.channel.send(
+        await self.bot.feedback_channel.send(
             embed=embed,
             components=[
                 Button(label="BAN", style=ButtonStyle.danger, custom_id="feedback_ban"),
@@ -103,5 +90,5 @@ class FeedbackCog(commands.Cog):
                 )
 
 
-def setup(bot: commands.Bot):
+def setup(bot: GalacticWideWebBot):
     bot.add_cog(FeedbackCog(bot))

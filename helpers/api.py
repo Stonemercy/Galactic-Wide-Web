@@ -11,7 +11,7 @@ class API:
     def __init__(self):
         self._api = getenv("API")
         self._backup_api = getenv("BU_API")
-        self.error = None
+        self.error: tuple[str, Exception | int] | None = None
         self.war = None
         self.assignment = None
         self.campaigns = None

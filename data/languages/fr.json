@@ -149,5 +149,6 @@
     "setup.map": "Carte",
     "setup.map_channel": "Carte du canal",
     "setup.map_message": "Message de carte",
+    "setup.patch_notes_name": "Notes de mise à jour",
     "setup.unset_map": "J'ai supprimé votre carte. Vous êtes libre de supprimer toutes les anciennes cartes de ce serveur."
 }

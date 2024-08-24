@@ -4,10 +4,11 @@ from disnake.ext import commands
 from helpers.db import Guilds
 from helpers.embeds import Terminid
 from data.lists import enemies
+from main import GalacticWideWebBot
 
 
 class TerminidsCog(commands.Cog):
-    def __init__(self, bot: commands.Bot):
+    def __init__(self, bot: GalacticWideWebBot):
         self.bot = bot
         self.terminids_dict = enemies["terminids"]
         self.variations_dict = {}
@@ -81,5 +82,5 @@ class TerminidsCog(commands.Cog):
         return await inter.send(embed=embed, ephemeral=True)
 
 
-def setup(bot: commands.Bot):
+def setup(bot: GalacticWideWebBot):
     bot.add_cog(TerminidsCog(bot))

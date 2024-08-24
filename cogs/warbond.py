@@ -4,10 +4,11 @@ from disnake.ext import commands
 from disnake.ui import Button, ActionRow
 from helpers.embeds import Items
 from json import load
+from main import GalacticWideWebBot
 
 
 class WarbondCog(commands.Cog):
-    def __init__(self, bot: commands.Bot):
+    def __init__(self, bot: GalacticWideWebBot):
         self.bot = bot
         self.warbond_names = load(open("data/json/warbonds.json"))
         self.warbond_names["item_list"] = {}
@@ -135,5 +136,5 @@ class WarbondCog(commands.Cog):
         )
 
 
-def setup(bot: commands.Bot):
+def setup(bot: GalacticWideWebBot):
     bot.add_cog(WarbondCog(bot))

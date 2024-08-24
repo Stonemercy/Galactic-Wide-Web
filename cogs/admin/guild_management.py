@@ -17,20 +17,19 @@ from helpers.db import Guilds, BotDashboard
 from helpers.embeds import BotDashboardEmbed, ReactRoleDashboard
 from helpers.functions import health_bar
 from math import inf
-from os import getenv, getpid
+from os import getpid
 from psutil import Process, cpu_percent
+from main import GalacticWideWebBot
 
 
 class GuildManagementCog(commands.Cog):
-    def __init__(self, bot: commands.Bot):
+    def __init__(self, bot: GalacticWideWebBot):
         self.bot = bot
         self.bot_dashboard.start()
         self.react_role_dashboard.start()
         self.dashboard_checking.start()
         self.guild_checking.start()
         self.guilds_to_remove = []
-        self.startup_time = datetime.now()
-        self.channel_id = int(getenv("MODERATION_CHANNEL"))
 
     def cog_unload(self):
         self.bot_dashboard.stop()
@@ -40,9 +39,6 @@ class GuildManagementCog(commands.Cog):
 
     @commands.Cog.listener()
     async def on_guild_join(self, guild: Guild):
-        channel = self.bot.get_channel(self.channel_id) or await self.bot.fetch_channel(
-            self.channel_id
-        )
         Guilds.insert_new_guild(guild.id)
         embed = (
             Embed(title="New guild joined!", colour=Colour.brand_green())
@@ -60,7 +56,7 @@ class GuildManagementCog(commands.Cog):
             .set_thumbnail(guild.icon.url if guild.icon else None)
             .set_image(guild.banner.url if guild.banner else None)
         )
-        await channel.send(embed=embed)
+        await self.bot.moderator_channel.send(embed=embed)
         old_activity = self.bot.activity
         await self.bot.change_presence(
             activity=Activity(name="for alien sympathisers", type=ActivityType.watching)
@@ -70,9 +66,6 @@ class GuildManagementCog(commands.Cog):
 
     @commands.Cog.listener()
     async def on_guild_remove(self, guild: Guild):
-        channel = self.bot.get_channel(self.channel_id) or await self.bot.fetch_channel(
-            self.channel_id
-        )
         Guilds.remove_from_db(guild.id)
         embed = (
             Embed(title="Guild left...", colour=Colour.brand_red())
@@ -88,7 +81,7 @@ class GuildManagementCog(commands.Cog):
             .set_thumbnail(guild.icon.url if guild.icon else None)
             .set_image(guild.banner.url if guild.banner else None)
         )
-        await channel.send(embed=embed)
+        await self.bot.moderator_channel.send(embed=embed)
 
     @tasks.loop(minutes=1)
     async def bot_dashboard(self):
@@ -125,7 +118,7 @@ class GuildManagementCog(commands.Cog):
                 (
                     f"**CPU**: {cpu_percent()}%\n"
                     f"**RAM**: {memory_used:.2f}MB\n"
-                    f"**Last restart**: <t:{int(self.startup_time.timestamp())}:R>\n"
+                    f"**Last restart**: <t:{int(self.bot.startup_time.timestamp())}:R>\n"
                     f"**Latency**: {int(latency * 1000)}ms"
                 ),
                 inline=False,
@@ -214,7 +207,7 @@ class GuildManagementCog(commands.Cog):
             Button(label="Subscribe to Bot Updates", custom_id="BotUpdatesButton")
         ]
         channel = self.bot.get_channel(data[0]) or await self.bot.fetch_channel(data[0])
-        if channel == None:
+        if not channel:
             self.bot.logger.error(
                 "GuildManagementCog, react_role_dashboard, channel == None"
             )
@@ -273,11 +266,8 @@ class GuildManagementCog(commands.Cog):
                 )
                 if updated_time < (
                     now - timedelta(minutes=16)
-                ) and self.startup_time < (now - timedelta(minutes=16)):
-                    error_channel = self.bot.get_channel(
-                        1212735927223590974
-                    ) or await self.bot.fetch_channel(1212735927223590974)
-                    await error_channel.send(
+                ) and self.bot.startup_time < (now - timedelta(minutes=16)):
+                    await self.bot.moderator_channel.send(
                         f"<@164862382185644032> {message.jump_url} was last edited <t:{int(message.edited_at.timestamp())}:R> :warning:"
                     )
                     await sleep(15 * 60)
@@ -296,15 +286,12 @@ class GuildManagementCog(commands.Cog):
                 if guild_in_db[0] not in [guild.id for guild in self.bot.guilds]:
                     self.guilds_to_remove.append(str(guild_in_db[0]))
             if self.guilds_to_remove != []:
-                channel = self.bot.get_channel(
-                    self.channel_id
-                ) or await self.bot.fetch_channel(self.channel_id)
                 embed = Embed(
                     title="Servers in DB that don't have the bot installed",
                     colour=Colour.brand_red(),
                     description="These servers are in the PostgreSQL database but not in the `self.bot.guilds` list.",
                 ).add_field("Guilds:", "\n".join(self.guilds_to_remove), inline=False)
-                await channel.send(
+                await self.bot.moderator_channel.send(
                     embed=embed,
                     components=[
                         Button(
@@ -335,5 +322,5 @@ class GuildManagementCog(commands.Cog):
             self.guilds_to_remove.clear()
 
 
-def setup(bot: commands.Bot):
+def setup(bot: GalacticWideWebBot):
     bot.add_cog(GuildManagementCog(bot))

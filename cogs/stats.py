@@ -1,6 +1,7 @@
 from datetime import datetime
 from disnake import AppCmdInter, Embed
 from disnake.ext import commands
+from main import GalacticWideWebBot
 
 
 class DashboardStats:
@@ -36,7 +37,7 @@ class DashboardStats:
 
 
 class StatsCog(commands.Cog):
-    def __init__(self, bot: commands.Bot):
+    def __init__(self, bot: GalacticWideWebBot):
         self.bot = bot
         self.maps_updated = 0
         self.announcements_sent = 0
@@ -51,13 +52,12 @@ class StatsCog(commands.Cog):
     ):
         self.bot.logger.info(f"StatsCog, stats command used")
         await inter.response.defer(ephemeral=True)
-        uptime: datetime = self.bot.get_cog("GuildManagementCog").startup_time
         embed = Embed(title="Bot stats")
         embed.add_field(
             "Uptime:",
             (
-                f"Live since <t:{int(uptime.timestamp())}:d> at <t:{int(uptime.timestamp())}:t>\n"
-                f"-# <t:{int(uptime.timestamp())}:R>"
+                f"Live since <t:{int(self.bot.startup_time.timestamp())}:d> at <t:{int(self.bot.startup_time.timestamp())}:t>\n"
+                f"-# <t:{int(self.bot.startup_time.timestamp())}:R>"
             ),
             inline=False,
         )
@@ -76,17 +76,8 @@ class StatsCog(commands.Cog):
         embed.add_field(
             "Announcements sent:", f"{self.announcements_sent}", inline=False
         )
-        liberation_changes: dict = self.bot.get_cog("DashboardCog").liberation_changes
-        embed.add_field(
-            "liberation_changes",
-            [
-                (lib_change, lib_items["liberation"] * 100)
-                for lib_change, lib_items in liberation_changes.items()
-            ],
-            inline=False,
-        )
         await inter.send(embed=embed)
 
 
-def setup(bot: commands.Bot):
+def setup(bot: GalacticWideWebBot):
     bot.add_cog(StatsCog(bot))

@@ -10,12 +10,12 @@ from helpers.embeds import Dashboard
 from helpers.db import Guilds
 from datetime import datetime
 from helpers.api import API, Data
+from main import GalacticWideWebBot
 
 
 class DashboardCog(commands.Cog):
-    def __init__(self, bot: commands.Bot):
+    def __init__(self, bot: GalacticWideWebBot):
         self.bot = bot
-        self.messages = []
         self.liberation_changes = {}
         self.dashboard.start()
 
@@ -25,14 +25,14 @@ class DashboardCog(commands.Cog):
     async def update_message(self, message: PartialMessage, dashboard_dict: dict):
         guild = Guilds.get_info(message.guild.id)
         if not guild:
-            self.messages.remove(message)
+            self.bot.dashboard_messages.remove(message)
             return self.bot.logger.error(
                 f"DashboardCog, update_message, guild == None, {message.guild.id}"
             )
         try:
             await message.edit(embeds=dashboard_dict[guild[5]].embeds)
         except (NotFound, Forbidden) as e:
-            self.messages.remove(message)
+            self.bot.dashboard_messages.remove(message)
             Guilds.update_dashboard(message.guild.id, 0, 0)
             return self.bot.logger.error(
                 f"DashboardCog, update_message, {e}, removing from message list, {message.channel.id}"
@@ -47,7 +47,7 @@ class DashboardCog(commands.Cog):
         update_start = datetime.now()
         if (
             update_start.minute not in (0, 15, 30, 45) and force == False
-        ) or self.messages == []:
+        ) or self.bot.dashboard_messages == []:
             return
         api = API()
         await api.pull_from_api(
@@ -57,10 +57,7 @@ class DashboardCog(commands.Cog):
             get_planets=True,
         )
         if api.error:
-            error_channel = self.bot.get_channel(
-                1212735927223590974
-            ) or await self.bot.fetch_channel(1212735927223590974)
-            return await error_channel.send(
+            return await self.bot.moderator_channel.send(
                 f"<@164862382185644032>\n{api.error[0]}\n{api.error[1]}\n:warning:"
             )
         data = Data(data_from_api=api)
@@ -108,7 +105,8 @@ class DashboardCog(commands.Cog):
             lang: Dashboard(data, lang, self.liberation_changes) for lang in languages
         }
         chunked_messages = [
-            self.messages[i : i + 50] for i in range(0, len(self.messages), 50)
+            self.bot.dashboard_messages[i : i + 50]
+            for i in range(0, len(self.bot.dashboard_messages), 50)
         ]
         dashboards_updated = 0
         for chunk in chunked_messages:
@@ -130,5 +128,5 @@ class DashboardCog(commands.Cog):
         await self.bot.wait_until_ready()
 
 
-def setup(bot: commands.Bot):
+def setup(bot: GalacticWideWebBot):
     bot.add_cog(DashboardCog(bot))

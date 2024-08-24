@@ -2,10 +2,11 @@ from disnake import AppCmdInter
 from disnake.ext import commands
 from helpers.embeds import Items
 from json import load
+from main import GalacticWideWebBot
 
 
 class BoostersCog(commands.Cog):
-    def __init__(self, bot: commands.Bot):
+    def __init__(self, bot: GalacticWideWebBot):
         self.bot = bot
         self.boosters = load(open("data/json/items/boosters.json"))
         self.boosters = {j["name"]: j for j in self.boosters.values()}
@@ -40,5 +41,5 @@ class BoostersCog(commands.Cog):
         return await inter.send(embed=embed, ephemeral=True)
 
 
-def setup(bot: commands.Bot):
+def setup(bot: GalacticWideWebBot):
     bot.add_cog(BoostersCog(bot))

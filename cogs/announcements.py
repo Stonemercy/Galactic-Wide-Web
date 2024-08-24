@@ -6,13 +6,12 @@ from disnake.ui import Button
 from helpers.embeds import DispatchesEmbed, MajorOrderEmbed, SteamEmbed
 from helpers.db import Dispatches, MajorOrders, Guilds, Steam
 from helpers.api import API, Data
+from main import GalacticWideWebBot
 
 
 class AnnouncementsCog(commands.Cog):
-    def __init__(self, bot: commands.Bot):
+    def __init__(self, bot: GalacticWideWebBot):
         self.bot = bot
-        self.channels = []
-        self.patch_channels = []
         self.major_order_check.start()
         self.dispatch_check.start()
         self.steam_check.start()
@@ -32,10 +31,10 @@ class AnnouncementsCog(commands.Cog):
                 f"AnnouncementsCog, send_embed, guild == None for {channel.id}, {type}"
             )
             if type == "Patch":
-                self.patch_channels.remove(channel)
+                self.bot.patch_channels.remove(channel)
                 Guilds.update_patch_notes(channel.guild.id, False)
             else:
-                self.channels.remove(channel)
+                self.bot.announcement_channels.remove(channel)
                 Guilds.update_announcement_channel(channel.guild.id, 0)
             return
         try:
@@ -54,7 +53,7 @@ class AnnouncementsCog(commands.Cog):
                 await channel.send(embed=embeds[guild[5]])
         except Forbidden:
             try:
-                self.channels.remove(channel)
+                self.bot.announcement_channels.remove(channel)
             except:
                 pass
             Guilds.update_announcement_channel(channel.guild.id, 0)
@@ -68,17 +67,14 @@ class AnnouncementsCog(commands.Cog):
 
     @tasks.loop(minutes=1)
     async def major_order_check(self):
-        if self.channels == []:
+        if self.bot.announcement_channels == []:
             return
         announcement_start = datetime.now()
         last_id = MajorOrders.get_last_id()
         api = API()
         await api.pull_from_api(get_assignment=True, get_planets=True)
         if api.error:
-            error_channel = self.bot.get_channel(
-                1212735927223590974
-            ) or await self.bot.fetch_channel(1212735927223590974)
-            return await error_channel.send(
+            return await self.bot.moderator_channel.send(
                 f"<@164862382185644032>\n{api.error[0]}\n{api.error[1]}\n:warning:"
             )
         data = Data(data_from_api=api)
@@ -94,7 +90,8 @@ class AnnouncementsCog(commands.Cog):
                 for lang in languages
             }
             chunked_channels = [
-                self.channels[i : i + 50] for i in range(0, len(self.channels), 50)
+                self.bot.announcement_channels[i : i + 50]
+                for i in range(0, len(self.bot.announcement_channels), 50)
             ]
             major_orders_sent = 0
             MajorOrders.set_new_id(self._newest_id)
@@ -113,17 +110,14 @@ class AnnouncementsCog(commands.Cog):
 
     @tasks.loop(minutes=1)
     async def dispatch_check(self):
-        if self.channels == []:
+        if self.bot.announcement_channels == []:
             return
         dispatch_start = datetime.now()
         last_id = Dispatches.get_last_id()
         api = API()
         await api.pull_from_api(get_dispatches=True)
         if api.error:
-            error_channel = self.bot.get_channel(
-                1212735927223590974
-            ) or await self.bot.fetch_channel(1212735927223590974)
-            return await error_channel.send(
+            return await self.bot.moderator_channel.send(
                 f"<@164862382185644032>\n{api.error[0]}\n{api.error[1]}\n:warning:"
             )
         if api.dispatches in (None, []):
@@ -142,7 +136,8 @@ class AnnouncementsCog(commands.Cog):
             languages = Guilds.get_used_languages()
             embeds = {lang: DispatchesEmbed(data.dispatch) for lang in languages}
             chunked_channels = [
-                self.channels[i : i + 50] for i in range(0, len(self.channels), 50)
+                self.bot.announcement_channels[i : i + 50]
+                for i in range(0, len(self.bot.announcement_channels), 50)
             ]
             dispatches_sent = 0
             Dispatches.set_new_id(self._newest_id)
@@ -163,17 +158,14 @@ class AnnouncementsCog(commands.Cog):
 
     @tasks.loop(minutes=1)
     async def steam_check(self):
-        if self.channels == []:
+        if self.bot.patch_channels == []:
             return
         patch_notes_start = datetime.now()
         last_id = Steam.get_last_id()
         api = API()
         await api.pull_from_api(get_steam=True)
         if api.error:
-            error_channel = self.bot.get_channel(
-                1212735927223590974
-            ) or await self.bot.fetch_channel(1212735927223590974)
-            return await error_channel.send(
+            return await self.bot.moderator_channel.send(
                 f"<@164862382185644032>\n{api.error[0]}\n{api.error[1]}\n:warning:"
             )
         data = Data(data_from_api=api)
@@ -184,8 +176,8 @@ class AnnouncementsCog(commands.Cog):
             languages = Guilds.get_used_languages()
             embeds = {lang: SteamEmbed(data.steam) for lang in languages}
             chunked_patch_channels = [
-                self.patch_channels[i : i + 50]
-                for i in range(0, len(self.patch_channels), 50)
+                self.bot.patch_channels[i : i + 50]
+                for i in range(0, len(self.bot.patch_channels), 50)
             ]
             patch_notes_sent = 0
             Steam.set_new_id(self._newest_id)
@@ -203,5 +195,5 @@ class AnnouncementsCog(commands.Cog):
         await self.bot.wait_until_ready()
 
 
-def setup(bot: commands.Bot):
+def setup(bot: GalacticWideWebBot):
     bot.add_cog(AnnouncementsCog(bot))

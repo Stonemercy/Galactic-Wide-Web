@@ -149,5 +149,6 @@
     "setup.map": "Karte",
     "setup.map_channel": "Kartenkanal",
     "setup.map_message": "Kartennachricht",
+    "setup.patch_notes_name": "Patchnotizen",
     "setup.unset_map": "Ich habe Ihre Karte gelöscht. Sie können alle alten Karten auf diesem Server löschen."
 }

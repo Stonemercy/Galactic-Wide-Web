@@ -3,10 +3,11 @@ from disnake.ext import commands
 from helpers.db import Guilds
 from helpers.embeds import Items
 from json import load
+from main import GalacticWideWebBot
 
 
 class WeaponsCog(commands.Cog):
-    def __init__(self, bot: commands.Bot):
+    def __init__(self, bot: GalacticWideWebBot):
         self.bot = bot
         self.types = load(open("data/json/items/weapons/types.json"))
         self.fire_modes = load(open("data/json/items/weapons/fire_modes.json"))
@@ -156,5 +157,5 @@ class WeaponsCog(commands.Cog):
         return await inter.send(embed=embed, ephemeral=True)
 
 
-def setup(bot: commands.Bot):
+def setup(bot: GalacticWideWebBot):
     bot.add_cog(WeaponsCog(bot))

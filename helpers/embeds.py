@@ -24,24 +24,26 @@ class PlanetEmbed(Embed):
         super().__init__(colour=Colour.blue())
         self.planet = data
         self.language = load(open(f"data/languages/{language}.json", encoding="UTF-8"))
-        planet_health_bar = (
-            health_bar(
+        if self.planet.current_owner == "Humans":
+            if not self.planet.event:
+                planet_health_bar = health_bar(
+                    self.planet.health / self.planet.max_health, "Humans", False
+                )
+                health_text = f"{(self.planet.health / self.planet.max_health):^25,.2%}"
+            else:
+                planet_health_bar = health_bar(
+                    self.planet.event.health / self.planet.event.max_health,
+                    self.planet.current_owner,
+                    True,
+                )
+                health_text = f"{1 - (self.planet.event.health / self.planet.event.max_health):^25,.2%}"
+        else:
+            planet_health_bar = health_bar(
                 self.planet.health / self.planet.max_health,
                 self.planet.current_owner,
                 True,
             )
-            if not self.planet.event
-            else health_bar(
-                self.planet.event.health / self.planet.event.max_health,
-                self.planet.current_owner,
-                True,
-            )
-        )
-        health_text = (
-            (f"{1 - (self.planet.health / self.planet.max_health):^25,.2%}")
-            if not self.planet.event
-            else f"{1 - (self.planet.event.health / self.planet.event.max_health):^25,.2%}"
-        )
+            health_text = f"{1 - (self.planet.health / self.planet.max_health):^25,.2%}"
         enviros_text = ""
         for hazard in self.planet.hazards:
             enviros_text += f"\n- **{hazard['name']}**\n - {hazard['description']}"

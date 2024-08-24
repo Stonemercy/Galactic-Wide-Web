@@ -7,10 +7,11 @@ from data.lists import planets
 from helpers.functions import planet_map
 from helpers.api import Data, API
 from json import load
+from main import GalacticWideWebBot
 
 
 class PlanetCog(commands.Cog):
-    def __init__(self, bot: commands.Bot):
+    def __init__(self, bot: GalacticWideWebBot):
         self.bot = bot
         self.planets_json = load(
             open("data/json/planets/planets.json", encoding="UTF-8")
@@ -87,5 +88,5 @@ class PlanetCog(commands.Cog):
         await inter.send(embeds=[embed, map_embed], ephemeral=public)
 
 
-def setup(bot: commands.Bot):
+def setup(bot: GalacticWideWebBot):
     bot.add_cog(PlanetCog(bot))

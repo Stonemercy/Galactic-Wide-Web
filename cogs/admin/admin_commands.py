@@ -1,26 +1,27 @@
 from asyncio import sleep
 from datetime import datetime
 from os import getenv
-from disnake import AppCmdInter
+from disnake import AppCmdInter, Permissions
 from disnake.ext import commands
 from helpers.db import Feedback, Guilds
 from helpers.embeds import AnnouncementEmbed
+from main import GalacticWideWebBot
 
 
 SUPPORT_SERVER = [int(getenv("SUPPORT_SERVER"))]
 
 
 class AdminCommandsCog(commands.Cog):
-    def __init__(self, bot: commands.Bot):
+    def __init__(self, bot: GalacticWideWebBot):
         self.bot = bot
 
     @commands.slash_command(
         guild_ids=SUPPORT_SERVER,
         description="Forces dashboards to update ASAP",
+        default_member_permissions=Permissions(administrator=True),
     )
     async def force_update_dashboard(self, inter: AppCmdInter):
         await inter.response.defer(ephemeral=True)
-        update_start = datetime.now()
         self.bot.logger.critical(
             f"AdminCommandsCog, {inter.application_command.name} command used by {inter.author.id} - {inter.author.name}"
         )
@@ -28,6 +29,7 @@ class AdminCommandsCog(commands.Cog):
             return await inter.send(
                 "You can't use this", ephemeral=True, delete_after=3.0
             )
+        update_start = datetime.now()
         dashboards_updated = await self.bot.get_cog("DashboardCog").dashboard(
             force=True
         )
@@ -38,10 +40,10 @@ class AdminCommandsCog(commands.Cog):
     @commands.slash_command(
         guild_ids=SUPPORT_SERVER,
         description="Forces maps to update ASAP",
+        default_member_permissions=Permissions(administrator=True),
     )
     async def force_update_maps(self, inter: AppCmdInter):
         await inter.response.defer(ephemeral=True)
-        update_start = datetime.now()
         self.bot.logger.critical(
             f"AdminCommandsCog, {inter.application_command.name} command used by {inter.author.id} - {inter.author.name}"
         )
@@ -49,6 +51,7 @@ class AdminCommandsCog(commands.Cog):
             return await inter.send(
                 "You can't use this", ephemeral=True, delete_after=3.0
             )
+        update_start = datetime.now()
         maps_updated = await self.bot.get_cog("MapCog").map_poster(force=True)
         text = f"Forced updates of {maps_updated} maps in {(datetime.now() - update_start).total_seconds():.2f} seconds"
         self.bot.logger.info(text)
@@ -57,10 +60,10 @@ class AdminCommandsCog(commands.Cog):
     @commands.slash_command(
         guild_ids=SUPPORT_SERVER,
         description="Send out the prepared announcement",
+        default_member_permissions=Permissions(administrator=True),
     )
     async def send_announcement(self, inter: AppCmdInter, test: bool):
         await inter.response.defer(ephemeral=True)
-        update_start = datetime.now()
         self.bot.logger.critical(
             f"AdminCommandsCog, {inter.application_command.name} command used by {inter.author.id} - {inter.author.name}"
         )
@@ -68,12 +71,15 @@ class AdminCommandsCog(commands.Cog):
             return await inter.send(
                 "You can't use this", ephemeral=True, delete_after=3.0
             )
+        update_start = datetime.now()
         languages = Guilds.get_used_languages()
         embeds = {lang: AnnouncementEmbed() for lang in languages}
         if test == True:
             return await inter.send(embed=embeds["en"], ephemeral=True)
-        channels = self.bot.get_cog("AnnouncementsCog").channels
-        chunked_channels = [channels[i : i + 50] for i in range(0, len(channels), 50)]
+        chunked_channels = [
+            self.bot.announcement_channels[i : i + 50]
+            for i in range(0, len(self.bot.announcement_channels), 50)
+        ]
         for chunk in chunked_channels:
             for channel in chunk:
                 self.bot.loop.create_task(
@@ -83,22 +89,23 @@ class AdminCommandsCog(commands.Cog):
                 )
             await sleep(1.025)
         await inter.send(
-            f"Attempted to send out an announcement to {len(channels)} channels in {(datetime.now() - update_start).total_seconds():.2f} seconds",
+            f"Attempted to send out an announcement to {len(self.bot.announcement_channels)} channels in {(datetime.now() - update_start).total_seconds():.2f} seconds",
             ephemeral=True,
         )
 
     @commands.slash_command(
         guild_ids=SUPPORT_SERVER,
         description="Unban someone you accidentally banned from giving feedback",
+        default_member_permissions=Permissions(administrator=True),
     )
     async def feedback_unban(self, inter: AppCmdInter, user_id):
+        self.bot.logger.critical(
+            f"AdminCommandsCog, {inter.application_command.name}: {user_id} command used by {inter.author.id} - {inter.author.name}"
+        )
         if inter.author.id != self.bot.owner_id:
             return await inter.send(
                 "You can't use this", ephemeral=True, delete_after=3.0
             )
-        self.bot.logger.critical(
-            f"AdminCommandsCog, {inter.application_command.name}: {user_id} command used by {inter.author.id} - {inter.author.name}"
-        )
         user = Feedback.get_user(user_id)
         if not user:
             return await inter.send("That user doesn't exist in the db", ephemeral=True)
@@ -110,15 +117,16 @@ class AdminCommandsCog(commands.Cog):
     @commands.slash_command(
         guild_ids=SUPPORT_SERVER,
         description="Provide the reason for a ban",
+        default_member_permissions=Permissions(administrator=True),
     )
     async def feedback_ban_reason(self, inter: AppCmdInter, user_id, reason):
+        self.bot.logger.critical(
+            f"AdminCommandsCog, {inter.application_command.name}: {user_id}, {reason} command used by {inter.author.id} - {inter.author.name}"
+        )
         if inter.author.id != self.bot.owner_id:
             return await inter.send(
                 "You can't use this", ephemeral=True, delete_after=3.0
             )
-        self.bot.logger.critical(
-            f"AdminCommandsCog, {inter.application_command.name}: {user_id}, {reason} command used by {inter.author.id} - {inter.author.name}"
-        )
         user = Feedback.get_user(user_id)
         if not user:
             return await inter.send("That user doesn't exist in the db", ephemeral=True)
@@ -130,15 +138,16 @@ class AdminCommandsCog(commands.Cog):
     @commands.slash_command(
         guild_ids=SUPPORT_SERVER,
         description="Un-mark a user as good",
+        default_member_permissions=Permissions(administrator=True),
     )
     async def not_good_feedback(self, inter: AppCmdInter, user_id):
+        self.bot.logger.critical(
+            f"AdminCommandsCog, {inter.application_command.name}: {user_id} command used by {inter.author.id} - {inter.author.name}"
+        )
         if inter.author.id != self.bot.owner_id:
             return await inter.send(
                 "You can't use this", ephemeral=True, delete_after=3.0
             )
-        self.bot.logger.critical(
-            f"AdminCommandsCog, {inter.application_command.name}: {user_id} command used by {inter.author.id} - {inter.author.name}"
-        )
         user = Feedback.get_user(user_id)
         if not user:
             return await inter.send("That user doesn't exist in the db", ephemeral=True)
@@ -148,5 +157,5 @@ class AdminCommandsCog(commands.Cog):
         await inter.send(f"User **{user_id}** set as not-good feedback", ephemeral=True)
 
 
-def setup(bot: commands.Bot):
+def setup(bot: GalacticWideWebBot):
     bot.add_cog(AdminCommandsCog(bot))

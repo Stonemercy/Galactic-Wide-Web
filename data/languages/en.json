@@ -149,5 +149,6 @@
     "setup.map": "Map",
     "setup.map_channel": "Map Channel",
     "setup.map_message": "Map Message",
+    "setup.patch_notes_name": "Patch Notes",
     "setup.unset_map": "I have unset your map. You are free to delete any old maps in this server."
 }

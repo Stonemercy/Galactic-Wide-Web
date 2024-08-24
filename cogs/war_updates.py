@@ -5,12 +5,12 @@ from helpers.db import Campaigns, Guilds
 from helpers.embeds import CampaignEmbed
 from helpers.api import API, Data
 from datetime import datetime
+from main import GalacticWideWebBot
 
 
 class WarUpdatesCog(commands.Cog):
-    def __init__(self, bot: commands.Bot):
+    def __init__(self, bot: GalacticWideWebBot):
         self.bot = bot
-        self.channels = []
         self.campaign_check.start()
 
     def cog_unload(self):
@@ -19,14 +19,14 @@ class WarUpdatesCog(commands.Cog):
     async def send_campaign(self, channel: TextChannel, embeds):
         guild = Guilds.get_info(channel.guild.id)
         if not guild:
-            self.channels.remove(channel)
+            self.bot.announcement_channels.remove(channel)
             return self.bot.logger.error(
                 f"WarUpdatesCog, send_campaign, guild == None, {channel.guild.id}"
             )
         try:
             await channel.send(embed=embeds[guild[5]])
         except Forbidden:
-            self.channels.remove(channel)
+            self.bot.announcement_channels.remove(channel)
             self.bot.logger.error(
                 f"WarUpdatesCog, send_campaign, Forbidden, removing, {channel.id}"
             )
@@ -37,7 +37,12 @@ class WarUpdatesCog(commands.Cog):
     @tasks.loop(minutes=1)
     async def campaign_check(self):
         update_start = datetime.now()
-        if self.channels == [] or update_start.minute in (0, 15, 30, 45):
+        if self.bot.announcement_channels == [] or update_start.minute in (
+            0,
+            15,
+            30,
+            45,
+        ):
             return
         api = API()
         await api.pull_from_api(
@@ -45,10 +50,7 @@ class WarUpdatesCog(commands.Cog):
             get_campaigns=True,
         )
         if api.error:
-            error_channel = self.bot.get_channel(
-                1212735927223590974
-            ) or await self.bot.fetch_channel(1212735927223590974)
-            return await error_channel.send(
+            return await self.bot.moderator_channel.send(
                 f"<@164862382185644032>{api.error[0]}\n{api.error[1]}\n:warning:"
             )
         data = Data(data_from_api=api)
@@ -115,7 +117,8 @@ class WarUpdatesCog(commands.Cog):
             for embed in embeds.values():
                 embed.remove_empty()
             chunked_channels = [
-                self.channels[i : i + 50] for i in range(0, len(self.channels), 50)
+                self.bot.announcement_channels[i : i + 50]
+                for i in range(0, len(self.bot.announcement_channels), 50)
             ]
             announcements_sent = 0
             for chunk in chunked_channels:
@@ -133,5 +136,5 @@ class WarUpdatesCog(commands.Cog):
         await self.bot.wait_until_ready()
 
 
-def setup(bot: commands.Bot):
+def setup(bot: GalacticWideWebBot):
     bot.add_cog(WarUpdatesCog(bot))

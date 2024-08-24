@@ -4,10 +4,11 @@ from disnake.ext import commands
 from helpers.db import Guilds
 from helpers.embeds import Automaton
 from data.lists import enemies
+from main import GalacticWideWebBot
 
 
 class AutomatonCog(commands.Cog):
-    def __init__(self, bot: commands.Bot):
+    def __init__(self, bot: GalacticWideWebBot):
         self.bot = bot
         self.automaton_dict = enemies["automaton"]
         self.variations_dict = {}
@@ -77,5 +78,5 @@ class AutomatonCog(commands.Cog):
         return await inter.send(embed=embed, ephemeral=True)
 
 
-def setup(bot: commands.Bot):
+def setup(bot: GalacticWideWebBot):
     bot.add_cog(AutomatonCog(bot))

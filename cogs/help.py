@@ -3,10 +3,11 @@ from disnake.ext import commands
 from disnake.ui import Button
 from helpers.embeds import HelpEmbed
 from data.lists import help_dict
+from main import GalacticWideWebBot
 
 
 class HelpCog(commands.Cog):
-    def __init__(self, bot: commands.Bot):
+    def __init__(self, bot: GalacticWideWebBot):
         self.bot = bot
 
     async def help_autocomp(inter: AppCmdInter, user_input: str):
@@ -93,5 +94,5 @@ class HelpCog(commands.Cog):
             )
 
 
-def setup(bot: commands.Bot):
+def setup(bot: GalacticWideWebBot):
     bot.add_cog(HelpCog(bot))

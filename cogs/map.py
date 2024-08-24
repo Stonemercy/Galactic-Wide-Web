@@ -10,12 +10,12 @@ from PIL.ImageDraw import Draw
 from PIL.ImageFont import truetype
 from asyncio import sleep
 from data.lists import supported_languages
+from main import GalacticWideWebBot
 
 
 class MapCog(commands.Cog):
-    def __init__(self, bot: commands.Bot):
+    def __init__(self, bot: GalacticWideWebBot):
         self.bot = bot
-        self.messages = []
         self.faction_colour = {
             "Automaton": (252, 76, 79),
             "automaton": (126, 38, 22),
@@ -27,10 +27,10 @@ class MapCog(commands.Cog):
             "humans": (18, 102, 38),
             "MO": (254, 226, 76),
         }
-        self.map_poster.start()
         self.planet_names_loc = load(
             open(f"data/json/planets/planets.json", encoding="UTF-8")
         )
+        self.map_poster.start()
 
     def cog_unload(self):
         self.map_poster.stop()
@@ -38,14 +38,14 @@ class MapCog(commands.Cog):
     async def update_message(self, message: PartialMessage, embed_dict):
         guild = Guilds.get_info(message.guild.id)
         if not guild:
-            self.messages.remove(message)
+            self.bot.map_messages.remove(message)
             return self.bot.logger.error(
                 f"MapCog, update_message, guild == None, {message.guild.id}"
             )
         try:
             await message.edit(embed=embed_dict[guild[5]])
         except (NotFound, Forbidden) as e:
-            self.messages.remove(message)
+            self.bot.map_messages.remove(message)
             Guilds.update_map(message.guild.id, 0, 0)
             return self.bot.logger.error(
                 f"MapCog, update_message, {e}, removing, {message.channel.name}"
@@ -58,7 +58,7 @@ class MapCog(commands.Cog):
     @tasks.loop(minutes=1)
     async def map_poster(self, force: bool = False):
         update_start = datetime.now()
-        if (update_start.minute != 5 and force == False) or self.messages == []:
+        if (update_start.minute != 5 and force == False) or self.bot.map_messages == []:
             return
         channel = self.bot.get_channel(1242843098363596883)
         try:
@@ -82,7 +82,8 @@ class MapCog(commands.Cog):
         data = Data(data_from_api=api)
         dashboard_maps_dict = await dashboard_maps(data, channel)
         chunked_messages = [
-            self.messages[i : i + 50] for i in range(0, len(self.messages), 50)
+            self.bot.map_messages[i : i + 50]
+            for i in range(0, len(self.bot.map_messages), 50)
         ]
         maps_updated = 0
         for chunk in chunked_messages:
@@ -256,5 +257,5 @@ class MapCog(commands.Cog):
         )
 
 
-def setup(bot: commands.Bot):
+def setup(bot: GalacticWideWebBot):
     bot.add_cog(MapCog(bot))

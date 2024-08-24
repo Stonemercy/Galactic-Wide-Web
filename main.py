@@ -1,3 +1,4 @@
+from datetime import datetime
 from disnake.ext import commands
 from dotenv import load_dotenv
 from os import getenv, listdir
@@ -15,22 +16,35 @@ logger.addHandler(handler)
 load_dotenv("data/.env")
 OWNER = int(getenv("OWNER"))
 
+intents = Intents.default()
 activity = Activity(name="for Socialism", type=ActivityType.watching)
 
-intents = Intents.default()
-bot = commands.InteractionBot(
-    owner_id=OWNER,
-    intents=intents,
-    activity=activity,
-)
-bot.logger = logger
+
+class GalacticWideWebBot(commands.InteractionBot):
+    def __init__(self):
+        super().__init__(owner_id=OWNER, intents=intents, activity=activity)
+        self.logger = logger
+        self.startup_time = datetime.now()
+        self.dashboard_messages = []
+        self.dashboard_channels = []
+        self.announcement_channels = []
+        self.patch_channels = []
+        self.map_messages = []
+        self.map_channels = []
+
+    async def on_ready(self):
+        self.moderator_channel = self.get_channel(int(getenv("MODERATION_CHANNEL")))
+        self.feedback_channel = self.get_channel(int(getenv("FEEDBACK_CHANNEL")))
+        self.waste_bin_channel = self.get_channel(int(getenv("WASTE_BIN_CHANNEL")))
+        self.logger.info(
+            f"Loaded {len(bot.cogs)}/{len([f for f in listdir('cogs') if f.endswith('.py')]) + len([f for f in listdir('cogs/admin') if f.endswith('.py')])} cogs successfully"
+        )
+
+
+bot = GalacticWideWebBot()
 
 bot.load_extensions("cogs")
 bot.load_extensions("cogs/admin")
-
-bot.logger.info(
-    f"Loaded {len(bot.cogs)}/{len([f for f in listdir('cogs') if f.endswith('.py')]) + len([f for f in listdir('cogs/admin') if f.endswith('.py')])} cogs successfully"
-)
 
 if __name__ == "__main__":
     bot.run(getenv("TOKEN"))
