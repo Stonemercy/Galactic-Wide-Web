@@ -5,14 +5,6 @@ from os import getenv, listdir
 from disnake import ActivityType, Intents, Activity
 import logging
 
-logger = logging.getLogger("disnake")
-logger.setLevel(logging.INFO)
-handler = logging.FileHandler(filename="disnake.log", encoding="utf-8", mode="w")
-handler.setFormatter(
-    logging.Formatter("%(asctime)s: %(levelname)s: %(name)s: %(message)s")
-)
-logger.addHandler(handler)
-
 load_dotenv("data/.env")
 OWNER = int(getenv("OWNER"))
 
@@ -23,6 +15,15 @@ activity = Activity(name="for Socialism", type=ActivityType.watching)
 class GalacticWideWebBot(commands.InteractionBot):
     def __init__(self):
         super().__init__(owner_id=OWNER, intents=intents, activity=activity)
+        logger = logging.getLogger("disnake")
+        logger.setLevel(logging.INFO)
+        handler = logging.FileHandler(
+            filename="disnake.log", encoding="utf-8", mode="w"
+        )
+        handler.setFormatter(
+            logging.Formatter("%(asctime)s: %(levelname)s: %(name)s: %(message)s")
+        )
+        logger.addHandler(handler)
         self.logger = logger
         self.startup_time = datetime.now()
         self.dashboard_messages = []

@@ -1,12 +1,7 @@
 from json import load
 from disnake import Embed, Colour, File, ModalInteraction
 from datetime import datetime
-from helpers.functions import (
-    health_bar,
-    short_format,
-    skipped_planets,
-    steam_format,
-)
+from helpers.functions import health_bar, short_format, skipped_planets
 from helpers.api import Assignment, Campaign, Data, Tasks, Planet
 from data.lists import (
     emojis_dict,
@@ -400,8 +395,15 @@ class Dashboard:
                         species_dict[task.values[3]] if task.values[3] != 0 else None
                     )
                     task.health_bar = health_bar(
-                        task.progress, en_faction_dict[task.values[0]]
+                        task.progress,
+                        (
+                            en_faction_dict[task.values[0]]
+                            if task.progress != 1.00
+                            else "Humans"
+                        ),
                     )
+                    if task.progress == 1.0:
+                        task.health_bar += " COMPLETED"
                     target = (
                         loc_faction_dict[task.values[0]] if not species else species
                     )
