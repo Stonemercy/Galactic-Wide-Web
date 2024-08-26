@@ -31,7 +31,7 @@ class HelpCog(commands.Cog):
         help_embed = HelpEmbed()
         if command == "all":
             for global_command in inter.bot.global_slash_commands:
-                options = "Options:\n"
+                options = "Options:\n" if global_command.options != [] else ""
                 for option in global_command.options:
                     if option.type == OptionType.sub_command:
                         options += f"- </{global_command.name} {option.name}:{global_command.id}>\n"
