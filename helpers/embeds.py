@@ -28,7 +28,7 @@ class PlanetEmbed(Embed):
             else:
                 planet_health_bar = health_bar(
                     self.planet.event.health / self.planet.event.max_health,
-                    self.planet.current_owner,
+                    self.planet.event.faction,
                     True,
                 )
                 health_text = f"{1 - (self.planet.event.health / self.planet.event.max_health):^25,.2%}"
