@@ -1,15 +1,15 @@
 {
 	"684729784": {
 		"name": "Stamina Enhancement",
-		"description": "Increases all Helldivers' stamina capacity and recovery."
+		"description": "+30% to sprint duration and +23% to stamina regen."
 	},
 	"876985512": {
 		"name": "Localization Confusion",
-		"description": "Increases the time between enemy encounters."
+		"description": "The cooldown for Bug Breaches and Bot Drops is increased by 10%."
 	},
 	"1110686504": {
 		"name": "Vitality Enhancement",
-		"description": "Allows all Helldivers to resist injury."
+		"description": "Helldivers take less damage from all sources and are more resistant to limb injuries. Torso can still hemorrhage."
 	},
 	"1908198785": {
 		"name": "Hellpod Space Optimization",
@@ -17,30 +17,30 @@
 	},
 	"2776452811": {
 		"name": "Muscle Enhancement",
-		"description": "Allows Helldivers to traverse difficult terrain with ease."
+		"description": "Harder to be slowed in bushes, thick mud, deep snow, and water."
 	},
 	"4066886572": {
 		"name": "Increased Reinforcement Budget",
-		"description": "Increases the number of available reinforcements."
+		"description": "Gives 1 additional reinforcement per Helldiver."
 	},
 	"4136928865": {
 		"name": "UAV Recon Booster",
-		"description": "Increases all Helldivers' effective radar range."
+		"description": "Increases all Helldivers' effective radar range by 50% (affects spotting Places of Interest). Stacks with Nuclear Radar and affects pings from the Scout armor perk."
 	},
 	"4273318008": {
 		"name": "Flexible Reinforcement Budget",
-		"description": "Reduces time until new reinforcements are granted once they've been depleted."
+		"description": "Reduces reinforcements replenish time by 10%."
 	},
 	"3504405746": {
 		"name": "Expert Extraction Pilot",
-		"description": "Lowers the time it takes for the extraction shuttle to reach the extraction beacon."
+		"description": "Lowers the extraction time by 15%."
 	},
 	"2709264466": {
 		"name": "Motivational Shocks",
-		"description": "Allows all Helldivers to recover faster after being slowed by an attack, such as acid. Does not mitigate 'area effects,' such as EMS Strikes."
+		"description": "Negates slowed-effect inflicted by hostiles."
 	},
 	"3912131454": {
 		"name": "Experimental Infusion",
-		"description": "In addition to restoring health, stims temporarily increase movement speed and damage reduction. Causes trembling."
+		"description": "Gives Stims the added bonus of boosting player movement speed and reducing damage taken for a short time."
 	}
 }
