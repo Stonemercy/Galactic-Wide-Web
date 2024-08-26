@@ -12,29 +12,15 @@ class WeaponsCog(commands.Cog):
         self.types = load(open("data/json/items/weapons/types.json"))
         self.fire_modes = load(open("data/json/items/weapons/fire_modes.json"))
         self.traits = load(open("data/json/items/weapons/traits.json"))
-        self.primaries = load(open("data/json/items/weapons/primary.json"))
-        self.primaries["item_list"] = {}
-        for i, j in self.primaries.items():
-            if i == "item_list":
-                continue
-            self.primaries["item_list"][j["name"]] = j
-        self.primaries = self.primaries["item_list"]
 
-        self.secondaries = load(open("data/json/items/weapons/secondary.json"))
-        self.secondaries["item_list"] = {}
-        for i, j in self.secondaries.items():
-            if i == "item_list":
-                continue
-            self.secondaries["item_list"][j["name"]] = j
-        self.secondaries = self.secondaries["item_list"]
+        self.primaries_json = load(open("data/json/items/weapons/primary.json"))
+        self.primaries = {item["name"]: item for item in self.primaries_json.values()}
 
-        self.grenades = load(open("data/json/items/weapons/grenades.json"))
-        self.grenades["item_list"] = {}
-        for i, j in self.grenades.items():
-            if i == "item_list":
-                continue
-            self.grenades["item_list"][j["name"]] = j
-        self.grenades = self.grenades["item_list"]
+        self.secondaries_json = load(open("data/json/items/weapons/secondary.json"))
+        self.primaries = {item["name"]: item for item in self.primaries_json.values()}
+
+        self.grenades_json = load(open("data/json/items/weapons/grenades.json"))
+        self.grenades = {item["name"]: item for item in self.primaries_json.values()}
 
     async def primary_autocomp(inter: AppCmdInter, user_input: str):
         primaries_json = load(open("data/json/items/weapons/primary.json"))

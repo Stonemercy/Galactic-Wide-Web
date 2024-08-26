@@ -880,7 +880,11 @@ class Items:
                 description=booster["description"],
             )
             try:
-                self.set_thumbnail(file=File(f"resources/boosters/{booster['name'].replace(' ', '_')}.png"))
+                self.set_thumbnail(
+                    file=File(
+                        f"resources/boosters/{booster['name'].replace(' ', '_')}.png"
+                    )
+                )
                 self.image_set = True
             except:
                 self.image_set = False
