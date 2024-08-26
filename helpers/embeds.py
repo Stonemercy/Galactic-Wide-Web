@@ -1050,6 +1050,33 @@ class Items:
                 item_number += 1
 
 
+class StratagemEmbed(Embed):
+    def __init__(self, stratagem_name: str, stratagem_stats: dict):
+        super().__init__(title=stratagem_name, colour=Colour.brand_green())
+        key_inputs = ""
+        for key in stratagem_stats["keys"]:
+            key_inputs += emojis_dict[key]
+        self.add_field("Key input", key_inputs, inline=False)
+
+        self.add_field("Uses", stratagem_stats["uses"], inline=False)
+        self.add_field(
+            "Cooldown",
+            f"{stratagem_stats['cooldown']} seconds ({(stratagem_stats['cooldown']/60):.2f} minutes)",
+        )
+        self.add_field(
+            "Activation time", f"{stratagem_stats['activation']} seconds", inline=False
+        )
+        try:
+            self.set_thumbnail(
+                file=File(
+                    f"resources/stratagems/{stratagem_name.replace('/', '_').replace(' ', '_')}.png"
+                )
+            )
+            self.image_set = True
+        except:
+            self.image_set = False
+
+
 class Terminid(Embed):
     def __init__(
         self, species_name: str, species_data: dict, language, variation: bool = False

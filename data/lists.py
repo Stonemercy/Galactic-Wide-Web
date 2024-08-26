@@ -599,6 +599,10 @@ emojis_dict = {
     "Automaton": "<:a_:1215036421551685672>",
     "Terminids": "<:t_:1215036423090999376>",
     "Illuminate": "<:i_:1218283483240206576>",
+    "up": "<:Up_Arrow:1277557874041557002>",
+    "down": "<:Down_Arrow:1277557875849302107>",
+    "left": "<:Left_Arrow:1277557877787066389>",
+    "right": "<:Right_Arrow:1277557872246652928> ",
 }
 
 warbond_images_dict = {
