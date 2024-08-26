@@ -74,6 +74,18 @@ If you wish to use the GWW bot itself, I have it hosted and you can invite it [h
     - `species`: string <Optional> - A specific 'main' illuminate
     - `variation`: string <Optional> - A specific variant of an illuminate
 
+`/map`
+- Get an up-to-date map of the galaxy
+  - Options:
+    - `faction`: string <Optional> - The faction to focus on
+    - `public`: string <Optional> - Do you want other people to see the response to this command?
+
+`/feedback`
+- Provide feedback for the bot that goes directly to me
+
+`/stats`
+- Returns information on the bot
+
 ## Support
 Available here: [Discord Support Server](https://discord.gg/Z8Ae5H5DjZ)
 
