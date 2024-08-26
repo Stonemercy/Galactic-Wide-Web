@@ -51,7 +51,6 @@ class DashboardCog(commands.Cog):
 
     @tasks.loop(time=times)
     async def dashboard(self, force: bool = False):
-        update_start = datetime.now()
         if self.bot.dashboard_messages == []:
             return
         update_start = datetime.now()
