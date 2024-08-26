@@ -17,7 +17,7 @@ class WeaponsCog(commands.Cog):
         self.primaries = {item["name"]: item for item in self.primaries_json.values()}
 
         self.secondaries_json = load(open("data/json/items/weapons/secondary.json"))
-        self.primaries = {item["name"]: item for item in self.primaries_json.values()}
+        self.secondaries = {item["name"]: item for item in self.primaries_json.values()}
 
         self.grenades_json = load(open("data/json/items/weapons/grenades.json"))
         self.grenades = {item["name"]: item for item in self.primaries_json.values()}
@@ -59,6 +59,8 @@ class WeaponsCog(commands.Cog):
             f"WeaponsCog, weapons primary primary:{primary} command used"
         )
         guild_in_db = Guilds.get_info(inter.guild_id)
+        if not guild_in_db:
+            guild_in_db = Guilds.insert_new_guild(inter.guild.id)
         guild_language = load(
             open(f"data/languages/{guild_in_db[5]}.json", encoding="UTF-8")
         )
@@ -90,6 +92,8 @@ class WeaponsCog(commands.Cog):
             f"WeaponsCog, weapons secondary secondary:{secondary} command used"
         )
         guild_in_db = Guilds.get_info(inter.guild_id)
+        if not guild_in_db:
+            guild_in_db = Guilds.insert_new_guild(inter.guild.id)
         guild_language = load(
             open(f"data/languages/{guild_in_db[5]}.json", encoding="UTF-8")
         )
@@ -97,7 +101,6 @@ class WeaponsCog(commands.Cog):
             return await inter.send(
                 guild_language["weapons.missing"],
                 ephemeral=True,
-                delete_after=10,
             )
         chosen_secondary = self.secondaries[secondary]
         embed = Items.Weapons.Secondary(
@@ -121,7 +124,7 @@ class WeaponsCog(commands.Cog):
             f"WeaponsCog, weapons grenade grenade:{grenade} command used"
         )
         guild_in_db = Guilds.get_info(inter.guild_id)
-        if guild_in_db == None:
+        if not guild_in_db:
             guild_in_db = Guilds.insert_new_guild(inter.guild.id)
         guild_language = load(
             open(f"data/languages/{guild_in_db[5]}.json", encoding="UTF-8")
@@ -130,7 +133,6 @@ class WeaponsCog(commands.Cog):
             return await inter.send(
                 guild_language["weapons.missing"],
                 ephemeral=True,
-                delete_after=10,
             )
         chosen_grenade = self.grenades[grenade]
         embed = Items.Weapons.Grenade(chosen_grenade, guild_language)
