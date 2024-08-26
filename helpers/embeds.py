@@ -1098,7 +1098,7 @@ class Terminid(Embed):
             9: "<:helldive:1219238179551318067>",
             "?": "?",
         }
-        file_name = species_name.replace(" ", "-")
+        file_name = species_name.replace(" ", "_")
         self.add_field(
             language["enemy.introduced"],
             f"{language['enemy.difficulty']} {species_data['start']} {difficulty_dict[species_data['start']]}",
@@ -1143,7 +1143,7 @@ class Automaton(Embed):
             9: "<:helldive:1219238179551318067>",
             "?": "?",
         }
-        file_name = bot_name.replace(" ", "-")
+        file_name = bot_name.replace(" ", "_")
         self.add_field(
             language["enemy.introduced"],
             f"{language['enemy.difficulty']} {bot_data['start']} {difficulty_dict[bot_data['start']]}",
@@ -1192,7 +1192,7 @@ class Illuminate(Embed):
             9: "<:helldive:1219238179551318067>",
             "?": "?",
         }
-        file_name = illuminate_name.replace(" ", "-")
+        file_name = illuminate_name.replace(" ", "_")
         self.add_field(
             language["enemy.introduced"],
             f"{language['enemy.difficulty']} {illuminate_data['start']} {difficulty_dict[illuminate_data['start']]}",
