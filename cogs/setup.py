@@ -43,7 +43,8 @@ class SetupCog(commands.Cog):
         )
 
     @commands.slash_command(
-        description="Change the GWW settings for your server. Use this without options to see your set settings."
+        description="Change the GWW settings for your server. Use this without options to see your set settings.",
+        dm_permission=False,
     )
     async def setup(
         self,
