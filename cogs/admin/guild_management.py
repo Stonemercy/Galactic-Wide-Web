@@ -99,9 +99,9 @@ class GuildManagementCog(commands.Cog):
             for global_command in self.bot.global_slash_commands:
                 for option in global_command.options:
                     if option.type == OptionType.sub_command:
-                        commands += f"</{global_command.name} {option.name}:{global_command.id}>\n"
+                        commands += f"</{global_command.name} {option.name}:{global_command.id}> "
                 if global_command.name != "weapons":
-                    commands += f"</{global_command.name}:{global_command.id}>\n"
+                    commands += f"</{global_command.name}:{global_command.id}> "
             member_count = sum([guild.member_count for guild in self.bot.guilds])
             dashboard_embed.add_field(
                 "The GWW has",
@@ -121,8 +121,17 @@ class GuildManagementCog(commands.Cog):
                     f"**Last restart**: <t:{int(self.bot.startup_time.timestamp())}:R>\n"
                     f"**Latency**: {int(latency * 1000)}ms"
                 ),
-                inline=False,
+                inline=True,
             )
+            dashboard_embed.add_field(
+                "Update Timers",
+                (
+                    f"This Dashboard: <t:{int(self.bot_dashboard.next_iteration.timestamp())}:R>\n"
+                    f"All Dashboards: <t:{int(self.bot.get_cog('DashboardCog').dashboard.next_iteration.timestamp())}:R>\n"
+                    f"All Maps: <t:{int(self.bot.get_cog('MapCog').map_poster.next_iteration.timestamp())}:R>\n"
+                ),
+            )
+            dashboard_embed.add_field("", "", inline=False)
             stats_dict = {
                 "Dashboard Setup": len(Guilds.dashboard_not_setup()),
                 "Announcements Setup": len(Guilds.feed_not_setup()),
@@ -192,6 +201,9 @@ class GuildManagementCog(commands.Cog):
                     ],
                 ),
             except Exception as e:
+                await self.bot.moderator_channel.send(
+                    f"<@{self.bot.owner_id}>\n```py\n{e}\n```bot_dashboard function in guild_management.py"
+                )
                 self.bot.logger.error(
                     f"GuildManagementCog, bot_dashboard, {e}, {message.id}"
                 )
