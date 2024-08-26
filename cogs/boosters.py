@@ -38,6 +38,10 @@ class BoostersCog(commands.Cog):
             )
         chosen_booster = self.boosters[booster]
         embed = Items.Booster(chosen_booster)
+        if not embed.image_set:
+            await self.bot.moderator_channel.send(
+                f"Image missing for **booster __{booster}__** <@{self.bot.owner_id}> :warning:"
+            )
         return await inter.send(embed=embed, ephemeral=True)
 
 

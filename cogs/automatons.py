@@ -75,6 +75,11 @@ class AutomatonCog(commands.Cog):
         elif variation:
             variation_info = self.variations_dict[variation]
             embed = Automaton(variation, variation_info, guild_language, variation=True)
+        if not embed.image_set:
+            await self.bot.moderator_channel.send(
+                f"Image missing for **automaton __{species = } {variation = }__** <@{self.bot.owner_id}> :warning:"
+            )
+
         return await inter.send(embed=embed, ephemeral=True)
 
 

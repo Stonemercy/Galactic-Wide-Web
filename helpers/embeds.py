@@ -880,9 +880,10 @@ class Items:
                 description=booster["description"],
             )
             try:
-                self.set_thumbnail(file=File(f"resources/boosters/booster.png"))
+                self.set_thumbnail(file=File(f"resources/boosters/{booster['name'].replace(' ', '_')}.png"))
+                self.image_set = True
             except:
-                pass
+                self.image_set = False
 
     class Warbond(Embed):
         def __init__(
@@ -1089,8 +1090,9 @@ class Terminid(Embed):
             self.set_thumbnail(
                 file=File(f"resources/enemies/terminids/{file_name}.png")
             )
+            self.image_set = True
         except:
-            pass
+            self.image_set = False
 
 
 class Automaton(Embed):
@@ -1133,8 +1135,9 @@ class Automaton(Embed):
             self.set_thumbnail(
                 file=File(f"resources/enemies/automatons/{file_name}.png")
             )
+            self.image_set = True
         except:
-            pass
+            self.image_set = False
 
 
 class Illuminate(Embed):
@@ -1181,8 +1184,9 @@ class Illuminate(Embed):
             self.set_thumbnail(
                 file=File(f"resources/enemies/automatons/{file_name}.png")
             )
+            self.image_set = True
         except:
-            pass
+            self.image_set = False
 
 
 class ReactRoleDashboard(Embed):
