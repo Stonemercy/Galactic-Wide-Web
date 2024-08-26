@@ -342,6 +342,7 @@ class Planet:
             self.max_health: int = event["maxHealth"]
             self.start_time = event["startTime"]
             self.end_time = event["endTime"]
+            self.progress: float = self.health / self.max_health
 
         def __repr__(self):
             return f"{self.id} - {self.type} - {self.faction}"

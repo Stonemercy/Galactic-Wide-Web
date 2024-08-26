@@ -319,12 +319,12 @@ class Dashboard:
                     planet: Planet = self.data.planets[task.values[2]]
                     if planet.event:
                         task.health_bar = health_bar(
-                            planet.event.health / planet.event.max_health,
+                            planet.event.progress,
                             "MO",
                             True,
                         )
                         completed = f"🛡️ {emojis_dict[planet.event.faction]}"
-                        health_text = f"{1 - (planet.event.health / planet.event.max_health):^25,.2%}"
+                        health_text = f"{1 - (planet.event.progress):^25,.2%}"
                     else:
                         task.health_bar = health_bar(
                             planet.health / planet.max_health,
