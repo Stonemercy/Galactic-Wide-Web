@@ -71,9 +71,9 @@ class WeaponsCog(commands.Cog):
         embed = Items.Weapons.Primary(
             chosen_primary, self.types, self.fire_modes, self.traits, guild_language
         )
-        if embed.has_image == False:
-            self.bot.logger.critical(
-                f"WeaponsCog, primary, no image provided for {primary}"
+        if not embed.image_set:
+            await self.bot.moderator_channel.send(
+                f"Image missing for **weapon primary __{primary}__** <@{self.bot.owner_id}> :warning:"
             )
         return await inter.send(embed=embed, ephemeral=True)
 
@@ -103,11 +103,10 @@ class WeaponsCog(commands.Cog):
         embed = Items.Weapons.Secondary(
             chosen_secondary, self.fire_modes, self.traits, guild_language
         )
-        if embed.has_image == False:
-            self.bot.logger.critical(
-                f"WeaponsCog, secondary, no image provided for {secondary}"
+        if not embed.image_set:
+            await self.bot.moderator_channel.send(
+                f"Image missing for **weapon secondary __{secondary}__** <@{self.bot.owner_id}> :warning:"
             )
-
         return await inter.send(embed=embed, ephemeral=True)
 
     @weapons.sub_command(description="Use this for grenades")
@@ -135,11 +134,10 @@ class WeaponsCog(commands.Cog):
             )
         chosen_grenade = self.grenades[grenade]
         embed = Items.Weapons.Grenade(chosen_grenade, guild_language)
-        if embed.has_image == False:
-            self.bot.logger.critical(
-                f"WeaponsCog, grenade, no image provided for {grenade}"
+        if not embed.image_set:
+            await self.bot.moderator_channel.send(
+                f"Image missing for **weapon grenade __{grenade}__** <@{self.bot.owner_id}> :warning:"
             )
-
         return await inter.send(embed=embed, ephemeral=True)
 
 

@@ -765,9 +765,9 @@ class Items:
                             f"resources/weapons/{primary['name'].replace(' ', '-')}.png"
                         )
                     )
-                    self.has_image = True
+                    self.image_set = True
                 except:
-                    self.has_image = False
+                    self.image_set = False
 
         class Secondary(Embed):
             def __init__(
@@ -815,9 +815,9 @@ class Items:
                             f"resources/weapons/{secondary['name'].replace(' ', '-')}.png"
                         )
                     )
-                    self.has_image = True
+                    self.image_set = True
                 except:
-                    self.has_image = False
+                    self.image_set = False
 
         class Grenade(Embed):
             def __init__(self, grenade: dict, language):
@@ -841,9 +841,9 @@ class Items:
                             f"resources/weapons/{grenade['name'].replace(' ', '-')}.png"
                         )
                     )
-                    self.has_image = True
+                    self.image_set = True
                 except:
-                    self.has_image = False
+                    self.image_set = False
 
     class Armour(Embed):
         def __init__(self, armour: dict, passives: dict, slots: dict):
