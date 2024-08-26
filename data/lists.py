@@ -292,7 +292,7 @@ enemies = {
             "weak spots": "Legs",
             "variations": {
                 "Bile Warrior": {
-                    "start": 5,
+                    "start": 4,
                     "desc": "This variation of the Warrior has the same traits as the basic warrior, but when killed they will blow up in an explosion that can severely damage you.",
                     "tactics": "Do not kill while close by",
                     "weak spots": "Legs",
@@ -331,12 +331,6 @@ enemies = {
                     "tactics": "Same as Bile Spewer, sides if you cant hit the head, or blow them up.",
                     "weak spots": "Head/mouth",
                 },
-                "White Spewer": {
-                    "start": "?",
-                    "desc": "A rare variation of the Blie Spewer, stats are unknown",
-                    "tactics": "?",
-                    "weak spots": "?",
-                },
             },
         },
         "Charger": {
@@ -345,12 +339,18 @@ enemies = {
             "tactics": "The main way to kill a Charger is to use armor piercing weapons and break it's forelegs, this staggers the Charger and exposes a super-weak spot.\nFor new Helldivers, the Expendable Anti-Tank can be used to instantly kill a Charger with a headshot, or instantly break the Charger's leg armor in 1 rocket.If you can't break the legs, hitting the underside of the abdomen will kill it slowly.",
             "weak spots": "Legs",
             "variations": {
-                "Charger Behemoth": {
-                    "start": "?",
-                    "desc": "A more heavily armed version of the Charger, not much else is known at the moment",
-                    "tactics": "?",
-                    "weak spots": "?",
-                }
+                "Behemoth": {
+                    "start": 3,
+                    "desc": "The Behemoth is a large, heavily-armored Terminid that is a variation of the Charger that has more armor, and is easily distinguishable from the normal charger by its elongated horn/tusk like armor on its head.",
+                    "tactics": "The Behemoth behaves much like a regular charger, but has increased armor. It now takes two direct hits from a anti-tank rocket launcher to crack their armor, even the head. However, it is still vulnerable to attacks to it's unarmored rear abdomen.",
+                    "weak spots": "Legs",
+                },
+                "Spore Charger": {
+                    "start": 8,
+                    "desc": "The Spore Charger is a large, heavily armored Terminid. An evolution of the Charger, the Spore Charger is covered spores, causing it to be shrouded in fog.",
+                    "tactics": "Similar to the regular charger.",
+                    "weak spots": "Legs, Spore Sacs",
+                },
             },
         },
         "Bile Titan": {
@@ -365,7 +365,14 @@ enemies = {
             "desc": "Mainly found in hives; Brood Commanders have the ability to summon Warriors and Hive Guards which can cause a **bug breach** if not dealt with swiftly enough.",
             "tactics": "Aim for the weak spots or the head, sentry guns and medium penetration guns are very good for them. They can survive with multiple limbs removed so make sure to fully kill them.\nSimilar to Warriors, they will have increased speed after decapitations (for about 3 seconds).",
             "weak spots": "Legs",
-            "variations": None,
+            "variations": {
+                "Alpha Commander": {
+                    "start": 8,
+                    "desc": "The Alpha Commander is a heavily-armored and supercharged variant of the Brood Commander. This creature summons 'Alpha Warriors' that are just stronger Warriors",
+                    "tactics": "Aim for legs/body to reliably kill them as their heads require medium armour penetration and they can run around without it.",
+                    "weak spots": "Legs, Body",
+                }
+            },
         },
         "Shrieker": {
             "start": 5,
@@ -374,11 +381,18 @@ enemies = {
             "weak spots": "Wings",
             "variations": None,
         },
+        "Impaler": {
+            "start": 6,
+            "desc": "The Impaler is a massive, heavily-armored Terminid with a unique but very powerful mutation: a head made up of three extremely dangerous tentacles that each burrow into the ground and resurface up to several dozen meters away.",
+            "tactics": "Aim for the weak spot which is revealed when it uses its tentacles to attack.",
+            "weak spots": "Face",
+            "variations": None,
+        },
     },
     "automaton": {
         "Trooper": {
             "start": 1,
-            "desc": "Troopers are little more than guns with legs, base caricatures of conciousness fused to machine guns and rocket launchers.",
+            "desc": "Troopers are little more than guns with legs, base caricatures of conciousness fused to equipment or weapon based on mission parameters.",
             "tactics": "Troopers are susceptible to explosives and headshots. Try to focus any troopers that raise their arms, they can fire up flares and call in a **bot drop**.",
             "weak spots": "Legs, Head",
             "variations": {
@@ -390,7 +404,13 @@ enemies = {
                 },
                 "Raider Trooper": {
                     "start": 1,
-                    "desc": "This variation of the Trooper can be equipped with either machine guns or rocket launchers.",
+                    "desc": "This variation of the Trooper is be equipped with machine guns",
+                    "tactics": "Easily enough killed",
+                    "weak spots": "Legs, Head",
+                },
+                "Rocket Raider Trooper": {
+                    "start": 1,
+                    "desc": "This variation of the Trooper is be equipped with rocket launchers.",
                     "tactics": "The rockets from this unit can be particularly deadly, keep an eye out for them.",
                     "weak spots": "Legs, Head",
                 },
@@ -420,7 +440,14 @@ enemies = {
             "desc": "The Scout Striders are protected by a boxy gun shield and operating a powerful turret inside. They're also quite fast and will shoot at a Helldiver continuously.",
             "tactics": "The easiest way to defeat these is to either get high ground or flank them and kill the pilot Trooper. If you can't do this, weapons with armor penetration can shoot through the box and kill the pilot from the front. Grenades that land behind the strider can also hit the Trooper.",
             "weak spots": "Pilot",
-            "variations": None,
+            "variations": {
+                "Rocket Strider": {
+                    "start": 4,
+                    "desc": "This variation of the Strider can be equipped with 4 non-reloading rocket launchers and is fully armoured and autonomous.",
+                    "tactics": "If you shoot the rockets on the strider before they are fired, you can blow it up easily.",
+                    "weak spots": "Rockets",
+                },
+            },
         },
         "Berserker": {
             "start": 1,
@@ -461,7 +488,7 @@ enemies = {
                     "tactics": "As with the normal Hulk, aim for the back and head, or use strategems. Try to avoid going too close to them as the fire kills quickly.",
                     "weak spots": "Head, Heat-Sinks",
                 },
-                "Rocket Hulk": {
+                "Obliterator Hulk": {
                     "start": 1,
                     "desc": "This variation of the Devastator is equipped with rocket launchers",
                     "tactics": "As with the normal Hulk, aim for the back and head, or use strategems. Try to avoid going out in open areas as the rockets are extremely accurate.",
@@ -475,15 +502,15 @@ enemies = {
             "tactics": "Strategems are good at taking these out, grenades to the top of the tank (less armour) are okay, the weak spots are on it's rear so try and focus those if you need to.",
             "weak spots": "Heat-Sinks",
             "variations": {
-                "Annihilator Tank": {
-                    "start": 4,
-                    "desc": "This variation of the Tank is equipped with a heavy cannon that can decimate Helldivers quickly",
-                    "tactics": "Strategems are good at taking these out, grenades to the top of the tank (less armour) are okay, the weak spots are on it's rear so try and focus those if you need to.",
-                    "weak spots": "Heat-Sinks",
-                },
                 "Shredder Tank": {
                     "start": 4,
                     "desc": "This variation of the Tank is equipped with 4 heavy machine guns",
+                    "tactics": "Strategems are good at taking these out, grenades to the top of the tank (less armour) are okay, the weak spots are on it's rear so try and focus those if you need to.",
+                    "weak spots": "Heat-Sinks",
+                },
+                "Barrager Tank": {
+                    "start": 4,
+                    "desc": "This variation of the Tank is equipped with Missile Launchers, can fire long range or close range.",
                     "tactics": "Strategems are good at taking these out, grenades to the top of the tank (less armour) are okay, the weak spots are on it's rear so try and focus those if you need to.",
                     "weak spots": "Heat-Sinks",
                 },
@@ -514,8 +541,8 @@ enemies = {
     "illuminate": {
         "Unknown": {
             "start": "?",
-            "desc": "Unknown.",
-            "tactics": "Unknown.",
+            "desc": "The Illuminate were exterminated from the galaxy by the years 2184 and have not since returned.",
+            "tactics": "||An alert of this search has been sent to your nearest Democracy Officer||",
             "weak spots": None,
             "variations": None,
         },
