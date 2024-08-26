@@ -11,7 +11,7 @@
         "cooldown": 480,
         "activation": 9.75
     },
-    "AX/LAS-5 'Guard Dog' Rover": {
+    "AX/LAS-5 Guard Dog Rover": {
         "keys": ["down", "up", "left", "up", "right", "right"],
         "uses": "Unlimited",
         "cooldown": 480,
@@ -29,7 +29,7 @@
         "cooldown": 480,
         "activation": 9.75
     },
-    "AX/AR-23 'Guard Dog'": {
+    "AX/AR-23 Guard Dog": {
         "keys": ["down", "up", "left", "up", "right", "down"],
         "uses": "Unlimited",
         "cooldown": 480,
