@@ -8,7 +8,7 @@ from disnake.ext import commands, tasks
 from cogs.stats import DashboardStats
 from helpers.embeds import Dashboard
 from helpers.db import Guilds
-from datetime import datetime
+from datetime import datetime, time
 from helpers.api import API, Data
 from main import GalacticWideWebBot
 
@@ -42,13 +42,19 @@ class DashboardCog(commands.Cog):
                 f"DashboardCog, update_message, {e}, {message.channel.id}"
             )
 
-    @tasks.loop(minutes=1)
+    times = []
+    for i in range(24):
+        times.append(time(hour=i, minute=0, second=0))
+        times.append(time(hour=i, minute=15, second=0))
+        times.append(time(hour=i, minute=30, second=0))
+        times.append(time(hour=i, minute=45, second=0))
+
+    @tasks.loop(time=times)
     async def dashboard(self, force: bool = False):
         update_start = datetime.now()
-        if (
-            update_start.minute not in (0, 15, 30, 45) and force == False
-        ) or self.bot.dashboard_messages == []:
+        if self.bot.dashboard_messages == []:
             return
+        update_start = datetime.now()
         api = API()
         await api.pull_from_api(
             get_campaigns=True,

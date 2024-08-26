@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime, time, timedelta
 from json import load
 from disnake import AppCmdInter, File, NotFound, Forbidden, PartialMessage
 from disnake.ext import commands, tasks
@@ -55,12 +55,14 @@ class MapCog(commands.Cog):
                 f"MapCog, update_message, {e}, {message.channel.name}"
             )
 
-    @tasks.loop(minutes=1)
+    times = [time(hour=hour, minute=5, second=0) for hour in range(24)]
+
+    @tasks.loop(time=times)
     async def map_poster(self, force: bool = False):
-        update_start = datetime.now()
-        if (update_start.minute != 5 and force == False) or self.bot.map_messages == []:
+        if self.bot.map_messages == []:
             return
         channel = self.bot.get_channel(1242843098363596883)
+        update_start = datetime.now()
         try:
             await channel.purge(before=update_start - timedelta(hours=2))
         except:
