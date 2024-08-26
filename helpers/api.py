@@ -263,18 +263,16 @@ class Tasks(list):
     def __init__(self, assignment):
         self.__assignment = assignment
         for index, task in enumerate(self.__assignment["tasks"]):
-            formatted_task = self.Task(task)
+            task = self.Task(task)
             progress_value = {
-                13: formatted_task.values[0],
-                12: formatted_task.values[1],
-                11: formatted_task.values[0],
-                3: formatted_task.values[2],
-                2: formatted_task.values[2],
-            }[formatted_task.type]
-            formatted_task.progress = (
-                self.__assignment["progress"][index] / progress_value
-            )
-            self.append(formatted_task)
+                13: 1,
+                12: task.values[1],
+                11: 1,
+                3: task.values[2],
+                2: task.values[2],
+            }[task.type]
+            task.progress = self.__assignment["progress"][index] / progress_value
+            self.append(task)
 
     class Task:
         def __init__(self, task):
