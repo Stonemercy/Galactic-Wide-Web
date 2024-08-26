@@ -61,10 +61,11 @@ class MapCog(commands.Cog):
     async def map_poster(self, force: bool = False):
         if self.bot.map_messages == []:
             return
-        channel = self.bot.get_channel(1242843098363596883)
         update_start = datetime.now()
         try:
-            await channel.purge(before=update_start - timedelta(hours=2))
+            await self.bot.waste_bin_channel.purge(
+                before=update_start - timedelta(hours=2)
+            )
         except:
             pass
         api = API()
@@ -75,14 +76,11 @@ class MapCog(commands.Cog):
             get_planet_events=True,
         )
         if api.error:
-            error_channel = self.bot.get_channel(
-                1212735927223590974
-            ) or await self.bot.fetch_channel(1212735927223590974)
-            return await error_channel.send(
-                f"<@164862382185644032>\n{api.error[0]}\n{api.error[1]}\n:warning:"
+            return await self.bot.moderator_channel.send(
+                f"<@{self.bot.owner_id}>\n{api.error[0]}\n{api.error[1]}\n:warning:"
             )
         data = Data(data_from_api=api)
-        dashboard_maps_dict = await dashboard_maps(data, channel)
+        dashboard_maps_dict = await dashboard_maps(data, self.bot.waste_bin_channel)
         chunked_messages = [
             self.bot.map_messages[i : i + 50]
             for i in range(0, len(self.bot.map_messages), 50)
@@ -139,10 +137,7 @@ class MapCog(commands.Cog):
             get_planet_events=True,
         )
         if api.error:
-            error_channel = self.bot.get_channel(
-                1212735927223590974
-            ) or await self.bot.fetch_channel(1212735927223590974)
-            await error_channel.send(
+            await self.bot.moderator_channel.send(
                 f"<@164862382185644032>\n{data.error[0]}\n{data.error[1]}\n:warning:"
             )
             return await inter.send(

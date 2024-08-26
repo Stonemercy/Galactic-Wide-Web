@@ -53,10 +53,7 @@ class PlanetCog(commands.Cog):
             get_planets=True, get_thumbnail=True, get_campaigns=True
         )
         if api.error:
-            error_channel = self.bot.get_channel(
-                1212735927223590974
-            ) or await self.bot.fetch_channel(1212735927223590974)
-            await error_channel.send(
+            await self.bot.moderator_channel.send(
                 f"<@164862382185644032>\n{api.error[0]}\n{api.error[1]}\n:warning:"
             )
             return await inter.send(
@@ -81,8 +78,8 @@ class PlanetCog(commands.Cog):
                 file=File(f"resources/biomes/{planet_data.biome['name'].lower()}.png")
             )
         except:
-            self.bot.logger.error(
-                f"PlanetCog, planet command, {planet_data.biome['name'].lower()} biome image unavailable"
+            await self.bot.moderator_channel.send(
+                f"Image missing for biome of **planet __{planet}__** <@{self.bot.owner_id}> :warning:"
             )
         map_embed = planet_map(data, planet_data.index, language)
         await inter.send(embeds=[embed, map_embed], ephemeral=public)
