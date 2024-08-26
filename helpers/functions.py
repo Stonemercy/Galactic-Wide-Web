@@ -14,9 +14,10 @@ def health_bar(perc: float, race: str, reverse: bool = False):
     if race not in ("Terminids", "Automaton", "Illuminate", "Humans", "MO"):
         print(f"health_bar function, {race}, race not in race set")
         return ""
-    perc = ceil(perc * 10)
+    perc = perc * 10
     if reverse:
         perc = 10 - perc
+    perc = int(perc)
     health_icon = {
         "Terminids": "<:tc:1229360523217342475>",
         "Automaton": "<:ac:1229360519689801738>",
