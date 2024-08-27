@@ -284,7 +284,6 @@ class Dashboard:
         )
         self.MO_planets = []
         skipped_terminid_campaigns = []
-        print(skipped_terminid_campaigns)
         skipped_automaton_campaigns = []
         skipped_illuminate_campaigns = []
 
@@ -317,7 +316,7 @@ class Dashboard:
                 f"{self.data.assignment.description}\n\u200b\n",
                 inline=False,
             )
-            for task in data.assignment.tasks:
+            for task in self.data.assignment.tasks:
                 task: Tasks.Task
                 if task.type in (11, 13):
                     planet: Planet = self.data.planets[task.values[2]]
@@ -512,7 +511,7 @@ class Dashboard:
                     True,
                 )
                 exclamation = ""
-                if data.assignment_planets:
+                if self.data.assignment_planets:
                     exclamation = (
                         "<:MO:1240706769043456031>"
                         if planet.name in data.assignment_planets
@@ -550,10 +549,9 @@ class Dashboard:
                 skipped_terminid_campaigns,
                 skipped_automaton_campaigns,
                 skipped_illuminate_campaigns,
-                self.data.campaigns,
+                self.non_skipped_campaigns,
             ) = skipped_planets(self.data.campaigns, self.data.total_players)
-            print(skipped_terminid_campaigns)
-            for campaign in self.data.campaigns:
+            for campaign in self.non_skipped_campaigns:
                 campaign: Campaign
                 time_to_complete = ""
                 liberation_text = ""
@@ -644,7 +642,6 @@ class Dashboard:
                     )
 
         # Other
-        print(skipped_terminid_campaigns)
         self.timestamp = int(self.now.timestamp())
         skipped_dict = {
             "terminid": {
@@ -664,7 +661,6 @@ class Dashboard:
             },
         }
         for faction, values in skipped_dict.items():
-            print(f"{faction = } {values['campaigns'] = }")
             for campaign in values["campaigns"]:
                 exclamation = (
                     "<:MO:1240706769043456031>"

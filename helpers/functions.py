@@ -1,6 +1,5 @@
 from datetime import datetime
 from json import load
-from math import ceil
 from re import sub
 from PIL import Image
 from disnake import Colour, Embed, File, TextChannel
