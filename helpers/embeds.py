@@ -591,7 +591,7 @@ class Dashboard:
                     else ""
                 )
                 faction_icon = emojis_dict[campaign.planet.current_owner]
-                if len(self.data.campaigns) < 9:
+                if len(self.non_skipped_campaigns) < 9:
                     planet_health_bar = health_bar(
                         campaign.planet.health / campaign.planet.max_health,
                         campaign.planet.current_owner,
@@ -660,7 +660,7 @@ class Dashboard:
                 "embed": self.illuminate_embed,
             },
         }
-        for faction, values in skipped_dict.items():
+        for values in skipped_dict.values():
             for campaign in values["campaigns"]:
                 exclamation = (
                     "<:MO:1240706769043456031>"
@@ -689,7 +689,7 @@ class Dashboard:
         self.updated_embed.add_field(
             "", ("-# Total Players\n" f"-# {self.data.total_players:,}"), inline=False
         )
-        if len(self.data.campaigns) >= 10:
+        if len(self.non_skipped_campaigns) >= 10:
             self.updated_embed.add_field(
                 "",
                 f"*{self.language['dashboard.lite_mode']}*",
