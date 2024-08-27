@@ -536,6 +536,9 @@ class Dashboard:
 
         # Attacking
         if self.data.campaigns:
+            skipped_terminid_campaigns = None
+            skipped_automaton_campaigns = None
+            skipped_illuminate_campaigns = None
             for embed in (
                 self.terminids_embed,
                 self.automaton_embed,
