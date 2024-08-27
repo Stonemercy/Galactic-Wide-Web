@@ -283,6 +283,10 @@ class Dashboard:
             open(f"data/json/planets/planets.json", encoding="UTF-8")
         )
         self.MO_planets = []
+        skipped_terminid_campaigns = None
+        print(skipped_terminid_campaigns)
+        skipped_automaton_campaigns = None
+        skipped_illuminate_campaigns = None
 
         # make embeds
         self.major_orders_embed = Embed(
@@ -536,10 +540,6 @@ class Dashboard:
 
         # Attacking
         if self.data.campaigns:
-            skipped_terminid_campaigns = None
-            print(skipped_terminid_campaigns)
-            skipped_automaton_campaigns = None
-            skipped_illuminate_campaigns = None
             for embed in (
                 self.terminids_embed,
                 self.automaton_embed,
