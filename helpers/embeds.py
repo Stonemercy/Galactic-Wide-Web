@@ -283,10 +283,10 @@ class Dashboard:
             open(f"data/json/planets/planets.json", encoding="UTF-8")
         )
         self.MO_planets = []
-        skipped_terminid_campaigns = None
+        skipped_terminid_campaigns = []
         print(skipped_terminid_campaigns)
-        skipped_automaton_campaigns = None
-        skipped_illuminate_campaigns = None
+        skipped_automaton_campaigns = []
+        skipped_illuminate_campaigns = []
 
         # make embeds
         self.major_orders_embed = Embed(
@@ -663,8 +663,8 @@ class Dashboard:
                 "embed": self.illuminate_embed,
             },
         }
-        for values in skipped_dict.values():
-            print(values["campaigns"])
+        for faction, values in skipped_dict.items():
+            print(f"{faction = } {values['campaigns'] = }")
             for campaign in values["campaigns"]:
                 exclamation = (
                     "<:MO:1240706769043456031>"
