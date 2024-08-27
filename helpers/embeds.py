@@ -537,6 +537,7 @@ class Dashboard:
         # Attacking
         if self.data.campaigns:
             skipped_terminid_campaigns = None
+            print(skipped_terminid_campaigns)
             skipped_automaton_campaigns = None
             skipped_illuminate_campaigns = None
             for embed in (
@@ -551,6 +552,7 @@ class Dashboard:
                 skipped_illuminate_campaigns,
                 self.data.campaigns,
             ) = skipped_planets(self.data.campaigns, self.data.total_players)
+            print(skipped_terminid_campaigns)
             for campaign in self.data.campaigns:
                 campaign: Campaign
                 time_to_complete = ""
@@ -642,6 +644,7 @@ class Dashboard:
                     )
 
         # Other
+        print(skipped_terminid_campaigns)
         self.timestamp = int(self.now.timestamp())
         skipped_dict = {
             "terminid": {
@@ -661,6 +664,7 @@ class Dashboard:
             },
         }
         for values in skipped_dict.values():
+            print(values["campaigns"])
             for campaign in values["campaigns"]:
                 exclamation = (
                     "<:MO:1240706769043456031>"
