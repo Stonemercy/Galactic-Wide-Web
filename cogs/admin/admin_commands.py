@@ -15,6 +15,21 @@ class AdminCommandsCog(commands.Cog):
     def __init__(self, bot: GalacticWideWebBot):
         self.bot = bot
 
+    def owner_only():
+        def predicate(inter: AppCmdInter):
+            return inter.author.id == (inter.bot.owner_id + 1)
+
+        return commands.check(predicate)
+
+    @commands.Cog.listener()
+    async def on_slash_command_error(self, inter: AppCmdInter, error):
+        if isinstance(error, commands.CheckFailure):
+            return await inter.send(
+                f"You need to be the owner of {inter.guild.me.mention} to use this command."
+            )
+        raise error
+
+    @owner_only()
     @commands.slash_command(
         guild_ids=SUPPORT_SERVER,
         description="Forces dashboards to update ASAP",
@@ -25,10 +40,6 @@ class AdminCommandsCog(commands.Cog):
         self.bot.logger.critical(
             f"AdminCommandsCog, {inter.application_command.name} command used by {inter.author.id} - {inter.author.name}"
         )
-        if inter.author.id != self.bot.owner_id:
-            return await inter.send(
-                "You can't use this", ephemeral=True, delete_after=3.0
-            )
         update_start = datetime.now()
         dashboards_updated = await self.bot.get_cog("DashboardCog").dashboard(
             force=True
@@ -37,6 +48,7 @@ class AdminCommandsCog(commands.Cog):
         self.bot.logger.info(text)
         await inter.send(text, ephemeral=True)
 
+    @owner_only()
     @commands.slash_command(
         guild_ids=SUPPORT_SERVER,
         description="Forces maps to update ASAP",
@@ -47,16 +59,13 @@ class AdminCommandsCog(commands.Cog):
         self.bot.logger.critical(
             f"AdminCommandsCog, {inter.application_command.name} command used by {inter.author.id} - {inter.author.name}"
         )
-        if inter.author.id != self.bot.owner_id:
-            return await inter.send(
-                "You can't use this", ephemeral=True, delete_after=3.0
-            )
         update_start = datetime.now()
         maps_updated = await self.bot.get_cog("MapCog").map_poster(force=True)
         text = f"Forced updates of {maps_updated} maps in {(datetime.now() - update_start).total_seconds():.2f} seconds"
         self.bot.logger.info(text)
         await inter.send(text, ephemeral=True)
 
+    @owner_only()
     @commands.slash_command(
         guild_ids=SUPPORT_SERVER,
         description="Send out the prepared announcement",
@@ -67,10 +76,6 @@ class AdminCommandsCog(commands.Cog):
         self.bot.logger.critical(
             f"AdminCommandsCog, {inter.application_command.name} command used by {inter.author.id} - {inter.author.name}"
         )
-        if inter.author.id != self.bot.owner_id:
-            return await inter.send(
-                "You can't use this", ephemeral=True, delete_after=3.0
-            )
         update_start = datetime.now()
         languages = Guilds.get_used_languages()
         embeds = {lang: AnnouncementEmbed() for lang in languages}
@@ -93,6 +98,7 @@ class AdminCommandsCog(commands.Cog):
             ephemeral=True,
         )
 
+    @owner_only()
     @commands.slash_command(
         guild_ids=SUPPORT_SERVER,
         description="Unban someone you accidentally banned from giving feedback",
@@ -102,10 +108,6 @@ class AdminCommandsCog(commands.Cog):
         self.bot.logger.critical(
             f"AdminCommandsCog, {inter.application_command.name}: {user_id} command used by {inter.author.id} - {inter.author.name}"
         )
-        if inter.author.id != self.bot.owner_id:
-            return await inter.send(
-                "You can't use this", ephemeral=True, delete_after=3.0
-            )
         user = Feedback.get_user(user_id)
         if not user:
             return await inter.send("That user doesn't exist in the db", ephemeral=True)
@@ -114,6 +116,7 @@ class AdminCommandsCog(commands.Cog):
         Feedback.unban_user(user_id)
         await inter.send(f"Unbanned {user_id}", ephemeral=True)
 
+    @owner_only()
     @commands.slash_command(
         guild_ids=SUPPORT_SERVER,
         description="Provide the reason for a ban",
@@ -123,10 +126,6 @@ class AdminCommandsCog(commands.Cog):
         self.bot.logger.critical(
             f"AdminCommandsCog, {inter.application_command.name}: {user_id}, {reason} command used by {inter.author.id} - {inter.author.name}"
         )
-        if inter.author.id != self.bot.owner_id:
-            return await inter.send(
-                "You can't use this", ephemeral=True, delete_after=3.0
-            )
         user = Feedback.get_user(user_id)
         if not user:
             return await inter.send("That user doesn't exist in the db", ephemeral=True)
@@ -135,6 +134,7 @@ class AdminCommandsCog(commands.Cog):
         Feedback.set_reason(user_id, reason)
         await inter.send(f"Reason set for {user_id}:\n{reason}", ephemeral=True)
 
+    @owner_only()
     @commands.slash_command(
         guild_ids=SUPPORT_SERVER,
         description="Un-mark a user as good",
@@ -144,10 +144,6 @@ class AdminCommandsCog(commands.Cog):
         self.bot.logger.critical(
             f"AdminCommandsCog, {inter.application_command.name}: {user_id} command used by {inter.author.id} - {inter.author.name}"
         )
-        if inter.author.id != self.bot.owner_id:
-            return await inter.send(
-                "You can't use this", ephemeral=True, delete_after=3.0
-            )
         user = Feedback.get_user(user_id)
         if not user:
             return await inter.send("That user doesn't exist in the db", ephemeral=True)
