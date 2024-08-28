@@ -152,6 +152,29 @@ class AdminCommandsCog(commands.Cog):
         Feedback.not_good_user(user_id)
         await inter.send(f"User **{user_id}** set as not-good feedback", ephemeral=True)
 
+    @owner_only()
+    @commands.slash_command(
+        guild_ids=SUPPORT_SERVER,
+        description="Reload a cog",
+        default_member_permissions=Permissions(administrator=True),
+    )
+    async def reload_extension(self, inter: AppCmdInter, ext: str):
+        self.bot.logger.critical(
+            f"AdminCommandsCog, {inter.application_command.name}: {ext} command used by {inter.author.id} - {inter.author.name}"
+        )
+        admin_ext = f"cogs.admin.{ext}"
+        ext = f"cogs.{ext}"
+        if ext not in [extension for extension in self.bot.extensions.keys()]:
+            if admin_ext not in [extension for extension in self.bot.extensions.keys()]:
+                return await inter.send("Extension not found", ephemeral=True)
+            else:
+                ext = admin_ext
+        try:
+            self.bot.reload_extension(ext)
+            return await inter.send(f"Reloaded the `{ext}` extension", ephemeral=True)
+        except Exception as e:
+            return await inter.send(f"Error:\n{e}")
+
 
 def setup(bot: GalacticWideWebBot):
     bot.add_cog(AdminCommandsCog(bot))
