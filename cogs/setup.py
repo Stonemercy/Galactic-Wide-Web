@@ -44,6 +44,7 @@ class SetupCog(commands.Cog):
 
     @commands.slash_command(
         description="Change the GWW settings for your server. Use this without options to see your set settings.",
+        default_member_permissions=Permissions(manage_guild=True),
         dm_permission=False,
     )
     async def setup(
@@ -76,10 +77,6 @@ class SetupCog(commands.Cog):
         self.bot.logger.info(
             f"SetupCog, setup dashboard_channel:{dashboard_channel} announcement_channel:{announcement_channel} patch_notes:{patch_notes} map_channel:{map_channel} language:{language} command used"
         )
-        if not inter.author.guild_permissions.manage_guild:
-            return await inter.send(
-                "You need `Manager Server` permissions to use this command"
-            )
         embed = SetupEmbed()
         guild_in_db = Guilds.get_info(inter.guild_id)
         if not guild_in_db:
