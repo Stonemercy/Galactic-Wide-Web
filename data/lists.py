@@ -663,6 +663,10 @@ help_dict = {
         "long_description": "Returns information on a specific weapon. This command has 3 sub-commands for each weapon slot, Primary, Secondary and Grenade.",
         "example_usage": "**`/weapons primary primary:AR-23C Liberator Concussive`** would return details on the AR-23 Liberator Concussive, including an image of the weapon.",
     },
+    "stats": {
+        "long_description": "Returns information on the GWW bot itself.",
+        "example_usage": "**`/stats`**",
+    },
 }
 
 emotes_list = [
