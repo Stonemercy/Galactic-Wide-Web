@@ -17,7 +17,7 @@ class AdminCommandsCog(commands.Cog):
 
     def owner_only():
         def predicate(inter: AppCmdInter):
-            return inter.author.id == (inter.bot.owner_id + 1)
+            return inter.author.id == inter.bot.owner_id
 
         return commands.check(predicate)
 
