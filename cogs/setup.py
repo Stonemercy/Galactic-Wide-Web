@@ -1,12 +1,13 @@
-from json import load
+from data.lists import language_dict
 from disnake import AppCmdInter, File, Permissions, TextChannel
 from disnake.ext import commands
-from helpers.api import API, Data
-from helpers.db import Guilds
-from helpers.embeds import Dashboard, SetupEmbed
-from helpers.functions import dashboard_maps
-from data.lists import language_dict
+from json import load
 from main import GalacticWideWebBot
+from utils.api import API, Data
+from utils.checks import wait_for_startup
+from utils.db import Guilds
+from utils.embeds import Dashboard, SetupEmbed
+from utils.functions import dashboard_maps
 
 
 class SetupCog(commands.Cog):
@@ -42,6 +43,7 @@ class SetupCog(commands.Cog):
             attach_files=True,
         )
 
+    @wait_for_startup()
     @commands.slash_command(
         description="Change the GWW settings for your server. Use this without options to see your set settings.",
         default_member_permissions=Permissions(manage_guild=True),

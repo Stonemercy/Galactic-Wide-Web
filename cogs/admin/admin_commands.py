@@ -1,11 +1,12 @@
 from asyncio import sleep
 from datetime import datetime
-from os import getenv
 from disnake import AppCmdInter, Permissions
 from disnake.ext import commands
-from helpers.db import Feedback, Guilds
-from helpers.embeds import AnnouncementEmbed
 from main import GalacticWideWebBot
+from os import getenv
+from utils.checks import owner_only, wait_for_startup
+from utils.db import Feedback, Guilds
+from utils.embeds import AnnouncementEmbed
 
 
 SUPPORT_SERVER = [int(getenv("SUPPORT_SERVER"))]
@@ -15,20 +16,7 @@ class AdminCommandsCog(commands.Cog):
     def __init__(self, bot: GalacticWideWebBot):
         self.bot = bot
 
-    def owner_only():
-        def predicate(inter: AppCmdInter):
-            return inter.author.id == inter.bot.owner_id
-
-        return commands.check(predicate)
-
-    @commands.Cog.listener()
-    async def on_slash_command_error(self, inter: AppCmdInter, error):
-        if isinstance(error, commands.CheckFailure):
-            return await inter.send(
-                f"You need to be the owner of {inter.guild.me.mention} to use this command."
-            )
-        raise error
-
+    @wait_for_startup()
     @owner_only()
     @commands.slash_command(
         guild_ids=SUPPORT_SERVER,
@@ -48,6 +36,7 @@ class AdminCommandsCog(commands.Cog):
         self.bot.logger.info(text)
         await inter.send(text, ephemeral=True)
 
+    @wait_for_startup()
     @owner_only()
     @commands.slash_command(
         guild_ids=SUPPORT_SERVER,
@@ -65,6 +54,7 @@ class AdminCommandsCog(commands.Cog):
         self.bot.logger.info(text)
         await inter.send(text, ephemeral=True)
 
+    @wait_for_startup()
     @owner_only()
     @commands.slash_command(
         guild_ids=SUPPORT_SERVER,
@@ -98,6 +88,7 @@ class AdminCommandsCog(commands.Cog):
             ephemeral=True,
         )
 
+    @wait_for_startup()
     @owner_only()
     @commands.slash_command(
         guild_ids=SUPPORT_SERVER,
@@ -116,6 +107,7 @@ class AdminCommandsCog(commands.Cog):
         Feedback.unban_user(user_id)
         await inter.send(f"Unbanned {user_id}", ephemeral=True)
 
+    @wait_for_startup()
     @owner_only()
     @commands.slash_command(
         guild_ids=SUPPORT_SERVER,
@@ -134,6 +126,7 @@ class AdminCommandsCog(commands.Cog):
         Feedback.set_reason(user_id, reason)
         await inter.send(f"Reason set for {user_id}:\n{reason}", ephemeral=True)
 
+    @wait_for_startup()
     @owner_only()
     @commands.slash_command(
         guild_ids=SUPPORT_SERVER,
@@ -152,6 +145,7 @@ class AdminCommandsCog(commands.Cog):
         Feedback.not_good_user(user_id)
         await inter.send(f"User **{user_id}** set as not-good feedback", ephemeral=True)
 
+    @wait_for_startup()
     @owner_only()
     @commands.slash_command(
         guild_ids=SUPPORT_SERVER,

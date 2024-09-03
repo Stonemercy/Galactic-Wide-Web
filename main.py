@@ -1,9 +1,10 @@
-from datetime import datetime
+import logging
+from datetime import datetime, timedelta
+from disnake import ActivityType, Intents, Activity
 from disnake.ext import commands
 from dotenv import load_dotenv
 from os import getenv, listdir
-from disnake import ActivityType, Intents, Activity
-import logging
+
 
 load_dotenv("data/.env")
 OWNER = int(getenv("OWNER"))
@@ -26,6 +27,7 @@ class GalacticWideWebBot(commands.InteractionBot):
         logger.addHandler(handler)
         self.logger = logger
         self.startup_time = datetime.now()
+        self.ready_time = self.startup_time + timedelta(seconds=30)
         self.dashboard_messages = []
         self.dashboard_channels = []
         self.announcement_channels = []

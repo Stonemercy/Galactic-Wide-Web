@@ -1,8 +1,8 @@
-from json import load
 from disnake import AppCmdInter
 from disnake.ext import commands
-from helpers.embeds import StratagemEmbed
+from json import load
 from main import GalacticWideWebBot
+from utils.embeds import StratagemEmbed
 
 
 class StratagemsCog(commands.Cog):

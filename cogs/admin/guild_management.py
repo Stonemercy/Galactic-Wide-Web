@@ -13,13 +13,14 @@ from disnake import (
 )
 from disnake.ext import commands, tasks
 from disnake.ui import Button
-from helpers.db import Guilds, BotDashboard
-from helpers.embeds import BotDashboardEmbed, ReactRoleDashboard
-from helpers.functions import health_bar
+from main import GalacticWideWebBot
 from math import inf
 from os import getpid
 from psutil import Process, cpu_percent
-from main import GalacticWideWebBot
+from utils.checks import wait_for_startup
+from utils.db import Guilds, BotDashboard
+from utils.embeds import BotDashboardEmbed, ReactRoleDashboard
+from utils.functions import health_bar
 
 
 class GuildManagementCog(commands.Cog):
@@ -262,6 +263,7 @@ class GuildManagementCog(commands.Cog):
                 )
 
     @tasks.loop(minutes=1)
+    @wait_for_startup()
     async def dashboard_checking(self):
         now = datetime.now()
         if now.minute not in (2, 17, 32, 47):
@@ -290,6 +292,7 @@ class GuildManagementCog(commands.Cog):
     async def before_dashboard_check(self):
         await self.bot.wait_until_ready()
 
+    @wait_for_startup()
     @tasks.loop(time=[time(hour=0, minute=0, second=0, microsecond=0)])
     async def guild_checking(self):
         guilds_in_db = Guilds.get_all_guilds()

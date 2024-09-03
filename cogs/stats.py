@@ -1,4 +1,3 @@
-from datetime import datetime
 from disnake import AppCmdInter, Embed
 from disnake.ext import commands
 from main import GalacticWideWebBot

@@ -1,13 +1,13 @@
+from data.lists import planets
 from disnake import AppCmdInter, File
 from disnake.ext import commands
-from helpers.api import API
-from helpers.db import Guilds
-from helpers.embeds import PlanetEmbed
-from data.lists import planets
-from helpers.functions import planet_map
-from helpers.api import Data, API
 from json import load
 from main import GalacticWideWebBot
+from utils.checks import wait_for_startup
+from utils.db import Guilds
+from utils.embeds import PlanetEmbed
+from utils.functions import planet_map
+from utils.api import Data, API
 
 
 class PlanetCog(commands.Cog):
@@ -20,6 +20,7 @@ class PlanetCog(commands.Cog):
     async def planet_autocomp(inter: AppCmdInter, user_input: str):
         return [command for command in planets if user_input in command.lower()][:25]
 
+    @wait_for_startup()
     @commands.slash_command(description="Returns the war details on a specific planet.")
     async def planet(
         self,

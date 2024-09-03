@@ -2,7 +2,7 @@ from json import dumps, loads
 from logging import getLogger
 from os import getenv
 from aiohttp import ClientSession
-from helpers.functions import steam_format
+from utils.functions import steam_format
 
 logger = getLogger("disnake")
 

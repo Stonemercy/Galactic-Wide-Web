@@ -1,8 +1,8 @@
 from disnake import AppCmdInter
 from disnake.ext import commands
-from helpers.embeds import Items
 from json import load
 from main import GalacticWideWebBot
+from utils.embeds import Items
 
 
 class BoostersCog(commands.Cog):

@@ -3,10 +3,11 @@ from datetime import datetime
 from disnake import Forbidden, TextChannel, ButtonStyle
 from disnake.ext import commands, tasks
 from disnake.ui import Button
-from helpers.embeds import DispatchesEmbed, MajorOrderEmbed, SteamEmbed
-from helpers.db import Dispatches, MajorOrders, Guilds, Steam
-from helpers.api import API, Data
 from main import GalacticWideWebBot
+from utils.checks import wait_for_startup
+from utils.embeds import DispatchesEmbed, MajorOrderEmbed, SteamEmbed
+from utils.db import Dispatches, MajorOrders, Guilds, Steam
+from utils.api import API, Data
 
 
 class AnnouncementsCog(commands.Cog):
@@ -65,6 +66,7 @@ class AnnouncementsCog(commands.Cog):
                 f"AnnouncementsCog, send_embed, {e}, {channel.id}"
             )
 
+    @wait_for_startup()
     @tasks.loop(minutes=1)
     async def major_order_check(self):
         if self.bot.announcement_channels == []:
@@ -108,6 +110,7 @@ class AnnouncementsCog(commands.Cog):
     async def before_mo_check(self):
         await self.bot.wait_until_ready()
 
+    @wait_for_startup()
     @tasks.loop(minutes=1)
     async def dispatch_check(self):
         if self.bot.announcement_channels == []:
@@ -156,6 +159,7 @@ class AnnouncementsCog(commands.Cog):
     async def before_dispatch_check(self):
         await self.bot.wait_until_ready()
 
+    @wait_for_startup()
     @tasks.loop(minutes=1)
     async def steam_check(self):
         if self.bot.patch_channels == []:

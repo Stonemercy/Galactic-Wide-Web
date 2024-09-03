@@ -7,10 +7,11 @@ from disnake import (
 )
 from disnake.ext import commands
 from disnake.ui import Button
-from helpers.db import Feedback
-from helpers.embeds import FeedbackEmbed
-from helpers.modals import FeedbackModal
 from main import GalacticWideWebBot
+from utils.checks import wait_for_startup
+from utils.db import Feedback
+from utils.embeds import FeedbackEmbed
+from utils.modals import FeedbackModal
 
 
 class FeedbackCog(commands.Cog):
@@ -18,6 +19,7 @@ class FeedbackCog(commands.Cog):
         self.bot = bot
         self.feedback_users = {}
 
+    @wait_for_startup()
     @commands.slash_command(description="Provide feedback for the bot")
     async def feedback(
         self,

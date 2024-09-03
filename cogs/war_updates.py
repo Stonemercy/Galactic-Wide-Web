@@ -1,9 +1,10 @@
 from asyncio import sleep
 from disnake import Forbidden, TextChannel
 from disnake.ext import commands, tasks
-from helpers.db import Campaigns, Guilds
-from helpers.embeds import CampaignEmbed
-from helpers.api import API, Data
+from utils.checks import wait_for_startup
+from utils.db import Campaigns, Guilds
+from utils.embeds import CampaignEmbed
+from utils.api import API, Data
 from datetime import datetime
 from main import GalacticWideWebBot
 
@@ -34,6 +35,7 @@ class WarUpdatesCog(commands.Cog):
             self.bot.logger.error(f"WarUpdatesCog, send_campaign, {e}, {channel.id}")
             pass
 
+    @wait_for_startup()
     @tasks.loop(minutes=1)
     async def campaign_check(self):
         update_start = datetime.now()

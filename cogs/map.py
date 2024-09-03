@@ -1,16 +1,17 @@
+from asyncio import sleep
+from data.lists import supported_languages
 from datetime import datetime, time, timedelta
-from json import load
 from disnake import AppCmdInter, File, NotFound, Forbidden, PartialMessage
 from disnake.ext import commands, tasks
-from helpers.db import Guilds
-from helpers.functions import dashboard_maps
-from helpers.api import API, Data
+from json import load
+from main import GalacticWideWebBot
 from PIL import Image
 from PIL.ImageDraw import Draw
 from PIL.ImageFont import truetype
-from asyncio import sleep
-from data.lists import supported_languages
-from main import GalacticWideWebBot
+from utils.checks import wait_for_startup
+from utils.db import Guilds
+from utils.functions import dashboard_maps
+from utils.api import API, Data
 
 
 class MapCog(commands.Cog):
@@ -57,6 +58,7 @@ class MapCog(commands.Cog):
 
     times = [time(hour=hour, minute=5, second=0) for hour in range(24)]
 
+    @wait_for_startup()
     @tasks.loop(time=times)
     async def map_poster(self, force: bool = False):
         if self.bot.map_messages == []:
@@ -104,6 +106,7 @@ class MapCog(commands.Cog):
     async def before_map_poster(self):
         await self.bot.wait_until_ready()
 
+    @wait_for_startup()
     @commands.slash_command(
         description="Get an up-to-date map of the galaxy",
     )

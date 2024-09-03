@@ -1,8 +1,8 @@
 from json import load
 from disnake import Embed, Colour, File, ModalInteraction
 from datetime import datetime
-from helpers.functions import health_bar, short_format, skipped_planets
-from helpers.api import Assignment, Campaign, Data, Tasks, Planet
+from utils.functions import health_bar, short_format, skipped_planets
+from utils.api import Assignment, Campaign, Data, Tasks, Planet
 from data.lists import (
     emojis_dict,
     warbond_images_dict,
@@ -120,14 +120,20 @@ class BotDashboardEmbed(Embed):
 
 
 class MajorOrderEmbed(Embed):
-    def __init__(self, assignment: Assignment, planets: dict[int, Planet], language):
-        self.language = load(open(f"data/languages/{language}.json", encoding="UTF-8"))
+    def __init__(
+        self,
+        assignment: Assignment,
+        planets: dict[int, Planet],
+        language,
+        with_health_bars: bool = False,
+    ):
+        language_json = load(open(f"data/languages/{language}.json", encoding="UTF-8"))
         super().__init__(
-            title=f"{emojis_dict['Left Banner']} {self.language['major_order.title']} {emojis_dict['Right Banner']}",
+            title=f"{emojis_dict['Left Banner']} {language_json['major_order.title']} {emojis_dict['Right Banner']}",
             colour=Colour.yellow(),
         )
         reward_types = load(open("data/json/assignments/reward/type.json"))
-        self.set_footer(text=f"{self.language['major_order.message']} #{assignment.id}")
+        self.set_footer(text=f"{language_json['major_order.message']} #{assignment.id}")
         self.add_field(assignment.title, assignment.description)
         self.planet_names_loc = load(
             open(f"data/json/planets/planets.json", encoding="UTF-8")
@@ -136,14 +142,18 @@ class MajorOrderEmbed(Embed):
             task: Tasks.Task
             if task.type in (11, 13):
                 planet: Planet = planets[task.values[2]]
+                text = f"{language_json['major_order.heroes']}: **{planet.stats['playerCount']:,}**\n"
+                if with_health_bars:
+                    health = planet.event.progress if planet.event else task.progress
+                    planet_health_bar = health_bar(health, planet.current_owner)
+                    text += f"{planet_health_bar}\n"
+                    text += f"`{(health):^25,.2%}`\n"
+                text += f"{language_json['dashboard.major_order_occupied_by']}: **{language_json[planet.current_owner.lower()]}**\n"
                 self.add_field(
                     self.planet_names_loc[str(planet.index)]["names"][
                         supported_languages[language]
                     ],
-                    (
-                        f"{self.language['major_order.heroes']}: **{planet.stats['playerCount']:,}**\n"
-                        f"{self.language['dashboard.major_order_occupied_by']}: **{self.language[planet.current_owner.lower()]}**\n"
-                    ),
+                    text,
                     inline=False,
                 )
             elif task.type == 12:
@@ -153,10 +163,12 @@ class MajorOrderEmbed(Embed):
                     3: "Automaton",
                     4: "Illuminate",
                 }
+                task_health_bar = health_bar(task.progress, "MO")
                 self.add_field(
-                    f"{self.language['major_order.succeed_in_defense']} {task.values[0]} {self.language['dashboard.planets']} {self.language[factions[task.values[1]].lower()]} {emojis_dict[factions[task.values[1]]]}",
+                    f"{language_json['major_order.succeed_in_defense']} {task.values[0]} {language_json['dashboard.planets']} {language_json[factions[task.values[1]].lower()]} {emojis_dict[factions[task.values[1]]]}",
                     (
-                        f"{self.language['major_order.progress']}: {int(task.progress * task.values[0])}/{task.values[0]}\n"
+                        f"{language_json['major_order.progress']}: {int(task.progress * task.values[0])}/{task.values[0]}\n"
+                        f"{task_health_bar}\n"
                         f"`{(task.progress):^25,.2%}`\n"
                     ),
                     inline=False,
@@ -169,10 +181,10 @@ class MajorOrderEmbed(Embed):
                     4: "Illuminate",
                 }
                 loc_faction_dict = {
-                    0: self.language["enemies_of_freedom"],
-                    2: self.language["terminids"],
-                    3: self.language["automaton"],
-                    4: self.language["illuminate"],
+                    0: language_json["enemies_of_freedom"],
+                    2: language_json["terminids"],
+                    3: language_json["automaton"],
+                    4: language_json["illuminate"],
                 }
                 species_dict = {2514244534: "Bile Titan"}
                 species = species_dict[task.values[3]] if task.values[3] != 0 else None
@@ -181,9 +193,9 @@ class MajorOrderEmbed(Embed):
                 )
                 target = loc_faction_dict[task.values[0]] if not species else species
                 self.add_field(
-                    f"{self.language['major_order.kill']} {short_format(task.values[2])} **{target}**{emojis_dict[en_faction_dict[task.values[0]]]}",
+                    f"{language_json['major_order.kill']} {short_format(task.values[2])} **{target}**{emojis_dict[en_faction_dict[task.values[0]]]}",
                     (
-                        f"{self.language['major_order.progress']}: {task.progress * task.values[2]}\n"
+                        f"{language_json['major_order.progress']}: {task.progress * task.values[2]}\n"
                         f"{event_health_bar}\n"
                         f"`{(task.progress):^25,.2%}`\n"
                     ),
@@ -191,15 +203,15 @@ class MajorOrderEmbed(Embed):
                 )
             else:
                 self.add_field(
-                    self.language["major_order.new_title"],
-                    self.language["major_order.new_value"],
+                    language_json["major_order.new_title"],
+                    language_json["major_order.new_value"],
                 )
         self.add_field(
-            self.language["major_order.reward"],
-            f"{assignment.reward['amount']} {self.language[reward_types[str(assignment.reward['type'])].lower()]} <:medal:1226254158278037504>",
+            language_json["major_order.reward"],
+            f"{assignment.reward['amount']} {language_json[reward_types[str(assignment.reward['type'])].lower()]} <:medal:1226254158278037504>",
         )
         self.add_field(
-            self.language["major_order.ends"],
+            language_json["major_order.ends"],
             f"<t:{int(datetime.fromisoformat(assignment.ends_at).timestamp())}:R>",
         )
 

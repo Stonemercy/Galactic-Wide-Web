@@ -1,9 +1,9 @@
 from disnake import AppCmdInter
 from disnake.ext import commands
-from helpers.db import Guilds
-from helpers.embeds import Items
 from json import load
 from main import GalacticWideWebBot
+from utils.db import Guilds
+from utils.embeds import Items
 
 
 class WeaponsCog(commands.Cog):

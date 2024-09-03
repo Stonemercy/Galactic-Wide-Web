@@ -1,16 +1,17 @@
 from asyncio import sleep
+from cogs.stats import DashboardStats
+from datetime import datetime, time
 from disnake import (
     Forbidden,
     NotFound,
     PartialMessage,
 )
 from disnake.ext import commands, tasks
-from cogs.stats import DashboardStats
-from helpers.embeds import Dashboard
-from helpers.db import Guilds
-from datetime import datetime, time
-from helpers.api import API, Data
 from main import GalacticWideWebBot
+from utils.checks import wait_for_startup
+from utils.embeds import Dashboard
+from utils.db import Guilds
+from utils.api import API, Data
 
 
 class DashboardCog(commands.Cog):
@@ -49,6 +50,7 @@ class DashboardCog(commands.Cog):
         times.append(time(hour=i, minute=30, second=0))
         times.append(time(hour=i, minute=45, second=0))
 
+    @wait_for_startup()
     @tasks.loop(time=times)
     async def dashboard(self, force: bool = False):
         if self.bot.dashboard_messages == []:

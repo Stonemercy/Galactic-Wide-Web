@@ -1,10 +1,10 @@
-from json import load
+from data.lists import enemies
 from disnake import AppCmdInter
 from disnake.ext import commands
-from helpers.db import Guilds
-from helpers.embeds import Terminid
-from data.lists import enemies
+from json import load
 from main import GalacticWideWebBot
+from utils.db import Guilds
+from utils.embeds import Terminid
 
 
 class TerminidsCog(commands.Cog):
