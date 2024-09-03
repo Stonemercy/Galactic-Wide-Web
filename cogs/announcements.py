@@ -124,11 +124,11 @@ class AnnouncementsCog(commands.Cog):
             )
         if api.dispatches in (None, []):
             return self.bot.logger.error(
-                f"AnnouncementsCog, dispatch_check, data.dispatches in (None, [])"
+                f"AnnouncementsCog, dispatch_check, {api.dispatches = }"
             )
         if api.dispatches[0]["message"] == None:
             return self.bot.logger.error(
-                f'AnnouncementsCog, dispatch_check, data.dispatches[0]["message"] == None'
+                f'AnnouncementsCog, dispatch_check, {api.dispatches[0]["message"] =}'
             )
         data = Data(data_from_api=api)
         self._newest_id = data.dispatch.id
