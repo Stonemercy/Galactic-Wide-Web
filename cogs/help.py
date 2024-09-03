@@ -11,7 +11,7 @@ class HelpCog(commands.Cog):
         self.bot = bot
 
     async def help_autocomp(inter: AppCmdInter, user_input: str):
-        commands_list: list[str] = [i.name for i in inter.bot.global_slash_commands]
+        commands_list = [i.name for i in inter.bot.global_slash_commands]
         commands_list.append("all")
         return [command for command in commands_list if user_input in command.lower()]
 
@@ -62,7 +62,7 @@ class HelpCog(commands.Cog):
                     self.bot.global_application_commands,
                 )
             )[0]
-            options = "**Options:**\n"
+            options = "" if command_help.options == [] else "**Options:**\n"
             for option in command_help.options:
                 if option.type == OptionType.sub_command:
                     options += (
