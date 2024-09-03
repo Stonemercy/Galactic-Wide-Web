@@ -11,26 +11,20 @@ class IlluminateCog(commands.Cog):
     def __init__(self, bot: GalacticWideWebBot):
         self.bot = bot
         self.illuminate_dict = enemies["illuminate"]
-        self.variations_dict: dict = {}
+        self.variations_dict = {}
         for i in enemies["illuminate"].values():
-            if i["variations"] != None:
-                for n, j in i["variations"].items():
-                    self.variations_dict[n] = j
+            if i["variations"]:
+                self.variations_dict.update(i["variations"])
 
     async def illuminate_autocomp(inter: AppCmdInter, user_input: str):
-        return [
-            command
-            for command in enemies["illuminate"]
-            if user_input in command.lower()
-        ]
+        return [cmd for cmd in enemies["illuminate"] if user_input in cmd.lower()]
 
     async def variations_autocomp(inter: AppCmdInter, user_input: str):
         variations_list: list[str] = []
         for i in enemies["illuminate"].values():
-            if i["variations"] != None:
-                for n in i["variations"]:
-                    variations_list.append(n)
-        return [command for command in variations_list if user_input in command.lower()]
+            if i["variations"]:
+                variations_list.extend([variation for variation in i["variations"]])
+        return [cmd for cmd in variations_list if user_input in cmd.lower()]
 
     @commands.slash_command(
         description="Returns information on an Illuminate or variation.",
