@@ -279,11 +279,11 @@ class Tasks(list):
             self.type: int = task["type"]
             self.progress: float = 0
             self.values: list = task["values"]
-            self.valueTypes: list = task["valueTypes"]
+            self.value_types: list = task["valueTypes"]
             self.health_bar: str = ""
 
         def __repr__(self):
-            return f"Type: {self.type} - Progress: {self.progress:.2%} - Values: {self.values} - ValueTypes: {self.valueTypes}"
+            return f"Type: {self.type} - Progress: {self.progress:.2%} - Values: {self.values} - ValueTypes: {self.value_types}"
 
 
 class Campaign:
