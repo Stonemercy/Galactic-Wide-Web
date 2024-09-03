@@ -17,16 +17,14 @@ class AutomatonCog(commands.Cog):
                 self.variations_dict.update(i["variations"])
 
     async def automaton_autocomp(inter: AppCmdInter, user_input: str):
-        return [
-            command for command in enemies["automaton"] if user_input in command.lower()
-        ]
+        return [cmd for cmd in enemies["automaton"] if user_input in cmd.lower()]
 
     async def variations_autocomp(inter: AppCmdInter, user_input: str):
         variations_list: list[str] = []
         for i in enemies["automaton"].values():
             if i["variations"]:
                 variations_list.extend([variation for variation in i["variations"]])
-        return [command for command in variations_list if user_input in command.lower()]
+        return [cmd for cmd in variations_list if user_input in cmd.lower()]
 
     @commands.slash_command(
         description="Returns information on an Automaton or variation.",
@@ -46,7 +44,7 @@ class AutomatonCog(commands.Cog):
         ),
     ):
         self.bot.logger.info(
-            f"automatonCog, automaton species:{species} variation:{variation} command used"
+            f"AutomatonCog, automaton species:{species} variation:{variation} command used"
         )
         if not species and not variation:
             return await inter.send(":robot:", delete_after=10.0, ephemeral=True)
