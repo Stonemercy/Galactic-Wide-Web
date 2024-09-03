@@ -23,7 +23,7 @@ class AdminCommandsCog(commands.Cog):
         description="Forces dashboards to update ASAP",
         default_member_permissions=Permissions(administrator=True),
     )
-    async def force_update_dashboard(self, inter: AppCmdInter):
+    async def force_update_dashboards(self, inter: AppCmdInter):
         await inter.response.defer(ephemeral=True)
         self.bot.logger.critical(
             f"AdminCommandsCog, {inter.application_command.name} command used by {inter.author.id} - {inter.author.name}"
