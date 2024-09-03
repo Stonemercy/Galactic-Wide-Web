@@ -72,7 +72,6 @@ class AnnouncementsCog(commands.Cog):
         if self.bot.announcement_channels == []:
             return
         announcement_start = datetime.now()
-        last_id = MajorOrders.get_last_id()
         api = API()
         await api.pull_from_api(get_assignment=True, get_planets=True)
         if api.error:
@@ -83,6 +82,7 @@ class AnnouncementsCog(commands.Cog):
         if not data.assignment:
             return
         self._newest_id = data.assignment.id
+        last_id = MajorOrders.get_last_id()
         if not last_id:
             last_id = MajorOrders.setup()
         if last_id == 0 or last_id != self._newest_id:
@@ -116,7 +116,6 @@ class AnnouncementsCog(commands.Cog):
         if self.bot.announcement_channels == []:
             return
         dispatch_start = datetime.now()
-        last_id = Dispatches.get_last_id()
         api = API()
         await api.pull_from_api(get_dispatches=True)
         if api.error:
@@ -133,6 +132,7 @@ class AnnouncementsCog(commands.Cog):
             )
         data = Data(data_from_api=api)
         self._newest_id = data.dispatch.id
+        last_id = Dispatches.get_last_id()
         if not last_id:
             last_id = Dispatches.setup()
         if last_id == 0 or last_id != self._newest_id:
@@ -165,7 +165,6 @@ class AnnouncementsCog(commands.Cog):
         if self.bot.patch_channels == []:
             return
         patch_notes_start = datetime.now()
-        last_id = Steam.get_last_id()
         api = API()
         await api.pull_from_api(get_steam=True)
         if api.error:
@@ -174,6 +173,7 @@ class AnnouncementsCog(commands.Cog):
             )
         data = Data(data_from_api=api)
         self._newest_id = int(data.steam.id)
+        last_id = Steam.get_last_id()
         if not last_id:
             last_id = Steam.setup()
         if last_id == 0 or last_id != self._newest_id:
