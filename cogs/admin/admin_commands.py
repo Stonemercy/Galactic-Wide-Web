@@ -149,7 +149,7 @@ class AdminCommandsCog(commands.Cog):
     @owner_only()
     @commands.slash_command(
         guild_ids=SUPPORT_SERVER,
-        description="Reload a cog",
+        description="Reload an extension",
         default_member_permissions=Permissions(administrator=True),
     )
     async def reload_extension(self, inter: AppCmdInter, ext: str):
@@ -167,7 +167,7 @@ class AdminCommandsCog(commands.Cog):
             self.bot.reload_extension(ext)
             return await inter.send(f"Reloaded the `{ext}` extension", ephemeral=True)
         except Exception as e:
-            return await inter.send(f"Error:\n{e}")
+            return await inter.send(f"Error:\n{e}", ephemeral=True)
 
 
 def setup(bot: GalacticWideWebBot):
