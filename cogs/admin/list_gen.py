@@ -12,6 +12,15 @@ class ListGenCog(commands.Cog):
     @tasks.loop(count=1)
     async def list_gen(self):
         start_time = datetime.now()
+        for data_list in (
+            self.bot.dashboard_messages,
+            self.bot.dashboard_channels,
+            self.bot.announcement_channels,
+            self.bot.patch_channels,
+            self.bot.map_messages,
+            self.bot.map_channels,
+        ):
+            data_list.clear()
         guilds = Guilds.get_all_guilds()
         if not guilds:
             return self.bot.logger.error(f"ListGenCog, list_gen, guilds == False")
