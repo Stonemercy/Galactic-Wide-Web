@@ -266,7 +266,7 @@ class Tasks(list):
             task = self.Task(task)
             progress_value = {
                 13: 1,
-                12: task.values[1],
+                12: task.values[0],
                 11: 1,
                 3: task.values[2],
                 2: task.values[2],
