@@ -141,7 +141,7 @@ class MapCog(commands.Cog):
         )
         if api.error:
             await self.bot.moderator_channel.send(
-                f"<@164862382185644032>\n{data.error[0]}\n{data.error[1]}\n:warning:"
+                f"<@{self.bot.owner_id}>\n{api.error[0]}\n{api.error[1]}\n:warning:"
             )
             return await inter.send(
                 "There was an issue getting the data for the map.\nPlease try again later.",
