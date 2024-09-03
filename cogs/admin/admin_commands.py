@@ -95,7 +95,7 @@ class AdminCommandsCog(commands.Cog):
         description="Unban someone you accidentally banned from giving feedback",
         default_member_permissions=Permissions(administrator=True),
     )
-    async def feedback_unban(self, inter: AppCmdInter, user_id):
+    async def feedback_unban(self, inter: AppCmdInter, user_id: int):
         self.bot.logger.critical(
             f"AdminCommandsCog, {inter.application_command.name}: {user_id} command used by {inter.author.id} - {inter.author.name}"
         )
@@ -114,7 +114,7 @@ class AdminCommandsCog(commands.Cog):
         description="Provide the reason for a ban",
         default_member_permissions=Permissions(administrator=True),
     )
-    async def feedback_ban_reason(self, inter: AppCmdInter, user_id, reason):
+    async def feedback_ban_reason(self, inter: AppCmdInter, user_id: int, reason: str):
         self.bot.logger.critical(
             f"AdminCommandsCog, {inter.application_command.name}: {user_id}, {reason} command used by {inter.author.id} - {inter.author.name}"
         )
@@ -133,7 +133,7 @@ class AdminCommandsCog(commands.Cog):
         description="Un-mark a user as good",
         default_member_permissions=Permissions(administrator=True),
     )
-    async def not_good_feedback(self, inter: AppCmdInter, user_id):
+    async def not_good_feedback(self, inter: AppCmdInter, user_id: int):
         self.bot.logger.critical(
             f"AdminCommandsCog, {inter.application_command.name}: {user_id} command used by {inter.author.id} - {inter.author.name}"
         )
