@@ -700,6 +700,9 @@ victory_poses_list = [
     "Distribute Ballots",
     "Welcome Adoration",
     "Guns of Liberty",
+    "Big Stretch",
+    "Deep Reflection",
+    "Thoracic Collision Exultation Maneuver",
 ]
 
 player_cards_list = [
@@ -727,6 +730,8 @@ player_cards_list = [
     "Order of the Venerated Ballot",
     "Mark of the Crimson Fang",
     "Executioner's Canopy",
+    "Purifying Eclipse",
+    "The Breach",
 ]
 
 titles_list = [
@@ -753,4 +758,5 @@ titles_list = [
     "Super Private",
     "Super Citizen",
     "Viper Commando",
+    "Fire Safety Officer",
 ]
