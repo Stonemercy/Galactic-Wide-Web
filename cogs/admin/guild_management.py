@@ -69,7 +69,7 @@ class GuildManagementCog(commands.Cog):
     async def on_guild_remove(self, guild: Guild):
         Guilds.remove_from_db(guild.id)
         embed = (
-            Embed(title="Guild left...", colour=Colour.brand_red())
+            Embed(title="Guild left", colour=Colour.brand_red())
             .add_field("Name", guild.name, inline=False)
             .add_field("Users", guild.member_count, inline=False)
             .add_field(
@@ -262,12 +262,17 @@ class GuildManagementCog(commands.Cog):
                     delete_after=10,
                 )
 
-    @tasks.loop(minutes=1)
+    times = []
+    for i in range(24):
+        times.append(time(hour=i, minute=2, second=0))
+        times.append(time(hour=i, minute=17, second=0))
+        times.append(time(hour=i, minute=32, second=0))
+        times.append(time(hour=i, minute=47, second=0))
+
     @wait_for_startup()
+    @tasks.loop(time=times)
     async def dashboard_checking(self):
         now = datetime.now()
-        if now.minute not in (2, 17, 32, 47):
-            return
         guild = Guilds.get_info(1212722266392109088)
         if guild:
             try:
