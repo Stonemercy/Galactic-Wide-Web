@@ -9,7 +9,7 @@ from disnake.ext import commands
 from disnake.ui import Button
 from main import GalacticWideWebBot
 from utils.checks import wait_for_startup
-from utils.db import Feedback
+from utils.db import FeedbackDB, FeedbackRecord
 from utils.embeds import FeedbackEmbed
 from utils.modals import FeedbackModal
 
@@ -26,12 +26,12 @@ class FeedbackCog(commands.Cog):
         inter: AppCmdInter,
     ):
         self.bot.logger.info(f"FeedbackCog, feedback command used")
-        user_in_db = Feedback.get_user(inter.user.id)
+        user_in_db: FeedbackRecord = FeedbackDB.get_user(inter.user.id)
         if not user_in_db:
-            user_in_db = Feedback.new_user(inter.user.id)
-        if user_in_db[1] == True:
+            user_in_db = FeedbackDB.new_user(inter.user.id)
+        if user_in_db.banned == True:
             return await inter.send(
-                f"You have been banned from providing feedback\nReason: {user_in_db[2]}",
+                f"You have been banned from providing feedback\nReason:\n# {user_in_db.reason}",
                 ephemeral=True,
                 components=Button(
                     label="Support Server",
@@ -68,7 +68,7 @@ class FeedbackCog(commands.Cog):
             user_to_ban = inter.message.embeds[0].author
             if user_to_ban.name in self.feedback_users:
                 member: Member = self.feedback_users[user_to_ban.name]
-                Feedback.ban_user(member.id)
+                FeedbackDB.ban_user(member.id)
                 await inter.send(
                     f"{member.mention} banned", ephemeral=True, delete_after=10
                 )
@@ -80,7 +80,7 @@ class FeedbackCog(commands.Cog):
             good_user = inter.message.embeds[0].author
             if good_user.name in self.feedback_users:
                 member: Member = self.feedback_users[good_user.name]
-                Feedback.good_user(member.id)
+                FeedbackDB.good_user(member.id)
                 await inter.send(
                     f"{member.mention} labeled as a good user",
                     ephemeral=True,

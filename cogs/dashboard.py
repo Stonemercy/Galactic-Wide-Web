@@ -10,7 +10,7 @@ from disnake.ext import commands, tasks
 from main import GalacticWideWebBot
 from utils.checks import wait_for_startup
 from utils.embeds import Dashboard
-from utils.db import Guilds
+from utils.db import GuildRecord, GuildsDB
 from utils.api import API, Data
 
 
@@ -24,17 +24,17 @@ class DashboardCog(commands.Cog):
         self.dashboard.stop()
 
     async def update_message(self, message: PartialMessage, dashboard_dict: dict):
-        guild = Guilds.get_info(message.guild.id)
+        guild: GuildRecord = GuildsDB.get_info(message.guild.id)
         if not guild:
             self.bot.dashboard_messages.remove(message)
             return self.bot.logger.error(
                 f"DashboardCog, update_message, guild == None, {message.guild.id}"
             )
         try:
-            await message.edit(embeds=dashboard_dict[guild[5]].embeds)
+            await message.edit(embeds=dashboard_dict[guild.language].embeds)
         except (NotFound, Forbidden) as e:
             self.bot.dashboard_messages.remove(message)
-            Guilds.update_dashboard(message.guild.id, 0, 0)
+            GuildsDB.update_dashboard(message.guild.id, 0, 0)
             return self.bot.logger.error(
                 f"DashboardCog, update_message, {e}, removing from message list, {message.channel.id}"
             )
@@ -107,7 +107,7 @@ class DashboardCog(commands.Cog):
                         - self.liberation_changes[campaign.planet.name]["liberation"]
                     )
             self.liberation_changes[campaign.planet.name]["liberation"] = liberation
-        languages = Guilds.get_used_languages()
+        languages = GuildsDB.get_used_languages()
         dashboard_dict = {
             lang: Dashboard(data, lang, self.liberation_changes) for lang in languages
         }

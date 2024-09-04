@@ -4,7 +4,7 @@ from disnake.ext import commands
 from json import load
 from main import GalacticWideWebBot
 from utils.checks import wait_for_startup
-from utils.db import Guilds
+from utils.db import GuildRecord, GuildsDB
 from utils.embeds import PlanetEmbed
 from utils.functions import planet_map
 from utils.api import Data, API
@@ -45,10 +45,9 @@ class PlanetCog(commands.Cog):
                 "Please select a planet from the list.",
                 ephemeral=public,
             )
-        guild = Guilds.get_info(inter.guild_id)
+        guild: GuildRecord = GuildsDB.get_info(inter.guild_id)
         if not guild:
-            guild = Guilds.insert_new_guild(inter.guild.id)
-        language = guild[5]
+            guild = GuildsDB.insert_new_guild(inter.guild.id)
         api = API()
         await api.pull_from_api(
             get_planets=True, get_thumbnail=True, get_campaigns=True
@@ -73,7 +72,7 @@ class PlanetCog(commands.Cog):
             return await inter.send("Information on that planet is unavailable.")
         else:
             planet_data = planet_data[0]
-        embed = PlanetEmbed(planet_data, planet_thumbnail, language)
+        embed = PlanetEmbed(planet_data, planet_thumbnail, guild.language)
         try:
             embed.set_image(
                 file=File(f"resources/biomes/{planet_data.biome['name'].lower()}.png")
@@ -82,7 +81,7 @@ class PlanetCog(commands.Cog):
             await self.bot.moderator_channel.send(
                 f"Image missing for biome of **planet __{planet}__** <@{self.bot.owner_id}> :warning:"
             )
-        map_embed = planet_map(data, planet_data.index, language)
+        map_embed = planet_map(data, planet_data.index, guild.language)
         await inter.send(embeds=[embed, map_embed], ephemeral=public)
 
 

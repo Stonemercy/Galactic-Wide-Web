@@ -1,6 +1,6 @@
 from datetime import datetime
 from disnake.ext import commands, tasks
-from utils.db import Guilds
+from utils.db import GuildsDB
 from main import GalacticWideWebBot
 
 
@@ -21,45 +21,44 @@ class ListGenCog(commands.Cog):
             self.bot.map_channels,
         ):
             data_list.clear()
-        guilds = Guilds.get_all_guilds()
+        guilds = GuildsDB.get_all_guilds()
         if not guilds:
-            return self.bot.logger.error(f"ListGenCog, list_gen, guilds == False")
+            return self.bot.logger.error(f"ListGenCog, list_gen, guilds == None")
         guilds_done = 0
         for guild in guilds:
-            if guild[1] != 0:
+            if guild.dashboard_channel_id != 0:
                 try:
                     dashboard_channel = self.bot.get_channel(
-                        guild[1]
-                    ) or await self.bot.fetch_channel(guild[1])
-                    dashboard_message = dashboard_channel.get_partial_message(guild[2])
+                        guild.dashboard_channel_id
+                    ) or await self.bot.fetch_channel(guild.dashboard_channel_id)
+                    dashboard_message = dashboard_channel.get_partial_message(
+                        guild.dashboard_message_id
+                    )
                     self.bot.dashboard_messages.append(dashboard_message)
                 except:
                     pass
-            if guild[3] != 0:
+            if guild.announcement_channel_id != 0:
                 try:
                     announcement_channel = self.bot.get_channel(
-                        guild[3]
-                    ) or await self.bot.fetch_channel(guild[3])
+                        guild.announcement_channel_id
+                    ) or await self.bot.fetch_channel(guild.announcement_channel_id)
                     self.bot.announcement_channels.append(announcement_channel)
-                    if guild[4] != False:
+                    if guild.patch_notes:
                         self.bot.patch_channels.append(announcement_channel)
                 except:
                     pass
-            if guild[6] != 0:
-                if guild[6] == guild[1] and guild[1] != 0:
-                    try:
-                        map_channel = dashboard_channel
-                    except:
-                        pass
+            if guild.map_channel_id != 0:
+                if guild.map_channel_id == guild.dashboard_channel_id:
+                    map_channel = dashboard_channel
                 else:
                     try:
                         map_channel = self.bot.get_channel(
-                            guild[6]
-                        ) or await self.bot.fetch_channel(guild[6])
+                            guild.map_channel_id
+                        ) or await self.bot.fetch_channel(guild.map_channel_id)
                     except:
                         pass
                 try:
-                    map_message = map_channel.get_partial_message(guild[7])
+                    map_message = map_channel.get_partial_message(guild.map_message_id)
                     self.bot.map_messages.append(map_message)
                 except:
                     pass

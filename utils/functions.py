@@ -3,7 +3,7 @@ from json import load
 from re import sub
 from PIL import Image
 from disnake import Colour, Embed, File, TextChannel
-from utils.db import Guilds
+from utils.db import GuildsDB
 from PIL.ImageDraw import Draw
 from PIL.ImageFont import truetype
 from data.lists import supported_languages
@@ -49,6 +49,7 @@ def steam_format(content: str):  # thanks Chats
     content = sub(r"\[url=(.+?)](.+?)\[/url\]", r"[\2]\(\1\)", content)
     content = sub(r"<i=1>(.*?)</i>", r"**\1**", content)
     content = sub(r"<i=3>(.*?)</i>", r"**\1**", content)
+    content = sub(r"<i=3>(.*?)<i=3>", r"**\1**", content)
     content = sub(r"\[quote\]", r"> ", content)
     content = sub(r"\[quote\]", r"> ", content)
     content = sub(r"\[/quote\]", r"", content)
@@ -84,7 +85,7 @@ async def dashboard_maps(data, channel: TextChannel):
         "MO": (254, 226, 76),
     }
     planet_names_loc = load(open(f"data/json/planets/planets.json", encoding="UTF-8"))
-    languages = Guilds.get_used_languages()
+    languages = GuildsDB.get_used_languages()
     planets_coords = {
         planet.index: (
             (planet.position["x"] * 2000) + 2000,

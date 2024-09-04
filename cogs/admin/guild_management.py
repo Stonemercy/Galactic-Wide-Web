@@ -18,7 +18,7 @@ from math import inf
 from os import getpid
 from psutil import Process, cpu_percent
 from utils.checks import wait_for_startup
-from utils.db import Guilds, BotDashboard
+from utils.db import BotDashboardRecord, GuildRecord, GuildsDB, BotDashboardDB
 from utils.embeds import BotDashboardEmbed, ReactRoleDashboard
 from utils.functions import health_bar
 
@@ -40,7 +40,7 @@ class GuildManagementCog(commands.Cog):
 
     @commands.Cog.listener()
     async def on_guild_join(self, guild: Guild):
-        Guilds.insert_new_guild(guild.id)
+        GuildsDB.insert_new_guild(guild.id)
         embed = (
             Embed(title="New guild joined!", colour=Colour.brand_green())
             .add_field("Name", guild.name, inline=False)
@@ -67,7 +67,7 @@ class GuildManagementCog(commands.Cog):
 
     @commands.Cog.listener()
     async def on_guild_remove(self, guild: Guild):
-        Guilds.remove_from_db(guild.id)
+        GuildsDB.remove_from_db(guild.id)
         embed = (
             Embed(title="Guild left", colour=Colour.brand_red())
             .add_field("Name", guild.name, inline=False)
@@ -87,13 +87,13 @@ class GuildManagementCog(commands.Cog):
     @tasks.loop(minutes=1)
     async def bot_dashboard(self):
         now = datetime.now()
-        data = BotDashboard.get_info()
-        if data[1] == 0:
-            channel = self.bot.get_channel(data[0]) or await self.bot.fetch_channel(
-                data[0]
-            )
+        dashboard: BotDashboardRecord = BotDashboardDB.get_info()
+        channel = self.bot.get_channel(
+            dashboard.channel_id
+        ) or await self.bot.fetch_channel(dashboard.channel_id)
+        if dashboard.message_id == 0:
             message = await channel.send("Placeholder message, please ignore.")
-            BotDashboard.set_message(message.id)
+            BotDashboardDB.set_message(message.id)
         else:
             dashboard_embed = BotDashboardEmbed(now)
             commands = ""
@@ -134,11 +134,11 @@ class GuildManagementCog(commands.Cog):
             )
             dashboard_embed.add_field("", "", inline=False)
             stats_dict = {
-                "Dashboard Setup": len(Guilds.dashboard_not_setup()),
-                "Announcements Setup": len(Guilds.feed_not_setup()),
+                "Dashboard Setup": GuildsDB.dashboard_not_setup(),
+                "Announcements Setup": GuildsDB.feed_not_setup(),
                 None: None,
-                "Maps Setup": len(Guilds.maps_not_setup()),
-                "Patch Notes Enabled": len(Guilds.patch_notes_not_setup()),
+                "Maps Setup": GuildsDB.maps_not_setup(),
+                "Patch Notes Enabled": GuildsDB.patch_notes_not_setup(),
             }
             for title, amount in stats_dict.items():
                 if not title:
@@ -166,11 +166,8 @@ class GuildManagementCog(commands.Cog):
                 ),
                 inline=False,
             )
-            channel = self.bot.get_channel(data[0]) or await self.bot.fetch_channel(
-                data[0]
-            )
             try:
-                message = channel.get_partial_message(data[1])
+                message = channel.get_partial_message(dashboard.message_id)
             except Exception as e:
                 self.bot.logger.error(
                     f"GuildManagementCog, bot_dashboard, {e}, {channel.id}"
@@ -203,7 +200,7 @@ class GuildManagementCog(commands.Cog):
                 ),
             except Exception as e:
                 await self.bot.moderator_channel.send(
-                    f"<@{self.bot.owner_id}>\n```py\n{e}\n```bot_dashboard function in guild_management.py"
+                    f"<@{self.bot.owner_id}>\n```py\n{e}\n```\n`bot_dashboard function in guild_management.py`"
                 )
                 self.bot.logger.error(
                     f"GuildManagementCog, bot_dashboard, {e}, {message.id}"
@@ -215,28 +212,30 @@ class GuildManagementCog(commands.Cog):
 
     @tasks.loop(count=1)
     async def react_role_dashboard(self):
-        data = BotDashboard.get_info()
+        dashboard = BotDashboardDB.get_info()
         components = [
             Button(label="Subscribe to Bot Updates", custom_id="BotUpdatesButton")
         ]
-        channel = self.bot.get_channel(data[0]) or await self.bot.fetch_channel(data[0])
+        channel = self.bot.get_channel(
+            dashboard.channel_id
+        ) or await self.bot.fetch_channel(dashboard.channel_id)
         if not channel:
-            self.bot.logger.error(
+            return self.bot.logger.error(
                 "GuildManagementCog, react_role_dashboard, channel == None"
             )
-            return
-        if data[2] == None:
-            embed = ReactRoleDashboard()
+        embed = ReactRoleDashboard()
+        if not dashboard.react_role_message_id:
             message = await channel.send(embed=embed, components=components)
-            BotDashboard.set_react_role(message.id)
+            BotDashboardDB.set_react_role(message.id)
         else:
-            message = channel.get_partial_message(data[2])
+            message = channel.get_partial_message(dashboard.react_role_message_id)
             try:
                 await message.edit(embed=embed, components=components)
             except NotFound:
                 message = await channel.send(embed=embed, components=components)
-                BotDashboard.set_react_role(message.id)
-            except:
+                BotDashboardDB.set_react_role(message.id)
+            except Exception as e:
+                await self.bot.moderator_channel.send(f"Bot Dashboard\n{e}")
                 pass
 
     @react_role_dashboard.before_loop
@@ -273,13 +272,13 @@ class GuildManagementCog(commands.Cog):
     @tasks.loop(time=times)
     async def dashboard_checking(self):
         now = datetime.now()
-        guild = Guilds.get_info(1212722266392109088)
+        guild: GuildRecord = GuildsDB.get_info(1212722266392109088)
         if guild:
             try:
                 channel = self.bot.get_channel(
-                    guild[1]
-                ) or await self.bot.fetch_channel(guild[1])
-                message = await channel.fetch_message(guild[2])
+                    guild.dashboard_channel_id
+                ) or await self.bot.fetch_channel(guild.dashboard_channel_id)
+                message = await channel.fetch_message(guild.dashboard_message_id)
                 updated_time = message.edited_at.replace(tzinfo=None) + timedelta(
                     hours=1
                 )
@@ -300,11 +299,13 @@ class GuildManagementCog(commands.Cog):
     @wait_for_startup()
     @tasks.loop(time=[time(hour=0, minute=0, second=0, microsecond=0)])
     async def guild_checking(self):
-        guilds_in_db = Guilds.get_all_guilds()
+        guilds_in_db = GuildsDB.get_all_guilds()
         if guilds_in_db:
-            for guild_in_db in guilds_in_db:
-                if guild_in_db[0] not in [guild.id for guild in self.bot.guilds]:
-                    self.guilds_to_remove.append(str(guild_in_db[0]))
+            for guild in guilds_in_db:
+                if guild.guild_id not in [
+                    discord_guild.id for discord_guild in self.bot.guilds
+                ]:
+                    self.guilds_to_remove.append(str(guild.guild_id))
             if self.guilds_to_remove != []:
                 embed = Embed(
                     title="Servers in DB that don't have the bot installed",
@@ -330,7 +331,7 @@ class GuildManagementCog(commands.Cog):
     async def ban_listener(self, inter: MessageInteraction):
         if inter.component.custom_id == "guild_remove":
             for guild in self.guilds_to_remove:
-                Guilds.remove_from_db(guild)
+                GuildsDB.remove_from_db(int(guild))
                 self.bot.logger.error(
                     f"GuildManagementCog, ban_listener, removed {guild} from the DB"
                 )

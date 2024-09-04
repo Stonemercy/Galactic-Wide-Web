@@ -2,7 +2,7 @@ from asyncio import sleep
 from disnake import Forbidden, TextChannel
 from disnake.ext import commands, tasks
 from utils.checks import wait_for_startup
-from utils.db import Campaigns, Guilds
+from utils.db import CampaignsDB, GuildRecord, GuildsDB
 from utils.embeds import CampaignEmbed
 from utils.api import API, Data
 from datetime import datetime
@@ -18,14 +18,14 @@ class WarUpdatesCog(commands.Cog):
         self.campaign_check.stop()
 
     async def send_campaign(self, channel: TextChannel, embeds):
-        guild = Guilds.get_info(channel.guild.id)
+        guild: GuildRecord = GuildsDB.get_info(channel.guild.id)
         if not guild:
             self.bot.announcement_channels.remove(channel)
             return self.bot.logger.error(
                 f"WarUpdatesCog, send_campaign, guild == None, {channel.guild.id}"
             )
         try:
-            await channel.send(embed=embeds[guild[5]])
+            await channel.send(embed=embeds[guild.language])
         except Forbidden:
             self.bot.announcement_channels.remove(channel)
             self.bot.logger.error(
@@ -56,50 +56,48 @@ class WarUpdatesCog(commands.Cog):
                 f"<@164862382185644032>{api.error[0]}\n{api.error[1]}\n:warning:"
             )
         data = Data(data_from_api=api)
-        old_campaigns = Campaigns.get_all()
-        languages = Guilds.get_used_languages()
+        old_campaigns = CampaignsDB.get_all()
+        languages = GuildsDB.get_used_languages()
         embeds = {lang: CampaignEmbed(lang) for lang in languages}
         new_updates = False
         new_campaign_ids = [campaign.id for campaign in data.campaigns]
-        if not data.campaigns:
-            return
-        if old_campaigns == []:
+        if not old_campaigns:
             for new_campaign in data.campaigns:
-                Campaigns.new_campaign(
+                CampaignsDB.new_campaign(
                     new_campaign.id,
                     new_campaign.planet.name,
                     new_campaign.planet.current_owner,
                     new_campaign.planet.index,
                 )
             return
-        old_campaign_ids = [old_campaign[0] for old_campaign in old_campaigns]
+        old_campaign_ids = [old_campaign.id for old_campaign in old_campaigns]
         liberation_changes: dict = self.bot.get_cog("DashboardCog").liberation_changes
         for old_campaign in old_campaigns:  # loop through old campaigns
-            if old_campaign[0] not in new_campaign_ids:
+            if old_campaign.id not in new_campaign_ids:
                 # if campaign is no longer active
-                planet = data.planets[old_campaign[3]]
-                if planet.current_owner == "Humans" and old_campaign[2] == "Humans":
+                planet = data.planets[old_campaign.planet_index]
+                if planet.current_owner == "Humans" and old_campaign.owner == "Humans":
                     # if successful defence campaign
                     for embed in embeds.values():
                         embed.add_def_victory(planet)
                     new_updates = True
                     liberation_changes.pop(planet.name, None)
-                    Campaigns.remove_campaign(old_campaign[0])
-                if planet.current_owner != old_campaign[2]:  # if owner has changed
-                    if old_campaign[2] == "Humans":  # if defence campaign loss
+                    CampaignsDB.remove_campaign(old_campaign.id)
+                if planet.current_owner != old_campaign.owner:  # if owner has changed
+                    if old_campaign.owner == "Humans":  # if defence campaign loss
                         for embed in embeds.values():
                             embed.add_planet_lost(planet)
                         new_updates = True
                         liberation_changes.pop(planet.name, None)
-                        Campaigns.remove_campaign(old_campaign[0])
+                        CampaignsDB.remove_campaign(old_campaign.id)
                     elif planet.current_owner == "Humans":  # if attack campaign win
                         for embed in embeds.values():
-                            embed.add_campaign_victory(planet, old_campaign[2])
+                            embed.add_campaign_victory(planet, old_campaign.owner)
                         new_updates = True
                         liberation_changes.pop(planet.name, None)
-                        Campaigns.remove_campaign(old_campaign[0])
+                        CampaignsDB.remove_campaign(old_campaign.id)
                 elif planet.current_owner != "Humans":
-                    Campaigns.remove_campaign(old_campaign[0])
+                    CampaignsDB.remove_campaign(old_campaign.id)
         for new_campaign in data.campaigns:  # loop through new campaigns
             if new_campaign.id not in old_campaign_ids:  # if campaign is brand new
                 time_remaining = None
@@ -108,7 +106,7 @@ class WarUpdatesCog(commands.Cog):
                 for embed in embeds.values():
                     embed.add_new_campaign(new_campaign, time_remaining)
                 new_updates = True
-                Campaigns.new_campaign(
+                CampaignsDB.new_campaign(
                     new_campaign.id,
                     new_campaign.planet.name,
                     new_campaign.planet.current_owner,

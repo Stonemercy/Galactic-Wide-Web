@@ -2,7 +2,7 @@ from disnake import AppCmdInter
 from disnake.ext import commands
 from json import load
 from main import GalacticWideWebBot
-from utils.db import Guilds
+from utils.db import GuildRecord, GuildsDB
 from utils.embeds import Items
 
 
@@ -58,11 +58,11 @@ class WeaponsCog(commands.Cog):
         self.bot.logger.info(
             f"WeaponsCog, weapons primary primary:{primary} command used"
         )
-        guild_in_db = Guilds.get_info(inter.guild_id)
+        guild_in_db: GuildRecord = GuildsDB.get_info(inter.guild_id)
         if not guild_in_db:
-            guild_in_db = Guilds.insert_new_guild(inter.guild.id)
+            guild_in_db = GuildsDB.insert_new_guild(inter.guild.id)
         guild_language = load(
-            open(f"data/languages/{guild_in_db[5]}.json", encoding="UTF-8")
+            open(f"data/languages/{guild_in_db.language}.json", encoding="UTF-8")
         )
         if primary not in self.primaries:
             return await inter.send(
@@ -91,11 +91,11 @@ class WeaponsCog(commands.Cog):
         self.bot.logger.info(
             f"WeaponsCog, weapons secondary secondary:{secondary} command used"
         )
-        guild_in_db = Guilds.get_info(inter.guild_id)
+        guild_in_db: GuildRecord = GuildsDB.get_info(inter.guild_id)
         if not guild_in_db:
-            guild_in_db = Guilds.insert_new_guild(inter.guild.id)
+            guild_in_db = GuildsDB.insert_new_guild(inter.guild.id)
         guild_language = load(
-            open(f"data/languages/{guild_in_db[5]}.json", encoding="UTF-8")
+            open(f"data/languages/{guild_in_db.language}.json", encoding="UTF-8")
         )
         if secondary not in self.secondaries:
             return await inter.send(
@@ -123,11 +123,11 @@ class WeaponsCog(commands.Cog):
         self.bot.logger.info(
             f"WeaponsCog, weapons grenade grenade:{grenade} command used"
         )
-        guild_in_db = Guilds.get_info(inter.guild_id)
+        guild_in_db: GuildRecord = GuildsDB.get_info(inter.guild_id)
         if not guild_in_db:
-            guild_in_db = Guilds.insert_new_guild(inter.guild.id)
+            guild_in_db = GuildsDB.insert_new_guild(inter.guild.id)
         guild_language = load(
-            open(f"data/languages/{guild_in_db[5]}.json", encoding="UTF-8")
+            open(f"data/languages/{guild_in_db.language}.json", encoding="UTF-8")
         )
         if grenade not in self.grenades:
             return await inter.send(

@@ -5,7 +5,7 @@ from disnake.ext import commands
 from main import GalacticWideWebBot
 from os import getenv
 from utils.checks import owner_only, wait_for_startup
-from utils.db import Feedback, Guilds
+from utils.db import FeedbackDB, FeedbackRecord, GuildsDB
 from utils.embeds import AnnouncementEmbed
 
 
@@ -67,7 +67,7 @@ class AdminCommandsCog(commands.Cog):
             f"AdminCommandsCog, {inter.application_command.name} command used by {inter.author.id} - {inter.author.name}"
         )
         update_start = datetime.now()
-        languages = Guilds.get_used_languages()
+        languages = GuildsDB.get_used_languages()
         embeds = {lang: AnnouncementEmbed() for lang in languages}
         if test:
             return await inter.send(embed=embeds["en"], ephemeral=True)
@@ -105,12 +105,12 @@ class AdminCommandsCog(commands.Cog):
         self.bot.logger.critical(
             f"AdminCommandsCog, {inter.application_command.name}: {user_id} command used by {inter.author.id} - {inter.author.name}"
         )
-        user = Feedback.get_user(user_id)
+        user: FeedbackRecord = FeedbackDB.get_user(user_id)
         if not user:
             return await inter.send("That user doesn't exist in the db", ephemeral=True)
-        elif user[1] == False:
+        elif not user.banned:
             return await inter.send("That user isn't banned", ephemeral=True)
-        Feedback.unban_user(user_id)
+        FeedbackDB.unban_user(user_id)
         await inter.send(f"Unbanned {user_id}", ephemeral=True)
 
     @wait_for_startup()
@@ -132,12 +132,12 @@ class AdminCommandsCog(commands.Cog):
         self.bot.logger.critical(
             f"AdminCommandsCog, {inter.application_command.name}: {user_id}, {reason} command used by {inter.author.id} - {inter.author.name}"
         )
-        user = Feedback.get_user(user_id)
+        user: FeedbackRecord = FeedbackDB.get_user(user_id)
         if not user:
             return await inter.send("That user doesn't exist in the db", ephemeral=True)
-        elif user[1] == False:
+        elif not user.banned:
             return await inter.send("That user isn't banned", ephemeral=True)
-        Feedback.set_reason(user_id, reason)
+        FeedbackDB.set_reason(user_id, reason)
         await inter.send(f"Reason set for {user_id}:\n{reason}", ephemeral=True)
 
     @wait_for_startup()
@@ -157,10 +157,10 @@ class AdminCommandsCog(commands.Cog):
         self.bot.logger.critical(
             f"AdminCommandsCog, {inter.application_command.name}: {user_id} command used by {inter.author.id} - {inter.author.name}"
         )
-        user = Feedback.get_user(user_id)
+        user: FeedbackRecord = FeedbackDB.get_user(user_id)
         if not user:
             return await inter.send("That user doesn't exist in the db", ephemeral=True)
-        elif user[3] == False:
+        elif not user.good_feedback:
             return await inter.send("That user isn't a good user", ephemeral=True)
         FeedbackDB.not_good_user(user_id)
         await inter.send(

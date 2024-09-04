@@ -3,7 +3,7 @@ from disnake import AppCmdInter
 from disnake.ext import commands
 from json import load
 from main import GalacticWideWebBot
-from utils.db import Guilds
+from utils.db import GuildRecord, GuildsDB
 from utils.embeds import Automaton
 
 
@@ -49,11 +49,11 @@ class AutomatonCog(commands.Cog):
         if not species and not variation:
             return await inter.send(":robot:", delete_after=10.0, ephemeral=True)
         await inter.response.defer(ephemeral=True)
-        guild_in_db = Guilds.get_info(inter.guild_id)
+        guild_in_db: GuildRecord = GuildsDB.get_info(inter.guild_id)
         if not guild_in_db:
-            guild_in_db = Guilds.insert_new_guild(inter.guild.id)
+            guild_in_db = GuildsDB.insert_new_guild(inter.guild.id)
         guild_language = load(
-            open(f"data/languages/{guild_in_db[5]}.json", encoding="UTF-8")
+            open(f"data/languages/{guild_in_db.language}.json", encoding="UTF-8")
         )
         if species and variation:
             return await inter.send(

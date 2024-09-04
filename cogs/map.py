@@ -9,7 +9,7 @@ from PIL import Image
 from PIL.ImageDraw import Draw
 from PIL.ImageFont import truetype
 from utils.checks import wait_for_startup
-from utils.db import Guilds
+from utils.db import GuildRecord, GuildsDB
 from utils.functions import dashboard_maps
 from utils.api import API, Data
 
@@ -37,17 +37,17 @@ class MapCog(commands.Cog):
         self.map_poster.stop()
 
     async def update_message(self, message: PartialMessage, embed_dict):
-        guild = Guilds.get_info(message.guild.id)
+        guild: GuildRecord = GuildsDB.get_info(message.guild.id)
         if not guild:
             self.bot.map_messages.remove(message)
             return self.bot.logger.error(
                 f"MapCog, update_message, guild == None, {message.guild.id}"
             )
         try:
-            await message.edit(embed=embed_dict[guild[5]])
+            await message.edit(embed=embed_dict[guild.language])
         except (NotFound, Forbidden) as e:
             self.bot.map_messages.remove(message)
-            Guilds.update_map(message.guild.id, 0, 0)
+            GuildsDB.update_map(message.guild.id, 0, 0)
             return self.bot.logger.error(
                 f"MapCog, update_message, {e}, removing, {message.channel.name}"
             )
@@ -129,9 +129,9 @@ class MapCog(commands.Cog):
         self.bot.logger.info(
             f"MapCog, map faction:{faction} public:{public} command used"
         )
-        guild = Guilds.get_info(inter.guild_id)
+        guild: GuildRecord = GuildsDB.get_info(inter.guild_id)
         if not guild:
-            guild = Guilds.insert_new_guild(inter.guild.id)
+            guild = GuildsDB.insert_new_guild(inter.guild.id)
         api = API()
         await api.pull_from_api(
             get_planets=True,
@@ -228,7 +228,7 @@ class MapCog(commands.Cog):
                     background_draw.multiline_text(
                         xy=coords,
                         text=self.planet_names_loc[str(index)]["names"][
-                            supported_languages[guild[5]]
+                            supported_languages[guild.language]
                         ].replace(" ", "\n"),
                         anchor="md",
                         font=font,

@@ -1128,7 +1128,7 @@ class Terminid(Embed):
             language["enemy.weak_spots"], species_data["weak spots"], inline=False
         )
         variations = ""
-        if variation == False and species_data["variations"] != None:
+        if not variation and species_data["variations"] != None:
             for i in species_data["variations"]:
                 variations += f"\n- {i}"
             self.add_field(language["enemy.variations"], variations)
@@ -1173,7 +1173,7 @@ class Automaton(Embed):
             language["enemy.weak_spots"], bot_data["weak spots"], inline=False
         )
         variations = ""
-        if variation == False and bot_data["variations"] != None:
+        if not variation and bot_data["variations"] != None:
             for i in bot_data["variations"]:
                 variations += f"\n- {i}"
             self.add_field(language["enemy.variations"], variations)
@@ -1222,7 +1222,7 @@ class Illuminate(Embed):
             language["enemy.weak_spots"], illuminate_data["weak spots"], inline=False
         )
         variations = ""
-        if variation == False and illuminate_data["variations"] != None:
+        if not variation and illuminate_data["variations"] != None:
             for i in illuminate_data["variations"]:
                 variations += f"\n- {i}"
             self.add_field(language["enemy.variations"], variations)

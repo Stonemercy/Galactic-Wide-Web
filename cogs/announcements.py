@@ -6,7 +6,7 @@ from disnake.ui import Button
 from main import GalacticWideWebBot
 from utils.checks import wait_for_startup
 from utils.embeds import DispatchesEmbed, MajorOrderEmbed, SteamEmbed
-from utils.db import Dispatches, MajorOrders, Guilds, Steam
+from utils.db import DispatchesDB, GuildRecord, MajorOrderDB, GuildsDB, SteamDB
 from utils.api import API, Data
 
 
@@ -26,22 +26,22 @@ class AnnouncementsCog(commands.Cog):
         """embeds must be a dict in the following format:\n
         `{ language: embed }`\n
         and needs to have all languages used by the userbase"""
-        guild = Guilds.get_info(channel.guild.id)
+        guild: GuildRecord = GuildsDB.get_info(channel.guild.id)
         if not guild:
             self.bot.logger.error(
                 f"AnnouncementsCog, send_embed, guild == None for {channel.id}, {type}"
             )
             if type == "Patch":
                 self.bot.patch_channels.remove(channel)
-                Guilds.update_patch_notes(channel.guild.id, False)
+                GuildsDB.update_patch_notes(channel.guild.id, False)
             else:
                 self.bot.announcement_channels.remove(channel)
-                Guilds.update_announcement_channel(channel.guild.id, 0)
+                GuildsDB.update_announcement_channel(channel.guild.id, 0)
             return
         try:
             if type == "Announcement":
                 await channel.send(
-                    embed=embeds[guild[5]],
+                    embed=embeds[guild.language],
                     components=[
                         Button(
                             style=ButtonStyle.link,
@@ -51,13 +51,13 @@ class AnnouncementsCog(commands.Cog):
                     ],
                 )
             else:
-                await channel.send(embed=embeds[guild[5]])
+                await channel.send(embed=embeds[guild.language])
         except Forbidden:
             try:
                 self.bot.announcement_channels.remove(channel)
             except:
                 pass
-            Guilds.update_announcement_channel(channel.guild.id, 0)
+            GuildsDB.update_announcement_channel(channel.guild.id, 0)
             return self.bot.logger.error(
                 f"AnnouncementsCog, send_embed, Forbidden, {channel.id}"
             )
@@ -82,11 +82,11 @@ class AnnouncementsCog(commands.Cog):
         if not data.assignment:
             return
         self._newest_id = data.assignment.id
-        last_id = MajorOrders.get_last_id()
-        if not last_id:
-            last_id = MajorOrders.setup()
-        if last_id == 0 or last_id != self._newest_id:
-            languages = Guilds.get_used_languages()
+        last_MO = MajorOrderDB.get_last()
+        if not last_MO:
+            last_MO = MajorOrderDB.setup()
+        if last_MO.id != self._newest_id:
+            languages = GuildsDB.get_used_languages()
             embeds = {
                 lang: MajorOrderEmbed(data.assignment, data.planets, lang)
                 for lang in languages
@@ -96,7 +96,7 @@ class AnnouncementsCog(commands.Cog):
                 for i in range(0, len(self.bot.announcement_channels), 50)
             ]
             major_orders_sent = 0
-            MajorOrders.set_new_id(self._newest_id)
+            MajorOrderDB.set_new_id(self._newest_id)
             for chunk in chunked_channels:
                 for channel in chunk:
                     self.bot.loop.create_task(self.send_embed(channel, embeds, "MO"))
@@ -132,18 +132,18 @@ class AnnouncementsCog(commands.Cog):
             )
         data = Data(data_from_api=api)
         self._newest_id = data.dispatch.id
-        last_id = Dispatches.get_last_id()
-        if not last_id:
-            last_id = Dispatches.setup()
-        if last_id == 0 or last_id != self._newest_id:
-            languages = Guilds.get_used_languages()
+        last_dispatch = DispatchesDB.get_last()
+        if not last_dispatch:
+            last_dispatch = DispatchesDB.setup()
+        if last_dispatch.id != self._newest_id:
+            languages = GuildsDB.get_used_languages()
             embeds = {lang: DispatchesEmbed(data.dispatch) for lang in languages}
             chunked_channels = [
                 self.bot.announcement_channels[i : i + 50]
                 for i in range(0, len(self.bot.announcement_channels), 50)
             ]
             dispatches_sent = 0
-            Dispatches.set_new_id(self._newest_id)
+            DispatchesDB.set_new_id(self._newest_id)
             for chunk in chunked_channels:
                 for channel in chunk:
                     self.bot.loop.create_task(
@@ -173,18 +173,18 @@ class AnnouncementsCog(commands.Cog):
             )
         data = Data(data_from_api=api)
         self._newest_id = int(data.steam.id)
-        last_id = Steam.get_last_id()
-        if not last_id:
-            last_id = Steam.setup()
-        if last_id == 0 or last_id != self._newest_id:
-            languages = Guilds.get_used_languages()
+        last_patch_notes = SteamDB.get_last()
+        if not last_patch_notes:
+            last_patch_notes = SteamDB.setup()
+        if last_patch_notes.id != self._newest_id:
+            languages = GuildsDB.get_used_languages()
             embeds = {lang: SteamEmbed(data.steam) for lang in languages}
             chunked_patch_channels = [
                 self.bot.patch_channels[i : i + 50]
                 for i in range(0, len(self.bot.patch_channels), 50)
             ]
             patch_notes_sent = 0
-            Steam.set_new_id(self._newest_id)
+            SteamDB.set_new_id(self._newest_id)
             for chunk in chunked_patch_channels:
                 for channel in chunk:
                     self.bot.loop.create_task(self.send_embed(channel, embeds, "Patch"))
