@@ -667,6 +667,10 @@ help_dict = {
         "long_description": "Returns information on the GWW bot itself.",
         "example_usage": "**`/stats`**",
     },
+    "major_order": {
+        "long_description": "Returns information on the current Major Order, if there is one",
+        "example_usage": "**`/major_order public: Yes`**",
+    },
 }
 
 emotes_list = [
