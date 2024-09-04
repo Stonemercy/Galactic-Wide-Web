@@ -53,7 +53,7 @@ class WarUpdatesCog(commands.Cog):
         )
         if api.error:
             return await self.bot.moderator_channel.send(
-                f"<@164862382185644032>{api.error[0]}\n{api.error[1]}\n:warning:"
+                f"<@{self.bot.owner_id}>{api.error[0]}\n{api.error[1]}\n:warning:"
             )
         data = Data(data_from_api=api)
         old_campaigns = CampaignsDB.get_all()
