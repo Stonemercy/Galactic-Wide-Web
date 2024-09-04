@@ -76,10 +76,10 @@ class IlluminateCog(commands.Cog):
             embed = Illuminate(
                 variation, variation_info, guild_language, variation=True
             )
-        if not embed.image_set:
-            await self.bot.moderator_channel.send(
-                f"Image missing for **illuminage __{species = } {variation = }__** <@{self.bot.owner_id}> :warning:"
-            )
+        # if not embed.image_set: # ADD THIS WHEN I HAVE SPECIES INFO
+        #     await self.bot.moderator_channel.send(
+        #         f"Image missing for **illuminage __{species = } {variation = }__** <@{self.bot.owner_id}> :warning:"
+        #     )
 
         return await inter.send(embed=embed, ephemeral=True)
 

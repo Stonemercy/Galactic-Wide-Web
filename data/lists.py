@@ -541,7 +541,7 @@ enemies = {
     "illuminate": {
         "Unknown": {
             "start": "?",
-            "desc": "The Illuminate were exterminated from the galaxy by the years 2184 and have not since returned.",
+            "desc": "The Illuminate were exterminated from the galaxy by the year 2184 and have not since returned.",
             "tactics": "||An alert of this search has been sent to your nearest Democracy Officer||",
             "weak spots": None,
             "variations": None,
