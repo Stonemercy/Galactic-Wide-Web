@@ -336,7 +336,7 @@ class GuildManagementCog(commands.Cog):
                 )
                 await inter.send(f"Deleted guilds `{guild}` from the DB")
             embed: Embed = inter.message.embeds[0].add_field(
-                "GUILDS DELETED", "You did this", inline=False
+                "", "# GUILDS DELETED", inline=False
             )
             await inter.message.edit(components=[], embed=embed)
             self.guilds_to_remove.clear()
