@@ -144,8 +144,21 @@ class MajorOrderEmbed(Embed):
                 planet: Planet = planets[task.values[2]]
                 text = f"{language_json['major_order.heroes']}: **{planet.stats['playerCount']:,}**\n"
                 if with_health_bars:
-                    health = planet.event.progress if planet.event else task.progress
-                    planet_health_bar = health_bar(health, planet.current_owner)
+                    health = (
+                        1 - planet.event.progress if planet.event else task.progress
+                    )
+                    if planet.event:
+                        planet_health_bar = health_bar(
+                            planet.event.progress,
+                            "MO",
+                            True,
+                        )
+                    else:
+                        planet_health_bar = health_bar(
+                            planet.health / planet.max_health,
+                            ("MO" if planet.current_owner != "Humans" else "Humans"),
+                            True if planet.current_owner != "Humans" else False,
+                        )
                     text += f"{planet_health_bar}\n"
                     text += f"`{(health):^25,.2%}`\n"
                 text += f"{language_json['dashboard.major_order_occupied_by']}: **{language_json[planet.current_owner.lower()]}**\n"
