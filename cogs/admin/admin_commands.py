@@ -69,7 +69,7 @@ class AdminCommandsCog(commands.Cog):
         update_start = datetime.now()
         languages = Guilds.get_used_languages()
         embeds = {lang: AnnouncementEmbed() for lang in languages}
-        if test == True:
+        if test:
             return await inter.send(embed=embeds["en"], ephemeral=True)
         chunked_channels = [
             self.bot.announcement_channels[i : i + 50]
@@ -95,7 +95,13 @@ class AdminCommandsCog(commands.Cog):
         description="Unban someone you accidentally banned from giving feedback",
         default_member_permissions=Permissions(administrator=True),
     )
-    async def feedback_unban(self, inter: AppCmdInter, user_id: int):
+    async def feedback_unban(
+        self,
+        inter: AppCmdInter,
+        user_id: int = commands.Param(
+            description="The ID of the user you want to unban", large=True
+        ),
+    ):
         self.bot.logger.critical(
             f"AdminCommandsCog, {inter.application_command.name}: {user_id} command used by {inter.author.id} - {inter.author.name}"
         )
@@ -114,7 +120,15 @@ class AdminCommandsCog(commands.Cog):
         description="Provide the reason for a ban",
         default_member_permissions=Permissions(administrator=True),
     )
-    async def feedback_ban_reason(self, inter: AppCmdInter, user_id: int, reason: str):
+    async def feedback_ban_reason(
+        self,
+        inter: AppCmdInter,
+        user_id: int = commands.Param(
+            description="The ID of a banned user you want to add a reason to",
+            large=True,
+        ),
+        reason: str = commands.Param(description="The reason they are banned"),
+    ):
         self.bot.logger.critical(
             f"AdminCommandsCog, {inter.application_command.name}: {user_id}, {reason} command used by {inter.author.id} - {inter.author.name}"
         )
@@ -133,7 +147,13 @@ class AdminCommandsCog(commands.Cog):
         description="Un-mark a user as good",
         default_member_permissions=Permissions(administrator=True),
     )
-    async def not_good_feedback(self, inter: AppCmdInter, user_id: int):
+    async def not_good_feedback(
+        self,
+        inter: AppCmdInter,
+        user_id: int = commands.Param(
+            description="Remove the good feedback tag from a user", large=True
+        ),
+    ):
         self.bot.logger.critical(
             f"AdminCommandsCog, {inter.application_command.name}: {user_id} command used by {inter.author.id} - {inter.author.name}"
         )
@@ -142,8 +162,10 @@ class AdminCommandsCog(commands.Cog):
             return await inter.send("That user doesn't exist in the db", ephemeral=True)
         elif user[3] == False:
             return await inter.send("That user isn't a good user", ephemeral=True)
-        Feedback.not_good_user(user_id)
-        await inter.send(f"User **{user_id}** set as not-good feedback", ephemeral=True)
+        FeedbackDB.not_good_user(user_id)
+        await inter.send(
+            f"User **{user_id}** removed from good feedback", ephemeral=True
+        )
 
     @wait_for_startup()
     @owner_only()
@@ -152,7 +174,11 @@ class AdminCommandsCog(commands.Cog):
         description="Reload an extension",
         default_member_permissions=Permissions(administrator=True),
     )
-    async def reload_extension(self, inter: AppCmdInter, ext: str):
+    async def reload_extension(
+        self,
+        inter: AppCmdInter,
+        ext: str = commands.Param(description="The extension to reload"),
+    ):
         self.bot.logger.critical(
             f"AdminCommandsCog, {inter.application_command.name}: {ext} command used by {inter.author.id} - {inter.author.name}"
         )
