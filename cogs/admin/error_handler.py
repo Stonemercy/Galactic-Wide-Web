@@ -28,7 +28,8 @@ class ErrorHandlerCog(commands.Cog):
                     f"You need to be the owner of {inter.guild.me.mention} to use this command.",
                     ephemeral=True,
                 )
-        raise error
+        else:
+            await self.bot.moderator_channel.send(error)
 
 
 def setup(bot: GalacticWideWebBot):
