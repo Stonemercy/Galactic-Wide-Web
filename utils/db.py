@@ -438,19 +438,20 @@ class MajorOrderRecord:
 class MajorOrderDB:
     """A class that contains methods to manipulate major order DB data."""
 
-    def setup() -> int:
+    def setup() -> MajorOrderRecord:
         """Sets the ID to 0
 
         Returns
         ----------
-            `0`
+            :class:`MajorOrderRecord`
         """
         with connect(
             host=hostname, dbname=database, user=username, password=pwd, port=port_id
         ) as conn:
             with conn.cursor() as curs:
                 curs.execute("Insert into major_order (id) VALUES (%s)", (0,))
-                return 0
+                result = MajorOrderDB.get_last()
+                return result
 
     def get_last() -> MajorOrderRecord:
         """Gets the current stored ID
@@ -619,19 +620,20 @@ class DispatchRecord:
 class DispatchesDB:
     """A class that contains methods to manipulate Dispatches DB data."""
 
-    def setup() -> int:
+    def setup() -> DispatchRecord:
         """Setup the Dispatches DB
 
         Returns
         ----------
-            `0`
+            :class:`DispatchRecord`
         """
         with connect(
             host=hostname, dbname=database, user=username, password=pwd, port=port_id
         ) as conn:
             with conn.cursor() as curs:
                 curs.execute("Insert into dispatches (id) VALUES (%s)", (0,))
-                return 0
+                result = DispatchesDB.get_last()
+                return result
 
     def get_last() -> DispatchRecord:
         """Gets the latest record from the Dispatches DB
@@ -689,14 +691,15 @@ class SteamDB:
 
         Returns
         ----------
-            `0`
+            :class:`SteamRecord`
         """
         with connect(
             host=hostname, dbname=database, user=username, password=pwd, port=port_id
         ) as conn:
             with conn.cursor() as curs:
                 curs.execute("Insert into steam (id) VALUES (%s)", (0,))
-                return 0
+                result = SteamDB.get_last()
+                return result
 
     def get_last() -> SteamRecord:
         """Get the last Patch Notes' ID
