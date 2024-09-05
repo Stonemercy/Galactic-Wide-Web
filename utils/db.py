@@ -104,8 +104,8 @@ class GuildsDB:
                     (guild_id,),
                 )
                 conn.commit()
-                guild = GuildsDB.get_info(guild_id)
-                return GuildRecord(guild) if guild else None
+                results = GuildsDB.get_info(guild_id)
+                return results if results else None
 
     def update_dashboard(guild_id: int, channel_id: int, message_id: int) -> None:
         """Update the dashboard channel and message ID's for a single guild
