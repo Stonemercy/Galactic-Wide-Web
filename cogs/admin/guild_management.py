@@ -263,10 +263,8 @@ class GuildManagementCog(commands.Cog):
 
     times = []
     for i in range(24):
-        times.append(time(hour=i, minute=2, second=0))
-        times.append(time(hour=i, minute=17, second=0))
-        times.append(time(hour=i, minute=32, second=0))
-        times.append(time(hour=i, minute=47, second=0))
+        for j in range(2, 62, 15):
+            times.append(time(hour=i, minute=j, second=0))
 
     @wait_for_startup()
     @tasks.loop(time=times)

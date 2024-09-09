@@ -45,10 +45,8 @@ class DashboardCog(commands.Cog):
 
     times = []
     for i in range(24):
-        times.append(time(hour=i, minute=0, second=0))
-        times.append(time(hour=i, minute=15, second=0))
-        times.append(time(hour=i, minute=30, second=0))
-        times.append(time(hour=i, minute=45, second=0))
+        for j in range(0, 60, 15):
+            times.append(time(hour=i, minute=j, second=0))
 
     @wait_for_startup()
     @tasks.loop(time=times)
