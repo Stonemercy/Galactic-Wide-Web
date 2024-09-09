@@ -124,7 +124,7 @@ class MapCog(commands.Cog):
             description="Do you want other people to see the response to this command?",
         ),
     ):
-        public = public != "Yes"
+        public: bool = public != "Yes"
         await inter.response.defer(ephemeral=public)
         self.bot.logger.info(
             f"{self.qualified_name} | /{inter.application_command.name} <{faction = }> <{public = }>"
@@ -145,7 +145,7 @@ class MapCog(commands.Cog):
             )
             return await inter.send(
                 "There was an issue getting the data for the map.\nPlease try again later.",
-                ephemeral=True,
+                ephemeral=public,
             )
         data = Data(data_from_api=api)
         planets_coords = {}
@@ -172,7 +172,8 @@ class MapCog(commands.Cog):
             )
         if planets_coords == {}:
             return await inter.send(
-                f"There are no planets under {faction} control. Let's keep it that way!"
+                f"There are no planets under {faction} control. Let's keep it that way!",
+                ephemeral=public,
             )
         with Image.open("resources/map.webp") as background:
             background_draw = Draw(background)

@@ -111,7 +111,7 @@ class AdminCommandsCog(commands.Cog):
         elif not user.banned:
             return await inter.send("That user isn't banned", ephemeral=True)
         FeedbackDB.unban_user(user_id)
-        await inter.send(f"Unbanned {user_id}", ephemeral=True)
+        await inter.send(f"Unbanned <@{user_id}>", ephemeral=True)
 
     @wait_for_startup()
     @owner_only()
@@ -138,7 +138,7 @@ class AdminCommandsCog(commands.Cog):
         elif not user.banned:
             return await inter.send("That user isn't banned", ephemeral=True)
         FeedbackDB.set_reason(user_id, reason)
-        await inter.send(f"Reason set for {user_id}:\n{reason}", ephemeral=True)
+        await inter.send(f"Reason set for <@{user_id}>:\n{reason}", ephemeral=True)
 
     @wait_for_startup()
     @owner_only()
@@ -163,9 +163,7 @@ class AdminCommandsCog(commands.Cog):
         elif not user.good_feedback:
             return await inter.send("That user isn't a good user", ephemeral=True)
         FeedbackDB.not_good_user(user_id)
-        await inter.send(
-            f"User **{user_id}** removed from good feedback", ephemeral=True
-        )
+        await inter.send(f"<@{user_id}> removed from good feedback", ephemeral=True)
 
     @wait_for_startup()
     @owner_only()

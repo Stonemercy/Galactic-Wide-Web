@@ -235,7 +235,7 @@ class GuildManagementCog(commands.Cog):
                 message = await channel.send(embed=embed, components=components)
                 BotDashboardDB.set_react_role(message.id)
             except Exception as e:
-                await self.bot.moderator_channel.send(f"Bot Dashboard\n{e}")
+                await self.bot.moderator_channel.send(f"```py\nBot Dashboard\n{e}```")
                 pass
 
     @react_role_dashboard.before_loop
