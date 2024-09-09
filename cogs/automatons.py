@@ -20,10 +20,12 @@ class AutomatonCog(commands.Cog):
         return [cmd for cmd in enemies["automaton"] if user_input in cmd.lower()]
 
     async def variations_autocomp(inter: AppCmdInter, user_input: str):
-        variations_list: list[str] = []
-        for i in enemies["automaton"].values():
-            if i["variations"]:
-                variations_list.extend([variation for variation in i["variations"]])
+        variations_list: list[str] = [
+            variation
+            for i in enemies["automaton"].values()
+            if i["variations"]
+            for variation in i["variations"]
+        ]
         return [cmd for cmd in variations_list if user_input in cmd.lower()]
 
     @commands.slash_command(
