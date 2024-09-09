@@ -60,18 +60,12 @@ class PlanetCog(commands.Cog):
                 ephemeral=public,
             )
         data = Data(data_from_api=api)
-        planet_thumbnail = [
-            f"https://helldivers.news{thumbnail['planet']['image'].replace(' ', '%20')}"
-            for thumbnail in data.thumbnails
-            if thumbnail["planet"]["name"] == planet
-        ]
-        planet_thumbnail = planet_thumbnail[0] if planet_thumbnail != [] else None
         planet_data = [i for i in data.planets.values() if i.name == planet.upper()]
         if planet_data == []:
             return await inter.send("Information on that planet is unavailable.")
         else:
             planet_data = planet_data[0]
-        embed = PlanetEmbed(planet_data, planet_thumbnail, guild.language)
+        embed = PlanetEmbed(planet_data, planet_data.thumbnail, guild.language)
         try:
             embed.set_image(
                 file=File(f"resources/biomes/{planet_data.biome['name'].lower()}.png")

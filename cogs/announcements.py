@@ -73,7 +73,7 @@ class AnnouncementsCog(commands.Cog):
             return
         announcement_start = datetime.now()
         api = API()
-        await api.pull_from_api(get_assignment=True, get_planets=True)
+        await api.pull_from_api(get_assignments=True, get_planets=True)
         if api.error:
             return await self.bot.moderator_channel.send(
                 f"<@164862382185644032>\n{api.error[0]}\n{api.error[1]}\n:warning:"

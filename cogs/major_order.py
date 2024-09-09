@@ -37,7 +37,7 @@ class MajorOrderCog(commands.Cog):
             open(f"data/languages/{guild_in_db.language}.json", encoding="UTF-8")
         )
         api = API()
-        await api.pull_from_api(get_assignment=True, get_planets=True)
+        await api.pull_from_api(get_assignments=True, get_planets=True)
         if api.error:
             await self.bot.moderator_channel.send(
                 f"<@{self.bot.owner_id}>\n{api.error[0]}\n{api.error[1]}\n:warning:"

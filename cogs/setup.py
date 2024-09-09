@@ -217,7 +217,7 @@ class SetupCog(commands.Cog):
                     api = API()
                     await api.pull_from_api(
                         get_campaigns=True,
-                        get_assignment=True,
+                        get_assignments=True,
                         get_planet_events=True,
                         get_planets=True,
                     )

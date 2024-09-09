@@ -13,7 +13,7 @@ class API:
         self._backup_api = getenv("BU_API")
         self.error: tuple[str, Exception | int] | None = None
         self.war = None
-        self.assignment = None
+        self.assignments = None
         self.campaigns = None
         self.dispatches = None
         self.planets = None
@@ -21,10 +21,22 @@ class API:
         self.steam = None
         self.thumbnails = None
 
+    async def fetch_data(self, session: ClientSession, endpoint: str, attr_name):
+        try:
+            async with session.get(f"{self._api}/api/v1/{endpoint}") as r:
+                if r.status == 200:
+                    setattr(self, attr_name, await r.json())
+                else:
+                    self.error = (f"API/{endpoint.upper()}", r.status)
+                    logger.error(f"API/{endpoint.upper()}, {r.status}")
+        except Exception as e:
+            self.error = (f"API/{endpoint.upper()}", e)
+            logger.error(f"API/{endpoint.upper()}, {e}")
+
     async def pull_from_api(
         self,
         get_war: bool = False,
-        get_assignment: bool = False,
+        get_assignments: bool = False,
         get_campaigns: bool = False,
         get_dispatches: bool = False,  # first index is newest
         get_planets: bool = False,
@@ -32,99 +44,26 @@ class API:
         get_steam: bool = False,  # first index is newest
         get_thumbnail: bool = False,
     ):
+        self.endpoints = {
+            "war": get_war,
+            "assignments": get_assignments,
+            "campaigns": get_campaigns,
+            "dispatches": get_dispatches,
+            "planets": get_planets,
+            "planet-events": get_planet_events,
+            "steam": get_steam,
+        }
         async with ClientSession(headers={"Accept-Language": "en-GB"}) as session:
             async with session.get(f"{self._api}") as r:
                 if r.status != 200:
                     self._api = self._backup_api
                     logger.critical("API/USING BACKUP")
-                if get_war:
-                    try:
-                        async with session.get(f"{self._api}/api/v1/war") as r:
-                            if r.status == 200:
-                                js = await r.json()
-                                self.war = loads(dumps(js))
-                            else:
-                                self.error = ("API/WAR", r.status)
-                                logger.error(f"API/WAR, {r.status}")
-                    except Exception as e:
-                        self.error = ("API/WAR", e)
-                        logger.error(f"API/WAR, {e}")
-                if get_assignment:
-                    try:
-                        async with session.get(f"{self._api}/api/v1/assignments") as r:
-                            if r.status == 200:
-                                js = await r.json()
-                                self.assignment = loads(dumps(js))
-                                if self.assignment != []:
-                                    self.assignment = self.assignment[0]
-                            else:
-                                self.error = ("API/ASSIGNMENT", r.status)
-                                logger.error(f"API/ASSIGNMENT, {r.status}")
-                    except Exception as e:
-                        self.error = ("API/ASSIGNMENT", e)
-                        logger.error(f"API/ASSIGNMENT, {e}")
-                if get_campaigns:
-                    try:
-                        async with session.get(f"{self._api}/api/v1/campaigns") as r:
-                            if r.status == 200:
-                                js = await r.json()
-                                self.campaigns = loads(dumps(js))
-                            else:
-                                self.error = ("API/CAMPAIGNS", r.status)
-                                logger.error(f"API/CAMPAIGNS, {r.status}")
-                    except Exception as e:
-                        self.error = ("API/CAMPAIGNS", e)
-                        logger.error(f"API/CAMPAIGNS, {e}")
-                if get_dispatches:
-                    try:
-                        async with session.get(f"{self._api}/api/v1/dispatches") as r:
-                            if r.status == 200:
-                                js = await r.json()
-                                self.dispatches = loads(dumps(js))
-                            else:
-                                self.error = ("API/DISPATCHES", r.status)
-                                logger.error(f"API/DISPATCHES, {r.status}")
-                    except Exception as e:
-                        self.error = ("API/DISPATCHES", e)
-                        logger.error(f"API/DISPATCHES, {e}")
-                if get_planets:
-                    try:
-                        async with session.get(f"{self._api}/api/v1/planets") as r:
-                            if r.status == 200:
-                                js = await r.json()
-                                self.planets = loads(dumps(js))
-                            else:
-                                self.error = ("API/PLANETS", r.status)
-                                logger.error(f"API/PLANETS, {r.status}")
-                    except Exception as e:
-                        self.error = ("API/PLANETS", e)
-                        logger.error(f"API/PLANETS, {e}")
-                if get_planet_events:
-                    try:
-                        async with session.get(
-                            f"{self._api}/api/v1/planet-events"
-                        ) as r:
-                            if r.status == 200:
-                                js = await r.json()
-                                self.planet_events = loads(dumps(js)) or None
-                            else:
-                                self.error = ("API/PLANET-EVENTS", r.status)
-                                logger.error(f"API/PLANET-EVENTS, {r.status}")
-                    except Exception as e:
-                        self.error = ("API/PLANET-EVENTS", e)
-                        logger.error(f"API/PLANET-EVENTS, {e}")
-                if get_steam:
-                    try:
-                        async with session.get(f"{self._api}/api/v1/steam") as r:
-                            if r.status == 200:
-                                js = await r.json()
-                                self.steam = loads(dumps(js))
-                            else:
-                                self.error = ("API/STEAM", r.status)
-                                logger.error(f"API/STEAM, {r.status}")
-                    except Exception as e:
-                        self.error = ("API/STEAM", e)
-                        logger.error(f"API/STEAM, {e}")
+
+                for endpoint, should_fetch in self.endpoints.items():
+                    if should_fetch:
+                        await self.fetch_data(
+                            session, endpoint, endpoint.replace("-", "_")
+                        )
                 if get_thumbnail:
                     try:
                         async with session.get(
@@ -139,15 +78,31 @@ class API:
                     except Exception as e:
                         self.error = ("API/THUMBNAILS", e)
                         logger.error(f"API/THUMBNAILS, {e}")
+
         self.all = {
-            "self.war": self.war,
-            "self.assignment": self.assignment,
-            "self.campaigns": self.campaigns,
-            "self.dispatches": self.dispatches,
-            "self.planets": self.planets,
-            "self.planet_events": self.planet_events,
-            "self.steam": self.steam,
-            "self.thumbnails": self.thumbnails,
+            "self.war": {"wanted": get_war, "recieved": self.war != None},
+            "self.assignment": {
+                "wanted": get_assignments,
+                "recieved": self.assignments != None,
+            },
+            "self.campaigns": {
+                "wanted": get_campaigns,
+                "recieved": self.campaigns != None,
+            },
+            "self.dispatches": {
+                "wanted": get_dispatches,
+                "recieved": self.dispatches != None,
+            },
+            "self.planets": {"wanted": get_planets, "recieved": self.planets != None},
+            "self.planet_events": {
+                "wanted": get_planet_events,
+                "recieved": self.planet_events != None,
+            },
+            "self.steam": {"wanted": get_steam, "recieved": self.steam != None},
+            "self.thumbnails": {
+                "wanted": get_thumbnail,
+                "recieved": self.thumbnails != None,
+            },
         }
 
 
@@ -157,7 +112,7 @@ class Data:
         self.assignment = None
         self.assignment_planets = None
 
-        self.planet_events = (
+        self.planet_events: PlanetEvents = (
             PlanetEvents(self.__data__.planet_events)
             if self.__data__.planet_events
             else None
@@ -171,8 +126,8 @@ class Data:
                 [planet.stats["playerCount"] for planet in self.planets.values()]
             )
 
-        if self.__data__.assignment not in ([], None):
-            self.assignment = Assignment(self.__data__.assignment)
+        if self.__data__.assignments not in ([], None):
+            self.assignment = Assignment(self.__data__.assignments[0])
             self.assignment_planets = []
             for task in self.assignment.tasks:
                 task: Tasks.Task
@@ -194,9 +149,9 @@ class Data:
                         ]
 
         if self.__data__.campaigns not in ([], None):
-            self.campaigns: list[Campaign] = []
-            for campaign in self.__data__.campaigns:
-                self.campaigns.append(Campaign(campaign))
+            self.campaigns: list[Campaign] = [
+                Campaign(campaign) for campaign in self.__data__.campaigns
+            ]
             self.campaigns = sorted(
                 self.campaigns,
                 key=lambda item: item.planet.stats["playerCount"],
@@ -208,15 +163,21 @@ class Data:
 
         if self.__data__.thumbnails:
             self.thumbnails = self.__data__.thumbnails
-            # TODO link thumbnails to planets
+            if self.planets:
+                for thumbnail_data in self.thumbnails:
+                    self.planets[thumbnail_data["planet"]["index"]].thumbnail = (
+                        f"https://helldivers.news{thumbnail_data['planet']['image'].replace(' ', '%20')}"
+                    )
 
         if self.__data__.steam:
             self.steam = Steam(self.__data__.steam[0])
 
-    def __repr__(self):
-        text = "Raw data:"
+    def __str__(self) -> str:
+        text = f"Data"
         for name, data in self.__data__.all.items():
-            text += f"\n{name} = PRESENT" if data else f"\n{name} = MISSING"
+            if data["wanted"]:
+                text += f"\n{name}:\n    Correct: {data['wanted'] == data['recieved']}"
+        text += "\n=====END====="
         return text
 
 
@@ -328,6 +289,7 @@ class Planet:
         self.regen: float = planet["regenPerSecond"]
         self.event = self.Event(planet["event"]) if planet["event"] else None
         self.stats: dict = planet["statistics"]
+        self.thumbnail = None
 
     def __repr__(self):
         atk_def = {True: "Defense", False: "Attack"}[self.event is not None]
@@ -348,7 +310,7 @@ class Planet:
             return f"{self.id} - {self.type} - {self.faction}"
 
 
-class PlanetEvents(list):
+class PlanetEvents(list[Planet]):
     def __init__(self, planet_events):
         for planet in planet_events:
             self.append(Planet(planet))

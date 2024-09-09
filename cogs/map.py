@@ -74,7 +74,7 @@ class MapCog(commands.Cog):
         await api.pull_from_api(
             get_campaigns=True,
             get_planets=True,
-            get_assignment=True,
+            get_assignments=True,
             get_planet_events=True,
         )
         if api.error:
@@ -136,7 +136,7 @@ class MapCog(commands.Cog):
         await api.pull_from_api(
             get_planets=True,
             get_campaigns=True,
-            get_assignment=True,
+            get_assignments=True,
             get_planet_events=True,
         )
         if api.error:
