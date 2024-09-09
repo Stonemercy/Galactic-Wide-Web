@@ -27,7 +27,7 @@ class GalacticWideWebBot(commands.InteractionBot):
         logger.addHandler(handler)
         self.logger = logger
         self.startup_time = datetime.now()
-        self.ready_time = self.startup_time + timedelta(seconds=30)
+        self.ready_time = self.startup_time + timedelta(seconds=15)
         self.dashboard_messages = []
         self.dashboard_channels = []
         self.announcement_channels = []

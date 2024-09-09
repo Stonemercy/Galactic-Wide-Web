@@ -75,6 +75,7 @@ class ListGenCog(commands.Cog):
                 f"{len(self.bot.map_messages)} maps ({(len(self.bot.map_messages) / guilds_done):.0%})"
             )
         )
+        self.bot.ready_time = datetime.now()
 
     @list_gen.before_loop
     async def before_message_gen(self):
