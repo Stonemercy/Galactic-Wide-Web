@@ -24,7 +24,7 @@ class StratagemsCog(commands.Cog):
         ),
     ):
         self.bot.logger.info(
-            f"StratagemsCog, stratagem stratagem:{stratagem} command used"
+            f"{self.qualified_name} | /{inter.application_command.name} <{stratagem = }>"
         )
         if stratagem not in self.stratagems:
             return await inter.send(

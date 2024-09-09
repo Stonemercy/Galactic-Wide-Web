@@ -25,7 +25,9 @@ class FeedbackCog(commands.Cog):
         self,
         inter: AppCmdInter,
     ):
-        self.bot.logger.info(f"FeedbackCog, feedback command used")
+        self.bot.logger.info(
+            f"{self.qualified_name} | /{inter.application_command.name}"
+        )
         user_in_db: FeedbackRecord = FeedbackDB.get_user(inter.user.id)
         if not user_in_db:
             user_in_db = FeedbackDB.new_user(inter.user.id)

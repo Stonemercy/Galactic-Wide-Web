@@ -27,7 +27,9 @@ class BoostersCog(commands.Cog):
             autocomplete=booster_autocomp, description="The booster you want to lookup"
         ),
     ):
-        self.bot.logger.info(f"BoostersCog, booster booster:{booster} command used")
+        self.bot.logger.info(
+            f"{self.qualified_name} | /{inter.application_command.name} <{booster = }>"
+        )
         if booster not in self.boosters:
             return await inter.send(
                 (

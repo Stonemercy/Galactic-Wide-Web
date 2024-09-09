@@ -56,7 +56,7 @@ class WeaponsCog(commands.Cog):
         ),
     ):
         self.bot.logger.info(
-            f"WeaponsCog, weapons primary primary:{primary} command used"
+            f"{self.qualified_name} | /{inter.application_command.name} <{primary = }>"
         )
         guild_in_db: GuildRecord = GuildsDB.get_info(inter.guild_id)
         if not guild_in_db:
@@ -89,7 +89,7 @@ class WeaponsCog(commands.Cog):
         ),
     ):
         self.bot.logger.info(
-            f"WeaponsCog, weapons secondary secondary:{secondary} command used"
+            f"{self.qualified_name} | /{inter.application_command.name} <{secondary = }>"
         )
         guild_in_db: GuildRecord = GuildsDB.get_info(inter.guild_id)
         if not guild_in_db:
@@ -121,7 +121,7 @@ class WeaponsCog(commands.Cog):
         ),
     ):
         self.bot.logger.info(
-            f"WeaponsCog, weapons grenade grenade:{grenade} command used"
+            f"{self.qualified_name} | /{inter.application_command.name} <{grenade = }>"
         )
         guild_in_db: GuildRecord = GuildsDB.get_info(inter.guild_id)
         if not guild_in_db:

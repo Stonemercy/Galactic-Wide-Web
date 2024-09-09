@@ -203,7 +203,7 @@ class GuildManagementCog(commands.Cog):
                     f"<@{self.bot.owner_id}>\n```py\n{e}\n```\n`bot_dashboard function in guild_management.py`"
                 )
                 self.bot.logger.error(
-                    f"GuildManagementCog, bot_dashboard, {e}, {message.id}"
+                    f"{self.qualified_name} | bot_dashboard | {e} | {message}"
                 )
 
     @bot_dashboard.before_loop
@@ -221,7 +221,7 @@ class GuildManagementCog(commands.Cog):
         ) or await self.bot.fetch_channel(dashboard.channel_id)
         if not channel:
             return self.bot.logger.error(
-                "GuildManagementCog, react_role_dashboard, channel == None"
+                f"{self.qualified_name} | react_role_dashboard | {channel = }"
             )
         embed = ReactRoleDashboard()
         if not dashboard.react_role_message_id:
@@ -290,7 +290,9 @@ class GuildManagementCog(commands.Cog):
                     )
                     await sleep(15 * 60)
             except Exception as e:
-                self.bot.logger.error(f"GuildManagementCog, dashboard_checking, {e}")
+                self.bot.logger.error(
+                    f"{self.qualified_name} | dashboard_checking | {e}"
+                )
 
     @dashboard_checking.before_loop
     async def before_dashboard_check(self):
@@ -333,7 +335,7 @@ class GuildManagementCog(commands.Cog):
             for guild in self.guilds_to_remove:
                 GuildsDB.remove_from_db(int(guild))
                 self.bot.logger.error(
-                    f"GuildManagementCog, ban_listener, removed {guild} from the DB"
+                    f"{self.qualified_name} | ban_listener | removed {guild} from the DB"
                 )
                 await inter.send(f"Deleted guilds `{guild}` from the DB")
             embed: Embed = inter.message.embeds[0].add_field(

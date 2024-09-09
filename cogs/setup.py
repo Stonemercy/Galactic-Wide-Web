@@ -77,7 +77,7 @@ class SetupCog(commands.Cog):
     ):
         await inter.response.defer(ephemeral=True)
         self.bot.logger.info(
-            f"SetupCog, setup dashboard_channel:{dashboard_channel} announcement_channel:{announcement_channel} patch_notes:{patch_notes} map_channel:{map_channel} language:{language} command used"
+            f"{self.qualified_name} | /{inter.application_command.name} <{dashboard_channel = }> <{announcement_channel = }> <{patch_notes = }> <{map_channel = }> <{language = }>"
         )
         embed = SetupEmbed()
         guild_in_db: GuildRecord = GuildsDB.get_info(inter.guild_id)

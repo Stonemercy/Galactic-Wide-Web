@@ -51,7 +51,9 @@ class WarbondCog(commands.Cog):
             autocomplete=warbond_autocomp, description="The warbond you want to lookup"
         ),
     ):
-        self.bot.logger.info(f"WarbondCog, warbond warbond:{warbond} command used")
+        self.bot.logger.info(
+            f"{self.qualified_name} | /{inter.application_command.name} <{warbond = }>"
+        )
         if warbond not in self.warbond_names:
             return await inter.send(
                 (

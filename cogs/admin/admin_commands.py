@@ -26,7 +26,7 @@ class AdminCommandsCog(commands.Cog):
     async def force_update_dashboards(self, inter: AppCmdInter):
         await inter.response.defer(ephemeral=True)
         self.bot.logger.critical(
-            f"AdminCommandsCog, {inter.application_command.name} command used by {inter.author.id} - {inter.author.name}"
+            f"{self.qualified_name} | /{inter.application_command.name} | used by <@{inter.author.id}> | @{inter.author.global_name}"
         )
         update_start = datetime.now()
         dashboards_updated = await self.bot.get_cog("DashboardCog").dashboard(
@@ -46,7 +46,7 @@ class AdminCommandsCog(commands.Cog):
     async def force_update_maps(self, inter: AppCmdInter):
         await inter.response.defer(ephemeral=True)
         self.bot.logger.critical(
-            f"AdminCommandsCog, {inter.application_command.name} command used by {inter.author.id} - {inter.author.name}"
+            f"{self.qualified_name} | /{inter.application_command.name} | used by <@{inter.author.id}> | @{inter.author.global_name}"
         )
         update_start = datetime.now()
         maps_updated = await self.bot.get_cog("MapCog").map_poster(force=True)
@@ -64,7 +64,7 @@ class AdminCommandsCog(commands.Cog):
     async def send_announcement(self, inter: AppCmdInter, test: bool):
         await inter.response.defer(ephemeral=True)
         self.bot.logger.critical(
-            f"AdminCommandsCog, {inter.application_command.name} command used by {inter.author.id} - {inter.author.name}"
+            f"{self.qualified_name} | /{inter.application_command.name} <{test = }> | used by <@{inter.author.id}> | @{inter.author.global_name}"
         )
         update_start = datetime.now()
         languages = GuildsDB.get_used_languages()
@@ -103,7 +103,7 @@ class AdminCommandsCog(commands.Cog):
         ),
     ):
         self.bot.logger.critical(
-            f"AdminCommandsCog, {inter.application_command.name}: {user_id} command used by {inter.author.id} - {inter.author.name}"
+            f"{self.qualified_name} | /{inter.application_command.name} <{user_id = }> | used by <@{inter.author.id}> | @{inter.author.global_name}"
         )
         user: FeedbackRecord = FeedbackDB.get_user(user_id)
         if not user:
@@ -130,7 +130,7 @@ class AdminCommandsCog(commands.Cog):
         reason: str = commands.Param(description="The reason they are banned"),
     ):
         self.bot.logger.critical(
-            f"AdminCommandsCog, {inter.application_command.name}: {user_id}, {reason} command used by {inter.author.id} - {inter.author.name}"
+            f"{self.qualified_name} | /{inter.application_command.name} <{user_id = }> | used by <@{inter.author.id}> | @{inter.author.global_name}"
         )
         user: FeedbackRecord = FeedbackDB.get_user(user_id)
         if not user:
@@ -155,7 +155,7 @@ class AdminCommandsCog(commands.Cog):
         ),
     ):
         self.bot.logger.critical(
-            f"AdminCommandsCog, {inter.application_command.name}: {user_id} command used by {inter.author.id} - {inter.author.name}"
+            f"{self.qualified_name} | /{inter.application_command.name} <{user_id = }> | used by <@{inter.author.id}> | @{inter.author.global_name}"
         )
         user: FeedbackRecord = FeedbackDB.get_user(user_id)
         if not user:
@@ -180,7 +180,7 @@ class AdminCommandsCog(commands.Cog):
         ext: str = commands.Param(description="The extension to reload"),
     ):
         self.bot.logger.critical(
-            f"AdminCommandsCog, {inter.application_command.name}: {ext} command used by {inter.author.id} - {inter.author.name}"
+            f"{self.qualified_name} | /{inter.application_command.name} <{ext = }> | used by <@{inter.author.id}> | @{inter.author.global_name}"
         )
         admin_ext = f"cogs.admin.{ext}"
         ext = f"cogs.{ext}"

@@ -27,7 +27,9 @@ class HelpCog(commands.Cog):
         ),
     ):
         await inter.response.defer(ephemeral=True)
-        self.bot.logger.info(f"HelpCog, help command:{command} command used")
+        self.bot.logger.info(
+            f"{self.qualified_name}, /{inter.application_command.name} <{command = }>"
+        )
         help_embed = HelpEmbed()
         if command == "all":
             for global_command in inter.bot.global_slash_commands:

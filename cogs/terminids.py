@@ -48,7 +48,7 @@ class TerminidsCog(commands.Cog):
         ),
     ):
         self.bot.logger.info(
-            f"TerminidsCog, terminid species:{species} variation:{variation} command used"
+            f"{self.qualified_name} | /{inter.application_command.name} <{species = }> <{variation = }>"
         )
         if not species and not variation:
             return await inter.send(

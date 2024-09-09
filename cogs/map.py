@@ -41,7 +41,7 @@ class MapCog(commands.Cog):
         if not guild:
             self.bot.map_messages.remove(message)
             return self.bot.logger.error(
-                f"MapCog, update_message, guild == None, {message.guild.id}"
+                f"{self.qualified_name} | update_message | {guild = } | {message.guild.id = }"
             )
         try:
             await message.edit(embed=embed_dict[guild.language])
@@ -49,11 +49,11 @@ class MapCog(commands.Cog):
             self.bot.map_messages.remove(message)
             GuildsDB.update_map(message.guild.id, 0, 0)
             return self.bot.logger.error(
-                f"MapCog, update_message, {e}, removing, {message.channel.name}"
+                f"{self.qualified_name} | update_message | {e} | removied from self.bot.map_messages | {message.channel.id = }"
             )
         except Exception as e:
             return self.bot.logger.error(
-                f"MapCog, update_message, {e}, {message.channel.name}"
+                f"{self.qualified_name} | update_message | {e} | {message.channel.id = }"
             )
 
     times = [time(hour=hour, minute=5, second=0) for hour in range(24)]
@@ -127,7 +127,7 @@ class MapCog(commands.Cog):
         public = public != "Yes"
         await inter.response.defer(ephemeral=public)
         self.bot.logger.info(
-            f"MapCog, map faction:{faction} public:{public} command used"
+            f"{self.qualified_name} | /{inter.application_command.name} <{faction = }> <{public = }>"
         )
         guild: GuildRecord = GuildsDB.get_info(inter.guild_id)
         if not guild:

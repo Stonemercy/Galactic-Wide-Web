@@ -28,7 +28,7 @@ class DashboardCog(commands.Cog):
         if not guild:
             self.bot.dashboard_messages.remove(message)
             return self.bot.logger.error(
-                f"DashboardCog, update_message, guild == None, {message.guild.id}"
+                f"{self.qualified_name} | update_message | {guild = } | {message.guild.id = }"
             )
         try:
             await message.edit(embeds=dashboard_dict[guild.language].embeds)
@@ -36,11 +36,11 @@ class DashboardCog(commands.Cog):
             self.bot.dashboard_messages.remove(message)
             GuildsDB.update_dashboard(message.guild.id, 0, 0)
             return self.bot.logger.error(
-                f"DashboardCog, update_message, {e}, removing from message list, {message.channel.id}"
+                f"{self.qualified_name} | update_message | {e} | removed from self.bot.dashboard_messages | {message.channel.id = }"
             )
         except Exception as e:
             return self.bot.logger.error(
-                f"DashboardCog, update_message, {e}, {message.channel.id}"
+                f"{self.qualified_name} | update_message | {e} | {message.channel.id = }"
             )
 
     times = []

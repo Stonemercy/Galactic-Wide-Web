@@ -23,7 +23,9 @@ class ListGenCog(commands.Cog):
             data_list.clear()
         guilds = GuildsDB.get_all_guilds()
         if not guilds:
-            return self.bot.logger.error(f"ListGenCog, list_gen, guilds == None")
+            return self.bot.logger.error(
+                f"{self.qualified_name} | list_gen | {guilds = }"
+            )
         guilds_done = 0
         for guild in guilds:
             if guild.dashboard_channel_id != 0:
@@ -65,11 +67,12 @@ class ListGenCog(commands.Cog):
             guilds_done += 1
         self.bot.logger.info(
             (
-                f"\nmessage_gen finished going through {guilds_done} guilds in {(datetime.now() - start_time).total_seconds():.2f} seconds.\n"
-                f"Dashboards: {len(self.bot.dashboard_messages)}.\n"
-                f"Announcement channels: {len(self.bot.announcement_channels)}.\n"
-                f"Patch channels: {len(self.bot.patch_channels)}.\n"
-                f"Maps: {len(self.bot.map_messages)}."
+                f"message_gen completed | "
+                f"{guilds_done} guilds in {(datetime.now() - start_time).total_seconds():.2f} seconds | "
+                f"{len(self.bot.dashboard_messages)} dashboards ({(len(self.bot.dashboard_messages) / guilds_done):.0%}) | "
+                f"{len(self.bot.announcement_channels)} announcement channels ({(len(self.bot.announcement_channels) / guilds_done):.0%}) | "
+                f"{len(self.bot.patch_channels)} patch channels ({(len(self.bot.patch_channels) / guilds_done):.0%}) | "
+                f"{len(self.bot.map_messages)} maps ({(len(self.bot.map_messages) / guilds_done):.0%})"
             )
         )
 

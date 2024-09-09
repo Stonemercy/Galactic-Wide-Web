@@ -26,7 +26,9 @@ class MajorOrderCog(commands.Cog):
         ),
     ):
         public = public != "Yes"
-        self.bot.logger.info(f"MajorOrderCog, major_order command used")
+        self.bot.logger.info(
+            f"{self.qualified_name} | /{inter.application_command.name} <{public = }>"
+        )
         await inter.response.defer(ephemeral=public)
         guild_in_db: GuildRecord = GuildsDB.get_info(inter.guild_id)
         if not guild_in_db:

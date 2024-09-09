@@ -44,7 +44,7 @@ class AutomatonCog(commands.Cog):
         ),
     ):
         self.bot.logger.info(
-            f"AutomatonCog, automaton species:{species} variation:{variation} command used"
+            f"{self.qualified_name} | /{inter.application_command.name} <{species = }> <{variation = }>"
         )
         if not species and not variation:
             return await inter.send(":robot:", delete_after=10.0, ephemeral=True)

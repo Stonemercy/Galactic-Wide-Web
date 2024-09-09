@@ -37,7 +37,7 @@ class PlanetCog(commands.Cog):
         public = public != "Yes"
         await inter.response.defer(ephemeral=public)
         self.bot.logger.info(
-            f"PlanetCog, planet planet:{planet} ephemeral:{public} command used"
+            f"{self.qualified_name} | /{inter.application_command.name} <{planet = }> <{public = }>"
         )
         planets_list = planets
         if planet not in planets_list:

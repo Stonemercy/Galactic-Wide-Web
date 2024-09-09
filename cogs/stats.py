@@ -49,7 +49,9 @@ class StatsCog(commands.Cog):
         self,
         inter: AppCmdInter,
     ):
-        self.bot.logger.info(f"StatsCog, stats command used")
+        self.bot.logger.info(
+            f"{self.qualified_name} | /{inter.application_command.name}"
+        )
         await inter.response.defer(ephemeral=True)
         embed = Embed(title="Bot stats")
         embed.add_field(

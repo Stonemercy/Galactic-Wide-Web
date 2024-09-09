@@ -22,18 +22,19 @@ class WarUpdatesCog(commands.Cog):
         if not guild:
             self.bot.announcement_channels.remove(channel)
             return self.bot.logger.error(
-                f"WarUpdatesCog, send_campaign, guild == None, {channel.guild.id}"
+                f"{self.qualified_name} | send_campaign | {guild = } | {channel.guild.id = }"
             )
         try:
             await channel.send(embed=embeds[guild.language])
         except Forbidden:
             self.bot.announcement_channels.remove(channel)
             self.bot.logger.error(
-                f"WarUpdatesCog, send_campaign, Forbidden, removing, {channel.id}"
+                f"{self.qualified_name} | send_campaign | {e} | removed from self.bot.announcement_channels {channel.id = }"
             )
         except Exception as e:
-            self.bot.logger.error(f"WarUpdatesCog, send_campaign, {e}, {channel.id}")
-            pass
+            self.bot.logger.error(
+                f"{self.qualified_name} | send_campaign | {e} | {channel.id = }"
+            )
 
     @wait_for_startup()
     @tasks.loop(minutes=1)

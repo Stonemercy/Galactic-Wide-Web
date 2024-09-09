@@ -45,7 +45,7 @@ class IlluminateCog(commands.Cog):
     ):
         await inter.response.defer(ephemeral=True)
         self.bot.logger.info(
-            f"IlluminateCog, illuminate species:{species} variation:{variation} command used"
+            f"{self.qualified_name} | /{inter.application_command.name} <{species = }> <{variation = }>"
         )
         if not species and not variation:
             return await inter.send(":alien:", delete_after=10.0, ephemeral=True)

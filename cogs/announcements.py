@@ -29,7 +29,7 @@ class AnnouncementsCog(commands.Cog):
         guild: GuildRecord = GuildsDB.get_info(channel.guild.id)
         if not guild:
             self.bot.logger.error(
-                f"AnnouncementsCog, send_embed, guild == None for {channel.id}, {type}"
+                f"{self.qualified_name} | send_embed | {guild = } | {channel.id = } | {type = }"
             )
             if type == "Patch":
                 self.bot.patch_channels.remove(channel)
@@ -52,18 +52,18 @@ class AnnouncementsCog(commands.Cog):
                 )
             else:
                 await channel.send(embed=embeds[guild.language])
-        except Forbidden:
+        except Forbidden as e:
             try:
                 self.bot.announcement_channels.remove(channel)
             except:
                 pass
             GuildsDB.update_announcement_channel(channel.guild.id, 0)
             return self.bot.logger.error(
-                f"AnnouncementsCog, send_embed, Forbidden, {channel.id}"
+                f"{self.qualified_name} | send_embed | {e} | {channel.id = }"
             )
         except Exception as e:
             return self.bot.logger.error(
-                f"AnnouncementsCog, send_embed, {e}, {channel.id}"
+                f"{self.qualified_name} | send_embed | {e} | {channel.id = }"
             )
 
     @wait_for_startup()
@@ -124,11 +124,11 @@ class AnnouncementsCog(commands.Cog):
             )
         if api.dispatches in (None, []):
             return self.bot.logger.error(
-                f"AnnouncementsCog, dispatch_check, {api.dispatches = }"
+                f"{self.qualified_name} | dispatch_check | {api.dispatches = }"
             )
         if api.dispatches[0]["message"] == None:
             return self.bot.logger.error(
-                f'AnnouncementsCog, dispatch_check, {api.dispatches[0]["message"] =}'
+                f'{self.qualified_name} | dispatch_check | {api.dispatches[0]["message"] = }'
             )
         data = Data(data_from_api=api)
         self._newest_id = data.dispatch.id
