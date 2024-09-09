@@ -1,5 +1,5 @@
 from asyncio import sleep
-from disnake import Forbidden, TextChannel
+from disnake import Forbidden, NotFound, TextChannel
 from disnake.ext import commands, tasks
 from utils.checks import wait_for_startup
 from utils.db import CampaignsDB, GuildRecord, GuildsDB
@@ -26,7 +26,7 @@ class WarUpdatesCog(commands.Cog):
             )
         try:
             await channel.send(embed=embeds[guild.language])
-        except Forbidden:
+        except (Forbidden, NotFound) as e:
             self.bot.announcement_channels.remove(channel)
             self.bot.logger.error(
                 f"{self.qualified_name} | send_campaign | {e} | removed from self.bot.announcement_channels {channel.id = }"
