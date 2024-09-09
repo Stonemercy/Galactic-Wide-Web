@@ -31,7 +31,7 @@ class FeedbackCog(commands.Cog):
         user_in_db: FeedbackRecord = FeedbackDB.get_user(inter.user.id)
         if not user_in_db:
             user_in_db = FeedbackDB.new_user(inter.user.id)
-        if user_in_db.banned == True:
+        if user_in_db.banned:
             return await inter.send(
                 f"You have been banned from providing feedback\nReason:\n# {user_in_db.reason}",
                 ephemeral=True,

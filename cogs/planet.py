@@ -39,8 +39,7 @@ class PlanetCog(commands.Cog):
         self.bot.logger.info(
             f"{self.qualified_name} | /{inter.application_command.name} <{planet = }> <{public = }>"
         )
-        planets_list = planets
-        if planet not in planets_list:
+        if planet not in planets:
             return await inter.send(
                 "Please select a planet from the list.",
                 ephemeral=public,
