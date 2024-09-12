@@ -612,6 +612,7 @@ warbond_images_dict = {
     "Democratic Detonation": "https://media.discordapp.net/attachments/1212735927223590974/1234539582671032441/democratic_detonation.png?ex=66311a15&is=662fc895&hm=a7ea39cebf97692bce42f0f1ef04b535b4e241279860439f87a1b13dda7c13b6&=&format=webp&quality=lossless",
     "Polar Patriots": "https://cdn.discordapp.com/attachments/1212735927223590974/1243556076113235978/polar_patriots.png?ex=6651e758&is=665095d8&hm=5892cb4b53945d328c6cc8e322f96a6dd42bbc1ab00af03ca8f0026564c13e8a&",
     "Viper Commandos": "https://cdn.discordapp.com/attachments/1212735927223590974/1250840006356893757/viper_commandos.png?ex=666c6708&is=666b1588&hm=14b58f35a78fdbc87aaf285fb02154a814778ededbccc870930261899cf12bef&",
+    "Freedoms Flame": "https://cdn.discordapp.com/attachments/1212735927223590974/1283844729632591985/freedoms_flame.png?ex=66e47914&is=66e32794&hm=3a3d1bb0b9f67dbeb2f63e625511130971fc888d81d36b393996fe1771517fc8&",
 }
 
 help_dict = {
@@ -681,6 +682,8 @@ emotes_list = [
     "Explosive Handshake",
     "Scout Handshake",
     "Test of Conviction",
+    "Ew",
+    "Natural Gas Extraction",
 ]
 
 victory_poses_list = [
@@ -736,6 +739,8 @@ player_cards_list = [
     "Executioner's Canopy",
     "Purifying Eclipse",
     "The Breach",
+    "Standard of Safe Distance",
+    "Pation Zero's Rememberance",
 ]
 
 titles_list = [
@@ -763,4 +768,5 @@ titles_list = [
     "Super Citizen",
     "Viper Commando",
     "Fire Safety Officer",
+    "Expert Exterminator",
 ]
