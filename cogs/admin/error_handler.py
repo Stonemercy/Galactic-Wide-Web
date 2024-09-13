@@ -30,6 +30,7 @@ class ErrorHandlerCog(commands.Cog):
                 )
         else:
             await self.bot.moderator_channel.send(error)
+            raise error
 
 
 def setup(bot: GalacticWideWebBot):
