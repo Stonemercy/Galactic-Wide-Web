@@ -133,8 +133,10 @@ class MajorOrderEmbed(Embed):
             colour=Colour.yellow(),
         )
         reward_types = load(open("data/json/assignments/reward/type.json"))
-        self.set_footer(text=f"{language_json['major_order.message']} #{assignment.id}")
-        self.add_field(assignment.title, assignment.description)
+        self.add_field(
+            f"{language_json['major_order.message']} #{assignment.id}",
+            f"{assignment.title}\n{assignment.description}",
+        )
         self.planet_names_loc = load(
             open(f"data/json/planets/planets.json", encoding="UTF-8")
         )
