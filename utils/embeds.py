@@ -199,14 +199,21 @@ class MajorOrderEmbed(Embed):
                     3: language_json["automaton"],
                     4: language_json["illuminate"],
                 }
-                species_dict = {2514244534: "Bile Titan"}
-                species = species_dict[task.values[3]] if task.values[3] != 0 else None
+                species_dict = {
+                    2514244534: "Bile Titan",
+                    1379865898: "Bile Spewer",
+                    2058088313: "Warrior",
+                }
+                if task.values[3] in species_dict:
+                    species = (
+                        species_dict[task.values[3]] if task.values[3] != 0 else None
+                    )
                 event_health_bar = health_bar(
                     task.progress, en_faction_dict[task.values[0]]
                 )
                 target = loc_faction_dict[task.values[0]] if not species else species
                 self.add_field(
-                    f"{language_json['major_order.kill']} {short_format(task.values[2])} **{target}**{emojis_dict[en_faction_dict[task.values[0]]]}",
+                    f"{language_json['major_order.kill']} {short_format(task.values[2])} **{target}s** {emojis_dict[en_faction_dict[task.values[0]]]}",
                     (
                         f"{language_json['major_order.progress']}: {task.progress * task.values[2]}\n"
                         f"{event_health_bar}\n"
@@ -337,8 +344,8 @@ class Dashboard:
                 "https://media.discordapp.net/attachments/1212735927223590974/1240708455040548997/MO_defend.png?ex=66478b4a&is=664639ca&hm=2593a504f96bd5e889772762c2e9790caa08fc279ca48ea0f03c70fa74efecb5&=&format=webp&quality=lossless"
             )
             self.major_orders_embed.add_field(
-                f"{self.language['dashboard.major_order_message']} #{self.data.assignment.id} - {self.data.assignment.title}",
-                f"{self.data.assignment.description}\n\u200b\n",
+                f"{self.language['dashboard.major_order_message']} #{self.data.assignment.id}",
+                f"{self.data.assignment.title}\n{self.data.assignment.description}\n\u200b\n",
                 inline=False,
             )
             for task in self.data.assignment.tasks:
@@ -418,10 +425,17 @@ class Dashboard:
                         3: self.language["automaton"],
                         4: self.language["illuminate"],
                     }
-                    species_dict = {2514244534: "Bile Titan"}
-                    species = (
-                        species_dict[task.values[3]] if task.values[3] != 0 else None
-                    )
+                    species_dict = {
+                        2514244534: "Bile Titan",
+                        1379865898: "Bile Spewer",
+                        2058088313: "Warrior",
+                    }
+                    if task.values[3] in species_dict:
+                        species = (
+                            species_dict[task.values[3]]
+                            if task.values[3] != 0
+                            else None
+                        )
                     task.health_bar = health_bar(
                         task.progress,
                         (
@@ -436,7 +450,7 @@ class Dashboard:
                         loc_faction_dict[task.values[0]] if not species else species
                     )
                     self.major_orders_embed.add_field(
-                        f"{self.language['dashboard.major_order_kill']} {short_format(task.values[2])} {target} {emojis_dict[en_faction_dict[task.values[0]]]}",
+                        f"{self.language['dashboard.major_order_kill']} {short_format(task.values[2])} **{target}s** {emojis_dict[en_faction_dict[task.values[0]]]}",
                         (
                             f"{self.language['major_order.progress']}: **{(task.values[2]*task.progress):,.0f}**\n"
                             f"{task.health_bar}\n"
@@ -578,6 +592,8 @@ class Dashboard:
             ) = skipped_planets(self.data.campaigns, self.data.total_players)
             for campaign in self.non_skipped_campaigns:
                 campaign: Campaign
+                if campaign.planet.event != None:
+                    continue
                 time_to_complete = ""
                 liberation_text = ""
                 if liberation_changes != {}:
@@ -606,9 +622,6 @@ class Dashboard:
                             f"{(sum(liberation_change['liberation_change'])):.2%}/hour"
                         )
                         liberation_text = f"\n`{(above_zero + change):^25}`"
-
-                if campaign.planet.event != None:
-                    continue
                 exclamation = (
                     "<:MO:1240706769043456031>"
                     if self.data.assignment_planets
