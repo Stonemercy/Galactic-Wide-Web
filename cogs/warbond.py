@@ -26,19 +26,12 @@ class WarbondCog(commands.Cog):
         self.secondary_json = load(open("data/json/items/weapons/secondary.json"))
         self.grenade_json = load(open("data/json/items/weapons/grenades.json"))
         self.weapon_types = load(open("data/json/items/weapons/types.json"))
-        self.boosters = load(open("data/json/items/boosters.json"))
-        self.boosters = [
-            booster_values["name"] for booster, booster_values in self.boosters.items()
-        ]
+        self.boosters: dict = load(open("data/json/items/boosters.json"))
+        self.boosters = [booster["name"] for booster in self.boosters.copy().values()]
 
     async def warbond_autocomp(inter: AppCmdInter, user_input: str):
         warbond_names = load(open("data/json/warbonds.json"))
-        warbond_names["item_list"] = {}
-        for i, j in warbond_names.items():
-            if i == "item_list":
-                continue
-            warbond_names["item_list"][j["name"]] = j
-        warbond_names = warbond_names["item_list"]
+        warbond_names = {item["name"]: item for item in warbond_names.values()}
         return [warbond for warbond in warbond_names if user_input in warbond.lower()]
 
     @commands.slash_command(
