@@ -434,6 +434,9 @@ class MajorOrderRecord:
     def __init__(self, db_entry: tuple[int]) -> None:
         self.id = db_entry[0]
 
+    def __str__(self):
+        return f"MajorOrderRecord(id={self.id})"
+
 
 class MajorOrderDB:
     """A class that contains methods to manipulate major order DB data."""
@@ -450,6 +453,7 @@ class MajorOrderDB:
         ) as conn:
             with conn.cursor() as curs:
                 curs.execute("Insert into major_order (id) VALUES (%s)", (0,))
+                conn.commit()
                 result = MajorOrderDB.get_last()
                 return result
 
