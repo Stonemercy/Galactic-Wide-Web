@@ -67,44 +67,20 @@ class DashboardCog(commands.Cog):
             )
         data = Data(data_from_api=api)
         for campaign in data.campaigns:
-            liberation = (
-                1 - (campaign.planet.health / campaign.planet.max_health)
-                if not campaign.planet.event
-                else 1
-                - (campaign.planet.event.health / campaign.planet.event.max_health)
-            )
             if campaign.planet.name not in self.liberation_changes:
                 self.liberation_changes[campaign.planet.name] = {
-                    "liberation": liberation,
-                    "liberation_change": [],
+                    "liberation": campaign.progress,
+                    "liberation_changes": [],
                 }
             else:
-                if (
-                    len(
-                        self.liberation_changes[campaign.planet.name][
-                            "liberation_change"
-                        ]
+                changes = self.liberation_changes[campaign.planet.name]
+                if len(changes["liberation_changes"]) == 4:
+                    changes["liberation_changes"].pop(0)
+                while len(changes["liberation_changes"]) < 4:
+                    changes["liberation_changes"].append(
+                        campaign.progress - changes["liberation"]
                     )
-                    == 4
-                ):
-                    self.liberation_changes[campaign.planet.name][
-                        "liberation_change"
-                    ].pop(0)
-                while (
-                    len(
-                        self.liberation_changes[campaign.planet.name][
-                            "liberation_change"
-                        ]
-                    )
-                    < 4
-                ):
-                    self.liberation_changes[campaign.planet.name][
-                        "liberation_change"
-                    ].append(
-                        liberation
-                        - self.liberation_changes[campaign.planet.name]["liberation"]
-                    )
-            self.liberation_changes[campaign.planet.name]["liberation"] = liberation
+                changes["liberation"] = campaign.progress
         languages = GuildsDB.get_used_languages()
         dashboard_dict = {
             lang: Dashboard(data, lang, self.liberation_changes) for lang in languages
