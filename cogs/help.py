@@ -13,7 +13,9 @@ class HelpCog(commands.Cog):
     async def help_autocomp(inter: AppCmdInter, user_input: str):
         commands_list = [i.name for i in inter.bot.global_slash_commands]
         commands_list.append("all")
-        return [command for command in commands_list if user_input in command.lower()]
+        return [command for command in commands_list if user_input in command.lower()][
+            :25
+        ]
 
     @commands.slash_command(
         description='Get some help for a specific command, or a list of every command by using "all".'

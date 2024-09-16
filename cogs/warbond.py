@@ -32,7 +32,9 @@ class WarbondCog(commands.Cog):
     async def warbond_autocomp(inter: AppCmdInter, user_input: str):
         warbond_names = load(open("data/json/warbonds.json"))
         warbond_names = {item["name"]: item for item in warbond_names.values()}
-        return [warbond for warbond in warbond_names if user_input in warbond.lower()]
+        return [warbond for warbond in warbond_names if user_input in warbond.lower()][
+            :25
+        ]
 
     @commands.slash_command(
         description="Returns a basic summary of the items in a specific warbond."

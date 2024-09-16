@@ -17,7 +17,7 @@ class AutomatonCog(commands.Cog):
                 self.variations_dict.update(i["variations"])
 
     async def automaton_autocomp(inter: AppCmdInter, user_input: str):
-        return [cmd for cmd in enemies["automaton"] if user_input in cmd.lower()]
+        return [cmd for cmd in enemies["automaton"] if user_input in cmd.lower()][:25]
 
     async def variations_autocomp(inter: AppCmdInter, user_input: str):
         variations_list: list[str] = [
@@ -26,7 +26,7 @@ class AutomatonCog(commands.Cog):
             if i["variations"]
             for variation in i["variations"]
         ]
-        return [cmd for cmd in variations_list if user_input in cmd.lower()]
+        return [cmd for cmd in variations_list if user_input in cmd.lower()][:25]
 
     @commands.slash_command(
         description="Returns information on an Automaton or variation.",

@@ -25,19 +25,19 @@ class WeaponsCog(commands.Cog):
     async def primary_autocomp(inter: AppCmdInter, user_input: str):
         primaries_json = load(open("data/json/items/weapons/primary.json"))
         primaries = [i["name"] for i in primaries_json.values()]
-        return [primary for primary in primaries if user_input in primary.lower()]
+        return [primary for primary in primaries if user_input in primary.lower()][:25]
 
     async def secondary_autocomp(inter: AppCmdInter, user_input: str):
         secondaries_json = load(open("data/json/items/weapons/secondary.json"))
         secondaries = [i["name"] for i in secondaries_json.values()]
         return [
             secondary for secondary in secondaries if user_input in secondary.lower()
-        ]
+        ][:25]
 
     async def grenade_autocomp(inter: AppCmdInter, user_input: str):
         grenades_json = load(open("data/json/items/weapons/grenades.json"))
         grenades = [i["name"] for i in grenades_json.values()]
-        return [grenade for grenade in grenades if user_input in grenade.lower()]
+        return [grenade for grenade in grenades if user_input in grenade.lower()][:25]
 
     @commands.slash_command(description="Returns information on a specific weapon.")
     async def weapons(

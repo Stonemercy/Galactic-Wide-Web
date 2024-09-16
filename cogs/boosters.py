@@ -15,7 +15,7 @@ class BoostersCog(commands.Cog):
         boosters_json: dict = load(open("data/json/items/boosters.json"))
         return [
             i["name"] for i in boosters_json.values() if user_input in i["name"].lower()
-        ]
+        ][:25]
 
     @commands.slash_command(
         description="Returns the description of a specific booster."

@@ -20,7 +20,7 @@ class TerminidsCog(commands.Cog):
     async def terminids_autocomp(inter: AppCmdInter, user_input: str):
         return [
             command for command in enemies["terminids"] if user_input in command.lower()
-        ]
+        ][:25]
 
     async def variations_autocomp(inter: AppCmdInter, user_input: str):
         variations_list: list[str] = []

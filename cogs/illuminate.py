@@ -17,14 +17,14 @@ class IlluminateCog(commands.Cog):
                 self.variations_dict.update(i["variations"])
 
     async def illuminate_autocomp(inter: AppCmdInter, user_input: str):
-        return [cmd for cmd in enemies["illuminate"] if user_input in cmd.lower()]
+        return [cmd for cmd in enemies["illuminate"] if user_input in cmd.lower()][:25]
 
     async def variations_autocomp(inter: AppCmdInter, user_input: str):
         variations_list: list[str] = []
         for i in enemies["illuminate"].values():
             if i["variations"]:
                 variations_list.extend([variation for variation in i["variations"]])
-        return [cmd for cmd in variations_list if user_input in cmd.lower()]
+        return [cmd for cmd in variations_list if user_input in cmd.lower()][:25]
 
     @commands.slash_command(
         description="Returns information on an Illuminate or variation.",
