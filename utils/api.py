@@ -70,8 +70,7 @@ class API:
                             f"https://helldivers.news/api/planets"
                         ) as r:
                             if r.status == 200:
-                                js = await r.json()
-                                self.thumbnails = loads(dumps(js))
+                                self.thumbnails = await r.json()
                             else:
                                 self.error = ("API/THUMBNAILS", r.status)
                                 logger.error(f"API/THUMBNAILS, {r.status}")
