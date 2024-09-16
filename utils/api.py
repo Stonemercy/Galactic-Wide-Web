@@ -252,6 +252,11 @@ class Campaign:
         self.planet = Planet(campaign["planet"])
         self.type: int = campaign["type"]
         self.count: int = campaign["count"]
+        self.progress: float = (
+            (1 - (self.planet.health / self.planet.max_health)) * 100
+            if not self.planet.event
+            else (1 - (self.planet.event.progress)) * 100
+        )
         self.faction = (
             self.planet.event.faction
             if self.planet.event
