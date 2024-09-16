@@ -116,6 +116,12 @@ async def dashboard_maps(data, channel: TextChannel):
                         continue
             if data.assignment:
                 for task in data.assignment.tasks:
+                    faction = {
+                        1: "Humans",
+                        2: "Terminids",
+                        3: "Automaton",
+                        4: "Illuminate",
+                    }
                     if task.type in (11, 13):
                         background_draw.ellipse(
                             [
@@ -131,12 +137,6 @@ async def dashboard_maps(data, channel: TextChannel):
                             fill=faction_colour["MO"],
                         )
                     if task.type == 12:
-                        faction = {
-                            1: "Humans",
-                            2: "Terminids",
-                            3: "Automaton",
-                            4: "Illuminate",
-                        }
                         if data.planet_events:
                             target_planets = [
                                 planet.index
@@ -174,6 +174,26 @@ async def dashboard_maps(data, channel: TextChannel):
                             ],
                             fill=faction_colour["MO"],
                         )
+                    if task.type == 3:
+                        target_planets = [
+                            campaign.planet.index
+                            for campaign in data.campaigns
+                            if campaign.faction == faction[task.values[0]]
+                        ]
+                        for target_planet in target_planets:
+                            background_draw.ellipse(
+                                [
+                                    (
+                                        planets_coords[target_planet][0] - 50,
+                                        planets_coords[target_planet][1] - 50,
+                                    ),
+                                    (
+                                        planets_coords[target_planet][0] + 50,
+                                        planets_coords[target_planet][1] + 50,
+                                    ),
+                                ],
+                                fill=faction_colour["MO"],
+                            )
             for index, coords in planets_coords.items():
                 background_draw.ellipse(
                     [
