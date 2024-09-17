@@ -74,26 +74,26 @@ class API:
                         logger.error(f"API/THUMBNAILS, {e}")
 
         self.all = {
-            "self.war": {"wanted": get_war, "recieved": self.war != None},
-            "self.assignment": {
+            "war": {"wanted": get_war, "recieved": self.war != None},
+            "assignments": {
                 "wanted": get_assignments,
                 "recieved": self.assignments != None,
             },
-            "self.campaigns": {
+            "campaigns": {
                 "wanted": get_campaigns,
                 "recieved": self.campaigns != None,
             },
-            "self.dispatches": {
+            "dispatches": {
                 "wanted": get_dispatches,
                 "recieved": self.dispatches != None,
             },
-            "self.planets": {"wanted": get_planets, "recieved": self.planets != None},
-            "self.planet_events": {
+            "planets": {"wanted": get_planets, "recieved": self.planets != None},
+            "planet_events": {
                 "wanted": get_planet_events,
                 "recieved": self.planet_events != None,
             },
-            "self.steam": {"wanted": get_steam, "recieved": self.steam != None},
-            "self.thumbnails": {
+            "steam": {"wanted": get_steam, "recieved": self.steam != None},
+            "thumbnails": {
                 "wanted": get_thumbnail,
                 "recieved": self.thumbnails != None,
             },
