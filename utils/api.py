@@ -1,4 +1,4 @@
-from json import dumps, loads
+from datetime import datetime
 from logging import getLogger
 from os import getenv
 from aiohttp import ClientSession
@@ -192,6 +192,7 @@ class Assignment:
         self.tasks = Tasks(self.__assignment)
         self.reward = self.__assignment["reward"]
         self.ends_at = self.__assignment["expiration"]
+        self.ends_at_datetime = datetime.fromisoformat(self.ends_at)
 
     def __repr__(self):
         text = (
@@ -301,6 +302,8 @@ class Planet:
             self.max_health: int = event["maxHealth"]
             self.start_time = event["startTime"]
             self.end_time = event["endTime"]
+            self.start_time_datetime = datetime.fromisoformat(self.start_time)
+            self.end_time_datetime = datetime.fromisoformat(self.end_time)
             self.progress: float = self.health / self.max_health
 
         def __repr__(self):
