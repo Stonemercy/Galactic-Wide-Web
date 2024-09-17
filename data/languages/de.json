@@ -32,6 +32,7 @@
     "major_order.reward": "Belohnung",
     "major_order.no_order": "Es liegen keine Hauptaufträge vor",
     "major_order.succeed_in_defense": "Erfolgreiche Verteidigung von mindestens",
+    "major_order.liberate_more_than_them" : "Befreie mehr Planeten, als an den Feind verloren gehen",
     "major_order.planets": "Planeten",
     "major_order.progress": "Aktueller Fortschritt",
     "major_order.kill": "Töte",

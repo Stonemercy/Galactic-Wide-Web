@@ -32,6 +32,7 @@
     "major_order.reward": "Récompense",
     "major_order.no_order": "Il n'y a pas de commandes majeures",
     "major_order.succeed_in_defense": "Réussir la défense d'au moins",
+    "major_order.liberate_more_than_them" : "Libérez plus de planètes que celles perdues par l'ennemi",
     "major_order.planets": "planètes",
     "major_order.progress": "Progression actuelle",
     "major_order.kill": "Kill",

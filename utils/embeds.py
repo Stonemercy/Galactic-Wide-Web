@@ -222,6 +222,28 @@ class MajorOrderEmbed(Embed):
                     ),
                     inline=False,
                 )
+            elif task.type == 15:
+                progress_dict = {-1: 0, 0: 0.5, 1: 1}
+                percent = 0
+                for progress, perc in progress_dict.items():
+                    if task.progress <= progress:
+                        percent = perc
+                        break
+                event_health_bar = health_bar(percent, "MO")
+                victory = (
+                    language_json["dashboard.victory"]
+                    if perc == 1
+                    else language_json["dashboard.defeat"]
+                )
+                self.add_field(
+                    f"{language_json['major_order.liberate_more_than_them']} ",
+                    (
+                        f"{language_json['dashboard.outlook']}: {victory.upper()}\n"
+                        f"{event_health_bar}\n"
+                        f"`{task.progress:^25,}`\n"
+                    ),
+                    inline=False,
+                )
             else:
                 self.add_field(
                     language_json["major_order.new_title"],
@@ -470,6 +492,28 @@ class Dashboard:
                             f"{language['major_order.progress']}: **{task.values[2]*task.progress:,.0f}**\n"
                             f"{task.health_bar}\n"
                             f"`{(task.progress):^25,.2%}`\n"
+                        ),
+                        inline=False,
+                    )
+                elif task.type == 15:
+                    progress_dict = {-1: 0, 0: 0.5, 1: 1}
+                    percent = 0
+                    for progress, perc in progress_dict.items():
+                        if task.progress <= progress:
+                            percent = perc
+                            break
+                    event_health_bar = health_bar(percent, "MO")
+                    victory = (
+                        language["dashboard.victory"]
+                        if perc == 1
+                        else language["dashboard.defeat"]
+                    )
+                    major_orders_embed.add_field(
+                        f"{language['major_order.liberate_more_than_them']} ",
+                        (
+                            f"{language['dashboard.outlook']}: {victory.upper()}\n"
+                            f"{event_health_bar}\n"
+                            f"`{task.progress:^25,}`\n"
                         ),
                         inline=False,
                     )

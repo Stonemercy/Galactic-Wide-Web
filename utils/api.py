@@ -205,13 +205,12 @@ class Tasks(list):
         self.__assignment = assignment
         for index, task in enumerate(self.__assignment["tasks"]):
             task = self.Task(task)
-            progress_value = {
-                13: 1,
-                12: task.values[0],
-                11: 1,
-                3: task.values[2],
-                2: task.values[2],
-            }[task.type]
+            if task.type in (15, 12):
+                progress_value = task.values[0]
+            elif task.type in (13, 11):
+                progress_value = 1
+            elif task.type in (3, 2):
+                progress_value = task.values[2]
             task.progress = self.__assignment["progress"][index] / progress_value
             self.append(task)
 
