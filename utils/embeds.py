@@ -267,20 +267,20 @@ class CampaignEmbed(Embed):
         self.add_field(self.language["campaigns.planets_lost"], "", inline=False)
         self.add_field(self.language["campaigns.new_battles"], "", inline=False)
 
-        self.faction_dict = {
-            "Automaton": "<:a_:1215036421551685672>",
-            "Terminids": "<:t_:1215036423090999376>",
-            "Illuminate": "<:i_:1218283483240206576>",
-        }
-
-        name = self.fields[2].name
     def add_new_campaign(self, campaign: Campaign, time_remaining):
         description = self.fields[2].value
-        if time_remaining:
-            description += f"🛡️ {self.language['campaigns.defend']} **{campaign.planet.name}** {self.faction_dict[campaign.planet.event.faction]}\n> *{self.language['campaigns.ends']} {time_remaining}*\n"
-        else:
-            description += f"⚔️ {self.language['campaigns.liberate']} **{campaign.planet.name}** {self.faction_dict[campaign.planet.current_owner]}\n"
-        self.set_field_at(2, name, description, inline=self.fields[1].inline)
+        description += (
+            (
+                f"🛡️ {self.language['campaigns.defend']} **{campaign.planet.name}** "
+                f"{emojis_dict[campaign.faction]}\n> *{self.language['campaigns.ends']} {time_remaining}*\n"
+            )
+            if time_remaining
+            else (
+                f"⚔️ {self.language['campaigns.liberate']} **{campaign.planet.name}** "
+                f"{emojis_dict[campaign.faction]}\n"
+            )
+        )
+        self.set_field_at(2, self.fields[2].name, description, inline=False)
 
     def add_campaign_victory(self, planet: Planet, liberatee: str):
         liberatee_loc = self.language[liberatee.lower()]
@@ -298,8 +298,8 @@ class CampaignEmbed(Embed):
     def add_planet_lost(self, planet: Planet):
         name = self.fields[1].name
         description = self.fields[1].value
-        self.set_field_at(1, name, description, inline=self.fields[1].inline)
         description += f"**💀 {planet.name}** {self.language['campaigns.been_lost']} **{self.language[planet.current_owner.lower()]}** {emojis_dict[planet.current_owner]}\n"
+        self.set_field_at(1, name, description, inline=False)
 
     def remove_empty(self):
         for field in self.fields:
@@ -388,7 +388,7 @@ class Dashboard:
                         ),
                         inline=False,
                     )
-                elif task.type == 12:
+                elif task.type == 12:  # Succeed in defence of # <enemy> planets
                     factions = {
                         1: "Humans",
                         2: "Terminids",
@@ -457,10 +457,9 @@ class Dashboard:
                         inline=False,
                     )
                 elif task.type == 2:  # Extract with items from a planet
-                    items_dict = {
-                        3992382197: "Common Sample",
-                        2985106497: "Rare Sample",
-                    }
+                    items_dict = load(
+                        open(f"data/json/items/item_names.json", encoding="UTF-8")
+                    )
                     task.health_bar = health_bar(
                         task.progress,
                         "MO",
@@ -502,22 +501,22 @@ class Dashboard:
                 outlook_text = ""
                 winning = ""
                 if liberation_changes != {}:
-                    liberation_change = liberation_changes[planet.name]
-                    if len(liberation_change["liberation_change"]) > 0:
+                    liberation_change = liberation_changes.get(planet.name, None)
+                    if (
+                        liberation_change
+                        and len(liberation_change["liberation_changes"]) > 0
+                    ):
+                        print(planet.name, liberation_change)
                         above_zero = (
                             "+"
-                            if (
-                                sum(liberation_change["liberation_change"])
-                                / len(liberation_change["liberation_change"])
-                            )
-                            > 0
+                            if sum(liberation_change["liberation_changes"]) > 0
                             else ""
                         )
-                        now = int(datetime.now().timestamp())
+                        now_seconds = int(datetime.now().timestamp())
                         seconds_to_complete = int(
                             (
-                                (1 - liberation_change["liberation"])
-                                / sum(liberation_change["liberation_change"])
+                                (100 - liberation_change["liberation"])
+                                / sum(liberation_change["liberation_changes"])
                             )
                             * 3600
                         )
@@ -525,25 +524,25 @@ class Dashboard:
                             True: f"**{language['dashboard.victory']}**",
                             False: f"**{language['dashboard.defeat']}**",
                         }[
-                            datetime.fromtimestamp(now + seconds_to_complete)
-                            < datetime.fromisoformat(planet.event.end_time).replace(
-                                tzinfo=None
-                            )
+                            datetime.fromtimestamp(now_seconds + seconds_to_complete)
+                            < planet.event.end_time_datetime.replace(tzinfo=None)
                         ]
                         time_to_complete = (
-                            f"<t:{now + seconds_to_complete}:R>"
+                            f"<t:{now_seconds + seconds_to_complete}:R>"
                             if winning == f"**{language['dashboard.victory']}**"
                             else ""
                         )
                         change = (
-                            f"{(sum(liberation_change['liberation_change'])):.2%}/hour"
+                            f"{(sum(liberation_change['liberation_changes'])):.2}%/hour"
                         )
                         liberation_text = f"\n`{(above_zero + change):^25}` "
                         outlook_text = f"\n{language['dashboard.outlook']}: **{winning}** {time_to_complete}"
                 faction_icon = emojis_dict[planet.event.faction]
-                time_remaining = f"<t:{datetime.fromisoformat(planet.event.end_time).timestamp():.0f}:R>"
+                time_remaining = (
+                    f"<t:{planet.event.end_time_datetime.timestamp():.0f}:R>"
+                )
                 event_health_bar = health_bar(
-                    planet.event.health / planet.event.max_health,
+                    planet.event.progress,
                     "Humans",
                     True,
                 )
@@ -594,29 +593,31 @@ class Dashboard:
                 time_to_complete = ""
                 liberation_text = ""
                 if liberation_changes != {}:
-                    liberation_change = liberation_changes[campaign.planet.name]
-                    if len(liberation_change["liberation_change"]) > 0:
+                    liberation_change = liberation_changes.get(
+                        campaign.planet.name, None
+                    )
+                    if (
+                        liberation_change
+                        and len(liberation_change["liberation_changes"]) > 0
+                    ):
+                        print(campaign.planet.name, liberation_change)
                         above_zero = (
                             "+"
-                            if (
-                                sum(liberation_change["liberation_change"])
-                                / len(liberation_change["liberation_change"])
-                            )
-                            > 0
+                            if sum(liberation_change["liberation_changes"]) > 0
                             else ""
                         )
                         if above_zero == "+":
                             now_seconds = int(datetime.now().timestamp())
                             seconds_to_complete = int(
                                 (
-                                    (1 - liberation_change["liberation"])
-                                    / sum(liberation_change["liberation_change"])
+                                    (100 - liberation_change["liberation"])
+                                    / sum(liberation_change["liberation_changes"])
                                 )
                                 * 3600
                             )
                             time_to_complete = f"\n{language['dashboard.outlook']}: **{language['dashboard.victory']}** <t:{now_seconds + seconds_to_complete}:R>"
                         change = (
-                            f"{(sum(liberation_change['liberation_change'])):.2%}/hour"
+                            f"{(sum(liberation_change['liberation_changes'])):.2}%/hour"
                         )
                         liberation_text = f"\n`{(above_zero + change):^25}`"
                 exclamation = (
