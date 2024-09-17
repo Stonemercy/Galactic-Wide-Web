@@ -551,15 +551,14 @@ class Dashboard:
                     "Humans",
                     True,
                 )
-                exclamation = ""
-                if self.data.assignment_planets:
-                    exclamation = (
-                        "<:MO:1240706769043456031>"
-                        if planet.name in data.assignment_planets
-                        else ""
-                    )
                 self.defend_embed.add_field(
                     f"{faction_icon} - __**{self.planet_names_loc[str(planet.index)]['names'][supported_languages[language]]}**__ {exclamation}",
+                exclamation = (
+                    "<:MO:1240706769043456031>"
+                    if data.assignment_planets
+                    and planet.index in data.assignment_planets
+                    else ""
+                )
                     (
                         f"{self.language['dashboard.defend_embed_ends']}: {time_remaining}"
                         f"\n{self.language['dashboard.heroes']}: **{planet.stats['playerCount']:,}**"
@@ -625,9 +624,9 @@ class Dashboard:
                         )
                         liberation_text = f"\n`{(above_zero + change):^25}`"
                 exclamation = (
-                    "<:MO:1240706769043456031>"
-                    if self.data.assignment_planets
-                    and campaign.planet.name in self.data.assignment_planets
+                    emojis_dict["MO"]
+                    if data.assignment_planets
+                    and campaign.planet.index in data.assignment_planets
                     else ""
                 )
                 faction_icon = emojis_dict[campaign.planet.current_owner]
@@ -703,9 +702,9 @@ class Dashboard:
         for values in skipped_dict.values():
             for campaign in values["campaigns"]:
                 exclamation = (
-                    "<:MO:1240706769043456031>"
-                    if self.data.assignment_planets
-                    and campaign.planet.name in self.data.assignment_planets
+                    emojis_dict["MO"]
+                    if data.assignment_planets
+                    and campaign.planet.index in data.assignment_planets
                     else ""
                 )
                 values[

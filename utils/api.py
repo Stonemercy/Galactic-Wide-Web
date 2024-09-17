@@ -125,8 +125,8 @@ class Data:
             for task in self.assignment.tasks:
                 task: Tasks.Task
                 if task.type in (11, 13):
-                    self.assignment_planets.append(self.planets[task.values[2]].name)
-                elif task.type == 12:
+                    self.assignment_planets.append(self.planets[task.values[2]].index)
+                elif task.type in (3, 12):
                     if self.planet_events:
                         factions = {
                             1: "Humans",
@@ -135,7 +135,7 @@ class Data:
                             4: "Illuminate",
                         }
                         self.assignment_planets += [
-                            planet.name
+                            planet.index
                             for planet in self.planet_events
                             if planet.event
                             and planet.event.faction == factions[task.values[1]]
