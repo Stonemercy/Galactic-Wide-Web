@@ -100,7 +100,7 @@ class PlanetEmbed(Embed):
                 name=language["planet.liberation_progress"],
                 icon_url="https://cdn.discordapp.com/emojis/1215036423090999376.webp?size=44&quality=lossless",
             )
-        if thumbnail_url is not None:
+        if thumbnail_url:
             self.set_thumbnail(url=thumbnail_url)
 
 
@@ -413,7 +413,6 @@ class Dashboard:
                         "https://media.discordapp.net/attachments/1212735927223590974/1240708455250133142/MO_exterminate.png?ex=66478b4a&is=664639ca&hm=301a0766d3bf6e48c335a7dbafec801ecbe176d65624e69a63cb030dad9b4d82&=&format=webp&quality=lossless"
                     )
                     en_faction_dict = {
-                        0: "",
                         2: "Terminids",
                         3: "Automaton",
                         4: "Illuminate",
@@ -548,14 +547,14 @@ class Dashboard:
                     "Humans",
                     True,
                 )
-                self.defend_embed.add_field(
-                    f"{faction_icon} - __**{self.planet_names_loc[str(planet.index)]['names'][supported_languages[language]]}**__ {exclamation}",
                 exclamation = (
                     "<:MO:1240706769043456031>"
                     if data.assignment_planets
                     and planet.index in data.assignment_planets
                     else ""
                 )
+                defend_embed.add_field(
+                    f"{faction_icon} - __**{planet_names_loc[str(planet.index)]['names'][supported_languages[language_code]]}**__ {exclamation}",
                     (
                         f"{language['dashboard.defend_embed_ends']}: {time_remaining}"
                         f"\n{language['dashboard.heroes']}: **{planet.stats['playerCount']:,}**"
@@ -698,6 +697,7 @@ class Dashboard:
         }
         for values in skipped_dict.values():
             for campaign in values["campaigns"]:
+                campaign: Campaign
                 exclamation = (
                     emojis_dict["MO"]
                     if data.assignment_planets
@@ -998,7 +998,7 @@ class Items:
                                 f"Speed: **{item_json['speed']}**\n"
                                 f"Stamina Regen: **{item_json['stamina_regen']}**\n"
                                 f"Passive: **{armor_perks_json[str(item_json['passive'])]['name']}**\n"
-                                f"Medal Cost: **{item['medal_cost']} <:medal:1226254158278037504>**\n\n"
+                                f"Medal Cost: **{item.get('medal_cost', None)} <:medal:1226254158278037504>**\n\n"
                             ),
                         )
                     elif item_type == "primary":
@@ -1100,7 +1100,6 @@ class StratagemEmbed(Embed):
         for key in stratagem_stats["keys"]:
             key_inputs += emojis_dict[key]
         self.add_field("Key input", key_inputs, inline=False)
-
         self.add_field("Uses", stratagem_stats["uses"], inline=False)
         self.add_field(
             "Cooldown",
