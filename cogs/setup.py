@@ -223,7 +223,7 @@ class SetupCog(commands.Cog):
                     )
                     if api.error:
                         await self.bot.moderator_channel.send(
-                            f"<@164862382185644032>{api.error[0]}\n{api.error[1]}\n:warning:"
+                            f"<@{self.bot.owner_id}>{api.error[0]}\n{api.error[1]}\n:warning:"
                         )
                         return await inter.send(
                             "There was an issue connecting to the datacentre. Please try again.",
@@ -336,7 +336,7 @@ class SetupCog(commands.Cog):
                 else:
                     api = API()
                     await api.pull_from_api(
-                        get_campaigns=True, get_planets=True, get_assignment=True
+                        get_campaigns=True, get_planets=True, get_assignments=True
                     )
                     if api.error:
                         await self.bot.moderator_channel.send(
