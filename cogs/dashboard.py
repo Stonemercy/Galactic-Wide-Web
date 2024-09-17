@@ -63,7 +63,7 @@ class DashboardCog(commands.Cog):
         )
         if api.error:
             return await self.bot.moderator_channel.send(
-                f"<@164862382185644032>\n{api.error[0]}\n{api.error[1]}\n:warning:"
+                f"<@{self.bot.owner_id}>\n{api.error[0]}\n{api.error[1]}\n:warning:"
             )
         data = Data(data_from_api=api)
         for campaign in data.campaigns:
