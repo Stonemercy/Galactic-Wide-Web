@@ -174,12 +174,6 @@ class Data:
         return text
 
 
-class War:
-    """Currently Not Used"""
-
-    pass
-
-
 class Assignment:
     def __init__(self, assignment: dict):
         self.__assignment = assignment
