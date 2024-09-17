@@ -2,7 +2,7 @@ from json import load
 from disnake import Embed, Colour, File, ModalInteraction
 from datetime import datetime
 from utils.functions import health_bar, short_format, skipped_planets
-from utils.api import Assignment, Campaign, Data, Tasks, Planet
+from utils.api import Assignment, Campaign, Data, Dispatch, Steam, Tasks, Planet
 from data.lists import (
     emojis_dict,
     warbond_images_dict,
@@ -239,14 +239,14 @@ class MajorOrderEmbed(Embed):
 
 
 class DispatchesEmbed(Embed):
-    def __init__(self, dispatch):
+    def __init__(self, dispatch: Dispatch):
         super().__init__(colour=Colour.brand_red())
         self.set_footer(text=f"MESSAGE #{dispatch.id}")
         self.add_field("Message Content", dispatch.message)
 
 
 class SteamEmbed(Embed):
-    def __init__(self, steam):
+    def __init__(self, steam: Steam):
         super().__init__(title=steam.title, colour=Colour.dark_grey(), url=steam.url)
         self.set_footer(text=f"MESSAGE #{steam.id}")
         if len(steam.content) > 4000:
@@ -274,8 +274,8 @@ class CampaignEmbed(Embed):
             "Illuminate": "<:i_:1218283483240206576>",
         }
 
-    def add_new_campaign(self, campaign, time_remaining):
         name = self.fields[2].name
+    def add_new_campaign(self, campaign: Campaign, time_remaining):
         description = self.fields[2].value
         if time_remaining:
             description += f"🛡️ {self.language['campaigns.defend']} **{campaign.planet.name}** {self.faction_dict[campaign.planet.event.faction]}\n> *{self.language['campaigns.ends']} {time_remaining}*\n"
@@ -283,20 +283,20 @@ class CampaignEmbed(Embed):
             description += f"⚔️ {self.language['campaigns.liberate']} **{campaign.planet.name}** {self.faction_dict[campaign.planet.current_owner]}\n"
         self.set_field_at(2, name, description, inline=self.fields[1].inline)
 
-    def add_campaign_victory(self, planet, liberatee):
+    def add_campaign_victory(self, planet: Planet, liberatee: str):
         liberatee_loc = self.language[liberatee.lower()]
         name = self.fields[0].name
         description = self.fields[0].value
         description += f"**<:victory:1238069280508215337> {planet.name}** {self.language['campaigns.been_liberated']} **{liberatee_loc}** {self.faction_dict[liberatee]}!\n"
         self.set_field_at(0, name, description, inline=self.fields[0].inline)
 
-    def add_def_victory(self, planet):
+    def add_def_victory(self, planet: Planet):
         name = self.fields[0].name
         description = self.fields[0].value
         description += f"**<:victory:1238069280508215337> {planet.name}** {self.language['campaigns.been_defended']}!\n"
         self.set_field_at(0, name, description, inline=self.fields[0].inline)
 
-    def add_planet_lost(self, planet):
+    def add_planet_lost(self, planet: Planet):
         name = self.fields[1].name
         description = self.fields[1].value
         description += f"**💀 {planet.name}** {self.language['campaigns.been_lost']} **{self.language[planet.current_owner.lower()]}** {self.faction_dict[planet.current_owner]}\n"
@@ -762,7 +762,7 @@ class Items:
                 types: dict,
                 fire_modes: dict,
                 traits: dict,
-                language,
+                language: dict,
             ):
                 super().__init__(
                     colour=Colour.blue(),
