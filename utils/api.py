@@ -12,14 +12,9 @@ class API:
         self._api = getenv("API")
         self._backup_api = getenv("BU_API")
         self.error: tuple[str, Exception | int] | None = None
-        self.war = None
-        self.assignments = None
-        self.campaigns = None
-        self.dispatches = None
-        self.planets = None
-        self.planet_events = None
-        self.steam = None
-        self.thumbnails = None
+        self.war = self.assignments = self.campaigns = self.dispatches = (
+            self.planets
+        ) = self.planet_events = self.steam = self.thumbnails = None
 
     async def fetch_data(self, session: ClientSession, endpoint: str, attr_name):
         try:
@@ -108,8 +103,7 @@ class API:
 class Data:
     def __init__(self, data_from_api: API):
         self.__data__ = data_from_api
-        self.assignment = None
-        self.assignment_planets = None
+        self.assignment = self.assignment_planets = None
 
         self.planet_events: PlanetEvents = (
             PlanetEvents(self.__data__.planet_events)
