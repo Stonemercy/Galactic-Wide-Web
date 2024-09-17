@@ -107,7 +107,7 @@
         "cooldown": 480,
         "activation": 4.75
     },
-    "LAS-98 Laster Cannon": {
+    "LAS-98 Laser Cannon": {
         "keys": ["down", "left", "down", "up", "left"],
         "uses": "Unlimited",
         "cooldown": 480,

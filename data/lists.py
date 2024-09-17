@@ -337,19 +337,19 @@ enemies = {
             "start": 3,
             "desc": "Thanks to it's meter-thick hide, Chargers are tough to kill and avoid.",
             "tactics": "The main way to kill a Charger is to use armor piercing weapons and break it's forelegs, this staggers the Charger and exposes a super-weak spot.\nFor new Helldivers, the Expendable Anti-Tank can be used to instantly kill a Charger with a headshot, or instantly break the Charger's leg armor in 1 rocket.If you can't break the legs, hitting the underside of the abdomen will kill it slowly.",
-            "weak spots": "Legs",
+            "weak spots": "Legs, Butt",
             "variations": {
                 "Behemoth": {
                     "start": 3,
                     "desc": "The Behemoth is a large, heavily-armored Terminid that is a variation of the Charger that has more armor, and is easily distinguishable from the normal charger by its elongated horn/tusk like armor on its head.",
                     "tactics": "The Behemoth behaves much like a regular charger, but has increased armor. It now takes two direct hits from a anti-tank rocket launcher to crack their armor, even the head. However, it is still vulnerable to attacks to it's unarmored rear abdomen.",
-                    "weak spots": "Legs",
+                    "weak spots": "Legs, Butt",
                 },
                 "Spore Charger": {
                     "start": 8,
                     "desc": "The Spore Charger is a large, heavily armored Terminid. An evolution of the Charger, the Spore Charger is covered spores, causing it to be shrouded in fog.",
                     "tactics": "Similar to the regular charger.",
-                    "weak spots": "Legs, Spore Sacs",
+                    "weak spots": "Legs, Butt, Spore Sacs",
                 },
             },
         },
@@ -357,7 +357,7 @@ enemies = {
             "start": 4,
             "desc": "The largest known Terminid strain; a single Bile Titan can destroy an entire SEAF platoon on its own, a testament to the bugs' mindless brutality. Bile Titans are massive but still move quickly, and behave similarly to Bile Spewers, spitting out streams of corrosive bile at their target.",
             "tactics": "Stay as far from them as possible, using terrain to your advantage if you can. It is possible to outrun in light **and** medium armour, but not heavy. It is recommended to use heavy strategems like the Railcannon Strike, or anti-tank weaponry. **CAN'T BE STUNNED**",
-            "weak spots": None,
+            "weak spots": "Belly",
             "variations": None,
         },
         "Brood Commander": {
@@ -480,7 +480,7 @@ enemies = {
             "start": 1,
             "desc": "Hulks are the largest walking Automaton with matching heavy firepower.",
             "tactics": "Rain hell on them. Lazer strategems are particularly useful, as well as the railcannon. If you have no strategems available, aim for the weak spots with as much armour penetration as possible (AMR or Railgun are good).\nTheir arms can also be broken off, rendering them almost useless.",
-            "weak spots": "Head, Heat-Sinks",
+            "weak spots": "Head, Heat-Sinks (Back)",
             "variations": {
                 "Scorcher Hulk": {
                     "start": 1,
