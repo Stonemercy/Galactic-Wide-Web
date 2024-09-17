@@ -603,6 +603,9 @@ emojis_dict = {
     "down": "<:Down_Arrow:1277557875849302107>",
     "left": "<:Left_Arrow:1277557877787066389>",
     "right": "<:Right_Arrow:1277557872246652928> ",
+    "victory": "<:victory:1238069280508215337>",
+    "medal": "<:medal:1226254158278037504>",
+    "MO": "<:MO:1240706769043456031>",
 }
 
 warbond_images_dict = {
