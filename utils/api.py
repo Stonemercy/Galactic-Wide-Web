@@ -166,11 +166,10 @@ class Data:
             self.steam = Steam(self.__data__.steam[0])
 
     def __str__(self) -> str:
-        text = f"Data"
+        text = f"Data("
         for name, data in self.__data__.all.items():
-            if data["wanted"]:
-                text += f"\n{name}:\n    Correct: {data['wanted'] == data['recieved']}"
-        text += "\n=====END====="
+            text += f"{name}(wanted={data['wanted']}, recieved={data['recieved']}) "
+        text = text[:-2] + ")"
         return text
 
 
@@ -194,18 +193,11 @@ class Assignment:
         self.ends_at = self.__assignment["expiration"]
         self.ends_at_datetime = datetime.fromisoformat(self.ends_at)
 
-    def __repr__(self):
-        text = (
-            f"{'ASSIGNMENT':=^35}"
-            f"\nID: {self.id}:"
-            f"\nTitle: {self.title}"
-            f"\nDescription: {self.description}"
-            f"\nTasks:"
+    def __str__(self):
+        return (
+            f"Assignment(id={self.id}, title={self.title}, description={self.description}, tasks={self.tasks} "
+            f"reward={self.reward}, ends_at={self.ends_at}, ends_at_datetime={self.ends_at_datetime})"
         )
-        for task in self.tasks:
-            text += f"\n    {task}"
-        text += f"\nReward: {self.reward}"
-        return text
 
 
 class Tasks(list):
@@ -231,8 +223,11 @@ class Tasks(list):
             self.value_types: list = task["valueTypes"]
             self.health_bar: str = ""
 
-        def __repr__(self):
-            return f"Type: {self.type} - Progress: {self.progress:.2%} - Values: {self.values} - ValueTypes: {self.value_types}"
+        def __str__(self):
+            return (
+                f"Task(type={self.type}, progress={self.progress}, values={self.values} "
+                f"value_types={self.value_types}, health_bar={self.health_bar})"
+            )
 
 
 class Campaign:
@@ -252,15 +247,8 @@ class Campaign:
             else self.planet.current_owner
         )
 
-    def __repr__(self):
-        return (
-            f"{'CAMPAIGN':=^35}"
-            f"\nID: {self.id}:"
-            f"\nPlanet: {self.planet.name}"
-            f"\nDefense: {self.planet.event is not None}"
-            f"\nType: {self.type}"
-            f"\nCount: {self.count}"
-        )
+    def __str__(self):
+        return f"Campaign(id={self.id}, planet={self.planet}, type={self.type}, count={self.count}, progress={self.progress}, faction={self.faction})"
 
 
 class Dispatch:
@@ -268,8 +256,8 @@ class Dispatch:
         self.id: int = dispatch["id"]
         self.message = steam_format(dispatch["message"])
 
-    def __repr__(self):
-        return f"{self.id} - {self.message}"
+    def __str__(self):
+        return f"Dispatch(id={self.id}, message={self.message})"
 
 
 class Planet:
@@ -289,9 +277,14 @@ class Planet:
         self.stats: dict = planet["statistics"]
         self.thumbnail = None
 
-    def __repr__(self):
-        atk_def = {True: "Defense", False: "Attack"}[self.event is not None]
-        return f"{self.name} - {self.current_owner} - {atk_def}"
+    def __str__(self):
+        return (
+            f"Planet(index={self.index}, name={self.name}, sector={self.sector} "
+            f"biome={self.biome}, hazards={self.hazards}, position={self.position} "
+            f"waypoints={self.waypoints}, max_health={self.max_health}, health={self.health} "
+            f"current_owner={self.current_owner}, regen={self.regen}, event={self.event} "
+            f"stats={self.stats}, thumbnail={self.thumbnail})"
+        )
 
     class Event:
         def __init__(self, event):
@@ -306,17 +299,17 @@ class Planet:
             self.end_time_datetime = datetime.fromisoformat(self.end_time)
             self.progress: float = self.health / self.max_health
 
-        def __repr__(self):
-            return f"{self.id} - {self.type} - {self.faction}"
+        def __str__(self):
+            return (
+                f"Event(id={self.id}, type={self.type}, faction={self.faction}, health={self.health}) "
+                f"max_health={self.max_health}, start_time={self.start_time}, end_time={self.end_time}, progress={self.progress})"
+            )
 
 
 class PlanetEvents(list[Planet]):
     def __init__(self, planet_events):
         for planet in planet_events:
             self.append(Planet(planet))
-
-    def __repr__(self):
-        return f"Planet events: {len(self)}"
 
 
 class Steam:
@@ -328,7 +321,7 @@ class Steam:
         self.url = steam["url"]
 
     def __repr__(self):
-        return f"Steam: {self.id} - {self.url} - {len(self.content)}"
+        return f"Steam(id={self.id}, title={self.title}, content={self.content}, author={self.author}, url={self.url})"
 
 
 class Thumbnail:
