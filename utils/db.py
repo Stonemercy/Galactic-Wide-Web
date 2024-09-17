@@ -434,7 +434,7 @@ class MajorOrderRecord:
     def __init__(self, db_entry: tuple[int]) -> None:
         self.id = db_entry[0]
 
-    def __str__(self):
+    def __repr__(self):
         return f"MajorOrderRecord(id={self.id})"
 
 

@@ -165,7 +165,7 @@ class Data:
         if self.__data__.steam:
             self.steam = Steam(self.__data__.steam[0])
 
-    def __str__(self) -> str:
+    def __repr__(self) -> str:
         text = f"Data("
         for name, data in self.__data__.all.items():
             text += f"{name}(wanted={data['wanted']}, recieved={data['recieved']}) "
@@ -193,7 +193,7 @@ class Assignment:
         self.ends_at = self.__assignment["expiration"]
         self.ends_at_datetime = datetime.fromisoformat(self.ends_at)
 
-    def __str__(self):
+    def __repr__(self):
         return (
             f"Assignment(id={self.id}, title={self.title}, description={self.description}, tasks={self.tasks} "
             f"reward={self.reward}, ends_at={self.ends_at}, ends_at_datetime={self.ends_at_datetime})"
@@ -223,7 +223,7 @@ class Tasks(list):
             self.value_types: list = task["valueTypes"]
             self.health_bar: str = ""
 
-        def __str__(self):
+        def __repr__(self):
             return (
                 f"Task(type={self.type}, progress={self.progress}, values={self.values} "
                 f"value_types={self.value_types}, health_bar={self.health_bar})"
@@ -247,7 +247,7 @@ class Campaign:
             else self.planet.current_owner
         )
 
-    def __str__(self):
+    def __repr__(self):
         return f"Campaign(id={self.id}, planet={self.planet}, type={self.type}, count={self.count}, progress={self.progress}, faction={self.faction})"
 
 
@@ -256,7 +256,7 @@ class Dispatch:
         self.id: int = dispatch["id"]
         self.message = steam_format(dispatch["message"])
 
-    def __str__(self):
+    def __repr__(self):
         return f"Dispatch(id={self.id}, message={self.message})"
 
 
@@ -277,7 +277,7 @@ class Planet:
         self.stats: dict = planet["statistics"]
         self.thumbnail = None
 
-    def __str__(self):
+    def __repr__(self):
         return (
             f"Planet(index={self.index}, name={self.name}, sector={self.sector} "
             f"biome={self.biome}, hazards={self.hazards}, position={self.position} "
@@ -299,7 +299,7 @@ class Planet:
             self.end_time_datetime = datetime.fromisoformat(self.end_time)
             self.progress: float = self.health / self.max_health
 
-        def __str__(self):
+        def __repr__(self):
             return (
                 f"Event(id={self.id}, type={self.type}, faction={self.faction}, health={self.health}) "
                 f"max_health={self.max_health}, start_time={self.start_time}, end_time={self.end_time}, progress={self.progress})"
