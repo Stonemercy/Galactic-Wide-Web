@@ -550,7 +550,6 @@ class Dashboard:
                         liberation_change
                         and len(liberation_change["liberation_changes"]) > 0
                     ):
-                        print(planet.name, liberation_change)
                         above_zero = (
                             "+"
                             if sum(liberation_change["liberation_changes"]) > 0
@@ -644,7 +643,6 @@ class Dashboard:
                         liberation_change
                         and len(liberation_change["liberation_changes"]) > 0
                     ):
-                        print(campaign.planet.name, liberation_change)
                         above_zero = (
                             "+"
                             if sum(liberation_change["liberation_changes"]) > 0
