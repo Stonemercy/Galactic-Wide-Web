@@ -240,10 +240,10 @@ class MapCog(commands.Cog):
                     )
             if faction and planets_coords != {}:
                 min_x = min(planets_coords.values(), key=lambda x: x[0])[0] - 150
-                max_x = max(planets_coords.values(), key=lambda x: x[0])[0] - 150
-                min_y = min(planets_coords.values(), key=lambda x: x[1])[1] + 150
+                max_x = max(planets_coords.values(), key=lambda x: x[0])[0] + 150
+                min_y = min(planets_coords.values(), key=lambda x: x[1])[1] - 150
                 max_y = max(planets_coords.values(), key=lambda x: x[1])[1] + 150
-                background = background.crop(min_x, min_y, max_x, max_y)
+                background = background.crop(box=(min_x, min_y, max_x, max_y))
             background.save("resources/map_2.webp")
         await inter.send(
             file=File("resources/map_2.webp"),
