@@ -1,7 +1,6 @@
 from data.lists import enemies
 from disnake import AppCmdInter
 from disnake.ext import commands
-from json import load
 from main import GalacticWideWebBot
 from utils.db import GuildRecord, GuildsDB
 from utils.embeds import Illuminate
@@ -52,14 +51,11 @@ class IlluminateCog(commands.Cog):
         guild_in_db: GuildRecord = GuildsDB.get_info(inter.guild_id)
         if not guild_in_db:
             guild_in_db = GuildsDB.insert_new_guild(inter.guild.id)
-        guild_language = load(
-            open(f"data/languages/{guild_in_db.language}.json", encoding="UTF-8")
-        )
+        guild_language = self.bot.json_dict["languages"][guild_in_db.language]
         if species and variation:
             return await inter.send(
                 guild_language["enemy.species_or_variation"],
                 ephemeral=True,
-                delete_after=5.0,
             )
         elif (species and species not in self.illuminate_dict) or (
             variation and variation not in self.variations_dict

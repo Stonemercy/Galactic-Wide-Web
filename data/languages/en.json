@@ -134,7 +134,7 @@
     "setup.announcements": "Announcements",
     "setup.announcement_channel": "Announcement channel",
     "setup.patch_notes": "Patch notes enabled",
-    "setup.message": "If you're seeing `Not set` where a channel/message should be, check the permissions for the bot!",
+    "setup.message": "-# If you're seeing `Not set` where a channel/message should be, check the permissions for the bot!",
     "setup.unset_dashboard": "I have unset your Dashboard. You are free to delete any old Dashboards in this server.",
     "setup.missing_perm": "I need these permissions to post in that channel:\n> View Channel\n> Send Messages\n> Embed Links\n> Attach Files\n> Use External Emojis",
     "setup.unset_announce": "I have unset your Announcements channel and set your patch notes have been disabled.",

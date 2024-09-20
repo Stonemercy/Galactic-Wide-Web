@@ -314,7 +314,7 @@ def planet_map(data, planet_index, language):
 
 
 def skipped_planets(campaigns: list, total_players):
-    total_players = total_players * 0.05
+    player_minimum = total_players * 0.05
     factions = ("Terminids", "Automaton", "Illuminate")
     results = []
     for faction in factions:
@@ -323,7 +323,7 @@ def skipped_planets(campaigns: list, total_players):
                 campaign
                 for campaign in campaigns
                 if (
-                    campaign.planet.stats["playerCount"] <= total_players
+                    campaign.planet.stats["playerCount"] <= player_minimum
                     or 1 - campaign.planet.health / campaign.planet.max_health <= 0.0001
                 )
                 and campaign.planet.current_owner == faction
@@ -334,7 +334,7 @@ def skipped_planets(campaigns: list, total_players):
             campaign
             for campaign in campaigns
             if (
-                campaign.planet.stats["playerCount"] > total_players
+                campaign.planet.stats["playerCount"] > player_minimum
                 and 1 - campaign.planet.health / campaign.planet.max_health > 0.0001
             )
         ]

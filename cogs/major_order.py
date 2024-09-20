@@ -1,4 +1,3 @@
-from json import load
 from disnake import AppCmdInter
 from disnake.ext import commands
 from main import GalacticWideWebBot
@@ -33,9 +32,7 @@ class MajorOrderCog(commands.Cog):
         guild_in_db: GuildRecord = GuildsDB.get_info(inter.guild_id)
         if not guild_in_db:
             guild_in_db = GuildsDB.insert_new_guild(inter.guild.id)
-        guild_language = load(
-            open(f"data/languages/{guild_in_db.language}.json", encoding="UTF-8")
-        )
+        guild_language = self.bot.json_dict["languages"][guild_in_db.language]
         api = API()
         await api.pull_from_api(get_assignments=True, get_planets=True)
         if api.error:

@@ -1,7 +1,6 @@
 from data.lists import planets
 from disnake import AppCmdInter, File
 from disnake.ext import commands
-from json import load
 from main import GalacticWideWebBot
 from utils.checks import wait_for_startup
 from utils.db import GuildRecord, GuildsDB
@@ -13,9 +12,6 @@ from utils.api import Data, API
 class PlanetCog(commands.Cog):
     def __init__(self, bot: GalacticWideWebBot):
         self.bot = bot
-        self.planets_json = load(
-            open("data/json/planets/planets.json", encoding="UTF-8")
-        )
 
     async def planet_autocomp(inter: AppCmdInter, user_input: str):
         return [command for command in planets if user_input in command.lower()][:25]
@@ -65,7 +61,11 @@ class PlanetCog(commands.Cog):
             return await inter.send("Information on that planet is unavailable.")
         else:
             planet_data = planet_data[0]
-        embed = PlanetEmbed(planet_data, planet_data.thumbnail, guild.language)
+        embed = PlanetEmbed(
+            planet_data,
+            planet_data.thumbnail,
+            self.bot.json_dict["languages"][guild.language],
+        )
         try:
             embed.set_image(
                 file=File(f"resources/biomes/{planet_data.biome['name'].lower()}.png")

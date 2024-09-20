@@ -34,6 +34,7 @@ class GalacticWideWebBot(commands.InteractionBot):
         self.patch_channels = []
         self.map_messages = []
         self.map_channels = []
+        self.json_dict = {}
 
     async def on_ready(self):
         self.moderator_channel = self.get_channel(int(getenv("MODERATION_CHANNEL")))
@@ -46,8 +47,8 @@ class GalacticWideWebBot(commands.InteractionBot):
 
 bot = GalacticWideWebBot()
 
-bot.load_extensions("cogs")
 bot.load_extensions("cogs/admin")
+bot.load_extensions("cogs")
 
 if __name__ == "__main__":
     bot.run(getenv("TOKEN"))

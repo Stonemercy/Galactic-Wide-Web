@@ -1,7 +1,6 @@
 from data.lists import language_dict
 from disnake import AppCmdInter, File, Permissions, TextChannel
 from disnake.ext import commands
-from json import load
 from main import GalacticWideWebBot
 from utils.api import API, Data
 from utils.checks import wait_for_startup
@@ -83,9 +82,7 @@ class SetupCog(commands.Cog):
         guild_in_db: GuildRecord = GuildsDB.get_info(inter.guild_id)
         if not guild_in_db:
             guild_in_db = GuildsDB.insert_new_guild(inter.guild_id)
-        guild_language = load(
-            open(f"data/languages/{guild_in_db.language}.json", encoding="UTF-8")
-        )
+        guild_language = self.bot.json_dict["languages"][guild_in_db.language]
         inv_lang_dict = {v: k for k, v in language_dict.items()}
         if not any(
             [
@@ -179,9 +176,7 @@ class SetupCog(commands.Cog):
                 )
             else:
                 GuildsDB.update_language(inter.guild_id, language)
-                guild_language = load(
-                    open(f"data/languages/{language}.json", encoding="UTF-8")
-                )
+                guild_language = self.bot.json_dict["languages"][language]["values"]
                 embed.add_field(
                     guild_language["setup.language"],
                     (

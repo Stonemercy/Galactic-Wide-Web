@@ -1,6 +1,5 @@
 from disnake import AppCmdInter
 from disnake.ext import commands
-from json import load
 from main import GalacticWideWebBot
 from utils.embeds import StratagemEmbed
 
@@ -8,10 +7,9 @@ from utils.embeds import StratagemEmbed
 class StratagemsCog(commands.Cog):
     def __init__(self, bot: GalacticWideWebBot):
         self.bot = bot
-        self.stratagems: dict = load(open("data/json/stratagems.json"))
 
     async def stratagem_autocomp(inter: AppCmdInter, user_input: str):
-        stratagems: dict = load(open("data/json/stratagems.json"))
+        stratagems: dict = inter.bot.json_dict["stratagems"]
         return [name for name in stratagems if user_input in name.lower()][:25]
 
     @commands.slash_command(description="Returns information on a stratagem.")
@@ -23,6 +21,7 @@ class StratagemsCog(commands.Cog):
             description="The stratagem you want to lookup",
         ),
     ):
+        self.stratagems: dict = self.bot.json_dict["stratagems"]
         self.bot.logger.info(
             f"{self.qualified_name} | /{inter.application_command.name} <{stratagem = }>"
         )

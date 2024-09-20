@@ -11,13 +11,13 @@ from data.lists import (
     victory_poses_list,
     player_cards_list,
     titles_list,
+    stratagem_permit_list,
 )
 
 
 class PlanetEmbed(Embed):
     def __init__(self, planet: Planet, thumbnail_url: str, language):
         super().__init__(colour=Colour.blue())
-        language = load(open(f"data/languages/{language}.json", encoding="UTF-8"))
         if planet.current_owner == "Humans":
             if not planet.event:
                 planet_health_bar = health_bar(
@@ -223,17 +223,30 @@ class MajorOrderEmbed(Embed):
                     inline=False,
                 )
             elif task.type == 15:
-                progress_dict = {-1: 0, 0: 0.5, 1: 1}
+                progress_dict = {
+                    -10: 0,
+                    -8: 0.1,
+                    -4: 0.2,
+                    -2: 0.3,
+                    0: 0.4,
+                    2: 0.5,
+                    4: 0.6,
+                    6: 0.8,
+                    10: 1,
+                }
                 percent = 0
                 for progress, perc in progress_dict.items():
                     if task.progress <= progress:
                         percent = perc
                         break
-                event_health_bar = health_bar(percent, "MO")
                 victory = (
                     language_json["dashboard.victory"]
-                    if perc == 1
+                    if percent > 0.5
                     else language_json["dashboard.defeat"]
+                )
+                event_health_bar = health_bar(
+                    percent,
+                    "Humans" if victory == ["dashboard.victory"] else "Automaton",
                 )
                 self.add_field(
                     f"{language_json['major_order.liberate_more_than_them']} ",
@@ -496,18 +509,32 @@ class Dashboard:
                         inline=False,
                     )
                 elif task.type == 15:
-                    progress_dict = {-1: 0, 0: 0.5, 1: 1}
+                    progress_dict = {
+                        -10: 0,
+                        -8: 0.1,
+                        -4: 0.2,
+                        -2: 0.3,
+                        0: 0.4,
+                        2: 0.5,
+                        4: 0.6,
+                        6: 0.8,
+                        10: 1,
+                    }
                     percent = 0
                     for progress, perc in progress_dict.items():
                         if task.progress <= progress:
                             percent = perc
                             break
-                    event_health_bar = health_bar(percent, "MO")
                     victory = (
                         language["dashboard.victory"]
-                        if perc == 1
+                        if percent > 0.5
                         else language["dashboard.defeat"]
                     )
+                    event_health_bar = health_bar(
+                        percent,
+                        "Humans" if victory == ["dashboard.victory"] else "Automaton",
+                    )
+
                     major_orders_embed.add_field(
                         f"{language['major_order.liberate_more_than_them']} ",
                         (
@@ -549,6 +576,7 @@ class Dashboard:
                     if (
                         liberation_change
                         and len(liberation_change["liberation_changes"]) > 0
+                        and sum(liberation_change["liberation_changes"] != 0)
                     ):
                         above_zero = (
                             "+"
@@ -568,7 +596,7 @@ class Dashboard:
                             False: f"**{language['dashboard.defeat']}**",
                         }[
                             datetime.fromtimestamp(now_seconds + seconds_to_complete)
-                            < planet.event.end_time_datetime.replace(tzinfo=None)
+                            < planet.event.end_time_datetime
                         ]
                         time_to_complete = (
                             f"<t:{now_seconds + seconds_to_complete}:R>"
@@ -1123,6 +1151,14 @@ class Items:
                         f"{item_names[str(item['item_id'])]['name']}",
                         (
                             "Type: Title\n"
+                            f"Medal cost: **{item['medal_cost']} <:medal:1226254158278037504>**"
+                        ),
+                    )
+                elif item_names[str(item["item_id"])]["name"] in stratagem_permit_list:
+                    self.add_field(
+                        f"{item_names[str(item['item_id'])]['name']}",
+                        (
+                            "Type: Stratagem Permit\n"
                             f"Medal cost: **{item['medal_cost']} <:medal:1226254158278037504>**"
                         ),
                     )

@@ -134,7 +134,7 @@
     "setup.announcements": "Ankündigungen",
     "setup.announcement_channel": "Ankündigungskanal",
     "setup.patch_notes": "Patch-Hinweise aktiviert",
-    "setup.message": "Wenn Sie 'Nicht festgelegt' sehen, wo ein Kanal/eine Nachricht sein sollte, überprüfen Sie die Berechtigungen für den Bot!",
+    "setup.message": "-# Wenn Sie 'Nicht festgelegt' sehen, wo ein Kanal/eine Nachricht sein sollte, überprüfen Sie die Berechtigungen für den Bot!",
     "setup.unset_dashboard": "Ich habe Ihr Dashboard entfernt. Sie können alle alten Dashboards in diesem Server löschen.",
     "setup.missing_perm": "Ich benötige diese Berechtigungen, um in diesem Kanal zu posten:\n> Kanal anzeigen\n> Nachrichten senden\n> Einbetten von Links\n> Dateien anhängen\n> Externe Emojis verwenden",
     "setup.unset_announce": "Ich habe Ihren Ankündigungskanal entfernt und Ihre Patch-Hinweise wurden deaktiviert.",

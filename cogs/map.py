@@ -3,7 +3,6 @@ from data.lists import supported_languages
 from datetime import datetime, time, timedelta
 from disnake import AppCmdInter, File, NotFound, Forbidden, PartialMessage
 from disnake.ext import commands, tasks
-from json import load
 from main import GalacticWideWebBot
 from PIL import Image
 from PIL.ImageDraw import Draw
@@ -28,9 +27,6 @@ class MapCog(commands.Cog):
             "humans": (18, 102, 38),
             "MO": (254, 226, 76),
         }
-        self.planet_names_loc = load(
-            open(f"data/json/planets/planets.json", encoding="UTF-8")
-        )
         self.map_poster.start()
 
     def cog_unload(self):
@@ -228,7 +224,7 @@ class MapCog(commands.Cog):
                     font = truetype("gww-font.ttf", 50)
                     background_draw.multiline_text(
                         xy=coords,
-                        text=self.planet_names_loc[str(index)]["names"][
+                        text=self.bot.json_dict["planets"][str(index)]["names"][
                             supported_languages[guild.language]
                         ].replace(" ", "\n"),
                         anchor="md",

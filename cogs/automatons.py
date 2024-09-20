@@ -1,7 +1,6 @@
 from data.lists import enemies
 from disnake import AppCmdInter
 from disnake.ext import commands
-from json import load
 from main import GalacticWideWebBot
 from utils.db import GuildRecord, GuildsDB
 from utils.embeds import Automaton
@@ -45,18 +44,16 @@ class AutomatonCog(commands.Cog):
             description="A specific variant of an automaton",
         ),
     ):
+        await inter.response.defer(ephemeral=True)
         self.bot.logger.info(
             f"{self.qualified_name} | /{inter.application_command.name} <{species = }> <{variation = }>"
         )
         if not species and not variation:
             return await inter.send(":robot:", delete_after=10.0, ephemeral=True)
-        await inter.response.defer(ephemeral=True)
         guild_in_db: GuildRecord = GuildsDB.get_info(inter.guild_id)
         if not guild_in_db:
             guild_in_db = GuildsDB.insert_new_guild(inter.guild.id)
-        guild_language = load(
-            open(f"data/languages/{guild_in_db.language}.json", encoding="UTF-8")
-        )
+        guild_language = self.bot.json_dict["languages"][guild_in_db.language]
         if species and variation:
             return await inter.send(
                 guild_language["enemy.species_or_variation"],

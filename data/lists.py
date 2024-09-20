@@ -555,6 +555,86 @@ language_dict = {
     "Deutsch": "de",
 }
 
+json_dict = {
+    "languages": {
+        "en": {"path": "data/languages/en.json", "value": None},
+        "fr": {"path": "data/languages/fr.json", "value": None},
+        "de": {"path": "data/languages/de.json", "value": None},
+    },
+    "stratagems": {"path": "data/json/stratagems.json", "value": None},
+    "warbonds": {
+        "index": {"path": "data/json/warbonds.json", "value": None},
+        "helldivers_mobilize": {
+            "path": "data/json/warbonds/helldivers_mobilize.json",
+            "value": None,
+        },
+        "steeled_veterans": {
+            "path": "data/json/warbonds/steeled_veterans.json",
+            "value": None,
+        },
+        "cutting_edge": {
+            "path": "data/json/warbonds/cutting_edge.json",
+            "value": None,
+        },
+        "democratic_detonation": {
+            "path": "data/json/warbonds/democratic_detonation.json",
+            "value": None,
+        },
+        "polar_patriots": {
+            "path": "data/json/warbonds/polar_patriots.json",
+            "value": None,
+        },
+        "viper_commandos": {
+            "path": "data/json/warbonds/viper_commandos.json",
+            "value": None,
+        },
+        "freedoms_flame": {
+            "path": "data/json/warbonds/freedoms_flame.json",
+            "value": None,
+        },
+        "chemical_agents": {
+            "path": "data/json/warbonds/chemical_agents.json",
+            "value": None,
+        },
+    },
+    "planets": {
+        "path": "data/json/planets/planets.json",
+        "value": None,
+    },
+    "items": {
+        "item_names": {
+            "path": "data/json/items/item_names.json",
+            "value": None,
+        },
+        "armour": {"path": "data/json/items/armor/armor.json", "value": None},
+        "armour_perks": {
+            "path": "data/json/items/armor/passive.json",
+            "value": None,
+        },
+        "primary_weapons": {
+            "path": "data/json/items/weapons/primary.json",
+            "value": None,
+        },
+        "secondary_weapons": {
+            "path": "data/json/items/weapons/secondary.json",
+            "value": None,
+        },
+        "grenades": {
+            "path": "data/json/items/weapons/grenades.json",
+            "value": None,
+        },
+        "weapon_types": {
+            "path": "data/json/items/weapons/types.json",
+            "value": None,
+        },
+        "boosters": {"path": "data/json/items/boosters.json", "value": None},
+        "reward_types": {
+            "path": "data/json/assignments/reward/type.json",
+            "value": None,
+        },
+    },
+}
+
 supported_languages = {
     "en": "en-GB",
     "de": "de-DE",
@@ -615,7 +695,8 @@ warbond_images_dict = {
     "Democratic Detonation": "https://media.discordapp.net/attachments/1212735927223590974/1234539582671032441/democratic_detonation.png?ex=66311a15&is=662fc895&hm=a7ea39cebf97692bce42f0f1ef04b535b4e241279860439f87a1b13dda7c13b6&=&format=webp&quality=lossless",
     "Polar Patriots": "https://cdn.discordapp.com/attachments/1212735927223590974/1243556076113235978/polar_patriots.png?ex=6651e758&is=665095d8&hm=5892cb4b53945d328c6cc8e322f96a6dd42bbc1ab00af03ca8f0026564c13e8a&",
     "Viper Commandos": "https://cdn.discordapp.com/attachments/1212735927223590974/1250840006356893757/viper_commandos.png?ex=666c6708&is=666b1588&hm=14b58f35a78fdbc87aaf285fb02154a814778ededbccc870930261899cf12bef&",
-    "Freedoms Flame": "https://cdn.discordapp.com/attachments/1212735927223590974/1283844729632591985/freedoms_flame.png?ex=66e47914&is=66e32794&hm=3a3d1bb0b9f67dbeb2f63e625511130971fc888d81d36b393996fe1771517fc8&",
+    "Freedom's Flame": "https://cdn.discordapp.com/attachments/1212735927223590974/1283844729632591985/freedoms_flame.png?ex=66e47914&is=66e32794&hm=3a3d1bb0b9f67dbeb2f63e625511130971fc888d81d36b393996fe1771517fc8&",
+    "Chemical Agents": "https://cdn.discordapp.com/attachments/1212735927223590974/1286254303001972736/chemical_agents.png?ex=66ed3d2b&is=66ebebab&hm=510de52a270f795006e61129f83f0e0b70bf438a042b8b2d9859111806574cf3&",
 }
 
 help_dict = {
@@ -773,3 +854,5 @@ titles_list = [
     "Fire Safety Officer",
     "Expert Exterminator",
 ]
+
+stratagem_permit_list = ["Steriliser", "'Guard Dog' Dog Breath"]

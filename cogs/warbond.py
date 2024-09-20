@@ -1,7 +1,6 @@
 from disnake import AppCmdInter, ButtonStyle, MessageInteraction
-from disnake.ext import commands
+from disnake.ext import commands, tasks
 from disnake.ui import Button, ActionRow
-from json import load
 from main import GalacticWideWebBot
 from re import findall
 from utils.embeds import Items
@@ -10,31 +9,31 @@ from utils.embeds import Items
 class WarbondCog(commands.Cog):
     def __init__(self, bot: GalacticWideWebBot):
         self.bot = bot
-        self.warbond_names = load(open("data/json/warbonds.json"))
-        self.warbond_names["item_list"] = {}
-        for i, j in self.warbond_names.items():
-            if i == "item_list":
-                continue
-            self.warbond_names["item_list"][j["name"]] = j
-        self.warbond_names = self.warbond_names["item_list"]
-        self.item_names = load(open("data/json/items/item_names.json"))
-        self.armour_json = load(
-            open(f"data/json/items/armor/armor.json", encoding="UTF-8")
-        )
-        self.armor_perks_json = load(open("data/json/items/armor/passive.json"))
-        self.primary_json = load(open("data/json/items/weapons/primary.json"))
-        self.secondary_json = load(open("data/json/items/weapons/secondary.json"))
-        self.grenade_json = load(open("data/json/items/weapons/grenades.json"))
-        self.weapon_types = load(open("data/json/items/weapons/types.json"))
-        self.boosters: dict = load(open("data/json/items/boosters.json"))
-        self.boosters = [booster["name"] for booster in self.boosters.copy().values()]
+        self.json_load.start()
 
     async def warbond_autocomp(inter: AppCmdInter, user_input: str):
-        warbond_names = load(open("data/json/warbonds.json"))
-        warbond_names = {item["name"]: item for item in warbond_names.values()}
+        warbond_names = [
+            warbond["name"]
+            for warbond in inter.bot.json_dict["warbonds"]["index"].values()
+        ]
         return [warbond for warbond in warbond_names if user_input in warbond.lower()][
             :25
         ]
+
+    @tasks.loop(count=1)
+    async def json_load(self):
+        self.warbond_index = {
+            warbond["name"]: warbond
+            for warbond in self.bot.json_dict["warbonds"]["index"].values()
+        }
+        self.boosters = [
+            booster["name"]
+            for booster in self.bot.json_dict["items"]["boosters"].values()
+        ]
+
+    @json_load.before_loop
+    async def before_json_load(self):
+        await self.bot.wait_until_ready()
 
     @commands.slash_command(
         description="Returns a basic summary of the items in a specific warbond."
@@ -49,7 +48,7 @@ class WarbondCog(commands.Cog):
         self.bot.logger.info(
             f"{self.qualified_name} | /{inter.application_command.name} <{warbond = }>"
         )
-        if warbond not in self.warbond_names:
+        if warbond not in self.warbond_index:
             return await inter.send(
                 (
                     "That warbond isn't in my list, please try again.\n"
@@ -57,32 +56,32 @@ class WarbondCog(commands.Cog):
                 ),
                 ephemeral=True,
             )
-        chosen_warbond = load(
-            open(f"data/json/warbonds/{self.warbond_names[warbond]['id']}.json")
-        )
+        chosen_warbond = self.bot.json_dict["warbonds"][
+            self.warbond_index[warbond]["id"]
+        ]
         embed = Items.Warbond(
             chosen_warbond,
-            self.warbond_names[warbond],
-            self.item_names,
+            self.warbond_index[warbond],
+            self.bot.json_dict["items"]["item_names"],
             1,
-            self.armour_json,
-            self.armor_perks_json,
-            self.primary_json,
-            self.secondary_json,
-            self.grenade_json,
-            self.weapon_types,
+            self.bot.json_dict["items"]["armour"],
+            self.bot.json_dict["items"]["armour_perks"],
+            self.bot.json_dict["items"]["primary_weapons"],
+            self.bot.json_dict["items"]["secondary_weapons"],
+            self.bot.json_dict["items"]["grenades"],
+            self.bot.json_dict["items"]["weapon_types"],
             self.boosters,
         )
         components = [
             Button(
                 style=ButtonStyle.success,
-                custom_id=f"{self.warbond_names[warbond]['name']}_prev_page",
+                custom_id=f"{self.warbond_index[warbond]['name']}_prev_page",
                 label="Previous Page",
                 disabled=True,
             ),
             Button(
                 style=ButtonStyle.success,
-                custom_id=f"{self.warbond_names[warbond]['name']}_next_page",
+                custom_id=f"{self.warbond_index[warbond]['name']}_next_page",
                 label="Next Page",
             ),
         ]
@@ -95,11 +94,11 @@ class WarbondCog(commands.Cog):
     @commands.Cog.listener("on_button_click")
     async def page_button_listener(self, inter: MessageInteraction):
         button_id = inter.component.custom_id
-        if button_id[:-10] not in self.warbond_names:
+        if button_id[:-10] not in self.warbond_index:
             return
         action_row = ActionRow.rows_from_message(inter.message)[0]
-        warbond_json = self.warbond_names[button_id[:-10]]
-        warbond = load(open(f"data/json/warbonds/{warbond_json['id']}.json"))
+        warbond_json = self.warbond_index[button_id[:-10]]
+        warbond = inter.bot.json_dict["warbonds"][warbond_json["id"]]
         page_count = [int(i) for i in warbond]
         current_page = int(findall(r"\d+", inter.message.embeds[0].description)[0])
         new_page = (
@@ -117,14 +116,14 @@ class WarbondCog(commands.Cog):
         embed = Items.Warbond(
             warbond,
             warbond_json,
-            self.item_names,
+            self.bot.json_dict["items"]["item_names"],
             new_page,
-            self.armour_json,
-            self.armor_perks_json,
-            self.primary_json,
-            self.secondary_json,
-            self.grenade_json,
-            self.weapon_types,
+            self.bot.json_dict["items"]["armour"],
+            self.bot.json_dict["items"]["armour_perks"],
+            self.bot.json_dict["items"]["primary_weapons"],
+            self.bot.json_dict["items"]["secondary_weapons"],
+            self.bot.json_dict["items"]["grenades"],
+            self.bot.json_dict["items"]["weapon_types"],
             self.boosters,
         )
         await inter.response.edit_message(
