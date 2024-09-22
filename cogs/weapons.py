@@ -55,6 +55,7 @@ class WeaponsCog(commands.Cog):
             description="The Primary weapon you want to lookup",
         ),
     ):
+        await inter.response.defer(ephemeral=True)
         self.bot.logger.info(
             f"{self.qualified_name} | /{inter.application_command.name} <{primary = }>"
         )
