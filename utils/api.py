@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 from logging import getLogger
 from os import getenv
 from aiohttp import ClientSession
@@ -294,8 +294,12 @@ class Planet:
             self.max_health: int = event["maxHealth"]
             self.start_time = event["startTime"]
             self.end_time = event["endTime"]
-            self.start_time_datetime = datetime.fromisoformat(self.start_time)
-            self.end_time_datetime = datetime.fromisoformat(self.end_time)
+            self.start_time_datetime = datetime.fromisoformat(self.start_time).replace(
+                tzinfo=None
+            ) + timedelta(hours=1)
+            self.end_time_datetime = datetime.fromisoformat(self.end_time).replace(
+                tzinfo=None
+            ) + timedelta(hours=1)
             self.progress: float = self.health / self.max_health
 
         def __repr__(self):
