@@ -226,12 +226,14 @@ class MajorOrderEmbed(Embed):
                 progress_dict = {
                     -10: 0,
                     -8: 0.1,
-                    -4: 0.2,
-                    -2: 0.3,
-                    0: 0.4,
-                    2: 0.5,
-                    4: 0.6,
+                    -6: 0.2,
+                    -4: 0.3,
+                    -2: 0.4,
+                    0: 0.5,
+                    2: 0.6,
+                    4: 0.7,
                     6: 0.8,
+                    8: 0.9,
                     10: 1,
                 }
                 percent = 0
@@ -512,12 +514,14 @@ class Dashboard:
                     progress_dict = {
                         -10: 0,
                         -8: 0.1,
-                        -4: 0.2,
-                        -2: 0.3,
-                        0: 0.4,
-                        2: 0.5,
-                        4: 0.6,
+                        -6: 0.2,
+                        -4: 0.3,
+                        -2: 0.4,
+                        0: 0.5,
+                        2: 0.6,
+                        4: 0.7,
                         6: 0.8,
+                        8: 0.9,
                         10: 1,
                     }
                     percent = 0
@@ -532,9 +536,12 @@ class Dashboard:
                     )
                     event_health_bar = health_bar(
                         percent,
-                        "Humans" if victory == ["dashboard.victory"] else "Automaton",
+                        (
+                            "Humans"
+                            if victory == language["dashboard.victory"]
+                            else "Automaton"
+                        ),
                     )
-
                     major_orders_embed.add_field(
                         f"{language['major_order.liberate_more_than_them']} ",
                         (
@@ -576,7 +583,7 @@ class Dashboard:
                     if (
                         liberation_change
                         and len(liberation_change["liberation_changes"]) > 0
-                        and sum(liberation_change["liberation_changes"] != 0)
+                        and sum(liberation_change["liberation_changes"]) != 0
                     ):
                         above_zero = (
                             "+"
