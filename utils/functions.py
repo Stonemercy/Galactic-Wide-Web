@@ -195,17 +195,28 @@ async def dashboard_maps(data, channel: TextChannel):
                                 fill=faction_colour["MO"],
                             )
             for index, coords in planets_coords.items():
-                background_draw.ellipse(
-                    [
-                        (coords[0] - 35, coords[1] - 35),
-                        (coords[0] + 35, coords[1] + 35),
-                    ],
-                    fill=(
-                        faction_colour[data.planets[index].current_owner]
-                        if data.planets[index].name in available_planets
-                        else faction_colour[data.planets[index].current_owner.lower()]
-                    ),
-                )
+                if index == 64:
+                    background_draw.ellipse(
+                        [
+                            (coords[0] - 35, coords[1] - 35),
+                            (coords[0] + 35, coords[1] + 35),
+                        ],
+                        fill=(95, 61, 181),
+                    )
+                else:
+                    background_draw.ellipse(
+                        [
+                            (coords[0] - 35, coords[1] - 35),
+                            (coords[0] + 35, coords[1] + 35),
+                        ],
+                        fill=(
+                            faction_colour[data.planets[index].current_owner]
+                            if data.planets[index].name in available_planets
+                            else faction_colour[
+                                data.planets[index].current_owner.lower()
+                            ]
+                        ),
+                    )
             for index, coords in planets_coords.items():
                 if data.planets[index].name in available_planets:
                     font = truetype("gww-font.ttf", 50)

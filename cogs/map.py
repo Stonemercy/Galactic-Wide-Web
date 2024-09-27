@@ -207,19 +207,28 @@ class MapCog(commands.Cog):
                         except:
                             pass
             for index, coords in planets_coords.items():
-                background_draw.ellipse(
-                    [
-                        (coords[0] - 35, coords[1] - 35),
-                        (coords[0] + 35, coords[1] + 35),
-                    ],
-                    fill=(
-                        self.faction_colour[data.planets[index].current_owner]
-                        if data.planets[index].name in available_planets
-                        else self.faction_colour[
-                            data.planets[index].current_owner.lower()
-                        ]
-                    ),
-                )
+                if index == 64:
+                    background_draw.ellipse(
+                        [
+                            (coords[0] - 35, coords[1] - 35),
+                            (coords[0] + 35, coords[1] + 35),
+                        ],
+                        fill=(95, 61, 181),
+                    )
+                else:
+                    background_draw.ellipse(
+                        [
+                            (coords[0] - 35, coords[1] - 35),
+                            (coords[0] + 35, coords[1] + 35),
+                        ],
+                        fill=(
+                            self.faction_colour[data.planets[index].current_owner]
+                            if data.planets[index].name in available_planets
+                            else self.faction_colour[
+                                data.planets[index].current_owner.lower()
+                            ]
+                        ),
+                    )
                 if faction and data.planets[index].name in available_planets:
                     font = truetype("gww-font.ttf", 50)
                     background_draw.multiline_text(
