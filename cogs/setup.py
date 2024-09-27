@@ -176,7 +176,7 @@ class SetupCog(commands.Cog):
                 )
             else:
                 GuildsDB.update_language(inter.guild_id, language)
-                guild_language = self.bot.json_dict["languages"][language]["values"]
+                guild_language = self.bot.json_dict["languages"][language]
                 embed.add_field(
                     guild_language["setup.language"],
                     (
