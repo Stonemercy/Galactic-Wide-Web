@@ -9,34 +9,41 @@ from utils.embeds import Items
 class WeaponsCog(commands.Cog):
     def __init__(self, bot: GalacticWideWebBot):
         self.bot = bot
-        self.types = load(open("data/json/items/weapons/types.json"))
-        self.fire_modes = load(open("data/json/items/weapons/fire_modes.json"))
-        self.traits = load(open("data/json/items/weapons/traits.json"))
-
-        self.primaries_json = load(open("data/json/items/weapons/primary.json"))
-        self.primaries = {item["name"]: item for item in self.primaries_json.values()}
-
-        self.secondaries_json = load(open("data/json/items/weapons/secondary.json"))
-        self.secondaries = {item["name"]: item for item in self.primaries_json.values()}
-
-        self.grenades_json = load(open("data/json/items/weapons/grenades.json"))
-        self.grenades = {item["name"]: item for item in self.primaries_json.values()}
+        self.types = self.bot.json_dict["items"]["weapon_types"]
+        self.fire_modes = self.bot.json_dict["items"]["fire_modes"]
+        self.traits = self.bot.json_dict["items"]["weapon_traits"]
+        self.primaries = {
+            item["name"]: item
+            for item in self.bot.json_dict["items"]["primary_weapons"].values()
+        }
+        self.secondaries = {
+            item["name"]: item
+            for item in self.bot.json_dict["items"]["secondary_weapons"].values()
+        }
+        self.grenades = {
+            item["name"]: item
+            for item in self.bot.json_dict["items"]["grenades"].values()
+        }
 
     async def primary_autocomp(inter: AppCmdInter, user_input: str):
-        primaries_json = load(open("data/json/items/weapons/primary.json"))
-        primaries = [i["name"] for i in primaries_json.values()]
+        primaries = [
+            i["name"] for i in inter.bot.json_dict["items"]["primary_weapons"].values()
+        ]
         return [primary for primary in primaries if user_input in primary.lower()][:25]
 
     async def secondary_autocomp(inter: AppCmdInter, user_input: str):
-        secondaries_json = load(open("data/json/items/weapons/secondary.json"))
-        secondaries = [i["name"] for i in secondaries_json.values()]
+        secondaries = [
+            i["name"]
+            for i in inter.bot.json_dict["items"]["secondary_weapons"].values()
+        ]
         return [
             secondary for secondary in secondaries if user_input in secondary.lower()
         ][:25]
 
     async def grenade_autocomp(inter: AppCmdInter, user_input: str):
-        grenades_json = load(open("data/json/items/weapons/grenades.json"))
-        grenades = [i["name"] for i in grenades_json.values()]
+        grenades = [
+            i["name"] for i in inter.bot.json_dict["items"]["grenades"].values()
+        ]
         return [grenade for grenade in grenades if user_input in grenade.lower()][:25]
 
     @commands.slash_command(description="Returns information on a specific weapon.")
@@ -62,9 +69,7 @@ class WeaponsCog(commands.Cog):
         guild_in_db: GuildRecord = GuildsDB.get_info(inter.guild_id)
         if not guild_in_db:
             guild_in_db = GuildsDB.insert_new_guild(inter.guild.id)
-        guild_language = load(
-            open(f"data/languages/{guild_in_db.language}.json", encoding="UTF-8")
-        )
+        guild_language = self.bot.json_dict["languages"][guild_in_db.language]
         if primary not in self.primaries:
             return await inter.send(
                 guild_language["weapons.missing"],
@@ -95,9 +100,7 @@ class WeaponsCog(commands.Cog):
         guild_in_db: GuildRecord = GuildsDB.get_info(inter.guild_id)
         if not guild_in_db:
             guild_in_db = GuildsDB.insert_new_guild(inter.guild.id)
-        guild_language = load(
-            open(f"data/languages/{guild_in_db.language}.json", encoding="UTF-8")
-        )
+        guild_language = self.bot.json_dict["languages"][guild_in_db.language]
         if secondary not in self.secondaries:
             return await inter.send(
                 guild_language["weapons.missing"],
@@ -127,9 +130,7 @@ class WeaponsCog(commands.Cog):
         guild_in_db: GuildRecord = GuildsDB.get_info(inter.guild_id)
         if not guild_in_db:
             guild_in_db = GuildsDB.insert_new_guild(inter.guild.id)
-        guild_language = load(
-            open(f"data/languages/{guild_in_db.language}.json", encoding="UTF-8")
-        )
+        guild_language = self.bot.json_dict["languages"][guild_in_db.language]
         if grenade not in self.grenades:
             return await inter.send(
                 guild_language["weapons.missing"],

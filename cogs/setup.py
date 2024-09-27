@@ -344,7 +344,9 @@ class SetupCog(commands.Cog):
                     else:
                         data = Data(data_from_api=api)
                         map_embeds = await dashboard_maps(
-                            data, self.bot.waste_bin_channel
+                            data,
+                            self.bot.waste_bin_channel,
+                            self.bot.json_dict["planets"],
                         )
                         map_embed = map_embeds[guild_in_db.language]
                         message = await map_channel.send(

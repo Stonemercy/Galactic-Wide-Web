@@ -1,4 +1,3 @@
-from data.lists import enemies
 from disnake import AppCmdInter
 from disnake.ext import commands
 from main import GalacticWideWebBot
@@ -9,24 +8,31 @@ from utils.embeds import Terminid
 class TerminidsCog(commands.Cog):
     def __init__(self, bot: GalacticWideWebBot):
         self.bot = bot
-        self.terminids_dict = enemies["terminids"]
+        self.terminids_dict = self.bot.json_dict["enemies"]["terminids"]
         self.variations_dict = {}
-        for i in enemies["terminids"].values():
+        for i in self.terminids_dict.values():
             if i["variations"]:
                 self.variations_dict.update(i["variations"])
 
     async def terminids_autocomp(inter: AppCmdInter, user_input: str):
         return [
-            command for command in enemies["terminids"] if user_input in command.lower()
+            species
+            for species in inter.bot.json_dict["enemies"]["terminids"]
+            if user_input in species.lower()
         ][:25]
 
     async def variations_autocomp(inter: AppCmdInter, user_input: str):
-        variations_list: list[str] = []
-        for i in enemies["terminids"].values():
-            if i["variations"] != None:
-                for n in i["variations"]:
-                    variations_list.append(n)
-        return [command for command in variations_list if user_input in command.lower()]
+        variations_list = [
+            variation
+            for i in inter.bot.json_dict["enemies"]["terminids"].values()
+            if i["variations"]
+            for variation in i["variations"]
+        ]
+        return [
+            variation
+            for variation in variations_list
+            if user_input in variation.lower()
+        ][:25]
 
     @commands.slash_command(
         description="Returns information on a Terminid or variation.",

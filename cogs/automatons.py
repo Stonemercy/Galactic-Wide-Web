@@ -1,4 +1,3 @@
-from data.lists import enemies
 from disnake import AppCmdInter
 from disnake.ext import commands
 from main import GalacticWideWebBot
@@ -9,23 +8,31 @@ from utils.embeds import Automaton
 class AutomatonCog(commands.Cog):
     def __init__(self, bot: GalacticWideWebBot):
         self.bot = bot
-        self.automaton_dict = enemies["automaton"]
+        self.automaton_dict = self.bot.json_dict["enemies"]["automaton"]
         self.variations_dict = {}
-        for i in enemies["automaton"].values():
+        for i in self.automaton_dict.values():
             if i["variations"]:
                 self.variations_dict.update(i["variations"])
 
     async def automaton_autocomp(inter: AppCmdInter, user_input: str):
-        return [cmd for cmd in enemies["automaton"] if user_input in cmd.lower()][:25]
+        return [
+            species
+            for species in inter.bot.json_dict["enemies"]["automaton"]
+            if user_input in species.lower()
+        ][:25]
 
     async def variations_autocomp(inter: AppCmdInter, user_input: str):
-        variations_list: list[str] = [
+        variations_list = [
             variation
-            for i in enemies["automaton"].values()
+            for i in inter.bot.json_dict["enemies"]["automaton"].values()
             if i["variations"]
             for variation in i["variations"]
         ]
-        return [cmd for cmd in variations_list if user_input in cmd.lower()][:25]
+        return [
+            variation
+            for variation in variations_list
+            if user_input in variation.lower()
+        ][:25]
 
     @commands.slash_command(
         description="Returns information on an Automaton or variation.",

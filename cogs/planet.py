@@ -1,4 +1,3 @@
-from data.lists import planets
 from disnake import AppCmdInter, File
 from disnake.ext import commands
 from main import GalacticWideWebBot
@@ -14,7 +13,11 @@ class PlanetCog(commands.Cog):
         self.bot = bot
 
     async def planet_autocomp(inter: AppCmdInter, user_input: str):
-        return [command for command in planets if user_input in command.lower()][:25]
+        return [
+            planet["name"]
+            for planet in inter.bot.json_dict["planets"].values()
+            if user_input in planet["name"].lower()
+        ][:25]
 
     @wait_for_startup()
     @commands.slash_command(description="Returns the war details on a specific planet.")
@@ -35,7 +38,9 @@ class PlanetCog(commands.Cog):
         self.bot.logger.info(
             f"{self.qualified_name} | /{inter.application_command.name} <{planet = }> <{public = }>"
         )
-        if planet not in planets:
+        if planet not in [
+            planet["name"] for planet in self.bot.json_dict["planets"].values()
+        ]:
             return await inter.send(
                 "Please select a planet from the list.",
                 ephemeral=public,

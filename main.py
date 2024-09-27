@@ -1,10 +1,10 @@
-import logging
+from logging import getLogger, INFO, FileHandler, Formatter
 from datetime import datetime, timedelta
 from disnake import ActivityType, Intents, Activity
 from disnake.ext import commands
 from dotenv import load_dotenv
 from os import getenv, listdir
-
+from utils.functions import load_json
 
 load_dotenv("data/.env")
 OWNER = int(getenv("OWNER"))
@@ -16,13 +16,12 @@ activity = Activity(name="for Socialism", type=ActivityType.watching)
 class GalacticWideWebBot(commands.InteractionBot):
     def __init__(self):
         super().__init__(owner_id=OWNER, intents=intents, activity=activity)
-        logger = logging.getLogger("disnake")
-        logger.setLevel(logging.INFO)
-        handler = logging.FileHandler(
-            filename="disnake.log", encoding="utf-8", mode="w"
         )
+        logger = getLogger("disnake")
+        logger.setLevel(INFO)
+        handler = FileHandler(filename="disnake.log", encoding="utf-8", mode="w")
         handler.setFormatter(
-            logging.Formatter("%(asctime)s: %(levelname)s: %(name)s: %(message)s")
+            Formatter("%(asctime)s: %(levelname)s: %(name)s: %(message)s")
         )
         logger.addHandler(handler)
         self.logger = logger
@@ -34,7 +33,9 @@ class GalacticWideWebBot(commands.InteractionBot):
         self.patch_channels = []
         self.map_messages = []
         self.map_channels = []
-        self.json_dict = {}
+        self.json_dict = load_json()
+        if not self.json_dict:
+            self.logger.warning("JSON FAILED TO LOAD")
 
     async def on_ready(self):
         self.moderator_channel = self.get_channel(int(getenv("MODERATION_CHANNEL")))

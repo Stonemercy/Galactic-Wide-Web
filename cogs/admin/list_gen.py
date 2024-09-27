@@ -1,16 +1,13 @@
 from datetime import datetime
-from json import load
 from disnake.ext import commands, tasks
 from utils.db import GuildsDB
 from main import GalacticWideWebBot
-from data.lists import json_dict
 
 
 class ListGenCog(commands.Cog):
     def __init__(self, bot: GalacticWideWebBot):
         self.bot = bot
         self.list_gen.start()
-        self.load_json.start()
 
     @tasks.loop(count=1)
     async def list_gen(self):
@@ -83,32 +80,6 @@ class ListGenCog(commands.Cog):
     @list_gen.before_loop
     async def before_message_gen(self):
         await self.bot.wait_until_ready()
-
-    @tasks.loop(count=1)
-    async def load_json(self):
-        self.bot.json_dict = json_dict.copy()
-        json_load_start = datetime.now()
-        status = "load_json status:\n"
-        for key, values in json_dict.copy().items():
-            if "path" not in values:
-                for second_key, second_values in values.items():
-                    if "path" in second_values:
-                        with open(second_values["path"], encoding="UTF-8") as json_file:
-                            self.bot.json_dict[key][second_key] = load(json_file)
-                            status += f"{key} - {second_key} - {'LOADED' if second_values else 'FAILED'}\n"
-                            continue
-                continue
-            else:
-                with open(values["path"], encoding="UTF-8") as json_file:
-                    self.bot.json_dict[key] = load(json_file)
-                    status += f"{key} - {'LOADED' if values else 'FAILED'}\n"
-        if "FAILED" in status:
-            return await self.bot.moderator_channel.send(
-                f"<@{self.bot.owner_id}>\n{status}"
-            )
-        self.bot.logger.info(
-            f"json loaded in {(datetime.now() - json_load_start).total_seconds():.5f} seconds"
-        )
 
 
 def setup(bot: GalacticWideWebBot):

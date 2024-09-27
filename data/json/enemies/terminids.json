@@ -1,0 +1,125 @@
+{
+    "Scavenger": {
+        "start": 1,
+            "desc": "The Scavenger is the weakest and most common of the Terminids that can be found on all difficulties.\nThey usually appear in swarms of other Scavengers, Pouncers, and Bile Spitters.",
+            "tactics": "Due to their low health, Scavengers can easily be dispatched by any weapon.\nWhen encountering a patrol or group of Terminids, it is recommended to kill Scavengers quickly before one can cause a Bug Breach.",
+            "weak spots": "Head",
+            "variations": {
+                "Bile Spitter": {
+                    "start": 1,
+                    "desc": "The Bile Spitter is a small Terminid that can be found on any difficulty. They appear to be juvenile Bile Spewers.",
+                    "tactics": "Due to their low health, Bile Spitters can easily be dispatched by any weapon. Using the Guard Dog or explosives is effective against swarms of Bile Spitters.\nBile Spitters will rupture and explode when killed, dealing mild damage to nearby creatures. As such, prefer killing them from range if possible.",
+                    "weak spots": "Head"
+                },
+                "Pouncer": {
+                    "start": 1,
+                    "desc": "The Pouncer, alternatively known as the Hopper, is a small Terminid that can be found on any difficulty. They appear to be juvenile Hunters.",
+                    "tactics": "Due to their low health, Pouncers can easily be dispatched by any weapon. Using the Guard Dog or explosives is effective against swarms of Pouncers.",
+                    "weak spots": "Head"
+                }
+            }
+        },
+    "Warrior": {
+        "start": 1,
+        "desc": "The Warrior is a lightly armored, slow-moving, medium Terminid that can appear on any difficulty.\nThey usually appear in small groups with other Warriors, as well as swarms of small Terminids.",
+        "tactics": "The fastest way to kill a Warrior is by destroying its head. If it enters a berserker state, Helldivers have two main options: \n- they can shoot the Warrior more to fully kill it,\n- or they can avoid it for a few seconds until it fully bleeds out.\nWarriors can also be killed by destroying any two of their legs. This will prevent them from entering the berserker state.",
+        "weak spots": "Head, Legs",
+        "variations": {
+            "Bile Warrior": {
+                "start": 4,
+                "desc": "The Bile Warrior is a lightly armored, medium Terminid, green in color. It can appear on difficulty 4 and higher missions, often appearing beside or fully replacing the normal Warrior.",
+                "tactics": "When a Bile Warrior dies from damage to its body, it has a chance to trigger a small bile explosion that can severely injure a nearby Helldiver. It is recommended not to kill them at point-blank range.",
+                "weak spots": "Head, Legs"
+            },
+            "Hive Guard": {
+                "start": 2,
+                "desc": "The Hive Guard is a medium terminid with light armor around its beige-colored body and black medium armor plates protecting the front of its legs and its head.\nThese bugs hunker down when attacked, immobilizing it but protecting more of its body with the medium armor plating.",
+                "tactics": "When hunkered down, the Hive Guard is completely stationary, and will remain that way as long as something is firing at it. A team of Helldivers can exploit this by flanking its unprotected sides.",
+                "weak spots": null
+            }
+        }
+    },
+    "Hunter": {
+        "start": 3,
+        "desc": "The Hunter is a medium Terminid that appears on difficulty 3 and higher.\nThey attempt to flank and surprise their targets by rotating around and moving behind cover to remain out of vision before moving forward to engage.",
+        "tactics": "Hunters are relatively weak when compared to Warriors and other medium Terminids. Shooting their heads or legs will quickly dispatch them.\nHunters should be prioritized over other medium Terminids due to their ability to quickly leap into melee range, and their ability to chase down a fleeing target.",
+        "weak spots": "Head, Legs",
+        "variations": null
+    },
+    "Stalker": {
+        "start": 4,
+        "desc": "The Stalker is a medium Terminid that can first appear on difficulty 3. They spawn only from Stalker Lairs, an optional objective, and will not appear in patrols. They appear to be evolved Hunters with camouflage capabilities, enhanced strength and durability. Destroying all Stalker Lairs will stop Stalkers from spawning for the rest of the mission.",
+        "tactics": "Despite lacking armor, Stalkers are very durable compared to Hunters and other medium-sized Terminids. Use Support Weapons and aim for their heads to take them out quickly.",
+        "weak spots": "Head",
+        "variations": null
+    },
+    "Shrieker": {
+        "start": 5,
+        "desc": "The Shrieker is a medium-sized, unarmored, flying Terminid with large wings that engages in hit-and-run tactics, diving in to attack Helldivers before flying back up to the skies.\nThey spawn from Shrieker Nests if one is present, but can appear in flying patrols as apart of a mission modifier.",
+        "tactics": "Shriekers lack any sort of armor and can be taken out by most weaponry.\nEnergy-based laser weaponry, such as the LAS-5 Scythe and the LAS-98 Laser Cannon, have infinite range and instant damage, allowing them to easily track and damage Shriekers.\nShotguns with spread, such as the SG-8 Punisher and the SG-225IE Breaker Incendiary, can damage Shriekers at close to medium range.",
+        "weak spots": "Head",
+        "variations": null
+    },
+    "Bile spewer": {
+        "start": 3,
+        "desc": "The Bile Spewer is a moderately armored Terminid that can appear on difficulty 3 and higher. They appear to be a mature Bile Spitter with an enlarged abdomen. They have medium armor on their head, meaning most primary weapons cannot hit their weak spot.\nBile Spewers spit streams of bile, which can slow down and can prove fatal to a Helldiver if they are exposed to a full stream. Diving out of the way when it rears its head for this attack is advised.\nOn Extreme difficulty and higher, Bile Spewers gain the ability to fire a volley of bile into the air, similar to a mortar. This greatly increases the Bile Spewer's range and lethality.",
+        "tactics": "Take caution when shooting or rupturing up Bile Spewer abdomens (including corpses), as they will explode and damage nearby organisms.\nThey are best killed by shooting their head, as that is considered their weak spot, though this requires weaponry with medium armor penetration. They can also be killed efficiently by targeting their backs with explosives. Regular weapons can damage their bile sack, but will require many shots to get a kill.",
+        "weak spots": "Head, Mouth",
+        "variations": {
+            "Nursing Spewer": {
+                "start": 3,
+                "desc": "Nursing Spewers are light-armoured Terminids that appear in bug missions of Difficulty 3 and above. They are brown and orange in coloration, and are often seen alongside Scavengers. These bugs are likely sub-adult Bile Spewers.",
+                "tactics": "Nursing Spewers are similar to their green cousins, but their attack tracks Helldivers slightly slowler, and they have light armor, rather than medium.\nIn addition, they do not have the bile mortar mode that Bile Spewers gain on Difficulty 6 and above.\nNursing Spewers generate a persistent ankle-level 'fog' whilst they are alive, like a scaled down version of the clouds created by Spore Spewers. Beware as this can conceal the movements of smaller Terminids like Scavengers that might be moving along with them, or hide other ground-based threats. Killing the Nursing Spewer will cause this fog to rapidly dissipate.",
+                "weak spots": "Head, Mouth"
+            }
+        }
+    },
+    "Brood Commander": {
+        "start": 1,
+        "desc": "The Brood Commander is a medium, red-colored, Terminid in a similar shape as the Warrior. In addition to increased endurance compared to a Warrior, they are able to summon Warriors to fight at its side, and charge towards Helldivers in an attempt to trample or bash them. ",
+        "tactics": "They are able to call in a Bug Breach, even without their head.\nSimilarly to a Warrior, Brood Commanders can survive without their head for approximately three seconds, briefly granting it increased movement speed and attack speed.\nWhile any weapon is capable of killing a Brood Commander, explosives and medium armor-penetrating weapons are much more effective.",
+        "weak spots": "Head, Legs",
+        "variations": {
+            "Alpha Commander": {
+                "start": 8,
+                "desc": "The Alpha Commander is a larger, deadlier Brood Commander, with increased health and durability, reducing the damage it takes. They summon enhanced Warriors to assist in battle. ",
+                "tactics": "See: Brood Commander",
+                "weak spots": "Head, Legs"
+            }
+        }
+    },
+    "Charger": {
+        "start": 3,
+        "desc": "The Charger is a large, heavily-armored Terminid. Living up to their name, Chargers charge at Helldivers in an attempt to bash or trample them, dealing a significant amount of damage. This can concuss and potentially launch Helldivers. Chargers will also use their claws at close range.",
+        "tactics": "The Charger can be dodged by moving or diving perpendicular to its movement direction or diagonally towards it as it approaches. Beware of moving too early, as the Charger can make tight turns.\nThe most straightforward way to dispatch a Charger is firing an anti-vehicle weapon, such as the EAT-17 Expendable Anti-Tank, GR-8 Recoilless Rifle and LAS-99 Quasar Cannon, at its head, which will instantly kill it.",
+        "weak spots": "Torso (Exposed), Butt",
+        "variations": {
+            "Behemoth": {
+                "start": 3,
+                "desc": "The Charger Behemoth is a Charger sporting thicker armor, granting it increased health.",
+                "tactics": "Due to its thicker armor, the Charger Behemoth will most notably require two anti-vehicle projectiles to the head and legs instead of one.",
+                "weak spots": "Torso (Exposed), Butt"
+            },
+            "Spore Charger": {
+                "start": 8,
+                "desc": "The Spore Charger is a Charger with spores growing on it, causing spore fog to surround it, similarly to a Spore Spewer. This allows the Spore Charger to obscure itself as it approaches Helldivers, in an attempt to trample unsuspecting ones.",
+                "tactics": "Similar to the regular charger.",
+                "weak spots": "Spore Sacs, Torso (Exposed), Butt"
+            }
+        }
+    },
+    "Impaler": {
+        "start": 5,
+        "desc": "The Impaler is a large, heavily-armored Terminid. Impalers burrow their 'head' of three bladed tentacles, causing them to emerge near Helldivers to impede and attack them.",
+        "tactics": "Impalers can only attack by driving their three tentacles into the ground, where they will reappear out of the ground in multiple locations in order to surround a Helldiver. When they are ready to attack, they will arch their retracted tentacles upwards slightly, then rapidly plunge them into the ground.\nIt's tentacles can be shot at, which will force the Impaler to retract them. These do not kill the Impaler, but will temporarily cease their attacks.\nWhile it burrows its tentacles, it will expose its unarmored head, which has a weak point that Helldivers can take shoot at.",
+        "weak spots": "Head",
+        "variations": null
+    },
+    "Bile Titan": {
+        "start": 4,
+        "desc": "The Bile Titan is a massive, heavily-armored Terminid that appears to be the final growth stage of a Bile Spitter. Despite its size, it can quickly catch up to Helldivers, spewing its lethal bile onto them similarly to Bile Spewer. Helldivers near it can also be crushed by its hulking claws. ",
+        "tactics": "Stay as far from them as possible, using terrain to your advantage if you can. It is possible to outrun in light **and** medium armour, but not heavy. It is recommended to use heavy strategems like the Railcannon Strike, or anti-tank weaponry. **CAN'T BE STUNNED**",
+        "weak spots": "Belly",
+        "variations": null
+    }       
+}

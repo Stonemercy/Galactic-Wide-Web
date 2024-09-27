@@ -78,7 +78,9 @@ class MapCog(commands.Cog):
                 f"<@{self.bot.owner_id}>\n{api.error[0]}\n{api.error[1]}\n:warning:"
             )
         data = Data(data_from_api=api)
-        dashboard_maps_dict = await dashboard_maps(data, self.bot.waste_bin_channel)
+        dashboard_maps_dict = await dashboard_maps(
+            data, self.bot.waste_bin_channel, self.bot.json_dict["planets"]
+        )
         chunked_messages = [
             self.bot.map_messages[i : i + 50]
             for i in range(0, len(self.bot.map_messages), 50)

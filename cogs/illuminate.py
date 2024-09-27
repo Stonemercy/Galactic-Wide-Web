@@ -1,4 +1,3 @@
-from data.lists import enemies
 from disnake import AppCmdInter
 from disnake.ext import commands
 from main import GalacticWideWebBot
@@ -9,21 +8,31 @@ from utils.embeds import Illuminate
 class IlluminateCog(commands.Cog):
     def __init__(self, bot: GalacticWideWebBot):
         self.bot = bot
-        self.illuminate_dict = enemies["illuminate"]
+        self.illuminate_dict = self.bot.json_dict["enemies"]["illuminate"]
         self.variations_dict = {}
-        for i in enemies["illuminate"].values():
+        for i in self.illuminate_dict.values():
             if i["variations"]:
                 self.variations_dict.update(i["variations"])
 
     async def illuminate_autocomp(inter: AppCmdInter, user_input: str):
-        return [cmd for cmd in enemies["illuminate"] if user_input in cmd.lower()][:25]
+        return [
+            species
+            for species in inter.bot.json_dict["enemies"]["illuminate"]
+            if user_input in species.lower()
+        ][:25]
 
     async def variations_autocomp(inter: AppCmdInter, user_input: str):
-        variations_list: list[str] = []
-        for i in enemies["illuminate"].values():
-            if i["variations"]:
-                variations_list.extend([variation for variation in i["variations"]])
-        return [cmd for cmd in variations_list if user_input in cmd.lower()][:25]
+        variations_list = [
+            variation
+            for i in inter.bot.json_dict["enemies"]["illuminate"].values()
+            if i["variations"]
+            for variation in i["variations"]
+        ]
+        return [
+            variation
+            for variation in variations_list
+            if user_input in variation.lower()
+        ][:25]
 
     @commands.slash_command(
         description="Returns information on an Illuminate or variation.",
