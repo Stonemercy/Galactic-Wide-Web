@@ -33,8 +33,8 @@ class PlanetCog(commands.Cog):
             description="Do you want other people to see the response to this command?",
         ),
     ):
-        public = public != "Yes"
-        await inter.response.defer(ephemeral=public)
+        ephemeral = public != "Yes"
+        await inter.response.defer(ephemeral=ephemeral)
         self.bot.logger.info(
             f"{self.qualified_name} | /{inter.application_command.name} <{planet = }> <{public = }>"
         )
@@ -43,7 +43,7 @@ class PlanetCog(commands.Cog):
         ]:
             return await inter.send(
                 "Please select a planet from the list.",
-                ephemeral=public,
+                ephemeral=ephemeral,
             )
         guild: GuildRecord = GuildsDB.get_info(inter.guild_id)
         if not guild:
@@ -58,7 +58,7 @@ class PlanetCog(commands.Cog):
             )
             return await inter.send(
                 "There was an issue getting the data. Please try again later",
-                ephemeral=public,
+                ephemeral=ephemeral,
             )
         data = Data(data_from_api=api)
         planet_data = [i for i in data.planets.values() if i.name == planet.upper()]
@@ -80,7 +80,7 @@ class PlanetCog(commands.Cog):
                 f"Image missing for biome of **planet __{planet}__** <@{self.bot.owner_id}> :warning:"
             )
         map_embed = planet_map(data, planet_data.index, guild.language)
-        await inter.send(embeds=[embed, map_embed], ephemeral=public)
+        await inter.send(embeds=[embed, map_embed], ephemeral=ephemeral)
 
 
 def setup(bot: GalacticWideWebBot):
