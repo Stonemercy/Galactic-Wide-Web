@@ -16,7 +16,6 @@ activity = Activity(name="for Socialism", type=ActivityType.watching)
 class GalacticWideWebBot(commands.InteractionBot):
     def __init__(self):
         super().__init__(owner_id=OWNER, intents=intents, activity=activity)
-        )
         logger = getLogger("disnake")
         logger.setLevel(INFO)
         handler = FileHandler(filename="disnake.log", encoding="utf-8", mode="w")
