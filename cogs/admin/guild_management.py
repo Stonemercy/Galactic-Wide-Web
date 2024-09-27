@@ -159,7 +159,7 @@ class GuildManagementCog(commands.Cog):
             dashboard_embed.add_field(
                 "Credits",
                 (
-                    "https://helldivers.fandom.com/wiki/Helldivers_Wiki - Most of my enemy information is from them, as well as a lot of the enemy images.\n\n"
+                    "https://helldivers.wiki.gg/ - Most of my enemy information is from them, as well as a lot of the enemy images.\n\n"
                     "https://helldivers.news/ - Planet images are from them, their website is also amazing.\n\n"
                     "https://github.com/helldivers-2/ - The people over here are kind and helpful, great work too!\n\n"
                     "and **You**\n"
@@ -176,11 +176,6 @@ class GuildManagementCog(commands.Cog):
                 await message.edit(
                     embed=dashboard_embed,
                     components=[
-                        Button(
-                            label="Top.GG",
-                            style=ButtonStyle.link,
-                            url="https://top.gg/bot/1212535586972369008",
-                        ),
                         Button(
                             label="App Directory",
                             style=ButtonStyle.link,
