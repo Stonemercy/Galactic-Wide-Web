@@ -879,7 +879,7 @@ class Items:
                 try:
                     self.set_thumbnail(
                         file=File(
-                            f"resources/weapons/{primary['name'].replace(' ', '-')}.png"
+                            f"resources/weapons/{primary['name'].replace(' ', '-').replace('&', 'n')}.png"
                         )
                     )
                     self.image_set = True
