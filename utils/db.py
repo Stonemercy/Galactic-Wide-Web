@@ -785,7 +785,7 @@ class FeedbackDB:
                 curs.execute("Insert into feedback (user_id) VALUES (%s)", (user_id,))
                 conn.commit()
                 user = FeedbackDB.get_user(user_id)
-                return FeedbackRecord(user) if user else None
+                return user if user else None
 
     def get_user(user_id: int) -> FeedbackRecord:
         """Get a user from the feedback DB

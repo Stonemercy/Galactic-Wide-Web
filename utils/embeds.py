@@ -658,6 +658,10 @@ class Dashboard:
                 illuminate_embed,
             ):
                 embed.set_thumbnail("https://helldivers.io/img/attack.png")
+            defend_embed.title += f" ({(sum([campaign.planet.stats['playerCount'] for campaign in data.campaigns if campaign.planet.event]) / data.total_players):.0%})"
+            terminids_embed.title += f" ({(sum([campaign.planet.stats['playerCount'] for campaign in data.campaigns if campaign.planet.current_owner == 'Terminids']) / data.total_players):.0%})"
+            automaton_embed.title += f" ({(sum([campaign.planet.stats['playerCount'] for campaign in data.campaigns if campaign.planet.current_owner == 'Automaton']) / data.total_players):.0%})"
+            illuminate_embed.title += f" ({(sum([campaign.planet.stats['playerCount'] for campaign in data.campaigns if campaign.planet.current_owner == 'Illuminate']) / data.total_players):.0%})"
             (
                 skipped_terminid_campaigns,
                 skipped_automaton_campaigns,
