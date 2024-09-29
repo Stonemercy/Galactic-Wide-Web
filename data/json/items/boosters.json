@@ -1,50 +1,50 @@
 {
 	"684729784": {
 		"name": "Stamina Enhancement",
-		"description": "Increases all Helldivers' stamina capacity and recovery."
+		"description": "> Increases all Helldivers' stamina capacity and recovery.\n\n+30% increase to sprint duration\n+23% increase to stamina regen"
 	},
 	"876985512": {
 		"name": "Localization Confusion",
-		"description": "Increases the time between enemy encounters."
+		"description": "> Increases the time between enemy encounters.\n\nThe cooldown for Bug Breaches and Bot Drops is increased by 10%."
 	},
 	"1110686504": {
 		"name": "Vitality Enhancement",
-		"description": "Allows all Helldivers to resist injury."
+		"description": "> Allows all Helldivers to resist injury.\n\nHelldivers take less damage from all sources and are more resistant to limb injuries. Torso can still hemorrhage."
 	},
 	"1908198785": {
 		"name": "Hellpod Space Optimization",
-		"description": "Helldivers come out of the Hellpod fully stocked on Ammo, Grenades, and Stims."
+		"description": "> Helldivers come out of the Hellpod fully stocked on Ammo, Grenades, and Stims."
 	},
 	"2776452811": {
 		"name": "Muscle Enhancement",
-		"description": "Allows Helldivers to traverse difficult terrain with ease."
+		"description": "> Allows Helldivers to traverse difficult terrain with ease.\n\nHarder to be slowed in bushes, thick mud, deep snow, and water."
 	},
 	"4066886572": {
 		"name": "Increased Reinforcement Budget",
-		"description": "Increases the number of available reinforcements."
+		"description": "> Increases the number of available reinforcements.\n\nGives one additional reinforcement per Helldiver."
 	},
 	"4136928865": {
 		"name": "UAV Recon Booster",
-		"description": "Increases all Helldivers' effective radar range."
+		"description": "> Increases all Helldivers' effective radar range.\n\nIncreases all Helldivers' effective radar range by 50% (affects spotting Places of Interest).\nStacks with Nuclear Radar and affects pings from the Scout armor perk."
 	},
 	"4273318008": {
 		"name": "Flexible Reinforcement Budget",
-		"description": "Reduces time until new reinforcements are granted once they've been depleted."
+		"description": "> Reduces time until new reinforcements are granted once they've been depleted.\n\nReduces reinforcements replenish time by 10%."
 	},
 	"3504405746": {
 		"name": "Expert Extraction Pilot",
-		"description": "Lowers the time it takes for the extraction shuttle to reach the extraction beacon."
+		"description": "> Lowers the time it takes for the extraction shuttle to reach the extraction beacon.\n\nLowers the extraction time by 15%."
 	},
 	"2709264466": {
 		"name": "Motivational Shocks",
-		"description": "Allows all Helldivers to recover faster after being slowed by an attack, such as acid. Does not mitigate 'area effects,' such as EMS Strikes."
+		"description": "> Allows all Helldivers to recover faster after being slowed by an attack, such as acid. Does not mitigate 'area effects,' such as EMS Strikes.Negates slowed-effect inflicted by hostiles."
 	},
 	"3912131454": {
 		"name": "Experimental Infusion",
-		"description": "Temp Desc: Stims boost movement speed and reduced incoming damage for short period"
+		"description": "> Temp Desc: Stims boost movement speed and reduced incoming damage for short period\n\nGives Stims the added bonus of boosting player movement speed and reducing damage taken for a short time."
 	},
 	"3102833400": {
 		"name": "Firebomb Hellpods",
-		"description": "Lines all Hellpods with volatile incendiaries that detonate upon impact, igniting any units in vicinity of the drop site."
+		"description": "> Lines all Hellpods with volatile incendiaries that detonate upon impact, igniting any units in vicinity of the drop site."
 	}
 }
