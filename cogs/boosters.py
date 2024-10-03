@@ -1,6 +1,7 @@
 from disnake import AppCmdInter
 from disnake.ext import commands
 from main import GalacticWideWebBot
+from utils.checks import wait_for_startup
 from utils.embeds import Items
 
 
@@ -14,6 +15,7 @@ class BoostersCog(commands.Cog):
             i["name"] for i in boosters_json.values() if user_input in i["name"].lower()
         ][:25]
 
+    @wait_for_startup()
     @commands.slash_command(
         description="Returns the description of a specific booster."
     )

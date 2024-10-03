@@ -1,6 +1,7 @@
 from disnake import AppCmdInter
 from disnake.ext import commands
 from main import GalacticWideWebBot
+from utils.checks import wait_for_startup
 from utils.embeds import StratagemEmbed
 
 
@@ -12,6 +13,7 @@ class StratagemsCog(commands.Cog):
         stratagems: dict = inter.bot.json_dict["stratagems"]
         return [name for name in stratagems if user_input in name.lower()][:25]
 
+    @wait_for_startup()
     @commands.slash_command(description="Returns information on a stratagem.")
     async def stratagem(
         self,

@@ -702,6 +702,7 @@ class SteamDB:
         ) as conn:
             with conn.cursor() as curs:
                 curs.execute("Insert into steam (id) VALUES (%s)", (0,))
+                conn.commit()
                 result = SteamDB.get_last()
                 return result
 

@@ -1,6 +1,7 @@
 from disnake import AppCmdInter, Embed
 from disnake.ext import commands
 from main import GalacticWideWebBot
+from utils.checks import wait_for_startup
 
 
 class DashboardStats:
@@ -42,6 +43,7 @@ class StatsCog(commands.Cog):
         self.announcements_sent = 0
         self.dashboard_stats = DashboardStats()
 
+    @wait_for_startup()
     @commands.slash_command(
         description="Returns information on the bot.",
     )

@@ -76,7 +76,7 @@ class AnnouncementsCog(commands.Cog):
         await api.pull_from_api(get_assignments=True, get_planets=True)
         if api.error:
             return await self.bot.moderator_channel.send(
-                f"<@164862382185644032>\n{api.error[0]}\n{api.error[1]}\n:warning:"
+                f"<@{self.bot.owner_id}>\n{api.error[0]}\n{api.error[1]}\n:warning:"
             )
         data = Data(data_from_api=api)
         if not data.assignment:
@@ -88,7 +88,12 @@ class AnnouncementsCog(commands.Cog):
         if last_MO.id != self._newest_id:
             languages = GuildsDB.get_used_languages()
             embeds = {
-                lang: MajorOrderEmbed(data.assignment, data.planets, lang)
+                lang: MajorOrderEmbed(
+                    data=data,
+                    language=self.bot.json_dict["languages"][lang],
+                    planet_names=self.bot.json_dict["planets"],
+                    reward_types=self.bot.json_dict["items"]["reward_types"],
+                )
                 for lang in languages
             }
             chunked_channels = [
@@ -120,7 +125,7 @@ class AnnouncementsCog(commands.Cog):
         await api.pull_from_api(get_dispatches=True)
         if api.error:
             return await self.bot.moderator_channel.send(
-                f"<@164862382185644032>\n{api.error[0]}\n{api.error[1]}\n:warning:"
+                f"<@{self.bot.owner_id}>\n{api.error[0]}\n{api.error[1]}\n:warning:"
             )
         if api.dispatches in (None, []):
             return self.bot.logger.error(
@@ -169,7 +174,7 @@ class AnnouncementsCog(commands.Cog):
         await api.pull_from_api(get_steam=True)
         if api.error:
             return await self.bot.moderator_channel.send(
-                f"<@164862382185644032>\n{api.error[0]}\n{api.error[1]}\n:warning:"
+                f"<@{self.bot.owner_id}>\n{api.error[0]}\n{api.error[1]}\n:warning:"
             )
         data = Data(data_from_api=api)
         self._newest_id = int(data.steam.id)
@@ -178,7 +183,10 @@ class AnnouncementsCog(commands.Cog):
             last_patch_notes = SteamDB.setup()
         if last_patch_notes.id != self._newest_id:
             languages = GuildsDB.get_used_languages()
-            embeds = {lang: SteamEmbed(data.steam) for lang in languages}
+            embeds = {
+                lang: SteamEmbed(data.steam, self.bot.json_dict["languages"][lang])
+                for lang in languages
+            }
             chunked_patch_channels = [
                 self.bot.patch_channels[i : i + 50]
                 for i in range(0, len(self.bot.patch_channels), 50)

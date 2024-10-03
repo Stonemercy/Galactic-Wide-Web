@@ -2,6 +2,7 @@ from disnake import AppCmdInter
 from disnake.ext import commands
 from json import load
 from main import GalacticWideWebBot
+from utils.checks import wait_for_startup
 from utils.db import GuildRecord, GuildsDB
 from utils.embeds import Items
 
@@ -9,9 +10,6 @@ from utils.embeds import Items
 class WeaponsCog(commands.Cog):
     def __init__(self, bot: GalacticWideWebBot):
         self.bot = bot
-        self.types = self.bot.json_dict["items"]["weapon_types"]
-        self.fire_modes = self.bot.json_dict["items"]["fire_modes"]
-        self.traits = self.bot.json_dict["items"]["weapon_traits"]
         self.primaries = {
             item["name"]: item
             for item in self.bot.json_dict["items"]["primary_weapons"].values()
@@ -46,6 +44,7 @@ class WeaponsCog(commands.Cog):
         ]
         return [grenade for grenade in grenades if user_input in grenade.lower()][:25]
 
+    @wait_for_startup()
     @commands.slash_command(description="Returns information on a specific weapon.")
     async def weapons(
         self,
@@ -72,12 +71,14 @@ class WeaponsCog(commands.Cog):
         guild_language = self.bot.json_dict["languages"][guild_in_db.language]
         if primary not in self.primaries:
             return await inter.send(
-                guild_language["weapons.missing"],
+                guild_language["weapons"]["missing"],
                 ephemeral=True,
             )
-        chosen_primary = self.primaries[primary]
+        primary_json = self.primaries[primary]
         embed = Items.Weapons.Primary(
-            chosen_primary, self.types, self.fire_modes, self.traits, guild_language
+            weapon_json=primary_json,
+            json_dict=self.bot.json_dict,
+            language=guild_language,
         )
         if not embed.image_set:
             await self.bot.moderator_channel.send(
@@ -94,6 +95,7 @@ class WeaponsCog(commands.Cog):
             description="The Secondary weapon you want to lookup",
         ),
     ):
+        await inter.response.defer(ephemeral=True)
         self.bot.logger.info(
             f"{self.qualified_name} | /{inter.application_command.name} <{secondary = }>"
         )
@@ -103,12 +105,14 @@ class WeaponsCog(commands.Cog):
         guild_language = self.bot.json_dict["languages"][guild_in_db.language]
         if secondary not in self.secondaries:
             return await inter.send(
-                guild_language["weapons.missing"],
+                guild_language["weapons"]["missing"],
                 ephemeral=True,
             )
-        chosen_secondary = self.secondaries[secondary]
+        secondary_json = self.secondaries[secondary]
         embed = Items.Weapons.Secondary(
-            chosen_secondary, self.fire_modes, self.traits, guild_language
+            weapon_json=secondary_json,
+            json_dict=self.bot.json_dict,
+            language=guild_language,
         )
         if not embed.image_set:
             await self.bot.moderator_channel.send(
@@ -124,6 +128,7 @@ class WeaponsCog(commands.Cog):
             autocomplete=grenade_autocomp, description="The Grenade you want to lookup"
         ),
     ):
+        await inter.response.defer(ephemeral=True)
         self.bot.logger.info(
             f"{self.qualified_name} | /{inter.application_command.name} <{grenade = }>"
         )
@@ -133,11 +138,13 @@ class WeaponsCog(commands.Cog):
         guild_language = self.bot.json_dict["languages"][guild_in_db.language]
         if grenade not in self.grenades:
             return await inter.send(
-                guild_language["weapons.missing"],
+                guild_language["weapons"]["missing"],
                 ephemeral=True,
             )
-        chosen_grenade = self.grenades[grenade]
-        embed = Items.Weapons.Grenade(chosen_grenade, guild_language)
+        grenade_json = self.grenades[grenade]
+        embed = Items.Weapons.Grenade(
+            grenade_json=grenade_json, language=guild_language
+        )
         if not embed.image_set:
             await self.bot.moderator_channel.send(
                 f"Image missing for **weapon grenade __{grenade}__** <@{self.bot.owner_id}> :warning:"

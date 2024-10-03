@@ -48,7 +48,7 @@
 		"fuse_time": 2.9
 	},
 	"3869545997": {
-		"name": "G-12 Thermite Grenade",
+		"name": "G-123 Thermite Grenade",
 		"description": "A thermite grenade designed to adhere to surfaces before burning at 2000°C. Capable of burning through some armor",
 		"damage": 2000,
 		"penetration": 7,
@@ -70,5 +70,13 @@
 		"penetration": 3,
 		"outer_radius": 0,
 		"fuse_time": 0
+	},
+	"1003": {
+		"name": "G-4 Gas",
+		"description": "A grenade that releases a cloud of toxic gas, effective at blinding and slowing both organic and inorganic enemies.",
+		"damage": 3,
+		"penetration": 6,
+		"outer_radius": 7,
+		"fuse_time": 2.9
 	}
 }

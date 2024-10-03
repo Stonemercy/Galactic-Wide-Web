@@ -98,20 +98,20 @@ class SetupCog(commands.Cog):
                     guild_in_db.dashboard_channel_id
                 ) or await inter.guild.fetch_channel(guild_in_db.dashboard_channel_id)
             except:
-                dashboard_channel = guild_language["setup.not_set"]
+                dashboard_channel = guild_language["setup"]["not_set"]
             try:
                 dashboard_message = dashboard_channel.get_partial_message(
                     guild_in_db.dashboard_message_id
                 ).jump_url
             except:
-                dashboard_message = guild_language["setup.not_set"]
+                dashboard_message = guild_language["setup"]["not_set"]
             if isinstance(dashboard_channel, TextChannel):
                 dashboard_channel = dashboard_channel.mention
             embed.add_field(
-                guild_language["setup.dashboard"],
+                guild_language["setup"]["dashboard"],
                 (
-                    f"{guild_language['setup.dashboard_channel']}: {dashboard_channel}\n"
-                    f"{guild_language['setup.dashboard_message']}: {dashboard_message}"
+                    f"{guild_language['setup']['dashboard_channel']}: {dashboard_channel}\n"
+                    f"{guild_language['setup']['dashboard_message']}: {dashboard_message}"
                 ),
                 inline=False,
             )
@@ -123,11 +123,11 @@ class SetupCog(commands.Cog):
                     ).mention
                 )
             except:
-                announcement_channel = guild_language["setup.not_set"]
+                announcement_channel = guild_language["setup"]["not_set"]
             finally:
                 embed.add_field(
-                    guild_language["setup.announcements"],
-                    f"{guild_language['setup.announcement_channel']}: {announcement_channel}",
+                    guild_language["setup"]["announcements"],
+                    f"{guild_language['setup']['announcement_channel']}: {announcement_channel}",
                     inline=False,
                 )
             try:
@@ -135,31 +135,34 @@ class SetupCog(commands.Cog):
                     guild_in_db.map_channel_id
                 ) or await inter.guild.fetch_channel(guild_in_db.map_channel_id)
             except:
-                map_channel = guild_language["setup.not_set"]
+                map_channel = guild_language["setup"]["not_set"]
             try:
                 map_message = map_channel.get_partial_message(
                     guild_in_db.map_message_id
                 ).jump_url
             except:
-                map_message = guild_language["setup.not_set"]
+                map_message = guild_language["setup"]["not_set"]
             if isinstance(map_channel, TextChannel):
                 map_channel = map_channel.mention
             embed.add_field(
-                guild_language["setup.map"],
+                guild_language["setup"]["map"]["map"],
                 (
-                    f"{guild_language['setup.map_channel']}: {map_channel}\n"
-                    f"{guild_language['setup.map_message']}: {map_message}"
+                    f"{guild_language['setup']['map']['channel']}: {map_channel}\n"
+                    f"{guild_language['setup']['map']['message']}: {map_message}"
                 ),
                 inline=False,
             ).add_field(
-                guild_language["setup.language"], inv_lang_dict[guild_in_db.language]
+                guild_language["setup"]["language"]["language"],
+                inv_lang_dict[guild_in_db.language],
             ).add_field(
-                guild_language["setup.patch_notes_name"],
+                guild_language["setup"]["patch_notes_name"],
                 {True: ":white_check_mark:", False: ":x:"}[guild_in_db.patch_notes],
             ).add_field(
-                "", guild_language["setup.message"], inline=False
+                "", guild_language["setup"]["message"], inline=False
             ).title = guild_language[
-                "setup.current_settings"
+                "setup"
+            ][
+                "current_settings"
             ]
             return await inter.send(embed=embed, ephemeral=True)
 
@@ -167,10 +170,10 @@ class SetupCog(commands.Cog):
             current_lang = guild_in_db.language
             if current_lang == language:
                 embed.add_field(
-                    guild_language["setup.language"],
+                    guild_language["setup"]["language"]["language"],
                     (
                         f"**{inv_lang_dict[current_lang]}** ➡️ **{inv_lang_dict[language]}**\n"
-                        f"*{guild_language['setup.language_same']}*"
+                        f"*{guild_language['setup']['language']['same']}*"
                     ),
                     inline=False,
                 )
@@ -178,7 +181,7 @@ class SetupCog(commands.Cog):
                 GuildsDB.update_language(inter.guild_id, language)
                 guild_language = self.bot.json_dict["languages"][language]
                 embed.add_field(
-                    guild_language["setup.language"],
+                    guild_language["setup"]["language"]["language"],
                     (
                         f"**{inv_lang_dict[current_lang]}** ➡️ **{inv_lang_dict[language]}**"
                     ),
@@ -190,10 +193,10 @@ class SetupCog(commands.Cog):
             if dashboard_channel.id == guild_in_db.dashboard_channel_id:
                 GuildsDB.update_dashboard(inter.guild_id, 0, 0)
                 embed.add_field(
-                    guild_language["setup.dashboard_channel"],
+                    guild_language["setup"]["dashboard_channel"],
                     (
                         f"**{guild_in_db.dashboard_channel_id}** ➡️ **None**\n"
-                        f"*{guild_language['setup.unset_dashboard']}*"
+                        f"*{guild_language['setup']['unset_dashboard']}*"
                     ),
                     inline=False,
                 )
@@ -204,8 +207,8 @@ class SetupCog(commands.Cog):
                 ).is_superset(self.dashboard_perms_needed)
                 if not dashboard_perms_have:
                     embed.add_field(
-                        guild_language["setup.dashboard"],
-                        guild_language["setup.missing_perm"],
+                        guild_language["setup"]["dashboard"],
+                        guild_language["setup"]["missing_perm"],
                         inline=False,
                     )
                 else:
@@ -229,7 +232,10 @@ class SetupCog(commands.Cog):
                         "DashboardCog"
                     ).liberation_changes
                     dashboard = Dashboard(
-                        data, guild_in_db.language, liberation_changes
+                        data,
+                        self.bot.json_dict["languages"][guild_in_db.language],
+                        liberation_changes,
+                        self.bot.json_dict,
                     )
                     try:
                         message = await dashboard_channel.send(
@@ -246,10 +252,10 @@ class SetupCog(commands.Cog):
                     )
                     self.bot.dashboard_messages.append(message)
                     embed.add_field(
-                        guild_language["setup.dashboard"],
+                        guild_language["setup"]["dashboard"],
                         (
-                            f"{guild_language['setup.dashboard_channel']}: {dashboard_channel.mention}\n"
-                            f"{guild_language['setup.dashboard_message']}: {message.jump_url}\n"
+                            f"{guild_language['setup']['dashboard_channel']}: {dashboard_channel.mention}\n"
+                            f"{guild_language['setup']['dashboard_message']}: {message.jump_url}\n"
                         ),
                     )
                     guild_in_db = GuildsDB.get_info(inter.guild_id)
@@ -269,11 +275,11 @@ class SetupCog(commands.Cog):
                     patch_notes_disabled = True
                 GuildsDB.update_announcement_channel(inter.guild_id, 0)
                 embed.add_field(
-                    guild_language["setup.announcements"],
+                    guild_language["setup"]["announcements"],
                     (
                         f"Announcement Channel:\n- {announcement_channel.jump_url} ➡️ None\n"
                         f"{patch_notes_text}"
-                        f"*{guild_language['setup.unset_announce']}*"
+                        f"*{guild_language['setup']['unset_announce']}*"
                     ),
                     inline=False,
                 )
@@ -284,8 +290,8 @@ class SetupCog(commands.Cog):
                 ).is_superset(self.annnnouncement_perms_needed)
                 if not annnnouncement_perms_have:
                     embed.add_field(
-                        guild_language["setup.announcements"],
-                        guild_language["setup.missing_perm"],
+                        guild_language["setup"]["announcements"],
+                        guild_language["setup"]["missing_perm"],
                         inline=False,
                     )
                     patch_notes_disabled = True
@@ -294,10 +300,10 @@ class SetupCog(commands.Cog):
                         inter.guild_id, announcement_channel.id
                     )
                     embed.add_field(
-                        guild_language["setup.announcements"],
+                        guild_language["setup"]["announcements"],
                         (
-                            f"{guild_language['setup.announcement_channel']}: {announcement_channel.mention}\n"
-                            f"*{guild_language['setup.announce_warn']}*"
+                            f"{guild_language['setup']['announcement_channel']}: {announcement_channel.mention}\n"
+                            f"*{guild_language['setup']['announce_warn']}*"
                         ),
                         inline=False,
                     )
@@ -313,8 +319,8 @@ class SetupCog(commands.Cog):
             if map_channel.id == guild_in_db.map_channel_id:
                 GuildsDB.update_map(inter.guild_id, 0, 0)
                 embed.add_field(
-                    guild_language["setup.map"],
-                    f"*{guild_language['setup.unset_map']}*",
+                    guild_language["setup"]["map"]["map"],
+                    f"*{guild_language['setup']['unset_map']}*",
                     inline=False,
                 )
                 guild_in_db = GuildsDB.get_info(inter.guild_id)
@@ -324,8 +330,8 @@ class SetupCog(commands.Cog):
                 ).is_superset(self.map_perms_needed)
                 if not map_perms_have:
                     embed.add_field(
-                        guild_language["setup.map"],
-                        f"*{guild_language['setup.missing_perm']}*",
+                        guild_language["setup"]["map"]["map"],
+                        f"*{guild_language['setup']['missing_perm']}*",
                         inline=False,
                     )
                 else:
@@ -335,7 +341,7 @@ class SetupCog(commands.Cog):
                     )
                     if api.error:
                         await self.bot.moderator_channel.send(
-                            f"<@164862382185644032>{api.error[0]}\n{api.error[1]}\n:warning:"
+                            f"<@{self.bot.owner_id}>{api.error[0]}\n{api.error[1]}\n:warning:"
                         )
                         return await inter.send(
                             "There was an issue connecting to the datacentre. Please try again.",
@@ -354,10 +360,10 @@ class SetupCog(commands.Cog):
                         )
                         GuildsDB.update_map(inter.guild_id, map_channel.id, message.id)
                         embed.add_field(
-                            guild_language["setup.map"],
+                            guild_language["setup"]["map"]["map"],
                             (
-                                f"{guild_language['setup.map_channel']}: {map_channel.mention}\n"
-                                f"{guild_language['setup.map_message']}: {message.jump_url}\n"
+                                f"{guild_language['setup']['map']['channel']}: {map_channel.mention}\n"
+                                f"{guild_language['setup']['map']['message']}: {message.jump_url}\n"
                             ),
                             inline=False,
                         )
@@ -371,7 +377,7 @@ class SetupCog(commands.Cog):
                     "Patch Notes",
                     (
                         f"**{guild_in_db.patch_notes}** ➡️ **{want_patch_notes}**\n"
-                        f"*{guild_language['setup.patch_notes_same']}*"
+                        f"*{guild_language['setup']['patch_notes_same']}*"
                     ),
                     inline=False,
                 )
@@ -383,7 +389,7 @@ class SetupCog(commands.Cog):
                     ):
                         embed.add_field(
                             "Patch Notes",
-                            guild_language["setup.need_announce"],
+                            guild_language["setup"]["need_announce"],
                             inline=False,
                         )
                     else:
@@ -411,14 +417,14 @@ class SetupCog(commands.Cog):
                                 "Patch Notes",
                                 (
                                     f"**{guild_in_db.patch_notes}** ➡️ **{want_patch_notes}**\n"
-                                    f"*{guild_language['setup.patch_notes_enabled']}*"
+                                    f"*{guild_language['setup']['patch_notes']['enabled']}*"
                                 ),
                                 inline=False,
                             )
                         except:
                             embed.add_field(
                                 "Patch Notes",
-                                f"*{guild_language['setup.cant_get_announce_channel']}*",
+                                f"*{guild_language['setup']['cant_get_announce_channel']}*",
                                 inline=False,
                             )
                 else:
@@ -430,7 +436,7 @@ class SetupCog(commands.Cog):
                     GuildsDB.update_patch_notes(inter.guild_id, want_patch_notes)
                     embed.add_field(
                         "Patch Notes",
-                        f"*{guild_language['setup.patch_notes_disabled']}*",
+                        f"*{guild_language['setup']['patch_notes_disabled']}*",
                         inline=False,
                     )
 

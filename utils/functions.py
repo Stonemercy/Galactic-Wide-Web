@@ -259,7 +259,6 @@ def planet_map(data, planet_index, language):
         "Humans": (36, 205, 76),
         "humans": (18, 102, 38),
     }
-    planet_names_loc = load(open(f"data/json/planets/planets.json", encoding="UTF-8"))
     planets_coords = {}
     available_planets = [campaign.planet.name for campaign in data.campaigns]
     for planet in data.planets.values():
@@ -284,6 +283,15 @@ def planet_map(data, planet_index, language):
                 except:
                     continue
         for index, coords in planets_coords.items():
+            if index == 64:
+                background_draw.ellipse(
+                    [
+                        (coords[0] - 35, coords[1] - 35),
+                        (coords[0] + 35, coords[1] + 35),
+                    ],
+                    fill=(95, 61, 181),
+                )
+                continue
             background_draw.ellipse(
                 [
                     (coords[0] - 35, coords[1] - 35),

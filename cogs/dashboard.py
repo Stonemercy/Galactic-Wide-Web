@@ -1,6 +1,6 @@
 from asyncio import sleep
 from cogs.stats import DashboardStats
-from datetime import datetime, time
+from datetime import datetime, time, timedelta
 from disnake import (
     Forbidden,
     NotFound,
@@ -11,7 +11,7 @@ from main import GalacticWideWebBot
 from utils.checks import wait_for_startup
 from utils.embeds import Dashboard
 from utils.db import GuildRecord, GuildsDB
-from utils.api import API, Data
+from utils.api import API, Campaign, Data
 
 
 class DashboardCog(commands.Cog):
@@ -22,6 +22,34 @@ class DashboardCog(commands.Cog):
 
     def cog_unload(self):
         self.dashboard.stop()
+
+    def get_needed_players(self, campaign: Campaign):
+        if campaign.planet.event:
+            liberation_changes = self.liberation_changes[campaign.planet.name]
+            if (
+                len(liberation_changes["liberation_changes"]) == 0
+                or sum(liberation_changes["liberation_changes"]) == 0
+            ):
+                return
+            progress_needed = 100 - liberation_changes["liberation"]
+            now = datetime.now()
+            seconds_to_complete = int(
+                (progress_needed / sum(liberation_changes["liberation_changes"])) * 3600
+            )
+            winning = (
+                now + timedelta(seconds=seconds_to_complete)
+                < campaign.planet.event.end_time_datetime
+            )
+            if not winning:
+                hours_left = (
+                    campaign.planet.event.end_time_datetime - now
+                ).total_seconds() / 3600
+                progress_needed_per_hour = progress_needed / hours_left
+                amount_ratio = progress_needed_per_hour / sum(
+                    [liberation_changes["liberation_changes"][-1]] * 4
+                )
+                required_players = campaign.planet.stats["playerCount"] * amount_ratio
+                return required_players
 
     async def update_message(self, message: PartialMessage, dashboard_dict: dict):
         guild: GuildRecord = GuildsDB.get_info(message.guild.id)
@@ -66,6 +94,7 @@ class DashboardCog(commands.Cog):
                 f"<@{self.bot.owner_id}>\n{api.error[0]}\n{api.error[1]}\n:warning:"
             )
         data = Data(data_from_api=api)
+        planets_with_player_reqs = {}
         for campaign in data.campaigns:
             if campaign.planet.name not in self.liberation_changes:
                 self.liberation_changes[campaign.planet.name] = {
@@ -81,9 +110,19 @@ class DashboardCog(commands.Cog):
                         campaign.progress - changes["liberation"]
                     )
                 changes["liberation"] = campaign.progress
+            required = self.get_needed_players(campaign)
+            if required:
+                planets_with_player_reqs[campaign.planet.index] = required
         languages = GuildsDB.get_used_languages()
         dashboard_dict = {
-            lang: Dashboard(data, lang, self.liberation_changes) for lang in languages
+            lang: Dashboard(
+                data=data,
+                language=self.bot.json_dict["languages"][lang],
+                liberation_changes=self.liberation_changes,
+                json_dict=self.bot.json_dict,
+                planet_reqs=planets_with_player_reqs,
+            )
+            for lang in languages
         }
         chunked_messages = [
             self.bot.dashboard_messages[i : i + 50]

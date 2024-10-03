@@ -1,6 +1,7 @@
 from disnake import AppCmdInter
 from disnake.ext import commands
 from main import GalacticWideWebBot
+from utils.checks import wait_for_startup
 from utils.db import GuildRecord, GuildsDB
 from utils.embeds import Automaton
 
@@ -9,10 +10,12 @@ class AutomatonCog(commands.Cog):
     def __init__(self, bot: GalacticWideWebBot):
         self.bot = bot
         self.automaton_dict = self.bot.json_dict["enemies"]["automaton"]
-        self.variations_dict = {}
-        for i in self.automaton_dict.values():
-            if i["variations"]:
-                self.variations_dict.update(i["variations"])
+        self.variations_dict = {
+            k: v
+            for i in self.automaton_dict.values()
+            if i["variations"]
+            for k, v in i["variations"].items()
+        }
 
     async def automaton_autocomp(inter: AppCmdInter, user_input: str):
         return [
@@ -34,6 +37,7 @@ class AutomatonCog(commands.Cog):
             if user_input in variation.lower()
         ][:25]
 
+    @wait_for_startup()
     @commands.slash_command(
         description="Returns information on an Automaton or variation.",
     )
@@ -63,14 +67,14 @@ class AutomatonCog(commands.Cog):
         guild_language = self.bot.json_dict["languages"][guild_in_db.language]
         if species and variation:
             return await inter.send(
-                guild_language["enemy.species_or_variation"],
+                guild_language["enemy"]["species_or_variation"],
                 ephemeral=True,
             )
         elif (species and species not in self.automaton_dict) or (
             variation and variation not in self.variations_dict
         ):
             return await inter.send(
-                guild_language["enemy.missing"],
+                guild_language["enemy"]["missing"],
                 ephemeral=True,
             )
         if species:

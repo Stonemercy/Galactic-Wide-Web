@@ -59,7 +59,10 @@ class WarUpdatesCog(commands.Cog):
         data = Data(data_from_api=api)
         old_campaigns = CampaignsDB.get_all()
         languages = GuildsDB.get_used_languages()
-        embeds = {lang: CampaignEmbed(lang) for lang in languages}
+        embeds = {
+            lang: CampaignEmbed(self.bot.json_dict["languages"][lang])
+            for lang in languages
+        }
         new_updates = False
         new_campaign_ids = [campaign.id for campaign in data.campaigns]
         if not old_campaigns:

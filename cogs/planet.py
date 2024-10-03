@@ -1,4 +1,4 @@
-from disnake import AppCmdInter, File
+from disnake import AppCmdInter
 from disnake.ext import commands
 from main import GalacticWideWebBot
 from utils.checks import wait_for_startup
@@ -54,32 +54,28 @@ class PlanetCog(commands.Cog):
         )
         if api.error:
             await self.bot.moderator_channel.send(
-                f"<@164862382185644032>\n{api.error[0]}\n{api.error[1]}\n:warning:"
+                f"<@{self.bot.owner_id}>\n{api.error[0]}\n{api.error[1]}\n:warning:"
             )
             return await inter.send(
                 "There was an issue getting the data. Please try again later",
                 ephemeral=ephemeral,
             )
         data = Data(data_from_api=api)
-        planet_data = [i for i in data.planets.values() if i.name == planet.upper()]
-        if planet_data == []:
-            return await inter.send("Information on that planet is unavailable.")
-        else:
-            planet_data = planet_data[0]
+        planet_names = [
+            planet_names
+            for planet_names in self.bot.json_dict["planets"].values()
+            if planet_names["name"] == planet
+        ][0]
         embed = PlanetEmbed(
-            planet_data,
-            planet_data.thumbnail,
-            self.bot.json_dict["languages"][guild.language],
+            planet_names=planet_names,
+            data=data,
+            language=self.bot.json_dict["languages"][guild.language],
         )
-        try:
-            embed.set_image(
-                file=File(f"resources/biomes/{planet_data.biome['name'].lower()}.png")
-            )
-        except:
+        if not embed.image_set:
             await self.bot.moderator_channel.send(
                 f"Image missing for biome of **planet __{planet}__** <@{self.bot.owner_id}> :warning:"
             )
-        map_embed = planet_map(data, planet_data.index, guild.language)
+        map_embed = planet_map(data, embed.planet.index, guild.language)
         await inter.send(embeds=[embed, map_embed], ephemeral=ephemeral)
 
 

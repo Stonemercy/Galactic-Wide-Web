@@ -45,7 +45,7 @@ class MapCog(commands.Cog):
             self.bot.map_messages.remove(message)
             GuildsDB.update_map(message.guild.id, 0, 0)
             return self.bot.logger.error(
-                f"{self.qualified_name} | update_message | {e} | removied from self.bot.map_messages | {message.channel.id = }"
+                f"{self.qualified_name} | update_message | {e} | removed from self.bot.map_messages | {message.channel.id = }"
             )
         except Exception as e:
             return self.bot.logger.error(

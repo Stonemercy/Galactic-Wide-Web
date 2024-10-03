@@ -3,6 +3,7 @@ from disnake.ext import commands, tasks
 from disnake.ui import Button, ActionRow
 from main import GalacticWideWebBot
 from re import findall
+from utils.checks import wait_for_startup
 from utils.embeds import Items
 
 
@@ -35,6 +36,7 @@ class WarbondCog(commands.Cog):
     async def before_json_load(self):
         await self.bot.wait_until_ready()
 
+    @wait_for_startup()
     @commands.slash_command(
         description="Returns a basic summary of the items in a specific warbond."
     )
@@ -45,6 +47,7 @@ class WarbondCog(commands.Cog):
             autocomplete=warbond_autocomp, description="The warbond you want to lookup"
         ),
     ):
+        await inter.response.defer(ephemeral=True)
         self.bot.logger.info(
             f"{self.qualified_name} | /{inter.application_command.name} <{warbond = }>"
         )
@@ -56,21 +59,12 @@ class WarbondCog(commands.Cog):
                 ),
                 ephemeral=True,
             )
-        chosen_warbond = self.bot.json_dict["warbonds"][
-            self.warbond_index[warbond]["id"]
-        ]
+        chosen_warbond_json = {
+            "name": warbond,
+            "json": self.bot.json_dict["warbonds"][self.warbond_index[warbond]["id"]],
+        }
         embed = Items.Warbond(
-            chosen_warbond,
-            self.warbond_index[warbond],
-            self.bot.json_dict["items"]["item_names"],
-            1,
-            self.bot.json_dict["items"]["armour"],
-            self.bot.json_dict["items"]["armour_perks"],
-            self.bot.json_dict["items"]["primary_weapons"],
-            self.bot.json_dict["items"]["secondary_weapons"],
-            self.bot.json_dict["items"]["grenades"],
-            self.bot.json_dict["items"]["weapon_types"],
-            self.boosters,
+            warbond_json=chosen_warbond_json, json_dict=self.bot.json_dict, page=1
         )
         components = [
             Button(
@@ -91,19 +85,23 @@ class WarbondCog(commands.Cog):
             components=components,
         )
 
+    @wait_for_startup()
     @commands.Cog.listener("on_button_click")
     async def page_button_listener(self, inter: MessageInteraction):
         button_id = inter.component.custom_id
         if button_id[:-10] not in self.warbond_index:
             return
         action_row = ActionRow.rows_from_message(inter.message)[0]
-        warbond_json = self.warbond_index[button_id[:-10]]
-        warbond = inter.bot.json_dict["warbonds"][warbond_json["id"]]
-        page_count = [int(i) for i in warbond]
+        warbond_index = self.warbond_index[button_id[:-10]]
+        warbond_json = {
+            "name": warbond_index["name"],
+            "json": self.bot.json_dict["warbonds"][warbond_index["id"]],
+        }
+        page_count = [int(i) for i in warbond_json["json"]]
         current_page = int(findall(r"\d+", inter.message.embeds[0].description)[0])
         new_page = (
             current_page + 1
-            if button_id == f"{warbond_json['name']}_next_page"
+            if button_id == f"{warbond_index['name']}_next_page"
             else current_page - 1
         )
         if new_page == page_count[0]:
@@ -114,17 +112,7 @@ class WarbondCog(commands.Cog):
             action_row.children[0].disabled = False
             action_row.children[1].disabled = False
         embed = Items.Warbond(
-            warbond,
-            warbond_json,
-            self.bot.json_dict["items"]["item_names"],
-            new_page,
-            self.bot.json_dict["items"]["armour"],
-            self.bot.json_dict["items"]["armour_perks"],
-            self.bot.json_dict["items"]["primary_weapons"],
-            self.bot.json_dict["items"]["secondary_weapons"],
-            self.bot.json_dict["items"]["grenades"],
-            self.bot.json_dict["items"]["weapon_types"],
-            self.boosters,
+            warbond_json=warbond_json, json_dict=self.bot.json_dict, page=new_page
         )
         await inter.response.edit_message(
             embed=embed,

@@ -46,10 +46,14 @@ class MajorOrderCog(commands.Cog):
         data = Data(data_from_api=api)
         if data.assignment in (None, []):
             return await inter.send(
-                guild_language["major_order.no_order"], ephemeral=public
+                guild_language["major_order"]["no_order"], ephemeral=public
             )
         embed = MajorOrderEmbed(
-            data.assignment, data.planets, guild_in_db.language, True
+            data=data,
+            language=guild_language,
+            planet_names=self.bot.json_dict["planets"],
+            reward_types=self.bot.json_dict["items"]["reward_types"],
+            with_health_bars=True,
         )
         await inter.send(embed=embed)
 

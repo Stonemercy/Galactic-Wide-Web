@@ -38,6 +38,7 @@ class GuildManagementCog(commands.Cog):
         self.dashboard_checking.stop()
         self.guild_checking.stop()
 
+    @wait_for_startup()
     @commands.Cog.listener()
     async def on_guild_join(self, guild: Guild):
         GuildsDB.insert_new_guild(guild.id)
@@ -65,6 +66,7 @@ class GuildManagementCog(commands.Cog):
         await sleep(10.0)
         await self.bot.change_presence(activity=old_activity)
 
+    @wait_for_startup()
     @commands.Cog.listener()
     async def on_guild_remove(self, guild: Guild):
         GuildsDB.remove_from_db(guild.id)
@@ -84,6 +86,7 @@ class GuildManagementCog(commands.Cog):
         )
         await self.bot.moderator_channel.send(embed=embed)
 
+    @wait_for_startup()
     @tasks.loop(minutes=1)
     async def bot_dashboard(self):
         now = datetime.now()
@@ -205,6 +208,7 @@ class GuildManagementCog(commands.Cog):
     async def before_bot_dashboard(self):
         await self.bot.wait_until_ready()
 
+    @wait_for_startup()
     @tasks.loop(count=1)
     async def react_role_dashboard(self):
         dashboard = BotDashboardDB.get_info()
@@ -230,13 +234,14 @@ class GuildManagementCog(commands.Cog):
                 message = await channel.send(embed=embed, components=components)
                 BotDashboardDB.set_react_role(message.id)
             except Exception as e:
-                await self.bot.moderator_channel.send(f"```py\nBot Dashboard\n{e}```")
+                await self.bot.moderator_channel.send(f"Bot Dashboard\n```py\n{e}\n```")
                 pass
 
     @react_role_dashboard.before_loop
     async def before_react_role(self):
         await self.bot.wait_until_ready()
 
+    @wait_for_startup()
     @commands.Cog.listener("on_button_click")
     async def react_role(self, inter: MessageInteraction):
         if inter.component.custom_id == "BotUpdatesButton":
@@ -256,10 +261,9 @@ class GuildManagementCog(commands.Cog):
                     delete_after=10,
                 )
 
-    times = []
-    for i in range(24):
-        for j in range(2, 62, 15):
-            times.append(time(hour=i, minute=j, second=0))
+    times = [
+        time(hour=i, minute=j, second=0) for i in range(24) for j in range(2, 62, 15)
+    ]
 
     @wait_for_startup()
     @tasks.loop(time=times)
@@ -279,7 +283,7 @@ class GuildManagementCog(commands.Cog):
                     now - timedelta(minutes=16)
                 ) and self.bot.startup_time < (now - timedelta(minutes=16)):
                     await self.bot.moderator_channel.send(
-                        f"<@164862382185644032> {message.jump_url} was last edited <t:{int(message.edited_at.timestamp())}:R> :warning:"
+                        f"<@{self.bot.owner_id}> {message.jump_url} was last edited <t:{int(message.edited_at.timestamp())}:R> :warning:"
                     )
                     await sleep(15 * 60)
             except Exception as e:
@@ -322,6 +326,7 @@ class GuildManagementCog(commands.Cog):
     async def before_guild_check(self):
         await self.bot.wait_until_ready()
 
+    @wait_for_startup()
     @commands.Cog.listener("on_button_click")
     async def ban_listener(self, inter: MessageInteraction):
         if inter.component.custom_id == "guild_remove":

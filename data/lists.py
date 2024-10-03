@@ -55,9 +55,13 @@ json_dict = {
             "path": "data/json/items/item_names.json",
             "value": None,
         },
-        "armour": {"path": "data/json/items/armor/armor.json", "value": None},
-        "armour_perks": {
+        "armor": {"path": "data/json/items/armor/armor.json", "value": None},
+        "armor_perks": {
             "path": "data/json/items/armor/passive.json",
+            "value": None,
+        },
+        "armor_slots": {
+            "path": "data/json/items/armor/slot.json",
             "value": None,
         },
         "primary_weapons": {
@@ -129,14 +133,16 @@ emojis_dict = {
     "Double Action": "",
     "Beam": "<:beam:1233068107065458858>",
     "Heat": "<:heat:1233071845612191874>",
+    "Stimulative": "",
     "Explosive": "<:explosive:1233069923539091476>",
     "Light Armor Penetrating": "<:lightarmorpenetrating:1233068100992106498>",
     "Medium Armor Penetrating": "<:mediumarmorpenetrating:1233068102451724422>",
     "Heavy Armor Penetrating": "<:heavyarmorpenetrating:1233068099587018773>",
     "Chargeup": "",
-    "Incendiary": "",
+    "Incendiary": "<:incendiary:1290281034532913185>",
     "One Handed": "",
     "Rounds Reload": "",
+    "All Barrels": "",
     "Left Banner": "<:left_banner:1272562768897376328>",
     "Right Banner": "<:right_banner:1272562767597015151>",
     "Capacity": "<:capacity:1233129432852729961>",
@@ -237,7 +243,6 @@ emotes_list = [
     "Explosive Handshake",
     "Scout Handshake",
     "Test of Conviction",
-    "Ew",
     "Natural Gas Extraction",
 ]
 
@@ -265,6 +270,7 @@ victory_poses_list = [
     "Big Stretch",
     "Deep Reflection",
     "Thoracic Collision Exultation Maneuver",
+    "Ew",
 ]
 
 player_cards_list = [
@@ -295,7 +301,7 @@ player_cards_list = [
     "Purifying Eclipse",
     "The Breach",
     "Standard of Safe Distance",
-    "Pation Zero's Rememberance",
+    "Patient Zero's Rememberance",
 ]
 
 titles_list = [
@@ -326,4 +332,4 @@ titles_list = [
     "Expert Exterminator",
 ]
 
-stratagem_permit_list = ["Steriliser", "'Guard Dog' Dog Breath"]
+stratagem_permit_list = ["TX-41 Sterilizer", "AX/TX-13 'Guard Dog' Dog Breath"]
