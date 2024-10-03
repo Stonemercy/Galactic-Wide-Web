@@ -45,6 +45,6 @@
 	},
 	"3102833400": {
 		"name": "Firebomb Hellpods",
-		"description": "Lines all Hellpods with volatile incendiaries that detonate upon impact, igniting any units in vicinity of the drop site."
+		"description": "> Lines all Hellpods with volatile incendiaries that detonate upon impact, igniting any units in vicinity of the drop site."
 	}
 }
