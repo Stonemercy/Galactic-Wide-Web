@@ -7,7 +7,7 @@
 </p>
 
 While this bot not designed for others to setup, you can use this repo for ideas for your projects.
-If you wish to use the GWW bot itself, I have it hosted and you can invite it [here](https://discord.com/channels/1212722266392109088/1212736310947741768/1212739169336434768)
+If you wish to use the GWW bot itself, I have it hosted and you can invite it [here](hhttps://discord.com/application-directory/1212535586972369008)
 
 ## Commands
 `/automaton`
@@ -25,6 +25,12 @@ If you wish to use the GWW bot itself, I have it hosted and you can invite it [h
 - Get some help for a specific command, or a list of every command by using "all".
   - Options:
     - `command`: string [Required] - The command you want to lookup, use "all" for a list of all available commands
+
+`/map`
+- Get an up-to-date map of the galaxy
+  - Options:
+    - `faction`: string <Optional> - The faction to focus on
+    - `public`: string <Optional> - Do you want other people to see the response to this command?
 
 `/map`
 - Get an up-to-date map of the galaxy
@@ -74,17 +80,21 @@ If you wish to use the GWW bot itself, I have it hosted and you can invite it [h
     - `species`: string <Optional> - A specific 'main' illuminate
     - `variation`: string <Optional> - A specific variant of an illuminate
 
-`/map`
-- Get an up-to-date map of the galaxy
+`/stratagem`
+- Returns information on a stratagem.
   - Options:
-    - `faction`: string <Optional> - The faction to focus on
-    - `public`: string <Optional> - Do you want other people to see the response to this command?
+    - `stratagem`: string [Required] - The stratagem you want to lookup
 
 `/feedback`
 - Provide feedback for the bot that goes directly to me
 
 `/stats`
 - Returns information on the bot
+
+`/major_order`
+- Returns information on an Automaton or variation.
+  - Options:
+    - `public`: string <Optional> - If you want the response to be seen by others in the server.
 
 ## Support
 Available here: [Discord Support Server](https://discord.gg/Z8Ae5H5DjZ)
