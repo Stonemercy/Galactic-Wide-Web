@@ -377,7 +377,7 @@ class SetupCog(commands.Cog):
                     "Patch Notes",
                     (
                         f"**{guild_in_db.patch_notes}** ➡️ **{want_patch_notes}**\n"
-                        f"*{guild_language['setup']['patch_notes_same']}*"
+                        f"*{guild_language['setup']['patch_notes']['same']}*"
                     ),
                     inline=False,
                 )
