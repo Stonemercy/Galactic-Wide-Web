@@ -615,7 +615,7 @@ class Dashboard:
             )
         else:
             major_orders_embed.add_field(
-                language["dashboard"]["major_order"]["nono"], "\u200b"
+                language["dashboard"]["major_order"]["none"], "\u200b"
             )
 
         # Defending
