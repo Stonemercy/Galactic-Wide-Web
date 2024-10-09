@@ -66,7 +66,6 @@ class AnnouncementsCog(commands.Cog):
                 f"{self.qualified_name} | send_embed | {e} | {channel.id = }"
             )
 
-    @wait_for_startup()
     @tasks.loop(minutes=1)
     async def major_order_check(self):
         if self.bot.announcement_channels == []:
@@ -115,7 +114,6 @@ class AnnouncementsCog(commands.Cog):
     async def before_mo_check(self):
         await self.bot.wait_until_ready()
 
-    @wait_for_startup()
     @tasks.loop(minutes=1)
     async def dispatch_check(self):
         if self.bot.announcement_channels == []:
@@ -164,7 +162,6 @@ class AnnouncementsCog(commands.Cog):
     async def before_dispatch_check(self):
         await self.bot.wait_until_ready()
 
-    @wait_for_startup()
     @tasks.loop(minutes=1)
     async def steam_check(self):
         if self.bot.patch_channels == []:

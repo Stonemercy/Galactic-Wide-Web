@@ -86,7 +86,6 @@ class GuildManagementCog(commands.Cog):
         )
         await self.bot.moderator_channel.send(embed=embed)
 
-    @wait_for_startup()
     @tasks.loop(minutes=1)
     async def bot_dashboard(self):
         now = datetime.now()
@@ -208,7 +207,6 @@ class GuildManagementCog(commands.Cog):
     async def before_bot_dashboard(self):
         await self.bot.wait_until_ready()
 
-    @wait_for_startup()
     @tasks.loop(count=1)
     async def react_role_dashboard(self):
         dashboard = BotDashboardDB.get_info()
@@ -265,7 +263,6 @@ class GuildManagementCog(commands.Cog):
         time(hour=i, minute=j, second=0) for i in range(24) for j in range(2, 62, 15)
     ]
 
-    @wait_for_startup()
     @tasks.loop(time=times)
     async def dashboard_checking(self):
         now = datetime.now()
@@ -295,7 +292,6 @@ class GuildManagementCog(commands.Cog):
     async def before_dashboard_check(self):
         await self.bot.wait_until_ready()
 
-    @wait_for_startup()
     @tasks.loop(time=[time(hour=0, minute=0, second=0, microsecond=0)])
     async def guild_checking(self):
         guilds_in_db = GuildsDB.get_all_guilds()

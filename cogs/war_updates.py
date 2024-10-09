@@ -36,7 +36,6 @@ class WarUpdatesCog(commands.Cog):
                 f"{self.qualified_name} | send_campaign | {e} | {channel.id = }"
             )
 
-    @wait_for_startup()
     @tasks.loop(minutes=1)
     async def campaign_check(self):
         update_start = datetime.now()

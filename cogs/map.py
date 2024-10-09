@@ -54,7 +54,6 @@ class MapCog(commands.Cog):
 
     times = [time(hour=hour, minute=5, second=0) for hour in range(24)]
 
-    @wait_for_startup()
     @tasks.loop(time=times)
     async def map_poster(self, force: bool = False):
         if self.bot.map_messages == []:
