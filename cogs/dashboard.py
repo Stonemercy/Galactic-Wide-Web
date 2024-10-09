@@ -71,13 +71,13 @@ class DashboardCog(commands.Cog):
                 f"{self.qualified_name} | update_message | {e} | {message.channel.id = }"
             )
 
-    times = []
-    for i in range(24):
-        for j in range(0, 60, 15):
-            times.append(time(hour=i, minute=j, second=0))
-
-    @wait_for_startup()
-    @tasks.loop(time=times)
+    @tasks.loop(
+        time=[
+            time(hour=i, minute=j, second=0)
+            for i in range(24)
+            for j in range(0, 60, 15)
+        ]
+    )
     async def dashboard(self, force: bool = False):
         if self.bot.dashboard_messages == []:
             return
