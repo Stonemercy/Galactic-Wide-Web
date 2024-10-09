@@ -5,7 +5,7 @@ from utils.checks import wait_for_startup
 from utils.db import GuildRecord, GuildsDB
 from utils.embeds import PlanetEmbed
 from utils.functions import planet_map
-from utils.api import Data, API
+from utils.data import Data
 
 
 class PlanetCog(commands.Cog):
@@ -48,19 +48,7 @@ class PlanetCog(commands.Cog):
         guild: GuildRecord = GuildsDB.get_info(inter.guild_id)
         if not guild:
             guild = GuildsDB.insert_new_guild(inter.guild.id)
-        api = API()
-        await api.pull_from_api(
-            get_planets=True, get_thumbnail=True, get_campaigns=True
-        )
-        if api.error:
-            await self.bot.moderator_channel.send(
-                f"<@{self.bot.owner_id}>\n{api.error[0]}\n{api.error[1]}\n:warning:"
-            )
-            return await inter.send(
-                "There was an issue getting the data. Please try again later",
-                ephemeral=ephemeral,
-            )
-        data = Data(data_from_api=api)
+        data = Data(data_from_api=self.bot.data_dict)
         planet_names = [
             planet_names
             for planet_names in self.bot.json_dict["planets"].values()

@@ -10,7 +10,7 @@ from PIL.ImageFont import truetype
 from utils.checks import wait_for_startup
 from utils.db import GuildRecord, GuildsDB
 from utils.functions import dashboard_maps
-from utils.api import API, Data
+from utils.data import Data
 
 
 class MapCog(commands.Cog):
@@ -56,7 +56,7 @@ class MapCog(commands.Cog):
 
     @tasks.loop(time=times)
     async def map_poster(self, force: bool = False):
-        if self.bot.map_messages == []:
+        if self.bot.map_messages == [] or None in self.bot.data_dict.values():
             return
         update_start = datetime.now()
         try:
@@ -65,18 +65,7 @@ class MapCog(commands.Cog):
             )
         except:
             pass
-        api = API()
-        await api.pull_from_api(
-            get_campaigns=True,
-            get_planets=True,
-            get_assignments=True,
-            get_planet_events=True,
-        )
-        if api.error:
-            return await self.bot.moderator_channel.send(
-                f"<@{self.bot.owner_id}>\n{api.error[0]}\n{api.error[1]}\n:warning:"
-            )
-        data = Data(data_from_api=api)
+        data = Data(data_from_api=self.bot.data_dict)
         dashboard_maps_dict = await dashboard_maps(
             data, self.bot.waste_bin_channel, self.bot.json_dict["planets"]
         )
@@ -121,30 +110,15 @@ class MapCog(commands.Cog):
             description="Do you want other people to see the response to this command?",
         ),
     ):
-        public: bool = public != "Yes"
-        await inter.response.defer(ephemeral=public)
+        ephemeral = public != "Yes"
+        await inter.response.defer(ephemeral=ephemeral)
         self.bot.logger.info(
             f"{self.qualified_name} | /{inter.application_command.name} <{faction = }> <{public = }>"
         )
         guild: GuildRecord = GuildsDB.get_info(inter.guild_id)
         if not guild:
             guild = GuildsDB.insert_new_guild(inter.guild.id)
-        api = API()
-        await api.pull_from_api(
-            get_planets=True,
-            get_campaigns=True,
-            get_assignments=True,
-            get_planet_events=True,
-        )
-        if api.error:
-            await self.bot.moderator_channel.send(
-                f"<@{self.bot.owner_id}>\n{api.error[0]}\n{api.error[1]}\n:warning:"
-            )
-            return await inter.send(
-                "There was an issue getting the data for the map.\nPlease try again later.",
-                ephemeral=public,
-            )
-        data = Data(data_from_api=api)
+        data = Data(data_from_api=self.bot.data_dict)
         planets_coords = {}
         available_planets = [campaign.planet.name for campaign in data.campaigns]
         for planet in data.planets.values():
@@ -170,7 +144,7 @@ class MapCog(commands.Cog):
         if planets_coords == {}:
             return await inter.send(
                 f"There are no planets under {faction} control. Let's keep it that way!",
-                ephemeral=public,
+                ephemeral=ephemeral,
             )
         with Image.open("resources/map.webp") as background:
             background_draw = Draw(background)
@@ -253,7 +227,7 @@ class MapCog(commands.Cog):
             background.save("resources/map_2.webp")
         await inter.send(
             file=File("resources/map_2.webp"),
-            ephemeral=public,
+            ephemeral=ephemeral,
         )
 
 

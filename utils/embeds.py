@@ -1,7 +1,7 @@
 from disnake import APISlashCommand, Embed, Colour, File, ModalInteraction, OptionType
 from datetime import datetime
 from utils.functions import health_bar, short_format, skipped_planets
-from utils.api import Campaign, Data, Dispatch, Steam, Tasks, Planet
+from utils.data import Campaign, Data, Dispatch, Steam, Tasks, Planet
 from data.lists import (
     emojis_dict,
     warbond_images_dict,
@@ -196,7 +196,13 @@ class MajorOrderEmbed(Embed):
                 text = f"{language['heroes']}: **{planet.stats['playerCount']:,}**\n"
                 if with_health_bars:
                     health = (
-                        1 - planet.event.progress if planet.event else task.progress
+                        1 - planet.event.progress
+                        if planet.event
+                        else (
+                            (1 - (planet.health / planet.max_health))
+                            if planet.current_owner != "Humans"
+                            else (planet.health / planet.max_health)
+                        )
                     )
                     if planet.event:
                         planet_health_bar = health_bar(
@@ -448,7 +454,7 @@ class Dashboard:
                             True,
                         )
                         completed = f"🛡️ {emojis_dict[planet.event.faction]}"
-                        health_text = f"{1 - (planet.event.progress):^25,.2%}"
+                        health_text = f"{1 - planet.event.progress:^25,.2%}"
                     else:
                         task.health_bar = health_bar(
                             planet.health / planet.max_health,

@@ -1,10 +1,9 @@
 from asyncio import sleep
 from disnake import Forbidden, NotFound, TextChannel
 from disnake.ext import commands, tasks
-from utils.checks import wait_for_startup
 from utils.db import CampaignsDB, GuildRecord, GuildsDB
 from utils.embeds import CampaignEmbed
-from utils.api import API, Data
+from utils.data import Data
 from datetime import datetime
 from main import GalacticWideWebBot
 
@@ -39,23 +38,13 @@ class WarUpdatesCog(commands.Cog):
     @tasks.loop(minutes=1)
     async def campaign_check(self):
         update_start = datetime.now()
-        if self.bot.announcement_channels == [] or update_start.minute in (
-            0,
-            15,
-            30,
-            45,
+        if (
+            self.bot.announcement_channels == []
+            or update_start.minute in (0, 15, 30, 45)
+            or None in self.bot.data_dict.values()
         ):
             return
-        api = API()
-        await api.pull_from_api(
-            get_planets=True,
-            get_campaigns=True,
-        )
-        if api.error:
-            return await self.bot.moderator_channel.send(
-                f"<@{self.bot.owner_id}>{api.error[0]}\n{api.error[1]}\n:warning:"
-            )
-        data = Data(data_from_api=api)
+        data = Data(data_from_api=self.bot.data_dict)
         old_campaigns = CampaignsDB.get_all()
         languages = GuildsDB.get_used_languages()
         embeds = {

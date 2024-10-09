@@ -4,10 +4,9 @@ from disnake import Forbidden, TextChannel, ButtonStyle
 from disnake.ext import commands, tasks
 from disnake.ui import Button
 from main import GalacticWideWebBot
-from utils.checks import wait_for_startup
 from utils.embeds import DispatchesEmbed, MajorOrderEmbed, SteamEmbed
 from utils.db import DispatchesDB, GuildRecord, MajorOrderDB, GuildsDB, SteamDB
-from utils.api import API, Data
+from utils.data import Data
 
 
 class AnnouncementsCog(commands.Cog):
@@ -68,16 +67,14 @@ class AnnouncementsCog(commands.Cog):
 
     @tasks.loop(minutes=1)
     async def major_order_check(self):
-        if self.bot.announcement_channels == []:
-            return
         announcement_start = datetime.now()
-        api = API()
-        await api.pull_from_api(get_assignments=True, get_planets=True)
-        if api.error:
-            return await self.bot.moderator_channel.send(
-                f"<@{self.bot.owner_id}>\n{api.error[0]}\n{api.error[1]}\n:warning:"
-            )
-        data = Data(data_from_api=api)
+        if (
+            self.bot.announcement_channels == []
+            or announcement_start < self.bot.ready_time
+            or None in self.bot.data_dict.values()
+        ):
+            return
+        data = Data(data_from_api=self.bot.data_dict)
         if not data.assignment:
             return
         self._newest_id = data.assignment.id
@@ -116,24 +113,16 @@ class AnnouncementsCog(commands.Cog):
 
     @tasks.loop(minutes=1)
     async def dispatch_check(self):
-        if self.bot.announcement_channels == []:
-            return
         dispatch_start = datetime.now()
-        api = API()
-        await api.pull_from_api(get_dispatches=True)
-        if api.error:
-            return await self.bot.moderator_channel.send(
-                f"<@{self.bot.owner_id}>\n{api.error[0]}\n{api.error[1]}\n:warning:"
-            )
-        if api.dispatches in (None, []):
-            return self.bot.logger.error(
-                f"{self.qualified_name} | dispatch_check | {api.dispatches = }"
-            )
-        if api.dispatches[0]["message"] == None:
-            return self.bot.logger.error(
-                f'{self.qualified_name} | dispatch_check | {api.dispatches[0]["message"] = }'
-            )
-        data = Data(data_from_api=api)
+        if (
+            self.bot.announcement_channels == []
+            or dispatch_start < self.bot.ready_time
+            or None in self.bot.data_dict.values()
+            or self.bot.data_dict["dispatches"] == []
+            or self.bot.data_dict["dispatches"][0]["message"] == None
+        ):
+            return
+        data = Data(data_from_api=self.bot.data_dict)
         self._newest_id = data.dispatch.id
         last_dispatch = DispatchesDB.get_last()
         if not last_dispatch:
@@ -164,16 +153,14 @@ class AnnouncementsCog(commands.Cog):
 
     @tasks.loop(minutes=1)
     async def steam_check(self):
-        if self.bot.patch_channels == []:
-            return
         patch_notes_start = datetime.now()
-        api = API()
-        await api.pull_from_api(get_steam=True)
-        if api.error:
-            return await self.bot.moderator_channel.send(
-                f"<@{self.bot.owner_id}>\n{api.error[0]}\n{api.error[1]}\n:warning:"
-            )
-        data = Data(data_from_api=api)
+        if (
+            self.bot.patch_channels == []
+            or patch_notes_start < self.bot.ready_time
+            or None in self.bot.data_dict.values()
+        ):
+            return
+        data = Data(data_from_api=self.bot.data_dict)
         self._newest_id = int(data.steam.id)
         last_patch_notes = SteamDB.get_last()
         if not last_patch_notes:

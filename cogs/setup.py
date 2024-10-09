@@ -2,7 +2,7 @@ from data.lists import language_dict
 from disnake import AppCmdInter, File, Permissions, TextChannel
 from disnake.ext import commands
 from main import GalacticWideWebBot
-from utils.api import API, Data
+from utils.data import Data
 from utils.checks import wait_for_startup
 from utils.db import GuildRecord, GuildsDB
 from utils.embeds import Dashboard, SetupEmbed
@@ -212,22 +212,7 @@ class SetupCog(commands.Cog):
                         inline=False,
                     )
                 else:
-                    api = API()
-                    await api.pull_from_api(
-                        get_campaigns=True,
-                        get_assignments=True,
-                        get_planet_events=True,
-                        get_planets=True,
-                    )
-                    if api.error:
-                        await self.bot.moderator_channel.send(
-                            f"<@{self.bot.owner_id}>{api.error[0]}\n{api.error[1]}\n:warning:"
-                        )
-                        return await inter.send(
-                            "There was an issue connecting to the datacentre. Please try again.",
-                            ephemeral=True,
-                        )
-                    data = Data(data_from_api=api)
+                    data = Data(data_from_api=self.bot.data_dict)
                     liberation_changes = self.bot.get_cog(
                         "DashboardCog"
                     ).liberation_changes
@@ -335,40 +320,27 @@ class SetupCog(commands.Cog):
                         inline=False,
                     )
                 else:
-                    api = API()
-                    await api.pull_from_api(
-                        get_campaigns=True, get_planets=True, get_assignments=True
+                    data = Data(data_from_api=self.bot.data_dict)
+                    map_embeds = await dashboard_maps(
+                        data,
+                        self.bot.waste_bin_channel,
+                        self.bot.json_dict["planets"],
                     )
-                    if api.error:
-                        await self.bot.moderator_channel.send(
-                            f"<@{self.bot.owner_id}>{api.error[0]}\n{api.error[1]}\n:warning:"
-                        )
-                        return await inter.send(
-                            "There was an issue connecting to the datacentre. Please try again.",
-                            ephemeral=True,
-                        )
-                    else:
-                        data = Data(data_from_api=api)
-                        map_embeds = await dashboard_maps(
-                            data,
-                            self.bot.waste_bin_channel,
-                            self.bot.json_dict["planets"],
-                        )
-                        map_embed = map_embeds[guild_in_db.language]
-                        message = await map_channel.send(
-                            embed=map_embed,
-                        )
-                        GuildsDB.update_map(inter.guild_id, map_channel.id, message.id)
-                        embed.add_field(
-                            guild_language["setup"]["map"]["map"],
-                            (
-                                f"{guild_language['setup']['map']['channel']}: {map_channel.mention}\n"
-                                f"{guild_language['setup']['map']['message']}: {message.jump_url}\n"
-                            ),
-                            inline=False,
-                        )
-                        guild_in_db = GuildsDB.get_info(inter.guild_id)
-                        self.bot.map_messages.append(message)
+                    map_embed = map_embeds[guild_in_db.language]
+                    message = await map_channel.send(
+                        embed=map_embed,
+                    )
+                    GuildsDB.update_map(inter.guild_id, map_channel.id, message.id)
+                    embed.add_field(
+                        guild_language["setup"]["map"]["map"],
+                        (
+                            f"{guild_language['setup']['map']['channel']}: {map_channel.mention}\n"
+                            f"{guild_language['setup']['map']['message']}: {message.jump_url}\n"
+                        ),
+                        inline=False,
+                    )
+                    guild_in_db = GuildsDB.get_info(inter.guild_id)
+                    self.bot.map_messages.append(message)
 
         if patch_notes and not patch_notes_disabled:
             want_patch_notes = patch_notes == "Yes"

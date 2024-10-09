@@ -1,126 +1,30 @@
 from datetime import datetime, timedelta
-from logging import getLogger
-from os import getenv
-from aiohttp import ClientSession
 from utils.functions import steam_format
-
-logger = getLogger("disnake")
-
-
-class API:
-    def __init__(self):
-        self._api = getenv("API")
-        self._backup_api = getenv("BU_API")
-        self.error: tuple[str, Exception | int] | None = None
-        self.war = self.assignments = self.campaigns = self.dispatches = (
-            self.planets
-        ) = self.planet_events = self.steam = self.thumbnails = None
-
-    async def fetch_data(self, session: ClientSession, endpoint: str, attr_name):
-        try:
-            async with session.get(f"{self._api}/api/v1/{endpoint}") as r:
-                if r.status == 200:
-                    setattr(self, attr_name, await r.json())
-                else:
-                    self.error = (f"API/{endpoint.upper()}", r.status)
-                    logger.error(f"API/{endpoint.upper()}, {r.status}")
-        except Exception as e:
-            self.error = (f"API/{endpoint.upper()}", e)
-            logger.error(f"API/{endpoint.upper()}, {e}")
-
-    async def pull_from_api(
-        self,
-        get_war: bool = False,
-        get_assignments: bool = False,
-        get_campaigns: bool = False,
-        get_dispatches: bool = False,  # first index is newest
-        get_planets: bool = False,
-        get_planet_events: bool = False,
-        get_steam: bool = False,  # first index is newest
-        get_thumbnail: bool = False,
-    ):
-        self.endpoints = {
-            "war": get_war,
-            "assignments": get_assignments,
-            "campaigns": get_campaigns,
-            "dispatches": get_dispatches,
-            "planets": get_planets,
-            "planet-events": get_planet_events,
-            "steam": get_steam,
-        }
-        async with ClientSession(headers={"Accept-Language": "en-GB"}) as session:
-            async with session.get(f"{self._api}") as r:
-                if r.status != 200:
-                    self._api = self._backup_api
-                    logger.critical("API/USING BACKUP")
-
-                for endpoint, should_fetch in self.endpoints.items():
-                    if should_fetch:
-                        await self.fetch_data(
-                            session, endpoint, endpoint.replace("-", "_")
-                        )
-                if get_thumbnail:
-                    try:
-                        async with session.get(
-                            f"https://helldivers.news/api/planets"
-                        ) as r:
-                            if r.status == 200:
-                                self.thumbnails = await r.json()
-                            else:
-                                self.error = ("API/THUMBNAILS", r.status)
-                                logger.error(f"API/THUMBNAILS, {r.status}")
-                    except Exception as e:
-                        self.error = ("API/THUMBNAILS", e)
-                        logger.error(f"API/THUMBNAILS, {e}")
-
-        self.all = {
-            "war": {"wanted": get_war, "recieved": self.war != None},
-            "assignments": {
-                "wanted": get_assignments,
-                "recieved": self.assignments != None,
-            },
-            "campaigns": {
-                "wanted": get_campaigns,
-                "recieved": self.campaigns != None,
-            },
-            "dispatches": {
-                "wanted": get_dispatches,
-                "recieved": self.dispatches != None,
-            },
-            "planets": {"wanted": get_planets, "recieved": self.planets != None},
-            "planet_events": {
-                "wanted": get_planet_events,
-                "recieved": self.planet_events != None,
-            },
-            "steam": {"wanted": get_steam, "recieved": self.steam != None},
-            "thumbnails": {
-                "wanted": get_thumbnail,
-                "recieved": self.thumbnails != None,
-            },
-        }
 
 
 class Data:
-    def __init__(self, data_from_api: API):
+    def __init__(self, data_from_api: dict):
         self.__data__ = data_from_api
         self.assignment = self.assignment_planets = None
-
+        planet_events_list = sorted(
+            [planet for planet in self.__data__["planets"] if planet["event"]],
+            key=lambda planet: planet["statistics"]["playerCount"],
+            reverse=True,
+        )
         self.planet_events: PlanetEvents = (
-            PlanetEvents(self.__data__.planet_events)
-            if self.__data__.planet_events
-            else None
+            PlanetEvents(planet_events_list) if planet_events_list != [] else None
         )
 
-        if self.__data__.planets:
+        if self.__data__["planets"]:
             self.planets: dict[int, Planet] = {
-                planet["index"]: Planet(planet) for planet in self.__data__.planets
+                planet["index"]: Planet(planet) for planet in self.__data__["planets"]
             }
             self.total_players = sum(
                 [planet.stats["playerCount"] for planet in self.planets.values()]
             )
 
-        if self.__data__.assignments not in ([], None):
-            self.assignment = Assignment(self.__data__.assignments[0])
+        if self.__data__["assignments"] not in ([], None):
+            self.assignment = Assignment(self.__data__["assignments"][0])
             self.assignment_planets = []
             for task in self.assignment.tasks:
                 task: Tasks.Task
@@ -141,9 +45,9 @@ class Data:
                             and planet.event.faction == factions[task.values[1]]
                         ]
 
-        if self.__data__.campaigns not in ([], None):
+        if self.__data__["campaigns"] not in ([], None):
             self.campaigns: list[Campaign] = [
-                Campaign(campaign) for campaign in self.__data__.campaigns
+                Campaign(campaign) for campaign in self.__data__["campaigns"]
             ]
             self.campaigns = sorted(
                 self.campaigns,
@@ -151,26 +55,19 @@ class Data:
                 reverse=True,
             )
 
-        if self.__data__.dispatches:
-            self.dispatch = Dispatch(self.__data__.dispatches[0])
+        if self.__data__["dispatches"]:
+            self.dispatch = Dispatch(self.__data__["dispatches"][0])
 
-        if self.__data__.thumbnails:
-            self.thumbnails = self.__data__.thumbnails
+        if self.__data__["thumbnails"]:
+            self.thumbnails = self.__data__["thumbnails"]
             if self.planets:
                 for thumbnail_data in self.thumbnails:
                     self.planets[thumbnail_data["planet"]["index"]].thumbnail = (
                         f"https://helldivers.news{thumbnail_data['planet']['image'].replace(' ', '%20')}"
                     )
 
-        if self.__data__.steam:
-            self.steam = Steam(self.__data__.steam[0])
-
-    def __repr__(self) -> str:
-        text = f"Data("
-        for name, data in self.__data__.all.items():
-            text += f"{name}(wanted={data['wanted']}, recieved={data['recieved']}) "
-        text = text[:-2] + ")"
-        return text
+        if self.__data__["steam"]:
+            self.steam = Steam(self.__data__["steam"][0])
 
 
 class Assignment:

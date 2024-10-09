@@ -8,10 +8,9 @@ from disnake import (
 )
 from disnake.ext import commands, tasks
 from main import GalacticWideWebBot
-from utils.checks import wait_for_startup
 from utils.embeds import Dashboard
 from utils.db import GuildRecord, GuildsDB
-from utils.api import API, Campaign, Data
+from utils.data import Campaign, Data
 
 
 class DashboardCog(commands.Cog):
@@ -79,21 +78,10 @@ class DashboardCog(commands.Cog):
         ]
     )
     async def dashboard(self, force: bool = False):
-        if self.bot.dashboard_messages == []:
+        if self.bot.dashboard_messages == [] or None in self.bot.data_dict.values():
             return
         update_start = datetime.now()
-        api = API()
-        await api.pull_from_api(
-            get_campaigns=True,
-            get_assignments=True,
-            get_planet_events=True,
-            get_planets=True,
-        )
-        if api.error:
-            return await self.bot.moderator_channel.send(
-                f"<@{self.bot.owner_id}>\n{api.error[0]}\n{api.error[1]}\n:warning:"
-            )
-        data = Data(data_from_api=api)
+        data = Data(data_from_api=self.bot.data_dict)
         planets_with_player_reqs = {}
         for campaign in data.campaigns:
             if campaign.planet.name not in self.liberation_changes:

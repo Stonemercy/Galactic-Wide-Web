@@ -1,7 +1,7 @@
 from disnake import AppCmdInter
 from disnake.ext import commands
 from main import GalacticWideWebBot
-from utils.api import API, Data
+from utils.data import Data
 from utils.checks import wait_for_startup
 from utils.db import GuildRecord, GuildsDB
 from utils.embeds import MajorOrderEmbed
@@ -24,29 +24,19 @@ class MajorOrderCog(commands.Cog):
             description="If you want the response to be seen by others in the server.",
         ),
     ):
-        public = public != "Yes"
+        ephemeral = public != "Yes"
         self.bot.logger.info(
             f"{self.qualified_name} | /{inter.application_command.name} <{public = }>"
         )
-        await inter.response.defer(ephemeral=public)
+        await inter.response.defer(ephemeral=ephemeral)
         guild_in_db: GuildRecord = GuildsDB.get_info(inter.guild_id)
         if not guild_in_db:
             guild_in_db = GuildsDB.insert_new_guild(inter.guild.id)
         guild_language = self.bot.json_dict["languages"][guild_in_db.language]
-        api = API()
-        await api.pull_from_api(get_assignments=True, get_planets=True)
-        if api.error:
-            await self.bot.moderator_channel.send(
-                f"<@{self.bot.owner_id}>\n{api.error[0]}\n{api.error[1]}\n:warning:"
-            )
-            return await inter.send(
-                "There was an issue getting the data for the map.\nPlease try again later.",
-                ephemeral=public,
-            )
-        data = Data(data_from_api=api)
+        data = Data(data_from_api=self.bot.data_dict)
         if data.assignment in (None, []):
             return await inter.send(
-                guild_language["major_order"]["no_order"], ephemeral=public
+                guild_language["major_order"]["no_order"], ephemeral=ephemeral
             )
         embed = MajorOrderEmbed(
             data=data,

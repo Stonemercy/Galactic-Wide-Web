@@ -16,16 +16,15 @@ activity = Activity(name="for Socialism", type=ActivityType.watching)
 class GalacticWideWebBot(commands.InteractionBot):
     def __init__(self):
         super().__init__(owner_id=OWNER, intents=intents, activity=activity)
-        logger = getLogger("disnake")
-        logger.setLevel(INFO)
+        self.logger = getLogger("disnake")
+        self.logger.setLevel(INFO)
         handler = FileHandler(filename="disnake.log", encoding="utf-8", mode="w")
         handler.setFormatter(
             Formatter("%(asctime)s: %(levelname)s: %(name)s: %(message)s")
         )
-        logger.addHandler(handler)
-        self.logger = logger
+        self.logger.addHandler(handler)
         self.startup_time = datetime.now()
-        self.ready_time = self.startup_time + timedelta(seconds=15)
+        self.ready_time = self.startup_time + timedelta(seconds=30)
         self.dashboard_messages = []
         self.dashboard_channels = []
         self.announcement_channels = []
@@ -35,6 +34,15 @@ class GalacticWideWebBot(commands.InteractionBot):
         self.json_dict = load_json()
         if not self.json_dict:
             self.logger.warning("JSON FAILED TO LOAD")
+        self.data_dict = {
+            "assignments": None,
+            "campaigns": None,
+            "dispatches": None,
+            "planets": None,
+            "steam": None,
+            "thumbnails": None,
+        }
+        self.data_loaded = False
 
     async def on_ready(self):
         self.moderator_channel = self.get_channel(int(getenv("MODERATION_CHANNEL")))

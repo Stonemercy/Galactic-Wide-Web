@@ -1,16 +1,26 @@
-from datetime import datetime
+from asyncio import sleep
+from datetime import datetime, time
+from os import getenv
+from aiohttp import ClientSession
 from disnake.ext import commands, tasks
 from utils.db import GuildsDB
 from main import GalacticWideWebBot
 
+api = getenv("API")
+backup_api = getenv("BU_API")
 
-class ListGenCog(commands.Cog):
+
+class DataManagementCog(commands.Cog):
     def __init__(self, bot: GalacticWideWebBot):
         self.bot = bot
-        self.list_gen.start()
+        self.channel_message_gen.start()
+        self.pull_from_api.start()
+
+    def cog_unload(self):
+        self.pull_from_api.stop()
 
     @tasks.loop(count=1)
-    async def list_gen(self):
+    async def channel_message_gen(self):
         start_time = datetime.now()
         for data_list in (
             self.bot.dashboard_messages,
@@ -75,12 +85,66 @@ class ListGenCog(commands.Cog):
                 f"{len(self.bot.map_messages)} maps ({(len(self.bot.map_messages) / guilds_done):.0%})"
             )
         )
-        self.bot.ready_time = datetime.now()
 
-    @list_gen.before_loop
+    @channel_message_gen.before_loop
     async def before_message_gen(self):
+        await self.bot.wait_until_ready()
+
+    @tasks.loop(time=[time(hour=j, minute=i) for j in range(24) for i in range(59)])
+    async def pull_from_api(self):
+        api_to_use = api
+        async with ClientSession(headers={"Accept-Language": "en-GB"}) as session:
+            async with session.get(f"{api_to_use}") as r:
+                if r.status != 200:
+                    api_to_use = backup_api
+                    self.bot.logger.critical("API/USING BACKUP")
+                    await self.bot.moderator_channel.send(f"API/USING BACKUP\n{r}")
+
+            async with session.get(f"{api_to_use}") as r:
+                if r.status != 200:
+                    self.bot.logger.critical("API/BACKUP FAILED")
+                    return await self.bot.moderator_channel.send(
+                        f"API/BACKUP FAILED\n{r}"
+                    )
+
+                for endpoint in list(self.bot.data_dict.keys()):
+                    if endpoint == "thumbnails":
+                        async with session.get(
+                            "https://helldivers.news/api/planets"
+                        ) as r:
+                            if r.status == 200:
+                                self.bot.data_dict["thumbnails"] = await r.json()
+                            else:
+                                self.bot.logger.error(f"API/THUMBNAILS, {r.status}")
+                        continue
+                    try:
+                        async with session.get(f"{api_to_use}/api/v1/{endpoint}") as r:
+                            if r.status == 200:
+                                self.bot.data_dict[endpoint] = await r.json()
+                            else:
+                                self.bot.logger.error(
+                                    f"API/{endpoint.upper()}, {r.status}"
+                                )
+                                await self.bot.moderator_channel.send(
+                                    f"API/{endpoint.upper()}\n{r}"
+                                )
+                            await sleep(2)
+                    except Exception as e:
+                        self.bot.logger.error(f"API/{endpoint.upper()}, {e}")
+                        await self.bot.moderator_channel.send(
+                            f"API/{endpoint.upper()}\n{r}"
+                        )
+        if not self.bot.data_loaded:
+            now = datetime.now()
+            self.bot.ready_time = (
+                now if self.bot.ready_time > now else self.bot.ready_time
+            )
+            self.bot.data_loaded = True
+
+    @pull_from_api.before_loop
+    async def before_pull_from_api(self):
         await self.bot.wait_until_ready()
 
 
 def setup(bot: GalacticWideWebBot):
-    bot.add_cog(ListGenCog(bot))
+    bot.add_cog(DataManagementCog(bot))
