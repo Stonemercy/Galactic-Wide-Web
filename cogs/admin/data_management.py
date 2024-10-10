@@ -120,6 +120,10 @@ class DataManagementCog(commands.Cog):
                     try:
                         async with session.get(f"{api_to_use}/api/v1/{endpoint}") as r:
                             if r.status == 200:
+                                if endpoint == "dispatches":
+                                    json = await r.json()
+                                    if not json[0]["message"]:
+                                        continue
                                 self.bot.data_dict[endpoint] = await r.json()
                             else:
                                 self.bot.logger.error(
