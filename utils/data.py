@@ -150,7 +150,7 @@ class Campaign:
 class Dispatch:
     def __init__(self, dispatch):
         self.id: int = dispatch["id"]
-        self.message = steam_format(dispatch["message"])
+        self.message = steam_format(dispatch["message"]) if dispatch["message"] else ""
 
     def __repr__(self):
         return f"Dispatch(id={self.id}, message={self.message})"
