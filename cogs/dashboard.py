@@ -45,7 +45,7 @@ class DashboardCog(commands.Cog):
                 ).total_seconds() / 3600
                 progress_needed_per_hour = progress_needed / hours_left
                 amount_ratio = progress_needed_per_hour / sum(
-                    [liberation_changes["liberation_changes"][-1]] * 4
+                    liberation_changes["liberation_changes"]
                 )
                 required_players = campaign.planet.stats["playerCount"] * amount_ratio
                 return required_players
