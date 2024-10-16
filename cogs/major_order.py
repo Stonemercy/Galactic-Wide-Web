@@ -1,6 +1,7 @@
 from disnake import AppCmdInter
 from disnake.ext import commands
 from main import GalacticWideWebBot
+from utils.buttons import WikiButton
 from utils.data import Data
 from utils.checks import wait_for_startup
 from utils.db import GuildRecord, GuildsDB
@@ -45,7 +46,8 @@ class MajorOrderCog(commands.Cog):
             reward_types=self.bot.json_dict["items"]["reward_types"],
             with_health_bars=True,
         )
-        await inter.send(embed=embed)
+        components = [WikiButton(link=f"https://helldivers.wiki.gg/wiki/Major_Orders")]
+        await inter.send(embed=embed, components=components)
 
 
 def setup(bot: GalacticWideWebBot):

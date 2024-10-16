@@ -1,6 +1,7 @@
 from disnake import AppCmdInter
 from disnake.ext import commands
 from main import GalacticWideWebBot
+from utils.buttons import WikiButton
 from utils.checks import wait_for_startup
 from utils.db import GuildRecord, GuildsDB
 from utils.embeds import PlanetEmbed
@@ -64,7 +65,14 @@ class PlanetCog(commands.Cog):
                 f"Image missing for biome of **planet __{planet}__** <@{self.bot.owner_id}> :warning:"
             )
         map_embed = planet_map(data, embed.planet.index, guild.language)
-        await inter.send(embeds=[embed, map_embed], ephemeral=ephemeral)
+        components = [
+            WikiButton(
+                link=f"https://helldivers.wiki.gg/wiki/{planet.replace(' ', '_')}"
+            )
+        ]
+        await inter.send(
+            embeds=[embed, map_embed], ephemeral=ephemeral, components=components
+        )
 
 
 def setup(bot: GalacticWideWebBot):

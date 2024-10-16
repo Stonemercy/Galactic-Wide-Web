@@ -1,6 +1,7 @@
 from disnake import AppCmdInter
 from disnake.ext import commands
 from main import GalacticWideWebBot
+from utils.buttons import WikiButton
 from utils.checks import wait_for_startup
 from utils.db import GuildRecord, GuildsDB
 from utils.embeds import Illuminate
@@ -80,17 +81,27 @@ class IlluminateCog(commands.Cog):
         if species:
             species_info = self.illuminate_dict[species]
             embed = Illuminate(species, species_info, guild_language)
+            components = [
+                WikiButton(
+                    link=f"https://helldivers.wiki.gg/wiki/Helldivers_1:The_Illuminate"
+                )
+            ]  # [
+            #     WikiButton(
+            #         link=f"https://helldivers.wiki.gg/wiki/{species.replace(' ', '_')}"
+            #     )
+            # ]
         elif variation:
             variation_info = self.variations_dict[variation]
             embed = Illuminate(
                 variation, variation_info, guild_language, variation=True
             )
+            components = None
         # if not embed.image_set: # ADD THIS WHEN I HAVE SPECIES INFO
         #     await self.bot.moderator_channel.send(
         #         f"Image missing for **illuminage __{species = } {variation = }__** <@{self.bot.owner_id}> :warning:"
         #     )
 
-        return await inter.send(embed=embed, ephemeral=True)
+        return await inter.send(embed=embed, ephemeral=True, components=components)
 
 
 def setup(bot: GalacticWideWebBot):

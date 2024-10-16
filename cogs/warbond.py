@@ -3,6 +3,7 @@ from disnake.ext import commands, tasks
 from disnake.ui import Button, ActionRow
 from main import GalacticWideWebBot
 from re import findall
+from utils.buttons import WikiButton
 from utils.checks import wait_for_startup
 from utils.embeds import Items
 
@@ -77,6 +78,9 @@ class WarbondCog(commands.Cog):
                 style=ButtonStyle.success,
                 custom_id=f"{self.warbond_index[warbond]['name']}_next_page",
                 label="Next Page",
+            ),
+            WikiButton(
+                link=f"https://helldivers.wiki.gg/wiki/{warbond.replace(' ', '_')}"
             ),
         ]
         return await inter.send(

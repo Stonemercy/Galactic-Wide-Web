@@ -1,6 +1,7 @@
 from disnake import AppCmdInter
 from disnake.ext import commands
 from main import GalacticWideWebBot
+from utils.buttons import WikiButton
 from utils.checks import wait_for_startup
 from utils.db import GuildRecord, GuildsDB
 from utils.embeds import Terminid
@@ -82,15 +83,21 @@ class TerminidsCog(commands.Cog):
         if species:
             species_info = self.terminids_dict[species]
             embed = Terminid(species, species_info, guild_language)
+            components = [
+                WikiButton(
+                    link=f"https://helldivers.wiki.gg/wiki/{species.replace(' ', '_')}"
+                )
+            ]
         elif variation:
             variation_info = self.variations_dict[variation]
             embed = Terminid(variation, variation_info, guild_language, variation=True)
+            components = None
         if not embed.image_set:
             await self.bot.moderator_channel.send(
                 f"Image missing for **terminids __{species = } {variation = }__** <@{self.bot.owner_id}> :warning:"
             )
 
-        return await inter.send(embed=embed, ephemeral=True)
+        return await inter.send(embed=embed, ephemeral=True, components=components)
 
 
 def setup(bot: GalacticWideWebBot):

@@ -1,6 +1,7 @@
 from disnake import AppCmdInter
 from disnake.ext import commands
 from main import GalacticWideWebBot
+from utils.buttons import WikiButton
 from utils.checks import wait_for_startup
 from utils.db import GuildRecord, GuildsDB
 from utils.embeds import Items
@@ -83,7 +84,12 @@ class WeaponsCog(commands.Cog):
             await self.bot.moderator_channel.send(
                 f"Image missing for **weapon primary __{primary}__** <@{self.bot.owner_id}> :warning:"
             )
-        return await inter.send(embed=embed, ephemeral=True)
+        components = [
+            WikiButton(
+                link=f"https://helldivers.wiki.gg/wiki/{primary.replace(' ', '_')}"
+            )
+        ]
+        return await inter.send(embed=embed, ephemeral=True, components=components)
 
     @weapons.sub_command(description="Use this for secondary weapons")
     async def secondary(
@@ -117,7 +123,12 @@ class WeaponsCog(commands.Cog):
             await self.bot.moderator_channel.send(
                 f"Image missing for **weapon secondary __{secondary}__** <@{self.bot.owner_id}> :warning:"
             )
-        return await inter.send(embed=embed, ephemeral=True)
+        components = [
+            WikiButton(
+                link=f"https://helldivers.wiki.gg/wiki/{secondary.replace(' ', '_')}"
+            )
+        ]
+        return await inter.send(embed=embed, ephemeral=True, components=components)
 
     @weapons.sub_command(description="Use this for grenades")
     async def grenade(
@@ -148,7 +159,12 @@ class WeaponsCog(commands.Cog):
             await self.bot.moderator_channel.send(
                 f"Image missing for **weapon grenade __{grenade}__** <@{self.bot.owner_id}> :warning:"
             )
-        return await inter.send(embed=embed, ephemeral=True)
+        components = [
+            WikiButton(
+                link=f"https://helldivers.wiki.gg/wiki/{grenade.replace(' ', '_')}"
+            )
+        ]
+        return await inter.send(embed=embed, ephemeral=True, components=components)
 
 
 def setup(bot: GalacticWideWebBot):

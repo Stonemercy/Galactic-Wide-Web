@@ -1,6 +1,7 @@
 from disnake import AppCmdInter
 from disnake.ext import commands
 from main import GalacticWideWebBot
+from utils.buttons import WikiButton
 from utils.checks import wait_for_startup
 from utils.embeds import StratagemEmbed
 
@@ -41,7 +42,12 @@ class StratagemsCog(commands.Cog):
             await self.bot.moderator_channel.send(
                 f"Image missing for **stratagem __{stratagem}__** <@{self.bot.owner_id}> :warning:"
             )
-        return await inter.send(embed=embed, ephemeral=True)
+        components = [
+            WikiButton(
+                link=f"https://helldivers.wiki.gg/wiki/{stratagem.replace(' ', '_')}"
+            )
+        ]
+        return await inter.send(embed=embed, ephemeral=True, components=components)
 
 
 def setup(bot: GalacticWideWebBot):

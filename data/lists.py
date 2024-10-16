@@ -163,6 +163,7 @@ emojis_dict = {
     "victory": "<:victory:1238069280508215337>",
     "medal": "<:medal:1226254158278037504>",
     "MO": "<:MO:1240706769043456031>",
+    "wiki": "<:wiki:1296193978525417524>",
 }
 
 warbond_images_dict = {
