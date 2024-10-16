@@ -41,7 +41,7 @@
 	},
 	"3912131454": {
 		"name": "Experimental Infusion",
-		"description": "> Temp Desc: Stims boost movement speed and reduced incoming damage for short period\n\nGives Stims the added bonus of boosting player movement speed and reducing damage taken for a short time."
+		"description": "> In addition to restoring health, stims temporarily increase movement speed and damage reduction. Causes trembling."
 	},
 	"3102833400": {
 		"name": "Firebomb Hellpods",

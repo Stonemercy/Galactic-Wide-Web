@@ -480,7 +480,7 @@
             "right"
         ],
         "uses": "Unlimited",
-        "cooldown": 150,
+        "cooldown": 120,
         "activation": 4.75
     },
     "MD-6 Anti-Personnel Minefield": {
@@ -525,7 +525,7 @@
             "up"
         ],
         "uses": "Unlimited",
-        "cooldown": 120,
+        "cooldown": 90,
         "activation": 4.75
     },
     "A/G-16 Gatling Sentry": {
@@ -536,7 +536,7 @@
             "left"
         ],
         "uses": "Unlimited",
-        "cooldown": 180,
+        "cooldown": 150,
         "activation": 4.75
     },
     "A/M-12 Mortar Sentry": {
@@ -561,7 +561,7 @@
             "up"
         ],
         "uses": "Unlimited",
-        "cooldown": 180,
+        "cooldown": 150,
         "activation": 4.75
     },
     "A/MLS-4X Rocket Sentry": {
@@ -573,7 +573,7 @@
             "left"
         ],
         "uses": "Unlimited",
-        "cooldown": 180,
+        "cooldown": 150,
         "activation": 4.75
     },
     "A/M-23 EMS Mortar Sentry": {
