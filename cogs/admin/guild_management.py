@@ -259,11 +259,13 @@ class GuildManagementCog(commands.Cog):
                     delete_after=10,
                 )
 
-    times = [
-        time(hour=i, minute=j, second=0) for i in range(24) for j in range(2, 62, 15)
-    ]
-
-    @tasks.loop(time=times)
+    @tasks.loop(
+        time=[
+            time(hour=i, minute=j, second=0)
+            for i in range(24)
+            for j in range(2, 62, 15)
+        ]
+    )
     async def dashboard_checking(self):
         now = datetime.now()
         guild: GuildRecord = GuildsDB.get_info(1212722266392109088)
