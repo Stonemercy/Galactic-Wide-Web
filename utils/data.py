@@ -172,6 +172,13 @@ class Planet:
         self.event = self.Event(planet["event"]) if planet["event"] else None
         self.stats: dict = planet["statistics"]
         self.thumbnail = None
+        self.feature = None
+        if self.index == 116:
+            self.feature = "DSS Construction Site"
+        elif self.index == 126:
+            self.feature = "Xenoentomology Center"
+        elif self.index == 161:
+            self.feature = "Deep Mantle Forge Complex"
 
     def __repr__(self):
         return (

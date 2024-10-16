@@ -106,6 +106,8 @@ class PlanetEmbed(Embed):
                     else "https://cdn.discordapp.com/emojis/1215036423090999376.webp?size=44&quality=lossless"
                 ),
             )
+        if self.planet.feature:
+            self.add_field("Feature", self.planet.feature)
         if self.planet.thumbnail:
             self.set_thumbnail(url=self.planet.thumbnail)
         try:
@@ -219,6 +221,8 @@ class MajorOrderEmbed(Embed):
                     text += f"{planet_health_bar}\n"
                     text += f"`{(health):^25,.2%}`\n"
                 text += f"{language['dashboard']['major_order']['occupied_by']}: **{language[planet.current_owner.lower()]}**\n"
+                if planet.feature:
+                    text += f"Feature: {planet.feature}"
                 self.add_field(
                     planet_names[str(planet.index)]["names"][language["code_long"]],
                     text,
@@ -471,11 +475,15 @@ class Dashboard:
                             if planet.current_owner != "Humans"
                             else f"{(planet.health / planet.max_health):^25,.2%}"
                         )
+                    feature_text = (
+                        "" if not planet.feature else f"Feature: {planet.feature}\n"
+                    )
                     major_orders_embed.add_field(
                         planet_names[str(planet.index)]["names"][language["code_long"]],
                         (
                             f"{language['heroes']}: **{planet.stats['playerCount']:,}**\n"
                             f"{language['dashboard']['major_order']['occupied_by']}: **{planet.current_owner}**\n"
+                            f"{feature_text}"
                             f"{language['dashboard']['major_order']['event_health']}:\n"
                             f"{task.health_bar} {completed}\n"
                             f"`{health_text}`\n"
@@ -565,7 +573,7 @@ class Dashboard:
                         ),
                         inline=False,
                     )
-                elif task.type == 15:
+                elif task.type == 15:  # win more than lost
                     progress_dict = {
                         -10: 0,
                         -8: 0.1,
@@ -687,12 +695,16 @@ class Dashboard:
                     and planet.index in data.assignment_planets
                     else ""
                 )
+                feature_text = (
+                    "" if not planet.feature else f"\nFeature: {planet.feature}"
+                )
                 defend_embed.add_field(
                     f"{faction_icon} - __**{planet_names[str(planet.index)]['names'][language['code_long']]}**__ {exclamation}",
                     (
                         f"{language['ends']}: {time_remaining}"
                         f"{outlook_text}"
                         f"\n{language['heroes']}: **{planet.stats['playerCount']:,}**"
+                        f"{feature_text}"
                         f"{required_players_text}"
                         f"\n{language['dashboard']['defend_embed']['event_health']}:"
                         f"\n{event_health_bar}"
@@ -776,14 +788,19 @@ class Dashboard:
                         True,
                     )
                     planet_health_text = f"`{(1 - (campaign.planet.health / campaign.planet.max_health)):^25.2%}`"
+                    feature_text = (
+                        f"\nFeature: {planet.feature}" if planet.feature else ""
+                    )
                 else:
                     planet_health_bar = ""
                     planet_health_text = f"**`{(1 - (campaign.planet.health / campaign.planet.max_health)):^15.2%}`**"
+                    feature_text = ""
                 if campaign.planet.current_owner == "Automaton":
                     automaton_embed.add_field(
                         f"{faction_icon} - __**{planet_names[str(campaign.planet.index)]['names'][language['code_long']]}**__ {exclamation}",
                         (
                             f"{language['heroes']}: **{campaign.planet.stats['playerCount']:,}**"
+                            f"{feature_text}"
                             f"{time_to_complete}"
                             f"\n{language['dashboard']['attack_embed']['planet_health']}:"
                             f"\n{planet_health_bar}"
@@ -797,6 +814,7 @@ class Dashboard:
                         f"{faction_icon} - __**{planet_names[str(campaign.planet.index)]['names'][language['code_long']]}**__ {exclamation}",
                         (
                             f"{language['heroes']}: **{campaign.planet.stats['playerCount']:,}**"
+                            f"{feature_text}"
                             f"{time_to_complete}"
                             f"\n{language['dashboard']['attack_embed']['planet_health']}:"
                             f"\n{planet_health_bar}"
@@ -810,6 +828,7 @@ class Dashboard:
                         f"{faction_icon} - __**{planet_names[str(campaign.planet.index)]['names'][supported_languages[language['code_long']]]}**__ {exclamation}",
                         (
                             f"{language['heroes']}: **{campaign.planet.stats['playerCount']:,}**"
+                            f"{feature_text}"
                             f"{time_to_complete}"
                             f"\n{language['dashboard']['attack_embed']['planet_health']}:"
                             f"\n{planet_health_bar}"
