@@ -7,7 +7,6 @@ from os import getenv, listdir
 from utils.functions import load_json
 
 load_dotenv("data/.env")
-OWNER = int(getenv("OWNER"))
 
 intents = Intents.default()
 activity = Activity(name="for Socialism", type=ActivityType.watching)
@@ -15,7 +14,7 @@ activity = Activity(name="for Socialism", type=ActivityType.watching)
 
 class GalacticWideWebBot(commands.InteractionBot):
     def __init__(self):
-        super().__init__(owner_id=OWNER, intents=intents, activity=activity)
+        super().__init__(intents=intents, activity=activity)
         self.logger = getLogger("disnake")
         self.logger.setLevel(INFO)
         handler = FileHandler(filename="disnake.log", encoding="utf-8", mode="w")

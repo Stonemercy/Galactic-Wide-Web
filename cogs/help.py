@@ -1,5 +1,4 @@
-from data.lists import help_dict
-from disnake import AppCmdInter, OptionType, ButtonStyle
+from disnake import AppCmdInter, ButtonStyle
 from disnake.ext import commands
 from disnake.ui import Button
 from main import GalacticWideWebBot

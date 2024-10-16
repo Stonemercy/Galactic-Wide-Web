@@ -1,6 +1,5 @@
 from disnake import AppCmdInter
 from disnake.ext import commands
-from json import load
 from main import GalacticWideWebBot
 from utils.checks import wait_for_startup
 from utils.db import GuildRecord, GuildsDB
