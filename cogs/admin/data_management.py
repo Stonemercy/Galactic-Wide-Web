@@ -157,11 +157,10 @@ class DataManagementCog(commands.Cog):
         )
         if not self.bot.data_loaded:
             now = datetime.now()
-            if now < self.bot.ready_time:
-                self.bot.logger.info(
-                    f"setup complete | self.bot.ready_time: {self.bot.ready_time.strftime('%H:%M:%S')} -> {now.strftime('%H:%M:%S')}"
-                )
-                self.bot.ready_time = now
+            self.bot.logger.info(
+                f"setup complete | self.bot.ready_time: {self.bot.ready_time.strftime('%H:%M:%S')} -> {now.strftime('%H:%M:%S')}"
+            )
+            self.bot.ready_time = now
             self.bot.data_loaded = True
 
     @pull_from_api.before_loop

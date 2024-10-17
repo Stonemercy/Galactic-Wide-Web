@@ -132,6 +132,7 @@ class GuildManagementCog(commands.Cog):
                     f"This Dashboard: <t:{int(self.bot_dashboard.next_iteration.timestamp())}:R>\n"
                     f"All Dashboards: <t:{int(self.bot.get_cog('DashboardCog').dashboard.next_iteration.timestamp())}:R>\n"
                     f"All Maps: <t:{int(self.bot.get_cog('MapCog').map_poster.next_iteration.timestamp())}:R>\n"
+                    f"Update data: <t:{int(self.bot.get_cog('DataManagementCog').pull_from_api.next_iteration.timestamp())}:R>\n"
                 ),
             )
             dashboard_embed.add_field("", "", inline=False)
