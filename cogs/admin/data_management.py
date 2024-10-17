@@ -86,6 +86,7 @@ class DataManagementCog(commands.Cog):
             )
         )
         self.bot.c_n_m_loaded = True
+        await self.pull_from_api()
 
     @channel_message_gen.before_loop
     async def before_message_gen(self):
@@ -145,7 +146,7 @@ class DataManagementCog(commands.Cog):
         self.bot.logger.info(
             (
                 f"pull_from_api complete | "
-                f"Completed in {(datetime.now() - start_time).total_seconds()-6:.2f} seconds | "
+                f"Completed in {(datetime.now() - start_time).total_seconds():.2f} seconds | "
                 f"{len(self.bot.data_dict['assignments']) = } | "
                 f"{len(self.bot.data_dict['campaigns']) = } | "
                 f"{len(self.bot.data_dict['dispatches']) = } | "
@@ -156,9 +157,11 @@ class DataManagementCog(commands.Cog):
         )
         if not self.bot.data_loaded:
             now = datetime.now()
-            self.bot.ready_time = (
-                now if self.bot.ready_time > now else self.bot.ready_time
-            )
+            if now < self.bot.ready_time:
+                self.bot.logger.info(
+                    f"setup complete | self.bot.ready_time: {self.bot.ready_time.strftime('%H:%M:%S')} -> {now.strftime('%H:%M:%S')}"
+                )
+                self.bot.ready_time = now
             self.bot.data_loaded = True
 
     @pull_from_api.before_loop
