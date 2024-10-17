@@ -78,7 +78,11 @@ class DashboardCog(commands.Cog):
         ]
     )
     async def dashboard(self, force: bool = False):
-        if self.bot.dashboard_messages == [] or None in self.bot.data_dict.values():
+        if (
+            self.bot.dashboard_messages == []
+            or not self.bot.data_loaded
+            or not self.bot.c_n_m_loaded
+        ):
             return
         update_start = datetime.now()
         data = Data(data_from_api=self.bot.data_dict)

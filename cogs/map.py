@@ -56,7 +56,11 @@ class MapCog(commands.Cog):
 
     @tasks.loop(time=times)
     async def map_poster(self, force: bool = False):
-        if self.bot.map_messages == [] or None in self.bot.data_dict.values():
+        if (
+            self.bot.map_messages == []
+            or not self.bot.data_loaded
+            or not self.bot.c_n_m_loaded
+        ):
             return
         update_start = datetime.now()
         try:

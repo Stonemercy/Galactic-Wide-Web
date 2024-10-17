@@ -30,6 +30,7 @@ class GalacticWideWebBot(commands.InteractionBot):
         self.patch_channels = []
         self.map_messages = []
         self.map_channels = []
+        self.c_n_m_loaded = False
         self.json_dict = load_json()
         if not self.json_dict:
             self.logger.warning("JSON FAILED TO LOAD")

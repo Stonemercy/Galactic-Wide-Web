@@ -71,7 +71,8 @@ class AnnouncementsCog(commands.Cog):
         if (
             self.bot.announcement_channels == []
             or announcement_start < self.bot.ready_time
-            or None in self.bot.data_dict.values()
+            or not self.bot.data_loaded
+            or not self.bot.c_n_m_loaded
         ):
             return
         data = Data(data_from_api=self.bot.data_dict)
@@ -117,7 +118,8 @@ class AnnouncementsCog(commands.Cog):
         if (
             self.bot.announcement_channels == []
             or dispatch_start < self.bot.ready_time
-            or None in self.bot.data_dict.values()
+            or not self.bot.data_loaded
+            or not self.bot.c_n_m_loaded
             or self.bot.data_dict["dispatches"] == []
             or self.bot.data_dict["dispatches"][0]["message"] == None
         ):
@@ -157,7 +159,8 @@ class AnnouncementsCog(commands.Cog):
         if (
             self.bot.patch_channels == []
             or patch_notes_start < self.bot.ready_time
-            or None in self.bot.data_dict.values()
+            or not self.bot.data_loaded
+            or not self.bot.c_n_m_loaded
         ):
             return
         data = Data(data_from_api=self.bot.data_dict)

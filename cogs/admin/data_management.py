@@ -85,13 +85,17 @@ class DataManagementCog(commands.Cog):
                 f"{len(self.bot.map_messages)} maps ({(len(self.bot.map_messages) / guilds_done):.0%})"
             )
         )
+        self.bot.c_n_m_loaded = True
 
     @channel_message_gen.before_loop
     async def before_message_gen(self):
         await self.bot.wait_until_ready()
 
-    @tasks.loop(time=[time(hour=j, minute=i) for j in range(24) for i in range(59)])
+    @tasks.loop(
+        time=[time(hour=j, minute=i, second=45) for j in range(24) for i in range(59)]
+    )
     async def pull_from_api(self):
+        start_time = datetime.now()
         api_to_use = api
         async with ClientSession(headers={"Accept-Language": "en-GB"}) as session:
             async with session.get(f"{api_to_use}") as r:
@@ -138,6 +142,18 @@ class DataManagementCog(commands.Cog):
                         await self.bot.moderator_channel.send(
                             f"API/{endpoint.upper()}\n{r}"
                         )
+        self.bot.logger.info(
+            (
+                f"pull_from_api complete | "
+                f"Completed in {(datetime.now() - start_time).total_seconds()-6:.2f} seconds | "
+                f"{len(self.bot.data_dict['assignments']) = } | "
+                f"{len(self.bot.data_dict['campaigns']) = } | "
+                f"{len(self.bot.data_dict['dispatches']) = } | "
+                f"{len(self.bot.data_dict['planets']) = } | "
+                f"{len(self.bot.data_dict['steam']) = } | "
+                f"{len(self.bot.data_dict['thumbnails']) = } | "
+            )
+        )
         if not self.bot.data_loaded:
             now = datetime.now()
             self.bot.ready_time = (

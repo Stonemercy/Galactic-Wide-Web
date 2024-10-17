@@ -41,7 +41,8 @@ class WarUpdatesCog(commands.Cog):
         if (
             self.bot.announcement_channels == []
             or update_start.minute in (0, 15, 30, 45)
-            or None in self.bot.data_dict.values()
+            or not self.bot.data_loaded
+            or not self.bot.c_n_m_loaded
         ):
             return
         data = Data(data_from_api=self.bot.data_dict)
