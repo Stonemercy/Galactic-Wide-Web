@@ -125,7 +125,7 @@ class DashboardCog(commands.Cog):
             for message in chunk:
                 self.bot.loop.create_task(self.update_message(message, dashboard_dict))
                 dashboards_updated += 1
-            await sleep(1.05)
+            await sleep(1.1)
         if not force:
             self.bot.logger.info(
                 f"Updated {dashboards_updated} dashboards in {(datetime.now() - update_start).total_seconds():.2f} seconds"

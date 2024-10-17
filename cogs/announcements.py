@@ -103,7 +103,7 @@ class AnnouncementsCog(commands.Cog):
                 for channel in chunk:
                     self.bot.loop.create_task(self.send_embed(channel, embeds, "MO"))
                     major_orders_sent += 1
-                await sleep(1.025)
+                await sleep(1.1)
             self.bot.logger.info(
                 f"{major_orders_sent} MO announcements sent out in {(datetime.now() - announcement_start).total_seconds():.2f} seconds"
             )
@@ -144,7 +144,7 @@ class AnnouncementsCog(commands.Cog):
                         self.send_embed(channel, embeds, "Dispatch")
                     )
                     dispatches_sent += 1
-                await sleep(1.025)
+                await sleep(1.1)
             self.bot.logger.info(
                 f"{dispatches_sent} dispatch announcements sent out in {(datetime.now() - dispatch_start).total_seconds():.2f} seconds"
             )
@@ -184,7 +184,7 @@ class AnnouncementsCog(commands.Cog):
                 for channel in chunk:
                     self.bot.loop.create_task(self.send_embed(channel, embeds, "Patch"))
                     patch_notes_sent += 1
-                await sleep(1.025)
+                await sleep(1.1)
             self.bot.logger.info(
                 f"{patch_notes_sent} patch notes sent out in {(datetime.now() - patch_notes_start).total_seconds():.2f} seconds"
             )

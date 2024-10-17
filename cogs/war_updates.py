@@ -118,7 +118,7 @@ class WarUpdatesCog(commands.Cog):
                 for channel in chunk:
                     self.bot.loop.create_task(self.send_campaign(channel, embeds))
                     announcements_sent += 1
-                await sleep(1.025)
+                await sleep(1.1)
             self.bot.logger.info(
                 f"{announcements_sent} war updates sent in {(datetime.now() - update_start).total_seconds():.2f} seconds"
             )

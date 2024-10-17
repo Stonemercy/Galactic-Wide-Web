@@ -84,7 +84,7 @@ class MapCog(commands.Cog):
                     self.update_message(message, dashboard_maps_dict)
                 )
                 maps_updated += 1
-            await sleep(1.025)
+            await sleep(1.1)
         if not force:
             self.bot.logger.info(
                 f"Updated {maps_updated} maps in {(datetime.now() - update_start).total_seconds():.2f} seconds"
