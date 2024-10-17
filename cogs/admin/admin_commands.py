@@ -1,10 +1,10 @@
 from asyncio import sleep
 from datetime import datetime
-from disnake import AppCmdInter, Permissions
+from disnake import AppCmdInter, Permissions, TeamMember
 from disnake.ext import commands
 from main import GalacticWideWebBot
 from os import getenv
-from utils.checks import owner_only, wait_for_startup
+from utils.checks import wait_for_startup
 from utils.db import FeedbackDB, FeedbackRecord, GuildsDB
 from utils.embeds import AnnouncementEmbed
 
@@ -17,7 +17,7 @@ class AdminCommandsCog(commands.Cog):
         self.bot = bot
 
     @wait_for_startup()
-    @owner_only()
+    @commands.is_owner()
     @commands.slash_command(
         guild_ids=SUPPORT_SERVER,
         description="Forces dashboards to update ASAP",
@@ -37,7 +37,7 @@ class AdminCommandsCog(commands.Cog):
         await inter.send(text, ephemeral=True)
 
     @wait_for_startup()
-    @owner_only()
+    @commands.is_owner()
     @commands.slash_command(
         guild_ids=SUPPORT_SERVER,
         description="Forces maps to update ASAP",
@@ -55,7 +55,7 @@ class AdminCommandsCog(commands.Cog):
         await inter.send(text, ephemeral=True)
 
     @wait_for_startup()
-    @owner_only()
+    @commands.is_owner()
     @commands.slash_command(
         guild_ids=SUPPORT_SERVER,
         description="Send out the prepared announcement",
@@ -82,14 +82,14 @@ class AdminCommandsCog(commands.Cog):
                         channel, embeds, "Announcement"
                     )
                 )
-            await sleep(1.025)
+            await sleep(1.1)
         await inter.send(
             f"Attempted to send out an announcement to {len(self.bot.announcement_channels)} channels in {(datetime.now() - update_start).total_seconds():.2f} seconds",
             ephemeral=True,
         )
 
     @wait_for_startup()
-    @owner_only()
+    @commands.is_owner()
     @commands.slash_command(
         guild_ids=SUPPORT_SERVER,
         description="Unban someone you accidentally banned from giving feedback",
@@ -102,6 +102,7 @@ class AdminCommandsCog(commands.Cog):
             description="The ID of the user you want to unban", large=True
         ),
     ):
+        await inter.response.defer(ephemeral=True)
         self.bot.logger.critical(
             f"{self.qualified_name} | /{inter.application_command.name} <{user_id = }> | used by <@{inter.author.id}> | @{inter.author.global_name}"
         )
@@ -114,7 +115,7 @@ class AdminCommandsCog(commands.Cog):
         await inter.send(f"Unbanned <@{user_id}>", ephemeral=True)
 
     @wait_for_startup()
-    @owner_only()
+    @commands.is_owner()
     @commands.slash_command(
         guild_ids=SUPPORT_SERVER,
         description="Provide the reason for a ban",
@@ -129,6 +130,7 @@ class AdminCommandsCog(commands.Cog):
         ),
         reason: str = commands.Param(description="The reason they are banned"),
     ):
+        await inter.response.defer(ephemeral=True)
         self.bot.logger.critical(
             f"{self.qualified_name} | /{inter.application_command.name} <{user_id = }> | used by <@{inter.author.id}> | @{inter.author.global_name}"
         )
@@ -141,7 +143,7 @@ class AdminCommandsCog(commands.Cog):
         await inter.send(f"Reason set for <@{user_id}>:\n{reason}", ephemeral=True)
 
     @wait_for_startup()
-    @owner_only()
+    @commands.is_owner()
     @commands.slash_command(
         guild_ids=SUPPORT_SERVER,
         description="Un-mark a user as good",
@@ -154,6 +156,7 @@ class AdminCommandsCog(commands.Cog):
             description="Remove the good feedback tag from a user", large=True
         ),
     ):
+        await inter.response.defer(ephemeral=True)
         self.bot.logger.critical(
             f"{self.qualified_name} | /{inter.application_command.name} <{user_id = }> | used by <@{inter.author.id}> | @{inter.author.global_name}"
         )
@@ -166,7 +169,7 @@ class AdminCommandsCog(commands.Cog):
         await inter.send(f"<@{user_id}> removed from good feedback", ephemeral=True)
 
     @wait_for_startup()
-    @owner_only()
+    @commands.is_owner()
     @commands.slash_command(
         guild_ids=SUPPORT_SERVER,
         description="Reload an extension",
@@ -177,6 +180,7 @@ class AdminCommandsCog(commands.Cog):
         inter: AppCmdInter,
         ext: str = commands.Param(description="The extension to reload"),
     ):
+        await inter.response.defer(ephemeral=True)
         self.bot.logger.critical(
             f"{self.qualified_name} | /{inter.application_command.name} <{ext = }> | used by <@{inter.author.id}> | @{inter.author.global_name}"
         )

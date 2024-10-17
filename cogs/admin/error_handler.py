@@ -23,11 +23,11 @@ class ErrorHandlerCog(commands.Cog):
                     ephemeral=True,
                     delete_after=int((self.bot.ready_time - now).total_seconds()),
                 )
-            else:
-                return await inter.send(
-                    f"You need to be the owner of {inter.guild.me.mention} to use this command.",
-                    ephemeral=True,
-                )
+        elif isinstance(error, commands.NotOwner):
+            return await inter.send(
+                f"You need to be the owner of {inter.guild.me.mention} to use this command.",
+                ephemeral=True,
+            )
         else:
             await self.bot.moderator_channel.send(error)
             raise error
