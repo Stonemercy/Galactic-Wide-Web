@@ -1426,26 +1426,28 @@ class AnnouncementEmbed(Embed):
     def __init__(self):
         super().__init__(
             title="Galactic Wide Web Update",
-            description="An update has been released!",
             colour=Colour.blue(),
         )
         self.add_field(
-            "Direct Feedback",
-            (
-                "Fancy giving me some feedback but don't want to join the support server? Well now you can!\n"
-                "- </feedback:1253094891513184356>\n"
-                "Using this command gives you a text box to let me know if something isnt working for you or provide feedback about the bot\n"
-                "-# This gets sent to a channel that only I can read."
-            ),
+            "Lots of updates!",
+            "It's been a while since I've given one of these but lots has changed with the bot and I figured yous should know about it.",
             inline=False,
         )
         self.add_field(
-            "Liberation rate",
+            "Whats changed?",
             (
-                "I have also been working on the liberation rate for planets that are active\n"
-                "This is based off a 4-point rolling average over the last hour so I *think* it's pretty accurate\n"
-                "I'll be working on time-to-victory/defeat soon!"
+                "- Required players for victory:\n  - Still in early stages but it's doing *okay*\n"
+                "- Added </stratagem:1277911286021095484> for basic stratagem info\n"
+                "- Also added </major_order:1284164484423876640> to get current progress on the current MO\n"
+                "- Most informative commands now have links directly to the [Helldivers 2 wiki.gg](<https://helldivers.wiki.gg/wiki/Helldivers_Wiki>)\n"
+                "- Made Meridia *purple* on maps\n"
+                "- Lots of new images\n"
             ),
+        )
+        self.add_field(
+            "As always...",
+            "</feedback:1253094891513184356> if you want to let me know how I'm doing or if you want more features.",
+            inline=False,
         )
 
 
