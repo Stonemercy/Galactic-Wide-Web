@@ -129,6 +129,11 @@ class DataManagementCog(commands.Cog):
                                     json = await r.json()
                                     if not json[0]["message"]:
                                         continue
+                                elif endpoint == "assignments":
+                                    json = await r.json()
+                                    if json not in ([], None):
+                                        if not json[0]["briefing"]:
+                                            continue
                                 self.bot.data_dict[endpoint] = await r.json()
                             else:
                                 self.bot.logger.error(
