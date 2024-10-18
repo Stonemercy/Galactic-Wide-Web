@@ -789,7 +789,9 @@ class Dashboard:
                     )
                     planet_health_text = f"`{(1 - (campaign.planet.health / campaign.planet.max_health)):^25.2%}`"
                     feature_text = (
-                        f"\nFeature: {planet.feature}" if planet.feature else ""
+                        f"\nFeature: {campaign.planet.feature}"
+                        if campaign.planet.feature
+                        else ""
                     )
                 else:
                     planet_health_bar = ""

@@ -137,7 +137,6 @@ class DataManagementCog(commands.Cog):
                                 await self.bot.moderator_channel.send(
                                     f"API/{endpoint.upper()}\n{r}"
                                 )
-                            await sleep(2)
                     except Exception as e:
                         self.bot.logger.error(f"API/{endpoint.upper()}, {e}")
                         await self.bot.moderator_channel.send(
@@ -152,7 +151,7 @@ class DataManagementCog(commands.Cog):
                 f"{len(self.bot.data_dict['dispatches']) = } | "
                 f"{len(self.bot.data_dict['planets']) = } | "
                 f"{len(self.bot.data_dict['steam']) = } | "
-                f"{len(self.bot.data_dict['thumbnails']) = } | "
+                f"{len(self.bot.data_dict['thumbnails']) = }"
             )
         )
         if not self.bot.data_loaded:
