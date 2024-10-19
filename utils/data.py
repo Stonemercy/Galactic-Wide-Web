@@ -32,11 +32,6 @@ class Data:
                     bot.logger.critical("API/USING BACKUP")
                     await bot.moderator_channel.send(f"API/USING BACKUP\n{r}")
 
-            async with session.get(f"{api_to_use}") as r:
-                if r.status != 200:
-                    bot.logger.critical("API/BACKUP FAILED")
-                    return await bot.moderator_channel.send(f"API/BACKUP FAILED\n{r}")
-
                 for endpoint in list(self.__data__.keys()):
                     if endpoint == "thumbnails":
                         async with session.get(
