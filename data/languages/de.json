@@ -142,7 +142,8 @@
             "enabled": "Patchnotizen aktiviert",
             "same": "Ihre Einstellung für Patchnotizen war bereits so festgelegt, es wurde nichts geändert.",
             "enabled_message": "Patchnotizen werden jetzt in Ihrem Ankündigungskanal angezeigt.\nEs werden zwar keine Patchnotizen sofort angezeigt, aber sie werden wenn Patches veröffentlicht werden",
-            "disabled": "Patchnotizen werden nicht mehr in Ihrem Ankündigungskanal angezeigt"
+            "disabled": "Patchnotizen werden nicht mehr in Ihrem Ankündigungskanal angezeigt",
+            "name": "Patchnotizen"
         },
         "message": "-# Wenn Sie `Nicht festgelegt` sehen, wo ein Kanal/eine Nachricht sein sollte, überprüfen Sie die Berechtigungen für den Bot!",
         "unset_dashboard": "Ich habe Ihr Dashboard deaktiviert. Sie können alle alten Dashboards auf diesem Server löschen.",
@@ -161,7 +162,6 @@
             "channel": "Kartenkanal",
             "message": "Kartennachricht"
         },
-        "patch_notes_name": "Patchnotizen",
         "unset_map": "Ich habe deine Karte gelöscht. Du kannst alle alten Karten auf diesem Server löschen."
     },
     "steam": {

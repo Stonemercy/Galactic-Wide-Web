@@ -142,7 +142,8 @@
             "enabled": "Patch notes enabled",
             "same": "Your patch notes setting was already set to that, nothing has been changed.",
             "enabled_message": "Patch notes will now show up in your announcement channel.\nWhile no patch notes show up straight away, they will when patches are released",
-            "disabled": "Patch notes will no longer show up in your announcement channel"
+            "disabled": "Patch notes will no longer show up in your announcement channel",
+            "name": "Patch Notes"
         },
         "message": "-# If you're seeing `Not set` where a channel/message should be, check the permissions for the bot!",
         "unset_dashboard": "I have unset your Dashboard. You are free to delete any old Dashboards in this server.",
@@ -161,7 +162,6 @@
             "channel": "Map Channel",
             "message": "Map Message"
         },
-        "patch_notes_name": "Patch Notes",
         "unset_map": "I have unset your map. You are free to delete any old maps in this server."
     },
     "steam": {

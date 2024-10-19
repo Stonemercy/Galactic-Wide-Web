@@ -142,7 +142,8 @@
             "enabled": "Notes de patch activées",
             "same": "Votre paramètre de notes de patch était déjà défini sur cela, rien n'a été modifié.",
             "enabled_message": "Les notes de patch s'afficheront désormais dans votre canal d'annonce.\nBien qu'aucune note de patch ne s'affiche immédiatement, ils le feront lorsque les correctifs seront publiés",
-            "disabled": "Les notes de correctif n'apparaîtront plus dans votre canal d'annonces"
+            "disabled": "Les notes de correctif n'apparaîtront plus dans votre canal d'annonces",
+            "name": "Notes de patch"
         },
         "message": "-# Si vous voyez `Non défini` là où un canal/message devrait être, vérifiez les autorisations du bot !",
         "unset_dashboard": "J'ai désactivé votre tableau de bord. Vous êtes libre de supprimer tous les anciens tableaux de bord de ce serveur.",
@@ -161,7 +162,6 @@
             "channel": "Canal de la carte",
             "message": "Message de la carte"
         },
-        "patch_notes_name": "Notes de patch",
         "unset_map": "J'ai supprimé votre carte. Vous êtes libre de supprimer toutes les anciennes cartes de ce serveur."
     },
     "steam": {

@@ -155,7 +155,7 @@ class SetupCog(commands.Cog):
                 guild_language["setup"]["language"]["language"],
                 inv_lang_dict[guild_in_db.language],
             ).add_field(
-                guild_language["setup"]["patch_notes_name"],
+                guild_language["setup"]["patch_notes"]["name"],
                 {True: ":white_check_mark:", False: ":x:"}[guild_in_db.patch_notes],
             ).add_field(
                 "", guild_language["setup"]["message"], inline=False
@@ -408,7 +408,7 @@ class SetupCog(commands.Cog):
                     GuildsDB.update_patch_notes(inter.guild_id, want_patch_notes)
                     embed.add_field(
                         "Patch Notes",
-                        f"*{guild_language['setup']['patch_notes_disabled']}*",
+                        f"*{guild_language['setup']['patch_notes']['disabled']}*",
                         inline=False,
                     )
 
