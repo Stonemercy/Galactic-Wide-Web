@@ -750,7 +750,7 @@ class Dashboard:
                 liberation_text = ""
                 if liberation_changes != {}:
                     liberation_change = liberation_changes.get(
-                        campaign.planet.name, None
+                        campaign.planet.index, None
                     )
                     if (
                         liberation_change

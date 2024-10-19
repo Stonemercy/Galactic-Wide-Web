@@ -73,20 +73,20 @@ class WarUpdatesCog(commands.Cog):
                     for embed in embeds.values():
                         embed.add_def_victory(planet)
                     new_updates = True
-                    liberation_changes.pop(planet.name, None)
+                    liberation_changes.pop(planet.index, None)
                     CampaignsDB.remove_campaign(old_campaign.id)
                 if planet.current_owner != old_campaign.owner:  # if owner has changed
                     if old_campaign.owner == "Humans":  # if defence campaign loss
                         for embed in embeds.values():
                             embed.add_planet_lost(planet)
                         new_updates = True
-                        liberation_changes.pop(planet.name, None)
+                        liberation_changes.pop(planet.index, None)
                         CampaignsDB.remove_campaign(old_campaign.id)
                     elif planet.current_owner == "Humans":  # if attack campaign win
                         for embed in embeds.values():
                             embed.add_campaign_victory(planet, old_campaign.owner)
                         new_updates = True
-                        liberation_changes.pop(planet.name, None)
+                        liberation_changes.pop(planet.index, None)
                         CampaignsDB.remove_campaign(old_campaign.id)
                 elif planet.current_owner != "Humans":
                     CampaignsDB.remove_campaign(old_campaign.id)
