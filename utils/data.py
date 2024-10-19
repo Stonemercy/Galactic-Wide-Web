@@ -171,6 +171,8 @@ class Data:
 
     def get_needed_players(self):
         now = datetime.now()
+        if not self.planet_events:
+            return
         for planet in self.planet_events:
             lib_changes = self.liberation_changes[planet.index]
             if (
