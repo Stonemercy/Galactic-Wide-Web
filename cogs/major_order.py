@@ -2,7 +2,6 @@ from disnake import AppCmdInter
 from disnake.ext import commands
 from main import GalacticWideWebBot
 from utils.buttons import WikiButton
-from utils.data import Data
 from utils.checks import wait_for_startup
 from utils.db import GuildRecord, GuildsDB
 from utils.embeds import MajorOrderEmbed
@@ -34,13 +33,12 @@ class MajorOrderCog(commands.Cog):
         if not guild_in_db:
             guild_in_db = GuildsDB.insert_new_guild(inter.guild.id)
         guild_language = self.bot.json_dict["languages"][guild_in_db.language]
-        data = Data(data_from_api=self.bot.data_dict)
-        if data.assignment in (None, []):
+        if self.bot.data.assignment in (None, []):
             return await inter.send(
                 guild_language["major_order"]["no_order"], ephemeral=ephemeral
             )
         embed = MajorOrderEmbed(
-            data=data,
+            data=self.bot.data,
             language=guild_language,
             planet_names=self.bot.json_dict["planets"],
             reward_types=self.bot.json_dict["items"]["reward_types"],

@@ -6,7 +6,6 @@ from disnake.ui import Button
 from main import GalacticWideWebBot
 from utils.embeds import DispatchesEmbed, MajorOrderEmbed, SteamEmbed
 from utils.db import DispatchesDB, GuildRecord, MajorOrderDB, GuildsDB, SteamDB
-from utils.data import Data
 
 
 class AnnouncementsCog(commands.Cog):
@@ -71,14 +70,13 @@ class AnnouncementsCog(commands.Cog):
         if (
             self.bot.announcement_channels == []
             or announcement_start < self.bot.ready_time
-            or not self.bot.data_loaded
+            or not self.bot.data.loaded
             or not self.bot.c_n_m_loaded
         ):
             return
-        data = Data(data_from_api=self.bot.data_dict)
-        if not data.assignment:
+        if not self.bot.data.assignment:
             return
-        self._newest_id = data.assignment.id
+        self._newest_id = self.bot.data.assignment.id
         last_MO = MajorOrderDB.get_last()
         if not last_MO:
             last_MO = MajorOrderDB.setup()
@@ -86,7 +84,7 @@ class AnnouncementsCog(commands.Cog):
             languages = GuildsDB.get_used_languages()
             embeds = {
                 lang: MajorOrderEmbed(
-                    data=data,
+                    data=self.bot.data,
                     language=self.bot.json_dict["languages"][lang],
                     planet_names=self.bot.json_dict["planets"],
                     reward_types=self.bot.json_dict["items"]["reward_types"],
@@ -118,20 +116,19 @@ class AnnouncementsCog(commands.Cog):
         if (
             self.bot.announcement_channels == []
             or dispatch_start < self.bot.ready_time
-            or not self.bot.data_loaded
+            or not self.bot.data.loaded
             or not self.bot.c_n_m_loaded
-            or self.bot.data_dict["dispatches"] == []
-            or self.bot.data_dict["dispatches"][0]["message"] == None
         ):
             return
-        data = Data(data_from_api=self.bot.data_dict)
-        self._newest_id = data.dispatch.id
+        self._newest_id = self.bot.data.dispatch.id
         last_dispatch = DispatchesDB.get_last()
         if not last_dispatch:
             last_dispatch = DispatchesDB.setup()
         if last_dispatch.id != self._newest_id:
             languages = GuildsDB.get_used_languages()
-            embeds = {lang: DispatchesEmbed(data.dispatch) for lang in languages}
+            embeds = {
+                lang: DispatchesEmbed(self.bot.data.dispatch) for lang in languages
+            }
             chunked_channels = [
                 self.bot.announcement_channels[i : i + 50]
                 for i in range(0, len(self.bot.announcement_channels), 50)
@@ -159,19 +156,20 @@ class AnnouncementsCog(commands.Cog):
         if (
             self.bot.patch_channels == []
             or patch_notes_start < self.bot.ready_time
-            or not self.bot.data_loaded
+            or not self.bot.data.loaded
             or not self.bot.c_n_m_loaded
         ):
             return
-        data = Data(data_from_api=self.bot.data_dict)
-        self._newest_id = int(data.steam.id)
+        self._newest_id = int(self.bot.data.steam.id)
         last_patch_notes = SteamDB.get_last()
         if not last_patch_notes:
             last_patch_notes = SteamDB.setup()
         if last_patch_notes.id != self._newest_id:
             languages = GuildsDB.get_used_languages()
             embeds = {
-                lang: SteamEmbed(data.steam, self.bot.json_dict["languages"][lang])
+                lang: SteamEmbed(
+                    self.bot.data.steam, self.bot.json_dict["languages"][lang]
+                )
                 for lang in languages
             }
             chunked_patch_channels = [

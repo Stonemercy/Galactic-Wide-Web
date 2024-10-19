@@ -6,7 +6,6 @@ from utils.checks import wait_for_startup
 from utils.db import GuildRecord, GuildsDB
 from utils.embeds import PlanetEmbed
 from utils.functions import planet_map
-from utils.data import Data
 
 
 class PlanetCog(commands.Cog):
@@ -49,7 +48,6 @@ class PlanetCog(commands.Cog):
         guild: GuildRecord = GuildsDB.get_info(inter.guild_id)
         if not guild:
             guild = GuildsDB.insert_new_guild(inter.guild.id)
-        data = Data(data_from_api=self.bot.data_dict)
         planet_names = [
             planet_names
             for planet_names in self.bot.json_dict["planets"].values()
@@ -57,14 +55,14 @@ class PlanetCog(commands.Cog):
         ][0]
         embed = PlanetEmbed(
             planet_names=planet_names,
-            data=data,
+            data=self.bot.data,
             language=self.bot.json_dict["languages"][guild.language],
         )
         if not embed.image_set:
             await self.bot.moderator_channel.send(
                 f"Image missing for biome of **planet __{planet}__** <@{self.bot.owner_id}> :warning:"
             )
-        map_embed = planet_map(data, embed.planet.index, guild.language)
+        map_embed = planet_map(self.bot.data, embed.planet.index, guild.language)
         components = [
             WikiButton(
                 link=f"https://helldivers.wiki.gg/wiki/{planet.replace(' ', '_')}"

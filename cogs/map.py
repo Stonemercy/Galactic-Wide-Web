@@ -10,7 +10,6 @@ from PIL.ImageFont import truetype
 from utils.checks import wait_for_startup
 from utils.db import GuildRecord, GuildsDB
 from utils.functions import dashboard_maps
-from utils.data import Data
 
 
 class MapCog(commands.Cog):
@@ -58,7 +57,7 @@ class MapCog(commands.Cog):
     async def map_poster(self, force: bool = False):
         if (
             self.bot.map_messages == []
-            or not self.bot.data_loaded
+            or not self.bot.data.loaded
             or not self.bot.c_n_m_loaded
         ):
             return
@@ -69,9 +68,8 @@ class MapCog(commands.Cog):
             )
         except:
             pass
-        data = Data(data_from_api=self.bot.data_dict)
         dashboard_maps_dict = await dashboard_maps(
-            data, self.bot.waste_bin_channel, self.bot.json_dict["planets"]
+            self.bot.data, self.bot.waste_bin_channel, self.bot.json_dict["planets"]
         )
         chunked_messages = [
             self.bot.map_messages[i : i + 50]
@@ -122,20 +120,21 @@ class MapCog(commands.Cog):
         guild: GuildRecord = GuildsDB.get_info(inter.guild_id)
         if not guild:
             guild = GuildsDB.insert_new_guild(inter.guild.id)
-        data = Data(data_from_api=self.bot.data_dict)
         planets_coords = {}
-        available_planets = [campaign.planet.name for campaign in data.campaigns]
-        for planet in data.planets.values():
+        available_planets = [
+            campaign.planet.name for campaign in self.bot.data.campaigns
+        ]
+        for planet in self.bot.data.planets.values():
             if faction:
                 if planet.current_owner != faction:
                     continue
                 for waypoint in planet.waypoints:
                     planets_coords[waypoint] = (
-                        (data.planets[waypoint].position["x"] * 2000) + 2000,
+                        (self.bot.data.planets[waypoint].position["x"] * 2000) + 2000,
                         (
                             (
-                                data.planets[waypoint].position["y"]
-                                - (data.planets[waypoint].position["y"] * 2)
+                                self.bot.data.planets[waypoint].position["y"]
+                                - (self.bot.data.planets[waypoint].position["y"] * 2)
                             )
                             * 2000
                         )
@@ -153,7 +152,7 @@ class MapCog(commands.Cog):
         with Image.open("resources/map.webp") as background:
             background_draw = Draw(background)
             for index, coords in planets_coords.items():
-                for waypoint in data.planets[index].waypoints:
+                for waypoint in self.bot.data.planets[index].waypoints:
                     try:
                         background_draw.line(
                             (
@@ -166,8 +165,8 @@ class MapCog(commands.Cog):
                         )
                     except:
                         continue
-            if data.assignment:
-                for task in data.assignment.tasks:
+            if self.bot.data.assignment:
+                for task in self.bot.data.assignment.tasks:
                     if task.type in (11, 13):
                         try:
                             background_draw.ellipse(
@@ -201,14 +200,16 @@ class MapCog(commands.Cog):
                             (coords[0] + 35, coords[1] + 35),
                         ],
                         fill=(
-                            self.faction_colour[data.planets[index].current_owner]
-                            if data.planets[index].name in available_planets
+                            self.faction_colour[
+                                self.bot.data.planets[index].current_owner
+                            ]
+                            if self.bot.data.planets[index].name in available_planets
                             else self.faction_colour[
-                                data.planets[index].current_owner.lower()
+                                self.bot.data.planets[index].current_owner.lower()
                             ]
                         ),
                     )
-                if faction and data.planets[index].name in available_planets:
+                if faction and self.bot.data.planets[index].name in available_planets:
                     font = truetype("gww-font.ttf", 50)
                     background_draw.multiline_text(
                         xy=coords,

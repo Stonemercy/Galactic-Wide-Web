@@ -2,7 +2,6 @@ from data.lists import language_dict
 from disnake import AppCmdInter, File, Permissions, TextChannel
 from disnake.ext import commands
 from main import GalacticWideWebBot
-from utils.data import Data
 from utils.checks import wait_for_startup
 from utils.db import GuildRecord, GuildsDB
 from utils.embeds import Dashboard, SetupEmbed
@@ -212,15 +211,13 @@ class SetupCog(commands.Cog):
                         inline=False,
                     )
                 else:
-                    data = Data(data_from_api=self.bot.data_dict)
-                    liberation_changes = self.bot.get_cog(
-                        "DashboardCog"
-                    ).liberation_changes
+                    liberation_changes = self.bot.data.liberation_changes
                     dashboard = Dashboard(
-                        data,
+                        self.bot.data,
                         self.bot.json_dict["languages"][guild_in_db.language],
                         liberation_changes,
                         self.bot.json_dict,
+                        self.bot.data.planets_with_player_reqs,
                     )
                     try:
                         message = await dashboard_channel.send(
@@ -320,9 +317,8 @@ class SetupCog(commands.Cog):
                         inline=False,
                     )
                 else:
-                    data = Data(data_from_api=self.bot.data_dict)
                     map_embeds = await dashboard_maps(
-                        data,
+                        self.bot.data,
                         self.bot.waste_bin_channel,
                         self.bot.json_dict["planets"],
                     )

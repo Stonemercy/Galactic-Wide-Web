@@ -1,6 +1,6 @@
 from asyncio import sleep
 from cogs.stats import DashboardStats
-from datetime import datetime, time, timedelta
+from datetime import datetime, time
 from disnake import (
     Forbidden,
     NotFound,
@@ -10,45 +10,15 @@ from disnake.ext import commands, tasks
 from main import GalacticWideWebBot
 from utils.embeds import Dashboard
 from utils.db import GuildRecord, GuildsDB
-from utils.data import Campaign, Data
 
 
 class DashboardCog(commands.Cog):
     def __init__(self, bot: GalacticWideWebBot):
         self.bot = bot
-        self.liberation_changes = {}
         self.dashboard.start()
 
     def cog_unload(self):
         self.dashboard.stop()
-
-    def get_needed_players(self, campaign: Campaign):
-        if campaign.planet.event:
-            liberation_changes = self.liberation_changes[campaign.planet.name]
-            if (
-                len(liberation_changes["liberation_changes"]) == 0
-                or sum(liberation_changes["liberation_changes"]) == 0
-            ):
-                return
-            progress_needed = 100 - liberation_changes["liberation"]
-            now = datetime.now()
-            seconds_to_complete = int(
-                (progress_needed / sum(liberation_changes["liberation_changes"])) * 3600
-            )
-            winning = (
-                now + timedelta(seconds=seconds_to_complete)
-                < campaign.planet.event.end_time_datetime
-            )
-            if not winning:
-                hours_left = (
-                    campaign.planet.event.end_time_datetime - now
-                ).total_seconds() / 3600
-                progress_needed_per_hour = progress_needed / hours_left
-                amount_ratio = progress_needed_per_hour / sum(
-                    liberation_changes["liberation_changes"]
-                )
-                required_players = campaign.planet.stats["playerCount"] * amount_ratio
-                return required_players
 
     async def update_message(self, message: PartialMessage, dashboard_dict: dict):
         guild: GuildRecord = GuildsDB.get_info(message.guild.id)
@@ -80,39 +50,19 @@ class DashboardCog(commands.Cog):
     async def dashboard(self, force: bool = False):
         if (
             self.bot.dashboard_messages == []
-            or not self.bot.data_loaded
+            or not self.bot.data.loaded
             or not self.bot.c_n_m_loaded
         ):
             return
         update_start = datetime.now()
-        data = Data(data_from_api=self.bot.data_dict)
-        planets_with_player_reqs = {}
-        for campaign in data.campaigns:
-            if campaign.planet.name not in self.liberation_changes:
-                self.liberation_changes[campaign.planet.name] = {
-                    "liberation": campaign.progress,
-                    "liberation_changes": [],
-                }
-            else:
-                changes = self.liberation_changes[campaign.planet.name]
-                if len(changes["liberation_changes"]) == 4:
-                    changes["liberation_changes"].pop(0)
-                while len(changes["liberation_changes"]) < 4:
-                    changes["liberation_changes"].append(
-                        campaign.progress - changes["liberation"]
-                    )
-                changes["liberation"] = campaign.progress
-            required = self.get_needed_players(campaign)
-            if required:
-                planets_with_player_reqs[campaign.planet.index] = required
         languages = GuildsDB.get_used_languages()
         dashboard_dict = {
             lang: Dashboard(
-                data=data,
+                data=self.bot.data,
                 language=self.bot.json_dict["languages"][lang],
-                liberation_changes=self.liberation_changes,
+                liberation_changes=self.bot.data.liberation_changes,
                 json_dict=self.bot.json_dict,
-                planet_reqs=planets_with_player_reqs,
+                planet_reqs=self.bot.data.planets_with_player_reqs,
             )
             for lang in languages
         }

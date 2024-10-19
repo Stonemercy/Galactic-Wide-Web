@@ -41,11 +41,10 @@ class WarUpdatesCog(commands.Cog):
         if (
             self.bot.announcement_channels == []
             or update_start.minute in (0, 15, 30, 45)
-            or not self.bot.data_loaded
+            or not self.bot.data.loaded
             or not self.bot.c_n_m_loaded
         ):
             return
-        data = Data(data_from_api=self.bot.data_dict)
         old_campaigns = CampaignsDB.get_all()
         languages = GuildsDB.get_used_languages()
         embeds = {
@@ -53,9 +52,9 @@ class WarUpdatesCog(commands.Cog):
             for lang in languages
         }
         new_updates = False
-        new_campaign_ids = [campaign.id for campaign in data.campaigns]
+        new_campaign_ids = [campaign.id for campaign in self.bot.data.campaigns]
         if not old_campaigns:
-            for new_campaign in data.campaigns:
+            for new_campaign in self.bot.data.campaigns:
                 CampaignsDB.new_campaign(
                     new_campaign.id,
                     new_campaign.planet.name,
@@ -64,11 +63,11 @@ class WarUpdatesCog(commands.Cog):
                 )
             return
         old_campaign_ids = [old_campaign.id for old_campaign in old_campaigns]
-        liberation_changes: dict = self.bot.get_cog("DashboardCog").liberation_changes
+        liberation_changes: dict = self.bot.data.liberation_changes
         for old_campaign in old_campaigns:  # loop through old campaigns
             if old_campaign.id not in new_campaign_ids:
                 # if campaign is no longer active
-                planet = data.planets[old_campaign.planet_index]
+                planet = self.bot.data.planets[old_campaign.planet_index]
                 if planet.current_owner == "Humans" and old_campaign.owner == "Humans":
                     # if successful defence campaign
                     for embed in embeds.values():
@@ -91,7 +90,7 @@ class WarUpdatesCog(commands.Cog):
                         CampaignsDB.remove_campaign(old_campaign.id)
                 elif planet.current_owner != "Humans":
                     CampaignsDB.remove_campaign(old_campaign.id)
-        for new_campaign in data.campaigns:  # loop through new campaigns
+        for new_campaign in self.bot.data.campaigns:  # loop through new campaigns
             if new_campaign.id not in old_campaign_ids:  # if campaign is brand new
                 time_remaining = None
                 if new_campaign.planet.event:

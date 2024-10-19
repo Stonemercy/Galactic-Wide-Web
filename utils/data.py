@@ -1,10 +1,93 @@
+from asyncio import sleep
 from datetime import datetime, timedelta
+from os import getenv
+from aiohttp import ClientSession
 from utils.functions import steam_format
+
+api = getenv("API")
+backup_api = getenv("BU_API")
 
 
 class Data:
-    def __init__(self, data_from_api: dict):
-        self.__data__ = data_from_api
+    def __init__(self):
+        self.__data__ = {
+            "assignments": None,
+            "campaigns": None,
+            "dispatches": None,
+            "planets": None,
+            "steam": None,
+            "thumbnails": None,
+        }
+        self.loaded = False
+        self.liberation_changes = {}
+        self.planets_with_player_reqs = {}
+
+    async def pull_from_api(self, bot):
+        start_time = datetime.now()
+        api_to_use = api
+        async with ClientSession(headers={"Accept-Language": "en-GB"}) as session:
+            async with session.get(f"{api_to_use}") as r:
+                if r.status != 200:
+                    api_to_use = backup_api
+                    bot.logger.critical("API/USING BACKUP")
+                    await bot.moderator_channel.send(f"API/USING BACKUP\n{r}")
+
+            async with session.get(f"{api_to_use}") as r:
+                if r.status != 200:
+                    bot.logger.critical("API/BACKUP FAILED")
+                    return await bot.moderator_channel.send(f"API/BACKUP FAILED\n{r}")
+
+                for endpoint in list(self.__data__.keys()):
+                    if endpoint == "thumbnails":
+                        async with session.get(
+                            "https://helldivers.news/api/planets"
+                        ) as r:
+                            if r.status == 200:
+                                self.__data__[endpoint] = await r.json()
+                            else:
+                                bot.logger.error(f"API/THUMBNAILS, {r.status}")
+                        continue
+                    try:
+                        async with session.get(f"{api_to_use}/api/v1/{endpoint}") as r:
+                            if r.status == 200:
+                                if endpoint == "dispatches":
+                                    json = await r.json()
+                                    if not json[0]["message"]:
+                                        continue
+                                elif endpoint == "assignments":
+                                    json = await r.json()
+                                    if json not in ([], None):
+                                        if not json[0]["briefing"]:
+                                            continue
+                                self.__data__[endpoint] = await r.json()
+                            else:
+                                bot.logger.error(f"API/{endpoint.upper()}, {r.status}")
+                                await bot.moderator_channel.send(
+                                    f"API/{endpoint.upper()}\n{r}"
+                                )
+                    except Exception as e:
+                        bot.logger.error(f"API/{endpoint.upper()}, {e}")
+                        await bot.moderator_channel.send(f"API/{endpoint.upper()}\n{r}")
+                    if api_to_use == backup_api:
+                        await sleep(1)
+        bot.logger.info(
+            (
+                f"pull_from_api complete | "
+                f"Completed in {(datetime.now() - start_time).total_seconds():.2f} seconds"
+            )
+        )
+        if not self.loaded:
+            now = datetime.now()
+            bot.logger.info(
+                f"setup complete | bot.ready_time: {bot.ready_time.strftime('%H:%M:%S')} -> {now.strftime('%H:%M:%S')}"
+            )
+            bot.ready_time = now
+            self.loaded = True
+        self.format_data()
+        self.update_liberation_rates()
+        self.get_needed_players()
+
+    def format_data(self):
         self.assignment = self.assignment_planets = None
         planet_events_list = sorted(
             [planet for planet in self.__data__["planets"] if planet["event"]],
@@ -68,6 +151,54 @@ class Data:
 
         if self.__data__["steam"]:
             self.steam = Steam(self.__data__["steam"][0])
+
+    def update_liberation_rates(self):
+        for campaign in self.campaigns:
+            if campaign.planet.index not in self.liberation_changes:
+                self.liberation_changes[campaign.planet.index] = {
+                    "liberation": campaign.progress,
+                    "liberation_changes": [],
+                }
+            else:
+                changes = self.liberation_changes[campaign.planet.index]
+                if len(changes["liberation_changes"]) == 60:
+                    changes["liberation_changes"].pop(0)
+                while len(changes["liberation_changes"]) < 60:
+                    changes["liberation_changes"].append(
+                        campaign.progress - changes["liberation"]
+                    )
+                changes["liberation"] = campaign.progress
+
+    def get_needed_players(self):
+        now = datetime.now()
+        for planet in self.planet_events:
+            lib_changes = self.liberation_changes[planet.index]
+            if (
+                len(lib_changes["liberation_changes"]) == 0
+                or sum(lib_changes["liberation_changes"]) == 0
+            ):
+                return
+            progress_needed = 100 - lib_changes["liberation"]
+            seconds_to_complete = int(
+                (progress_needed / sum(lib_changes["liberation_changes"])) * 3600
+            )
+            winning = (
+                now + timedelta(seconds=seconds_to_complete)
+                < planet.event.end_time_datetime
+            )
+            if not winning:
+                hours_left = (
+                    planet.event.end_time_datetime - now
+                ).total_seconds() / 3600
+                progress_needed_per_hour = progress_needed / hours_left
+                amount_ratio = progress_needed_per_hour / sum(
+                    lib_changes["liberation_changes"]
+                )
+                required_players = planet.stats["playerCount"] * amount_ratio
+                planet.event.required_players = required_players
+        self.planets_with_player_reqs = {
+            planet.index: planet.event.required_players for planet in self.planet_events
+        }
 
 
 class Assignment:
@@ -203,6 +334,7 @@ class Planet:
                 tzinfo=None
             ) + timedelta(hours=1)
             self.progress: float = self.health / self.max_health
+            self.required_players: int = 0
 
         def __repr__(self):
             return (

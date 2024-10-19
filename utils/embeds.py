@@ -643,7 +643,7 @@ class Dashboard:
                 required_players_text = ""
                 winning = ""
                 if liberation_changes != {}:
-                    liberation_change = liberation_changes.get(planet.name, None)
+                    liberation_change = liberation_changes.get(planet.index, None)
                     if (
                         liberation_change
                         and len(liberation_change["liberation_changes"]) > 0

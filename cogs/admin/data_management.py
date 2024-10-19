@@ -1,13 +1,7 @@
-from asyncio import sleep
 from datetime import datetime, time
-from os import getenv
-from aiohttp import ClientSession
 from disnake.ext import commands, tasks
 from utils.db import GuildsDB
 from main import GalacticWideWebBot
-
-api = getenv("API")
-backup_api = getenv("BU_API")
 
 
 class DataManagementCog(commands.Cog):
@@ -96,76 +90,7 @@ class DataManagementCog(commands.Cog):
         time=[time(hour=j, minute=i, second=45) for j in range(24) for i in range(59)]
     )
     async def pull_from_api(self):
-        start_time = datetime.now()
-        api_to_use = api
-        async with ClientSession(headers={"Accept-Language": "en-GB"}) as session:
-            async with session.get(f"{api_to_use}") as r:
-                if r.status != 200:
-                    api_to_use = backup_api
-                    self.bot.logger.critical("API/USING BACKUP")
-                    await self.bot.moderator_channel.send(f"API/USING BACKUP\n{r}")
-
-            async with session.get(f"{api_to_use}") as r:
-                if r.status != 200:
-                    self.bot.logger.critical("API/BACKUP FAILED")
-                    return await self.bot.moderator_channel.send(
-                        f"API/BACKUP FAILED\n{r}"
-                    )
-
-                for endpoint in list(self.bot.data_dict.keys()):
-                    if endpoint == "thumbnails":
-                        async with session.get(
-                            "https://helldivers.news/api/planets"
-                        ) as r:
-                            if r.status == 200:
-                                self.bot.data_dict["thumbnails"] = await r.json()
-                            else:
-                                self.bot.logger.error(f"API/THUMBNAILS, {r.status}")
-                        continue
-                    try:
-                        async with session.get(f"{api_to_use}/api/v1/{endpoint}") as r:
-                            if r.status == 200:
-                                if endpoint == "dispatches":
-                                    json = await r.json()
-                                    if not json[0]["message"]:
-                                        continue
-                                elif endpoint == "assignments":
-                                    json = await r.json()
-                                    if json not in ([], None):
-                                        if not json[0]["briefing"]:
-                                            continue
-                                self.bot.data_dict[endpoint] = await r.json()
-                            else:
-                                self.bot.logger.error(
-                                    f"API/{endpoint.upper()}, {r.status}"
-                                )
-                                await self.bot.moderator_channel.send(
-                                    f"API/{endpoint.upper()}\n{r}"
-                                )
-                    except Exception as e:
-                        self.bot.logger.error(f"API/{endpoint.upper()}, {e}")
-                        await self.bot.moderator_channel.send(
-                            f"API/{endpoint.upper()}\n{r}"
-                        )
-        self.bot.logger.info(
-            (
-                f"pull_from_api complete | "
-                f"Completed in {(datetime.now() - start_time).total_seconds():.2f} seconds | "
-                f"{len(self.bot.data_dict['assignments']) = } | "
-                f"{len(self.bot.data_dict['campaigns']) = } | "
-                f"{len(self.bot.data_dict['dispatches']) = } | "
-                f"{len(self.bot.data_dict['planets']) = } | "
-                f"{len(self.bot.data_dict['steam']) = } | "
-                f"{len(self.bot.data_dict['thumbnails']) = }"
-            )
-        )
-        if not self.bot.data_loaded:
-            now = datetime.now()
-            self.bot.logger.info(
-                f"setup complete | self.bot.ready_time: {self.bot.ready_time.strftime('%H:%M:%S')} -> {now.strftime('%H:%M:%S')}"
-            )
-            self.bot.ready_time = now
-            self.bot.data_loaded = True
+        await self.bot.data.pull_from_api(self.bot)
 
     @pull_from_api.before_loop
     async def before_pull_from_api(self):

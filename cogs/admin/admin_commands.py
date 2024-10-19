@@ -1,6 +1,6 @@
 from asyncio import sleep
 from datetime import datetime
-from disnake import AppCmdInter, Permissions, TeamMember
+from disnake import AppCmdInter, Permissions
 from disnake.ext import commands
 from main import GalacticWideWebBot
 from os import getenv
