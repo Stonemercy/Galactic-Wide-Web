@@ -701,7 +701,8 @@ class Dashboard:
                 defend_embed.add_field(
                     f"{faction_icon} - __**{planet_names[str(planet.index)]['names'][language['code_long']]}**__ {exclamation}",
                     (
-                        f"{language['ends']}: {time_remaining}"
+                        f"{language['ends']}: {time_remaining}\n"
+                        f"{language['defend_embed']['level']} {int(planet.event.max_health / 50000)}\n"
                         f"{outlook_text}"
                         f"\n{language['heroes']}: **{planet.stats['playerCount']:,}**"
                         f"{feature_text}"

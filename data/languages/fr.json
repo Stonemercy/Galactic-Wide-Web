@@ -77,7 +77,8 @@
             "for_now": "Pour l'instant...",
             "time_unavailable": "Indisponible",
             "event_health": "Libération de la planète",
-            "players_required": "Requis pour la victoire"
+            "players_required": "Requis pour la victoire",
+            "level": "Niveau de défense"
         },
         "attack_embed": {
             "planet_health": "Libération de la planète"

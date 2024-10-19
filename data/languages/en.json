@@ -77,7 +77,8 @@
             "for_now": "For now...",
             "time_unavailable": "Unavailable",
             "event_health": "Planet Liberation",
-            "players_required": "Required for Victory"
+            "players_required": "Required for Victory",
+            "level": "Defence Level"
         },
         "attack_embed": {
             "planet_health": "Planet Liberation"

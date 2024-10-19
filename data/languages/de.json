@@ -77,7 +77,8 @@
             "for_now": "Vorerst...",
             "time_unavailable": "Nicht verfügbar",
             "event_health": "Planetenbefreiung",
-            "players_required": "Erforderlich für Sieg"
+            "players_required": "Erforderlich für Sieg",
+            "level": "Verteidigungsstufe"
         },
         "attack_embed": {
             "planet_health": "Planetenbefreiung"
