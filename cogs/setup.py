@@ -214,9 +214,7 @@ class SetupCog(commands.Cog):
                     dashboard = Dashboard(
                         self.bot.data,
                         self.bot.json_dict["languages"][guild_in_db.language],
-                        self.bot.data.liberation_changes,
                         self.bot.json_dict,
-                        self.bot.data.planets_with_player_reqs,
                     )
                     try:
                         message = await dashboard_channel.send(

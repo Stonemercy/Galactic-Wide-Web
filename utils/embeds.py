@@ -484,9 +484,7 @@ class Dashboard:
         self,
         data: Data,
         language: dict,
-        liberation_changes: dict,
         json_dict: dict,
-        planet_reqs: dict = None,
     ):
         now = datetime.now()
         planet_names = json_dict["planets"]
@@ -716,8 +714,8 @@ class Dashboard:
                 outlook_text = ""
                 required_players_text = ""
                 winning = ""
-                if liberation_changes != {}:
-                    liberation_change = liberation_changes.get(planet.index, None)
+                if data.liberation_changes != {}:
+                    liberation_change = data.liberation_changes.get(planet.index, None)
                     if (
                         liberation_change
                         and len(liberation_change["liberation_changes"]) > 0
@@ -752,8 +750,11 @@ class Dashboard:
                         )
                         liberation_text = f"\n`{(above_zero + change):^25}` "
                         outlook_text = f"\n{language['dashboard']['outlook']}: **{winning}** {time_to_complete}"
-                        if planet_reqs and planet.index in planet_reqs:
-                            required_players_text = f"\n{language['dashboard']['defend_embed']['players_required']}: **~{planet_reqs[planet.index]:,.0f}+**"
+                        if (
+                            data.planets_with_player_reqs
+                            and planet.index in data.planets_with_player_reqs
+                        ):
+                            required_players_text = f"\n{language['dashboard']['defend_embed']['players_required']}: **~{data.planets_with_player_reqs[planet.index]:,.0f}+**"
                 faction_icon = emojis_dict[planet.event.faction]
                 time_remaining = (
                     f"<t:{planet.event.end_time_datetime.timestamp():.0f}:R>"
@@ -822,8 +823,8 @@ class Dashboard:
                     continue
                 time_to_complete = ""
                 liberation_text = ""
-                if liberation_changes != {}:
-                    liberation_change = liberation_changes.get(
+                if data.liberation_changes != {}:
+                    liberation_change = data.liberation_changes.get(
                         campaign.planet.index, None
                     )
                     if (
@@ -872,37 +873,9 @@ class Dashboard:
                     planet_health_bar = ""
                     planet_health_text = f"**`{(1 - (campaign.planet.health / campaign.planet.max_health)):^15.2%}`**"
                     feature_text = ""
-                if campaign.planet.current_owner == "Automaton":
-                    automaton_embed.add_field(
+                embeds_dict = {"Automaton": automaton_embed, "Terminids": terminids_embed, "Illuminate": illuminate_embed}
+                embeds_dict[campaign.planet.current_owner].add_field(
                         f"{faction_icon} - __**{planet_names[str(campaign.planet.index)]['names'][language['code_long']]}**__ {exclamation}",
-                        (
-                            f"{language['heroes']}: **{campaign.planet.stats['playerCount']:,}**"
-                            f"{feature_text}"
-                            f"{time_to_complete}"
-                            f"\n{language['dashboard']['attack_embed']['planet_health']}:"
-                            f"\n{planet_health_bar}"
-                            f"\n{planet_health_text}"
-                            f"{liberation_text}"
-                        ),
-                        inline=False,
-                    )
-                elif campaign.planet.current_owner == "Terminids":
-                    terminids_embed.add_field(
-                        f"{faction_icon} - __**{planet_names[str(campaign.planet.index)]['names'][language['code_long']]}**__ {exclamation}",
-                        (
-                            f"{language['heroes']}: **{campaign.planet.stats['playerCount']:,}**"
-                            f"{feature_text}"
-                            f"{time_to_complete}"
-                            f"\n{language['dashboard']['attack_embed']['planet_health']}:"
-                            f"\n{planet_health_bar}"
-                            f"\n{planet_health_text}"
-                            f"{liberation_text}"
-                        ),
-                        inline=False,
-                    )
-                elif campaign.planet.current_owner == "Illuminate":
-                    illuminate_embed.add_field(
-                        f"{faction_icon} - __**{planet_names[str(campaign.planet.index)]['names'][supported_languages[language['code_long']]]}**__ {exclamation}",
                         (
                             f"{language['heroes']}: **{campaign.planet.stats['playerCount']:,}**"
                             f"{feature_text}"

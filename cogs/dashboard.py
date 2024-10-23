@@ -60,9 +60,7 @@ class DashboardCog(commands.Cog):
             lang: Dashboard(
                 data=self.bot.data,
                 language=self.bot.json_dict["languages"][lang],
-                liberation_changes=self.bot.data.liberation_changes,
                 json_dict=self.bot.json_dict,
-                planet_reqs=self.bot.data.planets_with_player_reqs,
             )
             for lang in languages
         }
