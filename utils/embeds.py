@@ -1,13 +1,13 @@
 from math import inf
 from os import getpid
 from disnake import APISlashCommand, Embed, Colour, File, ModalInteraction, OptionType
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from psutil import Process, cpu_percent
 from main import GalacticWideWebBot
 from utils.db import GuildsDB
 from utils.functions import health_bar, short_format, skipped_planets
-from utils.data import Campaign, Data, Dispatch, Steam, Tasks, Planet
+from utils.data import Campaign, Data, Dispatch, Steam, Superstore, Tasks, Planet
 from data.lists import (
     emojis_dict,
     warbond_images_dict,
@@ -1511,3 +1511,34 @@ class FeedbackEmbed(Embed):
             name=inter.author.name,
             icon_url=inter.author.avatar.url if inter.author.avatar != None else None,
         )
+
+
+class SuperstoreEmbed(Embed):
+    def __init__(self, superstore: Superstore):
+        super().__init__(title=f"Superstore Rotation", colour=Colour.blue())
+        now = datetime.now()
+        expiration = datetime.strptime(superstore.expiration, "%d-%b-%Y %H:%M")
+        warning = " :warning:" if expiration < now + timedelta(days=1) else ""
+        self.description = f"Rotates <t:{int(expiration.timestamp())}:R>{warning}"
+        for item in superstore.items:
+            passives = ""
+            item["type"] = f"Type: {item['type']}\n" if item["slot"] == "Body" else ""
+            if item["slot"] == "Body":
+                item["passive"]["description"] = item["passive"][
+                    "description"
+                ].splitlines()
+                passives = f"**{item['passive']['name']}**\n"
+                for passive in item["passive"]["description"]:
+                    passives += f"-# - {passive}\n"
+            self.add_field(
+                f"{item['name']} - {item['store_cost']} {emojis_dict['Super Credits']}",
+                (
+                    f"{item['type']}"
+                    f"Slot: **{item['slot']}** {emojis_dict[item['slot']]}\n"
+                    f"Armor: **{item['armor_rating']}**\n"
+                    f"Speed: **{item['speed']}**\n"
+                    f"Stamina Regen: **{item['stamina_regen']}**\n"
+                    f"{passives}"
+                ),
+            )
+        self.insert_field_at(1, "", "").insert_field_at(4, "", "")

@@ -9,6 +9,23 @@ backup_api = getenv("BU_API")
 
 
 class Data:
+    __slots__ = (
+        "__data__",
+        "assignment",
+        "assignment_planets",
+        "campaigns",
+        "dispatch",
+        "planets",
+        "planet_events",
+        "total_players",
+        "steam",
+        "thumbnails",
+        "superstore",
+        "loaded",
+        "liberation_changes",
+        "planets_with_player_reqs",
+    )
+
     def __init__(self):
         self.__data__ = {
             "assignments": None,
@@ -17,6 +34,7 @@ class Data:
             "planets": None,
             "steam": None,
             "thumbnails": None,
+            "superstore": None,
         }
         self.loaded = False
         self.liberation_changes = {}
@@ -41,6 +59,15 @@ class Data:
                                 self.__data__[endpoint] = await r.json()
                             else:
                                 bot.logger.error(f"API/THUMBNAILS, {r.status}")
+                        continue
+                    if endpoint == "superstore":
+                        async with session.get(
+                            "https://api.diveharder.com/v1/store_rotation"
+                        ) as r:
+                            if r.status == 200:
+                                self.__data__[endpoint] = await r.json()
+                            else:
+                                bot.logger.error(f"API/SUPERSTORE, {r.status}")
                         continue
                     try:
                         async with session.get(f"{api_to_use}/api/v1/{endpoint}") as r:
@@ -146,6 +173,9 @@ class Data:
 
         if self.__data__["steam"]:
             self.steam = [Steam(notes) for notes in self.__data__["steam"]]
+
+        if self.__data__["superstore"]:
+            self.superstore = Superstore(self.__data__["superstore"])
 
     def update_liberation_rates(self):
         for campaign in self.campaigns:
@@ -362,3 +392,16 @@ class Steam:
 
 class Thumbnail:
     pass
+
+
+class Superstore:
+    def __init__(self, superstore):
+        self.expiration = superstore["expire_time"]
+        self.item1 = superstore["items"][0]
+        self.item2 = superstore["items"][1]
+        self.item3 = superstore["items"][2]
+        self.item4 = superstore["items"][3]
+        self.items = [self.item1, self.item2, self.item3, self.item4]
+
+    def __repr__(self):
+        return f"Superstore(expiration={self.expiration}, item1={self.item1}, item2={self.item2}, item3={self.item3}, item4={self.item4})"
