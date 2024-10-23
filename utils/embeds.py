@@ -16,47 +16,42 @@ from data.lists import (
 
 
 class PlanetEmbed(Embed):
-    def __init__(self, planet_names: dict, data: Data, language: dict):
+    def __init__(self, planet_names: dict, planet_data: Planet, language: dict):
         super().__init__(colour=Colour.blue())
-        self.planet = [
-            planet
-            for planet in data.planets.values()
-            if planet.name == planet_names["name"].upper()
-        ][0]
-        if self.planet.current_owner == "Humans":
+        if planet_data.current_owner == "Humans":
             planet_health_bar = health_bar(
                 (
-                    self.planet.event.progress
-                    if self.planet.event
-                    else (self.planet.health / self.planet.max_health)
+                    planet_data.event.progress
+                    if planet_data.event
+                    else (planet_data.health / planet_data.max_health)
                 ),
-                self.planet.event.faction if self.planet.event else "Humans",
-                True if self.planet.event else False,
+                planet_data.event.faction if planet_data.event else "Humans",
+                True if planet_data.event else False,
             )
             health_text = (
-                f"{1 - self.planet.event.progress:^25,.2%}"
-                if self.planet.event
-                else f"{(self.planet.health / self.planet.max_health):^25,.2%}"
+                f"{1 - planet_data.event.progress:^25,.2%}"
+                if planet_data.event
+                else f"{(planet_data.health / planet_data.max_health):^25,.2%}"
             )
         else:
             planet_health_bar = health_bar(
-                self.planet.health / self.planet.max_health,
-                self.planet.current_owner,
+                planet_data.health / planet_data.max_health,
+                planet_data.current_owner,
                 True,
             )
-            health_text = f"{1 - (self.planet.health / self.planet.max_health):^25,.2%}"
+            health_text = f"{1 - (planet_data.health / planet_data.max_health):^25,.2%}"
         enviros_text = ""
-        for hazard in self.planet.hazards:
+        for hazard in planet_data.hazards:
             enviros_text += f"\n- **{hazard['name']}**\n  - {hazard['description']}"
         self.add_field(
             f"__**{planet_names['names'][language['code_long']]}**__",
             (
-                f"{language['sector']}: **{self.planet.sector}**\n"
-                f"{language['planet']['owner']}: **{language[self.planet.current_owner.lower()]}**\n\n"
-                f"🏔️ {language['planet']['biome']} \n- **{self.planet.biome['name']}**\n  - {self.planet.biome['description']}\n\n"
+                f"{language['sector']}: **{planet_data.sector}**\n"
+                f"{language['planet']['owner']}: **{language[planet_data.current_owner.lower()]}**\n\n"
+                f"🏔️ {language['planet']['biome']} \n- **{planet_data.biome['name']}**\n  - {planet_data.biome['description']}\n\n"
                 f"🌪️ {language['planet']['environmentals']}:{enviros_text}\n\n"
                 f"{language['planet']['planet_health']}\n"
-                f"{planet_health_bar}{' 🛡️' if self.planet.event else ''}\n"
+                f"{planet_health_bar}{' 🛡️' if planet_data.event else ''}\n"
                 f"`{health_text}`\n"
                 "\u200b\n"
             ),
@@ -64,20 +59,20 @@ class PlanetEmbed(Embed):
         ).add_field(
             f"📊 {language['planet']['mission_stats']}",
             (
-                f"{language['planet']['missions_won']}: **`{short_format(self.planet.stats['missionsWon'])}`**\n"
-                f"{language['planet']['missions_lost']}: **`{short_format(self.planet.stats['missionsLost'])}`**\n"
-                f"{language['planet']['missions_winrate']}: **`{self.planet.stats['missionSuccessRate']}%`**\n"
-                f"{language['planet']['missions_time_spent']}: **`{self.planet.stats['missionTime']/31556952:.1f} years`**"
+                f"{language['planet']['missions_won']}: **`{short_format(planet_data.stats['missionsWon'])}`**\n"
+                f"{language['planet']['missions_lost']}: **`{short_format(planet_data.stats['missionsLost'])}`**\n"
+                f"{language['planet']['missions_winrate']}: **`{planet_data.stats['missionSuccessRate']}%`**\n"
+                f"{language['planet']['missions_time_spent']}: **`{planet_data.stats['missionTime']/31556952:.1f} years`**"
             ),
         ).add_field(
             f"📈 {language['planet']['hero_stats']}",
             (
-                f"{language['planet']['active_heroes']}: **`{self.planet.stats['playerCount']:,}`**\n"
-                f"{language['planet']['heroes_lost']}: **`{short_format(self.planet.stats['deaths'])}`**\n"
-                f"{language['planet']['accidents']}: **`{short_format(self.planet.stats['friendlies'])}`**\n"
-                f"{language['planet']['shots_fired']}: **`{short_format(self.planet.stats['bulletsFired'])}`**\n"
-                f"{language['planet']['shots_hit']}: **`{short_format(self.planet.stats['bulletsHit'])}`**\n"
-                f"{language['planet']['accuracy']}: **`{self.planet.stats['accuracy']}%`**\n"
+                f"{language['planet']['active_heroes']}: **`{planet_data.stats['playerCount']:,}`**\n"
+                f"{language['planet']['heroes_lost']}: **`{short_format(planet_data.stats['deaths'])}`**\n"
+                f"{language['planet']['accidents']}: **`{short_format(planet_data.stats['friendlies'])}`**\n"
+                f"{language['planet']['shots_fired']}: **`{short_format(planet_data.stats['bulletsFired'])}`**\n"
+                f"{language['planet']['shots_hit']}: **`{short_format(planet_data.stats['bulletsHit'])}`**\n"
+                f"{language['planet']['accuracy']}: **`{planet_data.stats['accuracy']}%`**\n"
             ),
         )
         faction_colour = {
@@ -86,33 +81,33 @@ class PlanetEmbed(Embed):
             "Illuminate": Colour.from_rgb(r=116, g=163, b=180),
             "Humans": Colour.from_rgb(r=36, g=205, b=76),
         }
-        self.colour = faction_colour[self.planet.current_owner]
-        if self.planet.current_owner != "Humans":
+        self.colour = faction_colour[planet_data.current_owner]
+        if planet_data.current_owner != "Humans":
             faction = (
-                self.planet.current_owner.lower()[:-1]
-                if self.planet.current_owner.lower() == "terminids"
-                else self.planet.current_owner.lower()
+                planet_data.current_owner.lower()[:-1]
+                if planet_data.current_owner.lower() == "terminids"
+                else planet_data.current_owner.lower()
             )
             faction_kills = f"{faction}Kills"
             self.add_field(
-                f"💀 {language[self.planet.current_owner.lower()]} {language['planet']['killed']}:",
-                f"**{short_format(self.planet.stats[faction_kills])}**",
+                f"💀 {language[planet_data.current_owner.lower()]} {language['planet']['killed']}:",
+                f"**{short_format(planet_data.stats[faction_kills])}**",
                 inline=False,
             ).set_author(
                 name=language["planet"]["liberation_progress"],
                 icon_url=(
                     "https://cdn.discordapp.com/emojis/1215036421551685672.webp?size=44&quality=lossless"
-                    if self.planet.current_owner == "Automaton"
+                    if planet_data.current_owner == "Automaton"
                     else "https://cdn.discordapp.com/emojis/1215036423090999376.webp?size=44&quality=lossless"
                 ),
             )
-        if self.planet.feature:
-            self.add_field("Feature", self.planet.feature)
-        if self.planet.thumbnail:
-            self.set_thumbnail(url=self.planet.thumbnail)
+        if planet_data.feature:
+            self.add_field("Feature", planet_data.feature)
+        if planet_data.thumbnail:
+            self.set_thumbnail(url=planet_data.thumbnail)
         try:
             self.set_image(
-                file=File(f"resources/biomes/{self.planet.biome['name'].lower()}.png")
+                file=File(f"resources/biomes/{planet_data.biome['name'].lower()}.png")
             )
             self.image_set = True
         except:

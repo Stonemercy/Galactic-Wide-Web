@@ -53,16 +53,21 @@ class PlanetCog(commands.Cog):
             for planet_names in self.bot.json_dict["planets"].values()
             if planet_names["name"] == planet
         ][0]
+        planet_data = [
+            planet_data
+            for planet_data in self.bot.data.planets.values()
+            if planet_data.name == planet.upper()
+        ][0]
         embed = PlanetEmbed(
             planet_names=planet_names,
-            data=self.bot.data,
+            planet_data=planet_data,
             language=self.bot.json_dict["languages"][guild.language],
         )
         if not embed.image_set:
             await self.bot.moderator_channel.send(
                 f"Image missing for biome of **planet __{planet}__** <@{self.bot.owner_id}> :warning:"
             )
-        map_embed = planet_map(self.bot.data, embed.planet.index, guild.language)
+        map_embed = planet_map(self.bot.data, planet_data.index, guild.language)
         components = [
             WikiButton(
                 link=f"https://helldivers.wiki.gg/wiki/{planet.replace(' ', '_')}"
