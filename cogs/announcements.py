@@ -127,7 +127,10 @@ class AnnouncementsCog(commands.Cog):
         if last_dispatch.id != self._newest_id:
             languages = GuildsDB.get_used_languages()
             embeds = {
-                lang: DispatchesEmbed(self.bot.data.dispatch) for lang in languages
+                lang: DispatchesEmbed(
+                    self.bot.json_dict["languages"][lang], self.bot.data.dispatch
+                )
+                for lang in languages
             }
             chunked_channels = [
                 self.bot.announcement_channels[i : i + 50]

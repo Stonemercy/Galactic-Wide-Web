@@ -636,6 +636,7 @@ class DispatchesDB:
         ) as conn:
             with conn.cursor() as curs:
                 curs.execute("Insert into dispatches (id) VALUES (%s)", (0,))
+                conn.commit()
                 result = DispatchesDB.get_last()
                 return result
 

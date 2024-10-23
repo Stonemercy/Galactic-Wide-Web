@@ -413,10 +413,10 @@ class MajorOrderEmbed(Embed):
 
 
 class DispatchesEmbed(Embed):
-    def __init__(self, dispatch: Dispatch):
-        super().__init__(colour=Colour.brand_red())
-        self.set_footer(text=f"MESSAGE #{dispatch.id}")
-        self.add_field("Message Content", dispatch.message)
+    def __init__(self, language: dict, dispatch: Dispatch):
+        super().__init__(colour=Colour.yellow())
+        self.add_field("", dispatch.message)
+        self.set_footer(text=f"{language['message'].upper()} #{dispatch.id}")
 
 
 class SteamEmbed(Embed):
