@@ -1,5 +1,4 @@
 from datetime import datetime
-from json import load
 from re import sub
 from PIL import Image
 from disnake import Colour, Embed, File, TextChannel
@@ -7,28 +6,6 @@ from utils.db import GuildsDB
 from PIL.ImageDraw import Draw
 from PIL.ImageFont import truetype
 from data.lists import supported_languages
-from data.lists import json_dict
-
-
-def load_json():
-    status = "load_json status:\n"
-    for key, values in json_dict.copy().items():
-        if "path" not in values:
-            for second_key, second_values in values.items():
-                if "path" in second_values:
-                    with open(second_values["path"], encoding="UTF-8") as json_file:
-                        json_dict[key][second_key] = load(json_file)
-                        status += f"{key} - {second_key} - {'LOADED' if second_values else 'FAILED'}\n"
-                        continue
-            continue
-        else:
-            with open(values["path"], encoding="UTF-8") as json_file:
-                json_dict[key] = load(json_file)
-                status += f"{key} - {'LOADED' if values else 'FAILED'}\n"
-    if "FAILED" in status:
-        return None
-    else:
-        return json_dict
 
 
 def health_bar(perc: float, race: str, reverse: bool = False):
