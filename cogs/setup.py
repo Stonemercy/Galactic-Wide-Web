@@ -211,11 +211,10 @@ class SetupCog(commands.Cog):
                         inline=False,
                     )
                 else:
-                    liberation_changes = self.bot.data.liberation_changes
                     dashboard = Dashboard(
                         self.bot.data,
                         self.bot.json_dict["languages"][guild_in_db.language],
-                        liberation_changes,
+                        self.bot.data.liberation_changes,
                         self.bot.json_dict,
                         self.bot.data.planets_with_player_reqs,
                     )
