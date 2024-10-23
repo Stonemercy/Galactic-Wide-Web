@@ -424,7 +424,7 @@ class SteamEmbed(Embed):
         super().__init__(title=steam.title, colour=Colour.dark_grey(), url=steam.url)
         self.set_footer(text=f"{language['message']} #{steam.id}")
         if len(steam.content) > 4000:
-            steam.content = f"{language['steam']['head_here']}(<{steam.url}>) {language['steam']['to_see_full']}"
+            steam.content = f"{steam.content[:3900]}...\n# {language['steam']['head_here']}(<{steam.url}>) {language['steam']['to_see_full']}"
         self.description = steam.content
 
 
