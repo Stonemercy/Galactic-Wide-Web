@@ -764,7 +764,7 @@ class Dashboard:
                     True,
                 )
                 exclamation = (
-                    emojis_dict["medal"]
+                    emojis_dict["MO"]
                     if data.assignment_planets
                     and planet.index in data.assignment_planets
                     else ""
