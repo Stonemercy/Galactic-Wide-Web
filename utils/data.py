@@ -194,7 +194,9 @@ class Data:
                 required_players = planet.stats["playerCount"] * amount_ratio
                 planet.event.required_players = required_players
         self.planets_with_player_reqs = {
-            planet.index: planet.event.required_players for planet in self.planet_events
+            planet.index: planet.event.required_players
+            for planet in self.planet_events
+            if planet.event.required_players != 0
         }
 
 

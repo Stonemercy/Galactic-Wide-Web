@@ -328,7 +328,7 @@ class MajorOrderEmbed(Embed):
                 )
         self.add_field(
             language["reward"],
-            f"{data.assignment.reward['amount']} {language[reward_types[str(data.assignment.reward['type'])].lower()]} <:medal:1226254158278037504>",
+            f"{data.assignment.reward['amount']} {language[reward_types[str(data.assignment.reward['type'])].lower()]} {emojis_dict['medal']}",
         )
         self.add_field(
             language["ends"],
@@ -690,7 +690,7 @@ class Dashboard:
                     True,
                 )
                 exclamation = (
-                    "<:MO:1240706769043456031>"
+                    emojis_dict["medal"]
                     if data.assignment_planets
                     and planet.index in data.assignment_planets
                     else ""
@@ -1077,7 +1077,7 @@ class Items:
                 description=(
                     f"Page {page}/{list(warbond_json['json'].keys())[-1]}\n"
                     f"Cost to unlock warbond: **{cost}** {emojis_dict['Super Credits']}\n"
-                    f"Medals to unlock page: **{warbond_page['medals_to_unlock'] }** <:medal:1226254158278037504>\n"
+                    f"Medals to unlock page: **{warbond_page['medals_to_unlock'] }** {emojis_dict['medal']}\n"
                 ),
             )
             self.set_image(warbond_images_dict[warbond_json["name"]])
@@ -1127,7 +1127,7 @@ class Items:
                                 f"Speed: **{item_json['speed']}**\n"
                                 f"Stamina Regen: **{item_json['stamina_regen']}**\n"
                                 f"Passive: **{json_dict['items']['armor_perks'][str(item_json['passive'])]['name']}**\n"
-                                f"Medal Cost: **{item.get('medal_cost', None)} <:medal:1226254158278037504>**\n\n"
+                                f"Medal Cost: **{item.get('medal_cost', None)} {emojis_dict['medal']}**\n\n"
                             ),
                         )
                     elif item_type == "primary":
@@ -1140,7 +1140,7 @@ class Items:
                                 f"Capacity: **{item_json['capacity']}** {emojis_dict['Capacity']}\n"
                                 f"Recoil: **{item_json['recoil']}**\n"
                                 f"Fire Rate: **{item_json['fire_rate']}**\n"
-                                f"Medal Cost: **{item['medal_cost']} <:medal:1226254158278037504>**\n\n"
+                                f"Medal Cost: **{item['medal_cost']} {emojis_dict['medal']}**\n\n"
                             ),
                         )
                     elif item_type == "secondary":
@@ -1152,7 +1152,7 @@ class Items:
                                 f"Capacity: **{item_json['capacity']}** {emojis_dict['Capacity']}\n"
                                 f"Recoil: **{item_json['recoil']}**\n"
                                 f"Fire Rate: **{item_json['fire_rate']}**\n"
-                                f"Medal Cost: **{item['medal_cost']} <:medal:1226254158278037504>**\n\n"
+                                f"Medal Cost: **{item['medal_cost']} {emojis_dict['medal']}**\n\n"
                             ),
                         )
                     elif item_type == "grenade":
@@ -1164,7 +1164,7 @@ class Items:
                                 f"Penetration: **{item_json['penetration']}**\n"
                                 f"Outer Radius: **{item_json['outer_radius']}**\n"
                                 f"Fuse Time: **{item_json['fuse_time']}**\n"
-                                f"Medal Cost: **{item['medal_cost']} <:medal:1226254158278037504>**\n\n"
+                                f"Medal Cost: **{item['medal_cost']} {emojis_dict['medal']}**\n\n"
                             ),
                         )
                 elif (
@@ -1173,7 +1173,7 @@ class Items:
                 ):
                     self.add_field(
                         f"{json_dict['items']['item_names'][str(item['item_id'])]['name']} {emojis_dict['Super Credits']}",
-                        f"Medal cost: **{item['medal_cost']} <:medal:1226254158278037504>**",
+                        f"Medal cost: **{item['medal_cost']} {emojis_dict['medal']}**",
                     )
                 elif (
                     json_dict["items"]["item_names"][str(item["item_id"])]["name"]
@@ -1183,7 +1183,7 @@ class Items:
                         f"{json_dict['items']['item_names'][str(item['item_id'])]['name']}",
                         (
                             "Type: Emote\n"
-                            f"Medal cost: **{item['medal_cost']} <:medal:1226254158278037504>**"
+                            f"Medal cost: **{item['medal_cost']} {emojis_dict['medal']}**"
                         ),
                     )
                 elif (
@@ -1194,7 +1194,7 @@ class Items:
                         f"{json_dict['items']['item_names'][str(item['item_id'])]['name']}",
                         (
                             "Type: Victory Pose\n"
-                            f"Medal cost: **{item['medal_cost']} <:medal:1226254158278037504>**"
+                            f"Medal cost: **{item['medal_cost']} {emojis_dict['medal']}**"
                         ),
                     )
                 elif (
@@ -1205,7 +1205,7 @@ class Items:
                         f"{json_dict['items']['item_names'][str(item['item_id'])]['name']}",
                         (
                             "Type: Player Card\n"
-                            f"Medal cost: **{item['medal_cost']} <:medal:1226254158278037504>**"
+                            f"Medal cost: **{item['medal_cost']} {emojis_dict['medal']}**"
                         ),
                     )
                 elif (
@@ -1216,7 +1216,7 @@ class Items:
                         f"{json_dict['items']['item_names'][str(item['item_id'])]['name']}",
                         (
                             "Type: Booster\n"
-                            f"Medal cost: **{item['medal_cost']} <:medal:1226254158278037504>**"
+                            f"Medal cost: **{item['medal_cost']} {emojis_dict['medal']}**"
                         ),
                     )
                 elif (
@@ -1227,7 +1227,7 @@ class Items:
                         f"{json_dict['items']['item_names'][str(item['item_id'])]['name']}",
                         (
                             "Type: Title\n"
-                            f"Medal cost: **{item['medal_cost']} <:medal:1226254158278037504>**"
+                            f"Medal cost: **{item['medal_cost']} {emojis_dict['medal']}**"
                         ),
                     )
                 elif (
@@ -1238,13 +1238,13 @@ class Items:
                         f"{json_dict['items']['item_names'][str(item['item_id'])]['name']}",
                         (
                             "Type: Stratagem Permit\n"
-                            f"Medal cost: **{item['medal_cost']} <:medal:1226254158278037504>**"
+                            f"Medal cost: **{item['medal_cost']} {emojis_dict['medal']}**"
                         ),
                     )
                 else:
                     self.add_field(
                         f"{json_dict['items']['item_names'][str(item['item_id'])]['name']}",
-                        f"Medal cost: **{item['medal_cost']} <:medal:1226254158278037504>**",
+                        f"Medal cost: **{item['medal_cost']} {emojis_dict['medal']}**",
                     )
                 if item_number % 2 == 0:
                     self.add_field("", "")
@@ -1286,22 +1286,11 @@ class Terminid(Embed):
             title=species_name,
             description=species_data["desc"],
         )
-        difficulty_dict = {
-            1: "<:trivial:1219233272987648070>",
-            2: "<:easy:1219232432671428608>",
-            3: "<:medium:1219232485536432138>",
-            4: "<:challenging:1219232486693928970>",
-            5: "<:hard:1219232488602337291>",
-            6: "<:extreme:1219232490288451595>",
-            7: "<:suicide_mission:1219239152332312696>",
-            8: "<:impossible:1219234932145131570>",
-            9: "<:helldive:1219238179551318067>",
-            "?": "?",
-        }
         file_name = species_name.replace(" ", "_")
+        start_emoji = emojis_dict[f"difficulty{species_data['start']}"]
         self.add_field(
             language["enemy"]["introduced"],
-            f"{language['enemy']['difficulty']} {species_data['start']} {difficulty_dict[species_data['start']]}",
+            f"{language['enemy']['difficulty']} {species_data['start']} {start_emoji}",
             inline=False,
         ).add_field(
             language["enemy"]["tactics"], species_data["tactics"], inline=False
@@ -1331,22 +1320,11 @@ class Automaton(Embed):
             title=bot_name,
             description=bot_data["desc"],
         )
-        difficulty_dict = {
-            1: "<:trivial:1219233272987648070>",
-            2: "<:easy:1219232432671428608>",
-            3: "<:medium:1219232485536432138>",
-            4: "<:challenging:1219232486693928970>",
-            5: "<:hard:1219232488602337291>",
-            6: "<:extreme:1219232490288451595>",
-            7: "<:suicide_mission:1219239152332312696>",
-            8: "<:impossible:1219234932145131570>",
-            9: "<:helldive:1219238179551318067>",
-            "?": "?",
-        }
         file_name = bot_name.replace(" ", "_")
+        start_emoji = emojis_dict[f"difficulty{bot_data['start']}"]
         self.add_field(
             language["enemy"]["introduced"],
-            f"{language['enemy']['difficulty']} {bot_data['start']} {difficulty_dict[bot_data['start']]}",
+            f"{language['enemy']['difficulty']} {bot_data['start']} {start_emoji}",
             inline=False,
         ).add_field(
             language["enemy"]["tactics"], bot_data["tactics"], inline=False
@@ -1380,22 +1358,11 @@ class Illuminate(Embed):
             title=illuminate_name,
             description=illuminate_data["desc"],
         )
-        difficulty_dict = {
-            1: "<:trivial:1219233272987648070>",
-            2: "<:easy:1219232432671428608>",
-            3: "<:medium:1219232485536432138>",
-            4: "<:challenging:1219232486693928970>",
-            5: "<:hard:1219232488602337291>",
-            6: "<:extreme:1219232490288451595>",
-            7: "<:suicide_mission:1219239152332312696>",
-            8: "<:impossible:1219234932145131570>",
-            9: "<:helldive:1219238179551318067>",
-            "?": "?",
-        }
+        start_emoji = emojis_dict[f"difficulty{illuminate_data['start']}"]
         file_name = illuminate_name.replace(" ", "_")
         self.add_field(
             language["enemy"]["introduced"],
-            f"{language['enemy']['difficulty']} {illuminate_data['start']} {difficulty_dict[illuminate_data['start']]}",
+            f"{language['enemy']['difficulty']} {illuminate_data['start']} {start_emoji}",
             inline=False,
         ).add_field(
             language["enemy"]["tactics"], illuminate_data["tactics"], inline=False
