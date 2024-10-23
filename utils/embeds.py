@@ -1,5 +1,11 @@
+from math import inf
+from os import getpid
 from disnake import APISlashCommand, Embed, Colour, File, ModalInteraction, OptionType
 from datetime import datetime
+
+from psutil import Process, cpu_percent
+from main import GalacticWideWebBot
+from utils.db import GuildsDB
 from utils.functions import health_bar, short_format, skipped_planets
 from utils.data import Campaign, Data, Dispatch, Steam, Tasks, Planet
 from data.lists import (
@@ -161,12 +167,87 @@ class HelpEmbed(Embed):
 
 
 class BotDashboardEmbed(Embed):
-    def __init__(self, dt: datetime):
+    def __init__(self, bot: GalacticWideWebBot):
         super().__init__(colour=Colour.green(), title="GWW Overview")
+        now = datetime.now()
         self.description = (
             "This is the dashboard for all information about the GWW itself"
         )
-        self.set_footer(text=f"Updated at {dt.strftime('%H:%M')}BST")
+        commands = ""
+        for global_command in bot.global_slash_commands:
+            for option in global_command.options:
+                if option.type == OptionType.sub_command:
+                    commands += (
+                        f"</{global_command.name} {option.name}:{global_command.id}> "
+                    )
+            if global_command.name != "weapons":
+                commands += f"</{global_command.name}:{global_command.id}> "
+
+        member_count = sum([guild.member_count for guild in bot.guilds])
+        self.add_field(
+            "The GWW has",
+            f"{len(bot.global_slash_commands)} commands available:\n{commands}",
+        ).add_field("Currently in", f"{len(bot.guilds)} discord servers").add_field(
+            "Members of Democracy", f"{member_count:,}"
+        )
+
+        memory_used = Process(getpid()).memory_info().rss / 1024**2
+        latency = 9999.999 if bot.latency == float(inf) else bot.latency
+        self.add_field(
+            "Hardware Info",
+            (
+                f"**CPU**: {cpu_percent()}%\n"
+                f"**RAM**: {memory_used:.2f}MB\n"
+                f"**Last restart**: <t:{int(bot.startup_time.timestamp())}:R>\n"
+                f"**Latency**: {int(latency * 1000)}ms"
+            ),
+            inline=True,
+        )
+        self.add_field(
+            "Update Timers",
+            (
+                f"This Dashboard: <t:{int(bot.get_cog('GuildManagementCog').bot_dashboard.next_iteration.timestamp())}:R>\n"
+                f"All Dashboards: <t:{int(bot.get_cog('DashboardCog').dashboard.next_iteration.timestamp())}:R>\n"
+                f"All Maps: <t:{int(bot.get_cog('MapCog').map_poster.next_iteration.timestamp())}:R>\n"
+                f"Update data: <t:{int(bot.get_cog('DataManagementCog').pull_from_api.next_iteration.timestamp())}:R>\n"
+            ),
+        )
+        self.add_field("", "", inline=False)
+        stats_dict = {
+            "Dashboard Setup": GuildsDB.dashboard_not_setup(),
+            "Announcements Setup": GuildsDB.feed_not_setup(),
+            None: None,
+            "Maps Setup": GuildsDB.maps_not_setup(),
+            "Patch Notes Enabled": GuildsDB.patch_notes_not_setup(),
+        }
+        for title, amount in stats_dict.items():
+            if not title:
+                self.add_field("", "", inline=False)
+                continue
+            healthbar = health_bar(
+                (len(bot.guilds) - amount) / len(bot.guilds),
+                "Humans",
+            )
+            self.add_field(
+                title,
+                (
+                    f"**Setup**: {len(bot.guilds) - amount}\n"
+                    f"**Not Setup**: {amount}\n"
+                    f"{healthbar}"
+                ),
+            )
+        self.add_field(
+            "Credits",
+            (
+                "https://helldivers.wiki.gg/ - Most of my enemy information is from them, as well as a lot of the enemy images.\n\n"
+                "https://helldivers.news/ - Planet images are from them, their website is also amazing.\n\n"
+                "https://github.com/helldivers-2/ - The people over here are kind and helpful, great work too!\n\n"
+                "and **You**\n"
+            ),
+            inline=False,
+        )
+
+        self.add_field("", f"-# Updated <t:{int(now.timestamp())}:R>")
 
 
 class MajorOrderEmbed(Embed):

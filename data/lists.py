@@ -126,6 +126,9 @@ supported_languages = {
 }
 
 emojis_dict = {
+    "discordlogo": "<:discordlogo:1298574603098132512>",
+    "kofilogo": "<:kofilogo:1298575039859396628>",
+    "githublogo": "<:githublogo:1298575626864955414>",
     "Semi Automatic": "<:semiautomatic:1233068104029044838>",
     "Burst": "<:burst:1233068096885882932>",
     "Automatic": "<:automatic:1233068105442263121>",

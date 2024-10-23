@@ -9,18 +9,14 @@ from disnake import (
     Guild,
     MessageInteraction,
     NotFound,
-    OptionType,
 )
 from disnake.ext import commands, tasks
 from disnake.ui import Button
 from main import GalacticWideWebBot
-from math import inf
-from os import getpid
-from psutil import Process, cpu_percent
+from utils.buttons import AppDirectoryButton, GitHubButton, KoFiButton
 from utils.checks import wait_for_startup
 from utils.db import BotDashboardRecord, GuildRecord, GuildsDB, BotDashboardDB
 from utils.embeds import BotDashboardEmbed, ReactRoleDashboard
-from utils.functions import health_bar
 
 
 class GuildManagementCog(commands.Cog):
@@ -88,7 +84,6 @@ class GuildManagementCog(commands.Cog):
 
     @tasks.loop(minutes=1)
     async def bot_dashboard(self):
-        now = datetime.now()
         dashboard: BotDashboardRecord = BotDashboardDB.get_info()
         channel = self.bot.get_channel(
             dashboard.channel_id
@@ -97,78 +92,7 @@ class GuildManagementCog(commands.Cog):
             message = await channel.send("Placeholder message, please ignore.")
             BotDashboardDB.set_message(message.id)
         else:
-            dashboard_embed = BotDashboardEmbed(now)
-            commands = ""
-            for global_command in self.bot.global_slash_commands:
-                for option in global_command.options:
-                    if option.type == OptionType.sub_command:
-                        commands += f"</{global_command.name} {option.name}:{global_command.id}> "
-                if global_command.name != "weapons":
-                    commands += f"</{global_command.name}:{global_command.id}> "
-            member_count = sum([guild.member_count for guild in self.bot.guilds])
-            dashboard_embed.add_field(
-                "The GWW has",
-                f"{len(self.bot.global_slash_commands)} commands available:\n{commands}",
-            ).add_field(
-                "Currently in", f"{len(self.bot.guilds)} discord servers"
-            ).add_field(
-                "Members of Democracy", f"{member_count:,}"
-            )
-            memory_used = Process(getpid()).memory_info().rss / 1024**2
-            latency = 9999.999 if self.bot.latency == float(inf) else self.bot.latency
-            dashboard_embed.add_field(
-                "Hardware Info",
-                (
-                    f"**CPU**: {cpu_percent()}%\n"
-                    f"**RAM**: {memory_used:.2f}MB\n"
-                    f"**Last restart**: <t:{int(self.bot.startup_time.timestamp())}:R>\n"
-                    f"**Latency**: {int(latency * 1000)}ms"
-                ),
-                inline=True,
-            )
-            dashboard_embed.add_field(
-                "Update Timers",
-                (
-                    f"This Dashboard: <t:{int(self.bot_dashboard.next_iteration.timestamp())}:R>\n"
-                    f"All Dashboards: <t:{int(self.bot.get_cog('DashboardCog').dashboard.next_iteration.timestamp())}:R>\n"
-                    f"All Maps: <t:{int(self.bot.get_cog('MapCog').map_poster.next_iteration.timestamp())}:R>\n"
-                    f"Update data: <t:{int(self.bot.get_cog('DataManagementCog').pull_from_api.next_iteration.timestamp())}:R>\n"
-                ),
-            )
-            dashboard_embed.add_field("", "", inline=False)
-            stats_dict = {
-                "Dashboard Setup": GuildsDB.dashboard_not_setup(),
-                "Announcements Setup": GuildsDB.feed_not_setup(),
-                None: None,
-                "Maps Setup": GuildsDB.maps_not_setup(),
-                "Patch Notes Enabled": GuildsDB.patch_notes_not_setup(),
-            }
-            for title, amount in stats_dict.items():
-                if not title:
-                    dashboard_embed.add_field("", "", inline=False)
-                    continue
-                healthbar = health_bar(
-                    (len(self.bot.guilds) - amount) / len(self.bot.guilds),
-                    "Humans",
-                )
-                dashboard_embed.add_field(
-                    title,
-                    (
-                        f"**Setup**: {len(self.bot.guilds) - amount}\n"
-                        f"**Not Setup**: {amount}\n"
-                        f"{healthbar}"
-                    ),
-                )
-            dashboard_embed.add_field(
-                "Credits",
-                (
-                    "https://helldivers.wiki.gg/ - Most of my enemy information is from them, as well as a lot of the enemy images.\n\n"
-                    "https://helldivers.news/ - Planet images are from them, their website is also amazing.\n\n"
-                    "https://github.com/helldivers-2/ - The people over here are kind and helpful, great work too!\n\n"
-                    "and **You**\n"
-                ),
-                inline=False,
-            )
+            dashboard_embed = BotDashboardEmbed(bot=self.bot)
             try:
                 message = channel.get_partial_message(dashboard.message_id)
             except Exception as e:
@@ -179,21 +103,9 @@ class GuildManagementCog(commands.Cog):
                 await message.edit(
                     embed=dashboard_embed,
                     components=[
-                        Button(
-                            label="App Directory",
-                            style=ButtonStyle.link,
-                            url="https://discord.com/application-directory/1212535586972369008",
-                        ),
-                        Button(
-                            label="Ko-Fi",
-                            style=ButtonStyle.link,
-                            url="https://ko-fi.com/galacticwideweb",
-                        ),
-                        Button(
-                            label="GitHub",
-                            style=ButtonStyle.link,
-                            url="https://github.com/Stonemercy/Galactic-Wide-Web",
-                        ),
+                        AppDirectoryButton(),
+                        KoFiButton(),
+                        GitHubButton(),
                     ],
                 ),
             except Exception as e:
