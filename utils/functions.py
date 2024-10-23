@@ -61,30 +61,35 @@ def short_format(num):
     return "{:.{}f}{}".format(num, 2, ["", "K", "M", "B", "T", "Q"][magnitude])
 
 
-def steam_format(content: str):  # thanks Chats
-    content = sub(r"\[h1\](.*?)\[/h1\]", r"# \1", content)
-    content = sub(r"\[h2\](.*?)\[/h2\]", r"## \1", content)
-    content = sub(r"\[h3\](.*?)\[/h3\]", r"### \1", content)
-    content = sub(r"\[h4\](.*?)\[/h4\]", r"### \1", content)
-    content = sub(r"\[h5\](.*?)\[/h5\]", r"### \1", content)
-    content = sub(r"\[h6\](.*?)\[/h6\]", r"### \1", content)
+def steam_format(content: str):
+    replacements = {
+        "": [
+            "[/h1]",
+            "[/h2]",
+            "[/h3]",
+            "[/h4]",
+            "[/h5]",
+            "[/h6]",
+            "[/quote]",
+            "[list]",
+            "[list]\n",
+            "[/list]",
+            "[/*]",
+        ],
+        "# ": ["[h1]"],
+        "## ": ["[h2]"],
+        "### ": ["[h3]", "[h4]", "[h5]", "[h6]"],
+        "*": ["[i]", "[/i]"],
+        "**": ["<i=1>", "<i=3>", "</i>", "[b]", "[/b]"],
+        "> ": ["[quote]"],
+        "__": ["[u]", "[/u]"],
+        "- ": ["[*]\n", "[*]"],
+    }
+    for replacement, replacees in replacements.items():
+        for replacee in replacees:
+            content = content.replace(replacee, replacement)
     content = sub(r"\[url=(.+?)](.+?)\[/url\]", r"[\2]\(\1\)", content)
-    content = sub(r"<i=1>(.*?)</i>", r"**\1**", content)
-    content = sub(r"<i=3>(.*?)</i>", r"**\1**", content)
-    content = sub(r"<i=3>(.*?)<i=3>", r"**\1**", content)
-    content = sub(r"\[quote\]", r"> ", content)
-    content = sub(r"\[quote\]", r"> ", content)
-    content = sub(r"\[/quote\]", r"", content)
-    content = sub(r"\[b\]", r"**", content)
-    content = sub(r"\[/b\]", r"**", content)
-    content = sub(r"\[i\]", r"*", content)
-    content = sub(r"\[/i\]", r"*", content)
-    content = sub(r"\[u\]", r"\n# __", content)
-    content = sub(r"\[/u\]", r"__", content)
-    content = sub(r"\[list\]", r"", content)
-    content = sub(r"\[/list\]", r"", content)
-    content = sub(r"\[\*\]", r" - ", content)
-    content = sub(r"/\[img\](.*?)\[\/img\]/", r"", content)
+    content = sub(r"\[img\](.*?)\[\/img\]", r"", content)
     content = sub(
         r"\[previewyoutube=(.+);full\]\[/previewyoutube\]",
         "[YouTube](https://www.youtube.com/watch?v=" + r"\1)",

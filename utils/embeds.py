@@ -426,8 +426,6 @@ class SteamEmbed(Embed):
         if len(steam.content) > 4000:
             steam.content = f"{language['steam']['head_here']}(<{steam.url}>) {language['steam']['to_see_full']}"
         self.description = steam.content
-        self.author.name = steam.author
-        self.author.url = f"https://steamcommunity.com/id/{steam.author}"
 
 
 class CampaignEmbed(Embed):

@@ -163,7 +163,8 @@ class AnnouncementsCog(commands.Cog):
             or not self.bot.c_n_m_loaded
         ):
             return
-        self._newest_id = int(self.bot.data.steam.id)
+
+        self._newest_id = int(self.bot.data.steam[0].id)
         last_patch_notes = SteamDB.get_last()
         if not last_patch_notes:
             last_patch_notes = SteamDB.setup()
@@ -171,7 +172,7 @@ class AnnouncementsCog(commands.Cog):
             languages = GuildsDB.get_used_languages()
             embeds = {
                 lang: SteamEmbed(
-                    self.bot.data.steam, self.bot.json_dict["languages"][lang]
+                    self.bot.data.steam[0], self.bot.json_dict["languages"][lang]
                 )
                 for lang in languages
             }

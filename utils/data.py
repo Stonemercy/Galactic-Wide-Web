@@ -145,7 +145,7 @@ class Data:
                     )
 
         if self.__data__["steam"]:
-            self.steam = Steam(self.__data__["steam"][0])
+            self.steam = [Steam(notes) for notes in self.__data__["steam"]]
 
     def update_liberation_rates(self):
         for campaign in self.campaigns:
@@ -350,11 +350,11 @@ class PlanetEvents(list[Planet]):
 
 class Steam:
     def __init__(self, steam):
-        self.id = steam["id"]
-        self.title = steam["title"]
-        self.content = steam_format(steam["content"])
-        self.author = steam["author"]
-        self.url = steam["url"]
+        self.id: int = steam["id"]
+        self.title: str = steam["title"]
+        self.content: str = steam_format(steam["content"])
+        self.author: str = steam["author"]
+        self.url: str = steam["url"]
 
     def __repr__(self):
         return f"Steam(id={self.id}, title={self.title}, content={self.content}, author={self.author}, url={self.url})"
