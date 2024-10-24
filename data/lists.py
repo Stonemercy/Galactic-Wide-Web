@@ -125,6 +125,18 @@ supported_languages = {
     "zh": "zh-Hans",
 }
 
+faction_colors = {
+    "Automaton": (252, 76, 79),
+    "automaton": (126, 38, 22),
+    "Terminids": (253, 165, 58),
+    "terminids": (126, 82, 29),
+    "Illuminate": (103, 43, 166),
+    "illuminate": (51, 21, 83),
+    "Humans": (36, 205, 76),
+    "humans": (18, 102, 38),
+    "MO": (254, 226, 76),
+}
+
 emojis_dict = {
     "discordlogo": "<:discordlogo:1298574603098132512>",
     "kofilogo": "<:kofilogo:1298575039859396628>",

@@ -2,7 +2,7 @@ from math import inf
 from os import getpid
 from disnake import APISlashCommand, Embed, Colour, File, ModalInteraction, OptionType
 from datetime import datetime, timedelta
-
+from data.lists import faction_colors
 from psutil import Process, cpu_percent
 from main import GalacticWideWebBot
 from utils.db import GuildsDB
@@ -11,7 +11,6 @@ from utils.data import Campaign, Data, Dispatch, Steam, Superstore, Tasks, Plane
 from data.lists import (
     emojis_dict,
     warbond_images_dict,
-    supported_languages,
     emotes_list,
     victory_poses_list,
     player_cards_list,
@@ -1324,29 +1323,32 @@ class StratagemEmbed(Embed):
             self.image_set = False
 
 
-class Terminid(Embed):
+class EnemyEmbed(Embed):
     def __init__(
-        self, species_name: str, species_data: dict, language, variation: bool = False
+        self, faction: str, species_info: dict, language: dict, variation: bool = False
     ):
+        r, g, b = faction_colors[faction]
         super().__init__(
-            colour=Colour.dark_gold(),
-            title=species_name,
-            description=species_data["desc"],
+            colour=Colour.from_rgb(r, g, b),
+            title=species_info["name"],
+            description=species_info["info"]["desc"],
         )
-        file_name = species_name.replace(" ", "_")
-        start_emoji = emojis_dict[f"difficulty{species_data['start']}"]
+        file_name = species_info["name"].replace(" ", "_")
+        start_emoji = emojis_dict[f"difficulty{species_info['info']['start']}"]
         self.add_field(
             language["enemy"]["introduced"],
-            f"{language['enemy']['difficulty']} {species_data['start']} {start_emoji}",
+            f"{language['enemy']['difficulty']} {species_info['info']['start']} {start_emoji}",
             inline=False,
         ).add_field(
-            language["enemy"]["tactics"], species_data["tactics"], inline=False
+            language["enemy"]["tactics"], species_info["info"]["tactics"], inline=False
         ).add_field(
-            language["enemy"]["weak_spots"], species_data["weak spots"], inline=False
+            language["enemy"]["weak_spots"],
+            species_info["info"]["weak spots"],
+            inline=False,
         )
         variations = ""
-        if not variation and species_data["variations"] != None:
-            for i in species_data["variations"]:
+        if not variation and species_info["info"]["variations"] != None:
+            for i in species_info["info"]["variations"]:
                 variations += f"\n- {i}"
             self.add_field(language["enemy"]["variations"], variations)
         try:
@@ -1354,80 +1356,9 @@ class Terminid(Embed):
                 file=File(f"resources/enemies/terminids/{file_name}.png")
             )
             self.image_set = True
-        except:
+        except Exception as e:
             self.image_set = False
-
-
-class Automaton(Embed):
-    def __init__(
-        self, bot_name: str, bot_data: dict, language, variation: bool = False
-    ):
-        super().__init__(
-            colour=Colour.brand_red(),
-            title=bot_name,
-            description=bot_data["desc"],
-        )
-        file_name = bot_name.replace(" ", "_")
-        start_emoji = emojis_dict[f"difficulty{bot_data['start']}"]
-        self.add_field(
-            language["enemy"]["introduced"],
-            f"{language['enemy']['difficulty']} {bot_data['start']} {start_emoji}",
-            inline=False,
-        ).add_field(
-            language["enemy"]["tactics"], bot_data["tactics"], inline=False
-        ).add_field(
-            language["enemy"]["weak_spots"], bot_data["weak spots"], inline=False
-        )
-        variations = ""
-        if not variation and bot_data["variations"] != None:
-            for i in bot_data["variations"]:
-                variations += f"\n- {i}"
-            self.add_field(language["enemy"]["variations"], variations)
-        try:
-            self.set_thumbnail(
-                file=File(f"resources/enemies/automatons/{file_name}.png")
-            )
-            self.image_set = True
-        except:
-            self.image_set = False
-
-
-class Illuminate(Embed):
-    def __init__(
-        self,
-        illuminate_name: str,
-        illuminate_data: dict,
-        language,
-        variation: bool = False,
-    ):
-        super().__init__(
-            colour=Colour.blue(),
-            title=illuminate_name,
-            description=illuminate_data["desc"],
-        )
-        start_emoji = emojis_dict[f"difficulty{illuminate_data['start']}"]
-        file_name = illuminate_name.replace(" ", "_")
-        self.add_field(
-            language["enemy"]["introduced"],
-            f"{language['enemy']['difficulty']} {illuminate_data['start']} {start_emoji}",
-            inline=False,
-        ).add_field(
-            language["enemy"]["tactics"], illuminate_data["tactics"], inline=False
-        ).add_field(
-            language["enemy"]["weak_spots"], illuminate_data["weak spots"], inline=False
-        )
-        variations = ""
-        if not variation and illuminate_data["variations"] != None:
-            for i in illuminate_data["variations"]:
-                variations += f"\n- {i}"
-            self.add_field(language["enemy"]["variations"], variations)
-        try:
-            self.set_thumbnail(
-                file=File(f"resources/enemies/automatons/{file_name}.png")
-            )
-            self.image_set = True
-        except:
-            self.image_set = False
+            self.error = e
 
 
 class ReactRoleDashboard(Embed):

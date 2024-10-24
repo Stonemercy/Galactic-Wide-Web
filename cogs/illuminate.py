@@ -4,7 +4,7 @@ from main import GalacticWideWebBot
 from utils.buttons import WikiButton
 from utils.checks import wait_for_startup
 from utils.db import GuildRecord, GuildsDB
-from utils.embeds import Illuminate
+from utils.embeds import EnemyEmbed
 
 
 class IlluminateCog(commands.Cog):
@@ -79,8 +79,8 @@ class IlluminateCog(commands.Cog):
                 ephemeral=True,
             )
         if species:
-            species_info = self.illuminate_dict[species]
-            embed = Illuminate(species, species_info, guild_language)
+            species_info = {"name": species, "info": self.illuminate_dict[species]}
+            embed = EnemyEmbed("Illuminate", species_info, guild_language)
             components = [
                 WikiButton(
                     link=f"https://helldivers.wiki.gg/wiki/Helldivers_1:The_Illuminate"
@@ -91,9 +91,12 @@ class IlluminateCog(commands.Cog):
             #     )
             # ]
         elif variation:
-            variation_info = self.variations_dict[variation]
-            embed = Illuminate(
-                variation, variation_info, guild_language, variation=True
+            variation_info = {
+                "name": variation,
+                "info": self.variations_dict[variation],
+            }
+            embed = EnemyEmbed(
+                "Illuminate", variation_info, guild_language, variation=True
             )
             components = None
         # if not embed.image_set: # ADD THIS WHEN I HAVE SPECIES INFO

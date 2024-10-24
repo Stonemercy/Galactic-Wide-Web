@@ -4,7 +4,7 @@ from main import GalacticWideWebBot
 from utils.buttons import WikiButton
 from utils.checks import wait_for_startup
 from utils.db import GuildRecord, GuildsDB
-from utils.embeds import Terminid
+from utils.embeds import EnemyEmbed
 
 
 class TerminidsCog(commands.Cog):
@@ -81,16 +81,21 @@ class TerminidsCog(commands.Cog):
                 ephemeral=True,
             )
         if species:
-            species_info = self.terminids_dict[species]
-            embed = Terminid(species, species_info, guild_language)
+            species_info = {"name": species, "info": self.terminids_dict[species]}
+            embed = EnemyEmbed("Terminids", species_info, guild_language)
             components = [
                 WikiButton(
                     link=f"https://helldivers.wiki.gg/wiki/{species.replace(' ', '_')}"
                 )
             ]
         elif variation:
-            variation_info = self.variations_dict[variation]
-            embed = Terminid(variation, variation_info, guild_language, variation=True)
+            variation_info = {
+                "name": variation,
+                "info": self.variations_dict[variation],
+            }
+            embed = EnemyEmbed(
+                "Terminids", variation_info, guild_language, variation=True
+            )
             components = None
         if not embed.image_set:
             await self.bot.moderator_channel.send(
