@@ -101,7 +101,7 @@ class IlluminateCog(commands.Cog):
             components = None
         # if not embed.image_set: # ADD THIS WHEN I HAVE SPECIES INFO
         #     await self.bot.moderator_channel.send(
-        #         f"Image missing for **illuminage __{species = } {variation = }__** <@{self.bot.owner_id}> :warning:"
+        #         f"Image missing for **illuminage __{species = } {variation = }__** <@{self.bot.owner_id}> :warning:\n```{embed.error}```"
         #     )
 
         return await inter.send(embed=embed, ephemeral=True, components=components)
