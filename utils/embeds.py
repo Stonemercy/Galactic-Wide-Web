@@ -112,7 +112,9 @@ class PlanetEmbed(Embed):
             self.set_thumbnail(url=planet_data.thumbnail)
         try:
             self.set_image(
-                file=File(f"resources/biomes/{planet_data.biome['name'].lower()}.png")
+                file=File(
+                    f"resources/biomes/{planet_data.biome['name'].lower().replace(' ', '_')}.png"
+                )
             )
             self.image_set = True
         except:
