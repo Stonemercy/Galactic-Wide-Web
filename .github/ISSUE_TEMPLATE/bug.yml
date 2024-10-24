@@ -1,0 +1,41 @@
+name: Bug
+description: The non-terminid kind
+title: '[BUG]: '
+labels: ['bug']
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Description
+      description: |
+        Provide a more detailed introduction to the issue itself, and why you consider it to be a bug.
+    validations:
+      required: true
+  - type: textarea
+    id: expected-behaviour
+    attributes:
+      label: Expected Behavior
+      description: |
+        Tell us what should happen.
+    validations:
+      required: true
+  - type: textarea
+    id: actual-behaviour
+    attributes:
+      label: Actual Behavior
+      description: |
+        Tell us what happens instead.
+    validations:
+      required: true
+  - type: textarea
+    id: possible-Fix
+    attributes:
+      label: Possible Fix
+      description: Not required, but suggest a fix or reason for the bug.
+  - type: textarea
+    id: steps-to-reproduce
+    attributes:
+      label: Steps to Reproduce
+      description: Provide an unambiguous set of steps to reproduce this bug.
+    validations:
+      required: true
