@@ -1359,7 +1359,7 @@ class EnemyEmbed(Embed):
             self.add_field(language["enemy"]["variations"], variations)
         try:
             self.set_thumbnail(
-                file=File(f"resources/enemies/terminids/{file_name}.png")
+                file=File(f"resources/enemies/{faction.lower()}/{file_name}.png")
             )
             self.image_set = True
         except Exception as e:
