@@ -872,20 +872,24 @@ class Dashboard:
                     planet_health_bar = ""
                     planet_health_text = f"**`{(1 - (campaign.planet.health / campaign.planet.max_health)):^15.2%}`**"
                     feature_text = ""
-                embeds_dict = {"Automaton": automaton_embed, "Terminids": terminids_embed, "Illuminate": illuminate_embed}
+                embeds_dict = {
+                    "Automaton": automaton_embed,
+                    "Terminids": terminids_embed,
+                    "Illuminate": illuminate_embed,
+                }
                 embeds_dict[campaign.planet.current_owner].add_field(
-                        f"{faction_icon} - __**{planet_names[str(campaign.planet.index)]['names'][language['code_long']]}**__ {exclamation}",
-                        (
-                            f"{language['heroes']}: **{campaign.planet.stats['playerCount']:,}**"
-                            f"{feature_text}"
-                            f"{time_to_complete}"
-                            f"\n{language['dashboard']['attack_embed']['planet_health']}:"
-                            f"\n{planet_health_bar}"
-                            f"\n{planet_health_text}"
-                            f"{liberation_text}"
-                        ),
-                        inline=False,
-                    )
+                    f"{faction_icon} - __**{planet_names[str(campaign.planet.index)]['names'][language['code_long']]}**__ {exclamation}",
+                    (
+                        f"{language['heroes']}: **{campaign.planet.stats['playerCount']:,}**"
+                        f"{feature_text}"
+                        f"{time_to_complete}"
+                        f"\n{language['dashboard']['attack_embed']['planet_health']}:"
+                        f"\n{planet_health_bar}"
+                        f"\n{planet_health_text}"
+                        f"{liberation_text}"
+                    ),
+                    inline=False,
+                )
 
         # Other
         timestamp = int(now.timestamp())
@@ -956,7 +960,9 @@ class Dashboard:
             illuminate_embed,
             updated_embed,
         ):
-            embed.set_image("https://i.imgur.com/cThNy4f.png")
+            embed.set_image(
+                "https://i.imgur.com/cThNy4f.png"
+            )  # blank bar to unify width
             if len(embed.fields) != 0:
                 self.embeds.append(embed)
 
