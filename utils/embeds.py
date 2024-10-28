@@ -300,8 +300,13 @@ class MajorOrderEmbed(Embed):
                 text += f"{language['dashboard']['major_order']['occupied_by']}: **{language[planet.current_owner.lower()]}**\n"
                 if planet.feature:
                     text += f"Feature: {planet.feature}"
+                if task.type == 11:
+                    obj_text = f"{language['dashboard']['major_order']['liberate']} {planet_names[str(planet.index)]['names'][language['code_long']]}"
+                else:
+                    obj_text = f"{language['dashboard']['major_order']['hold']} {planet_names[str(planet.index)]['names'][language['code_long']]} {language['dashboard']['major_order']['when_the_order_expires']}"
+
                 self.add_field(
-                    planet_names[str(planet.index)]["names"][language["code_long"]],
+                    obj_text,
                     text,
                     inline=False,
                 )
