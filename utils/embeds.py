@@ -1436,11 +1436,9 @@ class SuperstoreEmbed(Embed):
             passives = ""
             item["type"] = f"Type: {item['type']}\n" if item["slot"] == "Body" else ""
             if item["slot"] == "Body":
-                item["passive"]["description"] = item["passive"][
-                    "description"
-                ].splitlines()
+                passives_list = item["passive"]["description"].splitlines()
                 passives = f"**{item['passive']['name']}**\n"
-                for passive in item["passive"]["description"]:
+                for passive in passives_list:
                     passives += f"-# - {passive}\n"
             self.add_field(
                 f"{item['name']} - {item['store_cost']} {emojis_dict['Super Credits']}",
