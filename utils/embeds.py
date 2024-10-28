@@ -551,11 +551,15 @@ class Dashboard:
                     feature_text = (
                         "" if not planet.feature else f"Feature: {planet.feature}\n"
                     )
+                    if task.type == 11:
+                        obj_text = f"{language['dashboard']['major_order']['liberate']} {planet_names[str(planet.index)]['names'][language['code_long']]}"
+                    else:
+                        obj_text = f"{language['dashboard']['major_order']['hold']} {planet_names[str(planet.index)]['names'][language['code_long']]} {language['dashboard']['major_order']['when_the_order_expires']}"
                     major_orders_embed.add_field(
-                        planet_names[str(planet.index)]["names"][language["code_long"]],
+                        obj_text,
                         (
                             f"{language['heroes']}: **{planet.stats['playerCount']:,}**\n"
-                            f"{language['dashboard']['major_order']['occupied_by']}: **{planet.current_owner}**\n"
+                            f"{language['dashboard']['major_order']['occupied_by']}: **{planet.current_owner}** {emojis_dict[planet.current_owner]}\n"
                             f"{feature_text}"
                             f"{language['dashboard']['major_order']['event_health']}:\n"
                             f"{task.health_bar} {completed}\n"
