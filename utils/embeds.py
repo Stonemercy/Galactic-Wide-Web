@@ -755,9 +755,7 @@ class Dashboard:
                             if winning == f"**{language['dashboard']['victory']}**"
                             else ""
                         )
-                        change = (
-                            f"{(sum(liberation_change['liberation_changes'])):.2}%/hour"
-                        )
+                        change = f"{(sum(liberation_change['liberation_changes'])):.2f}%/hour"
                         liberation_text = f"\n`{(above_zero + change):^25}` "
                         outlook_text = f"\n{language['dashboard']['outlook']}: **{winning}** {time_to_complete}"
                         if (
@@ -856,9 +854,7 @@ class Dashboard:
                                 * 3600
                             )
                             time_to_complete = f"\n{language['dashboard']['outlook']}: **{language['dashboard']['victory']}** <t:{now_seconds + seconds_to_complete}:R>"
-                        change = (
-                            f"{(sum(liberation_change['liberation_changes'])):.2}%/hour"
-                        )
+                        change = f"{(sum(liberation_change['liberation_changes'])):.2f}%/hour"
                         liberation_text = f"\n`{(above_zero + change):^25}`"
                 exclamation = (
                     emojis_dict["MO"]
