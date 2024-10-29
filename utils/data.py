@@ -358,10 +358,10 @@ class Planet:
             self.end_time = event["endTime"]
             self.start_time_datetime = datetime.fromisoformat(self.start_time).replace(
                 tzinfo=None
-            ) + timedelta(hours=1)
+            )
             self.end_time_datetime = datetime.fromisoformat(self.end_time).replace(
                 tzinfo=None
-            ) + timedelta(hours=1)
+            )
             self.progress: float = self.health / self.max_health
             self.required_players: int = 0
 
