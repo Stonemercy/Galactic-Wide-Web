@@ -1,8 +1,8 @@
 {
     "Trooper": {
         "start": 1,
-        "desc": "Troopers are the light infantry of the Automatons, and come in several types:\n-# -Trooper/Raider - Equipped with a rifle and grenades.\n-# -Brawler - Equipped with dual heat blades.\n-# -Marauder/MG Raider - Equipped with a machine gun.\n-# -Rocket Raider - Equipped with a rocket launcher.\n-# -Assault Raider - Equipped with a jump pack, pistol, and heat blade.\n-# -Commissar - Equipped with a pistol, heat blade, and grenades.",
-        "tactics": "All Trooper variants can be suppressed by shooting at them; this will reduce the accuracy of their fire.\nA quick burst can protect you from massed fire even if it doesn't hit anything.\nGrenades and headshots will reliably one-shot all Trooper types.\nAll Troopers are equipped with a hidden flare launcher in their left arm, which can be used to call in reinforcements via Dropship.",
+        "desc": "Troopers are the light infantry of the Automatons, and come in several types:\n-# - Trooper - Equipped with a rifle and grenades.\n-# - Brawler - Equipped with dual heat blades.\n-# - Marauder - Equipped with a machine gun.\n-# - MG Raider - Equipped with a laser machine gun\n-# - Rocket Raider - Equipped with a rocket launcher.\n-# - Assault Raider - Equipped with a jump pack, pistol, and heat blade.\n-# - Jet Brigade - A variety of other Troopers but with jet packs",
+        "tactics": "All Troopers can be suppressed by shooting at them; this will reduce the accuracy of their fire.\nA quick burst can protect you from massed fire even if it doesn't hit anything.\nGrenades and headshots will reliably one-shot all Trooper types.\nAll Troopers are equipped with a hidden flare launcher in their left arm, which can be used to call in reinforcements via Dropship.",
         "weak spots": "- Head",
         "variations": {
             "Brawler": {
@@ -17,6 +17,12 @@
                 "tactics": "Their powerpacks explode when hit, and may destroy nearby Troopers.",
                 "weak spots": "- Powerpack\n- Head"
             },
+            "MG Raider": {
+                "start": 1,
+                "desc": "This variation of the Trooper is be equipped with a laser machine gun.",
+                "tactics": "MG Raiders can be suppressed by shooting at them; this will reduce the accuracy of their fire. A quick burst can protect you from massed fire even if it doesn't hit anything.",
+                "weak spots": "- Head"
+            },
             "Rocket Raider": {
                 "start": 1,
                 "desc": "This variation of the Trooper is be equipped with rocket launchers. They are particularly deadly due and were infamous for their ability to one-shot Helldivers out of the blue prior to explosive damage application being fixed.",
@@ -29,23 +35,30 @@
                 "tactics": "Assault Raiders will use their jump packs to rapidly close distance.\nTheir pistol and heat blade are not very dangerous, but their jump pack explodes violently when hit, and it's so large that it's easy to hit it by mistake.\nTry to shoot them from a distance, ideally when they're near other Automatons.\nIf you must engage at close range, try to aim for the legs, and/or dive backwards while firing to escape the blast radius.",
                 "weak spots": "- Jump pack\n- Head"
             },
-            "Commissar": {
+            "Jet Brigade": {
                 "start": 1,
-                "desc": "The Commissar is a unique bot responsible for calling in bot drops as a first action. (Other infantry are also capable of calling in bot drops)\nAt higher difficulties, Commissars gain a “surprise” secondary ranged attack that deals significant damage and ignites the player. This attack involves the Commissar charging its pistol's flare and then firing the flare at a Helldiver rather than using it to call in a drop ship.",
-                "tactics": "Vulnerable to grenades and headshots. The best way to defeat it by avoid getting close to the Commissar and aim for headshots or use grenades for a quick takedown.",
-                "weak spots": "- Head"
+                "desc": "Dark-colored variants of Troopers equipped with a jump pack.\nBesides the standard Trooper, Jet Brigade Troopers can spawn as MG Raiders, Assault Raiders, and Commissars, replacing these variants completely on Jet Brigade-invaded planets.\nJet Brigade Troopers will attempt to sync up their jump packs with each other to quickly overwhelm a Helldiver.",
+                "tactics": "Their jump pack explodes when hit, and it's so large that it's easy to hit it by mistake.\nTry to shoot them from a distance, ideally when they're near other Automatons.\nIf you must engage at close range, try to aim for the legs, and/or dive backwards while firing to escape the blast radius.\nThe LAS-7 Dagger can very quickly deal with these bots.",
+                "weak spots": "- Jump pack\n- Head"
             }
         }
     },
+    "Commissar": {
+        "start": 1,
+        "desc": "The Commissar is a unique bot responsible for calling in bot drops __**as a first action**__.\n-# (Other infantry are also capable of calling in bot drops)\n\nAt higher difficulties, Commissars gain a “surprise” secondary ranged attack that deals significant damage and ignites the player.\nThis attack involves the Commissar charging its pistol's flare and then firing the flare at a Helldiver rather than using it to call in a drop ship.",
+        "tactics": "Vulnerable to grenades and headshots. The best way to defeat it by avoid getting close to the Commissar and aim for headshots or use grenades for a quick takedown.",
+        "weak spots": "- Head",
+        "variations": null
+    },
     "Scout Strider": {
         "start": 3,
-        "desc": "The Scout Strider is a light Automaton **vehicle** that first appears on **difficulty 3**, scaling up with difficulty.\nThey are comprised of a Trooper riding a bipedal vehicle with a **large frontal shield** and Fusion Repeaters as its main armament.\nThe legs and crotch are medium armor but the legs have slightly less health.\nThey move quickly in open environments but have a very slow rotation speed.\n**They are extremely vulnerable from behind as the rider itself has no armor.**",
+        "desc": "The Scout Strider is comprised of a Trooper riding a bipedal vehicle with a **large frontal shield** and Fusion Repeaters as its main armament.\nThe legs and crotch are medium armor but the legs have slightly less health.\nThey move quickly in open environments but have a very slow rotation speed.\n**They are extremely vulnerable from behind as the rider itself has no armor.**\nReinforced Scout Striders completely replace Scout Striders on Impossible Difficulty and above.",
         "tactics": "From the front you can target the legs with a medium armor penetrating weapon such as the **JAR-5 Dominator** or the head of the operator with a well-placed shot from an **elevated position**.\nThe Scout Strider's operator is protected by a **light *vehicle* armor shield** on the front. It will require a Support Weapon with **light *vehicle* armor penetration** such as the **AC-8 Autocannon** or **explosive grenades** to destroy or kill the operator.",
         "weak spots": "- Pilot",
         "variations": {
-            "Rocket Strider": {
-                "start": 4,
-                "desc": "The Rocket Strider is an upgraded, deadlier Scout Strider with a new design to fully protect its rider and four rocket pods to accompany its Fusion Repeater.",
+            "Reinforced Scout Strider": {
+                "start": 8,
+                "desc": "The Reinforced Scout Strider is an upgraded, deadlier Scout Strider, replacing its Trooper pilot with automated controls and four heavy rockets to accompany its Fusion Repeater.",
                 "tactics": "Despite fixing its main initial weakness, the Rocket Strider's new weakness are its rocket pods. Shooting a pod will cause a medium-sized explosion that instantly decommissions the Strider and damages anything nearby.",
                 "weak spots": "- Rockets"
             }
@@ -54,14 +67,14 @@
     "Berserker": {
         "start": 1,
         "desc": "The Berserker is a melee-centric Automaton Enemy. They can be identified by the two chainsaws in their arms, and their brightly glowing heads and torsos. Also by the hellish screeching they emit as they march towards you.",
-        "tactics": "Their weak spots are their glowing head and stomach areas. Shooting their stomach will eventually cut them in half, and is usually a faster way to tell them than going for headshots, since their head moves around a lot.",
+        "tactics": "Their weak spots are their glowing head and stomach areas. Shooting their stomach will eventually cut them in half, and is usually a faster way to kill them than going for headshots, since their head moves around a lot.",
         "weak spots": "- Head\n- Stomach",
         "variations": null
     },
     "Devastator": {
         "start": 1,
         "desc": "Devastators are equipped with a double-barreled arm cannon and medium torso armor. They fire a two shot burst, then pause for around 2 seconds before shooting again.",
-        "tactics": "Their body is clad in medium armor but their head, abdomen and legs are vulnerable. A significant number of weapons can destroy a Devastator with a single headshot, such as the P-4 Senator and the SG-8 Slugger, so precision is highly rewarded. Missed headshots will be deflected by their medium torso armour. Abdomen or leg shots provide a more consistent method to destroy them.",
+        "tactics": "Their body is clad in medium armor but their head, abdomen and legs are vulnerable. A significant number of weapons can destroy a Devastator with a single headshot, such as the **P-4 Senator** and the **SG-8 Slugger**, so precision is highly rewarded. Missed headshots will be deflected by their medium torso armour. Abdomen or leg shots provide a more consistent method to destroy them.",
         "weak spots": "- Head\n- Heat-sinks",
         "variations": {
             "Heavy Devastator": {
@@ -80,7 +93,7 @@
     },
     "Gunship": {
         "start": 5,
-        "desc": "The Gunship is a flying Automaton vehicle equipped with rocket launchers and laser machine guns. Gunships spawn from Gunship Facilities on difficulty 5 and above, and may also spawn as patrols in groups of 3-6 (depending on the difficulty and amount of Helldivers on the mission). They will call in Dropships if they detect a Helldiver.",
+        "desc": "The Gunship is a flying Automaton vehicle equipped with rocket launchers and laser machine guns. Gunships spawn from Gunship Facilities and may also spawn as patrols in groups of 3-6 (depending on the difficulty and amount of Helldivers on the mission). They will call in Dropships if they detect a Helldiver.",
         "tactics": "The weak spots of the Gunship are the 4 thrusters on either side, which have medium armor, leaving them vulnerable to many medium and light vehicle armor penetrating weapons.",
         "weak spots": "- Thrusters",
         "variations": null
@@ -88,7 +101,7 @@
     "Hulk": {
         "start": 3,
         "desc": "The Hulk is a large, heavily-armored Automaton that can first appear on difficulty 3 as an Elimination Target or sometimes guarding the Shuttle Bay in Emergency Evacuation. It spawns naturally and more frequently as difficulty increases ",
-        "tactics": "Hulks are completely covered in armor, but they do have two weak spots: the glowing heat sinks on its back, and its eye slit.\nDestroying its eye slit will instantly kill it, though it is somewhat hard to hit due to its small size and the Hulk's swaying gait, especially when it's charging.\nContinuously attacking its heat sinks will eventually cause them to explode, causing the Hulk to take a significant amount of damage. The Hulk may enter a 'bleed out' state similar to Brood Commanders where it attempts to continue fighting, but will become sluggish and inaccurate; after a few more seconds, the Hulk should then collapse and explode.",
+        "tactics": "Hulks are completely covered in armor, but they do have two weak spots: the **glowing heat sinks on its back**, and its **eye**.\nDestroying its eye will instantly kill it, though it is somewhat hard to hit due to its small size and the Hulk's swaying gait, especially when it's charging.\nContinuously attacking its heat sinks will eventually cause them to explode, causing the Hulk to take a significant amount of damage. The Hulk may enter a 'bleed out' state similar to Brood Commanders where it attempts to continue fighting, but will become sluggish and inaccurate; after a few more seconds, the Hulk should then collapse and explode.",
         "weak spots": "- Eye\n- Heat-sinks",
         "variations": {
             "Scorcher": {
@@ -108,7 +121,7 @@
     "Tank": {
         "start": 4,
         "desc": "The Tank is a very large, heavily-armored Automaton vehicle that first appears on difficulty 4 with a low spawning chance, scaling up with difficulty. It may also spawn on specific medium-to-large Automaton Outpost layouts even if it cannot spawn as part of regular patrols on that difficulty level.",
-        "tactics": "Tanks have a 360° FOV and will fire continuously. They are vulnerable at close range, but Helldivers must be cautious and use cover on their approach towards them.\nA Tank cannot harm Helldivers if you climb on top of its turret. However, direct contact of their tracks will cause severe and constant damage.\nA Tank's turret has less health compared to its chassis, and destroying it will also destroy the Tank.",
+        "tactics": "Tanks have a **360° FOV** and will fire continuously. They are vulnerable at close range, but Helldivers must be cautious and use cover on their approach towards them.\nA Tank cannot harm Helldivers if you climb on top of its turret. However, direct contact of their tracks will cause severe and constant damage.\nA Tank's turret has less health compared to its chassis, and destroying it will also destroy the Tank.",
         "weak spots": "- Heat-Sinks",
         "variations": {
             "Shredder Tank": {
@@ -127,16 +140,16 @@
     },
     "Factory Strider": {
         "start": 7,
-        "desc": "Called 'Walkers' by some Helldivers, Factory Striders are simply walking Factories. Factory Striders in their default state can stride into battle firing their cannons at Helldivers and fabricating batches of Standard Devastators, or roam across the planet's surface providing fire support where it can.",
-        "tactics": "The underside turrets can be destroyed fairly easily with most weapons. Orbital Lasers can 100-0 a Strider by itself, taking the entire duration however. A 500kg bomb will get it close to 'death'. Try to stay behind them.",
+        "desc": "Called 'Walkers' by some Helldivers, Factory Striders are simply walking Factories.\nFactory Striders in their default state can stride into battle firing their cannons at Helldivers and fabricating batches of Standard Devastators, or roam across the planet's surface providing fire support where it can.",
+        "tactics": "The underside turrets can be destroyed fairly easily with most weapons. Orbital Lasers can 100-0 a Strider by itself, taking the entire duration however. A 500kg bomb will get it close to 'death'.\nTry to stay behind them.",
         "weak spots": "- Head\n- Underside",
         "variations": null
     },
     "Dropship": {
         "start": 1,
-        "desc": "Dropships are called in when a bot drop is requested. They quickly drop off several units at once.",
-        "tactics": "While the dropship can be downed by aiming at a single thruster, it isn't usualy worth attacking them.",
-        "weak spots": "- Thruster",
+        "desc": "The Dropship is an Automaton transport aircraft with no weapons equipped. It's only purpose is to transport and drop in reinforcements.",
+        "tactics": "Destroying any one of its four thrusters will knock it out of the air, likely causing it to fall onto its recently-dropped passengers and explode.",
+        "weak spots": "- Thrusters",
         "variations": null
     }
 }
