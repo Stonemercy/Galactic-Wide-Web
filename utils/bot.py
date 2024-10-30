@@ -33,6 +33,7 @@ class GalacticWideWebBot(commands.InteractionBot):
         self.json_dict = json_dict.copy()
         self.load_json()
         self.data = Data()
+        self.command_usage = {}
 
     async def on_ready(self):
         self.moderator_channel = self.get_channel(int(getenv("MODERATION_CHANNEL")))

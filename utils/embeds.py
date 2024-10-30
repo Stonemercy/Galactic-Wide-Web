@@ -1465,3 +1465,13 @@ class SuperstoreEmbed(Embed):
                     ),
                 )
         self.insert_field_at(1, "", "").insert_field_at(4, "", "")
+
+
+class CommandUsageEmbed(Embed):
+    def __init__(self, command_usage: dict):
+        super().__init__(title="Daily Command Usage", colour=Colour.dark_theme())
+        for command_name, usage in command_usage.items():
+            self.add_field(f"/{command_name}", f"Used **{usage}** times", inline=False)
+        self.add_field(
+            "", f"-# as of <t:{int(datetime.now().timestamp())}:R>", inline=False
+        )
