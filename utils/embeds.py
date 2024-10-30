@@ -1437,23 +1437,31 @@ class SuperstoreEmbed(Embed):
         expiration = datetime.strptime(superstore.expiration, "%d-%b-%Y %H:%M")
         warning = " :warning:" if expiration < now + timedelta(days=1) else ""
         self.description = f"Rotates <t:{int(expiration.timestamp())}:R>{warning}"
-        for item in superstore.items:
-            passives = ""
-            item["type"] = f"Type: {item['type']}\n" if item["slot"] == "Body" else ""
-            if item["slot"] == "Body":
-                passives_list = item["passive"]["description"].splitlines()
-                passives = f"**{item['passive']['name']}**\n"
-                for passive in passives_list:
-                    passives += f"-# - {passive}\n"
-            self.add_field(
-                f"{item['name']} - {item['store_cost']} {emojis_dict['Super Credits']}",
-                (
-                    f"{item['type']}"
-                    f"Slot: **{item['slot']}** {emojis_dict[item['slot']]}\n"
-                    f"Armor: **{item['armor_rating']}**\n"
-                    f"Speed: **{item['speed']}**\n"
-                    f"Stamina Regen: **{item['stamina_regen']}**\n"
-                    f"{passives}"
-                ),
-            )
+        unique_names = list(set(item["name"] for item in superstore.items))
+        item_pairs = [
+            [item for item in superstore.items if item["name"] == unique_names[0]],
+            [item for item in superstore.items if item["name"] == unique_names[1]],
+        ]
+        for pair in item_pairs:
+            for item in pair:
+                passives = ""
+                item["type"] = (
+                    f"Type: {item['type']}\n" if item["slot"] == "Body" else ""
+                )
+                if item["slot"] == "Body":
+                    passives_list = item["passive"]["description"].splitlines()
+                    passives = f"**{item['passive']['name']}**\n"
+                    for passive in passives_list:
+                        passives += f"-# - {passive}\n"
+                self.add_field(
+                    f"{item['name']} - {item['store_cost']} {emojis_dict['Super Credits']}",
+                    (
+                        f"{item['type']}"
+                        f"Slot: **{item['slot']}** {emojis_dict[item['slot']]}\n"
+                        f"Armor: **{item['armor_rating']}**\n"
+                        f"Speed: **{item['speed']}**\n"
+                        f"Stamina Regen: **{item['stamina_regen']}**\n"
+                        f"{passives}"
+                    ),
+                )
         self.insert_field_at(1, "", "").insert_field_at(4, "", "")
