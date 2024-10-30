@@ -269,6 +269,14 @@ help_dict = {
         "long_description": "Returns information on the current Major Order, if there is one",
         "example_usage": "**`/major_order public: Yes`**",
     },
+    "steam": {
+        "long_description": "Returns the latest patch notes",
+        "example_usage": "**`/steam`**",
+    },
+    "superstore": {
+        "long_description": "Returns the current Superstore rotation",
+        "example_usage": "**`/superstore public: Yes`**",
+    },
 }
 
 emotes_list = [
