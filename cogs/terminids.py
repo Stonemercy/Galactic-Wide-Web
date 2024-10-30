@@ -96,7 +96,7 @@ class TerminidsCog(commands.Cog):
             embed = EnemyEmbed(
                 "Terminids", variation_info, guild_language, variation=True
             )
-            components = None
+            components = [WikiButton(link=variation_info["info"]["url"])]
         if not embed.image_set:
             await self.bot.moderator_channel.send(
                 f"Image missing for **terminids __{species = } {variation = }__** <@{self.bot.owner_id}> :warning:\n```{embed.error}```"
