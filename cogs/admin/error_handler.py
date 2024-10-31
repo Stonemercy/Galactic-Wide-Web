@@ -29,6 +29,9 @@ class ErrorHandlerCog(commands.Cog):
                 ephemeral=True,
             )
         else:
+            await inter.send(
+                "There was an unexpected error. Please try again.", ephemeral=True
+            )
             await self.bot.moderator_channel.send(error)
             raise error
 
