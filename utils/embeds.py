@@ -1227,8 +1227,8 @@ class Items:
                             ),
                         )
                 elif (
-                    "Super Credits"
-                    in json_dict["items"]["item_names"][str(item["item_id"])]["name"]
+                    json_dict["items"]["item_names"][str(item["item_id"])]["name"]
+                    == "Super Credits"
                 ):
                     self.add_field(
                         f"{json_dict['items']['item_names'][str(item['item_id'])]['name']} {emojis_dict['Super Credits']}",
@@ -1267,10 +1267,7 @@ class Items:
                             f"Medal cost: **{item['medal_cost']} {emojis_dict['medal']}**"
                         ),
                     )
-                elif (
-                    json_dict["items"]["item_names"][str(item["item_id"])]["name"]
-                    in json_dict["items"]["boosters"]
-                ):
+                elif str(item["item_id"]) in json_dict["items"]["boosters"]:
                     self.add_field(
                         f"{json_dict['items']['item_names'][str(item['item_id'])]['name']}",
                         (

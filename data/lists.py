@@ -10,7 +10,7 @@ json_dict = {
         "fr": {"path": "data/languages/fr.json", "value": None},
         "de": {"path": "data/languages/de.json", "value": None},
     },
-    "stratagems": {"path": "data/json/stratagems.json", "value": None},
+    "stratagems": {"path": "data/json_custom/stratagems.json", "value": None},
     "warbonds": {
         "index": {"path": "data/json/warbonds.json", "value": None},
         "helldivers_mobilize": {
@@ -43,6 +43,10 @@ json_dict = {
         },
         "chemical_agents": {
             "path": "data/json/warbonds/chemical_agents.json",
+            "value": None,
+        },
+        "truth_enforcers": {
+            "path": "data/json/warbonds/truth_enforcers.json",
             "value": None,
         },
     },
@@ -96,15 +100,15 @@ json_dict = {
     },
     "enemies": {
         "automaton": {
-            "path": "data/json/enemies/automaton.json",
+            "path": "data/json_custom/enemies/automaton.json",
             "value": None,
         },
         "illuminate": {
-            "path": "data/json/enemies/illuminate.json",
+            "path": "data/json_custom/enemies/illuminate.json",
             "value": None,
         },
         "terminids": {
-            "path": "data/json/enemies/terminids.json",
+            "path": "data/json_custom/enemies/terminids.json",
             "value": None,
         },
     },
@@ -166,6 +170,8 @@ emojis_dict = {
     "One Handed": "",
     "Rounds Reload": "",
     "All Barrels": "",
+    "Charge With Safety On": "",
+    "Charge With Safety Off": "",
     "Left Banner": "<:left_banner:1272562768897376328>",
     "Right Banner": "<:right_banner:1272562767597015151>",
     "Capacity": "<:capacity:1233129432852729961>",
@@ -210,6 +216,7 @@ warbond_images_dict = {
     "Viper Commandos": "https://cdn.discordapp.com/attachments/1212735927223590974/1250840006356893757/viper_commandos.png?ex=666c6708&is=666b1588&hm=14b58f35a78fdbc87aaf285fb02154a814778ededbccc870930261899cf12bef&",
     "Freedom's Flame": "https://cdn.discordapp.com/attachments/1212735927223590974/1283844729632591985/freedoms_flame.png?ex=66e47914&is=66e32794&hm=3a3d1bb0b9f67dbeb2f63e625511130971fc888d81d36b393996fe1771517fc8&",
     "Chemical Agents": "https://cdn.discordapp.com/attachments/1212735927223590974/1286254303001972736/chemical_agents.png?ex=66ed3d2b&is=66ebebab&hm=510de52a270f795006e61129f83f0e0b70bf438a042b8b2d9859111806574cf3&",
+    "Truth Enforcers": "https://media.discordapp.net/attachments/1212735927223590974/1301502200849104947/truth_enforcers.png?ex=6724b5e1&is=67236461&hm=c36872146e2ac4fbbaac4ddab19a291927d2e938c6a3cdd00a9b333408e54d1e&=&format=webp&quality=lossless&width=1202&height=676",
 }
 
 help_dict = {
@@ -288,6 +295,7 @@ emotes_list = [
     "Scout Handshake",
     "Test of Conviction",
     "Natural Gas Extraction",
+    "At Ease",
 ]
 
 victory_poses_list = [
@@ -346,6 +354,8 @@ player_cards_list = [
     "The Breach",
     "Standard of Safe Distance",
     "Patient Zero's Rememberance",
+    "Proof of Faultless Virtue",
+    "Pride of the Whistleblower",
 ]
 
 titles_list = [
@@ -374,6 +384,7 @@ titles_list = [
     "Viper Commando",
     "Fire Safety Officer",
     "Expert Exterminator",
+    "Free of Thought",
 ]
 
 stratagem_permit_list = ["TX-41 Sterilizer", "AX/TX-13 'Guard Dog' Dog Breath"]
