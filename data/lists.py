@@ -172,6 +172,7 @@ emojis_dict = {
     "All Barrels": "",
     "Charge With Safety On": "",
     "Charge With Safety Off": "",
+    "Bolt-Action": "",
     "Left Banner": "<:left_banner:1272562768897376328>",
     "Right Banner": "<:right_banner:1272562767597015151>",
     "Capacity": "<:capacity:1233129432852729961>",
