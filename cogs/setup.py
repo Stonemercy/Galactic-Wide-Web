@@ -33,7 +33,7 @@ class SetupCog(commands.Cog):
 
     @wait_for_startup()
     @commands.slash_command(
-        description="Change the GWW settings for your server. Use this without options to see your set settings.",
+        description="Change the GWW settings for your server. Use this without options to see your current settings.",
         default_member_permissions=Permissions(manage_guild=True),
         dm_permission=False,
     )
