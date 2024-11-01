@@ -5,7 +5,7 @@ from disnake import Colour, Embed, File, TextChannel
 from utils.db import GuildsDB
 from PIL.ImageDraw import Draw
 from PIL.ImageFont import truetype
-from data.lists import supported_languages
+from data.lists import supported_languages, faction_colours
 
 
 def health_bar(perc: float, race: str, reverse: bool = False):
@@ -77,17 +77,6 @@ def steam_format(content: str):
 
 
 async def dashboard_maps(data, channel: TextChannel, planets_json: dict):
-    faction_colors = {
-        "Automaton": (252, 76, 79),
-        "automaton": (126, 38, 22),
-        "Terminids": (253, 165, 58),
-        "terminids": (126, 82, 29),
-        "Illuminate": (103, 43, 166),
-        "illuminate": (51, 21, 83),
-        "Humans": (36, 205, 76),
-        "humans": (18, 102, 38),
-        "MO": (254, 226, 76),
-    }
     languages = GuildsDB.get_used_languages()
     planets_coords = {
         planet.index: (
@@ -124,7 +113,7 @@ async def dashboard_maps(data, channel: TextChannel, planets_json: dict):
             if data.assignment:
                 for task in data.assignment.tasks:
                     draw_task_on_map(
-                        background_draw, task, planets_coords, faction_colors, data
+                        background_draw, task, planets_coords, faction_colours, data
                     )
             for index, coords in planets_coords.items():
                 draw_planet_on_map(
@@ -133,7 +122,7 @@ async def dashboard_maps(data, channel: TextChannel, planets_json: dict):
                     coords,
                     available_planets,
                     data,
-                    faction_colors,
+                    faction_colours,
                 )
             for index, coords in planets_coords.items():
                 if index in available_planets:
@@ -149,7 +138,7 @@ async def dashboard_maps(data, channel: TextChannel, planets_json: dict):
     return map_dict
 
 
-def draw_task_on_map(background_draw, task, planets_coords, faction_colors, data):
+def draw_task_on_map(background_draw, task, planets_coords, faction_colours, data):
     faction_mapping = {
         1: "Humans",
         2: "Terminids",
@@ -158,7 +147,7 @@ def draw_task_on_map(background_draw, task, planets_coords, faction_colors, data
     }
     if task.type in (11, 13):
         draw_ellipse(
-            background_draw, planets_coords[task.values[2]], faction_colors["MO"]
+            background_draw, planets_coords[task.values[2]], faction_colours["MO"]
         )
     elif task.type == 12 and data.planet_events:
         for planet in data.planet_events:
@@ -167,11 +156,11 @@ def draw_task_on_map(background_draw, task, planets_coords, faction_colors, data
                 and planet.event.faction == faction_mapping[task.values[1]]
             ):
                 draw_ellipse(
-                    background_draw, planets_coords[planet.index], faction_colors["MO"]
+                    background_draw, planets_coords[planet.index], faction_colours["MO"]
                 )
     elif task.type == 2:
         draw_ellipse(
-            background_draw, planets_coords[task.values[8]], faction_colors["MO"]
+            background_draw, planets_coords[task.values[8]], faction_colours["MO"]
         )
     elif task.type == 3:
         for campaign in data.campaigns:
@@ -179,21 +168,21 @@ def draw_task_on_map(background_draw, task, planets_coords, faction_colors, data
                 draw_ellipse(
                     background_draw,
                     planets_coords[campaign.planet.index],
-                    faction_colors["MO"],
+                    faction_colours["MO"],
                 )
 
 
 def draw_planet_on_map(
-    background_draw, index, coords, available_planets, data, faction_colors
+    background_draw, index, coords, available_planets, data, faction_colours
 ):
     if index == 64:
         fill_color = (95, 61, 181)
     else:
         current_owner = data.planets[index].current_owner
         fill_color = (
-            faction_colors[current_owner]
+            faction_colours[current_owner]
             if index in available_planets
-            else faction_colors[current_owner.lower()]
+            else faction_colours[current_owner.lower()]
         )
     background_draw.ellipse(
         [(coords[0] - 35, coords[1] - 35), (coords[0] + 35, coords[1] + 35)],
@@ -231,16 +220,6 @@ def draw_planet_names(draw, coords, planet_names_loc, index, lang):
 
 def planet_map(data, planet_index, language):
     embed = Embed(colour=Colour.dark_purple())
-    faction_colour = {
-        "Automaton": (252, 76, 79),
-        "automaton": (126, 38, 22),
-        "Terminids": (253, 165, 58),
-        "terminids": (126, 82, 29),
-        "Illuminate": (103, 43, 166),
-        "illuminate": (51, 21, 83),
-        "Humans": (36, 205, 76),
-        "humans": (18, 102, 38),
-    }
     planets_coords = {}
     available_planets = [campaign.planet.name for campaign in data.campaigns]
     for planet in data.planets.values():
@@ -280,9 +259,9 @@ def planet_map(data, planet_index, language):
                     (coords[0] + 35, coords[1] + 35),
                 ],
                 fill=(
-                    faction_colour[data.planets[index].current_owner]
+                    faction_colours[data.planets[index].current_owner]
                     if data.planets[index].name in available_planets
-                    else faction_colour[data.planets[index].current_owner.lower()]
+                    else faction_colours[data.planets[index].current_owner.lower()]
                 ),
             )
         target_coords = planets_coords[planet_index]

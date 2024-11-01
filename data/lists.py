@@ -129,7 +129,7 @@ supported_languages = {
     "zh": "zh-Hans",
 }
 
-faction_colors = {
+faction_colours = {
     "Automaton": (252, 76, 79),
     "automaton": (126, 38, 22),
     "Terminids": (253, 165, 58),

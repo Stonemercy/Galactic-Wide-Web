@@ -2,7 +2,6 @@ from math import inf
 from os import getpid
 from disnake import APISlashCommand, Embed, Colour, File, ModalInteraction, OptionType
 from datetime import datetime, timedelta
-from data.lists import faction_colors
 from psutil import Process, cpu_percent
 from main import GalacticWideWebBot
 from utils.db import GuildsDB
@@ -17,6 +16,7 @@ from data.lists import (
     titles_list,
     stratagem_permit_list,
     help_dict,
+    faction_colours,
 )
 
 
@@ -80,13 +80,7 @@ class PlanetEmbed(Embed):
                 f"{language['planet']['accuracy']}: **`{planet_data.stats['accuracy']}%`**\n"
             ),
         )
-        faction_colour = {
-            "Automaton": Colour.from_rgb(r=252, g=76, b=79),
-            "Terminids": Colour.from_rgb(r=253, g=165, b=58),
-            "Illuminate": Colour.from_rgb(r=116, g=163, b=180),
-            "Humans": Colour.from_rgb(r=36, g=205, b=76),
-        }
-        self.colour = faction_colour[planet_data.current_owner]
+        self.colour = Colour.from_rgb(*faction_colours[planet_data.current_owner])
         if planet_data.current_owner != "Humans":
             faction = (
                 planet_data.current_owner.lower()[:-1]
@@ -1337,9 +1331,8 @@ class EnemyEmbed(Embed):
     def __init__(
         self, faction: str, species_info: dict, language: dict, variation: bool = False
     ):
-        r, g, b = faction_colors[faction]
         super().__init__(
-            colour=Colour.from_rgb(r, g, b),
+            colour=Colour.from_rgb(*faction_colours[faction]),
             title=species_info["name"],
             description=species_info["info"]["desc"],
         )

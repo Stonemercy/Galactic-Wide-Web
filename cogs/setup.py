@@ -11,16 +11,6 @@ from utils.functions import dashboard_maps
 class SetupCog(commands.Cog):
     def __init__(self, bot: GalacticWideWebBot):
         self.bot = bot
-        self.faction_colour = {
-            "Automaton": (252, 76, 79),
-            "automaton": (126, 38, 22),
-            "Terminids": (253, 165, 58),
-            "terminids": (126, 82, 29),
-            "Illuminate": (116, 163, 180),
-            "illuminate": (58, 81, 90),
-            "Humans": (36, 205, 76),
-            "humans": (18, 102, 38),
-        }
         self.dashboard_perms_needed = Permissions(
             send_messages=True,
             view_channel=True,

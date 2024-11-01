@@ -1,5 +1,5 @@
 from asyncio import sleep
-from data.lists import supported_languages
+from data.lists import supported_languages, faction_colours
 from datetime import datetime, time, timedelta
 from disnake import AppCmdInter, File, NotFound, Forbidden, PartialMessage
 from disnake.ext import commands, tasks
@@ -15,17 +15,6 @@ from utils.functions import dashboard_maps
 class MapCog(commands.Cog):
     def __init__(self, bot: GalacticWideWebBot):
         self.bot = bot
-        self.faction_colour = {
-            "Automaton": (252, 76, 79),
-            "automaton": (126, 38, 22),
-            "Terminids": (253, 165, 58),
-            "terminids": (126, 82, 29),
-            "Illuminate": (103, 43, 166),
-            "illuminate": (51, 21, 83),
-            "Humans": (36, 205, 76),
-            "humans": (18, 102, 38),
-            "MO": (254, 226, 76),
-        }
         self.map_poster.start()
 
     def cog_unload(self):
@@ -180,7 +169,7 @@ class MapCog(commands.Cog):
                                         planets_coords[task.values[2]][1] + 50,
                                     ),
                                 ],
-                                fill=self.faction_colour["MO"],
+                                fill=faction_colours["MO"],
                             )
                         except:
                             pass
@@ -200,11 +189,9 @@ class MapCog(commands.Cog):
                             (coords[0] + 35, coords[1] + 35),
                         ],
                         fill=(
-                            self.faction_colour[
-                                self.bot.data.planets[index].current_owner
-                            ]
+                            faction_colours[self.bot.data.planets[index].current_owner]
                             if self.bot.data.planets[index].name in available_planets
-                            else self.faction_colour[
+                            else faction_colours[
                                 self.bot.data.planets[index].current_owner.lower()
                             ]
                         ),
