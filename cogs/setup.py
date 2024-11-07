@@ -275,6 +275,8 @@ class SetupCog(commands.Cog):
             annnnouncement_perms_have = announcement_channel.permissions_for(
                 inter.guild.me
             ).is_superset(self.annnnouncement_perms_needed)
+            guild_in_db: GuildRecord = GuildsDB.get_info(inter.guild_id)
+            guild_language = self.bot.json_dict["languages"][guild_in_db.language]
             if not annnnouncement_perms_have:
                 return await inter.send(
                     guild_language["setup"]["missing_perm"],
