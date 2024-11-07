@@ -46,12 +46,6 @@ If you wish to use the GWW bot itself, I have it hosted and you can invite it [h
 
 `/setup`
 - Change the GWW settings for your server. Use this without options to see your set settings.
-  - Options:
-    - `dashboard_channel`: channel <Optional> - The channel you want the dashboard to be sent to. Set this to your current set channel to unset it.
-    - `announcement_channel`: channel <Optional> - The channel you want announcements sent to. Set this to your current set channel to unset it.
-    - `patch_notes`: string <Optional> - Toggle if you want patch notes sent to the announcements channel, default = No
-    - `map_channel`: channel <Optional> - The channel you want the map sent to. Set this to your current set channel to unset it.
-    - `language`: string <Optional> - The language you want the bot to respond in
 
 `/terminid`
 - Returns information on a Terminid or variation.

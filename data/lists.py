@@ -250,8 +250,8 @@ help_dict = {
         "example_usage": "**`/planet planet: Heeth public: Yes`** returns a large embed with all of the stats the planet has. It also includes a map with an arrow pointing to the planet. It can also be seen by others in discord.",
     },
     "setup": {
-        "long_description": "Change the GWW settings for your server. Using this command with no options shows what your current setup is.",
-        "example_usage": "**`/setup`** would return a list of the settings for the bot.\n- **`/setup dashboard_channel:#dashboard language:Français`** would setup a dashboard in the #dashboard channel and change the bot's language to French.",
+        "long_description": "Change the GWW settings for your server.",
+        "example_usage": "**`/setup`** brings up a message with buttons you can use to change the bot's settings.",
     },
     "stratagem": {
         "long_description": "Returns information on a stratagem. **THIS COMMAND IS A WORK IN PROGRESS**",
