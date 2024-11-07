@@ -1,6 +1,7 @@
 from dotenv import load_dotenv
 from psycopg2 import connect
 from os import getenv
+from data.lists import language_dict
 
 load_dotenv("data/.env")
 hostname = getenv("DB_hostname")
@@ -32,6 +33,8 @@ class GuildRecord:
             If the guild wants patch notes sent to the announcement channel. Defaults to `False`
         language: :class:`str`
             The language code the guild uses. Defaults to `en`
+        language_long: :class:`str`
+            The language name the guild uses. Defaults to `English`
         map_channel_id: :class:`int`
             The ID of the map channel, if set up. Defaults to `0`
         map_message_id: :class:`int`
@@ -45,6 +48,7 @@ class GuildRecord:
         "announcement_channel_id",
         "patch_notes",
         "language",
+        "language_long",
         "map_channel_id",
         "map_message_id",
     )
@@ -58,6 +62,7 @@ class GuildRecord:
         self.announcement_channel_id: int = db_entry[3]
         self.patch_notes: bool = db_entry[4]
         self.language: str = db_entry[5]
+        self.language_long = {v: k for k, v in language_dict.items()}[self.language]
         self.map_channel_id: int = db_entry[6]
         self.map_message_id: int = db_entry[7]
 
@@ -105,9 +110,11 @@ class GuildsDB:
                 )
                 conn.commit()
                 results = GuildsDB.get_info(guild_id)
-                return results if results else None
+                return results
 
-    def update_dashboard(guild_id: int, channel_id: int, message_id: int) -> None:
+    def update_dashboard(
+        guild_id: int, channel_id: int, message_id: int
+    ) -> GuildRecord:
         """Update the dashboard channel and message ID's for a single guild
 
         Parameters
@@ -118,7 +125,7 @@ class GuildsDB:
 
         Returns
         ----------
-            `None`
+            `GuildRecord`
         """
         with connect(
             host=hostname, dbname=database, user=username, password=pwd, port=port_id
@@ -128,8 +135,11 @@ class GuildsDB:
                     "Update guilds set dashboard_channel_id = %s, dashboard_message_id = %s where guild_id = %s",
                     (channel_id, message_id, guild_id),
                 )
+                conn.commit()
+                results = GuildsDB.get_info(guild_id)
+                return results
 
-    def update_announcement_channel(guild_id: int, channel_id: int) -> None:
+    def update_announcement_channel(guild_id: int, channel_id: int) -> GuildRecord:
         """Update the announcement channel ID for a single guild
 
         Parameters
@@ -139,7 +149,7 @@ class GuildsDB:
 
         Returns
         ----------
-            `None`
+            `GuildRecord`
         """
         with connect(
             host=hostname, dbname=database, user=username, password=pwd, port=port_id
@@ -149,8 +159,11 @@ class GuildsDB:
                     "Update guilds set announcement_channel_id = %s where guild_id = %s",
                     (channel_id, guild_id),
                 )
+                conn.commit()
+                results = GuildsDB.get_info(guild_id)
+                return results
 
-    def update_map(guild_id: int, channel_id: int, message_id: int) -> None:
+    def update_map(guild_id: int, channel_id: int, message_id: int) -> GuildRecord:
         """Update the map channel and message ID's for a single guild
 
         Parameters
@@ -161,7 +174,7 @@ class GuildsDB:
 
         Returns
         ----------
-            `None`
+            `GuildRecord`
         """
         with connect(
             host=hostname, dbname=database, user=username, password=pwd, port=port_id
@@ -171,8 +184,11 @@ class GuildsDB:
                     "Update guilds set map_channel_id = %s, map_message_id = %s where guild_id = %s",
                     (channel_id, message_id, guild_id),
                 )
+                conn.commit()
+                results = GuildsDB.get_info(guild_id)
+                return results
 
-    def update_patch_notes(guild_id: int, patch_notes: bool) -> None:
+    def update_patch_notes(guild_id: int, patch_notes: bool) -> GuildRecord:
         """Update the patch notes choice for a single guild
 
         Parameters
@@ -182,7 +198,7 @@ class GuildsDB:
 
         Returns
         ----------
-            `None`
+            `GuildRecord`
         """
         with connect(
             host=hostname, dbname=database, user=username, password=pwd, port=port_id
@@ -192,8 +208,11 @@ class GuildsDB:
                     "Update guilds set patch_notes = %s where guild_id = %s",
                     (patch_notes, guild_id),
                 )
+                conn.commit()
+                results = GuildsDB.get_info(guild_id)
+                return results
 
-    def update_language(guild_id: int, language: str) -> None:
+    def update_language(guild_id: int, language: str) -> GuildRecord:
         """Update the language choice for a single guild
 
         Parameters
@@ -203,7 +222,7 @@ class GuildsDB:
 
         Returns
         ----------
-            `None`
+            `GuildRecord`
         """
         with connect(
             host=hostname, dbname=database, user=username, password=pwd, port=port_id
@@ -213,6 +232,9 @@ class GuildsDB:
                     "Update guilds set language = %s where guild_id = %s",
                     (language, guild_id),
                 )
+                conn.commit()
+                result = GuildsDB.get_info(guild_id)
+                return result
 
     def get_all_guilds() -> list[GuildRecord]:
         """Returns a list of :class:`GuildRecord`'s for each guild in the DB.

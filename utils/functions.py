@@ -76,8 +76,9 @@ def steam_format(content: str):
     return content
 
 
-async def dashboard_maps(data, channel: TextChannel, planets_json: dict):
-    languages = GuildsDB.get_used_languages()
+async def dashboard_maps(
+    data, channel: TextChannel, planets_json: dict, language_code: dict
+):
     planets_coords = {
         planet.index: (
             (planet.position["x"] * 2000) + 2000,
@@ -86,56 +87,49 @@ async def dashboard_maps(data, channel: TextChannel, planets_json: dict):
         for planet in data.planets.values()
     }
     available_planets = {campaign.planet.index for campaign in data.campaigns}
-    map_dict = {}
-
-    for lang in languages:
-        embed = Embed(colour=Colour.dark_purple())
-        embed.add_field(
-            name="Updated", value=f"<t:{int(datetime.now().timestamp())}:R>"
-        )
-        with Image.open("resources/map.webp") as background:
-            background_draw = Draw(background)
-            for index, coords in planets_coords.items():
-                for waypoint in data.planets[index].waypoints:
-                    try:
-                        waypoint_coords = planets_coords[waypoint]
-                        background_draw.line(
-                            (
-                                waypoint_coords[0],
-                                waypoint_coords[1],
-                                coords[0],
-                                coords[1],
-                            ),
-                            width=5,
-                        )
-                    except KeyError:
-                        continue
-            if data.assignment:
-                for task in data.assignment.tasks:
-                    draw_task_on_map(
-                        background_draw, task, planets_coords, faction_colours, data
+    embed = Embed(colour=Colour.dark_purple())
+    embed.add_field(name="Updated", value=f"<t:{int(datetime.now().timestamp())}:R>")
+    with Image.open("resources/map.webp") as background:
+        background_draw = Draw(background)
+        for index, coords in planets_coords.items():
+            for waypoint in data.planets[index].waypoints:
+                try:
+                    waypoint_coords = planets_coords[waypoint]
+                    background_draw.line(
+                        (
+                            waypoint_coords[0],
+                            waypoint_coords[1],
+                            coords[0],
+                            coords[1],
+                        ),
+                        width=5,
                     )
-            for index, coords in planets_coords.items():
-                draw_planet_on_map(
-                    background_draw,
-                    index,
-                    coords,
-                    available_planets,
-                    data,
-                    faction_colours,
+                except KeyError:
+                    continue
+        if data.assignment:
+            for task in data.assignment.tasks:
+                draw_task_on_map(
+                    background_draw, task, planets_coords, faction_colours, data
                 )
-            for index, coords in planets_coords.items():
-                if index in available_planets:
-                    draw_planet_names(
-                        background_draw, coords, planets_json, index, lang
-                    )
-            map_image_path = f"resources/map_{lang}.webp"
-            background.save(map_image_path)
-        message_for_url = await channel.send(file=File(map_image_path))
-        embed.set_image(url=message_for_url.attachments[0].url)
-        map_dict[lang] = embed
-
-    return map_dict
+        for index, coords in planets_coords.items():
+            draw_planet_on_map(
+                background_draw,
+                index,
+                coords,
+                available_planets,
+                data,
+                faction_colours,
+            )
+        for index, coords in planets_coords.items():
+            if index in available_planets:
+                draw_planet_names(
+                    background_draw, coords, planets_json, index, language_code
+                )
+        map_image_path = f"resources/map_{language_code}.webp"
+        background.save(map_image_path)
+    message_for_url = await channel.send(file=File(map_image_path))
+    embed.set_image(url=message_for_url.attachments[0].url)
+    return embed
 
 
 def draw_task_on_map(background_draw, task, planets_coords, faction_colours, data):

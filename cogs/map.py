@@ -57,9 +57,15 @@ class MapCog(commands.Cog):
             )
         except:
             pass
-        dashboard_maps_dict = await dashboard_maps(
-            self.bot.data, self.bot.waste_bin_channel, self.bot.json_dict["planets"]
-        )
+        dashboard_maps_dict = {
+            lang: await dashboard_maps(
+                self.bot.data,
+                self.bot.waste_bin_channel,
+                self.bot.json_dict["planets"],
+                lang,
+            )
+            for lang in GuildsDB.get_used_languages()
+        }
         chunked_messages = [
             self.bot.map_messages[i : i + 50]
             for i in range(0, len(self.bot.map_messages), 50)

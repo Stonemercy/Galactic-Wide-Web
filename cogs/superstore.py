@@ -30,7 +30,7 @@ class SuperstoreCog(commands.Cog):
         )
         guild: GuildRecord = GuildsDB.get_info(inter.guild_id)
         if not guild:
-            guild = GuildsDB.insert_new_guild(inter.guild.id)
+            GuildsDB.insert_new_guild(inter.guild.id)
         embed = SuperstoreEmbed(self.bot.data.superstore)
         await inter.send(embed=embed)
 
