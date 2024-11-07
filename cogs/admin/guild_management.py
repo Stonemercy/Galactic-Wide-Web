@@ -13,7 +13,7 @@ from disnake import (
 from disnake.ext import commands, tasks
 from disnake.ui import Button
 from main import GalacticWideWebBot
-from utils.buttons import AppDirectoryButton, GitHubButton, KoFiButton
+from utils.interactables import AppDirectoryButton, GitHubButton, KoFiButton
 from utils.checks import wait_for_startup
 from utils.db import BotDashboardRecord, GuildRecord, GuildsDB, BotDashboardDB
 from utils.embeds import BotDashboardEmbed, ReactRoleDashboard

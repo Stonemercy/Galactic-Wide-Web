@@ -4,7 +4,7 @@ from disnake import APISlashCommand, Embed, Colour, File, ModalInteraction, Opti
 from datetime import datetime, timedelta
 from psutil import Process, cpu_percent
 from main import GalacticWideWebBot
-from utils.db import GuildsDB
+from utils.db import GuildRecord, GuildsDB
 from utils.functions import health_bar, short_format, skipped_planets
 from utils.data import Campaign, Data, Dispatch, Steam, Superstore, Tasks, Planet
 from data.lists import (
@@ -1403,8 +1403,65 @@ class AnnouncementEmbed(Embed):
 
 
 class SetupEmbed(Embed):
-    def __init__(self):
-        super().__init__(colour=Colour.brand_green())
+    def __init__(self, guild_record: GuildRecord, language_json: dict):
+        super().__init__(title="Setup", colour=Colour.og_blurple())
+
+        # dashboard
+        if 0 not in (
+            guild_record.dashboard_channel_id,
+            guild_record.dashboard_message_id,
+        ):
+            dashboard_text = (
+                f"{language_json['setup']['dashboard_channel']}: <#{guild_record.dashboard_channel_id}>\n"
+                f"{language_json['setup']['dashboard_message']}: https://discord.com/channels/{guild_record.guild_id}/{guild_record.dashboard_channel_id}/{guild_record.dashboard_message_id}"
+            )
+        else:
+            dashboard_text = language_json["setup"]["not_set"]
+        self.add_field(
+            language_json["setup"]["dashboard"],
+            dashboard_text,
+            inline=False,
+        )
+
+        # announcements
+        if guild_record.announcement_channel_id != 0:
+            announcements_text = f"{language_json['setup']['announcement_channel']}: <#{guild_record.announcement_channel_id}>"
+        else:
+            announcements_text = language_json["setup"]["not_set"]
+        self.add_field(
+            language_json["setup"]["announcements"],
+            announcements_text,
+            inline=False,
+        )
+
+        # map
+        if 0 not in (guild_record.map_channel_id, guild_record.map_message_id):
+            map_text = (
+                f"{language_json['setup']['map']['channel']}: <#{guild_record.map_channel_id}>\n"
+                f"{language_json['setup']['map']['message']}: https://discord.com/channels/{guild_record.guild_id}/{guild_record.map_channel_id}/{guild_record.map_message_id}"
+            )
+        else:
+            map_text = language_json["setup"]["not_set"]
+        self.add_field(
+            language_json["setup"]["map"]["map"],
+            map_text,
+            inline=False,
+        )
+
+        # language
+        self.add_field(
+            language_json["setup"]["language"]["language"],
+            guild_record.language_long,
+        )
+
+        # patch notes
+        self.add_field(
+            language_json["setup"]["patch_notes"]["name"],
+            {True: ":white_check_mark:", False: ":x:"}[guild_record.patch_notes],
+        )
+
+        # extra
+        self.add_field("", language_json["setup"]["message"], inline=False)
 
 
 class FeedbackEmbed(Embed):

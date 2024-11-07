@@ -1,7 +1,7 @@
 from disnake import AppCmdInter
 from disnake.ext import commands
 from main import GalacticWideWebBot
-from utils.buttons import WikiButton
+from utils.interactables import WikiButton
 from utils.checks import wait_for_startup
 from utils.db import GuildRecord, GuildsDB
 from utils.embeds import PlanetEmbed

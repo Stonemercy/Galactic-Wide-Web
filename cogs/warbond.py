@@ -3,7 +3,7 @@ from disnake.ext import commands, tasks
 from disnake.ui import Button, ActionRow
 from main import GalacticWideWebBot
 from re import findall
-from utils.buttons import WikiButton
+from utils.interactables import WikiButton
 from utils.checks import wait_for_startup
 from utils.embeds import Items
 

@@ -31,10 +31,10 @@ class AnnouncementsCog(commands.Cog):
             )
             if type == "Patch":
                 self.bot.patch_channels.remove(channel)
-                GuildsDB.update_patch_notes(channel.guild.id, False)
+                guild = GuildsDB.update_patch_notes(channel.guild.id, False)
             else:
                 self.bot.announcement_channels.remove(channel)
-                GuildsDB.update_announcement_channel(channel.guild.id, 0)
+                guild = GuildsDB.update_announcement_channel(channel.guild.id, 0)
             return
         try:
             if type == "Announcement":
@@ -55,7 +55,7 @@ class AnnouncementsCog(commands.Cog):
                 self.bot.announcement_channels.remove(channel)
             except:
                 pass
-            GuildsDB.update_announcement_channel(channel.guild.id, 0)
+            guild = GuildsDB.update_announcement_channel(channel.guild.id, 0)
             return self.bot.logger.error(
                 f"{self.qualified_name} | send_embed | {e} | {channel.id = }"
             )
