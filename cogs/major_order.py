@@ -14,6 +14,7 @@ class MajorOrderCog(commands.Cog):
     @wait_for_startup()
     @commands.slash_command(
         description="Returns information on an Automaton or variation.",
+        dm_permission=False,
     )
     async def major_order(
         self,
