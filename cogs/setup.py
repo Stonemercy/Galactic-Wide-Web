@@ -102,6 +102,11 @@ class SetupCog(commands.Cog):
                 return await inter.response.edit_message(components=action_rows)
             elif inter.component.custom_id == "clear_dashboard_button":
                 guild_in_db = GuildsDB.update_dashboard(inter.guild.id, 0, 0)
+                self.bot.dashboard_messages = [
+                    message
+                    for message in self.bot.dashboard_messages.copy()
+                    if message.guild.id != inter.guild_id
+                ]
                 embed = SetupEmbed(
                     guild_in_db, self.bot.json_dict["languages"][guild_in_db.language]
                 )
@@ -136,8 +141,18 @@ class SetupCog(commands.Cog):
                 return await inter.response.edit_message(components=action_rows)
             elif inter.component.custom_id == "clear_announcements_button":
                 guild_in_db = GuildsDB.update_announcement_channel(inter.guild.id, 0)
+                self.bot.announcement_channels = [
+                    channel
+                    for channel in self.bot.announcement_channels.copy()
+                    if channel.guild.id != inter.guild_id
+                ]
                 if guild_in_db.patch_notes:
                     guild_in_db = GuildsDB.update_patch_notes(inter.guild_id, False)
+                    self.bot.patch_channels = [
+                        channel
+                        for channel in self.bot.patch_channels.copy()
+                        if channel.guild.id != inter.guild.id
+                    ]
                 action_rows[1].pop(0)
                 action_rows[1].append_item(Setup.PatchNotes.PatchNotesButton())
                 action_rows[1].children[0].disabled = True
@@ -172,6 +187,11 @@ class SetupCog(commands.Cog):
             elif inter.component.custom_id == "clear_map_button":
                 self.clear_extra_buttons(action_rows)
                 guild_in_db = GuildsDB.update_map(inter.guild.id, 0, 0)
+                self.bot.map_messages = [
+                    message
+                    for message in self.bot.map_messages.copy()
+                    if message.guild.id != inter.guild_id
+                ]
                 embed = SetupEmbed(
                     guild_in_db, self.bot.json_dict["languages"][guild_in_db.language]
                 )
@@ -202,6 +222,11 @@ class SetupCog(commands.Cog):
                 ) or await self.bot.fetch_channel(guild_in_db.announcement_channel_id)
                 self.bot.patch_channels.remove(channel)
                 guild_in_db = GuildsDB.update_patch_notes(inter.guild_id, False)
+                self.bot.patch_channels = [
+                    channel
+                    for channel in self.bot.patch_channels.copy()
+                    if channel.guild.id != inter.guild_id
+                ]
                 action_rows[1].pop(0)
                 action_rows[1].append_item(Setup.PatchNotes.PatchNotesButton())
                 action_rows[1].children[0].disabled = False
@@ -286,11 +311,7 @@ class SetupCog(commands.Cog):
                 guild_in_db = GuildsDB.update_announcement_channel(
                     inter.guild_id, announcement_channel.id
                 )
-                self.bot.announcement_channels = [
-                    channel
-                    for channel in self.bot.announcement_channels.copy()
-                    if channel.guild != inter.guild
-                ].append(announcement_channel)
+                self.bot.announcement_channels.append(announcement_channel)
                 embed = SetupEmbed(
                     guild_in_db, self.bot.json_dict["languages"][guild_in_db.language]
                 )

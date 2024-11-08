@@ -18,11 +18,9 @@ class DataManagementCog(commands.Cog):
         start_time = datetime.now()
         for data_list in (
             self.bot.dashboard_messages,
-            self.bot.dashboard_channels,
             self.bot.announcement_channels,
             self.bot.patch_channels,
             self.bot.map_messages,
-            self.bot.map_channels,
         ):
             data_list.clear()
         guilds = GuildsDB.get_all_guilds()
