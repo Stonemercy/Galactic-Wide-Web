@@ -197,6 +197,26 @@ class AdminCommandsCog(commands.Cog):
         except Exception as e:
             return await inter.send(f"Error:\n{e}", ephemeral=True)
 
+    @wait_for_startup()
+    @commands.is_owner()
+    @commands.slash_command(
+        guild_ids=SUPPORT_SERVER,
+        description="Get Data",
+        default_member_permissions=Permissions(administrator=True),
+    )
+    async def get_data(
+        self,
+        inter: AppCmdInter,
+    ):
+        await inter.send(
+            (
+                f"# Dashboard messages:\n- Length: {len(self.bot.dashboard_messages)}\n- Type: {type(self.bot.dashboard_messages)}\n\n"
+                f"# Announcement channels:\n- Length: {len(self.bot.announcement_channels)}\n- Type: {type(self.bot.announcement_channels)}\n\n"
+                f"# Patch Channels:\n- Length: {len(self.bot.patch_channels)}\n- Type: {type(self.bot.patch_channels)}\n\n"
+                f"# Map messages:\n- Length: {len(self.bot.map_messages)}\n- Type: {type(self.bot.map_messages)}\n\n"
+            )
+        )
+
 
 def setup(bot: GalacticWideWebBot):
     bot.add_cog(AdminCommandsCog(bot))
