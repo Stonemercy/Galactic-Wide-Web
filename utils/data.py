@@ -43,7 +43,13 @@ class Data:
     async def pull_from_api(self, bot):
         start_time = datetime.now()
         api_to_use = api
-        async with ClientSession(headers={"Accept-Language": "en-GB"}) as session:
+        async with ClientSession(
+            headers={
+                "Accept-Language": "en-GB",
+                "X-Super-Client": "Galactic Wide Web",
+                "X-Super-Contact": "Stonemercy",
+            }
+        ) as session:
             async with session.get(f"{api_to_use}") as r:
                 if r.status != 200:
                     api_to_use = backup_api
