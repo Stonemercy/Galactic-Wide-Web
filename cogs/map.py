@@ -40,9 +40,7 @@ class MapCog(commands.Cog):
                 f"{self.qualified_name} | update_message | {e} | {message.channel.id = }"
             )
 
-    times = [time(hour=hour, minute=5, second=0) for hour in range(24)]
-
-    @tasks.loop(time=times)
+    @tasks.loop(time=[time(hour=hour, minute=5, second=0) for hour in range(24)])
     async def map_poster(self, force: bool = False):
         if (
             self.bot.map_messages == []
