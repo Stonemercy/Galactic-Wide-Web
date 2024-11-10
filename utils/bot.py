@@ -24,11 +24,9 @@ class GalacticWideWebBot(commands.InteractionBot):
         self.startup_time = datetime.now()
         self.ready_time = self.startup_time + timedelta(seconds=30)
         self.dashboard_messages = []
-        self.dashboard_channels = []
         self.announcement_channels = []
         self.patch_channels = []
         self.map_messages = []
-        self.map_channels = []
         self.c_n_m_loaded = False
         self.json_dict = json_dict.copy()
         self.load_json()
