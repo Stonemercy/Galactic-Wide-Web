@@ -349,7 +349,7 @@ class MajorOrderEmbed(Embed):
                 )
                 target = loc_faction_dict[task.values[0]] if not species else species
                 self.add_field(
-                    f"{language['kill']} {short_format(task.values[2])} **{target}s** {emojis_dict[en_faction_dict[task.values[0]]]}",
+                    f"{language['kill']} {short_format(task.values[2])} **{target}** {emojis_dict[en_faction_dict[task.values[0]]]}",
                     (
                         f"{language['major_order']['progress']}: {task.progress * task.values[2]}\n"
                         f"{event_health_bar}\n"
@@ -626,7 +626,7 @@ class Dashboard:
                         loc_faction_dict[task.values[0]] if not species else species
                     )
                     major_orders_embed.add_field(
-                        f"{language['kill']} {short_format(task.values[2])} **{target}s** {emojis_dict[en_faction_dict[task.values[0]]]}",
+                        f"{language['kill']} {short_format(task.values[2])} **{target}** {emojis_dict[en_faction_dict[task.values[0]]]}",
                         (
                             f"{language['major_order']['progress']}: **{(task.values[2]*task.progress):,.0f}**\n"
                             f"{task.health_bar}\n"
