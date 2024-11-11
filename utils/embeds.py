@@ -339,10 +339,11 @@ class MajorOrderEmbed(Embed):
                     1379865898: "Bile Spewer",
                     2058088313: "Warrior",
                 }
-                if task.values[3] in species_dict:
-                    species = (
-                        species_dict[task.values[3]] if task.values[3] != 0 else None
-                    )
+                species = (
+                    species_dict.get(task.values[3], None)
+                    if task.values[3] != 0
+                    else None
+                )
                 event_health_bar = health_bar(
                     task.progress, en_faction_dict[task.values[0]]
                 )
@@ -606,12 +607,11 @@ class Dashboard:
                         1379865898: "Bile Spewer",
                         2058088313: "Warrior",
                     }
-                    if task.values[3] in species_dict:
-                        species = (
-                            species_dict[task.values[3]]
-                            if task.values[3] != 0
-                            else None
-                        )
+                    species = (
+                        species_dict.get(task.values[3], None)
+                        if task.values[3] != 0
+                        else None
+                    )
                     task.health_bar = health_bar(
                         task.progress,
                         (
@@ -626,7 +626,7 @@ class Dashboard:
                         loc_faction_dict[task.values[0]] if not species else species
                     )
                     major_orders_embed.add_field(
-                        f"{language['dashboard']['major_order']['kill']} {short_format(task.values[2])} **{target}s** {emojis_dict[en_faction_dict[task.values[0]]]}",
+                        f"{language['kill']} {short_format(task.values[2])} **{target}s** {emojis_dict[en_faction_dict[task.values[0]]]}",
                         (
                             f"{language['major_order']['progress']}: **{(task.values[2]*task.progress):,.0f}**\n"
                             f"{task.health_bar}\n"
