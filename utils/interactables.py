@@ -71,7 +71,7 @@ class Setup:
                 super().__init__(
                     custom_id="dashboard_channel_select",
                     placeholder="Select the channel for the Dashboard",
-                    channel_types=[ChannelType.text],
+                    channel_types=[ChannelType.text, ChannelType.news],
                 )
 
         class ClearDashboardButton(Button):
@@ -108,7 +108,7 @@ class Setup:
                 super().__init__(
                     custom_id="announcements_channel_select",
                     placeholder="Select the channel for Announcements",
-                    channel_types=[ChannelType.text],
+                    channel_types=[ChannelType.text, ChannelType.news],
                 )
 
         class ClearAnnouncementsButton(Button):
@@ -145,7 +145,7 @@ class Setup:
                 super().__init__(
                     custom_id="map_channel_select",
                     placeholder="Select the channel for the Map",
-                    channel_types=[ChannelType.text],
+                    channel_types=[ChannelType.text, ChannelType.news],
                 )
 
         class ClearMapButton(Button):
