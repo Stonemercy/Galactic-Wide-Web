@@ -149,6 +149,9 @@
             "disabled": "Patchnotizen werden nicht mehr in Ihrem Ankündigungskanal angezeigt",
             "name": "Patchnotizen"
         },
+        "mo_updates": {
+            "name": "Wichtige Auftragsaktualisierungen"
+        },
         "message": "-# Wenn Sie `Nicht festgelegt` sehen, wo ein Kanal/eine Nachricht sein sollte, überprüfen Sie die Berechtigungen für den Bot!",
         "unset_dashboard": "Ich habe Ihr Dashboard deaktiviert. Sie können alle alten Dashboards auf diesem Server löschen.",
         "missing_perm": "Ich benötige diese Berechtigungen, um in diesem Kanal zu posten:\n> Kanal anzeigen\n> Nachrichten senden\n> Links einbetten\n> Dateien anhängen\n> Externe Emojis verwenden",

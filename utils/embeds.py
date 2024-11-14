@@ -205,6 +205,7 @@ class BotDashboardEmbed(Embed):
                 f"All Dashboards: <t:{int(bot.get_cog('DashboardCog').dashboard.next_iteration.timestamp())}:R>\n"
                 f"All Maps: <t:{int(bot.get_cog('MapCog').map_poster.next_iteration.timestamp())}:R>\n"
                 f"Update data: <t:{int(bot.get_cog('DataManagementCog').pull_from_api.next_iteration.timestamp())}:R>\n"
+                f"Major Order Update: <t:{int(bot.get_cog('AnnouncementsCog').major_order_updates.next_iteration.timestamp())}:R>\n"
             ),
         )
         self.add_field("", "", inline=False)
@@ -351,7 +352,7 @@ class MajorOrderEmbed(Embed):
                 self.add_field(
                     f"{language['kill']} {short_format(task.values[2])} **{target}** {emojis_dict[en_faction_dict[task.values[0]]]}",
                     (
-                        f"{language['major_order']['progress']}: {task.progress * task.values[2]}\n"
+                        f"{language['major_order']['progress']}: {(task.progress * task.values[2]):,.0f}\n"
                         f"{event_health_bar}\n"
                         f"`{(task.progress):^25,.2%}`\n"
                     ),
@@ -1458,6 +1459,14 @@ class SetupEmbed(Embed):
         self.add_field(
             language_json["setup"]["patch_notes"]["name"],
             {True: ":white_check_mark:", False: ":x:"}[guild_record.patch_notes],
+        )
+
+        # mo updates
+        self.add_field(
+            language_json["setup"]["mo_updates"]["name"],
+            {True: ":white_check_mark:", False: ":x:"}[
+                guild_record.major_order_updates
+            ],
         )
 
         # extra

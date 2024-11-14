@@ -193,3 +193,17 @@ class Setup:
                     self.emoji = "✅"
                 else:
                     self.emoji = "❌"
+
+    class MajorOrderUpdates:
+        class MajorOrderUpdatesButton(Button):
+            def __init__(self, enabled: bool = False):
+                super().__init__(
+                    style=ButtonStyle.gray,
+                    label="Major Order Updates",
+                    custom_id="major_order_updates_button",
+                    disabled=True,
+                )
+                if enabled:
+                    self.emoji = "✅"
+                else:
+                    self.emoji = "❌"

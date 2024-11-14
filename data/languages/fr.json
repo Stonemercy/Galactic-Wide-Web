@@ -149,6 +149,9 @@
             "disabled": "Les notes de correctif n'apparaîtront plus dans votre canal d'annonces",
             "name": "Notes de patch"
         },
+        "mo_updates": {
+            "name": "Mises à jour des commandes majeures"
+        },
         "message": "-# Si vous voyez `Non défini` là où un canal/message devrait être, vérifiez les autorisations du bot !",
         "unset_dashboard": "J'ai désactivé votre tableau de bord. Vous êtes libre de supprimer tous les anciens tableaux de bord de ce serveur.",
         "missing_perm": "J'ai besoin de ces autorisations pour poster dans ce canal :\n> Afficher le canal\n> Envoyer des messages\n> Intégrer des liens\n> Joindre des fichiers\n> Utiliser des émojis externes",

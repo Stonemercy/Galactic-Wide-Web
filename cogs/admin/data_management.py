@@ -21,6 +21,7 @@ class DataManagementCog(commands.Cog):
             self.bot.announcement_channels,
             self.bot.patch_channels,
             self.bot.map_messages,
+            self.bot.major_order_channels,
         ):
             data_list.clear()
         guilds = GuildsDB.get_all_guilds()
@@ -49,6 +50,8 @@ class DataManagementCog(commands.Cog):
                     self.bot.announcement_channels.append(announcement_channel)
                     if guild.patch_notes:
                         self.bot.patch_channels.append(announcement_channel)
+                    if guild.major_order_updates:
+                        self.bot.major_order_channels.append(announcement_channel)
                 except:
                     pass
             if guild.map_channel_id != 0:

@@ -39,6 +39,8 @@ class GuildRecord:
             The ID of the map channel, if set up. Defaults to `0`
         map_message_id: :class:`int`
             The ID of the map message, if set up. Defaults to `0`
+        major_order_updates: :class:`bool`
+            If the guild wants MO updates. Defaults to `False`
     """
 
     __slots__ = (
@@ -51,6 +53,7 @@ class GuildRecord:
         "language_long",
         "map_channel_id",
         "map_message_id",
+        "major_order_updates",
     )
 
     def __init__(
@@ -65,6 +68,7 @@ class GuildRecord:
         self.language_long = {v: k for k, v in language_dict.items()}[self.language]
         self.map_channel_id: int = db_entry[6]
         self.map_message_id: int = db_entry[7]
+        self.major_order_updates: bool = db_entry[8]
 
 
 class GuildsDB:
@@ -231,6 +235,30 @@ class GuildsDB:
                 curs.execute(
                     "Update guilds set language = %s where guild_id = %s",
                     (language, guild_id),
+                )
+                conn.commit()
+                result = GuildsDB.get_info(guild_id)
+                return result
+
+    def update_mo(guild_id: int, choice: bool) -> GuildRecord:
+        """Update the MO choice for a single guild
+
+        Parameters
+        ----------
+            guild_id (int): The ID of the guild
+            language (str): The language code of the guild (e.g. 'en')
+
+        Returns
+        ----------
+            `GuildRecord`
+        """
+        with connect(
+            host=hostname, dbname=database, user=username, password=pwd, port=port_id
+        ) as conn:
+            with conn.cursor() as curs:
+                curs.execute(
+                    "Update guilds set major_order_updates = %s where guild_id = %s",
+                    (choice, guild_id),
                 )
                 conn.commit()
                 result = GuildsDB.get_info(guild_id)

@@ -58,6 +58,26 @@ class AdminCommandsCog(commands.Cog):
     @commands.is_owner()
     @commands.slash_command(
         guild_ids=SUPPORT_SERVER,
+        description="Forces maps to update ASAP",
+        default_member_permissions=Permissions(administrator=True),
+    )
+    async def force_mo_update(self, inter: AppCmdInter):
+        await inter.response.defer(ephemeral=True)
+        self.bot.logger.critical(
+            f"{self.qualified_name} | /{inter.application_command.name} | used by <@{inter.author.id}> | @{inter.author.global_name}"
+        )
+        update_start = datetime.now()
+        updates_sent = await self.bot.get_cog("AnnouncementsCog").major_order_updates(
+            force=True
+        )
+        text = f"Forced updates of {updates_sent} MO updates in {(datetime.now() - update_start).total_seconds():.2f} seconds"
+        self.bot.logger.info(text)
+        await inter.send(text, ephemeral=True)
+
+    @wait_for_startup()
+    @commands.is_owner()
+    @commands.slash_command(
+        guild_ids=SUPPORT_SERVER,
         description="Send out the prepared announcement",
         default_member_permissions=Permissions(administrator=True),
     )
@@ -213,6 +233,7 @@ class AdminCommandsCog(commands.Cog):
                 f"# Dashboard messages:\n- Length: {len(self.bot.dashboard_messages)}\n- Type: {type(self.bot.dashboard_messages)}\n\n"
                 f"# Announcement channels:\n- Length: {len(self.bot.announcement_channels)}\n- Type: {type(self.bot.announcement_channels)}\n\n"
                 f"# Patch Channels:\n- Length: {len(self.bot.patch_channels)}\n- Type: {type(self.bot.patch_channels)}\n\n"
+                f"# Major Order channels:\n- Length: {len(self.bot.major_order_channels)}\n- Type: {type(self.bot.major_order_channels)}\n\n"
                 f"# Map messages:\n- Length: {len(self.bot.map_messages)}\n- Type: {type(self.bot.map_messages)}\n\n"
             )
         )

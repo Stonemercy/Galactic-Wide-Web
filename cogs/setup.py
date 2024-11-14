@@ -66,12 +66,19 @@ class SetupCog(commands.Cog):
             .append_item(Setup.Map.MapButton())
             .append_item(Setup.Language.LanguageButton())
         )
-        row2 = ActionRow().append_item(
-            Setup.PatchNotes.PatchNotesButton(guild_in_db.patch_notes)
+        row2 = (
+            ActionRow()
+            .append_item(Setup.PatchNotes.PatchNotesButton(guild_in_db.patch_notes))
+            .append_item(
+                Setup.MajorOrderUpdates.MajorOrderUpdatesButton(
+                    guild_in_db.major_order_updates
+                )
+            )
         )
         components = [row1, row2]
         if guild_in_db.announcement_channel_id != 0:
             components[1][0].disabled = False
+            components[1][1].disabled = False
         await inter.send(embed=embed, components=components)
 
     @commands.Cog.listener("on_button_click")
@@ -156,6 +163,7 @@ class SetupCog(commands.Cog):
                 action_rows[1].pop(0)
                 action_rows[1].append_item(Setup.PatchNotes.PatchNotesButton())
                 action_rows[1].children[0].disabled = True
+                action_rows[1].children[1].disabled = True
                 embed = SetupEmbed(
                     guild_in_db, self.bot.json_dict["languages"][guild_in_db.language]
                 )
@@ -251,6 +259,46 @@ class SetupCog(commands.Cog):
                 return await inter.response.edit_message(
                     embed=embed, components=action_rows
                 )
+        elif inter.component.custom_id == "major_order_updates_button":
+            if guild_in_db.major_order_updates:  # want to disable
+                channel = self.bot.get_channel(
+                    guild_in_db.announcement_channel_id
+                ) or await self.bot.fetch_channel(guild_in_db.announcement_channel_id)
+                self.bot.major_order_channels.remove(channel)
+                guild_in_db = GuildsDB.update_mo(inter.guild_id, False)
+                self.bot.major_order_channels = [
+                    channel
+                    for channel in self.bot.major_order_channels.copy()
+                    if channel.guild.id != inter.guild_id
+                ]
+                action_rows[1].pop(1)
+                action_rows[1].append_item(
+                    Setup.MajorOrderUpdates.MajorOrderUpdatesButton()
+                )
+                action_rows[1].children[1].disabled = False
+                embed = SetupEmbed(
+                    guild_in_db, self.bot.json_dict["languages"][guild_in_db.language]
+                )
+                return await inter.response.edit_message(
+                    embed=embed, components=action_rows
+                )
+            else:  # want to enable
+                channel = self.bot.get_channel(
+                    guild_in_db.announcement_channel_id
+                ) or await self.bot.fetch_channel(guild_in_db.announcement_channel_id)
+                self.bot.major_order_channels.append(channel)
+                guild_in_db = GuildsDB.update_mo(inter.guild_id, True)
+                action_rows[1].pop(1)
+                action_rows[1].append_item(
+                    Setup.MajorOrderUpdates.MajorOrderUpdatesButton(True)
+                )
+                action_rows[1].children[1].disabled = False
+                embed = SetupEmbed(
+                    guild_in_db, self.bot.json_dict["languages"][guild_in_db.language]
+                )
+                return await inter.response.edit_message(
+                    embed=embed, components=action_rows
+                )
 
     @commands.Cog.listener("on_dropdown")
     async def on_dropdowns(self, inter: MessageInteraction):
@@ -318,6 +366,7 @@ class SetupCog(commands.Cog):
                 self.clear_extra_buttons(action_rows)
                 self.reset_row_1(action_rows[0])
                 action_rows[1].children[0].disabled = False
+                action_rows[1].children[1].disabled = False
                 await inter.response.edit_message(embed=embed, components=action_rows)
         elif inter.component.custom_id == "map_channel_select":
             await inter.response.defer()

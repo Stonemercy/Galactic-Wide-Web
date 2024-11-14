@@ -149,6 +149,9 @@
             "disabled": "Patch notes will no longer show up in your announcement channel",
             "name": "Patch Notes"
         },
+        "mo_updates": {
+            "name": "Major Order Updates"
+        },
         "message": "-# If you're seeing `Not set` where a channel/message should be, check the permissions for the bot!",
         "unset_dashboard": "I have unset your Dashboard. You are free to delete any old Dashboards in this server.",
         "missing_perm": "I need these permissions to post in that channel:\n> View Channel\n> Send Messages\n> Embed Links\n> Attach Files\n> Use External Emojis",

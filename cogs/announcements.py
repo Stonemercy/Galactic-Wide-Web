@@ -1,11 +1,12 @@
 from asyncio import sleep
-from datetime import datetime
+from datetime import datetime, time
 from disnake import Forbidden, TextChannel, ButtonStyle
 from disnake.ext import commands, tasks
 from disnake.ui import Button
 from main import GalacticWideWebBot
 from utils.embeds import DispatchesEmbed, MajorOrderEmbed, SteamEmbed
 from utils.db import DispatchesDB, GuildRecord, MajorOrderDB, GuildsDB, SteamDB
+from utils.interactables import WikiButton
 
 
 class AnnouncementsCog(commands.Cog):
@@ -14,11 +15,13 @@ class AnnouncementsCog(commands.Cog):
         self.major_order_check.start()
         self.dispatch_check.start()
         self.steam_check.start()
+        self.major_order_updates.start()
 
     def cog_unload(self):
         self.major_order_check.stop()
         self.dispatch_check.stop()
         self.steam_check.stop()
+        self.major_order_updates.stop()
 
     async def send_embed(self, channel: TextChannel, embeds, type: str):
         """embeds must be a dict in the following format:\n
@@ -46,6 +49,13 @@ class AnnouncementsCog(commands.Cog):
                             label="Support Server",
                             url="https://discord.gg/Z8Ae5H5DjZ",
                         )
+                    ],
+                )
+            elif type == "MO":
+                await channel.send(
+                    embed=embeds[guild.language],
+                    components=[
+                        WikiButton(link=f"https://helldivers.wiki.gg/wiki/Major_Orders")
                     ],
                 )
             else:
@@ -193,6 +203,47 @@ class AnnouncementsCog(commands.Cog):
 
     @steam_check.before_loop
     async def before_steam_check(self):
+        await self.bot.wait_until_ready()
+
+    @tasks.loop(time=[time(hour=hour, minute=20, second=0) for hour in range(0, 24, 6)])
+    async def major_order_updates(self, force: bool = False):
+        mo_updates_start = datetime.now()
+        if (
+            self.bot.major_order_channels == []
+            or mo_updates_start < self.bot.ready_time
+            or not self.bot.data.loaded
+            or not self.bot.c_n_m_loaded
+        ):
+            return
+        languages = GuildsDB.get_used_languages()
+        embeds = {
+            lang: MajorOrderEmbed(
+                data=self.bot.data,
+                language=self.bot.json_dict["languages"][lang],
+                planet_names=self.bot.json_dict["planets"],
+                reward_types=self.bot.json_dict["items"]["reward_types"],
+                with_health_bars=True,
+            )
+            for lang in languages
+        }
+        chunked_mo_channels = [
+            self.bot.major_order_channels[i : i + 50]
+            for i in range(0, len(self.bot.major_order_channels), 50)
+        ]
+        mo_updates_sent = 0
+        for chunk in chunked_mo_channels:
+            for channel in chunk:
+                self.bot.loop.create_task(self.send_embed(channel, embeds, "MO"))
+                mo_updates_sent += 1
+            await sleep(1.1)
+        if not force:
+            self.bot.logger.info(
+                f"{mo_updates_sent} MO announcements sent out in {(datetime.now() - mo_updates_start).total_seconds():.2f} seconds"
+            )
+        return mo_updates_sent
+
+    @major_order_updates.before_loop
+    async def before_major_order_updates(self):
         await self.bot.wait_until_ready()
 
 

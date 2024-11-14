@@ -27,6 +27,7 @@ class GalacticWideWebBot(commands.InteractionBot):
         self.announcement_channels = []
         self.patch_channels = []
         self.map_messages = []
+        self.major_order_channels = []
         self.c_n_m_loaded = False
         self.json_dict = json_dict.copy()
         self.load_json()
