@@ -347,7 +347,6 @@ class Planet:
         self.stats: dict = planet["statistics"]
         self.thumbnail = None
         self.feature = {
-            116: "DSS Construction Site",
             126: "Xenoentomology Center",
             161: "Deep Mantle Forge Complex",
         }.get(self.index, None)
