@@ -137,18 +137,26 @@ class Data:
         if self.__data__["assignments"] not in ([], None):
             self.assignment = Assignment(self.__data__["assignments"][0])
             self.assignment_planets = []
+            factions = {
+                1: "Humans",
+                2: "Terminids",
+                3: "Automaton",
+                4: "Illuminate",
+            }
             for task in self.assignment.tasks:
                 task: Tasks.Task
                 if task.type in (11, 13):
                     self.assignment_planets.append(self.planets[task.values[2]].index)
-                elif task.type in (3, 12):
+                elif task.type == 3:
+                    if task.progress == 1:
+                        continue
+                    self.assignment_planets += [
+                        planet.index
+                        for planet in self.planets.values()
+                        if planet.current_owner == factions[task.values[0]]
+                    ]
+                elif task.type == 12:
                     if self.planet_events:
-                        factions = {
-                            1: "Humans",
-                            2: "Terminids",
-                            3: "Automaton",
-                            4: "Illuminate",
-                        }
                         self.assignment_planets += [
                             planet.index
                             for planet in self.planet_events
