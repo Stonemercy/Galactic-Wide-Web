@@ -726,11 +726,6 @@ class Dashboard:
                         and len(liberation_change["liberation_changes"]) > 0
                         and sum(liberation_change["liberation_changes"]) != 0
                     ):
-                        above_zero = (
-                            "+"
-                            if sum(liberation_change["liberation_changes"]) > 0
-                            else ""
-                        )
                         now_seconds = int(datetime.now().timestamp())
                         seconds_to_complete = int(
                             (
@@ -750,8 +745,8 @@ class Dashboard:
                             if winning == f"**{language['dashboard']['victory']}**"
                             else ""
                         )
-                        change = f"{(sum(liberation_change['liberation_changes'])):.2f}%/hour"
-                        liberation_text = f"\n`{(above_zero + change):^25}` "
+                        change = f"{(sum(liberation_change['liberation_changes'])):+.2f}%/hour"
+                        liberation_text = f"\n`{change:^25}` "
                         outlook_text = f"\n{language['dashboard']['outlook']}: **{winning}** {time_to_complete}"
                         if (
                             data.planets_with_player_reqs
@@ -834,12 +829,8 @@ class Dashboard:
                         liberation_change
                         and len(liberation_change["liberation_changes"]) > 0
                     ):
-                        above_zero = (
-                            "+"
-                            if sum(liberation_change["liberation_changes"]) > 0
-                            else ""
-                        )
-                        if above_zero == "+":
+                        lib_per_hour = sum(liberation_change["liberation_changes"]) > 0
+                        if lib_per_hour > 0:
                             now_seconds = int(datetime.now().timestamp())
                             seconds_to_complete = int(
                                 (
@@ -849,8 +840,9 @@ class Dashboard:
                                 * 3600
                             )
                             time_to_complete = f"\n{language['dashboard']['outlook']}: **{language['dashboard']['victory']}** <t:{now_seconds + seconds_to_complete}:R>"
-                        change = f"{(sum(liberation_change['liberation_changes'])):.2f}%/hour"
-                        liberation_text = f"\n`{(above_zero + change):^25}`"
+                        change = f"{(sum(liberation_change['liberation_changes'])):+.2f}%/hour"
+                        liberation_text = f"\n`{change:^25}`"
+
                 exclamation = (
                     emojis_dict["MO"]
                     if data.assignment_planets
