@@ -77,7 +77,8 @@ class DataManagementCog(commands.Cog):
                 f"{len(self.bot.dashboard_messages)} dashboards ({(len(self.bot.dashboard_messages) / guilds_done):.0%}) | "
                 f"{len(self.bot.announcement_channels)} announcement channels ({(len(self.bot.announcement_channels) / guilds_done):.0%}) | "
                 f"{len(self.bot.patch_channels)} patch channels ({(len(self.bot.patch_channels) / guilds_done):.0%}) | "
-                f"{len(self.bot.map_messages)} maps ({(len(self.bot.map_messages) / guilds_done):.0%})"
+                f"{len(self.bot.map_messages)} maps ({(len(self.bot.map_messages) / guilds_done):.0%}) | "
+                f"{len(self.bot.major_order_channels)} MO channels ({(len(self.bot.major_order_channels) / guilds_done):.0%})"
             )
         )
         self.bot.c_n_m_loaded = True
