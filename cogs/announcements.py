@@ -215,6 +215,8 @@ class AnnouncementsCog(commands.Cog):
             or not self.bot.c_n_m_loaded
         ):
             return
+        if self.bot.data.assignment == None:
+            return
         languages = GuildsDB.get_used_languages()
         embeds = {
             lang: MajorOrderEmbed(
