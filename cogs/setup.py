@@ -1,4 +1,11 @@
-from disnake import AppCmdInter, ButtonStyle, File, MessageInteraction, Permissions
+from disnake import (
+    AppCmdInter,
+    ButtonStyle,
+    File,
+    Forbidden,
+    MessageInteraction,
+    Permissions,
+)
 from disnake.ext import commands
 from disnake.ui import ActionRow
 from main import GalacticWideWebBot
@@ -306,9 +313,15 @@ class SetupCog(commands.Cog):
         if inter.component.custom_id == "dashboard_channel_select":
             guild_in_db: GuildRecord = GuildsDB.get_info(inter.guild_id)
             guild_language = self.bot.json_dict["languages"][guild_in_db.language]
-            dashboard_channel = self.bot.get_channel(
-                inter.values[0]
-            ) or await self.bot.fetch_channel(inter.values[0])
+            try:
+                dashboard_channel = self.bot.get_channel(
+                    inter.values[0]
+                ) or await self.bot.fetch_channel(inter.values[0])
+            except:
+                return await inter.send(
+                    guild_language["setup"]["missing_perm"],
+                    ephemeral=True,
+                )
             dashboard_perms_have = dashboard_channel.permissions_for(
                 inter.guild.me
             ).is_superset(self.dashboard_perms_needed)
@@ -342,9 +355,15 @@ class SetupCog(commands.Cog):
                 self.reset_row_1(action_rows[0])
                 await inter.response.edit_message(embed=embed, components=action_rows)
         elif inter.component.custom_id == "announcements_channel_select":
-            announcement_channel = self.bot.get_channel(
-                inter.values[0]
-            ) or await self.bot.fetch_channel(inter.values[0])
+            try:
+                announcement_channel = self.bot.get_channel(
+                    inter.values[0]
+                ) or await self.bot.fetch_channel(inter.values[0])
+            except:
+                return await inter.send(
+                    guild_language["setup"]["missing_perm"],
+                    ephemeral=True,
+                )
             annnnouncement_perms_have = announcement_channel.permissions_for(
                 inter.guild.me
             ).is_superset(self.annnnouncement_perms_needed)
@@ -372,9 +391,15 @@ class SetupCog(commands.Cog):
             await inter.response.defer()
             guild_in_db: GuildRecord = GuildsDB.get_info(inter.guild_id)
             guild_language = self.bot.json_dict["languages"][guild_in_db.language]
-            map_channel = self.bot.get_channel(
-                inter.values[0]
-            ) or await self.bot.fetch_channel(inter.values[0])
+            try:
+                map_channel = self.bot.get_channel(
+                    inter.values[0]
+                ) or await self.bot.fetch_channel(inter.values[0])
+            except:
+                return await inter.send(
+                    guild_language["setup"]["missing_perm"],
+                    ephemeral=True,
+                )
             map_perms_have = map_channel.permissions_for(inter.guild.me).is_superset(
                 self.map_perms_needed
             )
