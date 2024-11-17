@@ -70,7 +70,7 @@ class Setup:
             def __init__(self):
                 super().__init__(
                     custom_id="dashboard_channel_select",
-                    placeholder="Select the channel for the Dashboard",
+                    placeholder="Select the channel or start typing",
                     channel_types=[ChannelType.text, ChannelType.news],
                 )
 
@@ -107,7 +107,7 @@ class Setup:
             def __init__(self):
                 super().__init__(
                     custom_id="announcements_channel_select",
-                    placeholder="Select the channel for Announcements",
+                    placeholder="Select the channel or start typing",
                     channel_types=[ChannelType.text, ChannelType.news],
                 )
 
@@ -144,7 +144,7 @@ class Setup:
             def __init__(self):
                 super().__init__(
                     custom_id="map_channel_select",
-                    placeholder="Select the channel for the Map",
+                    placeholder="Select the channel or start typing",
                     channel_types=[ChannelType.text, ChannelType.news],
                 )
 
