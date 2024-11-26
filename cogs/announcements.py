@@ -33,10 +33,16 @@ class AnnouncementsCog(commands.Cog):
                 f"{self.qualified_name} | send_embed | {guild = } | {channel.id = } | {type = }"
             )
             if type == "Patch":
-                self.bot.patch_channels.remove(channel)
+                try:
+                    self.bot.patch_channels.remove(channel)
+                except:
+                    pass
                 guild = GuildsDB.update_patch_notes(channel.guild.id, False)
             else:
-                self.bot.announcement_channels.remove(channel)
+                try:
+                    self.bot.announcement_channels.remove(channel)
+                except:
+                    pass
                 guild = GuildsDB.update_announcement_channel(channel.guild.id, 0)
             return
         try:
