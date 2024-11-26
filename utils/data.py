@@ -43,7 +43,6 @@ class Data:
         self.planets_with_player_reqs = {}
 
     async def pull_from_api(self, bot):
-        start_time = datetime.now()
         api_to_use = api
         async with ClientSession(
             headers={
@@ -110,12 +109,7 @@ class Data:
                         await bot.moderator_channel.send(f"API/{endpoint.upper()}\n{r}")
                     if api_to_use == backup_api:
                         await sleep(2)
-        bot.logger.info(
-            (
-                f"pull_from_api complete | "
-                f"Completed in {(datetime.now() - start_time).total_seconds():.2f} seconds"
-            )
-        )
+
         if not self.loaded:
             now = datetime.now()
             bot.logger.info(
