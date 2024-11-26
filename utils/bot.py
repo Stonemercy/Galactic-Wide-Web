@@ -8,7 +8,7 @@ from utils.data import Data
 from data.lists import json_dict
 
 
-class GalacticWideWebBot(commands.InteractionBot):
+class GalacticWideWebBot(commands.AutoShardedInteractionBot):
     def __init__(self):
         super().__init__(
             intents=Intents.default(),
