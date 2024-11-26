@@ -6,7 +6,7 @@ from psutil import Process, cpu_percent
 from main import GalacticWideWebBot
 from utils.db import GuildRecord, GuildsDB
 from utils.functions import health_bar, short_format, skipped_planets
-from utils.data import Campaign, Data, Dispatch, Steam, Superstore, Tasks, Planet
+from utils.data import DSS, Campaign, Data, Dispatch, Steam, Superstore, Tasks, Planet
 from data.lists import (
     emojis_dict,
     warbond_images_dict,
@@ -500,6 +500,7 @@ class Dashboard:
             title=language["dashboard"]["major_order"]["major_order"],
             colour=Colour.yellow(),
         )
+        dss_embed = Embed(title="Democracy Space Station", colour=Colour.teal())
         defend_embed = Embed(
             title=language["dashboard"]["defending"], colour=Colour.blue()
         )
@@ -513,6 +514,38 @@ class Dashboard:
             title=language["dashboard"]["attacking_illuminate"], colour=Colour.red()
         )
         updated_embed = Embed(colour=Colour.dark_theme())
+
+        # DSS
+        dss_embed.set_thumbnail(
+            url="https://cdn.discordapp.com/attachments/1213146233825271818/1308056319990825063/DSS.png?ex=673c8de1&is=673b3c61&hm=81d8d8667368988ec1b184189d3a6a9f20b3829be2029486a58bc2fcb62605ca&"
+        )
+        dss_embed.description = f"Stationed at: {data.dss.planet.name.title()} {emojis_dict[data.dss.planet.current_owner]}"
+        for tactical_action in data.dss.tactical_actions:
+            tactical_action: DSS.TacticalAction
+            ta_health_bar = health_bar(tactical_action.cost.progress, "MO")
+            cost = (
+                (
+                    f"Cost: {tactical_action.cost.target:,} {emojis_dict[tactical_action.cost.item]} **{tactical_action.cost.item}s**\n"
+                    f"Progress: {tactical_action.cost.current:,.0f}\n"
+                    f"{ta_health_bar}\n"
+                    f"`{tactical_action.cost.progress:^25.2%}`\n"
+                    f"Max submitable: {tactical_action.cost.max_per_seconds[0]} per {tactical_action.cost.max_per_seconds[1] /3600} hours\n"
+                )
+                if tactical_action.status == 1
+                else ""
+            )
+            status = {1: "Preparing", 2: "**__Active__**", 3: "On Cooldown"}[
+                tactical_action.status
+            ]
+            dss_embed.add_field(
+                tactical_action.name.title(),
+                (
+                    f"{cost}"
+                    f"Status: {status}\n"
+                    # f"Status Expiration: <t:{int((datetime.now() + timedelta(seconds=tactical_action.status_end)).timestamp())}:R>\n"
+                ),
+                inline=False,
+            )
 
         # Major Orders
         if data.assignment:
@@ -556,6 +589,8 @@ class Dashboard:
                     feature_text = (
                         "" if not planet.feature else f"Feature: {planet.feature}\n"
                     )
+                    if planet.dss:
+                        feature_text += emojis_dict["dss"]
                     if task.type == 11:
                         obj_text = f"{language['dashboard']['major_order']['liberate']} {planet_names[str(planet.index)]['names'][language['code_long']]}"
                     else:
@@ -778,6 +813,8 @@ class Dashboard:
                 feature_text = (
                     "" if not planet.feature else f"\nFeature: {planet.feature}"
                 )
+                if planet.dss:
+                    feature_text += emojis_dict["dss"]
                 defend_embed.add_field(
                     f"{faction_icon} - __**{planet_names[str(planet.index)]['names'][language['code_long']]}**__ {exclamation}",
                     (
@@ -856,6 +893,8 @@ class Dashboard:
                     and campaign.planet.index in data.assignment_planets
                     else ""
                 )
+                if campaign.planet.dss:
+                    exclamation += emojis_dict["dss"]
                 faction_icon = emojis_dict[campaign.planet.current_owner]
                 if len(non_skipped_campaigns) < 9:
                     planet_health_bar = health_bar(
@@ -955,6 +994,7 @@ class Dashboard:
         self.embeds = []
         for embed in (
             major_orders_embed,
+            dss_embed,
             defend_embed,
             automaton_embed,
             terminids_embed,
@@ -1525,3 +1565,46 @@ class CommandUsageEmbed(Embed):
         self.add_field(
             "", f"-# as of <t:{int(datetime.now().timestamp())}:R>", inline=False
         )
+
+
+class DSSEmbed(Embed):
+    def __init__(self, dss_data: DSS):
+        super().__init__(
+            title="Democracy Space Station",
+            description=f"Stationed at: **{dss_data.planet.name}** {emojis_dict[dss_data.planet.current_owner]}",
+            colour=Colour.teal(),
+        )
+        for tactical_action in dss_data.tactical_actions:
+            tactical_action: DSS.TacticalAction
+            ta_health_bar = health_bar(tactical_action.cost.progress, "MO")
+            spacer = (
+                "\n\u200b\n\u200b\n"
+                if tactical_action != dss_data.tactical_actions[-1]
+                else ""
+            )
+            cost = (
+                (
+                    f"Cost: {tactical_action.cost.target:,} {emojis_dict[tactical_action.cost.item]} **{tactical_action.cost.item}s**\n"
+                    f"Progress: {tactical_action.cost.current:,.0f}\n"
+                    f"{ta_health_bar}\n"
+                    f"`{tactical_action.cost.progress:^25.2%}`\n"
+                    f"Max submitable: {tactical_action.cost.max_per_seconds[0]} per {tactical_action.cost.max_per_seconds[1] /3600} hours\n"
+                )
+                if tactical_action.status == 1
+                else ""
+            )
+            status = {1: "Preparing", 2: "**__Active__**", 3: "On Cooldown"}[
+                tactical_action.status
+            ]
+            self.add_field(
+                tactical_action.name.title(),
+                (
+                    f"Description:\n-# {tactical_action.description}\n"
+                    f"Strategic Description:\n-# {tactical_action.strategic_description}\n"
+                    f"{cost}"
+                    f"Status: {status}\n"
+                    # f"Status Expiration: <t:{int((datetime.now() + timedelta(seconds=tactical_action.status_end)).timestamp())}:R>\n"
+                    f"{spacer}"
+                ),
+                inline=False,
+            )

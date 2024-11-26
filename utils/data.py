@@ -21,6 +21,7 @@ class Data:
         "steam",
         "thumbnails",
         "superstore",
+        "dss",
         "loaded",
         "liberation_changes",
         "planets_with_player_reqs",
@@ -35,6 +36,7 @@ class Data:
             "steam": None,
             "thumbnails": None,
             "superstore": None,
+            "dss": None,
         }
         self.loaded = False
         self.liberation_changes = {}
@@ -75,6 +77,16 @@ class Data:
                             else:
                                 bot.logger.error(f"API/SUPERSTORE, {r.status}")
                         continue
+                    if endpoint == "dss":
+                        async with session.get(
+                            "https://api.diveharder.com/raw/dss"
+                        ) as r:
+                            if r.status == 200:
+                                self.__data__[endpoint] = await r.json()
+                            else:
+                                bot.logger.error(f"API/DSS, {r.status}")
+                        continue
+
                     try:
                         async with session.get(f"{api_to_use}/api/v1/{endpoint}") as r:
                             if r.status == 200:
@@ -134,6 +146,9 @@ class Data:
                 [planet.stats["playerCount"] for planet in self.planets.values()]
             )
 
+        if self.__data__["dss"]:
+            self.dss = DSS(self.__data__["dss"], self.planets)
+
         if self.__data__["assignments"] not in ([], None):
             self.assignment = Assignment(self.__data__["assignments"][0])
             self.assignment_planets = []
@@ -166,7 +181,8 @@ class Data:
 
         if self.__data__["campaigns"] not in ([], None):
             self.campaigns: list[Campaign] = [
-                Campaign(campaign) for campaign in self.__data__["campaigns"]
+                Campaign(campaign, self.planets)
+                for campaign in self.__data__["campaigns"]
             ]
             self.campaigns = sorted(
                 self.campaigns,
@@ -301,9 +317,9 @@ class Tasks(list):
 
 
 class Campaign:
-    def __init__(self, campaign):
+    def __init__(self, campaign, planets):
         self.id: int = campaign["id"]
-        self.planet = Planet(campaign["planet"])
+        self.planet = planets[campaign["planet"]["index"]]
         self.type: int = campaign["type"]
         self.count: int = campaign["count"]
         self.progress: float = (
@@ -350,6 +366,7 @@ class Planet:
             126: "Xenoentomology Center",
             161: "Deep Mantle Forge Complex",
         }.get(self.index, None)
+        self.dss = False
 
     def __repr__(self):
         return (
@@ -418,3 +435,39 @@ class Superstore:
 
     def __repr__(self):
         return f"Superstore(expiration={self.expiration}, item1={self.item1}, item2={self.item2}, item3={self.item3}, item4={self.item4})"
+
+
+class DSS:
+    def __init__(self, dss, planets):
+        self.planet: Planet = planets[dss["planetIndex"]]
+        self.planet.dss = True
+        self.tactical_actions: list[self.TacticalAction] = [
+            self.TacticalAction(tactical_action)
+            for tactical_action in dss["tacticalActions"]
+        ]
+
+    class TacticalAction:
+        def __init__(self, tactical_action):
+            self.name: str = tactical_action["name"]
+            self.description: str = tactical_action["description"]
+            self.status: int = tactical_action["status"]
+            self.status_end = tactical_action["statusExpireAtWarTimeSeconds"]
+            self.strategic_description: str = steam_format(
+                tactical_action["strategicDescription"]
+            )
+            self.cost = self.Cost(tactical_action["cost"][0])
+
+        class Cost:
+            def __init__(self, cost):
+                self.item: str = {
+                    2985106497: "Rare Sample",
+                    3992382197: "Common Sample",
+                    3608481516: "Requisition Slip",
+                }[cost["itemMixId"]]
+                self.target: int = cost["targetValue"]
+                self.current: float = cost["currentValue"]
+                self.progress: float = self.current / self.target
+                self.max_per_seconds: tuple = (
+                    cost["maxDonationAmount"],
+                    cost["maxDonationPeriodSeconds"],
+                )

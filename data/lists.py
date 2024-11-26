@@ -206,6 +206,10 @@ emojis_dict = {
     "difficulty9": "<:helldive:1297108452124131348>",
     "difficulty10": "<:super_helldive:1219238179551318067>",
     "difficulty?": "?",
+    "Common Sample": "<:Common_Sample:1306611420510687334>",
+    "Rare Sample": "<:Rare_Sample:1306611408406052874>",
+    "Requisition Slip": "<:Requisition_Slip:1306611395986587689>",
+    "dss": "<:DSS:1308177676250513449>",
 }
 
 warbond_images_dict = {
