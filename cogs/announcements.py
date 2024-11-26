@@ -205,7 +205,9 @@ class AnnouncementsCog(commands.Cog):
     async def before_steam_check(self):
         await self.bot.wait_until_ready()
 
-    @tasks.loop(time=[time(hour=hour, minute=20, second=0) for hour in range(0, 24, 6)])
+    @tasks.loop(
+        time=[time(hour=6, minute=20, second=0), time(hour=18, minute=20, second=0)]
+    )
     async def major_order_updates(self, force: bool = False):
         mo_updates_start = datetime.now()
         if (
