@@ -81,7 +81,13 @@ class Data:
                             "https://api.diveharder.com/raw/dss"
                         ) as r:
                             if r.status == 200:
-                                self.__data__[endpoint] = await r.json()
+                                data = await r.json()
+                                if not data["tacticalActions"][0]["name"]:
+                                    bot.logger.error(
+                                        f"API/DSS, Tactical Action has no name"
+                                    )
+                                    continue
+                                self.__data__[endpoint] = data
                             else:
                                 bot.logger.error(f"API/DSS, {r.status}")
                         continue
