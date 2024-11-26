@@ -517,7 +517,7 @@ class Dashboard:
 
         # DSS
         dss_embed.set_thumbnail(
-            url="https://cdn.discordapp.com/attachments/1213146233825271818/1308056319990825063/DSS.png?ex=673c8de1&is=673b3c61&hm=81d8d8667368988ec1b184189d3a6a9f20b3829be2029486a58bc2fcb62605ca&"
+            url="https://cdn.discordapp.com/attachments/1213146233825271818/1310906165823148043/DSS.png?ex=6746ec01&is=67459a81&hm=ab1c29616fd787f727848b04e44c26cc74e045b6e725c45b9dd8a902ec300757&"
         )
         dss_embed.description = f"Stationed at: {data.dss.planet.name.title()} {emojis_dict[data.dss.planet.current_owner]}"
         for tactical_action in data.dss.tactical_actions:
