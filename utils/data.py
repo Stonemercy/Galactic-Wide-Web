@@ -163,6 +163,10 @@ class Data:
                         planet.index
                         for planet in self.planets.values()
                         if planet.current_owner == factions[task.values[0]]
+                        or (
+                            planet.event
+                            and planet.event.faction == factions[task.values[0]]
+                        )
                     ]
                 elif task.type == 12:
                     if self.planet_events:
