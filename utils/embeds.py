@@ -17,6 +17,7 @@ from data.lists import (
     stratagem_permit_list,
     help_dict,
     faction_colours,
+    stratagem_id_dict,
 )
 
 
@@ -613,6 +614,7 @@ class Dashboard:
                         if task.values[3] != 0
                         else None
                     )
+                    weapon_to_use = stratagem_id_dict.get(task.values[5], None)
                     task.health_bar = health_bar(
                         task.progress,
                         (
@@ -626,6 +628,8 @@ class Dashboard:
                     target = (
                         loc_faction_dict[task.values[0]] if not species else species
                     )
+                    if weapon_to_use:
+                        target += f" using the __{weapon_to_use}__"
                     major_orders_embed.add_field(
                         f"{language['kill']} {short_format(task.values[2])} **{target}** {emojis_dict[en_faction_dict[task.values[0]]]}",
                         (
