@@ -89,7 +89,7 @@ class MapCog(commands.Cog):
 
     @wait_for_startup()
     @commands.slash_command(
-        description="Get an up-to-date map of the galaxy",
+        description="Get an up-to-date map of the galaxy", dm_permission=False
     )
     async def map(
         self,
