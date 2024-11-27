@@ -434,11 +434,7 @@ class Thumbnail:
 class Superstore:
     def __init__(self, superstore):
         self.expiration = superstore["expire_time"]
-        self.item1: dict = superstore["items"][0]
-        self.item2: dict = superstore["items"][1]
-        self.item3: dict = superstore["items"][2]
-        self.item4: dict = superstore["items"][3]
-        self.items: list[dict] = [self.item1, self.item2, self.item3, self.item4]
+        self.items: dict = superstore["items"]
 
     def __repr__(self):
         return f"Superstore(expiration={self.expiration}, item1={self.item1}, item2={self.item2}, item3={self.item3}, item4={self.item4})"
