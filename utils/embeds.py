@@ -1528,8 +1528,7 @@ class SetupEmbed(Embed):
 
         # extra
         self.add_field("", language_json["setup"]["message"], inline=False)
-        if guild_record.announcement_channel_id == 0:
-            self.add_field("", "-# \* to set this up, Announcements must be configured")
+        self.add_field("", "-# \* to set this up, Announcements must be configured")
 
 
 class FeedbackEmbed(Embed):
