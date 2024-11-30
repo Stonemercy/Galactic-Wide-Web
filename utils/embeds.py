@@ -1594,6 +1594,11 @@ class DSSEmbed(Embed):
             description=f"{language_json['dss']['stationed_at']}: **{dss_data.planet.name}** {emojis_dict[dss_data.planet.current_owner]}",
             colour=Colour.teal(),
         )
+        self.set_thumbnail(
+            "https://cdn.discordapp.com/attachments/1212735927223590974/1312446626975187065/DSS.png?ex=674c86ab&is=674b352b&hm=3184fde3e8eece703b0e996501de23c89dc085999ebff1a77009fbee2b09ccad&"
+        ).set_image(
+            "https://cdn.discordapp.com/attachments/1212735927223590974/1312448218398986331/dss.jpg?ex=674c8827&is=674b36a7&hm=def01cbdf1920b85617b1028a95ec982484c70a5cf9bed14b9072319fd018246&"
+        )
         for tactical_action in dss_data.tactical_actions:
             tactical_action: DSS.TacticalAction
             ta_health_bar = health_bar(tactical_action.cost.progress, "MO")
@@ -1604,11 +1609,11 @@ class DSSEmbed(Embed):
             )
             cost = (
                 (
-                    f"{language_json['dss']['cost']}: {tactical_action.cost.target:,} {emojis_dict[tactical_action.cost.item]} **{tactical_action.cost.item}s**\n"
-                    f"{language_json['dss']['progress']}: {tactical_action.cost.current:,.0f}\n"
+                    f"{language_json['dss']['cost']}: **{tactical_action.cost.target:,}** {emojis_dict[tactical_action.cost.item]} **{tactical_action.cost.item}s**\n"
+                    f"{language_json['dss']['progress']}: **{tactical_action.cost.current:,.0f}**\n"
                     f"{ta_health_bar}\n"
                     f"`{tactical_action.cost.progress:^25.2%}`\n"
-                    f"{language_json['dss']['max_submitable']}: {tactical_action.cost.max_per_seconds[0]} per {(tactical_action.cost.max_per_seconds[1]/3600):,.2} hours\n"
+                    f"{language_json['dss']['max_submitable']}: **{tactical_action.cost.max_per_seconds[0]}** every **{(tactical_action.cost.max_per_seconds[1]/3600):,.2f}** hours\n"
                 )
                 if tactical_action.status == 1
                 else ""
@@ -1622,7 +1627,7 @@ class DSSEmbed(Embed):
                     f"{language_json['dss']['description']}:\n-# {tactical_action.description}\n"
                     f"{language_json['dss']['strategic_description']}:\n-# {tactical_action.strategic_description}\n"
                     f"{cost}"
-                    f"{language_json['dss']['status']}: {status}\n"
+                    f"{language_json['dss']['status']}: **{status}**\n"
                     # f"Status Expiration: <t:{int((datetime.now() + timedelta(seconds=tactical_action.status_end)).timestamp())}:R>\n"
                     f"{spacer}"
                 ),
