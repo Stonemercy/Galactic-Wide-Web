@@ -88,10 +88,9 @@ class PlanetEmbed(Embed):
                 if planet_data.current_owner.lower() == "terminids"
                 else planet_data.current_owner.lower()
             )
-            faction_kills = f"{faction}Kills"
             self.add_field(
                 f"💀 {language[planet_data.current_owner.lower()]} {language['planet']['killed']}:",
-                f"**{short_format(planet_data.stats[faction_kills])}**",
+                f"**{short_format(planet_data.stats[f'{faction}Kills'])}**",
                 inline=False,
             ).set_author(
                 name=language["planet"]["liberation_progress"],
