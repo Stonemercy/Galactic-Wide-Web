@@ -75,6 +75,16 @@
             "event_health": "Planetenbefreiung",
             "extract_items": "Erfolgreich extrahiert mit"
         },
+        "dss_embed": {
+            "stationed_at": "Stationiert bei",
+            "cost": "Kosten",
+            "progress": "Fortschritt",
+            "max_submitable": "Max. einreichbar",
+            "preparing": "Vorbereitung",
+            "active": "Aktiv",
+            "on_cooldown": "Beim Abkühlen",
+            "status": "Status"
+        },
         "defend_embed": {
             "no_threats": "Es gibt derzeit keine Bedrohungen für unsere Freiheit",
             "for_now": "Vorerst...",
@@ -174,5 +184,21 @@
     "steam": {
         "head_here": "Bitte gehen Sie [hierher]",
         "to_see_full": "um die vollständigen Patchnotizen anzuzeigen, da sie für Discord zu lang sind."
+    },
+    "dss": {
+        "name": "Demokratische Weltraum Station",
+        "stationed_at": "Stationiert bei",
+        "cost": "Kosten",
+        "progress": "Fortschritt",
+        "max_submitable": "Max. einreichbar",
+        "preparing": "Vorbereitet",
+        "active": "Aktiv",
+        "on_cooldown": "Befindet Sich In der Abkühlphase",
+        "description": "Beschreibung",
+        "strategic_description": "Strategische Beschreibung",
+        "status": "Status",
+        "has_moved": "Die DSS Wurde Von",
+        "to": "II nach",
+        "is_now": "wird"
     }
 }

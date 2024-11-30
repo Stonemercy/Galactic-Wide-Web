@@ -75,6 +75,16 @@
             "event_health": "Planet Liberation",
             "extract_items": "Successfully extract with"
         },
+        "dss_embed": {
+            "stationed_at": "Stationed at",
+            "cost": "Cost",
+            "progress": "Progress",
+            "max_submitable": "Max submitable",
+            "preparing": "Preparing",
+            "active": "Active",
+            "on_cooldown": "On cooldown",
+            "status": "Status"
+        },
         "defend_embed": {
             "no_threats": "There are currently no threats to our Freedom",
             "for_now": "For now...",
@@ -174,5 +184,21 @@
     "steam": {
         "head_here": "Please head [here]",
         "to_see_full": "to see the full patch notes as they are too long for Discord."
+    },
+    "dss": {
+        "name": "Democracy Space Station",
+        "stationed_at": "Stationed at",
+        "cost": "Cost",
+        "progress": "Progress",
+        "max_submitable": "Max submitable",
+        "preparing": "Preparing",
+        "active": "Active",
+        "on_cooldown": "On cooldown",
+        "description": "Description",
+        "strategic_description": "Strategic description",
+        "status": "Status",
+        "has_moved": "The DSS has moved from",
+        "to": "to",
+        "is_now": "is now"
     }
 }

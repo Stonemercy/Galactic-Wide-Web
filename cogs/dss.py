@@ -34,7 +34,7 @@ class DSSCog(commands.Cog):
         if not guild_in_db:
             guild_in_db = GuildsDB.insert_new_guild(inter.guild.id)
         guild_language = self.bot.json_dict["languages"][guild_in_db.language]
-        embed = DSSEmbed(self.bot.data.dss)
+        embed = DSSEmbed(self.bot.data.dss, guild_language)
         components = [
             WikiButton(link=f"https://helldivers.wiki.gg/wiki/Democracy_Space_Station")
         ]

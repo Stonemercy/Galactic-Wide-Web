@@ -75,6 +75,16 @@
             "event_health": "Libération de la planète",
             "extract_items": "Extraire avec succès avec"
         },
+        "dss_embed": {
+            "stationed_at": "Stationné à",
+            "cost": "Coût",
+            "progress": "Fortschritt",
+            "max_submitable": "Max. une barre maximale",
+            "preparing": "En préparation",
+            "active": "Actif",
+            "on_cooldown": "En rechargement",
+            "status": "Statut"
+        },
         "defend_embed": {
             "no_threats": "Il n'y a actuellement aucune menace pour notre liberté",
             "for_now": "Pour l'instant...",
@@ -174,5 +184,21 @@
     "steam": {
         "head_here": "Veuillez vous rendre [ici]",
         "to_see_full": "pour voir les notes de patch complètes car elles sont trop longues pour Discord."
+    },
+    "dss": {
+        "name": "Station spatiale démocratique",
+        "stationed_at": "Stationnée à",
+        "cost": "Coût",
+        "progress": "Progression",
+        "max_submitable": "Nombre maximal de soumissions",
+        "preparing": "En préparation",
+        "active": "Actif",
+        "on_cooldown": "En cours de rechargement",
+        "description": "Description",
+        "strategic_description": "Description stratégique",
+        "status": "Statut",
+        "has_moved": "La DSS est passée de",
+        "to": "à",
+        "is_now": "est maintenant"
     }
 }

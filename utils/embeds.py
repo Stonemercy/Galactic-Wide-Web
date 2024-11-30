@@ -444,6 +444,9 @@ class CampaignEmbed(Embed):
         self.add_field(self.language["campaigns"]["victories"], "", inline=False)
         self.add_field(self.language["campaigns"]["planets_lost"], "", inline=False)
         self.add_field(self.language["campaigns"]["new_battles"], "", inline=False)
+        self.add_field(
+            self.language["dss"]["name"] + " " + emojis_dict["dss"], "", inline=False
+        )
 
     def add_new_campaign(self, campaign: Campaign, time_remaining):
         description = self.fields[2].value
@@ -484,6 +487,21 @@ class CampaignEmbed(Embed):
             if field.value == "":
                 self.remove_field(self.fields.index(field))
 
+    def dss_moved(self, before_planet: Planet, after_planet: Planet):
+        description = (
+            self.fields[3].value
+            + f"{self.language['dss']['has_moved']} **{before_planet.name}** {emojis_dict[before_planet.current_owner]} {self.language['dss']['to']} **{after_planet.name}** {emojis_dict[after_planet.current_owner]}\n"
+        )
+        self.set_field_at(3, self.fields[3].name, description, inline=False)
+
+    def ta_status_changed(self, tactical_action: DSS.TacticalAction):
+        statuses = {1: "preparing", 2: "active", 3: "on_cooldown"}
+        description = (
+            self.fields[3].value
+            + f"**{tactical_action.name}** {self.language['dss']['is_now']} **{self.language['dss'][statuses[tactical_action.status]]}**\n"
+        )
+        self.set_field_at(3, self.fields[3].name, description, inline=False)
+
 
 class Dashboard:
     def __init__(
@@ -500,7 +518,7 @@ class Dashboard:
             title=language["dashboard"]["major_order"]["major_order"],
             colour=Colour.yellow(),
         )
-        dss_embed = Embed(title="Democracy Space Station", colour=Colour.teal())
+        dss_embed = Embed(title=language["dss"]["name"], colour=Colour.teal())
         defend_embed = Embed(
             title=language["dashboard"]["defending"], colour=Colour.blue()
         )
@@ -519,29 +537,29 @@ class Dashboard:
         dss_embed.set_thumbnail(
             url="https://cdn.discordapp.com/attachments/1213146233825271818/1310906165823148043/DSS.png?ex=6746ec01&is=67459a81&hm=ab1c29616fd787f727848b04e44c26cc74e045b6e725c45b9dd8a902ec300757&"
         )
-        dss_embed.description = f"Stationed at: {data.dss.planet.name.title()} {emojis_dict[data.dss.planet.current_owner]}"
+        dss_embed.description = f"{language['dashboard']['dss_embed']['stationed_at']}: {data.dss.planet.name} {emojis_dict[data.dss.planet.current_owner]}"
         for tactical_action in data.dss.tactical_actions:
             tactical_action: DSS.TacticalAction
             ta_health_bar = health_bar(tactical_action.cost.progress, "MO")
             cost = (
                 (
-                    f"Cost: {tactical_action.cost.target:,} {emojis_dict[tactical_action.cost.item]} **{tactical_action.cost.item}s**\n"
-                    f"Progress: {tactical_action.cost.current:,.0f}\n"
+                    f"{language['dashboard']['dss_embed']['cost']}: {tactical_action.cost.target:,} {emojis_dict[tactical_action.cost.item]} **{tactical_action.cost.item}s**\n"
+                    f"{language['dashboard']['dss_embed']['progress']}: **{tactical_action.cost.current:,.0f}**\n"
                     f"{ta_health_bar}\n"
                     f"`{tactical_action.cost.progress:^25.2%}`\n"
-                    f"Max submitable: {tactical_action.cost.max_per_seconds[0]} per {tactical_action.cost.max_per_seconds[1] /3600} hours\n"
+                    f"{language['dashboard']['dss_embed']['max_submitable']}: **{tactical_action.cost.max_per_seconds[0]:,}** every **{tactical_action.cost.max_per_seconds[1] /3600:.0f}** hours\n"
                 )
                 if tactical_action.status == 1
                 else ""
             )
-            status = {1: "Preparing", 2: "**__Active__**", 3: "On Cooldown"}[
-                tactical_action.status
+            status = language["dashboard"]["dss_embed"][
+                {1: "preparing", 2: "active", 3: "on_cooldown"}[tactical_action.status]
             ]
             dss_embed.add_field(
                 tactical_action.name.title(),
                 (
                     f"{cost}"
-                    f"Status: {status}\n"
+                    f"{language['dashboard']['dss_embed']['status']}: **{status}**\n"
                     # f"Status Expiration: <t:{int((datetime.now() + timedelta(seconds=tactical_action.status_end)).timestamp())}:R>\n"
                 ),
                 inline=False,
@@ -1568,10 +1586,10 @@ class CommandUsageEmbed(Embed):
 
 
 class DSSEmbed(Embed):
-    def __init__(self, dss_data: DSS):
+    def __init__(self, dss_data: DSS, language_json: dict):
         super().__init__(
-            title="Democracy Space Station",
-            description=f"Stationed at: **{dss_data.planet.name}** {emojis_dict[dss_data.planet.current_owner]}",
+            title=language_json["dss"]["name"],
+            description=f"{language_json['dss']['stationed_at']}: **{dss_data.planet.name}** {emojis_dict[dss_data.planet.current_owner]}",
             colour=Colour.teal(),
         )
         for tactical_action in dss_data.tactical_actions:

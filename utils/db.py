@@ -957,3 +957,98 @@ class FeedbackDB:
                     "Update feedback set good_feedback = False where user_id = %s",
                     (user_id,),
                 )
+
+
+class DSSRecord:
+    """A class that contains the info of the DSS
+
+    Parameters
+    ----------
+        db_entry (tuple[int, int, int, int]):
+            A record from the DB
+
+    Attributes
+    ----------
+        planet_index: :class:`int`
+            The index of the planet the DSS is orbiting
+        ta1_status: :class:`int`
+            The status of Tactical Action 1
+        ta2_status: :class:`int`
+            The status of Tactical Action 2
+        ta3_status: :class:`int`
+            The status of Tactical Action 3"""
+
+    def __init__(self, db_entry: tuple[int]):
+        self.planet_index: int = db_entry[0]
+        self.ta1_status: int = db_entry[1]
+        self.ta2_status: int = db_entry[2]
+        self.ta3_status: int = db_entry[3]
+
+
+class DSSDB:
+    """A class that contains methods to manipulate DSS DB data."""
+
+    def setup() -> DSSRecord:
+        """Setup the DSS DB
+
+        Returns
+        ----------
+            :class:`DSSRecord`
+        """
+        with connect(
+            host=hostname, dbname=database, user=username, password=pwd, port=port_id
+        ) as conn:
+            with conn.cursor() as curs:
+                curs.execute(
+                    "Insert into dss (planet_index, ta1_status, ta2_status, ta3_status) VALUES (%s, %s, %s, %s)",
+                    (0, 1, 1, 1),
+                )
+                conn.commit()
+                result = DSSDB.get_record()
+                return result
+
+    def get_record() -> DSSRecord:
+        """Gets the latest record from the DSS DB
+
+        Returns
+        ----------
+            :class:`DSSRecord`
+        """
+        with connect(
+            host=hostname, dbname=database, user=username, password=pwd, port=port_id
+        ) as conn:
+            with conn.cursor() as curs:
+                curs.execute("SELECT * FROM dss")
+                record = curs.fetchone()
+                return DSSRecord(record) if record else None
+
+    def set_new_planet_index(index: int) -> None:
+        """Sets the planet index for the DSS DB
+
+        Returns
+        ----------
+            `None`
+        """
+        with connect(
+            host=hostname, dbname=database, user=username, password=pwd, port=port_id
+        ) as conn:
+            with conn.cursor() as curs:
+                curs.execute(
+                    "Update dss set planet_index = %s",
+                    (index,),
+                )
+
+    def set_ta_status(tactical_action_index: int, status: int) -> None:
+        """Sets the ta_status for the DSS DB
+
+        Returns
+        ----------
+            `None`
+        """
+        with connect(
+            host=hostname, dbname=database, user=username, password=pwd, port=port_id
+        ) as conn:
+            with conn.cursor() as curs:
+                curs.execute(
+                    f"Update dss set ta{tactical_action_index}_status = {status}"
+                )
