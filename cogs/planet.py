@@ -27,6 +27,11 @@ class PlanetCog(commands.Cog):
         planet: str = commands.Param(
             autocomplete=planet_autocomp, description="The planet you want to lookup"
         ),
+        with_map: str = commands.Param(
+            choices=["Yes", "No"],
+            default="No",
+            description="Do you want a map showing where this planet is?",
+        ),
         public: str = commands.Param(
             choices=["Yes", "No"],
             default="No",
@@ -36,8 +41,9 @@ class PlanetCog(commands.Cog):
         ephemeral = public != "Yes"
         await inter.response.defer(ephemeral=ephemeral)
         self.bot.logger.info(
-            f"{self.qualified_name} | /{inter.application_command.name} <{planet = }> <{public = }>"
+            f"{self.qualified_name} | /{inter.application_command.name} <{planet = }> <{with_map = }> <{public = }>"
         )
+        with_map = with_map == "Yes"
         if planet not in [
             planet["name"] for planet in self.bot.json_dict["planets"].values()
         ]:
@@ -63,19 +69,19 @@ class PlanetCog(commands.Cog):
             planet_data=planet_data,
             language=self.bot.json_dict["languages"][guild.language],
         )
+        embeds = [embed]
         if not embed.image_set:
             await self.bot.moderator_channel.send(
                 f"Image missing for biome of **planet __{planet}__** <@{self.bot.owner_id}> :warning:"
             )
-        map_embed = planet_map(self.bot.data, planet_data.index, guild.language)
+        if with_map:
+            embeds.append(planet_map(self.bot.data, planet_data.index, guild.language))
         components = [
             WikiButton(
                 link=f"https://helldivers.wiki.gg/wiki/{planet.replace(' ', '_')}"
             )
         ]
-        await inter.send(
-            embeds=[embed, map_embed], ephemeral=ephemeral, components=components
-        )
+        await inter.send(embeds=embeds, ephemeral=ephemeral, components=components)
 
 
 def setup(bot: GalacticWideWebBot):
