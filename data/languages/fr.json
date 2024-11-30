@@ -34,13 +34,13 @@
         "killed": "Tué"
     },
     "major_order": {
-        "title": "MISE À JOUR DES ORDRES MAJEURS",
-        "no_order": "Il n'y a pas d'ordres majeurs",
+        "title": "MISE À JOUR DES ORDRES Prioritaire",
+        "no_order": "Il n'y a pas d'ordres Prioritaire",
         "succeed_in_defense": "Réussir à défendre au moins",
         "liberate_more_than_them": "Libérer plus de planètes que vous n'en avez perdues pour l'ennemi",
         "planets": "Planètes",
         "progress": "Progression actuelle",
-        "new_title": "Nouveau format d'ordre majeur fourni",
+        "new_title": "Nouveau format d'ordre prioritaire fourni",
         "new_value": "Calibrage de la sortie..."
     },
     "campaigns": {
@@ -57,11 +57,11 @@
     "dashboard": {
         "planets": "Planètes du",
         "defending": "Défense",
-        "attacking_automatons": "Attaquer Automaton",
-        "attacking_terminids": "Attaquer Terminides",
-        "attacking_illuminate": "Attaquer Illuminate",
+        "attacking_automatons": "Attaque Automaton",
+        "attacking_terminids": "Attaque Terminides",
+        "attacking_illuminate": "Attaque Illuminate",
         "major_order": {
-            "major_order": "Ordre majeur",
+            "major_order": "Ordre Prioritaire",
             "liberated": "LIBÉRÉ",
             "occupied_by": "Occupé par",
             "none": "Préparez-vous à d'autres ordres du Haut Commandement de la Super Terre",
@@ -70,7 +70,7 @@
             "hold": "Contrôlez",
             "when_the_order_expires": "à la fin de l'ordre",
             "progress": "Progrès",
-            "new_title": "Nouveau format d'ordre majeur fourni",
+            "new_title": "Nouveau format d'ordre prioritaire fourni",
             "new_value": "Calibrage de la sortie...",
             "event_health": "Libération de la planète",
             "extract_items": "Extraire avec succès avec"
@@ -160,7 +160,7 @@
             "name": "Notes de patch"
         },
         "mo_updates": {
-            "name": "Mises à jour des commandes majeures"
+            "name": "Mises à jour des commandes prioritaire"
         },
         "message": "-# Si vous voyez `Non défini` là où un canal/message devrait être, vérifiez les autorisations du bot !",
         "unset_dashboard": "J'ai désactivé votre tableau de bord. Vous êtes libre de supprimer tous les anciens tableaux de bord de ce serveur.",
