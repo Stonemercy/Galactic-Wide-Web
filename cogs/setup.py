@@ -2,7 +2,6 @@ from disnake import (
     AppCmdInter,
     ButtonStyle,
     File,
-    Forbidden,
     MessageInteraction,
     Permissions,
 )
