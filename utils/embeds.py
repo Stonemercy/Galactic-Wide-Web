@@ -606,8 +606,9 @@ class Dashboard:
                     feature_text = (
                         "" if not planet.feature else f"Feature: {planet.feature}\n"
                     )
+                    dss_text = ""
                     if planet.dss:
-                        feature_text += emojis_dict["dss"]
+                        dss_text = emojis_dict["dss"]
                     if task.type == 11:
                         obj_text = f"{language['dashboard']['major_order']['liberate']} {planet_names[str(planet.index)]['names'][language['code_long']]}"
                     else:
@@ -616,7 +617,7 @@ class Dashboard:
                         obj_text,
                         (
                             f"{language['heroes']}: **{planet.stats['playerCount']:,}**\n"
-                            f"{language['dashboard']['major_order']['occupied_by']}: **{planet.current_owner}** {emojis_dict[planet.current_owner]}\n"
+                            f"{language['dashboard']['major_order']['occupied_by']}: **{planet.current_owner}** {emojis_dict[planet.current_owner]} {dss_text}\n"
                             f"{feature_text}"
                             f"{language['dashboard']['major_order']['event_health']}:\n"
                             f"{task.health_bar} {completed}\n"
