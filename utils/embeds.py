@@ -1514,13 +1514,13 @@ class SetupEmbed(Embed):
 
         # patch notes
         self.add_field(
-            language_json["setup"]["patch_notes"]["name"],
+            f"{language_json['setup']['patch_notes']['name']}*",
             {True: ":white_check_mark:", False: ":x:"}[guild_record.patch_notes],
         )
 
         # mo updates
         self.add_field(
-            language_json["setup"]["mo_updates"]["name"],
+            f"{language_json['setup']['mo_updates']['name']}*",
             {True: ":white_check_mark:", False: ":x:"}[
                 guild_record.major_order_updates
             ],
@@ -1528,6 +1528,8 @@ class SetupEmbed(Embed):
 
         # extra
         self.add_field("", language_json["setup"]["message"], inline=False)
+        if guild_record.announcement_channel_id == 0:
+            self.add_field("", "-# \* to set this up, Announcements must be configured")
 
 
 class FeedbackEmbed(Embed):
