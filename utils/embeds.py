@@ -1604,25 +1604,25 @@ class DSSEmbed(Embed):
             )
             cost = (
                 (
-                    f"Cost: {tactical_action.cost.target:,} {emojis_dict[tactical_action.cost.item]} **{tactical_action.cost.item}s**\n"
-                    f"Progress: {tactical_action.cost.current:,.0f}\n"
+                    f"{language_json['dss']['cost']}: {tactical_action.cost.target:,} {emojis_dict[tactical_action.cost.item]} **{tactical_action.cost.item}s**\n"
+                    f"{language_json['dss']['progress']}: {tactical_action.cost.current:,.0f}\n"
                     f"{ta_health_bar}\n"
                     f"`{tactical_action.cost.progress:^25.2%}`\n"
-                    f"Max submitable: {tactical_action.cost.max_per_seconds[0]} per {tactical_action.cost.max_per_seconds[1] /3600} hours\n"
+                    f"{language_json['dss']['max_submitable']}: {tactical_action.cost.max_per_seconds[0]} per {(tactical_action.cost.max_per_seconds[1]/3600):,.2} hours\n"
                 )
                 if tactical_action.status == 1
                 else ""
             )
-            status = {1: "Preparing", 2: "**__Active__**", 3: "On Cooldown"}[
-                tactical_action.status
+            status = language_json["dss"][
+                {1: "preparing", 2: "active", 3: "on_cooldown"}[tactical_action.status]
             ]
             self.add_field(
                 tactical_action.name.title(),
                 (
-                    f"Description:\n-# {tactical_action.description}\n"
-                    f"Strategic Description:\n-# {tactical_action.strategic_description}\n"
+                    f"{language_json['dss']['description']}:\n-# {tactical_action.description}\n"
+                    f"{language_json['dss']['strategic_description']}:\n-# {tactical_action.strategic_description}\n"
                     f"{cost}"
-                    f"Status: {status}\n"
+                    f"{language_json['dss']['status']}: {status}\n"
                     # f"Status Expiration: <t:{int((datetime.now() + timedelta(seconds=tactical_action.status_end)).timestamp())}:R>\n"
                     f"{spacer}"
                 ),
