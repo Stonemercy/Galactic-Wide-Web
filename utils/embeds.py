@@ -536,7 +536,7 @@ class Dashboard:
         dss_embed.set_thumbnail(
             url="https://cdn.discordapp.com/attachments/1213146233825271818/1310906165823148043/DSS.png?ex=6746ec01&is=67459a81&hm=ab1c29616fd787f727848b04e44c26cc74e045b6e725c45b9dd8a902ec300757&"
         )
-        dss_embed.description = f"{language['dashboard']['dss_embed']['stationed_at']}: {data.dss.planet.name} {emojis_dict[data.dss.planet.current_owner]}"
+        dss_embed.description = f"{language['dashboard']['dss_embed']['stationed_at']}: **{data.dss.planet.name}** {emojis_dict[data.dss.planet.current_owner]}"
         for tactical_action in data.dss.tactical_actions:
             tactical_action: DSS.TacticalAction
             ta_health_bar = health_bar(tactical_action.cost.progress, "MO")
