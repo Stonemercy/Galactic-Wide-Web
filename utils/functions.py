@@ -156,7 +156,7 @@ def draw_task_on_map(background_draw, task, planets_coords, faction_colours, dat
         draw_ellipse(
             background_draw, planets_coords[task.values[8]], faction_colours["MO"]
         )
-    elif task.type == 3:
+    elif task.type == 3 and task.progress != 1:
         for campaign in data.campaigns:
             if campaign.faction == faction_mapping[task.values[0]]:
                 draw_ellipse(
