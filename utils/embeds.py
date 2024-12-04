@@ -1552,7 +1552,7 @@ class SuperstoreEmbed(Embed):
         warning = " :warning:" if expiration < now + timedelta(days=1) else ""
         self.description = f"Rotates <t:{int(expiration.timestamp())}:R>{warning}"
         for item in superstore.items:
-            if item["name"] == "Unmapped":
+            if "unmapped" in item["name"].lower():
                 self.add_field("Item is new", "Try again later")
                 continue
             passives = ""
