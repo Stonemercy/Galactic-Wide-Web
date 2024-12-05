@@ -82,7 +82,7 @@ class Data:
                         ) as r:
                             if r.status == 200:
                                 data = await r.json()
-                                name_there = data["tacticalActions"][0].get(
+                                name_there = data[0]["tacticalActions"][0].get(
                                     "name", None
                                 )
                                 if not name_there:
@@ -90,7 +90,7 @@ class Data:
                                         f"API/DSS, Tactical Action has no name"
                                     )
                                     continue
-                                self.__data__[endpoint] = data
+                                self.__data__[endpoint] = data[0]
                             else:
                                 bot.logger.error(f"API/DSS, {r.status}")
                         continue
