@@ -111,6 +111,8 @@ async def dashboard_maps(
                 draw_task_on_map(
                     background_draw, task, planets_coords, faction_colours, data
                 )
+        if data.dss:
+            draw_dss_ring_on_map(background_draw, planets_coords, faction_colours, data)
         for index, coords in planets_coords.items():
             draw_planet_on_map(
                 background_draw,
@@ -123,11 +125,25 @@ async def dashboard_maps(
         for index, coords in planets_coords.items():
             if index in available_planets:
                 draw_planet_names(
-                    background_draw, coords, planets_json, index, language_code
+                    background_draw,
+                    coords,
+                    planets_json,
+                    index,
+                    language_code,
+                    data.planets[index],
                 )
-        map_image_path = f"resources/map_{language_code}.webp"
-        background.save(map_image_path)
-    message_for_url = await channel.send(file=File(map_image_path))
+        if data.dss:
+            dss_icon = Image.open("resources/DSS.png")
+            dss_icon = dss_icon.convert("RGBA")
+            dss_coords = (
+                int(planets_coords[data.dss.planet.index][0]) - 22,
+                int(planets_coords[data.dss.planet.index][1]) - 180,
+            )
+            dss_icon = background.paste(dss_icon, dss_coords, dss_icon)
+        background.save(f"resources/map_{language_code}.webp")
+    message_for_url = await channel.send(
+        file=File(f"resources/map_{language_code}.webp")
+    )
     embed.set_image(url=message_for_url.attachments[0].url)
     return embed
 
@@ -166,6 +182,15 @@ def draw_task_on_map(background_draw, task, planets_coords, faction_colours, dat
                 )
 
 
+def draw_dss_ring_on_map(background_draw, planets_coords, faction_colours, data):
+    draw_ellipse(
+        background_draw,
+        planets_coords[data.dss.planet.index],
+        faction_colours["DSS"],
+        42,
+    )
+
+
 def draw_planet_on_map(
     background_draw, index, coords, available_planets, data, faction_colours
 ):
@@ -194,19 +219,19 @@ def draw_ellipse(draw, coords, fill_color, radius=50):
     )
 
 
-def draw_planet_names(draw, coords, planet_names_loc, index, lang):
+def draw_planet_names(draw, coords, planet_names_loc, index, lang, planet):
     font = truetype("gww-font.ttf", 50)
     name_text = planet_names_loc[str(index)]["names"][
         supported_languages[lang]
     ].replace(" ", "\n")
-
+    border_colour = "black" if not planet.dss else "deepskyblue"
     draw.multiline_text(
         xy=coords,
         text=name_text,
         anchor="md",
         font=font,
         stroke_width=3,
-        stroke_fill="black",
+        stroke_fill=border_colour,
         align="center",
         spacing=-15,
     )

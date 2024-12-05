@@ -139,6 +139,7 @@ faction_colours = {
     "Humans": (36, 205, 76),
     "humans": (18, 102, 38),
     "MO": (254, 226, 76),
+    "DSS": (105, 181, 209),
 }
 
 emojis_dict = {
