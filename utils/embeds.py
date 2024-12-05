@@ -198,15 +198,26 @@ class BotDashboardEmbed(Embed):
             ),
             inline=True,
         )
+        cogs = {
+            "This Dashboard": ("GuildManagementCog", "bot_dashboard"),
+            "All Dashboards": ("DashboardCog", "dashboard"),
+            "All Maps": ("MapCog", "map_poster"),
+            "Update data": ("DataManagementCog", "pull_from_api"),
+            "Major Order Update": ("AnnouncementsCog", "major_order_updates"),
+        }
+        update_times = {}
+        for label, (cog_name, attribute_name) in cogs.items():
+            next_iteration = getattr(
+                bot.get_cog(cog_name), attribute_name
+            ).next_iteration
+            update_times[label] = (
+                f"<t:{int(next_iteration.timestamp())}:R>"
+                if next_iteration
+                else "**__ERROR__**:warning:"
+            )
         self.add_field(
             "Update Timers",
-            (
-                f"This Dashboard: <t:{int(bot.get_cog('GuildManagementCog').bot_dashboard.next_iteration.timestamp())}:R>\n"
-                f"All Dashboards: <t:{int(bot.get_cog('DashboardCog').dashboard.next_iteration.timestamp())}:R>\n"
-                f"All Maps: <t:{int(bot.get_cog('MapCog').map_poster.next_iteration.timestamp())}:R>\n"
-                f"Update data: <t:{int(bot.get_cog('DataManagementCog').pull_from_api.next_iteration.timestamp())}:R>\n"
-                f"Major Order Update: <t:{int(bot.get_cog('AnnouncementsCog').major_order_updates.next_iteration.timestamp())}:R>\n"
-            ),
+            "\n".join(f"{label}: {time}" for label, time in update_times.items()),
         )
         self.add_field("", "", inline=False)
         stats_dict = {
