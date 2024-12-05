@@ -118,7 +118,6 @@ class Data:
                         await bot.moderator_channel.send(f"API/{endpoint.upper()}\n{r}")
                     if api_to_use == backup_api:
                         await sleep(2)
-
         if not self.loaded:
             now = datetime.now()
             bot.logger.info(
