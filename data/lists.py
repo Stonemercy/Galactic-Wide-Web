@@ -289,6 +289,10 @@ help_dict = {
         "long_description": "Returns the current Superstore rotation",
         "example_usage": "**`/superstore public: Yes`**",
     },
+    "dss": {
+        "long_description": "Returns extended information on the Democracy Space Station",
+        "example_usage": "**`/dss public: Yes`**",
+    },
 }
 
 emotes_list = [
