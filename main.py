@@ -1,9 +1,8 @@
 from dotenv import load_dotenv
 from os import getenv
-from utils.bot import GalacticWideWebBot
-
 
 load_dotenv("data/.env")
+from utils.bot import GalacticWideWebBot
 
 bot = GalacticWideWebBot()
 bot.load_extensions("cogs/admin")
