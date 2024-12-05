@@ -1435,15 +1435,6 @@ class EnemyEmbed(Embed):
             self.error = e
 
 
-class ReactRoleDashboard(Embed):
-    def __init__(self):
-        super().__init__(title="Roles", colour=Colour.dark_theme())
-        self.add_field(
-            "Select the buttons below to be given specific roles.",
-            "These buttons only give roles in this server.",
-        )
-
-
 class AnnouncementEmbed(Embed):
     def __init__(self):
         super().__init__(

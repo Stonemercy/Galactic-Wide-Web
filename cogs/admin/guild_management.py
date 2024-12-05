@@ -8,28 +8,25 @@ from disnake import (
     Embed,
     Guild,
     MessageInteraction,
-    NotFound,
 )
 from disnake.ext import commands, tasks
 from disnake.ui import Button
 from main import GalacticWideWebBot
 from utils.interactables import AppDirectoryButton, GitHubButton, KoFiButton
 from utils.db import BotDashboardRecord, GuildRecord, GuildsDB, BotDashboardDB
-from utils.embeds import BotDashboardEmbed, ReactRoleDashboard
+from utils.embeds import BotDashboardEmbed
 
 
 class GuildManagementCog(commands.Cog):
     def __init__(self, bot: GalacticWideWebBot):
         self.bot = bot
         self.bot_dashboard.start()
-        self.react_role_dashboard.start()
         self.dashboard_checking.start()
         self.guild_checking.start()
         self.guilds_to_remove = []
 
     def cog_unload(self):
         self.bot_dashboard.stop()
-        self.react_role_dashboard.stop()
         self.dashboard_checking.stop()
         self.guild_checking.stop()
 
@@ -116,57 +113,6 @@ class GuildManagementCog(commands.Cog):
     @bot_dashboard.before_loop
     async def before_bot_dashboard(self):
         await self.bot.wait_until_ready()
-
-    @tasks.loop(count=1)
-    async def react_role_dashboard(self):
-        dashboard = BotDashboardDB.get_info()
-        components = [
-            Button(label="Subscribe to Bot Updates", custom_id="BotUpdatesButton")
-        ]
-        channel = self.bot.get_channel(
-            dashboard.channel_id
-        ) or await self.bot.fetch_channel(dashboard.channel_id)
-        if not channel:
-            return self.bot.logger.error(
-                f"{self.qualified_name} | react_role_dashboard | {channel = }"
-            )
-        embed = ReactRoleDashboard()
-        if not dashboard.react_role_message_id:
-            message = await channel.send(embed=embed, components=components)
-            BotDashboardDB.set_react_role(message.id)
-        else:
-            message = channel.get_partial_message(dashboard.react_role_message_id)
-            try:
-                await message.edit(embed=embed, components=components)
-            except NotFound:
-                message = await channel.send(embed=embed, components=components)
-                BotDashboardDB.set_react_role(message.id)
-            except Exception as e:
-                await self.bot.moderator_channel.send(f"Bot Dashboard\n```py\n{e}\n```")
-                pass
-
-    @react_role_dashboard.before_loop
-    async def before_react_role(self):
-        await self.bot.wait_until_ready()
-
-    @commands.Cog.listener("on_button_click")
-    async def react_role(self, inter: MessageInteraction):
-        if inter.component.custom_id == "BotUpdatesButton":
-            role = inter.guild.get_role(1228077919952437268)
-            if role in inter.author.roles:
-                await inter.author.remove_roles(role)
-                return await inter.send(
-                    "Removed the Bot Update role from you",
-                    ephemeral=True,
-                    delete_after=10,
-                )
-            else:
-                await inter.author.add_roles(role)
-                return await inter.send(
-                    "Gave you the Bot Update role",
-                    ephemeral=True,
-                    delete_after=10,
-                )
 
     @tasks.loop(
         time=[

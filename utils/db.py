@@ -398,14 +398,11 @@ class BotDashboardRecord:
             The ID of the bot dashboard channel, if set up. Defaults to `0`
         message_id: :class:`int`
             The ID of the bot dashboard message, if set up. Defaults to `0`
-        react_role_message_id: :class:`int`
-            The ID of the react-role message, if set up. Defaults to `0`
     """
 
     def __init__(self, db_entry: tuple[int, int, int]) -> None:
         self.channel_id: int = db_entry[0]
         self.message_id: int = db_entry[1]
-        self.react_role_message_id: int = db_entry[2]
 
 
 class BotDashboardDB:
@@ -443,26 +440,6 @@ class BotDashboardDB:
             with conn.cursor() as curs:
                 curs.execute(
                     "Update bot_dashboard set message_id = %s",
-                    (message_id,),
-                )
-
-    def set_react_role(message_id: int) -> None:
-        """Update the react-role message ID
-
-        Parameters
-        ----------
-            message_id (int): The ID of the react-role message
-
-        Returns
-        ----------
-            `None`
-        """
-        with connect(
-            host=hostname, dbname=database, user=username, password=pwd, port=port_id
-        ) as conn:
-            with conn.cursor() as curs:
-                curs.execute(
-                    "Update bot_dashboard set react_role_message_id = %s",
                     (message_id,),
                 )
 
