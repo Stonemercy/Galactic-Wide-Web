@@ -11,6 +11,7 @@ class DataManagementCog(commands.Cog):
         self.pull_from_api.start()
 
     def cog_unload(self):
+        self.channel_message_gen.stop()
         self.pull_from_api.stop()
 
     @tasks.loop(count=1)
