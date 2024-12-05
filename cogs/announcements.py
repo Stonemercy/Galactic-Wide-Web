@@ -88,9 +88,8 @@ class AnnouncementsCog(commands.Cog):
             or announcement_start < self.bot.ready_time
             or not self.bot.data.loaded
             or not self.bot.c_n_m_loaded
+            or not self.bot.data.assignment
         ):
-            return
-        if not self.bot.data.assignment:
             return
         self._newest_id = self.bot.data.assignment.id
         last_MO = MajorOrderDB.get_last()
@@ -179,7 +178,6 @@ class AnnouncementsCog(commands.Cog):
             or not self.bot.c_n_m_loaded
         ):
             return
-
         self._newest_id = int(self.bot.data.steam[0].id)
         last_patch_notes = SteamDB.get_last()
         if not last_patch_notes:

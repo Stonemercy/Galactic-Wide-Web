@@ -326,7 +326,7 @@ class Tasks(list):
 class Campaign:
     def __init__(self, campaign, planets):
         self.id: int = campaign["id"]
-        self.planet = planets[campaign["planet"]["index"]]
+        self.planet: Planet = planets[campaign["planet"]["index"]]
         self.type: int = campaign["type"]
         self.count: int = campaign["count"]
         self.progress: float = (
