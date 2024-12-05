@@ -977,6 +977,8 @@ class Dashboard:
                     and campaign.planet.index in data.assignment_planets
                     else ""
                 )
+                if campaign.planet.dss:
+                    exclamation += emojis_dict["dss"]
                 values[
                     "string"
                 ] += f"-# {planet_names[str(campaign.planet.index)]['names'][language['code_long']]} - {emojis_dict[campaign.planet.current_owner]} - {campaign.planet.stats['playerCount']} {exclamation}\n"
