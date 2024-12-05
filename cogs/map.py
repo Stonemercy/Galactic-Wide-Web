@@ -118,21 +118,20 @@ class MapCog(commands.Cog):
             campaign.planet.name for campaign in self.bot.data.campaigns
         ]
         for planet in self.bot.data.planets.values():
-            if faction:
-                if planet.current_owner != faction:
-                    continue
-                for waypoint in planet.waypoints:
-                    planets_coords[waypoint] = (
-                        (self.bot.data.planets[waypoint].position["x"] * 2000) + 2000,
+            if faction and planet.current_owner != faction:
+                continue
+            for waypoint in planet.waypoints:
+                planets_coords[waypoint] = (
+                    (self.bot.data.planets[waypoint].position["x"] * 2000) + 2000,
+                    (
                         (
-                            (
-                                self.bot.data.planets[waypoint].position["y"]
-                                - (self.bot.data.planets[waypoint].position["y"] * 2)
-                            )
-                            * 2000
+                            self.bot.data.planets[waypoint].position["y"]
+                            - (self.bot.data.planets[waypoint].position["y"] * 2)
                         )
-                        + 2000,
+                        * 2000
                     )
+                    + 2000,
+                )
             planets_coords[planet.index] = (
                 (planet.position["x"] * 2000) + 2000,
                 ((planet.position["y"] - (planet.position["y"] * 2)) * 2000) + 2000,
@@ -177,6 +176,28 @@ class MapCog(commands.Cog):
                             )
                         except:
                             pass
+            if self.bot.data.dss:
+                if self.bot.data.dss.planet.index in planets_coords:
+                    background_draw.ellipse(
+                        [
+                            (
+                                planets_coords[self.bot.data.dss.planet.index][0] - 42,
+                                planets_coords[self.bot.data.dss.planet.index][1] - 42,
+                            ),
+                            (
+                                planets_coords[self.bot.data.dss.planet.index][0] + 42,
+                                planets_coords[self.bot.data.dss.planet.index][1] + 42,
+                            ),
+                        ],
+                        faction_colours["DSS"],
+                    )
+                    dss_icon = Image.open("resources/DSS.png")
+                    dss_icon = dss_icon.convert("RGBA")
+                    dss_coords = (
+                        int(planets_coords[self.bot.data.dss.planet.index][0]) - 22,
+                        int(planets_coords[self.bot.data.dss.planet.index][1]) - 180,
+                    )
+                    dss_icon = background.paste(dss_icon, dss_coords, dss_icon)
             for index, coords in planets_coords.items():
                 if index == 64:
                     background_draw.ellipse(
@@ -202,6 +223,11 @@ class MapCog(commands.Cog):
                     )
                 if faction and self.bot.data.planets[index].name in available_planets:
                     font = truetype("gww-font.ttf", 50)
+                    border_colour = (
+                        "black"
+                        if not self.bot.data.planets[index].dss
+                        else "deepskyblue"
+                    )
                     background_draw.multiline_text(
                         xy=coords,
                         text=self.bot.json_dict["planets"][str(index)]["names"][
@@ -210,7 +236,7 @@ class MapCog(commands.Cog):
                         anchor="md",
                         font=font,
                         stroke_width=3,
-                        stroke_fill="black",
+                        stroke_fill=border_colour,
                         align="center",
                         spacing=-15,
                     )
