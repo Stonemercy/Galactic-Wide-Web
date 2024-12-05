@@ -2,7 +2,6 @@ from datetime import datetime
 from re import sub
 from PIL import Image
 from disnake import Colour, Embed, File, TextChannel
-from utils.db import GuildsDB
 from PIL.ImageDraw import Draw
 from PIL.ImageFont import truetype
 from data.lists import supported_languages, faction_colours
