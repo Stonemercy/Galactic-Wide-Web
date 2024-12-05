@@ -45,7 +45,9 @@ class WeaponsCog(commands.Cog):
         return [grenade for grenade in grenades if user_input in grenade.lower()][:25]
 
     @wait_for_startup()
-    @commands.slash_command(description="Returns information on a specific weapon.")
+    @commands.slash_command(
+        description="Returns information on a specific weapon.", dm_permission=False
+    )
     async def weapons(
         self,
         inter: AppCmdInter,

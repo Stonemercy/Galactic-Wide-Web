@@ -12,7 +12,7 @@ class SuperstoreCog(commands.Cog):
 
     @wait_for_startup()
     @commands.slash_command(
-        description="Get the current Superstore rotation",
+        description="Get the current Superstore rotation", dm_permission=False
     )
     async def superstore(
         self,

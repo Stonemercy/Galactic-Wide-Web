@@ -41,6 +41,7 @@ class TerminidsCog(commands.Cog):
     @wait_for_startup()
     @commands.slash_command(
         description="Returns information on a Terminid or variation.",
+        dm_permission=False,
     )
     async def terminid(
         self,

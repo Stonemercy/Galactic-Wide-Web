@@ -12,9 +12,7 @@ class SteamCog(commands.Cog):
         self.bot = bot
 
     @wait_for_startup()
-    @commands.slash_command(
-        description="Get previous Steam posts",
-    )
+    @commands.slash_command(description="Get previous Steam posts", dm_permission=False)
     async def steam(
         self,
         inter: AppCmdInter,

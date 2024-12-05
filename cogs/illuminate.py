@@ -41,6 +41,7 @@ class IlluminateCog(commands.Cog):
     @wait_for_startup()
     @commands.slash_command(
         description="Returns information on an Illuminate or variation.",
+        dm_permission=False,
     )
     async def illuminate(
         self,

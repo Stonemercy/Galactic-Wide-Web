@@ -34,7 +34,16 @@ class HelpCog(commands.Cog):
             f"{self.qualified_name}, /{inter.application_command.name} <{command = }>"
         )
         help_embed = HelpEmbed(
-            commands=self.bot.global_application_commands, command_name=command
+            commands=(
+                self.bot.global_application_commands
+                if inter.guild
+                else [
+                    command
+                    for command in self.bot.global_slash_commands
+                    if command.dm_permission
+                ]
+            ),
+            command_name=command,
         )
         return await inter.send(
             embed=help_embed,

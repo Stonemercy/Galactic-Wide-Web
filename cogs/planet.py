@@ -20,7 +20,9 @@ class PlanetCog(commands.Cog):
         ][:25]
 
     @wait_for_startup()
-    @commands.slash_command(description="Returns the war details on a specific planet.")
+    @commands.slash_command(
+        description="Returns the war details on a specific planet.", dm_permission=False
+    )
     async def planet(
         self,
         inter: AppCmdInter,
