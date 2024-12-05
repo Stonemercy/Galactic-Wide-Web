@@ -89,7 +89,6 @@ class WarbondCog(commands.Cog):
             components=components,
         )
 
-    @wait_for_startup()
     @commands.Cog.listener("on_button_click")
     async def page_button_listener(self, inter: MessageInteraction):
         button_id = inter.component.custom_id

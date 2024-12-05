@@ -44,7 +44,6 @@ class FeedbackCog(commands.Cog):
         modal = FeedbackModal()
         return await inter.response.send_modal(modal)
 
-    @wait_for_startup()
     @commands.Cog.listener()
     async def on_modal_submit(self, inter: ModalInteraction):
         if inter.custom_id != "feedback":
@@ -64,7 +63,6 @@ class FeedbackCog(commands.Cog):
         )
         await inter.send("Your feedback has been recieved, thank you.", ephemeral=True)
 
-    @wait_for_startup()
     @commands.Cog.listener("on_button_click")
     async def ban_listener(self, inter: MessageInteraction):
         button_id = inter.component.custom_id

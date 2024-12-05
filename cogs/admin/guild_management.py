@@ -14,7 +14,6 @@ from disnake.ext import commands, tasks
 from disnake.ui import Button
 from main import GalacticWideWebBot
 from utils.interactables import AppDirectoryButton, GitHubButton, KoFiButton
-from utils.checks import wait_for_startup
 from utils.db import BotDashboardRecord, GuildRecord, GuildsDB, BotDashboardDB
 from utils.embeds import BotDashboardEmbed, ReactRoleDashboard
 
@@ -34,7 +33,6 @@ class GuildManagementCog(commands.Cog):
         self.dashboard_checking.stop()
         self.guild_checking.stop()
 
-    @wait_for_startup()
     @commands.Cog.listener()
     async def on_guild_join(self, guild: Guild):
         GuildsDB.insert_new_guild(guild.id)
@@ -62,7 +60,6 @@ class GuildManagementCog(commands.Cog):
         await sleep(10.0)
         await self.bot.change_presence(activity=old_activity)
 
-    @wait_for_startup()
     @commands.Cog.listener()
     async def on_guild_remove(self, guild: Guild):
         GuildsDB.remove_from_db(guild.id)
@@ -152,7 +149,6 @@ class GuildManagementCog(commands.Cog):
     async def before_react_role(self):
         await self.bot.wait_until_ready()
 
-    @wait_for_startup()
     @commands.Cog.listener("on_button_click")
     async def react_role(self, inter: MessageInteraction):
         if inter.component.custom_id == "BotUpdatesButton":
@@ -237,7 +233,6 @@ class GuildManagementCog(commands.Cog):
     async def before_guild_check(self):
         await self.bot.wait_until_ready()
 
-    @wait_for_startup()
     @commands.Cog.listener("on_button_click")
     async def ban_listener(self, inter: MessageInteraction):
         if inter.component.custom_id == "guild_remove":
