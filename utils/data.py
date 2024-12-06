@@ -131,14 +131,6 @@ class Data:
 
     def format_data(self):
         self.assignment = self.assignment_planets = None
-        planet_events_list = sorted(
-            [planet for planet in self.__data__["planets"] if planet["event"]],
-            key=lambda planet: planet["statistics"]["playerCount"],
-            reverse=True,
-        )
-        self.planet_events: PlanetEvents = (
-            PlanetEvents(planet_events_list) if planet_events_list != [] else None
-        )
 
         if self.__data__["planets"]:
             self.planets: dict[int, Planet] = {
@@ -150,6 +142,12 @@ class Data:
 
         if self.__data__["dss"]:
             self.dss = DSS(self.__data__["dss"], self.planets)
+
+        self.planet_events: list[Planet] = sorted(
+            [planet for planet in self.planets.values() if planet.event],
+            key=lambda planet: planet.stats["playerCount"],
+            reverse=True,
+        )
 
         if self.__data__["assignments"] not in ([], None):
             self.assignment = Assignment(self.__data__["assignments"][0])
