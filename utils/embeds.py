@@ -843,7 +843,7 @@ class Dashboard:
                     "" if not planet.feature else f"\nFeature: {planet.feature}"
                 )
                 if planet.dss:
-                    feature_text += emojis_dict["dss"]
+                    exclamation += emojis_dict["dss"]
                 defend_embed.add_field(
                     f"{faction_icon} - __**{planet_names[str(planet.index)]['names'][language['code_long']]}**__ {exclamation}",
                     (
