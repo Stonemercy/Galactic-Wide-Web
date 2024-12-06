@@ -82,6 +82,9 @@ class Data:
                         ) as r:
                             if r.status == 200:
                                 data = await r.json()
+                                if type(data[0]) == str:
+                                    bot.logger.error(f"API/DSS, {data[0] = }")
+                                    continue
                                 name_there = data[0]["tacticalActions"][0].get(
                                     "name", None
                                 )
