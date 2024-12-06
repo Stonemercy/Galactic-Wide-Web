@@ -124,7 +124,7 @@ class Data:
         if not self.loaded:
             now = datetime.now()
             bot.logger.info(
-                f"setup complete | bot.ready_time: {bot.ready_time.strftime('%H:%M:%S')} -> {now.strftime('%H:%M:%S')}"
+                f"setup complete | bot.ready_time: {bot.ready_time.strftime('%H:%M:%S')} -> {now.strftime('%H:%M:%S')} - saved {int((bot.ready_time - now).total_seconds())} seconds"
             )
             bot.ready_time = now
             self.loaded = True
