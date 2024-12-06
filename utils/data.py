@@ -161,7 +161,7 @@ class Data:
             for task in self.assignment.tasks:
                 task: Tasks.Task
                 if task.type in (11, 13):
-                    self.assignment_planets.append(self.planets[task.values[2]].index)
+                    self.assignment_planets.append(task.values[2])
                 elif task.type == 3:
                     if task.progress == 1:
                         continue
