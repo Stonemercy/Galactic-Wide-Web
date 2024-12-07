@@ -581,9 +581,14 @@ class Dashboard:
             major_orders_embed.set_thumbnail(
                 "https://media.discordapp.net/attachments/1212735927223590974/1240708455040548997/MO_defend.png?ex=66478b4a&is=664639ca&hm=2593a504f96bd5e889772762c2e9790caa08fc279ca48ea0f03c70fa74efecb5&=&format=webp&quality=lossless"
             )
+            description = (
+                f"\n{data.assignment.description}\n\u200b\n"
+                if data.assignment.description != ""
+                else ""
+            )
             major_orders_embed.add_field(
                 f"{language['message']} #{data.assignment.id}",
-                f"{data.assignment.title}\n{data.assignment.description}\n\u200b\n",
+                f"{data.assignment.title}{description}",
                 inline=False,
             )
             for task in data.assignment.tasks:
