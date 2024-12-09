@@ -49,8 +49,10 @@ class PlanetEmbed(Embed):
         enviros_text = ""
         for hazard in planet_data.hazards:
             enviros_text += f"\n- **{hazard['name']}**\n  - {hazard['description']}"
+        dss_icon = emojis_dict["dss"] if planet_data.dss else ""
+        MO_icon = emojis_dict["MO"] if planet_data.in_assignment else ""
         self.add_field(
-            f"__**{planet_names['names'][language['code_long']]}**__",
+            f"__**{planet_names['names'][language['code_long']]}**__ {dss_icon}{MO_icon}",
             (
                 f"{language['sector']}: **{planet_data.sector}**\n"
                 f"{language['planet']['owner']}: **{language[planet_data.current_owner.lower()]}**\n\n"
