@@ -1,11 +1,16 @@
 from asyncio import sleep
-from disnake import Forbidden, NotFound, TextChannel
+from os import getenv
+import random
+from disnake import AppCmdInter, Forbidden, NotFound, Permissions, TextChannel
 from disnake.ext import commands, tasks
+from utils.checks import wait_for_startup
 from utils.db import DSSDB, CampaignsDB, DSSRecord, GuildRecord, GuildsDB
 from utils.embeds import CampaignEmbed
 from utils.data import DSS
-from datetime import datetime
+from datetime import datetime, timedelta
 from main import GalacticWideWebBot
+
+SUPPORT_SERVER = [int(getenv("SUPPORT_SERVER"))]
 
 
 class WarUpdatesCog(commands.Cog):
@@ -147,6 +152,66 @@ class WarUpdatesCog(commands.Cog):
     @campaign_check.before_loop
     async def before_campaign_check(self):
         await self.bot.wait_until_ready()
+
+    @wait_for_startup()
+    @commands.is_owner()
+    @commands.slash_command(
+        guild_ids=SUPPORT_SERVER,
+        description="Test announcements",
+        default_member_permissions=Permissions(administrator=True),
+    )
+    async def test_announcements(self, inter: AppCmdInter):
+        await inter.response.defer(ephemeral=True)
+        update_start = datetime.now()
+        self.bot.logger.critical(
+            f"{self.qualified_name} | /{inter.application_command.name} | used by <@{inter.author.id}> | @{inter.author.global_name}"
+        )
+        languages = GuildsDB.get_used_languages()
+        embeds = {
+            lang: CampaignEmbed(self.bot.json_dict["languages"][lang])
+            for lang in languages
+        }
+        planet = self.bot.data.dss.planet
+        for embed in embeds.values():
+            embed.add_def_victory(planet)
+            embed.add_planet_lost(planet)
+            embed.add_campaign_victory(
+                planet,
+                ["Terminids", "Automaton", "Illuminate"][random.randint(0, 2)],
+            )
+            embed.add_new_campaign(self.bot.data.campaigns[0], None)
+            if self.bot.data.planet_events:
+                embed.add_new_campaign(
+                    self.bot.data.planet_events[0],
+                    f"<t:{datetime.fromisoformat(self.bot.data.planet_events[0].event.end_time).timestamp():.0f}:R>",
+                )
+            else:
+                embed.add_new_campaign(
+                    self.bot.data.campaigns[0],
+                    f"<t:{(datetime.now() + timedelta(days=2)).timestamp():.0f}:R>",
+                )
+            embed.dss_moved(planet, self.bot.data.planets[random.randint(0, 260)])
+            embed.ta_status_changed(self.bot.data.dss.tactical_actions[0])
+
+        for embed in embeds.values():
+            embed.remove_empty()
+        chunked_channels = [
+            self.bot.announcement_channels[i : i + 50]
+            for i in range(0, len(self.bot.announcement_channels), 50)
+        ]
+        announcements_sent = 0
+        for chunk in chunked_channels:
+            for channel in chunk:
+                self.bot.loop.create_task(self.send_campaign(channel, embeds))
+                announcements_sent += 1
+            await sleep(1.1)
+        self.bot.logger.info(
+            f"{announcements_sent} war updates sent in {(datetime.now() - update_start).total_seconds():.2f} seconds"
+        )
+        await inter.send(
+            f"{announcements_sent} war updates sent in {(datetime.now() - update_start).total_seconds():.2f} seconds",
+            ephemeral=True,
+        )
 
 
 def setup(bot: GalacticWideWebBot):
