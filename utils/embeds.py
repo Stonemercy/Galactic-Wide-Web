@@ -637,7 +637,7 @@ class Dashboard:
                         obj_text,
                         (
                             f"{language['heroes']}: **{planet.stats['playerCount']:,}**\n"
-                            f"{language['dashboard']['major_order']['occupied_by']}: **{planet.current_owner}** {emojis_dict[planet.current_owner]} {dss_text}\n"
+                            f"{language['dashboard']['major_order']['occupied_by']}: **{planet.current_owner}** {emojis_dict[planet.current_owner]}{dss_text}\n"
                             f"{feature_text}"
                             f"{language['dashboard']['major_order']['event_health']}:\n"
                             f"{task.health_bar} {completed}\n"
