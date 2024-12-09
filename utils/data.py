@@ -12,7 +12,6 @@ class Data:
     __slots__ = (
         "__data__",
         "assignment",
-        "assignment_planets",
         "campaigns",
         "dispatch",
         "planets",
@@ -133,7 +132,7 @@ class Data:
         self.get_needed_players()
 
     def format_data(self):
-        self.assignment = self.assignment_planets = None
+        self.assignment = None
 
         if self.__data__["planets"]:
             self.planets: dict[int, Planet] = {
@@ -154,7 +153,6 @@ class Data:
 
         if self.__data__["assignments"] not in ([], None):
             self.assignment = Assignment(self.__data__["assignments"][0])
-            self.assignment_planets = []
             factions = {
                 1: "Humans",
                 2: "Terminids",
@@ -164,11 +162,11 @@ class Data:
             for task in self.assignment.tasks:
                 task: Tasks.Task
                 if task.type in (11, 13):
-                    self.assignment_planets.append(task.values[2])
+                    self.planets[task.values[2]].in_assignment = True
                 elif task.type == 3:
                     if task.progress == 1:
                         continue
-                    self.assignment_planets += [
+                    for index in [
                         planet.index
                         for planet in self.planets.values()
                         if planet.current_owner == factions[task.values[0]]
@@ -176,15 +174,17 @@ class Data:
                             planet.event
                             and planet.event.faction == factions[task.values[0]]
                         )
-                    ]
+                    ]:
+                        self.planets[index].in_assignment = True
                 elif task.type == 12:
                     if self.planet_events:
-                        self.assignment_planets += [
+                        for index in [
                             planet.index
                             for planet in self.planet_events
                             if planet.event
                             and planet.event.faction == factions[task.values[1]]
-                        ]
+                        ]:
+                            self.planets[index].in_assignment = True
 
         if self.__data__["campaigns"] not in ([], None):
             self.campaigns: list[Campaign] = [
@@ -374,6 +374,7 @@ class Planet:
             161: "Deep Mantle Forge Complex",
         }.get(self.index, None)
         self.dss = False
+        self.in_assignment = False
 
     def __repr__(self):
         return (

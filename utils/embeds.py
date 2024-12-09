@@ -838,12 +838,7 @@ class Dashboard:
                     "Humans",
                     True,
                 )
-                exclamation = (
-                    emojis_dict["MO"]
-                    if data.assignment_planets
-                    and planet.index in data.assignment_planets
-                    else ""
-                )
+                exclamation = emojis_dict["MO"] if planet.in_assignment else ""
                 feature_text = (
                     "" if not planet.feature else f"\nFeature: {planet.feature}"
                 )
@@ -921,12 +916,7 @@ class Dashboard:
                         change = f"{(sum(liberation_change['liberation_changes'])):+.2f}%/hour"
                         liberation_text = f"\n`{change:^25}`"
 
-                exclamation = (
-                    emojis_dict["MO"]
-                    if data.assignment_planets
-                    and campaign.planet.index in data.assignment_planets
-                    else ""
-                )
+                exclamation = emojis_dict["MO"] if campaign.planet.in_assignment else ""
                 if campaign.planet.dss:
                     exclamation += emojis_dict["dss"]
                 faction_icon = emojis_dict[campaign.planet.current_owner]
@@ -987,12 +977,7 @@ class Dashboard:
         for values in skipped_dict.values():
             for campaign in values["campaigns"]:
                 campaign: Campaign
-                exclamation = (
-                    emojis_dict["MO"]
-                    if data.assignment_planets
-                    and campaign.planet.index in data.assignment_planets
-                    else ""
-                )
+                exclamation = emojis_dict["MO"] if campaign.planet.in_assignment else ""
                 if campaign.planet.dss:
                     exclamation += emojis_dict["dss"]
                 values[
