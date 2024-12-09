@@ -460,14 +460,15 @@ class CampaignEmbed(Embed):
 
     def add_new_campaign(self, campaign: Campaign, time_remaining):
         description = self.fields[2].value
+        dss_icon = f' {emojis_dict["dss"]}' if campaign.planet.dss else ""
         description += (
             (
-                f"🛡️ {self.language['campaigns']['defend']} **{campaign.planet.name}** "
+                f"🛡️ {self.language['campaigns']['defend']} **{campaign.planet.name}**{dss_icon}"
                 f"{emojis_dict[campaign.faction]}\n> *{self.language['ends']} {time_remaining}*\n"
             )
             if time_remaining
             else (
-                f"⚔️ {self.language['campaigns']['liberate']} **{campaign.planet.name}** "
+                f"⚔️ {self.language['campaigns']['liberate']} **{campaign.planet.name}**{dss_icon}"
                 f"{emojis_dict[campaign.faction]}\n"
             )
         )
@@ -477,19 +478,22 @@ class CampaignEmbed(Embed):
         liberatee_loc = self.language[liberatee.lower()]
         name = self.fields[0].name
         description = self.fields[0].value
-        description += f"**{emojis_dict['victory']} {planet.name}** {self.language['campaigns']['been_liberated']} **{liberatee_loc}** {emojis_dict[liberatee]}!\n"
+        dss_icon = f' {emojis_dict["dss"]}' if planet.dss else ""
+        description += f"**{emojis_dict['victory']} {planet.name}** {self.language['campaigns']['been_liberated']} **{liberatee_loc}** {emojis_dict[liberatee]}!{dss_icon}\n"
         self.set_field_at(0, name, description, inline=False)
 
     def add_def_victory(self, planet: Planet):
         name = self.fields[0].name
         description = self.fields[0].value
-        description += f"**{emojis_dict['victory']} {planet.name}** {self.language['campaigns']['been_defended']}!\n"
+        dss_icon = f' {emojis_dict["dss"]}' if planet.dss else ""
+        description += f"**{emojis_dict['victory']} {planet.name}** {self.language['campaigns']['been_defended']}!{dss_icon}\n"
         self.set_field_at(0, name, description, inline=False)
 
     def add_planet_lost(self, planet: Planet):
         name = self.fields[1].name
         description = self.fields[1].value
-        description += f"**💀 {planet.name}** {self.language['campaigns']['been_lost']} **{self.language[planet.current_owner.lower()]}** {emojis_dict[planet.current_owner]}\n"
+        dss_icon = f' {emojis_dict["dss"]}' if planet.dss else ""
+        description += f"**💀 {planet.name}** {self.language['campaigns']['been_lost']} **{self.language[planet.current_owner.lower()]}** {emojis_dict[planet.current_owner]}{dss_icon}\n"
         self.set_field_at(1, name, description, inline=False)
 
     def remove_empty(self):
