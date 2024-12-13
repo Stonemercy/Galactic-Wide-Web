@@ -110,7 +110,7 @@ async def dashboard_maps(
                 draw_task_on_map(
                     background_draw, task, planets_coords, faction_colours, data
                 )
-        if data.dss:
+        if data.dss and data.dss != "Error":
             draw_dss_ring_on_map(background_draw, planets_coords, faction_colours, data)
         for index, coords in planets_coords.items():
             draw_planet_on_map(
@@ -131,7 +131,7 @@ async def dashboard_maps(
                     language_code,
                     data.planets[index],
                 )
-        if data.dss:
+        if data.dss and data.dss != "Error":
             dss_icon = Image.open("resources/DSS.png")
             dss_icon = dss_icon.convert("RGBA")
             dss_coords = (

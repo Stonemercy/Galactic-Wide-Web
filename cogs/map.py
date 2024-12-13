@@ -179,7 +179,7 @@ class MapCog(commands.Cog):
                             )
                         except:
                             pass
-            if self.bot.data.dss:
+            if self.bot.data.dss and self.bot.data.dss != "Error":
                 if self.bot.data.dss.planet.index in planets_coords:
                     background_draw.ellipse(
                         [
