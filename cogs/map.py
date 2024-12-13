@@ -118,7 +118,10 @@ class MapCog(commands.Cog):
             campaign.planet.name for campaign in self.bot.data.campaigns
         ]
         for planet in self.bot.data.planets.values():
-            if faction and planet.current_owner != faction:
+            if faction and (
+                (not planet.event and planet.current_owner != faction)
+                or (planet.event and planet.event.faction != faction)
+            ):
                 continue
             for waypoint in planet.waypoints:
                 planets_coords[waypoint] = (
