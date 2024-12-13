@@ -187,7 +187,7 @@ emojis_dict = {
     "Humans": "<:human:1306623209465974925>",
     "Automaton": "<:automaton:1312126862989725707>",
     "Terminids": "<:terminid:1312127076169682965>",
-    "Illuminate": "<:illuminate:1312127165512417350>",
+    "Illuminate": "<:illuminate:1317057914145603635>",
     "up": "<:Up_Arrow:1277557874041557002>",
     "down": "<:Down_Arrow:1277557875849302107>",
     "left": "<:Left_Arrow:1277557877787066389>",

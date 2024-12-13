@@ -1,9 +1,37 @@
 {
-    "Unknown": {
+    "Voteless": {
+        "start": "1",
+        "desc": "Those changed by the Illuminate have lost something deeper than their humanity. Their very citizenship has been consumed, condemning them to a fate worse than death. They are Voteless.\n- Democracy Officer",
+        "tactics": "This enemy is still being studied by our experts. Please check back later.",
+        "weak spots": null,
+        "variations": null
+    },
+    "Watcher": {
+        "start": "1",
+        "desc": "The Watcher is an enemy created by the Illuminate, this enemy is used to find Helldivers and launch flares up to call in reinforcements.\nThe Watcher also can use a tesla shock against you doing medium damage. ",
+        "tactics": "This enemy is still being studied by our experts. Please check back later.",
+        "weak spots": null,
+        "variations": null
+    },
+    "Overseer": {
         "start": "?",
-        "desc": "The Illuminate were exterminated from the galaxy by the year 2184 and have not since returned.",
-        "tactics": "||An alert of this search has been sent to your nearest Democracy Officer||",
-        "weak spots": "All of the Illuminate are weak.",
+        "desc": "This enemy is still being studied by our experts. Please check back later.",
+        "tactics": "This enemy is still being studied by our experts. Please check back later.",
+        "weak spots": null,
+        "variations": null
+    },
+    "Elevated Overseer": {
+        "start": "1?",
+        "desc": "This enemy is still being studied by our experts. Please check back later.",
+        "tactics": "This enemy is still being studied by our experts. Please check back later.",
+        "weak spots": null,
+        "variations": null
+    },
+    "Harvester": {
+        "start": "?",
+        "desc": "This enemy is still being studied by our experts. Please check back later.",
+        "tactics": "This enemy is still being studied by our experts. Please check back later.",
+        "weak spots": null,
         "variations": null
     }
 }
