@@ -33,6 +33,10 @@ class DSSCog(commands.Cog):
         guild_in_db: GuildRecord = GuildsDB.get_info(inter.guild_id)
         if not guild_in_db:
             guild_in_db = GuildsDB.insert_new_guild(inter.guild.id)
+        if self.bot.data.dss == "Error":
+            return await inter.send(
+                "The DSS is currently unavailable. Please try again later."
+            )
         guild_language = self.bot.json_dict["languages"][guild_in_db.language]
         embed = DSSEmbed(self.bot.data.dss, guild_language)
         components = [

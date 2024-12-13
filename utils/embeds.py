@@ -550,36 +550,47 @@ class Dashboard:
         updated_embed = Embed(colour=Colour.dark_theme())
 
         # DSS
-        dss_embed.set_thumbnail(
-            url="https://cdn.discordapp.com/attachments/1213146233825271818/1310906165823148043/DSS.png?ex=6746ec01&is=67459a81&hm=ab1c29616fd787f727848b04e44c26cc74e045b6e725c45b9dd8a902ec300757&"
-        )
-        dss_embed.description = f"{language['dashboard']['dss_embed']['stationed_at']}: **{data.dss.planet.name}** {emojis_dict[data.dss.planet.current_owner]}"
-        for tactical_action in data.dss.tactical_actions:
-            tactical_action: DSS.TacticalAction
-            ta_health_bar = health_bar(tactical_action.cost.progress, "MO")
-            cost = (
-                (
-                    f"{language['dashboard']['dss_embed']['cost']}: {tactical_action.cost.target:,} {emojis_dict[tactical_action.cost.item]} **{tactical_action.cost.item}s**\n"
-                    f"{language['dashboard']['dss_embed']['progress']}: **{tactical_action.cost.current:,.0f}**\n"
-                    f"{ta_health_bar}\n"
-                    f"`{tactical_action.cost.progress:^25.2%}`\n"
-                    f"{language['dashboard']['dss_embed']['max_submitable']}: **{tactical_action.cost.max_per_seconds[0]:,}** every **{tactical_action.cost.max_per_seconds[1] /3600:.0f}** hours\n"
+        if data.dss != "Error":
+            dss_embed.set_thumbnail(
+                url="https://cdn.discordapp.com/attachments/1213146233825271818/1310906165823148043/DSS.png?ex=6746ec01&is=67459a81&hm=ab1c29616fd787f727848b04e44c26cc74e045b6e725c45b9dd8a902ec300757&"
+            )
+            dss_embed.description = (
+                f"{language['dashboard']['dss_embed']['stationed_at']}: **{data.dss.planet.name}** {emojis_dict[data.dss.planet.current_owner]}\n"
+                f"Next location move <t:{data.war_time + data.dss.election_war_time}:R>"
+            )
+            for tactical_action in data.dss.tactical_actions:
+                tactical_action: DSS.TacticalAction
+                ta_health_bar = health_bar(tactical_action.cost.progress, "MO")
+                status = {1: "preparing", 2: "active", 3: "on_cooldown"}[
+                    tactical_action.status
+                ]
+                cost = (
+                    (
+                        f"{language['dashboard']['dss_embed']['cost']}: {tactical_action.cost.target:,} {emojis_dict[tactical_action.cost.item]} **{tactical_action.cost.item}s**\n"
+                        f"{language['dashboard']['dss_embed']['progress']}: **{tactical_action.cost.current:,.0f}**\n"
+                        f"{ta_health_bar}\n"
+                        f"`{tactical_action.cost.progress:^25.2%}`\n"
+                        f"{language['dashboard']['dss_embed']['max_submitable']}: **{tactical_action.cost.max_per_seconds[0]:,}** every **{tactical_action.cost.max_per_seconds[1] /3600:.0f}** hours\n"
+                    )
+                    if status == "preparing"
+                    else ""
                 )
-                if tactical_action.status == 1
-                else ""
-            )
-            status = language["dashboard"]["dss_embed"][
-                {1: "preparing", 2: "active", 3: "on_cooldown"}[tactical_action.status]
-            ]
-            dss_embed.add_field(
-                tactical_action.name.title(),
-                (
-                    f"{cost}"
-                    f"{language['dashboard']['dss_embed']['status']}: **{status}**\n"
-                    # f"Status Expiration: <t:{int((datetime.now() + timedelta(seconds=tactical_action.status_end)).timestamp())}:R>\n"
-                ),
-                inline=False,
-            )
+                if cost == "":
+                    if status == "active":
+                        cost = (
+                            f"Ends <t:{data.war_time + tactical_action.status_end}:R>\n"
+                        )
+                    elif status == "on_cooldown":
+                        cost = f"Off cooldown <t:{data.war_time + tactical_action.status_end}:R>\n"
+
+                dss_embed.add_field(
+                    tactical_action.name.title(),
+                    (
+                        f"{language['dashboard']['dss_embed']['status']}: **{language['dashboard']['dss_embed'][status]}**\n"
+                        f"{cost}"
+                    ),
+                    inline=False,
+                )
 
         # Major Orders
         if data.assignment:

@@ -111,25 +111,26 @@ class WarUpdatesCog(commands.Cog):
             continue
 
         # DSS STUFF
-        last_dss_info: DSSRecord = DSSDB.get_record()
-        if not last_dss_info:
-            last_dss_info = DSSDB.setup()
-        if last_dss_info.planet_index != self.bot.data.dss.planet.index:
-            for embed in embeds.values():
-                embed.dss_moved(
-                    self.bot.data.planets[last_dss_info.planet_index],
-                    self.bot.data.dss.planet,
-                )
-                DSSDB.set_new_planet_index(self.bot.data.dss.planet.index)
-            new_updates = True
-        for index, ta in enumerate(self.bot.data.dss.tactical_actions, 1):
-            ta: DSS.TacticalAction
-            old_status = getattr(last_dss_info, f"ta{index}_status")
-            if old_status != ta.status:
+        if self.bot.data.dss != "Error":
+            last_dss_info: DSSRecord = DSSDB.get_record()
+            if not last_dss_info:
+                last_dss_info = DSSDB.setup()
+            if last_dss_info.planet_index != self.bot.data.dss.planet.index:
                 for embed in embeds.values():
-                    embed.ta_status_changed(ta)
-                DSSDB.set_ta_status(index, ta.status)
+                    embed.dss_moved(
+                        self.bot.data.planets[last_dss_info.planet_index],
+                        self.bot.data.dss.planet,
+                    )
+                    DSSDB.set_new_planet_index(self.bot.data.dss.planet.index)
                 new_updates = True
+            for index, ta in enumerate(self.bot.data.dss.tactical_actions, 1):
+                ta: DSS.TacticalAction
+                old_status = getattr(last_dss_info, f"ta{index}_status")
+                if old_status != ta.status:
+                    for embed in embeds.values():
+                        embed.ta_status_changed(ta)
+                    DSSDB.set_ta_status(index, ta.status)
+                    new_updates = True
 
         if new_updates:
             for embed in embeds.values():

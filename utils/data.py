@@ -21,6 +21,7 @@ class Data:
         "thumbnails",
         "superstore",
         "dss",
+        "war_time",
         "loaded",
         "liberation_changes",
         "planets_with_player_reqs",
@@ -36,6 +37,7 @@ class Data:
             "thumbnails": None,
             "superstore": None,
             "dss": None,
+            "war_time": None,
         }
         self.loaded = False
         self.liberation_changes = {}
@@ -75,12 +77,27 @@ class Data:
                             else:
                                 bot.logger.error(f"API/SUPERSTORE, {r.status}")
                         continue
+                    if endpoint == "war_time":
+                        async with session.get(
+                            "https://api.diveharder.com/raw/smdb"
+                        ) as r:
+                            if r.status == 200:
+                                data = await r.json()
+                                self.__data__[endpoint] = data["time"]
+                            else:
+                                bot.logger.error(f"API/WAR_TIME, {r.status}")
+                        continue
+
                     if endpoint == "dss":
                         async with session.get(
                             "https://api.diveharder.com/raw/dss"
                         ) as r:
                             if r.status == 200:
                                 data = await r.json()
+                                if data == "Error":
+                                    self.__data__[endpoint] = data
+                                    bot.logger.error(f"API/DSS, {data = }")
+                                    continue
                                 if type(data[0]) == str:
                                     bot.logger.error(f"API/DSS, {data[0] = }")
                                     continue
@@ -134,6 +151,11 @@ class Data:
     def format_data(self):
         self.assignment = None
 
+        if self.__data__["war_time"]:
+            self.war_time: int = (
+                int(datetime.now().timestamp()) - self.__data__["war_time"]
+            )
+
         if self.__data__["planets"]:
             self.planets: dict[int, Planet] = {
                 planet["index"]: Planet(planet) for planet in self.__data__["planets"]
@@ -143,7 +165,10 @@ class Data:
             )
 
         if self.__data__["dss"]:
-            self.dss = DSS(self.__data__["dss"], self.planets)
+            if self.__data__["dss"] != "Error":
+                self.dss = DSS(self.__data__["dss"], self.planets)
+            else:
+                self.dss = "Error"
 
         self.planet_events: list[Planet] = sorted(
             [planet for planet in self.planets.values() if planet.event],
@@ -445,6 +470,7 @@ class DSS:
     def __init__(self, dss, planets):
         self.planet: Planet = planets[dss["planetIndex"]]
         self.planet.dss = True
+        self.election_war_time: int = dss["currentElectionEndWarTime"]
         self.tactical_actions: list[self.TacticalAction] = [
             self.TacticalAction(tactical_action)
             for tactical_action in dss["tacticalActions"]
@@ -455,7 +481,7 @@ class DSS:
             self.name: str = tactical_action["name"]
             self.description: str = tactical_action["description"]
             self.status: int = tactical_action["status"]
-            self.status_end = tactical_action["statusExpireAtWarTimeSeconds"]
+            self.status_end: int = tactical_action["statusExpireAtWarTimeSeconds"]
             self.strategic_description: str = steam_format(
                 tactical_action["strategicDescription"]
             )
