@@ -309,9 +309,9 @@ class SetupCog(commands.Cog):
     @commands.Cog.listener("on_dropdown")
     async def on_dropdowns(self, inter: MessageInteraction):
         action_rows = ActionRow.rows_from_message(inter.message)
+        guild_in_db: GuildRecord = GuildsDB.get_info(inter.guild_id)
+        guild_language = self.bot.json_dict["languages"][guild_in_db.language]
         if inter.component.custom_id == "dashboard_channel_select":
-            guild_in_db: GuildRecord = GuildsDB.get_info(inter.guild_id)
-            guild_language = self.bot.json_dict["languages"][guild_in_db.language]
             try:
                 dashboard_channel = self.bot.get_channel(
                     inter.values[0]
