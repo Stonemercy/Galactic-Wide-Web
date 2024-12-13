@@ -200,5 +200,10 @@
         "has_moved": "Die DSS Wurde Von",
         "to": "II nach",
         "is_now": "wird"
+    },
+    "warfront": {
+        "warfront_for": "Kriegsfront für",
+        "there_are": "Es gibt",
+        "available_campaigns": "verfügbare Kampagnen, an denen Sie teilnehmen können"
     }
 }
