@@ -203,6 +203,9 @@ class Data:
                         self.planets[index].in_assignment = True
                 elif task.type == 12:
                     if self.planet_events:
+                        if task.values[3] != 0:
+                            self.planets[task.values[3]].in_assignment = True
+                            continue
                         for index in [
                             planet.index
                             for planet in self.planet_events
