@@ -33,5 +33,12 @@
         "tactics": "This enemy is still being studied by our experts. Please check back later.",
         "weak spots": null,
         "variations": null
+    },
+    "Warp Ship": {
+        "start": "?",
+        "desc": "The Warp Ship is an enemy emplacement and drop ship.",
+        "tactics": "When parked you must use a weapon to break the shields. Use any explosive weapon to shoot the open door on one of the sides of the ship.\nWhen flying shooting the underside beam area deals the most damage. 2 rockets do enough damage.",
+        "weak spots": null,
+        "variations": null
     }
 }
