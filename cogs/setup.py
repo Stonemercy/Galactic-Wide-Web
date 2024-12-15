@@ -242,7 +242,7 @@ class SetupCog(commands.Cog):
                     if channel.guild.id != inter.guild_id
                 ]
                 action_rows[1].pop(0)
-                action_rows[1].append_item(Setup.PatchNotes.PatchNotesButton())
+                action_rows[1].insert_item(0, Setup.PatchNotes.PatchNotesButton())
                 action_rows[1].children[0].disabled = False
                 embed = SetupEmbed(
                     guild_in_db, self.bot.json_dict["languages"][guild_in_db.language]
@@ -257,7 +257,7 @@ class SetupCog(commands.Cog):
                 self.bot.patch_channels.append(channel)
                 guild_in_db = GuildsDB.update_patch_notes(inter.guild_id, True)
                 action_rows[1].pop(0)
-                action_rows[1].append_item(Setup.PatchNotes.PatchNotesButton(True))
+                action_rows[1].insert_item(0, Setup.PatchNotes.PatchNotesButton(True))
                 action_rows[1].children[0].disabled = False
                 embed = SetupEmbed(
                     guild_in_db, self.bot.json_dict["languages"][guild_in_db.language]
@@ -278,8 +278,8 @@ class SetupCog(commands.Cog):
                     if channel.guild.id != inter.guild_id
                 ]
                 action_rows[1].pop(1)
-                action_rows[1].append_item(
-                    Setup.MajorOrderUpdates.MajorOrderUpdatesButton()
+                action_rows[1].insert_item(
+                    1, Setup.MajorOrderUpdates.MajorOrderUpdatesButton()
                 )
                 action_rows[1].children[1].disabled = False
                 embed = SetupEmbed(
@@ -295,8 +295,8 @@ class SetupCog(commands.Cog):
                 self.bot.major_order_channels.append(channel)
                 guild_in_db = GuildsDB.update_mo(inter.guild_id, True)
                 action_rows[1].pop(1)
-                action_rows[1].append_item(
-                    Setup.MajorOrderUpdates.MajorOrderUpdatesButton(True)
+                action_rows[1].insert_item(
+                    1, Setup.MajorOrderUpdates.MajorOrderUpdatesButton(True)
                 )
                 action_rows[1].children[1].disabled = False
                 embed = SetupEmbed(
