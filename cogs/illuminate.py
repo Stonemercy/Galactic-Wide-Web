@@ -84,13 +84,9 @@ class IlluminateCog(commands.Cog):
             embed = EnemyEmbed("Illuminate", species_info, guild_language)
             components = [
                 WikiButton(
-                    link=f"https://helldivers.wiki.gg/wiki/Helldivers_1:The_Illuminate"
+                    link=f"https://helldivers.wiki.gg/wiki/{species.replace(' ', '_')}"
                 )
-            ]  # [
-            #     WikiButton(
-            #         link=f"https://helldivers.wiki.gg/wiki/{species.replace(' ', '_')}"
-            #     )
-            # ]
+            ]
         elif variation:
             variation_info = {
                 "name": variation,
@@ -100,10 +96,10 @@ class IlluminateCog(commands.Cog):
                 "Illuminate", variation_info, guild_language, variation=True
             )
             components = None
-        # if not embed.image_set:  # ADD THIS WHEN I HAVE MOST IMAGES
-        #     await self.bot.moderator_channel.send(
-        #         f"Image missing for **illuminage __{species = } {variation = }__** <@{self.bot.owner_id}> :warning:\n```{embed.error}```"
-        #     )
+        if not embed.image_set:
+            await self.bot.moderator_channel.send(
+                f"Image missing for **illuminage __{species = } {variation = }__** <@{self.bot.owner_id}> :warning:\n```{embed.error}```"
+            )
 
         return await inter.send(embed=embed, ephemeral=True, components=components)
 
