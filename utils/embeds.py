@@ -1680,7 +1680,9 @@ class WarfrontEmbed(Embed):
             campaign for campaign in campaigns if not campaign.planet.event
         ]
         if len(defence_campaigns) > 0:
-            self.add_field("", f"```{'Defending':^50}```", inline=False)
+            self.add_field(
+                "", f"```{language_json['dashboard']['defending']:^50}```", inline=False
+            )
         for index, campaign in enumerate(defence_campaigns, 1):
             liberation_text = ""
             time_to_complete = ""
@@ -1758,7 +1760,9 @@ class WarfrontEmbed(Embed):
                 self.add_field("", "")
 
         if len(attack_campaigns) > 0:
-            self.add_field("", f"```{'Attacking':^50}```", inline=False)
+            self.add_field(
+                "", f"```{language_json['dashboard']['attacking']:^50}```", inline=False
+            )
         for index, campaign in enumerate(attack_campaigns, 1):
             time_to_complete = ""
             liberation_text = ""

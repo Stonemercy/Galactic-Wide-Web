@@ -57,6 +57,7 @@
     "dashboard": {
         "planets": "Planets from the",
         "defending": "Defending",
+        "attacking": "Attacking",
         "attacking_automatons": "Attacking Automaton",
         "attacking_terminids": "Attacking Terminids",
         "attacking_illuminate": "Attacking Illuminate",

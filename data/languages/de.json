@@ -57,6 +57,7 @@
     "dashboard": {
         "planets": "Planeten von",
         "defending": "Verteidigend",
+        "attacking": "Angreifender",
         "attacking_automatons": "Angreifender Automat",
         "attacking_terminids": "Angreifende Terminiden",
         "attacking_illuminate": "Angreifend Erleuchten",
