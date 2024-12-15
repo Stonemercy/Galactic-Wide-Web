@@ -49,6 +49,10 @@ json_dict = {
             "path": "data/json/warbonds/truth_enforcers.json",
             "value": None,
         },
+        "urban_legends": {
+            "path": "data/json/warbonds/urban_legends.json",
+            "value": None,
+        },
     },
     "planets": {
         "path": "data/json/planets/planets.json",
@@ -167,6 +171,7 @@ emojis_dict = {
     "Anti Tank 5": "<:anti_tank_5:1297111760540532766>",
     "Anti Tank 6": "<:anti_tank_6:1297111768673423360>",
     "Chargeup": "",
+    "Stun": "",
     "Incendiary": "<:incendiary:1290281034532913185>",
     "One Handed": "",
     "Rounds Reload": "",
@@ -223,6 +228,7 @@ warbond_images_dict = {
     "Freedom's Flame": "https://cdn.discordapp.com/attachments/1212735927223590974/1283844729632591985/freedoms_flame.png?ex=66e47914&is=66e32794&hm=3a3d1bb0b9f67dbeb2f63e625511130971fc888d81d36b393996fe1771517fc8&",
     "Chemical Agents": "https://cdn.discordapp.com/attachments/1212735927223590974/1286254303001972736/chemical_agents.png?ex=66ed3d2b&is=66ebebab&hm=510de52a270f795006e61129f83f0e0b70bf438a042b8b2d9859111806574cf3&",
     "Truth Enforcers": "https://media.discordapp.net/attachments/1212735927223590974/1301502200849104947/truth_enforcers.png?ex=6724b5e1&is=67236461&hm=c36872146e2ac4fbbaac4ddab19a291927d2e938c6a3cdd00a9b333408e54d1e&=&format=webp&quality=lossless&width=1202&height=676",
+    "Urban Legends": "https://cdn.discordapp.com/attachments/1212735927223590974/1317150385047081110/urban_legends.png?ex=675da363&is=675c51e3&hm=5e894ce871829ccc6ce2899b695692b15a08aad3921f0c390b14cd3b4685ce2c&",
 }
 
 help_dict = {
@@ -306,6 +312,7 @@ emotes_list = [
     "Test of Conviction",
     "Natural Gas Extraction",
     "At Ease",
+    "This is Democracy",
 ]
 
 victory_poses_list = [
@@ -366,6 +373,8 @@ player_cards_list = [
     "Patient Zero's Rememberance",
     "Proof of Faultless Virtue",
     "Pride of the Whistleblower",
+    "Rebar Resolve",
+    "Holder of the Yellow Line",
 ]
 
 titles_list = [
@@ -395,9 +404,16 @@ titles_list = [
     "Fire Safety Officer",
     "Expert Exterminator",
     "Free of Thought",
+    "Super Pedestrian",
 ]
 
-stratagem_permit_list = ["TX-41 Sterilizer", "AX/TX-13 'Guard Dog' Dog Breath"]
+stratagem_permit_list = [
+    "TX-41 Sterilizer",
+    "AX/TX-13 'Guard Dog' Dog Breath",
+    "Flame Sentry",
+    "Anti-Tank Emplacement",
+    "Directional Shield",
+]
 
 stratagem_id_dict = {
     1078307866: "Orbital Gatling Barrage",

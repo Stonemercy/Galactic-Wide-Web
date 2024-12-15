@@ -457,6 +457,19 @@
         "cooldown": 180,
         "activation": 4.75
     },
+    "E/AT-12 Anti-Tank Emplacement": {
+        "keys": [
+            "left",
+            "left",
+            "up",
+            "up",
+            "right",
+            "left"
+        ],
+        "uses": "Unlimited",
+        "cooldown": 180,
+        "activation": 7.75
+    },
     "FX-12 Shield Generator Relay": {
         "keys": [
             "down",
@@ -583,6 +596,19 @@
             "right",
             "down",
             "right"
+        ],
+        "uses": "Unlimited",
+        "cooldown": 180,
+        "activation": 4.75
+    },
+    "Flame Sentry": {
+        "keys": [
+            "down",
+            "up",
+            "right",
+            "down",
+            "up",
+            "up"
         ],
         "uses": "Unlimited",
         "cooldown": 180,
