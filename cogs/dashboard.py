@@ -1,5 +1,4 @@
 from asyncio import sleep
-from cogs.stats import DashboardStats
 from datetime import datetime, time
 from disnake import (
     Forbidden,
@@ -47,7 +46,7 @@ class DashboardCog(commands.Cog):
             for j in range(0, 60, 15)
         ]
     )
-    async def dashboard(self, force: bool = False):
+    async def dashboard(self):
         if (
             self.bot.dashboard_messages == []
             or not self.bot.data.loaded
@@ -74,13 +73,9 @@ class DashboardCog(commands.Cog):
                 self.bot.loop.create_task(self.update_message(message, dashboard_dict))
                 dashboards_updated += 1
             await sleep(1.1)
-        if not force:
-            self.bot.logger.info(
-                f"Updated {dashboards_updated} dashboards in {(datetime.now() - update_start).total_seconds():.2f} seconds"
-            )
-        dashboard_stats: DashboardStats = self.bot.get_cog("StatsCog").dashboard_stats
-        dashboard_stats.new_count(dashboards_updated)
-        dashboard_stats.new_time((datetime.now() - update_start).total_seconds())
+        self.bot.logger.info(
+            f"Updated {dashboards_updated} dashboards in {(datetime.now() - update_start).total_seconds():.2f} seconds"
+        )
         return dashboards_updated
 
     @dashboard.before_loop

@@ -148,7 +148,6 @@ class WarUpdatesCog(commands.Cog):
             self.bot.logger.info(
                 f"{announcements_sent} war updates sent in {(datetime.now() - update_start).total_seconds():.2f} seconds"
             )
-            self.bot.get_cog("StatsCog").announcements_sent += announcements_sent
 
     @campaign_check.before_loop
     async def before_campaign_check(self):

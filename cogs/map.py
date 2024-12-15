@@ -41,7 +41,7 @@ class MapCog(commands.Cog):
             )
 
     @tasks.loop(time=[time(hour=hour, minute=5, second=0) for hour in range(24)])
-    async def map_poster(self, force: bool = False):
+    async def map_poster(self):
         if (
             self.bot.map_messages == []
             or not self.bot.data.loaded
@@ -76,11 +76,9 @@ class MapCog(commands.Cog):
                 )
                 maps_updated += 1
             await sleep(1.1)
-        if not force:
-            self.bot.logger.info(
-                f"Updated {maps_updated} maps in {(datetime.now() - update_start).total_seconds():.2f} seconds"
-            )
-        self.bot.get_cog("StatsCog").maps_updated += maps_updated
+        self.bot.logger.info(
+            f"Updated {maps_updated} maps in {(datetime.now() - update_start).total_seconds():.2f} seconds"
+        )
         return maps_updated
 
     @map_poster.before_loop

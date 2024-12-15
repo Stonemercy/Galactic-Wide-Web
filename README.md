@@ -82,9 +82,6 @@ If you wish to use the GWW bot itself, I have it hosted and you can invite it [h
 `/feedback`
 - Provide feedback for the bot that goes directly to me
 
-`/stats`
-- Returns information on the bot
-
 `/major_order`
 - Returns information on an Automaton or variation.
   - Options:

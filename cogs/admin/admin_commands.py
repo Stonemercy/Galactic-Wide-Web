@@ -29,12 +29,11 @@ class AdminCommandsCog(commands.Cog):
             f"{self.qualified_name} | /{inter.application_command.name} | used by <@{inter.author.id}> | @{inter.author.global_name}"
         )
         update_start = datetime.now()
-        dashboards_updated = await self.bot.get_cog("DashboardCog").dashboard(
-            force=True
+        dashboards_updated = await self.bot.get_cog("DashboardCog").dashboard()
+        await inter.send(
+            f"Forced updates of {dashboards_updated} dashboards in {(datetime.now() - update_start).total_seconds():.2f} seconds",
+            ephemeral=True,
         )
-        text = f"Forced updates of {dashboards_updated} dashboards in {(datetime.now() - update_start).total_seconds():.2f} seconds"
-        self.bot.logger.info(text)
-        await inter.send(text, ephemeral=True)
 
     @wait_for_startup()
     @commands.is_owner()
@@ -49,10 +48,11 @@ class AdminCommandsCog(commands.Cog):
             f"{self.qualified_name} | /{inter.application_command.name} | used by <@{inter.author.id}> | @{inter.author.global_name}"
         )
         update_start = datetime.now()
-        maps_updated = await self.bot.get_cog("MapCog").map_poster(force=True)
-        text = f"Forced updates of {maps_updated} maps in {(datetime.now() - update_start).total_seconds():.2f} seconds"
-        self.bot.logger.info(text)
-        await inter.send(text, ephemeral=True)
+        maps_updated = await self.bot.get_cog("MapCog").map_poster()
+        await inter.send(
+            f"Forced updates of {maps_updated} maps in {(datetime.now() - update_start).total_seconds():.2f} seconds",
+            ephemeral=True,
+        )
 
     @wait_for_startup()
     @commands.is_owner()
