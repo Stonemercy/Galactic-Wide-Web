@@ -194,18 +194,26 @@ def draw_planet_on_map(
     background_draw, index, coords, available_planets, data, faction_colours
 ):
     if index == 64:
-        fill_color = (95, 61, 181)
+        inside = (28, 22, 48)
+        outside = (106, 76, 180)
+        background_draw.ellipse(
+            [(coords[0] - 35, coords[1] - 35), (coords[0] + 35, coords[1] + 35)],
+            fill=outside,
+        )
+        background_draw.ellipse(
+            [(coords[0] - 25, coords[1] - 25), (coords[0] + 25, coords[1] + 25)],
+            fill=inside,
+        )
     else:
         current_owner = data.planets[index].current_owner
-        fill_color = (
-            faction_colours[current_owner]
-            if index in available_planets
-            else faction_colours[current_owner.lower()]
+        background_draw.ellipse(
+            [(coords[0] - 35, coords[1] - 35), (coords[0] + 35, coords[1] + 35)],
+            fill=(
+                faction_colours[current_owner]
+                if index in available_planets
+                else faction_colours[current_owner.lower()]
+            ),
         )
-    background_draw.ellipse(
-        [(coords[0] - 35, coords[1] - 35), (coords[0] + 35, coords[1] + 35)],
-        fill=fill_color,
-    )
 
 
 def draw_ellipse(draw, coords, fill_color, radius=50):

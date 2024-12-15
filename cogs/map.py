@@ -120,8 +120,14 @@ class MapCog(commands.Cog):
         for planet in self.bot.data.planets.values():
             if faction and (
                 (not planet.event and planet.current_owner != faction)
-                or (planet.event and planet.event.faction != faction)
+                or (
+                    planet.event
+                    and planet.event.faction != faction
+                    and planet.current_owner != faction
+                )
             ):
+                if planet.name == "CALYPSO":
+                    print(planet.name, planet.event.faction, faction)
                 continue
             for waypoint in planet.waypoints:
                 planets_coords[waypoint] = (
@@ -203,25 +209,33 @@ class MapCog(commands.Cog):
                     dss_icon = background.paste(dss_icon, dss_coords, dss_icon)
             for index, coords in planets_coords.items():
                 if index == 64:
+                    inside = (28, 22, 48)
+                    outside = (106, 76, 180)
                     background_draw.ellipse(
                         [
                             (coords[0] - 35, coords[1] - 35),
                             (coords[0] + 35, coords[1] + 35),
                         ],
-                        fill=(95, 61, 181),
+                        fill=outside,
+                    )
+                    background_draw.ellipse(
+                        [
+                            (coords[0] - 25, coords[1] - 25),
+                            (coords[0] + 25, coords[1] + 25),
+                        ],
+                        fill=inside,
                     )
                 else:
+                    current_owner = self.bot.data.planets[index].current_owner
                     background_draw.ellipse(
                         [
                             (coords[0] - 35, coords[1] - 35),
                             (coords[0] + 35, coords[1] + 35),
                         ],
                         fill=(
-                            faction_colours[self.bot.data.planets[index].current_owner]
+                            faction_colours[current_owner]
                             if self.bot.data.planets[index].name in available_planets
-                            else faction_colours[
-                                self.bot.data.planets[index].current_owner.lower()
-                            ]
+                            else faction_colours[current_owner.lower()]
                         ),
                     )
                 if faction and self.bot.data.planets[index].name in available_planets:
