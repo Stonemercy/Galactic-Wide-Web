@@ -201,5 +201,10 @@
         "has_moved": "La DSS est passée de",
         "to": "à",
         "is_now": "est maintenant"
+    },
+    "warfront": {
+        "warfront_for": "Front des",
+        "there_are": "Il y a",
+        "available_campaigns": "campagnes disponibles à rejoindre"
     }
 }
