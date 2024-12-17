@@ -15,22 +15,39 @@ If you wish to use the GWW bot itself, I have it hosted and you can invite it [h
   - Options:
     - `species`: string <Optional> - A specific 'main' automaton
     - `variation`: string <Optional> - A specific variant of an automaton
+    - `public`: string <Optional> - Do you want other people to see the response to this command?
 
 `/booster`
 - Returns the description of a specific booster.
   - Options:
     - `booster`: string [Required] - The booster you want to lookup
+    - `public`: string <Optional> - Do you want other people to see the response to this command?
+
+`/dss`
+- Returns information on the Democracy Space Station
+  - Options:
+    - `public`: string <Optional> - If you want the response to be seen by others in the server.
+
+`/feedback`
+- Provide feedback for the bot that goes directly to me
 
 `/help`
 - Get some help for a specific command, or a list of every command by using "all".
   - Options:
     - `command`: string [Required] - The command you want to lookup, use "all" for a list of all available commands
-
-`/map`
-- Get an up-to-date map of the galaxy
-  - Options:
-    - `faction`: string <Optional> - The faction to focus on
     - `public`: string <Optional> - Do you want other people to see the response to this command?
+
+`/illuminate`
+- Returns information on an Illuminate or variation.
+  - Options:
+    - `species`: string <Optional> - A specific 'main' illuminate
+    - `variation`: string <Optional> - A specific variant of an illuminate
+    - `public`: string <Optional> - Do you want other people to see the response to this command?
+
+`/major_order`
+- Returns information on an Automaton or variation.
+  - Options:
+    - `public`: string <Optional> - If you want the response to be seen by others in the server.
 
 `/map`
 - Get an up-to-date map of the galaxy
@@ -42,50 +59,59 @@ If you wish to use the GWW bot itself, I have it hosted and you can invite it [h
 - Returns the war details on a specific planet.
   - Options:
     - `planet`: string [Required] - The planet you want to lookup
+    - `with_map`: string <Optional> - Do you want a map showing where this planet is?
     - `public`: string <Optional> - Do you want other people to see the response to this command?
 
 `/setup`
-- Change the GWW settings for your server. Use this without options to see your set settings.
+- Change the GWW settings for your server.
+
+`/steam`
+- Get previous Steam posts
+  - Options:
+    - `public`: string <Optional> - Do you want other people to see the response to this command?
+
+`/stratagem`
+- Returns information on a stratagem.
+  - Options:
+    - `stratagem`: string [Required] - The stratagem you want to lookup
+    - `public`: string <Optional> - Do you want other people to see the response to this command?
+
+`/superstore`
+- Get the current Superstore rotation
+  - Options:
+    - `public`: string <Optional> - Do you want other people to see the response to this command?
 
 `/terminid`
 - Returns information on a Terminid or variation.
   - Options:
     - `species`: string <Optional> - A specific 'main' species
     - `variation`: string <Optional> - A specific variant of a species
+    - `public`: string <Optional> - Do you want other people to see the response to this command?
 
 `/warbond`
 - Returns a basic summary of the items in a specific warbond.
   - Options:
     - `warbond`: string [Required] - The warbond you want to lookup
+    - `public`: string <Optional> - Do you want other people to see the response to this command?
+
+`/warfront`
+- Returns information on a specific War front
+  - Options:
+    - `faction`: string [Required] - The faction to focus on
+    - `public`: string <Optional> - If you want the response to be seen by others in the server.
 
 `/weapons`
 - Returns information on a specific weapon.
   - Options:
     - `/weapons primary`
       - `primary`: string [Required]- The Primary weapon you want to lookup
+      - `public`: string <Optional> - Do you want other people to see the response to this command?
     - `/weapons secondary`
       - `secondary`: string [Required]- The Secondary weapon you want to lookup
+      - `public`: string <Optional> - Do you want other people to see the response to this command?
     - `/weapons grenade`
       - `grenade`: string [Required]- The Grenade you want to lookup
-
-`/illuminate`
-- Returns information on an Illuminate or variation.
-  - Options:
-    - `species`: string <Optional> - A specific 'main' illuminate
-    - `variation`: string <Optional> - A specific variant of an illuminate
-
-`/stratagem`
-- Returns information on a stratagem.
-  - Options:
-    - `stratagem`: string [Required] - The stratagem you want to lookup
-
-`/feedback`
-- Provide feedback for the bot that goes directly to me
-
-`/major_order`
-- Returns information on an Automaton or variation.
-  - Options:
-    - `public`: string <Optional> - If you want the response to be seen by others in the server.
+      - `public`: string <Optional> - Do you want other people to see the response to this command?
 
 ## Support
 Available here: [Discord Support Server](https://discord.gg/Z8Ae5H5DjZ)
