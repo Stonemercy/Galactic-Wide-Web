@@ -2,7 +2,6 @@ from disnake import AppCmdInter
 from disnake.ext import commands
 from main import GalacticWideWebBot
 from utils.checks import wait_for_startup
-from utils.db import GuildRecord, GuildsDB
 from utils.embeds import SuperstoreEmbed
 
 
@@ -23,16 +22,13 @@ class SuperstoreCog(commands.Cog):
             description="Do you want other people to see the response to this command?",
         ),
     ):
-        ephemeral = public != "Yes"
-        await inter.response.defer(ephemeral=ephemeral)
+        await inter.response.defer(ephemeral=public != "Yes")
         self.bot.logger.info(
             f"{self.qualified_name} | /{inter.application_command.name} <{public = }>"
         )
-        guild: GuildRecord = GuildsDB.get_info(inter.guild_id)
-        if not guild:
-            GuildsDB.insert_new_guild(inter.guild.id)
-        embed = SuperstoreEmbed(self.bot.data.superstore)
-        await inter.send(embed=embed)
+        await inter.send(
+            embed=SuperstoreEmbed(self.bot.data.superstore), ephemeral=public != "Yes"
+        )
 
 
 def setup(bot: GalacticWideWebBot):

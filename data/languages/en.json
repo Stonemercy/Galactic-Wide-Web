@@ -48,7 +48,6 @@
         "victories": "Victories",
         "planets_lost": "Planets Lost",
         "new_battles": "New Battles",
-        "defend": "Defend",
         "liberate": "Liberate",
         "been_liberated": "Has been liberated from the",
         "been_defended": "Has been successfully defended",
@@ -74,7 +73,9 @@
             "new_title": "New Major Order format provided",
             "new_value": "Calibrating output...",
             "event_health": "Planet Liberation",
-            "extract_items": "Successfully extract with"
+            "extract_items": "Successfully extract with",
+            "from_the": "from the",
+            "times": "time(s)"
         },
         "dss_embed": {
             "stationed_at": "Stationed at",
@@ -114,7 +115,8 @@
     },
     "defend": {
         "finishes": "Finishes",
-        "event_health": "Event health"
+        "event_health": "Event health",
+        "defend": "Defend"
     },
     "weapons": {
         "missing": "That weapon isn't in my list, please try again.\nIf you believe this is a mistake, please let me know [here](<https://discord.gg/Z8Ae5H5DjZ>).",

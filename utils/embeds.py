@@ -4,7 +4,7 @@ from disnake import APISlashCommand, Embed, Colour, File, ModalInteraction, Opti
 from datetime import datetime, timedelta
 from psutil import Process, cpu_percent
 from main import GalacticWideWebBot
-from utils.db import GuildRecord, GuildsDB
+from utils.db import GWWGuild
 from utils.functions import health_bar, short_format, skipped_planets
 from utils.data import DSS, Campaign, Data, Dispatch, Steam, Superstore, Tasks, Planet
 from data.lists import (
@@ -222,12 +222,30 @@ class BotDashboardEmbed(Embed):
             "\n".join(f"{label}: {time}" for label, time in update_times.items()),
         )
         self.add_field("", "", inline=False)
+        guilds: list[GWWGuild] = GWWGuild.get_all()
         stats_dict = {
-            "Dashboard Setup": GuildsDB.dashboard_not_setup(),
-            "Announcements Setup": GuildsDB.feed_not_setup(),
+            "Dashboard Setup": len(
+                [
+                    guild
+                    for guild in guilds
+                    if guild.dashboard_channel_id != 0
+                    and guild.dashboard_message_id != 0
+                ]
+            ),
+            "Announcements Setup": len(
+                [guild for guild in guilds if guild.announcement_channel_id != 0]
+            ),
             None: None,
-            "Maps Setup": GuildsDB.maps_not_setup(),
-            "Patch Notes Enabled": GuildsDB.patch_notes_not_setup(),
+            "Maps Setup": len(
+                [
+                    guild
+                    for guild in guilds
+                    if guild.map_channel_id != 0 and guild.map_message_id != 0
+                ]
+            ),
+            "Patch Notes Enabled": len(
+                [guild for guild in guilds if guild.patch_notes]
+            ),
         }
         for title, amount in stats_dict.items():
             if not title:
@@ -465,7 +483,7 @@ class CampaignEmbed(Embed):
         dss_icon = f' {emojis_dict["dss"]}' if campaign.planet.dss else ""
         description += (
             (
-                f"🛡️ {self.language['campaigns']['defend']} **{campaign.planet.name}**{dss_icon}"
+                f"🛡️ {self.language['defend']['defend']} **{campaign.planet.name}**{dss_icon}"
                 f"{emojis_dict[campaign.faction]}\n> *{self.language['ends']} {time_remaining}*\n"
             )
             if time_remaining
@@ -669,8 +687,17 @@ class Dashboard:
                         task.progress,
                         "MO" if task.progress < 1 else "Humans",
                     )
+                    specific_planet = (
+                        data.planets[task.values[3]] if task.values[3] != 0 else None
+                    )
+                    if specific_planet:
+                        objective_text = f"{language['defend']['defend']} {specific_planet.name} {language['dashboard']['major_order']['from_the']} {language[factions[task.values[1]].lower()]} {task.values[0]} {language['dashboard']['major_order']['times']}"
+                    else:
+                        objective_text = (
+                            f"{language['dashboard']['major_order']['succeed_in_defense']} {task.values[0]} {language['dashboard']['planets']} {language[factions[task.values[1]].lower()]} {emojis_dict[factions[task.values[1]]]}",
+                        )
                     major_orders_embed.add_field(
-                        f"{language['dashboard']['major_order']['succeed_in_defense']} {task.values[0]} {language['dashboard']['planets']} {language[factions[task.values[1]].lower()]} {emojis_dict[factions[task.values[1]]]}",
+                        objective_text,
                         (
                             f"{language['dashboard']['major_order']['progress']}: {int(task.progress*task.values[0])}/{task.values[0]}\n"
                             f"{task.health_bar}\n"
@@ -1472,17 +1499,17 @@ class AnnouncementEmbed(Embed):
 
 
 class SetupEmbed(Embed):
-    def __init__(self, guild_record: GuildRecord, language_json: dict):
+    def __init__(self, guild: GWWGuild, language_json: dict):
         super().__init__(title="Setup", colour=Colour.og_blurple())
 
         # dashboard
         if 0 not in (
-            guild_record.dashboard_channel_id,
-            guild_record.dashboard_message_id,
+            guild.dashboard_channel_id,
+            guild.dashboard_message_id,
         ):
             dashboard_text = (
-                f"{language_json['setup']['dashboard_channel']}: <#{guild_record.dashboard_channel_id}>\n"
-                f"{language_json['setup']['dashboard_message']}: https://discord.com/channels/{guild_record.guild_id}/{guild_record.dashboard_channel_id}/{guild_record.dashboard_message_id}"
+                f"{language_json['setup']['dashboard_channel']}: <#{guild.dashboard_channel_id}>\n"
+                f"{language_json['setup']['dashboard_message']}: https://discord.com/channels/{guild.id}/{guild.dashboard_channel_id}/{guild.dashboard_message_id}"
             )
         else:
             dashboard_text = language_json["setup"]["not_set"]
@@ -1493,8 +1520,8 @@ class SetupEmbed(Embed):
         )
 
         # announcements
-        if guild_record.announcement_channel_id != 0:
-            announcements_text = f"{language_json['setup']['announcement_channel']}: <#{guild_record.announcement_channel_id}>"
+        if guild.announcement_channel_id != 0:
+            announcements_text = f"{language_json['setup']['announcement_channel']}: <#{guild.announcement_channel_id}>"
         else:
             announcements_text = language_json["setup"]["not_set"]
         self.add_field(
@@ -1504,10 +1531,10 @@ class SetupEmbed(Embed):
         )
 
         # map
-        if 0 not in (guild_record.map_channel_id, guild_record.map_message_id):
+        if 0 not in (guild.map_channel_id, guild.map_message_id):
             map_text = (
-                f"{language_json['setup']['map']['channel']}: <#{guild_record.map_channel_id}>\n"
-                f"{language_json['setup']['map']['message']}: https://discord.com/channels/{guild_record.guild_id}/{guild_record.map_channel_id}/{guild_record.map_message_id}"
+                f"{language_json['setup']['map']['channel']}: <#{guild.map_channel_id}>\n"
+                f"{language_json['setup']['map']['message']}: https://discord.com/channels/{guild.id}/{guild.map_channel_id}/{guild.map_message_id}"
             )
         else:
             map_text = language_json["setup"]["not_set"]
@@ -1520,21 +1547,19 @@ class SetupEmbed(Embed):
         # language
         self.add_field(
             language_json["setup"]["language"]["language"],
-            guild_record.language_long,
+            guild.language_long,
         )
 
         # patch notes
         self.add_field(
             f"{language_json['setup']['patch_notes']['name']}*",
-            {True: ":white_check_mark:", False: ":x:"}[guild_record.patch_notes],
+            {True: ":white_check_mark:", False: ":x:"}[guild.patch_notes],
         )
 
         # mo updates
         self.add_field(
             f"{language_json['setup']['mo_updates']['name']}*",
-            {True: ":white_check_mark:", False: ":x:"}[
-                guild_record.major_order_updates
-            ],
+            {True: ":white_check_mark:", False: ":x:"}[guild.major_order_updates],
         )
 
         # extra
@@ -1550,7 +1575,7 @@ class FeedbackEmbed(Embed):
             colour=Colour.og_blurple(),
         )
         self.set_author(
-            name=inter.author.name,
+            name=inter.author.id,
             icon_url=inter.author.avatar.url if inter.author.avatar != None else None,
         )
 

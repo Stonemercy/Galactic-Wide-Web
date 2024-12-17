@@ -1,14 +1,10 @@
 from asyncio import sleep
 from datetime import datetime, time
-from disnake import (
-    Forbidden,
-    NotFound,
-    PartialMessage,
-)
+from disnake import PartialMessage
 from disnake.ext import commands, tasks
 from main import GalacticWideWebBot
 from utils.embeds import Dashboard
-from utils.db import GuildRecord, GuildsDB
+from utils.db import GWWGuild
 
 
 class DashboardCog(commands.Cog):
@@ -20,23 +16,22 @@ class DashboardCog(commands.Cog):
         self.dashboard.stop()
 
     async def update_message(self, message: PartialMessage, dashboard_dict: dict):
-        guild: GuildRecord = GuildsDB.get_info(message.guild.id)
-        if not guild:
+        guild = GWWGuild.get_by_id(message.guild.id)
+        if not guild and message in self.bot.dashboard_messages:
             self.bot.dashboard_messages.remove(message)
             return self.bot.logger.error(
                 f"{self.qualified_name} | update_message | {guild = } | {message.guild.id = }"
             )
         try:
             await message.edit(embeds=dashboard_dict[guild.language].embeds)
-        except (NotFound, Forbidden) as e:
-            self.bot.dashboard_messages.remove(message)
-            GuildsDB.update_dashboard(message.guild.id, 0, 0)
-            return self.bot.logger.error(
-                f"{self.qualified_name} | update_message | {e} | removed from self.bot.dashboard_messages | {message.channel.id = }"
-            )
         except Exception as e:
+            if message in self.bot.dashboard_messages:
+                self.bot.dashboard_messages.remove(message)
+            guild.dashboard_channel_id = 0
+            guild.dashboard_message_id = 0
+            guild.save_changes()
             return self.bot.logger.error(
-                f"{self.qualified_name} | update_message | {e} | {message.channel.id = }"
+                f"{self.qualified_name} | update_message | {e} | removed from dashboard messages list | {message.channel.id = }"
             )
 
     @tasks.loop(
@@ -47,34 +42,38 @@ class DashboardCog(commands.Cog):
         ]
     )
     async def dashboard(self):
+        dashboards_start = datetime.now()
         if (
-            self.bot.dashboard_messages == []
+            not self.bot.dashboard_messages
+            or dashboards_start < self.bot.ready_time
             or not self.bot.data.loaded
             or not self.bot.c_n_m_loaded
         ):
             return
-        update_start = datetime.now()
-        languages = GuildsDB.get_used_languages()
-        dashboard_dict = {
+        embeds = {
             lang: Dashboard(
                 data=self.bot.data,
                 language=self.bot.json_dict["languages"][lang],
                 json_dict=self.bot.json_dict,
             )
-            for lang in languages
+            for lang in list({guild.language for guild in GWWGuild.get_all()})
         }
-        chunked_messages = [
+        dashboards_updated = 0
+        for chunk in [
             self.bot.dashboard_messages[i : i + 50]
             for i in range(0, len(self.bot.dashboard_messages), 50)
-        ]
-        dashboards_updated = 0
-        for chunk in chunked_messages:
+        ]:
             for message in chunk:
-                self.bot.loop.create_task(self.update_message(message, dashboard_dict))
+                self.bot.loop.create_task(
+                    self.update_message(
+                        message,
+                        embeds,
+                    )
+                )
                 dashboards_updated += 1
             await sleep(1.1)
         self.bot.logger.info(
-            f"Updated {dashboards_updated} dashboards in {(datetime.now() - update_start).total_seconds():.2f} seconds"
+            f"Updated {dashboards_updated} dashboards in {(datetime.now() - dashboards_start).total_seconds():.2f} seconds"
         )
         return dashboards_updated
 

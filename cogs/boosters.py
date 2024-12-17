@@ -26,13 +26,19 @@ class BoostersCog(commands.Cog):
         booster: str = commands.Param(
             autocomplete=booster_autocomp, description="The booster you want to lookup"
         ),
+        public: str = commands.Param(
+            choices=["Yes", "No"],
+            default="No",
+            description="Do you want other people to see the response to this command?",
+        ),
     ):
-        boosters = {
-            j["name"]: j for j in self.bot.json_dict["items"]["boosters"].values()
-        }
+        await inter.response.defer(ephemeral=public != "Yes")
         self.bot.logger.info(
             f"{self.qualified_name} | /{inter.application_command.name} <{booster = }>"
         )
+        boosters = {
+            j["name"]: j for j in self.bot.json_dict["items"]["boosters"].values()
+        }
         if booster not in boosters:
             return await inter.send(
                 (
@@ -41,18 +47,20 @@ class BoostersCog(commands.Cog):
                 ),
                 ephemeral=True,
             )
-        chosen_booster = boosters[booster]
-        embed = Items.Booster(chosen_booster)
+        embed = Items.Booster(boosters[booster])
         if not embed.image_set:
             await self.bot.moderator_channel.send(
                 f"Image missing for **booster __{booster}__** <@{self.bot.owner_id}> :warning:"
             )
-        components = [
-            WikiButton(
-                link=f"https://helldivers.wiki.gg/wiki/{booster.replace(' ', '_')}"
-            )
-        ]
-        return await inter.send(embed=embed, ephemeral=True, components=components)
+        return await inter.send(
+            embed=embed,
+            ephemeral=public != "Yes",
+            components=[
+                WikiButton(
+                    link=f"https://helldivers.wiki.gg/wiki/{booster.replace(' ', '_')}"
+                )
+            ],
+        )
 
 
 def setup(bot: GalacticWideWebBot):

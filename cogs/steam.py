@@ -2,9 +2,9 @@ from disnake import AppCmdInter, MessageInteraction
 from disnake.ext import commands
 from main import GalacticWideWebBot
 from utils.checks import wait_for_startup
-from utils.db import GuildRecord, GuildsDB
+from utils.db import GWWGuild
 from utils.embeds import SteamEmbed
-from utils.selectmenus import SteamStringSelect
+from utils.interactables import SteamStringSelect
 
 
 class SteamCog(commands.Cog):
@@ -16,31 +16,39 @@ class SteamCog(commands.Cog):
     async def steam(
         self,
         inter: AppCmdInter,
+        public: str = commands.Param(
+            choices=["Yes", "No"],
+            default="No",
+            description="Do you want other people to see the response to this command?",
+        ),
     ):
+        await inter.response.defer(ephemeral=public != "Yes")
         self.bot.logger.info(
             f"{self.qualified_name} | /{inter.application_command.name}"
         )
-        await inter.response.defer(ephemeral=True)
-        guild_in_db: GuildRecord = GuildsDB.get_info(inter.guild_id)
-        if not guild_in_db:
-            guild_in_db = GuildsDB.insert_new_guild(inter.guild.id)
-        embed = SteamEmbed(
-            steam=self.bot.data.steam[0],
-            language=self.bot.json_dict["languages"][guild_in_db.language],
+        await inter.send(
+            embed=SteamEmbed(
+                steam=self.bot.data.steam[0],
+                language=self.bot.json_dict["languages"][
+                    GWWGuild.get_by_id(inter.guild_id).language
+                ],
+            ),
+            components=[SteamStringSelect(self.bot)],
+            ephemeral=public != "Yes",
         )
-        components = [SteamStringSelect(self.bot)]
-        await inter.send(embed=embed, components=components)
 
     @commands.Cog.listener("on_dropdown")
     async def steam_notes_listener(self, inter: MessageInteraction):
         if inter.component.custom_id != "steam":
             return
-        guild_in_db: GuildRecord = GuildsDB.get_info(inter.guild_id)
         steam_data = [
             steam for steam in self.bot.data.steam if steam.title == inter.values[0]
         ][0]
         embed = SteamEmbed(
-            steam_data, self.bot.json_dict["languages"][guild_in_db.language]
+            steam_data,
+            self.bot.json_dict["languages"][
+                GWWGuild.get_by_id(inter.guild_id).language
+            ],
         )
         await inter.response.edit_message(embed=embed)
 

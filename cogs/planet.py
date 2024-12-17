@@ -3,7 +3,7 @@ from disnake.ext import commands
 from main import GalacticWideWebBot
 from utils.interactables import WikiButton
 from utils.checks import wait_for_startup
-from utils.db import GuildRecord, GuildsDB
+from utils.db import GWWGuild
 from utils.embeds import PlanetEmbed
 from utils.functions import planet_map
 
@@ -40,35 +40,29 @@ class PlanetCog(commands.Cog):
             description="Do you want other people to see the response to this command?",
         ),
     ):
-        ephemeral = public != "Yes"
-        await inter.response.defer(ephemeral=ephemeral)
+        await inter.response.defer(ephemeral=public != "Yes")
         self.bot.logger.info(
             f"{self.qualified_name} | /{inter.application_command.name} <{planet = }> <{with_map = }> <{public = }>"
         )
-        with_map = with_map == "Yes"
         if planet not in [
             planet["name"] for planet in self.bot.json_dict["planets"].values()
         ]:
             return await inter.send(
                 "Please select a planet from the list.",
-                ephemeral=ephemeral,
+                ephemeral=public != "Yes",
             )
-        guild: GuildRecord = GuildsDB.get_info(inter.guild_id)
-        if not guild:
-            guild = GuildsDB.insert_new_guild(inter.guild.id)
-        planet_names = [
-            planet_names
-            for planet_names in self.bot.json_dict["planets"].values()
-            if planet_names["name"] == planet
-        ][0]
-        planet_data = [
-            planet_data
-            for planet_data in self.bot.data.planets.values()
-            if planet_data.name == planet.upper()
-        ][0]
+        guild = GWWGuild.get_by_id(inter.guild_id)
         embed = PlanetEmbed(
-            planet_names=planet_names,
-            planet_data=planet_data,
+            planet_names=[
+                planet_names
+                for planet_names in self.bot.json_dict["planets"].values()
+                if planet_names["name"] == planet
+            ][0],
+            planet_data=[
+                planet_data
+                for planet_data in self.bot.data.planets.values()
+                if planet_data.name == planet.upper()
+            ][0],
             language=self.bot.json_dict["languages"][guild.language],
         )
         embeds = [embed]
@@ -76,14 +70,27 @@ class PlanetCog(commands.Cog):
             await self.bot.moderator_channel.send(
                 f"Image missing for biome of **planet __{planet}__** <@{self.bot.owner_id}> :warning:"
             )
-        if with_map:
-            embeds.append(planet_map(self.bot.data, planet_data.index, guild.language))
-        components = [
-            WikiButton(
-                link=f"https://helldivers.wiki.gg/wiki/{planet.replace(' ', '_')}"
+        if with_map == "Yes":
+            embeds.append(
+                planet_map(
+                    self.bot.data,
+                    [
+                        planet_data
+                        for planet_data in self.bot.data.planets.values()
+                        if planet_data.name == planet.upper()
+                    ][0].index,
+                    guild.language,
+                )
             )
-        ]
-        await inter.send(embeds=embeds, ephemeral=ephemeral, components=components)
+        await inter.send(
+            embeds=embeds,
+            ephemeral=public != "Yes",
+            components=[
+                WikiButton(
+                    link=f"https://helldivers.wiki.gg/wiki/{planet.replace(' ', '_')}"
+                )
+            ],
+        )
 
 
 def setup(bot: GalacticWideWebBot):

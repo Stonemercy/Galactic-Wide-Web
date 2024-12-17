@@ -5,7 +5,7 @@ from disnake.ext import commands
 from main import GalacticWideWebBot
 from os import getenv
 from utils.checks import wait_for_startup
-from utils.db import FeedbackDB, FeedbackRecord, GuildsDB
+from utils.db import FeedbackUser, GWWGuild
 from utils.embeds import AnnouncementEmbed
 
 
@@ -87,10 +87,13 @@ class AdminCommandsCog(commands.Cog):
             f"{self.qualified_name} | /{inter.application_command.name} <{test = }> | used by <@{inter.author.id}> | @{inter.author.global_name}"
         )
         update_start = datetime.now()
-        languages = GuildsDB.get_used_languages()
+        languages = list({guild.language for guild in GWWGuild.get_all()})
         embeds = {lang: AnnouncementEmbed() for lang in languages}
         if test:
-            return await inter.send(embed=embeds["en"], ephemeral=True)
+            return await inter.send(
+                embed=embeds[GWWGuild.get_by_id(inter.guild_id).language],
+                ephemeral=True,
+            )
         chunked_channels = [
             self.bot.announcement_channels[i : i + 50]
             for i in range(0, len(self.bot.announcement_channels), 50)
@@ -126,13 +129,13 @@ class AdminCommandsCog(commands.Cog):
         self.bot.logger.critical(
             f"{self.qualified_name} | /{inter.application_command.name} <{user_id = }> | used by <@{inter.author.id}> | @{inter.author.global_name}"
         )
-        user: FeedbackRecord = FeedbackDB.get_user(user_id)
-        if not user:
-            return await inter.send("That user doesn't exist in the db", ephemeral=True)
-        elif not user.banned:
+        feedback_user = FeedbackUser.get_by_id(user_id)
+        if not feedback_user.banned:
             return await inter.send("That user isn't banned", ephemeral=True)
-        FeedbackDB.unban_user(user_id)
-        await inter.send(f"Unbanned <@{user_id}>", ephemeral=True)
+        else:
+            feedback_user.banned = True
+            feedback_user.save_changes()
+            await inter.send(f"Unbanned <@{user_id}>", ephemeral=True)
 
     @wait_for_startup()
     @commands.is_owner()
@@ -154,13 +157,13 @@ class AdminCommandsCog(commands.Cog):
         self.bot.logger.critical(
             f"{self.qualified_name} | /{inter.application_command.name} <{user_id = }> | used by <@{inter.author.id}> | @{inter.author.global_name}"
         )
-        user: FeedbackRecord = FeedbackDB.get_user(user_id)
-        if not user:
-            return await inter.send("That user doesn't exist in the db", ephemeral=True)
-        elif not user.banned:
+        feedback_user = FeedbackUser.get_by_id(user_id)
+        if not feedback_user.banned:
             return await inter.send("That user isn't banned", ephemeral=True)
-        FeedbackDB.set_reason(user_id, reason)
-        await inter.send(f"Reason set for <@{user_id}>:\n{reason}", ephemeral=True)
+        else:
+            feedback_user.reason = reason
+            feedback_user.save_changes()
+            await inter.send(f"Reason set for <@{user_id}>:\n{reason}", ephemeral=True)
 
     @wait_for_startup()
     @commands.is_owner()
@@ -180,13 +183,13 @@ class AdminCommandsCog(commands.Cog):
         self.bot.logger.critical(
             f"{self.qualified_name} | /{inter.application_command.name} <{user_id = }> | used by <@{inter.author.id}> | @{inter.author.global_name}"
         )
-        user: FeedbackRecord = FeedbackDB.get_user(user_id)
-        if not user:
-            return await inter.send("That user doesn't exist in the db", ephemeral=True)
-        elif not user.good_feedback:
+        feedback_user = FeedbackUser.get_by_id(user_id)
+        if not feedback_user.good_feedback:
             return await inter.send("That user isn't a good user", ephemeral=True)
-        FeedbackDB.not_good_user(user_id)
-        await inter.send(f"<@{user_id}> removed from good feedback", ephemeral=True)
+        else:
+            feedback_user.good_feedback = False
+            feedback_user.save_changes()
+            await inter.send(f"<@{user_id}> removed from good feedback", ephemeral=True)
 
     @wait_for_startup()
     @commands.is_owner()

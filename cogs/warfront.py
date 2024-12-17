@@ -2,7 +2,7 @@ from disnake import AppCmdInter
 from disnake.ext import commands
 from main import GalacticWideWebBot
 from utils.checks import wait_for_startup
-from utils.db import GuildRecord, GuildsDB
+from utils.db import GWWGuild
 from utils.embeds import WarfrontEmbed
 
 
@@ -33,10 +33,9 @@ class WarfrontCog(commands.Cog):
             f"{self.qualified_name} | /{inter.application_command.name} <{faction = }> <{public = }>"
         )
         await inter.response.defer(ephemeral=ephemeral)
-        guild_in_db: GuildRecord = GuildsDB.get_info(inter.guild_id)
-        if not guild_in_db:
-            guild_in_db = GuildsDB.insert_new_guild(inter.guild.id)
-        guild_language = self.bot.json_dict["languages"][guild_in_db.language]
+        guild_language = self.bot.json_dict["languages"][
+            GWWGuild.get_by_id(inter.guild_id).language
+        ]
         embed = WarfrontEmbed(
             faction, self.bot.data, guild_language, self.bot.json_dict["planets"]
         )

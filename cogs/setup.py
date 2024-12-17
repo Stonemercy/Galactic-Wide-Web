@@ -10,7 +10,7 @@ from disnake.ui import ActionRow
 from main import GalacticWideWebBot
 from utils.interactables import Setup
 from utils.checks import wait_for_startup
-from utils.db import GuildRecord, GuildsDB
+from utils.db import GWWGuild
 from utils.embeds import Dashboard, SetupEmbed
 from utils.functions import dashboard_maps
 
@@ -60,48 +60,52 @@ class SetupCog(commands.Cog):
         self.bot.logger.info(
             f"{self.qualified_name} | /{inter.application_command.name}"
         )
-        guild_in_db: GuildRecord = GuildsDB.get_info(inter.guild_id)
-        if not guild_in_db:
-            guild_in_db = GuildsDB.insert_new_guild(inter.guild_id)
-        guild_language = self.bot.json_dict["languages"][guild_in_db.language]
-        embed = SetupEmbed(guild_record=guild_in_db, language_json=guild_language)
-        row1 = (
-            ActionRow()
-            .append_item(Setup.Dashboard.DashboardButton())
-            .append_item(Setup.Announcements.AnnouncementsButton())
-            .append_item(Setup.Map.MapButton())
-            .append_item(Setup.Language.LanguageButton())
-        )
-        row2 = (
-            ActionRow()
-            .append_item(Setup.PatchNotes.PatchNotesButton(guild_in_db.patch_notes))
-            .append_item(
-                Setup.MajorOrderUpdates.MajorOrderUpdatesButton(
-                    guild_in_db.major_order_updates
+        guild = GWWGuild.get_by_id(inter.guild_id)
+        components = [
+            (
+                ActionRow(
+                    Setup.Dashboard.DashboardButton(),
+                    Setup.Announcements.AnnouncementsButton(),
+                    Setup.Map.MapButton(),
+                    Setup.Language.LanguageButton(),
                 )
-            )
-        )
-        components = [row1, row2]
-        if guild_in_db.announcement_channel_id != 0:
+            ),
+            (
+                ActionRow(
+                    Setup.PatchNotes.PatchNotesButton(guild.patch_notes),
+                    Setup.MajorOrderUpdates.MajorOrderUpdatesButton(
+                        guild.major_order_updates
+                    ),
+                )
+            ),
+        ]
+        if guild.announcement_channel_id != 0:
             components[1][0].disabled = False
             components[1][1].disabled = False
-        await inter.send(embed=embed, components=components)
+        await inter.send(
+            embed=SetupEmbed(
+                guild=guild,
+                language_json=self.bot.json_dict["languages"][guild.language],
+            ),
+            components=components,
+        )
 
     @commands.Cog.listener("on_button_click")
     async def ban_listener(self, inter: MessageInteraction):
         action_rows = ActionRow.rows_from_message(inter.message)
-        guild_in_db: GuildRecord = GuildsDB.get_info(inter.guild.id)
+        guild = GWWGuild.get_by_id(inter.guild_id)
         if "dashboard" in inter.component.custom_id:
             self.clear_extra_buttons(action_rows)
             if inter.component.custom_id == "dashboard_button":
-                dashboard_row = ActionRow()
-                if 0 not in (
-                    guild_in_db.dashboard_channel_id,
-                    guild_in_db.dashboard_message_id,
-                ):
-                    dashboard_row.append_item(Setup.Dashboard.ClearDashboardButton())
-                else:
-                    dashboard_row.append_item(Setup.Dashboard.SetDashboardButton())
+                dashboard_row = ActionRow(
+                    Setup.Dashboard.ClearDashboardButton()
+                    if 0
+                    not in (
+                        guild.dashboard_channel_id,
+                        guild.dashboard_message_id,
+                    )
+                    else Setup.Dashboard.SetDashboardButton()
+                )
                 action_rows.append(dashboard_row)
                 self.reset_row_1(action_rows[0])
                 action_rows[0].pop(0)
@@ -110,36 +114,34 @@ class SetupCog(commands.Cog):
                 )
                 return await inter.response.edit_message(components=action_rows)
             elif inter.component.custom_id == "set_dashboard_button":
-                dashboard_row = ActionRow(Setup.Dashboard.DashboardChannelSelect())
-                action_rows.append(dashboard_row)
+                action_rows.append(ActionRow(Setup.Dashboard.DashboardChannelSelect()))
                 return await inter.response.edit_message(components=action_rows)
             elif inter.component.custom_id == "clear_dashboard_button":
-                guild_in_db = GuildsDB.update_dashboard(inter.guild.id, 0, 0)
+                guild.dashboard_channel_id = 0
+                guild.dashboard_message_id = 0
+                guild.save_changes()
                 self.bot.dashboard_messages = [
                     message
                     for message in self.bot.dashboard_messages.copy()
                     if message.guild.id != inter.guild_id
                 ]
-                embed = SetupEmbed(
-                    guild_in_db, self.bot.json_dict["languages"][guild_in_db.language]
-                )
                 self.reset_row_1(action_rows[0])
                 return await inter.response.edit_message(
-                    embed=embed, components=action_rows
+                    embed=SetupEmbed(
+                        guild, self.bot.json_dict["languages"][guild.language]
+                    ),
+                    components=action_rows,
                 )
         elif "announcements" in inter.component.custom_id:
             self.clear_extra_buttons(action_rows)
             if inter.component.custom_id == "announcements_button":
-                announcements_row = ActionRow()
-                if guild_in_db.announcement_channel_id != 0:
-                    announcements_row.append_item(
+                action_rows.append(
+                    ActionRow(
                         Setup.Announcements.ClearAnnouncementsButton()
+                        if guild.announcement_channel_id != 0
+                        else Setup.Announcements.SetAnnouncementsButton()
                     )
-                else:
-                    announcements_row.append_item(
-                        Setup.Announcements.SetAnnouncementsButton()
-                    )
-                action_rows.append(announcements_row)
+                )
                 self.reset_row_1(action_rows[0])
                 action_rows[0].pop(1)
                 action_rows[0].insert_item(
@@ -147,131 +149,137 @@ class SetupCog(commands.Cog):
                 )
                 return await inter.response.edit_message(components=action_rows)
             elif inter.component.custom_id == "set_announcements_button":
-                dashboard_row = ActionRow(
-                    Setup.Announcements.AnnouncementsChannelSelect()
+                action_rows.append(
+                    ActionRow(Setup.Announcements.AnnouncementsChannelSelect())
                 )
-                action_rows.append(dashboard_row)
                 return await inter.response.edit_message(components=action_rows)
             elif inter.component.custom_id == "clear_announcements_button":
-                guild_in_db = GuildsDB.update_announcement_channel(inter.guild.id, 0)
+                guild.announcement_channel_id = 0
+                guild.patch_notes = False
+                guild.major_order_updates = False
+                guild.save_changes()
                 self.bot.announcement_channels = [
                     channel
                     for channel in self.bot.announcement_channels.copy()
                     if channel.guild.id != inter.guild_id
                 ]
-                if guild_in_db.patch_notes:
-                    guild_in_db = GuildsDB.update_patch_notes(inter.guild_id, False)
-                    self.bot.patch_channels = [
-                        channel
-                        for channel in self.bot.patch_channels.copy()
-                        if channel.guild.id != inter.guild.id
-                    ]
-                action_rows[1].pop(0)
+                self.bot.patch_channels = [
+                    channel
+                    for channel in self.bot.patch_channels.copy()
+                    if channel.guild.id != inter.guild.id
+                ]
+                self.bot.major_order_channels = [
+                    channel
+                    for channel in self.bot.major_order_channels.copy()
+                    if channel.guild.id != inter.guild.id
+                ]
+                action_rows[1].clear_items()
                 action_rows[1].append_item(Setup.PatchNotes.PatchNotesButton())
-                action_rows[1].children[0].disabled = True
-                action_rows[1].children[1].disabled = True
-                embed = SetupEmbed(
-                    guild_in_db, self.bot.json_dict["languages"][guild_in_db.language]
+                action_rows[1].append_item(
+                    Setup.MajorOrderUpdates.MajorOrderUpdatesButton()
                 )
                 self.reset_row_1(action_rows[0])
                 return await inter.response.edit_message(
-                    embed=embed, components=action_rows
+                    embed=SetupEmbed(
+                        guild, self.bot.json_dict["languages"][guild.language]
+                    ),
+                    components=action_rows,
                 )
         elif "map" in inter.component.custom_id:
             if inter.component.custom_id == "map_button":
                 self.clear_extra_buttons(action_rows)
-                map_row = ActionRow()
-                if 0 not in (
-                    guild_in_db.map_channel_id,
-                    guild_in_db.map_message_id,
-                ):
-                    map_row.append_item(Setup.Map.ClearMapButton())
-                else:
-                    map_row.append_item(Setup.Map.SetMapButton())
-                action_rows.append(map_row)
+                action_rows.append(
+                    ActionRow(
+                        Setup.Map.ClearMapButton()
+                        if 0
+                        not in (
+                            guild.map_channel_id,
+                            guild.map_message_id,
+                        )
+                        else Setup.Map.SetMapButton()
+                    )
+                )
                 self.reset_row_1(action_rows[0])
                 action_rows[0].pop(2)
                 action_rows[0].insert_item(2, Setup.Map.MapButton(selected=True))
                 return await inter.response.edit_message(components=action_rows)
             elif inter.component.custom_id == "set_map_button":
                 self.clear_extra_buttons(action_rows)
-                map_row = ActionRow(Setup.Map.MapChannelSelect())
-                action_rows.append(map_row)
+                action_rows.append(ActionRow(Setup.Map.MapChannelSelect()))
                 return await inter.response.edit_message(components=action_rows)
             elif inter.component.custom_id == "clear_map_button":
                 self.clear_extra_buttons(action_rows)
-                guild_in_db = GuildsDB.update_map(inter.guild.id, 0, 0)
+                guild.map_channel_id = 0
+                guild.map_message_id = 0
+                guild.save_changes()
                 self.bot.map_messages = [
                     message
                     for message in self.bot.map_messages.copy()
                     if message.guild.id != inter.guild_id
                 ]
-                embed = SetupEmbed(
-                    guild_in_db, self.bot.json_dict["languages"][guild_in_db.language]
-                )
                 self.reset_row_1(action_rows[0])
                 return await inter.response.edit_message(
-                    embed=embed, components=action_rows
+                    embed=SetupEmbed(
+                        guild, self.bot.json_dict["languages"][guild.language]
+                    ),
+                    components=action_rows,
                 )
         elif "language" in inter.component.custom_id:
             if inter.component.custom_id == "language_button":
                 self.clear_extra_buttons(action_rows)
-                language_row = ActionRow(Setup.Language.LanguageSelect())
-                action_rows.append(language_row)
+                action_rows.append(ActionRow(Setup.Language.LanguageSelect()))
                 self.reset_row_1(action_rows[0])
                 action_rows[0].pop(3)
                 action_rows[0].insert_item(
                     3, Setup.Language.LanguageButton(selected=True)
                 )
-                embed = SetupEmbed(
-                    guild_in_db, self.bot.json_dict["languages"][guild_in_db.language]
-                )
                 return await inter.response.edit_message(
-                    embed=embed, components=action_rows
+                    embed=SetupEmbed(
+                        guild, self.bot.json_dict["languages"][guild.language]
+                    ),
+                    components=action_rows,
                 )
         elif inter.component.custom_id == "patch_notes_button":
-            if guild_in_db.patch_notes:  # want to disable
+            if guild.patch_notes:  # want to disable
                 channel = self.bot.get_channel(
-                    guild_in_db.announcement_channel_id
-                ) or await self.bot.fetch_channel(guild_in_db.announcement_channel_id)
-                self.bot.patch_channels.remove(channel)
-                guild_in_db = GuildsDB.update_patch_notes(inter.guild_id, False)
+                    guild.announcement_channel_id
+                ) or await self.bot.fetch_channel(guild.announcement_channel_id)
                 self.bot.patch_channels = [
                     channel
                     for channel in self.bot.patch_channels.copy()
                     if channel.guild.id != inter.guild_id
                 ]
+                guild.patch_notes = False
+                guild.save_changes()
                 action_rows[1].pop(0)
                 action_rows[1].insert_item(0, Setup.PatchNotes.PatchNotesButton())
-                action_rows[1].children[0].disabled = False
-                embed = SetupEmbed(
-                    guild_in_db, self.bot.json_dict["languages"][guild_in_db.language]
-                )
+                action_rows[1][0].disabled = False
                 return await inter.response.edit_message(
-                    embed=embed, components=action_rows
+                    embed=SetupEmbed(
+                        guild, self.bot.json_dict["languages"][guild.language]
+                    ),
+                    components=action_rows,
                 )
             else:  # want to enable
                 channel = self.bot.get_channel(
-                    guild_in_db.announcement_channel_id
-                ) or await self.bot.fetch_channel(guild_in_db.announcement_channel_id)
+                    guild.announcement_channel_id
+                ) or await self.bot.fetch_channel(guild.announcement_channel_id)
                 self.bot.patch_channels.append(channel)
-                guild_in_db = GuildsDB.update_patch_notes(inter.guild_id, True)
+                guild.patch_notes = True
+                guild.save_changes()
                 action_rows[1].pop(0)
                 action_rows[1].insert_item(0, Setup.PatchNotes.PatchNotesButton(True))
-                action_rows[1].children[0].disabled = False
-                embed = SetupEmbed(
-                    guild_in_db, self.bot.json_dict["languages"][guild_in_db.language]
-                )
+                action_rows[1][0].disabled = False
                 return await inter.response.edit_message(
-                    embed=embed, components=action_rows
+                    embed=SetupEmbed(
+                        guild, self.bot.json_dict["languages"][guild.language]
+                    ),
+                    components=action_rows,
                 )
         elif inter.component.custom_id == "major_order_updates_button":
-            if guild_in_db.major_order_updates:  # want to disable
-                channel = self.bot.get_channel(
-                    guild_in_db.announcement_channel_id
-                ) or await self.bot.fetch_channel(guild_in_db.announcement_channel_id)
-                self.bot.major_order_channels.remove(channel)
-                guild_in_db = GuildsDB.update_mo(inter.guild_id, False)
+            if guild.major_order_updates:  # want to disable
+                guild.major_order_updates = False
+                guild.save_changes()
                 self.bot.major_order_channels = [
                     channel
                     for channel in self.bot.major_order_channels.copy()
@@ -282,35 +290,36 @@ class SetupCog(commands.Cog):
                     1, Setup.MajorOrderUpdates.MajorOrderUpdatesButton()
                 )
                 action_rows[1].children[1].disabled = False
-                embed = SetupEmbed(
-                    guild_in_db, self.bot.json_dict["languages"][guild_in_db.language]
-                )
                 return await inter.response.edit_message(
-                    embed=embed, components=action_rows
+                    embed=SetupEmbed(
+                        guild, self.bot.json_dict["languages"][guild.language]
+                    ),
+                    components=action_rows,
                 )
             else:  # want to enable
                 channel = self.bot.get_channel(
-                    guild_in_db.announcement_channel_id
-                ) or await self.bot.fetch_channel(guild_in_db.announcement_channel_id)
+                    guild.announcement_channel_id
+                ) or await self.bot.fetch_channel(guild.announcement_channel_id)
                 self.bot.major_order_channels.append(channel)
-                guild_in_db = GuildsDB.update_mo(inter.guild_id, True)
+                guild.major_order_updates = True
+                guild.save_changes()
                 action_rows[1].pop(1)
                 action_rows[1].insert_item(
                     1, Setup.MajorOrderUpdates.MajorOrderUpdatesButton(True)
                 )
                 action_rows[1].children[1].disabled = False
-                embed = SetupEmbed(
-                    guild_in_db, self.bot.json_dict["languages"][guild_in_db.language]
-                )
                 return await inter.response.edit_message(
-                    embed=embed, components=action_rows
+                    embed=SetupEmbed(
+                        guild, self.bot.json_dict["languages"][guild.language]
+                    ),
+                    components=action_rows,
                 )
 
     @commands.Cog.listener("on_dropdown")
     async def on_dropdowns(self, inter: MessageInteraction):
         action_rows = ActionRow.rows_from_message(inter.message)
-        guild_in_db: GuildRecord = GuildsDB.get_info(inter.guild_id)
-        guild_language = self.bot.json_dict["languages"][guild_in_db.language]
+        guild = GWWGuild.get_by_id(inter.guild_id)
+        guild_language = self.bot.json_dict["languages"][guild.language]
         if inter.component.custom_id == "dashboard_channel_select":
             try:
                 dashboard_channel = self.bot.get_channel(
@@ -345,11 +354,11 @@ class SetupCog(commands.Cog):
                         "An error has occured, I have contacted Super Earth High Command.",
                         ephemeral=True,
                     )
-                guild_in_db = GuildsDB.update_dashboard(
-                    inter.guild_id, dashboard_channel.id, message.id
-                )
+                guild.dashboard_channel_id = dashboard_channel.id
+                guild.dashboard_message_id = message.id
+                guild.save_changes()
                 self.bot.dashboard_messages.append(message)
-                embed = SetupEmbed(guild_in_db, guild_language)
+                embed = SetupEmbed(guild, guild_language)
                 self.clear_extra_buttons(action_rows)
                 self.reset_row_1(action_rows[0])
                 await inter.response.edit_message(embed=embed, components=action_rows)
@@ -366,21 +375,16 @@ class SetupCog(commands.Cog):
             annnnouncement_perms_have = announcement_channel.permissions_for(
                 inter.guild.me
             ).is_superset(self.annnnouncement_perms_needed)
-            guild_in_db: GuildRecord = GuildsDB.get_info(inter.guild_id)
-            guild_language = self.bot.json_dict["languages"][guild_in_db.language]
             if not annnnouncement_perms_have:
                 return await inter.send(
                     guild_language["setup"]["missing_perm"],
                     ephemeral=True,
                 )
             else:
-                guild_in_db = GuildsDB.update_announcement_channel(
-                    inter.guild_id, announcement_channel.id
-                )
+                guild.announcement_channel_id = announcement_channel.id
+                guild.save_changes()
                 self.bot.announcement_channels.append(announcement_channel)
-                embed = SetupEmbed(
-                    guild_in_db, self.bot.json_dict["languages"][guild_in_db.language]
-                )
+                embed = SetupEmbed(guild, guild_language)
                 self.clear_extra_buttons(action_rows)
                 self.reset_row_1(action_rows[0])
                 action_rows[1].children[0].disabled = False
@@ -388,8 +392,6 @@ class SetupCog(commands.Cog):
                 await inter.response.edit_message(embed=embed, components=action_rows)
         elif inter.component.custom_id == "map_channel_select":
             await inter.response.defer()
-            guild_in_db: GuildRecord = GuildsDB.get_info(inter.guild_id)
-            guild_language = self.bot.json_dict["languages"][guild_in_db.language]
             try:
                 map_channel = self.bot.get_channel(
                     inter.values[0]
@@ -412,26 +414,23 @@ class SetupCog(commands.Cog):
                     self.bot.data,
                     self.bot.waste_bin_channel,
                     self.bot.json_dict["planets"],
-                    guild_in_db.language,
+                    guild.language,
                 )
                 message = await map_channel.send(
                     embed=map_embed,
                 )
-                guild_in_db = GuildsDB.update_map(
-                    inter.guild_id, map_channel.id, message.id
-                )
+                guild.map_channel_id = map_channel.id
+                guild.map_message_id = message.id
+                guild.save_changes()
                 self.bot.map_messages.append(message)
-                embed = SetupEmbed(guild_in_db, guild_language)
+                embed = SetupEmbed(guild, guild_language)
                 self.clear_extra_buttons(action_rows)
                 self.reset_row_1(action_rows[0])
                 await inter.edit_original_message(embed=embed, components=action_rows)
         elif inter.component.custom_id == "language_select":
-            guild_in_db = GuildsDB.update_language(
-                inter.guild_id, inter.values[0].lower()
-            )
-            embed = SetupEmbed(
-                guild_in_db, self.bot.json_dict["languages"][guild_in_db.language]
-            )
+            guild.language = inter.values[0].lower()
+            guild.save_changes()
+            embed = SetupEmbed(guild, self.bot.json_dict["languages"][guild.language])
             self.clear_extra_buttons(action_rows)
             self.reset_row_1(action_rows[0])
             await inter.response.edit_message(embed=embed, components=action_rows)

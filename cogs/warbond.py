@@ -11,7 +11,14 @@ from utils.embeds import Items
 class WarbondCog(commands.Cog):
     def __init__(self, bot: GalacticWideWebBot):
         self.bot = bot
-        self.json_load.start()
+        self.warbond_index = {
+            warbond["name"]: warbond
+            for warbond in self.bot.json_dict["warbonds"]["index"].values()
+        }
+        self.boosters = [
+            booster["name"]
+            for booster in self.bot.json_dict["items"]["boosters"].values()
+        ]
 
     async def warbond_autocomp(inter: AppCmdInter, user_input: str):
         warbond_names = [
@@ -47,8 +54,13 @@ class WarbondCog(commands.Cog):
         warbond: str = commands.Param(
             autocomplete=warbond_autocomp, description="The warbond you want to lookup"
         ),
+        public: str = commands.Param(
+            choices=["Yes", "No"],
+            default="No",
+            description="Do you want other people to see the response to this command?",
+        ),
     ):
-        await inter.response.defer(ephemeral=True)
+        await inter.response.defer(ephemeral=public != "Yes")
         self.bot.logger.info(
             f"{self.qualified_name} | /{inter.application_command.name} <{warbond = }>"
         )
@@ -58,7 +70,7 @@ class WarbondCog(commands.Cog):
                     "That warbond isn't in my list, please try again.\n"
                     "||If you believe this is a mistake, please contact my Support Server||"
                 ),
-                ephemeral=True,
+                ephemeral=public != "Yes",
             )
         chosen_warbond_json = {
             "name": warbond,
@@ -85,7 +97,7 @@ class WarbondCog(commands.Cog):
         ]
         return await inter.send(
             embed=embed,
-            ephemeral=True,
+            ephemeral=public != "Yes",
             components=components,
         )
 

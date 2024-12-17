@@ -44,6 +44,26 @@ class GitHubButton(Button):
         )
 
 
+class SupportServerButton(Button):
+    def __init__(self):
+        super().__init__(
+            style=ButtonStyle.link,
+            label="Support Server",
+            url="https://discord.gg/Z8Ae5H5DjZ",
+        )
+
+
+class SteamStringSelect(StringSelect):
+    def __init__(self, data):
+        super().__init__(
+            placeholder="Choose Patch Notes",
+            min_values=1,
+            max_values=1,
+            options=[SelectOption(label=steam.title) for steam in data.steam],
+            custom_id="steam",
+        )
+
+
 class Setup:
     class Dashboard:
         class DashboardButton(Button):

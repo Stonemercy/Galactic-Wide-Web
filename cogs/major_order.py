@@ -3,7 +3,7 @@ from disnake.ext import commands
 from main import GalacticWideWebBot
 from utils.interactables import WikiButton
 from utils.checks import wait_for_startup
-from utils.db import GuildRecord, GuildsDB
+from utils.db import GWWGuild
 from utils.embeds import MajorOrderEmbed
 
 
@@ -25,28 +25,30 @@ class MajorOrderCog(commands.Cog):
             description="If you want the response to be seen by others in the server.",
         ),
     ):
-        ephemeral = public != "Yes"
+        await inter.response.defer(ephemeral=public != "Yes")
         self.bot.logger.info(
             f"{self.qualified_name} | /{inter.application_command.name} <{public = }>"
         )
-        await inter.response.defer(ephemeral=ephemeral)
-        guild_in_db: GuildRecord = GuildsDB.get_info(inter.guild_id)
-        if not guild_in_db:
-            guild_in_db = GuildsDB.insert_new_guild(inter.guild.id)
-        guild_language = self.bot.json_dict["languages"][guild_in_db.language]
-        if self.bot.data.assignment in (None, []):
+        guild_language = self.bot.json_dict["languages"][
+            GWWGuild.get_by_id(inter.guild_id).language
+        ]
+        if not self.bot.data.assignment:
             return await inter.send(
-                guild_language["major_order"]["no_order"], ephemeral=ephemeral
+                guild_language["major_order"]["no_order"], ephemeral=public != "Yes"
             )
-        embed = MajorOrderEmbed(
-            data=self.bot.data,
-            language=guild_language,
-            planet_names=self.bot.json_dict["planets"],
-            reward_types=self.bot.json_dict["items"]["reward_types"],
-            with_health_bars=True,
+        await inter.send(
+            embed=MajorOrderEmbed(
+                data=self.bot.data,
+                language=guild_language,
+                planet_names=self.bot.json_dict["planets"],
+                reward_types=self.bot.json_dict["items"]["reward_types"],
+                with_health_bars=True,
+            ),
+            components=[
+                WikiButton(link=f"https://helldivers.wiki.gg/wiki/Major_Orders")
+            ],
+            ephemeral=public != "Yes",
         )
-        components = [WikiButton(link=f"https://helldivers.wiki.gg/wiki/Major_Orders")]
-        await inter.send(embed=embed, components=components)
 
 
 def setup(bot: GalacticWideWebBot):

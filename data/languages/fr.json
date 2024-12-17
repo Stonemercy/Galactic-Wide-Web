@@ -48,7 +48,6 @@
         "victories": "Victoires",
         "planets_lost": "Planètes perdues",
         "new_battles": "Nouvelles batailles",
-        "defend": "Défendre",
         "liberate": "Libérer",
         "been_liberated": "A été libéré du",
         "been_defended": "A été défendu avec succès",
@@ -74,7 +73,9 @@
             "new_title": "Nouveau format d'ordre prioritaire fourni",
             "new_value": "Calibrage de la sortie...",
             "event_health": "Libération de la planète",
-            "extract_items": "Extraire avec succès avec"
+            "extract_items": "Extraire avec succès avec",
+            "from_the": "contre les",
+            "times": "fois"
         },
         "dss_embed": {
             "stationed_at": "Stationné à",
@@ -114,7 +115,8 @@
     },
     "defend": {
         "finishes": "Terminé",
-        "event_health": "Santé de l'événement"
+        "event_health": "Santé de l'événement",
+        "defend": "Défendre"
     },
     "weapons": {
         "missing": "Cette arme n'est pas dans ma liste, veuillez réessayer.\nSi vous pensez qu'il s'agit d'une erreur, veuillez me le faire savoir [ici](<https://discord.gg/Z8Ae5H5DjZ>).",

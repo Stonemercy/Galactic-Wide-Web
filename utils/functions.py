@@ -121,6 +121,14 @@ async def dashboard_maps(
                 data,
                 faction_colours,
             )
+        if data.dss and data.dss != "Error":
+            dss_icon = Image.open("resources/DSS.png")
+            dss_icon = dss_icon.convert("RGBA")
+            dss_coords = (
+                int(planets_coords[data.dss.planet.index][0]) - 22,
+                int(planets_coords[data.dss.planet.index][1]) - 180,
+            )
+            dss_icon = background.paste(dss_icon, dss_coords, dss_icon)
         for index, coords in planets_coords.items():
             if index in available_planets:
                 draw_planet_names(
@@ -131,14 +139,6 @@ async def dashboard_maps(
                     language_code,
                     data.planets[index],
                 )
-        if data.dss and data.dss != "Error":
-            dss_icon = Image.open("resources/DSS.png")
-            dss_icon = dss_icon.convert("RGBA")
-            dss_coords = (
-                int(planets_coords[data.dss.planet.index][0]) - 22,
-                int(planets_coords[data.dss.planet.index][1]) - 180,
-            )
-            dss_icon = background.paste(dss_icon, dss_coords, dss_icon)
         background.save(f"resources/map_{language_code}.webp")
     message_for_url = await channel.send(
         file=File(f"resources/map_{language_code}.webp")

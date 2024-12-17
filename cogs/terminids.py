@@ -3,7 +3,7 @@ from disnake.ext import commands
 from main import GalacticWideWebBot
 from utils.interactables import WikiButton
 from utils.checks import wait_for_startup
-from utils.db import GuildRecord, GuildsDB
+from utils.db import GWWGuild
 from utils.embeds import EnemyEmbed
 
 
@@ -56,30 +56,36 @@ class TerminidsCog(commands.Cog):
             default=None,
             description="A specific variant of a species",
         ),
+        public: str = commands.Param(
+            choices=["Yes", "No"],
+            default="No",
+            description="Do you want other people to see the response to this command?",
+        ),
     ):
-        await inter.response.defer(ephemeral=True)
+        await inter.response.defer(ephemeral=public != "Yes")
         self.bot.logger.info(
             f"{self.qualified_name} | /{inter.application_command.name} <{species = }> <{variation = }>"
         )
         if not species and not variation:
             return await inter.send(
-                "<a:explodeybug:1219248670482890752>", delete_after=10.0, ephemeral=True
+                "<a:explodeybug:1219248670482890752>",
+                delete_after=10.0,
+                ephemeral=public != "Yes",
             )
-        guild_in_db: GuildRecord = GuildsDB.get_info(inter.guild_id)
-        if guild_in_db == None:
-            guild_in_db = GuildsDB.insert_new_guild(inter.guild.id)
-        guild_language = self.bot.json_dict["languages"][guild_in_db.language]
+        guild_language = self.bot.json_dict["languages"][
+            GWWGuild.get_by_id(inter.guild_id).language
+        ]
         if species and variation:
             return await inter.send(
                 guild_language["enemy"]["species_or_variation"],
-                ephemeral=True,
+                ephemeral=public != "Yes",
             )
         elif (species and species not in self.terminids_dict) or (
             variation and variation not in self.variations_dict
         ):
             return await inter.send(
                 guild_language["enemy"]["missing"],
-                ephemeral=True,
+                ephemeral=public != "Yes",
             )
         if species:
             species_info = {"name": species, "info": self.terminids_dict[species]}
@@ -102,8 +108,9 @@ class TerminidsCog(commands.Cog):
             await self.bot.moderator_channel.send(
                 f"Image missing for **terminids __{species = } {variation = }__** <@{self.bot.owner_id}> :warning:\n```{embed.error}```"
             )
-
-        return await inter.send(embed=embed, ephemeral=True, components=components)
+        return await inter.send(
+            embed=embed, ephemeral=public != "Yes", components=components
+        )
 
 
 def setup(bot: GalacticWideWebBot):

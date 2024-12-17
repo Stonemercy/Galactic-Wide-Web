@@ -13,7 +13,7 @@ from disnake.ext import commands, tasks
 from disnake.ui import Button
 from main import GalacticWideWebBot
 from utils.interactables import AppDirectoryButton, GitHubButton, KoFiButton
-from utils.db import BotDashboardRecord, GuildRecord, GuildsDB, BotDashboardDB
+from utils.db import BotDashboard, GWWGuild
 from utils.embeds import BotDashboardEmbed
 
 
@@ -32,7 +32,7 @@ class GuildManagementCog(commands.Cog):
 
     @commands.Cog.listener()
     async def on_guild_join(self, guild: Guild):
-        GuildsDB.insert_new_guild(guild.id)
+        GWWGuild.new(guild.id)
         embed = (
             Embed(title="New guild joined!", colour=Colour.brand_green())
             .add_field("Name", guild.name, inline=False)
@@ -59,7 +59,7 @@ class GuildManagementCog(commands.Cog):
 
     @commands.Cog.listener()
     async def on_guild_remove(self, guild: Guild):
-        GuildsDB.remove_from_db(guild.id)
+        GWWGuild.delete(guild.id)
         embed = (
             Embed(title="Guild left", colour=Colour.brand_red())
             .add_field("Name", guild.name, inline=False)
@@ -78,20 +78,21 @@ class GuildManagementCog(commands.Cog):
 
     @tasks.loop(minutes=1)
     async def bot_dashboard(self):
-        dashboard: BotDashboardRecord = BotDashboardDB.get_info()
+        bot_dashboard = BotDashboard()
         channel = self.bot.get_channel(
-            dashboard.channel_id
-        ) or await self.bot.fetch_channel(dashboard.channel_id)
-        if dashboard.message_id == 0:
+            bot_dashboard.channel_id
+        ) or await self.bot.fetch_channel(bot_dashboard.channel_id)
+        if bot_dashboard.message_id == 0:
             message = await channel.send("Placeholder message, please ignore.")
-            BotDashboardDB.set_message(message.id)
+            bot_dashboard.message_id = message.id
+            bot_dashboard.save_changes()
         else:
             dashboard_embed = BotDashboardEmbed(bot=self.bot)
             try:
-                message = channel.get_partial_message(dashboard.message_id)
+                message = channel.get_partial_message(bot_dashboard.message_id)
             except Exception as e:
                 self.bot.logger.error(
-                    f"GuildManagementCog, bot_dashboard, {e}, {channel.id}"
+                    f"{self.qualified_name} | bot_dashboard | {e} | {channel.id}"
                 )
             try:
                 await message.edit(
@@ -123,7 +124,7 @@ class GuildManagementCog(commands.Cog):
     )
     async def dashboard_checking(self):
         now = datetime.now()
-        guild: GuildRecord = GuildsDB.get_info(1212722266392109088)
+        guild = GWWGuild.get_by_id(1212722266392109088)
         if guild:
             try:
                 channel = self.bot.get_channel(
@@ -151,19 +152,23 @@ class GuildManagementCog(commands.Cog):
 
     @tasks.loop(time=[time(hour=0, minute=0, second=0, microsecond=0)])
     async def guild_checking(self):
-        guilds_in_db = GuildsDB.get_all_guilds()
-        if guilds_in_db:
-            for guild in guilds_in_db:
-                if guild.guild_id not in [
+        guilds: list[GWWGuild] = GWWGuild.get_all()
+        if guilds:
+            for guild in guilds:
+                if guild.id not in [
                     discord_guild.id for discord_guild in self.bot.guilds
                 ]:
-                    self.guilds_to_remove.append(str(guild.guild_id))
-            if self.guilds_to_remove != []:
+                    self.guilds_to_remove.append(guild.id)
+            if self.guilds_to_remove:
                 embed = Embed(
                     title="Servers in DB that don't have the bot installed",
                     colour=Colour.brand_red(),
                     description="These servers are in the PostgreSQL database but not in the `self.bot.guilds` list.",
-                ).add_field("Guilds:", "\n".join(self.guilds_to_remove), inline=False)
+                ).add_field(
+                    "Guilds:",
+                    "\n".join([str(id) for id in self.guilds_to_remove]),
+                    inline=False,
+                )
                 await self.bot.moderator_channel.send(
                     embed=embed,
                     components=[
@@ -182,12 +187,12 @@ class GuildManagementCog(commands.Cog):
     @commands.Cog.listener("on_button_click")
     async def ban_listener(self, inter: MessageInteraction):
         if inter.component.custom_id == "guild_remove":
-            for guild in self.guilds_to_remove:
-                GuildsDB.remove_from_db(int(guild))
+            for guild_id in self.guilds_to_remove:
+                GWWGuild.delete(guild_id)
                 self.bot.logger.error(
-                    f"{self.qualified_name} | ban_listener | removed {guild} from the DB"
+                    f"{self.qualified_name} | ban_listener | removed {guild_id} from the DB"
                 )
-                await inter.send(f"Deleted guilds `{guild}` from the DB")
+                await inter.send(f"Deleted guilds `{guild_id}` from the DB")
             embed: Embed = inter.message.embeds[0].add_field(
                 "", "# GUILDS DELETED", inline=False
             )

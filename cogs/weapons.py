@@ -3,7 +3,7 @@ from disnake.ext import commands
 from main import GalacticWideWebBot
 from utils.interactables import WikiButton
 from utils.checks import wait_for_startup
-from utils.db import GuildRecord, GuildsDB
+from utils.db import GWWGuild
 from utils.embeds import Items
 
 
@@ -62,19 +62,22 @@ class WeaponsCog(commands.Cog):
             autocomplete=primary_autocomp,
             description="The Primary weapon you want to lookup",
         ),
+        public: str = commands.Param(
+            choices=["Yes", "No"],
+            default="No",
+            description="Do you want other people to see the response to this command?",
+        ),
     ):
-        await inter.response.defer(ephemeral=True)
+        await inter.response.defer(ephemeral=public != "Yes")
         self.bot.logger.info(
             f"{self.qualified_name} | /{inter.application_command.name} <{primary = }>"
         )
-        guild_in_db: GuildRecord = GuildsDB.get_info(inter.guild_id)
-        if not guild_in_db:
-            guild_in_db = GuildsDB.insert_new_guild(inter.guild.id)
-        guild_language = self.bot.json_dict["languages"][guild_in_db.language]
+        guild = GWWGuild.get_by_id(inter.guild_id)
+        guild_language = self.bot.json_dict["languages"][guild.language]
         if primary not in self.primaries:
             return await inter.send(
                 guild_language["weapons"]["missing"],
-                ephemeral=True,
+                ephemeral=public != "Yes",
             )
         primary_json = self.primaries[primary]
         embed = Items.Weapons.Primary(
@@ -91,7 +94,9 @@ class WeaponsCog(commands.Cog):
                 link=f"https://helldivers.wiki.gg/wiki/{primary.replace(' ', '_')}"
             )
         ]
-        return await inter.send(embed=embed, ephemeral=True, components=components)
+        return await inter.send(
+            embed=embed, ephemeral=public != "Yes", components=components
+        )
 
     @weapons.sub_command(description="Use this for secondary weapons")
     async def secondary(
@@ -101,19 +106,22 @@ class WeaponsCog(commands.Cog):
             autocomplete=secondary_autocomp,
             description="The Secondary weapon you want to lookup",
         ),
+        public: str = commands.Param(
+            choices=["Yes", "No"],
+            default="No",
+            description="Do you want other people to see the response to this command?",
+        ),
     ):
-        await inter.response.defer(ephemeral=True)
+        await inter.response.defer(ephemeral=public != "Yes")
         self.bot.logger.info(
             f"{self.qualified_name} | /{inter.application_command.name} <{secondary = }>"
         )
-        guild_in_db: GuildRecord = GuildsDB.get_info(inter.guild_id)
-        if not guild_in_db:
-            guild_in_db = GuildsDB.insert_new_guild(inter.guild.id)
-        guild_language = self.bot.json_dict["languages"][guild_in_db.language]
+        guild = GWWGuild.get_by_id(inter.guild_id)
+        guild_language = self.bot.json_dict["languages"][guild.language]
         if secondary not in self.secondaries:
             return await inter.send(
                 guild_language["weapons"]["missing"],
-                ephemeral=True,
+                ephemeral=public != "Yes",
             )
         secondary_json = self.secondaries[secondary]
         embed = Items.Weapons.Secondary(
@@ -130,7 +138,9 @@ class WeaponsCog(commands.Cog):
                 link=f"https://helldivers.wiki.gg/wiki/{secondary.replace(' ', '_')}"
             )
         ]
-        return await inter.send(embed=embed, ephemeral=True, components=components)
+        return await inter.send(
+            embed=embed, ephemeral=public != "Yes", components=components
+        )
 
     @weapons.sub_command(description="Use this for grenades")
     async def grenade(
@@ -139,19 +149,22 @@ class WeaponsCog(commands.Cog):
         grenade: str = commands.Param(
             autocomplete=grenade_autocomp, description="The Grenade you want to lookup"
         ),
+        public: str = commands.Param(
+            choices=["Yes", "No"],
+            default="No",
+            description="Do you want other people to see the response to this command?",
+        ),
     ):
-        await inter.response.defer(ephemeral=True)
+        await inter.response.defer(ephemeral=public != "Yes")
         self.bot.logger.info(
             f"{self.qualified_name} | /{inter.application_command.name} <{grenade = }>"
         )
-        guild_in_db: GuildRecord = GuildsDB.get_info(inter.guild_id)
-        if not guild_in_db:
-            guild_in_db = GuildsDB.insert_new_guild(inter.guild.id)
-        guild_language = self.bot.json_dict["languages"][guild_in_db.language]
+        guild = GWWGuild.get_by_id(inter.guild_id)
+        guild_language = self.bot.json_dict["languages"][guild.language]
         if grenade not in self.grenades:
             return await inter.send(
                 guild_language["weapons"]["missing"],
-                ephemeral=True,
+                ephemeral=public != "Yes",
             )
         grenade_json = self.grenades[grenade]
         embed = Items.Weapons.Grenade(
@@ -166,7 +179,9 @@ class WeaponsCog(commands.Cog):
                 link=f"https://helldivers.wiki.gg/wiki/{grenade.replace(' ', '_')}"
             )
         ]
-        return await inter.send(embed=embed, ephemeral=True, components=components)
+        return await inter.send(
+            embed=embed, ephemeral=public != "Yes", components=components
+        )
 
 
 def setup(bot: GalacticWideWebBot):

@@ -3,7 +3,7 @@ from disnake.ext import commands
 from main import GalacticWideWebBot
 from utils.interactables import WikiButton
 from utils.checks import wait_for_startup
-from utils.db import GuildRecord, GuildsDB
+from utils.db import GWWGuild
 from utils.embeds import DSSEmbed
 
 
@@ -25,24 +25,29 @@ class DSSCog(commands.Cog):
             description="If you want the response to be seen by others in the server.",
         ),
     ):
-        ephemeral = public != "Yes"
+        await inter.response.defer(ephemeral=public != "Yes")
         self.bot.logger.info(
             f"{self.qualified_name} | /{inter.application_command.name} <{public = }>"
         )
-        await inter.response.defer(ephemeral=ephemeral)
-        guild_in_db: GuildRecord = GuildsDB.get_info(inter.guild_id)
-        if not guild_in_db:
-            guild_in_db = GuildsDB.insert_new_guild(inter.guild.id)
         if self.bot.data.dss == "Error":
             return await inter.send(
-                "The DSS is currently unavailable. Please try again later."
+                "The DSS is currently unavailable. Please try again later.",
+                ephemeral=public != "Yes",
             )
-        guild_language = self.bot.json_dict["languages"][guild_in_db.language]
-        embed = DSSEmbed(self.bot.data.dss, guild_language)
-        components = [
-            WikiButton(link=f"https://helldivers.wiki.gg/wiki/Democracy_Space_Station")
-        ]
-        await inter.send(embed=embed, components=components)
+        await inter.send(
+            embed=DSSEmbed(
+                self.bot.data.dss,
+                self.bot.json_dict["languages"][
+                    GWWGuild.get_by_id(inter.guild_id).language
+                ],
+            ),
+            components=[
+                WikiButton(
+                    link=f"https://helldivers.wiki.gg/wiki/Democracy_Space_Station"
+                )
+            ],
+            ephemeral=public != "Yes",
+        )
 
 
 def setup(bot: GalacticWideWebBot):

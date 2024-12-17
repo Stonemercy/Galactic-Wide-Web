@@ -446,7 +446,7 @@ class PlanetEvents(list[Planet]):
 
 class Steam:
     def __init__(self, steam):
-        self.id: int = steam["id"]
+        self.id: int = int(steam["id"])
         self.title: str = steam["title"]
         self.content: str = steam_format(steam["content"])
         self.author: str = steam["author"]

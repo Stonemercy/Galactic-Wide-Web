@@ -1,6 +1,6 @@
 from datetime import datetime, time
 from disnake.ext import commands, tasks
-from utils.db import GuildsDB
+from utils.db import GWWGuild
 from main import GalacticWideWebBot
 
 
@@ -25,7 +25,7 @@ class DataManagementCog(commands.Cog):
             self.bot.major_order_channels,
         ):
             data_list.clear()
-        guilds = GuildsDB.get_all_guilds()
+        guilds: list[GWWGuild] = GWWGuild.get_all()
         if not guilds:
             return self.bot.logger.error(
                 f"{self.qualified_name} | list_gen | {guilds = }"

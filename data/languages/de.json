@@ -48,7 +48,6 @@
         "victories": "Siege",
         "planets_lost": "Verlorene Planeten",
         "new_battles": "Neue Schlachten",
-        "defend": "Verteidigen",
         "liberate": "Befreien",
         "been_liberated": "Wurde befreit von",
         "been_defended": "Wurde erfolgreich verteidigt",
@@ -74,7 +73,9 @@
             "new_title": "Neues Format für großen Befehl bereitgestellt",
             "new_value": "Ausgabe wird kalibriert...",
             "event_health": "Planetenbefreiung",
-            "extract_items": "Erfolgreich extrahiert mit"
+            "extract_items": "Erfolgreich extrahiert mit",
+            "from_the": "vor den",
+            "times": "mal"
         },
         "dss_embed": {
             "stationed_at": "Stationiert bei",
@@ -114,7 +115,8 @@
     },
     "defend": {
         "finishes": "Fertig",
-        "event_health": "Ereignisgesundheit"
+        "event_health": "Ereignisgesundheit",
+        "defend": "Verteidigen"
     },
     "weapons": {
         "missing": "Diese Waffe ist nicht in meiner Liste, bitte versuchen Sie es erneut.\nWenn Sie glauben, dass dies ein Fehler ist, lassen Sie es mich bitte [hier](<https://discord.gg/Z8Ae5H5DjZ>) wissen.",

@@ -1,9 +1,9 @@
-from disnake import AppCmdInter, ButtonStyle
+from disnake import AppCmdInter
 from disnake.ext import commands
-from disnake.ui import Button
 from main import GalacticWideWebBot
 from utils.checks import wait_for_startup
 from utils.embeds import HelpEmbed
+from utils.interactables import SupportServerButton
 
 
 class HelpCog(commands.Cog):
@@ -28,33 +28,31 @@ class HelpCog(commands.Cog):
             autocomplete=help_autocomp,
             description='The command you want to lookup, use "all" for a list of all available commands',
         ),
+        public: str = commands.Param(
+            choices=["Yes", "No"],
+            default="No",
+            description="Do you want other people to see the response to this command?",
+        ),
     ):
-        await inter.response.defer(ephemeral=True)
+        await inter.response.defer(ephemeral=public != "Yes")
         self.bot.logger.info(
             f"{self.qualified_name}, /{inter.application_command.name} <{command = }>"
         )
-        help_embed = HelpEmbed(
-            commands=(
-                self.bot.global_application_commands
-                if inter.guild
-                else [
-                    command
-                    for command in self.bot.global_slash_commands
-                    if command.dm_permission
-                ]
-            ),
-            command_name=command,
-        )
         return await inter.send(
-            embed=help_embed,
-            ephemeral=True,
-            components=[
-                Button(
-                    label="Support Server",
-                    style=ButtonStyle.link,
-                    url="https://discord.gg/Z8Ae5H5DjZ",
-                )
-            ],
+            embed=HelpEmbed(
+                commands=(
+                    self.bot.global_application_commands
+                    if inter.guild
+                    else [
+                        command
+                        for command in self.bot.global_slash_commands
+                        if command.dm_permission
+                    ]
+                ),
+                command_name=command,
+            ),
+            ephemeral=public != "Yes",
+            components=[SupportServerButton()],
         )
 
 

@@ -9,6 +9,7 @@ from utils.embeds import StratagemEmbed
 class StratagemsCog(commands.Cog):
     def __init__(self, bot: GalacticWideWebBot):
         self.bot = bot
+        self.stratagems: dict = self.bot.json_dict["stratagems"]
 
     async def stratagem_autocomp(inter: AppCmdInter, user_input: str):
         stratagems: dict = inter.bot.json_dict["stratagems"]
@@ -23,8 +24,13 @@ class StratagemsCog(commands.Cog):
             autocomplete=stratagem_autocomp,
             description="The stratagem you want to lookup",
         ),
+        public: str = commands.Param(
+            choices=["Yes", "No"],
+            default="No",
+            description="Do you want other people to see the response to this command?",
+        ),
     ):
-        self.stratagems: dict = self.bot.json_dict["stratagems"]
+        await inter.response.defer(ephemeral=public != "Yes")
         self.bot.logger.info(
             f"{self.qualified_name} | /{inter.application_command.name} <{stratagem = }>"
         )
@@ -47,7 +53,9 @@ class StratagemsCog(commands.Cog):
                 link=f"https://helldivers.wiki.gg/wiki/{stratagem.replace(' ', '_')}"
             )
         ]
-        return await inter.send(embed=embed, ephemeral=True, components=components)
+        return await inter.send(
+            embed=embed, ephemeral=public != "Yes", components=components
+        )
 
 
 def setup(bot: GalacticWideWebBot):
