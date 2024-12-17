@@ -77,7 +77,7 @@ class MapCog(commands.Cog):
                     )
                 )
                 maps_updated += 1
-            await sleep(1.1)
+            await sleep(1.5)
         self.bot.logger.info(
             f"Updated {maps_updated} maps in {(datetime.now() - update_start).total_seconds():.2f} seconds"
         )

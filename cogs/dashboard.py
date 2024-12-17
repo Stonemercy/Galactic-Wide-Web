@@ -71,7 +71,7 @@ class DashboardCog(commands.Cog):
                     )
                 )
                 dashboards_updated += 1
-            await sleep(1.1)
+            await sleep(1.5)
         self.bot.logger.info(
             f"Updated {dashboards_updated} dashboards in {(datetime.now() - dashboards_start).total_seconds():.2f} seconds"
         )
