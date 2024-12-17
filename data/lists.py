@@ -234,11 +234,15 @@ warbond_images_dict = {
 help_dict = {
     "automaton": {
         "long_description": "Returns information on an Automaton or variation. This information is manually updated by the GWW's owner, if there are any inaccuracies please contact our support server.",
-        "example_usage": "**`/automaton species:Hulk`** would return information on the Hulk unit.",
+        "example_usage": "**`/automaton species:Hulk public:Yes`** would return information on the Hulk unit that other members in the server can see.",
     },
     "booster": {
         "long_description": "Returns the description of a specific booster. This information is updated by the folks at [helldivers-2/json](<https://github.com/helldivers-2/json>).",
-        "example_usage": "**`/booster booster: Motivational Shocks`** would return the description for the Motivational Shocks booster.",
+        "example_usage": "**`/booster booster:Motivational Shocks public:Yes`** would return information for the Motivational Shocks booster that other members in the server can see.",
+    },
+    "dss": {
+        "long_description": "Returns extended information on the Democracy Space Station",
+        "example_usage": "**`/dss public:Yes`** would return information on the DSS that other members in the server can see.",
     },
     "feedback": {
         "long_description": "Provide feedback for the bot. The feedback sent through this modal will go directly to a private channel for me to review.",
@@ -246,55 +250,55 @@ help_dict = {
     },
     "help": {
         "long_description": "Get some help for a specific command or all commands. You can obtain longer descriptions and examples when you lookup a specific command.",
-        "example_usage": "**`/help command: Automatons`** would return an embed with useful information about the Automatons command including example usage.",
+        "example_usage": "**`/help command:Automatons public:Yes`** would return an embed with useful information about the Automatons command including example usage that other members in the server can see.",
     },
     "illuminate": {
         "long_description": "Returns information on an Illuminate or variation. This information is manually updated by the GWW's owner, if there are any inaccuracies please contact our support server.",
-        "example_usage": "This command has no use as the Illuminate were removed from our galaxy in the first Galactic War.",
+        "example_usage": "**`/illuminate species:Observer public:Yes`** would return information on the Observer unit that other members in the server can see.",
+    },
+    "major_order": {
+        "long_description": "Returns information on the current Major Order, if there is one",
+        "example_usage": "**`/major_order public:Yes`** would return information on the current Major Order that other members in the server can see.",
     },
     "map": {
         "long_description": "Get an up-to-date map of the galaxy. This is generated upon use of the command so it may take a couple of seconds.",
-        "example_usage": "**`/map faction: Automaton public: Yes`** would return a map of the galaxy zoomed in on Automaton planets with names over active planets. It can also be seen by others in discord.",
+        "example_usage": "**`/map faction:Automaton public:Yes`** would return a map of the galaxy zoomed in on Automaton planets with names over active planets. It can also be seen by others in discord.",
     },
     "planet": {
         "long_description": "Returns the war details on a specific planet. This includes a lot of stats that arent available in the dashboard.",
-        "example_usage": "**`/planet planet: Heeth public: Yes`** returns a large embed with all of the stats the planet has. It also includes a map with an arrow pointing to the planet. It can also be seen by others in discord.",
+        "example_usage": "**`/planet planet:Heeth with_map:Yes public:Yes`** returns a large embed with all of the stats the planet has. It also includes a map with an arrow pointing to the planet. It can also be seen by others in discord.",
     },
     "setup": {
         "long_description": "Change the GWW settings for your server.",
         "example_usage": "**`/setup`** brings up a message with buttons you can use to change the bot's settings.",
     },
-    "stratagem": {
-        "long_description": "Returns information on a stratagem. **THIS COMMAND IS A WORK IN PROGRESS**",
-        "example_usage": "**`/strategem strategem:Reinforce`** would return information on the Reinforce stratagem",
-    },
-    "terminid": {
-        "long_description": "Returns information on a Terminid species or variation. This information is manually updated by the GWW's owner, if there are any inaccuracies please contact our support server.",
-        "example_usage": "**`/terminid species:Shrieker`** would return information on the Shrieker species.",
-    },
-    "warbond": {
-        "long_description": "Returns a basic summary of the items in a specific warbond, showing each item's name and cost, as well as the cost per page and base warbond cost.",
-        "example_usage": "**`/warbond warbond:Polar Patriots`** would return a paged embed with the warbond items in it.",
-    },
-    "weapons": {
-        "long_description": "Returns information on a specific weapon. This command has 3 sub-commands for each weapon slot, Primary, Secondary and Grenade.",
-        "example_usage": "**`/weapons primary primary:AR-23C Liberator Concussive`** would return details on the AR-23 Liberator Concussive, including an image of the weapon.",
-    },
-    "major_order": {
-        "long_description": "Returns information on the current Major Order, if there is one",
-        "example_usage": "**`/major_order public: Yes`**",
-    },
     "steam": {
         "long_description": "Returns the latest patch notes",
-        "example_usage": "**`/steam`**",
+        "example_usage": "**`/steam public:Yes`** returns an embed with the most recent patch notes, it also has a dropdown for the most recent 10 patch notes you can choose from. Other people can see this too.",
+    },
+    "stratagem": {
+        "long_description": "Returns information on a stratagem. **THIS COMMAND IS A WORK IN PROGRESS**",
+        "example_usage": "**`/strategem strategem:Reinforce public:Yes`** would return information on the Reinforce stratagem that other members of the server can see.",
     },
     "superstore": {
         "long_description": "Returns the current Superstore rotation",
-        "example_usage": "**`/superstore public: Yes`**",
+        "example_usage": "**`/superstore public:Yes`** returns the current rotation of the Superstore that other people in the server can see.",
     },
-    "dss": {
-        "long_description": "Returns extended information on the Democracy Space Station",
-        "example_usage": "**`/dss public: Yes`**",
+    "terminid": {
+        "long_description": "Returns information on a Terminid species or variation. This information is manually updated by the GWW's owner, if there are any inaccuracies please contact our support server.",
+        "example_usage": "**`/terminid species:Shrieker public:Yes`** would return information on the Shrieker species that everyone else can see.",
+    },
+    "warbond": {
+        "long_description": "Returns a basic summary of the items in a specific warbond, showing each item's name and cost, as well as the cost per page and base warbond cost.",
+        "example_usage": "**`/warbond warbond:Polar Patriots public:Yes`** would return a paged embed with the warbond items in it that everyone in the server can see.",
+    },
+    "warfront": {
+        "long_description": "Returns information on each campaign for a specific faction",
+        "example_usage": "**`/warfront faction:Illuminate public:Yes`** would return information on the Illuminate warfront that other members in the server can see.",
+    },
+    "weapons": {
+        "long_description": "Returns information on a specific weapon. This command has 3 sub-commands for each weapon slot, Primary, Secondary and Grenade.",
+        "example_usage": "**`/weapons primary primary:AR-23C Liberator Concussive, public:Yes`** would return details on the AR-23 Liberator Concussive, including an image of the weapon. Other people in the server can see it too.",
     },
 }
 
