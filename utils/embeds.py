@@ -693,9 +693,8 @@ class Dashboard:
                     if specific_planet:
                         objective_text = f"{language['defend']['defend']} {specific_planet.name} {language['dashboard']['major_order']['from_the']} {language[factions[task.values[1]].lower()]} {task.values[0]} {language['dashboard']['major_order']['times']}"
                     else:
-                        objective_text = (
-                            f"{language['dashboard']['major_order']['succeed_in_defense']} {task.values[0]} {language['dashboard']['planets']} {language[factions[task.values[1]].lower()]} {emojis_dict[factions[task.values[1]]]}",
-                        )
+                        objective_text = f"{language['dashboard']['major_order']['succeed_in_defense']} {task.values[0]} {language['dashboard']['planets']} {language[factions[task.values[1]].lower()]} {emojis_dict[factions[task.values[1]]]}"
+
                     major_orders_embed.add_field(
                         objective_text,
                         (
