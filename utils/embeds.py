@@ -480,17 +480,27 @@ class CampaignEmbed(Embed):
 
     def add_new_campaign(self, campaign: Campaign, time_remaining):
         description = self.fields[2].value
-        dss_icon = f' {emojis_dict["dss"]}' if campaign.planet.dss else ""
+        exclamation = ""
+        if campaign.planet.dss:
+            exclamation += emojis_dict["dss"]
+        if campaign.planet.in_assignment:
+            exclamation += emojis_dict["MO"]
+        if campaign.planet.event:
+            def_level_exc = {0: "", 5: "!", 20: "!!", 33: "!!!", 50: ":warning:"}
+            key = [
+                key
+                for key in def_level_exc.keys()
+                if key <= campaign.planet.event.level
+            ][-1]
+            def_level_exc = def_level_exc[key]
         description += (
             (
-                f"🛡️ {self.language['defend']['defend']} **{campaign.planet.name}**{dss_icon}"
-                f"{emojis_dict[campaign.faction]}\n> *{self.language['ends']} {time_remaining}*\n"
+                f"🛡️ {self.language['defend']['defend']} **{campaign.planet.name}** {emojis_dict[campaign.faction]}{exclamation}\n"
+                f"> -# {self.language['dashboard']['defend_embed']['level']} {campaign.planet.event.level}{def_level_exc}\n"
+                f"> *{self.language['ends']} {time_remaining}*\n"
             )
             if time_remaining
-            else (
-                f"⚔️ {self.language['campaigns']['liberate']} **{campaign.planet.name}**{dss_icon}"
-                f"{emojis_dict[campaign.faction]}\n"
-            )
+            else f"⚔️ {self.language['campaigns']['liberate']} **{campaign.planet.name}** {emojis_dict[campaign.faction]}{exclamation}\n"
         )
         self.set_field_at(2, self.fields[2].name, description, inline=False)
 
@@ -691,9 +701,9 @@ class Dashboard:
                         data.planets[task.values[3]] if task.values[3] != 0 else None
                     )
                     if specific_planet:
-                        objective_text = f"{language['defend']['defend']} {specific_planet.name} {language['dashboard']['major_order']['from_the']} {language[factions[task.values[1]].lower()]} {task.values[0]} {language['dashboard']['major_order']['times']}"
+                        objective_text = f"{language['defend']['defend']} {specific_planet.name} {language['dashboard']['major_order']['against']} {task.values[0]} {language['dashboard']['major_order']['attacks_from']} {language[factions[task.values[1]].lower()]} {emojis_dict[factions[task.values[1]]]}"
                     else:
-                        objective_text = f"{language['dashboard']['major_order']['succeed_in_defense']} {task.values[0]} {language['dashboard']['planets']} {language[factions[task.values[1]].lower()]} {emojis_dict[factions[task.values[1]]]}"
+                        objective_text = f"{language['dashboard']['major_order']['defend_against']} {task.values[0]} {language['dashboard']['major_order']['attacks_from']} {language[factions[task.values[1]].lower()]} {emojis_dict[factions[task.values[1]]]}"
 
                     major_orders_embed.add_field(
                         objective_text,

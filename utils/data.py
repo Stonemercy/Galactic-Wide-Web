@@ -430,6 +430,7 @@ class Planet:
             )
             self.progress: float = self.health / self.max_health
             self.required_players: int = 0
+            self.level: int = int(self.max_health / 50000)
 
         def __repr__(self):
             return (
