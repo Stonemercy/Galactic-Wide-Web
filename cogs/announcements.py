@@ -203,7 +203,7 @@ class AnnouncementsCog(commands.Cog):
                 reward_types=self.bot.json_dict["items"]["reward_types"],
                 with_health_bars=True,
             )
-            for lang in list({[guild.language for guild in GWWGuild.get_all()]})
+            for lang in list(set([guild.language for guild in GWWGuild.get_all()]))
         }
         chunked_mo_channels = [
             self.bot.major_order_channels[i : i + 50]
