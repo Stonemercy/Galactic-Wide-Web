@@ -222,47 +222,6 @@ class BotDashboardEmbed(Embed):
             "\n".join(f"{label}: {time}" for label, time in update_times.items()),
         )
         self.add_field("", "", inline=False)
-        guilds: list[GWWGuild] = GWWGuild.get_all()
-        stats_dict = {
-            "Dashboard Setup": len(
-                [
-                    guild
-                    for guild in guilds
-                    if guild.dashboard_channel_id != 0
-                    and guild.dashboard_message_id != 0
-                ]
-            ),
-            "Announcements Setup": len(
-                [guild for guild in guilds if guild.announcement_channel_id != 0]
-            ),
-            None: None,
-            "Maps Setup": len(
-                [
-                    guild
-                    for guild in guilds
-                    if guild.map_channel_id != 0 and guild.map_message_id != 0
-                ]
-            ),
-            "Patch Notes Enabled": len(
-                [guild for guild in guilds if guild.patch_notes]
-            ),
-        }
-        for title, amount in stats_dict.items():
-            if not title:
-                self.add_field("", "", inline=False)
-                continue
-            healthbar = health_bar(
-                (len(bot.guilds) - amount) / len(bot.guilds),
-                "Humans",
-            )
-            self.add_field(
-                title,
-                (
-                    f"**Setup**: {len(bot.guilds) - amount}\n"
-                    f"**Not Setup**: {amount}\n"
-                    f"{healthbar}"
-                ),
-            )
         self.add_field(
             "Credits",
             (
