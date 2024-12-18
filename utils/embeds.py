@@ -149,9 +149,9 @@ class HelpEmbed(Embed):
                         f"- </{command_help.name} {option.name}:{command_help.id}>\n"
                     )
                     for sub_option in option.options:
-                        options += f" - **`{sub_option.name}`** `{sub_option.type.name}` {'**[Required]**' if sub_option.required else '**<Optional>**'}- {sub_option.description} \n"
+                        options += f" - **`{sub_option.name}`** {'**[Required]**' if sub_option.required else '**<Optional>**'}- {sub_option.description}\n"
                 else:
-                    options += f"- **`{option.name}`**: `{option.type.name}` {'**[Required]**' if option.required else '**<Optional>**'} - {option.description}\n"
+                    options += f"- **`{option.name}`** {'**[Required]**' if option.required else '**<Optional>**'} - {option.description}\n"
             self.add_field(
                 f"</{command_help.name}:{command_help.id}>",
                 (
