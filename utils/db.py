@@ -76,7 +76,7 @@ class GWWGuild:
             host=hostname, dbname=database, user=username, password=pwd, port=port_id
         ) as conn:
             with conn.cursor() as curs:
-                curs.execute(f"INSERT INTO guilds (guild_id) VALUES {guild_id}")
+                curs.execute(f"INSERT INTO guilds (guild_id) VALUES ({guild_id})")
                 conn.commit()
                 curs.execute(f"SELECT * FROM guilds WHERE guild_id = {guild_id}")
                 record = curs.fetchone()
