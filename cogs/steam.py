@@ -33,7 +33,7 @@ class SteamCog(commands.Cog):
                     GWWGuild.get_by_id(inter.guild_id).language
                 ],
             ),
-            components=[SteamStringSelect(self.bot)],
+            components=[SteamStringSelect(self.bot.data)],
             ephemeral=public != "Yes",
         )
 
