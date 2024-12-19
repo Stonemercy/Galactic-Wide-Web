@@ -1,6 +1,6 @@
 from asyncio import sleep
 from os import getenv
-import random
+from random import choice
 from disnake import AppCmdInter, Forbidden, NotFound, Permissions, TextChannel
 from disnake.ext import commands, tasks
 from utils.checks import wait_for_startup
@@ -62,9 +62,19 @@ class WarUpdatesCog(commands.Cog):
             for new_campaign in self.bot.data.campaigns:
                 Campaign.new(
                     new_campaign.id,
-                    new_campaign.planet.name,
                     new_campaign.planet.current_owner,
                     new_campaign.planet.index,
+                    new_campaign.planet.event is not None,
+                    (
+                        new_campaign.planet.event.type
+                        if new_campaign.planet.event
+                        else None
+                    ),
+                    (
+                        new_campaign.planet.event.faction
+                        if new_campaign.planet.event
+                        else None
+                    ),
                 )
             return
         old_campaign_ids = [old_campaign.id for old_campaign in old_campaigns]
@@ -73,9 +83,12 @@ class WarUpdatesCog(commands.Cog):
                 # if campaign is no longer active
                 planet = self.bot.data.planets[old_campaign.planet_index]
                 if planet.current_owner == "Humans" and old_campaign.owner == "Humans":
-                    # if successful defence campaign
-                    for embed in embeds.values():
-                        embed.add_def_victory(planet)
+                    if old_campaign.event_type == 2:
+                        for embed in embeds.values():
+                            embed.add_invasion_over(planet, old_campaign.event_faction)
+                    else:
+                        for embed in embeds.values():
+                            embed.add_def_victory(planet)
                     new_updates = True
                     self.bot.data.liberation_changes.pop(planet.index, None)
                     Campaign.delete(old_campaign.id)
@@ -106,9 +119,19 @@ class WarUpdatesCog(commands.Cog):
                 new_updates = True
                 Campaign.new(
                     new_campaign.id,
-                    new_campaign.planet.name,
                     new_campaign.planet.current_owner,
                     new_campaign.planet.index,
+                    new_campaign.planet.event is not None,
+                    (
+                        new_campaign.planet.event.type
+                        if new_campaign.planet.event
+                        else None
+                    ),
+                    (
+                        new_campaign.planet.event.faction
+                        if new_campaign.planet.event
+                        else None
+                    ),
                 )
             continue
 
@@ -173,28 +196,29 @@ class WarUpdatesCog(commands.Cog):
             lang: CampaignEmbed(self.bot.json_dict["languages"][lang])
             for lang in languages
         }
-        planet = self.bot.data.planets[
-            random.randint(
-                list(self.bot.data.planets.keys())[0],
-                list(self.bot.data.planets.keys())[-1],
-            )
-        ]
+        campaign = choice(self.bot.data.campaigns)
         for embed in embeds.values():
-            embed.add_def_victory(planet)
-            embed.add_planet_lost(planet)
             embed.add_campaign_victory(
-                planet,
-                ["Terminids", "Automaton", "Illuminate"][random.randint(0, 2)],
+                campaign.planet, choice(["Terminids", "Automaton", "Illuminate"])
             )
-            embed.add_new_campaign(self.bot.data.campaigns[0], None)
+            embed.add_new_campaign(campaign, None)
             if self.bot.data.planet_events:
-                embed.add_new_campaign(
+                def_campaign = choice(
                     [
                         campaign
                         for campaign in self.bot.data.campaigns
                         if campaign.planet.event
-                    ][0],
+                    ]
+                )
+                embed.add_new_campaign(
+                    def_campaign,
                     f"<t:{datetime.fromisoformat(self.bot.data.planet_events[0].event.end_time).timestamp():.0f}:R>",
+                )
+                embed.add_def_victory(def_campaign.planet)
+                embed.add_planet_lost(def_campaign.planet)
+                embed.add_invasion_over(
+                    def_campaign.planet,
+                    choice(["Terminids", "Automaton", "Illuminate"]),
                 )
             else:
                 embed.add_new_campaign(
@@ -202,8 +226,8 @@ class WarUpdatesCog(commands.Cog):
                     f"<t:{(datetime.now() + timedelta(days=2)).timestamp():.0f}:R>",
                 )
             if self.bot.data.dss != "Error":
-                embed.dss_moved(planet, self.bot.data.planets[random.randint(0, 260)])
-                embed.ta_status_changed(self.bot.data.dss.tactical_actions[0])
+                embed.dss_moved(campaign, choice(list(self.bot.data.planets.values())))
+                embed.ta_status_changed(choice(self.bot.data.dss.tactical_actions))
 
         for embed in embeds.values():
             embed.remove_empty()

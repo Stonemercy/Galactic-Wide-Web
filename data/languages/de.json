@@ -49,6 +49,11 @@
         "planets_lost": "Verlorene Planeten",
         "new_battles": "Neue Schlachten",
         "liberate": "Befreien",
+        "invasions": "Invasionen",
+        "repel_invasion": "Schlagen Sie die Invasion auf",
+        "invasion_of": "Die Invasion auf",
+        "has_ended": "ist beendet",
+        "no_changes": "ist weg und kein Gebiet hat den Besitzer gewechselt",
         "been_liberated": "Wurde befreit von",
         "been_defended": "Wurde erfolgreich verteidigt",
         "been_lost": "Wurde verloren an"

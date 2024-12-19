@@ -152,13 +152,23 @@ class MajorOrder:
 
 
 class Campaign:
-    __slots__ = ("id", "planet_name", "owner", "planet_index")
+    __slots__ = ("id", "owner", "planet_index", "event", "event_type", "event_faction")
 
-    def __init__(self, id: int, planet_name: str, owner: str, planet_index: int):
-        self.id = id
-        self.planet_name = planet_name
-        self.owner = owner
-        self.planet_index = planet_index
+    def __init__(
+        self,
+        id: int,
+        owner: str,
+        planet_index: int,
+        event: bool,
+        event_type: int,
+        event_faction: str,
+    ):
+        self.id: int = id
+        self.owner: str = owner
+        self.planet_index: int = planet_index
+        self.event: bool | None = event
+        self.event_type: int | None = event_type
+        self.event_faction: str | None = event_faction
 
     @classmethod
     def get_all(cls) -> list:
@@ -170,13 +180,22 @@ class Campaign:
                 records = curs.fetchall()
                 return [cls(*record) for record in records] if records else None
 
-    def new(id: int, planet_name: str, owner: str, planet_index: int):
+    def new(
+        id: int,
+        owner: str,
+        planet_index: int,
+        event: bool,
+        event_type: int,
+        event_faction: str,
+    ):
         with connect(
             host=hostname, dbname=database, user=username, password=pwd, port=port_id
         ) as conn:
             with conn.cursor() as curs:
+                if event_type == None:
+                    event_type = 0
                 curs.execute(
-                    f"INSERT INTO campaigns (id, planet_name, owner, planet_index) VALUES {id, planet_name, owner, planet_index}"
+                    f"INSERT INTO campaigns (id, owner, planet_index, event, event_type, event_faction) VALUES {id, owner, planet_index, event, event_type, f'{event_faction}'}"
                 )
                 conn.commit()
                 curs.execute
@@ -190,7 +209,7 @@ class Campaign:
                 conn.commit()
 
     def __repr__(self):
-        return f"Campaign({self.id, self.planet_name, self.owner, self.planet_index})"
+        return f"Campaign({self.id, self.owner, self.planet_index, self.event, self.event_type, self.event_faction})"
 
 
 class Dispatch:

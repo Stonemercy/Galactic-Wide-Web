@@ -436,15 +436,16 @@ class CampaignEmbed(Embed):
         self.add_field(
             self.language["dss"]["name"] + " " + emojis_dict["dss"], "", inline=False
         )
+        self.add_field(self.language["campaigns"]["invasions"], "", inline=False)
 
-    def add_new_campaign(self, campaign: Campaign, time_remaining):
+    def add_new_campaign(self, campaign: Campaign, time_remaining: str | None):
         description = self.fields[2].value
         exclamation = ""
         if campaign.planet.dss:
             exclamation += emojis_dict["dss"]
         if campaign.planet.in_assignment:
             exclamation += emojis_dict["MO"]
-        if campaign.planet.event:
+        if campaign.planet.event and time_remaining:
             def_level_exc = {0: "", 5: "!", 20: "!!", 33: "!!!", 50: ":warning:"}
             key = [
                 key
@@ -452,15 +453,20 @@ class CampaignEmbed(Embed):
                 if key <= campaign.planet.event.level
             ][-1]
             def_level_exc = def_level_exc[key]
-        description += (
-            (
-                f"🛡️ {self.language['defend']['defend']} **{campaign.planet.name}** {emojis_dict[campaign.faction]}{exclamation}\n"
-                f"> -# {self.language['dashboard']['defend_embed']['level']} {campaign.planet.event.level}{def_level_exc}\n"
-                f"> *{self.language['ends']} {time_remaining}*\n"
-            )
-            if time_remaining
-            else f"⚔️ {self.language['campaigns']['liberate']} **{campaign.planet.name}** {emojis_dict[campaign.faction]}{exclamation}\n"
-        )
+            if campaign.planet.event.type != 2:
+                description += (
+                    f"🛡️ {self.language['defend']['defend']} **{campaign.planet.name}** {emojis_dict[campaign.faction]}{exclamation}\n"
+                    f"> -# {self.language['dashboard']['defend_embed']['level']} {campaign.planet.event.level}{def_level_exc}\n"
+                    f"> *{self.language['ends']} {time_remaining}*\n"
+                )
+            else:
+                description += (
+                    f"🛡️ {self.language['campaigns']['repel_invasion']} **{campaign.planet.name}** {emojis_dict[campaign.faction]}{exclamation}\n"
+                    f"> -# {self.language['dashboard']['defend_embed']['level']} {campaign.planet.event.level}{def_level_exc}\n"
+                    f"> *{self.language['ends']} {time_remaining}*\n"
+                )
+        else:
+            description += f"⚔️ {self.language['campaigns']['liberate']} **{campaign.planet.name}** {emojis_dict[campaign.faction]}{exclamation}\n"
         self.set_field_at(2, self.fields[2].name, description, inline=False)
 
     def add_campaign_victory(self, planet: Planet, liberatee: str):
@@ -475,7 +481,7 @@ class CampaignEmbed(Embed):
         name = self.fields[0].name
         description = self.fields[0].value
         dss_icon = f' {emojis_dict["dss"]}' if planet.dss else ""
-        description += f"**{emojis_dict['victory']} {planet.name}** {self.language['campaigns']['been_defended']}!{dss_icon}\n"
+        description += f"**{emojis_dict['victory']} {planet.name}** {self.language['campaigns']['been_defended']}! {dss_icon}\n"
         self.set_field_at(0, name, description, inline=False)
 
     def add_planet_lost(self, planet: Planet):
@@ -484,6 +490,13 @@ class CampaignEmbed(Embed):
         dss_icon = f' {emojis_dict["dss"]}' if planet.dss else ""
         description += f"**💀 {planet.name}** {self.language['campaigns']['been_lost']} **{self.language[planet.current_owner.lower()]}** {emojis_dict[planet.current_owner]}{dss_icon}\n"
         self.set_field_at(1, name, description, inline=False)
+
+    def add_invasion_over(self, planet: Planet, faction: str):
+        name = self.fields[4].name
+        description = self.fields[4].value
+        dss_icon = f' {emojis_dict["dss"]}' if planet.dss else ""
+        description += f"{self.language['campaigns']['invasion_of']} **{planet.name}** {self.language['campaigns']['has_ended']} {emojis_dict[planet.current_owner]}{dss_icon}\n-# **{self.language[faction.lower()]}** {self.language['campaigns']['no_changes']} {emojis_dict[faction]}"
+        self.set_field_at(4, name, description, inline=False)
 
     def remove_empty(self):
         for field in self.fields:
@@ -1625,7 +1638,7 @@ class DSSEmbed(Embed):
                 {1: "preparing", 2: "active", 3: "on_cooldown"}[tactical_action.status]
             ]
             self.add_field(
-                tactical_action.name.title(),
+                f"{emojis_dict[tactical_action.name.replace(' ', '_').lower()]} {tactical_action.name.title()}",
                 (
                     f"{language_json['dss']['description']}:\n-# {tactical_action.description}\n"
                     f"{language_json['dss']['strategic_description']}:\n-# {tactical_action.strategic_description}\n"

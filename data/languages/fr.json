@@ -49,6 +49,11 @@
         "planets_lost": "Planètes perdues",
         "new_battles": "Nouvelles batailles",
         "liberate": "Libérer",
+        "invasions": "Invasions",
+        "repel_invasion": "Repousser l'invasion sur",
+        "invasion_of": "L'invasion de",
+        "has_ended": "est terminée",
+        "no_changes": "est parti et aucun territoire n'a changé de propriétaire",
         "been_liberated": "A été libéré du",
         "been_defended": "A été défendu avec succès",
         "been_lost": "A été perdu par le"

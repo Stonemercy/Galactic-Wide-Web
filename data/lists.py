@@ -216,6 +216,9 @@ emojis_dict = {
     "Rare Sample": "<:Rare_Sample:1306611408406052874>",
     "Requisition Slip": "<:Requisition_Slip:1306611395986587689>",
     "dss": "<:DSS:1308177676250513449>",
+    "orbital_blockade": "<:orbital_blockade:1318875016909029388>",
+    "planetary_bombardment": "<:planetary_bombardment:1318874283350687816>",
+    "eagle_storm": "<:eagle_storm:1318874257773690881>",
 }
 
 warbond_images_dict = {
@@ -405,6 +408,7 @@ titles_list = [
     "Expert Exterminator",
     "Free of Thought",
     "Super Pedestrian",
+    "Assault Infantry",
 ]
 
 stratagem_permit_list = [
