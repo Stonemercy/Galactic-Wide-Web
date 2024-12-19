@@ -296,6 +296,18 @@
         "cooldown": 480,
         "activation": 9.75
     },
+    "StA-X3 W.A.S.P Launcher": {
+        "keys": [
+            "down",
+            "down",
+            "up",
+            "down",
+            "right"
+        ],
+        "uses": "Unlimited",
+        "cooldown": 432,
+        "activation": 7.75
+    },
     "EXO-45 Patriot Exosuit": {
         "keys": [
             "left",
