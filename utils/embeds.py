@@ -705,6 +705,8 @@ class Dashboard:
                         2514244534: "Bile Titan",
                         1379865898: "Bile Spewer",
                         2058088313: "Warrior",
+                        4211847317: "Voteless",
+                        1405979473: "Harvester",
                     }
                     species = (
                         species_dict.get(task.values[3], None)
