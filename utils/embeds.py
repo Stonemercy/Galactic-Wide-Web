@@ -1039,6 +1039,8 @@ class Dashboard:
             major_orders_embed.set_footer(
                 text=language["dashboard"]["malevelon_creek_day"]
             )
+        if now.strftime("%d/%m") in ("24/12", "25/12", "26/12"):
+            major_orders_embed.set_footer(text="Happy Festival of Reckoning!")
         self.embeds = []
         for embed in (
             major_orders_embed,
