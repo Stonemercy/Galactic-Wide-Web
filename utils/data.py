@@ -156,9 +156,7 @@ class Data:
             )
 
         if self.__data__["planets"]:
-            self.planets: dict[int, Planet] = {
-                planet["index"]: Planet(planet) for planet in self.__data__["planets"]
-            }
+            self.planets = Planets(self.__data__["planets"])
             self.total_players = sum(
                 [planet.stats["playerCount"] for planet in self.planets.values()]
             )
@@ -439,6 +437,18 @@ class Planet:
                 f"Event(id={self.id}, type={self.type}, faction={self.faction}, health={self.health}) "
                 f"max_health={self.max_health}, start_time={self.start_time}, end_time={self.end_time}, progress={self.progress})"
             )
+
+
+class Planets(dict[int, Planet]):
+    def __init__(self, planets: dict):
+        for planet in planets:
+            self[planet["index"]] = Planet(planet)
+
+    def get_by_name(self, name: str) -> Planet | None:
+        planet_list = [
+            planet for planet in self.values() if planet.name.upper() == name.upper()
+        ]
+        return None if not planet_list else planet_list[0]
 
 
 class PlanetEvents(list[Planet]):
