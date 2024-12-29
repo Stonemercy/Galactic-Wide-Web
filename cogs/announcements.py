@@ -54,10 +54,6 @@ class AnnouncementsCog(commands.Cog):
             ):
                 if channel in channels_list:
                     channels_list.remove(channel)
-            guild.announcement_channel_id = 0
-            guild.patch_notes = False
-            guild.major_order_updates = False
-            guild.save_changes()
             return self.bot.logger.error(
                 f"{self.qualified_name} | send_embed | {e} | {channel.id = } | {guild = }"
             )
