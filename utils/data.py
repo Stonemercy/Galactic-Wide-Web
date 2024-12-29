@@ -407,11 +407,12 @@ class Planet:
 
     def __repr__(self):
         return (
-            f"Planet(index={self.index}, name={self.name}, sector={self.sector} "
-            f"biome={self.biome}, hazards={self.hazards}, position={self.position} "
-            f"waypoints={self.waypoints}, max_health={self.max_health}, health={self.health} "
-            f"current_owner={self.current_owner}, regen={self.regen}, event={self.event} "
-            f"stats={self.stats}, thumbnail={self.thumbnail})"
+            f"Planet(index={self.index}, name='{self.name}', sector='{self.sector}', "
+            f"biome={self.biome}, hazards={self.hazards}, position={self.position}, "
+            f"waypoints={self.waypoints}, max_health={self.max_health}, health={self.health}, "
+            f"current_owner='{self.current_owner}', regen={self.regen}, event={self.event}, "
+            f"stats={self.stats}, thumbnail={self.thumbnail}, feature={self.feature}, "
+            f"dss={self.dss}, in_assignment={self.in_assignment})"
         )
 
     class Event:
