@@ -45,9 +45,7 @@ class WeaponsCog(commands.Cog):
         return [grenade for grenade in grenades if user_input in grenade.lower()][:25]
 
     @wait_for_startup()
-    @commands.slash_command(
-        description="Returns information on a specific weapon.", dm_permission=False
-    )
+    @commands.slash_command(description="Returns information on a specific weapon.")
     async def weapons(
         self,
         inter: AppCmdInter,
@@ -72,7 +70,10 @@ class WeaponsCog(commands.Cog):
         self.bot.logger.info(
             f"{self.qualified_name} | /{inter.application_command.name} <{primary = }>"
         )
-        guild = GWWGuild.get_by_id(inter.guild_id)
+        if inter.guild:
+            guild = GWWGuild.get_by_id(inter.guild_id)
+        else:
+            guild = GWWGuild.default()
         guild_language = self.bot.json_dict["languages"][guild.language]
         if primary not in self.primaries:
             return await inter.send(
@@ -116,7 +117,10 @@ class WeaponsCog(commands.Cog):
         self.bot.logger.info(
             f"{self.qualified_name} | /{inter.application_command.name} <{secondary = }>"
         )
-        guild = GWWGuild.get_by_id(inter.guild_id)
+        if inter.guild:
+            guild = GWWGuild.get_by_id(inter.guild_id)
+        else:
+            guild = GWWGuild.default()
         guild_language = self.bot.json_dict["languages"][guild.language]
         if secondary not in self.secondaries:
             return await inter.send(
@@ -159,7 +163,10 @@ class WeaponsCog(commands.Cog):
         self.bot.logger.info(
             f"{self.qualified_name} | /{inter.application_command.name} <{grenade = }>"
         )
-        guild = GWWGuild.get_by_id(inter.guild_id)
+        if inter.guild:
+            guild = GWWGuild.get_by_id(inter.guild_id)
+        else:
+            guild = GWWGuild.default()
         guild_language = self.bot.json_dict["languages"][guild.language]
         if grenade not in self.grenades:
             return await inter.send(

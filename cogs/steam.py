@@ -12,7 +12,7 @@ class SteamCog(commands.Cog):
         self.bot = bot
 
     @wait_for_startup()
-    @commands.slash_command(description="Get previous Steam posts", dm_permission=False)
+    @commands.slash_command(description="Get previous Steam posts")
     async def steam(
         self,
         inter: AppCmdInter,
@@ -26,12 +26,14 @@ class SteamCog(commands.Cog):
         self.bot.logger.info(
             f"{self.qualified_name} | /{inter.application_command.name}"
         )
+        if inter.guild:
+            guild = GWWGuild.get_by_id(inter.guild_id)
+        else:
+            guild = GWWGuild.default()
         await inter.send(
             embed=SteamEmbed(
                 steam=self.bot.data.steam[0],
-                language=self.bot.json_dict["languages"][
-                    GWWGuild.get_by_id(inter.guild_id).language
-                ],
+                language=self.bot.json_dict["languages"][guild.language],
             ),
             components=[SteamStringSelect(self.bot.data)],
             ephemeral=public != "Yes",
@@ -44,11 +46,13 @@ class SteamCog(commands.Cog):
         steam_data = [
             steam for steam in self.bot.data.steam if steam.title == inter.values[0]
         ][0]
+        if inter.guild:
+            guild = GWWGuild.get_by_id(inter.guild_id)
+        else:
+            guild = GWWGuild.default()
         embed = SteamEmbed(
             steam_data,
-            self.bot.json_dict["languages"][
-                GWWGuild.get_by_id(inter.guild_id).language
-            ],
+            self.bot.json_dict["languages"][guild.language],
         )
         await inter.response.edit_message(embed=embed)
 

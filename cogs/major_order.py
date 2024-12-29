@@ -14,7 +14,6 @@ class MajorOrderCog(commands.Cog):
     @wait_for_startup()
     @commands.slash_command(
         description="Returns information on an Automaton or variation.",
-        dm_permission=False,
     )
     async def major_order(
         self,
@@ -29,9 +28,11 @@ class MajorOrderCog(commands.Cog):
         self.bot.logger.info(
             f"{self.qualified_name} | /{inter.application_command.name} <{public = }>"
         )
-        guild_language = self.bot.json_dict["languages"][
-            GWWGuild.get_by_id(inter.guild_id).language
-        ]
+        if inter.guild:
+            guild = GWWGuild.get_by_id(inter.guild_id)
+        else:
+            guild = GWWGuild.default()
+        guild_language = self.bot.json_dict["languages"][guild.language]
         if not self.bot.data.assignment:
             return await inter.send(
                 guild_language["major_order"]["no_order"], ephemeral=public != "Yes"

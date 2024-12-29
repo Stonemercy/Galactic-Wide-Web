@@ -40,8 +40,7 @@ class TerminidsCog(commands.Cog):
 
     @wait_for_startup()
     @commands.slash_command(
-        description="Returns information on a Terminid or variation.",
-        dm_permission=False,
+        description="Returns information on a Terminid or variation."
     )
     async def terminid(
         self,
@@ -72,9 +71,11 @@ class TerminidsCog(commands.Cog):
                 delete_after=10.0,
                 ephemeral=public != "Yes",
             )
-        guild_language = self.bot.json_dict["languages"][
-            GWWGuild.get_by_id(inter.guild_id).language
-        ]
+        if inter.guild:
+            guild = GWWGuild.get_by_id(inter.guild_id)
+        else:
+            guild = GWWGuild.default()
+        guild_language = self.bot.json_dict["languages"][guild.language]
         if species and variation:
             return await inter.send(
                 guild_language["enemy"]["species_or_variation"],

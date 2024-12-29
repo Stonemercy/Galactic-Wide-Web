@@ -20,9 +20,7 @@ class PlanetCog(commands.Cog):
         ][:25]
 
     @wait_for_startup()
-    @commands.slash_command(
-        description="Returns the war details on a specific planet.", dm_permission=False
-    )
+    @commands.slash_command(description="Returns the war details on a specific planet.")
     async def planet(
         self,
         inter: AppCmdInter,
@@ -50,7 +48,10 @@ class PlanetCog(commands.Cog):
                 "That planet is unavailable. Please select another planet from the list.",
                 ephemeral=public != "Yes",
             )
-        guild = GWWGuild.get_by_id(inter.guild_id)
+        if inter.guild:
+            guild = GWWGuild.get_by_id(inter.guild_id)
+        else:
+            guild = GWWGuild.default()
         guild_language = self.bot.json_dict["languages"][guild.language]
         embed = PlanetEmbed(
             planet_names=[

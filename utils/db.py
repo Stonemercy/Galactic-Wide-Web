@@ -82,6 +82,10 @@ class GWWGuild:
                 record = curs.fetchone()
                 return cls(*record)
 
+    @classmethod
+    def default(cls):
+        return cls(0, 0, 0, 0, False, "en", 0, 0, False)
+
     def delete(guild_id: int):
         with connect(
             host=hostname, dbname=database, user=username, password=pwd, port=port_id

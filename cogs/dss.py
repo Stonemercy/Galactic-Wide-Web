@@ -14,7 +14,6 @@ class DSSCog(commands.Cog):
     @wait_for_startup()
     @commands.slash_command(
         description="Returns information on the Democracy Space Station",
-        dm_permission=False,
     )
     async def dss(
         self,
@@ -34,12 +33,14 @@ class DSSCog(commands.Cog):
                 "The DSS is currently unavailable. Please try again later.",
                 ephemeral=public != "Yes",
             )
+        if inter.guild:
+            guild = GWWGuild.get_by_id(inter.guild_id)
+        else:
+            guild = GWWGuild.default()
         await inter.send(
             embed=DSSEmbed(
                 self.bot.data.dss,
-                self.bot.json_dict["languages"][
-                    GWWGuild.get_by_id(inter.guild_id).language
-                ],
+                self.bot.json_dict["languages"][guild.language],
             ),
             components=[
                 WikiButton(

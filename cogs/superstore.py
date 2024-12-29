@@ -10,9 +10,7 @@ class SuperstoreCog(commands.Cog):
         self.bot = bot
 
     @wait_for_startup()
-    @commands.slash_command(
-        description="Get the current Superstore rotation", dm_permission=False
-    )
+    @commands.slash_command(description="Get the current Superstore rotation")
     async def superstore(
         self,
         inter: AppCmdInter,

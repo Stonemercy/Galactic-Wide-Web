@@ -13,7 +13,6 @@ class WarfrontCog(commands.Cog):
     @wait_for_startup()
     @commands.slash_command(
         description="Returns information on a specific War front",
-        dm_permission=False,
     )
     async def warfront(
         self,
@@ -33,9 +32,11 @@ class WarfrontCog(commands.Cog):
             f"{self.qualified_name} | /{inter.application_command.name} <{faction = }> <{public = }>"
         )
         await inter.response.defer(ephemeral=ephemeral)
-        guild_language = self.bot.json_dict["languages"][
-            GWWGuild.get_by_id(inter.guild_id).language
-        ]
+        if inter.guild:
+            guild = GWWGuild.get_by_id(inter.guild_id)
+        else:
+            guild = GWWGuild.default()
+        guild_language = self.bot.json_dict["languages"][guild.language]
         embed = WarfrontEmbed(
             faction, self.bot.data, guild_language, self.bot.json_dict["planets"]
         )

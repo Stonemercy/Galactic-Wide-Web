@@ -82,9 +82,7 @@ class MapCog(commands.Cog):
         await self.bot.wait_until_ready()
 
     @wait_for_startup()
-    @commands.slash_command(
-        description="Get an up-to-date map of the galaxy", dm_permission=False
-    )
+    @commands.slash_command(description="Get an up-to-date map of the galaxy")
     async def map(
         self,
         inter: AppCmdInter,
@@ -97,7 +95,10 @@ class MapCog(commands.Cog):
         self.bot.logger.info(
             f"{self.qualified_name} | /{inter.application_command.name} <{public = }>"
         )
-        guild = GWWGuild.get_by_id(inter.guild_id)
+        if inter.guild:
+            guild = GWWGuild.get_by_id(inter.guild_id)
+        else:
+            guild = GWWGuild.default()
         await inter.send(
             f"Map generating. Should be done <t:{int((datetime.now() + timedelta(seconds=10)).timestamp())}:R>",
             ephemeral=public != "Yes",

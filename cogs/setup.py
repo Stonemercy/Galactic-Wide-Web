@@ -317,6 +317,13 @@ class SetupCog(commands.Cog):
 
     @commands.Cog.listener("on_dropdown")
     async def on_dropdowns(self, inter: MessageInteraction):
+        if inter.component.custom_id not in (
+            "dashboard_channel_select",
+            "announcements_channel_select",
+            "map_channel_select",
+            "language_select",
+        ):
+            return
         action_rows = ActionRow.rows_from_message(inter.message)
         guild = GWWGuild.get_by_id(inter.guild_id)
         guild_language = self.bot.json_dict["languages"][guild.language]

@@ -41,7 +41,6 @@ class IlluminateCog(commands.Cog):
     @wait_for_startup()
     @commands.slash_command(
         description="Returns information on an Illuminate or variation.",
-        dm_permission=False,
     )
     async def illuminate(
         self,
@@ -70,9 +69,11 @@ class IlluminateCog(commands.Cog):
             return await inter.send(
                 ":alien:", delete_after=10.0, ephemeral=public != "Yes"
             )
-        guild_language = self.bot.json_dict["languages"][
-            GWWGuild.get_by_id(inter.guild_id).language
-        ]
+        if inter.guild:
+            guild = GWWGuild.get_by_id(inter.guild_id)
+        else:
+            guild = GWWGuild.default()
+        guild_language = self.bot.json_dict["languages"][guild.language]
         if species and variation:
             return await inter.send(
                 guild_language["enemy"]["species_or_variation"],

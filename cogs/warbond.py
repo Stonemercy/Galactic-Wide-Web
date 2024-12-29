@@ -91,9 +91,7 @@ class WarbondCog(commands.Cog):
                 custom_id=f"{self.warbond_index[warbond]['name']}_next_page",
                 label="Next Page",
             ),
-            WikiButton(
-                link=f"https://helldivers.wiki.gg/wiki/{warbond.replace(' ', '_')}"
-            ),
+            WikiButton(link=f"https://helldivers.wiki.gg/wiki/Warbonds"),
         ]
         return await inter.send(
             embed=embed,
