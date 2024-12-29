@@ -1,12 +1,3 @@
-from math import inf
-from os import getpid
-from disnake import APISlashCommand, Embed, Colour, File, ModalInteraction, OptionType
-from datetime import datetime, timedelta
-from psutil import Process, cpu_percent
-from main import GalacticWideWebBot
-from utils.db import GWWGuild
-from utils.functions import health_bar, short_format, skipped_planets
-from utils.data import DSS, Campaign, Data, Dispatch, Steam, Superstore, Tasks, Planet
 from data.lists import (
     emojis_dict,
     warbond_images_dict,
@@ -19,6 +10,15 @@ from data.lists import (
     faction_colours,
     stratagem_id_dict,
 )
+from datetime import datetime, timedelta
+from disnake import APISlashCommand, Embed, Colour, File, ModalInteraction, OptionType
+from main import GalacticWideWebBot
+from math import inf
+from os import getpid
+from psutil import Process, cpu_percent
+from utils.db import GWWGuild
+from utils.functions import health_bar, short_format, skipped_planets
+from utils.data import DSS, Campaign, Data, Dispatch, Steam, Superstore, Tasks, Planet
 
 
 class PlanetEmbed(Embed):
