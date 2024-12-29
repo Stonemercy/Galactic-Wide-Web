@@ -339,7 +339,8 @@ class MajorOrderEmbed(Embed):
                 )
                 weapon_to_use = stratagem_id_dict.get(task.values[5], None)
                 event_health_bar = health_bar(
-                    task.progress, en_faction_dict[task.values[0]]
+                    task.progress,
+                    en_faction_dict[task.values[0]] if task.progress != 1 else "MO",
                 )
                 target = loc_faction_dict[task.values[0]] if not species else species
                 if weapon_to_use:
