@@ -5,7 +5,7 @@ from utils.interactables import WikiButton
 from utils.checks import wait_for_startup
 from utils.db import GWWGuild
 from utils.embeds import PlanetEmbed
-from utils.functions import planet_map
+from utils.maps import Maps
 
 
 class PlanetCog(commands.Cog):
@@ -44,44 +44,38 @@ class PlanetCog(commands.Cog):
         self.bot.logger.info(
             f"{self.qualified_name} | /{inter.application_command.name} <{planet = }> <{with_map = }> <{public = }>"
         )
-        if planet not in [
-            planet["name"] for planet in self.bot.json_dict["planets"].values()
-        ]:
+        planet_data = self.bot.data.planets.get_by_name(planet)
+        if not planet_data:
             return await inter.send(
-                "Please select a planet from the list.",
+                "That planet is unavailable. Please select another planet from the list.",
                 ephemeral=public != "Yes",
             )
         guild = GWWGuild.get_by_id(inter.guild_id)
+        guild_language = self.bot.json_dict["languages"][guild.language]
         embed = PlanetEmbed(
             planet_names=[
                 planet_names
                 for planet_names in self.bot.json_dict["planets"].values()
                 if planet_names["name"] == planet
             ][0],
-            planet_data=[
-                planet_data
-                for planet_data in self.bot.data.planets.values()
-                if planet_data.name.upper() == planet.upper()
-            ][0],
-            language=self.bot.json_dict["languages"][guild.language],
+            planet=planet_data,
+            language=guild_language,
         )
         embeds = [embed]
         if not embed.image_set:
             await self.bot.moderator_channel.send(
-                f"Image missing for biome of **planet __{planet}__** <@{self.bot.owner_id}> :warning:"
+                f"Image missing for biome of **planet __{planet}__** {planet_data.biome} <@{self.bot.owner_id}> :warning:"
             )
         if with_map == "Yes":
-            embeds.append(
-                planet_map(
-                    self.bot.data,
-                    [
-                        planet_data
-                        for planet_data in self.bot.data.planets.values()
-                        if planet_data.name == planet.upper()
-                    ][0].index,
-                    guild.language,
-                )
+            map = Maps(
+                data=self.bot.data,
+                waste_bin_channel=self.bot.waste_bin_channel,
+                planet_names_json=self.bot.json_dict["planets"],
+                languages_json_list=[guild_language],
+                target_planet=planet_data.index,
             )
+            await map.localize()
+            embeds.append(map.embeds[guild.language])
         await inter.send(
             embeds=embeds,
             ephemeral=public != "Yes",

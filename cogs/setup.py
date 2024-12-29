@@ -12,7 +12,7 @@ from utils.interactables import Setup
 from utils.checks import wait_for_startup
 from utils.db import GWWGuild
 from utils.embeds import Dashboard, SetupEmbed
-from utils.functions import dashboard_maps
+from utils.maps import Maps
 
 
 class SetupCog(commands.Cog):
@@ -410,22 +410,27 @@ class SetupCog(commands.Cog):
                     ephemeral=True,
                 )
             else:
-                map_embed = await dashboard_maps(
-                    self.bot.data,
-                    self.bot.waste_bin_channel,
-                    self.bot.json_dict["planets"],
-                    guild.language,
+                self.clear_extra_buttons(action_rows)
+                self.reset_row_1(action_rows[0])
+                await inter.edit_original_message(components=action_rows)
+                await inter.send(
+                    "Generating map, please wait...", delete_after=10, ephemeral=True
                 )
+                map = Maps(
+                    data=self.bot.data,
+                    waste_bin_channel=self.bot.waste_bin_channel,
+                    planet_names_json=self.bot.json_dict["planets"],
+                    languages_json_list=[guild_language],
+                )
+                await map.localize()
                 message = await map_channel.send(
-                    embed=map_embed,
+                    embed=map.embeds[guild.language],
                 )
                 guild.map_channel_id = map_channel.id
                 guild.map_message_id = message.id
                 guild.save_changes()
                 self.bot.map_messages.append(message)
                 embed = SetupEmbed(guild, guild_language)
-                self.clear_extra_buttons(action_rows)
-                self.reset_row_1(action_rows[0])
                 await inter.edit_original_message(embed=embed, components=action_rows)
         elif inter.component.custom_id == "language_select":
             guild.language = inter.values[0].lower()
