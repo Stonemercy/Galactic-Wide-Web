@@ -702,14 +702,22 @@ class Dashboard:
                         4: language["illuminate"],
                     }
                     species_dict = {
-                        2514244534: "Bile Titan",
-                        1379865898: "Bile Spewer",
+                        878778730: "Trooper",
+                        20706814: "Scout Strider",
+                        4276710272: "Devastator",
+                        2664856027: "Shredder Tank",
+                        471929602: "Hulk",
+                        3330362068: "Hunter",
                         2058088313: "Warrior",
+                        1379865898: "Bile Spewer",
+                        2387277009: "Stalker",
+                        2651633799: "Charger",
+                        2514244534: "Bile Titan",
                         4211847317: "Voteless",
                         1405979473: "Harvester",
                     }
                     species = (
-                        species_dict.get(task.values[3], None)
+                        species_dict.get(task.values[3], "Unknown")
                         if task.values[3] != 0
                         else None
                     )
