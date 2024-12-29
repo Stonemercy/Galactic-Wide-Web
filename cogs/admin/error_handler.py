@@ -33,9 +33,14 @@ class ErrorHandlerCog(commands.Cog):
             await inter.send(
                 "There was an unexpected error. Please try again.", ephemeral=True
             )
-            await self.bot.moderator_channel.send(
-                f"{self.bot.owner.mention}```py\n{''.join(format_exception(type(error), error, error.__traceback__))}\n```"
-            )
+            try:
+                await self.bot.moderator_channel.send(
+                    f"{self.bot.owner.mention}```py\n{''.join(format_exception(type(error), error, error.__traceback__))[:1900]}\n```"
+                )
+            except Exception as e:
+                await self.bot.moderator_channel.send(
+                    f"{self.bot.owner.mention} {error} | {e}"
+                )
 
 
 def setup(bot: GalacticWideWebBot):
