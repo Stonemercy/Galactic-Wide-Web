@@ -30,12 +30,8 @@ class WarUpdatesCog(commands.Cog):
             )
         try:
             await channel.send(embed=embeds[guild.language])
-        except (Forbidden, NotFound) as e:
-            self.bot.announcement_channels.remove(channel)
-            self.bot.logger.error(
-                f"{self.qualified_name} | send_campaign | {e} | removed from self.bot.announcement_channels {channel.id = }"
-            )
         except Exception as e:
+            self.bot.announcement_channels.remove(channel)
             self.bot.logger.error(
                 f"{self.qualified_name} | send_campaign | {e} | {channel.id = }"
             )

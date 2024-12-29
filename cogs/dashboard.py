@@ -27,9 +27,6 @@ class DashboardCog(commands.Cog):
         except Exception as e:
             if message in self.bot.dashboard_messages:
                 self.bot.dashboard_messages.remove(message)
-            guild.dashboard_channel_id = 0
-            guild.dashboard_message_id = 0
-            guild.save_changes()
             return self.bot.logger.error(
                 f"{self.qualified_name} | update_message | {e} | removed from dashboard messages list | {message.channel.id = }"
             )

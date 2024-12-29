@@ -28,9 +28,6 @@ class MapCog(commands.Cog):
         except Exception as e:
             if message in self.bot.map_messages:
                 self.bot.map_messages.remove(message)
-            guild.map_channel_id = 0
-            guild.map_message_id = 0
-            guild.save_changes()
             return self.bot.logger.error(
                 f"{self.qualified_name} | update_message | {e} | removed from self.bot.map_messages | {message.channel.id = }"
             )
