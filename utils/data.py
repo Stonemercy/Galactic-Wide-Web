@@ -398,6 +398,7 @@ class Planet:
         self.thumbnail = None
         self.feature = {
             126: "Xenoentomology Center",
+            130: "Factory Hub",
             161: "Deep Mantle Forge Complex",
         }.get(self.index, None)
         self.dss = False
