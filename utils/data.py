@@ -1,7 +1,7 @@
+from aiohttp import ClientSession
 from asyncio import sleep
 from datetime import datetime, timedelta
 from os import getenv
-from aiohttp import ClientSession
 from utils.functions import steam_format
 
 api = getenv("API")

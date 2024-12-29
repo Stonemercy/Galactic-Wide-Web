@@ -1,4 +1,9 @@
-from disnake import AppCmdInter, MessageInteraction
+from disnake import (
+    AppCmdInter,
+    MessageInteraction,
+    InteractionContextTypes,
+    ApplicationInstallTypes,
+)
 from disnake.ext import commands
 from main import GalacticWideWebBot
 from utils.checks import wait_for_startup
@@ -12,7 +17,11 @@ class SteamCog(commands.Cog):
         self.bot = bot
 
     @wait_for_startup()
-    @commands.slash_command(description="Get previous Steam posts")
+    @commands.slash_command(
+        description="Get previous Steam posts",
+        install_types=ApplicationInstallTypes.all(),
+        contexts=InteractionContextTypes.all(),
+    )
     async def steam(
         self,
         inter: AppCmdInter,

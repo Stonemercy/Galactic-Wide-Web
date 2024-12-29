@@ -1,10 +1,10 @@
-from disnake import AppCmdInter
+from disnake import AppCmdInter, InteractionContextTypes, ApplicationInstallTypes
 from disnake.ext import commands
 from main import GalacticWideWebBot
-from utils.interactables import WikiButton
 from utils.checks import wait_for_startup
 from utils.db import GWWGuild
 from utils.embeds import PlanetEmbed
+from utils.interactables import WikiButton
 from utils.maps import Maps
 
 
@@ -20,7 +20,11 @@ class PlanetCog(commands.Cog):
         ][:25]
 
     @wait_for_startup()
-    @commands.slash_command(description="Returns the war details on a specific planet.")
+    @commands.slash_command(
+        description="Returns the war details on a specific planet.",
+        install_types=ApplicationInstallTypes.all(),
+        contexts=InteractionContextTypes.all(),
+    )
     async def planet(
         self,
         inter: AppCmdInter,

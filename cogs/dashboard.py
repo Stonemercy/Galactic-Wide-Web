@@ -3,8 +3,8 @@ from datetime import datetime, time
 from disnake import PartialMessage
 from disnake.ext import commands, tasks
 from main import GalacticWideWebBot
-from utils.embeds import Dashboard
 from utils.db import GWWGuild
+from utils.embeds import Dashboard
 
 
 class DashboardCog(commands.Cog):

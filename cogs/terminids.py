@@ -1,10 +1,10 @@
-from disnake import AppCmdInter
+from disnake import AppCmdInter, InteractionContextTypes, ApplicationInstallTypes
 from disnake.ext import commands
 from main import GalacticWideWebBot
-from utils.interactables import WikiButton
 from utils.checks import wait_for_startup
 from utils.db import GWWGuild
 from utils.embeds import EnemyEmbed
+from utils.interactables import WikiButton
 
 
 class TerminidsCog(commands.Cog):
@@ -40,7 +40,9 @@ class TerminidsCog(commands.Cog):
 
     @wait_for_startup()
     @commands.slash_command(
-        description="Returns information on a Terminid or variation."
+        description="Returns information on a Terminid or variation.",
+        install_types=ApplicationInstallTypes.all(),
+        contexts=InteractionContextTypes.all(),
     )
     async def terminid(
         self,

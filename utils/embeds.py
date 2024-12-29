@@ -163,7 +163,7 @@ class HelpEmbed(Embed):
 
 
 class BotDashboardEmbed(Embed):
-    def __init__(self, bot: GalacticWideWebBot):
+    def __init__(self, bot: GalacticWideWebBot, user_installs: int):
         super().__init__(colour=Colour.green(), title="GWW Overview")
         now = datetime.now()
         self.description = (
@@ -183,8 +183,11 @@ class BotDashboardEmbed(Embed):
         self.add_field(
             "The GWW has",
             f"{len(bot.global_slash_commands)} commands available:\n{commands}",
+            inline=False,
         ).add_field("Currently in", f"{len(bot.guilds)} discord servers").add_field(
             "Members of Democracy", f"{member_count:,}"
+        ).add_field(
+            "Approx. user installs", user_installs
         )
 
         memory_used = Process(getpid()).memory_info().rss / 1024**2
@@ -562,7 +565,7 @@ class Dashboard:
         illuminate_embed = Embed(
             title=language["dashboard"]["attacking_illuminate"], colour=Colour.red()
         )
-        updated_embed = Embed(colour=Colour.dark_theme())
+        updated_embed = Embed(colour=Colour.dark_embed())
 
         # DSS
         if data.dss != "Error":

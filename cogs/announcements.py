@@ -3,8 +3,8 @@ from datetime import datetime, time
 from disnake import TextChannel
 from disnake.ext import commands, tasks
 from main import GalacticWideWebBot
-from utils.embeds import DispatchesEmbed, MajorOrderEmbed, SteamEmbed
 from utils.db import Steam, GWWGuild, MajorOrder, Dispatch
+from utils.embeds import DispatchesEmbed, MajorOrderEmbed, SteamEmbed
 from utils.interactables import KoFiButton, SupportServerButton, WikiButton
 
 

@@ -1,11 +1,11 @@
+from data.lists import json_dict
 from datetime import datetime, timedelta
+from disnake import Activity, ActivityType, Intents
+from disnake.ext import commands
 from json import load
 from logging import INFO, FileHandler, Formatter, getLogger
 from os import getenv, listdir
-from disnake import Activity, ActivityType, Intents
-from disnake.ext import commands
 from utils.data import Data
-from data.lists import json_dict
 
 
 class GalacticWideWebBot(commands.AutoShardedInteractionBot):

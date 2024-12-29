@@ -1,6 +1,11 @@
 from asyncio import sleep
 from datetime import datetime, time, timedelta
-from disnake import AppCmdInter, PartialMessage
+from disnake import (
+    AppCmdInter,
+    PartialMessage,
+    InteractionContextTypes,
+    ApplicationInstallTypes,
+)
 from disnake.ext import commands, tasks
 from main import GalacticWideWebBot
 from utils.checks import wait_for_startup
@@ -82,7 +87,11 @@ class MapCog(commands.Cog):
         await self.bot.wait_until_ready()
 
     @wait_for_startup()
-    @commands.slash_command(description="Get an up-to-date map of the galaxy")
+    @commands.slash_command(
+        description="Get an up-to-date map of the galaxy",
+        install_types=ApplicationInstallTypes.all(),
+        contexts=InteractionContextTypes.all(),
+    )
     async def map(
         self,
         inter: AppCmdInter,

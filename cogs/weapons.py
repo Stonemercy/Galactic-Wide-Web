@@ -1,10 +1,10 @@
-from disnake import AppCmdInter
+from disnake import AppCmdInter, InteractionContextTypes, ApplicationInstallTypes
 from disnake.ext import commands
 from main import GalacticWideWebBot
-from utils.interactables import WikiButton
 from utils.checks import wait_for_startup
 from utils.db import GWWGuild
 from utils.embeds import Items
+from utils.interactables import WikiButton
 
 
 class WeaponsCog(commands.Cog):
@@ -45,7 +45,11 @@ class WeaponsCog(commands.Cog):
         return [grenade for grenade in grenades if user_input in grenade.lower()][:25]
 
     @wait_for_startup()
-    @commands.slash_command(description="Returns information on a specific weapon.")
+    @commands.slash_command(
+        description="Returns information on a specific weapon.",
+        install_types=ApplicationInstallTypes.all(),
+        contexts=InteractionContextTypes.all(),
+    )
     async def weapons(
         self,
         inter: AppCmdInter,

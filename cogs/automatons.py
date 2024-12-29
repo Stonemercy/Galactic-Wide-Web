@@ -1,10 +1,10 @@
-from disnake import AppCmdInter
+from disnake import AppCmdInter, ApplicationInstallTypes, InteractionContextTypes
 from disnake.ext import commands
 from main import GalacticWideWebBot
-from utils.interactables import WikiButton
 from utils.checks import wait_for_startup
 from utils.db import GWWGuild
 from utils.embeds import EnemyEmbed
+from utils.interactables import WikiButton
 
 
 class AutomatonCog(commands.Cog):
@@ -41,6 +41,8 @@ class AutomatonCog(commands.Cog):
     @wait_for_startup()
     @commands.slash_command(
         description="Returns information on an Automaton or variation.",
+        install_types=ApplicationInstallTypes.all(),
+        contexts=InteractionContextTypes.all(),
     )
     async def automaton(
         self,

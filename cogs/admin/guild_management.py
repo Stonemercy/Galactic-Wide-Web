@@ -12,9 +12,9 @@ from disnake import (
 from disnake.ext import commands, tasks
 from disnake.ui import Button
 from main import GalacticWideWebBot
-from utils.interactables import AppDirectoryButton, GitHubButton, KoFiButton
 from utils.db import BotDashboard, GWWGuild
 from utils.embeds import BotDashboardEmbed
+from utils.interactables import AppDirectoryButton, GitHubButton, KoFiButton
 
 
 class GuildManagementCog(commands.Cog):
@@ -24,6 +24,7 @@ class GuildManagementCog(commands.Cog):
         self.dashboard_checking.start()
         self.guild_checking.start()
         self.guilds_to_remove = []
+        self.user_installs = 0
 
     def cog_unload(self):
         self.bot_dashboard.stop()
@@ -87,7 +88,12 @@ class GuildManagementCog(commands.Cog):
             bot_dashboard.message_id = message.id
             bot_dashboard.save_changes()
         else:
-            dashboard_embed = BotDashboardEmbed(bot=self.bot)
+            if datetime.now().minute == 0:
+                app_info = await self.bot.application_info()
+                self.user_installs = app_info.approximate_user_install_count
+            dashboard_embed = BotDashboardEmbed(
+                bot=self.bot, user_installs=self.user_installs
+            )
             try:
                 message = channel.get_partial_message(bot_dashboard.message_id)
             except Exception as e:

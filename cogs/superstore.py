@@ -1,4 +1,4 @@
-from disnake import AppCmdInter
+from disnake import AppCmdInter, InteractionContextTypes, ApplicationInstallTypes
 from disnake.ext import commands
 from main import GalacticWideWebBot
 from utils.checks import wait_for_startup
@@ -10,7 +10,11 @@ class SuperstoreCog(commands.Cog):
         self.bot = bot
 
     @wait_for_startup()
-    @commands.slash_command(description="Get the current Superstore rotation")
+    @commands.slash_command(
+        description="Get the current Superstore rotation",
+        install_types=ApplicationInstallTypes.all(),
+        contexts=InteractionContextTypes.all(),
+    )
     async def superstore(
         self,
         inter: AppCmdInter,

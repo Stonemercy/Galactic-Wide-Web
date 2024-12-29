@@ -1,8 +1,10 @@
 from disnake import (
     AppCmdInter,
+    ApplicationInstallTypes,
+    ButtonStyle,
+    InteractionContextTypes,
     MessageInteraction,
     ModalInteraction,
-    ButtonStyle,
 )
 from disnake.ext import commands
 from disnake.ui import Button
@@ -18,7 +20,11 @@ class FeedbackCog(commands.Cog):
         self.bot = bot
 
     @wait_for_startup()
-    @commands.slash_command(description="Provide feedback for the bot")
+    @commands.slash_command(
+        description="Provide feedback for the bot",
+        install_types=ApplicationInstallTypes.all(),
+        contexts=InteractionContextTypes.all(),
+    )
     async def feedback(
         self,
         inter: AppCmdInter,

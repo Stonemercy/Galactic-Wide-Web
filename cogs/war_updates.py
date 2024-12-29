@@ -1,14 +1,14 @@
 from asyncio import sleep
+from datetime import datetime, timedelta
+from disnake import AppCmdInter, Permissions, TextChannel
+from disnake.ext import commands, tasks
+from main import GalacticWideWebBot
 from os import getenv
 from random import choice
-from disnake import AppCmdInter, Forbidden, NotFound, Permissions, TextChannel
-from disnake.ext import commands, tasks
 from utils.checks import wait_for_startup
 from utils.db import DSS as DSSDB, GWWGuild, Campaign
 from utils.embeds import CampaignEmbed
 from utils.data import DSS
-from datetime import datetime, timedelta
-from main import GalacticWideWebBot
 
 SUPPORT_SERVER = [int(getenv("SUPPORT_SERVER"))]
 

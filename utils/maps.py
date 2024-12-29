@@ -1,8 +1,8 @@
+from data.lists import faction_colours
 from datetime import datetime
 from disnake import Colour, Embed, File, TextChannel
 from PIL import Image, ImageDraw, ImageFont
 from utils.data import Data, Tasks
-from data.lists import faction_colours
 
 
 class Maps:
@@ -22,7 +22,7 @@ class Maps:
         self.target_planet = target_planet
         self.embeds_dict = {lang["code"]: None for lang in self.languages_json_list}
         self.embeds = {
-            language["code"]: Embed(colour=Colour.og_blurple())
+            language["code"]: Embed(colour=Colour.dark_embed())
             for language in languages_json_list
         }
         self.planet_coordinates = {

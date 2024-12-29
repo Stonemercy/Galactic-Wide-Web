@@ -1,7 +1,7 @@
-from dotenv import load_dotenv
-from psycopg2 import connect
-from os import getenv
 from data.lists import language_dict
+from dotenv import load_dotenv
+from os import getenv
+from psycopg2 import connect
 
 load_dotenv("data/.env")
 hostname = getenv("DB_hostname")

@@ -1,9 +1,9 @@
-from disnake import AppCmdInter
+from disnake import AppCmdInter, InteractionContextTypes, ApplicationInstallTypes
 from disnake.ext import commands
 from main import GalacticWideWebBot
-from utils.interactables import WikiButton
 from utils.checks import wait_for_startup
 from utils.embeds import StratagemEmbed
+from utils.interactables import WikiButton
 
 
 class StratagemsCog(commands.Cog):
@@ -16,7 +16,11 @@ class StratagemsCog(commands.Cog):
         return [name for name in stratagems if user_input in name.lower()][:25]
 
     @wait_for_startup()
-    @commands.slash_command(description="Returns information on a stratagem.")
+    @commands.slash_command(
+        description="Returns information on a stratagem.",
+        install_types=ApplicationInstallTypes.all(),
+        contexts=InteractionContextTypes.all(),
+    )
     async def stratagem(
         self,
         inter: AppCmdInter,

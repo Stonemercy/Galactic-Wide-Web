@@ -4,14 +4,15 @@ from disnake import (
     File,
     MessageInteraction,
     Permissions,
+    InteractionContextTypes,
 )
 from disnake.ext import commands
 from disnake.ui import ActionRow
 from main import GalacticWideWebBot
-from utils.interactables import Setup
 from utils.checks import wait_for_startup
 from utils.db import GWWGuild
 from utils.embeds import Dashboard, SetupEmbed
+from utils.interactables import Setup
 from utils.maps import Maps
 
 
@@ -50,7 +51,7 @@ class SetupCog(commands.Cog):
     @commands.slash_command(
         description="Change GWW settings.",
         default_member_permissions=Permissions(manage_guild=True),
-        dm_permission=False,
+        contexts=InteractionContextTypes(guild=True),
     )
     async def setup(
         self,

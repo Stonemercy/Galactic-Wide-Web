@@ -1,4 +1,4 @@
-from disnake import AppCmdInter
+from disnake import AppCmdInter, InteractionContextTypes, ApplicationInstallTypes
 from disnake.ext import commands
 from main import GalacticWideWebBot
 from utils.checks import wait_for_startup
@@ -19,7 +19,9 @@ class HelpCog(commands.Cog):
 
     @wait_for_startup()
     @commands.slash_command(
-        description='Get some help for a specific command, or a list of every command by using "all".'
+        description='Get some help for a specific command, or a list of every command by using "all".',
+        install_types=ApplicationInstallTypes.all(),
+        contexts=InteractionContextTypes.all(),
     )
     async def help(
         self,
@@ -46,7 +48,7 @@ class HelpCog(commands.Cog):
                     else [
                         command
                         for command in self.bot.global_slash_commands
-                        if command.dm_permission
+                        if command.contexts.private_channel
                     ]
                 ),
                 command_name=command,

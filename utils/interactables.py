@@ -1,7 +1,7 @@
-from disnake import ButtonStyle, ChannelType, SelectOption
-from disnake.ui import Button, ChannelSelect, StringSelect
 from data.lists import emojis_dict
 from data.lists import language_dict
+from disnake import ButtonStyle, ChannelType, SelectOption
+from disnake.ui import Button, ChannelSelect, StringSelect
 
 
 class WikiButton(Button):

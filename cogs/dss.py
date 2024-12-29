@@ -1,10 +1,10 @@
-from disnake import AppCmdInter
+from disnake import AppCmdInter, ApplicationInstallTypes, InteractionContextTypes
 from disnake.ext import commands
 from main import GalacticWideWebBot
-from utils.interactables import WikiButton
 from utils.checks import wait_for_startup
 from utils.db import GWWGuild
 from utils.embeds import DSSEmbed
+from utils.interactables import WikiButton
 
 
 class DSSCog(commands.Cog):
@@ -14,6 +14,8 @@ class DSSCog(commands.Cog):
     @wait_for_startup()
     @commands.slash_command(
         description="Returns information on the Democracy Space Station",
+        install_types=ApplicationInstallTypes.all(),
+        contexts=InteractionContextTypes.all(),
     )
     async def dss(
         self,

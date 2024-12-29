@@ -1,11 +1,17 @@
-from disnake import AppCmdInter, ButtonStyle, MessageInteraction
-from disnake.ext import commands, tasks
+from disnake import (
+    AppCmdInter,
+    ButtonStyle,
+    MessageInteraction,
+    InteractionContextTypes,
+    ApplicationInstallTypes,
+)
+from disnake.ext import commands
 from disnake.ui import Button, ActionRow
 from main import GalacticWideWebBot
 from re import findall
-from utils.interactables import WikiButton
 from utils.checks import wait_for_startup
 from utils.embeds import Items
+from utils.interactables import WikiButton
 
 
 class WarbondCog(commands.Cog):
@@ -29,24 +35,11 @@ class WarbondCog(commands.Cog):
             :25
         ]
 
-    @tasks.loop(count=1)
-    async def json_load(self):
-        self.warbond_index = {
-            warbond["name"]: warbond
-            for warbond in self.bot.json_dict["warbonds"]["index"].values()
-        }
-        self.boosters = [
-            booster["name"]
-            for booster in self.bot.json_dict["items"]["boosters"].values()
-        ]
-
-    @json_load.before_loop
-    async def before_json_load(self):
-        await self.bot.wait_until_ready()
-
     @wait_for_startup()
     @commands.slash_command(
-        description="Returns a basic summary of the items in a specific warbond."
+        description="Returns a basic summary of the items in a specific warbond.",
+        install_types=ApplicationInstallTypes.all(),
+        contexts=InteractionContextTypes.all(),
     )
     async def warbond(
         self,

@@ -1,9 +1,9 @@
-from disnake import AppCmdInter
+from disnake import AppCmdInter, ApplicationInstallTypes, InteractionContextTypes
 from disnake.ext import commands
 from main import GalacticWideWebBot
-from utils.interactables import WikiButton
 from utils.checks import wait_for_startup
 from utils.embeds import Items
+from utils.interactables import WikiButton
 
 
 class BoostersCog(commands.Cog):
@@ -18,7 +18,9 @@ class BoostersCog(commands.Cog):
 
     @wait_for_startup()
     @commands.slash_command(
-        description="Returns the description of a specific booster."
+        description="Returns the description of a specific booster.",
+        install_types=ApplicationInstallTypes.all(),
+        contexts=InteractionContextTypes.all(),
     )
     async def booster(
         self,

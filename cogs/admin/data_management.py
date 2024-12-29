@@ -1,7 +1,7 @@
 from datetime import datetime, time
 from disnake.ext import commands, tasks
-from utils.db import GWWGuild
 from main import GalacticWideWebBot
+from utils.db import GWWGuild
 
 
 class DataManagementCog(commands.Cog):

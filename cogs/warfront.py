@@ -1,4 +1,4 @@
-from disnake import AppCmdInter
+from disnake import AppCmdInter, InteractionContextTypes, ApplicationInstallTypes
 from disnake.ext import commands
 from main import GalacticWideWebBot
 from utils.checks import wait_for_startup
@@ -13,6 +13,8 @@ class WarfrontCog(commands.Cog):
     @wait_for_startup()
     @commands.slash_command(
         description="Returns information on a specific War front",
+        install_types=ApplicationInstallTypes.all(),
+        contexts=InteractionContextTypes.all(),
     )
     async def warfront(
         self,

@@ -1,11 +1,10 @@
-from asyncio import sleep
 from datetime import datetime
 from disnake import AppCmdInter, Permissions
 from disnake.ext import commands
 from main import GalacticWideWebBot
 from os import getenv
 from utils.checks import wait_for_startup
-from utils.db import FeedbackUser, GWWGuild
+from utils.db import FeedbackUser
 
 
 SUPPORT_SERVER = [int(getenv("SUPPORT_SERVER"))]
