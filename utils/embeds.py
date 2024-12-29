@@ -22,44 +22,40 @@ from data.lists import (
 
 
 class PlanetEmbed(Embed):
-    def __init__(self, planet_names: dict, planet_data: Planet, language: dict):
+    def __init__(self, planet_names: dict, planet: Planet, language: dict):
         super().__init__(colour=Colour.blue())
-        if planet_data.current_owner == "Humans":
+        if planet.current_owner == "Humans":
             planet_health_bar = health_bar(
-                (
-                    planet_data.event.progress
-                    if planet_data.event
-                    else (planet_data.health / planet_data.max_health)
-                ),
-                planet_data.event.faction if planet_data.event else "Humans",
-                True if planet_data.event else False,
+                planet.event.progress if planet.event else planet.health_perc,
+                planet.event.faction if planet.event else planet.current_owner,
+                True if planet.event else False,
             )
             health_text = (
-                f"{1 - planet_data.event.progress:^25,.2%}"
-                if planet_data.event
-                else f"{(planet_data.health / planet_data.max_health):^25,.2%}"
+                f"{1 - planet.event.progress:^25,.2%}"
+                if planet.event
+                else f"{(planet.health_perc):^25,.2%}"
             )
         else:
             planet_health_bar = health_bar(
-                planet_data.health / planet_data.max_health,
-                planet_data.current_owner,
+                planet.health_perc,
+                planet.current_owner,
                 True,
             )
-            health_text = f"{1 - (planet_data.health / planet_data.max_health):^25,.2%}"
+            health_text = f"{1 - (planet.health_perc):^25,.2%}"
         enviros_text = ""
-        for hazard in planet_data.hazards:
-            enviros_text += f"\n- **{hazard['name']}**\n  - {hazard['description']}"
-        dss_icon = emojis_dict["dss"] if planet_data.dss else ""
-        MO_icon = emojis_dict["MO"] if planet_data.in_assignment else ""
+        for hazard in planet.hazards:
+            enviros_text += f"\n- **{hazard['name']}**\n  - -# {hazard['description']}"
+        dss_icon = emojis_dict["dss"] if planet.dss else ""
+        MO_icon = emojis_dict["MO"] if planet.in_assignment else ""
         self.add_field(
             f"__**{planet_names['names'][language['code_long']]}**__ {dss_icon}{MO_icon}",
             (
-                f"{language['sector']}: **{planet_data.sector}**\n"
-                f"{language['planet']['owner']}: **{language[planet_data.current_owner.lower()]}**\n\n"
-                f"🏔️ {language['planet']['biome']} \n- **{planet_data.biome['name']}**\n  - {planet_data.biome['description']}\n\n"
+                f"{language['sector']}: **{planet.sector}**\n"
+                f"{language['planet']['owner']}: **{language[planet.current_owner.lower()]}** {emojis_dict[planet.current_owner]}\n\n"
+                f"🏔️ {language['planet']['biome']} \n- **{planet.biome['name']}**\n  - -# {planet.biome['description']}\n\n"
                 f"🌪️ {language['planet']['environmentals']}:{enviros_text}\n\n"
                 f"{language['planet']['planet_health']}\n"
-                f"{planet_health_bar}{' 🛡️' if planet_data.event else ''}\n"
+                f"{planet_health_bar}{f' 🛡️{emojis_dict[planet.event.faction]}' if planet.event else ''}\n"
                 f"`{health_text}`\n"
                 "\u200b\n"
             ),
@@ -67,49 +63,52 @@ class PlanetEmbed(Embed):
         ).add_field(
             f"📊 {language['planet']['mission_stats']}",
             (
-                f"{language['planet']['missions_won']}: **`{short_format(planet_data.stats['missionsWon'])}`**\n"
-                f"{language['planet']['missions_lost']}: **`{short_format(planet_data.stats['missionsLost'])}`**\n"
-                f"{language['planet']['missions_winrate']}: **`{planet_data.stats['missionSuccessRate']}%`**\n"
-                f"{language['planet']['missions_time_spent']}: **`{planet_data.stats['missionTime']/31556952:.1f} years`**"
+                f"{language['planet']['missions_won']}: **`{short_format(planet.stats['missionsWon'])}`**\n"
+                f"{language['planet']['missions_lost']}: **`{short_format(planet.stats['missionsLost'])}`**\n"
+                f"{language['planet']['missions_winrate']}: **`{planet.stats['missionSuccessRate']}%`**\n"
+                f"{language['planet']['missions_time_spent']}: **`{planet.stats['missionTime']/31556952:.1f} years`**"
             ),
         ).add_field(
             f"📈 {language['planet']['hero_stats']}",
             (
-                f"{language['planet']['active_heroes']}: **`{planet_data.stats['playerCount']:,}`**\n"
-                f"{language['planet']['heroes_lost']}: **`{short_format(planet_data.stats['deaths'])}`**\n"
-                f"{language['planet']['accidents']}: **`{short_format(planet_data.stats['friendlies'])}`**\n"
-                f"{language['planet']['shots_fired']}: **`{short_format(planet_data.stats['bulletsFired'])}`**\n"
-                f"{language['planet']['shots_hit']}: **`{short_format(planet_data.stats['bulletsHit'])}`**\n"
-                f"{language['planet']['accuracy']}: **`{planet_data.stats['accuracy']}%`**\n"
+                f"{language['planet']['active_heroes']}: **`{planet.stats['playerCount']:,}`**\n"
+                f"{language['planet']['heroes_lost']}: **`{short_format(planet.stats['deaths'])}`**\n"
+                f"{language['planet']['accidents']}: **`{short_format(planet.stats['friendlies'])}`**\n"
+                f"{language['planet']['shots_fired']}: **`{short_format(planet.stats['bulletsFired'])}`**\n"
+                f"{language['planet']['shots_hit']}: **`{short_format(planet.stats['bulletsHit'])}`**\n"
+                f"{language['planet']['accuracy']}: **`{planet.stats['accuracy']}%`**\n"
             ),
         )
-        self.colour = Colour.from_rgb(*faction_colours[planet_data.current_owner])
-        if planet_data.current_owner != "Humans":
-            faction = (
-                planet_data.current_owner.lower()[:-1]
-                if planet_data.current_owner.lower() == "terminids"
-                else planet_data.current_owner.lower()
-            )
+        self.colour = Colour.from_rgb(*faction_colours[planet.current_owner])
+        if planet.current_owner != "Humans":
+            faction_kills = {
+                "Automaton": "automatonKills",
+                "Terminids": "terminidKills",
+                "Illuminate": "illuminateKills",
+            }[planet.current_owner if not planet.event else planet.event.faction]
             self.add_field(
-                f"💀 {language[planet_data.current_owner.lower()]} {language['planet']['killed']}:",
-                f"**{short_format(planet_data.stats[f'{faction}Kills'])}**",
+                f"💀 {language[planet.current_owner.lower()]} {language['planet']['killed']}:",
+                f"**{short_format(planet.stats[faction_kills])}**",
                 inline=False,
             ).set_author(
                 name=language["planet"]["liberation_progress"],
-                icon_url=(
-                    "https://cdn.discordapp.com/emojis/1215036421551685672.webp?size=44&quality=lossless"
-                    if planet_data.current_owner == "Automaton"
-                    else "https://cdn.discordapp.com/emojis/1215036423090999376.webp?size=44&quality=lossless"
+                icon_url={
+                    "Automaton": "https://cdn.discordapp.com/emojis/1215036421551685672.webp?size=44&quality=lossless",
+                    "Terminids": "https://cdn.discordapp.com/emojis/1215036423090999376.webp?size=44&quality=lossless",
+                    "Illuminate": "https://cdn.discordapp.com/emojis/1317057914145603635.webp?size=44&quality=lossless",
+                }.get(
+                    planet.current_owner if not planet.event else planet.event.faction,
+                    None,
                 ),
             )
-        if planet_data.feature:
-            self.add_field("Feature", planet_data.feature)
-        if planet_data.thumbnail:
-            self.set_thumbnail(url=planet_data.thumbnail)
+        if planet.feature:
+            self.add_field("Feature", planet.feature)
+        if planet.thumbnail:
+            self.set_thumbnail(url=planet.thumbnail)
         try:
             self.set_image(
                 file=File(
-                    f"resources/biomes/{planet_data.biome['name'].lower().replace(' ', '_')}.png"
+                    f"resources/biomes/{planet.biome['name'].lower().replace(' ', '_')}.png"
                 )
             )
             self.image_set = True
