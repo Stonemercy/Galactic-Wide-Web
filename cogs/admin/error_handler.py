@@ -2,6 +2,7 @@ from datetime import datetime
 from disnake import AppCmdInter
 from disnake.ext import commands
 from main import GalacticWideWebBot
+from traceback import format_exception
 
 
 class ErrorHandlerCog(commands.Cog):
@@ -32,8 +33,9 @@ class ErrorHandlerCog(commands.Cog):
             await inter.send(
                 "There was an unexpected error. Please try again.", ephemeral=True
             )
-            await self.bot.moderator_channel.send(error)
-            raise error
+            await self.bot.moderator_channel.send(
+                f"{self.bot.owner.mention}```py\n{''.join(format_exception(type(error), error, error.__traceback__))}\n```"
+            )
 
 
 def setup(bot: GalacticWideWebBot):
