@@ -8,13 +8,8 @@ Dockerfile
 .vscode/
 emojis/
 requirements.txt
-resources/map_2.webp
-resources/map_en.webp
-resources/map_fr.webp
-resources/map_de.webp
-resources/map_setup.webp
-resources/mapbackup.webp
 env/
+resources/*.webp
 
 # JSON
 data/json/.github
