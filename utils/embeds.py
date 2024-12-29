@@ -472,29 +472,45 @@ class CampaignEmbed(Embed):
         liberatee_loc = self.language[liberatee.lower()]
         name = self.fields[0].name
         description = self.fields[0].value
-        dss_icon = f' {emojis_dict["dss"]}' if planet.dss else ""
-        description += f"**{emojis_dict['victory']} {planet.name}** {self.language['campaigns']['been_liberated']} **{liberatee_loc}** {emojis_dict[liberatee]}!{dss_icon}\n"
+        exclamation = ""
+        if planet.dss:
+            exclamation += emojis_dict["dss"]
+        if planet.in_assignment:
+            exclamation += emojis_dict["MO"]
+        description += f"**{emojis_dict['victory']} {planet.name}** {self.language['campaigns']['been_liberated']} **{liberatee_loc}** {emojis_dict[liberatee]}!{exclamation}\n"
         self.set_field_at(0, name, description, inline=False)
 
     def add_def_victory(self, planet: Planet):
         name = self.fields[0].name
         description = self.fields[0].value
-        dss_icon = f' {emojis_dict["dss"]}' if planet.dss else ""
-        description += f"**{emojis_dict['victory']} {planet.name}** {self.language['campaigns']['been_defended']}! {dss_icon}\n"
+        exclamation = ""
+        if planet.dss:
+            exclamation += emojis_dict["dss"]
+        if planet.in_assignment:
+            exclamation += emojis_dict["MO"]
+        description += f"**{emojis_dict['victory']} {planet.name}** {self.language['campaigns']['been_defended']}! {exclamation}\n"
         self.set_field_at(0, name, description, inline=False)
 
     def add_planet_lost(self, planet: Planet):
         name = self.fields[1].name
         description = self.fields[1].value
-        dss_icon = f' {emojis_dict["dss"]}' if planet.dss else ""
-        description += f"**💀 {planet.name}** {self.language['campaigns']['been_lost']} **{self.language[planet.current_owner.lower()]}** {emojis_dict[planet.current_owner]}{dss_icon}\n"
+        exclamation = ""
+        if planet.dss:
+            exclamation += emojis_dict["dss"]
+        if planet.in_assignment:
+            exclamation += emojis_dict["MO"]
+        description += f"**💀 {planet.name}** {self.language['campaigns']['been_lost']} **{self.language[planet.current_owner.lower()]}** {emojis_dict[planet.current_owner]}{exclamation}\n"
         self.set_field_at(1, name, description, inline=False)
 
     def add_invasion_over(self, planet: Planet, faction: str):
         name = self.fields[4].name
         description = self.fields[4].value
-        dss_icon = f' {emojis_dict["dss"]}' if planet.dss else ""
-        description += f"{self.language['campaigns']['invasion_of']} **{planet.name}** {self.language['campaigns']['has_ended']} {emojis_dict[planet.current_owner]}{dss_icon}\n-# **{self.language[faction.lower()]}** {self.language['campaigns']['no_changes']} {emojis_dict[faction]}"
+        exclamation = ""
+        if planet.dss:
+            exclamation += emojis_dict["dss"]
+        if planet.in_assignment:
+            exclamation += emojis_dict["MO"]
+        description += f"{self.language['campaigns']['invasion_of']} **{planet.name}** {self.language['campaigns']['has_ended']} {emojis_dict[planet.current_owner]}{exclamation}\n-# **{self.language[faction.lower()]}** {self.language['campaigns']['no_changes']} {emojis_dict[faction]}"
         self.set_field_at(4, name, description, inline=False)
 
     def remove_empty(self):
@@ -505,7 +521,7 @@ class CampaignEmbed(Embed):
     def dss_moved(self, before_planet: Planet, after_planet: Planet):
         description = (
             self.fields[3].value
-            + f"{self.language['dss']['has_moved']} **{before_planet.name}** {emojis_dict[before_planet.current_owner]} {self.language['dss']['to']} **{after_planet.name}** {emojis_dict[after_planet.current_owner]}\n"
+            + f"{self.language['dss']['has_moved']} **{before_planet.name}** {emojis_dict[before_planet.current_owner]} {self.language['dss']['to']} **{after_planet.name}** {emojis_dict[after_planet.current_owner]} {emojis_dict['MO'] if after_planet.in_assignment else ''}\n"
         )
         self.set_field_at(3, self.fields[3].name, description, inline=False)
 
