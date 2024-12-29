@@ -399,9 +399,15 @@ class MajorOrderEmbed(Embed):
                     language["major_order"]["new_title"],
                     language["major_order"]["new_value"],
                 )
+        rewards_text = ""
+        for reward in data.assignment.rewards:
+            reward_type = reward_types.get(str(reward["type"]), "Unknown")
+            rewards_text += (
+                f"{reward['amount']} {reward_type}s {emojis_dict.get(reward_type, '')}"
+            )
         self.add_field(
-            language["reward"],
-            f"{data.assignment.reward['amount']} {language[reward_types[str(data.assignment.reward['type'])].lower()]} {emojis_dict['medal']}",
+            language["rewards"],
+            rewards_text,
         )
         self.add_field(
             language["ends"],
@@ -825,10 +831,11 @@ class Dashboard:
                         language["dashboard"]["major_order"]["new_title"],
                         language["dashboard"]["major_order"]["new_value"],
                     )
-            major_orders_embed.add_field(
-                language["reward"],
-                f"{data.assignment.reward['amount']} {language[reward_types[str(data.assignment.reward['type'])].lower()]} {emojis_dict['medal']}",
-            )
+            rewards_text = ""
+            for reward in data.assignment.rewards:
+                reward_type = reward_types.get(str(reward["type"]), "Unknown")
+                rewards_text += f"{reward['amount']} {reward_type}s {emojis_dict.get(reward_type, '')}"
+            major_orders_embed.add_field(language["rewards"], rewards_text)
             major_orders_embed.add_field(
                 language["ends"],
                 f"<t:{int(datetime.fromisoformat(data.assignment.ends_at).timestamp())}:R>",

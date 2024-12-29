@@ -308,14 +308,14 @@ class Assignment:
             else ""
         )
         self.tasks = Tasks(self.__assignment)
-        self.reward = self.__assignment["reward"]
+        self.rewards = self.__assignment["rewards"]
         self.ends_at = self.__assignment["expiration"]
         self.ends_at_datetime = datetime.fromisoformat(self.ends_at)
 
     def __repr__(self):
         return (
             f"Assignment(id={self.id}, title={self.title}, description={self.description}, tasks={self.tasks} "
-            f"reward={self.reward}, ends_at={self.ends_at}, ends_at_datetime={self.ends_at_datetime})"
+            f"rewards={self.rewards}, ends_at={self.ends_at}, ends_at_datetime={self.ends_at_datetime})"
         )
 
 
