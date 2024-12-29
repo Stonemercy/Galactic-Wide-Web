@@ -6,7 +6,6 @@ from main import GalacticWideWebBot
 from os import getenv
 from utils.checks import wait_for_startup
 from utils.db import FeedbackUser, GWWGuild
-from utils.embeds import AnnouncementEmbed
 
 
 SUPPORT_SERVER = [int(getenv("SUPPORT_SERVER"))]
@@ -73,43 +72,6 @@ class AdminCommandsCog(commands.Cog):
         text = f"Forced updates of {updates_sent} MO updates in {(datetime.now() - update_start).total_seconds():.2f} seconds"
         self.bot.logger.info(text)
         await inter.send(text, ephemeral=True)
-
-    @wait_for_startup()
-    @commands.is_owner()
-    @commands.slash_command(
-        guild_ids=SUPPORT_SERVER,
-        description="Send out the prepared announcement",
-        default_member_permissions=Permissions(administrator=True),
-    )
-    async def send_announcement(self, inter: AppCmdInter, test: bool):
-        await inter.response.defer(ephemeral=True)
-        self.bot.logger.critical(
-            f"{self.qualified_name} | /{inter.application_command.name} <{test = }> | used by <@{inter.author.id}> | @{inter.author.global_name}"
-        )
-        update_start = datetime.now()
-        languages = list({guild.language for guild in GWWGuild.get_all()})
-        embeds = {lang: AnnouncementEmbed() for lang in languages}
-        if test:
-            return await inter.send(
-                embed=embeds[GWWGuild.get_by_id(inter.guild_id).language],
-                ephemeral=True,
-            )
-        chunked_channels = [
-            self.bot.announcement_channels[i : i + 50]
-            for i in range(0, len(self.bot.announcement_channels), 50)
-        ]
-        for chunk in chunked_channels:
-            for channel in chunk:
-                self.bot.loop.create_task(
-                    self.bot.get_cog("AnnouncementsCog").send_embed(
-                        channel, embeds, "Announcement"
-                    )
-                )
-            await sleep(1.1)
-        await inter.send(
-            f"Attempted to send out an announcement to {len(self.bot.announcement_channels)} channels in {(datetime.now() - update_start).total_seconds():.2f} seconds",
-            ephemeral=True,
-        )
 
     @wait_for_startup()
     @commands.is_owner()

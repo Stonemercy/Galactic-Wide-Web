@@ -1458,35 +1458,6 @@ class EnemyEmbed(Embed):
             self.error = e
 
 
-class AnnouncementEmbed(Embed):
-    def __init__(self):
-        super().__init__(
-            title="Galactic Wide Web Update",
-            colour=Colour.blue(),
-        )
-        self.add_field(
-            "Lots of updates!",
-            "It's been a while since I've given one of these but lots has changed with the bot and I figured yous should know about it.",
-            inline=False,
-        )
-        self.add_field(
-            "Whats changed?",
-            (
-                "- Required players for victory:\n  - Still in early stages but it's doing *okay*\n"
-                "- Added </stratagem:1277911286021095484> for basic stratagem info\n"
-                "- Also added </major_order:1284164484423876640> to get current progress on the current MO\n"
-                "- Most informative commands now have links directly to the [Helldivers 2 wiki.gg](<https://helldivers.wiki.gg/wiki/Helldivers_Wiki>)\n"
-                "- Made Meridia *purple* on maps\n"
-                "- Lots of new images\n"
-            ),
-        )
-        self.add_field(
-            "As always...",
-            "</feedback:1253094891513184356> if you want to let me know how I'm doing or if you want more features.",
-            inline=False,
-        )
-
-
 class SetupEmbed(Embed):
     def __init__(self, guild: GWWGuild, language_json: dict):
         super().__init__(title="Setup", colour=Colour.og_blurple())
