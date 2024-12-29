@@ -1411,9 +1411,6 @@ class StratagemEmbed(Embed):
             "Cooldown",
             f"{stratagem_stats['cooldown']} seconds ({(stratagem_stats['cooldown']/60):.2f} minutes)",
         )
-        self.add_field(
-            "Activation time", f"{stratagem_stats['activation']} seconds", inline=False
-        )
         try:
             self.set_thumbnail(
                 file=File(

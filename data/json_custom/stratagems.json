@@ -8,8 +8,7 @@
             "up"
         ],
         "uses": "Unlimited",
-        "cooldown": 480,
-        "activation": 9.75
+        "cooldown": 480
     },
     "B-1 Supply Pack": {
         "keys": [
@@ -21,8 +20,7 @@
             "down"
         ],
         "uses": "Unlimited",
-        "cooldown": 480,
-        "activation": 9.75
+        "cooldown": 480
     },
     "AX/LAS-5 Guard Dog Rover": {
         "keys": [
@@ -34,8 +32,7 @@
             "right"
         ],
         "uses": "Unlimited",
-        "cooldown": 480,
-        "activation": 9.75
+        "cooldown": 480
     },
     "SH-20 Ballistic Shield Backpack": {
         "keys": [
@@ -47,8 +44,7 @@
             "left"
         ],
         "uses": "Unlimited",
-        "cooldown": 300,
-        "activation": 9.75
+        "cooldown": 300
     },
     "SH-32 Shield Generator Pack": {
         "keys": [
@@ -60,8 +56,7 @@
             "right"
         ],
         "uses": "Unlimited",
-        "cooldown": 480,
-        "activation": 9.75
+        "cooldown": 480
     },
     "AX/AR-23 Guard Dog": {
         "keys": [
@@ -73,8 +68,7 @@
             "down"
         ],
         "uses": "Unlimited",
-        "cooldown": 480,
-        "activation": 9.75
+        "cooldown": 480
     },
     "MG-43 Machine Gun": {
         "keys": [
@@ -85,8 +79,7 @@
             "right"
         ],
         "uses": "Unlimited",
-        "cooldown": 480,
-        "activation": 4.75
+        "cooldown": 480
     },
     "APW-1 Anti-Materiel Rifle": {
         "keys": [
@@ -97,8 +90,7 @@
             "down"
         ],
         "uses": "Unlimited",
-        "cooldown": 480,
-        "activation": 4.75
+        "cooldown": 480
     },
     "M-105 Stalwart": {
         "keys": [
@@ -110,8 +102,7 @@
             "left"
         ],
         "uses": "Unlimited",
-        "cooldown": 480,
-        "activation": 4.75
+        "cooldown": 480
     },
     "EAT-17 Expendable Anti-tank": {
         "keys": [
@@ -122,8 +113,7 @@
             "right"
         ],
         "uses": "Unlimited",
-        "cooldown": 70,
-        "activation": 4.75
+        "cooldown": 70
     },
     "MLS-4X Commando": {
         "keys": [
@@ -134,8 +124,7 @@
             "right"
         ],
         "uses": "Unlimited",
-        "cooldown": 120,
-        "activation": 4.75
+        "cooldown": 120
     },
     "GR-8 Recoilless Rifle": {
         "keys": [
@@ -146,8 +135,7 @@
             "left"
         ],
         "uses": "Unlimited",
-        "cooldown": 480,
-        "activation": 4.75
+        "cooldown": 480
     },
     "FLAM-40 Flamethrower": {
         "keys": [
@@ -158,8 +146,7 @@
             "up"
         ],
         "uses": "Unlimited",
-        "cooldown": 480,
-        "activation": 4.75
+        "cooldown": 480
     },
     "AC-8 Autocannon": {
         "keys": [
@@ -170,8 +157,7 @@
             "down"
         ],
         "uses": "Unlimited",
-        "cooldown": 480,
-        "activation": 4.75
+        "cooldown": 480
     },
     "MG-206 Heavy Machine Gun": {
         "keys": [
@@ -182,8 +168,7 @@
             "down"
         ],
         "uses": "Unlimited",
-        "cooldown": 480,
-        "activation": 4.75
+        "cooldown": 480
     },
     "RS-422 Railgun": {
         "keys": [
@@ -195,8 +180,7 @@
             "right"
         ],
         "uses": "Unlimited",
-        "cooldown": 480,
-        "activation": 4.75
+        "cooldown": 480
     },
     "FAF-14 Spear Launcher": {
         "keys": [
@@ -207,8 +191,7 @@
             "down"
         ],
         "uses": "Unlimited",
-        "cooldown": 480,
-        "activation": 4.75
+        "cooldown": 480
     },
     "GL-21 Grenade Launcher": {
         "keys": [
@@ -219,8 +202,7 @@
             "down"
         ],
         "uses": "Unlimited",
-        "cooldown": 480,
-        "activation": 4.75
+        "cooldown": 480
     },
     "LAS-98 Laser Cannon": {
         "keys": [
@@ -231,8 +213,7 @@
             "left"
         ],
         "uses": "Unlimited",
-        "cooldown": 480,
-        "activation": 4.75
+        "cooldown": 480
     },
     "ARC-3 Arc Thrower": {
         "keys": [
@@ -244,8 +225,7 @@
             "left"
         ],
         "uses": "Unlimited",
-        "cooldown": 480,
-        "activation": 4.75
+        "cooldown": 480
     },
     "LAS-99 Quasar Cannon": {
         "keys": [
@@ -256,8 +236,7 @@
             "right"
         ],
         "uses": "Unlimited",
-        "cooldown": 480,
-        "activation": 4.75
+        "cooldown": 480
     },
     "RL-77 Airburst Rocket Launcher": {
         "keys": [
@@ -268,8 +247,7 @@
             "right"
         ],
         "uses": "Unlimited",
-        "cooldown": 480,
-        "activation": 4.75
+        "cooldown": 480
     },
     "TX-41 Sterilizer": {
         "keys": [
@@ -280,8 +258,7 @@
             "left"
         ],
         "uses": "Unlimited",
-        "cooldown": 480,
-        "activation": 7.75
+        "cooldown": 480
     },
     "AX/TX-13 Guard Dog Dog Breath": {
         "keys": [
@@ -293,8 +270,7 @@
             "up"
         ],
         "uses": "Unlimited",
-        "cooldown": 480,
-        "activation": 9.75
+        "cooldown": 480
     },
     "StA-X3 W.A.S.P Launcher": {
         "keys": [
@@ -305,8 +281,7 @@
             "right"
         ],
         "uses": "Unlimited",
-        "cooldown": 432,
-        "activation": 7.75
+        "cooldown": 480
     },
     "EXO-45 Patriot Exosuit": {
         "keys": [
@@ -319,8 +294,7 @@
             "down"
         ],
         "uses": 2,
-        "cooldown": 600,
-        "activation": 10.5
+        "cooldown": 600
     },
     "EXO-49 Emancipator Exosuit": {
         "keys": [
@@ -333,8 +307,20 @@
             "up"
         ],
         "uses": 2,
-        "cooldown": 600,
-        "activation": 10.5
+        "cooldown": 600
+    },
+    "M-102 Fast Recon Vehicle": {
+        "keys": [
+            "left",
+            "down",
+            "right",
+            "down",
+            "right",
+            "down",
+            "up"
+        ],
+        "uses": "Unlimited",
+        "cooldown": 480
     },
     "Reinforce": {
         "keys": [
@@ -345,8 +331,7 @@
             "up"
         ],
         "uses": "5 per person",
-        "cooldown": 120,
-        "activation": 5
+        "cooldown": 120
     },
     "SOS Beacon": {
         "keys": [
@@ -356,8 +341,7 @@
             "up"
         ],
         "uses": 1,
-        "cooldown": 0,
-        "activation": 5
+        "cooldown": 0
     },
     "Resupply": {
         "keys": [
@@ -367,8 +351,7 @@
             "right"
         ],
         "uses": "Unlimited",
-        "cooldown": 160,
-        "activation": 12
+        "cooldown": 160
     },
     "NUX-223 Hellbomb": {
         "keys": [
@@ -382,8 +365,7 @@
             "up"
         ],
         "uses": "Unlimited",
-        "cooldown": 0,
-        "activation": 0
+        "cooldown": 0
     },
     "SSSD Delivery": {
         "keys": [
@@ -394,8 +376,7 @@
             "up"
         ],
         "uses": "Unlimited",
-        "cooldown": 0,
-        "activation": 0
+        "cooldown": 0
     },
     "Seismic Probe": {
         "keys": [
@@ -407,8 +388,7 @@
             "down"
         ],
         "uses": 1,
-        "cooldown": 0,
-        "activation": 9
+        "cooldown": 0
     },
     "Upload Data": {
         "keys": [
@@ -419,8 +399,7 @@
             "up"
         ],
         "uses": "Unlimited",
-        "cooldown": 0,
-        "activation": 0
+        "cooldown": 0
     },
     "Eagle Rearm": {
         "keys": [
@@ -431,8 +410,7 @@
             "right"
         ],
         "uses": "Unlimited",
-        "cooldown": 120,
-        "activation": 0
+        "cooldown": 120
     },
     "SEAF Artillery": {
         "keys": [
@@ -442,8 +420,7 @@
             "down"
         ],
         "uses": 5,
-        "cooldown": 0,
-        "activation": 0
+        "cooldown": 0
     },
     "Super Earth Flag": {
         "keys": [
@@ -453,8 +430,7 @@
             "up"
         ],
         "uses": 1,
-        "cooldown": 0,
-        "activation": 0
+        "cooldown": 0
     },
     "E/MG-101 HMG Emplacement": {
         "keys": [
@@ -466,8 +442,7 @@
             "left"
         ],
         "uses": "Unlimited",
-        "cooldown": 180,
-        "activation": 4.75
+        "cooldown": 180
     },
     "E/AT-12 Anti-Tank Emplacement": {
         "keys": [
@@ -479,8 +454,7 @@
             "left"
         ],
         "uses": "Unlimited",
-        "cooldown": 180,
-        "activation": 7.75
+        "cooldown": 180
     },
     "FX-12 Shield Generator Relay": {
         "keys": [
@@ -492,8 +466,7 @@
             "right"
         ],
         "uses": "Unlimited",
-        "cooldown": 90,
-        "activation": 4.75
+        "cooldown": 90
     },
     "A/Arc-3 Tesla Tower": {
         "keys": [
@@ -505,8 +478,7 @@
             "right"
         ],
         "uses": "Unlimited",
-        "cooldown": 120,
-        "activation": 4.75
+        "cooldown": 120
     },
     "MD-6 Anti-Personnel Minefield": {
         "keys": [
@@ -516,8 +488,7 @@
             "right"
         ],
         "uses": "Unlimited",
-        "cooldown": 180,
-        "activation": 4.75
+        "cooldown": 180
     },
     "MD-14 Incendiary Mines": {
         "keys": [
@@ -527,8 +498,7 @@
             "down"
         ],
         "uses": "Unlimited",
-        "cooldown": 180,
-        "activation": 4.75
+        "cooldown": 180
     },
     "MD-17 Anti-Tank Mines": {
         "keys": [
@@ -538,8 +508,7 @@
             "up"
         ],
         "uses": "Unlimited",
-        "cooldown": 180,
-        "activation": 4.75
+        "cooldown": 180
     },
     "A/MG-43 Machine Gun Sentry": {
         "keys": [
@@ -550,8 +519,7 @@
             "up"
         ],
         "uses": "Unlimited",
-        "cooldown": 90,
-        "activation": 4.75
+        "cooldown": 90
     },
     "A/G-16 Gatling Sentry": {
         "keys": [
@@ -561,8 +529,7 @@
             "left"
         ],
         "uses": "Unlimited",
-        "cooldown": 150,
-        "activation": 4.75
+        "cooldown": 150
     },
     "A/M-12 Mortar Sentry": {
         "keys": [
@@ -573,8 +540,7 @@
             "down"
         ],
         "uses": "Unlimited",
-        "cooldown": 180,
-        "activation": 4.75
+        "cooldown": 180
     },
     "A/AC-8 Autocannon Sentry": {
         "keys": [
@@ -586,8 +552,7 @@
             "up"
         ],
         "uses": "Unlimited",
-        "cooldown": 150,
-        "activation": 4.75
+        "cooldown": 150
     },
     "A/MLS-4X Rocket Sentry": {
         "keys": [
@@ -598,8 +563,7 @@
             "left"
         ],
         "uses": "Unlimited",
-        "cooldown": 150,
-        "activation": 4.75
+        "cooldown": 150
     },
     "A/M-23 EMS Mortar Sentry": {
         "keys": [
@@ -610,8 +574,7 @@
             "right"
         ],
         "uses": "Unlimited",
-        "cooldown": 180,
-        "activation": 4.75
+        "cooldown": 180
     },
     "Flame Sentry": {
         "keys": [
@@ -623,8 +586,7 @@
             "up"
         ],
         "uses": "Unlimited",
-        "cooldown": 180,
-        "activation": 4.75
+        "cooldown": 180
     },
     "Orbital Gatling Barrage": {
         "keys": [
@@ -635,8 +597,7 @@
             "up"
         ],
         "uses": "Unlimited",
-        "cooldown": 70,
-        "activation": 2.05
+        "cooldown": 70
     },
     "Orbital Airburst Strike": {
         "keys": [
@@ -645,8 +606,7 @@
             "right"
         ],
         "uses": "Unlimited",
-        "cooldown": 100,
-        "activation": 3.45
+        "cooldown": 100
     },
     "Orbital 120MM HE Barrage": {
         "keys": [
@@ -658,8 +618,7 @@
             "down"
         ],
         "uses": "Unlimited",
-        "cooldown": 180,
-        "activation": 6.45
+        "cooldown": 180
     },
     "Orbital 380MM HE Barrage": {
         "keys": [
@@ -672,8 +631,7 @@
             "down"
         ],
         "uses": "Unlimited",
-        "cooldown": 240,
-        "activation": 7.45
+        "cooldown": 240
     },
     "Orbital Walking Barrage": {
         "keys": [
@@ -685,8 +643,7 @@
             "down"
         ],
         "uses": "Unlimited",
-        "cooldown": 240,
-        "activation": 4.45
+        "cooldown": 240
     },
     "Orbital Laser": {
         "keys": [
@@ -697,8 +654,7 @@
             "down"
         ],
         "uses": "3",
-        "cooldown": 300,
-        "activation": 1
+        "cooldown": 300
     },
     "Orbital Railcannon Strike": {
         "keys": [
@@ -709,8 +665,7 @@
             "right"
         ],
         "uses": "Unlimited",
-        "cooldown": 210,
-        "activation": 1
+        "cooldown": 210
     },
     "Orbital Precision Strike": {
         "keys": [
@@ -719,8 +674,7 @@
             "up"
         ],
         "uses": "Unlimited",
-        "cooldown": 100,
-        "activation": 3
+        "cooldown": 100
     },
     "Orbital Gas Strike": {
         "keys": [
@@ -730,8 +684,7 @@
             "right"
         ],
         "uses": "Unlimited",
-        "cooldown": 75,
-        "activation": 3.45
+        "cooldown": 75
     },
     "Orbital EMS Strike": {
         "keys": [
@@ -741,8 +694,7 @@
             "down"
         ],
         "uses": "Unlimited",
-        "cooldown": 75,
-        "activation": 3.45
+        "cooldown": 75
     },
     "Orbital Smoke Strike": {
         "keys": [
@@ -752,8 +704,7 @@
             "up"
         ],
         "uses": "Unlimited",
-        "cooldown": 100,
-        "activation": 3.45
+        "cooldown": 100
     },
     "Eagle Strafing Run": {
         "keys": [
@@ -762,8 +713,7 @@
             "right"
         ],
         "uses": 4,
-        "cooldown": 8,
-        "activation": 2.4
+        "cooldown": 8
     },
     "Eagle Airstrike": {
         "keys": [
@@ -773,8 +723,7 @@
             "right"
         ],
         "uses": 2,
-        "cooldown": 8,
-        "activation": 4.1
+        "cooldown": 8
     },
     "Eagle Cluster Bomb": {
         "keys": [
@@ -785,8 +734,7 @@
             "right"
         ],
         "uses": 4,
-        "cooldown": 8,
-        "activation": 4.35
+        "cooldown": 8
     },
     "Eagle Napalm Airstrike": {
         "keys": [
@@ -796,8 +744,7 @@
             "up"
         ],
         "uses": 2,
-        "cooldown": 8,
-        "activation": 4.1
+        "cooldown": 8
     },
     "Eagle Smoke Strike": {
         "keys": [
@@ -807,8 +754,7 @@
             "down"
         ],
         "uses": 2,
-        "cooldown": 8,
-        "activation": 4.4
+        "cooldown": 8
     },
     "Eagle 110MM Rocket Pods": {
         "keys": [
@@ -818,8 +764,7 @@
             "left"
         ],
         "uses": 2,
-        "cooldown": 8,
-        "activation": 3.4
+        "cooldown": 8
     },
     "Eagle 500kg Bomb": {
         "keys": [
@@ -830,7 +775,6 @@
             "down"
         ],
         "uses": 1,
-        "cooldown": 8,
-        "activation": 3.45
+        "cooldown": 8
     }
 }
