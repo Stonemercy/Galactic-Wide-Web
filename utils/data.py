@@ -381,20 +381,21 @@ class Dispatch:
 
 
 class Planet:
-    def __init__(self, planet):
-        self.index: int = planet["index"]
-        self.name: str = planet["name"]
-        self.sector: str = planet["sector"]
-        self.biome: dict = planet["biome"]
-        self.hazards: list[dict] = planet["hazards"]
-        self.position: dict = planet["position"]
-        self.waypoints: list[int] = planet["waypoints"]
-        self.max_health: int = planet["maxHealth"]
-        self.health: int = planet["health"]
-        self.current_owner: str = planet["currentOwner"]
-        self.regen: float = planet["regenPerSecond"]
-        self.event = self.Event(planet["event"]) if planet["event"] else None
-        self.stats: dict = planet["statistics"]
+    def __init__(self, planet_json: dict):
+        self.index: int = planet_json["index"]
+        self.name: str = planet_json["name"]
+        self.sector: str = planet_json["sector"]
+        self.biome: dict = planet_json["biome"]
+        self.hazards: list[dict] = planet_json["hazards"]
+        self.position: dict = planet_json["position"]
+        self.waypoints: list[int] = planet_json["waypoints"]
+        self.max_health: int = planet_json["maxHealth"]
+        self.health: int = planet_json["health"]
+        self.health_perc: float = self.health / self.max_health
+        self.current_owner: str = planet_json["currentOwner"]
+        self.regen: float = planet_json["regenPerSecond"]
+        self.event = self.Event(planet_json["event"]) if planet_json["event"] else None
+        self.stats: dict = planet_json["statistics"]
         self.thumbnail = None
         self.feature = {
             126: "Xenoentomology Center",
