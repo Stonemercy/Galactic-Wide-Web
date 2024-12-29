@@ -1,7 +1,7 @@
-from data.lists import emojis_dict
 from data.lists import language_dict
 from disnake import ButtonStyle, ChannelType, SelectOption
 from disnake.ui import Button, ChannelSelect, StringSelect
+from utils.emojis import Emojis
 
 
 class WikiButton(Button):
@@ -10,7 +10,7 @@ class WikiButton(Button):
             style=ButtonStyle.link,
             label="More info",
             url=link,
-            emoji=emojis_dict["wiki"],
+            emoji=Emojis.icons["wiki"],
         )
 
 
@@ -20,7 +20,7 @@ class AppDirectoryButton(Button):
             style=ButtonStyle.primary,
             label="App Directory",
             url="https://discord.com/application-directory/1212535586972369008",
-            emoji=emojis_dict["discordlogo"],
+            emoji=Emojis.icons["discord"],
         )
 
 
@@ -30,7 +30,7 @@ class KoFiButton(Button):
             style=ButtonStyle.success,
             label="Ko-Fi",
             url="https://ko-fi.com/galacticwideweb",
-            emoji=emojis_dict["kofilogo"],
+            emoji=Emojis.icons["kofi"],
         )
 
 
@@ -40,7 +40,7 @@ class GitHubButton(Button):
             style=ButtonStyle.secondary,
             label="GitHub",
             url="https://github.com/Stonemercy/Galactic-Wide-Web",
-            emoji=emojis_dict["githublogo"],
+            emoji=Emojis.icons["github"],
         )
 
 
@@ -74,7 +74,7 @@ class Setup:
                     custom_id="dashboard_button",
                 )
                 if selected:
-                    self.emoji = emojis_dict["victory"]
+                    self.emoji = Emojis.icons["victory"]
                     self.style = ButtonStyle.blurple
                     self.disabled = True
 
@@ -111,7 +111,7 @@ class Setup:
                     custom_id="announcements_button",
                 )
                 if selected:
-                    self.emoji = emojis_dict["victory"]
+                    self.emoji = Emojis.icons["victory"]
                     self.style = ButtonStyle.blurple
                     self.disabled = True
 
@@ -148,7 +148,7 @@ class Setup:
                     custom_id="map_button",
                 )
                 if selected:
-                    self.emoji = emojis_dict["victory"]
+                    self.emoji = Emojis.icons["victory"]
                     self.style = ButtonStyle.blurple
                     self.disabled = True
 
@@ -185,7 +185,7 @@ class Setup:
                     custom_id="language_button",
                 )
                 if selected:
-                    self.emoji = emojis_dict["victory"]
+                    self.emoji = Emojis.icons["victory"]
                     self.style = ButtonStyle.blurple
                     self.disabled = True
 

@@ -1,5 +1,4 @@
 from data.lists import (
-    emojis_dict,
     warbond_images_dict,
     emotes_list,
     victory_poses_list,
@@ -19,6 +18,7 @@ from psutil import Process, cpu_percent
 from utils.db import GWWGuild
 from utils.functions import health_bar, short_format, skipped_planets
 from utils.data import DSS, Campaign, Data, Dispatch, Steam, Superstore, Tasks, Planet
+from utils.emojis import Emojis
 
 
 class PlanetEmbed(Embed):
@@ -45,17 +45,17 @@ class PlanetEmbed(Embed):
         enviros_text = ""
         for hazard in planet.hazards:
             enviros_text += f"\n- **{hazard['name']}**\n  - -# {hazard['description']}"
-        dss_icon = emojis_dict["dss"] if planet.dss else ""
-        MO_icon = emojis_dict["MO"] if planet.in_assignment else ""
+        dss_icon = Emojis.dss["dss"] if planet.dss else ""
+        MO_icon = Emojis.icons["MO"] if planet.in_assignment else ""
         self.add_field(
             f"__**{planet_names['names'][language['code_long']]}**__ {dss_icon}{MO_icon}",
             (
                 f"{language['sector']}: **{planet.sector}**\n"
-                f"{language['planet']['owner']}: **{language[planet.current_owner.lower()]}** {emojis_dict[planet.current_owner]}\n\n"
+                f"{language['planet']['owner']}: **{language[planet.current_owner.lower()]}** {Emojis.factions[planet.current_owner]}\n\n"
                 f"🏔️ {language['planet']['biome']} \n- **{planet.biome['name']}**\n  - -# {planet.biome['description']}\n\n"
                 f"🌪️ {language['planet']['environmentals']}:{enviros_text}\n\n"
                 f"{language['planet']['planet_health']}\n"
-                f"{planet_health_bar}{f' 🛡️{emojis_dict[planet.event.faction]}' if planet.event else ''}\n"
+                f"{planet_health_bar}{f' 🛡️{Emojis.factions[planet.event.faction]}' if planet.event else ''}\n"
                 f"`{health_text}`\n"
                 "\u200b\n"
             ),
@@ -248,7 +248,7 @@ class MajorOrderEmbed(Embed):
         with_health_bars: bool = False,
     ):
         super().__init__(
-            title=f"{emojis_dict['Left Banner']} {language['major_order']['title']} {emojis_dict['Right Banner']}",
+            title=f"{Emojis.decoration['left_banner']} {language['major_order']['title']} {Emojis.decoration['right_banner']}",
             colour=Colour.yellow(),
         )
         self.add_field(
@@ -306,7 +306,7 @@ class MajorOrderEmbed(Embed):
                 }
                 task_health_bar = health_bar(task.progress, "MO")
                 self.add_field(
-                    f"{language['major_order']['succeed_in_defense']} {task.values[0]} {language['dashboard']['planets']} {language[factions[task.values[1]].lower()]} {emojis_dict[factions[task.values[1]]]}",
+                    f"{language['major_order']['succeed_in_defense']} {task.values[0]} {language['dashboard']['planets']} {language[factions[task.values[1]].lower()]} {Emojis.factions[factions[task.values[1]]]}",
                     (
                         f"{language['major_order']['progress']}: {int(task.progress * task.values[0])}/{task.values[0]}\n"
                         f"{task_health_bar}\n"
@@ -346,7 +346,7 @@ class MajorOrderEmbed(Embed):
                 if weapon_to_use:
                     target += f" using the __{weapon_to_use}__"
                 self.add_field(
-                    f"{language['kill']} {short_format(task.values[2])} **{target}** {emojis_dict[en_faction_dict[task.values[0]]]}",
+                    f"{language['kill']} {short_format(task.values[2])} **{target}** {Emojis.factions[en_faction_dict[task.values[0]]]}",
                     (
                         f"{language['major_order']['progress']}: {(task.progress * task.values[2]):,.0f}\n"
                         f"{event_health_bar}\n"
@@ -404,7 +404,7 @@ class MajorOrderEmbed(Embed):
         for reward in data.assignment.rewards:
             reward_type = reward_types.get(str(reward["type"]), "Unknown")
             rewards_text += (
-                f"{reward['amount']} {reward_type}s {emojis_dict.get(reward_type, '')}"
+                f"{reward['amount']} {reward_type}s {Emojis.items.get(reward_type, '')}"
             )
         self.add_field(
             language["rewards"],
@@ -436,14 +436,14 @@ class CampaignEmbed(Embed):
     def __init__(self, language: dict):
         self.language = language
         super().__init__(
-            title=f"{emojis_dict['Left Banner']} {self.language['campaigns']['critical_war_updates']} {emojis_dict['Right Banner']}",
+            title=f"{Emojis.decoration['left_banner']} {self.language['campaigns']['critical_war_updates']} {Emojis.decoration['right_banner']}",
             colour=Colour.brand_red(),
         )
         self.add_field(self.language["campaigns"]["victories"], "", inline=False)
         self.add_field(self.language["campaigns"]["planets_lost"], "", inline=False)
         self.add_field(self.language["campaigns"]["new_battles"], "", inline=False)
         self.add_field(
-            self.language["dss"]["name"] + " " + emojis_dict["dss"], "", inline=False
+            self.language["dss"]["name"] + " " + Emojis.dss["dss"], "", inline=False
         )
         self.add_field(self.language["campaigns"]["invasions"], "", inline=False)
 
@@ -451,9 +451,9 @@ class CampaignEmbed(Embed):
         description = self.fields[2].value
         exclamation = ""
         if campaign.planet.dss:
-            exclamation += emojis_dict["dss"]
+            exclamation += Emojis.dss["dss"]
         if campaign.planet.in_assignment:
-            exclamation += emojis_dict["MO"]
+            exclamation += Emojis.icons["MO"]
         if campaign.planet.event and time_remaining:
             def_level_exc = {0: "", 5: "!", 20: "!!", 33: "!!!", 50: ":warning:"}
             key = [
@@ -464,18 +464,18 @@ class CampaignEmbed(Embed):
             def_level_exc = def_level_exc[key]
             if campaign.planet.event.type != 2:
                 description += (
-                    f"🛡️ {self.language['defend']['defend']} **{campaign.planet.name}** {emojis_dict[campaign.faction]}{exclamation}\n"
+                    f"🛡️ {self.language['defend']['defend']} **{campaign.planet.name}** {Emojis.factions[campaign.faction]}{exclamation}\n"
                     f"> -# {self.language['dashboard']['defend_embed']['level']} {campaign.planet.event.level}{def_level_exc}\n"
                     f"> *{self.language['ends']} {time_remaining}*\n"
                 )
             else:
                 description += (
-                    f"🛡️ {self.language['campaigns']['repel_invasion']} **{campaign.planet.name}** {emojis_dict[campaign.faction]}{exclamation}\n"
+                    f"🛡️ {self.language['campaigns']['repel_invasion']} **{campaign.planet.name}** {Emojis.factions[campaign.faction]}{exclamation}\n"
                     f"> -# {self.language['dashboard']['defend_embed']['level']} {campaign.planet.event.level}{def_level_exc}\n"
                     f"> *{self.language['ends']} {time_remaining}*\n"
                 )
         else:
-            description += f"⚔️ {self.language['campaigns']['liberate']} **{campaign.planet.name}** {emojis_dict[campaign.faction]}{exclamation}\n"
+            description += f"⚔️ {self.language['campaigns']['liberate']} **{campaign.planet.name}** {Emojis.factions[campaign.faction]}{exclamation}\n"
         self.set_field_at(2, self.fields[2].name, description, inline=False)
 
     def add_campaign_victory(self, planet: Planet, liberatee: str):
@@ -484,10 +484,10 @@ class CampaignEmbed(Embed):
         description = self.fields[0].value
         exclamation = ""
         if planet.dss:
-            exclamation += emojis_dict["dss"]
+            exclamation += Emojis.dss["dss"]
         if planet.in_assignment:
-            exclamation += emojis_dict["MO"]
-        description += f"**{emojis_dict['victory']} {planet.name}** {self.language['campaigns']['been_liberated']} **{liberatee_loc}** {emojis_dict[liberatee]}!{exclamation}\n"
+            exclamation += Emojis.icons["MO"]
+        description += f"**{Emojis.icons['victory']} {planet.name}** {self.language['campaigns']['been_liberated']} **{liberatee_loc}** {Emojis.factions[liberatee]}!{exclamation}\n"
         self.set_field_at(0, name, description, inline=False)
 
     def add_def_victory(self, planet: Planet):
@@ -495,10 +495,10 @@ class CampaignEmbed(Embed):
         description = self.fields[0].value
         exclamation = ""
         if planet.dss:
-            exclamation += emojis_dict["dss"]
+            exclamation += Emojis.dss["dss"]
         if planet.in_assignment:
-            exclamation += emojis_dict["MO"]
-        description += f"**{emojis_dict['victory']} {planet.name}** {self.language['campaigns']['been_defended']}! {exclamation}\n"
+            exclamation += Emojis.icons["MO"]
+        description += f"**{Emojis.icons['victory']} {planet.name}** {self.language['campaigns']['been_defended']}! {exclamation}\n"
         self.set_field_at(0, name, description, inline=False)
 
     def add_planet_lost(self, planet: Planet):
@@ -506,10 +506,10 @@ class CampaignEmbed(Embed):
         description = self.fields[1].value
         exclamation = ""
         if planet.dss:
-            exclamation += emojis_dict["dss"]
+            exclamation += Emojis.dss["dss"]
         if planet.in_assignment:
-            exclamation += emojis_dict["MO"]
-        description += f"**💀 {planet.name}** {self.language['campaigns']['been_lost']} **{self.language[planet.current_owner.lower()]}** {emojis_dict[planet.current_owner]}{exclamation}\n"
+            exclamation += Emojis.icons["MO"]
+        description += f"**💀 {planet.name}** {self.language['campaigns']['been_lost']} **{self.language[planet.current_owner.lower()]}** {Emojis.factions[planet.current_owner]}{exclamation}\n"
         self.set_field_at(1, name, description, inline=False)
 
     def add_invasion_over(self, planet: Planet, faction: str):
@@ -517,10 +517,11 @@ class CampaignEmbed(Embed):
         description = self.fields[4].value
         exclamation = ""
         if planet.dss:
-            exclamation += emojis_dict["dss"]
+            exclamation += Emojis.dss["dss"]
         if planet.in_assignment:
-            exclamation += emojis_dict["MO"]
-        description += f"{self.language['campaigns']['invasion_of']} **{planet.name}** {self.language['campaigns']['has_ended']} {emojis_dict[planet.current_owner]}{exclamation}\n-# **{self.language[faction.lower()]}** {self.language['campaigns']['no_changes']} {emojis_dict[faction]}"
+            exclamation += Emojis.icons["MO"]
+        description += f"{self.language['campaigns']['invasion_of']} **{planet.name}** {self.language['campaigns']['has_ended']} {Emojis.factions[planet.current_owner]}{exclamation}\n"
+        description += f"-# **{self.language[faction.lower()]}** {self.language['campaigns']['no_changes']} {Emojis.factions[faction]}"
         self.set_field_at(4, name, description, inline=False)
 
     def remove_empty(self):
@@ -531,7 +532,7 @@ class CampaignEmbed(Embed):
     def dss_moved(self, before_planet: Planet, after_planet: Planet):
         description = (
             self.fields[3].value
-            + f"{self.language['dss']['has_moved']} **{before_planet.name}** {emojis_dict[before_planet.current_owner]} {self.language['dss']['to']} **{after_planet.name}** {emojis_dict[after_planet.current_owner]} {emojis_dict['MO'] if after_planet.in_assignment else ''}\n"
+            + f"{self.language['dss']['has_moved']} **{before_planet.name}** {Emojis.factions[before_planet.current_owner]} {self.language['dss']['to']} **{after_planet.name}** {Emojis.factions[after_planet.current_owner]} {Emojis.icons['MO'] if after_planet.in_assignment else ''}\n"
         )
         self.set_field_at(3, self.fields[3].name, description, inline=False)
 
@@ -580,7 +581,7 @@ class Dashboard:
                 url="https://cdn.discordapp.com/attachments/1213146233825271818/1310906165823148043/DSS.png?ex=6746ec01&is=67459a81&hm=ab1c29616fd787f727848b04e44c26cc74e045b6e725c45b9dd8a902ec300757&"
             )
             dss_embed.description = (
-                f"{language['dashboard']['dss_embed']['stationed_at']}: **{data.dss.planet.name}** {emojis_dict[data.dss.planet.current_owner]}\n"
+                f"{language['dashboard']['dss_embed']['stationed_at']}: **{data.dss.planet.name}** {Emojis.factions[data.dss.planet.current_owner]}\n"
                 f"Next location move <t:{data.war_time + data.dss.election_war_time}:R>"
             )
             for tactical_action in data.dss.tactical_actions:
@@ -591,7 +592,7 @@ class Dashboard:
                 ]
                 cost = (
                     (
-                        f"{language['dashboard']['dss_embed']['cost']}: {tactical_action.cost.target:,} {emojis_dict[tactical_action.cost.item]} **{tactical_action.cost.item}s**\n"
+                        f"{language['dashboard']['dss_embed']['cost']}: {tactical_action.cost.target:,} {Emojis.dss[tactical_action.cost.item]} **{tactical_action.cost.item}s**\n"
                         f"{language['dashboard']['dss_embed']['progress']}: **{tactical_action.cost.current:,.0f}**\n"
                         f"{ta_health_bar}\n"
                         f"`{tactical_action.cost.progress:^25.2%}`\n"
@@ -643,7 +644,7 @@ class Dashboard:
                             "MO",
                             True,
                         )
-                        completed = f"🛡️ {emojis_dict[planet.event.faction]}"
+                        completed = f"🛡️ {Emojis.factions[planet.event.faction]}"
                         health_text = f"{1 - planet.event.progress:^25,.2%}"
                     else:
                         task.health_bar = health_bar(
@@ -666,7 +667,7 @@ class Dashboard:
                     )
                     dss_text = ""
                     if planet.dss:
-                        dss_text = emojis_dict["dss"]
+                        dss_text = Emojis.dss["dss"]
                     if task.type == 11:
                         obj_text = f"{language['dashboard']['major_order']['liberate']} {planet_names[str(planet.index)]['names'][language['code_long']]}"
                     else:
@@ -675,7 +676,7 @@ class Dashboard:
                         obj_text,
                         (
                             f"{language['heroes']}: **{planet.stats['playerCount']:,}**\n"
-                            f"{language['dashboard']['major_order']['occupied_by']}: **{planet.current_owner}** {emojis_dict[planet.current_owner]}{dss_text}\n"
+                            f"{language['dashboard']['major_order']['occupied_by']}: **{planet.current_owner}** {Emojis.factions[planet.current_owner]}{dss_text}\n"
                             f"{feature_text}"
                             f"{language['dashboard']['major_order']['event_health']}:\n"
                             f"{task.health_bar} {completed}\n"
@@ -698,9 +699,9 @@ class Dashboard:
                         data.planets[task.values[3]] if task.values[3] != 0 else None
                     )
                     if specific_planet:
-                        objective_text = f"{language['defend']['defend']} {specific_planet.name} {language['dashboard']['major_order']['against']} {task.values[0]} {language['dashboard']['major_order']['attacks_from']} {language[factions[task.values[1]].lower()]} {emojis_dict[factions[task.values[1]]]}"
+                        objective_text = f"{language['defend']['defend']} {specific_planet.name} {language['dashboard']['major_order']['against']} {task.values[0]} {language['dashboard']['major_order']['attacks_from']} {language[factions[task.values[1]].lower()]} {Emojis.factions[factions[task.values[1]]]}"
                     else:
-                        objective_text = f"{language['dashboard']['major_order']['defend_against']} {task.values[0]} {language['dashboard']['major_order']['attacks_from']} {language[factions[task.values[1]].lower()]} {emojis_dict[factions[task.values[1]]]}"
+                        objective_text = f"{language['dashboard']['major_order']['defend_against']} {task.values[0]} {language['dashboard']['major_order']['attacks_from']} {language[factions[task.values[1]].lower()]} {Emojis.factions[factions[task.values[1]]]}"
 
                     major_orders_embed.add_field(
                         objective_text,
@@ -763,7 +764,7 @@ class Dashboard:
                     if weapon_to_use:
                         target += f" using the __{weapon_to_use}__"
                     major_orders_embed.add_field(
-                        f"{language['kill']} {short_format(task.values[2])} **{target}** {emojis_dict[en_faction_dict[task.values[0]]]}",
+                        f"{language['kill']} {short_format(task.values[2])} **{target}** {Emojis.factions[en_faction_dict[task.values[0]]]}",
                         (
                             f"{language['major_order']['progress']}: **{(task.values[2]*task.progress):,.0f}**\n"
                             f"{task.health_bar}\n"
@@ -835,7 +836,7 @@ class Dashboard:
             rewards_text = ""
             for reward in data.assignment.rewards:
                 reward_type = reward_types.get(str(reward["type"]), "Unknown")
-                rewards_text += f"{reward['amount']} {reward_type}s {emojis_dict.get(reward_type, '')}"
+                rewards_text += f"{reward['amount']} {reward_type}s {Emojis.items.get(reward_type, '')}"
             major_orders_embed.add_field(language["rewards"], rewards_text)
             major_orders_embed.add_field(
                 language["ends"],
@@ -890,7 +891,7 @@ class Dashboard:
                             and planet.index in data.planets_with_player_reqs
                         ):
                             required_players_text = f"\n{language['dashboard']['defend_embed']['players_required']}: **~{data.planets_with_player_reqs[planet.index]:,.0f}+**"
-                faction_icon = emojis_dict[planet.event.faction]
+                faction_icon = Emojis.factions[planet.event.faction]
                 time_remaining = (
                     f"<t:{planet.event.end_time_datetime.timestamp():.0f}:R>"
                 )
@@ -899,12 +900,12 @@ class Dashboard:
                     "Humans",
                     True,
                 )
-                exclamation = emojis_dict["MO"] if planet.in_assignment else ""
+                exclamation = Emojis.icons["MO"] if planet.in_assignment else ""
                 feature_text = (
                     "" if not planet.feature else f"\nFeature: {planet.feature}"
                 )
                 if planet.dss:
-                    exclamation += emojis_dict["dss"]
+                    exclamation += Emojis.dss["dss"]
                 defend_embed.add_field(
                     f"{faction_icon} - __**{planet_names[str(planet.index)]['names'][language['code_long']]}**__ {exclamation}",
                     (
@@ -977,10 +978,12 @@ class Dashboard:
                         change = f"{(sum(liberation_change['liberation_changes'])):+.2f}%/hour"
                         liberation_text = f"\n`{change:^25}`"
 
-                exclamation = emojis_dict["MO"] if campaign.planet.in_assignment else ""
+                exclamation = (
+                    Emojis.icons["MO"] if campaign.planet.in_assignment else ""
+                )
                 if campaign.planet.dss:
-                    exclamation += emojis_dict["dss"]
-                faction_icon = emojis_dict[campaign.planet.current_owner]
+                    exclamation += Emojis.dss["dss"]
+                faction_icon = Emojis.factions[campaign.planet.current_owner]
                 if len(non_skipped_campaigns) < 9:
                     planet_health_bar = health_bar(
                         campaign.planet.health / campaign.planet.max_health,
@@ -1038,12 +1041,14 @@ class Dashboard:
         for values in skipped_dict.values():
             for campaign in values["campaigns"]:
                 campaign: Campaign
-                exclamation = emojis_dict["MO"] if campaign.planet.in_assignment else ""
+                exclamation = (
+                    Emojis.icons["MO"] if campaign.planet.in_assignment else ""
+                )
                 if campaign.planet.dss:
-                    exclamation += emojis_dict["dss"]
+                    exclamation += Emojis.dss["dss"]
                 values[
                     "string"
-                ] += f"-# {planet_names[str(campaign.planet.index)]['names'][language['code_long']]} - {emojis_dict[campaign.planet.current_owner]} - {campaign.planet.stats['playerCount']} {exclamation}\n"
+                ] += f"-# {planet_names[str(campaign.planet.index)]['names'][language['code_long']]} - {Emojis.factions[campaign.planet.current_owner]} - {campaign.planet.stats['playerCount']} {exclamation}\n"
             if values["string"] != "":
                 values["embed"].add_field(
                     f"{language['dashboard']['low_impact']}",
@@ -1108,12 +1113,12 @@ class Items:
                 )
                 gun_fire_modes = ""
                 for i in weapon_json["fire_mode"]:
-                    gun_fire_modes += f"\n- **{json_dict['items']['fire_modes'][str(i)]} {emojis_dict[json_dict['items']['fire_modes'][str(i)]]}**"
+                    gun_fire_modes += f"\n- **{json_dict['items']['fire_modes'][str(i)]} {Emojis.weapons[json_dict['items']['fire_modes'][str(i)]]}**"
 
                 features = ""
                 for i in weapon_json["traits"]:
                     if i != 0:
-                        features += f"\n- **{json_dict['items']['weapon_traits'][str(i)]} {emojis_dict[json_dict['items']['weapon_traits'][str(i)]]}**"
+                        features += f"\n- **{json_dict['items']['weapon_traits'][str(i)]} {Emojis.weapons[json_dict['items']['weapon_traits'][str(i)]]}**"
                     else:
                         features = "\n- None"
 
@@ -1131,7 +1136,7 @@ class Items:
                         f"{language['weapons']['damage']}: **`{weapon_json['damage']}`**\n"
                         f"{language['weapons']['fire_rate']}: **`{weapon_json['fire_rate']}rpm`**\n"
                         f"{language['weapons']['dps']}: **`{(weapon_json['damage']*weapon_json['fire_rate'])/60:.2f}/s`**\n"
-                        f"{language['weapons']['capacity']}: **`{weapon_json['capacity']}`** {emojis_dict['Capacity'] if weapon_json['fire_rate'] != 0 else ''}\n"
+                        f"{language['weapons']['capacity']}: **`{weapon_json['capacity']}`** {Emojis.weapons['Capacity'] if weapon_json['fire_rate'] != 0 else ''}\n"
                         f"{language['weapons']['fire_modes']}:{gun_fire_modes}\n"
                         f"{language['weapons']['features']}:{features}"
                     ),
@@ -1160,12 +1165,12 @@ class Items:
                 )
                 gun_fire_modes = ""
                 for i in weapon_json["fire_mode"]:
-                    gun_fire_modes += f"\n- **{json_dict['items']['fire_modes'][str(i)]} {emojis_dict[json_dict['items']['fire_modes'][str(i)]]}**"
+                    gun_fire_modes += f"\n- **{json_dict['items']['fire_modes'][str(i)]} {Emojis.weapons[json_dict['items']['fire_modes'][str(i)]]}**"
 
                 features = ""
                 for i in weapon_json["traits"]:
                     if i != 0:
-                        features += f"\n- **{json_dict['items']['weapon_traits'][str(i)]} {emojis_dict[json_dict['items']['weapon_traits'][str(i)]]}**"
+                        features += f"\n- **{json_dict['items']['weapon_traits'][str(i)]} {Emojis.weapons[json_dict['items']['weapon_traits'][str(i)]]}**"
                     else:
                         features = "\n- None"
 
@@ -1182,7 +1187,7 @@ class Items:
                         f"{language['weapons']['damage']}: **`{weapon_json['damage']}`**\n"
                         f"{language['weapons']['fire_rate']}: **`{weapon_json['fire_rate']}rpm`**\n"
                         f"{language['weapons']['dps']}: **`{(weapon_json['damage']*weapon_json['fire_rate'])/60:.2f}/s`**\n"
-                        f"{language['weapons']['capacity']}: **`{weapon_json['capacity']}`** {emojis_dict['Capacity'] if weapon_json['fire_rate'] != 0 else ''}\n"
+                        f"{language['weapons']['capacity']}: **`{weapon_json['capacity']}`** {Emojis.weapons['Capacity'] if weapon_json['fire_rate'] != 0 else ''}\n"
                         f"{language['weapons']['fire_modes']}:{gun_fire_modes}\n"
                         f"{language['weapons']['features']}:{features}"
                     ),
@@ -1253,8 +1258,8 @@ class Items:
                 title=warbond_json["name"],
                 description=(
                     f"Page {page}/{list(warbond_json['json'].keys())[-1]}\n"
-                    f"Cost to unlock warbond: **{cost}** {emojis_dict['Super Credits']}\n"
-                    f"Medals to unlock page: **{warbond_page['medals_to_unlock'] }** {emojis_dict['medal']}\n"
+                    f"Cost to unlock warbond: **{cost}** {Emojis.items['Super Credits']}\n"
+                    f"Medals to unlock page: **{warbond_page['medals_to_unlock'] }** {Emojis.items['Medal']}\n"
                 ),
             )
             self.set_image(warbond_images_dict[warbond_json["name"]])
@@ -1299,58 +1304,58 @@ class Items:
                             f"{item_json['name']}",
                             (
                                 "Type: **Armor**\n"
-                                f"Slot: **{json_dict['items']['armor_slots'][str(item_json['slot'])]}** {emojis_dict[json_dict['items']['armor_slots'][str(item_json['slot'])]]}\n"
+                                f"Slot: **{json_dict['items']['armor_slots'][str(item_json['slot'])]}** {Emojis.armour[json_dict['items']['armor_slots'][str(item_json['slot'])]]}\n"
                                 f"Armor Rating: **{item_json['armor_rating']}**\n"
                                 f"Speed: **{item_json['speed']}**\n"
                                 f"Stamina Regen: **{item_json['stamina_regen']}**\n"
                                 f"Passive: **{json_dict['items']['armor_perks'][str(item_json['passive'])]['name']}**\n"
-                                f"Medal Cost: **{item.get('medal_cost', None)} {emojis_dict['medal']}**\n\n"
+                                f"Medal Cost: **{item.get('medal_cost', None)} {Emojis.items['Medal']}**\n\n"
                             ),
                         )
                     elif item_type == "primary":
                         self.add_field(
-                            f"{item_json['name']} {emojis_dict['Primary']}",
+                            f"{item_json['name']} {Emojis.weapons['Primary']}",
                             (
                                 "Type: **Primary**\n"
                                 f"Weapon type: **{json_dict['items']['weapon_types'][str(item_json['type'])]}**\n"
                                 f"Damage: **{item_json['damage']}**\n"
-                                f"Capacity: **{item_json['capacity']}** {emojis_dict['Capacity']}\n"
+                                f"Capacity: **{item_json['capacity']}** {Emojis.weapons['Capacity']}\n"
                                 f"Recoil: **{item_json['recoil']}**\n"
                                 f"Fire Rate: **{item_json['fire_rate']}**\n"
-                                f"Medal Cost: **{item['medal_cost']} {emojis_dict['medal']}**\n\n"
+                                f"Medal Cost: **{item['medal_cost']} {Emojis.items['Medal']}**\n\n"
                             ),
                         )
                     elif item_type == "secondary":
                         self.add_field(
-                            f"{item_json['name']} {emojis_dict['Secondary']}",
+                            f"{item_json['name']} {Emojis.weapons['Secondary']}",
                             (
                                 "Type: **Secondary**\n"
                                 f"Damage: **{item_json['damage']}**\n"
-                                f"Capacity: **{item_json['capacity']}** {emojis_dict['Capacity']}\n"
+                                f"Capacity: **{item_json['capacity']}** {Emojis.weapons['Capacity']}\n"
                                 f"Recoil: **{item_json['recoil']}**\n"
                                 f"Fire Rate: **{item_json['fire_rate']}**\n"
-                                f"Medal Cost: **{item['medal_cost']} {emojis_dict['medal']}**\n\n"
+                                f"Medal Cost: **{item['medal_cost']} {Emojis.items['Medal']}**\n\n"
                             ),
                         )
                     elif item_type == "grenade":
                         self.add_field(
-                            f"{item_json['name']} {emojis_dict['Grenade']}",
+                            f"{item_json['name']} {Emojis.weapons['Grenade']}",
                             (
                                 "Type: **Grenade**\n"
                                 f"Damage: **{item_json['damage']}**\n"
                                 f"Penetration: **{item_json['penetration']}**\n"
                                 f"Outer Radius: **{item_json['outer_radius']}**\n"
                                 f"Fuse Time: **{item_json['fuse_time']}**\n"
-                                f"Medal Cost: **{item['medal_cost']} {emojis_dict['medal']}**\n\n"
+                                f"Medal Cost: **{item['medal_cost']} {Emojis.items['Medal']}**\n\n"
                             ),
                         )
                 elif (
-                    json_dict["items"]["item_names"][str(item["item_id"])]["name"]
-                    == "Super Credits"
+                    "Super Credits"
+                    in json_dict["items"]["item_names"][str(item["item_id"])]["name"]
                 ):
                     self.add_field(
-                        f"{json_dict['items']['item_names'][str(item['item_id'])]['name']} {emojis_dict['Super Credits']}",
-                        f"Medal cost: **{item['medal_cost']} {emojis_dict['medal']}**",
+                        f"{json_dict['items']['item_names'][str(item['item_id'])]['name']} {Emojis.items['Super Credits']}",
+                        f"Medal cost: **{item['medal_cost']} {Emojis.items['Medal']}**",
                     )
                 elif (
                     json_dict["items"]["item_names"][str(item["item_id"])]["name"]
@@ -1360,7 +1365,7 @@ class Items:
                         f"{json_dict['items']['item_names'][str(item['item_id'])]['name']}",
                         (
                             "Type: Emote\n"
-                            f"Medal cost: **{item['medal_cost']} {emojis_dict['medal']}**"
+                            f"Medal cost: **{item['medal_cost']} {Emojis.items['Medal']}**"
                         ),
                     )
                 elif (
@@ -1371,7 +1376,7 @@ class Items:
                         f"{json_dict['items']['item_names'][str(item['item_id'])]['name']}",
                         (
                             "Type: Victory Pose\n"
-                            f"Medal cost: **{item['medal_cost']} {emojis_dict['medal']}**"
+                            f"Medal cost: **{item['medal_cost']} {Emojis.items['Medal']}**"
                         ),
                     )
                 elif (
@@ -1382,7 +1387,7 @@ class Items:
                         f"{json_dict['items']['item_names'][str(item['item_id'])]['name']}",
                         (
                             "Type: Player Card\n"
-                            f"Medal cost: **{item['medal_cost']} {emojis_dict['medal']}**"
+                            f"Medal cost: **{item['medal_cost']} {Emojis.items['Medal']}**"
                         ),
                     )
                 elif str(item["item_id"]) in json_dict["items"]["boosters"]:
@@ -1390,7 +1395,7 @@ class Items:
                         f"{json_dict['items']['item_names'][str(item['item_id'])]['name']}",
                         (
                             "Type: Booster\n"
-                            f"Medal cost: **{item['medal_cost']} {emojis_dict['medal']}**"
+                            f"Medal cost: **{item['medal_cost']} {Emojis.items['Medal']}**"
                         ),
                     )
                 elif (
@@ -1401,7 +1406,7 @@ class Items:
                         f"{json_dict['items']['item_names'][str(item['item_id'])]['name']}",
                         (
                             "Type: Title\n"
-                            f"Medal cost: **{item['medal_cost']} {emojis_dict['medal']}**"
+                            f"Medal cost: **{item['medal_cost']} {Emojis.items['Medal']}**"
                         ),
                     )
                 elif (
@@ -1412,13 +1417,13 @@ class Items:
                         f"{json_dict['items']['item_names'][str(item['item_id'])]['name']}",
                         (
                             "Type: Stratagem Permit\n"
-                            f"Medal cost: **{item['medal_cost']} {emojis_dict['medal']}**"
+                            f"Medal cost: **{item['medal_cost']} {Emojis.items['Medal']}**"
                         ),
                     )
                 else:
                     self.add_field(
                         f"{json_dict['items']['item_names'][str(item['item_id'])]['name']}",
-                        f"Medal cost: **{item['medal_cost']} {emojis_dict['medal']}**",
+                        f"Medal cost: **{item['medal_cost']} {Emojis.items['Medal']}**",
                     )
                 if item_number % 2 == 0:
                     self.add_field("", "")
@@ -1430,7 +1435,7 @@ class StratagemEmbed(Embed):
         super().__init__(title=stratagem_name, colour=Colour.brand_green())
         key_inputs = ""
         for key in stratagem_stats["keys"]:
-            key_inputs += emojis_dict[key]
+            key_inputs += Emojis.stratagems[key]
         self.add_field("Key input", key_inputs, inline=False)
         self.add_field("Uses", stratagem_stats["uses"], inline=False)
         self.add_field(
@@ -1458,7 +1463,7 @@ class EnemyEmbed(Embed):
             description=species_info["info"]["desc"],
         )
         file_name = species_info["name"].replace(" ", "_")
-        start_emoji = emojis_dict[f"difficulty{species_info['info']['start']}"]
+        start_emoji = Emojis.difficulty[f"difficulty{species_info['info']['start']}"]
         self.add_field(
             language["enemy"]["introduced"],
             f"{language['enemy']['difficulty']} {species_info['info']['start']} {start_emoji}",
@@ -1586,10 +1591,10 @@ class SuperstoreEmbed(Embed):
                 for passive in passives_list:
                     passives += f"-# - {passive}\n"
             self.add_field(
-                f"{item['name']} - {item['store_cost']} {emojis_dict['Super Credits']}",
+                f"{item['name']} - {item['store_cost']} {Emojis.items['Super Credits']}",
                 (
                     f"{item['type']}"
-                    f"Slot: **{item['slot']}** {emojis_dict[item['slot']]}\n"
+                    f"Slot: **{item['slot']}** {Emojis.armour[item['slot']]}\n"
                     f"Armor: **{item['armor_rating']}**\n"
                     f"Speed: **{item['speed']}**\n"
                     f"Stamina Regen: **{item['stamina_regen']}**\n"
@@ -1613,7 +1618,7 @@ class DSSEmbed(Embed):
     def __init__(self, dss_data: DSS, language_json: dict):
         super().__init__(
             title=language_json["dss"]["name"],
-            description=f"{language_json['dss']['stationed_at']}: **{dss_data.planet.name}** {emojis_dict[dss_data.planet.current_owner]}",
+            description=f"{language_json['dss']['stationed_at']}: **{dss_data.planet.name}** {Emojis.factions[dss_data.planet.current_owner]}",
             colour=Colour.teal(),
         )
         self.set_thumbnail(
@@ -1631,7 +1636,7 @@ class DSSEmbed(Embed):
             )
             cost = (
                 (
-                    f"{language_json['dss']['cost']}: **{tactical_action.cost.target:,}** {emojis_dict[tactical_action.cost.item]} **{tactical_action.cost.item}s**\n"
+                    f"{language_json['dss']['cost']}: **{tactical_action.cost.target:,}** {Emojis.dss[tactical_action.cost.item]} **{tactical_action.cost.item}s**\n"
                     f"{language_json['dss']['progress']}: **{tactical_action.cost.current:,.0f}**\n"
                     f"{ta_health_bar}\n"
                     f"`{tactical_action.cost.progress:^25.2%}`\n"
@@ -1644,7 +1649,7 @@ class DSSEmbed(Embed):
                 {1: "preparing", 2: "active", 3: "on_cooldown"}[tactical_action.status]
             ]
             self.add_field(
-                f"{emojis_dict[tactical_action.name.replace(' ', '_').lower()]} {tactical_action.name.title()}",
+                f"{Emojis.dss[tactical_action.name.replace(' ', '_').lower()]} {tactical_action.name.title()}",
                 (
                     f"{language_json['dss']['description']}:\n-# {tactical_action.description}\n"
                     f"{language_json['dss']['strategic_description']}:\n-# {tactical_action.strategic_description}\n"
@@ -1739,9 +1744,9 @@ class WarfrontEmbed(Embed):
                         and campaign.planet.index in data.planets_with_player_reqs
                     ):
                         required_players_text = f"\n{language_json['dashboard']['defend_embed']['players_required']}: **~{data.planets_with_player_reqs[campaign.planet.index]:,.0f}+**"
-            exclamation = emojis_dict["MO"] if campaign.planet.in_assignment else ""
+            exclamation = Emojis.icons["MO"] if campaign.planet.in_assignment else ""
             if campaign.planet.dss:
-                exclamation += emojis_dict["dss"]
+                exclamation += Emojis.dss["dss"]
             feature_text = (
                 ""
                 if not campaign.planet.feature
@@ -1753,7 +1758,7 @@ class WarfrontEmbed(Embed):
                 True,
             )
             self.add_field(
-                f"{emojis_dict[campaign.planet.event.faction]} - __**{planet_names[str(campaign.planet.index)]['names'][language_json['code_long']]}**__ {exclamation}",
+                f"{Emojis.factions[campaign.planet.event.faction]} - __**{planet_names[str(campaign.planet.index)]['names'][language_json['code_long']]}**__ {exclamation}",
                 (
                     f"{language_json['ends']}: {f'<t:{campaign.planet.event.end_time_datetime.timestamp():.0f}:R>'}"
                     f"\n{language_json['dashboard']['defend_embed']['level']} {int(campaign.planet.event.max_health / 50000)}"
@@ -1799,10 +1804,10 @@ class WarfrontEmbed(Embed):
                         time_to_complete = f"\n{language_json['dashboard']['outlook']}: **{language_json['dashboard']['victory']}** <t:{now_seconds + seconds_to_complete}:R>"
                         change = f"{(sum(liberation_change['liberation_changes'])):+.2f}%/hour"
                         liberation_text = f"\n`{change:^25}`"
-            exclamation = emojis_dict["MO"] if campaign.planet.in_assignment else ""
+            exclamation = Emojis.icons["MO"] if campaign.planet.in_assignment else ""
             if campaign.planet.dss:
-                exclamation += emojis_dict["dss"]
-            faction_icon = emojis_dict[campaign.planet.current_owner]
+                exclamation += Emojis.dss["dss"]
+            faction_icon = Emojis.factions[campaign.planet.current_owner]
             planet_health_bar = health_bar(
                 campaign.planet.health / campaign.planet.max_health,
                 campaign.planet.current_owner,
