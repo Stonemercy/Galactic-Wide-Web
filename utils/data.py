@@ -96,7 +96,6 @@ class Data:
                                 data = await r.json()
                                 if data == "Error":
                                     self.__data__[endpoint] = data
-                                    bot.logger.error(f"API/DSS, {data = }")
                                     continue
                                 if type(data[0]) == str:
                                     bot.logger.error(f"API/DSS, {data[0] = }")
