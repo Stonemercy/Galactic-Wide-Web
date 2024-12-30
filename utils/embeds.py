@@ -1072,14 +1072,18 @@ class Dashboard:
                 "",
                 f"*{language['dashboard']['lite_mode']}*",
             )
-        if now.strftime("%d/%m") == "26/10":
-            major_orders_embed.set_footer(text=language["dashboard"]["liberty_day"])
-        if now.strftime("%d/%m") == "03/04":
-            major_orders_embed.set_footer(
-                text=language["dashboard"]["malevelon_creek_day"]
-            )
-        if now.strftime("%d/%m") in ("24/12", "25/12", "26/12"):
-            major_orders_embed.set_footer(text="Happy Festival of Reckoning!")
+        special_dates = {
+            "26/10": language["dashboard"]["liberty_day"],
+            "03/04": language["dashboard"]["malevelon_creek_day"],
+            "24/12": "Happy Festival of Reckoning!",
+            "25/12": "Happy Festival of Reckoning!",
+            "26/12": "Happy Festival of Reckoning!",
+            "31/12": "Happy New Year!",
+            "01/01": "Happy New Year!",
+        }
+        if now.strftime("%d/%m") in special_dates:
+            updated_embed.set_footer(text=special_dates[now.strftime("%d/%m")])
+
         self.embeds = []
         for embed in (
             major_orders_embed,
