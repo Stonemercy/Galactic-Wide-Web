@@ -13,6 +13,7 @@ class ErrorHandlerCog(commands.Cog):
     async def on_slash_command_error(self, inter: AppCmdInter, error):
         if hasattr(inter.application_command, "on_error"):
             return
+        await inter.response.defer()
         if isinstance(error, commands.CheckFailure):
             now = datetime.now()
             if now < self.bot.ready_time:
@@ -35,12 +36,13 @@ class ErrorHandlerCog(commands.Cog):
             )
             try:
                 await self.bot.moderator_channel.send(
-                    f"{self.bot.owner.mention}```py\n{''.join(format_exception(type(error), error, error.__traceback__))[:1900]}\n```"
+                    f"{self.bot.owner.mention}```py\n{''.join(format_exception(type(error), error, error.__traceback__))[-1900:]}\n```"
                 )
             except Exception as e:
                 await self.bot.moderator_channel.send(
                     f"{self.bot.owner.mention} {error} | {e}"
                 )
+            raise error
 
 
 def setup(bot: GalacticWideWebBot):
