@@ -3,6 +3,7 @@ from disnake import (
     ButtonStyle,
     File,
     MessageInteraction,
+    NotFound,
     Permissions,
     InteractionContextTypes,
 )
@@ -298,9 +299,15 @@ class SetupCog(commands.Cog):
                     components=action_rows,
                 )
             else:  # want to enable
-                channel = self.bot.get_channel(
-                    guild.announcement_channel_id
-                ) or await self.bot.fetch_channel(guild.announcement_channel_id)
+                try:
+                    channel = self.bot.get_channel(
+                        guild.announcement_channel_id
+                    ) or await self.bot.fetch_channel(guild.announcement_channel_id)
+                except NotFound:
+                    return await inter.send(
+                        "Your announcements channel could not be found. Please reset it.",
+                        ephemeral=True,
+                    )
                 self.bot.major_order_channels.append(channel)
                 guild.major_order_updates = True
                 guild.save_changes()

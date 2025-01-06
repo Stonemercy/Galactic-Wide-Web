@@ -2,8 +2,9 @@ from disnake import AppCmdInter, InteractionContextTypes, ApplicationInstallType
 from disnake.ext import commands
 from main import GalacticWideWebBot
 from utils.checks import wait_for_startup
+from utils.db import GWWGuild
 from utils.embeds import StratagemEmbed
-from utils.interactables import WikiButton
+from utils.interactables import SupportServerButton, WikiButton
 
 
 class StratagemsCog(commands.Cog):
@@ -38,16 +39,19 @@ class StratagemsCog(commands.Cog):
         self.bot.logger.info(
             f"{self.qualified_name} | /{inter.application_command.name} <{stratagem = }>"
         )
+        if inter.guild:
+            guild = GWWGuild.get_by_id(inter.guild_id)
+        else:
+            guild = GWWGuild.default()
+        guild_language = self.bot.json_dict["languages"][guild.language]
         if stratagem not in self.stratagems:
             return await inter.send(
-                (
-                    "That stratagem isn't in my list, please try again.\n"
-                    "||If you believe this is a mistake, please contact my Support Server||"
-                ),
+                guild_language["stratagems"]["unavailable"],
                 ephemeral=True,
+                components=[SupportServerButton()],
             )
         stratagem_stats = self.stratagems[stratagem]
-        embed = StratagemEmbed(stratagem, stratagem_stats)
+        embed = StratagemEmbed(stratagem, stratagem_stats, guild_language)
         if not embed.image_set:
             await self.bot.moderator_channel.send(
                 f"Image missing for **stratagem __{stratagem}__** <@{self.bot.owner_id}> :warning:"

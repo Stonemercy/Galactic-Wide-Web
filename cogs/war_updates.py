@@ -49,7 +49,9 @@ class WarUpdatesCog(commands.Cog):
         old_campaigns: list[Campaign] = Campaign.get_all()
         languages = list({guild.language for guild in GWWGuild.get_all()})
         embeds = {
-            lang: CampaignEmbed(self.bot.json_dict["languages"][lang])
+            lang: CampaignEmbed(
+                self.bot.json_dict["languages"][lang], self.bot.json_dict["planets"]
+            )
             for lang in languages
         }
         new_updates = False
@@ -189,7 +191,9 @@ class WarUpdatesCog(commands.Cog):
         )
         languages = list({guild.language for guild in GWWGuild.get_all()})
         embeds = {
-            lang: CampaignEmbed(self.bot.json_dict["languages"][lang])
+            lang: CampaignEmbed(
+                self.bot.json_dict["languages"][lang], self.bot.json_dict["planets"]
+            )
             for lang in languages
         }
         campaign = choice(self.bot.data.campaigns)

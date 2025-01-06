@@ -51,9 +51,13 @@ class Emojis:
         "MO": "<:MO:1240706769043456031>",
     }
     factions = {
+        1: "<:human:1306623209465974925>",
+        2: "<:terminid:1312127076169682965>",
+        3: "<:automaton:1312126862989725707>",
+        4: "<:illuminate:1317057914145603635>",
         "Humans": "<:human:1306623209465974925>",
-        "Automaton": "<:automaton:1312126862989725707>",
         "Terminids": "<:terminid:1312127076169682965>",
+        "Automaton": "<:automaton:1312126862989725707>",
         "Illuminate": "<:illuminate:1317057914145603635>",
     }
     decoration = {

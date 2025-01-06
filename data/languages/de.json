@@ -1,220 +1,172 @@
 {
     "code": "de",
     "code_long": "de-DE",
-    "terminids": "Terminiden",
-    "humans": "Menschen",
-    "automaton": "Automat",
-    "illuminate": "Illuminierten",
-    "enemies_of_freedom": "Feinde der Freiheit",
-    "medals": "Medaillen",
-    "sector": "Sektor",
-    "message": "NACHRICHT",
-    "heroes": "Helden",
-    "rewards": "Belohnungen",
-    "kill": "Töten",
     "ends": "Endet",
-    "planet": {
-        "liberation_progress": "Befreiungsfortschritt",
-        "owner": "Besitzer",
-        "biome": "Biom",
-        "environmentals": "Umgebung(en)",
-        "planet_health": "Befreiungsfortschritt",
-        "mission_stats": "Missionsstatistiken",
-        "missions_won": "Gewonnen",
-        "missions_lost": "Verloren",
-        "missions_winrate": "Gewinnrate",
-        "missions_time_spent": "Zeitaufwand für Missionen",
-        "hero_stats": "Heldenstatistiken",
-        "active_heroes": "Aktive Helden",
-        "heroes_lost": "Verlorene Helden",
-        "accidents": "Unfälle durch Eigenbeschuss",
-        "shots_fired": "Abgefeuerte Schüsse",
-        "shots_hit": "Treffer",
-        "accuracy": "Durchschnittliche Genauigkeit",
-        "killed": "Getötet"
-    },
-    "major_order": {
-        "title": "UPDATE ZUM HAUPTAUFTRAG",
-        "no_order": "Es gibt keine Hauptaufträge",
-        "succeed_in_defense": "Erfolgreich bei der Verteidigung von mindestens",
-        "liberate_more_than_them": "Befreie mehr Planeten, als an den Feind verloren gehen",
-        "planets": "Planeten",
-        "progress": "Aktueller Fortschritt",
-        "new_title": "Neues Format für Major Order bereitgestellt",
-        "new_value": "Ausgabe wird kalibriert..."
-    },
-    "campaigns": {
-        "critical_war_updates": "Updates zum Galaktischen Krieg",
-        "victories": "Siege",
-        "planets_lost": "Verlorene Planeten",
-        "new_battles": "Neue Schlachten",
-        "liberate": "Befreien",
-        "invasions": "Invasionen",
-        "repel_invasion": "Schlagen Sie die Invasion auf",
-        "invasion_of": "Die Invasion auf",
-        "has_ended": "ist beendet",
-        "no_changes": "ist weg und kein Gebiet hat den Besitzer gewechselt",
-        "been_liberated": "Wurde befreit von",
-        "been_defended": "Wurde erfolgreich verteidigt",
-        "been_lost": "Wurde verloren an"
-    },
+    "message": "Nachricht #{message_id}",
+    "victory": "Sieg",
+    "defeat": "Niederlage",
     "dashboard": {
-        "planets": "Planeten von",
-        "defending": "Verteidigend",
-        "attacking": "Angreifender",
-        "attacking_automatons": "Angreifender Automat",
-        "attacking_terminids": "Angreifende Terminiden",
-        "attacking_illuminate": "Angreifend Erleuchten",
-        "major_order": {
-            "major_order": "Großer Befehl",
+        "heroes": "Helden: **{heroes}**",
+        "outlook": "Aussicht: **{outlook}**",
+        "progress": "Aktueller Fortschritt",
+        "MajorOrderEmbed": {
+            "title": "Großer Befehl",
+            "MO_unavailable": "Warten Sie auf weitere Befehle vom Super Earth High Command",
             "liberated": "BEFREIT",
-            "occupied_by": "Besetzt von",
-            "none": "Bereitschaft für weitere Befehle vom Oberkommando der Supererde",
-            "defend_against": "Verteidige dich gegen",
-            "against": "gegen",
-            "attacks_from": "Angriff die",
-            "succeed_in_defense": "Erfolgreich bei der Verteidigung von mindestens",
-            "liberate": "Freigeben",
-            "hold": "Halte",
-            "when_the_order_expires": "bei Ablauf des Befehls",
-            "progress": "Fortschritt",
-            "new_title": "Neues Format für großen Befehl bereitgestellt",
-            "new_value": "Ausgabe wird kalibriert...",
-            "event_health": "Planetenbefreiung",
-            "extract_items": "Erfolgreich extrahiert mit",
-            "from_the": "vor den",
-            "times": "mal"
+            "rewards": "Belohnungen",
+            "tasks": {
+                "type2": "Erfolgreich extrahieren mit {amount} {item} auf {planet} {faction_emoji}",
+                "type3": "Töte {amount} {target}",
+                "type3.5": " mit der __{weapon_to_use}__ ",
+                "type11": "Befreie {planet} {faction_emoji}",
+                "type12_with_planet": "Verteidige {planet} gegen {number} Angriffe von {faction} {faction_emoji}",
+                "type12_without_planet": "Verteidige gegen {number} Angriffe von {faction} {faction_emoji}",
+                "type13": "Halte {planet} bei Ablauf des Befehls {faction_emoji}",
+                "type15": "Befreie mehr Planeten als während der Befehlsdauer verloren gehen"
+            }
         },
-        "dss_embed": {
-            "stationed_at": "Stationiert bei",
-            "cost": "Kosten",
-            "progress": "Fortschritt",
-            "max_submitable": "Max. einreichbar",
+        "DSSEmbed": {
+            "stationed_at": "Stationiert auf **{planet}** {faction_emoji}",
+            "next_move": "Bewegung in: {timestamp}",
+            "cost": "Kosten: {amount} {emoji} **{item}s**",
+            "max_submitable": "Maximal einreichbar: **{number}** alle **{hours}** Stunden",
+            "status": "Status",
             "preparing": "Vorbereitung",
             "active": "Aktiv",
-            "on_cooldown": "Beim Abkühlen",
-            "status": "Status"
+            "on_cooldown": "Abklingzeit",
+            "off_cooldown": "Keine Abklingzeit"
         },
-        "defend_embed": {
-            "no_threats": "Es gibt derzeit keine Bedrohungen für unsere Freiheit",
-            "for_now": "Vorerst...",
+        "DefenceEmbed": {
+            "title": "Verteidigung",
+            "no_threats": "Derzeit gibt es keine Bedrohungen für unsere Freiheit",
+            "for_now": "Bis jetzt...",
             "time_unavailable": "Nicht verfügbar",
             "event_health": "Planetenbefreiung",
-            "players_required": "Erforderlich für Sieg",
+            "players_required": "Erforderlich für den Sieg",
             "level": "Verteidigungsstufe"
         },
-        "attack_embed": {
-            "planet_health": "Planetenbefreiung"
+        "AttackEmbed": {
+            "title": "Angriff auf {faction}",
+            "planet_health": "Planetenbefreiung",
+            "low_impact": "Planeten mit geringer Auswirkung/Bevölkerung"
         },
-        "low_impact": "Planeten mit geringer Auswirkung/Bevölkerung",
-        "other_updated": "Aktualisiert am",
-        "lite_mode": "Dieses Dashboard befindet sich im Lite-Modus, da mehr als 10 Planeten aktiv sind.\nEs wird auf den Normalmodus zurückgesetzt, wenn die Anzahl der aktiven Planeten sinkt.",
-        "liberty_day": "Die GWW wünscht Ihnen einen schönen Tag der Freiheit",
-        "malevelon_creek_day": "Die GWW wünscht Ihnen einen schönen Malevelon Creek Memorial Day",
-        "victory": "Sieg",
-        "defeat": "Niederlage",
-        "outlook": "Ausblick"
+        "FooterEmbed": {
+            "other_updated": "Aktualisiert am",
+            "total_players": "Gesamtspieler",
+            "liberty_day": "Das GWW wünscht Ihnen einen frohen Freiheitstag",
+            "malevelon_creek_day": "Das GWW wünscht Ihnen einen frohen Malevelon Creek Gedenktag",
+            "festival_of_reckoning": "Das GWW wünscht Ihnen ein frohes Abrechnungsfest",
+            "new_year": "Das GWW wünscht Ihnen ein frohes neues Jahr"
+        }
     },
-    "attack": {
-        "mission_succes": "Erfolgsrate der Mission",
-        "automatons_kills": "Anzahl der Automaten-Abschüsse",
-        "planet_health": "Gesundheit des Planeten",
-        "terminid_kills": "Anzahl der Terminid-Abschüsse"
+    "CampaignEmbed": {
+        "title": "Galaktische Kriegs-Updates",
+        "victories": "Kampagnensiege",
+        "planets_lost": "Verlorene Planeten",
+        "new_battles": "Neue Kampagnen",
+        "invasions": "Invasionen",
+        "defend_planet": "🛡️ Verteidige **{planet}** {faction_emoji} {exclamation}",
+        "defence_level": "\n> -# Verteidigungsstufe **{level}** {exclamation}",
+        "repel_invasion": "🛡️ Wehre die Invasion auf {planet} ab {faction_emoji} {exclamation}",
+        "liberate": "⚔️ Befreie **{planet}** {faction_emoji} {exclamation}",
+        "been_liberated": "{emoji} **{planet}** wurde von {faction} {faction_emoji} {exclamation} befreit\n",
+        "been_defended": "{emoji} **{planet}** wurde erfolgreich verteidigt {exclamation}",
+        "been_lost": "💀 **{planet}** wurde an **{faction}** {faction_emoji} {exclamation} verloren",
+        "invasion_over": "Die Invasion auf {planet} ist beendet {faction_emoji} {exclamation}",
+        "no_territory_change": "\n-# Die **{faction}** haben sich zurückgezogen und __kein Territorium hat den Besitzer gewechselt__ {faction_emoji}",
+        "dss": {
+            "has_moved": "Die DSS ist von **{planet1}** {faction_emoji1} nach **{planet2}** {faction_emoji2} {exclamation} gezogen",
+            "ta_status_change": "**{ta_name}** ist jetzt **{status}**"
+        }
     },
-    "defend": {
-        "finishes": "Fertig",
-        "event_health": "Ereignisgesundheit",
-        "defend": "Verteidigen"
+    "PlanetEmbed": {
+        "sector": "Sektor: **{sector}**\n",
+        "owner": "Besitzer: **{faction}** {faction_emoji}\n\n",
+        "biome": "🏔️ Biom: \n- **{biome_name}**\n  - -# {biome_description}\n\n",
+        "environmentals": "🌪️ Umweltbedingungen:{environmentals}\n\n",
+        "mission_stats": "📊 Missionsstatistiken",
+        "missions_won": "Gewonnene Missionen",
+        "missions_lost": "Verlorene Missionen",
+        "missions_winrate": "Missionssiegquote",
+        "missions_time_spent": "Zeit auf Missionen verbracht",
+        "hero_stats": "📈 Heldenstatistiken",
+        "active_heroes": "Aktive Helden",
+        "heroes_lost": "Verlorene Helden",
+        "accidentals": "Unfälle",
+        "shots_fired": "Abgefeuerte Schüsse",
+        "shots_hit": "Treffer",
+        "accuracy": "Genauigkeit",
+        "killed": "getötet",
+        "liberation_progress": "Befreiungsfortschritt"
     },
-    "weapons": {
-        "missing": "Diese Waffe ist nicht in meiner Liste, bitte versuchen Sie es erneut.\nWenn Sie glauben, dass dies ein Fehler ist, lassen Sie es mich bitte [hier](<https://discord.gg/Z8Ae5H5DjZ>) wissen.",
-        "arsenal_title": "Das Arsenal",
-        "information": "Informationen",
-        "type": "Typ",
-        "damage": "Schaden",
-        "fire_rate": "Feuerrate",
-        "dps": "DPS",
-        "recoil": "Rückstoß",
-        "capacity": "Kapazität",
-        "armour_penetration": "Panzerungsdurchdringung",
-        "penetration": "Durchdringung",
-        "radius": "Radius",
-        "fire_modes": "Feuermodi",
-        "features": "Funktionen",
-        "fuse_time": "Zündzeit",
-        "constant_fire": "Sekunden Dauerfeuer",
-        "thumbnail_error": "Fehler beim Festlegen der Miniaturansicht"
-    },
-    "enemy": {
-        "species_or_variation": "Bitte wählen Sie eine Art **oder** Variante",
-        "missing": "Diese Art ist nicht in meiner Liste, bitte versuchen Sie es erneut.\nWenn Sie glauben, dass dies ein Fehler ist, lassen Sie es uns bitte [hier](<https://discord.gg/Z8Ae5H5DjZ>) wissen.",
-        "introduced": "Eingeführt",
-        "tactics": "Taktiken",
-        "weak_spots": "Schwachstellen",
-        "variations": "Variationen",
-        "difficulty": "Schwierigkeit",
-        "thumbnail_error": "Fehler beim Festlegen der Miniaturansicht"
-    },
-    "setup": {
-        "not_set": "Nicht festgelegt",
-        "current_settings": "Hier sind Ihre aktuellen Einstellungen",
+    "SetupEmbed": {
+        "title": "Einrichtung",
         "dashboard": "Dashboard",
         "dashboard_channel": "Dashboard-Kanal",
         "dashboard_message": "Dashboard-Nachricht",
         "announcements": "Ankündigungen",
         "announcement_channel": "Ankündigungskanal",
-        "patch_notes": {
-            "enabled": "Patchnotizen aktiviert",
-            "same": "Ihre Einstellung für Patchnotizen war bereits so festgelegt, es wurde nichts geändert.",
-            "enabled_message": "Patchnotizen werden jetzt in Ihrem Ankündigungskanal angezeigt.\nEs werden zwar keine Patchnotizen sofort angezeigt, aber sie werden wenn Patches veröffentlicht werden",
-            "disabled": "Patchnotizen werden nicht mehr in Ihrem Ankündigungskanal angezeigt",
-            "name": "Patchnotizen"
-        },
-        "mo_updates": {
-            "name": "Wichtige Auftragsaktualisierungen"
-        },
-        "message": "-# Wenn Sie `Nicht festgelegt` sehen, wo ein Kanal/eine Nachricht sein sollte, überprüfen Sie die Berechtigungen für den Bot!",
-        "unset_dashboard": "Ich habe Ihr Dashboard deaktiviert. Sie können alle alten Dashboards auf diesem Server löschen.",
-        "missing_perm": "Ich benötige diese Berechtigungen, um in diesem Kanal zu posten:\n> Kanal anzeigen\n> Nachrichten senden\n> Links einbetten\n> Dateien anhängen\n> Externe Emojis verwenden",
-        "unset_announce": "Ich habe Ihren Ankündigungskanal deaktiviert und Ihre Patchnotizen deaktiviert.",
-        "announce_warn": "Ankündigungen werden zwar nicht sofort angezeigt, aber sie werden angezeigt, wenn Ereignisse eintreten",
-        "need_announce": "Sie müssen den Ankündigungskanal einrichten, bevor Sie Patchnotizen aktivieren.",
-        "cant_get_announce_channel": "Ich hatte Probleme, auf Ihren Ankündigungskanal zuzugreifen. Bitte stellen Sie sicher, dass ich über die entsprechenden Berechtigungen verfüge.",
-        "language": {
-            "language": "Sprache",
-            "same": "Ihre Sprache ist bereits darauf eingestellt, es wurde nichts geändert.",
-            "set": "Ihre Bot-Sprache wurde geändert.\nBitte beachten Sie, dass sich nicht alles sofort ändern wird."
-        },
-        "map": {
-            "map": "Karte",
-            "channel": "Kartenkanal",
-            "message": "Kartennachricht"
-        },
-        "unset_map": "Ich habe deine Karte gelöscht. Du kannst alle alten Karten auf diesem Server löschen."
+        "map": "Karte",
+        "map_channel": "Kartenkanal",
+        "map_message": "Kartennachricht",
+        "language": "Sprache",
+        "patch_notes": "Patch-Notizen",
+        "mo_updates": "Große Befehl-Updates",
+        "not_set": "Nicht gesetzt",
+        "footer_message_not_set": "-# Wenn Sie `Nicht gesetzt` sehen, wo ein Kanal/Nachricht sein sollte, überprüfen Sie die Berechtigungen für den Bot!",
+        "footer_message_announcements_asterisk": "-# \\* um dies einzurichten, müssen Ankündigungen konfiguriert sein"
     },
-    "steam": {
-        "head_here": "Bitte gehen Sie [hierher]",
-        "to_see_full": "um die vollständigen Patchnotizen anzuzeigen, da sie für Discord zu lang sind."
+    "EnemyEmbed": {
+        "introduced": "Eingeführt",
+        "difficulty": "Schwierigkeit",
+        "tactics": "Taktiken",
+        "weak_spots": "Schwachstellen",
+        "variations": "Variationen"
+    },
+    "SteamEmbed": {
+        "head_here": "...\nBitte klicken Sie [hier](<{url}>) um die vollständigen Patch-Notizen zu lesen"
+    },
+    "StratagemEmbed": {
+        "key_input": "Tasteneingabe",
+        "uses": "Verwendungen",
+        "cooldown": "Abklingzeit"
+    },
+    "WarfrontEmbed": {
+        "title": "Kriegsfront für {faction} {faction_emoji}",
+        "description": "Es gibt {number} verfügbare Kampagnen zum Mitmachen",
+        "defending_title": "Verteidigung"
+    },
+    "WeaponEmbed": {
+        "constant_fire": "{number} Sekunden Dauerfeuer",
+        "information_title": "Informationen",
+        "type": "Typ: **`{type}`**\n",
+        "damage": "Schaden: **`{damage}`**\n",
+        "fire_rate": "Feuerrate: **`{fire_rate}rpm`**\n",
+        "dps": "DPS: **`{dps}/s`**\n",
+        "capacity": "Kapazität: **`{capacity}`** {emoji}\n",
+        "fire_modes": "Feuermodi:{fire_modes}\n",
+        "features": "Eigenschaften:{features}",
+        "fuse_time": "Zündzeit: **`{fuse_time} Sekunden`**\n",
+        "penetration": "Durchdringung: **`{penetration}`**\n",
+        "radius": "Radius: **`{radius}`**"
     },
     "dss": {
-        "name": "Demokratische Weltraum Station",
-        "stationed_at": "Stationiert bei",
-        "cost": "Kosten",
-        "progress": "Fortschritt",
-        "max_submitable": "Max. einreichbar",
-        "preparing": "Vorbereitet",
-        "active": "Aktiv",
-        "on_cooldown": "Befindet Sich In der Abkühlphase",
-        "description": "Beschreibung",
-        "strategic_description": "Strategische Beschreibung",
-        "status": "Status",
-        "has_moved": "Die DSS Wurde Von",
-        "to": "II nach",
-        "is_now": "wird"
+        "title": "Demokratie Raumstation"
     },
-    "warfront": {
-        "warfront_for": "Kriegsfront für",
-        "there_are": "Es gibt",
-        "available_campaigns": "verfügbare Kampagnen, an denen Sie teilnehmen können"
+    "major_order": {
+        "MO_unavailable": "Warten Sie auf weitere Befehle vom Super Earth High Command"
+    },
+    "stratagems": {
+        "unavailable": "Diese Strategie ist nicht in meiner Liste, bitte versuchen Sie es erneut.\n-# Wenn Sie glauben, dass dies ein Fehler ist, kontaktieren Sie bitte meinen Support-Server"
+    },
+    "factions": {
+        "1": "Menschen",
+        "2": "Terminiden",
+        "3": "Automatons",
+        "4": "Illuminate",
+        "Humans": "Menschen",
+        "Terminids": "Terminiden",
+        "Automaton": "Automatons",
+        "Illuminate": "Illuminate"
     }
 }

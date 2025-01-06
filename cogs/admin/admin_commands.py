@@ -56,7 +56,7 @@ class AdminCommandsCog(commands.Cog):
     @commands.is_owner()
     @commands.slash_command(
         guild_ids=SUPPORT_SERVER,
-        description="Forces maps to update ASAP",
+        description="Forces MO updates to be sent ASAP",
         default_member_permissions=Permissions(administrator=True),
     )
     async def force_mo_update(self, inter: AppCmdInter):
@@ -64,6 +64,8 @@ class AdminCommandsCog(commands.Cog):
         self.bot.logger.critical(
             f"{self.qualified_name} | /{inter.application_command.name} | used by <@{inter.author.id}> | @{inter.author.global_name}"
         )
+        if not self.bot.data.assignment:
+            return await inter.send("No assignment data available", ephemeral=True)
         update_start = datetime.now()
         updates_sent = await self.bot.get_cog("AnnouncementsCog").major_order_updates(
             force=True

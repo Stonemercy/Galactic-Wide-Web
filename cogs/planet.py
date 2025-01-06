@@ -64,7 +64,7 @@ class PlanetCog(commands.Cog):
                 if planet_names["name"] == planet
             ][0],
             planet=planet_data,
-            language=guild_language,
+            language_json=guild_language,
         )
         embeds = [embed]
         if not embed.image_set:

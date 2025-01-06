@@ -103,6 +103,10 @@ json_dict = {
         },
     },
     "enemies": {
+        "enemy_ids": {
+            "path": "data/json_custom/enemies/enemy_ids.json",
+            "value": None,
+        },
         "automaton": {
             "path": "data/json_custom/enemies/automaton.json",
             "value": None,
@@ -134,12 +138,12 @@ supported_languages = {
 }
 
 faction_colours = {
-    "Automaton": (252, 76, 79),
-    "automaton": (126, 38, 22),
-    "Terminids": (253, 165, 58),
-    "terminids": (126, 82, 29),
-    "Illuminate": (103, 43, 166),
-    "illuminate": (51, 21, 83),
+    "Automaton": (252, 108, 115),
+    "automaton": (126, 54, 57),
+    "Terminids": (252, 188, 4),
+    "terminids": (126, 99, 2),
+    "Illuminate": (107, 59, 187),
+    "illuminate": (53, 29, 93),
     "Humans": (36, 205, 76),
     "humans": (18, 102, 38),
     "MO": (254, 226, 76),
@@ -157,6 +161,29 @@ warbond_images_dict = {
     "Chemical Agents": "https://cdn.discordapp.com/attachments/1212735927223590974/1286254303001972736/chemical_agents.png?ex=66ed3d2b&is=66ebebab&hm=510de52a270f795006e61129f83f0e0b70bf438a042b8b2d9859111806574cf3&",
     "Truth Enforcers": "https://media.discordapp.net/attachments/1212735927223590974/1301502200849104947/truth_enforcers.png?ex=6724b5e1&is=67236461&hm=c36872146e2ac4fbbaac4ddab19a291927d2e938c6a3cdd00a9b333408e54d1e&=&format=webp&quality=lossless&width=1202&height=676",
     "Urban Legends": "https://cdn.discordapp.com/attachments/1212735927223590974/1317150385047081110/urban_legends.png?ex=675da363&is=675c51e3&hm=5e894ce871829ccc6ce2899b695692b15a08aad3921f0c390b14cd3b4685ce2c&",
+}
+
+assignment_task_images_dict = {
+    2: "https://cdn.discordapp.com/attachments/1212735927223590974/1323773697491996682/mo_icon_kill.PNG?ex=6775bbd4&is=67746a54&hm=6d529e202487c278d2f3a0da1c7315a00a84acc51947c81e101eaf015620eeb0&",
+    3: "https://cdn.discordapp.com/attachments/1212735927223590974/1323773697491996682/mo_icon_kill.PNG?ex=6775bbd4&is=67746a54&hm=6d529e202487c278d2f3a0da1c7315a00a84acc51947c81e101eaf015620eeb0&",
+    11: "https://cdn.discordapp.com/attachments/1212735927223590974/1323773697491996682/mo_icon_kill.PNG?ex=6775bbd4&is=67746a54&hm=6d529e202487c278d2f3a0da1c7315a00a84acc51947c81e101eaf015620eeb0&",
+    12: "https://cdn.discordapp.com/attachments/1212735927223590974/1323773697491996682/mo_icon_kill.PNG?ex=6775bbd4&is=67746a54&hm=6d529e202487c278d2f3a0da1c7315a00a84acc51947c81e101eaf015620eeb0&",
+    13: "https://cdn.discordapp.com/attachments/1212735927223590974/1323773697491996682/mo_icon_kill.PNG?ex=6775bbd4&is=67746a54&hm=6d529e202487c278d2f3a0da1c7315a00a84acc51947c81e101eaf015620eeb0&",
+    15: "https://cdn.discordapp.com/attachments/1212735927223590974/1323773697491996682/mo_icon_kill.PNG?ex=6775bbd4&is=67746a54&hm=6d529e202487c278d2f3a0da1c7315a00a84acc51947c81e101eaf015620eeb0&",
+}
+
+task_type_15_progress_dict = {
+    -10: 0,
+    -8: 0.1,
+    -6: 0.2,
+    -4: 0.3,
+    -2: 0.4,
+    0: 0.5,
+    2: 0.6,
+    4: 0.7,
+    6: 0.8,
+    8: 0.9,
+    10: 1,
 }
 
 help_dict = {

@@ -1,6 +1,6 @@
 from asyncio import sleep
 from datetime import datetime, time
-from disnake import PartialMessage
+from disnake import NotFound, PartialMessage
 from disnake.ext import commands, tasks
 from main import GalacticWideWebBot
 from utils.db import GWWGuild
@@ -15,20 +15,21 @@ class DashboardCog(commands.Cog):
     def cog_unload(self):
         self.dashboard.stop()
 
-    async def update_message(self, message: PartialMessage, dashboard_dict: dict):
+    async def update_message(
+        self, message: PartialMessage, dashboard_dict: dict[str, Dashboard]
+    ):
         guild = GWWGuild.get_by_id(message.guild.id)
-        if not guild and message in self.bot.dashboard_messages:
-            self.bot.dashboard_messages.remove(message)
-            return self.bot.logger.error(
-                f"{self.qualified_name} | update_message | {guild = } | {message.guild.id = }"
-            )
         try:
             await message.edit(embeds=dashboard_dict[guild.language].embeds)
-        except Exception as e:
+        except NotFound as e:
             if message in self.bot.dashboard_messages:
                 self.bot.dashboard_messages.remove(message)
             return self.bot.logger.error(
                 f"{self.qualified_name} | update_message | {e} | removed from dashboard messages list | {message.channel.id = }"
+            )
+        except Exception as e:
+            return self.bot.logger.error(
+                f"{self.qualified_name} | update_message | {e} | {message.channel.id = }"
             )
 
     @tasks.loop(
@@ -50,7 +51,7 @@ class DashboardCog(commands.Cog):
         embeds = {
             lang: Dashboard(
                 data=self.bot.data,
-                language=self.bot.json_dict["languages"][lang],
+                language_code=lang,
                 json_dict=self.bot.json_dict,
             )
             for lang in list({guild.language for guild in GWWGuild.get_all()})

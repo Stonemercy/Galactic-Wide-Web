@@ -3,7 +3,7 @@ from disnake.ext import commands
 from main import GalacticWideWebBot
 from utils.checks import wait_for_startup
 from utils.db import GWWGuild
-from utils.embeds import WarfrontEmbed
+from utils.embeds import Dashboard
 
 
 class WarfrontCog(commands.Cog):
@@ -39,10 +39,33 @@ class WarfrontCog(commands.Cog):
         else:
             guild = GWWGuild.default()
         guild_language = self.bot.json_dict["languages"][guild.language]
-        embed = WarfrontEmbed(
-            faction, self.bot.data, guild_language, self.bot.json_dict["planets"]
+        defence_embed = Dashboard.DefenceEmbed(
+            [
+                planet
+                for planet in self.bot.data.planet_events
+                if planet.event.faction == faction
+            ],
+            self.bot.data.liberation_changes,
+            self.bot.data.planets_with_player_reqs,
+            guild_language,
+            self.bot.json_dict["planets"],
+            self.bot.data.total_players,
         )
-        await inter.send(embed=embed)
+        attack_embed = Dashboard.AttackEmbed(
+            [
+                campaign
+                for campaign in self.bot.data.campaigns
+                if campaign.faction == faction and not campaign.planet.event
+            ],
+            self.bot.data.liberation_changes,
+            guild_language,
+            self.bot.json_dict["planets"],
+            faction,
+            self.bot.data.total_players,
+        )
+        for embed in [defence_embed, attack_embed]:
+            embed.set_image("https://i.imgur.com/cThNy4f.png")
+        await inter.send(embeds=[defence_embed, attack_embed])
 
 
 def setup(bot: GalacticWideWebBot):

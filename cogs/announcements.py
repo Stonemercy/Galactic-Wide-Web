@@ -1,10 +1,10 @@
 from asyncio import sleep
 from datetime import datetime, time
-from disnake import TextChannel
+from disnake import Embed, TextChannel
 from disnake.ext import commands, tasks
 from main import GalacticWideWebBot
 from utils.db import Steam, GWWGuild, MajorOrder, Dispatch
-from utils.embeds import DispatchesEmbed, MajorOrderEmbed, SteamEmbed
+from utils.embeds import Dashboard, DispatchesEmbed, MajorOrderEmbed, SteamEmbed
 from utils.interactables import KoFiButton, SupportServerButton, WikiButton
 
 
@@ -22,10 +22,9 @@ class AnnouncementsCog(commands.Cog):
         self.steam_check.stop()
         self.major_order_updates.stop()
 
-    async def send_embed(self, channel: TextChannel, embeds, type: str):
-        """embeds must be a dict in the following format:\n
-        `{ language: embed }`\n
-        and needs to have all languages used by the userbase"""
+    async def send_embed(
+        self, channel: TextChannel, embeds: dict[str, Embed], type: str
+    ):
         guild = GWWGuild.get_by_id(channel.guild.id)
         if not guild:
             self.bot.logger.error(
@@ -72,11 +71,11 @@ class AnnouncementsCog(commands.Cog):
         last_MO = MajorOrder()
         if last_MO.id != self.bot.data.assignment.id:
             embeds = {
-                lang: MajorOrderEmbed(
-                    data=self.bot.data,
-                    language=self.bot.json_dict["languages"][lang],
-                    planet_names=self.bot.json_dict["planets"],
-                    reward_types=self.bot.json_dict["items"]["reward_types"],
+                lang: Dashboard.MajorOrderEmbed(
+                    assignment=self.bot.data.assignment,
+                    planets=self.bot.data.planets,
+                    language_json=self.bot.json_dict["languages"][lang],
+                    json_dict=self.bot.json_dict,
                 )
                 for lang in list({guild.language for guild in GWWGuild.get_all()})
             }
@@ -192,12 +191,11 @@ class AnnouncementsCog(commands.Cog):
         ):
             return
         embeds = {
-            lang: MajorOrderEmbed(
-                data=self.bot.data,
-                language=self.bot.json_dict["languages"][lang],
-                planet_names=self.bot.json_dict["planets"],
-                reward_types=self.bot.json_dict["items"]["reward_types"],
-                with_health_bars=True,
+            lang: Dashboard.MajorOrderEmbed(
+                assignment=self.bot.data.assignment,
+                planets=self.bot.data.planets,
+                language_json=self.bot.json_dict["languages"][lang],
+                json_dict=self.bot.json_dict,
             )
             for lang in list(set([guild.language for guild in GWWGuild.get_all()]))
         }

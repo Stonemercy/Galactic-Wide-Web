@@ -1,8 +1,9 @@
 from aiohttp import ClientSession
 from asyncio import sleep
+from data.lists import task_type_15_progress_dict
 from datetime import datetime, timedelta
 from os import getenv
-from utils.functions import steam_format
+from utils.functions import health_bar, steam_format
 
 api = getenv("API")
 backup_api = getenv("BU_API")
@@ -339,7 +340,37 @@ class Tasks(list):
             self.progress: float = 0
             self.values: list = task["values"]
             self.value_types: list = task["valueTypes"]
-            self.health_bar: str = ""
+
+        @property
+        def health_bar(self) -> str:
+            if self.type == 2:
+                return health_bar(self.progress, "MO")
+            elif self.type == 3:
+                return health_bar(
+                    self.progress,
+                    (self.values[0] if self.progress != 1 else "Humans"),
+                )
+            elif self.type == 11:
+                return ""
+            elif self.type == 12:
+                return health_bar(
+                    self.progress,
+                    "MO" if self.progress < 1 else "Humans",
+                )
+            elif self.type == 13:
+                return ""
+            elif self.type == 15:
+                percent = task_type_15_progress_dict[
+                    [
+                        key
+                        for key in task_type_15_progress_dict.keys()
+                        if key <= self.progress
+                    ][-1]
+                ]
+                return health_bar(
+                    percent,
+                    ("Humans" if self.progress > 0 else "Automaton"),
+                )
 
         def __repr__(self):
             return (
@@ -432,6 +463,10 @@ class Planet:
             self.required_players: int = 0
             self.level: int = int(self.max_health / 50000)
 
+        @property
+        def health_bar(self) -> str:
+            return health_bar(self.progress, self.faction, True)
+
         def __repr__(self):
             return (
                 f"Event(id={self.id}, type={self.type}, faction={self.faction}, health={self.health}) "
@@ -483,21 +518,27 @@ class Superstore:
 
 
 class DSS:
-    def __init__(self, dss, planets):
+    def __init__(self, dss, planets, war_time):
         self.planet: Planet = planets[dss["planetIndex"]]
         self.planet.dss = True
         self.election_war_time: int = dss["currentElectionEndWarTime"]
+        self.election_date_time = datetime.fromtimestamp(
+            war_time + self.election_war_time
+        )
         self.tactical_actions: list[self.TacticalAction] = [
-            self.TacticalAction(tactical_action)
+            self.TacticalAction(tactical_action, war_time)
             for tactical_action in dss["tacticalActions"]
         ]
 
     class TacticalAction:
-        def __init__(self, tactical_action):
+        def __init__(self, tactical_action, war_time):
             self.name: str = tactical_action["name"]
             self.description: str = tactical_action["description"]
             self.status: int = tactical_action["status"]
             self.status_end: int = tactical_action["statusExpireAtWarTimeSeconds"]
+            self.status_end_datetime = datetime.fromtimestamp(
+                war_time + self.status_end
+            )
             self.strategic_description: str = steam_format(
                 tactical_action["strategicDescription"]
             )
@@ -509,7 +550,7 @@ class DSS:
                     2985106497: "Rare Sample",
                     3992382197: "Common Sample",
                     3608481516: "Requisition Slip",
-                }[cost["itemMixId"]]
+                }.get(cost["itemMixId"], "Unknown")
                 self.target: int = cost["targetValue"]
                 self.current: float = cost["currentValue"]
                 self.progress: float = self.current / self.target

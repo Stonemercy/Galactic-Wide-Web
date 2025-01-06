@@ -1,0 +1,220 @@
+{
+    "code": "en",
+    "code_long": "en-GB",
+    "terminids": "Terminids",
+    "humans": "Humans",
+    "automaton": "Automaton",
+    "illuminate": "Illuminate",
+    "enemies_of_freedom": "Enemies of Freedom",
+    "medals": "Medals",
+    "sector": "Sector",
+    "message": "MESSAGE",
+    "heroes": "Heroes",
+    "rewards": "Rewards",
+    "kill": "Kill",
+    "ends": "Ends",
+    "planet": {
+        "liberation_progress": "Liberation Progress",
+        "owner": "Owner",
+        "biome": "Biome",
+        "environmentals": "Environmental(s)",
+        "planet_health": "Liberation Progress",
+        "mission_stats": "Mission Stats",
+        "missions_won": "Won",
+        "missions_lost": "Lost",
+        "missions_winrate": "Winrate",
+        "missions_time_spent": "Time Spent in Missions",
+        "hero_stats": "Hero Stats",
+        "active_heroes": "Active Heroes",
+        "heroes_lost": "Heroes Lost",
+        "accidents": "Friendly-fire Accidents",
+        "shots_fired": "Shots Fired",
+        "shots_hit": "Shots Hit",
+        "accuracy": "Average Accuracy",
+        "killed": "Killed"
+    },
+    "major_order": {
+        "title": "MAJOR ORDER UPDATE",
+        "no_order": "There are no Major Orders",
+        "succeed_in_defense": "Succeed in the defence of at least",
+        "liberate_more_than_them": "Liberate more planets than are lost to the enemy",
+        "planets": "Planets",
+        "progress": "Current progress",
+        "new_title": "New Major Order format provided",
+        "new_value": "Calibrating output..."
+    },
+    "campaigns": {
+        "critical_war_updates": "Galactic War Updates",
+        "victories": "Victories",
+        "planets_lost": "Planets Lost",
+        "new_battles": "New Battles",
+        "liberate": "Liberate",
+        "invasions": "Invasions",
+        "repel_invasion": "Repel the invasion on",
+        "invasion_of": "The invasion on",
+        "has_ended": "has ended",
+        "no_changes": "have left and no territory has changed ownership",
+        "been_liberated": "Has been liberated from the",
+        "been_defended": "Has been successfully defended",
+        "been_lost": "Has been lost to the"
+    },
+    "dashboard": {
+        "planets": "Planets from the",
+        "defending": "Defending",
+        "attacking": "Attacking",
+        "attacking_automatons": "Attacking Automaton",
+        "attacking_terminids": "Attacking Terminids",
+        "attacking_illuminate": "Attacking Illuminate",
+        "major_order": {
+            "major_order": "Major Order",
+            "liberated": "LIBERATED",
+            "occupied_by": "Occupied by",
+            "none": "Stand by for further orders from Super Earth High Command",
+            "defend_against": "Defend against",
+            "against": "against",
+            "attacks_from": "attacks from the",
+            "succeed_in_defense": "Succeed in the defence of at least",
+            "liberate": "Liberate",
+            "hold": "Hold",
+            "when_the_order_expires": "when the order expires",
+            "progress": "Progress",
+            "new_title": "New Major Order format provided",
+            "new_value": "Calibrating output...",
+            "event_health": "Planet Liberation",
+            "extract_items": "Successfully extract with",
+            "from_the": "from the",
+            "times": "time(s)"
+        },
+        "dss_embed": {
+            "stationed_at": "Stationed at",
+            "cost": "Cost",
+            "progress": "Progress",
+            "max_submitable": "Max submitable",
+            "preparing": "Preparing",
+            "active": "Active",
+            "on_cooldown": "On cooldown",
+            "status": "Status"
+        },
+        "defend_embed": {
+            "no_threats": "There are currently no threats to our Freedom",
+            "for_now": "For now...",
+            "time_unavailable": "Unavailable",
+            "event_health": "Planet Liberation",
+            "players_required": "Required for Victory",
+            "level": "Defence Level"
+        },
+        "attack_embed": {
+            "planet_health": "Planet Liberation"
+        },
+        "low_impact": "Low impact/population planets",
+        "other_updated": "Updated on",
+        "lite_mode": "This dashboard is in lite mode due to more than 10 planets being active.\nIt will revert to normal if the active planet count drops.",
+        "liberty_day": "The GWW wishes you a happy Liberty Day",
+        "malevelon_creek_day": "The GWW wishes you a happy Malevelon Creek Memorial Day",
+        "victory": "Victory",
+        "defeat": "Defeat",
+        "outlook": "Outlook"
+    },
+    "attack": {
+        "mission_succes": "Mission success rate",
+        "automatons_kills": "Automaton kill count",
+        "planet_health": "Planet health",
+        "terminid_kills": "Terminid kill count"
+    },
+    "defend": {
+        "finishes": "Finishes",
+        "event_health": "Event health",
+        "defend": "Defend"
+    },
+    "weapons": {
+        "missing": "That weapon isn't in my list, please try again.\nIf you believe this is a mistake, please let me know [here](<https://discord.gg/Z8Ae5H5DjZ>).",
+        "arsenal_title": "The Arsenal",
+        "information": "Information",
+        "type": "Type",
+        "damage": "Damage",
+        "fire_rate": "Fire Rate",
+        "dps": "DPS",
+        "recoil": "Recoil",
+        "capacity": "Capacity",
+        "armour_penetration": "Armour Penetration",
+        "penetration": "Penetration",
+        "radius": "Radius",
+        "fire_modes": "Fire Modes",
+        "features": "Features",
+        "fuse_time": "Fuse Time",
+        "constant_fire": "Seconds of constant fire",
+        "thumbnail_error": "Error setting thumbnail"
+    },
+    "enemy": {
+        "species_or_variation": "Please choose species **or** variation",
+        "missing": "That species isn't in my list, please try again.\nIf you believe this is a mistake, please let us know [here](<https://discord.gg/Z8Ae5H5DjZ>).",
+        "introduced": "Introduced",
+        "tactics": "Tactics",
+        "weak_spots": "Weak Spots",
+        "variations": "Variations",
+        "difficulty": "Difficulty",
+        "thumbnail_error": "Error setting thumbnail"
+    },
+    "setup": {
+        "not_set": "Not set",
+        "current_settings": "Here are your current settings",
+        "dashboard": "Dashboard",
+        "dashboard_channel": "Dashboard channel",
+        "dashboard_message": "Dashboard message",
+        "announcements": "Announcements",
+        "announcement_channel": "Announcement channel",
+        "patch_notes": {
+            "enabled": "Patch notes enabled",
+            "same": "Your patch notes setting was already set to that, nothing has been changed.",
+            "enabled_message": "Patch notes will now show up in your announcement channel.\nWhile no patch notes show up straight away, they will when patches are released",
+            "disabled": "Patch notes will no longer show up in your announcement channel",
+            "name": "Patch Notes"
+        },
+        "mo_updates": {
+            "name": "Major Order Updates"
+        },
+        "message": "-# If you're seeing `Not set` where a channel/message should be, check the permissions for the bot!",
+        "unset_dashboard": "I have unset your Dashboard. You are free to delete any old Dashboards in this server.",
+        "missing_perm": "I need these permissions to post in that channel:\n> View Channel\n> Send Messages\n> Embed Links\n> Attach Files\n> Use External Emojis",
+        "unset_announce": "I have unset your Announcements channel and set your patch notes have been disabled.",
+        "announce_warn": "While no announcements show up straight away, they will when events happen",
+        "need_announce": "You need to setup the announcement channel before enabling patch notes.",
+        "cant_get_announce_channel": "I had trouble getting your announcement channel, please make sure I have appropriate permissions.",
+        "language": {
+            "language": "Language",
+            "same": "Your language is already set to that, nothing has been changed.",
+            "set": "Your bot language has been changed.\nPlease note that not everything will change immediately."
+        },
+        "map": {
+            "map": "Map",
+            "channel": "Map Channel",
+            "message": "Map Message"
+        },
+        "unset_map": "I have unset your map. You are free to delete any old maps in this server."
+    },
+    "steam": {
+        "head_here": "Please head [here]",
+        "to_see_full": "to see the full patch notes as they are too long for Discord."
+    },
+    "dss": {
+        "name": "Democracy Space Station",
+        "stationed_at": "Stationed at",
+        "cost": "Cost",
+        "progress": "Progress",
+        "max_submitable": "Max submitable",
+        "preparing": "Preparing",
+        "active": "Active",
+        "on_cooldown": "On cooldown",
+        "description": "Description",
+        "strategic_description": "Strategic description",
+        "status": "Status",
+        "has_moved": "The DSS has moved from",
+        "to": "to",
+        "is_now": "is now"
+    },
+    "warfront": {
+        "warfront_for": "Warfront for",
+        "there_are": "There are",
+        "available_campaigns": "available campaigns to join"
+    }
+}

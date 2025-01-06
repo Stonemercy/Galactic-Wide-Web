@@ -3,7 +3,7 @@ from disnake.ext import commands
 from main import GalacticWideWebBot
 from utils.checks import wait_for_startup
 from utils.db import GWWGuild
-from utils.embeds import MajorOrderEmbed
+from utils.embeds import Dashboard
 from utils.interactables import WikiButton
 
 
@@ -35,17 +35,12 @@ class MajorOrderCog(commands.Cog):
         else:
             guild = GWWGuild.default()
         guild_language = self.bot.json_dict["languages"][guild.language]
-        if not self.bot.data.assignment:
-            return await inter.send(
-                guild_language["major_order"]["no_order"], ephemeral=public != "Yes"
-            )
         await inter.send(
-            embed=MajorOrderEmbed(
-                data=self.bot.data,
-                language=guild_language,
-                planet_names=self.bot.json_dict["planets"],
-                reward_types=self.bot.json_dict["items"]["reward_types"],
-                with_health_bars=True,
+            embed=Dashboard.MajorOrderEmbed(
+                assignment=self.bot.data.assignment,
+                planets=self.bot.data.planets,
+                language_json=guild_language,
+                json_dict=self.bot.json_dict,
             ),
             components=[
                 WikiButton(link=f"https://helldivers.wiki.gg/wiki/Major_Orders")

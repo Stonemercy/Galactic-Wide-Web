@@ -88,7 +88,7 @@ class WeaponsCog(commands.Cog):
         embed = Items.Weapons.Primary(
             weapon_json=primary_json,
             json_dict=self.bot.json_dict,
-            language=guild_language,
+            language_json=guild_language,
         )
         if not embed.image_set:
             await self.bot.moderator_channel.send(
@@ -135,7 +135,7 @@ class WeaponsCog(commands.Cog):
         embed = Items.Weapons.Secondary(
             weapon_json=secondary_json,
             json_dict=self.bot.json_dict,
-            language=guild_language,
+            language_json=guild_language,
         )
         if not embed.image_set:
             await self.bot.moderator_channel.send(
@@ -179,7 +179,7 @@ class WeaponsCog(commands.Cog):
             )
         grenade_json = self.grenades[grenade]
         embed = Items.Weapons.Grenade(
-            grenade_json=grenade_json, language=guild_language
+            grenade_json=grenade_json, language_json=guild_language
         )
         if not embed.image_set:
             await self.bot.moderator_channel.send(
