@@ -356,7 +356,7 @@ class SetupCog(commands.Cog):
             else:
                 dashboard = Dashboard(
                     self.bot.data,
-                    guild_language,
+                    guild.language,
                     self.bot.json_dict,
                 )
                 try:
