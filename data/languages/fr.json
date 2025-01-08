@@ -11,7 +11,7 @@
         "progress": "Progression",
         "MajorOrderEmbed": {
             "title": "Ordres Prioritaire",
-            "MO_unavailable": "Attendez de nouvelles ordres du Haut Commandement de Super Terre",
+            "MO_unavailable": "Attendez de nouveaux ordres du Haut Commandement de la Super Terre",
             "liberated": "LIBÉRÉ",
             "rewards": "Récompenses",
             "tasks": {
@@ -21,15 +21,15 @@
                 "type11": "{status_emoji} Libérer {planet} {faction_emoji}",
                 "type12_with_planet": "{status_emoji} Défendre {planet} contre {number} attaques de {faction} {faction_emoji}",
                 "type12_without_planet": "{status_emoji} Défendre contre {number} attaques de {faction} {faction_emoji}",
-                "type13": "{status_emoji} Contrôlez {planet} à la fin de l'ordre {faction_emoji}",
-                "type15": "{status_emoji} Libérer plus de planètes que perdues pendant la durée de l'ordre"
+                "type13": "{status_emoji} Tenir {planet} lorsque l'ordre expire {faction_emoji}",
+                "type15": "{status_emoji} Libérer plus de planètes que de planètes perdues pendant la durée de l'ordre"
             }
         },
         "DSSEmbed": {
             "stationed_at": "Stationné à **{planet}** {faction_emoji}",
-            "next_move": "Déplacement dans : {timestamp}",
+            "next_move": "Déplacement dans: {timestamp}",
             "cost": "Coût : {amount} {emoji} **{item}s**",
-            "max_submitable": "Max soumis : **{number}** toutes les **{hours}** heures",
+            "max_submitable": "Max soumis: **{number}** toutes les **{hours}** heures",
             "status": "Statut",
             "preparing": "Préparation",
             "active": "Actif",
@@ -75,7 +75,7 @@
         "invasion_over": "L'invasion sur {planet} est terminée {faction_emoji} {exclamation}",
         "no_territory_change": "\n-# Les **{faction}** sont partis et __aucun territoire n'a changé de propriétaire__ {faction_emoji}",
         "dss": {
-            "has_moved": "Le DSS a déménagé de **{planet1}** {faction_emoji1} à **{planet2}** {faction_emoji2} {exclamation}",
+            "has_moved": "La DSS s'est déplacé de **{planet1}** {faction_emoji1} à **{planet2}** {faction_emoji2} {exclamation}",
             "ta_status_change": "**{ta_name}** est maintenant **{status}**"
         }
     },
@@ -154,7 +154,7 @@
         "title": "Station Spatiale de la Démocratie"
     },
     "major_order": {
-        "MO_unavailable": "Attendez de nouvelles ordres du Haut Commandement de Super Terre"
+        "MO_unavailable": "Attendez de nouveaux ordres du Haut Commandement de la Super Terre"
     },
     "stratagems": {
         "unavailable": "Cette stratégie n'est pas dans ma liste, veuillez réessayer.\n-# Si vous pensez que c'est une erreur, veuillez contacter mon serveur de support"
