@@ -7,7 +7,7 @@ from utils.checks import wait_for_startup
 from utils.db import FeedbackUser
 
 
-SUPPORT_SERVER = [int(getenv("SUPPORT_SERVER"))]
+SUPPORT_SERVER_ID = [int(getenv("SUPPORT_SERVER"))]
 
 
 class AdminCommandsCog(commands.Cog):
@@ -17,7 +17,7 @@ class AdminCommandsCog(commands.Cog):
     @wait_for_startup()
     @commands.is_owner()
     @commands.slash_command(
-        guild_ids=SUPPORT_SERVER,
+        guild_ids=SUPPORT_SERVER_ID,
         description="Forces dashboards to update ASAP",
         default_member_permissions=Permissions(administrator=True),
     )
@@ -36,7 +36,7 @@ class AdminCommandsCog(commands.Cog):
     @wait_for_startup()
     @commands.is_owner()
     @commands.slash_command(
-        guild_ids=SUPPORT_SERVER,
+        guild_ids=SUPPORT_SERVER_ID,
         description="Forces maps to update ASAP",
         default_member_permissions=Permissions(administrator=True),
     )
@@ -55,7 +55,7 @@ class AdminCommandsCog(commands.Cog):
     @wait_for_startup()
     @commands.is_owner()
     @commands.slash_command(
-        guild_ids=SUPPORT_SERVER,
+        guild_ids=SUPPORT_SERVER_ID,
         description="Forces MO updates to be sent ASAP",
         default_member_permissions=Permissions(administrator=True),
     )
@@ -77,7 +77,7 @@ class AdminCommandsCog(commands.Cog):
     @wait_for_startup()
     @commands.is_owner()
     @commands.slash_command(
-        guild_ids=SUPPORT_SERVER,
+        guild_ids=SUPPORT_SERVER_ID,
         description="Unban someone you accidentally banned from giving feedback",
         default_member_permissions=Permissions(administrator=True),
     )
@@ -103,7 +103,7 @@ class AdminCommandsCog(commands.Cog):
     @wait_for_startup()
     @commands.is_owner()
     @commands.slash_command(
-        guild_ids=SUPPORT_SERVER,
+        guild_ids=SUPPORT_SERVER_ID,
         description="Provide the reason for a ban",
         default_member_permissions=Permissions(administrator=True),
     )
@@ -131,7 +131,7 @@ class AdminCommandsCog(commands.Cog):
     @wait_for_startup()
     @commands.is_owner()
     @commands.slash_command(
-        guild_ids=SUPPORT_SERVER,
+        guild_ids=SUPPORT_SERVER_ID,
         description="Un-mark a user as good",
         default_member_permissions=Permissions(administrator=True),
     )
@@ -157,7 +157,7 @@ class AdminCommandsCog(commands.Cog):
     @wait_for_startup()
     @commands.is_owner()
     @commands.slash_command(
-        guild_ids=SUPPORT_SERVER,
+        guild_ids=SUPPORT_SERVER_ID,
         description="Reload an extension",
         default_member_permissions=Permissions(administrator=True),
     )
@@ -186,7 +186,7 @@ class AdminCommandsCog(commands.Cog):
     @wait_for_startup()
     @commands.is_owner()
     @commands.slash_command(
-        guild_ids=SUPPORT_SERVER,
+        guild_ids=SUPPORT_SERVER_ID,
         description="Get Data",
         default_member_permissions=Permissions(administrator=True),
     )
