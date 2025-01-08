@@ -172,11 +172,12 @@ class AdminCommandsCog(commands.Cog):
         )
         admin_ext = f"cogs.admin.{ext}"
         ext = f"cogs.{ext}"
-        if ext not in [extension for extension in self.bot.extensions.keys()]:
-            if admin_ext not in [extension for extension in self.bot.extensions.keys()]:
-                return await inter.send("Extension not found", ephemeral=True)
-            else:
-                ext = admin_ext
+        if ext not in [
+            extension for extension in self.bot.extensions.keys()
+        ] and admin_ext not in [extension for extension in self.bot.extensions.keys()]:
+            return await inter.send("Extension not found", ephemeral=True)
+        else:
+            ext = admin_ext
         try:
             self.bot.reload_extension(ext)
             return await inter.send(f"Reloaded the `{ext}` extension", ephemeral=True)
