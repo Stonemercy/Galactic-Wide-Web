@@ -6,6 +6,7 @@ from main import GalacticWideWebBot
 from utils.db import Steam, GWWGuild, MajorOrder, Dispatch
 from utils.embeds import Dashboard, DispatchesEmbed, MajorOrderEmbed, SteamEmbed
 from utils.interactables import KoFiButton, SupportServerButton, WikiButton
+from utils.testing.assignment import TestAssignment
 
 
 class AnnouncementsCog(commands.Cog):
@@ -38,9 +39,7 @@ class AnnouncementsCog(commands.Cog):
                 return self.bot.major_order_channels.remove(channel)
         try:
             components = None
-            if type == "Announcement":
-                components = [SupportServerButton(), KoFiButton()]
-            elif type == "MO":
+            if type == "MO":
                 components = [
                     WikiButton(link=f"https://helldivers.wiki.gg/wiki/Major_Orders")
                 ]
@@ -74,6 +73,8 @@ class AnnouncementsCog(commands.Cog):
                 lang: Dashboard.MajorOrderEmbed(
                     assignment=self.bot.data.assignment,
                     planets=self.bot.data.planets,
+                    liberation_changes=self.bot.data.liberation_changes,
+                    player_requirements=self.bot.data.planets_with_player_reqs,
                     language_json=self.bot.json_dict["languages"][lang],
                     json_dict=self.bot.json_dict,
                 )
@@ -180,20 +181,22 @@ class AnnouncementsCog(commands.Cog):
     @tasks.loop(
         time=[time(hour=6, minute=20, second=0), time(hour=18, minute=20, second=0)]
     )
-    async def major_order_updates(self, force: bool = False):
+    async def major_order_updates(self, force: bool = False, test: bool = False):
         mo_updates_start = datetime.now()
         if (
             not self.bot.major_order_channels
             or mo_updates_start < self.bot.ready_time
             or not self.bot.data.loaded
             or not self.bot.c_n_m_loaded
-            or not self.bot.data.assignment
+            or (not self.bot.data.assignment and not test)
         ):
             return
         embeds = {
             lang: Dashboard.MajorOrderEmbed(
-                assignment=self.bot.data.assignment,
+                assignment=self.bot.data.assignment if not test else TestAssignment(),
                 planets=self.bot.data.planets,
+                liberation_changes=self.bot.data.liberation_changes,
+                player_requirements=self.bot.data.planets_with_player_reqs,
                 language_json=self.bot.json_dict["languages"][lang],
                 json_dict=self.bot.json_dict,
             )

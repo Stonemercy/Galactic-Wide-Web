@@ -678,6 +678,8 @@ class Dashboard:
         self._major_order_embed = self.MajorOrderEmbed(
             assignment=data.assignment,
             planets=data.planets,
+            liberation_changes=data.liberation_changes,
+            player_requirements=data.planets_with_player_reqs,
             language_json=language_json,
             json_dict=json_dict,
         )
@@ -739,15 +741,18 @@ class Dashboard:
             self._footer_embed,
         ]
         for embed in self.embeds.copy():
-            embed.set_image("https://i.imgur.com/cThNy4f.png")
             if len(embed.fields) == 0:
                 self.embeds.remove(embed)
+            else:
+                embed.set_image("https://i.imgur.com/cThNy4f.png")  # blank line
 
     class MajorOrderEmbed(Embed):
         def __init__(
             self,
             assignment: Assignment | None,
             planets: Planets,
+            liberation_changes: dict,
+            player_requirements: dict,
             language_json: dict,
             json_dict: dict,
         ):
@@ -775,8 +780,8 @@ class Dashboard:
                             task=task,
                             language_json=language_json,
                             item_names_json=json_dict["items"]["item_names"],
+                            planet_names_json=json_dict["planets"],
                             planet=planets[task.values[8]],
-                            planet_names=json_dict["planets"],
                         )
                     elif task.type == 3:
                         self.add_type_3(
@@ -789,12 +794,14 @@ class Dashboard:
                             task=task,
                             language_json=language_json,
                             planet=planets[task.values[2]],
-                            planet_names=json_dict["planets"]["planet_names"],
+                            planet_names_json=json_dict["planets"],
                         )
                     elif task.type == 12:
                         self.add_type_12(
                             task=task,
                             language_json=language_json,
+                            liberation_changes=liberation_changes,
+                            player_requirements=player_requirements,
                             planet_names_json=json_dict["planets"],
                             planet=(
                                 planets[task.values[3]] if task.values[3] != 0 else None
@@ -805,7 +812,9 @@ class Dashboard:
                             task=task,
                             language_json=language_json,
                             planet=planets[task.values[2]],
-                            planet_names=json_dict["planets"],
+                            liberation_changes=liberation_changes,
+                            player_requirements=player_requirements,
+                            planet_names_json=json_dict["planets"],
                         )
                     elif task.type == 15:
                         self.add_type_15(task=task, language_json=language_json)
@@ -814,7 +823,7 @@ class Dashboard:
                 self.add_rewards(
                     rewards=assignment.rewards,
                     language_json=language_json,
-                    reward_types=json_dict["items"]["reward_types"],
+                    item_names=json_dict["items"]["item_names"],
                 )
                 self.add_field(
                     language_json["ends"],
@@ -833,8 +842,13 @@ class Dashboard:
             name = language_json["dashboard"]["MajorOrderEmbed"]["tasks"][
                 "type2"
             ].format(
+                status_emoji=(
+                    Emojis.icons["MO_task_complete"]
+                    if task.progress == 1
+                    else Emojis.icons["MO_task_incomplete"]
+                ),
                 amount=short_format(task.values[2]),
-                item=item_names_json[str(task.values[4])],
+                item=item_names_json[str(task.values[4])]["name"],
                 planet=planet_names_json[str(planet.index)]["names"][
                     language_json["code_long"]
                 ],
@@ -866,7 +880,15 @@ class Dashboard:
             )
             full_task = language_json["dashboard"]["MajorOrderEmbed"]["tasks"][
                 "type3"
-            ].format(amount=short_format(task.values[2]), target=target)
+            ].format(
+                status_emoji=(
+                    Emojis.icons["MO_task_complete"]
+                    if task.progress == 1
+                    else Emojis.icons["MO_task_incomplete"]
+                ),
+                amount=short_format(task.values[2]),
+                target=target,
+            )
             if task.values[5] != 0:
                 weapon_to_use = stratagem_id_dict.get(task.values[5], "Unknown")
                 full_task += language_json["dashboard"]["MajorOrderEmbed"]["tasks"][
@@ -888,7 +910,7 @@ class Dashboard:
             task: Tasks.Task,
             language_json: dict,
             planet: Planet,
-            planet_names: dict,
+            planet_names_json: dict,
         ):
             """Liberate a planet"""
             if planet.event:
@@ -897,7 +919,7 @@ class Dashboard:
                     planet.event.faction,
                     True,
                 )
-                completed = f"🛡️{Emojis.factions[planet.event.faction]}"
+                completed = f"🛡️ {Emojis.factions[planet.event.faction]}"
                 health_text = f"{1 - planet.event.progress:^25,.2%}"
             else:
                 task.health_bar = health_bar(
@@ -919,7 +941,12 @@ class Dashboard:
             obj_text = language_json["dashboard"]["MajorOrderEmbed"]["tasks"][
                 "type11"
             ].format(
-                planet=planet_names[str(planet.index)]["names"][
+                status_emoji=(
+                    Emojis.icons["MO_task_complete"]
+                    if task.progress == 1
+                    else Emojis.icons["MO_task_incomplete"]
+                ),
+                planet=planet_names_json[str(planet.index)]["names"][
                     language_json["code_long"]
                 ],
                 faction_emoji=Emojis.factions[
@@ -945,14 +972,55 @@ class Dashboard:
             self,
             task: Tasks.Task,
             language_json: dict,
+            liberation_changes: dict,
+            player_requirements: dict,
             planet_names_json: dict,
             planet: Planet | None,
         ):
             """Succeed in defence of # <enemy> planets"""
             if planet:
+                outlook_text = ""
+                required_players = ""
+                liberation_text = ""
+                planet_lib_changes = liberation_changes.get(planet.index, None)
+                if (
+                    planet_lib_changes
+                    and len(planet_lib_changes["liberation_changes"]) > 0
+                    and sum(planet_lib_changes["liberation_changes"]) != 0
+                ):
+                    now_seconds = int(datetime.now().timestamp())
+                    seconds_until_complete = int(
+                        (
+                            (100 - planet_lib_changes["liberation"])
+                            / sum(planet_lib_changes["liberation_changes"])
+                        )
+                        * 3600
+                    )
+                    winning = (
+                        datetime.fromtimestamp(now_seconds + seconds_until_complete)
+                        < planet.event.end_time_datetime
+                    )
+                    if winning:
+                        outlook_text = f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['dashboard']['victory'])} <t:{now_seconds + seconds_until_complete}:R>"
+                    else:
+                        outlook_text = f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['defeat'])}"
+                    change = (
+                        f"{(sum(planet_lib_changes['liberation_changes'])):+.2f}%/hour"
+                    )
+                    liberation_text = f"\n`{change:^25}`"
+                    if player_requirements and planet.index in player_requirements:
+                        required_players = f"\n{language_json['dashboard']['DefenceEmbed']['players_required']}: **~{player_requirements[planet.index]:,.0f}+**"
+                time_remaining = (
+                    f"<t:{planet.event.end_time_datetime.timestamp():.0f}:R>"
+                )
                 objective_text = language_json["dashboard"]["MajorOrderEmbed"]["tasks"][
                     "type12_with_planet"
                 ].format(
+                    status_emoji=(
+                        Emojis.icons["MO_task_complete"]
+                        if task.progress == 1
+                        else Emojis.icons["MO_task_incomplete"]
+                    ),
                     planet=planet_names_json[str(planet.index)]["names"][
                         language_json["code_long"]
                     ],
@@ -960,40 +1028,139 @@ class Dashboard:
                     faction=language_json["factions"][str(task.values[1])],
                     faction_emoji=Emojis.factions[task.values[1]],
                 )
+                feature_text = (
+                    "" if not planet.feature else f"Feature: {planet.feature}"
+                )
+                player_count = (
+                    language_json["dashboard"]["heroes"].format(
+                        heroes=f"{planet.stats['playerCount']:,}"
+                    )
+                    if task.progress != 1
+                    else ""
+                )
+                self.add_field(
+                    objective_text,
+                    (
+                        f"{feature_text}"
+                        f"\n{player_count}"
+                        f"\n{language_json['ends']} {time_remaining}"
+                        f"\n{language_json['dashboard']['DefenceEmbed']['level']} {int(planet.event.max_health / 50000)}"
+                        f"{outlook_text}"
+                        f"{required_players}"
+                        f"\n{language_json['dashboard']['progress']}:\n"
+                        f"{health_bar(perc=planet.event.progress, race=planet.event.faction, reverse=True)} 🛡️"
+                        f"\n`{1 - planet.event.progress:^25,.2%}`"
+                        f"{liberation_text}"
+                    ),
+                    inline=False,
+                )
             else:
                 objective_text = language_json["dashboard"]["MajorOrderEmbed"]["tasks"][
                     "type12_without_planet"
                 ].format(
+                    status_emoji=(
+                        Emojis.icons["MO_task_complete"]
+                        if task.progress == 1
+                        else Emojis.icons["MO_task_incomplete"]
+                    ),
                     number=task.values[0],
                     faction=language_json["factions"][str(task.values[1])],
                     faction_emoji=Emojis.factions[task.values[1]],
                 )
-            self.add_field(
-                objective_text,
-                (
-                    f"{language_json['dashboard']['progress']}: {int(task.progress*task.values[0])}/{task.values[0]}\n"
-                    f"{task.health_bar}\n"
-                    f"`{(task.progress):^25,.2%}`\n"
-                ),
-                inline=False,
-            )
+                self.add_field(
+                    objective_text,
+                    (
+                        f"{language_json['dashboard']['progress']}: {int(task.progress*task.values[0])}/{task.values[0]}\n"
+                        f"{task.health_bar}\n"
+                        f"`{(task.progress):^25,.2%}`\n"
+                    ),
+                    inline=False,
+                )
 
         def add_type_13(
             self,
             task: Tasks.Task,
             language_json: dict,
             planet: Planet,
-            planet_names: dict,
+            liberation_changes: dict,
+            player_requirements: dict,
+            planet_names_json: dict,
         ):
             """Hold a planet until the end of the MO"""
-            if planet.event:
-                planet_health_bar = health_bar(
-                    perc=planet.event.progress,
-                    race=planet.event.faction,
-                    reverse=True,
+            feature_text = "" if not planet.feature else f"Feature: {planet.feature}"
+            obj_text = language_json["dashboard"]["MajorOrderEmbed"]["tasks"][
+                "type13"
+            ].format(
+                status_emoji=(
+                    Emojis.icons["MO_task_complete"]
+                    if task.progress == 1
+                    else Emojis.icons["MO_task_incomplete"]
+                ),
+                planet=planet_names_json[str(planet.index)]["names"][
+                    language_json["code_long"]
+                ],
+                faction_emoji=Emojis.factions[
+                    planet.event.faction if planet.event else planet.current_owner
+                ],
+            )
+            player_count = (
+                language_json["dashboard"]["heroes"].format(
+                    heroes=f"{planet.stats['playerCount']:,}"
                 )
-                completed = f"🛡️"
-                health_text = f"{1 - planet.event.progress:^25,.2%}"
+                if task.progress != 1
+                else ""
+            )
+            if planet.event:
+                outlook_text = ""
+                required_players = ""
+                liberation_text = ""
+                planet_lib_changes = liberation_changes.get(planet.index, None)
+                if (
+                    planet_lib_changes
+                    and len(planet_lib_changes["liberation_changes"]) > 0
+                    and sum(planet_lib_changes["liberation_changes"]) != 0
+                ):
+                    now_seconds = int(datetime.now().timestamp())
+                    seconds_until_complete = int(
+                        (
+                            (100 - planet_lib_changes["liberation"])
+                            / sum(planet_lib_changes["liberation_changes"])
+                        )
+                        * 3600
+                    )
+                    winning = (
+                        datetime.fromtimestamp(now_seconds + seconds_until_complete)
+                        < planet.event.end_time_datetime
+                    )
+                    if winning:
+                        outlook_text = f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['dashboard']['victory'])} <t:{now_seconds + seconds_until_complete}:R>"
+                    else:
+                        outlook_text = f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['defeat'])}"
+                    change = (
+                        f"{(sum(planet_lib_changes['liberation_changes'])):+.2f}%/hour"
+                    )
+                    liberation_text = f"\n`{change:^25}`"
+                    if player_requirements and planet.index in player_requirements:
+                        required_players = f"\n{language_json['dashboard']['DefenceEmbed']['players_required']}: **~{player_requirements[planet.index]:,.0f}+**"
+                time_remaining = (
+                    f"<t:{planet.event.end_time_datetime.timestamp():.0f}:R>"
+                )
+                self.add_field(
+                    obj_text,
+                    (
+                        f"{feature_text}"
+                        f"\n{player_count}"
+                        f"\n{language_json['ends']} {time_remaining}"
+                        f"\n{language_json['dashboard']['DefenceEmbed']['level']} {int(planet.event.max_health / 50000)}"
+                        f"{outlook_text}"
+                        f"{required_players}"
+                        f"\n{language_json['dashboard']['progress']}:\n"
+                        f"{health_bar(perc=planet.event.progress, race=planet.event.faction, reverse=True)} 🛡️"
+                        f"\n`{1 - planet.event.progress:^25,.2%}`"
+                        f"{liberation_text}"
+                    ),
+                    inline=False,
+                )
             else:
                 planet_health_bar = health_bar(
                     perc=planet.health_perc,
@@ -1010,35 +1177,17 @@ class Dashboard:
                     if planet.current_owner != "Humans"
                     else f"{(planet.health_perc):^25,.2%}"
                 )
-            feature_text = "" if not planet.feature else f"Feature: {planet.feature}\n"
-            obj_text = language_json["dashboard"]["MajorOrderEmbed"]["tasks"][
-                "type13"
-            ].format(
-                planet=planet_names[str(planet.index)]["names"][
-                    language_json["code_long"]
-                ],
-                faction_emoji=Emojis.factions[
-                    planet.event.faction if planet.event else planet.current_owner
-                ],
-            )
-            player_count = (
-                language_json["dashboard"]["heroes"].format(
-                    heroes=f"{planet.stats['playerCount']:,}"
+                self.add_field(
+                    obj_text,
+                    (
+                        f"{player_count}\n"
+                        f"{feature_text}"
+                        f"{language_json['dashboard']['progress']}:\n"
+                        f"{planet_health_bar} {completed}\n"
+                        f"`{health_text}`\n"
+                    ),
+                    inline=False,
                 )
-                if task.progress != 1
-                else ""
-            )
-            self.add_field(
-                obj_text,
-                (
-                    f"{player_count}\n"
-                    f"{feature_text}"
-                    f"{language_json['dashboard']['progress']}:\n"
-                    f"{planet_health_bar} {completed}\n"
-                    f"`{health_text}`\n"
-                ),
-                inline=False,
-            )
 
         def add_type_15(self, task: Tasks.Task, language_json: dict):
             """Win more campaigns than lost"""
@@ -1059,7 +1208,15 @@ class Dashboard:
                 outlook = language_json["defeat"]
                 event_health_bar = health_bar(perc=percent, race="Automaton")
             self.add_field(
-                name=language_json["dashboard"]["MajorOrderEmbed"]["tasks"]["type15"],
+                name=language_json["dashboard"]["MajorOrderEmbed"]["tasks"][
+                    "type15"
+                ].format(
+                    status_emoji=(
+                        Emojis.icons["MO_task_complete"]
+                        if task.progress >= 1
+                        else Emojis.icons["MO_task_incomplete"]
+                    )
+                ),
                 value=(
                     f"{language_json['dashboard']['outlook'].format(outlook=outlook)}\n"
                     f"{event_health_bar}\n"
@@ -1076,11 +1233,11 @@ class Dashboard:
                 text=language_json["message"].format(message_id=assignment.id)
             )
 
-        def add_rewards(self, rewards: dict, language_json: dict, reward_types: dict):
+        def add_rewards(self, rewards: dict, language_json: dict, item_names: dict):
             rewards_text = ""
             for reward in rewards:
-                reward_type = reward_types.get(str(reward["type"]), "Unknown")
-                rewards_text += f"{reward['amount']} {reward_type}s {Emojis.items.get(reward_type, '')}"
+                reward_json = item_names.get(str(reward["id32"]), "Unknown")
+                rewards_text += f"{reward['amount']:,} **{reward_json['name']}s** {Emojis.items.get(reward_json['name'], '')}\n"
             self.add_field(
                 language_json["dashboard"]["MajorOrderEmbed"]["rewards"], rewards_text
             )

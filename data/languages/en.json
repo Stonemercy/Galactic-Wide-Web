@@ -15,14 +15,14 @@
             "liberated": "LIBERATED",
             "rewards": "Rewards",
             "tasks": {
-                "type2": "Successfully extract with {amount} {item} on {planet} {faction_emoji}",
-                "type3": "Kill {amount} {target}",
+                "type2": "{status_emoji} Successfully extract with {amount} {item} on {planet} {faction_emoji}",
+                "type3": "{status_emoji} Kill {amount} {target}",
                 "type3.5": " using the __{weapon_to_use}__ ",
-                "type11": "Liberate {planet} {faction_emoji}",
-                "type12_with_planet": "Defend {planet} against {number} attacks from the {faction} {faction_emoji}",
-                "type12_without_planet": "Defend against {number} attacks from the {faction} {faction_emoji}",
-                "type13": "Hold {planet} when the order expires {faction_emoji}",
-                "type15": "Liberate more planets than are lost during the order duration"
+                "type11": "{status_emoji} Liberate {planet} {faction_emoji}",
+                "type12_with_planet": "{status_emoji} Defend {planet} against {number} attacks from the {faction} {faction_emoji}",
+                "type12_without_planet": "{status_emoji} Defend against {number} attacks from the {faction} {faction_emoji}",
+                "type13": "{status_emoji} Hold {planet} when the order expires {faction_emoji}",
+                "type15": "{status_emoji} Liberate more planets than are lost during the order duration"
             }
         },
         "DSSEmbed": {

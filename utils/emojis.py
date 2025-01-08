@@ -49,6 +49,8 @@ class Emojis:
         "wiki": "<:wiki:1296193978525417524>",
         "victory": "<:victory:1238069280508215337>",
         "MO": "<:MO:1240706769043456031>",
+        "MO_task_complete": "<:MO_task_complete:1325865957037445192>",
+        "MO_task_incomplete": "<:MO_task_incomplete:1325865167359316042>",
     }
     factions = {
         1: "<:human:1306623209465974925>",

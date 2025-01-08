@@ -59,16 +59,14 @@ class AdminCommandsCog(commands.Cog):
         description="Forces MO updates to be sent ASAP",
         default_member_permissions=Permissions(administrator=True),
     )
-    async def force_mo_update(self, inter: AppCmdInter):
+    async def force_mo_update(self, inter: AppCmdInter, test: bool = False):
         await inter.response.defer(ephemeral=True)
         self.bot.logger.critical(
             f"{self.qualified_name} | /{inter.application_command.name} | used by <@{inter.author.id}> | @{inter.author.global_name}"
         )
-        if not self.bot.data.assignment:
-            return await inter.send("No assignment data available", ephemeral=True)
         update_start = datetime.now()
         updates_sent = await self.bot.get_cog("AnnouncementsCog").major_order_updates(
-            force=True
+            force=True, test=test
         )
         text = f"Forced updates of {updates_sent} MO updates in {(datetime.now() - update_start).total_seconds():.2f} seconds"
         self.bot.logger.info(text)
