@@ -13,7 +13,6 @@ class ErrorHandlerCog(commands.Cog):
     async def on_slash_command_error(self, inter: AppCmdInter, error):
         if hasattr(inter.application_command, "on_error"):
             return
-        await inter.response.defer()
         if isinstance(error, commands.CheckFailure):
             now = datetime.now()
             if now < self.bot.ready_time:
