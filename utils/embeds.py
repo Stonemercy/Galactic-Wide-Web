@@ -1001,7 +1001,7 @@ class Dashboard:
                         < planet.event.end_time_datetime
                     )
                     if winning:
-                        outlook_text = f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['dashboard']['victory'])} <t:{now_seconds + seconds_until_complete}:R>"
+                        outlook_text = f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['victory'])} <t:{now_seconds + seconds_until_complete}:R>"
                     else:
                         outlook_text = f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['defeat'])}"
                     change = (
@@ -1133,7 +1133,7 @@ class Dashboard:
                         < planet.event.end_time_datetime
                     )
                     if winning:
-                        outlook_text = f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['dashboard']['victory'])} <t:{now_seconds + seconds_until_complete}:R>"
+                        outlook_text = f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['victory'])} <t:{now_seconds + seconds_until_complete}:R>"
                     else:
                         outlook_text = f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['defeat'])}"
                     change = (
@@ -1353,7 +1353,7 @@ class Dashboard:
                                 < planet.event.end_time_datetime
                             )
                             if winning:
-                                outlook_text = f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['dashboard']['victory'])} <t:{now_seconds + seconds_until_complete}:R>"
+                                outlook_text = f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['victory'])} <t:{now_seconds + seconds_until_complete}:R>"
                             else:
                                 outlook_text = f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['defeat'])}"
                             change = f"{(sum(liberation_change['liberation_changes'])):+.2f}%/hour"
