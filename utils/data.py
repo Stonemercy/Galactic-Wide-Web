@@ -427,6 +427,7 @@ class Planet:
         self.stats: dict = planet_json["statistics"]
         self.thumbnail = None
         self.feature = {
+            45: "Center for Civilian Surveillance",
             126: "Xenoentomology Center",
             130: "Factory Hub",
             161: "Deep Mantle Forge Complex",
