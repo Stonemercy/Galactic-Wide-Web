@@ -159,6 +159,10 @@
     "stratagems": {
         "unavailable": "Cette stratégie n'est pas dans ma liste, veuillez réessayer.\n-# Si vous pensez que c'est une erreur, veuillez contacter mon serveur de support"
     },
+    "enemies": {
+        "missing": "Cet ennemi n'est pas dans nos dossiers. Si vous pensez qu'il s'agit d'une erreur, veuillez contacter l'administration du GWW.",
+        "species_or_variation": "Veuillez choisir l'espèce *ou* la variation."
+    },
     "factions": {
         "1": "Humains",
         "2": "Terminides",

@@ -80,14 +80,14 @@ class TerminidsCog(commands.Cog):
         guild_language = self.bot.json_dict["languages"][guild.language]
         if species and variation:
             return await inter.send(
-                guild_language["enemy"]["species_or_variation"],
+                guild_language["enemies"]["species_or_variation"],
                 ephemeral=public != "Yes",
             )
         elif (species and species not in self.terminids_dict) or (
             variation and variation not in self.variations_dict
         ):
             return await inter.send(
-                guild_language["enemy"]["missing"],
+                guild_language["enemies"]["missing"],
                 ephemeral=public != "Yes",
             )
         if species:
