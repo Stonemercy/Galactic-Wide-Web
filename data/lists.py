@@ -1,14 +1,11 @@
-language_dict = {
-    "English": "en",
-    "Français": "fr",
-    "Deutsch": "de",
-}
+language_dict = {"English": "en", "Français": "fr", "Deutsch": "de", "Italian": "it"}
 
 json_dict = {
     "languages": {
         "en": {"path": "data/languages/en.json", "value": None},
         "fr": {"path": "data/languages/fr.json", "value": None},
         "de": {"path": "data/languages/de.json", "value": None},
+        "it": {"path": "data/languages/it.json", "value": None},
     },
     "stratagems": {"path": "data/json_custom/stratagems.json", "value": None},
     "warbonds": {

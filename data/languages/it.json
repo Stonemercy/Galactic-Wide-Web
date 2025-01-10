@@ -1,0 +1,176 @@
+{
+    "code": "it",
+    "code_long": "it-IT",
+    "ends": "Termina",
+    "message": "Messaggio #{message_id}",
+    "victory": "Vittoria",
+    "defeat": "Sconfitta",
+    "dashboard": {
+        "heroes": "Eroi: **{heroes}**",
+        "outlook": "Prospettiva: **{outlook}**",
+        "progress": "Progresso attuale",
+        "MajorOrderEmbed": {
+            "title": "Ordine Maggiore",
+            "MO_unavailable": "Attendi ulteriori ordini dall'Alto Comando di Super Terra",
+            "liberated": "LIBERATO",
+            "rewards": "Ricompense",
+            "tasks": {
+                "type2": "{status_emoji} Estrarre con successo {amount} {item} su {planet} {faction_emoji}",
+                "type3": "{status_emoji} Uccidi {amount} {target}",
+                "type3.5": " usando il/la __{weapon_to_use}__ ",
+                "type11": "{status_emoji} Libera {planet} {faction_emoji}",
+                "type12_with_planet": "{status_emoji} Difendi {planet} contro {number} attacchi da parte di {faction} {faction_emoji}",
+                "type12_without_planet": "{status_emoji} Difendi contro {number} attacchi da parte di {faction} {faction_emoji}",
+                "type13": "{status_emoji} Mantieni il controllo di {planet} alla scadenza dell'ordine {faction_emoji}",
+                "type15": "{status_emoji} Libera più pianeti di quanti ne vengano persi durante la durata dell'ordine"
+            }
+        },
+        "DSSEmbed": {
+            "stationed_at": "Di stanza su **{planet}** {faction_emoji}",
+            "next_move": "Spostamento in: {timestamp}",
+            "cost": "Costo: {amount} {emoji} **{item}s**",
+            "max_submitable": "Massimo inviabile: **{number}** ogni **{hours}** ore",
+            "status": "Stato",
+            "preparing": "Preparazione in corso",
+            "active": "Attivo",
+            "on_cooldown": "In ricarica",
+            "off_cooldown": "Ricarica completata"
+        },
+        "DefenceEmbed": {
+            "title": "In difesa",
+            "no_threats": "Attualmente non ci sono minacce alla nostra Libertà",
+            "for_now": "Per ora...",
+            "time_unavailable": "Non disponibile",
+            "event_health": "Liberazione del Pianeta",
+            "players_required": "Necessari per la Vittoria",
+            "level": "Livello di Difesa"
+        },
+        "AttackEmbed": {
+            "title": "Attacco a {faction}",
+            "planet_health": "Liberazione del pianeta",
+            "low_impact": "Pianeti a basso impatto/popolazione"
+        },
+        "FooterEmbed": {
+            "other_updated": "Aggiornato il",
+            "total_players": "Giocatori totali",
+            "liberty_day": "La GWW ti augura una felice Giornata della Libertà",
+            "malevelon_creek_day": "La GWW ti augura una felice Giornata del Memoriale di Malevelon Creek",
+            "festival_of_reckoning": "La GWW ti augura un felice Festival del Giudizio",
+            "new_year": "La GWW ti augura un felice Anno Nuovo"
+        }
+    },
+    "CampaignEmbed": {
+        "title": "Aggiornamenti Guerra Galattica",
+        "victories": "Vittorie della campagna",
+        "planets_lost": "Pianeti persi",
+        "new_battles": "Nuove campagne",
+        "invasions": "Invasioni",
+        "defend_planet": "🛡️ Difendi **{planet}** {faction_emoji} {exclamation}",
+        "defence_level": "\n> -# Livello di difesa **{level}** {exclamation}",
+        "repel_invasion": "🛡️ Respingi l'invasione su {planet} {faction_emoji} {exclamation}",
+        "liberate": "⚔️ Libera **{planet}** {faction_emoji} {exclamation}",
+        "been_liberated": "{emoji} **{planet}** è stato liberato da {faction} {faction_emoji} {exclamation}\n",
+        "been_defended": "{emoji} **{planet}** è stato difeso con successo {exclamation}",
+        "been_lost": "💀 **{planet}** è stato perso contro **{faction}** {faction_emoji} {exclamation}",
+        "invasion_over": "L'invasione su {planet} è terminata {faction_emoji} {exclamation}",
+        "no_territory_change": "\n-# I **{faction}** se ne sono andati e __nessun territorio ha cambiato proprietà__ {faction_emoji}",
+        "dss": {
+            "has_moved": "La DSS si è spostata da **{planet1}** {faction_emoji1} a **{planet2}** {faction_emoji2} {exclamation}",
+            "ta_status_change": "**{ta_name}** ora è **{status}**"
+        }
+    },
+    "PlanetEmbed": {
+        "sector": "Settore: **{sector}**\n",
+        "owner": "Proprietario: **{faction}** {faction_emoji}\n\n",
+        "biome": "🏔️ Bioma: \n- **{biome_name}**\n  - -# {biome_description}\n\n",
+        "environmentals": "🌪️ Ambientali:{environmentals}\n\n",
+        "mission_stats": "📊 Statistiche missione",
+        "missions_won": "Missioni vinte",
+        "missions_lost": "Missioni perse",
+        "missions_winrate": "Percentuale di vittorie",
+        "missions_time_spent": "Tempo trascorso in missione",
+        "hero_stats": "📈 Statistiche eroi",
+        "active_heroes": "Eroi attivi",
+        "heroes_lost": "Eroi persi",
+        "accidentals": "Incidentali",
+        "shots_fired": "Colpi sparati",
+        "shots_hit": "Colpi andati a segno",
+        "accuracy": "Precisione",
+        "killed": "uccisi",
+        "liberation_progress": "Progresso di Liberazione"
+    },
+    "SetupEmbed": {
+        "title": "Impostazioni",
+        "dashboard": "Cruscotto",
+        "dashboard_channel": "Canale del cruscotto",
+        "dashboard_message": "Messaggio del cruscotto",
+        "announcements": "Annunci",
+        "announcement_channel": "Canale degli annunci",
+        "map": "Mappa",
+        "map_channel": "Canale della mappa",
+        "map_message": "Messaggio della mappa",
+        "language": "Lingua",
+        "patch_notes": "Note sulla patch",
+        "mo_updates": "Aggiornamenti Ordine Maggiore",
+        "not_set": "Non impostato",
+        "footer_message_not_set": "-# Se vedi `Non impostato` dove dovrebbe esserci un canale/messaggio, controlla i permessi per il bot!",
+        "footer_message_announcements_asterisk": "-# \\* per configurare questo, gli Annunci devono essere configurati"
+    },
+    "EnemyEmbed": {
+        "introduced": "Introdotto",
+        "difficulty": "Difficoltà",
+        "tactics": "Tattiche",
+        "weak_spots": "Punti deboli",
+        "variations": "Varianti"
+    },
+    "SteamEmbed": {
+        "head_here": "...\nVai [qui](<{url}>) per leggere le note complete sulla patch"
+    },
+    "StratagemEmbed": {
+        "key_input": "Input tasti",
+        "uses": "Utilizzi",
+        "cooldown": "Ricarica"
+    },
+    "WarfrontEmbed": {
+        "title": "Fronte di guerra per {faction} {faction_emoji}",
+        "description": "Ci sono {number} campagne disponibili a cui unirsi",
+        "defending_title": "In difesa"
+    },
+    "WeaponEmbed": {
+        "constant_fire": "{number} secondi di fuoco continuo",
+        "information_title": "Informazioni",
+        "type": "Tipo: **`{type}`**\n",
+        "damage": "Danno: **`{damage}`**\n",
+        "fire_rate": "Cadenza di fuoco: **`{fire_rate}rpm`**\n",
+        "dps": "DPS: **`{dps}/s`**\n",
+        "capacity": "Capacità: **`{capacity}`** {emoji}\n",
+        "fire_modes": "Modalità di fuoco:{fire_modes}\n",
+        "features": "Caratteristiche:{features}",
+        "fuse_time": "Tempo di fusione: **`{fuse_time} secondi`**\n",
+        "penetration": "Penetrazione: **`{penetration}`**\n",
+        "radius": "Raggio: **`{radius}`**"
+    },
+    "dss": {
+        "title": "Stazione Spaziale della Democrazia"
+    },
+    "major_order": {
+        "MO_unavailable": "Attendi ulteriori ordini dall'Alto Comando di Super Terra"
+    },
+    "stratagems": {
+        "unavailable": "Quella strategia non è nella mia lista, riprova.\n-# Se credi che si tratti di un errore, contatta il mio Support Server"
+    },
+    "enemies": {
+        "missing": "Questo nemico non è presente nei nostri archivi. Se ritenete che si tratti di un errore, contattate l'amministrazione del GWW",
+        "species_or_variation": "Scegliere la specie *o* la variante."
+    },
+    "factions": {
+        "1": "Umani",
+        "2": "Terminidi",
+        "3": "Automaton",
+        "4": "Illuminate",
+        "Humans": "Umani",
+        "Terminids": "Terminidi",
+        "Automaton": "Automaton",
+        "Illuminate": "Illuminate"
+    }
+}
