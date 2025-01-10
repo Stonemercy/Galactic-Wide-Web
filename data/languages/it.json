@@ -159,6 +159,9 @@
     "stratagems": {
         "unavailable": "Quella strategia non è nella mia lista, riprova.\n-# Se credi che si tratti di un errore, contatta il mio Support Server"
     },
+    "setup": {
+        "missing_perm": "Manca il permesso di inviare a quel canale. Si prega di ricontrollare."
+    },
     "enemies": {
         "missing": "Questo nemico non è presente nei nostri archivi. Se ritenete che si tratti di un errore, contattate l'amministrazione del GWW",
         "species_or_variation": "Scegliere la specie *o* la variante."

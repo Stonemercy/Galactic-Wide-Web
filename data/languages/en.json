@@ -159,6 +159,9 @@
     "stratagems": {
         "unavailable": "That stratagem isn't in my list, please try again.\n-# If you believe this is a mistake, please contact my Support Server"
     },
+    "setup": {
+        "missing_perm": "Missing permission to send to that channel. Please check again."
+    },
     "enemies": {
         "missing": "That enemy isn't in our files. If you believe this is an error please contact the GWW Administration",
         "species_or_variation": "Please choose species *or* variation."
