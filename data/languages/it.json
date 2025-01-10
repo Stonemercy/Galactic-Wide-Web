@@ -15,13 +15,13 @@
             "liberated": "LIBERATO",
             "rewards": "Ricompense",
             "tasks": {
-                "type2": "{status_emoji} Estrarre con successo {amount} {item} su {planet} {faction_emoji}",
+                "type2": "{status_emoji} Estrarre con successo {amount} {item} su {planet}",
                 "type3": "{status_emoji} Uccidi {amount} {target}",
                 "type3.5": " usando il/la __{weapon_to_use}__ ",
-                "type11": "{status_emoji} Libera {planet} {faction_emoji}",
-                "type12_with_planet": "{status_emoji} Difendi {planet} contro {number} attacchi da parte di {faction} {faction_emoji}",
-                "type12_without_planet": "{status_emoji} Difendi contro {number} attacchi da parte di {faction} {faction_emoji}",
-                "type13": "{status_emoji} Mantieni il controllo di {planet} alla scadenza dell'ordine {faction_emoji}",
+                "type11": "{status_emoji} Libera {planet}",
+                "type12_with_planet": "{status_emoji} Difendi {planet} contro {number} attacchi da parte di {faction}",
+                "type12_without_planet": "{status_emoji} Difendi contro {number} attacchi da parte di {faction}",
+                "type13": "{status_emoji} Mantieni il controllo di {planet} alla scadenza dell'ordine",
                 "type15": "{status_emoji} Libera più pianeti di quanti ne vengano persi durante la durata dell'ordine"
             }
         },

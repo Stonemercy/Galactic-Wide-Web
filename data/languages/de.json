@@ -15,13 +15,13 @@
             "liberated": "BEFREIT",
             "rewards": "Belohnungen",
             "tasks": {
-                "type2": "{status_emoji} Erfolgreich extrahieren mit {amount} {item} auf {planet} {faction_emoji}",
+                "type2": "{status_emoji} Erfolgreich extrahieren mit {amount} {item} auf {planet}",
                 "type3": "{status_emoji} Töte {amount} {target}",
                 "type3.5": " mit der __{weapon_to_use}__ ",
-                "type11": "{status_emoji} Befreie {planet} {faction_emoji}",
-                "type12_with_planet": "{status_emoji} Verteidige {planet} gegen {number} Angriffe von {faction} {faction_emoji}",
-                "type12_without_planet": "{status_emoji} Verteidige gegen {number} Angriffe von {faction} {faction_emoji}",
-                "type13": "{status_emoji} Halte {planet} bei Ablauf des Befehls {faction_emoji}",
+                "type11": "{status_emoji} Befreie {planet}",
+                "type12_with_planet": "{status_emoji} Verteidige {planet} gegen {number} Angriffe von {faction}",
+                "type12_without_planet": "{status_emoji} Verteidige gegen {number} Angriffe von {faction}",
+                "type13": "{status_emoji} Halte {planet} bei Ablauf des Befehls",
                 "type15": "{status_emoji} Befreie mehr Planeten als während der Befehlsdauer verloren gehen"
             }
         },

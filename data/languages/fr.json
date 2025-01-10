@@ -15,13 +15,13 @@
             "liberated": "LIBÉRÉ",
             "rewards": "Récompenses",
             "tasks": {
-                "type2": "{status_emoji} Extraire avec succès {amount} {item} sur {planet} {faction_emoji}",
+                "type2": "{status_emoji} Extraire avec succès {amount} {item} sur {planet}",
                 "type3": "{status_emoji} Tuer {amount} {target}",
                 "type3.5": " en utilisant le __{weapon_to_use}__ ",
-                "type11": "{status_emoji} Libérer {planet} {faction_emoji}",
-                "type12_with_planet": "{status_emoji} Défendre {planet} contre {number} attaques de {faction} {faction_emoji}",
-                "type12_without_planet": "{status_emoji} Défendre contre {number} attaques de {faction} {faction_emoji}",
-                "type13": "{status_emoji} Tenir {planet} lorsque l'ordre expire {faction_emoji}",
+                "type11": "{status_emoji} Libérer {planet}",
+                "type12_with_planet": "{status_emoji} Défendre {planet} contre {number} attaques de {faction}",
+                "type12_without_planet": "{status_emoji} Défendre contre {number} attaques de {faction}",
+                "type13": "{status_emoji} Tenir {planet} lorsque l'ordre expire",
                 "type15": "{status_emoji} Libérer plus de planètes que de planètes perdues pendant la durée de l'ordre"
             }
         },

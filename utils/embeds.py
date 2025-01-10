@@ -852,9 +852,6 @@ class Dashboard:
                 planet=planet_names_json[str(planet.index)]["names"][
                     language_json["code_long"]
                 ],
-                faction_emoji=Emojis.factions[
-                    (planet.current_owner if not planet.event else planet.event.faction)
-                ],
             )
             self.add_field(
                 name=name,
@@ -894,7 +891,6 @@ class Dashboard:
                 full_task += language_json["dashboard"]["MajorOrderEmbed"]["tasks"][
                     "type3.5"
                 ].format(weapon_to_use=weapon_to_use)
-            full_task += Emojis.factions[task.values[0]]
             self.add_field(
                 name=full_task,
                 value=(
@@ -948,9 +944,6 @@ class Dashboard:
                 ),
                 planet=planet_names_json[str(planet.index)]["names"][
                     language_json["code_long"]
-                ],
-                faction_emoji=Emojis.factions[
-                    (planet.current_owner if not planet.event else planet.event.faction)
                 ],
             )
             player_count = language_json["dashboard"]["heroes"].format(
@@ -1026,7 +1019,6 @@ class Dashboard:
                     ],
                     number=task.values[0],
                     faction=language_json["factions"][str(task.values[1])],
-                    faction_emoji=Emojis.factions[task.values[1]],
                 )
                 feature_text = (
                     "" if not planet.feature else f"Feature: {planet.feature}"
@@ -1065,7 +1057,6 @@ class Dashboard:
                     ),
                     number=task.values[0],
                     faction=language_json["factions"][str(task.values[1])],
-                    faction_emoji=Emojis.factions[task.values[1]],
                 )
                 self.add_field(
                     objective_text,
@@ -1098,9 +1089,6 @@ class Dashboard:
                 ),
                 planet=planet_names_json[str(planet.index)]["names"][
                     language_json["code_long"]
-                ],
-                faction_emoji=Emojis.factions[
-                    planet.event.faction if planet.event else planet.current_owner
                 ],
             )
             player_count = (
