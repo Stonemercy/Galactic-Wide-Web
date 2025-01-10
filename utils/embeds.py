@@ -823,7 +823,7 @@ class Dashboard:
                 self.add_rewards(
                     rewards=assignment.rewards,
                     language_json=language_json,
-                    item_names=json_dict["items"]["item_names"],
+                    reward_names=json_dict["items"]["reward_types"],
                 )
                 self.add_field(
                     language_json["ends"],
@@ -1233,11 +1233,11 @@ class Dashboard:
                 text=language_json["message"].format(message_id=assignment.id)
             )
 
-        def add_rewards(self, rewards: dict, language_json: dict, item_names: dict):
+        def add_rewards(self, rewards: dict, language_json: dict, reward_names: dict):
             rewards_text = ""
             for reward in rewards:
-                reward_json = item_names.get(str(reward["id32"]), "Unknown")
-                rewards_text += f"{reward['amount']:,} **{reward_json['name']}s** {Emojis.items.get(reward_json['name'], '')}\n"
+                reward_name = reward_names.get(str(reward["type"]), "Unknown")
+                rewards_text += f"{reward['amount']:,} **{reward_name}s** {Emojis.items.get(reward_name, '')}\n"
             self.add_field(
                 language_json["dashboard"]["MajorOrderEmbed"]["rewards"], rewards_text
             )

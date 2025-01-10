@@ -10,8 +10,8 @@ class TestAssignment:
         self.description = "This would be the description"
         self.tasks = TestTasks()
         self.rewards = [
-            {"type": 1, "id32": 897894480, "amount": 50},
-            {"type": 1, "id32": 3608481516, "amount": 10000},
+            {"type": 1, "amount": 50},
+            {"type": 3608481516, "amount": 10000},
         ]
         random_end_time = (datetime.now() + timedelta(days=7)).isoformat()
         self.ends_at = random_end_time
