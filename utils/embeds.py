@@ -1434,9 +1434,7 @@ class Dashboard:
                             liberation_change
                             and len(liberation_change["liberation_changes"]) > 0
                         ):
-                            lib_per_hour = (
-                                sum(liberation_change["liberation_changes"]) > 0
-                            )
+                            lib_per_hour = sum(liberation_change["liberation_changes"])
                             if lib_per_hour > 0:
                                 now_seconds = int(datetime.now().timestamp())
                                 seconds_to_complete = int(
@@ -1447,8 +1445,11 @@ class Dashboard:
                                     * 3600
                                 )
                                 time_to_complete = f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['victory'])} <t:{now_seconds + seconds_to_complete}:R>"
-                            change = f"{(sum(liberation_change['liberation_changes'])):+.2f}%/hour"
-                            liberation_text = f"\n`{change:^25}`"
+                                change = f"{(sum(liberation_change['liberation_changes'])):+.2f}%/hour"
+                                liberation_text = f"\n`{change:^25}`"
+                            else:
+                                skipped_campaigns.append(campaign)
+                                continue
 
                     exclamation = (
                         Emojis.icons["MO"] if campaign.planet.in_assignment else ""
