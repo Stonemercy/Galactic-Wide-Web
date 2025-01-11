@@ -297,176 +297,6 @@ class BotDashboardEmbed(Embed):
         self.add_field("", f"-# Updated <t:{int(now.timestamp())}:R>")
 
 
-class MajorOrderEmbed(Embed):
-    def __init__(
-        self,
-        data: Data,
-        language: dict,
-        planet_names: dict,
-        reward_types: dict,
-        with_health_bars: bool = False,
-    ):
-        super().__init__(
-            title=f"{Emojis.decoration['left_banner']} {language['major_order']['title']} {Emojis.decoration['right_banner']}",
-            colour=Colour.yellow(),
-        )
-        self.add_field(
-            f"{language['message']} #{data.assignment.id}",
-            f"{data.assignment.title}\n{data.assignment.description}",
-        )
-        for task in data.assignment.tasks:
-            task: Tasks.Task
-            if task.type in (11, 13):
-                planet: Planet = data.planets[task.values[2]]
-                text = f"{language['heroes']}: **{planet.stats['playerCount']:,}**\n"
-                if with_health_bars:
-                    health = (
-                        1 - planet.event.progress
-                        if planet.event
-                        else (
-                            (1 - (planet.health / planet.max_health))
-                            if planet.current_owner != "Humans"
-                            else (planet.health / planet.max_health)
-                        )
-                    )
-                    if planet.event:
-                        planet_health_bar = health_bar(
-                            planet.event.progress,
-                            "MO",
-                            True,
-                        )
-                    else:
-                        planet_health_bar = health_bar(
-                            planet.health / planet.max_health,
-                            ("MO" if planet.current_owner != "Humans" else "Humans"),
-                            True if planet.current_owner != "Humans" else False,
-                        )
-                    text += f"{planet_health_bar}\n"
-                    text += f"`{(health):^25,.2%}`\n"
-                text += f"{language['dashboard']['major_order']['occupied_by']}: **{language[planet.current_owner.lower()]}**\n"
-                if planet.feature:
-                    text += f"Feature: {planet.feature}"
-                if task.type == 11:
-                    obj_text = f"{language['dashboard']['major_order']['liberate']} {planet_names[str(planet.index)]['names'][language['code_long']]}"
-                else:
-                    obj_text = f"{language['dashboard']['major_order']['hold']} {planet_names[str(planet.index)]['names'][language['code_long']]} {language['dashboard']['major_order']['when_the_order_expires']}"
-
-                self.add_field(
-                    obj_text,
-                    text,
-                    inline=False,
-                )
-            elif task.type == 12:
-                factions = {
-                    1: "Humans",
-                    2: "Terminids",
-                    3: "Automaton",
-                    4: "Illuminate",
-                }
-                task_health_bar = health_bar(task.progress, "MO")
-                self.add_field(
-                    f"{language['major_order']['succeed_in_defense']} {task.values[0]} {language['dashboard']['planets']} {language[factions[task.values[1]].lower()]} {Emojis.factions[factions[task.values[1]]]}",
-                    (
-                        f"{language['major_order']['progress']}: {int(task.progress * task.values[0])}/{task.values[0]}\n"
-                        f"{task_health_bar}\n"
-                        f"`{(task.progress):^25,.2%}`\n"
-                    ),
-                    inline=False,
-                )
-            elif task.type == 3:
-                en_faction_dict = {
-                    0: "",
-                    2: "Terminids",
-                    3: "Automaton",
-                    4: "Illuminate",
-                }
-                loc_faction_dict = {
-                    0: language["enemies_of_freedom"],
-                    2: language["terminids"],
-                    3: language["automaton"],
-                    4: language["illuminate"],
-                }
-                species_dict = {
-                    2514244534: "Bile Titan",
-                    1379865898: "Bile Spewer",
-                    2058088313: "Warrior",
-                }
-                species = (
-                    species_dict.get(task.values[3], None)
-                    if task.values[3] != 0
-                    else None
-                )
-                weapon_to_use = stratagem_id_dict.get(task.values[5], None)
-                event_health_bar = health_bar(
-                    task.progress,
-                    en_faction_dict[task.values[0]] if task.progress != 1 else "MO",
-                )
-                target = loc_faction_dict[task.values[0]] if not species else species
-                if weapon_to_use:
-                    target += f" using the __{weapon_to_use}__"
-                self.add_field(
-                    f"{language['kill']} {short_format(task.values[2])} **{target}** {Emojis.factions[en_faction_dict[task.values[0]]]}",
-                    (
-                        f"{language['major_order']['progress']}: {(task.progress * task.values[2]):,.0f}\n"
-                        f"{event_health_bar}\n"
-                        f"`{(task.progress):^25,.2%}`\n"
-                    ),
-                    inline=False,
-                )
-            elif task.type == 15:
-                progress_dict = {
-                    -10: 0,
-                    -8: 0.1,
-                    -6: 0.2,
-                    -4: 0.3,
-                    -2: 0.4,
-                    0: 0.5,
-                    2: 0.6,
-                    4: 0.7,
-                    6: 0.8,
-                    8: 0.9,
-                    10: 1,
-                }
-                percent = 0
-                for progress, perc in progress_dict.items():
-                    if task.progress <= progress:
-                        percent = perc
-                        break
-                victory = language["victory"] if percent > 0.5 else language["defeat"]
-                event_health_bar = health_bar(
-                    percent,
-                    ("Humans" if victory == language["victory"] else "Automaton"),
-                )
-                self.add_field(
-                    f"{language['major_order']['liberate_more_than_them']} ",
-                    (
-                        f"{language['dashboard']['outlook']}: {victory.upper()}\n"
-                        f"{event_health_bar}\n"
-                        f"`{task.progress:^25,}`\n"
-                    ),
-                    inline=False,
-                )
-            else:
-                self.add_field(
-                    language["major_order"]["new_title"],
-                    language["major_order"]["new_value"],
-                )
-        rewards_text = ""
-        for reward in data.assignment.rewards:
-            reward_type = reward_types.get(str(reward["type"]), "Unknown")
-            rewards_text += (
-                f"{reward['amount']} {reward_type}s {Emojis.items.get(reward_type, '')}"
-            )
-        self.add_field(
-            language["rewards"],
-            rewards_text,
-        )
-        self.add_field(
-            language["ends"],
-            f"<t:{int(datetime.fromisoformat(data.assignment.ends_at).timestamp())}:R>",
-        )
-
-
 class DispatchesEmbed(Embed):
     def __init__(self, language_json: dict, dispatch: Dispatch):
         super().__init__(colour=Colour.yellow())
@@ -744,7 +574,9 @@ class Dashboard:
             if len(embed.fields) == 0:
                 self.embeds.remove(embed)
             else:
-                embed.set_image("https://i.imgur.com/cThNy4f.png")  # blank line
+                embed.set_image(
+                    "https://i.imgur.com/cThNy4f.png"
+                )  # blank line (max size, dont change)
 
     class MajorOrderEmbed(Embed):
         def __init__(
@@ -1533,7 +1365,7 @@ class Dashboard:
                     "text": language_json["dashboard"]["FooterEmbed"]["new_year"],
                 },
             }
-            for event, details in special_dates.items():
+            for details in special_dates.values():
                 if now.strftime("%d/%m") in details["dates"]:
                     self.set_footer(text=details["text"])
                     break
