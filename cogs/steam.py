@@ -42,7 +42,7 @@ class SteamCog(commands.Cog):
         await inter.send(
             embed=SteamEmbed(
                 steam=self.bot.data.steam[0],
-                language=self.bot.json_dict["languages"][guild.language],
+                language_json=self.bot.json_dict["languages"][guild.language],
             ),
             components=[SteamStringSelect(self.bot.data)],
             ephemeral=public != "Yes",
