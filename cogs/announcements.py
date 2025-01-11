@@ -4,8 +4,8 @@ from disnake import Embed, TextChannel
 from disnake.ext import commands, tasks
 from main import GalacticWideWebBot
 from utils.db import Steam, GWWGuild, MajorOrder, Dispatch
-from utils.embeds import Dashboard, DispatchesEmbed, MajorOrderEmbed, SteamEmbed
-from utils.interactables import KoFiButton, SupportServerButton, WikiButton
+from utils.embeds import Dashboard, DispatchesEmbed, SteamEmbed
+from utils.interactables import WikiButton
 from utils.testing.assignment import TestAssignment
 
 
