@@ -61,7 +61,7 @@ class PlanetCog(commands.Cog):
             planet_names=[
                 planet_names
                 for planet_names in self.bot.json_dict["planets"].values()
-                if planet_names["name"] == planet
+                if planet_names["name"].lower() == planet.lower()
             ][0],
             planet=planet_data,
             language_json=guild_language,
