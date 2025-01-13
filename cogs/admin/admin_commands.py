@@ -47,10 +47,9 @@ class AdminCommandsCog(commands.Cog):
         )
         update_start = datetime.now()
         await self.bot.get_cog("MapCog").map_poster()
-        await inter.send(
-            f"Forced updates of {len(self.bot.interface_handler.maps)} maps in {(datetime.now() - update_start).total_seconds():.2f} seconds",
-            ephemeral=True,
-        )
+        text = f"Forced updates of {len(self.bot.interface_handler.maps)} maps in {(datetime.now() - update_start).total_seconds():.2f} seconds"
+        self.bot.logger.info(text)
+        await inter.send(text, ephemeral=True)
 
     @wait_for_startup()
     @commands.is_owner()
