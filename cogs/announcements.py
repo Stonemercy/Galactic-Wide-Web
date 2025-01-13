@@ -50,6 +50,9 @@ class AnnouncementsCog(commands.Cog):
             last_MO.id = self.bot.data.assignment.id
             last_MO.save_changes()
             await self.bot.interface_handler.send_news("MO", embeds)
+            self.bot.logger.info(
+                f"Sent MO announcements out to {len(self.bot.interface_handler.news_feeds.channels_dict['MO'])} channels"
+            )
 
     @major_order_check.before_loop
     async def before_mo_check(self):
@@ -77,6 +80,9 @@ class AnnouncementsCog(commands.Cog):
                 for lang in list({guild.language for guild in GWWGuild.get_all()})
             }
             await self.bot.interface_handler.send_news("Generic", embeds)
+            self.bot.logger.info(
+                f"Sent generic announcements out to {len(self.bot.interface_handler.news_feeds.channels_dict['Generic'])} channels"
+            )
 
     @dispatch_check.before_loop
     async def before_dispatch_check(self):
@@ -105,6 +111,9 @@ class AnnouncementsCog(commands.Cog):
                 for lang in languages
             }
             await self.bot.interface_handler.send_news("Patch", embeds)
+            self.bot.logger.info(
+                f"Sent patch announcements out to {len(self.bot.interface_handler.news_feeds.channels_dict['Patch'])} channels"
+            )
 
     @steam_check.before_loop
     async def before_steam_check(self):
@@ -134,6 +143,9 @@ class AnnouncementsCog(commands.Cog):
             for lang in list(set([guild.language for guild in GWWGuild.get_all()]))
         }
         await self.bot.interface_handler.send_news("MO", embeds)
+        self.bot.logger.info(
+            f"Sent MO announcements out to {len(self.bot.interface_handler.news_feeds.channels_dict['MO'])} channels"
+        )
 
     @major_order_updates.before_loop
     async def before_major_order_updates(self):

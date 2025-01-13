@@ -41,7 +41,9 @@ class DashboardCog(commands.Cog):
             for lang in list({guild.language for guild in GWWGuild.get_all()})
         }
         await self.bot.interface_handler.edit_dashboards(dashboards)
-        return
+        self.bot.logger.info(
+            f"Updated {len(self.bot.interface_handler.dashboards)} dashboards in {(datetime.now()-dashboards_start).total_seconds():.2f} seconds"
+        )
 
     @dashboard_poster.before_loop
     async def before_dashboard_poster(self):

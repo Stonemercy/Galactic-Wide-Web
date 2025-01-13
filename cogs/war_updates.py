@@ -146,6 +146,9 @@ class WarUpdatesCog(commands.Cog):
             for embed in embeds.values():
                 embed.remove_empty()
             await self.bot.interface_handler.send_news("Generic", embeds)
+            self.bot.logger.info(
+                f"Sent generic announcements out to {len(self.bot.interface_handler.news_feeds.channels_dict['Generic'])} channels"
+            )
 
     @campaign_check.before_loop
     async def before_campaign_check(self):

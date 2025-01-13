@@ -21,10 +21,10 @@ class MapCog(commands.Cog):
 
     @tasks.loop(time=[time(hour=hour, minute=5, second=0) for hour in range(24)])
     async def map_poster(self):
-        update_start = datetime.now()
+        maps_start = datetime.now()
         if (
             not self.bot.interface_handler.loaded
-            or update_start < self.bot.ready_time
+            or maps_start < self.bot.ready_time
             or not self.bot.data.loaded
         ):
             return
@@ -34,7 +34,7 @@ class MapCog(commands.Cog):
             )
         try:
             await self.bot.waste_bin_channel.purge(
-                before=update_start - timedelta(hours=2)
+                before=maps_start - timedelta(hours=2)
             )
         except:
             pass
@@ -49,6 +49,9 @@ class MapCog(commands.Cog):
         )
         await maps.localize()
         await self.bot.interface_handler.edit_maps(maps.embeds)
+        self.bot.logger.info(
+            f"Updated {len(self.bot.interface_handler.maps)} maps in {(datetime.now()-maps_start).total_seconds():.2f} seconds"
+        )
 
     @map_poster.before_loop
     async def before_map_poster(self):
