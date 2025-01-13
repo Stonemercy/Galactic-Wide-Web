@@ -59,24 +59,22 @@ class InterfaceHandler:
             try:
                 await message.edit(embeds=embeds)
             except (NotFound, Forbidden) as e:
-                self.dashboards.remove(message)
+                self.dashboards.pop(message)
                 guild = GWWGuild.get_by_id(message.guild.id)
                 guild.dashboard_channel_id = 0
                 guild.dashboard_message_id = 0
                 guild.save_changes()
                 return self.bot.logger.error(
-                    f"edit_dashboard | {e} | removed from dashboards list and reset in DB | {guild.id = }"
+                    f"edit_dashboard | {e} | removed from dashboards dict and reset in DB | {guild.id = }"
                 )
             except Exception as e:
                 return self.bot.logger.error(f"edit_dashboard | {e} | {guild.id = }")
 
-        for chunk in self.dashboards.chunked.copy():
-            for message in chunk:
-                guild = GWWGuild.get_by_id(message.guild.id)
-                self.bot.loop.create_task(
-                    edit_dashboard(message, dashboards_dict[guild.language].embeds)
-                )
-            await sleep(1.5)
+        for message, language_code in self.dashboards.items():
+            self.bot.loop.create_task(
+                edit_dashboard(message, dashboards_dict[language_code].embeds)
+            )
+            await sleep(0.03)  # discord accepts 1 message every 0.02s
         self.busy = False
 
     async def edit_maps(self, map_dict: dict):
@@ -86,34 +84,33 @@ class InterfaceHandler:
             try:
                 await message.edit(embed=embed)
             except (NotFound, Forbidden) as e:
-                self.maps.remove(message)
+                self.maps.pop(message)
                 guild = GWWGuild.get_by_id(message.guild.id)
                 guild.map_channel_id = 0
                 guild.map_message_id = 0
                 guild.save_changes()
                 return self.bot.logger.error(
-                    f"edit_map | {e} | removed from maps list and reset in DB | {guild.id = }"
+                    f"edit_map | {e} | removed from maps dict and reset in DB | {guild.id = }"
                 )
             except Exception as e:
                 return self.bot.logger.error(f"edit_map | {e} | {message.guild.id = }")
 
-        for chunk in self.maps.chunked.copy():
-            for message in chunk:
-                guild = GWWGuild.get_by_id(message.guild.id)
-                self.bot.loop.create_task(edit_map(message, map_dict[guild.language]))
-            await sleep(1.5)
+        for message, language_code in self.maps.items():
+            self.bot.loop.create_task(edit_map(message, map_dict[language_code]))
+            await sleep(0.03)
         self.busy = False
 
     async def send_news(self, news_type: str, embeds_dict: dict):
         self.busy = True
 
-        async def send_embed(channel, embed, components, guild: GWWGuild):
+        async def send_embed(channel, embed, components):
             try:
                 await channel.send(embed=embed, components=components)
             except (NotFound, Forbidden) as e:
-                for channels_list in self.news_feeds.channels_dict.values():
-                    if channel in channels_list.copy():
-                        channels_list.remove(channel)
+                for channels_dict in self.news_feeds.channels_dict.values():
+                    if channel in channels_dict:
+                        channels_dict.pop(channel)
+                guild = GWWGuild.get_by_id(channel.guild.id)
                 guild.announcement_channel_id = 0
                 guild.patch_notes = False
                 guild.major_order_updates = False
@@ -130,30 +127,24 @@ class InterfaceHandler:
             ]
         else:
             components = None
-
-        for chunk in self.news_feeds.chunked_channels(type=news_type):
-            for channel in chunk:
-                guild = GWWGuild.get_by_id(channel.guild.id)
-                self.bot.loop.create_task(
-                    send_embed(channel, embeds_dict[guild.language], components, guild)
-                )
-            await sleep(1.5)
+        dict_to_use = self.news_feeds.channels_dict[news_type]
+        for channel, language_code in dict_to_use.items():
+            self.bot.loop.create_task(
+                send_embed(channel, embeds_dict[language_code], components)
+            )
+            await sleep(0.03)
         self.busy = False
 
 
-class Dashboards(list):
-    """A list of all Dashboards configured"""
+class Dashboards(dict):
+    """A dict of all Dashboards configured `{message:language_code}`"""
 
     def __init__(self, all_guilds: list[GWWGuild], bot):
         self.all_guilds = all_guilds
         self.bot = bot
 
-    @property
-    def chunked(self):
-        return [self[i : i + 50] for i in range(0, len(self), 50)]
-
     async def populate(self):
-        """Fills the list with PartialMessages"""
+        """Fills the dict with PartialMessages"""
         for guild in self.all_guilds:
             try:
                 dashboard_channel = self.bot.get_channel(
@@ -162,7 +153,7 @@ class Dashboards(list):
                 dashboard_message = dashboard_channel.get_partial_message(
                     guild.dashboard_message_id
                 )
-                self.append(dashboard_message)
+                self[dashboard_message] = guild.language
             except Exception as e:
                 self.bot.logger.error(
                     f"Dashboards.populate() ERROR | {e} | {guild.id = }"
@@ -175,9 +166,9 @@ class NewsFeeds:
     def __init__(self, all_guilds: list[GWWGuild], bot):
         self.all_guilds = all_guilds
         self.bot = bot
-        self.__announcement_channels__ = []
-        self.__patch_note_channels__ = []
-        self.__major_order_channels__ = []
+        self.__announcement_channels__ = {}
+        self.__patch_note_channels__ = {}
+        self.__major_order_channels__ = {}
 
     @property
     def channels_dict(self):
@@ -187,22 +178,18 @@ class NewsFeeds:
             "MO": self.__major_order_channels__,
         }
 
-    def chunked_channels(self, type: str):
-        list_to_use = self.channels_dict[type]
-        return [list_to_use[i : i + 50] for i in range(0, len(list_to_use), 50)]
-
     async def populate(self):
-        """Fills the lists with Channels"""
+        """Fills the dicts with Channels"""
         for guild in self.all_guilds:
             try:
                 announcement_channel = self.bot.get_channel(
                     guild.announcement_channel_id
                 ) or await self.bot.fetch_channel(guild.announcement_channel_id)
-                self.__announcement_channels__.append(announcement_channel)
+                self.__announcement_channels__[announcement_channel] = guild.language
                 if guild.patch_notes:
-                    self.__patch_note_channels__.append(announcement_channel)
+                    self.__patch_note_channels__[announcement_channel] = guild.language
                 if guild.major_order_updates:
-                    self.__major_order_channels__.append(announcement_channel)
+                    self.__major_order_channels__[announcement_channel] = guild.language
             except Exception as e:
                 self.bot.logger.error(
                     f"NewsFeeds.populate() ERROR | {e} | {guild.id = }"
@@ -214,25 +201,21 @@ class NewsFeeds:
         self.__major_order_channels__.clear()
 
 
-class Maps(list):
-    """A list of all Maps configured"""
+class Maps(dict):
+    """A dict of all Maps configured `{message:language_code}`"""
 
     def __init__(self, all_guilds: list[GWWGuild], bot):
         self.all_guilds = all_guilds
         self.bot = bot
 
-    @property
-    def chunked(self):
-        return [self[i : i + 50] for i in range(0, len(self), 50)]
-
     async def populate(self):
-        """Fills the list with PartialMessages"""
+        """Fills the dict with PartialMessages"""
         for guild in self.all_guilds:
             try:
                 map_channel = self.bot.get_channel(
                     guild.map_channel_id
                 ) or await self.bot.fetch_channel(guild.map_channel_id)
                 map_message = map_channel.get_partial_message(guild.map_message_id)
-                self.append(map_message)
+                self[map_message] = guild.language
             except Exception as e:
                 self.bot.logger.error(f"Maps.populate() ERROR | {e} | {guild.id = }")
