@@ -27,9 +27,9 @@ class AdminCommandsCog(commands.Cog):
             f"{self.qualified_name} | /{inter.application_command.name} | used by <@{inter.author.id}> | @{inter.author.global_name}"
         )
         update_start = datetime.now()
-        dashboards_updated = await self.bot.get_cog("DashboardCog").dashboard()
+        await self.bot.get_cog("DashboardCog").dashboard_poster()
         await inter.send(
-            f"Forced updates of {dashboards_updated} dashboards in {(datetime.now() - update_start).total_seconds():.2f} seconds",
+            f"Forced updates of {len(self.bot.interface_handler.dashboards)} dashboards in {(datetime.now() - update_start).total_seconds():.2f} seconds",
             ephemeral=True,
         )
 
@@ -46,9 +46,9 @@ class AdminCommandsCog(commands.Cog):
             f"{self.qualified_name} | /{inter.application_command.name} | used by <@{inter.author.id}> | @{inter.author.global_name}"
         )
         update_start = datetime.now()
-        maps_updated = await self.bot.get_cog("MapCog").map_poster()
+        await self.bot.get_cog("MapCog").map_poster()
         await inter.send(
-            f"Forced updates of {maps_updated} maps in {(datetime.now() - update_start).total_seconds():.2f} seconds",
+            f"Forced updates of {len(self.bot.interface_handler.maps)} maps in {(datetime.now() - update_start).total_seconds():.2f} seconds",
             ephemeral=True,
         )
 
@@ -65,10 +65,8 @@ class AdminCommandsCog(commands.Cog):
             f"{self.qualified_name} | /{inter.application_command.name} | used by <@{inter.author.id}> | @{inter.author.global_name}"
         )
         update_start = datetime.now()
-        updates_sent = await self.bot.get_cog("AnnouncementsCog").major_order_updates(
-            force=True, test=test
-        )
-        text = f"Forced updates of {updates_sent} MO updates in {(datetime.now() - update_start).total_seconds():.2f} seconds"
+        await self.bot.get_cog("AnnouncementsCog").major_order_updates(test=test)
+        text = f"Forced updates of {len(self.bot.interface_handler.news_feeds.channels_dict['MO'])} MO updates in {(datetime.now() - update_start).total_seconds():.2f} seconds"
         self.bot.logger.info(text)
         await inter.send(text, ephemeral=True)
 
@@ -195,12 +193,13 @@ class AdminCommandsCog(commands.Cog):
     ):
         await inter.send(
             (
-                f"# Dashboard messages:\n- Length: {len(self.bot.dashboard_messages)}\n- Type: {type(self.bot.dashboard_messages)}\n\n"
-                f"# Announcement channels:\n- Length: {len(self.bot.announcement_channels)}\n- Type: {type(self.bot.announcement_channels)}\n\n"
-                f"# Patch Channels:\n- Length: {len(self.bot.patch_channels)}\n- Type: {type(self.bot.patch_channels)}\n\n"
-                f"# Major Order channels:\n- Length: {len(self.bot.major_order_channels)}\n- Type: {type(self.bot.major_order_channels)}\n\n"
-                f"# Map messages:\n- Length: {len(self.bot.map_messages)}\n- Type: {type(self.bot.map_messages)}\n\n"
-            )
+                f"- Dashboard messages:\n  - Amount: {len(self.bot.interface_handler.dashboards)}\n\n"
+                f"- Announcement channels:\n  - Amount: {len(self.bot.interface_handler.news_feeds.channels_dict['Generic'])}\n\n"
+                f"- Patch Channels:\n  - Amount: {len(self.bot.interface_handler.news_feeds.channels_dict['Patch'])}\n\n"
+                f"- Major Order channels:\n  - Amount: {len(self.bot.interface_handler.news_feeds.channels_dict['MO'])}\n\n"
+                f"- Map messages:\n  - Amount: {len(self.bot.interface_handler.maps)}\n\n"
+            ),
+            ephemeral=True,
         )
 
 

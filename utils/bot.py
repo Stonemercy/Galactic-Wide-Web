@@ -5,6 +5,7 @@ from disnake.ext import commands
 from json import load
 from logging import INFO, FileHandler, Formatter, getLogger
 from os import getenv, listdir
+from utils.interaction_handler import InterfaceHandler
 from utils.data import Data
 
 
@@ -23,12 +24,7 @@ class GalacticWideWebBot(commands.AutoShardedInteractionBot):
         self.logger.addHandler(handler)
         self.startup_time = datetime.now()
         self.ready_time = self.startup_time + timedelta(seconds=30)
-        self.dashboard_messages = []
-        self.announcement_channels = []
-        self.patch_channels = []
-        self.map_messages = []
-        self.major_order_channels = []
-        self.c_n_m_loaded = False
+        self.interface_handler = InterfaceHandler(bot=self)
         self.json_dict = json_dict.copy()
         self.load_json()
         self.data = Data()

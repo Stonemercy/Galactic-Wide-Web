@@ -1,6 +1,5 @@
-from asyncio import sleep
 from datetime import datetime, timedelta
-from disnake import AppCmdInter, Permissions, TextChannel
+from disnake import AppCmdInter, Permissions
 from disnake.ext import commands, tasks
 from main import GalacticWideWebBot
 from os import getenv
@@ -21,31 +20,19 @@ class WarUpdatesCog(commands.Cog):
     def cog_unload(self):
         self.campaign_check.stop()
 
-    async def send_campaign(self, channel: TextChannel, embeds):
-        guild = GWWGuild.get_by_id(channel.guild.id)
-        if not guild:
-            self.bot.announcement_channels.remove(channel)
-            return self.bot.logger.error(
-                f"{self.qualified_name} | send_campaign | {guild = } | {channel.guild.id = }"
-            )
-        try:
-            await channel.send(embed=embeds[guild.language])
-        except Exception as e:
-            self.bot.announcement_channels.remove(channel)
-            self.bot.logger.error(
-                f"{self.qualified_name} | send_campaign | {e} | {channel.id = }"
-            )
-
     @tasks.loop(minutes=1)
     async def campaign_check(self):
         update_start = datetime.now()
         if (
-            self.bot.announcement_channels == []
-            or update_start.minute in (0, 15, 30, 45)
+            not self.bot.interface_handler.loaded
             or not self.bot.data.loaded
-            or not self.bot.c_n_m_loaded
+            or update_start < self.bot.ready_time
         ):
             return
+        if self.bot.interface_handler.busy:
+            return self.bot.logger.info(
+                "Campaign check tried to run but interface handler was busy"
+            )
         old_campaigns: list[Campaign] = Campaign.get_all()
         languages = list({guild.language for guild in GWWGuild.get_all()})
         embeds = {
@@ -158,19 +145,7 @@ class WarUpdatesCog(commands.Cog):
         if new_updates:
             for embed in embeds.values():
                 embed.remove_empty()
-            chunked_channels = [
-                self.bot.announcement_channels[i : i + 50]
-                for i in range(0, len(self.bot.announcement_channels), 50)
-            ]
-            announcements_sent = 0
-            for chunk in chunked_channels:
-                for channel in chunk:
-                    self.bot.loop.create_task(self.send_campaign(channel, embeds))
-                    announcements_sent += 1
-                await sleep(1.1)
-            self.bot.logger.info(
-                f"{announcements_sent} war updates sent in {(datetime.now() - update_start).total_seconds():.2f} seconds"
-            )
+            await self.bot.interface_handler.send_news("Generic", embeds)
 
     @campaign_check.before_loop
     async def before_campaign_check(self):
@@ -185,7 +160,6 @@ class WarUpdatesCog(commands.Cog):
     )
     async def test_announcements(self, inter: AppCmdInter):
         await inter.response.defer(ephemeral=True)
-        update_start = datetime.now()
         self.bot.logger.critical(
             f"{self.qualified_name} | /{inter.application_command.name} | used by <@{inter.author.id}> | @{inter.author.global_name}"
         )
@@ -231,22 +205,9 @@ class WarUpdatesCog(commands.Cog):
 
         for embed in embeds.values():
             embed.remove_empty()
-        chunked_channels = [
-            self.bot.announcement_channels[i : i + 50]
-            for i in range(0, len(self.bot.announcement_channels), 50)
-        ]
-        announcements_sent = 0
-        for chunk in chunked_channels:
-            for channel in chunk:
-                self.bot.loop.create_task(self.send_campaign(channel, embeds))
-                announcements_sent += 1
-            await sleep(1.1)
-        self.bot.logger.info(
-            f"{announcements_sent} war updates sent in {(datetime.now() - update_start).total_seconds():.2f} seconds"
-        )
+        await self.bot.interface_handler.send_news("Generic", embeds)
         await inter.send(
-            f"{announcements_sent} war updates sent in {(datetime.now() - update_start).total_seconds():.2f} seconds",
-            ephemeral=True,
+            f"Sent test announcements out to {len(self.bot.interface_handler.news_feeds.channels_dict['Generic'])} channels"
         )
 
 

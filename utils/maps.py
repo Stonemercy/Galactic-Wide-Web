@@ -20,7 +20,6 @@ class Maps:
         self.languages_json_list = languages_json_list
         self.arrow_needed = target_planet != None
         self.target_planet = target_planet
-        self.embeds_dict = {lang["code"]: None for lang in self.languages_json_list}
         self.embeds = {
             language["code"]: Embed(colour=Colour.dark_embed())
             for language in languages_json_list

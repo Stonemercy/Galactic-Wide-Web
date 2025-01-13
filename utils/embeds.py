@@ -263,7 +263,7 @@ class BotDashboardEmbed(Embed):
         )
         cogs = {
             "This Dashboard": ("GuildManagementCog", "bot_dashboard"),
-            "All Dashboards": ("DashboardCog", "dashboard"),
+            "All Dashboards": ("DashboardCog", "dashboard_poster"),
             "All Maps": ("MapCog", "map_poster"),
             "Update data": ("DataManagementCog", "pull_from_api"),
             "Major Order Update": ("AnnouncementsCog", "major_order_updates"),

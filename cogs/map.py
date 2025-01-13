@@ -1,8 +1,6 @@
-from asyncio import sleep
 from datetime import datetime, time, timedelta
 from disnake import (
     AppCmdInter,
-    PartialMessage,
     InteractionContextTypes,
     ApplicationInstallTypes,
 )
@@ -21,32 +19,19 @@ class MapCog(commands.Cog):
     def cog_unload(self):
         self.map_poster.stop()
 
-    async def update_message(self, message: PartialMessage, embed_dict):
-        guild = GWWGuild.get_by_id(message.guild.id)
-        if not guild and message in self.bot.map_messages:
-            self.bot.map_messages.remove(message)
-            return self.bot.logger.error(
-                f"{self.qualified_name} | update_message | {guild = } | {message.guild.id = }"
-            )
-        try:
-            await message.edit(embed=embed_dict[guild.language])
-        except Exception as e:
-            if message in self.bot.map_messages:
-                self.bot.map_messages.remove(message)
-            return self.bot.logger.error(
-                f"{self.qualified_name} | update_message | {e} | removed from self.bot.map_messages | {message.channel.id = }"
-            )
-
     @tasks.loop(time=[time(hour=hour, minute=5, second=0) for hour in range(24)])
     async def map_poster(self):
         update_start = datetime.now()
         if (
-            not self.bot.map_messages
+            not self.bot.interface_handler.loaded
             or update_start < self.bot.ready_time
             or not self.bot.data.loaded
-            or not self.bot.c_n_m_loaded
         ):
             return
+        if self.bot.interface_handler.busy:
+            return self.bot.logger.info(
+                "Map poster tried to run but interface handler was busy"
+            )
         try:
             await self.bot.waste_bin_channel.purge(
                 before=update_start - timedelta(hours=2)
@@ -63,24 +48,7 @@ class MapCog(commands.Cog):
             ],
         )
         await maps.localize()
-        maps_updated = 0
-        for chunk in [
-            self.bot.map_messages[i : i + 50]
-            for i in range(0, len(self.bot.map_messages), 50)
-        ]:
-            for message in chunk:
-                self.bot.loop.create_task(
-                    self.update_message(
-                        message,
-                        maps.embeds,
-                    )
-                )
-                maps_updated += 1
-            await sleep(1.5)
-        self.bot.logger.info(
-            f"Updated {maps_updated} maps in {(datetime.now() - update_start).total_seconds():.2f} seconds"
-        )
-        return maps_updated
+        await self.bot.interface_handler.edit_maps(maps.embeds)
 
     @map_poster.before_loop
     async def before_map_poster(self):

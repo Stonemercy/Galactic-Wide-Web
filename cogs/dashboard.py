@@ -1,6 +1,4 @@
-from asyncio import sleep
 from datetime import datetime, time
-from disnake import NotFound, PartialMessage
 from disnake.ext import commands, tasks
 from main import GalacticWideWebBot
 from utils.db import GWWGuild
@@ -10,27 +8,10 @@ from utils.embeds import Dashboard
 class DashboardCog(commands.Cog):
     def __init__(self, bot: GalacticWideWebBot):
         self.bot = bot
-        self.dashboard.start()
+        self.dashboard_poster.start()
 
     def cog_unload(self):
-        self.dashboard.stop()
-
-    async def update_message(
-        self, message: PartialMessage, dashboard_dict: dict[str, Dashboard]
-    ):
-        guild = GWWGuild.get_by_id(message.guild.id)
-        try:
-            await message.edit(embeds=dashboard_dict[guild.language].embeds)
-        except NotFound as e:
-            if message in self.bot.dashboard_messages:
-                self.bot.dashboard_messages.remove(message)
-            return self.bot.logger.error(
-                f"{self.qualified_name} | update_message | {e} | removed from dashboard messages list | {message.channel.id = }"
-            )
-        except Exception as e:
-            return self.bot.logger.error(
-                f"{self.qualified_name} | update_message | {e} | {message.channel.id = }"
-            )
+        self.dashboard_poster.stop()
 
     @tasks.loop(
         time=[
@@ -39,16 +20,19 @@ class DashboardCog(commands.Cog):
             for j in range(0, 60, 15)
         ]
     )
-    async def dashboard(self):
+    async def dashboard_poster(self):
         dashboards_start = datetime.now()
         if (
-            not self.bot.dashboard_messages
-            or dashboards_start < self.bot.ready_time
+            not self.bot.interface_handler.loaded
             or not self.bot.data.loaded
-            or not self.bot.c_n_m_loaded
+            or dashboards_start < self.bot.ready_time
         ):
             return
-        embeds = {
+        if self.bot.interface_handler.busy:
+            return self.bot.logger.info(
+                "Dashboard tried to run but interface handler was busy"
+            )
+        dashboards = {
             lang: Dashboard(
                 data=self.bot.data,
                 language_code=lang,
@@ -56,27 +40,11 @@ class DashboardCog(commands.Cog):
             )
             for lang in list({guild.language for guild in GWWGuild.get_all()})
         }
-        dashboards_updated = 0
-        for chunk in [
-            self.bot.dashboard_messages[i : i + 50]
-            for i in range(0, len(self.bot.dashboard_messages), 50)
-        ]:
-            for message in chunk:
-                self.bot.loop.create_task(
-                    self.update_message(
-                        message,
-                        embeds,
-                    )
-                )
-                dashboards_updated += 1
-            await sleep(1.5)
-        self.bot.logger.info(
-            f"Updated {dashboards_updated} dashboards in {(datetime.now() - dashboards_start).total_seconds():.2f} seconds"
-        )
-        return dashboards_updated
+        await self.bot.interface_handler.edit_dashboards(dashboards)
+        return
 
-    @dashboard.before_loop
-    async def before_dashboard(self):
+    @dashboard_poster.before_loop
+    async def before_dashboard_poster(self):
         await self.bot.wait_until_ready()
 
 

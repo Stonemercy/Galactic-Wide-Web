@@ -122,9 +122,9 @@ class SetupCog(commands.Cog):
                 guild.dashboard_channel_id = 0
                 guild.dashboard_message_id = 0
                 guild.save_changes()
-                self.bot.dashboard_messages = [
+                self.bot.interface_handler.dashboards = [
                     message
-                    for message in self.bot.dashboard_messages.copy()
+                    for message in self.bot.interface_handler.dashboards.copy()
                     if message.guild.id != inter.guild_id
                 ]
                 self.reset_row_1(action_rows[0])
@@ -160,21 +160,12 @@ class SetupCog(commands.Cog):
                 guild.patch_notes = False
                 guild.major_order_updates = False
                 guild.save_changes()
-                self.bot.announcement_channels = [
-                    channel
-                    for channel in self.bot.announcement_channels.copy()
-                    if channel.guild.id != inter.guild_id
-                ]
-                self.bot.patch_channels = [
-                    channel
-                    for channel in self.bot.patch_channels.copy()
-                    if channel.guild.id != inter.guild.id
-                ]
-                self.bot.major_order_channels = [
-                    channel
-                    for channel in self.bot.major_order_channels.copy()
-                    if channel.guild.id != inter.guild.id
-                ]
+                for (
+                    channels
+                ) in self.bot.interface_handler.news_feeds.channels_dict.values():
+                    for channel in channels.copy():
+                        if channel.guild.id == inter.guild.id:
+                            channels.remove(channel)
                 action_rows[1].clear_items()
                 action_rows[1].append_item(Setup.PatchNotes.PatchNotesButton())
                 action_rows[1].append_item(
@@ -214,9 +205,9 @@ class SetupCog(commands.Cog):
                 guild.map_channel_id = 0
                 guild.map_message_id = 0
                 guild.save_changes()
-                self.bot.map_messages = [
+                self.bot.interface_handler.maps = [
                     message
-                    for message in self.bot.map_messages.copy()
+                    for message in self.bot.interface_handler.maps.copy()
                     if message.guild.id != inter.guild_id
                 ]
                 self.reset_row_1(action_rows[0])
@@ -246,11 +237,13 @@ class SetupCog(commands.Cog):
                 channel = self.bot.get_channel(
                     guild.announcement_channel_id
                 ) or await self.bot.fetch_channel(guild.announcement_channel_id)
-                self.bot.patch_channels = [
-                    channel
-                    for channel in self.bot.patch_channels.copy()
-                    if channel.guild.id != inter.guild_id
-                ]
+                for channel in self.bot.interface_handler.news_feeds.channels_dict[
+                    "Patch"
+                ].copy():
+                    if channel.guild.id == inter.guild.id:
+                        self.bot.interface_handler.news_feeds.channels_dict[
+                            "Patch"
+                        ].remove(channel)
                 guild.patch_notes = False
                 guild.save_changes()
                 action_rows[1].pop(0)
@@ -266,7 +259,9 @@ class SetupCog(commands.Cog):
                 channel = self.bot.get_channel(
                     guild.announcement_channel_id
                 ) or await self.bot.fetch_channel(guild.announcement_channel_id)
-                self.bot.patch_channels.append(channel)
+                self.bot.interface_handler.news_feeds.channels_dict["Patch"].append(
+                    channel
+                )
                 guild.patch_notes = True
                 guild.save_changes()
                 action_rows[1].pop(0)
@@ -282,11 +277,13 @@ class SetupCog(commands.Cog):
             if guild.major_order_updates:  # want to disable
                 guild.major_order_updates = False
                 guild.save_changes()
-                self.bot.major_order_channels = [
-                    channel
-                    for channel in self.bot.major_order_channels.copy()
-                    if channel.guild.id != inter.guild_id
-                ]
+                for channel in self.bot.interface_handler.news_feeds.channels_dict[
+                    "MO"
+                ].copy():
+                    if channel.guild.id == inter.guild.id:
+                        self.bot.interface_handler.news_feeds.channels_dict[
+                            "MO"
+                        ].remove(channel)
                 action_rows[1].pop(1)
                 action_rows[1].insert_item(
                     1, Setup.MajorOrderUpdates.MajorOrderUpdatesButton()
@@ -308,7 +305,9 @@ class SetupCog(commands.Cog):
                         "Your announcements channel could not be found. Please reset it.",
                         ephemeral=True,
                     )
-                self.bot.major_order_channels.append(channel)
+                self.bot.interface_handler.news_feeds.channels_dict["MO"].append(
+                    channel
+                )
                 guild.major_order_updates = True
                 guild.save_changes()
                 action_rows[1].pop(1)
@@ -372,7 +371,7 @@ class SetupCog(commands.Cog):
                 guild.dashboard_channel_id = dashboard_channel.id
                 guild.dashboard_message_id = message.id
                 guild.save_changes()
-                self.bot.dashboard_messages.append(message)
+                self.bot.interface_handler.dashboards.append(message)
                 embed = SetupEmbed(guild, guild_language)
                 self.clear_extra_buttons(action_rows)
                 self.reset_row_1(action_rows[0])
@@ -398,7 +397,9 @@ class SetupCog(commands.Cog):
             else:
                 guild.announcement_channel_id = announcement_channel.id
                 guild.save_changes()
-                self.bot.announcement_channels.append(announcement_channel)
+                self.bot.interface_handler.news_feeds.channels_dict["Generic"].append(
+                    announcement_channel
+                )
                 embed = SetupEmbed(guild, guild_language)
                 self.clear_extra_buttons(action_rows)
                 self.reset_row_1(action_rows[0])
@@ -444,7 +445,7 @@ class SetupCog(commands.Cog):
                 guild.map_channel_id = map_channel.id
                 guild.map_message_id = message.id
                 guild.save_changes()
-                self.bot.map_messages.append(message)
+                self.bot.interface_handler.maps.append(message)
                 embed = SetupEmbed(guild, guild_language)
                 await inter.edit_original_message(embed=embed, components=action_rows)
         elif inter.component.custom_id == "language_select":
