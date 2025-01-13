@@ -5,7 +5,7 @@ from disnake.ext import commands
 from json import load
 from logging import INFO, FileHandler, Formatter, getLogger
 from os import getenv, listdir
-from utils.interaction_handler import InterfaceHandler
+from utils.interface_handler import InterfaceHandler
 from utils.data import Data
 
 

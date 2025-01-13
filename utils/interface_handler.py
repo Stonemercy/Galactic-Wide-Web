@@ -1,6 +1,5 @@
 from asyncio import sleep
-from typing import Any
-from disnake import Forbidden, NotFound, PartialMessage
+from disnake import Forbidden, NotFound
 from utils.db import GWWGuild
 from utils.interactables import WikiButton
 
