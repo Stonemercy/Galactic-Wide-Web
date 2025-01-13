@@ -209,9 +209,9 @@ class WarUpdatesCog(commands.Cog):
         for embed in embeds.values():
             embed.remove_empty()
         await self.bot.interface_handler.send_news("Generic", embeds)
-        await inter.send(
-            f"Sent test announcements out to {len(self.bot.interface_handler.news_feeds.channels_dict['Generic'])} channels"
-        )
+        text = f"Sent test announcements out to {len(self.bot.interface_handler.news_feeds.channels_dict['Generic'])} channels"
+        await inter.send(text, ephemeral=True)
+        self.bot.logger.info(text)
 
 
 def setup(bot: GalacticWideWebBot):
