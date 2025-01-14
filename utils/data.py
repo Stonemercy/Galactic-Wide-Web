@@ -1,5 +1,6 @@
 from aiohttp import ClientSession
 from asyncio import sleep
+from disnake import Activity, ActivityType
 from data.lists import task_type_15_progress_dict
 from datetime import datetime, timedelta
 from os import getenv
@@ -143,6 +144,9 @@ class Data:
                 f"setup complete | bot.ready_time: {bot.ready_time.strftime('%H:%M:%S')} -> {now.strftime('%H:%M:%S')} - saved {int((bot.ready_time - now).total_seconds())} seconds"
             )
             bot.ready_time = now
+            await bot.change_presence(
+                activity=Activity(name="for Socialism", type=ActivityType.watching)
+            )
             self.loaded = True
         self.format_data()
         self.update_liberation_rates()
