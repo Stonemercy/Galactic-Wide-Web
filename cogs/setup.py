@@ -93,7 +93,7 @@ class SetupCog(commands.Cog):
         )
 
     @commands.Cog.listener("on_button_click")
-    async def ban_listener(self, inter: MessageInteraction):
+    async def setup_button_listener(self, inter: MessageInteraction):
         action_rows = ActionRow.rows_from_message(inter.message)
         guild = GWWGuild.get_by_id(inter.guild_id)
         if "dashboard" in inter.component.custom_id:
