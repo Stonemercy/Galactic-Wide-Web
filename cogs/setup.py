@@ -124,7 +124,7 @@ class SetupCog(commands.Cog):
                 guild.save_changes()
                 self.bot.interface_handler.dashboards = {
                     message: code
-                    for message, code in self.bot.interface_handler.dashboards.items()
+                    for message, code in self.bot.interface_handler.dashboards.copy().items()
                     if message.guild.id != inter.guild_id
                 }
                 self.reset_row_1(action_rows[0])
@@ -165,7 +165,9 @@ class SetupCog(commands.Cog):
                 guild.save_changes()
                 for (
                     channels
-                ) in self.bot.interface_handler.news_feeds.channels_dict.values():
+                ) in (
+                    self.bot.interface_handler.news_feeds.channels_dict.copy().values()
+                ):
                     channels.pop(channel, None)
                 action_rows[1].clear_items()
                 action_rows[1].append_item(Setup.PatchNotes.PatchNotesButton())
@@ -208,7 +210,7 @@ class SetupCog(commands.Cog):
                 guild.save_changes()
                 self.bot.interface_handler.maps = {
                     message: code
-                    for message, code in self.bot.interface_handler.maps.items()
+                    for message, code in self.bot.interface_handler.maps.copy().items()
                     if message.guild.id != inter.guild_id
                 }
                 self.reset_row_1(action_rows[0])

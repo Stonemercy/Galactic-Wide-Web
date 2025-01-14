@@ -70,7 +70,7 @@ class InterfaceHandler:
             except Exception as e:
                 return self.bot.logger.error(f"edit_dashboard | {e} | {guild.id = }")
 
-        for message, language_code in self.dashboards.items():
+        for message, language_code in self.dashboards.copy().items():
             self.bot.loop.create_task(
                 edit_dashboard(message, dashboards_dict[language_code].embeds)
             )
@@ -95,7 +95,7 @@ class InterfaceHandler:
             except Exception as e:
                 return self.bot.logger.error(f"edit_map | {e} | {message.guild.id = }")
 
-        for message, language_code in self.maps.items():
+        for message, language_code in self.maps.copy().items():
             self.bot.loop.create_task(edit_map(message, map_dict[language_code]))
             await sleep(0.03)
         self.busy = False
@@ -128,7 +128,7 @@ class InterfaceHandler:
         else:
             components = None
         dict_to_use = self.news_feeds.channels_dict[news_type]
-        for channel, language_code in dict_to_use.items():
+        for channel, language_code in dict_to_use.copy().items():
             self.bot.loop.create_task(
                 send_embed(channel, embeds_dict[language_code], components)
             )
