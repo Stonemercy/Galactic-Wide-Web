@@ -154,6 +154,13 @@ class Dashboards(dict):
                     guild.dashboard_message_id
                 )
                 self[dashboard_message] = guild.language
+            except NotFound as e:
+                guild.dashboard_channel_id = 0
+                guild.dashboard_message_id = 0
+                guild.save_changes()
+                return self.bot.logger.error(
+                    f"Dashboards.populate() ERROR | {e} | reset in DB | {guild.id = }"
+                )
             except Exception as e:
                 self.bot.logger.error(
                     f"Dashboards.populate() ERROR | {e} | {guild.id = }"
@@ -190,6 +197,14 @@ class NewsFeeds:
                     self.__patch_note_channels__[announcement_channel] = guild.language
                 if guild.major_order_updates:
                     self.__major_order_channels__[announcement_channel] = guild.language
+            except NotFound as e:
+                guild.announcement_channel_id = 0
+                guild.patch_notes = False
+                guild.major_order_updates = False
+                guild.save_changes()
+                return self.bot.logger.error(
+                    f"NewsFeeds.populate() ERROR | {e} | reset in DB | {guild.id = }"
+                )
             except Exception as e:
                 self.bot.logger.error(
                     f"NewsFeeds.populate() ERROR | {e} | {guild.id = }"
@@ -217,5 +232,12 @@ class Maps(dict):
                 ) or await self.bot.fetch_channel(guild.map_channel_id)
                 map_message = map_channel.get_partial_message(guild.map_message_id)
                 self[map_message] = guild.language
+            except NotFound as e:
+                guild.map_channel_id = 0
+                guild.map_message_id = 0
+                guild.save_changes()
+                return self.bot.logger.error(
+                    f"Maps.populate() ERROR | {e} | reset in DB | {guild.id = }"
+                )
             except Exception as e:
                 self.bot.logger.error(f"Maps.populate() ERROR | {e} | {guild.id = }")
