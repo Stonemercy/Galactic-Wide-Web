@@ -158,7 +158,7 @@ class Dashboards(dict):
                 guild.dashboard_channel_id = 0
                 guild.dashboard_message_id = 0
                 guild.save_changes()
-                return self.bot.logger.error(
+                self.bot.logger.error(
                     f"Dashboards.populate() ERROR | {e} | reset in DB | {guild.id = }"
                 )
             except Exception as e:
@@ -202,7 +202,7 @@ class NewsFeeds:
                 guild.patch_notes = False
                 guild.major_order_updates = False
                 guild.save_changes()
-                return self.bot.logger.error(
+                self.bot.logger.error(
                     f"NewsFeeds.populate() ERROR | {e} | reset in DB | {guild.id = }"
                 )
             except Exception as e:
@@ -236,7 +236,7 @@ class Maps(dict):
                 guild.map_channel_id = 0
                 guild.map_message_id = 0
                 guild.save_changes()
-                return self.bot.logger.error(
+                self.bot.logger.error(
                     f"Maps.populate() ERROR | {e} | reset in DB | {guild.id = }"
                 )
             except Exception as e:
