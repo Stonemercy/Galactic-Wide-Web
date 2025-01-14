@@ -80,6 +80,8 @@ class AnnouncementsCog(commands.Cog):
                 for lang in list({guild.language for guild in GWWGuild.get_all()})
             }
             await self.bot.interface_handler.send_news("Generic", embeds)
+            last_dispatch.id = self.bot.data.dispatch.id
+            last_dispatch.save_changes()
             self.bot.logger.info(
                 f"Sent generic announcements out to {len(self.bot.interface_handler.news_feeds.channels_dict['Generic'])} channels"
             )
@@ -111,6 +113,8 @@ class AnnouncementsCog(commands.Cog):
                 for lang in languages
             }
             await self.bot.interface_handler.send_news("Patch", embeds)
+            last_patch_notes.id = self.bot.data.steam[0].id
+            last_patch_notes.save_changes()
             self.bot.logger.info(
                 f"Sent patch announcements out to {len(self.bot.interface_handler.news_feeds.channels_dict['Patch'])} channels"
             )
