@@ -89,7 +89,6 @@ class Data:
                             else:
                                 bot.logger.error(f"API/WAR_TIME, {r.status}")
                         continue
-
                     if endpoint == "dss":
                         async with session.get(
                             "https://api.diveharder.com/raw/dss"
@@ -507,10 +506,6 @@ class Steam:
 
     def __repr__(self):
         return f"Steam(id={self.id}, title={self.title}, content={self.content}, author={self.author}, url={self.url})"
-
-
-class Thumbnail:
-    pass
 
 
 class Superstore:
