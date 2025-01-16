@@ -1108,16 +1108,16 @@ class Dashboard:
                         cost = (
                             f"{cost_formatted}\n"
                             f"{language_json['dashboard']['progress']}: **{tactical_action.cost.current:,.0f}**\n"
+                            f"{submittable_formatted}\n"
                             f"{ta_health_bar}\n"
-                            f"`{tactical_action.cost.progress:^25.2%}`\n"
-                            f"{submittable_formatted}"
+                            f"`{tactical_action.cost.progress:^25.2%}`"
                         )
                     elif status == "active":
                         cost = f"{language_json['ends']} <t:{int(tactical_action.status_end_datetime.timestamp())}:R>"
                     elif status == "on_cooldown":
                         cost = f"{language_json['dashboard']['DSSEmbed']['off_cooldown']} <t:{int(tactical_action.status_end_datetime.timestamp())}:R>"
                     self.add_field(
-                        tactical_action.name.title(),
+                        f"{tactical_action.name.title()} {Emojis.dss[tactical_action.name.lower().replace(' ', '_')]}",
                         (
                             f"{language_json['dashboard']['DSSEmbed']['status']}: **{language_json['dashboard']['DSSEmbed'][status]}**\n"
                             f"{cost}"
@@ -1956,7 +1956,7 @@ class DSSEmbed(Embed):
     def __init__(self, dss_data: DSS, language_json: dict):
         super().__init__(
             title=language_json["dss"]["title"],
-            colour=Colour.teal(),
+            colour=Colour.from_rgb(r=38, g=156, b=182),
         )
         self.description = language_json["dashboard"]["DSSEmbed"][
             "stationed_at"
@@ -1964,7 +1964,9 @@ class DSSEmbed(Embed):
             planet=dss_data.planet.name,
             faction_emoji=Emojis.factions[dss_data.planet.current_owner],
         )
-
+        self.description += language_json["dashboard"]["DSSEmbed"]["next_move"].format(
+            timestamp=f"<t:{int(dss_data.election_date_time.timestamp())}:R>"
+        )
         self.set_thumbnail(
             "https://cdn.discordapp.com/attachments/1212735927223590974/1312446626975187065/DSS.png?ex=674c86ab&is=674b352b&hm=3184fde3e8eece703b0e996501de23c89dc085999ebff1a77009fbee2b09ccad&"
         ).set_image(
@@ -1991,19 +1993,23 @@ class DSSEmbed(Embed):
                 cost = (
                     f"{cost_formatted}\n"
                     f"{language_json['dashboard']['progress']}: **{tactical_action.cost.current:,.0f}**\n"
+                    f"{submittable_formatted}\n"
                     f"{ta_health_bar}\n"
-                    f"`{tactical_action.cost.progress:^25.2%}`\n"
-                    f"{submittable_formatted}"
+                    f"`{tactical_action.cost.progress:^25.2%}`"
                 )
             elif status == "active":
                 cost = f"{language_json['ends']} <t:{int(tactical_action.status_end_datetime.timestamp())}:R>"
             elif status == "on_cooldown":
                 cost = f"{language_json['dashboard']['DSSEmbed']['off_cooldown']} <t:{int(tactical_action.status_end_datetime.timestamp())}:R>"
+            ta_long_description = tactical_action.strategic_description.replace(
+                ". ", ".\n- "
+            )
             self.add_field(
-                tactical_action.name.title(),
+                f"{tactical_action.name.title()} {Emojis.dss[tactical_action.name.lower().replace(' ', '_')]}",
                 (
                     f"{language_json['dashboard']['DSSEmbed']['status']}: **{language_json['dashboard']['DSSEmbed'][status]}**\n"
-                    f"{cost}"
+                    f"- {ta_long_description}\n"
+                    f"{cost}\n\u200b\n"
                 ),
                 inline=False,
             )
