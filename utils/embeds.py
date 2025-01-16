@@ -563,11 +563,11 @@ class Dashboard:
         )
         self.embeds = [
             self._major_order_embed,
+            self._dss_embed,
             self._defence_embed,
             self._illuminate_embed,
             self._automaton_embed,
             self._terminids_embed,
-            self._dss_embed,
             self._footer_embed,
         ]
         for embed in self.embeds.copy():
@@ -1079,11 +1079,10 @@ class Dashboard:
                     faction_emoji=Emojis.factions[dss.planet.current_owner],
                 )
                 self.description += "\n"
-                self.description += (
-                    language_json["dashboard"]["DSSEmbed"]["next_move"].format(
-                        timestamp=f"<t:{int(dss.election_date_time.timestamp())}:R>"
-                    ),
-                )
+                self.description += language_json["dashboard"]["DSSEmbed"][
+                    "next_move"
+                ].format(timestamp=f"<t:{int(dss.election_date_time.timestamp())}:R>")
+
                 for tactical_action in dss.tactical_actions:
                     tactical_action: DSS.TacticalAction
                     ta_health_bar = health_bar(
@@ -1098,7 +1097,7 @@ class Dashboard:
                             "cost"
                         ].format(
                             amount=f"{tactical_action.cost.target:,}",
-                            emoji=Emojis.dss[tactical_action.cost.item],
+                            emoji=Emojis.items[tactical_action.cost.item],
                             item=tactical_action.cost.item,
                         )
                         submittable_formatted = language_json["dashboard"]["DSSEmbed"][

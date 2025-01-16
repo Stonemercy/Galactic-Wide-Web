@@ -168,7 +168,7 @@ class Data:
 
         if self.__data__["dss"]:
             if self.__data__["dss"] != "Error":
-                self.dss = DSS(self.__data__["dss"], self.planets)
+                self.dss = DSS(self.__data__["dss"], self.planets, self.war_time)
             else:
                 self.dss = "Error"
 
