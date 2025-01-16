@@ -203,7 +203,9 @@ class WarUpdatesCog(commands.Cog):
                     f"<t:{(datetime.now() + timedelta(days=2)).timestamp():.0f}:R>",
                 )
             if self.bot.data.dss != "Error":
-                embed.dss_moved(campaign, choice(list(self.bot.data.planets.values())))
+                embed.dss_moved(
+                    campaign.planet, choice(list(self.bot.data.planets.values()))
+                )
                 embed.ta_status_changed(choice(self.bot.data.dss.tactical_actions))
 
         for embed in embeds.values():
