@@ -46,7 +46,7 @@ class Maps:
                     draw=background_draw,
                     coords=self.planet_coordinates[self.data.dss.planet.index],
                     fill_colour=faction_colours["DSS"],
-                    radius=42,
+                    radius=22,
                 )
             self._draw_planets(background=background)
             if self.data.dss and self.data.dss != "Error":
@@ -188,8 +188,8 @@ class Maps:
         dss_icon = Image.open("resources/DSS.png")
         dss_icon = dss_icon.convert("RGBA")
         dss_coords = (
-            int(self.planet_coordinates[self.data.dss.planet.index][0]) - 22,
-            int(self.planet_coordinates[self.data.dss.planet.index][1]) - 180,
+            int(self.planet_coordinates[self.data.dss.planet.index][0]) - 17,
+            int(self.planet_coordinates[self.data.dss.planet.index][1]) - 130,
         )
         dss_icon = background.paste(dss_icon, dss_coords, dss_icon)
 
