@@ -27,7 +27,7 @@
         },
         "DSSEmbed": {
             "stationed_at": "Stationiert auf **{planet}** {faction_emoji}",
-            "next_move": "Bewegung in: {timestamp}",
+            "next_move": "Umzug {timestamp}",
             "cost": "Kosten: {amount} {emoji} **{item}s**",
             "max_submitable": "Maximal einreichbar: **{number}** alle **{hours}** Stunden",
             "status": "Status",
