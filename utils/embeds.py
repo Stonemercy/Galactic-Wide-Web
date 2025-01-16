@@ -1117,7 +1117,7 @@ class Dashboard:
                     elif status == "on_cooldown":
                         cost = f"{language_json['dashboard']['DSSEmbed']['off_cooldown']} <t:{int(tactical_action.status_end_datetime.timestamp())}:R>"
                     self.add_field(
-                        f"{tactical_action.name.title()} {Emojis.dss[tactical_action.name.lower().replace(' ', '_')]}",
+                        f"{Emojis.dss[tactical_action.name.lower().replace(' ', '_')]} {tactical_action.name.title()}",
                         (
                             f"{language_json['dashboard']['DSSEmbed']['status']}: **{language_json['dashboard']['DSSEmbed'][status]}**\n"
                             f"{cost}"
@@ -2005,7 +2005,7 @@ class DSSEmbed(Embed):
                 ". ", ".\n- "
             )
             self.add_field(
-                f"{tactical_action.name.title()} {Emojis.dss[tactical_action.name.lower().replace(' ', '_')]}",
+                f"{Emojis.dss[tactical_action.name.lower().replace(' ', '_')]} {tactical_action.name.title()}",
                 (
                     f"{language_json['dashboard']['DSSEmbed']['status']}: **{language_json['dashboard']['DSSEmbed'][status]}**\n"
                     f"- {ta_long_description}\n"
