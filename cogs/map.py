@@ -28,10 +28,6 @@ class MapCog(commands.Cog):
             or not self.bot.data.loaded
         ):
             return
-        if self.bot.interface_handler.busy:
-            return self.bot.logger.info(
-                "Map poster tried to run but interface handler was busy"
-            )
         try:
             await self.bot.waste_bin_channel.purge(
                 before=maps_start - timedelta(hours=2)

@@ -28,10 +28,6 @@ class DashboardCog(commands.Cog):
             or dashboards_start < self.bot.ready_time
         ):
             return
-        if self.bot.interface_handler.busy:
-            return self.bot.logger.info(
-                "Dashboard tried to run but interface handler was busy"
-            )
         dashboards = {
             lang: Dashboard(
                 data=self.bot.data,
