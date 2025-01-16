@@ -68,7 +68,9 @@ class InterfaceHandler:
                     f"edit_dashboard | {e} | removed from dashboards dict and reset in DB | {guild.id = }"
                 )
             except Exception as e:
-                return self.bot.logger.error(f"edit_dashboard | {e} | {guild.id = }")
+                return self.bot.logger.error(
+                    f"edit_dashboard | {e} | {message.guild.id = }"
+                )
 
         for message, language_code in self.dashboards.copy().items():
             self.bot.loop.create_task(
