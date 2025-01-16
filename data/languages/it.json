@@ -26,7 +26,7 @@
             }
         },
         "DSSEmbed": {
-            "stationed_at": "Di stanza su **{planet}** {faction_emoji}",
+            "stationed_at": "Di stanza su **{planet}** {faction_emoji}\n",
             "next_move": "Trasloco {timestamp}",
             "cost": "Costo: {amount} {emoji} **{item}s**",
             "max_submitable": "Massimo inviabile: **{number}** ogni **{hours}** ore",
@@ -75,8 +75,8 @@
         "invasion_over": "L'invasione su {planet} è terminata {faction_emoji} {exclamation}",
         "no_territory_change": "\n-# I **{faction}** se ne sono andati e __nessun territorio ha cambiato proprietà__ {faction_emoji}",
         "dss": {
-            "has_moved": "La DSS si è spostata da **{planet1}** {faction_emoji1} a **{planet2}** {faction_emoji2} {exclamation}",
-            "ta_status_change": "**{ta_name}** ora è **{status}**"
+            "has_moved": "La DSS si è spostata da **{planet1}** {faction_emoji1} a **{planet2}** {faction_emoji2} {exclamation}\n",
+            "ta_status_change": "**{ta_name}** ora è **{status}**\n"
         }
     },
     "PlanetEmbed": {

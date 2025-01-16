@@ -26,7 +26,7 @@
             }
         },
         "DSSEmbed": {
-            "stationed_at": "Stationiert auf **{planet}** {faction_emoji}",
+            "stationed_at": "Stationiert auf **{planet}** {faction_emoji}\n",
             "next_move": "Umzug {timestamp}",
             "cost": "Kosten: {amount} {emoji} **{item}s**",
             "max_submitable": "Maximal einreichbar: **{number}** alle **{hours}** Stunden",
@@ -75,8 +75,8 @@
         "invasion_over": "Die Invasion auf {planet} ist beendet {faction_emoji} {exclamation}",
         "no_territory_change": "\n-# Die **{faction}** haben sich zurückgezogen und __kein Territorium hat den Besitzer gewechselt__ {faction_emoji}",
         "dss": {
-            "has_moved": "Die DSS ist von **{planet1}** {faction_emoji1} nach **{planet2}** {faction_emoji2} {exclamation} gezogen",
-            "ta_status_change": "**{ta_name}** ist jetzt **{status}**"
+            "has_moved": "Die DSS ist von **{planet1}** {faction_emoji1} nach **{planet2}** {faction_emoji2} {exclamation} gezogen\n",
+            "ta_status_change": "**{ta_name}** ist jetzt **{status}**\n"
         }
     },
     "PlanetEmbed": {

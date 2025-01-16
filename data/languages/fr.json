@@ -26,7 +26,7 @@
             }
         },
         "DSSEmbed": {
-            "stationed_at": "Stationné à **{planet}** {faction_emoji}",
+            "stationed_at": "Stationné à **{planet}** {faction_emoji}\n",
             "next_move": "Déménagement {timestamp}",
             "cost": "Coût : {amount} {emoji} **{item}s**",
             "max_submitable": "Max soumis: **{number}** toutes les **{hours}** heures",
@@ -75,8 +75,8 @@
         "invasion_over": "L'invasion sur {planet} est terminée {faction_emoji} {exclamation}",
         "no_territory_change": "\n-# Les **{faction}** sont partis et __aucun territoire n'a changé de propriétaire__ {faction_emoji}",
         "dss": {
-            "has_moved": "La DSS s'est déplacé de **{planet1}** {faction_emoji1} à **{planet2}** {faction_emoji2} {exclamation}",
-            "ta_status_change": "**{ta_name}** est maintenant **{status}**"
+            "has_moved": "La DSS s'est déplacé de **{planet1}** {faction_emoji1} à **{planet2}** {faction_emoji2} {exclamation}\n",
+            "ta_status_change": "**{ta_name}** est maintenant **{status}**\n"
         }
     },
     "PlanetEmbed": {
