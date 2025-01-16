@@ -1078,7 +1078,6 @@ class Dashboard:
                     planet=dss.planet.name,
                     faction_emoji=Emojis.factions[dss.planet.current_owner],
                 )
-                self.description += "\n"
                 self.description += language_json["dashboard"]["DSSEmbed"][
                     "next_move"
                 ].format(timestamp=f"<t:{int(dss.election_date_time.timestamp())}:R>")
