@@ -75,8 +75,8 @@
         "invasion_over": "The invasion on {planet} has ended {faction_emoji} {exclamation}",
         "no_territory_change": "\n-# The **{faction}** have left and __no territory has changed ownership__ {faction_emoji}",
         "dss": {
-            "has_moved": "The DSS has moved from **{planet1}** {faction_emoji1} to **{planet2}** {faction_emoji2} {exclamation}",
-            "ta_status_change": "**{ta_name}** is now **{status}**"
+            "has_moved": "The DSS has moved from **{planet1}** {faction_emoji1} to **{planet2}** {faction_emoji2} {exclamation}\n",
+            "ta_status_change": "**{ta_name}** is now **{status}**\n"
         }
     },
     "PlanetEmbed": {
