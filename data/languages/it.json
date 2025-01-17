@@ -28,7 +28,7 @@
         "DSSEmbed": {
             "stationed_at": "Di stanza su **{planet}** {faction_emoji}\n",
             "next_move": "Trasloco {timestamp}",
-            "cost": "Costo: {amount} {emoji} **{item}s**",
+            "cost": "Costo: {emoji} {amount} **{item}s**",
             "max_submitable": "Massimo inviabile: **{number}** ogni **{hours}** ore",
             "status": "Stato",
             "preparing": "Preparazione in corso",

@@ -28,7 +28,7 @@
         "DSSEmbed": {
             "stationed_at": "Stationné à **{planet}** {faction_emoji}\n",
             "next_move": "Déménagement {timestamp}",
-            "cost": "Coût : {amount} {emoji} **{item}s**",
+            "cost": "Coût : {emoji} {amount} **{item}s**",
             "max_submitable": "Max soumis: **{number}** toutes les **{hours}** heures",
             "status": "Statut",
             "preparing": "Préparation",
