@@ -1,11 +1,17 @@
 from datetime import datetime, time
 from os import getenv
-from disnake import AppCmdInter, Permissions
+from disnake import (
+    AppCmdInter,
+    Permissions,
+    InteractionContextTypes,
+    ApplicationInstallTypes,
+)
 from disnake.ext import commands, tasks
 from main import GalacticWideWebBot
 from utils.checks import wait_for_startup
 from utils.db import GWWGuild
 from utils.embeds import PersonalOrderEmbed
+from utils.interactables import WikiButton
 
 SUPPORT_SERVER_ID = [int(getenv("SUPPORT_SERVER"))]
 
@@ -35,6 +41,41 @@ class PersonalOrderCog(commands.Cog):
         text = f"Forced updates of {len(self.bot.interface_handler.news_feeds.channels_dict['PO'])} PO updates in {(datetime.now() - update_start).total_seconds():.2f} seconds"
         self.bot.logger.info(text)
         await inter.send(text, ephemeral=True)
+
+    @wait_for_startup()
+    @commands.slash_command(
+        description="Returns information on an Automaton or variation.",
+        install_types=ApplicationInstallTypes.all(),
+        contexts=InteractionContextTypes.all(),
+    )
+    async def personal_order(
+        self,
+        inter: AppCmdInter,
+        public: str = commands.Param(
+            choices=["Yes", "No"],
+            default="No",
+            description="If you want the response to be seen by others in the server.",
+        ),
+    ):
+        await inter.response.defer(ephemeral=public != "Yes")
+        self.bot.logger.info(
+            f"{self.qualified_name} | /{inter.application_command.name} <{public = }>"
+        )
+        if inter.guild:
+            guild = GWWGuild.get_by_id(inter.guild_id)
+        else:
+            guild = GWWGuild.default()
+        await inter.send(
+            embed=PersonalOrderEmbed(
+                personal_order=self.bot.data.personal_order,
+                language_json=self.bot.json_dict["languages"][guild.language],
+                reward_types=self.bot.json_dict["items"]["reward_types"],
+            ),
+            components=[
+                WikiButton(link=f"https://helldivers.wiki.gg/wiki/Personal_Orders")
+            ],
+            ephemeral=public != "Yes",
+        )
 
     @tasks.loop(
         time=[time(hour=9, minute=10, second=0), time(hour=21, minute=10, second=0)]
