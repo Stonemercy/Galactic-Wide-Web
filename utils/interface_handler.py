@@ -142,6 +142,8 @@ class InterfaceHandler:
         self.busy = False
 
 
+class Dashboards(list):
+    """A list of all Dashboards configured"""
 
     def __init__(self, all_guilds: list[GWWGuild], bot):
         self.all_guilds = all_guilds
