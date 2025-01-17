@@ -73,9 +73,10 @@ class InterfaceHandler:
                     f"edit_dashboard | {e} | {message.guild.id = }"
                 )
 
-        for message, language_code in self.dashboards.copy().items():
+        for message in self.dashboards.copy():
+            guild = GWWGuild.get_by_id(message.guild.id)
             self.bot.loop.create_task(
-                edit_dashboard(message, dashboards_dict[language_code].embeds)
+                edit_dashboard(message, dashboards_dict[guild.language].embeds)
             )
             await sleep(0.03)  # discord accepts 1 message every 0.02s
         self.busy = False
@@ -98,8 +99,9 @@ class InterfaceHandler:
             except Exception as e:
                 return self.bot.logger.error(f"edit_map | {e} | {message.guild.id = }")
 
-        for message, language_code in self.maps.copy().items():
-            self.bot.loop.create_task(edit_map(message, map_dict[language_code]))
+        for message in self.maps.copy():
+            guild = GWWGuild.get_by_id(message.guild.id)
+            self.bot.loop.create_task(edit_map(message, map_dict[guild.language]))
             await sleep(0.03)
         self.busy = False
 
@@ -130,24 +132,23 @@ class InterfaceHandler:
             ]
         else:
             components = None
-        dict_to_use = self.news_feeds.channels_dict[news_type]
-        for channel, language_code in dict_to_use.copy().items():
+        list_to_use = self.news_feeds.channels_dict[news_type]
+        for channel in list_to_use.copy():
+            guild = GWWGuild.get_by_id(channel.guild.id)
             self.bot.loop.create_task(
-                send_embed(channel, embeds_dict[language_code], components)
+                send_embed(channel, embeds_dict[guild.language], components)
             )
             await sleep(0.03)
         self.busy = False
 
 
-class Dashboards(dict):
-    """A dict of all Dashboards configured `{message:language_code}`"""
 
     def __init__(self, all_guilds: list[GWWGuild], bot):
         self.all_guilds = all_guilds
         self.bot = bot
 
     async def populate(self):
-        """Fills the dict with PartialMessages"""
+        """Fills the list with PartialMessages"""
         for guild in self.all_guilds:
             try:
                 dashboard_channel = self.bot.get_channel(
@@ -156,7 +157,7 @@ class Dashboards(dict):
                 dashboard_message = dashboard_channel.get_partial_message(
                     guild.dashboard_message_id
                 )
-                self[dashboard_message] = guild.language
+                self.append(dashboard_message)
             except NotFound as e:
                 guild.dashboard_channel_id = 0
                 guild.dashboard_message_id = 0
@@ -176,9 +177,9 @@ class NewsFeeds:
     def __init__(self, all_guilds: list[GWWGuild], bot):
         self.all_guilds = all_guilds
         self.bot = bot
-        self.__announcement_channels__ = {}
-        self.__patch_note_channels__ = {}
-        self.__major_order_channels__ = {}
+        self.__announcement_channels__ = []
+        self.__patch_note_channels__ = []
+        self.__major_order_channels__ = []
 
     @property
     def channels_dict(self):
@@ -195,11 +196,11 @@ class NewsFeeds:
                 announcement_channel = self.bot.get_channel(
                     guild.announcement_channel_id
                 ) or await self.bot.fetch_channel(guild.announcement_channel_id)
-                self.__announcement_channels__[announcement_channel] = guild.language
+                self.__announcement_channels__.append(announcement_channel)
                 if guild.patch_notes:
-                    self.__patch_note_channels__[announcement_channel] = guild.language
+                    self.__patch_note_channels__.append(announcement_channel)
                 if guild.major_order_updates:
-                    self.__major_order_channels__[announcement_channel] = guild.language
+                    self.__major_order_channels__.append(announcement_channel)
             except NotFound as e:
                 guild.announcement_channel_id = 0
                 guild.patch_notes = False
@@ -219,8 +220,8 @@ class NewsFeeds:
         self.__major_order_channels__.clear()
 
 
-class Maps(dict):
-    """A dict of all Maps configured `{message:language_code}`"""
+class Maps(list):
+    """A list of all Maps configured"""
 
     def __init__(self, all_guilds: list[GWWGuild], bot):
         self.all_guilds = all_guilds
@@ -234,7 +235,7 @@ class Maps(dict):
                     guild.map_channel_id
                 ) or await self.bot.fetch_channel(guild.map_channel_id)
                 map_message = map_channel.get_partial_message(guild.map_message_id)
-                self[map_message] = guild.language
+                self.append(map_message)
             except NotFound as e:
                 guild.map_channel_id = 0
                 guild.map_message_id = 0
