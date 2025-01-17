@@ -129,8 +129,8 @@ class WarUpdatesCog(commands.Cog):
                         self.bot.data.planets[last_dss_info.planet_index],
                         self.bot.data.dss.planet,
                     )
-                    last_dss_info.planet_index = self.bot.data.dss.planet.index
-                    last_dss_info.save_changes()
+                last_dss_info.planet_index = self.bot.data.dss.planet.index
+                last_dss_info.save_changes()
                 new_updates = True
             for index, ta in enumerate(self.bot.data.dss.tactical_actions, 1):
                 ta: DSS.TacticalAction
