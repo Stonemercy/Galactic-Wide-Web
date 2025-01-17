@@ -1115,7 +1115,8 @@ class Dashboard:
                             f"`{tactical_action.cost.progress:^25.2%}`"
                         )
                     elif status == "active":
-                        cost = f"{language_json['ends']} <t:{int(tactical_action.status_end_datetime.timestamp())}:R>"
+                        cost = f"{language_json['ends']} <t:{int(tactical_action.status_end_datetime.timestamp())}:R>\n"
+                        cost += tactical_action.strategic_description
                     elif status == "on_cooldown":
                         cost = f"{language_json['dashboard']['DSSEmbed']['off_cooldown']} <t:{int(tactical_action.status_end_datetime.timestamp())}:R>"
                     self.add_field(
