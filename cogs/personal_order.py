@@ -44,7 +44,7 @@ class PersonalOrderCog(commands.Cog):
 
     @wait_for_startup()
     @commands.slash_command(
-        description="Returns information on an Automaton or variation.",
+        description="Returns information on todays personal order.",
         install_types=ApplicationInstallTypes.all(),
         contexts=InteractionContextTypes.all(),
     )
