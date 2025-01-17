@@ -41,14 +41,15 @@ class InterfaceHandler:
         await self.news_feeds.populate()
         await self.maps.populate()
         self.loaded = True
+        number_of_guilds = len(self.all_guilds)
         self.bot.logger.info(
             (
                 f"populate_lists completed | "
-                f"{len(self.dashboards)} dashboards ({(len(self.dashboards) / len(self.all_guilds)):.0%}) | "
-                f"{len(self.news_feeds.channels_dict['Generic'])} announcement channels ({(len(self.news_feeds.channels_dict['Generic']) / len(self.all_guilds)):.0%}) | "
-                f"{len(self.news_feeds.channels_dict['Patch'])} patch channels ({(len(self.news_feeds.channels_dict['Patch']) / len(self.all_guilds)):.0%}) | "
-                f"{len(self.news_feeds.channels_dict['MO'])} MO channels ({(len(self.news_feeds.channels_dict['MO']) / len(self.all_guilds)):.0%}) | "
-                f"{len(self.maps)} maps ({(len(self.maps) / len(self.all_guilds)):.0%})"
+                f"{len(self.dashboards)} dashboards ({(len(self.dashboards) / number_of_guilds):.0%}) | "
+                f"{len(self.news_feeds.channels_dict['Generic'])} announcement channels ({(len(self.news_feeds.channels_dict['Generic']) / number_of_guilds):.0%}) | "
+                f"{len(self.news_feeds.channels_dict['Patch'])} patch channels ({(len(self.news_feeds.channels_dict['Patch']) / number_of_guilds):.0%}) | "
+                f"{len(self.news_feeds.channels_dict['MO'])} MO channels ({(len(self.news_feeds.channels_dict['MO']) / number_of_guilds):.0%}) | "
+                f"{len(self.maps)} maps ({(len(self.maps) / number_of_guilds):.0%})"
             )
         )
 
