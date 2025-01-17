@@ -60,7 +60,7 @@ class InterfaceHandler:
             try:
                 await message.edit(embeds=embeds)
             except (NotFound, Forbidden) as e:
-                self.dashboards.pop(message)
+                self.dashboards.remove(message)
                 guild = GWWGuild.get_by_id(message.guild.id)
                 guild.dashboard_channel_id = 0
                 guild.dashboard_message_id = 0
@@ -88,7 +88,7 @@ class InterfaceHandler:
             try:
                 await message.edit(embed=embed)
             except (NotFound, Forbidden) as e:
-                self.maps.pop(message)
+                self.maps.remove(message)
                 guild = GWWGuild.get_by_id(message.guild.id)
                 guild.map_channel_id = 0
                 guild.map_message_id = 0
@@ -112,9 +112,9 @@ class InterfaceHandler:
             try:
                 await channel.send(embed=embed, components=components)
             except (NotFound, Forbidden) as e:
-                for channels_dict in self.news_feeds.channels_dict.values():
-                    if channel in channels_dict:
-                        channels_dict.pop(channel)
+                for channels_list in self.news_feeds.channels_dict.values():
+                    if channel in channels_list:
+                        channels_list.remove(channel)
                 guild = GWWGuild.get_by_id(channel.guild.id)
                 guild.announcement_channel_id = 0
                 guild.patch_notes = False
