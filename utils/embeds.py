@@ -482,6 +482,11 @@ class CampaignEmbed(Embed):
 
     def dss_moved(self, before_planet: Planet, after_planet: Planet):
         description = self.fields[3].value
+        exclamation = ""
+        if after_planet.in_assignment:
+            exclamation += Emojis.icons["MO"]
+        if after_planet.event:
+            exclamation += f" 🛡️ {Emojis.factions[after_planet.event.faction]}"
         description += self.language_json["CampaignEmbed"]["dss"]["has_moved"].format(
             planet1=self.planet_names_json[str(before_planet.index)]["names"][
                 self.language_json["code_long"]
@@ -491,7 +496,7 @@ class CampaignEmbed(Embed):
                 self.language_json["code_long"]
             ],
             faction_emoji2=Emojis.factions[after_planet.current_owner],
-            exclamation=Emojis.icons["MO"] if after_planet.in_assignment else "",
+            exclamation=exclamation,
         )
         self.set_field_at(3, self.fields[3].name, description, inline=False)
 
