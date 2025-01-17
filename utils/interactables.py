@@ -227,3 +227,17 @@ class Setup:
                     self.emoji = "✅"
                 else:
                     self.emoji = "❌"
+
+    class PersonalOrder:
+        class PersonalOrderUpdatesButton(Button):
+            def __init__(self, enabled: bool = False):
+                super().__init__(
+                    style=ButtonStyle.gray,
+                    label="Personal Order",
+                    custom_id="personal_order_updates_button",
+                    disabled=True,
+                )
+                if enabled:
+                    self.emoji = "✅"
+                else:
+                    self.emoji = "❌"

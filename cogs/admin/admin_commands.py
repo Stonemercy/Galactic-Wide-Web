@@ -196,6 +196,7 @@ class AdminCommandsCog(commands.Cog):
                 f"- Announcement channels:\n  - Amount: {len(self.bot.interface_handler.news_feeds.channels_dict['Generic'])}\n\n"
                 f"- Patch Channels:\n  - Amount: {len(self.bot.interface_handler.news_feeds.channels_dict['Patch'])}\n\n"
                 f"- Major Order channels:\n  - Amount: {len(self.bot.interface_handler.news_feeds.channels_dict['MO'])}\n\n"
+                f"- Personal Order channels:\n  - Amount: {len(self.bot.interface_handler.news_feeds.channels_dict['PO'])}\n\n"
                 f"- Map messages:\n  - Amount: {len(self.bot.interface_handler.maps)}\n\n"
             ),
             ephemeral=True,

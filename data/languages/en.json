@@ -109,9 +109,10 @@
         "map": "Map",
         "map_channel": "Map channel",
         "map_message": "Map message",
-        "language": "Language",
+        "language": "{flag_emoji} Language",
         "patch_notes": "Patch notes",
         "mo_updates": "Major Order updates",
+        "po_updates": "Personal Order Updates",
         "not_set": "Not set",
         "footer_message_not_set": "-# If you're seeing `Not set` where a channel/message should be, check the permissions for the bot!",
         "footer_message_announcements_asterisk": "-# \\* to set this up, Announcements must be configured"

@@ -109,9 +109,10 @@
         "map": "Mappa",
         "map_channel": "Canale della mappa",
         "map_message": "Messaggio della mappa",
-        "language": "Lingua",
+        "language": "{flag_emoji} Lingua",
         "patch_notes": "Note sulla patch",
         "mo_updates": "Aggiornamenti Ordine Maggiore",
+        "po_updates": "Aggiornamenti degli ordini personali",
         "not_set": "Non impostato",
         "footer_message_not_set": "-# Se vedi `Non impostato` dove dovrebbe esserci un canale/messaggio, controlla i permessi per il bot!",
         "footer_message_announcements_asterisk": "-# \\* per configurare questo, gli Annunci devono essere configurati"

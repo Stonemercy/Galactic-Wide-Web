@@ -109,9 +109,10 @@
         "map": "Karte",
         "map_channel": "Kartenkanal",
         "map_message": "Kartennachricht",
-        "language": "Sprache",
+        "language": "{flag_emoji} Sprache",
         "patch_notes": "Patch-Notizen",
         "mo_updates": "Große Befehl-Updates",
+        "po_updates": "Persönliche Auftragsaktualisierungen",
         "not_set": "Nicht gesetzt",
         "footer_message_not_set": "-# Wenn Sie `Nicht gesetzt` sehen, wo ein Kanal/Nachricht sein sollte, überprüfen Sie die Berechtigungen für den Bot!",
         "footer_message_announcements_asterisk": "-# \\* um dies einzurichten, müssen Ankündigungen konfiguriert sein"

@@ -10,6 +10,7 @@ from data.lists import (
     stratagem_id_dict,
     assignment_task_images_dict,
     task_type_15_progress_dict,
+    stratagem_image_dict,
 )
 from datetime import datetime, timedelta
 from disnake import APISlashCommand, Embed, Colour, File, ModalInteraction, OptionType
@@ -25,6 +26,7 @@ from utils.data import (
     Campaign,
     Data,
     Dispatch,
+    PersonalOrder,
     PlanetEvents,
     Planets,
     Steam,
@@ -1867,12 +1869,6 @@ class SetupEmbed(Embed):
             inline=False,
         )
 
-        # language
-        self.add_field(
-            language_json["SetupEmbed"]["language"],
-            guild.language_long,
-        )
-
         # patch notes
         self.add_field(
             f"{language_json['SetupEmbed']['patch_notes']}*",
@@ -1883,6 +1879,26 @@ class SetupEmbed(Embed):
         self.add_field(
             f"{language_json['SetupEmbed']['mo_updates']}*",
             {True: ":white_check_mark:", False: ":x:"}[guild.major_order_updates],
+        )
+
+        # po updates
+        self.add_field(
+            f"{language_json['SetupEmbed']['po_updates']}*",
+            {True: ":white_check_mark:", False: ":x:"}[guild.personal_order_updates],
+        )
+
+        # language
+        flag_dict = {
+            "en": ":flag_gb:",
+            "fr": ":flag_fr:",
+            "de": ":flag_de:",
+            "it": ":flag_it:",
+        }
+        self.add_field(
+            language_json["SetupEmbed"]["language"].format(
+                flag_emoji=flag_dict[guild.language]
+            ),
+            guild.language_long,
         )
 
         # extra
@@ -2011,5 +2027,53 @@ class DSSEmbed(Embed):
                     f"- {ta_long_description}\n"
                     f"{cost}\n\u200b\n"
                 ),
+                inline=False,
+            )
+
+
+class PersonalOrderEmbed(Embed):
+    def __init__(
+        self,
+        personal_order: PersonalOrder,
+        language_json: dict,
+        reward_types: dict,
+    ):
+        super().__init__(
+            description=f"Personal order ends <t:{int(personal_order.expiration_datetime.timestamp())}:R>",
+            colour=Colour.from_rgb(*faction_colours["MO"]),
+        )
+        self.set_thumbnail(
+            url="https://cdn.discordapp.com/attachments/1212735927223590974/1329395683861594132/personal_order_icon.png?ex=678a2fb6&is=6788de36&hm=2f38b1b89aa5475862c8fdbde8d8fdbd003b39e8a4591d868a51814d57882da2&"
+        )
+
+        for task in personal_order.setting.tasks:
+            task: PersonalOrder.Setting.Tasks.Task
+            if task.type == 3:
+                full_objective = f"Kill {task.values[2]} "
+                full_objective += (
+                    language_json["factions"][str(task.values[0] + 1)]
+                    if task.values[0]
+                    else "Enemies"
+                )
+                stratagem = stratagem_id_dict.get(task.values[5], None)
+                if stratagem:
+                    self.set_thumbnail(url=stratagem_image_dict[task.values[5]])
+                    full_objective += (
+                        f" with the {stratagem_id_dict[task.values[5]]}"
+                        if task.values[5]
+                        else ""
+                    )
+                self.add_field(
+                    full_objective,
+                    "",
+                    inline=False,
+                )
+
+        for reward in personal_order.setting.rewards:
+            reward: PersonalOrder.Setting.Rewards.Reward
+            reward_name = reward_types[str(reward.type)]
+            self.add_field(
+                "Reward",
+                f"{reward.amount} {reward_name}s {Emojis.items[reward_name]}",
                 inline=False,
             )

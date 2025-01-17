@@ -23,6 +23,7 @@ class GWWGuild:
         "map_channel_id",
         "map_message_id",
         "major_order_updates",
+        "personal_order_updates",
     )
 
     def __init__(
@@ -36,6 +37,7 @@ class GWWGuild:
         map_channel_id: int,
         map_message_id: int,
         major_order_updates: bool,
+        personal_order_updates: bool,
     ):
         self.id: int = id
         self.dashboard_channel_id: int = dashboard_channel_id
@@ -49,6 +51,7 @@ class GWWGuild:
         self.map_channel_id: int = map_channel_id
         self.map_message_id: int = map_message_id
         self.major_order_updates: bool = major_order_updates
+        self.personal_order_updates: bool = personal_order_updates
 
     @classmethod
     def get_by_id(cls, guild_id: int):
@@ -100,7 +103,16 @@ class GWWGuild:
         ) as conn:
             with conn.cursor() as curs:
                 curs.execute(
-                    f"UPDATE guilds SET dashboard_channel_id = {self.dashboard_channel_id}, dashboard_message_id = {self.dashboard_message_id}, announcement_channel_id = {self.announcement_channel_id}, patch_notes = {self.patch_notes}, language = '{self.language}', map_channel_id = {self.map_channel_id}, map_message_id = {self.map_message_id}, major_order_updates = {self.major_order_updates} where guild_id = {self.id}"
+                    f"""UPDATE guilds SET dashboard_channel_id = {self.dashboard_channel_id},
+                    dashboard_message_id = {self.dashboard_message_id},
+                    announcement_channel_id = {self.announcement_channel_id},
+                    patch_notes = {self.patch_notes},
+                    language = '{self.language}',
+                    map_channel_id = {self.map_channel_id},
+                    map_message_id = {self.map_message_id},
+                    major_order_updates = {self.major_order_updates},
+                    personal_order_updates = {self.personal_order_updates}
+                    where guild_id = {self.id}"""
                 )
                 conn.commit()
 

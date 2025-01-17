@@ -109,9 +109,10 @@
         "map": "Carte",
         "map_channel": "Canal de la carte",
         "map_message": "Message de la carte",
-        "language": "Langue",
+        "language": "{flag_emoji} Langue",
         "patch_notes": "Notes de mise à jour",
         "mo_updates": "Mises à jour des commandes prioritaire",
+        "po_updates": "Mises à jour des commandes personnelles",
         "not_set": "Non défini",
         "footer_message_not_set": "-# Si vous voyez `Non défini` là où un canal/message devrait être, vérifiez les permissions du bot !",
         "footer_message_announcements_asterisk": "-# \\* pour configurer cela, les Annonces doivent être configurées"

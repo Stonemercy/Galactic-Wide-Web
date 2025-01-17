@@ -24,6 +24,7 @@ class Data:
         "superstore",
         "dss",
         "war_time",
+        "personal_order",
         "loaded",
         "liberation_changes",
         "planets_with_player_reqs",
@@ -40,6 +41,7 @@ class Data:
             "superstore": None,
             "dss": None,
             "war_time": None,
+            "personal_order": None,
         }
         self.loaded = False
         self.liberation_changes = {}
@@ -112,6 +114,16 @@ class Data:
                                 self.__data__[endpoint] = data[0]
                             else:
                                 bot.logger.error(f"API/DSS, {r.status}")
+                        continue
+                    if endpoint == "personal_order":
+                        async with session.get(
+                            "https://api.diveharder.com/v1/personal_order"
+                        ) as r:
+                            if r.status == 200:
+                                data = await r.json()
+                                self.__data__[endpoint] = data[-1]
+                            else:
+                                bot.logger.error(f"API/Personal_Order, {r.status}")
                         continue
 
                     try:
@@ -242,6 +254,9 @@ class Data:
 
         if self.__data__["superstore"]:
             self.superstore = Superstore(self.__data__["superstore"])
+
+        if self.__data__["personal_order"]:
+            self.personal_order = PersonalOrder(self.__data__["personal_order"])
 
     def update_liberation_rates(self):
         for campaign in self.campaigns:
@@ -558,3 +573,56 @@ class DSS:
                     cost["maxDonationAmount"],
                     cost["maxDonationPeriodSeconds"],
                 )
+
+
+class PersonalOrder:
+    def __init__(self, personal_order: dict):
+        self.id: int = personal_order["id32"]
+        self.expiration_secs_from_now: int = personal_order["expiresIn"]
+        self.expiration_datetime: datetime = datetime.fromtimestamp(
+            datetime.now().timestamp() + self.expiration_secs_from_now
+        )
+        self.setting = self.Setting(personal_order["setting"])
+
+    def __repr__(self):
+        return f"PersonalOrder(id={self.id}, expiration_secs_from_now={self.expiration_secs_from_now}, expiration_datetime={self.expiration_datetime}, setting={self.setting})"
+
+    class Setting:
+        def __init__(self, setting: dict):
+            self.type: int = setting["type"]
+            self.title: str = setting["overrideTitle"]
+            self.brief: str = setting["overrideBrief"]
+            self.description: str = setting["taskDescription"]
+            self.tasks = self.Tasks(setting["tasks"])
+            self.rewards = self.Rewards(setting["rewards"])
+            self.flags: int = setting["flags"]
+
+        def __repr__(self):
+            return f"Setting(type={self.type}, title={self.title}, brief={self.brief}, description={self.description}, tasks={self.tasks}, rewards={self.rewards}, flags={self.flags})"
+
+        class Tasks(list):
+            def __init__(self, tasks: list):
+                for task in tasks:
+                    self.append(self.Task(task))
+
+            class Task:
+                def __init__(self, task: dict):
+                    self.type: int = task["type"]
+                    self.values: dict = task["values"]
+                    self.value_types: dict = task["valueTypes"]
+
+                def __repr__(self):
+                    return f"Task(type={self.type}, values={self.values}, value_types={self.value_types})"
+
+        class Rewards(list):
+            def __init__(self, rewards: list):
+                for reward in rewards:
+                    self.append(self.Reward(reward))
+
+            class Reward:
+                def __init__(self, reward: dict):
+                    self.type: int = reward["type"]
+                    self.amount: int = reward["amount"]
+
+                def __repr__(self):
+                    return f"Reward(type={self.type}, amount={self.amount})"
