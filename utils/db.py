@@ -87,7 +87,7 @@ class GWWGuild:
 
     @classmethod
     def default(cls):
-        return cls(0, 0, 0, 0, False, "en", 0, 0, False)
+        return cls(0, 0, 0, 0, False, "en", 0, 0, False, False)
 
     def delete(guild_id: int):
         with connect(
