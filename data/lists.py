@@ -216,6 +216,10 @@ help_dict = {
         "long_description": "Get an up-to-date map of the galaxy. This is generated upon use of the command so it may take a couple of seconds.",
         "example_usage": "**`/map faction:Automaton public:Yes`** would return a map of the galaxy zoomed in on Automaton planets with names over active planets. It can also be seen by others in discord.",
     },
+    "personal_order": {
+        "long_description": "Returns the current Personal Order",
+        "example_usage": "**`/personal_order public:Yes`** returns an embed with todays personal order details. It can also be seen by others in discord.",
+    },
     "planet": {
         "long_description": "Returns the war details on a specific planet. This includes a lot of stats that arent available in the dashboard.",
         "example_usage": "**`/planet planet:Heeth with_map:Yes public:Yes`** returns a large embed with all of the stats the planet has. It also includes a map with an arrow pointing to the planet. It can also be seen by others in discord.",
