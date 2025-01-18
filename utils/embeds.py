@@ -506,7 +506,12 @@ class CampaignEmbed(Embed):
         description = self.fields[3].value
         description += self.language_json["CampaignEmbed"]["dss"][
             "ta_status_change"
-        ].format(ta_name=tactical_action.name, status=statuses[tactical_action.status])
+        ].format(
+            ta_name=tactical_action.name,
+            status=self.language_json["dashboard"]["DSSEmbed"][
+                statuses[tactical_action.status]
+            ],
+        )
         self.set_field_at(3, self.fields[3].name, description, inline=False)
 
 
