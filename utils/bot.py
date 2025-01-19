@@ -8,6 +8,10 @@ from os import getenv, listdir
 from utils.interface_handler import InterfaceHandler
 from utils.data import Data
 
+MODERATOR_CHANNEL_ID = int(getenv("MODERATION_CHANNEL"))
+FEEDBACK_CHANNEL_ID = int(getenv("FEEDBACK_CHANNEL"))
+WASTE_BIN_CHANNEL_ID = int(getenv("WASTE_BIN_CHANNEL"))
+
 
 class GalacticWideWebBot(commands.AutoShardedInteractionBot):
     def __init__(self):
@@ -29,11 +33,12 @@ class GalacticWideWebBot(commands.AutoShardedInteractionBot):
         self.load_json()
         self.data = Data()
         self.command_usage = {}
+        self.moderator_channel = None
+        self.feedback_channel = None
+        self.waste_bin_channel = None
 
     async def on_ready(self):
-        self.moderator_channel = self.get_channel(int(getenv("MODERATION_CHANNEL")))
-        self.feedback_channel = self.get_channel(int(getenv("FEEDBACK_CHANNEL")))
-        self.waste_bin_channel = self.get_channel(int(getenv("WASTE_BIN_CHANNEL")))
+        await self.get_channels()
         self.logger.info(
             f"Loaded {len(self.cogs)}/{len([f for f in listdir('cogs') if f.endswith('.py')]) + len([f for f in listdir('cogs/admin') if f.endswith('.py')])} cogs successfully"
         )
@@ -52,3 +57,18 @@ class GalacticWideWebBot(commands.AutoShardedInteractionBot):
             else:
                 with open(values["path"], encoding="UTF-8") as json_file:
                     self.json_dict[key] = load(json_file)
+
+    async def get_channels(self):
+        channel_dict = {
+            "moderator_channel": MODERATOR_CHANNEL_ID,
+            "feedback_channel": FEEDBACK_CHANNEL_ID,
+            "waste_bin_channel": WASTE_BIN_CHANNEL_ID,
+        }
+        for attr, channel_id in channel_dict.items():
+            while not getattr(self, attr):
+                setattr(
+                    self,
+                    attr,
+                    self.get_channel(channel_id)
+                    or await self.fetch_channel(channel_id),
+                )
