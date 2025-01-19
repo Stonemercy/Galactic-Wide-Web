@@ -32,7 +32,7 @@
             "max_submitable": "Max soumis: **{number}** toutes les **{hours}** heures",
             "status": "Statut",
             "preparing": "Préparation",
-            "active": "Actif",
+            "active": "actif",
             "on_cooldown": "en récupération",
             "off_cooldown": "hors récupération"
         },

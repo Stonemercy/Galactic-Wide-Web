@@ -32,7 +32,7 @@
             "max_submitable": "Massimo inviabile: **{number}** ogni **{hours}** ore",
             "status": "Stato",
             "preparing": "Preparazione in corso",
-            "active": "Attivo",
+            "active": "attivo",
             "on_cooldown": "in ricarica",
             "off_cooldown": "ricarica completata"
         },

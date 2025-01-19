@@ -32,7 +32,7 @@
             "max_submitable": "Max submitable: **{number}** every **{hours}** hours",
             "status": "Status",
             "preparing": "Preparing",
-            "active": "Active",
+            "active": "active",
             "on_cooldown": "on cooldown",
             "off_cooldown": "off cooldown"
         },

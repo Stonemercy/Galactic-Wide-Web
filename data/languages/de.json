@@ -32,7 +32,7 @@
             "max_submitable": "Maximal einreichbar: **{number}** alle **{hours}** Stunden",
             "status": "Status",
             "preparing": "Vorbereitung",
-            "active": "Aktiv",
+            "active": "aktiv",
             "on_cooldown": "abklingzeit",
             "off_cooldown": "keine abklingzeit"
         },
