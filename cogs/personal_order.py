@@ -70,6 +70,7 @@ class PersonalOrderCog(commands.Cog):
                 personal_order=self.bot.data.personal_order,
                 language_json=self.bot.json_dict["languages"][guild.language],
                 reward_types=self.bot.json_dict["items"]["reward_types"],
+                item_names_json=self.bot.json_dict["items"]["item_names"],
             ),
             components=[
                 WikiButton(link=f"https://helldivers.wiki.gg/wiki/Personal_Orders")
@@ -93,6 +94,7 @@ class PersonalOrderCog(commands.Cog):
                 personal_order=self.bot.data.personal_order,
                 language_json=self.bot.json_dict["languages"][lang],
                 reward_types=self.bot.json_dict["items"]["reward_types"],
+                item_names_json=self.bot.json_dict["items"]["item_names"],
             )
             for lang in list(set([guild.language for guild in GWWGuild.get_all()]))
         }

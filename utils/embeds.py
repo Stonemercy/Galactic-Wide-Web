@@ -2049,6 +2049,7 @@ class PersonalOrderEmbed(Embed):
         personal_order: PersonalOrder,
         language_json: dict,
         reward_types: dict,
+        item_names_json: dict,
     ):
         super().__init__(
             description=f"Personal order ends <t:{int(personal_order.expiration_datetime.timestamp())}:R>",
@@ -2060,6 +2061,16 @@ class PersonalOrderEmbed(Embed):
 
         for task in personal_order.setting.tasks:
             task: PersonalOrder.Setting.Tasks.Task
+            if task.type == 2:
+                item = item_names_json.get(str(task.values[5]), None)
+                if item:
+                    item = item["name"]
+                    full_objective = f"Successfully extract with {task.values[2]} {item}s {Emojis.items[item]}"
+                else:
+                    full_objective = (
+                        f"Successfully extract with {task.values[2]} UNKNOWNs"
+                    )
+                self.add_field(full_objective, "", inline=False)
             if task.type == 3:
                 full_objective = f"Kill {task.values[2]} "
                 full_objective += (
