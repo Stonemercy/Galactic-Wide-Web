@@ -33,8 +33,8 @@
             "status": "Status",
             "preparing": "Preparing",
             "active": "Active",
-            "on_cooldown": "On cooldown",
-            "off_cooldown": "Off cooldown"
+            "on_cooldown": "on cooldown",
+            "off_cooldown": "off cooldown"
         },
         "DefenceEmbed": {
             "title": "Defending",

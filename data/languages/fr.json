@@ -33,8 +33,8 @@
             "status": "Statut",
             "preparing": "Préparation",
             "active": "Actif",
-            "on_cooldown": "En récupération",
-            "off_cooldown": "Hors récupération"
+            "on_cooldown": "en récupération",
+            "off_cooldown": "hors récupération"
         },
         "DefenceEmbed": {
             "title": "Défense",
