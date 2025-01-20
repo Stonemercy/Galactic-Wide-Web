@@ -1,5 +1,5 @@
 from datetime import datetime
-from disnake import AppCmdInter, Permissions
+from disnake import AppCmdInter, Colour, Embed, Permissions
 from disnake.ext import commands
 from main import GalacticWideWebBot
 from os import getenv
@@ -190,6 +190,32 @@ class AdminCommandsCog(commands.Cog):
         self,
         inter: AppCmdInter,
     ):
+        embeds = []
+        for place, guild in enumerate(
+            sorted(
+                [guild for guild in self.bot.guilds if guild.member_count][:5],
+                key=lambda guild: guild.member_count,
+                reverse=True,
+            ),
+            start=1,
+        ):
+            embed = (
+                Embed(title=f"Guild #{place}", colour=Colour.brand_green())
+                .add_field("Name", guild.name, inline=False)
+                .add_field("Users", guild.member_count, inline=False)
+                .add_field(
+                    "Big guild?", {True: "Yes", False: "No"}[guild.large], inline=False
+                )
+                .add_field(
+                    "Created",
+                    f"<t:{int(guild.created_at.timestamp())}:R>",
+                    inline=False,
+                )
+                .add_field("Owner", f"<@{guild.owner_id}>", inline=False)
+                .set_thumbnail(guild.icon.url if guild.icon else None)
+                .set_image(guild.banner.url if guild.banner else None)
+            )
+            embeds.append(embed)
         await inter.send(
             (
                 f"- Dashboard messages:\n  - Amount: {len(self.bot.interface_handler.dashboards)}\n\n"
@@ -200,6 +226,7 @@ class AdminCommandsCog(commands.Cog):
                 f"- Map messages:\n  - Amount: {len(self.bot.interface_handler.maps)}\n\n"
             ),
             ephemeral=True,
+            embeds=embeds,
         )
 
 
