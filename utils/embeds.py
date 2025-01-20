@@ -2061,7 +2061,7 @@ class PersonalOrderEmbed(Embed):
 
         for task in personal_order.setting.tasks:
             task: PersonalOrder.Setting.Tasks.Task
-            if task.type == 2:
+            if task.type == 2:  # Extract with {number} {items}
                 item = item_names_json.get(str(task.values[5]), None)
                 if item:
                     item = item["name"]
@@ -2071,7 +2071,7 @@ class PersonalOrderEmbed(Embed):
                         f"Successfully extract with {task.values[2]} UNKNOWNs"
                     )
                 self.add_field(full_objective, "", inline=False)
-            if task.type == 3:
+            if task.type == 3:  # Kill {number} {species} {stratagem}
                 full_objective = f"Kill {task.values[2]} "
                 full_objective += (
                     language_json["factions"][str(task.values[0] + 1)]
@@ -2086,6 +2086,16 @@ class PersonalOrderEmbed(Embed):
                         if task.values[5]
                         else ""
                     )
+                self.add_field(
+                    full_objective,
+                    "",
+                    inline=False,
+                )
+            if task.type == 4:  # Complete {number} {tier} objectives
+                objective_type = {1: "primary", 2: "secondary"}[task.values[3]]
+                full_objective = (
+                    f"Complete {task.values[2]} {objective_type} objectives"
+                )
                 self.add_field(
                     full_objective,
                     "",
