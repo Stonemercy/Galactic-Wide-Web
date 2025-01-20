@@ -27,12 +27,9 @@ class WarUpdatesCog(commands.Cog):
             not self.bot.interface_handler.loaded
             or not self.bot.data.loaded
             or update_start < self.bot.ready_time
+            or self.bot.interface_handler.busy
         ):
             return
-        if self.bot.interface_handler.busy:
-            return self.bot.logger.info(
-                "Campaign check tried to run but interface handler was busy"
-            )
         old_campaigns: list[Campaign] = Campaign.get_all()
         languages = list({guild.language for guild in GWWGuild.get_all()})
         embeds = {

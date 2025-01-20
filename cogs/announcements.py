@@ -27,13 +27,10 @@ class AnnouncementsCog(commands.Cog):
             not self.bot.interface_handler.loaded
             or announcement_start < self.bot.ready_time
             or not self.bot.data.loaded
+            or self.bot.interface_handler.busy
             or not self.bot.data.assignment
         ):
             return
-        if self.bot.interface_handler.busy:
-            return self.bot.logger.info(
-                "Major order check tried to run but interface handler was busy"
-            )
         last_MO = MajorOrder()
         if last_MO.id != self.bot.data.assignment.id:
             embeds = {
@@ -65,12 +62,9 @@ class AnnouncementsCog(commands.Cog):
             not self.bot.interface_handler.loaded
             or dispatch_start < self.bot.ready_time
             or not self.bot.data.loaded
+            or self.bot.interface_handler.busy
         ):
             return
-        if self.bot.interface_handler.busy:
-            return self.bot.logger.info(
-                "Dispatch check tried to run but interface handler was busy"
-            )
         last_dispatch = Dispatch()
         if last_dispatch.id != self.bot.data.dispatch.id:
             embeds = {
@@ -97,12 +91,9 @@ class AnnouncementsCog(commands.Cog):
             not self.bot.interface_handler.loaded
             or patch_notes_start < self.bot.ready_time
             or not self.bot.data.loaded
+            or self.bot.interface_handler.busy
         ):
             return
-        if self.bot.interface_handler.busy:
-            return self.bot.logger.info(
-                "Steam check tried to run but interface handler was busy"
-            )
         last_patch_notes = Steam()
         if last_patch_notes.id != self.bot.data.steam[0].id:
             languages = list({guild.language for guild in GWWGuild.get_all()})
