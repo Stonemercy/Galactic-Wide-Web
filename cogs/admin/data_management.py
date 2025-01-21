@@ -1,4 +1,5 @@
 from datetime import time
+from disnake import Activity, ActivityType
 from disnake.ext import commands, tasks
 from main import GalacticWideWebBot
 
@@ -6,20 +7,26 @@ from main import GalacticWideWebBot
 class DataManagementCog(commands.Cog):
     def __init__(self, bot: GalacticWideWebBot):
         self.bot = bot
-        self.channel_message_gen.start()
+        self.startup.start()
         self.pull_from_api.start()
 
     def cog_unload(self):
-        self.channel_message_gen.stop()
+        self.startup.stop()
         self.pull_from_api.stop()
 
     @tasks.loop(count=1)
-    async def channel_message_gen(self):
+    async def startup(self):
         await self.bot.interface_handler.populate_lists()
         await self.pull_from_api()
+        await self.bot.change_presence(
+            activity=Activity(
+                name=f"democracy spread",
+                type=ActivityType.watching,
+            )
+        )
 
-    @channel_message_gen.before_loop
-    async def before_message_gen(self):
+    @startup.before_loop
+    async def before_startup(self):
         await self.bot.wait_until_ready()
 
     @tasks.loop(

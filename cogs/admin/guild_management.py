@@ -1,8 +1,6 @@
 from asyncio import sleep
 from datetime import datetime, timedelta, time
 from disnake import (
-    Activity,
-    ActivityType,
     ButtonStyle,
     Colour,
     Embed,
@@ -51,12 +49,6 @@ class GuildManagementCog(commands.Cog):
             .set_image(guild.banner.url if guild.banner else None)
         )
         await self.bot.moderator_channel.send(embed=embed)
-        old_activity = self.bot.activity
-        await self.bot.change_presence(
-            activity=Activity(name="for alien sympathisers", type=ActivityType.watching)
-        )
-        await sleep(10.0)
-        await self.bot.change_presence(activity=old_activity)
 
     @commands.Cog.listener()
     async def on_guild_remove(self, guild: Guild):

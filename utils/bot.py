@@ -17,7 +17,7 @@ class GalacticWideWebBot(commands.AutoShardedInteractionBot):
     def __init__(self):
         super().__init__(
             intents=Intents.default(),
-            activity=Activity(name="you", type=ActivityType.watching),
+            activity=Activity(name="for dissidents", type=ActivityType.watching),
         )
         self.logger = getLogger("disnake")
         self.logger.setLevel(INFO)
