@@ -73,7 +73,7 @@
         "been_defended": "{emoji} **{planet}** wurde erfolgreich verteidigt {exclamation}",
         "been_lost": "💀 **{planet}** wurde an **{faction}** {faction_emoji} {exclamation} verloren",
         "invasion_over": "Die Invasion auf {planet} ist beendet {faction_emoji} {exclamation}",
-        "no_territory_change": "\n-# Die **{faction}** haben sich zurückgezogen und __kein Territorium hat den Besitzer gewechselt__ {faction_emoji}",
+        "no_territory_change": "\n-# Die **{faction}** haben sich zurückgezogen und __kein Territorium hat den Besitzer gewechselt__ {faction_emoji}\n",
         "dss": {
             "has_moved": "Die DSS ist von **{planet1}** {faction_emoji1} nach **{planet2}** {faction_emoji2} {exclamation} gezogen\n",
             "ta_status_change": "**{ta_name}** ist jetzt **{status}**\n"
