@@ -329,28 +329,23 @@ class CampaignEmbed(Embed):
         self.add_field(
             self.language_json["CampaignEmbed"]["victories"], "", inline=False
         )
-        self.campaign_victories_field = self.fields[0]
         self.add_field(
             self.language_json["CampaignEmbed"]["planets_lost"], "", inline=False
         )
-        self.planet_losses_field = self.fields[1]
         self.add_field(
             self.language_json["CampaignEmbed"]["new_battles"], "", inline=False
         )
-        self.new_battles_field = self.fields[2]
         self.add_field(
             self.language_json["dss"]["title"] + " " + Emojis.dss["dss"],
             "",
             inline=False,
         )
-        self.dss_field = self.fields[3]
         self.add_field(
             self.language_json["CampaignEmbed"]["invasions"], "", inline=False
         )
-        self.invasions_field = self.fields[4]
 
     def add_new_campaign(self, campaign: Campaign, time_remaining: str | None):
-        description = self.new_battles_field.value
+        description = self.fields[2].value
         exclamation = ""
         if campaign.planet.dss:
             exclamation += Emojis.dss["dss"]
