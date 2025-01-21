@@ -1949,7 +1949,7 @@ class SuperstoreEmbed(Embed):
                 self.add_field("Item is new", "Try again later")
                 continue
             passives = ""
-            item["type"] = f"Type: {item['type']}\n" if item["slot"] == "Body" else ""
+            item_type = f"Type: **{item['type']}**\n" if item["slot"] == "Body" else ""
             if item["slot"] == "Body":
                 passives_list = item["passive"]["description"].splitlines()
                 passives = f"**{item['passive']['name']}**\n"
@@ -1958,7 +1958,7 @@ class SuperstoreEmbed(Embed):
             self.add_field(
                 f"{item['name']} - {item['store_cost']} {Emojis.items['Super Credits']}",
                 (
-                    f"{item['type']}"
+                    f"{item_type}"
                     f"Slot: **{item['slot']}** {Emojis.armour[item['slot']]}\n"
                     f"Armor: **{item['armor_rating']}**\n"
                     f"Speed: **{item['speed']}**\n"
