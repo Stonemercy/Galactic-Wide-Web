@@ -19,7 +19,6 @@ class GWWGuild:
         "announcement_channel_id",
         "patch_notes",
         "language",
-        "language_long",
         "map_channel_id",
         "map_message_id",
         "major_order_updates",
@@ -45,13 +44,14 @@ class GWWGuild:
         self.announcement_channel_id: int = announcement_channel_id
         self.patch_notes: bool = patch_notes
         self.language: str = language
-        self.language_long: str = {v: k for k, v in language_dict.items()}[
-            self.language
-        ]
         self.map_channel_id: int = map_channel_id
         self.map_message_id: int = map_message_id
         self.major_order_updates: bool = major_order_updates
         self.personal_order_updates: bool = personal_order_updates
+
+    @property
+    def language_long(self):
+        return {v: k for k, v in language_dict.items()}[self.language]
 
     @classmethod
     def get_by_id(cls, guild_id: int):
