@@ -193,10 +193,10 @@ class AdminCommandsCog(commands.Cog):
         embeds = []
         for place, guild in enumerate(
             sorted(
-                [guild for guild in self.bot.guilds if guild.member_count][:5],
+                [guild for guild in self.bot.guilds],
                 key=lambda guild: guild.member_count,
                 reverse=True,
-            ),
+            )[:5],
             start=1,
         ):
             embed = (
