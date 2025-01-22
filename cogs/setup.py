@@ -24,17 +24,16 @@ class SetupCog(commands.Cog):
             send_messages=True,
             view_channel=True,
             attach_files=True,
-            embed_links=True,
             use_external_emojis=True,
+            embed_links=True,
         )
         self.annnnouncement_perms_needed = Permissions(
             view_channel=True,
             send_messages=True,
-            embed_links=True,
             use_external_emojis=True,
         )
         self.map_perms_needed = Permissions(
-            view_channel=True, send_messages=True, embed_links=True, attach_files=True
+            view_channel=True, send_messages=True, attach_files=True, embed_links=True
         )
 
     def reset_row_1(self, action_row: ActionRow):
@@ -398,12 +397,21 @@ class SetupCog(commands.Cog):
                     guild_language["setup"]["missing_perm"],
                     ephemeral=True,
                 )
-            dashboard_perms_have = dashboard_channel.permissions_for(
-                inter.guild.me
-            ).is_superset(self.dashboard_perms_needed)
+            my_permissions = dashboard_channel.permissions_for(inter.guild.me)
+            dashboard_perms_have = my_permissions.is_superset(
+                self.dashboard_perms_needed
+            )
             if not dashboard_perms_have:
+                missing_permissions = [
+                    f"\n- `{perm}`"
+                    for perm, value in self.dashboard_perms_needed
+                    if getattr(my_permissions, perm) is False
+                    and getattr(self.dashboard_perms_needed, perm) is True
+                ]
                 return await inter.send(
-                    guild_language["setup"]["missing_perm"],
+                    guild_language["setup"]["missing_perm"].format(
+                        permissions="".join(missing_permissions)
+                    ),
                     ephemeral=True,
                 )
             else:
@@ -437,15 +445,25 @@ class SetupCog(commands.Cog):
                 ) or await self.bot.fetch_channel(inter.values[0])
             except:
                 return await inter.send(
-                    guild_language["setup"]["missing_perm"],
+                    guild_language["setup"]["cant_find_channel"],
                     ephemeral=True,
                 )
-            annnnouncement_perms_have = announcement_channel.permissions_for(
-                inter.guild.me
-            ).is_superset(self.annnnouncement_perms_needed)
+
+            my_permissions = announcement_channel.permissions_for(inter.guild.me)
+            annnnouncement_perms_have = my_permissions.is_superset(
+                self.annnnouncement_perms_needed
+            )
             if not annnnouncement_perms_have:
+                missing_permissions = [
+                    f"\n- `{perm}`"
+                    for perm, value in self.annnnouncement_perms_needed
+                    if getattr(my_permissions, perm) is False
+                    and getattr(self.annnnouncement_perms_needed, perm) is True
+                ]
                 return await inter.send(
-                    guild_language["setup"]["missing_perm"],
+                    guild_language["setup"]["missing_perm"].format(
+                        permissions="".join(missing_permissions)
+                    ),
                     ephemeral=True,
                 )
             else:
@@ -472,12 +490,19 @@ class SetupCog(commands.Cog):
                     guild_language["setup"]["missing_perm"],
                     ephemeral=True,
                 )
-            map_perms_have = map_channel.permissions_for(inter.guild.me).is_superset(
-                self.map_perms_needed
-            )
+            my_permissions = map_channel.permissions_for(inter.guild.me)
+            map_perms_have = my_permissions.is_superset(self.map_perms_needed)
             if not map_perms_have:
+                missing_permissions = [
+                    f"\n- `{perm}`"
+                    for perm, value in self.map_perms_needed
+                    if getattr(my_permissions, perm) is False
+                    and getattr(self.map_perms_needed, perm) is True
+                ]
                 return await inter.send(
-                    guild_language["setup"]["missing_perm"],
+                    guild_language["setup"]["missing_perm"].format(
+                        permissions="".join(missing_permissions)
+                    ),
                     ephemeral=True,
                 )
             else:

@@ -161,7 +161,8 @@
         "unavailable": "Cette stratégie n'est pas dans ma liste, veuillez réessayer.\n-# Si vous pensez que c'est une erreur, veuillez contacter mon serveur de support"
     },
     "setup": {
-        "missing_perm": "Permission manquante pour envoyer à ce canal. Veuillez vérifier à nouveau."
+        "cant_find_channel": "Je ne trouve pas du tout cette chaîne. Veuillez vous assurer que j'ai les permissions `Voir la chaîne`",
+        "missing_perm": "L'autorisation d'envoyer vers ce canal n'est pas disponible.\nVeuillez fournir les autorisations suivantes et réessayer:{permissions}"
     },
     "enemies": {
         "missing": "Cet ennemi n'est pas dans nos dossiers. Si vous pensez qu'il s'agit d'une erreur, veuillez contacter l'administration du GWW.",

@@ -161,7 +161,8 @@
         "unavailable": "Diese Strategie ist nicht in meiner Liste, bitte versuchen Sie es erneut.\n-# Wenn Sie glauben, dass dies ein Fehler ist, kontaktieren Sie bitte meinen Support-Server"
     },
     "setup": {
-        "missing_perm": "Fehlende Erlaubnis zum Senden an diesen Kanal. Bitte noch einmal prüfen."
+        "cant_find_channel": "Ich kann diesen Kanal überhaupt nicht finden. Bitte stellen Sie sicher, dass ich die Berechtigung `Kanal anzeigen` habe",
+        "missing_perm": "Fehlende Berechtigung zum Senden an diesen Kanal.\nBitte geben Sie die folgenden Berechtigungen an und versuchen Sie es erneut:{permissions}"
     },
     "enemies": {
         "missing": "That enemy isn't in our files. If you believe this is an error please contact the GWW Administration",
