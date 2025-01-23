@@ -11,8 +11,8 @@
         "progress": "Progression",
         "MajorOrderEmbed": {
             "title": "Ordres Prioritaire",
-            "MO_unavailable": "Attendez de nouveaux ordres du Haut Commandement de la Super Terre",
-            "liberated": "LIBÉRÉ",
+            "MO_unavailable": "Préparez-vous à recevoir d'autres ordres de l'état-major de la Super-Terre",
+            "liberated": "LIBÉRÉE",
             "rewards": "Récompenses",
             "tasks": {
                 "type2": "{status_emoji} Extraire avec succès {amount} {item} sur {planet}",
@@ -27,7 +27,7 @@
         },
         "DSSEmbed": {
             "stationed_at": "Stationné à **{planet}** {faction_emoji}\n",
-            "next_move": "Déménagement {timestamp}",
+            "next_move": "Prochain mouvement {timestamp}",
             "cost": "Coût : {emoji} {amount} **{item}s**",
             "max_submitable": "Max soumis: **{number}** toutes les **{hours}** heures",
             "status": "Statut",
@@ -75,7 +75,7 @@
         "invasion_over": "L'invasion sur {planet} est terminée {faction_emoji} {exclamation}",
         "no_territory_change": "\n-# Les **{faction}** sont partis et __aucun territoire n'a changé de propriétaire__ {faction_emoji}\n",
         "dss": {
-            "has_moved": "La DSS s'est déplacé de **{planet1}** {faction_emoji1} à **{planet2}** {faction_emoji2} {exclamation}\n",
+            "has_moved": "La SSD s'est déplacée de **{planet1}** {faction_emoji1} à **{planet2}** {faction_emoji2} {exclamation}\n",
             "ta_status_change": "**{ta_name}** est maintenant **{status}**\n"
         }
     },
@@ -92,9 +92,9 @@
         "hero_stats": "📈 Statistiques des héros",
         "active_heroes": "Héros actifs",
         "heroes_lost": "Héros perdus",
-        "accidentals": "Accidentels",
+        "accidentals": "Morts accidentelles",
         "shots_fired": "Coups tirés",
-        "shots_hit": "Coups touchés",
+        "shots_hit": "Tirs réussis",
         "accuracy": "Précision",
         "killed": "tué",
         "liberation_progress": "Progrès de la libération"
@@ -102,17 +102,17 @@
     "SetupEmbed": {
         "title": "Configuration",
         "dashboard": "Tableau de bord",
-        "dashboard_channel": "Canal du tableau de bord",
+        "dashboard_channel": "Channel du tableau de bord",
         "dashboard_message": "Message du tableau de bord",
         "announcements": "Annonces",
-        "announcement_channel": "Canal des annonces",
+        "announcement_channel": "Channel des annonces",
         "map": "Carte",
-        "map_channel": "Canal de la carte",
+        "map_channel": "Channel de la carte",
         "map_message": "Message de la carte",
         "language": "{flag_emoji} Langue",
         "patch_notes": "Notes de mise à jour",
-        "mo_updates": "Mises à jour des commandes prioritaire",
-        "po_updates": "Mises à jour des commandes personnelles",
+        "mo_updates": "Mises à jour des ordres prioritaire",
+        "po_updates": "Mises à jour des ordres personnels",
         "not_set": "Non défini",
         "footer_message_not_set": "-# Si vous voyez `Non défini` là où un canal/message devrait être, vérifiez les permissions du bot !",
         "footer_message_announcements_asterisk": "-# \\* pour configurer cela, les Annonces doivent être configurées"
@@ -147,7 +147,7 @@
         "capacity": "Capacité : **`{capacity}`** {emoji}\n",
         "fire_modes": "Modes de tir :{fire_modes}\n",
         "features": "Caractéristiques :{features}",
-        "fuse_time": "Temps de fusée : **`{fuse_time} secondes`**\n",
+        "fuse_time": "Temps de détonation : **`{fuse_time} secondes`**\n",
         "penetration": "Pénétration : **`{penetration}`**\n",
         "radius": "Rayon : **`{radius}`**"
     },
@@ -155,14 +155,14 @@
         "title": "Station Spatiale de la Démocratie"
     },
     "major_order": {
-        "MO_unavailable": "Attendez de nouveaux ordres du Haut Commandement de la Super Terre"
+        "MO_unavailable": "Attendez de nouveaux ordres prioritaires du Haut Commandement de la Super Terre"
     },
     "stratagems": {
-        "unavailable": "Cette stratégie n'est pas dans ma liste, veuillez réessayer.\n-# Si vous pensez que c'est une erreur, veuillez contacter mon serveur de support"
+        "unavailable": "Ce stratagème n'est pas dans ma liste, veuillez réessayer.\n-# Si vous pensez que c'est une erreur, veuillez contacter mon serveur de support"
     },
     "setup": {
-        "cant_find_channel": "Je ne trouve pas du tout cette chaîne. Veuillez vous assurer que j'ai les permissions `Voir la chaîne`",
-        "missing_perm": "L'autorisation d'envoyer vers ce canal n'est pas disponible.\nVeuillez fournir les autorisations suivantes et réessayer:{permissions}"
+        "cant_find_channel": "Je ne trouve pas du tout ce channel. Veuillez vous assurer que j'ai les permissions `Voir le channel`",
+        "missing_perm": "L'autorisation d'envoyer vers ce channel n'est pas disponible.\nVeuillez fournir les autorisations suivantes et réessayer:{permissions}"
     },
     "enemies": {
         "missing": "Cet ennemi n'est pas dans nos dossiers. Si vous pensez qu'il s'agit d'une erreur, veuillez contacter l'administration du GWW.",
@@ -171,11 +171,11 @@
     "factions": {
         "1": "Humains",
         "2": "Terminides",
-        "3": "Automates",
-        "4": "Illuminés",
+        "3": "Automatons",
+        "4": "Illuministes",
         "Humans": "Humains",
         "Terminids": "Terminides",
-        "Automaton": "Automates",
-        "Illuminate": "Illuminés"
+        "Automaton": "Automatons",
+        "Illuminate": "Illuministes"
     }
 }
