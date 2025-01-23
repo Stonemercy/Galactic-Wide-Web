@@ -1124,7 +1124,7 @@ class Dashboard:
                         cost = f"{language_json['ends']} <t:{int(tactical_action.status_end_datetime.timestamp())}:R>\n"
                         cost += tactical_action.strategic_description
                     elif status == "on_cooldown":
-                        cost = f"{language_json['dashboard']['DSSEmbed']['off_cooldown']} <t:{int(tactical_action.status_end_datetime.timestamp())}:R>"
+                        cost = f"{language_json['dashboard']['DSSEmbed']['off_cooldown'].capitalize()} <t:{int(tactical_action.status_end_datetime.timestamp())}:R>"
                     self.add_field(
                         f"{Emojis.dss[tactical_action.name.lower().replace(' ', '_')]} {tactical_action.name.title()}",
                         (
@@ -2023,7 +2023,7 @@ class DSSEmbed(Embed):
             elif status == "active":
                 cost = f"{language_json['ends']} <t:{int(tactical_action.status_end_datetime.timestamp())}:R>"
             elif status == "on_cooldown":
-                cost = f"{language_json['dashboard']['DSSEmbed']['off_cooldown']} <t:{int(tactical_action.status_end_datetime.timestamp())}:R>"
+                cost = f"{language_json['dashboard']['DSSEmbed']['off_cooldown'].capitalize()} <t:{int(tactical_action.status_end_datetime.timestamp())}:R>"
             ta_long_description = tactical_action.strategic_description.replace(
                 ". ", ".\n- "
             )
