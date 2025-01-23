@@ -1262,7 +1262,7 @@ class Dashboard:
                             and len(liberation_change["liberation_changes"]) > 0
                         ):
                             lib_per_hour = sum(liberation_change["liberation_changes"])
-                            if lib_per_hour > 0:
+                            if lib_per_hour > 0.05:
                                 now_seconds = int(datetime.now().timestamp())
                                 seconds_to_complete = int(
                                     (
