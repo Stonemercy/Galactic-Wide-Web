@@ -195,8 +195,8 @@ class Data:
             }
             for task in self.assignment.tasks:
                 task: Tasks.Task
-                if task.type in (11, 13):
-                    self.planets[task.values[2]].in_assignment = True
+                if task.type == 2:
+                    self.planets[task.values[8]].in_assignment = True
                 elif task.type == 3:
                     if task.progress == 1:
                         continue
@@ -222,7 +222,8 @@ class Data:
                             and planet.event.faction == factions[task.values[1]]
                         ]:
                             self.planets[index].in_assignment = True
-
+                elif task.type in (11, 13):
+                    self.planets[task.values[2]].in_assignment = True
         if self.__data__["campaigns"] not in ([], None):
             self.campaigns: list[Campaign] = [
                 Campaign(campaign, self.planets)
