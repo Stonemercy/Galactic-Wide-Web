@@ -359,7 +359,9 @@ class Tasks(list):
         @property
         def health_bar(self) -> str:
             if self.type == 2:
-                return health_bar(self.progress, "MO")
+                return health_bar(
+                    self.progress, "MO" if self.progress != 1 else "Humans"
+                )
             elif self.type == 3:
                 return health_bar(
                     self.progress,
