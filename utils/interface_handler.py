@@ -125,7 +125,9 @@ class InterfaceHandler:
                     f"send_embed | {e} | removed from news feeds list and reset in DB | {guild.id = }"
                 )
             except Exception as e:
-                return self.bot.logger.error(f"send_embed | {e} | {guild.id = }")
+                return self.bot.logger.error(
+                    f"send_embed | {e} | {channel.guild.id = }"
+                )
 
         if news_type == "MO":
             components = [
