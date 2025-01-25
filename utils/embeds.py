@@ -2045,6 +2045,7 @@ class PersonalOrderEmbed(Embed):
         language_json: dict,
         reward_types: dict,
         item_names_json: dict,
+        enemy_ids_json: dict,
     ):
         super().__init__(
             description=f"Personal order ends <t:{int(personal_order.expiration_datetime.timestamp())}:R>",
@@ -2063,16 +2064,20 @@ class PersonalOrderEmbed(Embed):
                     full_objective = f"Successfully extract with {task.values[2]} {item}s {Emojis.items[item]}"
                 else:
                     full_objective = (
-                        f"Successfully extract with {task.values[2]} UNKNOWNs"
+                        f"Successfully extract with {task.values[2]} **UNKNOWN items**"
                     )
                 self.add_field(full_objective, "", inline=False)
             if task.type == 3:  # Kill {number} {species} {stratagem}
                 full_objective = f"Kill {task.values[2]} "
-                full_objective += (
-                    language_json["factions"][str(task.values[0] + 1)]
-                    if task.values[0]
-                    else "Enemies"
-                )
+                if task.values[3] != 0:
+                    enemy = enemy_ids_json.get(str(task.values[3]), "Unknown")
+                    full_objective += f"{enemy}s"
+                else:
+                    full_objective += (
+                        language_json["factions"][str(task.values[0] + 1)]
+                        if task.values[0]
+                        else "Enemies"
+                    )
                 stratagem = stratagem_id_dict.get(task.values[5], None)
                 if stratagem:
                     self.set_thumbnail(url=stratagem_image_dict[task.values[5]])
