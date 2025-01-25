@@ -386,7 +386,7 @@ class Tasks(list):
                 ]
                 return health_bar(
                     percent,
-                    ("Humans" if self.progress > 0 else "Automaton"),
+                    "Humans" if self.progress > 0 else "Automaton",
                 )
 
         def __repr__(self):
