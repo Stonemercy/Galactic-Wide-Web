@@ -693,13 +693,18 @@ class Dashboard:
                     language_json["code_long"]
                 ],
             )
-            self.add_field(
-                name=name,
-                value=(
+            value = (
+                ""
+                if task.progress == 1
+                else (
                     f"{language_json['dashboard']['progress']}: **{task.values[2]*task.progress:,.0f}**\n"
                     f"{task.health_bar}\n"
                     f"`{(task.progress):^25,.2%}`\n"
-                ),
+                )
+            )
+            self.add_field(
+                name=name,
+                value=value,
                 inline=False,
             )
 
@@ -990,32 +995,35 @@ class Dashboard:
                     inline=False,
                 )
             else:
-                planet_health_bar = health_bar(
-                    perc=planet.health_perc,
-                    race=planet.current_owner,
-                    reverse=True if planet.current_owner != "Humans" else False,
-                )
-                completed = (
-                    f"**{language_json['dashboard']['MajorOrderEmbed']['liberated']}**"
-                    if planet.current_owner == "Humans"
-                    else ""
-                )
-                health_text = (
-                    f"{1 - (planet.health_perc):^25,.2%}"
-                    if planet.current_owner != "Humans"
-                    else f"{(planet.health_perc):^25,.2%}"
-                )
-                self.add_field(
-                    obj_text,
-                    (
-                        f"{player_count}\n"
-                        f"{feature_text}"
-                        f"{language_json['dashboard']['progress']}:\n"
-                        f"{planet_health_bar} {completed}\n"
-                        f"`{health_text}`\n"
-                    ),
-                    inline=False,
-                )
+                if task.progress == 1:
+                    self.add_field(obj_text, "", inline=False)
+                else:
+                    planet_health_bar = health_bar(
+                        perc=planet.health_perc,
+                        race=planet.current_owner,
+                        reverse=True if planet.current_owner != "Humans" else False,
+                    )
+                    completed = (
+                        f"**{language_json['dashboard']['MajorOrderEmbed']['liberated']}**"
+                        if planet.current_owner == "Humans"
+                        else ""
+                    )
+                    health_text = (
+                        f"{1 - (planet.health_perc):^25,.2%}"
+                        if planet.current_owner != "Humans"
+                        else f"{(planet.health_perc):^25,.2%}"
+                    )
+                    self.add_field(
+                        obj_text,
+                        (
+                            f"{player_count}\n"
+                            f"{feature_text}"
+                            f"{language_json['dashboard']['progress']}:\n"
+                            f"{planet_health_bar} {completed}\n"
+                            f"`{health_text}`\n"
+                        ),
+                        inline=False,
+                    )
 
         def add_type_15(self, task: Tasks.Task, language_json: dict):
             """Win more campaigns than lost"""
