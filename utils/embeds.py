@@ -2072,10 +2072,10 @@ class PersonalOrderEmbed(Embed):
                     full_objective = f"Successfully extract with {task.values[2]} {item}s {Emojis.items[item]}"
                 else:
                     full_objective = (
-                        f"Successfully extract with {task.values[2]} **UNKNOWN items**"
+                        f"Successfully extract from with {task.values[2]} **UNMAPPED**s"
                     )
                 self.add_field(full_objective, "", inline=False)
-            if task.type == 3:  # Kill {number} {species} {stratagem}
+            elif task.type == 3:  # Kill {number} {species} {stratagem}
                 full_objective = f"Kill {task.values[2]} "
                 if task.values[3] != 0:
                     enemy = enemy_ids_json.get(str(task.values[3]), "Unknown")
@@ -2099,11 +2099,24 @@ class PersonalOrderEmbed(Embed):
                     "",
                     inline=False,
                 )
-            if task.type == 4:  # Complete {number} {tier} objectives
+            elif task.type == 4:  # Complete {number} {tier} objectives
                 objective_type = {1: "primary", 2: "secondary"}[task.values[3]]
                 full_objective = (
                     f"Complete {task.values[2]} {objective_type} objectives"
                 )
+                self.add_field(
+                    full_objective,
+                    "",
+                    inline=False,
+                )
+            elif task.type == 7:  # Extract from {faction} {number} times
+                faction = {
+                    1: "Humans",
+                    2: "Terminids",
+                    3: "Automaton",
+                    4: "Illuminate",
+                }[task.values[0]]
+                full_objective = f"Extract from a successful Mission against {faction} {task.values[2]} times"
                 self.add_field(
                     full_objective,
                     "",

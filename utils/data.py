@@ -445,6 +445,7 @@ class Planet:
         self.thumbnail = None
         self.feature = {
             45: "Center for Civilian Surveillance",
+            125: "Centre of Science",
             126: "Xenoentomology Center",
             130: "Factory Hub",
             161: "Deep Mantle Forge Complex",
