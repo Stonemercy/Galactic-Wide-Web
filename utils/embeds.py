@@ -940,7 +940,7 @@ class Dashboard:
                 language_json["dashboard"]["heroes"].format(
                     heroes=f"{planet.stats['playerCount']:,}"
                 )
-                if task.progress != 1
+                if task.progress != 1 or planet.event
                 else ""
             )
             if planet.event:
