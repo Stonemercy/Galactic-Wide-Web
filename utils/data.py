@@ -102,14 +102,16 @@ class Data:
                                 if type(data[0]) == str:
                                     bot.logger.error(f"API/DSS, {data[0] = }")
                                     continue
-                                name_there = data[0]["tacticalActions"][0].get(
-                                    "name", None
-                                )
-                                if not name_there:
-                                    bot.logger.error(
-                                        f"API/DSS, Tactical Action has no name"
+                                tactical_actions = data[0].get("tacticalActions", None)
+                                if tactical_actions:
+                                    names_present = tactical_actions[0].get(
+                                        "name", None
                                     )
-                                    continue
+                                    if not names_present:
+                                        bot.logger.error(
+                                            f"API/DSS, Tactical Action has no name"
+                                        )
+                                        continue
                                 self.__data__[endpoint] = data[0]
                             else:
                                 bot.logger.error(f"API/DSS, {r.status}")
