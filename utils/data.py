@@ -442,6 +442,7 @@ class Planet:
         self.health_perc: float = self.health / self.max_health
         self.current_owner: str = planet_json["currentOwner"]
         self.regen: float = planet_json["regenPerSecond"]
+        self.regen_perc_per_hour = ((self.regen * 3600) / self.max_health) * 100
         self.event = self.Event(planet_json["event"]) if planet_json["event"] else None
         self.stats: dict = planet_json["statistics"]
         self.thumbnail = None
