@@ -1082,7 +1082,7 @@ class Dashboard:
         def __init__(self, dss: DSS, language_json: dict):
             super().__init__(
                 title=language_json["dss"]["title"],
-                colour=Colour.from_rgb(r=38, g=156, b=182),
+                colour=Colour.from_rgb(*faction_colours["DSS"]),
             )
             if dss not in ("Error", None):
                 self.set_thumbnail(
