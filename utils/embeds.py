@@ -1291,8 +1291,8 @@ class Dashboard:
                     )
                     if campaign.planet.dss:
                         exclamation += Emojis.dss["dss"]
-                    if campaign.planet.regen_perc_per_hour < 1:
-                        exclamation += " :warning: 0% REGEN :warning:"
+                    if campaign.planet.regen_perc_per_hour <= 0.25:
+                        exclamation += f" :warning: {campaign.planet.regen_perc_per_hour:.2f}% REGEN :warning:"
                     planet_health_bar = health_bar(
                         campaign.planet.health / campaign.planet.max_health,
                         campaign.planet.current_owner,
