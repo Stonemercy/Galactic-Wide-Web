@@ -196,7 +196,7 @@ class AnnouncementsCog(commands.Cog):
                 last_GE.save_changes()
                 await self.bot.interface_handler.send_news("DetailedDispatches", embeds)
                 self.bot.logger.info(
-                    f"Sent Global Event out to {len(self.bot.interface_handler.news_feeds.channels_dict['Generic'])} channels"
+                    f"Sent Global Event out to {len(self.bot.interface_handler.news_feeds.channels_dict['DetailedDispatches'])} channels"
                 )
 
     @global_event_check.before_loop
