@@ -181,7 +181,7 @@ class AnnouncementsCog(commands.Cog):
         last_GE = GlobalEvent()
         for global_event in self.bot.data.global_events:
             global_event: GlobalEvents.GlobalEvent
-            if global_event.id != last_GE.id:
+            if global_event.id > last_GE.id:
                 if global_event.title == "BRIEFING" or global_event.flag == 0:
                     last_GE.id = global_event.id
                     last_GE.save_changes()
@@ -198,6 +198,7 @@ class AnnouncementsCog(commands.Cog):
                 self.bot.logger.info(
                     f"Sent Global Event out to {len(self.bot.interface_handler.news_feeds.channels_dict['DetailedDispatches'])} channels"
                 )
+                break
 
     @global_event_check.before_loop
     async def before_ge_check(self):
