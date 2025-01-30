@@ -804,13 +804,18 @@ class Dashboard:
                     language_json["code_long"]
                 ],
             )
-            player_count = language_json["dashboard"]["heroes"].format(
-                heroes=f'{planet.stats["playerCount"]:,}'
+            player_count = (
+                language_json["dashboard"]["heroes"].format(
+                    heroes=f'{planet.stats["playerCount"]:,}'
+                )
+                + "\n"
+                if planet.stats["playerCount"] > 100
+                else ""
             )
             self.add_field(
                 name=obj_text,
                 value=(
-                    f"{player_count}\n"
+                    f"{player_count}"
                     f"{feature_text}"
                     f"{language_json['dashboard']['progress']}:\n"
                     f"{task_health_bar} {completed}\n"
