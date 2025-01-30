@@ -768,7 +768,7 @@ class Dashboard:
         ):
             """Liberate a planet"""
             if planet.event:
-                task.health_bar = health_bar(
+                task_health_bar = health_bar(
                     planet.event.progress,
                     planet.event.faction,
                     True,
@@ -776,7 +776,7 @@ class Dashboard:
                 completed = f"🛡️ {Emojis.factions[planet.event.faction]}"
                 health_text = f"{1 - planet.event.progress:^25,.2%}"
             else:
-                task.health_bar = health_bar(
+                task_health_bar = health_bar(
                     planet.health_perc,
                     planet.current_owner,
                     True if planet.current_owner != "Humans" else False,
@@ -813,7 +813,7 @@ class Dashboard:
                     f"{player_count}\n"
                     f"{feature_text}"
                     f"{language_json['dashboard']['progress']}:\n"
-                    f"{task.health_bar} {completed}\n"
+                    f"{task_health_bar} {completed}\n"
                     f"`{health_text}`\n"
                 ),
                 inline=False,
