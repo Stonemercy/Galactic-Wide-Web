@@ -303,7 +303,7 @@ class BotDashboardEmbed(Embed):
 
 class DispatchesEmbed(Embed):
     def __init__(self, language_json: dict, dispatch: Dispatch):
-        super().__init__(colour=Colour.yellow())
+        super().__init__(colour=Colour.from_rgb(*faction_colours["MO"]))
         self.add_field("", dispatch.message)
         self.set_footer(text=language_json["message"].format(message_id=dispatch.id))
 

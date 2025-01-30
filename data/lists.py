@@ -136,15 +136,11 @@ supported_languages = {
 
 faction_colours = {
     "Automaton": (252, 108, 115),
-    "automaton": (126, 54, 57),
     "Terminids": (252, 188, 4),
-    "terminids": (126, 99, 2),
     "Illuminate": (107, 59, 187),
-    "illuminate": (53, 29, 93),
-    "Humans": (36, 205, 76),
-    "humans": (18, 102, 38),
+    "Humans": (107, 183, 234),
     "MO": (254, 226, 76),
-    "DSS": (105, 181, 209),
+    "DSS": (214, 232, 248),
 }
 
 warbond_images_dict = {

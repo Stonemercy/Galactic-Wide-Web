@@ -58,7 +58,7 @@ class Maps:
     def _fill_sectors(self, background: Image.Image):
         sector_info = {}
         dim_faction_colour = {
-            faction: tuple(int(colour / 3) for colour in colours)
+            faction: tuple(int(colour / 2.5) for colour in colours)
             for faction, colours in faction_colours.items()
         }
         for planet in self.data.planets.values():
@@ -180,7 +180,10 @@ class Maps:
                     fill=(
                         faction_colours[current_owner]
                         if index in self.available_planets
-                        else faction_colours[current_owner.lower()]
+                        else tuple(
+                            int(colour / 1.5)
+                            for colour in faction_colours[current_owner]
+                        )
                     ),
                 )
 
