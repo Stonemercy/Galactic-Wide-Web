@@ -187,7 +187,7 @@ class GuildManagementCog(commands.Cog):
         if inter.component.custom_id == "guild_remove":
             for guild_id in self.guilds_to_remove:
                 GWWGuild.delete(guild_id)
-                self.bot.logger.error(
+                self.bot.logger.info(
                     f"{self.qualified_name} | ban_listener | removed {guild_id} from the DB"
                 )
                 await inter.send(f"Deleted guilds `{guild_id}` from the DB")
