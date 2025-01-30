@@ -47,13 +47,12 @@ class DataManagementCog(commands.Cog):
         time=[time(hour=j, minute=i, second=15) for j in range(24) for i in range(59)]
     )
     async def check_changes(self):
-        changes_start = datetime.now()
         total_changes = {}
         if self.bot.previous_data:
             for planet in self.bot.previous_data.planets.values():
                 new_data = self.bot.data.planets[planet.index]
                 if planet.regen_perc_per_hour != new_data.regen_perc_per_hour:
-                    total_changes["planet_regen"][planet.name] = {
+                    total_changes[planet.name] = {
                         "before": planet.regen_perc_per_hour,
                         "after": new_data.regen_perc_per_hour,
                     }
