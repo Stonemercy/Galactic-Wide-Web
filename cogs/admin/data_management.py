@@ -59,9 +59,6 @@ class DataManagementCog(commands.Cog):
                     }
         if total_changes:
             await self.bot.moderator_channel.send(total_changes)
-        self.bot.logger.info(
-            f"changes checked in {(datetime.now() - changes_start).total_seconds():.3f} seconds"
-        )
 
     @check_changes.before_loop
     async def before_check_changes(self):
