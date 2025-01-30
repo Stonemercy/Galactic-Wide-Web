@@ -50,6 +50,7 @@ class InterfaceHandler:
                 f"{len(self.news_feeds.channels_dict['Patch'])} patch channels ({(len(self.news_feeds.channels_dict['Patch']) / number_of_guilds):.0%}) | "
                 f"{len(self.news_feeds.channels_dict['MO'])} MO channels ({(len(self.news_feeds.channels_dict['MO']) / number_of_guilds):.0%}) | "
                 f"{len(self.news_feeds.channels_dict['PO'])} PO channels ({(len(self.news_feeds.channels_dict['PO']) / number_of_guilds):.0%}) | "
+                f"{len(self.news_feeds.channels_dict['DetailedDispatches'])} Detailed Dispatch channels ({(len(self.news_feeds.channels_dict['DetailedDispatches']) / number_of_guilds):.0%}) | "
                 f"{len(self.maps)} maps ({(len(self.maps) / number_of_guilds):.0%})"
             )
         )
