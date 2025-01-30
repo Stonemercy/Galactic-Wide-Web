@@ -329,6 +329,9 @@ class Data:
             if planet.event.required_players != 0
         }
 
+    def copy(self):
+        return deepcopy(self)
+
 
 class Assignment:
     def __init__(self, assignment: dict):

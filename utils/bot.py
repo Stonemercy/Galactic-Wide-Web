@@ -32,6 +32,7 @@ class GalacticWideWebBot(commands.AutoShardedInteractionBot):
         self.json_dict = json_dict.copy()
         self.load_json()
         self.data = Data()
+        self.previous_data: Data | None = None
         self.command_usage = {}
         self.moderator_channel = None
         self.feedback_channel = None
