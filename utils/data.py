@@ -393,7 +393,7 @@ class Tasks(list):
                     (self.values[0] if self.progress != 1 else "Humans"),
                 )
             elif self.type == 11:
-                return ""
+                return
             elif self.type == 12:
                 return health_bar(
                     self.progress,
