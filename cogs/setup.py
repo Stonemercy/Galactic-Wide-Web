@@ -80,6 +80,9 @@ class SetupCog(commands.Cog):
                     Setup.PersonalOrder.PersonalOrderUpdatesButton(
                         guild.personal_order_updates
                     ),
+                    Setup.DetailedDispatches.DetailedDispatchesButton(
+                        guild.detailed_dispatches
+                    ),
                 )
             ),
         ]
@@ -87,6 +90,7 @@ class SetupCog(commands.Cog):
             components[1][0].disabled = False
             components[1][1].disabled = False
             components[1][2].disabled = False
+            components[1][3].disabled = False
         await inter.send(
             embed=SetupEmbed(
                 guild=guild,
@@ -166,6 +170,7 @@ class SetupCog(commands.Cog):
                 guild.patch_notes = False
                 guild.major_order_updates = False
                 guild.personal_order_updates = False
+                guild.detailed_dispatches = False
                 guild.save_changes()
                 for (
                     channels
@@ -181,6 +186,9 @@ class SetupCog(commands.Cog):
                 )
                 action_rows[1].append_item(
                     Setup.PersonalOrder.PersonalOrderUpdatesButton()
+                )
+                action_rows[1].append_item(
+                    Setup.DetailedDispatches.DetailedDispatchesButton()
                 )
                 self.reset_row_1(action_rows[0])
                 return await inter.response.edit_message(
@@ -374,6 +382,53 @@ class SetupCog(commands.Cog):
                     ),
                     components=action_rows,
                 )
+        elif inter.component.custom_id == "detailed_dispatches_updates_button":
+            if guild.detailed_dispatches:  # want to disable
+                channel = self.bot.get_channel(
+                    guild.announcement_channel_id
+                ) or await self.bot.fetch_channel(guild.announcement_channel_id)
+                guild.detailed_dispatches = False
+                guild.save_changes()
+                self.bot.interface_handler.news_feeds.channels_dict[
+                    "DetailedDispatches"
+                ].remove(channel)
+                action_rows[1].pop(3)
+                action_rows[1].insert_item(
+                    3, Setup.DetailedDispatches.DetailedDispatchesButton()
+                )
+                action_rows[1].children[3].disabled = False
+                return await inter.response.edit_message(
+                    embed=SetupEmbed(
+                        guild, self.bot.json_dict["languages"][guild.language]
+                    ),
+                    components=action_rows,
+                )
+            else:  # want to enable
+                try:
+                    channel = self.bot.get_channel(
+                        guild.announcement_channel_id
+                    ) or await self.bot.fetch_channel(guild.announcement_channel_id)
+                except NotFound:
+                    return await inter.send(
+                        "Your announcements channel could not be found. Please reset it.",
+                        ephemeral=True,
+                    )
+                self.bot.interface_handler.news_feeds.channels_dict[
+                    "DetailedDispatches"
+                ].append(channel)
+                guild.detailed_dispatches = True
+                guild.save_changes()
+                action_rows[1].pop(3)
+                action_rows[1].insert_item(
+                    3, Setup.DetailedDispatches.DetailedDispatchesButton(True)
+                )
+                action_rows[1].children[3].disabled = False
+                return await inter.response.edit_message(
+                    embed=SetupEmbed(
+                        guild, self.bot.json_dict["languages"][guild.language]
+                    ),
+                    components=action_rows,
+                )
 
     @commands.Cog.listener("on_dropdown")
     async def on_dropdowns(self, inter: MessageInteraction):
@@ -478,6 +533,7 @@ class SetupCog(commands.Cog):
                 action_rows[1].children[0].disabled = False
                 action_rows[1].children[1].disabled = False
                 action_rows[1].children[2].disabled = False
+                action_rows[1].children[3].disabled = False
                 await inter.response.edit_message(embed=embed, components=action_rows)
         elif inter.component.custom_id == "map_channel_select":
             await inter.response.defer()

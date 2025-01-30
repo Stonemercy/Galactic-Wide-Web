@@ -186,6 +186,7 @@ class NewsFeeds:
         self.__patch_note_channels__ = []
         self.__major_order_channels__ = []
         self.__personal_order_channels__ = []
+        self.__detailed_dispatches_channels__ = []
 
     @property
     def channels_dict(self):
@@ -194,6 +195,7 @@ class NewsFeeds:
             "Patch": self.__patch_note_channels__,
             "MO": self.__major_order_channels__,
             "PO": self.__personal_order_channels__,
+            "DetailedDispatches": self.__detailed_dispatches_channels__,
         }
 
     async def populate(self):
@@ -210,10 +212,15 @@ class NewsFeeds:
                     self.__major_order_channels__.append(announcement_channel)
                 if guild.personal_order_updates:
                     self.__personal_order_channels__.append(announcement_channel)
+                if guild.detailed_dispatches:
+                    self.__detailed_dispatches_channels__.append(announcement_channel)
+
             except NotFound as e:
                 guild.announcement_channel_id = 0
                 guild.patch_notes = False
                 guild.major_order_updates = False
+                guild.personal_order_updates = False
+                guild.detailed_dispatches = False
                 guild.save_changes()
                 self.bot.logger.error(
                     f"NewsFeeds.populate() ERROR | {e} | reset in DB | {guild.id = }"
@@ -228,6 +235,7 @@ class NewsFeeds:
         self.__patch_note_channels__.clear()
         self.__major_order_channels__.clear()
         self.__personal_order_channels__.clear()
+        self.__detailed_dispatches_channels__.clear()
 
 
 class Maps(list):

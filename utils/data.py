@@ -1,3 +1,4 @@
+from copy import deepcopy
 from aiohttp import ClientSession
 from asyncio import sleep
 from data.lists import task_type_15_progress_dict
@@ -24,6 +25,7 @@ class Data:
         "dss",
         "war_time",
         "personal_order",
+        "global_events",
         "loaded",
         "liberation_changes",
         "planets_with_player_reqs",
@@ -41,6 +43,7 @@ class Data:
             "dss": None,
             "war_time": None,
             "personal_order": None,
+            "global_events": None,
         }
         self.loaded = False
         self.liberation_changes = {}
@@ -125,6 +128,16 @@ class Data:
                                 self.__data__[endpoint] = data[-1]
                             else:
                                 bot.logger.error(f"API/Personal_Order, {r.status}")
+                        continue
+                    if endpoint == "global_events":
+                        async with session.get(
+                            "https://api.diveharder.com/v1/status"
+                        ) as r:
+                            if r.status == 200:
+                                data = await r.json()
+                                self.__data__[endpoint] = data["globalEvents"]
+                            else:
+                                bot.logger.error(f"API/Global_Events, {r.status}")
                         continue
 
                     try:
@@ -255,7 +268,14 @@ class Data:
             self.superstore = Superstore(self.__data__["superstore"])
 
         if self.__data__["personal_order"]:
-            self.personal_order = PersonalOrder(self.__data__["personal_order"])
+            self.personal_order: PersonalOrder = PersonalOrder(
+                self.__data__["personal_order"]
+            )
+
+        if self.__data__["global_events"]:
+            self.global_events: GlobalEvents = GlobalEvents(
+                self.__data__["global_events"]
+            )
 
     def update_liberation_rates(self):
         for campaign in self.campaigns:
@@ -426,6 +446,40 @@ class Dispatch:
 
     def __repr__(self):
         return f"Dispatch(id={self.id}, message={self.message})"
+
+
+class GlobalEvents(list):
+    def __init__(self, global_events):
+        for global_event in global_events:
+            self.append(self.GlobalEvent(global_event))
+
+    class GlobalEvent:
+        def __init__(self, global_event):
+            self.id = global_event["eventId"]
+            self.title = global_event["title"]
+            self.message = steam_format(global_event["message"])
+            self.faction = global_event["race"]
+            self.flag = global_event["flag"]
+            self.assignment_id = global_event["assignmentId32"]
+
+        @property
+        def split_message(self):
+            sentences = self.message.split("\n\n")
+            formatted_sentences = [f"-# {sentence}" for sentence in sentences]
+            chunks = []
+            current_chunk = ""
+            for sentence in formatted_sentences:
+                if len(current_chunk) + len(sentence) + 2 <= 1024:
+                    current_chunk += sentence + "\n\n"
+                else:
+                    chunks.append(current_chunk.strip())
+                    current_chunk = sentence + "\n\n"
+            if current_chunk:
+                chunks.append(current_chunk.strip())
+            return chunks
+
+        def __repr__(self):
+            return f"GlobalEvent({self.id, self.title, self.message, self.faction, self.flag, self.assignment_id})"
 
 
 class Planet:

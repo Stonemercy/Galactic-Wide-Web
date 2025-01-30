@@ -23,6 +23,7 @@ class GWWGuild:
         "map_message_id",
         "major_order_updates",
         "personal_order_updates",
+        "detailed_dispatches",
     )
 
     def __init__(
@@ -37,6 +38,7 @@ class GWWGuild:
         map_message_id: int,
         major_order_updates: bool,
         personal_order_updates: bool,
+        detailed_dispatches: bool,
     ):
         self.id: int = id
         self.dashboard_channel_id: int = dashboard_channel_id
@@ -48,6 +50,7 @@ class GWWGuild:
         self.map_message_id: int = map_message_id
         self.major_order_updates: bool = major_order_updates
         self.personal_order_updates: bool = personal_order_updates
+        self.detailed_dispatches: bool = detailed_dispatches
 
     @property
     def language_long(self):
@@ -87,7 +90,7 @@ class GWWGuild:
 
     @classmethod
     def default(cls):
-        return cls(0, 0, 0, 0, False, "en", 0, 0, False, False)
+        return cls(0, 0, 0, 0, False, "en", 0, 0, False, False, False)
 
     def delete(guild_id: int):
         with connect(
@@ -111,13 +114,14 @@ class GWWGuild:
                     map_channel_id = {self.map_channel_id},
                     map_message_id = {self.map_message_id},
                     major_order_updates = {self.major_order_updates},
-                    personal_order_updates = {self.personal_order_updates}
+                    personal_order_updates = {self.personal_order_updates},
+                    detailed_dispatches = {self.detailed_dispatches}
                     where guild_id = {self.id}"""
                 )
                 conn.commit()
 
     def __repr__(self):
-        return f"GWWGuild({self.id, self.dashboard_channel_id, self.dashboard_message_id, self.announcement_channel_id, self.patch_notes, self.language, self.major_order_updates, self.map_channel_id, self.map_message_id})"
+        return f"GWWGuild({self.id, self.dashboard_channel_id, self.dashboard_message_id, self.announcement_channel_id, self.patch_notes, self.language, self.major_order_updates, self.map_channel_id, self.map_message_id, self.major_order_updates, self.personal_order_updates, self.detailed_dispatches})"
 
 
 class BotDashboard:
@@ -164,6 +168,27 @@ class MajorOrder:
         ) as conn:
             with conn.cursor() as curs:
                 curs.execute(f"UPDATE major_order SET id = {self.id}")
+                conn.commit()
+
+
+class GlobalEvent:
+    __slots__ = "id"
+
+    def __init__(self):
+        with connect(
+            host=hostname, dbname=database, user=username, password=pwd, port=port_id
+        ) as conn:
+            with conn.cursor() as curs:
+                curs.execute("SELECT * FROM global_events")
+                record = curs.fetchone()
+                self.id = record[0]
+
+    def save_changes(self):
+        with connect(
+            host=hostname, dbname=database, user=username, password=pwd, port=port_id
+        ) as conn:
+            with conn.cursor() as curs:
+                curs.execute(f"UPDATE global_events SET id = {self.id}")
                 conn.commit()
 
 

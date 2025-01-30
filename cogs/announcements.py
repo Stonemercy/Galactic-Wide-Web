@@ -1,8 +1,9 @@
 from datetime import datetime, time
 from disnake.ext import commands, tasks
 from main import GalacticWideWebBot
-from utils.db import Steam, GWWGuild, MajorOrder, Dispatch
-from utils.embeds import Dashboard, DispatchesEmbed, SteamEmbed
+from utils.data import GlobalEvents
+from utils.db import GlobalEvent, Steam, GWWGuild, MajorOrder, Dispatch
+from utils.embeds import Dashboard, DispatchesEmbed, GlobalEventsEmbed, SteamEmbed
 from utils.testing.assignment import TestAssignment
 
 
@@ -10,12 +11,14 @@ class AnnouncementsCog(commands.Cog):
     def __init__(self, bot: GalacticWideWebBot):
         self.bot = bot
         self.major_order_check.start()
+        self.global_event_check.start()
         self.dispatch_check.start()
         self.steam_check.start()
         self.major_order_updates.start()
 
     def cog_unload(self):
         self.major_order_check.stop()
+        self.global_event_check.stop()
         self.dispatch_check.stop()
         self.steam_check.stop()
         self.major_order_updates.stop()
@@ -44,11 +47,29 @@ class AnnouncementsCog(commands.Cog):
                 )
                 for lang in list({guild.language for guild in GWWGuild.get_all()})
             }
+            mo_briefing_list = [
+                ge
+                for ge in self.bot.data.global_events
+                if ge.assignment_id == self.bot.data.assignment.id
+            ]
+            if mo_briefing_list:
+                mo_briefing = mo_briefing_list[0]
+                mo_briefing: GlobalEvents.GlobalEvent
+
+                for embed in embeds.values():
+                    embed.insert_field_at(
+                        0, mo_briefing.title, mo_briefing.split_message[0], inline=False
+                    )
+                    for index, chunk in enumerate(mo_briefing.split_message[1:], 1):
+                        embed.insert_field_at(index, "", chunk, inline=False)
+            else:
+                self.bot.logger.info(f"MO briefing not available")
+                return
             last_MO.id = self.bot.data.assignment.id
             last_MO.save_changes()
-            await self.bot.interface_handler.send_news("MO", embeds)
+            await self.bot.interface_handler.send_news("Generic", embeds)
             self.bot.logger.info(
-                f"Sent MO announcements out to {len(self.bot.interface_handler.news_feeds.channels_dict['MO'])} channels"
+                f"Sent MO announcements out to {len(self.bot.interface_handler.news_feeds.channels_dict['Generic'])} channels"
             )
 
     @major_order_check.before_loop
@@ -144,6 +165,42 @@ class AnnouncementsCog(commands.Cog):
 
     @major_order_updates.before_loop
     async def before_major_order_updates(self):
+        await self.bot.wait_until_ready()
+
+    @tasks.loop(minutes=1)
+    async def global_event_check(self):
+        ge_start = datetime.now()
+        if (
+            not self.bot.interface_handler.loaded
+            or ge_start < self.bot.ready_time
+            or not self.bot.data.loaded
+            or self.bot.interface_handler.busy
+            or not self.bot.data.global_events
+        ):
+            return
+        last_GE = GlobalEvent()
+        for global_event in self.bot.data.global_events:
+            global_event: GlobalEvents.GlobalEvent
+            if global_event.id != last_GE.id:
+                if global_event.title == "BRIEFING" or global_event.flag == 0:
+                    last_GE.id = global_event.id
+                    last_GE.save_changes()
+                    continue
+                embeds = {
+                    lang: GlobalEventsEmbed(
+                        self.bot.json_dict["languages"][lang], global_event
+                    )
+                    for lang in list({guild.language for guild in GWWGuild.get_all()})
+                }
+                last_GE.id = global_event.id
+                last_GE.save_changes()
+                await self.bot.interface_handler.send_news("DetailedDispatches", embeds)
+                self.bot.logger.info(
+                    f"Sent Global Event out to {len(self.bot.interface_handler.news_feeds.channels_dict['Generic'])} channels"
+                )
+
+    @global_event_check.before_loop
+    async def before_ge_check(self):
         await self.bot.wait_until_ready()
 
 

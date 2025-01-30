@@ -224,6 +224,7 @@ class AdminCommandsCog(commands.Cog):
                 f"- Major Order channels:\n  - Amount: {len(self.bot.interface_handler.news_feeds.channels_dict['MO'])}\n\n"
                 f"- Personal Order channels:\n  - Amount: {len(self.bot.interface_handler.news_feeds.channels_dict['PO'])}\n\n"
                 f"- Map messages:\n  - Amount: {len(self.bot.interface_handler.maps)}\n\n"
+                f"- Detailed Dispatches Channels:\n  - Amount: {len(self.bot.interface_handler.news_feeds.channels_dict['DetailedDispatches'])}"
             ),
             ephemeral=True,
             embeds=embeds,
