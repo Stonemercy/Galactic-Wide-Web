@@ -183,16 +183,16 @@ class Data:
             )
 
         if self.__data__["planets"]:
-            self.planets = Planets(self.__data__["planets"])
+            self.planets: Planets = Planets(self.__data__["planets"])
             self.total_players = sum(
                 [planet.stats["playerCount"] for planet in self.planets.values()]
             )
 
         if self.__data__["dss"]:
             if self.__data__["dss"] != "Error":
-                self.dss = DSS(self.__data__["dss"], self.planets, self.war_time)
+                self.dss: DSS = DSS(self.__data__["dss"], self.planets, self.war_time)
             else:
-                self.dss = "Error"
+                self.dss: str = "Error"
 
         self.planet_events: list[Planet] = sorted(
             [planet for planet in self.planets.values() if planet.event],
@@ -201,7 +201,7 @@ class Data:
         )
 
         if self.__data__["assignments"] not in ([], None):
-            self.assignment = Assignment(self.__data__["assignments"][0])
+            self.assignment: Assignment = Assignment(self.__data__["assignments"][0])
             factions = {
                 1: "Humans",
                 2: "Terminids",
@@ -239,19 +239,19 @@ class Data:
                             self.planets[index].in_assignment = True
                 elif task.type in (11, 13):
                     self.planets[task.values[2]].in_assignment = True
+
         if self.__data__["campaigns"] not in ([], None):
-            self.campaigns: list[Campaign] = [
-                Campaign(campaign, self.planets)
-                for campaign in self.__data__["campaigns"]
-            ]
-            self.campaigns = sorted(
-                self.campaigns,
+            self.campaigns: list[Campaign] = sorted(
+                [
+                    Campaign(campaign, self.planets)
+                    for campaign in self.__data__["campaigns"]
+                ],
                 key=lambda item: item.planet.stats["playerCount"],
                 reverse=True,
             )
 
         if self.__data__["dispatches"]:
-            self.dispatch = Dispatch(self.__data__["dispatches"][0])
+            self.dispatch: Dispatch = Dispatch(self.__data__["dispatches"][0])
 
         if self.__data__["thumbnails"]:
             self.thumbnails = self.__data__["thumbnails"]
@@ -262,10 +262,10 @@ class Data:
                     )
 
         if self.__data__["steam"]:
-            self.steam = [Steam(notes) for notes in self.__data__["steam"]]
+            self.steam: list[Steam] = [Steam(notes) for notes in self.__data__["steam"]]
 
         if self.__data__["superstore"]:
-            self.superstore = Superstore(self.__data__["superstore"])
+            self.superstore: Superstore = Superstore(self.__data__["superstore"])
 
         if self.__data__["personal_order"]:
             self.personal_order: PersonalOrder = PersonalOrder(
