@@ -1,0 +1,189 @@
+{
+  "code": "pt-br",
+  "code_long": "pt-BR",
+  "ends": "Finaliza",
+  "message": "Mensagem #{message_id}",
+  "victory": "Vitória",
+  "defeat": "Derrota",
+  "dashboard": {
+    "heroes": "Heróis: **{heroes}**",
+    "outlook": "Panorama: **{outlook}**",
+    "progress": "Progresso atual",
+    "MajorOrderEmbed": {
+      "title": "Ordem Imperativa",
+      "MO_unavailable": "Aguarde para mais ordens do Alto Comando da Super Terra",
+      "liberated": "LIBERADO",
+      "rewards": "Recompensas",
+      "tasks": {
+        "type2": "{status_emoji} Extraia com sucesso com {amount} {item} em {planet}",
+        "type3": "{status_emoji} Mate {amount} {target}",
+        "type3.5": " usando  __{weapon_to_use}__ ",
+        "type11": "{status_emoji} Libere {planet}",
+        "type12_with_planet": "{status_emoji} Defenda {planeta} contra {number} ataques dos {faction}",
+        "type12_without_planet": "{status_emoji} Defenda contra {number} ataques dos {faction}",
+        "type13": "{status_emoji} Mantenha {planet} quando a ordem expirar",
+        "type15": "{status_emoji} Libere mais planetas do que são perdidos durante a duração da ordem"
+      }
+    },
+    "DSSEmbed": {
+      "stationed_at": "Estacionada em **{planet}** {faction_emoji}\n",
+      "next_move": "Movendo as {timestamp}",
+      "cost": "Custo: {emoji} {amount} **{item}s**",
+      "max_submitable": "Maxímo submissível: **{number}** a cada **{hours}** horas",
+      "status": "Status",
+      "preparing": "Preparando",
+      "active": "ativo",
+      "on_cooldown": "em cooldown",
+      "off_cooldown": "fora do cooldown"
+    },
+    "DefenceEmbed": {
+      "title": "Defendendo",
+      "no_threats": "Atualmente não há ameaças a nossa liberdade",
+      "for_now": "Por enquanto...",
+      "time_unavailable": "Indisponível",
+      "event_health": "Liberação Planetária",
+      "players_required": "Necessário para Vitória",
+      "level": "Nível da Defesa"
+    },
+    "AttackEmbed": {
+      "title": "Atacando {faction}",
+      "planet_health": "Liberação Planetária",
+      "low_impact": "Impacto baixo/Planetas populacionais"
+    },
+    "FooterEmbed": {
+      "other_updated": "Atualizado em",
+      "total_players": "Total de jogadores",
+      "liberty_day": "A GWW te deseja um feliz Dia da Liberdade",
+      "malevelon_creek_day": "A GWW te deseja um feliz Dia do Memorial de Malevelon Creek",
+      "festival_of_reckoning": "A GWW te deseja um feliz Festival da Retribuição",
+      "new_year": "A GWW te deseja um feliz Ano Novo"
+    }
+  },
+  "CampaignEmbed": {
+    "title": "Atualizações da Guerra Galáctica",
+    "victories": "Vitória de Campanha",
+    "planets_lost": "Planetas perdidos",
+    "new_battles": "Novas campanhas",
+    "invasions": "Invasões",
+    "defend_planet": "🛡️ Defender **{planet}** {faction_emoji} {exclamation}",
+    "defence_level": "\n> -# Nível de Defesa **{level}** {exclamation}",
+    "repel_invasion": "🛡️ Repelir a invasão em {planet} {faction_emoji} {exclamation}",
+    "liberate": "⚔️ Liberar **{planet}** {faction_emoji} {exclamation}",
+    "been_liberated": "{emoji} **{planet}** foi liberado dos {faction} {faction_emoji} {exclamation}\n",
+    "been_defended": "{emoji} **{planet}** foi defendido com sucesso {exclamation}",
+    "been_lost": "💀 **{planet}** foi perdido para os **{faction}** {faction_emoji} {exclamation}",
+    "invasion_over": "A invasão em {planet} acabou {faction_emoji} {exclamation}",
+    "no_territory_change": "\n-# Os **{faction}** foram embora e __nenhum território mudou de posse__ {faction_emoji}\n",
+    "dss": {
+      "has_moved": "A EED se moveu de **{planet1}** {faction_emoji1} para **{planet2}** {faction_emoji2} {exclamation}\n",
+      "ta_status_change": "**{ta_name}** agora é **{status}**\n"
+    }
+  },
+  "PlanetEmbed": {
+    "sector": "Setor: **{sector}**\n",
+    "owner": "Dono: **{faction}** {faction_emoji}\n\n",
+    "biome": "🏔️ Bioma: \n- **{biome_name}**\n  - -# {biome_description}\n\n",
+    "environmentals": "🌪️ Ambiental(is):{environmentals}\n\n",
+    "mission_stats": "📊 Estatísticas da missão",
+    "missions_won": "Missões vencidas",
+    "missions_lost": "Missões perdidas",
+    "missions_winrate": "Taxa de vitória de missão",
+    "missions_time_spent": "Tempo gasto em missões",
+    "hero_stats": "📈 Estatísticas de heróis",
+    "active_heroes": "Heróis ativos",
+    "heroes_lost": "Heróis perdidos",
+    "accidentals": "Accidentais",
+    "shots_fired": "Tiros disparados",
+    "shots_hit": "Tiros acertados",
+    "accuracy": "Precisão",
+    "killed": "mortos",
+    "liberation_progress": "Progresso de Liberação"
+  },
+  "SetupEmbed": {
+    "title": "Setup",
+    "dashboard": "Dashboard",
+    "dashboard_desc": "-# Uma dashboard com informações gerais de guerra que atualiza a cada 15 minutos\n",
+    "dashboard_channel": "Canal de dashboard",
+    "dashboard_message": "Mensagem de dashboard",
+    "announcements": "Anúncios",
+    "announcements_desc": "-# Anúncios gerais a respeito da guerra (e.g. Novas MO's, Planetas perdidos/ganhos, despachos gerais)\n",
+    "announcement_channel": "Canal de anúncios",
+    "map": "Mapa",
+    "map_desc": "-# Um mapa galáctico que atualiza a cada hora em **##:05** (e.g. 09:05)\n",
+    "map_channel": "Canal do mapa",
+    "map_message": "Mensagem do mapa",
+    "language": "{flag_emoji} Língua",
+    "patch_notes": "Notas de atualização",
+    "patch_notes_desc": "-# Fornece notas de atualização sobre o jogo para o seu canal de Anúncios designado\n",
+    "mo_updates": "Atualizações da Ordem Imperativa",
+    "mo_updates_desc": "-# Fornece atualizações para ordens imperativas em <t:1737786000:t> e <t:1737829200:t>\n",
+    "po_updates": "Atualizações da Ordem Pessoal",
+    "po_updates_desc": "-# Fornece atualizações sobre a Ordem Pessoal ativa atualmente em <t:1737799800:t> e <t:1737843000:t>\n",
+    "detailed_dispatches": "Despachos detalhados",
+    "detailed_dispatches_desc": "-# Fornece os despachos maiores do Alto Comando da Super Terra\n",
+    "not_set": "Não definido",
+    "footer_message_not_set": "-# Se você está vendo `Não definido` onde um canal/mensagem deveria estar, confira as permissões para o bot!",
+    "footer_message_announcements_asterisk": "-# \\* para definir isto, Anúncios deve ser configurado"
+  },
+  "EnemyEmbed": {
+    "introduced": "Introduzido",
+    "difficulty": "Difficuldade",
+    "tactics": "Táticas",
+    "weak_spots": "Pontos fracos",
+    "variations": "Variações"
+  },
+  "SteamEmbed": {
+    "head_here": "...\nPor favor vá [aqui](<{url}>) para ler todas as notas de atualização"
+  },
+  "StratagemEmbed": {
+    "key_input": "Entrada chave",
+    "uses": "Usos",
+    "cooldown": "Cooldown"
+  },
+  "WarfrontEmbed": {
+    "title": "Frente de guerra para os {faction} {faction_emoji}",
+    "description": "Há {number} campanhas disponíveis para entrar",
+    "defending_title": "Defendendo"
+  },
+  "WeaponEmbed": {
+    "constant_fire": "{number} segundos de fogo constante",
+    "information_title": "Informação",
+    "type": "Tipo: **`{type}`**\n",
+    "damage": "Dano: **`{damage}`**\n",
+    "fire_rate": "Taxa de fogo: **`{fire_rate}rpm`**\n",
+    "dps": "DPS: **`{dps}/s`**\n",
+    "capacity": "Capacidade: **`{capacity}`** {emoji}\n",
+    "fire_modes": "Modos de fogo:{fire_modes}\n",
+    "features": "Aspectos:{features}",
+    "fuse_time": "Tempo de fusível: **`{fuse_time} segundos`**\n",
+    "penetration": "Penetração: **`{penetration}`**\n",
+    "radius": "Raio: **`{radius}`**"
+  },
+  "dss": {
+    "title": "Estação Espacial Democracy"
+  },
+  "major_order": {
+    "MO_unavailable": "Aguarde mais ordens do Alto Comando da Super Terra"
+  },
+  "stratagems": {
+    "unavailable": "Essa estratégia não está na minha lista, por favor tente novamente.\n-# Se você acha que isto é um erro, entre em contato com meu Servidor de Suporte"
+  },
+  "setup": {
+    "cant_find_channel": "Eu não consigo encontrar esse canal. Por favor certifique que eu tenho permissão de `Vizualisar Canal` ",
+    "missing_perm": "Sem permissão para mandar para aquele canal.\nPor favor forneca as seguintes permissões e tente novamente:{permissions}"
+  },
+  "enemies": {
+    "missing": "Esse inimigo não está em nossos arquivos. Se você acha que isso é um erro por favor contate a Administração da GWW",
+    "species_or_variation": "Por favor escolha espécies *ou* variação."
+  },
+  "factions": {
+    "1": "Humanos",
+    "2": "Terminídios",
+    "3": "Automatôs",
+    "4": "Iluminados",
+    "Humans": "Humanos",
+    "Terminids": "Terminídios",
+    "Automaton": "Automatôs",
+    "Illuminate": "Iluminados"
+  }
+}

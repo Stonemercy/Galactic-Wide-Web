@@ -1948,6 +1948,7 @@ class SetupEmbed(Embed):
             "fr": ":flag_fr:",
             "de": ":flag_de:",
             "it": ":flag_it:",
+            "pt-br": ":flag_br:",
         }
         self.add_field(
             language_json["SetupEmbed"]["language"].format(
