@@ -508,6 +508,7 @@ class Planet:
             125: "Centre of Science",
             126: "Xenoentomology Center",
             130: "Factory Hub",
+            160: "Jet Brigade Factories",
             161: "Deep Mantle Forge Complex",
         }.get(self.index, None)
         self.dss = False
