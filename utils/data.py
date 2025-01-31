@@ -10,7 +10,15 @@ api = getenv("API")
 backup_api = getenv("BU_API")
 
 
-class Data:
+class ReprMixin:
+    """Class to clearly represent objects"""
+
+    def __repr__(self):
+        items = (f"{k} = {v}" for k, v in self.__dict__.items())
+        return f"<{self.__class__.__name__}: {{{', '.join(items)}}}>"
+
+
+class Data(ReprMixin):
     __slots__ = (
         "__data__",
         "assignment",
@@ -333,37 +341,28 @@ class Data:
         return deepcopy(self)
 
 
-class Assignment:
+class Assignment(ReprMixin):
     def __init__(self, assignment: dict):
-        self.__assignment = assignment
-        self.id: int = self.__assignment["id"]
+        self.id: int = assignment["id"]
         self.title = (
-            steam_format(self.__assignment["briefing"])
-            if self.__assignment["briefing"] not in ([], None)
+            steam_format(assignment["briefing"])
+            if assignment["briefing"] not in ([], None)
             else ""
         )
         self.description = (
-            steam_format(self.__assignment["description"])
-            if self.__assignment["description"]
-            not in ([], None, self.__assignment["briefing"])
+            steam_format(assignment["description"])
+            if assignment["description"] not in ([], None, assignment["briefing"])
             else ""
         )
-        self.tasks = Tasks(self.__assignment)
-        self.rewards = self.__assignment["rewards"]
-        self.ends_at = self.__assignment["expiration"]
+        self.tasks = Tasks(assignment)
+        self.rewards = assignment["rewards"]
+        self.ends_at = assignment["expiration"]
         self.ends_at_datetime = datetime.fromisoformat(self.ends_at)
-
-    def __repr__(self):
-        return (
-            f"Assignment(id={self.id}, title={self.title}, description={self.description}, tasks={self.tasks} "
-            f"rewards={self.rewards}, ends_at={self.ends_at}, ends_at_datetime={self.ends_at_datetime})"
-        )
 
 
 class Tasks(list):
     def __init__(self, assignment):
-        self.__assignment = assignment
-        for index, task in enumerate(self.__assignment["tasks"]):
+        for index, task in enumerate(assignment["tasks"]):
             task = self.Task(task)
             if task.type in (15, 12):
                 progress_value = task.values[0]
@@ -371,10 +370,10 @@ class Tasks(list):
                 progress_value = 1
             elif task.type in (3, 2):
                 progress_value = task.values[2]
-            task.progress = self.__assignment["progress"][index] / progress_value
+            task.progress = assignment["progress"][index] / progress_value
             self.append(task)
 
-    class Task:
+    class Task(ReprMixin):
         def __init__(self, task):
             self.type: int = task["type"]
             self.progress: float = 0
@@ -414,14 +413,8 @@ class Tasks(list):
                     "Humans" if self.progress > 0 else "Automaton",
                 )
 
-        def __repr__(self):
-            return (
-                f"Task(type={self.type}, progress={self.progress}, values={self.values} "
-                f"value_types={self.value_types}, health_bar={self.health_bar})"
-            )
 
-
-class Campaign:
+class Campaign(ReprMixin):
     def __init__(self, campaign, planets):
         self.id: int = campaign["id"]
         self.planet: Planet = planets[campaign["planet"]["index"]]
@@ -438,17 +431,11 @@ class Campaign:
             else self.planet.current_owner
         )
 
-    def __repr__(self):
-        return f"Campaign(id={self.id}, planet={self.planet}, type={self.type}, count={self.count}, progress={self.progress}, faction={self.faction})"
 
-
-class Dispatch:
+class Dispatch(ReprMixin):
     def __init__(self, dispatch):
         self.id: int = dispatch["id"]
         self.message = steam_format(dispatch["message"]) if dispatch["message"] else ""
-
-    def __repr__(self):
-        return f"Dispatch(id={self.id}, message={self.message})"
 
 
 class GlobalEvents(list):
@@ -456,7 +443,7 @@ class GlobalEvents(list):
         for global_event in global_events:
             self.append(self.GlobalEvent(global_event))
 
-    class GlobalEvent:
+    class GlobalEvent(ReprMixin):
         def __init__(self, global_event):
             self.id = global_event["eventId"]
             self.title = global_event["title"]
@@ -481,11 +468,8 @@ class GlobalEvents(list):
                 chunks.append(current_chunk.strip())
             return chunks
 
-        def __repr__(self):
-            return f"GlobalEvent({self.id, self.title, self.message, self.faction, self.flag, self.assignment_id})"
 
-
-class Planet:
+class Planet(ReprMixin):
     def __init__(self, planet_json: dict):
         self.index: int = planet_json["index"]
         self.name: str = planet_json["name"]
@@ -499,7 +483,9 @@ class Planet:
         self.health_perc: float = self.health / self.max_health
         self.current_owner: str = planet_json["currentOwner"]
         self.regen: float = planet_json["regenPerSecond"]
-        self.regen_perc_per_hour = ((self.regen * 3600) / self.max_health) * 100
+        self.regen_perc_per_hour = round(
+            (((self.regen * 3600) / self.max_health) * 100), 2
+        )
         self.event = self.Event(planet_json["event"]) if planet_json["event"] else None
         self.stats: dict = planet_json["statistics"]
         self.thumbnail = None
@@ -514,17 +500,7 @@ class Planet:
         self.dss = False
         self.in_assignment = False
 
-    def __repr__(self):
-        return (
-            f"Planet(index={self.index}, name='{self.name}', sector='{self.sector}', "
-            f"biome={self.biome}, hazards={self.hazards}, position={self.position}, "
-            f"waypoints={self.waypoints}, max_health={self.max_health}, health={self.health}, "
-            f"current_owner='{self.current_owner}', regen={self.regen}, event={self.event}, "
-            f"stats={self.stats}, thumbnail={self.thumbnail}, feature={self.feature}, "
-            f"dss={self.dss}, in_assignment={self.in_assignment})"
-        )
-
-    class Event:
+    class Event(ReprMixin):
         def __init__(self, event):
             self.id: int = event["id"]
             self.type: int = event["eventType"]
@@ -547,12 +523,6 @@ class Planet:
         def health_bar(self) -> str:
             return health_bar(self.progress, self.faction, True)
 
-        def __repr__(self):
-            return (
-                f"Event(id={self.id}, type={self.type}, faction={self.faction}, health={self.health}) "
-                f"max_health={self.max_health}, start_time={self.start_time}, end_time={self.end_time}, progress={self.progress})"
-            )
-
 
 class Planets(dict[int, Planet]):
     def __init__(self, planets: dict):
@@ -572,7 +542,7 @@ class PlanetEvents(list[Planet]):
             self.append(Planet(planet))
 
 
-class Steam:
+class Steam(ReprMixin):
     def __init__(self, steam):
         self.id: int = int(steam["id"])
         self.title: str = steam["title"]
@@ -580,20 +550,14 @@ class Steam:
         self.author: str = steam["author"]
         self.url: str = steam["url"]
 
-    def __repr__(self):
-        return f"Steam(id={self.id}, title={self.title}, content={self.content}, author={self.author}, url={self.url})"
 
-
-class Superstore:
+class Superstore(ReprMixin):
     def __init__(self, superstore):
         self.expiration = superstore["expire_time"]
         self.items: dict = superstore["items"]
 
-    def __repr__(self):
-        return f"Superstore(expiration={self.expiration}, item1={self.item1}, item2={self.item2}, item3={self.item3}, item4={self.item4})"
 
-
-class DSS:
+class DSS(ReprMixin):
     def __init__(self, dss, planets, war_time):
         self.planet: Planet = planets[dss["planetIndex"]]
         self.planet.dss = True
@@ -606,7 +570,7 @@ class DSS:
             for tactical_action in dss["tacticalActions"]
         ]
 
-    class TacticalAction:
+    class TacticalAction(ReprMixin):
         def __init__(self, tactical_action, war_time):
             self.name: str = tactical_action["name"]
             self.description: str = tactical_action["description"]
@@ -620,7 +584,7 @@ class DSS:
             )
             self.cost = self.Cost(tactical_action["cost"][0])
 
-        class Cost:
+        class Cost(ReprMixin):
             def __init__(self, cost):
                 self.item: str = {
                     2985106497: "Rare Sample",
@@ -636,7 +600,7 @@ class DSS:
                 )
 
 
-class PersonalOrder:
+class PersonalOrder(ReprMixin):
     def __init__(self, personal_order: dict):
         self.id: int = personal_order["id32"]
         self.expiration_secs_from_now: int = personal_order["expiresIn"]
@@ -645,10 +609,7 @@ class PersonalOrder:
         )
         self.setting = self.Setting(personal_order["setting"])
 
-    def __repr__(self):
-        return f"PersonalOrder(id={self.id}, expiration_secs_from_now={self.expiration_secs_from_now}, expiration_datetime={self.expiration_datetime}, setting={self.setting})"
-
-    class Setting:
+    class Setting(ReprMixin):
         def __init__(self, setting: dict):
             self.type: int = setting["type"]
             self.title: str = setting["overrideTitle"]
@@ -658,32 +619,23 @@ class PersonalOrder:
             self.rewards = self.Rewards(setting["rewards"])
             self.flags: int = setting["flags"]
 
-        def __repr__(self):
-            return f"Setting(type={self.type}, title={self.title}, brief={self.brief}, description={self.description}, tasks={self.tasks}, rewards={self.rewards}, flags={self.flags})"
-
         class Tasks(list):
             def __init__(self, tasks: list):
                 for task in tasks:
                     self.append(self.Task(task))
 
-            class Task:
+            class Task(ReprMixin):
                 def __init__(self, task: dict):
                     self.type: int = task["type"]
                     self.values: dict = task["values"]
                     self.value_types: dict = task["valueTypes"]
-
-                def __repr__(self):
-                    return f"Task(type={self.type}, values={self.values}, value_types={self.value_types})"
 
         class Rewards(list):
             def __init__(self, rewards: list):
                 for reward in rewards:
                     self.append(self.Reward(reward))
 
-            class Reward:
+            class Reward(ReprMixin):
                 def __init__(self, reward: dict):
                     self.type: int = reward["type"]
                     self.amount: int = reward["amount"]
-
-                def __repr__(self):
-                    return f"Reward(type={self.type}, amount={self.amount})"
