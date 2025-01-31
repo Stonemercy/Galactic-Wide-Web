@@ -8,8 +8,9 @@ The bot may store the following information automatically when being invited to 
     The server's ID
 
 Upon using the `/setup` command, the following information is stored:
-    1 (one) message ID (the message is always a message posted by the bot, not anyone else)
-    1 (one) channel ID (the channel that the above message was posted in)
+    Message ID's
+    Channel ID's
+    Language
 
 No other information outside of the above mentioned one will be stored.
 
