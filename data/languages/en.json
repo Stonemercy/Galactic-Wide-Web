@@ -68,7 +68,7 @@
         "defend_planet": "🛡️ Defend **{planet}** {faction_emoji} {exclamation}",
         "defence_level": "\n> -# Defence level **{level}** {exclamation}",
         "repel_invasion": "🛡️ Repel the invasion on {planet} {faction_emoji} {exclamation}",
-        "liberate": "⚔️ Liberate **{planet}** {faction_emoji} {exclamation}",
+        "liberate": "⚔️ Liberate **{planet}** {faction_emoji} {exclamation}\n",
         "been_liberated": "{emoji} **{planet}** has been liberated from the {faction} {faction_emoji} {exclamation}\n",
         "been_defended": "{emoji} **{planet}** has been successfully defended {exclamation}",
         "been_lost": "💀 **{planet}** has been lost to the **{faction}** {faction_emoji} {exclamation}",
