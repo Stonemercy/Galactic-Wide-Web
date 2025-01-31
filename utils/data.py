@@ -5,17 +5,10 @@ from data.lists import task_type_15_progress_dict
 from datetime import datetime, timedelta
 from os import getenv
 from utils.functions import health_bar, steam_format
+from utils.mixins import ReprMixin
 
 api = getenv("API")
 backup_api = getenv("BU_API")
-
-
-class ReprMixin:
-    """Class to clearly represent objects"""
-
-    def __repr__(self):
-        items = (f"{k} = {v}" for k, v in self.__dict__.items())
-        return f"<{self.__class__.__name__}: {{{', '.join(items)}}}>"
 
 
 class Data(ReprMixin):

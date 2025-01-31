@@ -36,75 +36,63 @@ from utils.data import (
     GlobalEvents,
 )
 from utils.emojis import Emojis
+from utils.mixins import EmbedReprMixin
 
 
-class PlanetEmbed(Embed):
+class PlanetEmbed(Embed, EmbedReprMixin):
     def __init__(self, planet_names: dict, planet: Planet, language_json: dict):
         super().__init__(colour=Colour.from_rgb(*faction_colours[planet.current_owner]))
-        self.planet_names = planet_names
-        self.planet = planet
-        self.language_json = language_json
-        self.add_planet_info()
-        self.add_mission_stats()
-        self.add_hero_stats()
-        self.add_misc_stats()
+        self.add_planet_info(planet_names, planet, language_json)
+        self.add_mission_stats(planet, language_json)
+        self.add_hero_stats(planet, language_json)
+        self.add_misc_stats(planet, language_json)
 
-    def add_planet_info(self):
-        sector = self.language_json["PlanetEmbed"]["sector"].format(
-            sector=self.planet.sector
+    def add_planet_info(self, planet_names: dict, planet: Planet, language_json: dict):
+        sector = language_json["PlanetEmbed"]["sector"].format(sector=planet.sector)
+        owner = language_json["PlanetEmbed"]["owner"].format(
+            faction=language_json["factions"][planet.current_owner],
+            faction_emoji=Emojis.factions[planet.current_owner],
         )
-        owner = self.language_json["PlanetEmbed"]["owner"].format(
-            faction=self.language_json["factions"][self.planet.current_owner],
-            faction_emoji=Emojis.factions[self.planet.current_owner],
+        biome = language_json["PlanetEmbed"]["biome"].format(
+            biome_name=planet.biome["name"],
+            biome_description=planet.biome["description"],
         )
-        biome = self.language_json["PlanetEmbed"]["biome"].format(
-            biome_name=self.planet.biome["name"],
-            biome_description=self.planet.biome["description"],
-        )
-        environmentals = self.language_json["PlanetEmbed"]["environmentals"].format(
+        environmentals = language_json["PlanetEmbed"]["environmentals"].format(
             environmentals="".join(
                 [
                     f"\n- **{hazard['name']}**\n  - -# {hazard['description']}"
-                    for hazard in self.planet.hazards
+                    for hazard in planet.hazards
                 ]
             )
         )
         title_exclamation = ""
-        if self.planet.dss:
+        if planet.dss:
             title_exclamation += Emojis.dss["dss"]
-        if self.planet.in_assignment:
+        if planet.in_assignment:
             title_exclamation += Emojis.icons["MO"]
         planet_health_bar = health_bar(
-            (
-                self.planet.event.progress
-                if self.planet.event
-                else self.planet.health_perc
-            ),
-            (
-                self.planet.event.faction
-                if self.planet.event
-                else self.planet.current_owner
-            ),
-            True if self.planet.event else False,
+            (planet.event.progress if planet.event else planet.health_perc),
+            (planet.event.faction if planet.event else planet.current_owner),
+            True if planet.event else False,
         )
-        if self.planet.event:
-            planet_health_bar += f" 🛡️ {Emojis.factions[self.planet.event.faction]}"
-        if self.planet.current_owner == "Humans":
+        if planet.event:
+            planet_health_bar += f" 🛡️ {Emojis.factions[planet.event.faction]}"
+        if planet.current_owner == "Humans":
             health_text = (
-                f"{1 - self.planet.event.progress:^25,.2%}"
-                if self.planet.event
-                else f"{(self.planet.health_perc):^25,.2%}"
+                f"{1 - planet.event.progress:^25,.2%}"
+                if planet.event
+                else f"{(planet.health_perc):^25,.2%}"
             )
         else:
-            health_text = f"{1 - (self.planet.health_perc):^25,.2%}"
+            health_text = f"{1 - (planet.health_perc):^25,.2%}"
         self.add_field(
-            f"__**{self.planet_names['names'][self.language_json['code_long']]}**__ {title_exclamation}",
+            f"__**{planet_names['names'][language_json['code_long']]}**__ {title_exclamation}",
             (
                 f"{sector}"
                 f"{owner}"
                 f"{biome}"
                 f"{environmentals}"
-                f"{self.language_json['PlanetEmbed']['liberation_progress']}\n"
+                f"{language_json['PlanetEmbed']['liberation_progress']}\n"
                 f"{planet_health_bar}\n"
                 f"`{health_text}`\n"
                 "\u200b\n"
@@ -112,36 +100,32 @@ class PlanetEmbed(Embed):
             inline=False,
         )
 
-    def add_mission_stats(self):
+    def add_mission_stats(self, planet: Planet, language_json: dict):
         self.add_field(
-            self.language_json["PlanetEmbed"]["mission_stats"],
+            language_json["PlanetEmbed"]["mission_stats"],
             (
-                f"{self.language_json['PlanetEmbed']['missions_won']}: **`{short_format(self.planet.stats['missionsWon'])}`**\n"
-                f"{self.language_json['PlanetEmbed']['missions_lost']}: **`{short_format(self.planet.stats['missionsLost'])}`**\n"
-                f"{self.language_json['PlanetEmbed']['missions_winrate']}: **`{self.planet.stats['missionSuccessRate']}%`**\n"
-                f"{self.language_json['PlanetEmbed']['missions_time_spent']}: **`{self.planet.stats['missionTime']/31556952:.1f} years`**"
+                f"{language_json['PlanetEmbed']['missions_won']}: **`{short_format(planet.stats['missionsWon'])}`**\n"
+                f"{language_json['PlanetEmbed']['missions_lost']}: **`{short_format(planet.stats['missionsLost'])}`**\n"
+                f"{language_json['PlanetEmbed']['missions_winrate']}: **`{planet.stats['missionSuccessRate']}%`**\n"
+                f"{language_json['PlanetEmbed']['missions_time_spent']}: **`{planet.stats['missionTime']/31556952:.1f} years`**"
             ),
         )
 
-    def add_hero_stats(self):
+    def add_hero_stats(self, planet: Planet, language_json: dict):
         self.add_field(
-            self.language_json["PlanetEmbed"]["hero_stats"],
+            language_json["PlanetEmbed"]["hero_stats"],
             (
-                f"{self.language_json['PlanetEmbed']['active_heroes']}: **`{self.planet.stats['playerCount']:,}`**\n"
-                f"{self.language_json['PlanetEmbed']['heroes_lost']}: **`{short_format(self.planet.stats['deaths'])}`**\n"
-                f"{self.language_json['PlanetEmbed']['accidentals']}: **`{short_format(self.planet.stats['friendlies'])}`**\n"
-                f"{self.language_json['PlanetEmbed']['shots_fired']}: **`{short_format(self.planet.stats['bulletsFired'])}`**\n"
-                f"{self.language_json['PlanetEmbed']['shots_hit']}: **`{short_format(self.planet.stats['bulletsHit'])}`**\n"
-                f"{self.language_json['PlanetEmbed']['accuracy']}: **`{self.planet.stats['accuracy']}%`**\n"
+                f"{language_json['PlanetEmbed']['active_heroes']}: **`{planet.stats['playerCount']:,}`**\n"
+                f"{language_json['PlanetEmbed']['heroes_lost']}: **`{short_format(planet.stats['deaths'])}`**\n"
+                f"{language_json['PlanetEmbed']['accidentals']}: **`{short_format(planet.stats['friendlies'])}`**\n"
+                f"{language_json['PlanetEmbed']['shots_fired']}: **`{short_format(planet.stats['bulletsFired'])}`**\n"
+                f"{language_json['PlanetEmbed']['shots_hit']}: **`{short_format(planet.stats['bulletsHit'])}`**\n"
+                f"{language_json['PlanetEmbed']['accuracy']}: **`{planet.stats['accuracy']}%`**\n"
             ),
         )
 
-    def add_misc_stats(self):
-        faction = (
-            self.planet.current_owner
-            if not self.planet.event
-            else self.planet.event.faction
-        )
+    def add_misc_stats(self, planet: Planet, language_json: dict):
+        faction = planet.current_owner if not planet.event else planet.event.faction
         if faction != "Humans":
             faction_kills = {
                 "Automaton": "automatonKills",
@@ -149,11 +133,11 @@ class PlanetEmbed(Embed):
                 "Illuminate": "illuminateKills",
             }[(faction)]
             self.add_field(
-                f"💀 {self.language_json['factions'][faction]} {self.language_json['PlanetEmbed']['killed']}:",
-                f"**{short_format(self.planet.stats[faction_kills])}**",
+                f"💀 {language_json['factions'][faction]} {language_json['PlanetEmbed']['killed']}:",
+                f"**{short_format(planet.stats[faction_kills])}**",
                 inline=False,
             ).set_author(
-                name=self.language_json["PlanetEmbed"]["liberation_progress"],
+                name=language_json["PlanetEmbed"]["liberation_progress"],
                 icon_url={
                     "Automaton": "https://cdn.discordapp.com/emojis/1215036421551685672.webp?size=44&quality=lossless",
                     "Terminids": "https://cdn.discordapp.com/emojis/1215036423090999376.webp?size=44&quality=lossless",
@@ -163,14 +147,14 @@ class PlanetEmbed(Embed):
                     None,
                 ),
             )
-        if self.planet.feature:
-            self.add_field("Feature", self.planet.feature)
-        if self.planet.thumbnail:
-            self.set_thumbnail(url=self.planet.thumbnail)
+        if planet.feature:
+            self.add_field("Feature", planet.feature)
+        if planet.thumbnail:
+            self.set_thumbnail(url=planet.thumbnail)
         try:
             self.set_image(
                 file=File(
-                    f"resources/biomes/{self.planet.biome['name'].lower().replace(' ', '_')}.png"
+                    f"resources/biomes/{planet.biome['name'].lower().replace(' ', '_')}.png"
                 )
             )
             self.image_set = True
@@ -178,7 +162,7 @@ class PlanetEmbed(Embed):
             self.image_set = False
 
 
-class HelpEmbed(Embed):
+class HelpEmbed(Embed, EmbedReprMixin):
     def __init__(self, commands: list[APISlashCommand], command_name: str):
         super().__init__(colour=Colour.green(), title="Help")
         if command_name == "all":
@@ -224,7 +208,7 @@ class HelpEmbed(Embed):
             )
 
 
-class BotDashboardEmbed(Embed):
+class BotDashboardEmbed(Embed, EmbedReprMixin):
     def __init__(self, bot: GalacticWideWebBot, user_installs: int):
         super().__init__(colour=Colour.green(), title="GWW Overview")
         now = datetime.now()
@@ -301,14 +285,14 @@ class BotDashboardEmbed(Embed):
         self.add_field("", f"-# Updated <t:{int(now.timestamp())}:R>")
 
 
-class DispatchesEmbed(Embed):
+class DispatchesEmbed(Embed, EmbedReprMixin):
     def __init__(self, language_json: dict, dispatch: Dispatch):
         super().__init__(colour=Colour.from_rgb(*faction_colours["MO"]))
         self.add_field("", dispatch.message)
         self.set_footer(text=language_json["message"].format(message_id=dispatch.id))
 
 
-class GlobalEventsEmbed(Embed):
+class GlobalEventsEmbed(Embed, EmbedReprMixin):
     def __init__(self, language_json: dict, global_event: GlobalEvents.GlobalEvent):
         super().__init__(
             title=global_event.title, colour=Colour.from_rgb(*faction_colours["MO"])
@@ -320,7 +304,7 @@ class GlobalEventsEmbed(Embed):
         )
 
 
-class SteamEmbed(Embed):
+class SteamEmbed(Embed, EmbedReprMixin):
     def __init__(self, steam: Steam, language_json: dict):
         super().__init__(title=steam.title, colour=Colour.dark_grey(), url=steam.url)
         self.set_footer(text=language_json["message"].format(message_id=steam.id))
@@ -331,7 +315,7 @@ class SteamEmbed(Embed):
         self.description = steam.content
 
 
-class CampaignEmbed(Embed):
+class CampaignEmbed(Embed, EmbedReprMixin):
     def __init__(self, language_json: dict, planet_names_json: dict):
         self.language_json = language_json
         self.planet_names_json = planet_names_json
@@ -599,7 +583,7 @@ class Dashboard:
                     "https://i.imgur.com/cThNy4f.png"
                 )  # blank line (max size, dont change)
 
-    class MajorOrderEmbed(Embed):
+    class MajorOrderEmbed(Embed, EmbedReprMixin):
         def __init__(
             self,
             assignment: Assignment | None,
@@ -1096,7 +1080,7 @@ class Dashboard:
                 language_json["dashboard"]["MajorOrderEmbed"]["rewards"], rewards_text
             )
 
-    class DSSEmbed(Embed):
+    class DSSEmbed(Embed, EmbedReprMixin):
         def __init__(self, dss: DSS, language_json: dict):
             super().__init__(
                 title=language_json["dss"]["title"],
@@ -1160,7 +1144,7 @@ class Dashboard:
                         inline=False,
                     )
 
-    class DefenceEmbed(Embed):
+    class DefenceEmbed(Embed, EmbedReprMixin):
         def __init__(
             self,
             planet_events: PlanetEvents,
@@ -1249,7 +1233,7 @@ class Dashboard:
                     f"||{language_json['dashboard']['DefenceEmbed']['for_now']}||",
                 )
 
-    class AttackEmbed(Embed):
+    class AttackEmbed(Embed, EmbedReprMixin):
         def __init__(
             self,
             campaigns: list[Campaign],
@@ -1356,7 +1340,7 @@ class Dashboard:
                         inline=False,
                     )
 
-    class FooterEmbed(Embed):
+    class FooterEmbed(Embed, EmbedReprMixin):
         def __init__(self, language_json: dict, total_players: int):
             super().__init__(colour=Colour.dark_embed())
             now = datetime.now()
@@ -1406,7 +1390,7 @@ class Dashboard:
 
 class Items:
     class Weapons:
-        class Primary(Embed):
+        class Primary(Embed, EmbedReprMixin):
             def __init__(
                 self,
                 weapon_json: dict,
@@ -1477,7 +1461,7 @@ class Items:
                 except:
                     self.image_set = False
 
-        class Secondary(Embed):
+        class Secondary(Embed, EmbedReprMixin):
             def __init__(
                 self,
                 weapon_json: dict,
@@ -1545,7 +1529,7 @@ class Items:
                 except:
                     self.image_set = False
 
-        class Grenade(Embed):
+        class Grenade(Embed, EmbedReprMixin):
             def __init__(self, grenade_json: dict, language_json: dict):
                 super().__init__(
                     colour=Colour.blue(),
@@ -1580,7 +1564,7 @@ class Items:
                 except:
                     self.image_set = False
 
-    class Booster(Embed):
+    class Booster(Embed, EmbedReprMixin):
         def __init__(self, booster: dict):
             super().__init__(
                 colour=Colour.blue(),
@@ -1597,7 +1581,7 @@ class Items:
             except:
                 self.image_set = False
 
-    class Warbond(Embed):
+    class Warbond(Embed, EmbedReprMixin):
         def __init__(self, warbond_json: dict, json_dict: dict, page: int):
             warbond_page = warbond_json["json"][str(page)]
             formatted_index = {
@@ -1782,7 +1766,7 @@ class Items:
                 item_number += 1
 
 
-class StratagemEmbed(Embed):
+class StratagemEmbed(Embed, EmbedReprMixin):
     def __init__(self, stratagem_name: str, stratagem_stats: dict, language_json: dict):
         super().__init__(title=stratagem_name, colour=Colour.brand_green())
         key_inputs = ""
@@ -1811,7 +1795,7 @@ class StratagemEmbed(Embed):
             self.image_set = False
 
 
-class EnemyEmbed(Embed):
+class EnemyEmbed(Embed, EmbedReprMixin):
     def __init__(
         self,
         faction: str,
@@ -1854,7 +1838,7 @@ class EnemyEmbed(Embed):
             self.error = e
 
 
-class SetupEmbed(Embed):
+class SetupEmbed(Embed, EmbedReprMixin):
     def __init__(self, guild: GWWGuild, language_json: dict):
         super().__init__(
             title=language_json["SetupEmbed"]["title"], colour=Colour.og_blurple()
@@ -1973,7 +1957,7 @@ class SetupEmbed(Embed):
         )
 
 
-class FeedbackEmbed(Embed):
+class FeedbackEmbed(Embed, EmbedReprMixin):
     def __init__(self, inter: ModalInteraction):
         super().__init__(
             title=inter.text_values["title"],
@@ -1986,7 +1970,7 @@ class FeedbackEmbed(Embed):
         )
 
 
-class SuperstoreEmbed(Embed):
+class SuperstoreEmbed(Embed, EmbedReprMixin):
     def __init__(self, superstore: Superstore):
         super().__init__(title=f"Superstore Rotation", colour=Colour.blue())
         now = datetime.now()
@@ -2018,7 +2002,7 @@ class SuperstoreEmbed(Embed):
         self.insert_field_at(1, "", "").insert_field_at(4, "", "")
 
 
-class UsageEmbed(Embed):
+class UsageEmbed(Embed, EmbedReprMixin):
     def __init__(self, command_usage: dict, guilds_joined: int):
         super().__init__(title="Daily Usage", colour=Colour.dark_theme())
         for command_name, usage in command_usage.items():
@@ -2029,7 +2013,7 @@ class UsageEmbed(Embed):
         )
 
 
-class DSSEmbed(Embed):
+class DSSEmbed(Embed, EmbedReprMixin):
     def __init__(self, dss_data: DSS, language_json: dict):
         super().__init__(
             title=language_json["dss"]["title"],
@@ -2092,7 +2076,7 @@ class DSSEmbed(Embed):
             )
 
 
-class PersonalOrderEmbed(Embed):
+class PersonalOrderEmbed(Embed, EmbedReprMixin):
     def __init__(
         self,
         personal_order: PersonalOrder,

@@ -3,6 +3,8 @@ from dotenv import load_dotenv
 from os import getenv
 from psycopg2 import connect
 
+from utils.mixins import ReprMixin
+
 load_dotenv("data/.env")
 hostname = getenv("DB_hostname")
 database = getenv("DB_NAME")
@@ -11,7 +13,7 @@ pwd = getenv("DB_pwd")
 port_id = getenv("DB_port_id")
 
 
-class GWWGuild:
+class GWWGuild(ReprMixin):
     __slots__ = (
         "id",
         "dashboard_channel_id",
@@ -120,11 +122,8 @@ class GWWGuild:
                 )
                 conn.commit()
 
-    def __repr__(self):
-        return f"GWWGuild({self.id, self.dashboard_channel_id, self.dashboard_message_id, self.announcement_channel_id, self.patch_notes, self.language, self.major_order_updates, self.map_channel_id, self.map_message_id, self.major_order_updates, self.personal_order_updates, self.detailed_dispatches})"
 
-
-class BotDashboard:
+class BotDashboard(ReprMixin):
     __slots__ = ("channel_id", "message_id")
 
     def __init__(self):
@@ -150,7 +149,7 @@ class BotDashboard:
                 conn.commit()
 
 
-class MajorOrder:
+class MajorOrder(ReprMixin):
     __slots__ = "id"
 
     def __init__(self):
@@ -171,7 +170,7 @@ class MajorOrder:
                 conn.commit()
 
 
-class GlobalEvent:
+class GlobalEvent(ReprMixin):
     __slots__ = "id"
 
     def __init__(self):
@@ -192,7 +191,7 @@ class GlobalEvent:
                 conn.commit()
 
 
-class Campaign:
+class Campaign(ReprMixin):
     __slots__ = ("id", "owner", "planet_index", "event", "event_type", "event_faction")
 
     def __init__(
@@ -249,11 +248,8 @@ class Campaign:
                 curs.execute(f"DELETE FROM campaigns WHERE id = {id}")
                 conn.commit()
 
-    def __repr__(self):
-        return f"Campaign({self.id, self.owner, self.planet_index, self.event, self.event_type, self.event_faction})"
 
-
-class Dispatch:
+class Dispatch(ReprMixin):
     __slots__ = "id"
 
     def __init__(self):
@@ -274,7 +270,7 @@ class Dispatch:
                 conn.commit()
 
 
-class Steam:
+class Steam(ReprMixin):
     __slots__ = "id"
 
     def __init__(self):
@@ -295,7 +291,7 @@ class Steam:
                 conn.commit()
 
 
-class FeedbackUser:
+class FeedbackUser(ReprMixin):
     __slots__ = ("user_id", "banned", "reason", "good_feedback")
 
     def __init__(self, user_id: int, banned: bool, reason: str, good_feedback: bool):
@@ -352,11 +348,8 @@ class FeedbackUser:
                 )
                 conn.commit()
 
-    def __repr__(self):
-        return f"FeedbackUser({self.user_id, self.banned, self.reason, self.good_feedback})"
 
-
-class DSS:
+class DSS(ReprMixin):
     __slots__ = ("planet_index", "ta1_status", "ta2_status", "ta3_status")
 
     def __init__(self):
