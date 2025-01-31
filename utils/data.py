@@ -1,6 +1,6 @@
-from copy import deepcopy
 from aiohttp import ClientSession
 from asyncio import sleep
+from copy import deepcopy
 from data.lists import task_type_15_progress_dict
 from datetime import datetime, timedelta
 from os import getenv
