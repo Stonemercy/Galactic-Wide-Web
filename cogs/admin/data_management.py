@@ -52,11 +52,23 @@ class DataManagementCog(commands.Cog):
             for planet in self.bot.previous_data.planets.values():
                 new_data = self.bot.data.planets[planet.index]
                 if planet.regen_perc_per_hour != new_data.regen_perc_per_hour:
-                    total_changes[planet.name] = {
+                    total_changes[planet.name]["percentage"] = {
                         "before": planet.regen_perc_per_hour,
                         "after": new_data.regen_perc_per_hour,
                     }
+                if planet.waypoints != new_data.waypoints:
+                    total_changes[planet.name]["waypoints"] = {
+                        "before": [
+                            self.bot.data.planets[waypoint].name
+                            for waypoint in planet.waypoints
+                        ],
+                        "after": [
+                            self.bot.data.planets[waypoint].name
+                            for waypoint in new_data.waypoints
+                        ],
+                    }
         if total_changes:
+            self.bot.logger.info(total_changes)
             await self.bot.moderator_channel.send(total_changes)
 
     @check_changes.before_loop
