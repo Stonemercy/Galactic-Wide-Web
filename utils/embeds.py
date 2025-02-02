@@ -297,8 +297,20 @@ class GlobalEventsEmbed(Embed, EmbedReprMixin):
         super().__init__(
             title=global_event.title, colour=Colour.from_rgb(*faction_colours["MO"])
         )
-        for chunk in global_event.split_message:
-            self.add_field("", chunk, inline=False)
+        if "OPEN LICENSE" not in global_event.title:
+            for chunk in global_event.split_message:
+                self.add_field("", chunk, inline=False)
+        else:
+            stratagem_name = global_event.title[15:]
+            stratagem_code = [
+                code
+                for code, name in stratagem_id_dict.items()
+                if stratagem_name.lower() in name.lower()
+            ]
+            if stratagem_code:
+                stratagem_code = stratagem_code[0]
+                stratagem_image = stratagem_image_dict.get(stratagem_code, None)
+                self.set_thumbnail(url=stratagem_image)
         self.set_footer(
             text=language_json["message"].format(message_id=global_event.id)
         )
