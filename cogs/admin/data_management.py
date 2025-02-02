@@ -56,14 +56,16 @@ class DataManagementCog(commands.Cog):
                         f"{planet.name} percentage - before: {planet.regen_perc_per_hour} - after: {new_data.regen_perc_per_hour}"
                     )
                 if planet.waypoints != new_data.waypoints:
+                    old_waypoints = [
+                        self.bot.data.planets[waypoint].name
+                        for waypoint in planet.waypoints
+                    ]
+                    new_waypoints = [
+                        self.bot.data.planets[waypoint].name
+                        for waypoint in new_data.waypoints
+                    ]
                     total_changes.append(
-                        f"{planet.name} percentage - before: {[
-                            self.bot.data.planets[waypoint].name
-                            for waypoint in planet.waypoints
-                        ]} - after: {[
-                            self.bot.data.planets[waypoint].name
-                            for waypoint in new_data.waypoints
-                        ]}"
+                        f"{planet.name} percentage - before: {old_waypoints} - after: {new_waypoints}"
                     )
         if total_changes:
             self.bot.logger.info(total_changes)
