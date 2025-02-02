@@ -182,7 +182,9 @@ class AnnouncementsCog(commands.Cog):
         for global_event in self.bot.data.global_events:
             global_event: GlobalEvents.GlobalEvent
             if global_event.id > last_GE.id:
-                if global_event.title == "BRIEFING" or global_event.flag == 0:
+                if global_event.title == "BRIEFING" or (
+                    global_event.flag == 0 and "OPEN LICENSE" not in global_event.title
+                ):
                     last_GE.id = global_event.id
                     last_GE.save_changes()
                     continue
