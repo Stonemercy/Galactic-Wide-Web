@@ -487,8 +487,8 @@ class Planet(ReprMixin):
             125: "Centre of Science",
             126: "Xenoentomology Center",
             130: "Factory Hub",
-            160: "Jet Brigade Factories",
             161: "Deep Mantle Forge Complex",
+            203: "The Jet Brigade",
         }.get(self.index, None)
         self.dss = False
         self.in_assignment = False
