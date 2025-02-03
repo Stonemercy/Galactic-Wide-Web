@@ -1,7 +1,18 @@
+from dataclasses import dataclass
 from datetime import time
 from disnake import Activity, ActivityType
 from disnake.ext import commands, tasks
 from main import GalacticWideWebBot
+from utils.data import Planet
+from utils.embeds import APIChangesEmbed
+
+
+@dataclass
+class APIChanges:
+    planet: Planet
+    statistic: str
+    before: int | list
+    after: int | list
 
 
 class DataManagementCog(commands.Cog):
@@ -47,13 +58,18 @@ class DataManagementCog(commands.Cog):
         time=[time(hour=j, minute=i, second=15) for j in range(24) for i in range(59)]
     )
     async def check_changes(self):
-        total_changes = []
+        total_changes: list[APIChanges] = []
         if self.bot.previous_data:
             for planet in self.bot.previous_data.planets.values():
                 new_data = self.bot.data.planets[planet.index]
                 if planet.regen_perc_per_hour != new_data.regen_perc_per_hour:
                     total_changes.append(
-                        f"{planet.name} percentage - before: {planet.regen_perc_per_hour} - after: {new_data.regen_perc_per_hour}"
+                        APIChanges(
+                            planet,
+                            "Regen %",
+                            planet.regen_perc_per_hour,
+                            new_data.regen_perc_per_hour,
+                        )
                     )
                 if planet.waypoints != new_data.waypoints:
                     old_waypoints = [
@@ -65,11 +81,13 @@ class DataManagementCog(commands.Cog):
                         for waypoint in new_data.waypoints
                     ]
                     total_changes.append(
-                        f"{planet.name} percentage - before: {old_waypoints} - after: {new_waypoints}"
+                        APIChanges(planet, "Waypoints", old_waypoints, new_waypoints)
                     )
         if total_changes:
             self.bot.logger.info(total_changes)
-            await self.bot.moderator_channel.send(total_changes)
+            await self.bot.api_changes_channel.send(
+                embed=APIChangesEmbed(total_changes)
+            )
 
     @check_changes.before_loop
     async def before_check_changes(self):

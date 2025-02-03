@@ -11,6 +11,7 @@ from utils.data import Data
 MODERATOR_CHANNEL_ID = int(getenv("MODERATION_CHANNEL"))
 FEEDBACK_CHANNEL_ID = int(getenv("FEEDBACK_CHANNEL"))
 WASTE_BIN_CHANNEL_ID = int(getenv("WASTE_BIN_CHANNEL"))
+API_CHANGES_CHANNEL_ID = int(getenv("API_CHANGES_CHANNEL"))
 
 
 class GalacticWideWebBot(commands.AutoShardedInteractionBot):
@@ -37,6 +38,7 @@ class GalacticWideWebBot(commands.AutoShardedInteractionBot):
         self.moderator_channel: TextChannel | None = None
         self.feedback_channel: TextChannel | None = None
         self.waste_bin_channel: TextChannel | None = None
+        self.api_changes_channel: TextChannel | None = None
 
     async def on_ready(self):
         await self.get_channels()
@@ -64,6 +66,7 @@ class GalacticWideWebBot(commands.AutoShardedInteractionBot):
             "moderator_channel": MODERATOR_CHANNEL_ID,
             "feedback_channel": FEEDBACK_CHANNEL_ID,
             "waste_bin_channel": WASTE_BIN_CHANNEL_ID,
+            "api_changes_channel": API_CHANGES_CHANNEL_ID,
         }
         for attr, channel_id in channel_dict.items():
             while not getattr(self, attr):

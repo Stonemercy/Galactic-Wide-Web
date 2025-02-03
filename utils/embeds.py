@@ -2177,3 +2177,43 @@ class PersonalOrderEmbed(Embed, EmbedReprMixin):
                 f"{reward.amount} {reward_name}s {Emojis.items[reward_name]}",
                 inline=False,
             )
+
+
+class APIChangesEmbed(Embed, EmbedReprMixin):
+    def __init__(self, total_changes: list):
+        super().__init__(title="New changes in the API!", colour=Colour.brand_red())
+        for change in total_changes:
+            faction_emoji = (
+                Emojis.factions[change.planet.current_owner]
+                if not change.planet.event
+                else Emojis.factions[change.planet.event.faction]
+            )
+            if change.statistic == "Regen %":
+                self.add_field(
+                    f"{faction_emoji} {change.planet.name}",
+                    f"Planet Regeneration: **{change.before}**%/hr {Emojis.stratagems['right']} **{change.after}**%/hr",
+                    inline=False,
+                )
+            elif change.statistic == "Waypoints":
+                desctiption = "Waypoints:"
+                waypoints_removed = [
+                    waypoint
+                    for waypoint in change.before
+                    if waypoint not in change.after
+                ]
+                waypoints_added = [
+                    waypoint
+                    for waypoint in change.after
+                    if waypoint not in change.before
+                ]
+                if waypoints_removed:
+                    wp_list = "\n  - ".join(waypoints_removed)
+                    desctiption += f"\n- Removed:\n  - {wp_list}"
+                if waypoints_added:
+                    wp_list = "\n  - ".join(waypoints_added)
+                    desctiption += f"\n- Added:\n  - {wp_list}"
+                self.add_field(
+                    f"{faction_emoji} {change.planet.name}",
+                    desctiption,
+                    inline=False,
+                )
