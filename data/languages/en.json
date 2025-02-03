@@ -28,8 +28,7 @@
         "DSSEmbed": {
             "stationed_at": "Stationed at **{planet}** {faction_emoji}\n",
             "next_move": "Moving {timestamp}",
-            "cost": "Cost: {emoji} {amount} **{item}s**",
-            "max_submitable": "Max submitable: **{number}** every **{hours}** hours",
+            "max_submitable": "Max submitable:\n-# {emoji} **{number}** {item}s every **{hours}** hours",
             "status": "Status",
             "preparing": "Preparing",
             "active": "active",

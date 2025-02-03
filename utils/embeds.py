@@ -1132,35 +1132,31 @@ class Dashboard:
                         tactical_action.status
                     ]
                     if status == "preparing":
-                        cost_formatted = language_json["dashboard"]["DSSEmbed"][
-                            "cost"
-                        ].format(
-                            amount=f"{tactical_action.cost.target:,}",
-                            emoji=Emojis.items[tactical_action.cost.item],
-                            item=tactical_action.cost.item,
-                        )
                         submittable_formatted = language_json["dashboard"]["DSSEmbed"][
                             "max_submitable"
                         ].format(
+                            emoji=Emojis.items[tactical_action.cost.item],
                             number=f"{tactical_action.cost.max_per_seconds[0]:,}",
+                            item=tactical_action.cost.item,
                             hours=f"{tactical_action.cost.max_per_seconds[1]/3600:.0f}",
                         )
                         cost = (
-                            f"{cost_formatted}\n"
-                            f"{language_json['dashboard']['progress']}: **{tactical_action.cost.current:,.0f}**\n"
                             f"{submittable_formatted}\n"
                             f"{ta_health_bar}\n"
                             f"`{tactical_action.cost.progress:^25.2%}`"
                         )
                     elif status == "active":
                         cost = f"{language_json['ends']} <t:{int(tactical_action.status_end_datetime.timestamp())}:R>\n"
-                        cost += tactical_action.strategic_description
+                        formatted_desc = tactical_action.strategic_description.replace(
+                            ". ", ".\n-# "
+                        )
+                        cost += f"-# {formatted_desc}"
                     elif status == "on_cooldown":
                         cost = f"{language_json['dashboard']['DSSEmbed']['off_cooldown'].capitalize()} <t:{int(tactical_action.status_end_datetime.timestamp())}:R>"
                     self.add_field(
                         f"{Emojis.dss[tactical_action.name.lower().replace(' ', '_')]} {tactical_action.name.title()}",
                         (
-                            f"{language_json['dashboard']['DSSEmbed']['status']}: **{language_json['dashboard']['DSSEmbed'][status]}**\n"
+                            f"{language_json['dashboard']['DSSEmbed']['status']}: **{language_json['dashboard']['DSSEmbed'][status].capitalize()}**\n"
                             f"{cost}"
                         ),
                         inline=False,
@@ -2057,25 +2053,23 @@ class DSSEmbed(Embed, EmbedReprMixin):
         )
         for tactical_action in dss_data.tactical_actions:
             tactical_action: DSS.TacticalAction
-            ta_health_bar = health_bar(tactical_action.cost.progress, "MO")
+            ta_health_bar = health_bar(
+                tactical_action.cost.progress,
+                "MO" if tactical_action.cost.progress != 1 else "Humans",
+            )
             status = {1: "preparing", 2: "active", 3: "on_cooldown"}[
                 tactical_action.status
             ]
             if status == "preparing":
-                cost_formatted = language_json["dashboard"]["DSSEmbed"]["cost"].format(
-                    amount=f"{tactical_action.cost.target:,}",
-                    emoji=Emojis.items[tactical_action.cost.item],
-                    item=tactical_action.cost.item,
-                )
                 submittable_formatted = language_json["dashboard"]["DSSEmbed"][
                     "max_submitable"
                 ].format(
+                    emoji=Emojis.items[tactical_action.cost.item],
                     number=f"{tactical_action.cost.max_per_seconds[0]:,}",
+                    item=tactical_action.cost.item,
                     hours=f"{tactical_action.cost.max_per_seconds[1]/3600:.0f}",
                 )
                 cost = (
-                    f"{cost_formatted}\n"
-                    f"{language_json['dashboard']['progress']}: **{tactical_action.cost.current:,.0f}**\n"
                     f"{submittable_formatted}\n"
                     f"{ta_health_bar}\n"
                     f"`{tactical_action.cost.progress:^25.2%}`"
@@ -2085,13 +2079,13 @@ class DSSEmbed(Embed, EmbedReprMixin):
             elif status == "on_cooldown":
                 cost = f"{language_json['dashboard']['DSSEmbed']['off_cooldown'].capitalize()} <t:{int(tactical_action.status_end_datetime.timestamp())}:R>"
             ta_long_description = tactical_action.strategic_description.replace(
-                ". ", ".\n- "
+                ". ", ".\n-# "
             )
             self.add_field(
                 f"{Emojis.dss[tactical_action.name.lower().replace(' ', '_')]} {tactical_action.name.title()}",
                 (
-                    f"{language_json['dashboard']['DSSEmbed']['status']}: **{language_json['dashboard']['DSSEmbed'][status]}**\n"
-                    f"- {ta_long_description}\n"
+                    f"{language_json['dashboard']['DSSEmbed']['status']}: **{language_json['dashboard']['DSSEmbed'][status].capitalize()}**\n"
+                    f"-# {ta_long_description}\n"
                     f"{cost}\n\u200b\n"
                 ),
                 inline=False,
