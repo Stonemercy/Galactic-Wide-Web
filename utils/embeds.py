@@ -556,6 +556,7 @@ class Dashboard:
         self._dss_embed = self.DSSEmbed(dss=data.dss, language_json=language_json)
         self._defence_embed = self.DefenceEmbed(
             planet_events=data.planet_events,
+            dss=data.dss,
             liberation_changes=data.liberation_changes,
             player_requirements=data.planets_with_player_reqs,
             language_json=language_json,
@@ -1194,6 +1195,7 @@ class Dashboard:
         def __init__(
             self,
             planet_events: PlanetEvents,
+            dss: DSS,
             liberation_changes: dict,
             player_requirements: dict,
             language_json: dict,
@@ -1249,6 +1251,14 @@ class Dashboard:
                     time_remaining = (
                         f"<t:{planet.event.end_time_datetime.timestamp():.0f}:R>"
                     )
+                    if planet.dss:
+                        eagle_storm: DSS.TacticalAction = [
+                            ta
+                            for ta in dss.tactical_actions
+                            if ta.name == "EAGLE STORM"
+                        ][0]
+                        if eagle_storm.status == 2:
+                            time_remaining += "\n> -# DEFENCE HELD BY DSS"
                     exclamation = Emojis.icons["MO"] if planet.in_assignment else ""
                     feature_text = ""
                     if planet.feature:
