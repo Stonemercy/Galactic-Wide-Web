@@ -1254,7 +1254,7 @@ class Dashboard:
                     if planet.feature:
                         feature_text += f"\nFeature: {planet.feature}"
                     if planet.event.potential_buildup != 0:
-                        feature_text += f"\nEstimated **Dark Energy** progress: **{((planet.event.potential_buildup * planet.event.progress) / 1000000):.2%}**"
+                        feature_text += f"\nEst. **Dark Energy** remaining: **{((planet.event.potential_buildup * (planet.event.progress)) / 1000000):.2%}**"
                     if planet.dss:
                         exclamation += Emojis.dss["dss"]
                     player_count = f'**{planet.stats["playerCount"]:,}**'
@@ -1265,8 +1265,8 @@ class Dashboard:
                             f"\n{language_json['dashboard']['DefenceEmbed']['level']} {int(planet.event.max_health / 50000)}"
                             f"{outlook_text}"
                             f"\n{language_json['dashboard']['heroes'].format(heroes=player_count)}"
-                            f"{feature_text}"
                             f"{required_players}"
+                            f"{feature_text}"
                             f"\n{language_json['dashboard']['DefenceEmbed']['event_health']}:"
                             f"\n{planet.event.health_bar}"
                             f"\n`{1 - (planet.event.health / planet.event.max_health):^25,.2%}`"
