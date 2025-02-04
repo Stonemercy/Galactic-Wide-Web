@@ -1284,12 +1284,12 @@ class Dashboard:
         def __init__(self, dark_energy_resource: GlobalResources.DarkEnergy):
             super().__init__(
                 title="Dark Energy Accumulation",
-                description="The Meridian Singularity speeds up as Dark Energy accumulates",
+                description="-# The Meridian Singularity speeds up as Dark Energy accumulates",
                 colour=Colour.from_rgb(106, 76, 180),
             )
             self.add_field(
                 "",
-                f"{dark_energy_resource.health_bar}\n`{dark_energy_resource.perc:^25.2%}`",
+                f"{dark_energy_resource.health_bar}\n**`{dark_energy_resource.perc:^25.2%}`**",
                 inline=False,
             )
             self.set_thumbnail(
