@@ -2263,3 +2263,8 @@ class APIChangesEmbed(Embed, EmbedReprMixin):
                     desctiption,
                     inline=False,
                 )
+            elif change.statistic == "Location":
+                description = f"Location:\n{change.before} {Emojis.stratagems['right']} {change.after}"
+                self.add_field(
+                    f"{faction_emoji} {change.planet.name}", description, inline=False
+                )

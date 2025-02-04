@@ -83,6 +83,12 @@ class DataManagementCog(commands.Cog):
                     total_changes.append(
                         APIChanges(planet, "Waypoints", old_waypoints, new_waypoints)
                     )
+                if planet.position != new_data.position:
+                    old_coords = (planet.position["x"], planet.position["y"])
+                    new_coords = (new_data.position["x"], new_data.position["y"])
+                    total_changes.append(
+                        APIChanges(planet, "Location", old_coords, new_coords)
+                    )
         if total_changes:
             self.bot.logger.info(total_changes)
             await self.bot.api_changes_channel.send(
