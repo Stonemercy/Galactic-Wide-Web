@@ -417,6 +417,7 @@ class CampaignEmbed(Embed, EmbedReprMixin):
                 description += self.language_json["CampaignEmbed"][
                     "defence_level"
                 ].format(level=campaign.planet.event.level, exclamation=def_level_exc)
+                description += f"\n> Potential **Dark Energy** progress: **{((campaign.planet.event.potential_buildup * campaign.planet.event.progress) / 1000000):.2%}**"
                 description += f"\n> *{self.language_json['ends']} {time_remaining}*\n"
         else:
             description += self.language_json["CampaignEmbed"]["liberate"].format(
