@@ -77,8 +77,11 @@ class InterfaceHandler:
 
         for message in self.dashboards.copy():
             guild = GWWGuild.get_by_id(message.guild.id)
+            localized_dashboard = dashboards_dict.get(
+                guild.language, dashboards_dict["en"]
+            )
             self.bot.loop.create_task(
-                edit_dashboard(message, dashboards_dict[guild.language].embeds)
+                edit_dashboard(message, localized_dashboard.embeds)
             )
             await sleep(0.03)  # discord accepts 1 message every 0.02s
         self.busy = False

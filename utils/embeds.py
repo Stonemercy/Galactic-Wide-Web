@@ -26,6 +26,7 @@ from utils.data import (
     Campaign,
     Data,
     Dispatch,
+    GlobalResources,
     PersonalOrder,
     PlanetEvents,
     Planets,
@@ -293,14 +294,17 @@ class DispatchesEmbed(Embed, EmbedReprMixin):
 
 
 class GlobalEventsEmbed(Embed, EmbedReprMixin):
-    def __init__(self, language_json: dict, global_event: GlobalEvents.GlobalEvent):
+    def __init__(
+        self,
+        planets: Planets,
+        language_json: dict,
+        planet_effects_json: dict,
+        global_event: GlobalEvents.GlobalEvent,
+    ):
         super().__init__(
             title=global_event.title, colour=Colour.from_rgb(*faction_colours["MO"])
         )
-        if "OPEN LICENSE" not in global_event.title:
-            for chunk in global_event.split_message:
-                self.add_field("", chunk, inline=False)
-        else:
+        if "OPEN LICENSE" in global_event.title:
             stratagem_name = global_event.title[15:]
             stratagem_code = [
                 code
@@ -311,6 +315,24 @@ class GlobalEventsEmbed(Embed, EmbedReprMixin):
                 stratagem_code = stratagem_code[0]
                 stratagem_image = stratagem_image_dict.get(stratagem_code, None)
                 self.set_thumbnail(url=stratagem_image)
+        elif global_event.flag == 0:
+            specific_planets = "\n- ".join(
+                [planets[index].name for index in global_event.planet_indices]
+            )
+            effects = [
+                planet_effects_json[str(effect_id)]
+                for effect_id in global_event.effect_ids
+            ]
+            for effect in effects:
+                self.add_field(
+                    effect["name"],
+                    f"-# {effect['description']}\n-# Now active on the following planet(s):\n- {specific_planets}",
+                    inline=False,
+                )
+        else:
+            for chunk in global_event.split_message:
+                self.add_field("", chunk, inline=False)
+
         self.set_footer(
             text=language_json["message"].format(message_id=global_event.id)
         )
@@ -587,6 +609,11 @@ class Dashboard:
             self._terminids_embed,
             self._footer_embed,
         ]
+        if data.global_resources.dark_energy:
+            self._dark_energy_embed = self.DarkEnergyEmbed(
+                data.global_resources.dark_energy
+            )
+            self.embeds.insert(2, self._dark_energy_embed)
         for embed in self.embeds.copy():
             if len(embed.fields) == 0:
                 self.embeds.remove(embed)
@@ -1222,9 +1249,11 @@ class Dashboard:
                         f"<t:{planet.event.end_time_datetime.timestamp():.0f}:R>"
                     )
                     exclamation = Emojis.icons["MO"] if planet.in_assignment else ""
-                    feature_text = (
-                        "" if not planet.feature else f"\nFeature: {planet.feature}"
-                    )
+                    feature_text = ""
+                    if planet.feature:
+                        feature_text += f"\nFeature: {planet.feature}"
+                    if planet.event.potentialBuildup != 0:
+                        feature_text += f"\nEstimated **Dark Energy** progress: **{((planet.event.potentialBuildup * planet.event.progress) / 1000000):.2%}**"
                     if planet.dss:
                         exclamation += Emojis.dss["dss"]
                     player_count = f'**{planet.stats["playerCount"]:,}**'
@@ -1250,6 +1279,22 @@ class Dashboard:
                     language_json["dashboard"]["DefenceEmbed"]["no_threats"],
                     f"||{language_json['dashboard']['DefenceEmbed']['for_now']}||",
                 )
+
+    class DarkEnergyEmbed(Embed, EmbedReprMixin):
+        def __init__(self, dark_energy_resource: GlobalResources.DarkEnergy):
+            super().__init__(
+                title="Dark Energy Accumulation",
+                description="The Meridian Singularity speeds up as Dark Energy accumulates",
+                colour=Colour.from_rgb(106, 76, 180),
+            )
+            self.add_field(
+                "",
+                f"{dark_energy_resource.health_bar}\n`{dark_energy_resource.perc:^25.2%}`",
+                inline=False,
+            )
+            self.set_thumbnail(
+                url="https://cdn.discordapp.com/emojis/1331357764039086212.webp?size=96"
+            )
 
     class AttackEmbed(Embed, EmbedReprMixin):
         def __init__(

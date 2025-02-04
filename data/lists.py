@@ -25,10 +25,7 @@ json_dict = {
             "path": "data/json/warbonds/steeled_veterans.json",
             "value": None,
         },
-        "cutting_edge": {
-            "path": "data/json/warbonds/cutting_edge.json",
-            "value": None,
-        },
+        "cutting_edge": {"path": "data/json/warbonds/cutting_edge.json", "value": None},
         "democratic_detonation": {
             "path": "data/json/warbonds/democratic_detonation.json",
             "value": None,
@@ -58,24 +55,12 @@ json_dict = {
             "value": None,
         },
     },
-    "planets": {
-        "path": "data/json/planets/planets.json",
-        "value": None,
-    },
+    "planets": {"path": "data/json/planets/planets.json", "value": None},
     "items": {
-        "item_names": {
-            "path": "data/json/items/item_names.json",
-            "value": None,
-        },
+        "item_names": {"path": "data/json/items/item_names.json", "value": None},
         "armor": {"path": "data/json/items/armor/armor.json", "value": None},
-        "armor_perks": {
-            "path": "data/json/items/armor/passive.json",
-            "value": None,
-        },
-        "armor_slots": {
-            "path": "data/json/items/armor/slot.json",
-            "value": None,
-        },
+        "armor_perks": {"path": "data/json/items/armor/passive.json", "value": None},
+        "armor_slots": {"path": "data/json/items/armor/slot.json", "value": None},
         "primary_weapons": {
             "path": "data/json/items/weapons/primary.json",
             "value": None,
@@ -84,18 +69,9 @@ json_dict = {
             "path": "data/json/items/weapons/secondary.json",
             "value": None,
         },
-        "grenades": {
-            "path": "data/json/items/weapons/grenades.json",
-            "value": None,
-        },
-        "weapon_types": {
-            "path": "data/json/items/weapons/types.json",
-            "value": None,
-        },
-        "weapon_traits": {
-            "path": "data/json/items/weapons/traits.json",
-            "value": None,
-        },
+        "grenades": {"path": "data/json/items/weapons/grenades.json", "value": None},
+        "weapon_types": {"path": "data/json/items/weapons/types.json", "value": None},
+        "weapon_traits": {"path": "data/json/items/weapons/traits.json", "value": None},
         "fire_modes": {
             "path": "data/json/items/weapons/fire_modes.json",
             "value": None,
@@ -107,23 +83,15 @@ json_dict = {
         },
     },
     "enemies": {
-        "enemy_ids": {
-            "path": "data/json_custom/enemies/enemy_ids.json",
-            "value": None,
-        },
-        "automaton": {
-            "path": "data/json_custom/enemies/automaton.json",
-            "value": None,
-        },
+        "enemy_ids": {"path": "data/json_custom/enemies/enemy_ids.json", "value": None},
+        "automaton": {"path": "data/json_custom/enemies/automaton.json", "value": None},
         "illuminate": {
             "path": "data/json_custom/enemies/illuminate.json",
             "value": None,
         },
-        "terminids": {
-            "path": "data/json_custom/enemies/terminids.json",
-            "value": None,
-        },
+        "terminids": {"path": "data/json_custom/enemies/terminids.json", "value": None},
     },
+    "planet_effects": {"path": "data/json/effects/planetEffects.json", "value": None},
 }
 
 supported_languages = {

@@ -44,7 +44,7 @@ class Data(ReprMixin):
             "dss": None,
             "war_time": None,
             "personal_order": None,
-            "global_events": None,
+            "status": None,
         }
         self.loaded = False
         self.liberation_changes = {}
@@ -130,15 +130,15 @@ class Data(ReprMixin):
                             else:
                                 bot.logger.error(f"API/Personal_Order, {r.status}")
                         continue
-                    if endpoint == "global_events":
+                    if endpoint == "status":
                         async with session.get(
-                            "https://api.diveharder.com/v1/status"
+                            "https://api.diveharder.com/raw/status"
                         ) as r:
                             if r.status == 200:
                                 data = await r.json()
-                                self.__data__[endpoint] = data["globalEvents"]
+                                self.__data__[endpoint] = data
                             else:
-                                bot.logger.error(f"API/Global_Events, {r.status}")
+                                bot.logger.error(f"API/Status, {r.status}")
                         continue
 
                     try:
@@ -273,10 +273,20 @@ class Data(ReprMixin):
                 self.__data__["personal_order"]
             )
 
-        if self.__data__["global_events"]:
+        if self.__data__["status"]:
             self.global_events: GlobalEvents = GlobalEvents(
-                self.__data__["global_events"]
+                self.__data__["status"]["globalEvents"]
             )
+            self.global_resources: GlobalResources = GlobalResources(
+                self.__data__["status"]["globalResources"]
+            )
+            planets_with_buildup = {
+                planet_event["planetIndex"]: planet_event["potentialBuildUp"]
+                for planet_event in self.__data__["status"]["planetEvents"]
+                if planet_event["potentialBuildUp"] != 0
+            }
+            for index, buildup in planets_with_buildup.items():
+                self.planets[index].event.potentialBuildup = buildup
 
     def update_liberation_rates(self):
         for campaign in self.campaigns:
@@ -434,6 +444,8 @@ class Dispatch(ReprMixin):
 class GlobalEvents(list):
     def __init__(self, global_events):
         for global_event in global_events:
+            if not global_event.get("title", None):
+                continue
             self.append(self.GlobalEvent(global_event))
 
     class GlobalEvent(ReprMixin):
@@ -444,6 +456,8 @@ class GlobalEvents(list):
             self.faction = global_event["race"]
             self.flag = global_event["flag"]
             self.assignment_id = global_event["assignmentId32"]
+            self.effect_ids = global_event["effectIds"]
+            self.planet_indices = global_event["planetIndices"]
 
         @property
         def split_message(self):
@@ -460,6 +474,30 @@ class GlobalEvents(list):
             if current_chunk:
                 chunks.append(current_chunk.strip())
             return chunks
+
+
+class GlobalResources(list):
+    def __init__(self, global_resources):
+        for global_resource in global_resources:
+            if global_resource["id32"] == 194773219:
+                self.dark_energy = self.DarkEnergy(global_resource)
+            else:
+                self.append(self.GlobalResource(global_resource))
+
+    class GlobalResource(ReprMixin):
+        def __init__(self, global_resource):
+            self.id = global_resource["id32"]
+            self.current_value = global_resource["currentValue"]
+            self.max_value = global_resource["maxValue"]
+            self.perc = self.current_value / self.max_value
+
+    class DarkEnergy(GlobalResource):
+        def __init__(self, global_resource):
+            super().__init__(global_resource)
+
+        @property
+        def health_bar(self):
+            return health_bar(self.perc, "Illuminate")
 
 
 class Planet(ReprMixin):
@@ -510,6 +548,7 @@ class Planet(ReprMixin):
             self.progress: float = self.health / self.max_health
             self.required_players: int = 0
             self.level: int = int(self.max_health / 50000)
+            self.potentialBuildup = 0
 
         @property
         def health_bar(self) -> str:

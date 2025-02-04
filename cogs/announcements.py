@@ -182,15 +182,16 @@ class AnnouncementsCog(commands.Cog):
         for global_event in self.bot.data.global_events:
             global_event: GlobalEvents.GlobalEvent
             if global_event.id > last_GE.id:
-                if global_event.title == "BRIEFING" or (
-                    global_event.flag == 0 and "OPEN LICENSE" not in global_event.title
-                ):
+                if global_event.title == "BRIEFING":
                     last_GE.id = global_event.id
                     last_GE.save_changes()
                     continue
                 embeds = {
                     lang: GlobalEventsEmbed(
-                        self.bot.json_dict["languages"][lang], global_event
+                        self.bot.data.planets,
+                        self.bot.json_dict["languages"][lang],
+                        self.bot.json_dict["planet_effects"],
+                        global_event,
                     )
                     for lang in list({guild.language for guild in GWWGuild.get_all()})
                 }
