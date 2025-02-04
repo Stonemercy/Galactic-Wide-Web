@@ -1252,8 +1252,8 @@ class Dashboard:
                     feature_text = ""
                     if planet.feature:
                         feature_text += f"\nFeature: {planet.feature}"
-                    if planet.event.potentialBuildup != 0:
-                        feature_text += f"\nEstimated **Dark Energy** progress: **{((planet.event.potentialBuildup * planet.event.progress) / 1000000):.2%}**"
+                    if planet.event.potential_buildup != 0:
+                        feature_text += f"\nEstimated **Dark Energy** progress: **{((planet.event.potential_buildup * planet.event.progress) / 1000000):.2%}**"
                     if planet.dss:
                         exclamation += Emojis.dss["dss"]
                     player_count = f'**{planet.stats["playerCount"]:,}**'

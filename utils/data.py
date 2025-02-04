@@ -286,7 +286,7 @@ class Data(ReprMixin):
                 if planet_event["potentialBuildUp"] != 0
             }
             for index, buildup in planets_with_buildup.items():
-                self.planets[index].event.potentialBuildup = buildup
+                self.planets[index].event.potential_buildup = buildup
 
     def update_liberation_rates(self):
         for campaign in self.campaigns:
@@ -548,7 +548,7 @@ class Planet(ReprMixin):
             self.progress: float = self.health / self.max_health
             self.required_players: int = 0
             self.level: int = int(self.max_health / 50000)
-            self.potentialBuildup = 0
+            self.potential_buildup = 0
 
         @property
         def health_bar(self) -> str:
