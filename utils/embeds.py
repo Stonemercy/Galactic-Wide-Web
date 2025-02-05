@@ -417,7 +417,18 @@ class CampaignEmbed(Embed, EmbedReprMixin):
                 description += self.language_json["CampaignEmbed"][
                     "defence_level"
                 ].format(level=campaign.planet.event.level, exclamation=def_level_exc)
-                description += f"\n> Potential **Dark Energy** progress: **{((campaign.planet.event.potential_buildup * campaign.planet.event.progress) / 1000000):.2%}**"
+                total_duration = (
+                    campaign.planet.event.end_time_datetime
+                    - campaign.planet.event.start_time_datetime
+                ).total_seconds()
+                elapsed_duration = (
+                    datetime.now() - campaign.planet.event.start_time_datetime
+                ).total_seconds()
+                percentage = elapsed_duration / total_duration
+                remaining_energy = campaign.planet.event.potential_buildup * (
+                    1 - percentage
+                )
+                description += f"\n> Potential **Dark Energy** progress: **{(remaining_energy / 1_000_000):.2%}**"
                 description += f"\n> *{self.language_json['ends']} {time_remaining}*\n"
         else:
             description += self.language_json["CampaignEmbed"]["liberate"].format(
