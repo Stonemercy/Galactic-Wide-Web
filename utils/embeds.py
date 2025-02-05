@@ -2211,14 +2211,19 @@ class PersonalOrderEmbed(Embed, EmbedReprMixin):
                     "",
                     inline=False,
                 )
-            elif task.type == 7:  # Extract from {faction} {number} times
+            elif (
+                task.type == 7
+            ):  # Extract from successful mission {faction} {number} times
+                faction_text = ""
                 faction = {
                     1: "Humans",
                     2: "Terminids",
                     3: "Automaton",
                     4: "Illuminate",
-                }[task.values[0]]
-                full_objective = f"Extract from a successful Mission against {faction} {task.values[2]} times"
+                }.get(task.values[0], None)
+                if faction:
+                    faction_text = f"against {faction} "
+                full_objective = f"Extract from a successful Mission {faction_text}{task.values[2]} times"
                 self.add_field(
                     full_objective,
                     "",
