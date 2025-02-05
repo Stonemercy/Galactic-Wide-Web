@@ -289,7 +289,8 @@ class BotDashboardEmbed(Embed, EmbedReprMixin):
 class DispatchesEmbed(Embed, EmbedReprMixin):
     def __init__(self, language_json: dict, dispatch: Dispatch):
         super().__init__(colour=Colour.from_rgb(*faction_colours["MO"]))
-        self.add_field("", dispatch.message)
+        self.title, *description = dispatch.message.split("\n\n")
+        self.description = "\n\n".join(description)
         self.set_footer(text=language_json["message"].format(message_id=dispatch.id))
 
 
