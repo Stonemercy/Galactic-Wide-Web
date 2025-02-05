@@ -45,6 +45,7 @@ class WarfrontCog(commands.Cog):
                 for planet in self.bot.data.planet_events
                 if planet.event.faction == faction
             ],
+            self.bot.data.dss,
             self.bot.data.liberation_changes,
             self.bot.data.planets_with_player_reqs,
             guild_language,
