@@ -623,8 +623,15 @@ class Dashboard:
             self._footer_embed,
         ]
         if data.global_resources.dark_energy:
+            remaining_de = sum(
+                [
+                    planet.event.remaining_dark_energy
+                    for planet in data.planet_events
+                    if planet.event.potential_buildup != 0
+                ]
+            )
             self._dark_energy_embed = self.DarkEnergyEmbed(
-                data.global_resources.dark_energy
+                data.global_resources.dark_energy, remaining_de
             )
             self.embeds.insert(2, self._dark_energy_embed)
         for embed in self.embeds.copy():
@@ -1275,18 +1282,7 @@ class Dashboard:
                     if planet.feature:
                         feature_text += f"\nFeature: {planet.feature}"
                     if planet.event.potential_buildup != 0:
-                        total_duration = (
-                            planet.event.end_time_datetime
-                            - planet.event.start_time_datetime
-                        ).total_seconds()
-                        elapsed_duration = (
-                            datetime.now() - planet.event.start_time_datetime
-                        ).total_seconds()
-                        percentage = elapsed_duration / total_duration
-                        remaining_energy = planet.event.potential_buildup * (
-                            1 - percentage
-                        )
-                        feature_text += f"\nEst. **Dark Energy** remaining: **{(remaining_energy / 1_000_000):.2%}**"
+                        feature_text += f"\nEst. **Dark Energy** remaining: **{(planet.event.remaining_dark_energy / 1_000_000):.2%}**"
                     if planet.dss:
                         exclamation += Emojis.dss["dss"]
                     player_count = f'**{planet.stats["playerCount"]:,}**'
@@ -1314,7 +1310,9 @@ class Dashboard:
                 )
 
     class DarkEnergyEmbed(Embed, EmbedReprMixin):
-        def __init__(self, dark_energy_resource: GlobalResources.DarkEnergy):
+        def __init__(
+            self, dark_energy_resource: GlobalResources.DarkEnergy, total_de_available
+        ):
             super().__init__(
                 title="Dark Energy Accumulation",
                 description="-# The Meridian Singularity speeds up as Dark Energy accumulates",
@@ -1324,6 +1322,14 @@ class Dashboard:
                 "",
                 f"{dark_energy_resource.health_bar}\n**`{dark_energy_resource.perc:^25.2%}`**",
                 inline=False,
+            )
+            percentage_available = total_de_available / 1_000_000
+            warning = ""
+            if percentage_available + dark_energy_resource.perc > 1 or True:
+                warning = ":warning:"
+            self.add_field(
+                "",
+                f"-# {warning} Total ready to be harvested: {percentage_available:.2%} {warning}",
             )
             self.set_thumbnail(
                 url="https://cdn.discordapp.com/emojis/1331357764039086212.webp?size=96"

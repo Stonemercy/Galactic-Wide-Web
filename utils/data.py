@@ -551,6 +551,14 @@ class Planet(ReprMixin):
             self.potential_buildup = 0
 
         @property
+        def remaining_dark_energy(self) -> float:
+            return self.potential_buildup * (
+                1
+                - (datetime.now() - self.start_time_datetime).total_seconds()
+                / (self.end_time_datetime - self.start_time_datetime).total_seconds()
+            )
+
+        @property
         def health_bar(self) -> str:
             return health_bar(self.progress, self.faction, True)
 
