@@ -1325,7 +1325,7 @@ class Dashboard:
             )
             percentage_available = total_de_available / 1_000_000
             warning = ""
-            if percentage_available + dark_energy_resource.perc > 1 or True:
+            if percentage_available + dark_energy_resource.perc > 1:
                 warning = ":warning:"
             self.add_field(
                 "",
