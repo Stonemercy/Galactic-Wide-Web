@@ -40,17 +40,23 @@ class HelpCog(commands.Cog):
         self.bot.logger.info(
             f"{self.qualified_name}, /{inter.application_command.name} <{command = }>"
         )
+        commands_list = (
+            self.bot.global_application_commands
+            if inter.guild
+            else [
+                command
+                for command in self.bot.global_slash_commands
+                if command.contexts.private_channel
+            ]
+        )
+        if command not in [command.name for command in commands_list] and not "all":
+            return await inter.send(
+                "That command was not found, please select from the list.",
+                ephemeral=True,
+            )
         return await inter.send(
             embed=HelpEmbed(
-                commands=(
-                    self.bot.global_application_commands
-                    if inter.guild
-                    else [
-                        command
-                        for command in self.bot.global_slash_commands
-                        if command.contexts.private_channel
-                    ]
-                ),
+                commands=commands_list,
                 command_name=command,
             ),
             ephemeral=public != "Yes",
