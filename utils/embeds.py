@@ -1264,7 +1264,18 @@ class Dashboard:
                     if planet.feature:
                         feature_text += f"\nFeature: {planet.feature}"
                     if planet.event.potential_buildup != 0:
-                        feature_text += f"\nEst. **Dark Energy** remaining: **{((planet.event.potential_buildup * (planet.event.progress)) / 1000000):.2%}**"
+                        total_duration = (
+                            planet.event.end_time_datetime
+                            - planet.event.start_time_datetime
+                        ).total_seconds()
+                        elapsed_duration = (
+                            datetime.now() - planet.event.start_time_datetime
+                        ).total_seconds()
+                        percentage = elapsed_duration / total_duration
+                        remaining_energy = planet.event.potential_buildup * (
+                            1 - percentage
+                        )
+                        feature_text += f"\nEst. **Dark Energy** remaining: **{(remaining_energy / 1_000_000):.2%}**"
                     if planet.dss:
                         exclamation += Emojis.dss["dss"]
                     player_count = f'**{planet.stats["playerCount"]:,}**'
