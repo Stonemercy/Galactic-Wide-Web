@@ -4,7 +4,7 @@ from main import GalacticWideWebBot
 from utils.checks import wait_for_startup
 from utils.db import GWWGuild
 from utils.embeds import DSSEmbed
-from utils.interactables import WikiButton
+from utils.interactables import HDCButton, WikiButton
 
 
 class DSSCog(commands.Cog):
@@ -47,7 +47,8 @@ class DSSCog(commands.Cog):
             components=[
                 WikiButton(
                     link=f"https://helldivers.wiki.gg/wiki/Democracy_Space_Station"
-                )
+                ),
+                HDCButton(link="https://helldiverscompanion.com/#hellpad/stations"),
             ],
             ephemeral=public != "Yes",
         )

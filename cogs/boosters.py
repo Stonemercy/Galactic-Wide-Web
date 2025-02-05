@@ -3,7 +3,7 @@ from disnake.ext import commands
 from main import GalacticWideWebBot
 from utils.checks import wait_for_startup
 from utils.embeds import Items
-from utils.interactables import WikiButton
+from utils.interactables import HDCButton, WikiButton
 
 
 class BoostersCog(commands.Cog):
@@ -60,7 +60,8 @@ class BoostersCog(commands.Cog):
             components=[
                 WikiButton(
                     link=f"https://helldivers.wiki.gg/wiki/{booster.replace(' ', '_')}"
-                )
+                ),
+                HDCButton(link="https://helldiverscompanion.com/#hellpad/boosters"),
             ],
         )
 

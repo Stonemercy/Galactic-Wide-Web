@@ -11,7 +11,7 @@ from main import GalacticWideWebBot
 from re import findall
 from utils.checks import wait_for_startup
 from utils.embeds import Items
-from utils.interactables import WikiButton
+from utils.interactables import HDCButton, WikiButton
 
 
 class WarbondCog(commands.Cog):
@@ -75,16 +75,19 @@ class WarbondCog(commands.Cog):
         components = [
             Button(
                 style=ButtonStyle.success,
-                custom_id=f"{self.warbond_index[warbond]['name']}_prev_page",
+                custom_id=f"{warbond}_prev_page",
                 label="Previous Page",
                 disabled=True,
             ),
             Button(
                 style=ButtonStyle.success,
-                custom_id=f"{self.warbond_index[warbond]['name']}_next_page",
+                custom_id=f"{warbond}_next_page",
                 label="Next Page",
             ),
             WikiButton(link=f"https://helldivers.wiki.gg/wiki/Warbonds"),
+            HDCButton(
+                link=f"https://helldiverscompanion.com/#hellpad/warbonds/{warbond.lower().replace(' ', '_')}"
+            ),
         ]
         return await inter.send(
             embed=embed,

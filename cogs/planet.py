@@ -4,7 +4,7 @@ from main import GalacticWideWebBot
 from utils.checks import wait_for_startup
 from utils.db import GWWGuild
 from utils.embeds import PlanetEmbed
-from utils.interactables import WikiButton
+from utils.interactables import HDCButton, WikiButton
 from utils.maps import Maps
 
 
@@ -87,7 +87,10 @@ class PlanetCog(commands.Cog):
             components=[
                 WikiButton(
                     link=f"https://helldivers.wiki.gg/wiki/{planet.replace(' ', '_')}"
-                )
+                ),
+                HDCButton(
+                    link=f"https://helldiverscompanion.com/#hellpad/planets/{planet_data.index}"
+                ),
             ],
         )
 

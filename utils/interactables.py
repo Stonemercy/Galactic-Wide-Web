@@ -8,9 +8,19 @@ class WikiButton(Button):
     def __init__(self, link: str = "https://helldivers.wiki.gg/wiki/Helldivers_Wiki"):
         super().__init__(
             style=ButtonStyle.link,
-            label="More info",
+            label="Helldivers Wiki",
             url=link,
             emoji=Emojis.icons["wiki"],
+        )
+
+
+class HDCButton(Button):
+    def __init__(self, link: str = "https://helldiverscompanion.com/"):
+        super().__init__(
+            style=ButtonStyle.link,
+            label="Helldivers Companion",
+            url=link,
+            emoji=Emojis.icons["hdc"],
         )
 
 

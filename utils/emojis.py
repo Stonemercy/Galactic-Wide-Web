@@ -47,6 +47,7 @@ class Emojis:
         "kofi": "<:kofilogo:1298575039859396628>",
         "github": "<:githublogo:1298575626864955414>",
         "wiki": "<:wiki:1296193978525417524>",
+        "hdc": "<:hdc:1336735906350104586>",
         "victory": "<:victory:1238069280508215337>",
         "MO": "<:MO:1240706769043456031>",
         "MO_task_complete": "<:MO_task_complete:1325865957037445192>",
