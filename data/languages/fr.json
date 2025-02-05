@@ -42,7 +42,7 @@
             "time_unavailable": "Indisponible",
             "event_health": "Libération de la planète",
             "players_required": "Requis pour la Victoire",
-            "level": "Niveau de Défense"
+            "level": "Invasion niveau"
         },
         "AttackEmbed": {
             "title": "Attaque de {faction}",
@@ -65,7 +65,7 @@
         "new_battles": "Nouvelles campagnes",
         "invasions": "Invasions",
         "defend_planet": "🛡️ Défendre **{planet}** {faction_emoji} {exclamation}",
-        "defence_level": "\n> -# Niveau de défense **{level}** {exclamation}",
+        "invasion_level": "\n> -# Invasion niveau **{level}** {exclamation}",
         "repel_invasion": "🛡️ Repousser l'invasion sur {planet} {faction_emoji} {exclamation}",
         "liberate": "⚔️ Libérer **{planet}** {faction_emoji} {exclamation}\n",
         "been_liberated": "{emoji} **{planet}** a été libéré de {faction} {faction_emoji} {exclamation}\n",

@@ -401,7 +401,7 @@ class CampaignEmbed(Embed, EmbedReprMixin):
                     exclamation=exclamation,
                 )
                 description += self.language_json["CampaignEmbed"][
-                    "defence_level"
+                    "invasion_level"
                 ].format(level=campaign.planet.event.level, exclamation=def_level_exc)
                 description += f"\n> *{self.language_json['ends']} {time_remaining}*\n"
             else:
@@ -415,7 +415,7 @@ class CampaignEmbed(Embed, EmbedReprMixin):
                     exclamation=exclamation,
                 )
                 description += self.language_json["CampaignEmbed"][
-                    "defence_level"
+                    "invasion_level"
                 ].format(level=campaign.planet.event.level, exclamation=def_level_exc)
                 total_duration = (
                     campaign.planet.event.end_time_datetime

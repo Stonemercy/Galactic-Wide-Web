@@ -42,7 +42,7 @@
             "time_unavailable": "Nicht verfügbar",
             "event_health": "Planetenbefreiung",
             "players_required": "Erforderlich für den Sieg",
-            "level": "Verteidigungsstufe"
+            "level": "Invasion Stufe"
         },
         "AttackEmbed": {
             "title": "Angriff auf {faction}",
@@ -65,7 +65,7 @@
         "new_battles": "Neue Kampagnen",
         "invasions": "Invasionen",
         "defend_planet": "🛡️ Verteidige **{planet}** {faction_emoji} {exclamation}",
-        "defence_level": "\n> -# Verteidigungsstufe **{level}** {exclamation}",
+        "invasion_level": "\n> -# Invasion Stufe **{level}** {exclamation}",
         "repel_invasion": "🛡️ Wehre die Invasion auf {planet} ab {faction_emoji} {exclamation}",
         "liberate": "⚔️ Befreie **{planet}** {faction_emoji} {exclamation}\n",
         "been_liberated": "{emoji} **{planet}** wurde von {faction} {faction_emoji} {exclamation} befreit\n",
