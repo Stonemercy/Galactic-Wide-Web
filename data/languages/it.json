@@ -75,7 +75,7 @@
         "no_territory_change": "\n-# I **{faction}** se ne sono andati e __nessun territorio ha cambiato proprietà__ {faction_emoji}\n",
         "dss": {
             "has_moved": "La DSS si è spostata da **{planet1}** {faction_emoji1} a **{planet2}** {faction_emoji2} {exclamation}\n",
-            "ta_status_change": "**{ta_name}** ora è **{status}**\n"
+            "ta_status_change": "{emoji} **{ta_name}** ora è **{status}**\n"
         }
     },
     "PlanetEmbed": {

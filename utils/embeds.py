@@ -546,6 +546,7 @@ class CampaignEmbed(Embed, EmbedReprMixin):
         description += self.language_json["CampaignEmbed"]["dss"][
             "ta_status_change"
         ].format(
+            emoji=Emojis.dss[tactical_action.name.lower().replace(" ", "_")],
             ta_name=tactical_action.name,
             status=self.language_json["dashboard"]["DSSEmbed"][
                 statuses[tactical_action.status]
