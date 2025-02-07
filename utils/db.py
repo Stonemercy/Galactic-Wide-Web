@@ -373,3 +373,45 @@ class DSS(ReprMixin):
                     f"UPDATE dss SET planet_index = {self.planet_index}, ta1_status = {self.ta1_status}, ta2_status = {self.ta2_status}, ta3_status = {self.ta3_status}"
                 )
                 conn.commit()
+
+
+class Meridia(ReprMixin):
+    __slots__ = "locations"
+
+    def __init__(self):
+        self.locations = self.Locations()
+
+    class Locations(list):
+        def __init__(self):
+            with connect(
+                host=hostname,
+                dbname=database,
+                user=username,
+                password=pwd,
+                port=port_id,
+            ) as conn:
+                with conn.cursor() as curs:
+                    curs.execute(f"SELECT * FROM meridia")
+                    records = curs.fetchall()
+                    return (
+                        [self.Location(*record) for record in records]
+                        if records
+                        else None
+                    )
+
+        class Location(ReprMixin):
+            def __init__(self, timestamp, x, y):
+                self.timestamp = timestamp
+                self.x = x
+                self.y = y
+
+    @staticmethod
+    def new_location(timestamp, x, y):
+        with connect(
+            host=hostname, dbname=database, user=username, password=pwd, port=port_id
+        ) as conn:
+            with conn.cursor() as curs:
+                curs.execute(
+                    f"INSERT into meridia (timestamp, x, y) VALUES {timestamp, x, y}"
+                )
+                conn.commit()

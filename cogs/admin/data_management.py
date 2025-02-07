@@ -1,9 +1,10 @@
 from dataclasses import dataclass
-from datetime import time
+from datetime import datetime, time
 from disnake import Activity, ActivityType
 from disnake.ext import commands, tasks
 from main import GalacticWideWebBot
 from utils.data import Planet
+from utils.db import Meridia
 from utils.embeds import APIChangesEmbed
 
 
@@ -86,6 +87,8 @@ class DataManagementCog(commands.Cog):
                 if planet.position != new_data.position:
                     old_coords = (planet.position["x"], planet.position["y"])
                     new_coords = (new_data.position["x"], new_data.position["y"])
+                    if planet.index == 64:
+                        Meridia.new_location(datetime.now().isoformat(), *new_coords)
                     total_changes.append(
                         APIChanges(planet, "Location", old_coords, new_coords)
                     )

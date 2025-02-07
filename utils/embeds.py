@@ -18,7 +18,7 @@ from main import GalacticWideWebBot
 from math import inf
 from os import getpid
 from psutil import Process, cpu_percent
-from utils.db import GWWGuild
+from utils.db import GWWGuild, Meridia
 from utils.functions import health_bar, short_format
 from utils.data import (
     DSS,
@@ -2332,3 +2332,51 @@ class APIChangesEmbed(Embed, EmbedReprMixin):
                 self.add_field(
                     f"{faction_emoji} {change.planet.name}", description, inline=False
                 )
+
+
+class MeridiaEmbed(Embed, EmbedReprMixin):
+    def __init__(
+        self,
+        meridia: Meridia,
+        dark_energy_resource: GlobalResources.DarkEnergy,
+        total_de_available: int,
+        active_invasions: int,
+        dark_energy_changes: dict[str:int, str:list],
+    ):
+        super().__init__(title="Meridia", colour=Colour.from_rgb(106, 76, 180))
+        rate_per_hour = sum(dark_energy_changes["changes"]) * 12
+        rate = f"{rate_per_hour:+.2%}/hr"
+        completion_timestamp = ""
+        now_seconds = int(datetime.now().timestamp())
+        if rate_per_hour > 0:
+            seconds_until_complete = int(
+                ((1 - dark_energy_changes["total"]) / rate_per_hour) * 3600
+            )
+            completion_timestamp = (
+                f"-# Reaches 100% <t:{now_seconds + seconds_until_complete}:R>"
+            )
+        elif rate_per_hour < 0:
+            seconds_until_zero = int(
+                (dark_energy_changes["total"] / abs(rate_per_hour)) * 3600
+            )
+            completion_timestamp = (
+                f"-# Reaches 0% <t:{now_seconds + seconds_until_zero}:R>"
+            )
+        self.add_field(
+            "",
+            f"{dark_energy_resource.health_bar}\n**`{dark_energy_resource.perc:^25.3%}`**\n**`{rate:^25}`**",
+            inline=False,
+        )
+        warning = ""
+        if (
+            (total_de_available / dark_energy_resource.max_value)
+            + dark_energy_resource.perc
+        ) > 1:
+            warning = ":warning:"
+        self.add_field(
+            "",
+            f"{completion_timestamp}\n-# Active Invasions: {active_invasions}\n-# {warning} Total ready to be harvested: {(total_de_available / dark_energy_resource.max_value):.2%} {warning}",
+        )
+        self.set_thumbnail(
+            url="https://cdn.discordapp.com/emojis/1331357764039086212.webp?size=96"
+        )
