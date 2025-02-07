@@ -1336,7 +1336,7 @@ class Dashboard:
                 completion_timestamp = (
                     f"-# Reaches 100% <t:{now_seconds + seconds_until_complete}:R>"
                 )
-            else:
+            elif rate_per_hour < 0:
                 seconds_until_zero = int(
                     (dark_energy_changes["total"] / abs(rate_per_hour)) * 3600
                 )
