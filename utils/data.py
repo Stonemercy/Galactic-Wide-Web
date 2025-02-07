@@ -29,6 +29,7 @@ class Data(ReprMixin):
         "global_events",
         "loaded",
         "liberation_changes",
+        "dark_energy_changes",
         "planets_with_player_reqs",
     )
 
@@ -48,6 +49,7 @@ class Data(ReprMixin):
         }
         self.loaded = False
         self.liberation_changes = {}
+        self.dark_energy_changes = {"total": 0, "changes": []}
         self.planets_with_player_reqs = {}
 
     async def pull_from_api(self, bot):
@@ -173,6 +175,7 @@ class Data(ReprMixin):
             self.loaded = True
         self.format_data()
         self.update_liberation_rates()
+        self.update_dark_energy_rate()
         self.get_needed_players()
 
     def format_data(self):
@@ -304,6 +307,26 @@ class Data(ReprMixin):
                         campaign.progress - changes["liberation"]
                     )
                 changes["liberation"] = campaign.progress
+
+    def update_dark_energy_rate(self):
+        if self.global_resources.dark_energy:
+            if not self.dark_energy_changes["total"]:
+                self.dark_energy_changes["total"] = (
+                    self.global_resources.dark_energy.perc
+                )
+            else:
+                if len(self.dark_energy_changes["changes"]) == 5:
+                    self.dark_energy_changes["changes"].pop(0)
+                while len(self.dark_energy_changes["changes"]) < 5:
+                    self.dark_energy_changes["changes"].append(
+                        (
+                            self.global_resources.dark_energy.perc
+                            - self.dark_energy_changes["total"]
+                        )
+                    )
+                self.dark_energy_changes["total"] = (
+                    self.global_resources.dark_energy.perc
+                )
 
     def get_needed_players(self):
         now = datetime.now()
@@ -604,7 +627,7 @@ class DSS(ReprMixin):
         self.election_date_time = datetime.fromtimestamp(
             war_time + self.election_war_time
         )
-        self.tactical_actions: list[self.TacticalAction] = [
+        self.tactical_actions: list[DSS.TacticalAction] = [
             self.TacticalAction(tactical_action, war_time)
             for tactical_action in dss["tacticalActions"]
         ]
