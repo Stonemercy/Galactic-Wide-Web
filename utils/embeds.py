@@ -320,16 +320,22 @@ class GlobalEventsEmbed(Embed, EmbedReprMixin):
             specific_planets = "\n- ".join(
                 [planets[index].name for index in global_event.planet_indices]
             )
-            effects = [
-                planet_effects_json[str(effect_id)]
-                for effect_id in global_event.effect_ids
-            ]
-            for effect in effects:
-                self.add_field(
-                    effect["name"],
-                    f"-# {effect['description']}\n-# Now active on the following planet(s):\n- {specific_planets}",
-                    inline=False,
-                )
+            if specific_planets == "- ":
+                specific_planets == "All"
+            for effect_id in global_event.effect_ids:
+                effect = planet_effects_json.get(str(effect_id))
+                if not effect:
+                    self.add_field(
+                        "UNKNOWN effect",
+                        f"-# Now active of the following planet(s):\n- {specific_planets}",
+                        inline=False,
+                    )
+                else:
+                    self.add_field(
+                        effect["name"],
+                        f"-# {effect['description']}\n-# Now active on the following planet(s):\n- {specific_planets}",
+                        inline=False,
+                    )
         else:
             for chunk in global_event.split_message:
                 self.add_field("", chunk, inline=False)
