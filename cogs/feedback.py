@@ -12,7 +12,7 @@ from main import GalacticWideWebBot
 from utils.checks import wait_for_startup
 from utils.db import FeedbackUser
 from utils.embeds import FeedbackEmbed
-from utils.modals import FeedbackModal
+from utils.interactables import FeedbackModal
 
 
 class FeedbackCog(commands.Cog):
