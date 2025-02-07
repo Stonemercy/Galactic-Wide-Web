@@ -99,6 +99,11 @@
 		"name": "MERIDIAN BLACK HOLE",
 		"description": "The prosperous Meridia was corrupted into a Terminid Supercolony, necessitating its destruction using the mysterious Dark Fluid.  This galactic scar is all that remains."
 	},
+	"1231": {
+		"galacticEffectId": 1231,
+		"name": "WEAPONS EXPERIMENTATION",
+		"description": "The Gas Mines Stratagem is available to all Helldivers."
+	},
 	"1232": {
 		"galacticEffectId": 1232,
 		"name": "FACTORY HUB",
@@ -114,10 +119,9 @@
 		"name": "CENTER FOR CIVILIAN SURVEILLANCE AND SAFETY",
 		"description": "The Ministry of Truth analyzes citizens' activity, speech, data, DNA, RNA, and neural topology here."
 	},
-	"1239":{
+	"1239": {
 		"galacticEffectId": 1239,
 		"name": "JET BRIGADE FACTORIES",
 		"description": "Vertically enhanced Jet Brigade soldiers are produced here."
-
 	}
 }
