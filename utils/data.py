@@ -289,6 +289,10 @@ class Data(ReprMixin):
                 self.__data__["status"]["planetStatus"][64]["position"]["x"],
                 self.__data__["status"]["planetStatus"][64]["position"]["y"],
             )
+            self.planets[64].position = {
+                "x": self.meridia_position[0],
+                "y": self.meridia_position[1],
+            }
             planets_with_buildup = {
                 planet_event["planetIndex"]: planet_event["potentialBuildUp"]
                 for planet_event in self.__data__["status"]["planetEvents"]
