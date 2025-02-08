@@ -1,9 +1,11 @@
+from datetime import datetime, time
 from disnake import AppCmdInter, File, InteractionContextTypes, ApplicationInstallTypes
-from disnake.ext import commands
+from disnake.ext import commands, tasks
+from cogs.admin.data_management import APIChanges
 from main import GalacticWideWebBot
 from utils.checks import wait_for_startup
 from utils.db import GWWGuild, Meridia
-from utils.embeds import MeridiaEmbed
+from utils.embeds import APIChangesEmbed, MeridiaEmbed
 import matplotlib.pyplot as plt
 import PIL.Image as Image
 
@@ -11,6 +13,35 @@ import PIL.Image as Image
 class MeridiaCog(commands.Cog):
     def __init__(self, bot: GalacticWideWebBot):
         self.bot = bot
+        self.check_position.start()
+
+    def cog_unload(self):
+        self.check_position.stop()
+
+    @tasks.loop(
+        time=[
+            time(hour=i, minute=j, second=0)
+            for i in range(24)
+            for j in range(10, 60, 15)
+        ]
+    )
+    async def check_position(self):
+        new_coords = self.bot.data.meridia_position
+        last_location: Meridia.Locations.Location = Meridia().locations[-1]
+        old_coords = (last_location.x, last_location.y)
+        if new_coords != old_coords:
+            Meridia.new_location(datetime.now().isoformat(), *new_coords)
+            changes = [
+                APIChanges(
+                    self.bot.data.planets[64], "Location", old_coords, new_coords
+                )
+            ]
+            self.bot.logger.info(changes)
+            await self.bot.api_changes_channel.send(embed=APIChangesEmbed(changes))
+
+    @check_position.before_loop
+    async def before_check_position(self):
+        await self.bot.wait_until_ready()
 
     @wait_for_startup()
     @commands.slash_command(

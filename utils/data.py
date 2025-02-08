@@ -283,6 +283,10 @@ class Data(ReprMixin):
             self.global_resources: GlobalResources = GlobalResources(
                 self.__data__["status"]["globalResources"]
             )
+            self.meridia_position = (
+                self.__data__["status"]["planetStatus"][64]["position"]["x"],
+                self.__data__["status"]["planetStatus"][64]["position"]["y"],
+            )
             planets_with_buildup = {
                 planet_event["planetIndex"]: planet_event["potentialBuildUp"]
                 for planet_event in self.__data__["status"]["planetEvents"]
