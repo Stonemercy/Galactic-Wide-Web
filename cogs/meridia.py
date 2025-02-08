@@ -26,6 +26,8 @@ class MeridiaCog(commands.Cog):
         ]
     )
     async def check_position(self):
+        if not self.bot.data.meridia_position:
+            return
         new_coords = self.bot.data.meridia_position
         last_location: Meridia.Locations.Location = Meridia().locations[-1]
         old_coords = (last_location.x, last_location.y)

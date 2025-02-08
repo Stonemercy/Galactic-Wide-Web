@@ -2335,6 +2335,7 @@ class APIChangesEmbed(Embed, EmbedReprMixin):
                 )
             elif change.statistic == "Location":
                 description = f"Location:\n{change.before} {Emojis.stratagems['right']} {change.after}"
+                description += f"\nChange: ({change.after[0] - change.before[0]:+.8f}, {change.after[1] - change.before[1]:+.8f})"
                 self.add_field(
                     f"{faction_emoji} {change.planet.name}", description, inline=False
                 )

@@ -31,6 +31,7 @@ class Data(ReprMixin):
         "liberation_changes",
         "dark_energy_changes",
         "planets_with_player_reqs",
+        "meridia_position",
     )
 
     def __init__(self):
@@ -51,6 +52,7 @@ class Data(ReprMixin):
         self.liberation_changes = {}
         self.dark_energy_changes = {"total": 0, "changes": []}
         self.planets_with_player_reqs = {}
+        self.meridia_position = None
 
     async def pull_from_api(self, bot):
         api_to_use = api
