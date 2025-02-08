@@ -2381,7 +2381,7 @@ class MeridiaEmbed(Embed, EmbedReprMixin):
             warning = ":warning:"
         self.add_field(
             "",
-            f"{completion_timestamp}\n-# Active Invasions: {active_invasions}\n-# {warning} Total ready to be harvested: {(total_de_available / dark_energy_resource.max_value):.2%} {warning}",
+            f"{completion_timestamp}\n-# Active Invasions: {active_invasions}\n-# {warning} Total ready to be harvested: {(total_de_available / dark_energy_resource.max_value):.2%} (up to {(total_de_available / dark_energy_resource.max_value)+dark_energy_resource.perc:.2%}) {warning}",
         )
         self.set_thumbnail(
             url="https://cdn.discordapp.com/emojis/1331357764039086212.webp?size=96"

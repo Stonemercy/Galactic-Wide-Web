@@ -1,9 +1,11 @@
-from disnake import AppCmdInter, InteractionContextTypes, ApplicationInstallTypes
+from disnake import AppCmdInter, File, InteractionContextTypes, ApplicationInstallTypes
 from disnake.ext import commands
 from main import GalacticWideWebBot
 from utils.checks import wait_for_startup
-from utils.db import Meridia
+from utils.db import GWWGuild, Meridia
 from utils.embeds import MeridiaEmbed
+import matplotlib.pyplot as plt
+import PIL.Image as Image
 
 
 class MeridiaCog(commands.Cog):
@@ -29,25 +31,77 @@ class MeridiaCog(commands.Cog):
         self.bot.logger.info(
             f"{self.qualified_name} | /{inter.application_command.name} <{public = }>"
         )
-        await inter.send(
-            embed=MeridiaEmbed(
-                Meridia(),
-                self.bot.data.global_resources.dark_energy,
-                sum(
-                    [
-                        planet.event.potential_buildup
-                        for planet in self.bot.data.planet_events
-                    ]
-                ),
-                len(
-                    [
-                        planet
-                        for planet in self.bot.data.planet_events
-                        if planet.event.potential_buildup != 0
-                    ]
-                ),
-                self.bot.data.dark_energy_changes,
+        if inter.guild:
+            guild = GWWGuild.get_by_id(inter.guild_id)
+        else:
+            guild = GWWGuild.default()
+        embed = MeridiaEmbed(
+            Meridia(),
+            self.bot.data.global_resources.dark_energy,
+            sum(
+                [
+                    planet.event.remaining_dark_energy
+                    for planet in self.bot.data.planet_events
+                ]
+            ),
+            len(
+                [
+                    planet
+                    for planet in self.bot.data.planet_events
+                    if planet.event.potential_buildup != 0
+                ]
+            ),
+            self.bot.data.dark_energy_changes,
+        )
+        map_img = Image.open(f"resources/{guild.language}.webp")
+        coordinates = [(coord.x, coord.y) for coord in Meridia().locations]
+        coordinates_fixed = [
+            ((x + 1) / 2 * 2000, (y + 1) / 2 * 2000) for x, y in coordinates
+        ]
+        x, y = zip(*coordinates_fixed)
+        fig, ax = plt.subplots()
+        fig.patch.set_facecolor("black")
+        ax.set_facecolor("black")
+        ax.imshow(map_img, extent=[0, 2000, 0, 2000])
+        ax.plot(x, y, "o", color=(0.1098, 0.0863, 0.1882), label="Coordinates")
+        dataponts_to_use = 2
+        while dataponts_to_use < 5:
+            if len(x) > dataponts_to_use + 1:
+                dataponts_to_use += 1
+            else:
+                break
+        dp_to_use = -dataponts_to_use
+        if len(x) > 1:
+            ax.arrow(
+                x[dp_to_use],
+                y[dp_to_use],
+                x[-1] - x[dp_to_use],
+                y[-1] - y[dp_to_use],
+                head_width=50,
+                head_length=250,
+                fc=(0.4157, 0.2980, 0.7059),
+                ec=(0.75, 0, 0),
             )
+        ax.set_xticks([])
+        ax.set_yticks([])
+        ax.spines["top"].set_visible(False)
+        ax.spines["right"].set_visible(False)
+        ax.spines["left"].set_visible(False)
+        ax.spines["bottom"].set_visible(False)
+        ax.set_frame_on(False)
+        ax.set_title(
+            "Estimated Direction of Meridia", color="white", fontsize=16, pad=20
+        )
+        plt.savefig(
+            "resources/meridia_map.webp",
+            dpi=300,
+            bbox_inches="tight",
+            facecolor="black",
+        )
+        embed.set_image(file=File("resources/meridia_map.webp"))
+        await inter.send(
+            ephemeral=public != "Yes",
+            embed=embed,
         )
 
 

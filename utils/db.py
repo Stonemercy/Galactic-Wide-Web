@@ -393,8 +393,8 @@ class Meridia(ReprMixin):
                 with conn.cursor() as curs:
                     curs.execute(f"SELECT * FROM meridia")
                     records = curs.fetchall()
-                    return (
-                        [self.Location(*record) for record in records]
+                    (
+                        self.extend([self.Location(*record) for record in records])
                         if records
                         else None
                     )
