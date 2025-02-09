@@ -271,8 +271,8 @@ class GlobalEventsLoopEmbed(Embed, EmbedReprMixin):
             specific_planets = "\n- ".join(
                 [planets[index].name for index in global_event.planet_indices]
             )
-            if len(specific_planets) < 5:
-                specific_planets == "All"
+            if not specific_planets:
+                specific_planets = "All"
             for effect_id in global_event.effect_ids:
                 effect = planet_effects_json.get(str(effect_id))
                 if not effect:
