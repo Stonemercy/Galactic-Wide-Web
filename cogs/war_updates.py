@@ -6,7 +6,7 @@ from os import getenv
 from random import choice
 from utils.checks import wait_for_startup
 from utils.db import DSS as DSSDB, GWWGuild, Campaign
-from utils.embeds import CampaignEmbed
+from utils.embeds.loop_embeds import CampaignLoopEmbed
 from utils.data import DSS
 
 SUPPORT_SERVER = [int(getenv("SUPPORT_SERVER"))]
@@ -33,7 +33,7 @@ class WarUpdatesCog(commands.Cog):
         old_campaigns: list[Campaign] = Campaign.get_all()
         languages = list({guild.language for guild in GWWGuild.get_all()})
         embeds = {
-            lang: CampaignEmbed(
+            lang: CampaignLoopEmbed(
                 self.bot.json_dict["languages"][lang], self.bot.json_dict["planets"]
             )
             for lang in languages
@@ -165,7 +165,7 @@ class WarUpdatesCog(commands.Cog):
         )
         languages = list({guild.language for guild in GWWGuild.get_all()})
         embeds = {
-            lang: CampaignEmbed(
+            lang: CampaignLoopEmbed(
                 self.bot.json_dict["languages"][lang], self.bot.json_dict["planets"]
             )
             for lang in languages
@@ -181,7 +181,7 @@ class WarUpdatesCog(commands.Cog):
                     [
                         campaign
                         for campaign in self.bot.data.campaigns
-                        if campaign.planet.event
+                        if campaign.planet.event and campaign.planet.event.type == 2
                     ]
                 )
                 embed.add_new_campaign(

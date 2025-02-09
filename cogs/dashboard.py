@@ -2,7 +2,7 @@ from datetime import datetime, time
 from disnake.ext import commands, tasks
 from main import GalacticWideWebBot
 from utils.db import GWWGuild
-from utils.embeds import Dashboard
+from utils.embeds.dashboard import Dashboard
 
 
 class DashboardCog(commands.Cog):

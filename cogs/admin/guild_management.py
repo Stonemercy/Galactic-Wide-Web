@@ -11,7 +11,7 @@ from disnake.ext import commands, tasks
 from disnake.ui import Button
 from main import GalacticWideWebBot
 from utils.db import BotDashboard, GWWGuild
-from utils.embeds import BotDashboardEmbed
+from utils.embeds.loop_embeds import BotDashboardLoopEmbed
 from utils.interactables import AppDirectoryButton, GitHubButton, KoFiButton
 
 
@@ -83,7 +83,7 @@ class GuildManagementCog(commands.Cog):
             if datetime.now().minute == 0:
                 app_info = await self.bot.application_info()
                 self.user_installs = app_info.approximate_user_install_count
-            dashboard_embed = BotDashboardEmbed(
+            dashboard_embed = BotDashboardLoopEmbed(
                 bot=self.bot, user_installs=self.user_installs
             )
             try:

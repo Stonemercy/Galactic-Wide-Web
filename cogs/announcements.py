@@ -3,7 +3,12 @@ from disnake.ext import commands, tasks
 from main import GalacticWideWebBot
 from utils.data import GlobalEvents
 from utils.db import GlobalEvent, Steam, GWWGuild, MajorOrder, Dispatch
-from utils.embeds import Dashboard, DispatchesEmbed, GlobalEventsEmbed, SteamEmbed
+from utils.embeds.dashboard import Dashboard
+from utils.embeds.loop_embeds import (
+    DispatchesLoopEmbed,
+    GlobalEventsLoopEmbed,
+    SteamLoopEmbed,
+)
 from utils.testing.assignment import TestAssignment
 
 
@@ -89,7 +94,7 @@ class AnnouncementsCog(commands.Cog):
         last_dispatch = Dispatch()
         if last_dispatch.id != self.bot.data.dispatch.id:
             embeds = {
-                lang: DispatchesEmbed(
+                lang: DispatchesLoopEmbed(
                     self.bot.json_dict["languages"][lang], self.bot.data.dispatch
                 )
                 for lang in list({guild.language for guild in GWWGuild.get_all()})
@@ -119,7 +124,7 @@ class AnnouncementsCog(commands.Cog):
         if last_patch_notes.id != self.bot.data.steam[0].id:
             languages = list({guild.language for guild in GWWGuild.get_all()})
             embeds = {
-                lang: SteamEmbed(
+                lang: SteamLoopEmbed(
                     self.bot.data.steam[0], self.bot.json_dict["languages"][lang]
                 )
                 for lang in languages
@@ -187,7 +192,7 @@ class AnnouncementsCog(commands.Cog):
                     last_GE.save_changes()
                     continue
                 embeds = {
-                    lang: GlobalEventsEmbed(
+                    lang: GlobalEventsLoopEmbed(
                         self.bot.data.planets,
                         self.bot.json_dict["languages"][lang],
                         self.bot.json_dict["planet_effects"],

@@ -1,11 +1,10 @@
 from dataclasses import dataclass
-from datetime import datetime, time
+from datetime import time
 from disnake import Activity, ActivityType
 from disnake.ext import commands, tasks
 from main import GalacticWideWebBot
 from utils.data import Planet
-from utils.db import Meridia
-from utils.embeds import APIChangesEmbed
+from utils.embeds.loop_embeds import APIChangesLoopEmbed
 
 
 @dataclass
@@ -86,7 +85,7 @@ class DataManagementCog(commands.Cog):
                     )
         if total_changes:
             await self.bot.api_changes_channel.send(
-                embed=APIChangesEmbed(total_changes)
+                embed=APIChangesLoopEmbed(total_changes)
             )
 
     @check_changes.before_loop

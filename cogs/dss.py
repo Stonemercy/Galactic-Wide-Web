@@ -3,7 +3,7 @@ from disnake.ext import commands
 from main import GalacticWideWebBot
 from utils.checks import wait_for_startup
 from utils.db import GWWGuild
-from utils.embeds import DSSEmbed
+from utils.embeds.command_embeds import DSSCommandEmbed
 from utils.interactables import HDCButton, WikiButton
 
 
@@ -40,7 +40,7 @@ class DSSCog(commands.Cog):
         else:
             guild = GWWGuild.default()
         await inter.send(
-            embed=DSSEmbed(
+            embed=DSSCommandEmbed(
                 self.bot.data.dss,
                 self.bot.json_dict["languages"][guild.language],
             ),

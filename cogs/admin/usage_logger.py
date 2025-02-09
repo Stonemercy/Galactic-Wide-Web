@@ -2,7 +2,7 @@ from datetime import time
 from disnake import AppCmdInter, Guild
 from disnake.ext import commands, tasks
 from utils.bot import GalacticWideWebBot
-from utils.embeds import UsageEmbed
+from utils.embeds.loop_embeds import UsageLoopEmbed
 
 
 class UsageLoggerCog(commands.Cog):
@@ -32,7 +32,7 @@ class UsageLoggerCog(commands.Cog):
     async def usage_report(self):
         if self.bot.command_usage == {}:
             return
-        embed = UsageEmbed(self.bot.command_usage, self.guilds_joined)
+        embed = UsageLoopEmbed(self.bot.command_usage, self.guilds_joined)
         await self.bot.moderator_channel.send(embed=embed)
         self.bot.command_usage.clear()
 

@@ -2,7 +2,7 @@ from disnake import AppCmdInter, ApplicationInstallTypes, InteractionContextType
 from disnake.ext import commands
 from main import GalacticWideWebBot
 from utils.checks import wait_for_startup
-from utils.embeds import Items
+from utils.embeds.command_embeds import BoosterCommandEmbed
 from utils.interactables import HDCButton, WikiButton
 
 
@@ -49,7 +49,7 @@ class BoostersCog(commands.Cog):
                 ),
                 ephemeral=True,
             )
-        embed = Items.Booster(boosters[booster])
+        embed = BoosterCommandEmbed(boosters[booster])
         if not embed.image_set:
             await self.bot.moderator_channel.send(
                 f"Image missing for **booster __{booster}__** <@{self.bot.owner_id}> :warning:"

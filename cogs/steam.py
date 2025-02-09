@@ -8,7 +8,7 @@ from disnake.ext import commands
 from main import GalacticWideWebBot
 from utils.checks import wait_for_startup
 from utils.db import GWWGuild
-from utils.embeds import SteamEmbed
+from utils.embeds.command_embeds import SteamCommandEmbed
 from utils.interactables import SteamStringSelect
 
 
@@ -40,7 +40,7 @@ class SteamCog(commands.Cog):
         else:
             guild = GWWGuild.default()
         await inter.send(
-            embed=SteamEmbed(
+            embed=SteamCommandEmbed(
                 steam=self.bot.data.steam[0],
                 language_json=self.bot.json_dict["languages"][guild.language],
             ),
@@ -59,7 +59,7 @@ class SteamCog(commands.Cog):
             guild = GWWGuild.get_by_id(inter.guild_id)
         else:
             guild = GWWGuild.default()
-        embed = SteamEmbed(
+        embed = SteamCommandEmbed(
             steam_data,
             self.bot.json_dict["languages"][guild.language],
         )

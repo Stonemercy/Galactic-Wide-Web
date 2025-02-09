@@ -3,7 +3,7 @@ from disnake.ext import commands
 from main import GalacticWideWebBot
 from utils.checks import wait_for_startup
 from utils.db import GWWGuild
-from utils.embeds import StratagemEmbed
+from utils.embeds.command_embeds import StratagemCommandEmbed
 from utils.interactables import SupportServerButton, WikiButton
 
 
@@ -51,7 +51,7 @@ class StratagemsCog(commands.Cog):
                 components=[SupportServerButton()],
             )
         stratagem_stats = self.stratagems[stratagem]
-        embed = StratagemEmbed(stratagem, stratagem_stats, guild_language)
+        embed = StratagemCommandEmbed(stratagem, stratagem_stats, guild_language)
         if not embed.image_set:
             await self.bot.moderator_channel.send(
                 f"Image missing for **stratagem __{stratagem}__** <@{self.bot.owner_id}> :warning:"

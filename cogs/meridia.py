@@ -7,7 +7,8 @@ from math import sqrt
 from numpy import array, hypot
 from utils.checks import wait_for_startup
 from utils.db import GWWGuild, Meridia
-from utils.embeds import APIChangesEmbed, MeridiaEmbed
+from utils.embeds.command_embeds import MeridiaCommandEmbed
+from utils.embeds.loop_embeds import APIChangesLoopEmbed
 import matplotlib.pyplot as plt
 import PIL.Image as Image
 
@@ -40,7 +41,7 @@ class MeridiaCog(commands.Cog):
                     self.bot.data.planets[64], "Location", old_coords, new_coords
                 )
             ]
-            await self.bot.api_changes_channel.send(embed=APIChangesEmbed(changes))
+            await self.bot.api_changes_channel.send(embed=APIChangesLoopEmbed(changes))
 
     @check_position.before_loop
     async def before_check_position(self):
@@ -212,7 +213,7 @@ class MeridiaCog(commands.Cog):
             bbox_inches="tight",
             facecolor="black",
         )
-        embed = MeridiaEmbed(
+        embed = MeridiaCommandEmbed(
             self.bot.data.global_resources.dark_energy,
             sum(
                 [

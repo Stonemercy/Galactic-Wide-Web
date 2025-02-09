@@ -3,7 +3,7 @@ from disnake.ext import commands
 from main import GalacticWideWebBot
 from utils.checks import wait_for_startup
 from utils.db import GWWGuild
-from utils.embeds import PlanetEmbed
+from utils.embeds.command_embeds import PlanetCommandEmbed
 from utils.interactables import HDCButton, WikiButton
 from utils.maps import Maps
 
@@ -57,7 +57,7 @@ class PlanetCog(commands.Cog):
         else:
             guild = GWWGuild.default()
         guild_language = self.bot.json_dict["languages"][guild.language]
-        embed = PlanetEmbed(
+        embed = PlanetCommandEmbed(
             planet_names=[
                 planet_names
                 for planet_names in self.bot.json_dict["planets"].values()

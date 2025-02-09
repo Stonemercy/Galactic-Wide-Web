@@ -10,7 +10,8 @@ from disnake.ext import commands, tasks
 from main import GalacticWideWebBot
 from utils.checks import wait_for_startup
 from utils.db import GWWGuild
-from utils.embeds import PersonalOrderEmbed
+from utils.embeds.command_embeds import PersonalOrderCommandEmbed
+from utils.embeds.loop_embeds import PersonalOrderLoopEmbed
 from utils.interactables import WikiButton
 
 SUPPORT_SERVER_ID = [int(getenv("SUPPORT_SERVER"))]
@@ -66,7 +67,7 @@ class PersonalOrderCog(commands.Cog):
         else:
             guild = GWWGuild.default()
         await inter.send(
-            embed=PersonalOrderEmbed(
+            embed=PersonalOrderCommandEmbed(
                 personal_order=self.bot.data.personal_order,
                 language_json=self.bot.json_dict["languages"][guild.language],
                 reward_types=self.bot.json_dict["items"]["reward_types"],
@@ -91,7 +92,7 @@ class PersonalOrderCog(commands.Cog):
         ):
             return
         embeds = {
-            lang: PersonalOrderEmbed(
+            lang: PersonalOrderLoopEmbed(
                 personal_order=self.bot.data.personal_order,
                 language_json=self.bot.json_dict["languages"][lang],
                 reward_types=self.bot.json_dict["items"]["reward_types"],

@@ -11,7 +11,7 @@ from disnake.ui import Button
 from main import GalacticWideWebBot
 from utils.checks import wait_for_startup
 from utils.db import FeedbackUser
-from utils.embeds import FeedbackEmbed
+from utils.embeds.command_embeds import FeedbackCommandEmbed
 from utils.interactables import FeedbackModal
 
 
@@ -52,7 +52,7 @@ class FeedbackCog(commands.Cog):
         if inter.custom_id != "feedback":
             return
         await self.bot.feedback_channel.send(
-            embed=FeedbackEmbed(inter),
+            embed=FeedbackCommandEmbed(inter),
             components=[
                 Button(label="BAN", style=ButtonStyle.danger, custom_id="feedback_ban"),
                 Button(

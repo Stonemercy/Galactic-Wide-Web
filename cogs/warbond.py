@@ -10,7 +10,7 @@ from disnake.ui import Button, ActionRow
 from main import GalacticWideWebBot
 from re import findall
 from utils.checks import wait_for_startup
-from utils.embeds import Items
+from utils.embeds.command_embeds import WarbondCommandEmbed
 from utils.interactables import HDCButton, WikiButton
 
 
@@ -69,7 +69,7 @@ class WarbondCog(commands.Cog):
             "name": warbond,
             "json": self.bot.json_dict["warbonds"][self.warbond_index[warbond]["id"]],
         }
-        embed = Items.Warbond(
+        embed = WarbondCommandEmbed(
             warbond_json=chosen_warbond_json, json_dict=self.bot.json_dict, page=1
         )
         components = [
@@ -120,7 +120,7 @@ class WarbondCog(commands.Cog):
         else:
             action_row.children[0].disabled = False
             action_row.children[1].disabled = False
-        embed = Items.Warbond(
+        embed = WarbondCommandEmbed(
             warbond_json=warbond_json, json_dict=self.bot.json_dict, page=new_page
         )
         await inter.response.edit_message(

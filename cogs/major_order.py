@@ -3,7 +3,7 @@ from disnake.ext import commands
 from main import GalacticWideWebBot
 from utils.checks import wait_for_startup
 from utils.db import GWWGuild
-from utils.embeds import Dashboard
+from utils.embeds.dashboard import Dashboard
 from utils.interactables import WikiButton
 
 

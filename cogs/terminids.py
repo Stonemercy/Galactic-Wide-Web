@@ -3,7 +3,7 @@ from disnake.ext import commands
 from main import GalacticWideWebBot
 from utils.checks import wait_for_startup
 from utils.db import GWWGuild
-from utils.embeds import EnemyEmbed
+from utils.embeds.command_embeds import FactionCommandEmbed
 from utils.interactables import WikiButton
 
 
@@ -92,7 +92,7 @@ class TerminidsCog(commands.Cog):
             )
         if species:
             species_info = {"name": species, "info": self.terminids_dict[species]}
-            embed = EnemyEmbed("Terminids", species_info, guild_language)
+            embed = FactionCommandEmbed("Terminids", species_info, guild_language)
             components = [
                 WikiButton(
                     link=f"https://helldivers.wiki.gg/wiki/{species.replace(' ', '_')}"
@@ -103,7 +103,7 @@ class TerminidsCog(commands.Cog):
                 "name": variation,
                 "info": self.variations_dict[variation],
             }
-            embed = EnemyEmbed(
+            embed = FactionCommandEmbed(
                 "Terminids", variation_info, guild_language, variation=True
             )
             components = [WikiButton(link=variation_info["info"]["url"])]

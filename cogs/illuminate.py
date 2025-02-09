@@ -3,7 +3,7 @@ from disnake.ext import commands
 from main import GalacticWideWebBot
 from utils.checks import wait_for_startup
 from utils.db import GWWGuild
-from utils.embeds import EnemyEmbed
+from utils.embeds.command_embeds import FactionCommandEmbed
 from utils.interactables import WikiButton
 
 
@@ -89,7 +89,7 @@ class IlluminateCog(commands.Cog):
                 ephemeral=public != "Yes",
             )
         if species:
-            embed = EnemyEmbed(
+            embed = FactionCommandEmbed(
                 "Illuminate",
                 {"name": species, "info": self.illuminate_dict[species]},
                 guild_language,
@@ -104,7 +104,7 @@ class IlluminateCog(commands.Cog):
                 "name": variation,
                 "info": self.variations_dict[variation],
             }
-            embed = EnemyEmbed(
+            embed = FactionCommandEmbed(
                 "Illuminate", variation_info, guild_language, variation=True
             )
             components = [WikiButton(link=variation_info["info"]["url"])]

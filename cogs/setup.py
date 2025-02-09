@@ -12,7 +12,8 @@ from disnake.ui import ActionRow
 from main import GalacticWideWebBot
 from utils.checks import wait_for_startup
 from utils.db import GWWGuild
-from utils.embeds import Dashboard, SetupEmbed
+from utils.embeds.dashboard import Dashboard
+from utils.embeds.command_embeds import SetupCommandEmbed
 from utils.interactables import Setup
 from utils.maps import Maps
 
@@ -92,7 +93,7 @@ class SetupCog(commands.Cog):
             components[1][2].disabled = False
             components[1][3].disabled = False
         await inter.send(
-            embed=SetupEmbed(
+            embed=SetupCommandEmbed(
                 guild=guild,
                 language_json=self.bot.json_dict["languages"][guild.language],
             ),
@@ -136,7 +137,7 @@ class SetupCog(commands.Cog):
                 ]
                 self.reset_row_1(action_rows[0])
                 return await inter.response.edit_message(
-                    embed=SetupEmbed(
+                    embed=SetupCommandEmbed(
                         guild, self.bot.json_dict["languages"][guild.language]
                     ),
                     components=action_rows,
@@ -192,7 +193,7 @@ class SetupCog(commands.Cog):
                 )
                 self.reset_row_1(action_rows[0])
                 return await inter.response.edit_message(
-                    embed=SetupEmbed(
+                    embed=SetupCommandEmbed(
                         guild, self.bot.json_dict["languages"][guild.language]
                     ),
                     components=action_rows,
@@ -231,7 +232,7 @@ class SetupCog(commands.Cog):
                 ]
                 self.reset_row_1(action_rows[0])
                 return await inter.response.edit_message(
-                    embed=SetupEmbed(
+                    embed=SetupCommandEmbed(
                         guild, self.bot.json_dict["languages"][guild.language]
                     ),
                     components=action_rows,
@@ -246,7 +247,7 @@ class SetupCog(commands.Cog):
                     3, Setup.Language.LanguageButton(selected=True)
                 )
                 return await inter.response.edit_message(
-                    embed=SetupEmbed(
+                    embed=SetupCommandEmbed(
                         guild, self.bot.json_dict["languages"][guild.language]
                     ),
                     components=action_rows,
@@ -265,7 +266,7 @@ class SetupCog(commands.Cog):
                 action_rows[1].insert_item(0, Setup.PatchNotes.PatchNotesButton())
                 action_rows[1][0].disabled = False
                 return await inter.response.edit_message(
-                    embed=SetupEmbed(
+                    embed=SetupCommandEmbed(
                         guild, self.bot.json_dict["languages"][guild.language]
                     ),
                     components=action_rows,
@@ -283,7 +284,7 @@ class SetupCog(commands.Cog):
                 action_rows[1].insert_item(0, Setup.PatchNotes.PatchNotesButton(True))
                 action_rows[1][0].disabled = False
                 return await inter.response.edit_message(
-                    embed=SetupEmbed(
+                    embed=SetupCommandEmbed(
                         guild, self.bot.json_dict["languages"][guild.language]
                     ),
                     components=action_rows,
@@ -304,7 +305,7 @@ class SetupCog(commands.Cog):
                 )
                 action_rows[1].children[1].disabled = False
                 return await inter.response.edit_message(
-                    embed=SetupEmbed(
+                    embed=SetupCommandEmbed(
                         guild, self.bot.json_dict["languages"][guild.language]
                     ),
                     components=action_rows,
@@ -330,7 +331,7 @@ class SetupCog(commands.Cog):
                 )
                 action_rows[1].children[1].disabled = False
                 return await inter.response.edit_message(
-                    embed=SetupEmbed(
+                    embed=SetupCommandEmbed(
                         guild, self.bot.json_dict["languages"][guild.language]
                     ),
                     components=action_rows,
@@ -351,7 +352,7 @@ class SetupCog(commands.Cog):
                 )
                 action_rows[1].children[2].disabled = False
                 return await inter.response.edit_message(
-                    embed=SetupEmbed(
+                    embed=SetupCommandEmbed(
                         guild, self.bot.json_dict["languages"][guild.language]
                     ),
                     components=action_rows,
@@ -377,7 +378,7 @@ class SetupCog(commands.Cog):
                 )
                 action_rows[1].children[2].disabled = False
                 return await inter.response.edit_message(
-                    embed=SetupEmbed(
+                    embed=SetupCommandEmbed(
                         guild, self.bot.json_dict["languages"][guild.language]
                     ),
                     components=action_rows,
@@ -398,7 +399,7 @@ class SetupCog(commands.Cog):
                 )
                 action_rows[1].children[3].disabled = False
                 return await inter.response.edit_message(
-                    embed=SetupEmbed(
+                    embed=SetupCommandEmbed(
                         guild, self.bot.json_dict["languages"][guild.language]
                     ),
                     components=action_rows,
@@ -424,7 +425,7 @@ class SetupCog(commands.Cog):
                 )
                 action_rows[1].children[3].disabled = False
                 return await inter.response.edit_message(
-                    embed=SetupEmbed(
+                    embed=SetupCommandEmbed(
                         guild, self.bot.json_dict["languages"][guild.language]
                     ),
                     components=action_rows,
@@ -489,7 +490,7 @@ class SetupCog(commands.Cog):
                 guild.dashboard_message_id = message.id
                 guild.save_changes()
                 self.bot.interface_handler.dashboards.append(message)
-                embed = SetupEmbed(guild, guild_language)
+                embed = SetupCommandEmbed(guild, guild_language)
                 self.clear_extra_buttons(action_rows)
                 self.reset_row_1(action_rows[0])
                 await inter.response.edit_message(embed=embed, components=action_rows)
@@ -527,7 +528,7 @@ class SetupCog(commands.Cog):
                 self.bot.interface_handler.news_feeds.channels_dict["Generic"].append(
                     announcement_channel
                 )
-                embed = SetupEmbed(guild, guild_language)
+                embed = SetupCommandEmbed(guild, guild_language)
                 self.clear_extra_buttons(action_rows)
                 self.reset_row_1(action_rows[0])
                 action_rows[1].children[0].disabled = False
@@ -582,12 +583,14 @@ class SetupCog(commands.Cog):
                 guild.map_message_id = message.id
                 guild.save_changes()
                 self.bot.interface_handler.maps.append(message)
-                embed = SetupEmbed(guild, guild_language)
+                embed = SetupCommandEmbed(guild, guild_language)
                 await inter.edit_original_message(embed=embed, components=action_rows)
         elif inter.component.custom_id == "language_select":
             guild.language = inter.values[0].lower()
             guild.save_changes()
-            embed = SetupEmbed(guild, self.bot.json_dict["languages"][guild.language])
+            embed = SetupCommandEmbed(
+                guild, self.bot.json_dict["languages"][guild.language]
+            )
             self.clear_extra_buttons(action_rows)
             self.reset_row_1(action_rows[0])
             await inter.response.edit_message(embed=embed, components=action_rows)

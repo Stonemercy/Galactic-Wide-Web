@@ -2,7 +2,7 @@ from disnake import AppCmdInter, InteractionContextTypes, ApplicationInstallType
 from disnake.ext import commands
 from main import GalacticWideWebBot
 from utils.checks import wait_for_startup
-from utils.embeds import SuperstoreEmbed
+from utils.embeds.command_embeds import SuperstoreCommandEmbed
 
 
 class SuperstoreCog(commands.Cog):
@@ -29,7 +29,8 @@ class SuperstoreCog(commands.Cog):
             f"{self.qualified_name} | /{inter.application_command.name} <{public = }>"
         )
         await inter.send(
-            embed=SuperstoreEmbed(self.bot.data.superstore), ephemeral=public != "Yes"
+            embed=SuperstoreCommandEmbed(self.bot.data.superstore),
+            ephemeral=public != "Yes",
         )
 
 

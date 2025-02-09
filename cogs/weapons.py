@@ -3,7 +3,7 @@ from disnake.ext import commands
 from main import GalacticWideWebBot
 from utils.checks import wait_for_startup
 from utils.db import GWWGuild
-from utils.embeds import Items
+from utils.embeds.command_embeds import WeaponCommandEmbeds
 from utils.interactables import WikiButton
 
 
@@ -85,7 +85,7 @@ class WeaponsCog(commands.Cog):
                 ephemeral=public != "Yes",
             )
         primary_json = self.primaries[primary]
-        embed = Items.Weapons.Primary(
+        embed = WeaponCommandEmbeds.Primary(
             weapon_json=primary_json,
             json_dict=self.bot.json_dict,
             language_json=guild_language,
@@ -132,7 +132,7 @@ class WeaponsCog(commands.Cog):
                 ephemeral=public != "Yes",
             )
         secondary_json = self.secondaries[secondary]
-        embed = Items.Weapons.Secondary(
+        embed = WeaponCommandEmbeds.Secondary(
             weapon_json=secondary_json,
             json_dict=self.bot.json_dict,
             language_json=guild_language,
@@ -178,7 +178,7 @@ class WeaponsCog(commands.Cog):
                 ephemeral=public != "Yes",
             )
         grenade_json = self.grenades[grenade]
-        embed = Items.Weapons.Grenade(
+        embed = WeaponCommandEmbeds.Grenade(
             grenade_json=grenade_json, language_json=guild_language
         )
         if not embed.image_set:
