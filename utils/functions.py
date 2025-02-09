@@ -72,32 +72,3 @@ def steam_format(content: str):
     )
     content = sub(r"\[img\](.*?\..{3,4})\[/img\]\n\n", "", content)
     return content
-
-
-def skipped_planets(campaigns: list, total_players):
-    player_minimum = total_players * 0.05
-    factions = ("Terminids", "Automaton", "Illuminate")
-    results = []
-    for faction in factions:
-        results.append(
-            [
-                campaign
-                for campaign in campaigns
-                if (
-                    campaign.planet.stats["playerCount"] <= player_minimum
-                    or 1 - campaign.planet.health / campaign.planet.max_health <= 0.0001
-                )
-                and campaign.planet.current_owner == faction
-            ]
-        )
-    results.append(
-        [
-            campaign
-            for campaign in campaigns
-            if (
-                campaign.planet.stats["playerCount"] > player_minimum
-                and 1 - campaign.planet.health / campaign.planet.max_health > 0.0001
-            )
-        ]
-    )
-    return results
