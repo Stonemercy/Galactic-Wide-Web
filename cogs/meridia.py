@@ -38,7 +38,6 @@ class MeridiaCog(commands.Cog):
                     self.bot.data.planets[64], "Location", old_coords, new_coords
                 )
             ]
-            self.bot.logger.info(changes)
             await self.bot.api_changes_channel.send(embed=APIChangesEmbed(changes))
 
     @check_position.before_loop
