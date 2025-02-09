@@ -94,21 +94,6 @@ json_dict = {
     "planet_effects": {"path": "data/json/effects/planetEffects.json", "value": None},
 }
 
-supported_languages = {
-    "en": "en-GB",
-    "de": "de-DE",
-    "es": "es-ES",
-    "fr": "fr-FR",
-    "it": "it-IT",
-    "jp": "ja-JP",
-    "ko": "ko-KO",
-    "my": "ms-MY",
-    "pl": "pl-PL",
-    "pt": "pt-PT",
-    "ru": "ru-RU",
-    "zh": "zh-Hans",
-}
-
 faction_colours = {
     "Automaton": (252, 108, 115),
     "Terminids": (252, 188, 4),
