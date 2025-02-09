@@ -14,6 +14,7 @@ backup_api = getenv("BU_API")
 class Data(ReprMixin):
     __slots__ = (
         "__data__",
+        "fetched_at",
         "assignment",
         "campaigns",
         "dispatch",
@@ -48,6 +49,7 @@ class Data(ReprMixin):
             "personal_order": None,
             "status": None,
         }
+        self.fetched_at = None
         self.loaded = False
         self.liberation_changes = {}
         self.dark_energy_changes = {"total": 0, "changes": []}
@@ -168,6 +170,11 @@ class Data(ReprMixin):
                         await bot.moderator_channel.send(f"API/{endpoint.upper()}\n{r}")
                     if api_to_use == backup_api:
                         await sleep(2)
+        self.format_data()
+        self.update_liberation_rates()
+        self.update_dark_energy_rate()
+        self.get_needed_players()
+        self.fetched_at = datetime.now()
         if not self.loaded:
             now = datetime.now()
             bot.logger.info(
@@ -175,10 +182,6 @@ class Data(ReprMixin):
             )
             bot.ready_time = now
             self.loaded = True
-        self.format_data()
-        self.update_liberation_rates()
-        self.update_dark_energy_rate()
-        self.get_needed_players()
 
     def format_data(self):
         self.assignment = None

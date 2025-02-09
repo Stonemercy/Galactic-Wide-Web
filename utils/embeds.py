@@ -608,7 +608,9 @@ class Dashboard:
             total_players=data.total_players,
         )
         self._footer_embed = self.FooterEmbed(
-            language_json=language_json, total_players=data.total_players
+            language_json=language_json,
+            total_players=data.total_players,
+            data_time=data.fetched_at,
         )
         self.embeds = [
             self._major_order_embed,
@@ -1470,14 +1472,17 @@ class Dashboard:
                     )
 
     class FooterEmbed(Embed, EmbedReprMixin):
-        def __init__(self, language_json: dict, total_players: int):
+        def __init__(
+            self, language_json: dict, total_players: int, data_time: datetime
+        ):
             super().__init__(colour=Colour.dark_embed())
             now = datetime.now()
             self.add_field(
                 "",
                 (
                     f"-# {language_json['dashboard']['FooterEmbed']['other_updated']}\n"
-                    f"-# <t:{int(now.timestamp())}:f> - <t:{int(now.timestamp())}:R>"
+                    f"-# <t:{int(now.timestamp())}:f> - <t:{int(now.timestamp())}:R>\n"
+                    f"||-# Data from <t:{int(data_time.timestamp())}:R>||"
                 ),
                 inline=False,
             )
