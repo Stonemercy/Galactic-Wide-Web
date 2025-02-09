@@ -117,12 +117,12 @@ warbond_images_dict = {
 }
 
 assignment_task_images_dict = {
-    2: "https://cdn.discordapp.com/attachments/1212735927223590974/1323773697491996682/mo_icon_kill.PNG?ex=6775bbd4&is=67746a54&hm=6d529e202487c278d2f3a0da1c7315a00a84acc51947c81e101eaf015620eeb0&",
-    3: "https://cdn.discordapp.com/attachments/1212735927223590974/1323773697491996682/mo_icon_kill.PNG?ex=6775bbd4&is=67746a54&hm=6d529e202487c278d2f3a0da1c7315a00a84acc51947c81e101eaf015620eeb0&",
-    11: "https://cdn.discordapp.com/attachments/1212735927223590974/1323773697491996682/mo_icon_kill.PNG?ex=6775bbd4&is=67746a54&hm=6d529e202487c278d2f3a0da1c7315a00a84acc51947c81e101eaf015620eeb0&",
-    12: "https://cdn.discordapp.com/attachments/1212735927223590974/1323773697491996682/mo_icon_kill.PNG?ex=6775bbd4&is=67746a54&hm=6d529e202487c278d2f3a0da1c7315a00a84acc51947c81e101eaf015620eeb0&",
-    13: "https://cdn.discordapp.com/attachments/1212735927223590974/1323773697491996682/mo_icon_kill.PNG?ex=6775bbd4&is=67746a54&hm=6d529e202487c278d2f3a0da1c7315a00a84acc51947c81e101eaf015620eeb0&",
-    15: "https://cdn.discordapp.com/attachments/1212735927223590974/1323773697491996682/mo_icon_kill.PNG?ex=6775bbd4&is=67746a54&hm=6d529e202487c278d2f3a0da1c7315a00a84acc51947c81e101eaf015620eeb0&",
+    2: "https://cdn.discordapp.com/attachments/1212735927223590974/1338186496967966720/mo_icon_liberate.png?ex=67aa2acb&is=67a8d94b&hm=aa64d3140e3d0e84f1e471906dca59c193e3db72cca0fb9ee1069740a776359a&",
+    3: "https://cdn.discordapp.com/attachments/1212735927223590974/1338186059934339182/mo_icon_kill.PNG?ex=67aa2a62&is=67a8d8e2&hm=91476d98d8765002e207cddde0c42a32794853904bf86689608c934b33a10ac5&",
+    11: "https://cdn.discordapp.com/attachments/1212735927223590974/1338186496967966720/mo_icon_liberate.png?ex=67aa2acb&is=67a8d94b&hm=aa64d3140e3d0e84f1e471906dca59c193e3db72cca0fb9ee1069740a776359a&",
+    12: "https://cdn.discordapp.com/attachments/1212735927223590974/1338186496552865885/mo_icon_defend.png?ex=67aa2acb&is=67a8d94b&hm=d541951b20b1bb70b9e827907b036fd4384fc5d304b4454dc5208cc0593add00&",
+    13: "https://cdn.discordapp.com/attachments/1212735927223590974/1338186496552865885/mo_icon_defend.png?ex=67aa2acb&is=67a8d94b&hm=d541951b20b1bb70b9e827907b036fd4384fc5d304b4454dc5208cc0593add00&",
+    15: "https://cdn.discordapp.com/attachments/1212735927223590974/1338186496967966720/mo_icon_liberate.png?ex=67aa2acb&is=67a8d94b&hm=aa64d3140e3d0e84f1e471906dca59c193e3db72cca0fb9ee1069740a776359a&",
 }
 
 task_type_15_progress_dict = {
