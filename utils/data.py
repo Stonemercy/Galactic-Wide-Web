@@ -376,6 +376,16 @@ class Data(ReprMixin):
             if planet.event.required_players != 0
         }
 
+    @property
+    def plot_coordinates(self):
+        return {
+            planet.index: (
+                (planet.position["x"] + 1) / 2 * 2000,
+                (planet.position["y"] + 1) / 2 * 2000,
+            )
+            for planet in self.planets.values()
+        }
+
     def copy(self):
         return deepcopy(self)
 

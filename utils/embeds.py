@@ -2351,11 +2351,11 @@ class APIChangesEmbed(Embed, EmbedReprMixin):
 class MeridiaEmbed(Embed, EmbedReprMixin):
     def __init__(
         self,
-        meridia: Meridia,
         dark_energy_resource: GlobalResources.DarkEnergy,
         total_de_available: int,
         active_invasions: int,
         dark_energy_changes: dict[str:int, str:list],
+        time_to_reach_planets: dict[str:float],
     ):
         super().__init__(title="Meridia", colour=Colour.from_rgb(106, 76, 180))
         rate_per_hour = sum(dark_energy_changes["changes"]) * 12
@@ -2394,3 +2394,14 @@ class MeridiaEmbed(Embed, EmbedReprMixin):
         self.set_thumbnail(
             url="https://cdn.discordapp.com/emojis/1331357764039086212.webp?size=96"
         )
+        if time_to_reach_planets:
+            self.add_field(
+                "PLANETS IN THE DIRECT PATH",
+                "\n".join(
+                    [
+                        f"{planet} <t:{int(seconds)}:R>"
+                        for planet, seconds in time_to_reach_planets.items()
+                    ]
+                ),
+                inline=False,
+            )

@@ -1,3 +1,4 @@
+from datetime import datetime
 from data.lists import language_dict
 from dotenv import load_dotenv
 from os import getenv
@@ -401,7 +402,7 @@ class Meridia(ReprMixin):
 
         class Location(ReprMixin):
             def __init__(self, timestamp, x, y):
-                self.timestamp = timestamp
+                self.timestamp: datetime = timestamp
                 self.x = x
                 self.y = y
 

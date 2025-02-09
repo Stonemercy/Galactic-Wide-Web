@@ -1,8 +1,9 @@
-from datetime import datetime, time
+from datetime import datetime, time, timedelta
 from disnake import AppCmdInter, File, InteractionContextTypes, ApplicationInstallTypes
 from disnake.ext import commands, tasks
 from cogs.admin.data_management import APIChanges
 from main import GalacticWideWebBot
+from math import sqrt
 from numpy import array, hypot
 from utils.checks import wait_for_startup
 from utils.db import GWWGuild, Meridia
@@ -45,6 +46,18 @@ class MeridiaCog(commands.Cog):
     async def before_check_position(self):
         await self.bot.wait_until_ready()
 
+    def point_line_distance(self, px, py, x1, y1, x2, y2):
+        """Calculate the perpendicular distance from (px, py) to the line (x1, y1) -> (x2, y2)."""
+        line_mag = hypot(x2 - x1, y2 - y1)
+        if line_mag == 0:
+            return hypot(px - x1, py - y1)
+        u = ((px - x1) * (x2 - x1) + (py - y1) * (y2 - y1)) / line_mag**2
+        closest_x = x1 + u * (x2 - x1)
+        closest_y = y1 + u * (y2 - y1)
+        closest_x = max(min(closest_x, max(x1, x2)), min(x1, x2))
+        closest_y = max(min(closest_y, max(y1, y2)), min(y1, y2))
+        return hypot(px - closest_x, py - closest_y)
+
     @wait_for_startup()
     @commands.slash_command(
         description="Get up-to-date information on Meridia",
@@ -68,26 +81,9 @@ class MeridiaCog(commands.Cog):
             guild = GWWGuild.get_by_id(inter.guild_id)
         else:
             guild = GWWGuild.default()
-        embed = MeridiaEmbed(
-            Meridia(),
-            self.bot.data.global_resources.dark_energy,
-            sum(
-                [
-                    planet.event.remaining_dark_energy
-                    for planet in self.bot.data.planet_events
-                ]
-            ),
-            len(
-                [
-                    planet
-                    for planet in self.bot.data.planet_events
-                    if planet.event.potential_buildup != 0
-                ]
-            ),
-            self.bot.data.dark_energy_changes,
-        )
         map_img = Image.open(f"resources/{guild.language}.webp")
-        coordinates = [(coord.x, coord.y) for coord in Meridia().locations]
+        meridia_info = Meridia()
+        coordinates = [(coord.x, coord.y) for coord in meridia_info.locations]
         coordinates_fixed = [
             ((x + 1) / 2 * 2000, (y + 1) / 2 * 2000) for x, y in coordinates
         ]
@@ -134,11 +130,27 @@ class MeridiaCog(commands.Cog):
             step_size = 200
             future_x = x[-1] + dx * step_size
             future_y = y[-1] + dy * step_size
+
+            # Check for close planets
+            threshold = 25
+            points_in_path = {
+                index: coords
+                for index, coords in self.bot.data.plot_coordinates.items()
+                if self.point_line_distance(
+                    coords[0], coords[1], x[-1], y[-1], future_x, future_y
+                )
+                < threshold
+                and index != 64
+            }
+            planets_in_path = [self.bot.data.planets[index] for index in points_in_path]
+            for px, py in points_in_path.values():
+                ax.plot(px, py, "o", color="red", markersize=20, label="In Path")
+
             ax.plot(
                 [x[-1], future_x],
                 [y[-1], future_y],
                 linestyle="dashed",
-                color="cyan",
+                color=(1, 0, 0.75),
                 linewidth=2,
                 dashes=(5, 5),
             )
@@ -152,17 +164,38 @@ class MeridiaCog(commands.Cog):
                 dy * arrow_length,
                 head_width=10,
                 head_length=25,
-                fc="cyan",
-                ec="cyan",
+                fc=(1, 0, 0.75),
+                ec=(1, 0, 0.75),
             )
             ax.plot(
                 future_x,
                 future_y,
                 "o",
-                color="cyan",
-                markersize=5,
+                color=(1, 0, 0.75),
+                markersize=1,
                 label="Future Position",
             )
+        current_location: Meridia.Locations.Location = meridia_info.locations[-1]
+        location_an_hour_ago: Meridia.Locations.Location = meridia_info.locations[-4]
+        time_difference = (
+            current_location.timestamp - location_an_hour_ago.timestamp
+        ).total_seconds()
+        delta_x = current_location.x - location_an_hour_ago.x
+        delta_y = current_location.y - location_an_hour_ago.y
+        distance_moved = sqrt(delta_x**2 + delta_y**2)
+        speed = distance_moved / time_difference  # in units per second
+
+        time_to_reach_planets = {}
+        for planet in planets_in_path:
+            delta_x_to_planet = planet.position["x"] - current_location.x
+            delta_y_to_planet = planet.position["y"] - current_location.y
+            distance_to_planet = sqrt(delta_x_to_planet**2 + delta_y_to_planet**2)
+            time_to_reach_planets[planet.name] = int(
+                (
+                    datetime.now() + timedelta(seconds=distance_to_planet / speed)
+                ).timestamp()
+            )
+
         ax.set_xticks([])
         ax.set_yticks([])
         ax.spines["top"].set_visible(False)
@@ -178,6 +211,24 @@ class MeridiaCog(commands.Cog):
             dpi=300,
             bbox_inches="tight",
             facecolor="black",
+        )
+        embed = MeridiaEmbed(
+            self.bot.data.global_resources.dark_energy,
+            sum(
+                [
+                    planet.event.remaining_dark_energy
+                    for planet in self.bot.data.planet_events
+                ]
+            ),
+            len(
+                [
+                    planet
+                    for planet in self.bot.data.planet_events
+                    if planet.event.potential_buildup != 0
+                ]
+            ),
+            self.bot.data.dark_energy_changes,
+            time_to_reach_planets,
         )
         embed.set_image(file=File("resources/meridia_map.webp"))
         await inter.send(
