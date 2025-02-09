@@ -3,6 +3,7 @@ from disnake import AppCmdInter, File, InteractionContextTypes, ApplicationInsta
 from disnake.ext import commands, tasks
 from cogs.admin.data_management import APIChanges
 from main import GalacticWideWebBot
+from numpy import array, hypot
 from utils.checks import wait_for_startup
 from utils.db import GWWGuild, Meridia
 from utils.embeds import APIChangesEmbed, MeridiaEmbed
@@ -91,11 +92,16 @@ class MeridiaCog(commands.Cog):
             ((x + 1) / 2 * 2000, (y + 1) / 2 * 2000) for x, y in coordinates
         ]
         x, y = zip(*coordinates_fixed)
+        padding = 200
+        x_min, x_max = min(x) - padding, max(x) + padding
+        y_min, y_max = min(y) - padding, max(y) + padding
         fig, ax = plt.subplots()
         fig.patch.set_facecolor("black")
         ax.set_facecolor("black")
         ax.imshow(map_img, extent=[0, 2000, 0, 2000])
-        ax.plot(x, y, "o", color=(0.1098, 0.0863, 0.1882), label="Coordinates")
+        ax.set_xlim(x_min, x_max)
+        ax.set_ylim(y_min, y_max)
+        ax.plot(x, y, "o", color=(0.5, 0, 0.5), label="Coordinates")
         dataponts_to_use = 2
         while dataponts_to_use < 5:
             if len(x) > dataponts_to_use + 1:
@@ -109,10 +115,53 @@ class MeridiaCog(commands.Cog):
                 y[dp_to_use],
                 x[-1] - x[dp_to_use],
                 y[-1] - y[dp_to_use],
-                head_width=50,
-                head_length=250,
-                fc=(0.4157, 0.2980, 0.7059),
-                ec=(0.75, 0, 0),
+                head_width=15,
+                head_length=25,
+                fc=(0.5, 0, 0.5),
+                ec=(1, 0, 0.75),
+            )
+        num_recent_points = min(3, len(x) - 1)
+        if num_recent_points > 1:
+            recent_x, recent_y = array(x[-num_recent_points:]), array(
+                y[-num_recent_points:]
+            )
+            dx = recent_x[-1] - recent_x[0]
+            dy = recent_y[-1] - recent_y[0]
+            magnitude = hypot(dx, dy)
+            if magnitude > 0:
+                dx /= magnitude
+                dy /= magnitude
+            step_size = 200
+            future_x = x[-1] + dx * step_size
+            future_y = y[-1] + dy * step_size
+            ax.plot(
+                [x[-1], future_x],
+                [y[-1], future_y],
+                linestyle="dashed",
+                color="cyan",
+                linewidth=2,
+                dashes=(5, 5),
+            )
+            arrow_length = 25
+            head_x = future_x - dx * arrow_length
+            head_y = future_y - dy * arrow_length
+            ax.arrow(
+                head_x,
+                head_y,
+                dx * arrow_length,
+                dy * arrow_length,
+                head_width=10,
+                head_length=25,
+                fc="cyan",
+                ec="cyan",
+            )
+            ax.plot(
+                future_x,
+                future_y,
+                "o",
+                color="cyan",
+                markersize=5,
+                label="Future Position",
             )
         ax.set_xticks([])
         ax.set_yticks([])
