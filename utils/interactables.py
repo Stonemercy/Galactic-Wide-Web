@@ -102,10 +102,10 @@ class SteamStringSelect(StringSelect):
 class Setup:
     class Dashboard:
         class DashboardButton(Button):
-            def __init__(self, selected: bool = False):
+            def __init__(self, language_json: dict, selected: bool = False):
                 super().__init__(
                     style=ButtonStyle.gray,
-                    label="Dashboard",
+                    label=language_json["setup"]["buttons"]["dashboard"],
                     custom_id="dashboard_button",
                 )
                 if selected:
@@ -114,35 +114,37 @@ class Setup:
                     self.disabled = True
 
         class SetDashboardButton(Button):
-            def __init__(self):
+            def __init__(self, language_json: dict):
                 super().__init__(
                     style=ButtonStyle.green,
-                    label="Set Dashboard",
+                    label=language_json["setup"]["buttons"]["set_dashboard"],
                     custom_id="set_dashboard_button",
                 )
 
         class DashboardChannelSelect(ChannelSelect):
-            def __init__(self):
+            def __init__(self, language_json: dict):
                 super().__init__(
                     custom_id="dashboard_channel_select",
-                    placeholder="Select the channel or start typing",
+                    placeholder=language_json["setup"]["buttons"][
+                        "dashboard_channel_select"
+                    ],
                     channel_types=[ChannelType.text, ChannelType.news],
                 )
 
         class ClearDashboardButton(Button):
-            def __init__(self):
+            def __init__(self, language_json: dict):
                 super().__init__(
                     style=ButtonStyle.red,
-                    label="Clear Dashboard",
+                    label=language_json["setup"]["buttons"]["clear_dashboard"],
                     custom_id="clear_dashboard_button",
                 )
 
     class Announcements:
         class AnnouncementsButton(Button):
-            def __init__(self, selected: bool = False):
+            def __init__(self, language_json: dict, selected: bool = False):
                 super().__init__(
                     style=ButtonStyle.gray,
-                    label="Announcements",
+                    label=language_json["setup"]["buttons"]["announcements"],
                     custom_id="announcements_button",
                 )
                 if selected:
@@ -151,35 +153,37 @@ class Setup:
                     self.disabled = True
 
         class SetAnnouncementsButton(Button):
-            def __init__(self):
+            def __init__(self, language_json: dict):
                 super().__init__(
                     style=ButtonStyle.green,
-                    label="Set Announcements",
+                    label=language_json["setup"]["buttons"]["set_announcements"],
                     custom_id="set_announcements_button",
                 )
 
         class AnnouncementsChannelSelect(ChannelSelect):
-            def __init__(self):
+            def __init__(self, language_json: dict):
                 super().__init__(
                     custom_id="announcements_channel_select",
-                    placeholder="Select the channel or start typing",
+                    placeholder=language_json["setup"]["buttons"][
+                        "announcements_channel_select"
+                    ],
                     channel_types=[ChannelType.text, ChannelType.news],
                 )
 
         class ClearAnnouncementsButton(Button):
-            def __init__(self):
+            def __init__(self, language_json: dict):
                 super().__init__(
                     style=ButtonStyle.red,
-                    label="Clear Announcements",
+                    label=language_json["setup"]["buttons"]["clear_announcements"],
                     custom_id="clear_announcements_button",
                 )
 
     class Map:
         class MapButton(Button):
-            def __init__(self, selected: bool = False):
+            def __init__(self, language_json: dict, selected: bool = False):
                 super().__init__(
                     style=ButtonStyle.gray,
-                    label="Map",
+                    label=language_json["setup"]["buttons"]["map"],
                     custom_id="map_button",
                 )
                 if selected:
@@ -188,35 +192,35 @@ class Setup:
                     self.disabled = True
 
         class SetMapButton(Button):
-            def __init__(self):
+            def __init__(self, language_json: dict):
                 super().__init__(
                     style=ButtonStyle.green,
-                    label="Set Map",
+                    label=language_json["setup"]["buttons"]["set_map"],
                     custom_id="set_map_button",
                 )
 
         class MapChannelSelect(ChannelSelect):
-            def __init__(self):
+            def __init__(self, language_json: dict):
                 super().__init__(
                     custom_id="map_channel_select",
-                    placeholder="Select the channel or start typing",
+                    placeholder=language_json["setup"]["buttons"]["map_channel_select"],
                     channel_types=[ChannelType.text, ChannelType.news],
                 )
 
         class ClearMapButton(Button):
-            def __init__(self):
+            def __init__(self, language_json: dict):
                 super().__init__(
                     style=ButtonStyle.red,
-                    label="Clear the Map",
+                    label=language_json["setup"]["buttons"]["clear_map"],
                     custom_id="clear_map_button",
                 )
 
     class Language:
         class LanguageButton(Button):
-            def __init__(self, selected: bool = False):
+            def __init__(self, language_json: dict, selected: bool = False):
                 super().__init__(
                     style=ButtonStyle.gray,
-                    label="Language",
+                    label=language_json["setup"]["buttons"]["language"],
                     custom_id="language_button",
                 )
                 if selected:
@@ -225,10 +229,10 @@ class Setup:
                     self.disabled = True
 
         class LanguageSelect(StringSelect):
-            def __init__(self):
+            def __init__(self, language_json: dict):
                 super().__init__(
                     custom_id="language_select",
-                    placeholder="Select the language you want",
+                    placeholder=language_json["setup"]["buttons"]["language_select"],
                     options=[
                         SelectOption(label=lang.upper())
                         for lang in language_dict.values()
@@ -237,10 +241,10 @@ class Setup:
 
     class PatchNotes:
         class PatchNotesButton(Button):
-            def __init__(self, enabled: bool = False):
+            def __init__(self, language_json: dict, enabled: bool = False):
                 super().__init__(
                     style=ButtonStyle.gray,
-                    label="Patch Notes",
+                    label=language_json["setup"]["buttons"]["patch_notes"],
                     custom_id="patch_notes_button",
                     disabled=True,
                 )
@@ -251,10 +255,10 @@ class Setup:
 
     class MajorOrderUpdates:
         class MajorOrderUpdatesButton(Button):
-            def __init__(self, enabled: bool = False):
+            def __init__(self, language_json: dict, enabled: bool = False):
                 super().__init__(
                     style=ButtonStyle.gray,
-                    label="Major Order Updates",
+                    label=language_json["setup"]["buttons"]["major_order_updates"],
                     custom_id="major_order_updates_button",
                     disabled=True,
                 )
@@ -265,10 +269,10 @@ class Setup:
 
     class PersonalOrder:
         class PersonalOrderUpdatesButton(Button):
-            def __init__(self, enabled: bool = False):
+            def __init__(self, language_json: dict, enabled: bool = False):
                 super().__init__(
                     style=ButtonStyle.gray,
-                    label="Personal Order",
+                    label=language_json["setup"]["buttons"]["personal_order"],
                     custom_id="personal_order_updates_button",
                     disabled=True,
                 )
@@ -279,10 +283,10 @@ class Setup:
 
     class DetailedDispatches:
         class DetailedDispatchesButton(Button):
-            def __init__(self, enabled: bool = False):
+            def __init__(self, language_json: dict, enabled: bool = False):
                 super().__init__(
                     style=ButtonStyle.gray,
-                    label="Detailed Dispatches",
+                    label=language_json["setup"]["buttons"]["detailed_dispatches"],
                     custom_id="detailed_dispatches_updates_button",
                     disabled=True,
                 )

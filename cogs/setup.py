@@ -63,26 +63,32 @@ class SetupCog(commands.Cog):
             f"{self.qualified_name} | /{inter.application_command.name}"
         )
         guild = GWWGuild.get_by_id(inter.guild_id)
+        guild_language = self.bot.json_dict["languages"][guild.language]
         components = [
             (
                 ActionRow(
-                    Setup.Dashboard.DashboardButton(),
-                    Setup.Announcements.AnnouncementsButton(),
-                    Setup.Map.MapButton(),
-                    Setup.Language.LanguageButton(),
+                    Setup.Dashboard.DashboardButton(language_json=guild_language),
+                    Setup.Announcements.AnnouncementsButton(
+                        language_json=guild_language
+                    ),
+                    Setup.Map.MapButton(language_json=guild_language),
+                    Setup.Language.LanguageButton(language_json=guild_language),
                 )
             ),
             (
                 ActionRow(
-                    Setup.PatchNotes.PatchNotesButton(guild.patch_notes),
+                    Setup.PatchNotes.PatchNotesButton(
+                        language_json=guild_language, enabled=guild.patch_notes
+                    ),
                     Setup.MajorOrderUpdates.MajorOrderUpdatesButton(
-                        guild.major_order_updates
+                        language_json=guild_language, enabled=guild.major_order_updates
                     ),
                     Setup.PersonalOrder.PersonalOrderUpdatesButton(
-                        guild.personal_order_updates
+                        language_json=guild_language,
+                        enabled=guild.personal_order_updates,
                     ),
                     Setup.DetailedDispatches.DetailedDispatchesButton(
-                        guild.detailed_dispatches
+                        language_json=guild_language, enabled=guild.detailed_dispatches
                     ),
                 )
             ),
@@ -104,27 +110,39 @@ class SetupCog(commands.Cog):
     async def on_button_clicks(self, inter: MessageInteraction):
         action_rows = ActionRow.rows_from_message(inter.message)
         guild = GWWGuild.get_by_id(inter.guild_id)
+        guild_language = self.bot.json_dict["languages"][guild.language]
         if "dashboard" in inter.component.custom_id:
             self.clear_extra_buttons(action_rows)
             if inter.component.custom_id == "dashboard_button":
                 dashboard_row = ActionRow(
-                    Setup.Dashboard.ClearDashboardButton()
+                    Setup.Dashboard.ClearDashboardButton(language_json=guild_language)
                     if 0
                     not in (
                         guild.dashboard_channel_id,
                         guild.dashboard_message_id,
                     )
-                    else Setup.Dashboard.SetDashboardButton()
+                    else Setup.Dashboard.SetDashboardButton(
+                        language_json=guild_language
+                    )
                 )
                 action_rows.append(dashboard_row)
                 self.reset_row_1(action_rows[0])
                 action_rows[0].pop(0)
                 action_rows[0].insert_item(
-                    0, Setup.Dashboard.DashboardButton(selected=True)
+                    0,
+                    Setup.Dashboard.DashboardButton(
+                        language_json=guild_language, selected=True
+                    ),
                 )
                 return await inter.response.edit_message(components=action_rows)
             elif inter.component.custom_id == "set_dashboard_button":
-                action_rows.append(ActionRow(Setup.Dashboard.DashboardChannelSelect()))
+                action_rows.append(
+                    ActionRow(
+                        Setup.Dashboard.DashboardChannelSelect(
+                            language_json=guild_language
+                        )
+                    )
+                )
                 return await inter.response.edit_message(components=action_rows)
             elif inter.component.custom_id == "clear_dashboard_button":
                 guild.dashboard_channel_id = 0
@@ -147,20 +165,31 @@ class SetupCog(commands.Cog):
             if inter.component.custom_id == "announcements_button":
                 action_rows.append(
                     ActionRow(
-                        Setup.Announcements.ClearAnnouncementsButton()
+                        Setup.Announcements.ClearAnnouncementsButton(
+                            language_json=guild_language
+                        )
                         if guild.announcement_channel_id != 0
-                        else Setup.Announcements.SetAnnouncementsButton()
+                        else Setup.Announcements.SetAnnouncementsButton(
+                            language_json=guild_language
+                        )
                     )
                 )
                 self.reset_row_1(action_rows[0])
                 action_rows[0].pop(1)
                 action_rows[0].insert_item(
-                    1, Setup.Announcements.AnnouncementsButton(selected=True)
+                    1,
+                    Setup.Announcements.AnnouncementsButton(
+                        language_json=guild_language, selected=True
+                    ),
                 )
                 return await inter.response.edit_message(components=action_rows)
             elif inter.component.custom_id == "set_announcements_button":
                 action_rows.append(
-                    ActionRow(Setup.Announcements.AnnouncementsChannelSelect())
+                    ActionRow(
+                        Setup.Announcements.AnnouncementsChannelSelect(
+                            language_json=guild_language
+                        )
+                    )
                 )
                 return await inter.response.edit_message(components=action_rows)
             elif inter.component.custom_id == "clear_announcements_button":
@@ -181,15 +210,23 @@ class SetupCog(commands.Cog):
                     if channel in channels:
                         channels.remove(channel)
                 action_rows[1].clear_items()
-                action_rows[1].append_item(Setup.PatchNotes.PatchNotesButton())
                 action_rows[1].append_item(
-                    Setup.MajorOrderUpdates.MajorOrderUpdatesButton()
+                    Setup.PatchNotes.PatchNotesButton(language_json=guild_language)
                 )
                 action_rows[1].append_item(
-                    Setup.PersonalOrder.PersonalOrderUpdatesButton()
+                    Setup.MajorOrderUpdates.MajorOrderUpdatesButton(
+                        language_json=guild_language
+                    )
                 )
                 action_rows[1].append_item(
-                    Setup.DetailedDispatches.DetailedDispatchesButton()
+                    Setup.PersonalOrder.PersonalOrderUpdatesButton(
+                        language_json=guild_language
+                    )
+                )
+                action_rows[1].append_item(
+                    Setup.DetailedDispatches.DetailedDispatchesButton(
+                        language_json=guild_language
+                    )
                 )
                 self.reset_row_1(action_rows[0])
                 return await inter.response.edit_message(
@@ -203,22 +240,26 @@ class SetupCog(commands.Cog):
                 self.clear_extra_buttons(action_rows)
                 action_rows.append(
                     ActionRow(
-                        Setup.Map.ClearMapButton()
+                        Setup.Map.ClearMapButton(language_json=guild_language)
                         if 0
                         not in (
                             guild.map_channel_id,
                             guild.map_message_id,
                         )
-                        else Setup.Map.SetMapButton()
+                        else Setup.Map.SetMapButton(language_json=guild_language)
                     )
                 )
                 self.reset_row_1(action_rows[0])
                 action_rows[0].pop(2)
-                action_rows[0].insert_item(2, Setup.Map.MapButton(selected=True))
+                action_rows[0].insert_item(
+                    2, Setup.Map.MapButton(language_json=guild_language, selected=True)
+                )
                 return await inter.response.edit_message(components=action_rows)
             elif inter.component.custom_id == "set_map_button":
                 self.clear_extra_buttons(action_rows)
-                action_rows.append(ActionRow(Setup.Map.MapChannelSelect()))
+                action_rows.append(
+                    ActionRow(Setup.Map.MapChannelSelect(language_json=guild_language))
+                )
                 return await inter.response.edit_message(components=action_rows)
             elif inter.component.custom_id == "clear_map_button":
                 self.clear_extra_buttons(action_rows)
@@ -240,11 +281,18 @@ class SetupCog(commands.Cog):
         elif "language" in inter.component.custom_id:
             if inter.component.custom_id == "language_button":
                 self.clear_extra_buttons(action_rows)
-                action_rows.append(ActionRow(Setup.Language.LanguageSelect()))
+                action_rows.append(
+                    ActionRow(
+                        Setup.Language.LanguageSelect(language_json=guild_language)
+                    )
+                )
                 self.reset_row_1(action_rows[0])
                 action_rows[0].pop(3)
                 action_rows[0].insert_item(
-                    3, Setup.Language.LanguageButton(selected=True)
+                    3,
+                    Setup.Language.LanguageButton(
+                        language_json=guild_language, selected=True
+                    ),
                 )
                 return await inter.response.edit_message(
                     embed=SetupCommandEmbed(
@@ -263,7 +311,9 @@ class SetupCog(commands.Cog):
                 guild.patch_notes = False
                 guild.save_changes()
                 action_rows[1].pop(0)
-                action_rows[1].insert_item(0, Setup.PatchNotes.PatchNotesButton())
+                action_rows[1].insert_item(
+                    0, Setup.PatchNotes.PatchNotesButton(language_json=guild_language)
+                )
                 action_rows[1][0].disabled = False
                 return await inter.response.edit_message(
                     embed=SetupCommandEmbed(
@@ -281,7 +331,12 @@ class SetupCog(commands.Cog):
                 guild.patch_notes = True
                 guild.save_changes()
                 action_rows[1].pop(0)
-                action_rows[1].insert_item(0, Setup.PatchNotes.PatchNotesButton(True))
+                action_rows[1].insert_item(
+                    0,
+                    Setup.PatchNotes.PatchNotesButton(
+                        language_json=guild_language, enabled=True
+                    ),
+                )
                 action_rows[1][0].disabled = False
                 return await inter.response.edit_message(
                     embed=SetupCommandEmbed(
@@ -301,7 +356,10 @@ class SetupCog(commands.Cog):
                 )
                 action_rows[1].pop(1)
                 action_rows[1].insert_item(
-                    1, Setup.MajorOrderUpdates.MajorOrderUpdatesButton()
+                    1,
+                    Setup.MajorOrderUpdates.MajorOrderUpdatesButton(
+                        language_json=guild_language
+                    ),
                 )
                 action_rows[1].children[1].disabled = False
                 return await inter.response.edit_message(
@@ -327,7 +385,10 @@ class SetupCog(commands.Cog):
                 guild.save_changes()
                 action_rows[1].pop(1)
                 action_rows[1].insert_item(
-                    1, Setup.MajorOrderUpdates.MajorOrderUpdatesButton(True)
+                    1,
+                    Setup.MajorOrderUpdates.MajorOrderUpdatesButton(
+                        language_json=guild_language, enabled=True
+                    ),
                 )
                 action_rows[1].children[1].disabled = False
                 return await inter.response.edit_message(
@@ -348,7 +409,10 @@ class SetupCog(commands.Cog):
                 )
                 action_rows[1].pop(2)
                 action_rows[1].insert_item(
-                    2, Setup.PersonalOrder.PersonalOrderUpdatesButton()
+                    2,
+                    Setup.PersonalOrder.PersonalOrderUpdatesButton(
+                        language_json=guild_language
+                    ),
                 )
                 action_rows[1].children[2].disabled = False
                 return await inter.response.edit_message(
@@ -374,7 +438,10 @@ class SetupCog(commands.Cog):
                 guild.save_changes()
                 action_rows[1].pop(2)
                 action_rows[1].insert_item(
-                    2, Setup.PersonalOrder.PersonalOrderUpdatesButton(True)
+                    2,
+                    Setup.PersonalOrder.PersonalOrderUpdatesButton(
+                        language_json=guild_language, enabled=True
+                    ),
                 )
                 action_rows[1].children[2].disabled = False
                 return await inter.response.edit_message(
@@ -395,7 +462,10 @@ class SetupCog(commands.Cog):
                 ].remove(channel)
                 action_rows[1].pop(3)
                 action_rows[1].insert_item(
-                    3, Setup.DetailedDispatches.DetailedDispatchesButton()
+                    3,
+                    Setup.DetailedDispatches.DetailedDispatchesButton(
+                        language_json=guild_language
+                    ),
                 )
                 action_rows[1].children[3].disabled = False
                 return await inter.response.edit_message(
@@ -421,7 +491,10 @@ class SetupCog(commands.Cog):
                 guild.save_changes()
                 action_rows[1].pop(3)
                 action_rows[1].insert_item(
-                    3, Setup.DetailedDispatches.DetailedDispatchesButton(True)
+                    3,
+                    Setup.DetailedDispatches.DetailedDispatchesButton(
+                        language_json=guild_language, enabled=True
+                    ),
                 )
                 action_rows[1].children[3].disabled = False
                 return await inter.response.edit_message(
@@ -588,12 +661,46 @@ class SetupCog(commands.Cog):
         elif inter.component.custom_id == "language_select":
             guild.language = inter.values[0].lower()
             guild.save_changes()
+            guild_language = self.bot.json_dict["languages"][guild.language]
             embed = SetupCommandEmbed(
                 guild, self.bot.json_dict["languages"][guild.language]
             )
-            self.clear_extra_buttons(action_rows)
-            self.reset_row_1(action_rows[0])
-            await inter.response.edit_message(embed=embed, components=action_rows)
+            await inter.response.edit_message(
+                embed=embed,
+                components=[
+                    (
+                        ActionRow(
+                            Setup.Dashboard.DashboardButton(
+                                language_json=guild_language
+                            ),
+                            Setup.Announcements.AnnouncementsButton(
+                                language_json=guild_language
+                            ),
+                            Setup.Map.MapButton(language_json=guild_language),
+                            Setup.Language.LanguageButton(language_json=guild_language),
+                        )
+                    ),
+                    (
+                        ActionRow(
+                            Setup.PatchNotes.PatchNotesButton(
+                                language_json=guild_language, enabled=guild.patch_notes
+                            ),
+                            Setup.MajorOrderUpdates.MajorOrderUpdatesButton(
+                                language_json=guild_language,
+                                enabled=guild.major_order_updates,
+                            ),
+                            Setup.PersonalOrder.PersonalOrderUpdatesButton(
+                                language_json=guild_language,
+                                enabled=guild.personal_order_updates,
+                            ),
+                            Setup.DetailedDispatches.DetailedDispatchesButton(
+                                language_json=guild_language,
+                                enabled=guild.detailed_dispatches,
+                            ),
+                        )
+                    ),
+                ],
+            )
 
 
 def setup(bot: GalacticWideWebBot):

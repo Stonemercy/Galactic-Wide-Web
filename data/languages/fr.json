@@ -169,7 +169,27 @@
     },
     "setup": {
         "cant_find_channel": "Je ne trouve pas du tout ce channel. Veuillez vous assurer que j'ai les permissions `Voir le channel`",
-        "missing_perm": "L'autorisation d'envoyer vers ce channel n'est pas disponible.\nVeuillez fournir les autorisations suivantes et réessayer:{permissions}"
+        "missing_perm": "L'autorisation d'envoyer vers ce channel n'est pas disponible.\nVeuillez fournir les autorisations suivantes et réessayer:{permissions}",
+        "buttons": {
+            "dashboard": "Tableau de bord",
+            "set_dashboard": "Définir le tableau de bord",
+            "clear_dashboard": "Effacer le tableau de bord",
+            "dashboard_channel_select": "Sélectionner la chaîne ou commencer à taper",
+            "announcements": "Annonces",
+            "set_announcements": "Définir les annonces",
+            "clear_announcements": "Annonces claires",
+            "announcements_channel_select": "Sélectionner la chaîne ou commencer à taper",
+            "map": "Carte",
+            "set_map": "Carte du jeu",
+            "clear_map": "Carte claire",
+            "map_channel_select": "Sélectionner la chaîne ou commencer à taper",
+            "language": "Langue",
+            "language_select": "Sélectionnez la langue souhaitée",
+            "patch_notes":"Notes de mise à jour",
+            "major_order_updates": "Mises à jour des ordres prioritaire",
+            "personal_order": "Mises à jour des ordres personnels",
+            "detailed_dispatches": "Dépêches détaillées"
+        }
     },
     "enemies": {
         "missing": "Cet ennemi n'est pas dans nos dossiers. Si vous pensez qu'il s'agit d'une erreur, veuillez contacter l'administration du GWW.",
