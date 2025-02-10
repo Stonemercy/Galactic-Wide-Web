@@ -33,7 +33,11 @@ class Dashboard:
             language_json=language_json,
             json_dict=json_dict,
         )
-        self._dss_embed = self.DSSEmbed(dss=data.dss, language_json=language_json)
+        self._dss_embed = self.DSSEmbed(
+            dss=data.dss,
+            language_json=language_json,
+            planet_names_json=json_dict["planets"],
+        )
         self._defence_embed = self.DefenceEmbed(
             planet_events=data.planet_events,
             dss=data.dss,
@@ -628,7 +632,7 @@ class Dashboard:
             )
 
     class DSSEmbed(Embed, EmbedReprMixin):
-        def __init__(self, dss: DSS, language_json: dict):
+        def __init__(self, dss: DSS, language_json: dict, planet_names_json: dict):
             super().__init__(
                 title=language_json["dss"]["title"],
                 colour=Colour.from_rgb(*faction_colours["DSS"]),
@@ -640,7 +644,9 @@ class Dashboard:
                 self.description = language_json["dashboard"]["DSSEmbed"][
                     "stationed_at"
                 ].format(
-                    planet=dss.planet.name,
+                    planet=planet_names_json[str(dss.planet.index)]["names"][
+                        language_json["code_long"]
+                    ],
                     faction_emoji=Emojis.factions[dss.planet.current_owner],
                 )
                 self.description += language_json["dashboard"]["DSSEmbed"][
