@@ -49,7 +49,9 @@
             "time_unavailable": "Недоступно",
             "event_health": "Освобождение планеты",
             "players_required": "Требуется для победы",
-            "level": "Уровень вторжения"
+            "level": "Уровень вторжения",
+            "defence_held_by_dss": "\n> -# DEFENCE HELD BY DSS",
+            "dark_energy_remaining": "\nEst. **Dark Energy** remaining: **{number}**"
         },
         "AttackEmbed": {
             "title": "Атакующие {faction}",

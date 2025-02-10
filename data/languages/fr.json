@@ -49,7 +49,9 @@
             "time_unavailable": "Indisponible",
             "event_health": "Libération de la planète",
             "players_required": "Requis pour la Victoire",
-            "level": "Invasion niveau"
+            "level": "Invasion niveau",
+            "defence_held_by_dss": "\n> -# DEFENCE HELD BY DSS",
+            "dark_energy_remaining": "\nEst. **Dark Energy** remaining: **{number}**"
         },
         "AttackEmbed": {
             "title": "Attaque de {faction}",

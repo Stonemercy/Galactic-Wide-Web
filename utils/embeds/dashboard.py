@@ -832,13 +832,19 @@ class Dashboard:
                             if ta.name == "EAGLE STORM"
                         ][0]
                         if eagle_storm.status == 2:
-                            time_remaining += "\n> -# DEFENCE HELD BY DSS"
+                            time_remaining += language_json["dashboard"][
+                                "DefenceEmbed"
+                            ]["defence_held_by_dss"]
                     exclamation = Emojis.icons["MO"] if planet.in_assignment else ""
                     feature_text = ""
                     if planet.feature:
                         feature_text += f"\nFeature: {planet.feature}"
                     if planet.event.potential_buildup != 0:
-                        feature_text += f"\nEst. **Dark Energy** remaining: **{(planet.event.remaining_dark_energy / 1_000_000):.2%}**"
+                        feature_text += language_json["dashboard"]["DefenceEmbed"][
+                            "dark_energy_remaining"
+                        ].format(
+                            number=f"{(planet.event.remaining_dark_energy / 1_000_000):.2%}"
+                        )
                     if planet.dss:
                         exclamation += Emojis.dss["dss"]
                     player_count = f'**{planet.stats["playerCount"]:,}**'

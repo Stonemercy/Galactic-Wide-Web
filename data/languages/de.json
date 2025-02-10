@@ -49,7 +49,9 @@
             "time_unavailable": "Nicht verfügbar",
             "event_health": "Planetenbefreiung",
             "players_required": "Erforderlich für den Sieg",
-            "level": "Invasion Stufe"
+            "level": "Invasion Stufe",
+            "defence_held_by_dss": "\n> -# DEFENCE HELD BY DSS",
+            "dark_energy_remaining": "\nEst. **Dark Energy** remaining: **{number}**"
         },
         "AttackEmbed": {
             "title": "Angriff auf {faction}",
