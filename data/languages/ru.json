@@ -15,12 +15,12 @@
             "liberated": "ОСВОБОЖДЕН(А)",
             "rewards": "Награда",
             "tasks": {
-                "type2": "{status_emoji} Успешно эвакуировался с {amount} {item} на {planet}",
-                "type3": "{status_emoji} Убил {amount} {target}",
-                "type3.5": " использует __{weapon_to_use}__ ",
-                "type11": "{status_emoji} Освобождает {planet}",
-                "type12_with_planet": "{status_emoji} Защитите {planet} от {number} атак {faction}",
-                "type12_without_planet": "{status_emoji} Защитите от {number} атак со стороны {faction}",
+                "type2": "{status_emoji} Успешно эвакуироваться с {amount} {item} на {planet}",
+                "type3": "{status_emoji} Убить {amount} {target}",
+                "type3.5": " используя __{weapon_to_use}__ ",
+                "type11": "{status_emoji} Освободить {planet}",
+                "type12_with_planet": "{status_emoji} Защитите {planet} от {number} атак(и) {faction}",
+                "type12_without_planet": "{status_emoji} Защититесь от {number} атак(и) со стороны {faction}",
                 "type13": "{status_emoji} Удерживайте {planet} до истечения приказа",
                 "type15": "{status_emoji} Освободите больше планет, чем было потеряно за время действия приказа"
             }
@@ -54,7 +54,7 @@
             "dark_energy_remaining": "\nПредполагаемое количество **Темной энергии**: **{number}**"
         },
         "AttackEmbed": {
-            "title": "Атакующие {faction}",
+            "title": "Фронт {faction}",
             "planet_health": "Освобождение планеты",
             "low_impact": "Планеты с малой скоростью особождения",
             "feature": "\nFeature: {feature}"
@@ -213,13 +213,13 @@
         "species_or_variation": "Пожалуйста выберите вид *или* вариацию."
     },
     "factions": {
-        "1": "Люди",
-        "2": "Терминиды",
-        "3": "Автоматоны",
-        "4": "Иллюминаты",
-        "Humans": "Люди",
-        "Terminids": "Терминиды",
-        "Automaton": "Автоматоны",
-        "Illuminate": "Иллюминаты"
+        "1": "Людей",
+        "2": "Терминидов",
+        "3": "Автоматонов",
+        "4": "Иллюминатов",
+        "Humans": "Людей",
+        "Terminids": "Терминидов",
+        "Automaton": "Автоматонов",
+        "Illuminate": "Иллюминатов"
     }
 }
