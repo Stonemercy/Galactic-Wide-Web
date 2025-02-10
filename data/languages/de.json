@@ -35,6 +35,13 @@
             "on_cooldown": "abklingzeit",
             "off_cooldown": "keine abklingzeit"
         },
+        "DarkEnergyEmbed": {
+            "title": "Dark Energy Accumulation",
+            "description": "-# The Meridian Singularity speeds up as Dark Energy accumulates",
+            "reaches": "Reaches {number}% <t:{timestamp}:R>",
+            "active_invasions": "-# Active invasions: {number}",
+            "total_to_be_harvested": "-# {warning} Total ready to be harvested: {number} {warning}"
+        },
         "DefenceEmbed": {
             "title": "Verteidigung",
             "no_threats": "Derzeit gibt es keine Bedrohungen für unsere Freiheit",
@@ -185,7 +192,7 @@
             "map_channel_select": "Select the channel or start typing",
             "language": "Language",
             "language_select": "Select the language you want",
-            "patch_notes":"Patch Notes",
+            "patch_notes": "Patch Notes",
             "major_order_updates": "Major Order Updates",
             "personal_order": "Personal Order",
             "detailed_dispatches": "Detailed Dispatches"

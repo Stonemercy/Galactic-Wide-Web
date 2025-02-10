@@ -109,6 +109,7 @@ class Dashboard:
                 remaining_de,
                 active_invasions,
                 data.dark_energy_changes,
+                language_json,
             )
             self.embeds.insert(2, self._dark_energy_embed)
         for embed in self.embeds.copy():
@@ -686,6 +687,78 @@ class Dashboard:
                         inline=False,
                     )
 
+    class DarkEnergyEmbed(Embed, EmbedReprMixin):
+        def __init__(
+            self,
+            dark_energy_resource: GlobalResources.DarkEnergy,
+            total_de_available: int,
+            active_invasions: int,
+            dark_energy_changes: dict[str:int, str:list],
+            language_json: dict,
+        ):
+            super().__init__(
+                title=language_json["dashboard"]["DarkEnergyEmbed"]["title"],
+                description=language_json["dashboard"]["DarkEnergyEmbed"][
+                    "description"
+                ],
+                colour=Colour.from_rgb(106, 76, 180),
+            )
+            rate_per_hour = sum(dark_energy_changes["changes"]) * 12
+            rate = f"{rate_per_hour:+.2%}/hr"
+            completion_timestamp = ""
+            now_seconds = int(datetime.now().timestamp())
+            if rate_per_hour > 0:
+                seconds_until_complete = int(
+                    ((1 - dark_energy_changes["total"]) / rate_per_hour) * 3600
+                )
+                completion_timestamp = language_json["dashboard"]["DarkEnergyEmbed"][
+                    "reaches"
+                ].format(
+                    number=100,
+                    timestamp=(now_seconds + seconds_until_complete),
+                )
+            elif rate_per_hour < 0:
+                seconds_until_zero = int(
+                    (dark_energy_changes["total"] / abs(rate_per_hour)) * 3600
+                )
+                completion_timestamp = language_json["dashboard"]["DarkEnergyEmbed"][
+                    "reaches"
+                ].format(
+                    number=0,
+                    timestamp=(now_seconds + seconds_until_zero),
+                )
+            self.add_field(
+                "",
+                f"{dark_energy_resource.health_bar}\n**`{dark_energy_resource.perc:^25.3%}`**\n**`{rate:^25}`**",
+                inline=False,
+            )
+            warning = ""
+            if (
+                (total_de_available / dark_energy_resource.max_value)
+                + dark_energy_resource.perc
+            ) > 1:
+                warning = ":warning:"
+            active_invasions_fmt = language_json["dashboard"]["DarkEnergyEmbed"][
+                "active_invasions"
+            ].format(number=active_invasions)
+            total_to_be_harvested = language_json["dashboard"]["DarkEnergyEmbed"][
+                "total_to_be_harvested"
+            ].format(
+                warning=warning,
+                number=f"{(total_de_available / dark_energy_resource.max_value):.2%}",
+            )
+            self.add_field(
+                "",
+                (
+                    f"{completion_timestamp}\n"
+                    f"{active_invasions_fmt}\n"
+                    f"{total_to_be_harvested}"
+                ),
+            )
+            self.set_thumbnail(
+                url="https://cdn.discordapp.com/emojis/1331357764039086212.webp?size=96"
+            )
+
     class DefenceEmbed(Embed, EmbedReprMixin):
         def __init__(
             self,
@@ -785,56 +858,6 @@ class Dashboard:
                     language_json["dashboard"]["DefenceEmbed"]["no_threats"],
                     f"||{language_json['dashboard']['DefenceEmbed']['for_now']}||",
                 )
-
-    class DarkEnergyEmbed(Embed, EmbedReprMixin):
-        def __init__(
-            self,
-            dark_energy_resource: GlobalResources.DarkEnergy,
-            total_de_available: int,
-            active_invasions: int,
-            dark_energy_changes: dict[str:int, str:list],
-        ):
-            super().__init__(
-                title="Dark Energy Accumulation",
-                description="-# The Meridian Singularity speeds up as Dark Energy accumulates",
-                colour=Colour.from_rgb(106, 76, 180),
-            )
-            rate_per_hour = sum(dark_energy_changes["changes"]) * 12
-            rate = f"{rate_per_hour:+.2%}/hr"
-            completion_timestamp = ""
-            now_seconds = int(datetime.now().timestamp())
-            if rate_per_hour > 0:
-                seconds_until_complete = int(
-                    ((1 - dark_energy_changes["total"]) / rate_per_hour) * 3600
-                )
-                completion_timestamp = (
-                    f"-# Reaches 100% <t:{now_seconds + seconds_until_complete}:R>"
-                )
-            elif rate_per_hour < 0:
-                seconds_until_zero = int(
-                    (dark_energy_changes["total"] / abs(rate_per_hour)) * 3600
-                )
-                completion_timestamp = (
-                    f"-# Reaches 0% <t:{now_seconds + seconds_until_zero}:R>"
-                )
-            self.add_field(
-                "",
-                f"{dark_energy_resource.health_bar}\n**`{dark_energy_resource.perc:^25.3%}`**\n**`{rate:^25}`**",
-                inline=False,
-            )
-            warning = ""
-            if (
-                (total_de_available / dark_energy_resource.max_value)
-                + dark_energy_resource.perc
-            ) > 1:
-                warning = ":warning:"
-            self.add_field(
-                "",
-                f"{completion_timestamp}\n-# Active Invasions: {active_invasions}\n-# {warning} Total ready to be harvested: {(total_de_available / dark_energy_resource.max_value):.2%} {warning}",
-            )
-            self.set_thumbnail(
-                url="https://cdn.discordapp.com/emojis/1331357764039086212.webp?size=96"
-            )
 
     class AttackEmbed(Embed, EmbedReprMixin):
         def __init__(
