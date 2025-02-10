@@ -1,13 +1,98 @@
 {
+	"1127": {
+		"galacticEffectId": 1127,
+		"name": "WEAPONS EXPERIMENTATION",
+		"description": "The Eagle 500kg Bomb stratagem has been temporarily authorized for use by all Helldivers."
+	},
+	"1129": {
+		"galacticEffectId": 1129,
+		"name": "WEAPONS EXPERIMENTATION",
+		"description": "The Shield Generator Pack stratagem has been temporarily authorized for use by all Helldivers."
+	},
+	"1132": {
+		"galacticEffectId": 1132,
+		"name": "WEAPONS EXPERIMENTATION",
+		"description": "The EMS Mortar Sentry stratagem has been temporarily authorized for use by all Helldivers."
+	},
+	"1145": {
+		"galacticEffectId": 1145,
+		"name": "WEAPONS EXPERIMENTATION",
+		"description": "The Orbital Laser stratagem has been temporarily authorized for use by all Helldivers."
+	},
 	"1154": {
-		"galacticEffectId": 1177,
+		"galacticEffectId": 1154,
 		"name": "WEAPONS EXPERIMENTATION",
 		"description": "The Orbital Railcannon Strike stratagem has been temporarily authorized for use by all Helldivers."
+	},
+	"1160": {
+		"galacticEffectId": 1160,
+		"name": "WEAPONS EXPERIMENTATION",
+		"description": "The Orbital EMS Strike stratagem has been temporarily authorized for use by all Helldivers."
+	},
+	"1161": {
+		"galacticEffectId": 1161,
+		"name": "WEAPONS EXPERIMENTATION",
+		"description": "The Eagle Napalm Airstrike stratagem has been temporarily authorized for use by all Helldivers."
+	},
+	"1162": {
+		"galacticEffectId": 1162,
+		"name": "WEAPONS EXPERIMENTATION",
+		"description": "The Patriot Exosuit stratagem has been temporarily authorized for use by all Helldivers."
+	},
+	"1163": {
+		"galacticEffectId": 1163,
+		"name": "WEAPONS EXPERIMENTATION",
+		"description": "The Eagle 110MM Rocket Pods stratagem has been temporarily authorized for use by all Helldivers."
+	},
+	"1166": {
+		"galacticEffectId": 1166,
+		"name": "WEAPONS EXPERIMENTATION",
+		"description": "The Eagle 500kg Bomb stratagem has been temporarily authorized for use by all Helldivers."
+	},
+	"1167": {
+		"galacticEffectId": 1167,
+		"name": "WEAPONS EXPERIMENTATION",
+		"description": "The Flamethrower stratagem has been temporarily authorized for use by all Helldivers."
+	},
+	"1168": {
+		"galacticEffectId": 1168,
+		"name": "WEAPONS EXPERIMENTATION",
+		"description": "The Laser Cannon stratagem has been temporarily authorized for use by all Helldivers."
+	},
+	"1170": {
+		"galacticEffectId": 1170,
+		"name": "WEAPONS EXPERIMENTATION",
+		"description": "The Airburst Rocket Launcher stratagem has been temporarily authorized for use by all Helldivers."
+	},
+	"1171": {
+		"galacticEffectId": 1171,
+		"name": "WEAPONS EXPERIMENTATION",
+		"description": "The Anti-Tank Mines stratagem has been temporarily authorized for use by all Helldivers."
+	},
+	"1172": {
+		"galacticEffectId": 1172,
+		"name": "WEAPONS EXPERIMENTATION",
+		"description": "The Orbital Gas Strike stratagem has been temporarily authorized for use by all Helldivers."
 	},
 	"1177": {
 		"galacticEffectId": 1177,
 		"name": "Black Hole",
 		"description": "This planet has been turned into a black hole."
+	},
+	"1179": {
+		"galacticEffectId": 1179,
+		"name": "WEAPONS EXPERIMENTATION",
+		"description": "The Autocannon stratagem has been temporarily authorized for use by all Helldivers."
+	},
+	"1181": {
+		"galacticEffectId": 1181,
+		"name": "WEAPONS EXPERIMENTATION",
+		"description": "The Command stratagem has been temporarily authorized for use by all Helldivers."
+	},
+	"1184": {
+		"galacticEffectId": 1184,
+		"name": "WEAPONS EXPERIMENTATION",
+		"description": "The Incendiary Mines stratagem has been temporarily authorized for use by all Helldivers."
 	},
 	"1186": {
 		"galacticEffectId": 1186,
@@ -33,6 +118,11 @@
 		"galacticEffectId": 1193,
 		"name": "Gloom Border",
 		"description": "This world is on the border of the interstellar wall of gloom."
+	},
+	"1194": {
+		"galacticEffectId": 1194,
+		"name": "WEAPONS EXPERIMENTATION",
+		"description": "The Orbital Napalm stratagem has been temporarily authorized for use by all Helldivers."
 	},
 	"1195": {
 		"galacticEffectId": 1195,
@@ -84,6 +174,11 @@
 		"name": "TERMINID RESEARCH PRESERVE",
 		"description": "Terminids are held safely within massive compounts on this planet for study and E-710 extraction."
 	},
+	"1207": {
+		"galacticEffectId": 1207,
+		"name": "WEAPONS EXPERIMENTATION",
+		"description": "The HMG Emplacement stratagem has been temporarily authorized for use by all Helldivers."
+	},
 	"1217": {
 		"galacticEffectId": 1217,
 		"name": "DEMOCRACY SPACE STATION",
@@ -93,6 +188,21 @@
 		"galacticEffectId": 1222,
 		"name": "UNKNOWN EFFECT- LIKELY REINFORCEMENT BUDGET?",
 		"description": "(probably) Increases the number of available reinforcements."
+	},
+	"1223": {
+		"galacticEffectId": 1223,
+		"name": "WEAPONS EXPERIMENTATION",
+		"description": "The Shield Generator Relay stratagem has been temporarily authorized for use by all Helldivers."
+	},
+	"1226": {
+		"galacticEffectId": 1228,
+		"name": "WEAPONS EXPERIMENTATION",
+		"description": "The Spear stratagem has been temporarily authorized for use by all Helldivers."
+	},
+	"1227": {
+		"galacticEffectId": 1227,
+		"name": "WEAPONS EXPERIMENTATION",
+		"description": "The Machine Gun stratagem has been temporarily authorized for use by all Helldivers."
 	},
 	"1228": {
 		"galacticEffectId": 1228,
@@ -114,10 +224,20 @@
 		"name": "FACTORY HUB",
 		"description": "The hard workers on this planet produce goods vital to the war effort, as well as to the prosperity of Super Earth."
 	},
+	"1233": {
+		"galacticEffectId": 1233,
+		"name": "WEAPONS EXPERIMENTATION",
+		"description": "The W.A.S.P. Launcher stratagem has been temporarily authorized for use by all Helldivers."
+	},
 	"1234": {
 		"galacticEffectId": 1234,
 		"name": "CENTER OF SCIENCE",
 		"description": "On this planet, the Ministry of Science's best and brightest work on their next breakthrough."
+	},
+	"1235": {
+		"galacticEffectId": 1235,
+		"name": "WEAPONS EXPERIMENTATION",
+		"description": "The Anti-Tank Mines stratagem has been temporarily authorized for use by all Helldivers."
 	},
 	"1236": {
 		"galacticEffectId": 1236,
