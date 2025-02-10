@@ -26,7 +26,7 @@
             }
         },
         "DSSEmbed": {
-            "stationed_at": "Stationné à **{planet}** {faction_emoji}\n",
+            "stationed_at": "Stationnée à **{planet}** {faction_emoji}\n",
             "next_move": "Prochain mouvement {timestamp}",
             "max_submitable": "Max soumis:\n=# {emoji} **{number}** {item}s toutes les **{hours}** heures",
             "status": "Statut",
@@ -36,11 +36,11 @@
             "off_cooldown": "hors récupération"
         },
         "DarkEnergyEmbed": {
-            "title": "Dark Energy Accumulation",
-            "description": "-# The Meridian Singularity speeds up as Dark Energy accumulates",
-            "reaches": "Reaches {number}% <t:{timestamp}:R>",
-            "active_invasions": "-# Active invasions: {number}",
-            "total_to_be_harvested": "-# {warning} Total ready to be harvested: {number} {warning}"
+            "title": "Accumulation d'Énergie Sombre",
+            "description": "-# La singularité Méridienne s'accélère à mesure que l'Énergie Sombre s'accumule",
+            "reaches": "Atteint {number}% <t:{timestamp}:R>",
+            "active_invasions": "-# Invasions en cours: {number}",
+            "total_to_be_harvested": "-# {warning} Total prêt à être récolté: {number} {warning}"
         },
         "DefenceEmbed": {
             "title": "Défense",
