@@ -50,14 +50,14 @@
             "event_health": "Libération de la planète",
             "players_required": "Requis pour la Victoire",
             "level": "Invasion niveau",
-            "defence_held_by_dss": "\n> -# DEFENCE HELD BY DSS",
-            "dark_energy_remaining": "\nEst. **Dark Energy** remaining: **{number}**"
+            "defence_held_by_dss": "\n> -# DÉFENSE TENUE PAR LA SSD",
+            "dark_energy_remaining": "\nEst. **Énergie Sombre** restante: **{number}**"
         },
         "AttackEmbed": {
             "title": "Attaque de {faction}",
             "planet_health": "Libération de la planète",
             "low_impact": "Planètes à faible impact/population",
-            "feature": "\nFeature: {feature}"
+            "feature": "\nCaractéristique: {feature}"
         },
         "FooterEmbed": {
             "other_updated": "Mis à jour le",
@@ -76,7 +76,7 @@
         "invasions": "Invasions",
         "defend_planet": "🛡️ Défendre **{planet}** {faction_emoji} {exclamation}",
         "invasion_level": "\n> -# Invasion niveau **{level}**{exclamation}",
-        "potential_dark_energy": "\n> Potential **Dark Energy** progress: **{number}**",
+        "potential_dark_energy": "\n> Progression potentielle d'**Énergie Sombre**: **{number}**",
         "repel_invasion": "🛡️ Repousser l'invasion sur {planet} {faction_emoji} {exclamation}",
         "liberate": "⚔️ Libérer **{planet}** {faction_emoji} {exclamation}\n",
         "been_liberated": "{emoji} **{planet}** a été libéré de {faction} {faction_emoji} {exclamation}\n",
@@ -170,10 +170,10 @@
         "radius": "Rayon : **`{radius}`**"
     },
     "MeridiaEmbed": {
-        "reaches": "Reaches {number}% <t:{timestamp}:R>",
-        "active_invasions": "-# Active invasions: {number}",
-        "total_to_be_harvested": "-# {warning} Total ready to be harvested: {number} (up to {total_available}) {warning}",
-        "planets_in_path": "PLANETS IN DIRECT PATH"
+        "reaches": "Atteint {number}% <t:{timestamp}:R>",
+        "active_invasions": "-# Invasions en cours: {number}",
+        "total_to_be_harvested": "-# {warning} Total prêt à être récolté: {number} (jusqu'à {total_available}) {warning}",
+        "planets_in_path": "PLANÈTE SUR LA TRAJECTOIRE DIRECTE"
     },
     "dss": {
         "title": "Station Spatiale de la Démocratie"
