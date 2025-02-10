@@ -191,7 +191,7 @@ class MeridiaCog(commands.Cog):
             delta_x_to_planet = planet.position["x"] - current_location.x
             delta_y_to_planet = planet.position["y"] - current_location.y
             distance_to_planet = sqrt(delta_x_to_planet**2 + delta_y_to_planet**2)
-            time_to_reach_planets[planet.name] = int(
+            time_to_reach_planets[planet.index] = int(
                 (
                     datetime.now() + timedelta(seconds=distance_to_planet / speed)
                 ).timestamp()
@@ -214,6 +214,8 @@ class MeridiaCog(commands.Cog):
             facecolor="black",
         )
         embed = MeridiaCommandEmbed(
+            self.bot.json_dict["languages"][guild.language],
+            self.bot.json_dict["planets"],
             self.bot.data.global_resources.dark_energy,
             sum(
                 [

@@ -950,6 +950,8 @@ class PersonalOrderCommandEmbed(Embed, EmbedReprMixin):
 class MeridiaCommandEmbed(Embed, EmbedReprMixin):
     def __init__(
         self,
+        language_json: dict,
+        planet_names_json: dict,
         dark_energy_resource: GlobalResources.DarkEnergy,
         total_de_available: int,
         active_invasions: int,
@@ -965,15 +967,17 @@ class MeridiaCommandEmbed(Embed, EmbedReprMixin):
             seconds_until_complete = int(
                 ((1 - dark_energy_changes["total"]) / rate_per_hour) * 3600
             )
-            completion_timestamp = (
-                f"-# Reaches 100% <t:{now_seconds + seconds_until_complete}:R>"
+            complete_seconds = now_seconds + seconds_until_complete
+            completion_timestamp = language_json["MeridiaEmbed"]["reaches"].format(
+                number=100, timestamp=complete_seconds
             )
         elif rate_per_hour < 0:
             seconds_until_zero = int(
                 (dark_energy_changes["total"] / abs(rate_per_hour)) * 3600
             )
-            completion_timestamp = (
-                f"-# Reaches 0% <t:{now_seconds + seconds_until_zero}:R>"
+            complete_seconds = now_seconds + seconds_until_zero
+            completion_timestamp = language_json["MeridiaEmbed"]["reaches"].format(
+                number=0, timestamp=complete_seconds
             )
         self.add_field(
             "",
@@ -986,19 +990,33 @@ class MeridiaCommandEmbed(Embed, EmbedReprMixin):
             + dark_energy_resource.perc
         ) > 1:
             warning = ":warning:"
+        active_invasions_fmt = language_json["MeridiaEmbed"]["active_invasions"].format(
+            number=active_invasions
+        )
+        total_to_be_harvested = language_json["MeridiaEmbed"][
+            "total_to_be_harvested"
+        ].format(
+            warning=warning,
+            number=f"{(total_de_available / dark_energy_resource.max_value):.2%}",
+            total_available=f"{(total_de_available / dark_energy_resource.max_value)+dark_energy_resource.perc:.2%}",
+        )
         self.add_field(
             "",
-            f"{completion_timestamp}\n-# Active Invasions: {active_invasions}\n-# {warning} Total ready to be harvested: {(total_de_available / dark_energy_resource.max_value):.2%} (up to {(total_de_available / dark_energy_resource.max_value)+dark_energy_resource.perc:.2%}) {warning}",
+            (
+                f"{completion_timestamp}\n"
+                f"{active_invasions_fmt}\n"
+                f"{total_to_be_harvested}"
+            ),
         )
         self.set_thumbnail(
             url="https://cdn.discordapp.com/emojis/1331357764039086212.webp?size=96"
         )
         if time_to_reach_planets:
             self.add_field(
-                "PLANETS IN THE DIRECT PATH",
+                language_json["MeridiaEmbed"]["planets_in_path"],
                 "\n".join(
                     [
-                        f"{planet} <t:{int(seconds)}:R>"
+                        f"{planet_names_json[str(planet)]['names'][language_json['code_long']]} <t:{int(seconds)}:R>"
                         for planet, seconds in time_to_reach_planets.items()
                     ]
                 ),
