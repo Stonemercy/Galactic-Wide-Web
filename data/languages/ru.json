@@ -56,7 +56,8 @@
         "AttackEmbed": {
             "title": "Атакующие {faction}",
             "planet_health": "Освобождение планеты",
-            "low_impact": "Планеты с низким уровнем воздействия/населения"
+            "low_impact": "Планеты с низким уровнем воздействия/населения",
+            "feature": "\nFeature: {feature}"
         },
         "FooterEmbed": {
             "other_updated": "Обновлено",

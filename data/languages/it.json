@@ -56,7 +56,8 @@
         "AttackEmbed": {
             "title": "Attacco a {faction}",
             "planet_health": "Liberazione del pianeta",
-            "low_impact": "Pianeti a basso impatto/popolazione"
+            "low_impact": "Pianeti a basso impatto/popolazione",
+            "feature": "\nFeature: {feature}"
         },
         "FooterEmbed": {
             "other_updated": "Aggiornato il",

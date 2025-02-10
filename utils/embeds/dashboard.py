@@ -940,7 +940,9 @@ class Dashboard:
                     )
                     planet_health_text = f"`{(1 - (campaign.planet.health / campaign.planet.max_health)):^25.2%}`"
                     feature_text = (
-                        f"\nFeature: {campaign.planet.feature}"
+                        language_json["dashboard"]["AttackEmbed"]["feature"].format(
+                            feature=campaign.planet.feature
+                        )
                         if campaign.planet.feature
                         else ""
                     )
