@@ -852,7 +852,7 @@ class Dashboard:
                         f"{Emojis.factions[planet.event.faction]} - __**{planet_names[str(planet.index)]['names'][language_json['code_long']]}**__ {exclamation}",
                         (
                             f"{language_json['ends']} {time_remaining}"
-                            f"\n{language_json['dashboard']['DefenceEmbed']['level']} {int(planet.event.max_health / 50000)}"
+                            f"\n{language_json['dashboard']['DefenceEmbed']['level']} **{int(planet.event.max_health / 50000)}**"
                             f"{outlook_text}"
                             f"\n{language_json['dashboard']['heroes'].format(heroes=player_count)}"
                             f"{required_players}"
