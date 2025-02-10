@@ -341,7 +341,7 @@ class CampaignLoopEmbed(Embed, EmbedReprMixin):
         if campaign.planet.in_assignment:
             exclamation += Emojis.icons["MO"]
         if campaign.planet.event and time_remaining:
-            def_level_exc = {0: "", 5: "!", 20: "!!", 33: "!!!", 50: ":warning:"}
+            def_level_exc = {0: "", 5: "!", 20: "!!", 33: "!!!", 50: " :warning:"}
             key = [
                 key
                 for key in def_level_exc.keys()
@@ -375,7 +375,12 @@ class CampaignLoopEmbed(Embed, EmbedReprMixin):
                 description += self.language_json["CampaignEmbed"][
                     "invasion_level"
                 ].format(level=campaign.planet.event.level, exclamation=def_level_exc)
-                description += f"\n> Potential **Dark Energy** progress: **{(campaign.planet.event.potential_buildup / 1_000_000):.2%}**"
+                potential_de = (
+                    f"{(campaign.planet.event.potential_buildup / 1_000_000):.2%}"
+                )
+                description += self.language_json["CampaignEmbed"][
+                    "potential_dark_energy"
+                ].format(number=potential_de)
                 description += f"\n> *{self.language_json['ends']} {time_remaining}*\n"
         else:
             description += self.language_json["CampaignEmbed"]["liberate"].format(
