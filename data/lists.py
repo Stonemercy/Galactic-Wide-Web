@@ -4,6 +4,7 @@ language_dict = {
     "Deutsch": "de",
     "Italian": "it",
     "Brazilian Portuguese": "pt-br",
+    "Russian": "ru",
 }
 
 json_dict = {
@@ -13,6 +14,7 @@ json_dict = {
         "de": {"path": "data/languages/de.json", "value": None},
         "it": {"path": "data/languages/it.json", "value": None},
         "pt-br": {"path": "data/languages/pt-br.json", "value": None},
+        "ru": {"path": "data/languages/ru.json", "value": None},
     },
     "stratagems": {"path": "data/json_custom/stratagems.json", "value": None},
     "warbonds": {
