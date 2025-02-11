@@ -891,7 +891,7 @@ class PersonalOrderCommandEmbed(Embed, EmbedReprMixin):
                     full_objective += f"{enemy}s"
                 else:
                     full_objective += (
-                        language_json["factions"][str(task.values[0] + 1)]
+                        language_json["factions"][str(task.values[0])]
                         if task.values[0]
                         else "Enemies"
                     )
