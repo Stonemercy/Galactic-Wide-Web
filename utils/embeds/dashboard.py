@@ -831,7 +831,7 @@ class Dashboard:
                             for ta in dss.tactical_actions
                             if ta.name == "EAGLE STORM"
                         ][0]
-                        if eagle_storm.status == 2:
+                        if eagle_storm.status == 2 and planet.event.type != 2:
                             time_remaining += language_json["dashboard"][
                                 "DefenceEmbed"
                             ]["defence_held_by_dss"]
