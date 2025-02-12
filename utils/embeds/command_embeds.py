@@ -25,6 +25,7 @@ class PlanetCommandEmbed(Embed, EmbedReprMixin):
         self.add_planet_info(planet_names, planet, language_json)
         self.add_mission_stats(planet, language_json)
         self.add_hero_stats(planet, language_json)
+        self.add_field("", "", inline=False)
         self.add_misc_stats(planet, language_json)
 
     def add_planet_info(self, planet_names: dict, planet: Planet, language_json: dict):
@@ -131,6 +132,10 @@ class PlanetCommandEmbed(Embed, EmbedReprMixin):
             self.add_field("Feature", planet.feature)
         if planet.thumbnail:
             self.set_thumbnail(url=planet.thumbnail)
+        elif planet.index == 64:
+            self.set_thumbnail(
+                url="https://cdn.discordapp.com/emojis/1331357764039086212.webp?size=96"
+            )
         try:
             self.set_image(
                 file=File(
