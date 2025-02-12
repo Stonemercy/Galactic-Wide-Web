@@ -1893,8 +1893,8 @@
 	},
 	"64": {
 		"name": "Meridia",
-		"sector": "Umlaut",
-		"biome": "primordial_bug",
+		"sector": "Orion",
+		"biome": "blackhole",
 		"environmentals": [
 			"none"
 		],
@@ -1915,7 +1915,7 @@
 			"zh-Hans": "\u9ed8\u91cc\u8fea\u4e9a",
 			"zh-Hant": "\u6885\u91cc\u8fea\u4e9e"
 		},
-		"type": "primordial",
+		"type": "blackhole",
 		"weather_effects": [
 			"normal_temp"
 		]
