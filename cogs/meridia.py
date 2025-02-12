@@ -213,6 +213,7 @@ class MeridiaCog(commands.Cog):
             bbox_inches="tight",
             facecolor="black",
         )
+        plt.close(fig)
         embed = MeridiaCommandEmbed(
             self.bot.json_dict["languages"][guild.language],
             self.bot.json_dict["planets"],
