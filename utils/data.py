@@ -568,6 +568,7 @@ class Planet(ReprMixin):
         self.thumbnail = None
         self.feature = {
             45: "Center for Civilian Surveillance",
+            64: "Meridian Singularity",
             125: "Centre of Science",
             126: "Xenoentomology Center",
             130: "Factory Hub",
@@ -575,6 +576,13 @@ class Planet(ReprMixin):
         }.get(self.index, None)
         self.dss = False
         self.in_assignment = False
+        if self.index == 64:
+            self.biome = {
+                "name": "Black Hole",
+                "description": "The planet is gone, the ultimate price to pay in the war for humanity's survival.",
+            }
+            self.sector = "Orion"
+            self.hazards = []
 
     class Event(ReprMixin):
         def __init__(self, event):
