@@ -41,6 +41,10 @@ class MeridiaCog(commands.Cog):
                     self.bot.data.planets[64], "Location", old_coords, new_coords
                 )
             ]
+            embed = APIChangesLoopEmbed(changes)
+            embed.set_thumbnail(
+                url="https://cdn.discordapp.com/emojis/1331357764039086212.webp?size=96"
+            )
             await self.bot.api_changes_channel.send(embed=APIChangesLoopEmbed(changes))
 
     @check_position.before_loop
@@ -89,7 +93,7 @@ class MeridiaCog(commands.Cog):
             ((x + 1) / 2 * 2000, (y + 1) / 2 * 2000) for x, y in coordinates
         ]
         x, y = zip(*coordinates_fixed)
-        padding = 200
+        padding = meridia_info.locations[-1].x * 1000
         x_min, x_max = min(x) - padding, max(x) + padding
         y_min, y_max = min(y) - padding, max(y) + padding
         fig, ax = plt.subplots()
@@ -133,15 +137,15 @@ class MeridiaCog(commands.Cog):
             future_y = y[-1] + dy * step_size
 
             # Check for close planets
-            threshold = 25
+            planets_to_check = [
+                effect["index"]
+                for effect in self.bot.data.planet_active_effects
+                if effect["galacticEffectId"] == 1240
+            ]
             points_in_path = {
                 index: coords
                 for index, coords in self.bot.data.plot_coordinates.items()
-                if self.point_line_distance(
-                    coords[0], coords[1], x[-1], y[-1], future_x, future_y
-                )
-                < threshold
-                and index != 64
+                if index != 64 and index in planets_to_check
             }
             planets_in_path = [self.bot.data.planets[index] for index in points_in_path]
             for px, py in points_in_path.values():
