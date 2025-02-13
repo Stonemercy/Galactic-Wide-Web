@@ -1,3 +1,5 @@
+from math import cos, radians, sin
+from random import randint, uniform
 from data.lists import faction_colours
 from datetime import datetime
 from disnake import Colour, Embed, File, TextChannel
@@ -49,6 +51,7 @@ class Maps:
                     radius=17,
                 )
             self._draw_planets(background=background)
+            self._draw_cracks(background=background)
             if self.data.dss and self.data.dss != "Error":
                 self._add_dss_icon(background=background)
             if self.arrow_needed:
@@ -280,6 +283,34 @@ class Maps:
             align="center",
             spacing=-10,
         )
+
+    def _draw_cracks(self, background: Image.Image):
+        draw = ImageDraw.Draw(background)
+        affected_planets = [
+            planet.index
+            for planet in self.data.planets.values()
+            if 1241 in planet.active_effects
+        ]
+        for planet_index in affected_planets:
+            coords = self.planet_coordinates[planet_index]
+            self._draw_planet_cracks(draw, coords, radius=10)
+
+    def _draw_planet_cracks(self, draw: ImageDraw.ImageDraw, center, radius=10):
+        cx, cy = center
+        for _ in range(8):
+            start_angle = randint(0, 360)
+            segments = randint(7, 12)
+            x, y = cx + int(radius * cos(radians(start_angle))), cy + int(
+                radius * sin(radians(start_angle))
+            )
+            for _ in range(segments):
+                angle_variation = randint(-20, 20)
+                start_angle += angle_variation
+                step_size = uniform(3, 6)
+                new_x = cx + int((radius - step_size) * cos(radians(start_angle)))
+                new_y = cy + int((radius - step_size) * sin(radians(start_angle)))
+                draw.line([(x, y), (new_x, new_y)], fill="black", width=3)
+                x, y = new_x, new_y
 
     async def localize(self):
         for language_json in self.languages_json_list:
