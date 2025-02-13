@@ -145,7 +145,7 @@ class MeridiaCog(commands.Cog):
             }
             planets_in_path = [self.bot.data.planets[index] for index in points_in_path]
             for px, py in points_in_path.values():
-                ax.plot(px, py, "o", color="red", markersize=20, label="In Path")
+                ax.plot(px, py, "o", color="red", markersize=12, label="In Path")
 
             ax.plot(
                 [x[-1], future_x],

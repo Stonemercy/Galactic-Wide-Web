@@ -46,7 +46,7 @@ class Maps:
                     draw=background_draw,
                     coords=self.planet_coordinates[self.data.dss.planet.index],
                     fill_colour=faction_colours["DSS"],
-                    radius=22,
+                    radius=17,
                 )
             self._draw_planets(background=background)
             if self.data.dss and self.data.dss != "Error":
@@ -158,15 +158,15 @@ class Maps:
                 outside = (106, 76, 180)
                 background_draw.ellipse(
                     xy=[
-                        (coords[0] - 15, coords[1] - 15),
-                        (coords[0] + 15, coords[1] + 15),
+                        (coords[0] - 10, coords[1] - 10),
+                        (coords[0] + 10, coords[1] + 10),
                     ],
                     fill=outside,
                 )
                 background_draw.ellipse(
                     xy=[
-                        (coords[0] - 12, coords[1] - 12),
-                        (coords[0] + 12, coords[1] + 12),
+                        (coords[0] - 8, coords[1] - 8),
+                        (coords[0] + 8, coords[1] + 8),
                     ],
                     fill=inside,
                 )
@@ -174,8 +174,8 @@ class Maps:
                 current_owner = self.data.planets[index].current_owner
                 background_draw.ellipse(
                     xy=[
-                        (coords[0] - 15, coords[1] - 15),
-                        (coords[0] + 15, coords[1] + 15),
+                        (coords[0] - 10, coords[1] - 10),
+                        (coords[0] + 10, coords[1] + 10),
                     ],
                     fill=(
                         faction_colours[current_owner]
@@ -228,7 +228,7 @@ class Maps:
         )
 
     def _write_names(self, background: Image.Image, language_code: str):
-        font = ImageFont.truetype("gww-font.ttf", 25)
+        font = ImageFont.truetype("gww-font.ttf", 35)
         background_draw = ImageDraw.Draw(im=background)
         for index, coords in self.planet_coordinates.items():
             if index in self.available_planets:
@@ -251,7 +251,7 @@ class Maps:
         draw: ImageDraw.ImageDraw,
         coords: tuple,
         fill_colour: tuple,
-        radius: int = 20,
+        radius: int = 15,
     ):
         draw.ellipse(
             [
@@ -275,7 +275,7 @@ class Maps:
             text=name_text,
             anchor="md",
             font=font,
-            stroke_width=2,
+            stroke_width=3,
             stroke_fill=border_colour,
             align="center",
             spacing=-10,
