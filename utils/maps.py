@@ -173,6 +173,17 @@ class Maps:
                     ],
                     fill=inside,
                 )
+            elif (
+                1241 in self.data.planets[index].active_effects
+                or 1240 in self.data.planets[index].active_effects
+            ):
+                background_draw.ellipse(
+                    xy=[
+                        (coords[0] - 10, coords[1] - 10),
+                        (coords[0] + 10, coords[1] + 10),
+                    ],
+                    fill="red",
+                )
             else:
                 current_owner = self.data.planets[index].current_owner
                 background_draw.ellipse(
