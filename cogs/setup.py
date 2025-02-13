@@ -134,7 +134,8 @@ class SetupCog(commands.Cog):
                         language_json=guild_language, selected=True
                     ),
                 )
-                return await inter.response.edit_message(components=action_rows)
+                await inter.response.edit_message(components=action_rows)
+                return
             elif inter.component.custom_id == "set_dashboard_button":
                 action_rows.append(
                     ActionRow(
