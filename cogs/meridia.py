@@ -193,6 +193,8 @@ class MeridiaCog(commands.Cog):
         padding_distance = 0.01559
         time_to_reach_planets = {}
         for planet in planets_in_path:
+            if 1241 in planet.active_effects:
+                continue
             delta_x_to_planet = planet.position["x"] - current_location.x
             delta_y_to_planet = planet.position["y"] - current_location.y
             distance_to_planet = sqrt(delta_x_to_planet**2 + delta_y_to_planet**2)
@@ -202,6 +204,9 @@ class MeridiaCog(commands.Cog):
                     datetime.now() + timedelta(seconds=adjusted_distance / speed)
                 ).timestamp()
             )
+        time_to_reach_planets = dict(
+            sorted(time_to_reach_planets.copy().items(), key=lambda x: x[1])
+        )
 
         ax.set_xticks([])
         ax.set_yticks([])
