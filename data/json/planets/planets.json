@@ -1917,7 +1917,7 @@
 		},
 		"type": "blackhole",
 		"weather_effects": [
-			"normal_temp"
+			"none"
 		]
 	},
 	"65": {
@@ -3749,7 +3749,7 @@
 	"127": {
 		"name": "Angel's Venture",
 		"sector": "Orion",
-		"biome": "moor_tundra",
+		"biome": "fractured_planet",
 		"environmentals": [
 			"none"
 		],
@@ -3770,9 +3770,9 @@
 			"zh-Hans": "\u5929\u4f7f\u6295\u8d44",
 			"zh-Hant": "\u5929\u4f7f\u63a2\u96aa"
 		},
-		"type": "moor",
+		"type": "fractured_planet",
 		"weather_effects": [
-			"normal_temp"
+			"none"
 		]
 	},
 	"128": {

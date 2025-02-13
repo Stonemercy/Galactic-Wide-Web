@@ -303,6 +303,7 @@ class Data(ReprMixin):
             }
             for index, buildup in planets_with_buildup.items():
                 self.planets[index].event.potential_buildup = buildup
+            self.planet_active_effects = self.__data__["status"]["planetActiveEffects"]
 
     def update_liberation_rates(self):
         for campaign in self.campaigns:
@@ -582,6 +583,12 @@ class Planet(ReprMixin):
                 "description": "The planet is gone, the ultimate price to pay in the war for humanity's survival.",
             }
             self.sector = "Orion"
+            self.hazards = []
+        elif self.index == 127:
+            self.biome = {
+                "name": "Fractured Planet",
+                "description": "All that remains of a planet torn apart by the Meridian singularity. A solemn reminder of the desolation Tyranny leaves in its wake.",
+            }
             self.hazards = []
 
     class Event(ReprMixin):
