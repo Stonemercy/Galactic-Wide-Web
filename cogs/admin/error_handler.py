@@ -25,10 +25,11 @@ class ErrorHandlerCog(commands.Cog):
                     delete_after=int((self.bot.ready_time - now).total_seconds()),
                 )
         elif isinstance(error, commands.NotOwner):
-            return await inter.send(
+            await inter.send(
                 f"You need to be the owner of {inter.guild.me.mention} to use this command.",
                 ephemeral=True,
             )
+            return
         else:
             await inter.send(
                 "There was an unexpected error. Please try again.", ephemeral=True

@@ -193,22 +193,26 @@ class SetupCog(commands.Cog):
                 )
                 return await inter.response.edit_message(components=action_rows)
             elif inter.component.custom_id == "clear_announcements_button":
-                channel = self.bot.get_channel(
-                    guild.announcement_channel_id
-                ) or await self.bot.fetch_channel(guild.announcement_channel_id)
+                try:
+                    channel = self.bot.get_channel(
+                        guild.announcement_channel_id
+                    ) or await self.bot.fetch_channel(guild.announcement_channel_id)
+                except:
+                    channel = None
                 guild.announcement_channel_id = 0
                 guild.patch_notes = False
                 guild.major_order_updates = False
                 guild.personal_order_updates = False
                 guild.detailed_dispatches = False
                 guild.save_changes()
-                for (
-                    channels
-                ) in (
-                    self.bot.interface_handler.news_feeds.channels_dict.copy().values()
-                ):
-                    if channel in channels:
-                        channels.remove(channel)
+                if channel:
+                    for (
+                        channels
+                    ) in (
+                        self.bot.interface_handler.news_feeds.channels_dict.copy().values()
+                    ):
+                        if channel in channels:
+                            channels.remove(channel)
                 action_rows[1].clear_items()
                 action_rows[1].append_item(
                     Setup.PatchNotes.PatchNotesButton(language_json=guild_language)
@@ -294,12 +298,16 @@ class SetupCog(commands.Cog):
                         language_json=guild_language, selected=True
                     ),
                 )
-                return await inter.response.edit_message(
-                    embed=SetupCommandEmbed(
-                        guild, self.bot.json_dict["languages"][guild.language]
-                    ),
-                    components=action_rows,
-                )
+                try:
+                    await inter.response.edit_message(
+                        embed=SetupCommandEmbed(
+                            guild, self.bot.json_dict["languages"][guild.language]
+                        ),
+                        components=action_rows,
+                    )
+                except Exception as e:
+                    self.bot.logger.error(f"ERROR SetupCog | {e}")
+                return
         elif inter.component.custom_id == "patch_notes_button":
             if guild.patch_notes:  # want to disable
                 channel = self.bot.get_channel(
