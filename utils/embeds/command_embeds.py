@@ -893,7 +893,10 @@ class PersonalOrderCommandEmbed(Embed, EmbedReprMixin):
                 full_objective = f"Kill {task.values[2]} "
                 if task.values[3] != 0:
                     enemy = enemy_ids_json.get(str(task.values[3]), "Unknown")
-                    full_objective += f"{enemy}s"
+                    if enemy[-1] == "s":
+                        full_objective += enemy
+                    else:
+                        full_objective += f"{enemy}s"
                 else:
                     full_objective += (
                         language_json["factions"][str(task.values[0])]
