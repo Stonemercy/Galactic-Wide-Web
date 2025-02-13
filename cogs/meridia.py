@@ -186,7 +186,7 @@ class MeridiaCog(commands.Cog):
         distance_moved = sqrt(delta_x**2 + delta_y**2)
         speed = distance_moved / time_difference  # in units per second
 
-        padding_distance = 0.015
+        padding_distance = 0.01559
         time_to_reach_planets = {}
         for planet in planets_in_path:
             delta_x_to_planet = planet.position["x"] - current_location.x
