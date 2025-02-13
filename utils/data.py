@@ -580,6 +580,7 @@ class Planet(ReprMixin):
         }.get(self.index, None)
         self.dss = False
         self.in_assignment = False
+        self.active_effects = []
         if self.index == 64:
             self.biome = {
                 "name": "Black Hole",
