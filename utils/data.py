@@ -304,6 +304,9 @@ class Data(ReprMixin):
             for index, buildup in planets_with_buildup.items():
                 self.planets[index].event.potential_buildup = buildup
             self.planet_active_effects = self.__data__["status"]["planetActiveEffects"]
+            for planet_effect in self.planet_active_effects:
+                planet = self.planets[planet_effect["index"]]
+                planet.active_effects.append(planet_effect["galacticEffectId"])
 
     def update_liberation_rates(self):
         for campaign in self.campaigns:
