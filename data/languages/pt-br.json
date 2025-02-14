@@ -36,11 +36,11 @@
             "off_cooldown": "fora do cooldown"
         },
         "DarkEnergyEmbed": {
-            "title": "Dark Energy Accumulation",
-            "description": "-# The Meridian Singularity speeds up as Dark Energy accumulates",
-            "reaches": "Reaches {number}% <t:{timestamp}:R>",
-            "active_invasions": "-# Active invasions: {number}",
-            "total_to_be_harvested": "-# {warning} Total ready to be harvested: {number} {warning}"
+            "title": "Acumulo de Energia Escura",
+            "description": "-# A Singularidade Meridiana acelera conforme a Energia Escura se acumula",
+            "reaches": "Chega em {number}% <t:{timestamp}:R>",
+            "active_invasions": "-# Invasões Ativas: {number}",
+            "total_to_be_harvested": "-# {warning} Total pronto para a coleta: {number} {warning}"
         },
         "DefenceEmbed": {
             "title": "Defendendo",
@@ -76,7 +76,7 @@
         "invasions": "Invasões",
         "defend_planet": "🛡️ Defender **{planet}** {faction_emoji} {exclamation}",
         "invasion_level": "\n> -# Nível de invasão **{level}**{exclamation}",
-        "potential_dark_energy": "\n> Potential **Dark Energy** progress: **{number}**",
+        "potential_dark_energy": "\n> Possível progresso de **Energia Escura**: **{number}**",
         "repel_invasion": "🛡️ Repelir a invasão em {planet} {faction_emoji} {exclamation}",
         "liberate": "⚔️ Liberar **{planet}** {faction_emoji} {exclamation}\n",
         "been_liberated": "{emoji} **{planet}** foi liberado dos {faction} {faction_emoji} {exclamation}\n",
@@ -86,7 +86,7 @@
         "no_territory_change": "\n-# Os **{faction}** foram embora e __nenhum território mudou de posse__ {faction_emoji}\n",
         "dss": {
             "has_moved": "A EED se moveu de **{planet1}** {faction_emoji1} para **{planet2}** {faction_emoji2} {exclamation}\n",
-            "ta_status_change": "{emoji} **{ta_name}** agora é **{status}**\n"
+            "ta_status_change": "{emoji} **{ta_name}** agora está **{status}**\n"
         }
     },
     "PlanetEmbed": {
@@ -170,13 +170,13 @@
         "radius": "Raio: **`{radius}`**"
     },
     "MeridiaEmbed": {
-        "reaches": "Reaches {number}% <t:{timestamp}:R>",
-        "active_invasions": "-# Active invasions: {number}",
-        "total_to_be_harvested": "-# {warning} Total ready to be harvested: {number} (up to {total_available}) {warning}",
-        "planets_in_path": "PLANETS IN DIRECT PATH"
+        "reaches": "Chega em {number}% <t:{timestamp}:R>",
+        "active_invasions": "-# Invasões Ativas: {number}",
+        "total_to_be_harvested": "-# {warning} Total pronto para a coleta: {number} (até {total_available}) {warning}",
+        "planets_in_path": "PLANETAS EM ROTA DE COLISÃO"
     },
     "dss": {
-        "title": "Estação Espacial Democracy"
+        "title": "Estação Espacial Democracia"
     },
     "major_order": {
         "MO_unavailable": "Aguarde mais ordens do Alto Comando da Super Terra"
