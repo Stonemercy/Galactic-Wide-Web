@@ -296,11 +296,12 @@ class Data(ReprMixin):
                 "x": self.meridia_position[0],
                 "y": self.meridia_position[1],
             }
-            planets_with_buildup = {
-                planet_event["planetIndex"]: planet_event["potentialBuildUp"]
-                for planet_event in self.__data__["status"]["planetEvents"]
-                if planet_event["potentialBuildUp"] != 0
-            }
+            planets_with_buildup = {}
+            for planet in self.__data__["status"]["planetEvents"]:
+                if planet["potentialBuildUp"] != 0:
+                    planets_with_buildup[planet["planetIndex"]] = planet[
+                        "potentialBuildUp"
+                    ]
             for index, buildup in planets_with_buildup.items():
                 self.planets[index].event.potential_buildup = buildup
             self.planet_active_effects = self.__data__["status"]["planetActiveEffects"]
