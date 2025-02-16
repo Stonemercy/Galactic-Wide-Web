@@ -303,7 +303,9 @@ class Data(ReprMixin):
                         "potentialBuildUp"
                     ]
             for index, buildup in planets_with_buildup.items():
-                self.planets[index].event.potential_buildup = buildup
+                planet = self.planets[index]
+                if planet.event:
+                    planet.event.potential_buildup = buildup
             self.planet_active_effects = self.__data__["status"]["planetActiveEffects"]
             for planet_effect in self.planet_active_effects:
                 planet = self.planets[planet_effect["index"]]
