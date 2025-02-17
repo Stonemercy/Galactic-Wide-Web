@@ -66,6 +66,11 @@ class PersonalOrderCog(commands.Cog):
             guild = GWWGuild.get_by_id(inter.guild_id)
         else:
             guild = GWWGuild.default()
+        if not self.bot.data.personal_order:
+            await inter.send(
+                "Personal order data is unavailable. Please try again later."
+            )
+            return
         await inter.send(
             embed=PersonalOrderCommandEmbed(
                 personal_order=self.bot.data.personal_order,

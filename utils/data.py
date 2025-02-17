@@ -49,12 +49,14 @@ class Data(ReprMixin):
             "personal_order": None,
             "status": None,
         }
-        self.fetched_at = None
         self.loaded = False
         self.liberation_changes = {}
         self.dark_energy_changes = {"total": 0, "changes": []}
         self.planets_with_player_reqs = {}
         self.meridia_position = None
+        self.personal_order = None
+        self.fetched_at = None
+        self.assignment = None
 
     async def pull_from_api(self, bot):
         api_to_use = api
@@ -184,7 +186,6 @@ class Data(ReprMixin):
             self.loaded = True
 
     def format_data(self):
-        self.assignment = None
 
         if self.__data__["war_time"]:
             self.war_time: int = (
