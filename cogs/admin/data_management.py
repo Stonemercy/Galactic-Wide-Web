@@ -84,9 +84,10 @@ class DataManagementCog(commands.Cog):
                         APIChanges(planet, "Waypoints", old_waypoints, new_waypoints)
                     )
         if total_changes:
-            await self.bot.api_changes_channel.send(
+            msg = await self.bot.api_changes_channel.send(
                 embed=APIChangesLoopEmbed(total_changes)
             )
+            await msg.publish()
 
     @check_changes.before_loop
     async def before_check_changes(self):
