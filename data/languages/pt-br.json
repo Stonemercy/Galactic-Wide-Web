@@ -27,7 +27,7 @@
         },
         "DSSEmbed": {
             "stationed_at": "Estacionada em **{planet}** {faction_emoji}\n",
-            "next_move": "Movendo as {timestamp}",
+            "next_move": "Movendo {timestamp}",
             "max_submitable": "Maxímo submissível:\n-# {emoji} **{number}** {item}s a cada **{hours}** horas",
             "status": "Status",
             "preparing": "Preparando",
@@ -36,8 +36,8 @@
             "off_cooldown": "fora do cooldown"
         },
         "DarkEnergyEmbed": {
-            "title": "Acumulo de Energia Escura",
-            "description": "-# A Singularidade Meridiana acelera conforme a Energia Escura se acumula",
+            "title": "Acúmulo de Energia Escura",
+            "description": "-# A Singularidade de Meridia acelera conforme a Energia Escura se acumula",
             "reaches": "Chega em {number}% <t:{timestamp}:R>",
             "active_invasions": "-# Invasões Ativas: {number}",
             "total_to_be_harvested": "-# {warning} Total pronto para a coleta: {number} {warning}"
@@ -50,22 +50,22 @@
             "event_health": "Liberação Planetária",
             "players_required": "Necessário para Vitória",
             "level": "Nível de invasão",
-            "defence_held_by_dss": "\n> -# DEFENCE HELD BY DSS",
-            "dark_energy_remaining": "\nEst. **Dark Energy** remaining: **{number}**"
+            "defence_held_by_dss": "\n> -# DEFESA MANTIDA PELA EED",
+            "dark_energy_remaining": "\nEst. **Energia Escura** restante: **{number}**"
         },
         "AttackEmbed": {
             "title": "Atacando {faction}",
             "planet_health": "Liberação Planetária",
             "low_impact": "Impacto baixo/Planetas populacionais",
-            "feature": "\nFeature: {feature}"
+            "feature": "\nRecurso: {feature}"
         },
         "FooterEmbed": {
             "other_updated": "Atualizado em",
             "total_players": "Total de jogadores",
-            "liberty_day": "A GWW te deseja um feliz Dia da Liberdade",
-            "malevelon_creek_day": "A GWW te deseja um feliz Dia do Memorial de Malevelon Creek",
-            "festival_of_reckoning": "A GWW te deseja um feliz Festival da Retribuição",
-            "new_year": "A GWW te deseja um feliz Ano Novo"
+            "liberty_day": "A RG te deseja um feliz Dia da Liberdade",
+            "malevelon_creek_day": "A RG te deseja um feliz Dia do Memorial de Malevelon Creek",
+            "festival_of_reckoning": "A RG te deseja um feliz Festival da Retribuição",
+            "new_year": "A RG te deseja um feliz Ano Novo"
         }
     },
     "CampaignEmbed": {
@@ -111,10 +111,10 @@
     },
     "SetupEmbed": {
         "title": "Setup",
-        "dashboard": "Dashboard",
-        "dashboard_desc": "-# Uma dashboard com informações gerais de guerra que atualiza a cada 15 minutos\n",
-        "dashboard_channel": "Canal de dashboard",
-        "dashboard_message": "Mensagem de dashboard",
+        "dashboard": "Painel",
+        "dashboard_desc": "-# Um painel com informações gerais de guerra que atualiza a cada 15 minutos\n",
+        "dashboard_channel": "Canal do painel",
+        "dashboard_message": "Mensagem do painel",
         "announcements": "Anúncios",
         "announcements_desc": "-# Anúncios gerais a respeito da guerra (e.g. Novas MO's, Planetas perdidos/ganhos, despachos gerais)\n",
         "announcement_channel": "Canal de anúncios",
@@ -137,7 +137,7 @@
     },
     "EnemyEmbed": {
         "introduced": "Introduzido",
-        "difficulty": "Difficuldade",
+        "difficulty": "Dificuldade",
         "tactics": "Táticas",
         "weak_spots": "Pontos fracos",
         "variations": "Variações"
@@ -209,7 +209,7 @@
         }
     },
     "enemies": {
-        "missing": "Esse inimigo não está em nossos arquivos. Se você acha que isso é um erro por favor contate a Administração da GWW",
+        "missing": "Esse inimigo não está em nossos arquivos. Se você acha que isso é um erro por favor contate a Administração da RG",
         "species_or_variation": "Por favor escolha espécies *ou* variação."
     },
     "factions": {
