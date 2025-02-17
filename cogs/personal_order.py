@@ -96,6 +96,10 @@ class PersonalOrderCog(commands.Cog):
             or not self.bot.data.loaded
         ):
             return
+        if not self.bot.data.personal_order:
+            await self.bot.moderator_channel.send(
+                "Personal Order unavailable @stonemercy"
+            )
         embeds = {
             lang: PersonalOrderLoopEmbed(
                 personal_order=self.bot.data.personal_order,

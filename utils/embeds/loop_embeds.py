@@ -84,7 +84,6 @@ class PersonalOrderLoopEmbed(Embed, EmbedReprMixin):
         self.set_thumbnail(
             url="https://cdn.discordapp.com/attachments/1212735927223590974/1329395683861594132/personal_order_icon.png?ex=678a2fb6&is=6788de36&hm=2f38b1b89aa5475862c8fdbde8d8fdbd003b39e8a4591d868a51814d57882da2&"
         )
-
         for task in personal_order.setting.tasks:
             task: PersonalOrder.Setting.Tasks.Task
             if task.type == 2:  # Extract with {number} {items}
