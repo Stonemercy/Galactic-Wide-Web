@@ -68,7 +68,8 @@ class PersonalOrderCog(commands.Cog):
             guild = GWWGuild.default()
         if not self.bot.data.personal_order:
             await inter.send(
-                "Personal order data is unavailable. Please try again later."
+                "Personal order data is unavailable. Please try again later.",
+                ephemeral=public != "Yes",
             )
             return
         await inter.send(
@@ -94,12 +95,9 @@ class PersonalOrderCog(commands.Cog):
             not self.bot.interface_handler.loaded
             or po_updates_start < self.bot.ready_time
             or not self.bot.data.loaded
+            or not self.bot.data.personal_order
         ):
             return
-        if not self.bot.data.personal_order:
-            await self.bot.moderator_channel.send(
-                "Personal Order unavailable @stonemercy"
-            )
         embeds = {
             lang: PersonalOrderLoopEmbed(
                 personal_order=self.bot.data.personal_order,
