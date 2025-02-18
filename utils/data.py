@@ -135,6 +135,8 @@ class Data(ReprMixin):
                             if r.status == 200:
                                 data = await r.json()
                                 self.__data__[endpoint] = data[-1]
+                            elif r.status == 204:
+                                continue
                             else:
                                 bot.logger.error(f"API/Personal_Order, {r.status}")
                         continue
