@@ -70,3 +70,4 @@ class Emojis:
         "Intense Heat": "<:intense_heat:1340988491374264360>",
         "Tremors": "<:tremors:1340991266510475296>",
     }
+    planet_effects = {}

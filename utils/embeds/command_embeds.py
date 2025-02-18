@@ -20,15 +20,27 @@ from utils.mixins import EmbedReprMixin
 
 
 class PlanetCommandEmbed(Embed, EmbedReprMixin):
-    def __init__(self, planet_names: dict, planet: Planet, language_json: dict):
+    def __init__(
+        self,
+        planet_names: dict,
+        planet: Planet,
+        language_json: dict,
+        planet_effects: list,
+    ):
         super().__init__(colour=Colour.from_rgb(*faction_colours[planet.current_owner]))
-        self.add_planet_info(planet_names, planet, language_json)
+        self.add_planet_info(planet_names, planet, language_json, planet_effects)
         self.add_mission_stats(planet, language_json)
         self.add_hero_stats(planet, language_json)
         self.add_field("", "", inline=False)
         self.add_misc_stats(planet, language_json)
 
-    def add_planet_info(self, planet_names: dict, planet: Planet, language_json: dict):
+    def add_planet_info(
+        self,
+        planet_names: dict,
+        planet: Planet,
+        language_json: dict,
+        planet_effects: list,
+    ):
         sector = language_json["PlanetEmbed"]["sector"].format(sector=planet.sector)
         owner = language_json["PlanetEmbed"]["owner"].format(
             faction=language_json["factions"][planet.current_owner],
@@ -41,7 +53,7 @@ class PlanetCommandEmbed(Embed, EmbedReprMixin):
         environmentals = language_json["PlanetEmbed"]["environmentals"].format(
             environmentals="".join(
                 [
-                    f"\n- **{hazard['name']}**\n  - -# {hazard['description']}"
+                    f"\n- {Emojis.weather.get(hazard['name'], '')} **{hazard['name']}**\n  - -# {hazard['description']}"
                     for hazard in planet.hazards
                 ]
             )
@@ -49,12 +61,13 @@ class PlanetCommandEmbed(Embed, EmbedReprMixin):
         title_exclamation = ""
         if planet.dss:
             title_exclamation += Emojis.dss["dss"]
+            title_exclamation += Emojis.dss["operational_support"]
         if planet.in_assignment:
             title_exclamation += Emojis.icons["MO"]
         planet_health_bar = health_bar(
             (planet.event.progress if planet.event else planet.health_perc),
             (planet.event.faction if planet.event else planet.current_owner),
-            True if planet.event else False,
+            True,
         )
         if planet.event:
             planet_health_bar += f" 🛡️ {Emojis.factions[planet.event.faction]}"
@@ -80,6 +93,17 @@ class PlanetCommandEmbed(Embed, EmbedReprMixin):
             ),
             inline=False,
         )
+        if planet.dss:
+            self.add_field(
+                f"{Emojis.dss['operational_support']} Operational Support",
+                f"The presence of the {Emojis.dss['dss']} DSS near this planet provides a slight boost to **Liberation Campaign** progress.",
+                inline=False,
+            )
+        if planet_effects:
+            effects = ""
+            for effect in planet_effects:
+                effects += f"\n- {Emojis.planet_effects.get(effect['name'], '')} **{effect['name'].upper()}**\n  - -# {effect['description']}\n"
+            self.add_field("Planetary Effects", effects, inline=False)
 
     def add_mission_stats(self, planet: Planet, language_json: dict):
         self.add_field(

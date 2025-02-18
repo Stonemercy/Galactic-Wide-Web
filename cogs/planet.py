@@ -65,6 +65,10 @@ class PlanetCog(commands.Cog):
             ][0],
             planet=planet_data,
             language_json=guild_language,
+            planet_effects=[
+                self.bot.json_dict["planet_effects"][str(effect)]
+                for effect in planet_data.active_effects
+            ],
         )
         embeds = [embed]
         if not embed.image_set:

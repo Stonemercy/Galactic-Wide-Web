@@ -1,7 +1,6 @@
 from datetime import datetime
 from math import inf
 from os import getpid
-
 from psutil import Process, cpu_percent
 from data.lists import faction_colours, stratagem_image_dict, stratagem_id_dict
 from disnake import Colour, Embed, OptionType
