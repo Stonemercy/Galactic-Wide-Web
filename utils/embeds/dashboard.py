@@ -923,9 +923,6 @@ class Dashboard:
                                 time_to_complete = f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['victory'])} <t:{now_seconds + seconds_to_complete}:R>"
                                 change = f"{(sum(liberation_change['liberation_changes'])):+.2f}%/hour"
                                 liberation_text = f"\n`{change:^25}`"
-                            else:
-                                skipped_campaigns.append(campaign)
-                                continue
 
                     exclamation = (
                         Emojis.icons["MO"] if campaign.planet.in_assignment else ""
