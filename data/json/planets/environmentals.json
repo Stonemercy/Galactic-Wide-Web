@@ -16,7 +16,7 @@
 		"name": "Fire Tornadoes"
 	},
 	"intense_heat": {
-		"description": "High temperatures increase stamina drain and speed up heat buildup in weapons.",
+		"description": "Periods of high temperatures increase stamina drain and speed up heat build-up in weapons.",
 		"name": "Intense Heat"
 	},
 	"ion_storms": {
