@@ -208,12 +208,12 @@ class WeaponCommandEmbeds:
             )
             gun_fire_modes = ""
             for i in weapon_json["fire_mode"]:
-                gun_fire_modes += f"\n- **{json_dict['items']['fire_modes'][str(i)]} {Emojis.weapons[json_dict['items']['fire_modes'][str(i)]]}**"
+                gun_fire_modes += f"\n- **{json_dict['items']['fire_modes'][str(i)]}**"
 
             features = ""
             for i in weapon_json["traits"]:
                 if i != 0:
-                    features += f"\n- **{json_dict['items']['weapon_traits'][str(i)]} {Emojis.weapons[json_dict['items']['weapon_traits'][str(i)]]}**"
+                    features += f"\n- **{json_dict['items']['weapon_traits'][str(i)]}**"
                 else:
                     features = "\n- None"
 
@@ -239,9 +239,6 @@ class WeaponCommandEmbeds:
             )
             information += language_json["WeaponEmbed"]["capacity"].format(
                 capacity=weapon_json["capacity"],
-                emoji=(
-                    Emojis.weapons["Capacity"] if weapon_json["fire_rate"] != 0 else ""
-                ),
             )
             information += language_json["WeaponEmbed"]["fire_modes"].format(
                 fire_modes=gun_fire_modes
@@ -277,12 +274,12 @@ class WeaponCommandEmbeds:
             )
             gun_fire_modes = ""
             for i in weapon_json["fire_mode"]:
-                gun_fire_modes += f"\n- **{json_dict['items']['fire_modes'][str(i)]} {Emojis.weapons[json_dict['items']['fire_modes'][str(i)]]}**"
+                gun_fire_modes += f"\n- **{json_dict['items']['fire_modes'][str(i)]}**"
 
             features = ""
             for i in weapon_json["traits"]:
                 if i != 0:
-                    features += f"\n- **{json_dict['items']['weapon_traits'][str(i)]} {Emojis.weapons[json_dict['items']['weapon_traits'][str(i)]]}**"
+                    features += f"\n- **{json_dict['items']['weapon_traits'][str(i)]}**"
                 else:
                     features = "\n- None"
 
@@ -305,9 +302,6 @@ class WeaponCommandEmbeds:
             )
             information += language_json["WeaponEmbed"]["capacity"].format(
                 capacity=weapon_json["capacity"],
-                emoji=(
-                    Emojis.weapons["Capacity"] if weapon_json["fire_rate"] != 0 else ""
-                ),
             )
             information += language_json["WeaponEmbed"]["fire_modes"].format(
                 fire_modes=gun_fire_modes
@@ -446,12 +440,12 @@ class WarbondCommandEmbed(Embed, EmbedReprMixin):
                     )
                 elif item_type == "primary":
                     self.add_field(
-                        f"{item_json['name']} {Emojis.weapons['Primary']}",
+                        f"{item_json['name']}",
                         (
                             "Type: **Primary**\n"
                             f"Weapon type: **{json_dict['items']['weapon_types'][str(item_json['type'])]}**\n"
                             f"Damage: **{item_json['damage']}**\n"
-                            f"Capacity: **{item_json['capacity']}** {Emojis.weapons['Capacity']}\n"
+                            f"Capacity: **{item_json['capacity']}**\n"
                             f"Recoil: **{item_json['recoil']}**\n"
                             f"Fire Rate: **{item_json['fire_rate']}**\n"
                             f"Medal Cost: **{item['medal_cost']} {Emojis.items['Medal']}**\n\n"
@@ -459,11 +453,11 @@ class WarbondCommandEmbed(Embed, EmbedReprMixin):
                     )
                 elif item_type == "secondary":
                     self.add_field(
-                        f"{item_json['name']} {Emojis.weapons['Secondary']}",
+                        f"{item_json['name']}",
                         (
                             "Type: **Secondary**\n"
                             f"Damage: **{item_json['damage']}**\n"
-                            f"Capacity: **{item_json['capacity']}** {Emojis.weapons['Capacity']}\n"
+                            f"Capacity: **{item_json['capacity']}**\n"
                             f"Recoil: **{item_json['recoil']}**\n"
                             f"Fire Rate: **{item_json['fire_rate']}**\n"
                             f"Medal Cost: **{item['medal_cost']} {Emojis.items['Medal']}**\n\n"
@@ -471,7 +465,7 @@ class WarbondCommandEmbed(Embed, EmbedReprMixin):
                     )
                 elif item_type == "grenade":
                     self.add_field(
-                        f"{item_json['name']} {Emojis.weapons['Grenade']}",
+                        f"{item_json['name']}",
                         (
                             "Type: **Grenade**\n"
                             f"Damage: **{item_json['damage']}**\n"
@@ -605,7 +599,7 @@ class FactionCommandEmbed(Embed, EmbedReprMixin):
             description=species_info["info"]["desc"],
         )
         file_name = species_info["name"].replace(" ", "_")
-        start_emoji = Emojis.difficulty[f"difficulty{species_info['info']['start']}"]
+        start_emoji = Emojis.difficulty[species_info["info"]["start"]]
         self.add_field(
             language_json["EnemyEmbed"]["introduced"],
             f"{language_json['EnemyEmbed']['difficulty']} {species_info['info']['start']} {start_emoji}",

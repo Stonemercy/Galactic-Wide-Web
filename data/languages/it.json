@@ -162,7 +162,7 @@
         "damage": "Danno: **`{damage}`**\n",
         "fire_rate": "Cadenza di fuoco: **`{fire_rate}rpm`**\n",
         "dps": "DPS: **`{dps}/s`**\n",
-        "capacity": "Capacità: **`{capacity}`** {emoji}\n",
+        "capacity": "Capacità: **`{capacity}`**\n",
         "fire_modes": "Modalità di fuoco:{fire_modes}\n",
         "features": "Caratteristiche:{features}",
         "fuse_time": "Tempo di fusione: **`{fuse_time} secondi`**\n",

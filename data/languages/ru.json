@@ -162,7 +162,7 @@
         "damage": "Урон: **`{damage}`**\n",
         "fire_rate": "Скорость стрельбы: **`{fire_rate}rpm`**\n",
         "dps": "УВС: **`{dps}/s`**\n",
-        "capacity": "Мощность: **`{capacity}`** {emoji}\n",
+        "capacity": "Мощность: **`{capacity}`**\n",
         "fire_modes": "Режимы огня:{fire_modes}\n",
         "features": "Особенности:{features}",
         "fuse_time": "Время срабатывания: **`{fuse_time} seconds`**\n",

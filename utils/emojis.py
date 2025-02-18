@@ -3,33 +3,6 @@ from dataclasses import dataclass
 
 @dataclass
 class Emojis:
-    weapons = {
-        "Semi Automatic": "<:semiautomatic:1233068104029044838>",
-        "Burst": "<:burst:1233068096885882932>",
-        "Automatic": "<:automatic:1233068105442263121>",
-        "Pump Action": "",
-        "Double Action": "",
-        "Beam": "<:beam:1233068107065458858>",
-        "Heat": "<:heat:1233071845612191874>",
-        "Stimulative": "",
-        "Explosive": "<:explosive:1233069923539091476>",
-        "Light Armor Penetrating": "<:light_armor_penetrating:1297110874024050711>",
-        "Medium Armor Penetrating": "<:medium_armor_penetrating:1297111813837820038>",
-        "Heavy Armor Penetrating": "<:heavy_armor_penetrating:1297111784825557023>",
-        "Chargeup": "",
-        "Stun": "",
-        "Incendiary": "<:incendiary:1290281034532913185>",
-        "One Handed": "",
-        "Rounds Reload": "",
-        "All Barrels": "",
-        "Charge With Safety On": "",
-        "Charge With Safety Off": "",
-        "Bolt-Action": "",
-        "Capacity": "<:capacity:1233129432852729961>",
-        "Primary": "<:primary:1248032009968681111>",
-        "Secondary": "<:secondary:1248032011617173624>",
-        "Grenade": "<:grenade:1248032017736532101>",
-    }
     armour = {
         "Head": "<:helmet:1247853903509327942>",
         "Body": "<:body:1247853233330847754>",
@@ -74,21 +47,26 @@ class Emojis:
         "right": "<:Right_Arrow:1277557872246652928> ",
     }
     difficulty = {
-        "difficulty1": "<:trivial:1297107859766640661>",
-        "difficulty2": "<:easy:1297107895254519842>",
-        "difficulty3": "<:medium:1297108514057097261>",
-        "difficulty4": "<:challenging:1297108398663532554>",
-        "difficulty5": "<:hard:1297108434323247218>",
-        "difficulty6": "<:extreme:1297108419290857512>",
-        "difficulty7": "<:suicide_mission:1297108547515191306>",
-        "difficulty8": "<:impossible:1297108475196997663>",
-        "difficulty9": "<:helldive:1297108452124131348>",
-        "difficulty10": "<:super_helldive:1219238179551318067>",
-        "difficulty?": "?",
+        "1": "<:trivial:1297107859766640661>",
+        "2": "<:easy:1297107895254519842>",
+        "3": "<:medium:1297108514057097261>",
+        "4": "<:challenging:1297108398663532554>",
+        "5": "<:hard:1297108434323247218>",
+        "6": "<:extreme:1297108419290857512>",
+        "7": "<:suicide_mission:1297108547515191306>",
+        "8": "<:impossible:1297108475196997663>",
+        "9": "<:helldive:1297108452124131348>",
+        "10": "<:super_helldive:1219238179551318067>",
+        "?": "?",
     }
     dss = {
         "dss": "<:DSS:1308177676250513449>",
         "orbital_blockade": "<:orbital_blockade:1318875016909029388>",
         "heavy_ordnance_distribution": "<:heavy_ordnance_distribution:1318874283350687816>",
         "eagle_storm": "<:eagle_storm:1318874257773690881>",
+        "operational_support": "<:operational_support:1340990960120631376>",
+    }
+    weather = {
+        "Intense Heat": "<:intense_heat:1340988491374264360>",
+        "Tremors": "<:tremors:1340991266510475296>",
     }

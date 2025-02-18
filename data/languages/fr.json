@@ -162,7 +162,7 @@
         "damage": "Dégâts : **`{damage}`**\n",
         "fire_rate": "Cadence de tir : **`{fire_rate}rpm`**\n",
         "dps": "DPS : **`{dps}/s`**\n",
-        "capacity": "Capacité : **`{capacity}`** {emoji}\n",
+        "capacity": "Capacité : **`{capacity}`**\n",
         "fire_modes": "Modes de tir :{fire_modes}\n",
         "features": "Caractéristiques :{features}",
         "fuse_time": "Temps de détonation : **`{fuse_time} secondes`**\n",
