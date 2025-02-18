@@ -98,7 +98,7 @@ json_dict = {
 
 faction_colours = {
     "Automaton": (252, 108, 115),
-    "Terminids": (252, 188, 4),
+    "Terminids": (234, 167, 43),
     "Illuminate": (107, 59, 187),
     "Humans": (107, 183, 234),
     "MO": (254, 226, 76),
