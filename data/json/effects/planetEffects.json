@@ -248,5 +248,21 @@
 		"galacticEffectId": 1239,
 		"name": "JET BRIGADE FACTORIES",
 		"description": "Vertically enhanced Jet Brigade soldiers are produced here."
+	},
+	"1241": {
+		"galacticEffectId": 1241,
+		"name": "FRACTURED PLANET",
+		"description": "All that remains of a planet torn apart by the Meridian singularity. A solemn reminder of the desolation Tyranny leaves in its wake."
+	},
+	"1244": {
+		"galacticEffectId": 1244,
+		"name": "GLOOM RESEARCH EXPEDITION",
+		"description": "The Gloom may hold the key to stopping the Illuminate from moving the Meridian Singularity. A scientific expedition is being conducted to this planet, at extreme cost and risk. The Helldivers must secure every scrap of useful data on the Gloom. The expedition will focus its efforts on the area inside and around the colonies lost to the Gloom. This will allow the Helldivers to find and repurpose on location Super Earth equipment for the most diverse data gathering."
+	},
+	"1245": {
+		"galacticEffectId": 1245,
+		"name": "PREDATOR STRAIN",
+		"description": "A Gloom-enhanced strain of Terminids has been reported on this planet. SEAF patrols have been lured into ambushes, and picked off by unseen assailants. Every ounce of a Helldiver's superior senses will be required to hunt down this dangerous threat."
 	}
+
 }
