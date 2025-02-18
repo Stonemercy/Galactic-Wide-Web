@@ -900,6 +900,7 @@ class Dashboard:
                     continue
                 else:
                     time_to_complete = ""
+                    change = ""
                     liberation_text = ""
                     if liberation_changes != {}:
                         liberation_change = liberation_changes.get(
@@ -910,8 +911,8 @@ class Dashboard:
                             and len(liberation_change["liberation_changes"]) > 0
                         ):
                             lib_per_hour = sum(liberation_change["liberation_changes"])
-                            if lib_per_hour > 0.05:
-                                now_seconds = int(datetime.now().timestamp())
+                            now_seconds = int(datetime.now().timestamp())
+                            if lib_per_hour > 0:
                                 seconds_to_complete = int(
                                     (
                                         (100 - liberation_change["liberation"])
