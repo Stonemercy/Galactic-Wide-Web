@@ -10,6 +10,13 @@ emojis/
 requirements.txt
 env/
 resources/*.webp
+resources/dss.jpg
+resources/!old_Emojis/*
+resources/warbonds/*
+resources/currencies
+resources/difficulty_icons
+resources/DSS
+resources/weather_icons
 
 # JSON
 data/json/.github
@@ -20,7 +27,6 @@ data/json/items/weapons/README.md
 data/json/LICENSE
 data/json/README.md
 data/json/Writerside/*
-resources/warbonds/*
 
 ### Python ###
 # Byte-compiled / optimized / DLL files
