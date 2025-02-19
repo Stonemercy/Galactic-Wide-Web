@@ -68,6 +68,32 @@ class APIChangesLoopEmbed(Embed, EmbedReprMixin):
                 self.add_field(
                     f"{faction_emoji} {change.planet.name}", description, inline=False
                 )
+            elif change.statistic == "Effects":
+                removed_effects = [
+                    effect for effect in change.before if effect not in change.after
+                ]
+                new_effects = [
+                    effect for effect in change.after if effect not in change.before
+                ]
+                for effect in removed_effects:
+                    if type(effect) == dict:
+                        self.add_field(
+                            "Removed effect",
+                            f"**{effect['name']}**\n{effect['description']}",
+                            inline=False,
+                        )
+                    else:
+                        self.add_field("Removed effect", effect, inline=False)
+                for effect in new_effects:
+                    print(effect, type(effect))
+                    if type(effect) == dict:
+                        self.add_field(
+                            "New effect",
+                            f"**{effect['name']}**\n{effect['description']}",
+                            inline=False,
+                        )
+                    else:
+                        self.add_field("New effect", effect, inline=False)
 
 
 class PersonalOrderLoopEmbed(Embed, EmbedReprMixin):

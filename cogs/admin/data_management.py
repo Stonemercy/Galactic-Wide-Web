@@ -72,21 +72,51 @@ class DataManagementCog(commands.Cog):
                         )
                     )
                 if planet.waypoints != new_data.waypoints:
-                    old_waypoints = [
-                        self.bot.data.planets[waypoint].name
-                        for waypoint in planet.waypoints
-                    ]
-                    new_waypoints = [
-                        self.bot.data.planets[waypoint].name
-                        for waypoint in new_data.waypoints
-                    ]
                     total_changes.append(
-                        APIChanges(planet, "Waypoints", old_waypoints, new_waypoints)
+                        APIChanges(
+                            planet,
+                            "Waypoints",
+                            [
+                                self.bot.data.planets[waypoint].name
+                                for waypoint in planet.waypoints
+                            ],
+                            [
+                                self.bot.data.planets[waypoint].name
+                                for waypoint in new_data.waypoints
+                            ],
+                        )
+                    )
+                if planet.position != new_data.position and planet.index != 64:
+                    total_changes.append(
+                        APIChanges(
+                            planet,
+                            "Location",
+                            (planet.position["x"], planet.position["y"]),
+                            (new_data.position["x"], new_data.position["y"]),
+                        )
+                    )
+                if planet.active_effects != new_data.active_effects:
+                    total_changes.append(
+                        APIChanges(
+                            planet,
+                            "Effects",
+                            [
+                                self.bot.json_dict["planet_effects"].get(
+                                    str(effect), effect
+                                )
+                                for effect in planet.active_effects
+                            ],
+                            [
+                                self.bot.json_dict["planet_effects"].get(
+                                    str(effect), effect
+                                )
+                                for effect in new_data.active_effects
+                            ],
+                        )
                     )
         if total_changes:
-            msg = await self.bot.api_changes_channel.send(
-                embed=APIChangesLoopEmbed(total_changes)
-            )
+            embed = APIChangesLoopEmbed(total_changes=total_changes)
+            msg = await self.bot.api_changes_channel.send(embed=embed)
             await msg.publish()
 
     @check_changes.before_loop
