@@ -42,10 +42,7 @@ class MeridiaCog(commands.Cog):
                 )
             ]
             embed = APIChangesLoopEmbed(changes)
-            embed.set_thumbnail(
-                url="https://cdn.discordapp.com/emojis/1331357764039086212.webp?size=96"
-            )
-            await self.bot.api_changes_channel.send(embed=APIChangesLoopEmbed(changes))
+            await self.bot.api_changes_channel.send(embed=embed)
 
     @check_position.before_loop
     async def before_check_position(self):

@@ -60,6 +60,9 @@ class APIChangesLoopEmbed(Embed, EmbedReprMixin):
             elif change.statistic == "Location":
                 if change.planet.index == 64:
                     self.title = "Meridia has moved"
+                    self.set_thumbnail(
+                        url="https://cdn.discordapp.com/emojis/1331357764039086212.webp?size=96"
+                    )
                 description = f"Location:\n{change.before} {Emojis.stratagems['right']} {change.after}"
                 description += f"\nChange: ({change.after[0] - change.before[0]:+.8f}, {change.after[1] - change.before[1]:+.8f})"
                 self.add_field(
