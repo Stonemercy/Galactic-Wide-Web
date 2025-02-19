@@ -42,7 +42,8 @@ class MeridiaCog(commands.Cog):
                 )
             ]
             embed = APIChangesLoopEmbed(changes)
-            await self.bot.api_changes_channel.send(embed=embed)
+            msg = await self.bot.api_changes_channel.send(embed=embed)
+            await msg.publish()
 
     @check_position.before_loop
     async def before_check_position(self):
