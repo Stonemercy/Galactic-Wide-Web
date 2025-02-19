@@ -102,8 +102,12 @@ class PlanetCommandEmbed(Embed, EmbedReprMixin):
         if planet_effects:
             effects = ""
             for effect in planet_effects:
-                effects += f"\n- {Emojis.planet_effects.get(effect['name'], '')} **{effect['name'].upper()}**\n  - -# {effect['description']}\n"
-            self.add_field("Planetary Effects", effects, inline=False)
+                try:
+                    effects += f"\n- {Emojis.planet_effects.get(effect['name'], '')} **{effect['name'].upper()}**\n  - -# {effect['description']}\n"
+                except:
+                    pass
+            if effects:
+                self.add_field("Planetary Effects", effects, inline=False)
 
     def add_mission_stats(self, planet: Planet, language_json: dict):
         self.add_field(
@@ -623,7 +627,7 @@ class FactionCommandEmbed(Embed, EmbedReprMixin):
             description=species_info["info"]["desc"],
         )
         file_name = species_info["name"].replace(" ", "_")
-        start_emoji = Emojis.difficulty[species_info["info"]["start"]]
+        start_emoji = Emojis.difficulty[str(species_info["info"]["start"])]
         self.add_field(
             language_json["EnemyEmbed"]["introduced"],
             f"{language_json['EnemyEmbed']['difficulty']} {species_info['info']['start']} {start_emoji}",
