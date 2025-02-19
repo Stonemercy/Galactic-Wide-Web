@@ -66,7 +66,7 @@ class PlanetCog(commands.Cog):
             planet=planet_data,
             language_json=guild_language,
             planet_effects=[
-                self.bot.json_dict["planet_effects"][str(effect)]
+                self.bot.json_dict["planet_effects"].get(str(effect), None)
                 for effect in planet_data.active_effects
             ],
         )
