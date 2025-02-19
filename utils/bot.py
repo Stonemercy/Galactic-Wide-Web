@@ -35,6 +35,7 @@ class GalacticWideWebBot(commands.AutoShardedInteractionBot):
         self.data = Data()
         self.previous_data: Data | None = None
         self.command_usage = {}
+        self.data_points = []
         self.moderator_channel: TextChannel | None = None
         self.feedback_channel: TextChannel | None = None
         self.waste_bin_channel: TextChannel | None = None
