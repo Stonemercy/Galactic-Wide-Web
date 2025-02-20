@@ -334,8 +334,8 @@ class Dashboard:
             outlook_text = ""
             if (
                 planet_lib_changes
-                and len(planet_lib_changes["liberation_changes"]) > 0
-                and sum(planet_lib_changes["liberation_changes"]) != 0
+                and len(planet_lib_changes["liberation_changes"]) != 0
+                and sum(planet_lib_changes["liberation_changes"]) > 0.01
             ):
                 now_seconds = int(datetime.now().timestamp())
                 seconds_until_complete = int(
