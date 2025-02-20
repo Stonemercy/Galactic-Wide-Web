@@ -17,7 +17,8 @@
             "tasks": {
                 "type2": "{status_emoji} Extraire avec succès {amount} {item} sur {planet}",
                 "type3": "{status_emoji} Tuer {amount} {target}",
-                "type3.5": " en utilisant le __{weapon_to_use}__ ",
+                "type3_weapon": " en utilisant le __{weapon_to_use}__ ",
+                "type3_planet": " on {planet}",
                 "type11": "{status_emoji} Libérer {planet}",
                 "type12_with_planet": "{status_emoji} Défendre {planet} contre {number} attaques de {faction}",
                 "type12_without_planet": "{status_emoji} Défendre contre {number} attaques de {faction}",

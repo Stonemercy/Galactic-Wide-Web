@@ -17,7 +17,8 @@
             "tasks": {
                 "type2": "{status_emoji} Успешно эвакуироваться с {amount} {item} на {planet}",
                 "type3": "{status_emoji} Убить {amount} {target}",
-                "type3.5": " используя __{weapon_to_use}__ ",
+                "type3_weapon": " используя __{weapon_to_use}__ ",
+                "type3_planet": " on {planet}",
                 "type11": "{status_emoji} Освободить {planet}",
                 "type12_with_planet": "{status_emoji} Защитите {planet} от {number} атак(и) {faction}",
                 "type12_without_planet": "{status_emoji} Защититесь от {number} атак(и) со стороны {faction}",

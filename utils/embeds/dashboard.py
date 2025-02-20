@@ -166,6 +166,7 @@ class Dashboard:
                             task=task,
                             language_json=language_json,
                             species_dict=json_dict["enemies"]["enemy_ids"],
+                            planet_names=json_dict["planets"],
                         )
                     elif task.type == 11:
                         self.add_type_11(
@@ -247,7 +248,13 @@ class Dashboard:
                 inline=False,
             )
 
-        def add_type_3(self, task: Tasks.Task, language_json: dict, species_dict: dict):
+        def add_type_3(
+            self,
+            task: Tasks.Task,
+            language_json: dict,
+            species_dict: dict,
+            planet_names: dict,
+        ):
             """Kill enemies of a type"""
             species = (
                 species_dict.get(str(task.values[3]), "Unknown")
@@ -273,8 +280,15 @@ class Dashboard:
             if task.values[5] != 0:
                 weapon_to_use = stratagem_id_dict.get(task.values[5], "Unknown")
                 full_task += language_json["dashboard"]["MajorOrderEmbed"]["tasks"][
-                    "type3.5"
+                    "type3_weapon"
                 ].format(weapon_to_use=weapon_to_use)
+            if task.values[9] != 0:
+                planet_to_use = planet_names[str(task.values[9])]["names"][
+                    language_json["code_long"]
+                ]
+                full_task += language_json["dashboard"]["MajorOrderEmbed"]["tasks"][
+                    "type3_planet"
+                ].format(planet=planet_to_use)
             self.add_field(
                 name=full_task,
                 value=(

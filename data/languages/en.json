@@ -17,7 +17,8 @@
             "tasks": {
                 "type2": "{status_emoji} Successfully extract with {amount} {item} on {planet}",
                 "type3": "{status_emoji} Kill {amount} {target}",
-                "type3.5": " using the __{weapon_to_use}__ ",
+                "type3_weapon": " using the __{weapon_to_use}__ ",
+                "type3_planet": " on {planet}",
                 "type11": "{status_emoji} Liberate {planet}",
                 "type12_with_planet": "{status_emoji} Defend {planet} against {number} attacks from the {faction}",
                 "type12_without_planet": "{status_emoji} Defend against {number} attacks from the {faction}",

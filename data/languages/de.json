@@ -17,7 +17,8 @@
             "tasks": {
                 "type2": "{status_emoji} Erfolgreich extrahieren mit {amount} {item} auf {planet}",
                 "type3": "{status_emoji} Töte {amount} {target}",
-                "type3.5": " mit der __{weapon_to_use}__ ",
+                "type3_weapon": " mit der __{weapon_to_use}__ ",
+                "type3_planet": " on {planet}",
                 "type11": "{status_emoji} Befreie {planet}",
                 "type12_with_planet": "{status_emoji} Verteidige {planet} gegen {number} Angriffe von {faction}",
                 "type12_without_planet": "{status_emoji} Verteidige gegen {number} Angriffe von {faction}",
