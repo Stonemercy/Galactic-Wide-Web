@@ -159,25 +159,28 @@ class AdminCommandsCog(commands.Cog):
     async def reload_extension(
         self,
         inter: AppCmdInter,
-        ext: str = commands.Param(description="The extension to reload"),
+        file_name: str = commands.Param(description="The extension to reload"),
     ):
         await inter.response.defer(ephemeral=True)
         self.bot.logger.critical(
-            f"{self.qualified_name} | /{inter.application_command.name} <{ext = }> | used by <@{inter.author.id}> | @{inter.author.global_name}"
+            f"{self.qualified_name} | /{inter.application_command.name} <{file_name = }> | used by <@{inter.author.id}> | @{inter.author.global_name}"
         )
-        admin_ext = f"cogs.admin.{ext}"
-        ext = f"cogs.{ext}"
-        if ext not in [
-            extension for extension in self.bot.extensions.keys()
-        ] and admin_ext not in [extension for extension in self.bot.extensions.keys()]:
-            return await inter.send("Extension not found", ephemeral=True)
-        else:
-            ext = admin_ext
-        try:
-            self.bot.reload_extension(ext)
-            return await inter.send(f"Reloaded the `{ext}` extension", ephemeral=True)
-        except Exception as e:
-            return await inter.send(f"Error:\n{e}", ephemeral=True)
+        possible_paths = [f"cogs.{file_name}", f"cogs.admin.{file_name}"]
+
+        for path in possible_paths:
+            try:
+                self.bot.reload_extension(path)
+                await inter.send(f"🔄 Successfully reloaded `{path}`!", ephemeral=True)
+                return
+            except commands.ExtensionNotLoaded:
+                continue
+            except Exception as e:
+                await inter.send(f"❌ Failed to reload `{path}`\n```{e}```")
+                return
+
+        await inter.send(
+            f"⚠️ No matching extension found for `{file_name}` in `cogs/` or `cogs/admin/`."
+        )
 
     @wait_for_startup()
     @commands.is_owner()
