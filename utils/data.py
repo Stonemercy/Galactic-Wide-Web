@@ -227,6 +227,9 @@ class Data(ReprMixin):
                 elif task.type == 3:
                     if task.progress == 1:
                         continue
+                    if task.values[9] != 0:
+                        self.planets[task.values[9]].in_assignment = True
+                        continue
                     for index in [
                         planet.index
                         for planet in self.planets.values()
