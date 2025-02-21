@@ -359,7 +359,7 @@ class Dashboard:
                     )
                     * 3600
                 )
-                outlook_text = f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['victory'])} <t:{now_seconds + seconds_until_complete}:R>\n"
+                outlook_text = f"{language_json['dashboard']['outlook'].format(outlook=language_json['victory'])} <t:{now_seconds + seconds_until_complete}:R>\n"
             self.add_field(
                 name=obj_text,
                 value=(
