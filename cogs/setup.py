@@ -108,6 +108,24 @@ class SetupCog(commands.Cog):
 
     @commands.Cog.listener("on_button_click")
     async def on_button_clicks(self, inter: MessageInteraction):
+        allowed_ids = {
+            "dashboard_button",
+            "set_dashboard_button",
+            "clear_dashboard_button",
+            "announcements_button",
+            "set_announcements_button",
+            "clear_announcements_button",
+            "map_button",
+            "set_map_button",
+            "clear_map_button",
+            "language_button",
+            "patch_notes_button",
+            "major_order_updates_button",
+            "personal_order_updates_button",
+            "detailed_dispatches_updates_button",
+        }
+        if inter.component.custom_id not in allowed_ids:
+            return
         action_rows = ActionRow.rows_from_message(inter.message)
         guild = GWWGuild.get_by_id(inter.guild_id)
         guild_language = self.bot.json_dict["languages"][guild.language]
@@ -515,12 +533,13 @@ class SetupCog(commands.Cog):
 
     @commands.Cog.listener("on_dropdown")
     async def on_dropdowns(self, inter: MessageInteraction):
-        if inter.component.custom_id not in (
+        allowed_ids = {
             "dashboard_channel_select",
             "announcements_channel_select",
             "map_channel_select",
             "language_select",
-        ):
+        }
+        if inter.component.custom_id not in allowed_ids:
             return
         action_rows = ActionRow.rows_from_message(inter.message)
         guild = GWWGuild.get_by_id(inter.guild_id)
