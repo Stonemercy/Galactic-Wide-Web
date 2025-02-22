@@ -292,9 +292,13 @@ class Dashboard:
             self.add_field(
                 name=full_task,
                 value=(
-                    f"{language_json['dashboard']['progress']}: **{(task.values[2]*task.progress):,.0f}**\n"
-                    f"{task.health_bar}\n"
-                    f"`{(task.progress):^25,.2%}`"
+                    (
+                        f"{language_json['dashboard']['progress']}: **{(task.values[2]*task.progress):,.0f}**\n"
+                        f"{task.health_bar}\n"
+                        f"`{(task.progress):^25,.2%}`"
+                    )
+                    if task.progress != 1
+                    else ""
                 ),
                 inline=False,
             )
