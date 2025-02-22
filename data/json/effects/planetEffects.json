@@ -249,6 +249,11 @@
 		"name": "JET BRIGADE FACTORIES",
 		"description": "Vertically enhanced Jet Brigade soldiers are produced here."
 	},
+	"1240": {
+		"galacticEffectId": 1240,
+		"name": "COLLISION COURSE",
+		"description": "The Meridian Singularity is moving towards this planet which could tear it apart."
+	},
 	"1241": {
 		"galacticEffectId": 1241,
 		"name": "FRACTURED PLANET",
