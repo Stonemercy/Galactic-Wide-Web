@@ -85,7 +85,6 @@ class APIChangesLoopEmbed(Embed, EmbedReprMixin):
                     else:
                         self.add_field("Removed effect", effect, inline=False)
                 for effect in new_effects:
-                    print(effect, type(effect))
                     if type(effect) == dict:
                         self.add_field(
                             "New effect",
