@@ -1,4 +1,6 @@
-from datetime import datetime
+from datetime import datetime, timedelta
+from math import sqrt
+from typing import Self
 from data.lists import language_dict
 from dotenv import load_dotenv
 from os import getenv
@@ -70,7 +72,7 @@ class GWWGuild(ReprMixin):
                 return GWWGuild.new(guild_id) if not record else cls(*record)
 
     @classmethod
-    def get_all(cls) -> list:
+    def get_all(cls) -> list[Self]:
         with connect(
             host=hostname, dbname=database, user=username, password=pwd, port=port_id
         ) as conn:
@@ -380,34 +382,45 @@ class Meridia(ReprMixin):
     __slots__ = "locations"
 
     def __init__(self):
-        self.locations = self.Locations()
+        with connect(
+            host=hostname,
+            dbname=database,
+            user=username,
+            password=pwd,
+            port=port_id,
+        ) as conn:
+            with conn.cursor() as curs:
+                curs.execute(f"SELECT * FROM meridia")
+                records = curs.fetchall()
+                self.locations = [self.Location(*record) for record in records]
+        self.now = datetime.now()
+        self.last_4_hours = [
+            location
+            for location in self.locations
+            if location.timestamp > self.now - timedelta(hours=4, minutes=5)
+        ]
 
-    class Locations(list):
-        def __init__(self):
-            with connect(
-                host=hostname,
-                dbname=database,
-                user=username,
-                password=pwd,
-                port=port_id,
-            ) as conn:
-                with conn.cursor() as curs:
-                    curs.execute(f"SELECT * FROM meridia")
-                    records = curs.fetchall()
-                    (
-                        self.extend([self.Location(*record) for record in records])
-                        if records
-                        else None
-                    )
+    @property
+    def speed(self):
+        "returns speed in units per second"
+        current_location = self.locations[-1]
+        location_four_hours_ago = self.locations[-16]
+        time_difference = (
+            current_location.timestamp - location_four_hours_ago.timestamp
+        ).total_seconds()
+        delta_x = current_location.x - location_four_hours_ago.x
+        delta_y = current_location.y - location_four_hours_ago.y
+        distance_moved = sqrt(delta_x**2 + delta_y**2)
+        return distance_moved / time_difference  # in units per second
 
-        class Location(ReprMixin):
-            def __init__(self, timestamp, x, y):
-                self.timestamp: datetime = timestamp
-                self.x = x
-                self.y = y
+    class Location(ReprMixin):
+        def __init__(self, timestamp, x, y):
+            self.timestamp: datetime = timestamp
+            self.x = x
+            self.y = y
+            self.as_tuple = (self.x, self.y)
 
-    @staticmethod
-    def new_location(timestamp, x, y):
+    def new_location(self, timestamp, x, y):
         with connect(
             host=hostname, dbname=database, user=username, password=pwd, port=port_id
         ) as conn:
@@ -416,3 +429,6 @@ class Meridia(ReprMixin):
                     f"INSERT into meridia (timestamp, x, y) VALUES {timestamp, x, y}"
                 )
                 conn.commit()
+                self.locations.append(
+                    self.Location(datetime.fromisoformat(timestamp), x, y)
+                )

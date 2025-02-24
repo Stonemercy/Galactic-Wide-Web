@@ -15,6 +15,7 @@ from utils.data import (
     Planets,
     Steam,
 )
+from utils.db import Meridia
 from utils.emojis import Emojis
 from utils.mixins import EmbedReprMixin
 
@@ -472,7 +473,7 @@ class CampaignLoopEmbed(Embed, EmbedReprMixin):
         )
         self.set_field_at(1, self.fields[1].name, description, inline=False)
 
-    def add_invasion_over(self, planet: Planet, faction: str):
+    def add_invasion_over(self, planet: Planet, faction: str, win_status: bool = False):
         name = self.fields[4].name
         description = self.fields[4].value
         exclamation = ""
@@ -487,12 +488,20 @@ class CampaignLoopEmbed(Embed, EmbedReprMixin):
             faction_emoji=Emojis.factions[planet.current_owner],
             exclamation=exclamation,
         )
-        description += self.language_json["CampaignEmbed"][
-            "no_territory_change"
-        ].format(
-            faction=faction,
-            faction_emoji=Emojis.factions[faction],
-        )
+        if not win_status:
+            description += self.language_json["CampaignEmbed"][
+                "no_territory_change"
+            ].format(
+                faction=faction,
+                faction_emoji=Emojis.factions[faction],
+            )
+        else:
+            description += self.language_json["CampaignEmbed"][
+                "with_time_remaining"
+            ].format(
+                faction=faction,
+                faction_emoji=Emojis.factions[faction],
+            )
         self.set_field_at(4, name, description, inline=False)
 
     def remove_empty(self):
@@ -544,3 +553,30 @@ class UsageLoopEmbed(Embed, EmbedReprMixin):
         self.add_field(
             "", f"-# as of <t:{int(datetime.now().timestamp())}:R>", inline=False
         )
+
+
+class MeridiaLoopEmbed(Embed, EmbedReprMixin):
+    def __init__(self, meridia: Meridia):
+        super().__init__(title="Meridia Update", colour=Colour.from_rgb(106, 76, 180))
+        self.set_thumbnail(
+            url="https://cdn.discordapp.com/emojis/1331357764039086212.webp?size=96"
+        )
+        for index, location in enumerate(
+            [
+                location
+                for location in meridia.locations[-16:][::-1]
+                if location.timestamp.minute == meridia.locations[-1].timestamp.minute
+            ],
+            1,
+        ):
+            if index == 3:
+                self.add_field("", "", inline=False)
+            self.add_field(
+                f"{index}",
+                (
+                    f"<t:{int(location.timestamp.timestamp())}:f>\n"
+                    f"-# <t:{int(location.timestamp.timestamp())}:R>\n"
+                    f"{location.as_tuple}"
+                ),
+            )
+        self.add_field("Speed", f"{(meridia.speed*1000)*3600:.2f}SU/hour", inline=False)

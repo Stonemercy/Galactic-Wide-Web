@@ -26,6 +26,7 @@ class WarUpdatesCog(commands.Cog):
         if (
             not self.bot.interface_handler.loaded
             or not self.bot.data.loaded
+            or not self.bot.previous_data
             or update_start < self.bot.ready_time
             or self.bot.interface_handler.busy
         ):
@@ -66,8 +67,20 @@ class WarUpdatesCog(commands.Cog):
                 planet = self.bot.data.planets[old_campaign.planet_index]
                 if planet.current_owner == "Humans" and old_campaign.owner == "Humans":
                     if old_campaign.event_type == 2:
+                        old_planet = self.bot.previous_data.planets[
+                            old_campaign.planet_index
+                        ]
+                        win_status = False
+                        if old_planet.event:
+                            win_status = (
+                                old_planet.event.end_time_datetime > datetime.now()
+                            )
                         for embed in embeds.values():
-                            embed.add_invasion_over(planet, old_campaign.event_faction)
+                            embed.add_invasion_over(
+                                planet,
+                                old_campaign.event_faction,
+                                win_status=win_status,
+                            )
                     else:
                         for embed in embeds.values():
                             embed.add_def_victory(planet)
@@ -193,6 +206,12 @@ class WarUpdatesCog(commands.Cog):
                 embed.add_invasion_over(
                     def_campaign.planet,
                     choice(["Terminids", "Automaton", "Illuminate"]),
+                    win_status=True,
+                )
+                embed.add_invasion_over(
+                    def_campaign.planet,
+                    choice(["Terminids", "Automaton", "Illuminate"]),
+                    win_status=False,
                 )
             else:
                 embed.add_new_campaign(

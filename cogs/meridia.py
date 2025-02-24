@@ -1,51 +1,43 @@
 from datetime import datetime, time, timedelta
 from disnake import AppCmdInter, File, InteractionContextTypes, ApplicationInstallTypes
 from disnake.ext import commands, tasks
-from cogs.admin.data_management import APIChanges
 from main import GalacticWideWebBot
 from math import sqrt
 from numpy import array, hypot
 from utils.checks import wait_for_startup
 from utils.db import GWWGuild, Meridia
 from utils.embeds.command_embeds import MeridiaCommandEmbed
-from utils.embeds.loop_embeds import APIChangesLoopEmbed
 import matplotlib.pyplot as plt
 import PIL.Image as Image
+from utils.embeds.loop_embeds import MeridiaLoopEmbed
 
 
 class MeridiaCog(commands.Cog):
     def __init__(self, bot: GalacticWideWebBot):
         self.bot = bot
-        self.check_position.start()
+        self.meridia_update.start()
 
     def cog_unload(self):
-        self.check_position.stop()
+        self.meridia_update.stop()
 
     @tasks.loop(
-        time=[
-            time(hour=i, minute=j, second=0)
-            for i in range(24)
-            for j in range(10, 60, 15)
-        ]
+        time=[time(hour=i, minute=j) for i in range(24) for j in range(10, 60, 15)]
     )
-    async def check_position(self):
+    async def meridia_update(self):
         if not self.bot.data.meridia_position:
             return
-        new_coords = self.bot.data.meridia_position
-        last_location: Meridia.Locations.Location = Meridia().locations[-1]
-        old_coords = (last_location.x, last_location.y)
-        if new_coords != old_coords:
-            Meridia.new_location(datetime.now().isoformat(), *new_coords)
-            changes = [
-                APIChanges(
-                    self.bot.data.planets[64], "Location", old_coords, new_coords
-                )
-            ]
-            embed = APIChangesLoopEmbed(changes)
+        now = datetime.now()
+        newest_coords = self.bot.data.meridia_position
+        meridia = Meridia()
+        old_coords = meridia.locations[-1].as_tuple
+        if newest_coords != old_coords:
+            meridia.new_location(datetime.now().isoformat(), *newest_coords)
+        if now.hour % 4 == 0 and now.minute == 10:
+            embed = MeridiaLoopEmbed(meridia=meridia)
             msg = await self.bot.api_changes_channel.send(embed=embed)
             await msg.publish()
 
-    @check_position.before_loop
+    @meridia_update.before_loop
     async def before_check_position(self):
         await self.bot.wait_until_ready()
 
@@ -86,9 +78,9 @@ class MeridiaCog(commands.Cog):
             guild = GWWGuild.default()
         map_img = Image.open(f"resources/{guild.language}.webp")
         meridia_info = Meridia()
-        coordinates = [(coord.x, coord.y) for coord in meridia_info.locations]
         coordinates_fixed = [
-            ((x + 1) / 2 * 2000, (y + 1) / 2 * 2000) for x, y in coordinates
+            ((x + 1) / 2 * 2000, (y + 1) / 2 * 2000)
+            for x, y in [coord.as_tuple for coord in meridia_info.locations]
         ]
         x, y = zip(*coordinates_fixed)
         padding = meridia_info.locations[-1].x * 1000
