@@ -143,7 +143,6 @@ class Dashboard:
                     name="",
                     value=language_json["major_order"]["MO_unavailable"],
                 )
-                return
             else:
                 task_numbers = [task.type for task in assignment.tasks]
                 task_for_image = max(set(task_numbers), key=task_numbers.count)
