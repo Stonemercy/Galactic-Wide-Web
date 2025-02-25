@@ -162,7 +162,8 @@ class SetupCog(commands.Cog):
                         )
                     )
                 )
-                return await inter.response.edit_message(components=action_rows)
+                await inter.response.edit_message(components=action_rows)
+                return
             elif inter.component.custom_id == "clear_dashboard_button":
                 guild.dashboard_channel_id = 0
                 guild.dashboard_message_id = 0
@@ -173,12 +174,13 @@ class SetupCog(commands.Cog):
                     if message.guild.id != inter.guild_id
                 ]
                 self.reset_row_1(action_rows[0])
-                return await inter.response.edit_message(
+                await inter.response.edit_message(
                     embed=SetupCommandEmbed(
                         guild, self.bot.json_dict["languages"][guild.language]
                     ),
                     components=action_rows,
                 )
+                return
         elif "announcements" in inter.component.custom_id:
             self.clear_extra_buttons(action_rows)
             if inter.component.custom_id == "announcements_button":
@@ -201,7 +203,8 @@ class SetupCog(commands.Cog):
                         language_json=guild_language, selected=True
                     ),
                 )
-                return await inter.response.edit_message(components=action_rows)
+                await inter.response.edit_message(components=action_rows)
+                return
             elif inter.component.custom_id == "set_announcements_button":
                 action_rows.append(
                     ActionRow(
@@ -210,7 +213,8 @@ class SetupCog(commands.Cog):
                         )
                     )
                 )
-                return await inter.response.edit_message(components=action_rows)
+                await inter.response.edit_message(components=action_rows)
+                return
             elif inter.component.custom_id == "clear_announcements_button":
                 try:
                     channel = self.bot.get_channel(
@@ -252,12 +256,13 @@ class SetupCog(commands.Cog):
                     )
                 )
                 self.reset_row_1(action_rows[0])
-                return await inter.response.edit_message(
+                await inter.response.edit_message(
                     embed=SetupCommandEmbed(
                         guild, self.bot.json_dict["languages"][guild.language]
                     ),
                     components=action_rows,
                 )
+                return
         elif "map" in inter.component.custom_id:
             if inter.component.custom_id == "map_button":
                 self.clear_extra_buttons(action_rows)
@@ -277,13 +282,15 @@ class SetupCog(commands.Cog):
                 action_rows[0].insert_item(
                     2, Setup.Map.MapButton(language_json=guild_language, selected=True)
                 )
-                return await inter.response.edit_message(components=action_rows)
+                await inter.response.edit_message(components=action_rows)
+                return
             elif inter.component.custom_id == "set_map_button":
                 self.clear_extra_buttons(action_rows)
                 action_rows.append(
                     ActionRow(Setup.Map.MapChannelSelect(language_json=guild_language))
                 )
-                return await inter.response.edit_message(components=action_rows)
+                await inter.response.edit_message(components=action_rows)
+                return
             elif inter.component.custom_id == "clear_map_button":
                 self.clear_extra_buttons(action_rows)
                 guild.map_channel_id = 0
@@ -295,12 +302,13 @@ class SetupCog(commands.Cog):
                     if message.guild.id != inter.guild_id
                 ]
                 self.reset_row_1(action_rows[0])
-                return await inter.response.edit_message(
+                await inter.response.edit_message(
                     embed=SetupCommandEmbed(
                         guild, self.bot.json_dict["languages"][guild.language]
                     ),
                     components=action_rows,
                 )
+                return
         elif "language" in inter.component.custom_id:
             if inter.component.custom_id == "language_button":
                 self.clear_extra_buttons(action_rows)
@@ -342,12 +350,13 @@ class SetupCog(commands.Cog):
                     0, Setup.PatchNotes.PatchNotesButton(language_json=guild_language)
                 )
                 action_rows[1][0].disabled = False
-                return await inter.response.edit_message(
+                await inter.response.edit_message(
                     embed=SetupCommandEmbed(
                         guild, self.bot.json_dict["languages"][guild.language]
                     ),
                     components=action_rows,
                 )
+                return
             else:  # want to enable
                 channel = self.bot.get_channel(
                     guild.announcement_channel_id
@@ -365,12 +374,13 @@ class SetupCog(commands.Cog):
                     ),
                 )
                 action_rows[1][0].disabled = False
-                return await inter.response.edit_message(
+                await inter.response.edit_message(
                     embed=SetupCommandEmbed(
                         guild, self.bot.json_dict["languages"][guild.language]
                     ),
                     components=action_rows,
                 )
+                return
         elif inter.component.custom_id == "major_order_updates_button":
             if guild.major_order_updates:  # want to disable
                 channel = self.bot.get_channel(
@@ -389,22 +399,24 @@ class SetupCog(commands.Cog):
                     ),
                 )
                 action_rows[1].children[1].disabled = False
-                return await inter.response.edit_message(
+                await inter.response.edit_message(
                     embed=SetupCommandEmbed(
                         guild, self.bot.json_dict["languages"][guild.language]
                     ),
                     components=action_rows,
                 )
+                return
             else:  # want to enable
                 try:
                     channel = self.bot.get_channel(
                         guild.announcement_channel_id
                     ) or await self.bot.fetch_channel(guild.announcement_channel_id)
                 except NotFound:
-                    return await inter.send(
+                    await inter.send(
                         "Your announcements channel could not be found. Please reset it.",
                         ephemeral=True,
                     )
+                    return
                 self.bot.interface_handler.news_feeds.channels_dict["MO"].append(
                     channel
                 )
@@ -418,12 +430,13 @@ class SetupCog(commands.Cog):
                     ),
                 )
                 action_rows[1].children[1].disabled = False
-                return await inter.response.edit_message(
+                await inter.response.edit_message(
                     embed=SetupCommandEmbed(
                         guild, self.bot.json_dict["languages"][guild.language]
                     ),
                     components=action_rows,
                 )
+                return
         elif inter.component.custom_id == "personal_order_updates_button":
             if guild.personal_order_updates:  # want to disable
                 channel = self.bot.get_channel(
@@ -442,22 +455,24 @@ class SetupCog(commands.Cog):
                     ),
                 )
                 action_rows[1].children[2].disabled = False
-                return await inter.response.edit_message(
+                await inter.response.edit_message(
                     embed=SetupCommandEmbed(
                         guild, self.bot.json_dict["languages"][guild.language]
                     ),
                     components=action_rows,
                 )
+                return
             else:  # want to enable
                 try:
                     channel = self.bot.get_channel(
                         guild.announcement_channel_id
                     ) or await self.bot.fetch_channel(guild.announcement_channel_id)
                 except NotFound:
-                    return await inter.send(
+                    await inter.send(
                         "Your announcements channel could not be found. Please reset it.",
                         ephemeral=True,
                     )
+                    return
                 self.bot.interface_handler.news_feeds.channels_dict["PO"].append(
                     channel
                 )
@@ -471,12 +486,13 @@ class SetupCog(commands.Cog):
                     ),
                 )
                 action_rows[1].children[2].disabled = False
-                return await inter.response.edit_message(
+                await inter.response.edit_message(
                     embed=SetupCommandEmbed(
                         guild, self.bot.json_dict["languages"][guild.language]
                     ),
                     components=action_rows,
                 )
+                return
         elif inter.component.custom_id == "detailed_dispatches_updates_button":
             if guild.detailed_dispatches:  # want to disable
                 channel = self.bot.get_channel(
@@ -484,9 +500,12 @@ class SetupCog(commands.Cog):
                 ) or await self.bot.fetch_channel(guild.announcement_channel_id)
                 guild.detailed_dispatches = False
                 guild.save_changes()
-                self.bot.interface_handler.news_feeds.channels_dict[
-                    "DetailedDispatches"
-                ].remove(channel)
+                try:
+                    self.bot.interface_handler.news_feeds.channels_dict[
+                        "DetailedDispatches"
+                    ].remove(channel)
+                except:
+                    pass
                 action_rows[1].pop(3)
                 action_rows[1].insert_item(
                     3,
@@ -495,22 +514,24 @@ class SetupCog(commands.Cog):
                     ),
                 )
                 action_rows[1].children[3].disabled = False
-                return await inter.response.edit_message(
+                await inter.response.edit_message(
                     embed=SetupCommandEmbed(
                         guild, self.bot.json_dict["languages"][guild.language]
                     ),
                     components=action_rows,
                 )
+                return
             else:  # want to enable
                 try:
                     channel = self.bot.get_channel(
                         guild.announcement_channel_id
                     ) or await self.bot.fetch_channel(guild.announcement_channel_id)
                 except NotFound:
-                    return await inter.send(
+                    await inter.send(
                         "Your announcements channel could not be found. Please reset it.",
                         ephemeral=True,
                     )
+                    return
                 self.bot.interface_handler.news_feeds.channels_dict[
                     "DetailedDispatches"
                 ].append(channel)
@@ -524,12 +545,13 @@ class SetupCog(commands.Cog):
                     ),
                 )
                 action_rows[1].children[3].disabled = False
-                return await inter.response.edit_message(
+                await inter.response.edit_message(
                     embed=SetupCommandEmbed(
                         guild, self.bot.json_dict["languages"][guild.language]
                     ),
                     components=action_rows,
                 )
+                return
 
     @commands.Cog.listener("on_dropdown")
     async def on_dropdowns(self, inter: MessageInteraction):
@@ -550,10 +572,11 @@ class SetupCog(commands.Cog):
                     inter.values[0]
                 ) or await self.bot.fetch_channel(inter.values[0])
             except:
-                return await inter.send(
+                await inter.send(
                     guild_language["setup"]["missing_perm"],
                     ephemeral=True,
                 )
+                return
             my_permissions = dashboard_channel.permissions_for(inter.guild.me)
             dashboard_perms_have = my_permissions.is_superset(
                 self.dashboard_perms_needed
@@ -565,12 +588,13 @@ class SetupCog(commands.Cog):
                     if getattr(my_permissions, perm) is False
                     and getattr(self.dashboard_perms_needed, perm) is True
                 ]
-                return await inter.send(
+                await inter.send(
                     guild_language["setup"]["missing_perm"].format(
                         permissions="".join(missing_permissions)
                     ),
                     ephemeral=True,
                 )
+                return
             else:
                 dashboard = Dashboard(
                     self.bot.data,
@@ -583,10 +607,11 @@ class SetupCog(commands.Cog):
                     )
                 except Exception as e:
                     self.bot.logger.error(f"SetupCog | dashboard setup | {e}")
-                    return await inter.send(
+                    await inter.send(
                         "An error has occured, I have contacted Super Earth High Command.",
                         ephemeral=True,
                     )
+                    return
                 guild.dashboard_channel_id = dashboard_channel.id
                 guild.dashboard_message_id = message.id
                 guild.save_changes()
@@ -601,10 +626,11 @@ class SetupCog(commands.Cog):
                     inter.values[0]
                 ) or await self.bot.fetch_channel(inter.values[0])
             except:
-                return await inter.send(
+                await inter.send(
                     guild_language["setup"]["cant_find_channel"],
                     ephemeral=True,
                 )
+                return
 
             my_permissions = announcement_channel.permissions_for(inter.guild.me)
             annnnouncement_perms_have = my_permissions.is_superset(
@@ -617,12 +643,13 @@ class SetupCog(commands.Cog):
                     if getattr(my_permissions, perm) is False
                     and getattr(self.annnnouncement_perms_needed, perm) is True
                 ]
-                return await inter.send(
+                await inter.send(
                     guild_language["setup"]["missing_perm"].format(
                         permissions="".join(missing_permissions)
                     ),
                     ephemeral=True,
                 )
+                return
             else:
                 guild.announcement_channel_id = announcement_channel.id
                 guild.save_changes()
@@ -644,10 +671,11 @@ class SetupCog(commands.Cog):
                     inter.values[0]
                 ) or await self.bot.fetch_channel(inter.values[0])
             except:
-                return await inter.send(
+                await inter.send(
                     guild_language["setup"]["missing_perm"],
                     ephemeral=True,
                 )
+                return
             my_permissions = map_channel.permissions_for(inter.guild.me)
             map_perms_have = my_permissions.is_superset(self.map_perms_needed)
             if not map_perms_have:
@@ -657,12 +685,13 @@ class SetupCog(commands.Cog):
                     if getattr(my_permissions, perm) is False
                     and getattr(self.map_perms_needed, perm) is True
                 ]
-                return await inter.send(
+                await inter.send(
                     guild_language["setup"]["missing_perm"].format(
                         permissions="".join(missing_permissions)
                     ),
                     ephemeral=True,
                 )
+                return
             else:
                 self.clear_extra_buttons(action_rows)
                 self.reset_row_1(action_rows[0])
