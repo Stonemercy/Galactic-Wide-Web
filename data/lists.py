@@ -6,6 +6,16 @@ language_dict = {
     "Brazilian Portuguese": "pt-br",
     "Russian": "ru",
 }
+"""Dictionary of languages supported by the bot
+
+Format:
+
+    "Full Language Name": "language-code"
+    
+Example:
+
+    "English": "en"
+"""
 
 json_dict = {
     "languages": {
@@ -104,6 +114,16 @@ faction_colours = {
     "MO": (254, 226, 76),
     "DSS": (214, 232, 248),
 }
+"""Dictionary of Colours used by the bot
+
+Format:
+
+    "faction": (int, int, int)
+
+Exmaple:
+
+    "Automaton": (214, 232, 248)
+"""
 
 warbond_images_dict = {
     "Helldivers Mobilize": "https://media.discordapp.net/attachments/1212735927223590974/1234539583086264320/helldivers_mobilize.png?ex=66311a15&is=662fc895&hm=917734dcbeeb5b89a6d3a48c17fff8af49524c9c7187506e7d4ef8a6f37c8a00&=&format=webp&quality=lossless",
@@ -117,6 +137,16 @@ warbond_images_dict = {
     "Truth Enforcers": "https://media.discordapp.net/attachments/1212735927223590974/1301502200849104947/truth_enforcers.png?ex=6724b5e1&is=67236461&hm=c36872146e2ac4fbbaac4ddab19a291927d2e938c6a3cdd00a9b333408e54d1e&=&format=webp&quality=lossless&width=1202&height=676",
     "Urban Legends": "https://cdn.discordapp.com/attachments/1212735927223590974/1317150385047081110/urban_legends.png?ex=675da363&is=675c51e3&hm=5e894ce871829ccc6ce2899b695692b15a08aad3921f0c390b14cd3b4685ce2c&",
 }
+"""Dictionary of Warbond images hosted by Discord
+
+Format:
+
+    "Warbond Name": "link"
+
+Example:
+
+    "Helldivers Mobilize": "https://media.discordapp.net/attachments/edited/to/save.space"
+"""
 
 assignment_task_images_dict = {
     2: "https://cdn.discordapp.com/attachments/1212735927223590974/1338186496967966720/mo_icon_liberate.png?ex=67aa2acb&is=67a8d94b&hm=aa64d3140e3d0e84f1e471906dca59c193e3db72cca0fb9ee1069740a776359a&",
@@ -126,20 +156,17 @@ assignment_task_images_dict = {
     13: "https://cdn.discordapp.com/attachments/1212735927223590974/1340985264780218418/Type_13_MO.png?ex=67b45959&is=67b307d9&hm=fd3feddc3481aeb00a9f66262dba473c88d1401ba177caa0d176639ec5fdde89&",
     15: "https://cdn.discordapp.com/attachments/1212735927223590974/1338186496967966720/mo_icon_liberate.png?ex=67aa2acb&is=67a8d94b&hm=aa64d3140e3d0e84f1e471906dca59c193e3db72cca0fb9ee1069740a776359a&",
 }
+"""Dictionary of Assignment images hosted by Discord
 
-task_type_15_progress_dict = {
-    -10: 0,
-    -8: 0.1,
-    -6: 0.2,
-    -4: 0.3,
-    -2: 0.4,
-    0: 0.5,
-    2: 0.6,
-    4: 0.7,
-    6: 0.8,
-    8: 0.9,
-    10: 1,
-}
+Format:
+
+    task_type: "link"
+
+Example:
+
+    2: "https://cdn.discordapp.com/attachments/edited/to/save.some?space"
+"""
+
 
 help_dict = {
     "automaton": {
@@ -219,6 +246,22 @@ help_dict = {
         "example_usage": "**`/weapons primary primary:AR-23C Liberator Concussive, public:Yes`** would return details on the AR-23 Liberator Concussive, including an image of the weapon. Other people in the server can see it too.",
     },
 }
+"""Dictionary of long descriptions and example usages for current bot commands
+
+Format:
+
+    "command_name": {
+        "long_description": "description", 
+        "example_usage": "usage"
+    }
+
+Example:
+
+    "weapons": {
+        "long_description": "Longer description of the command",
+        "example_usage": "Some **`Exmaple Usage`**"
+    }
+"""
 
 emotes_list = [
     "Casual Salute",
@@ -232,6 +275,12 @@ emotes_list = [
     "At Ease",
     "This is Democracy",
 ]
+"""A list of emote names
+
+Example:
+
+    "Casual Salute"
+"""
 
 victory_poses_list = [
     "Clapping",
@@ -259,6 +308,12 @@ victory_poses_list = [
     "Thoracic Collision Exultation Maneuver",
     "Ew",
 ]
+"""A list of victory pose names
+
+Example:
+
+    "Clapping"
+"""
 
 player_cards_list = [
     "Independence Bringer",
@@ -294,6 +349,12 @@ player_cards_list = [
     "Rebar Resolve",
     "Holder of the Yellow Line",
 ]
+"""A list of player card names
+
+Example:
+
+    "Independence Bringer"
+"""
 
 titles_list = [
     "Cadet",
@@ -325,6 +386,12 @@ titles_list = [
     "Super Pedestrian",
     "Assault Infantry",
 ]
+"""A list of title names
+
+Example:
+
+    "Cadet"
+"""
 
 stratagem_permit_list = [
     "TX-41 Sterilizer",
@@ -333,6 +400,12 @@ stratagem_permit_list = [
     "Anti-Tank Emplacement",
     "Directional Shield",
 ]
+"""A list of stratagem permit names
+
+Example:
+
+    "TX-41 Sterilizer"
+"""
 
 stratagem_id_dict = {
     1078307866: "Orbital Gatling Barrage",
@@ -393,6 +466,16 @@ stratagem_id_dict = {
     295440526: "RS-422 Railgun",
     1725541340: "TX-41 Sterilizer",
 }
+"""Dictionary of stratagem ID's and names
+
+Format:
+
+    stratagem_id: "Stratagem Name"
+
+Example:
+
+    1078307866: "Orbital Gatling Barrage",
+"""
 
 stratagem_image_dict = {
     1078307866: "https://helldivers.wiki.gg/images/f/f6/Orbital_Gatling_Barrage_Stratagem_Icon.png",
@@ -453,3 +536,13 @@ stratagem_image_dict = {
     202236804: "https://helldivers.wiki.gg/images/5/54/Spear_Stratagem_Icon.png",
     1725541340: "https://helldivers.wiki.gg/images/2/29/Sterilizer_Stratagem_Icon.png",
 }
+"""Dictionary of stratagem ID's and Icons
+
+Format:
+
+    stratagem_id: "stratagem_image_link"
+
+Example:
+
+    1078307866: "https://helldivers.wiki.gg/images/f/f6/Orbital_Gatling_Barrage_Stratagem_Icon.png"
+"""
