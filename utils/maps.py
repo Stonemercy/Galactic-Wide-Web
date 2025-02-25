@@ -302,26 +302,19 @@ class Maps:
             for planet in self.data.planets.values()
             if 1241 in planet.active_effects
         ]
+        radius = 11
         for planet_index in affected_planets:
-            coords = self.planet_coordinates[planet_index]
-            self._draw_planet_cracks(draw, coords, radius=10)
-
-    def _draw_planet_cracks(self, draw: ImageDraw.ImageDraw, center, radius=10):
-        cx, cy = center
-        for _ in range(8):
-            start_angle = randint(0, 360)
-            segments = randint(7, 12)
-            x, y = cx + int(radius * cos(radians(start_angle))), cy + int(
-                radius * sin(radians(start_angle))
-            )
-            for _ in range(segments):
-                angle_variation = randint(-20, 20)
-                start_angle += angle_variation
-                step_size = uniform(3, 6)
-                new_x = cx + int((radius - step_size) * cos(radians(start_angle)))
-                new_y = cy + int((radius - step_size) * sin(radians(start_angle)))
-                draw.line([(x, y), (new_x, new_y)], fill="black", width=3)
-                x, y = new_x, new_y
+            cx, cy = self.planet_coordinates[planet_index]
+            angles = []
+            while len(angles) < 7:
+                candidate = randint(0, 360)
+                if all(abs(candidate - a) >= 30 for a in angles):
+                    angles.append(candidate)
+            for start_angle in angles:
+                step_size = radius * 1.2
+                new_x = cx + int(step_size * cos(radians(start_angle)))
+                new_y = cy + int(step_size * sin(radians(start_angle)))
+                draw.line([(cx, cy), (new_x, new_y)], fill="black", width=randint(3, 4))
 
     async def localize(self):
         for language_json in self.languages_json_list:
