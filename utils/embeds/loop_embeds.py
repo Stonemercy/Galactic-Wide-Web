@@ -473,7 +473,9 @@ class CampaignLoopEmbed(Embed, EmbedReprMixin):
         )
         self.set_field_at(1, self.fields[1].name, description, inline=False)
 
-    def add_invasion_over(self, planet: Planet, faction: str, win_status: bool = False):
+    def add_invasion_over(
+        self, planet: Planet, faction: str, win_status: bool = False, hours_left=0
+    ):
         name = self.fields[4].name
         description = self.fields[4].value
         exclamation = ""
@@ -501,6 +503,7 @@ class CampaignLoopEmbed(Embed, EmbedReprMixin):
             ].format(
                 faction=faction,
                 faction_emoji=Emojis.factions[faction],
+                hours=f"{hours_left:.2f}",
             )
         self.set_field_at(4, name, description, inline=False)
 

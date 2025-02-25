@@ -84,7 +84,7 @@
         "been_defended": "{emoji} **{planet}** has been successfully defended {exclamation}",
         "been_lost": "💀 **{planet}** has been lost to the **{faction}** {faction_emoji} {exclamation}",
         "invasion_over": "The invasion on {planet} has ended {faction_emoji} {exclamation}",
-        "with_time_remaining": "\n-# The Helldivers have __successfully pushed back the {faction}__ {faction_emoji}\n",
+        "with_time_remaining": "\n-# The Helldivers have __successfully pushed back the {faction}__ {faction_emoji} with {hours} hours remaining\n",
         "no_territory_change": "\n-# The **{faction}** have left and __no territory has changed ownership__ {faction_emoji}\n",
         "dss": {
             "has_moved": "The DSS has moved from **{planet1}** {faction_emoji1} to **{planet2}** {faction_emoji2} {exclamation}\n",

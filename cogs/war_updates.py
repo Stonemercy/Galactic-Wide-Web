@@ -80,6 +80,11 @@ class WarUpdatesCog(commands.Cog):
                                 planet,
                                 old_campaign.event_faction,
                                 win_status=win_status,
+                                hours_left=(
+                                    old_campaign.event.end_time_datetime
+                                    - datetime.now()
+                                ).total_seconds()
+                                / 3600,
                             )
                     else:
                         for embed in embeds.values():
@@ -207,6 +212,10 @@ class WarUpdatesCog(commands.Cog):
                     def_campaign.planet,
                     choice(["Terminids", "Automaton", "Illuminate"]),
                     win_status=True,
+                    hours_left=(
+                        def_campaign.planet.event.end_time_datetime - datetime.now()
+                    ).total_seconds()
+                    / 3600,
                 )
                 embed.add_invasion_over(
                     def_campaign.planet,

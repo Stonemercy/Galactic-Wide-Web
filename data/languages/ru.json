@@ -84,7 +84,7 @@
         "been_defended": "{emoji} **{planet}** была успешно защищена {exclamation}",
         "been_lost": "💀 **{planet}** была потеряна **{faction}** {faction_emoji} {exclamation}",
         "invasion_over": "Вторжение на {planet} закончилось {faction_emoji} {exclamation}",
-        "with_time_remaining": "\n-# The Helldivers have __successfully pushed back the {faction}__ {faction_emoji}\n",
+        "with_time_remaining": "\n-# The Helldivers have __successfully pushed back the {faction}__ {faction_emoji} with {hours} hours remaining\n",
         "no_territory_change": "\n-# **{faction}** отступили __владелец не изменился__ {faction_emoji}\n",
         "dss": {
             "has_moved": "ДКС переместилась с **{planet1}** {faction_emoji1} на **{planet2}** {faction_emoji2} {exclamation}\n",
