@@ -10,7 +10,7 @@ class ReprMixin:
 
 
 class EmbedReprMixin:
-    """Class to clearly represent Embeds"""
+    """Class to clearly represent disnake.Embeds"""
 
     def __repr__(object: Embed):
         items = (f"{k} = {v}" for k, v in object.to_dict().items())
