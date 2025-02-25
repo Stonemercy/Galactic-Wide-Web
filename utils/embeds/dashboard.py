@@ -2,7 +2,6 @@ from datetime import datetime
 from data.lists import (
     assignment_task_images_dict,
     stratagem_id_dict,
-    task_type_15_progress_dict,
     faction_colours,
 )
 from disnake import Colour, Embed
@@ -597,12 +596,8 @@ class Dashboard:
 
         def add_type_15(self, task: Tasks.Task, language_json: dict):
             """Win more campaigns than lost"""
-            percent = task_type_15_progress_dict[
-                [
-                    key
-                    for key in task_type_15_progress_dict.keys()
-                    if key <= task.progress
-                ][-1]
+            percent = {i: (i + 10) / 20 for i in range(-10, 12, 2)}[
+                [key for key in range(-10, 12, 2) if key <= task.progress][-1]
             ]
             if percent > 0.5:
                 outlook = language_json["victory"]

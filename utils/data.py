@@ -1,7 +1,6 @@
 from aiohttp import ClientSession
 from asyncio import sleep
 from copy import deepcopy
-from data.lists import task_type_15_progress_dict
 from datetime import datetime, timedelta
 from os import getenv
 from utils.functions import health_bar, steam_format
@@ -463,12 +462,8 @@ class Tasks(list):
             elif self.type == 13:
                 return ""
             elif self.type == 15:
-                percent = task_type_15_progress_dict[
-                    [
-                        key
-                        for key in task_type_15_progress_dict.keys()
-                        if key <= self.progress
-                    ][-1]
+                percent = {i: (i + 10) / 20 for i in range(-10, 12, 2)}[
+                    [key for key in range(-10, 12, 2) if key <= self.progress][-1]
                 ]
                 return health_bar(
                     percent,
