@@ -33,6 +33,10 @@ class Maps:
         self.languages_json_list = languages_json_list
         self.arrow_needed = target_planet != None
         self.target_planet = target_planet
+        self.dim_faction_colours = {
+            faction: tuple(int(colour / 2.5) for colour in colours)
+            for faction, colours in faction_colours.items()
+        }
         self.embeds = {
             language["code"]: Embed(colour=Colour.dark_embed())
             for language in languages_json_list
@@ -45,6 +49,14 @@ class Maps:
             for planet in data.planets.values()
         }
         self.available_planets = {campaign.planet.index for campaign in data.campaigns}
+        self.sector_info = {
+            planet.sector: {
+                "coords": self.planet_coordinates[planet.index],
+                "faction": [],
+            }
+            for planet in self.data.planets.values()
+            if not (planet.current_owner == "Humans" and not planet.event)
+        }
         self._generate_base_map()
 
     def _generate_base_map(self):
@@ -76,30 +88,19 @@ class Maps:
         Args:
             background (Image.Image): The map to edit
         """
-        sector_info = {}
-        dim_faction_colour = {
-            faction: tuple(int(colour / 2.5) for colour in colours)
-            for faction, colours in faction_colours.items()
-        }
         for planet in self.data.planets.values():
             if planet.current_owner == "Humans" and not planet.event:
                 continue
-            faction = planet.current_owner if not planet.event else planet.event.faction
-            if planet.sector not in sector_info:
-                sector_info[planet.sector] = {
-                    "coords": self.planet_coordinates[planet.index],
-                    "faction": [faction],
-                }
-            else:
-                sector_info[planet.sector]["faction"].append(faction)
+            faction = planet.event.faction if planet.event else planet.current_owner
+            self.sector_info[planet.sector]["faction"].append(faction)
         alpha = background.getchannel(channel="A")
         background = background.convert(mode="RGB")
-        for info in sector_info.values():
+        for info in self.sector_info.values():
             info["faction"] = max(set(info["faction"]), key=info["faction"].count)
             ImageDraw.floodfill(
                 image=background,
                 xy=info["coords"],
-                value=dim_faction_colour[info["faction"]],
+                value=self.dim_faction_colours[info["faction"]],
                 thresh=25,
             )
         background.putalpha(alpha=alpha)
@@ -264,23 +265,30 @@ class Maps:
         """
         draw = ImageDraw.Draw(background)
         affected_planets = [
-            planet.index
+            planet
             for planet in self.data.planets.values()
             if 1241 in planet.active_effects
         ]
         radius = 11
-        for planet_index in affected_planets:
-            cx, cy = self.planet_coordinates[planet_index]
+        for planet in affected_planets:
+            cx, cy = self.planet_coordinates[planet.index]
             angles = []
             while len(angles) < 7:
                 candidate = randint(0, 360)
                 if all(abs(candidate - a) >= 30 for a in angles):
                     angles.append(candidate)
+            crack_colour = (
+                self.dim_faction_colours[self.sector_info[planet.sector]["faction"]]
+                if self.sector_info[planet.sector]["faction"] != "Humans"
+                else "black"
+            )
             for start_angle in angles:
                 step_size = radius * 1.2
                 new_x = cx + int(step_size * cos(radians(start_angle)))
                 new_y = cy + int(step_size * sin(radians(start_angle)))
-                draw.line([(cx, cy), (new_x, new_y)], fill="black", width=randint(3, 4))
+                draw.line(
+                    [(cx, cy), (new_x, new_y)], fill=crack_colour, width=randint(3, 4)
+                )
 
     def _add_dss_icon(self, background: Image.Image):
         """Adds the DSS icon above the planet it's orbiting
