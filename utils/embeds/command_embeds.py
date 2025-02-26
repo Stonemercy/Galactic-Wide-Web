@@ -757,6 +757,7 @@ class SetupCommandEmbed(Embed, EmbedReprMixin):
             "it": ":flag_it:",
             "pt-br": ":flag_br:",
             "ru": ":flag_ru:",
+            "es": ":flag_es:",
         }
         self.add_field(
             language_json["SetupEmbed"]["language"].format(

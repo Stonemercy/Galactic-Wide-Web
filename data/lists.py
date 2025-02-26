@@ -5,6 +5,7 @@ language_dict = {
     "Italian": "it",
     "Brazilian Portuguese": "pt-br",
     "Russian": "ru",
+    "Spanish": "es",
 }
 """Dictionary of languages supported by the bot
 
@@ -25,6 +26,7 @@ json_dict = {
         "it": {"path": "data/languages/it.json", "value": None},
         "pt-br": {"path": "data/languages/pt-br.json", "value": None},
         "ru": {"path": "data/languages/ru.json", "value": None},
+        "es": {"path": "data/languages/es.json", "value": None},
     },
     "stratagems": {"path": "data/json_custom/stratagems.json", "value": None},
     "warbonds": {
