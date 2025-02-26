@@ -474,7 +474,7 @@ class CampaignLoopEmbed(Embed, EmbedReprMixin):
         self.set_field_at(1, self.fields[1].name, description, inline=False)
 
     def add_invasion_over(
-        self, planet: Planet, faction: str, win_status: bool = False, hours_left=0
+        self, planet: Planet, faction: str, hours_left: int, win_status: bool = False
     ):
         name = self.fields[4].name
         description = self.fields[4].value
