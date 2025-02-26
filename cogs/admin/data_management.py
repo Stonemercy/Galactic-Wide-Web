@@ -71,7 +71,7 @@ class DataManagementCog(commands.Cog):
                             new_data.regen_perc_per_hour,
                         )
                     )
-                if planet.waypoints != new_data.waypoints:
+                if sorted(planet.waypoints) != sorted(new_data.waypoints):
                     total_changes.append(
                         APIChanges(
                             planet,
