@@ -71,19 +71,20 @@ class WarUpdatesCog(commands.Cog):
                             old_campaign.planet_index
                         ]
                         win_status = False
+                        hours_left = 0
                         if old_planet.event:
                             win_status = (
                                 old_planet.event.end_time_datetime > datetime.now()
                             )
+                            hours_left = (
+                                old_planet.event.end_time_datetime - datetime.now()
+                            ).total_seconds() / 3600
                         for embed in embeds.values():
                             embed.add_invasion_over(
                                 planet,
                                 old_campaign.event_faction,
+                                hours_left=hours_left,
                                 win_status=win_status,
-                                hours_left=(
-                                    old_planet.event.end_time_datetime - datetime.now()
-                                ).total_seconds()
-                                / 3600,
                             )
                     else:
                         for embed in embeds.values():
