@@ -81,8 +81,7 @@ class WarUpdatesCog(commands.Cog):
                                 old_campaign.event_faction,
                                 win_status=win_status,
                                 hours_left=(
-                                    old_campaign.event.end_time_datetime
-                                    - datetime.now()
+                                    old_planet.event.end_time_datetime - datetime.now()
                                 ).total_seconds()
                                 / 3600,
                             )
