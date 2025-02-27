@@ -279,7 +279,8 @@ class Maps:
                     angles.append(candidate)
             crack_colour = (
                 self.dim_faction_colours[self.sector_info[planet.sector]["faction"]]
-                if self.sector_info[planet.sector]["faction"] != "Humans"
+                if self.sector_info.get(planet.sector, {"faction": "Humans"})["faction"]
+                != "Humans"
                 else "black"
             )
             for start_angle in angles:
