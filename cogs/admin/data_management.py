@@ -60,6 +60,22 @@ class DataManagementCog(commands.Cog):
     async def check_changes(self):
         total_changes: list[APIChanges] = []
         if self.bot.previous_data:
+            if (
+                self.bot.previous_data.galactic_impact_mod != 0
+                and abs(
+                    self.bot.data.galactic_impact_mod
+                    - self.bot.previous_data.galactic_impact_mod
+                )
+                >= 0.1
+            ):
+                total_changes.append(
+                    APIChanges(
+                        self.bot.data.planets[0],
+                        "Galactic Impact Mod",
+                        self.bot.previous_data.galactic_impact_mod,
+                        self.bot.data.galactic_impact_mod,
+                    )
+                )
             for planet in self.bot.previous_data.planets.values():
                 new_data = self.bot.data.planets[planet.index]
                 if planet.regen_perc_per_hour != new_data.regen_perc_per_hour:

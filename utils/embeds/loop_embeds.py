@@ -94,6 +94,12 @@ class APIChangesLoopEmbed(Embed, EmbedReprMixin):
                         )
                     else:
                         self.add_field("New effect", effect, inline=False)
+            elif change.statistic == "Galactic Impact Mod":
+                self.add_field(
+                    "Big jump in the Galactic Impact Modifier :warning:",
+                    f"Before: {change.before}\nAfter: {change.after}\n-# Change: {change.before - change.after:+}",
+                    inline=False,
+                )
 
 
 class PersonalOrderLoopEmbed(Embed, EmbedReprMixin):

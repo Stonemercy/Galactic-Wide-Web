@@ -32,6 +32,7 @@ class Data(ReprMixin):
         "dark_energy_changes",
         "planets_with_player_reqs",
         "meridia_position",
+        "galactic_impact_mod",
     )
 
     def __init__(self):
@@ -56,6 +57,7 @@ class Data(ReprMixin):
         self.personal_order = None
         self.fetched_at = None
         self.assignment = None
+        self.galactic_impact_mod = 0
 
     async def pull_from_api(self, bot):
         api_to_use = api
@@ -187,7 +189,6 @@ class Data(ReprMixin):
             self.loaded = True
 
     def format_data(self):
-
         if self.__data__["war_time"]:
             self.war_time: int = (
                 int(datetime.now().timestamp()) - self.__data__["war_time"]
@@ -287,6 +288,9 @@ class Data(ReprMixin):
             )
 
         if self.__data__["status"]:
+            self.galactic_impact_mod: float = self.__data__["status"][
+                "impactMultiplier"
+            ]
             self.global_events: GlobalEvents = GlobalEvents(
                 self.__data__["status"]["globalEvents"]
             )
