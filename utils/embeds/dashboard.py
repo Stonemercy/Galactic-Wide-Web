@@ -578,10 +578,10 @@ class Dashboard:
                     obj_text,
                     (
                         f"{feature_text}"
-                        f"\n{player_count}"
                         f"\n{language_json['ends']} {time_remaining}"
-                        f"\n{language_json['dashboard']['DefenceEmbed']['level']} {int(planet.event.max_health / 50000)}"
+                        f"\n{language_json['dashboard']['DefenceEmbed']['level']} **{int(planet.event.max_health / 50000)}**"
                         f"{outlook_text}"
+                        f"\n{player_count}"
                         f"{required_players}"
                         f"\n{language_json['dashboard']['progress']}:\n"
                         f"{health_bar(perc=planet.event.progress, race=planet.event.faction, reverse=True)} 🛡️"
@@ -877,7 +877,7 @@ class Dashboard:
                     exclamation = Emojis.icons["MO"] if planet.in_assignment else ""
                     feature_text = ""
                     if planet.feature:
-                        feature_text += f"\nFeature: {planet.feature}"
+                        feature_text += f"Feature: {planet.feature}"
                     if planet.event.potential_buildup != 0:
                         feature_text += language_json["dashboard"]["DefenceEmbed"][
                             "dark_energy_remaining"
@@ -890,12 +890,12 @@ class Dashboard:
                     self.add_field(
                         f"{Emojis.factions[planet.event.faction]} - __**{planet_names[str(planet.index)]['names'][language_json['code_long']]}**__ {exclamation}",
                         (
-                            f"{language_json['ends']} {time_remaining}"
+                            f"{feature_text}"
+                            f"\n{language_json['ends']} {time_remaining}"
                             f"\n{language_json['dashboard']['DefenceEmbed']['level']} **{int(planet.event.max_health / 50000)}**"
                             f"{outlook_text}"
                             f"\n{language_json['dashboard']['heroes'].format(heroes=player_count)}"
                             f"{required_players}"
-                            f"{feature_text}"
                             f"\n{language_json['dashboard']['DefenceEmbed']['event_health']}:"
                             f"\n{planet.event.health_bar}"
                             f"\n`{1 - (planet.event.health / planet.event.max_health):^25,.2%}`"
