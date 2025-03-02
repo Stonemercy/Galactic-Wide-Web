@@ -31,9 +31,11 @@ class WarbondCog(commands.Cog):
             warbond["name"]
             for warbond in inter.bot.json_dict["warbonds"]["index"].values()
         ]
-        return [warbond for warbond in warbond_names if user_input in warbond.lower()][
-            :25
-        ]
+        return [
+            warbond
+            for warbond in warbond_names
+            if user_input.lower() in warbond.lower()
+        ][:25]
 
     @wait_for_startup()
     @commands.slash_command(

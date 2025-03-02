@@ -13,9 +13,11 @@ class HelpCog(commands.Cog):
     async def help_autocomp(inter: AppCmdInter, user_input: str):
         commands_list = [i.name for i in inter.bot.global_slash_commands]
         commands_list.insert(0, "all")
-        return [command for command in commands_list if user_input in command.lower()][
-            :25
-        ]
+        return [
+            command
+            for command in commands_list
+            if user_input.lower() in command.lower()
+        ][:25]
 
     @wait_for_startup()
     @commands.slash_command(

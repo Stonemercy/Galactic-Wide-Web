@@ -27,7 +27,9 @@ class WeaponsCog(commands.Cog):
         primaries = [
             i["name"] for i in inter.bot.json_dict["items"]["primary_weapons"].values()
         ]
-        return [primary for primary in primaries if user_input in primary.lower()][:25]
+        return [
+            primary for primary in primaries if user_input.lower() in primary.lower()
+        ][:25]
 
     async def secondary_autocomp(inter: AppCmdInter, user_input: str):
         secondaries = [
@@ -35,14 +37,18 @@ class WeaponsCog(commands.Cog):
             for i in inter.bot.json_dict["items"]["secondary_weapons"].values()
         ]
         return [
-            secondary for secondary in secondaries if user_input in secondary.lower()
+            secondary
+            for secondary in secondaries
+            if user_input.lower() in secondary.lower()
         ][:25]
 
     async def grenade_autocomp(inter: AppCmdInter, user_input: str):
         grenades = [
             i["name"] for i in inter.bot.json_dict["items"]["grenades"].values()
         ]
-        return [grenade for grenade in grenades if user_input in grenade.lower()][:25]
+        return [
+            grenade for grenade in grenades if user_input.lower() in grenade.lower()
+        ][:25]
 
     @wait_for_startup()
     @commands.slash_command(

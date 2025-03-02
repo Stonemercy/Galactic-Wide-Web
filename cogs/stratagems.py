@@ -14,7 +14,7 @@ class StratagemsCog(commands.Cog):
 
     async def stratagem_autocomp(inter: AppCmdInter, user_input: str):
         stratagems: dict = inter.bot.json_dict["stratagems"]
-        return [name for name in stratagems if user_input in name.lower()][:25]
+        return [name for name in stratagems if user_input.lower() in name.lower()][:25]
 
     @wait_for_startup()
     @commands.slash_command(

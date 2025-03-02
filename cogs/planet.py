@@ -16,7 +16,7 @@ class PlanetCog(commands.Cog):
         return [
             planet["name"]
             for planet in inter.bot.json_dict["planets"].values()
-            if user_input in planet["name"].lower()
+            if user_input.lower() in planet["name"].lower()
         ][:25]
 
     @wait_for_startup()

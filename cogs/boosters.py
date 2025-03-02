@@ -13,7 +13,9 @@ class BoostersCog(commands.Cog):
     async def booster_autocomp(inter: AppCmdInter, user_input: str):
         boosters_json: dict = inter.bot.json_dict["items"]["boosters"]
         return [
-            i["name"] for i in boosters_json.values() if user_input in i["name"].lower()
+            i["name"]
+            for i in boosters_json.values()
+            if user_input.lower() in i["name"].lower()
         ][:25]
 
     @wait_for_startup()

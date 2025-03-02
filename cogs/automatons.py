@@ -22,7 +22,7 @@ class AutomatonCog(commands.Cog):
         return [
             species
             for species in inter.bot.json_dict["enemies"]["automaton"]
-            if user_input in species.lower()
+            if user_input.lower() in species.lower()
         ][:25]
 
     async def variations_autocomp(inter: AppCmdInter, user_input: str):
@@ -35,7 +35,7 @@ class AutomatonCog(commands.Cog):
         return [
             variation
             for variation in variations_list
-            if user_input in variation.lower()
+            if user_input.lower() in variation.lower()
         ][:25]
 
     @wait_for_startup()
