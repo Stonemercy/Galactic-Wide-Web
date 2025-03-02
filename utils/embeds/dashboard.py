@@ -122,6 +122,33 @@ class Dashboard:
                 embed.set_image(
                     "https://i.imgur.com/cThNy4f.png"
                 )  # blank line (max size, dont change)
+        if self.character_count() > 6000:
+            self.embeds = [
+                embed
+                for embed in self.embeds.copy()
+                if type(embed) != self.DarkEnergyEmbed
+            ]
+            self.embeds[-1].add_field(
+                "",
+                "-# *Character count exceeded 6000, Meridia Embed removed temporarily",
+            )
+
+    def character_count(self):
+        total_characters = 0
+        for embed in self.embeds:
+            if embed.title:
+                total_characters += len(embed.title.strip())
+            if embed.description:
+                total_characters += len(embed.description.strip())
+            if embed.footer:
+                total_characters += len(embed._footer.get("text", "").strip())
+            if embed.author:
+                total_characters += len(embed._author.get("name", "").strip())
+            if embed.fields:
+                for field in embed.fields:
+                    total_characters += len(field.name.strip())
+                    total_characters += len(field.value.strip())
+        return total_characters
 
     class MajorOrderEmbed(Embed, EmbedReprMixin):
         def __init__(
