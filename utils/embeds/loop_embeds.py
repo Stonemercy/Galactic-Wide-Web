@@ -438,7 +438,7 @@ class CampaignLoopEmbed(Embed, EmbedReprMixin):
                 description += self.language_json["CampaignEmbed"][
                     "potential_dark_energy"
                 ].format(number=potential_de)
-                description += f"\n> *{self.language_json['ends']} {time_remaining}*\n"
+                description += f"> *{self.language_json['ends']} {time_remaining}*\n"
         else:
             description += self.language_json["CampaignEmbed"]["liberate"].format(
                 planet=self.planet_names_json[str(campaign.planet.index)]["names"][
