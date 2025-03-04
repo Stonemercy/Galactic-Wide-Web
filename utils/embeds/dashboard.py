@@ -594,11 +594,25 @@ class Dashboard:
                 if task.progress == 1:
                     self.add_field(obj_text, "", inline=False)
                 else:
-                    planet_health_bar = health_bar(
-                        perc=planet.health_perc,
-                        race=planet.current_owner,
-                        reverse=True if planet.current_owner != "Humans" else False,
-                    )
+                    outlook_text = ""
+                    liberation_text = ""
+                    planet_lib_changes = liberation_changes.get(planet.index, None)
+                    if (
+                        planet_lib_changes
+                        and len(planet_lib_changes["liberation_changes"]) > 0
+                        and sum(planet_lib_changes["liberation_changes"]) != 0
+                    ):
+                        now_seconds = int(datetime.now().timestamp())
+                        seconds_until_complete = int(
+                            (
+                                (100 - planet_lib_changes["liberation"])
+                                / sum(planet_lib_changes["liberation_changes"])
+                            )
+                            * 3600
+                        )
+                        outlook_text = f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['victory'])} <t:{now_seconds + seconds_until_complete}:R>"
+                        change = f"{(sum(planet_lib_changes['liberation_changes'])):+.2f}%/hour"
+                        liberation_text = f"\n`{change:^25}`"
                     completed = (
                         f"**{language_json['dashboard']['MajorOrderEmbed']['liberated']}**"
                         if planet.current_owner == "Humans"
@@ -612,11 +626,13 @@ class Dashboard:
                     self.add_field(
                         obj_text,
                         (
-                            f"{player_count}\n"
                             f"{feature_text}"
-                            f"{language_json['dashboard']['progress']}:\n"
-                            f"{planet_health_bar} {completed}\n"
-                            f"`{health_text}`\n"
+                            f"{outlook_text}"
+                            f"\n{player_count}"
+                            f"\n{language_json['dashboard']['progress']}:\n"
+                            f"{health_bar(perc=planet.health_perc,race=planet.current_owner, reverse=True if planet.current_owner != 'Humans' else False)} {completed}"
+                            f"\n`{health_text}`"
+                            f"{liberation_text}"
                         ),
                         inline=False,
                     )
