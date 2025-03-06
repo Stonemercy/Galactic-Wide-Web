@@ -254,6 +254,8 @@ class Data(ReprMixin):
                             self.planets[index].in_assignment = True
                 elif task.type in (11, 13):
                     self.planets[task.values[2]].in_assignment = True
+        else:
+            self.assignment = None
 
         if self.__data__["campaigns"] not in ([], None):
             self.campaigns: list[Campaign] = sorted(
