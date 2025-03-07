@@ -122,15 +122,16 @@ class Dashboard:
                 embed.set_image(
                     "https://i.imgur.com/cThNy4f.png"
                 )  # blank line (max size, dont change)
+        embeds_to_skip = (self.DarkEnergyEmbed, self.DSSEmbed)
         if self.character_count() > 6000:
             self.embeds = [
                 embed
                 for embed in self.embeds.copy()
-                if type(embed) != self.DarkEnergyEmbed
+                if type(embed) not in embeds_to_skip
             ]
             self.embeds[-1].add_field(
                 "",
-                "-# *Character count exceeded 6000, Meridia Embed removed temporarily",
+                "-# *Character count exceeded 6000, dashboard shrunk temporarily",
             )
 
     def character_count(self):
