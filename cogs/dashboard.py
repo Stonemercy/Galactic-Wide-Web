@@ -40,13 +40,6 @@ class DashboardCog(commands.Cog):
         self.bot.logger.info(
             f"Updated {len(self.bot.interface_handler.dashboards)} dashboards in {(datetime.now()-dashboards_start).total_seconds():.2f} seconds"
         )
-        count_text = ""
-        for code, dashboard in dashboards.items():
-            character_count = dashboard.character_count()
-            if character_count > 6000:
-                count_text += f"Dashboard for {code.upper()} over 6000 characters: {character_count}"
-        if count_text:
-            await self.bot.moderator_channel.send(count_text)
 
     @dashboard_poster.before_loop
     async def before_dashboard_poster(self):
