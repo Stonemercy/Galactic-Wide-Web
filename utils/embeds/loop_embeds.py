@@ -418,7 +418,7 @@ class CampaignLoopEmbed(Embed, EmbedReprMixin):
                 description += self.language_json["CampaignEmbed"][
                     "invasion_level"
                 ].format(level=campaign.planet.event.level, exclamation=def_level_exc)
-                description += f"\n> *{self.language_json['ends']} {time_remaining}*\n"
+                description += f"> *{self.language_json['ends']} {time_remaining}*\n"
             else:
                 description += self.language_json["CampaignEmbed"][
                     "repel_invasion"
