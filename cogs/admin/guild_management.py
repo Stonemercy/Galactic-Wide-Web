@@ -82,7 +82,6 @@ class GuildManagementCog(commands.Cog):
         else:
             now = datetime.now()
             if now.minute == 0 or now - timedelta(minutes=2) < self.bot.startup_time:
-                print("running user install check")
                 app_info = await self.bot.application_info()
                 self.user_installs = app_info.approximate_user_install_count
             dashboard_embed = BotDashboardLoopEmbed(
