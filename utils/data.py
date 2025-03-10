@@ -295,7 +295,11 @@ class Data(ReprMixin):
                 "impactMultiplier"
             ]
             for global_event in self.__data__["status"]["globalEvents"]:
-                self.global_events.append(GlobalEvent(global_event=global_event))
+                title = global_event.get("title", None)
+                if title != None:
+                    self.global_events.append(GlobalEvent(global_event=global_event))
+                else:
+                    continue
             self.global_resources: GlobalResources = GlobalResources(
                 self.__data__["status"]["globalResources"]
             )
