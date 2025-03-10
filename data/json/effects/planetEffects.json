@@ -214,6 +214,11 @@
 		"name": "MERIDIAN BLACK HOLE",
 		"description": "The prosperous Meridia was corrupted into a Terminid Supercolony, necessitating its destruction using the mysterious Dark Fluid.  This galactic scar is all that remains."
 	},
+	"1230": {
+		"galacticEffectId": 1230,
+		"name": "UNKNOWN",
+		"description": "Something on Meridia"
+	},
 	"1231": {
 		"galacticEffectId": 1231,
 		"name": "WEAPONS EXPERIMENTATION",
@@ -259,6 +264,11 @@
 		"name": "FRACTURED PLANET",
 		"description": "All that remains of a planet torn apart by the Meridian singularity. A solemn reminder of the desolation Tyranny leaves in its wake."
 	},
+	"1242": {
+		"galacticEffectId": 1242,
+		"name": "UNKNOWN",
+		"description": "Something on Meridia"
+	},
 	"1244": {
 		"galacticEffectId": 1244,
 		"name": "GLOOM RESEARCH EXPEDITION",
@@ -268,6 +278,11 @@
 		"galacticEffectId": 1245,
 		"name": "PREDATOR STRAIN",
 		"description": "A Gloom-enhanced strain of Terminids has been reported on this planet. SEAF patrols have been lured into ambushes, and picked off by unseen assailants. Every ounce of a Helldiver's superior senses will be required to hunt down this dangerous threat."
+	},
+	"1250": {
+		"galacticEffectId": 1250,
+		"name": "SUPPLY CHAIN DIFFICULTIES",
+		"description": "Eagle Re-Arm times increased by 30%"
 	}
 
 }
