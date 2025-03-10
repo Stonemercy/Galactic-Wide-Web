@@ -43,48 +43,49 @@ class PersonalOrderCog(commands.Cog):
         self.bot.logger.info(text)
         await inter.send(text, ephemeral=True)
 
-    @wait_for_startup()
-    @commands.slash_command(
-        description="Returns information on todays personal order.",
-        install_types=ApplicationInstallTypes.all(),
-        contexts=InteractionContextTypes.all(),
-    )
-    async def personal_order(
-        self,
-        inter: AppCmdInter,
-        public: str = commands.Param(
-            choices=["Yes", "No"],
-            default="No",
-            description="If you want the response to be seen by others in the server.",
-        ),
-    ):
-        await inter.response.defer(ephemeral=public != "Yes")
-        self.bot.logger.info(
-            f"{self.qualified_name} | /{inter.application_command.name} <{public = }>"
-        )
-        if inter.guild:
-            guild = GWWGuild.get_by_id(inter.guild_id)
-        else:
-            guild = GWWGuild.default()
-        if not self.bot.data.personal_order:
-            await inter.send(
-                "Personal order data is unavailable. Please try again later.",
-                ephemeral=public != "Yes",
-            )
-            return
-        await inter.send(
-            embed=PersonalOrderCommandEmbed(
-                personal_order=self.bot.data.personal_order,
-                language_json=self.bot.json_dict["languages"][guild.language],
-                reward_types=self.bot.json_dict["items"]["reward_types"],
-                item_names_json=self.bot.json_dict["items"]["item_names"],
-                enemy_ids_json=self.bot.json_dict["enemies"]["enemy_ids"],
-            ),
-            components=[
-                WikiButton(link=f"https://helldivers.wiki.gg/wiki/Personal_Orders")
-            ],
-            ephemeral=public != "Yes",
-        )
+    ###### DISABLED UNTIL SOURCE IS UPDATED ######
+    # @wait_for_startup()
+    # @commands.slash_command(
+    #     description="Returns information on todays personal order.",
+    #     install_types=ApplicationInstallTypes.all(),
+    #     contexts=InteractionContextTypes.all(),
+    # )
+    # async def personal_order(
+    #     self,
+    #     inter: AppCmdInter,
+    #     public: str = commands.Param(
+    #         choices=["Yes", "No"],
+    #         default="No",
+    #         description="If you want the response to be seen by others in the server.",
+    #     ),
+    # ):
+    #     await inter.response.defer(ephemeral=public != "Yes")
+    #     self.bot.logger.info(
+    #         f"{self.qualified_name} | /{inter.application_command.name} <{public = }>"
+    #     )
+    #     if inter.guild:
+    #         guild = GWWGuild.get_by_id(inter.guild_id)
+    #     else:
+    #         guild = GWWGuild.default()
+    #     if not self.bot.data.personal_order:
+    #         await inter.send(
+    #             "Personal order data is unavailable. Please try again later.",
+    #             ephemeral=public != "Yes",
+    #         )
+    #         return
+    #     await inter.send(
+    #         embed=PersonalOrderCommandEmbed(
+    #             personal_order=self.bot.data.personal_order,
+    #             language_json=self.bot.json_dict["languages"][guild.language],
+    #             reward_types=self.bot.json_dict["items"]["reward_types"],
+    #             item_names_json=self.bot.json_dict["items"]["item_names"],
+    #             enemy_ids_json=self.bot.json_dict["enemies"]["enemy_ids"],
+    #         ),
+    #         components=[
+    #             WikiButton(link=f"https://helldivers.wiki.gg/wiki/Personal_Orders")
+    #         ],
+    #         ephemeral=public != "Yes",
+    #     )
 
     @tasks.loop(
         time=[time(hour=10, minute=10, second=0), time(hour=22, minute=10, second=0)]
