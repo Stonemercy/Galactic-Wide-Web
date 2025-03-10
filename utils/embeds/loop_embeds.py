@@ -427,6 +427,8 @@ class CampaignLoopEmbed(Embed, EmbedReprMixin):
                     "invasion_level"
                 ].format(level=campaign.planet.event.level, exclamation=def_level_exc)
                 description += f"> *{self.language_json['ends']} {time_remaining}*\n"
+                if campaign.planet.feature:
+                    description += f"> -# Feature: {campaign.planet.feature}\n"
             else:
                 description += self.language_json["CampaignEmbed"][
                     "repel_invasion"
@@ -447,6 +449,8 @@ class CampaignLoopEmbed(Embed, EmbedReprMixin):
                     "potential_dark_energy"
                 ].format(number=potential_de)
                 description += f"> *{self.language_json['ends']} {time_remaining}*\n"
+                if campaign.planet.feature:
+                    description += f"> -# Feature: {campaign.planet.feature}\n"
         else:
             description += self.language_json["CampaignEmbed"]["liberate"].format(
                 planet=self.planet_names_json[str(campaign.planet.index)]["names"][
@@ -455,6 +459,8 @@ class CampaignLoopEmbed(Embed, EmbedReprMixin):
                 faction_emoji=Emojis.factions[campaign.faction],
                 exclamation=exclamation,
             )
+            if campaign.planet.feature:
+                description += f"-# Feature: {campaign.planet.feature}\n"
         self.set_field_at(2, self.fields[2].name, description, inline=False)
 
     def add_campaign_victory(self, planet: Planet, taken_from: str):
