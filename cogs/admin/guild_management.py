@@ -80,7 +80,9 @@ class GuildManagementCog(commands.Cog):
             bot_dashboard.message_id = message.id
             bot_dashboard.save_changes()
         else:
-            if datetime.now().minute == 0:
+            now = datetime.now()
+            if now.minute == 0 or now - timedelta(minutes=2) < self.bot.startup_time:
+                print("running user install check")
                 app_info = await self.bot.application_info()
                 self.user_installs = app_info.approximate_user_install_count
             dashboard_embed = BotDashboardLoopEmbed(
