@@ -9,7 +9,7 @@ from utils.data import (
     DSS,
     Campaign,
     Dispatch,
-    GlobalEvents,
+    GlobalEvent,
     PersonalOrder,
     Planet,
     Planets,
@@ -308,7 +308,7 @@ class GlobalEventsLoopEmbed(Embed, EmbedReprMixin):
         planets: Planets,
         language_json: dict,
         planet_effects_json: dict,
-        global_event: GlobalEvents.GlobalEvent,
+        global_event: GlobalEvent,
     ):
         super().__init__(
             title=global_event.title, colour=Colour.from_rgb(*faction_colours["MO"])

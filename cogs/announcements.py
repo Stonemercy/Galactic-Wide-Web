@@ -1,7 +1,6 @@
 from datetime import datetime, time
 from disnake.ext import commands, tasks
 from main import GalacticWideWebBot
-from utils.data import GlobalEvents
 from utils.db import GlobalEvent, Steam, GWWGuild, MajorOrder, Dispatch
 from utils.embeds.dashboard import Dashboard
 from utils.embeds.loop_embeds import (
@@ -59,8 +58,6 @@ class AnnouncementsCog(commands.Cog):
             ]
             if mo_briefing_list:
                 mo_briefing = mo_briefing_list[0]
-                mo_briefing: GlobalEvents.GlobalEvent
-
                 for embed in embeds.values():
                     embed.insert_field_at(
                         0, mo_briefing.title, mo_briefing.split_message[0], inline=False
@@ -185,7 +182,6 @@ class AnnouncementsCog(commands.Cog):
             return
         last_GE = GlobalEvent()
         for global_event in self.bot.data.global_events:
-            global_event: GlobalEvents.GlobalEvent
             if global_event.id > last_GE.id:
                 if global_event.title == "BRIEFING":
                     last_GE.id = global_event.id

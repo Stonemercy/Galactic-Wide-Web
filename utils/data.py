@@ -293,9 +293,8 @@ class Data(ReprMixin):
             self.galactic_impact_mod: float = self.__data__["status"][
                 "impactMultiplier"
             ]
-            self.global_events: GlobalEvents = GlobalEvents(
-                self.__data__["status"]["globalEvents"]
-            )
+            for global_event in self.__data__["status"]["globalEvents"]:
+                self.global_events.append(GlobalEvent(global_event=global_event))
             self.global_resources: GlobalResources = GlobalResources(
                 self.__data__["status"]["globalResources"]
             )
@@ -501,39 +500,32 @@ class Dispatch(ReprMixin):
         self.message = steam_format(dispatch["message"]) if dispatch["message"] else ""
 
 
-class GlobalEvents(list):
-    def __init__(self, global_events):
-        for global_event in global_events:
-            if not global_event.get("title", None):
-                continue
-            self.append(self.GlobalEvent(global_event))
+class GlobalEvent(ReprMixin):
+    def __init__(self, global_event):
+        self.id = global_event["eventId"]
+        self.title = global_event["title"]
+        self.message = steam_format(global_event["message"])
+        self.faction = global_event["race"]
+        self.flag = global_event["flag"]
+        self.assignment_id = global_event["assignmentId32"]
+        self.effect_ids = global_event["effectIds"]
+        self.planet_indices = global_event["planetIndices"]
 
-    class GlobalEvent(ReprMixin):
-        def __init__(self, global_event):
-            self.id = global_event["eventId"]
-            self.title = global_event["title"]
-            self.message = steam_format(global_event["message"])
-            self.faction = global_event["race"]
-            self.flag = global_event["flag"]
-            self.assignment_id = global_event["assignmentId32"]
-            self.effect_ids = global_event["effectIds"]
-            self.planet_indices = global_event["planetIndices"]
-
-        @property
-        def split_message(self):
-            sentences = self.message.split("\n\n")
-            formatted_sentences = [f"-# {sentence}" for sentence in sentences]
-            chunks = []
-            current_chunk = ""
-            for sentence in formatted_sentences:
-                if len(current_chunk) + len(sentence) + 2 <= 1024:
-                    current_chunk += sentence + "\n\n"
-                else:
-                    chunks.append(current_chunk.strip())
-                    current_chunk = sentence + "\n\n"
-            if current_chunk:
+    @property
+    def split_message(self):
+        sentences = self.message.split("\n\n")
+        formatted_sentences = [f"-# {sentence}" for sentence in sentences]
+        chunks = []
+        current_chunk = ""
+        for sentence in formatted_sentences:
+            if len(current_chunk) + len(sentence) + 2 <= 1024:
+                current_chunk += sentence + "\n\n"
+            else:
                 chunks.append(current_chunk.strip())
-            return chunks
+                current_chunk = sentence + "\n\n"
+        if current_chunk:
+            chunks.append(current_chunk.strip())
+        return chunks
 
 
 class GlobalResources(list):
