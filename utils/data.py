@@ -58,6 +58,7 @@ class Data(ReprMixin):
         self.fetched_at = None
         self.assignment = None
         self.galactic_impact_mod = 0
+        self.global_events: list[GlobalEvent] | list = []
 
     async def pull_from_api(self, bot):
         api_to_use = api
