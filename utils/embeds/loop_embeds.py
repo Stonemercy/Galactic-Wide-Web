@@ -398,7 +398,15 @@ class CampaignLoopEmbed(Embed, EmbedReprMixin):
         if campaign.planet.in_assignment:
             exclamation += Emojis.icons["MO"]
         if campaign.planet.event and time_remaining:
-            def_level_exc = {0: "", 5: "!", 20: "!!", 33: "!!!", 50: " :warning:"}
+            def_level_exc = {
+                0: "",
+                5: "!",
+                20: "!!",
+                33: "!!!",
+                50: " :warning:",
+                100: " :skull:",
+                250: " :skull_crossbones:",
+            }
             key = [
                 key
                 for key in def_level_exc.keys()
