@@ -32,7 +32,11 @@ class MeridiaCog(commands.Cog):
         old_coords = meridia.locations[-1].as_tuple
         if newest_coords != old_coords:
             meridia.new_location(datetime.now().isoformat(), *newest_coords)
-        if now.hour % 4 == 0 and now.minute == 10:
+        if (
+            now.hour % 4 == 0
+            and now.minute == 10
+            and meridia.locations[-1].timestamp > now - timedelta(hours=4)
+        ):
             embed = MeridiaLoopEmbed(meridia=meridia)
             msg = await self.bot.api_changes_channel.send(embed=embed)
             await msg.publish()
