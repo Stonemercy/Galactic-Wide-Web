@@ -45,18 +45,6 @@ class MeridiaCog(commands.Cog):
     async def before_check_position(self):
         await self.bot.wait_until_ready()
 
-    def point_line_distance(self, px, py, x1, y1, x2, y2):
-        """Calculate the perpendicular distance from (px, py) to the line (x1, y1) -> (x2, y2)."""
-        line_mag = hypot(x2 - x1, y2 - y1)
-        if line_mag == 0:
-            return hypot(px - x1, py - y1)
-        u = ((px - x1) * (x2 - x1) + (py - y1) * (y2 - y1)) / line_mag**2
-        closest_x = x1 + u * (x2 - x1)
-        closest_y = y1 + u * (y2 - y1)
-        closest_x = max(min(closest_x, max(x1, x2)), min(x1, x2))
-        closest_y = max(min(closest_y, max(y1, y2)), min(y1, y2))
-        return hypot(px - closest_x, py - closest_y)
-
     @wait_for_startup()
     @commands.slash_command(
         description="Get up-to-date information on Meridia",
