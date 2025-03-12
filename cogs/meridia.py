@@ -162,16 +162,8 @@ class MeridiaCog(commands.Cog):
                 markersize=1,
                 label="Future Position",
             )
-        current_location: Meridia.Locations.Location = meridia_info.locations[-1]
-        location_an_hour_ago: Meridia.Locations.Location = meridia_info.locations[-5]
-        time_difference = (
-            current_location.timestamp - location_an_hour_ago.timestamp
-        ).total_seconds()
-        delta_x = current_location.x - location_an_hour_ago.x
-        delta_y = current_location.y - location_an_hour_ago.y
-        distance_moved = sqrt(delta_x**2 + delta_y**2)
-        speed = distance_moved / time_difference  # in units per second
 
+        current_location: Meridia.Location = meridia_info.locations[-1]
         padding_distance = 0.01559
         time_to_reach_planets = {}
         for planet in planets_in_path:
@@ -183,7 +175,8 @@ class MeridiaCog(commands.Cog):
             adjusted_distance = max(distance_to_planet - padding_distance, 0)
             time_to_reach_planets[planet.index] = int(
                 (
-                    datetime.now() + timedelta(seconds=adjusted_distance / speed)
+                    datetime.now()
+                    + timedelta(seconds=adjusted_distance / meridia_info.speed)
                 ).timestamp()
             )
         time_to_reach_planets = dict(
