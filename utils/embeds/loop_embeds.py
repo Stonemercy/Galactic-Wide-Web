@@ -479,6 +479,8 @@ class CampaignLoopEmbed(Embed, EmbedReprMixin):
             faction_emoji=Emojis.factions[taken_from],
             exclamation=exclamation,
         )
+        if planet.feature:
+            description += f"-# Feature: {planet.feature}\n"
         self.set_field_at(0, self.fields[0].name, description, inline=False)
 
     def add_def_victory(self, planet: Planet):
@@ -495,6 +497,8 @@ class CampaignLoopEmbed(Embed, EmbedReprMixin):
             ],
             exclamation=exclamation,
         )
+        if planet.feature:
+            description += f"-# Feature: {planet.feature}\n"
         self.set_field_at(0, self.fields[0].name, description, inline=False)
 
     def add_planet_lost(self, planet: Planet):
@@ -512,6 +516,8 @@ class CampaignLoopEmbed(Embed, EmbedReprMixin):
             faction_emoji=Emojis.factions[planet.current_owner],
             exclamation=exclamation,
         )
+        if planet.feature:
+            description += f"-# Feature: {planet.feature}\n"
         self.set_field_at(1, self.fields[1].name, description, inline=False)
 
     def add_invasion_over(
@@ -546,6 +552,8 @@ class CampaignLoopEmbed(Embed, EmbedReprMixin):
                 faction_emoji=Emojis.factions[faction],
                 hours=f"{hours_left:.2f}",
             )
+        if planet.feature:
+            description += f"-# Feature: {planet.feature}\n"
         self.set_field_at(4, name, description, inline=False)
 
     def remove_empty(self):
@@ -571,6 +579,8 @@ class CampaignLoopEmbed(Embed, EmbedReprMixin):
             faction_emoji2=Emojis.factions[after_planet.current_owner],
             exclamation=exclamation,
         )
+        if after_planet.feature:
+            description += f"-# Feature: {after_planet.feature}\n"
         self.set_field_at(3, self.fields[3].name, description, inline=False)
 
     def ta_status_changed(self, tactical_action: DSS.TacticalAction):
