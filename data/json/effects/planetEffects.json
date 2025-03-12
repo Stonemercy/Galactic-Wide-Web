@@ -283,6 +283,11 @@
 		"galacticEffectId": 1250,
 		"name": "SUPPLY CHAIN DIFFICULTIES",
 		"description": "Eagle Re-Arm times increased by 30%"
+	},
+	"1251": {
+		"galacticEffectId": 1251,
+		"name": "SUPPLY CHAIN EXPEDIENCIES",
+		"description": "Eagle Re-Arm times decreased by 50%"
 	}
 
 }
