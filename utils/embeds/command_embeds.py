@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+from math import sqrt
 from data.lists import (
     faction_colours,
     help_dict,
@@ -67,7 +68,7 @@ class PlanetCommandEmbed(Embed, EmbedReprMixin):
         planet_health_bar = health_bar(
             (planet.event.progress if planet.event else planet.health_perc),
             (planet.event.faction if planet.event else planet.current_owner),
-            True,
+            True if planet.event else False,
         )
         if planet.event:
             planet_health_bar += f" 🛡️ {Emojis.factions[planet.event.faction]}"
@@ -108,6 +109,11 @@ class PlanetCommandEmbed(Embed, EmbedReprMixin):
                     pass
             if effects:
                 self.add_field("Planetary Effects", effects, inline=False)
+        self.add_field(
+            "Distance from Super Earth",
+            f"{sqrt(planet.position['x']**2 + planet.position['y']**2) * 1000:.2f} SU",
+            inline=False,
+        )
 
     def add_mission_stats(self, planet: Planet, language_json: dict):
         self.add_field(
