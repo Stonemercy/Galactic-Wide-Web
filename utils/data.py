@@ -86,6 +86,7 @@ class Data(ReprMixin):
                                 bot.logger.error(f"API/THUMBNAILS, {r.status}")
                         continue
                     if endpoint == "superstore":
+                        continue
                         async with session.get(
                             "https://api.diveharder.com/v1/store_rotation"
                         ) as r:
@@ -131,6 +132,7 @@ class Data(ReprMixin):
                                 bot.logger.error(f"API/DSS, {r.status}")
                         continue
                     if endpoint == "personal_order":
+                        continue
                         async with session.get(
                             "https://api.diveharder.com/v1/personal_order"
                         ) as r:
