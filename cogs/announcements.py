@@ -45,7 +45,6 @@ class AnnouncementsCog(commands.Cog):
                     assignment=self.bot.data.assignment,
                     planets=self.bot.data.planets,
                     liberation_changes=self.bot.data.liberation_changes,
-                    player_requirements=self.bot.data.planets_with_player_reqs,
                     language_json=self.bot.json_dict["languages"][lang],
                     json_dict=self.bot.json_dict,
                 )
@@ -154,7 +153,6 @@ class AnnouncementsCog(commands.Cog):
                 assignment=self.bot.data.assignment if not test else TestAssignment(),
                 planets=self.bot.data.planets,
                 liberation_changes=self.bot.data.liberation_changes,
-                player_requirements=self.bot.data.planets_with_player_reqs,
                 language_json=self.bot.json_dict["languages"][lang],
                 json_dict=self.bot.json_dict,
             )

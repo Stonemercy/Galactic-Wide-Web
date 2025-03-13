@@ -393,7 +393,7 @@ class CampaignLoopEmbed(Embed, EmbedReprMixin):
     def add_new_campaign(self, campaign: Campaign, time_remaining: str | None):
         description = self.fields[2].value
         exclamation = ""
-        if campaign.planet.dss:
+        if campaign.planet.dss_in_orbit:
             exclamation += Emojis.dss["dss"]
         if campaign.planet.in_assignment:
             exclamation += Emojis.icons["MO"]
@@ -466,7 +466,7 @@ class CampaignLoopEmbed(Embed, EmbedReprMixin):
     def add_campaign_victory(self, planet: Planet, taken_from: str):
         description = self.fields[0].value
         exclamation = ""
-        if planet.dss:
+        if planet.dss_in_orbit:
             exclamation += Emojis.dss["dss"]
         if planet.in_assignment:
             exclamation += Emojis.icons["MO"]
@@ -486,7 +486,7 @@ class CampaignLoopEmbed(Embed, EmbedReprMixin):
     def add_def_victory(self, planet: Planet):
         description = self.fields[0].value
         exclamation = ""
-        if planet.dss:
+        if planet.dss_in_orbit:
             exclamation += Emojis.dss["dss"]
         if planet.in_assignment:
             exclamation += Emojis.icons["MO"]
@@ -504,7 +504,7 @@ class CampaignLoopEmbed(Embed, EmbedReprMixin):
     def add_planet_lost(self, planet: Planet):
         description = self.fields[1].value
         exclamation = ""
-        if planet.dss:
+        if planet.dss_in_orbit:
             exclamation += Emojis.dss["dss"]
         if planet.in_assignment:
             exclamation += Emojis.icons["MO"]
@@ -526,7 +526,7 @@ class CampaignLoopEmbed(Embed, EmbedReprMixin):
         name = self.fields[4].name
         description = self.fields[4].value
         exclamation = ""
-        if planet.dss:
+        if planet.dss_in_orbit:
             exclamation += Emojis.dss["dss"]
         if planet.in_assignment:
             exclamation += Emojis.icons["MO"]

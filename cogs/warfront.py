@@ -47,7 +47,6 @@ class WarfrontCog(commands.Cog):
             ],
             self.bot.data.dss,
             self.bot.data.liberation_changes,
-            self.bot.data.planets_with_player_reqs,
             guild_language,
             self.bot.json_dict["planets"],
             self.bot.data.total_players,

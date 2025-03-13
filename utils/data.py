@@ -2,12 +2,16 @@ from aiohttp import ClientSession
 from asyncio import sleep
 from copy import deepcopy
 from datetime import datetime, timedelta
+from disnake import TextChannel
+from logging import Logger
 from os import getenv
+from typing import ValuesView
 from utils.functions import health_bar, steam_format
 from utils.mixins import ReprMixin
+from utils.trackers import LiberationChangesTracker
 
-api = getenv("API")
-backup_api = getenv("BU_API")
+api = getenv(key="API")
+backup_api = getenv(key="BU_API")
 
 
 class Data(ReprMixin):
@@ -24,19 +28,18 @@ class Data(ReprMixin):
         "thumbnails",
         "superstore",
         "dss",
-        "war_time",
         "personal_order",
         "global_events",
         "loaded",
         "liberation_changes",
         "dark_energy_changes",
-        "planets_with_player_reqs",
         "meridia_position",
         "galactic_impact_mod",
     )
 
-    def __init__(self):
-        self.__data__ = {
+    def __init__(self) -> None:
+        """The object to retrieve and organise all 3rd-party data used by the bot"""
+        self.__data__: dict[str,] = {
             "assignments": None,
             "campaigns": None,
             "dispatches": None,
@@ -45,22 +48,23 @@ class Data(ReprMixin):
             "thumbnails": None,
             "superstore": None,
             "dss": None,
-            "war_time": None,
             "personal_order": None,
             "status": None,
         }
-        self.loaded = False
-        self.liberation_changes = {}
-        self.dark_energy_changes = {"total": 0, "changes": []}
-        self.planets_with_player_reqs = {}
-        self.meridia_position = None
+        self.loaded: bool = False
+        self.liberation_changes: LiberationChangesTracker = LiberationChangesTracker()
+        self.dark_energy_changes: dict = {"total": 0, "changes": []}
+        self.meridia_position: None | tuple[int, int] = None
         self.personal_order = None
         self.fetched_at = None
         self.assignment = None
-        self.galactic_impact_mod = 0
+        self.galactic_impact_mod: float = 0.0
         self.global_events: list[GlobalEvent] | list = []
 
-    async def pull_from_api(self, bot):
+    async def pull_from_api(
+        self, logger: Logger, moderator_channel: TextChannel
+    ) -> None:
+        """Pulls the data from each endpoint"""
         api_to_use = api
         async with ClientSession(
             headers={
@@ -69,45 +73,35 @@ class Data(ReprMixin):
                 "X-Super-Contact": "Stonemercy",
             }
         ) as session:
-            async with session.get(f"{api_to_use}") as r:
+            async with session.get(url=f"{api_to_use}") as r:
                 if r.status != 200:
                     api_to_use = backup_api
-                    bot.logger.critical("API/USING BACKUP")
-                    await bot.moderator_channel.send(f"API/USING BACKUP\n{r}")
+                    logger.critical(msg="API/USING BACKUP")
+                    await moderator_channel.send(content=f"API/USING BACKUP\n{r}")
 
                 for endpoint in list(self.__data__.keys()):
                     if endpoint == "thumbnails":
                         async with session.get(
-                            "https://helldivers.news/api/planets"
+                            url="https://helldivers.news/api/planets"
                         ) as r:
                             if r.status == 200:
                                 self.__data__[endpoint] = await r.json()
                             else:
-                                bot.logger.error(f"API/THUMBNAILS, {r.status}")
+                                logger.error(msg=f"API/THUMBNAILS, {r.status}")
                         continue
                     if endpoint == "superstore":
                         continue
                         async with session.get(
-                            "https://api.diveharder.com/v1/store_rotation"
+                            url="https://api.diveharder.com/v1/store_rotation"
                         ) as r:
                             if r.status == 200:
                                 self.__data__[endpoint] = await r.json()
                             else:
-                                bot.logger.error(f"API/SUPERSTORE, {r.status}")
-                        continue
-                    if endpoint == "war_time":
-                        async with session.get(
-                            "https://api.diveharder.com/raw/smdb"
-                        ) as r:
-                            if r.status == 200:
-                                data = await r.json()
-                                self.__data__[endpoint] = data["time"]
-                            else:
-                                bot.logger.error(f"API/WAR_TIME, {r.status}")
+                                logger.error(msg=f"API/SUPERSTORE, {r.status}")
                         continue
                     if endpoint == "dss":
                         async with session.get(
-                            "https://api.diveharder.com/raw/dss"
+                            url="https://api.diveharder.com/raw/dss"
                         ) as r:
                             if r.status == 200:
                                 data = await r.json()
@@ -115,7 +109,7 @@ class Data(ReprMixin):
                                     self.__data__[endpoint] = data
                                     continue
                                 if type(data[0]) == str:
-                                    bot.logger.error(f"API/DSS, {data[0] = }")
+                                    logger.error(msg=f"API/DSS, {data[0] = }")
                                     continue
                                 tactical_actions = data[0].get("tacticalActions", None)
                                 if tactical_actions:
@@ -123,18 +117,18 @@ class Data(ReprMixin):
                                         "name", None
                                     )
                                     if not names_present:
-                                        bot.logger.error(
-                                            f"API/DSS, Tactical Action has no name"
+                                        logger.error(
+                                            msg=f"API/DSS, Tactical Action has no name"
                                         )
                                         continue
                                 self.__data__[endpoint] = data[0]
                             else:
-                                bot.logger.error(f"API/DSS, {r.status}")
+                                logger.error(msg=f"API/DSS, {r.status}")
                         continue
                     if endpoint == "personal_order":
                         continue
                         async with session.get(
-                            "https://api.diveharder.com/v1/personal_order"
+                            url="https://api.diveharder.com/v1/personal_order"
                         ) as r:
                             if r.status == 200:
                                 data = await r.json()
@@ -142,40 +136,43 @@ class Data(ReprMixin):
                             elif r.status == 204:
                                 continue
                             else:
-                                bot.logger.error(f"API/Personal_Order, {r.status}")
+                                logger.error(msg=f"API/Personal_Order, {r.status}")
                         continue
                     if endpoint == "status":
                         async with session.get(
-                            "https://api.diveharder.com/raw/status"
+                            url="https://api.diveharder.com/raw/status"
                         ) as r:
                             if r.status == 200:
                                 data = await r.json()
                                 self.__data__[endpoint] = data
                             else:
-                                bot.logger.error(f"API/Status, {r.status}")
+                                logger.error(msg=f"API/Status, {r.status}")
                         continue
 
                     try:
-                        async with session.get(f"{api_to_use}/api/v1/{endpoint}") as r:
+                        async with session.get(
+                            url=f"{api_to_use}/api/v1/{endpoint}"
+                        ) as r:
                             if r.status == 200:
+                                json = await r.json()
                                 if endpoint == "dispatches":
-                                    json = await r.json()
                                     if not json[0]["message"]:
                                         continue
                                 elif endpoint == "assignments":
-                                    json = await r.json()
                                     if json not in ([], None):
                                         if not json[0]["briefing"]:
                                             continue
-                                self.__data__[endpoint] = await r.json()
+                                self.__data__[endpoint] = json
                             else:
-                                bot.logger.error(f"API/{endpoint.upper()}, {r.status}")
-                                await bot.moderator_channel.send(
-                                    f"API/{endpoint.upper()}\n{r}"
+                                logger.error(msg=f"API/{endpoint.upper()}, {r.status}")
+                                await moderator_channel.send(
+                                    content=f"API/{endpoint.upper()}\n{r}"
                                 )
                     except Exception as e:
-                        bot.logger.error(f"API/{endpoint.upper()}, {e}")
-                        await bot.moderator_channel.send(f"API/{endpoint.upper()}\n{r}")
+                        logger.error(msg=f"API/{endpoint.upper()}, {e}")
+                        await moderator_channel.send(
+                            content=f"API/{endpoint.upper()}\n{r}"
+                        )
                     if api_to_use == backup_api:
                         await sleep(2)
         self.format_data()
@@ -184,39 +181,44 @@ class Data(ReprMixin):
         self.get_needed_players()
         self.fetched_at = datetime.now()
         if not self.loaded:
-            now = datetime.now()
-            bot.logger.info(
-                f"setup complete | bot.ready_time: {bot.ready_time.strftime('%H:%M:%S')} -> {now.strftime('%H:%M:%S')} - saved {int((bot.ready_time - now).total_seconds())} seconds"
-            )
-            bot.ready_time = now
             self.loaded = True
 
-    def format_data(self):
-        if self.__data__["war_time"]:
-            self.war_time: int = (
-                int(datetime.now().timestamp()) - self.__data__["war_time"]
+    def format_data(self) -> None:
+        """Formats the data in `this_object.__data__` and sets the properties of `this_object`"""
+        if self.__data__["status"]:
+            self.war_start_timestamp: int = (
+                int(datetime.now().timestamp()) - self.__data__["status"]["time"]
             )
 
         if self.__data__["planets"]:
-            self.planets: Planets = Planets(self.__data__["planets"])
-            self.total_players = sum(
+            self.planets: Planets = Planets(raw_planets_data=self.__data__["planets"])
+            self.total_players: int = sum(
                 [planet.stats["playerCount"] for planet in self.planets.values()]
             )
 
         if self.__data__["dss"]:
             if self.__data__["dss"] != "Error":
-                self.dss: DSS = DSS(self.__data__["dss"], self.planets, self.war_time)
+                dss_planet: Planet = self.planets[self.__data__["dss"]["planetIndex"]]
+                dss_planet.dss_in_orbit = True
+                self.dss: DSS = DSS(
+                    raw_dss_data=self.__data__["dss"],
+                    planet=dss_planet,
+                    war_start_timestamp=self.war_start_timestamp,
+                )
             else:
                 self.dss: str = "Error"
 
-        self.planet_events: list[Planet] = sorted(
-            [planet for planet in self.planets.values() if planet.event],
-            key=lambda planet: planet.stats["playerCount"],
-            reverse=True,
-        )
+        if self.planets:
+            self.planet_events: list[Planet] = sorted(
+                [planet for planet in self.planets.values() if planet.event],
+                key=lambda planet: planet.stats["playerCount"],
+                reverse=True,
+            )
 
         if self.__data__["assignments"] not in ([], None):
-            self.assignment: Assignment = Assignment(self.__data__["assignments"][0])
+            self.assignment: Assignment = Assignment(
+                raw_assignment_data=self.__data__["assignments"][0]
+            )
             factions = {
                 1: "Humans",
                 2: "Terminids",
@@ -224,7 +226,6 @@ class Data(ReprMixin):
                 4: "Illuminate",
             }
             for task in self.assignment.tasks:
-                task: Tasks.Task
                 if task.type == 2:
                     self.planets[task.values[8]].in_assignment = True
                 elif task.type == 3:
@@ -251,8 +252,7 @@ class Data(ReprMixin):
                         for index in [
                             planet.index
                             for planet in self.planet_events
-                            if planet.event
-                            and planet.event.faction == factions[task.values[1]]
+                            if planet.event.faction == factions[task.values[1]]
                         ]:
                             self.planets[index].in_assignment = True
                 elif task.type in (11, 13):
@@ -263,15 +263,22 @@ class Data(ReprMixin):
         if self.__data__["campaigns"] not in ([], None):
             self.campaigns: list[Campaign] = sorted(
                 [
-                    Campaign(campaign, self.planets)
-                    for campaign in self.__data__["campaigns"]
+                    Campaign(
+                        raw_campaign_data=raw_campaign_data,
+                        campaign_planet=self.planets[
+                            raw_campaign_data["planet"]["index"]
+                        ],
+                    )
+                    for raw_campaign_data in self.__data__["campaigns"]
                 ],
                 key=lambda item: item.planet.stats["playerCount"],
                 reverse=True,
             )
 
         if self.__data__["dispatches"]:
-            self.dispatch: Dispatch = Dispatch(self.__data__["dispatches"][0])
+            self.dispatch: Dispatch = Dispatch(
+                raw_dispatch_data=self.__data__["dispatches"][0]
+            )
 
         if self.__data__["thumbnails"]:
             self.thumbnails = self.__data__["thumbnails"]
@@ -282,12 +289,15 @@ class Data(ReprMixin):
                     )
 
         if self.__data__["steam"]:
-            self.steam: list[Steam] = [Steam(notes) for notes in self.__data__["steam"]]
+            self.steam: list[Steam] = [
+                Steam(raw_steam_data=raw_steam_data)
+                for raw_steam_data in self.__data__["steam"]
+            ]
 
-        if self.__data__["superstore"]:
+        if self.__data__["superstore"]:  # SHELVED
             self.superstore: Superstore = Superstore(self.__data__["superstore"])
 
-        if self.__data__["personal_order"]:
+        if self.__data__["personal_order"]:  # SHELVED
             self.personal_order: PersonalOrder = PersonalOrder(
                 self.__data__["personal_order"]
             )
@@ -296,16 +306,19 @@ class Data(ReprMixin):
             self.galactic_impact_mod: float = self.__data__["status"][
                 "impactMultiplier"
             ]
-            for global_event in self.__data__["status"]["globalEvents"]:
-                title = global_event.get("title", None)
+            for raw_global_event_data in self.__data__["status"]["globalEvents"]:
+                raw_global_event_data: dict
+                title = raw_global_event_data.get("title", None)
                 if title != None:
-                    self.global_events.append(GlobalEvent(global_event=global_event))
+                    self.global_events.append(
+                        GlobalEvent(raw_global_event_data=raw_global_event_data)
+                    )
                 else:
                     continue
             self.global_resources: GlobalResources = GlobalResources(
-                self.__data__["status"]["globalResources"]
+                raw_global_resources_data=self.__data__["status"]["globalResources"]
             )
-            self.meridia_position = (
+            self.meridia_position: tuple[int, int] = (
                 self.__data__["status"]["planetStatus"][64]["position"]["x"],
                 self.__data__["status"]["planetStatus"][64]["position"]["y"],
             )
@@ -313,14 +326,14 @@ class Data(ReprMixin):
                 "x": self.meridia_position[0],
                 "y": self.meridia_position[1],
             }
-            planets_with_buildup = {}
+            planets_with_buildup: dict[int, int] = {}
             for planet in self.__data__["status"]["planetEvents"]:
                 if planet["potentialBuildUp"] != 0:
                     planets_with_buildup[planet["planetIndex"]] = planet[
                         "potentialBuildUp"
                     ]
             for index, buildup in planets_with_buildup.items():
-                planet = self.planets[index]
+                planet: Planet = self.planets[index]
                 if planet.event:
                     planet.event.potential_buildup = buildup
             self.planet_active_effects = self.__data__["status"]["planetActiveEffects"]
@@ -328,30 +341,22 @@ class Data(ReprMixin):
                 planet = self.planets[planet_effect["index"]]
                 planet.active_effects.append(planet_effect["galacticEffectId"])
 
-    def update_liberation_rates(self):
+    def update_liberation_rates(self) -> None:
+        """Update the liberation changes in the tracker for each active campaign"""
         for campaign in self.campaigns:
-            if campaign.planet.index not in self.liberation_changes:
-                self.liberation_changes[campaign.planet.index] = {
-                    "liberation": campaign.progress,
-                    "liberation_changes": [],
-                }
-            else:
-                changes = self.liberation_changes[campaign.planet.index]
-                if len(changes["liberation_changes"]) == 60:
-                    changes["liberation_changes"].pop(0)
-                while len(changes["liberation_changes"]) < 60:
-                    changes["liberation_changes"].append(
-                        campaign.progress - changes["liberation"]
-                    )
-                changes["liberation"] = campaign.progress
-
-    def update_dark_energy_rate(self):
-        if self.global_resources.dark_energy:
-            if not self.dark_energy_changes["total"]:
-                self.dark_energy_changes["total"] = (
-                    self.global_resources.dark_energy.perc
+            if campaign.planet.index not in self.liberation_changes.tracked_planets:
+                self.liberation_changes.add_new_entry(
+                    planet_index=campaign.planet.index, liberation=campaign.progress
                 )
             else:
+                self.liberation_changes.update_liberation(
+                    planet_index=campaign.planet.index, new_liberation=campaign.progress
+                )
+
+    def update_dark_energy_rate(self) -> None:
+        """Update the changes in dark energy"""
+        if self.global_resources.dark_energy:
+            if self.dark_energy_changes["total"] != 0:
                 if len(self.dark_energy_changes["changes"]) == 5:
                     self.dark_energy_changes["changes"].pop(0)
                 while len(self.dark_energy_changes["changes"]) < 5:
@@ -361,24 +366,22 @@ class Data(ReprMixin):
                             - self.dark_energy_changes["total"]
                         )
                     )
-                self.dark_energy_changes["total"] = (
-                    self.global_resources.dark_energy.perc
-                )
+            self.dark_energy_changes["total"] = self.global_resources.dark_energy.perc
 
-    def get_needed_players(self):
+    def get_needed_players(self) -> None:
+        """Update the planets with their required helldivers for victory"""
         now = datetime.now()
         if not self.planet_events:
             return
         for planet in self.planet_events:
-            lib_changes = self.liberation_changes[planet.index]
-            if (
-                len(lib_changes["liberation_changes"]) == 0
-                or sum(lib_changes["liberation_changes"]) == 0
-            ):
+            lib_changes = self.liberation_changes.get_by_index(
+                planet_index=planet.index
+            )
+            if lib_changes.rate_per_hour == 0:
                 return
-            progress_needed = 100 - lib_changes["liberation"]
+            progress_needed = 100 - lib_changes.liberation
             seconds_to_complete = int(
-                (progress_needed / sum(lib_changes["liberation_changes"])) * 3600
+                (progress_needed / lib_changes.rate_per_hour) * 3600
             )
             winning = (
                 now + timedelta(seconds=seconds_to_complete)
@@ -389,19 +392,13 @@ class Data(ReprMixin):
                     planet.event.end_time_datetime - now
                 ).total_seconds() / 3600
                 progress_needed_per_hour = progress_needed / hours_left
-                amount_ratio = progress_needed_per_hour / sum(
-                    lib_changes["liberation_changes"]
-                )
+                amount_ratio = progress_needed_per_hour / lib_changes.rate_per_hour
                 required_players = planet.stats["playerCount"] * amount_ratio
                 planet.event.required_players = required_players
-        self.planets_with_player_reqs = {
-            planet.index: planet.event.required_players
-            for planet in self.planet_events
-            if planet.event.required_players != 0
-        }
 
     @property
-    def plot_coordinates(self):
+    def plot_coordinates(self) -> dict[int, tuple]:
+        """Returns the coordinates of the planets for use in the 2000x2000 map"""
         return {
             planet.index: (
                 (planet.position["x"] + 1) / 2 * 2000,
@@ -411,64 +408,61 @@ class Data(ReprMixin):
         }
 
     def copy(self):
+        """Returns a deep copy of the data"""
         return deepcopy(self)
 
 
 class Assignment(ReprMixin):
-    def __init__(self, assignment: dict):
-        self.id: int = assignment["id"]
-        self.title = (
-            steam_format(assignment["briefing"])
-            if assignment["briefing"] not in ([], None)
+    def __init__(self, raw_assignment_data: dict) -> None:
+        """Organised data of an Assignment or Major Order"""
+        self.id: int = raw_assignment_data["id"]
+        self.title: str = (
+            steam_format(content=raw_assignment_data["briefing"])
+            if raw_assignment_data["briefing"] not in ([], None)
             else ""
         )
-        self.description = (
-            steam_format(assignment["description"])
-            if assignment["description"] not in ([], None, assignment["briefing"])
+        self.description: str = (
+            steam_format(content=raw_assignment_data["description"])
+            if raw_assignment_data["description"]
+            not in ([], None, raw_assignment_data["briefing"])
             else ""
         )
-        self.tasks = Tasks(assignment)
-        self.rewards = assignment["rewards"]
-        self.ends_at = assignment["expiration"]
-        self.ends_at_datetime = datetime.fromisoformat(self.ends_at)
-
-
-class Tasks(list):
-    def __init__(self, assignment):
-        for index, task in enumerate(assignment["tasks"]):
-            task = self.Task(task)
-            if task.type in (15, 12):
-                progress_value = task.values[0]
-            elif task.type in (13, 11):
-                progress_value = 1
-            elif task.type in (3, 2):
-                progress_value = task.values[2]
-            task.progress = assignment["progress"][index] / progress_value
-            self.append(task)
+        self.tasks: list[Assignment.Task] = []
+        for index, task in enumerate(iterable=raw_assignment_data["tasks"]):
+            self.tasks.append(
+                Assignment.Task(
+                    task=task, current_progress=raw_assignment_data["progress"][index]
+                )
+            )
+        self.rewards: list[dict] = raw_assignment_data["rewards"]
+        self.ends_at: str = raw_assignment_data["expiration"]
+        self.ends_at_datetime: datetime = datetime.fromisoformat(self.ends_at)
 
     class Task(ReprMixin):
-        def __init__(self, task):
+        def __init__(self, task: dict, current_progress: int | float) -> None:
+            """Organised data of an Assignment Task"""
             self.type: int = task["type"]
-            self.progress: float = 0
+            self.progress: float = current_progress
             self.values: list = task["values"]
             self.value_types: list = task["valueTypes"]
 
         @property
         def health_bar(self) -> str:
+            """Returns a health_bar based on the task type and progress"""
             if self.type == 2:
                 return health_bar(
-                    self.progress, "MO" if self.progress != 1 else "Humans"
+                    self.progress_perc, "MO" if self.progress != 1 else "Humans"
                 )
             elif self.type == 3:
                 return health_bar(
-                    self.progress,
+                    self.progress_perc,
                     (self.values[0] if self.progress != 1 else "Humans"),
                 )
             elif self.type == 11:
                 return
             elif self.type == 12:
                 return health_bar(
-                    self.progress,
+                    self.progress_perc,
                     "MO" if self.progress < 1 else "Humans",
                 )
             elif self.type == 13:
@@ -482,104 +476,119 @@ class Tasks(list):
                     "Humans" if self.progress > 0 else "Automaton",
                 )
 
-
-class Campaign(ReprMixin):
-    def __init__(self, campaign, planets):
-        self.id: int = campaign["id"]
-        self.planet: Planet = planets[campaign["planet"]["index"]]
-        self.type: int = campaign["type"]
-        self.count: int = campaign["count"]
-        self.progress: float = (
-            (1 - (self.planet.health / self.planet.max_health)) * 100
-            if not self.planet.event
-            else (1 - (self.planet.event.progress)) * 100
-        )
-        self.faction = (
-            self.planet.event.faction
-            if self.planet.event
-            else self.planet.current_owner
-        )
+        @property
+        def progress_perc(self) -> float:
+            """Returns the progress of the task as a float (0-1)"""
+            if self.type in (15, 12):
+                progress_value = self.values[0]
+            elif self.type in (13, 11):
+                progress_value = 1
+            elif self.type in (3, 2):
+                progress_value = self.values[2]
+            return self.progress / progress_value
 
 
 class Dispatch(ReprMixin):
-    def __init__(self, dispatch):
-        self.id: int = dispatch["id"]
-        self.message = steam_format(dispatch["message"]) if dispatch["message"] else ""
+    def __init__(self, raw_dispatch_data: dict) -> None:
+        """Organised data of a dispatch"""
+        self.id: int = raw_dispatch_data["id"]
+        self.message = (
+            steam_format(content=raw_dispatch_data["message"])
+            if raw_dispatch_data["message"]
+            else ""
+        )
 
 
 class GlobalEvent(ReprMixin):
-    def __init__(self, global_event):
-        self.id = global_event["eventId"]
-        self.title = global_event["title"]
-        self.message = steam_format(global_event["message"])
-        self.faction = global_event["race"]
-        self.flag = global_event["flag"]
-        self.assignment_id = global_event["assignmentId32"]
-        self.effect_ids = global_event["effectIds"]
-        self.planet_indices = global_event["planetIndices"]
+    def __init__(self, raw_global_event_data: dict) -> None:
+        """Organised data of a global event"""
+        self.id: int = raw_global_event_data["eventId"]
+        self.title: str = raw_global_event_data["title"]
+        self.message: str = steam_format(content=raw_global_event_data["message"])
+        self.faction: int = raw_global_event_data["race"]
+        self.flag: int = raw_global_event_data["flag"]
+        self.assignment_id: int = raw_global_event_data["assignmentId32"]
+        self.effect_ids: list[int] | list = raw_global_event_data["effectIds"]
+        self.planet_indices: list[int] | list = raw_global_event_data["planetIndices"]
 
     @property
-    def split_message(self):
-        sentences = self.message.split("\n\n")
+    def split_message(self) -> list[str]:
+        """Returns the message split into chunks with character lengths of 1024 or less"""
+        sentences = self.message.split(sep="\n\n")
         formatted_sentences = [f"-# {sentence}" for sentence in sentences]
         chunks = []
         current_chunk = ""
         for sentence in formatted_sentences:
-            if len(current_chunk) + len(sentence) + 2 <= 1024:
+            if len(obj=current_chunk) + len(obj=sentence) + 2 <= 1024:
                 current_chunk += sentence + "\n\n"
             else:
-                chunks.append(current_chunk.strip())
+                chunks.append(object=current_chunk.strip())
                 current_chunk = sentence + "\n\n"
         if current_chunk:
             chunks.append(current_chunk.strip())
         return chunks
 
 
-class GlobalResources(list):
-    def __init__(self, global_resources):
-        for global_resource in global_resources:
-            if global_resource["id32"] == 194773219:
-                self.dark_energy = self.DarkEnergy(global_resource)
+class GlobalResource(ReprMixin):
+    def __init__(self, raw_global_resource_data: dict) -> None:
+        """Organised data of a global resource"""
+        self.id: int = raw_global_resource_data["id32"]
+        self.current_value: int = raw_global_resource_data["currentValue"]
+        self.max_value: int = raw_global_resource_data["maxValue"]
+        self.perc: float = self.current_value / self.max_value
+
+
+class DarkEnergy(GlobalResource):
+    def __init__(self, raw_global_resource_data: dict) -> None:
+        """Organised data for Dark Energy"""
+        super().__init__(raw_global_resource_data=raw_global_resource_data)
+
+    @property
+    def health_bar(self) -> str:
+        """Returns the health bar set up for Dark Energy"""
+        return health_bar(self.perc, "Illuminate")
+
+
+class GlobalResources(list[GlobalResource]):
+    def __init__(self, raw_global_resources_data: list[dict]) -> None:
+        """An organised list of Global Resources."""
+        for raw_global_resource_data in raw_global_resources_data:
+            if raw_global_resource_data["id32"] == 194773219:
+                self.dark_energy: DarkEnergy = DarkEnergy(
+                    raw_global_resource_data=raw_global_resource_data
+                )
             else:
-                self.append(self.GlobalResource(global_resource))
-
-    class GlobalResource(ReprMixin):
-        def __init__(self, global_resource):
-            self.id = global_resource["id32"]
-            self.current_value = global_resource["currentValue"]
-            self.max_value = global_resource["maxValue"]
-            self.perc = self.current_value / self.max_value
-
-    class DarkEnergy(GlobalResource):
-        def __init__(self, global_resource):
-            super().__init__(global_resource)
-
-        @property
-        def health_bar(self):
-            return health_bar(self.perc, "Illuminate")
+                self.append(
+                    GlobalResource(raw_global_resource_data=raw_global_resource_data)
+                )
 
 
 class Planet(ReprMixin):
-    def __init__(self, planet_json: dict):
-        self.index: int = planet_json["index"]
-        self.name: str = planet_json["name"]
-        self.sector: str = planet_json["sector"]
-        self.biome: dict = planet_json["biome"]
-        self.hazards: list[dict] = planet_json["hazards"]
-        self.position: dict = planet_json["position"]
-        self.waypoints: list[int] = planet_json["waypoints"]
-        self.max_health: int = planet_json["maxHealth"]
-        self.health: int = planet_json["health"]
+    def __init__(self, raw_planet_data: dict) -> None:
+        """Organised data for a specific planet"""
+        self.index: int = raw_planet_data["index"]
+        self.name: str = raw_planet_data["name"]
+        self.sector: str = raw_planet_data["sector"]
+        self.biome: dict = raw_planet_data["biome"]
+        self.hazards: list[dict] = raw_planet_data["hazards"]
+        self.position: dict = raw_planet_data["position"]
+        self.waypoints: list[int] = raw_planet_data["waypoints"]
+        self.max_health: int = raw_planet_data["maxHealth"]
+        self.health: int = raw_planet_data["health"]
         self.health_perc: float = self.health / self.max_health
-        self.current_owner: str = planet_json["currentOwner"]
-        self.regen: float = planet_json["regenPerSecond"]
-        self.regen_perc_per_hour = round(
-            (((self.regen * 3600) / self.max_health) * 100), 2
+        self.current_owner: str = raw_planet_data["currentOwner"]
+        self.regen: float = raw_planet_data["regenPerSecond"]
+        self.regen_perc_per_hour: float = round(
+            number=(((self.regen * 3600) / self.max_health) * 100), ndigits=2
         )
-        self.event = self.Event(planet_json["event"]) if planet_json["event"] else None
-        self.stats: dict = planet_json["statistics"]
+        self.event: Planet.Event | None = (
+            Planet.Event(raw_event_data=raw_planet_data["event"])
+            if raw_planet_data["event"]
+            else None
+        )
+        self.stats: dict = raw_planet_data["statistics"]
         self.thumbnail = None
-        self.feature = {
+        self.feature: str | None = {
             45: "Center for Civilian Surveillance",
             64: "Meridian Singularity",
             125: "Centre of Science",
@@ -587,9 +596,11 @@ class Planet(ReprMixin):
             130: "Factory Hub",
             161: "Deep Mantle Forge Complex",
         }.get(self.index, None)
-        self.dss = False
-        self.in_assignment = False
-        self.active_effects = []
+        self.dss_in_orbit: bool = False
+        self.in_assignment: bool = False
+        self.active_effects: list[int] | list = []
+
+        # BIOME/SECTOR/HAZARDS OVERWRITE #
         if self.index == 64:
             self.biome = {
                 "name": "Black Hole",
@@ -597,7 +608,7 @@ class Planet(ReprMixin):
             }
             self.sector = "Orion"
             self.hazards = []
-        elif self.index == 127:
+        elif self.index in (127,):
             self.biome = {
                 "name": "Fractured Planet",
                 "description": "All that remains of a planet torn apart by the Meridian singularity. A solemn reminder of the desolation Tyranny leaves in its wake.",
@@ -605,27 +616,33 @@ class Planet(ReprMixin):
             self.hazards = []
 
     class Event(ReprMixin):
-        def __init__(self, event):
-            self.id: int = event["id"]
-            self.type: int = event["eventType"]
-            self.faction: str = event["faction"]
-            self.health: int = event["health"]
-            self.max_health: int = event["maxHealth"]
-            self.start_time = event["startTime"]
-            self.end_time = event["endTime"]
-            self.start_time_datetime = datetime.fromisoformat(self.start_time).replace(
-                tzinfo=None
-            )
-            self.end_time_datetime = datetime.fromisoformat(self.end_time).replace(
-                tzinfo=None
-            )
+        def __init__(self, raw_event_data) -> None:
+            """Organised data for a planet's event (defence campaign)"""
+            self.id: int = raw_event_data["id"]
+            self.type: int = raw_event_data["eventType"]
+            self.faction: str = raw_event_data["faction"]
+            self.health: int = raw_event_data["health"]
+            self.max_health: int = raw_event_data["maxHealth"]
+            self.start_time: str = raw_event_data["startTime"]
+            self.end_time: str = raw_event_data["endTime"]
+            self.start_time_datetime: datetime = datetime.fromisoformat(
+                self.start_time
+            ).replace(tzinfo=None)
+            self.end_time_datetime: datetime = datetime.fromisoformat(
+                self.end_time
+            ).replace(tzinfo=None)
             self.progress: float = self.health / self.max_health
             self.required_players: int = 0
             self.level: int = int(self.max_health / 50000)
-            self.potential_buildup = 0
+            self.potential_buildup: int = 0
 
         @property
         def remaining_dark_energy(self) -> float:
+            """Returns the remaining dark energy on the planet
+
+            example:
+                If the `12 hour event` has `6 hours left` and the `potential_buildup is 120000`
+                the `remaining_dark_energy is 60000`"""
             return self.potential_buildup * (
                 1
                 - (datetime.now() - self.start_time_datetime).total_seconds()
@@ -634,13 +651,15 @@ class Planet(ReprMixin):
 
         @property
         def health_bar(self) -> str:
-            return health_bar(self.progress, self.faction, True)
+            """Returns the health bar for the planet's event"""
+            return health_bar(perc=self.progress, race=self.faction, reverse=True)
 
 
-class Planets(dict[int, Planet]):
-    def __init__(self, planets: dict):
-        for planet in planets:
-            self[planet["index"]] = Planet(planet)
+class Planets(dict):
+    def __init__(self, raw_planets_data: list[dict]) -> None:
+        """A dict in the format of `{int: Planet}` containing all of the current planets"""
+        for raw_planet_data in raw_planets_data:
+            self[raw_planet_data["index"]] = Planet(raw_planet_data=raw_planet_data)
 
     def get_by_name(self, name: str) -> Planet | None:
         planet_list = [
@@ -648,57 +667,89 @@ class Planets(dict[int, Planet]):
         ]
         return None if not planet_list else planet_list[0]
 
+    # For typehinting #
+    def values(self) -> ValuesView[Planet]:
+        return super().values()
 
-class PlanetEvents(list[Planet]):
-    def __init__(self, planet_events):
-        for planet in planet_events:
-            self.append(Planet(planet))
+    def __getitem__(self, key) -> Planet:
+        return super().__getitem__(key)
+
+
+class Campaign(ReprMixin):
+    def __init__(self, raw_campaign_data: dict, campaign_planet: Planet) -> None:
+        """Organised data for a campaign"""
+        self.id: int = raw_campaign_data["id"]
+        self.planet: Planet = campaign_planet
+        self.type: int = raw_campaign_data["type"]
+        self.count: int = raw_campaign_data["count"]
+        self.progress: float = (
+            (1 - (self.planet.health / self.planet.max_health)) * 100
+            if not self.planet.event
+            else (1 - (self.planet.event.progress)) * 100
+        )
+        self.faction: str = (
+            self.planet.event.faction
+            if self.planet.event
+            else self.planet.current_owner
+        )
 
 
 class Steam(ReprMixin):
-    def __init__(self, steam):
-        self.id: int = int(steam["id"])
-        self.title: str = steam["title"]
-        self.content: str = steam_format(steam["content"])
-        self.author: str = steam["author"]
-        self.url: str = steam["url"]
+    def __init__(self, raw_steam_data: dict) -> None:
+        """Organised data for a Steam announcements"""
+        self.id: int = int(raw_steam_data["id"])
+        self.title: str = raw_steam_data["title"]
+        self.content: str = steam_format(content=raw_steam_data["content"])
+        self.author: str = raw_steam_data["author"]
+        self.url: str = raw_steam_data["url"]
 
 
-class Superstore(ReprMixin):
+class Superstore(ReprMixin):  # SHELVED
     def __init__(self, superstore):
         self.expiration = superstore["expire_time"]
         self.items: dict = superstore["items"]
 
 
 class DSS(ReprMixin):
-    def __init__(self, dss, planets, war_time):
-        self.planet: Planet = planets[dss["planetIndex"]]
-        self.planet.dss = True
-        self.election_war_time: int = dss["currentElectionEndWarTime"]
-        self.election_date_time = datetime.fromtimestamp(
-            war_time + self.election_war_time
+    def __init__(
+        self, raw_dss_data: dict, planet: Planet, war_start_timestamp: int
+    ) -> None:
+        """Organised data for the DSS"""
+        self.planet: Planet = planet
+        self.move_timer_timestamp: int = raw_dss_data["currentElectionEndWarTime"]
+        self.move_timer_datetime: datetime = datetime.fromtimestamp(
+            war_start_timestamp + self.move_timer_timestamp
         )
         self.tactical_actions: list[DSS.TacticalAction] = [
-            self.TacticalAction(tactical_action, war_time)
-            for tactical_action in dss["tacticalActions"]
+            DSS.TacticalAction(
+                tactical_action_raw_data=tactical_action_raw_data,
+                war_start_time=war_start_timestamp,
+            )
+            for tactical_action_raw_data in raw_dss_data["tacticalActions"]
         ]
 
     class TacticalAction(ReprMixin):
-        def __init__(self, tactical_action, war_time):
-            self.name: str = tactical_action["name"]
-            self.description: str = tactical_action["description"]
-            self.status: int = tactical_action["status"]
-            self.status_end: int = tactical_action["statusExpireAtWarTimeSeconds"]
-            self.status_end_datetime = datetime.fromtimestamp(
-                war_time + self.status_end
+        def __init__(self, tactical_action_raw_data: dict, war_start_time: int) -> None:
+            """A Tactical Action for the DSS"""
+            self.name: str = tactical_action_raw_data["name"]
+            self.description: str = tactical_action_raw_data["description"]
+            self.status: int = tactical_action_raw_data["status"]
+            self.status_end: int = tactical_action_raw_data[
+                "statusExpireAtWarTimeSeconds"
+            ]
+            self.status_end_datetime: datetime = datetime.fromtimestamp(
+                war_start_time + self.status_end
             )
             self.strategic_description: str = steam_format(
-                tactical_action["strategicDescription"]
+                content=tactical_action_raw_data["strategicDescription"]
             )
-            self.cost = self.Cost(tactical_action["cost"][0])
+            self.cost: DSS.TacticalAction.Cost = DSS.TacticalAction.Cost(
+                tactical_action_raw_data["cost"][0]
+            )
 
         class Cost(ReprMixin):
-            def __init__(self, cost):
+            def __init__(self, cost) -> None:
+                """Organised data for the cost of a Tactical Action"""
                 self.item: str = {
                     2985106497: "Rare Sample",
                     3992382197: "Common Sample",
@@ -713,7 +764,7 @@ class DSS(ReprMixin):
                 )
 
 
-class PersonalOrder(ReprMixin):
+class PersonalOrder(ReprMixin):  # SHELVED
     def __init__(self, personal_order: dict):
         self.id: int = personal_order["id32"]
         self.expiration_secs_from_now: int = personal_order["expiresIn"]

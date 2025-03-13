@@ -1,19 +1,18 @@
-from datetime import datetime, timedelta
-from math import sqrt
-from typing import Self
 from data.lists import language_dict
+from datetime import datetime, timedelta
 from dotenv import load_dotenv
+from math import sqrt
 from os import getenv
 from psycopg2 import connect
-
+from typing import Self
 from utils.mixins import ReprMixin
 
-load_dotenv("data/.env")
-hostname = getenv("DB_hostname")
-database = getenv("DB_NAME")
-username = getenv("DB_username")
-pwd = getenv("DB_pwd")
-port_id = getenv("DB_port_id")
+load_dotenv(dotenv_path="data/.env")
+hostname = getenv(key="DB_hostname")
+database = getenv(key="DB_NAME")
+username = getenv(key="DB_username")
+pwd = getenv(key="DB_pwd")
+port_id = getenv(key="DB_port_id")
 
 
 class GWWGuild(ReprMixin):
@@ -45,6 +44,7 @@ class GWWGuild(ReprMixin):
         personal_order_updates: bool,
         detailed_dispatches: bool,
     ):
+        """Organised data for a Guild in the GWW's database"""
         self.id: int = id
         self.dashboard_channel_id: int = dashboard_channel_id
         self.dashboard_message_id: int = dashboard_message_id
@@ -58,60 +58,69 @@ class GWWGuild(ReprMixin):
         self.detailed_dispatches: bool = detailed_dispatches
 
     @property
-    def language_long(self):
+    def language_long(self) -> str:
+        """Returns the full version of the language's name
+
+        e.g. `en` becomes `English`"""
         return {v: k for k, v in language_dict.items()}[self.language]
 
     @classmethod
-    def get_by_id(cls, guild_id: int):
+    def get_by_id(cls, guild_id: int) -> Self:
+        """Get a guild from the DB by their guild ID"""
         with connect(
             host=hostname, dbname=database, user=username, password=pwd, port=port_id
         ) as conn:
             with conn.cursor() as curs:
-                curs.execute(f"SELECT * FROM guilds WHERE guild_id = {guild_id}")
+                curs.execute(query=f"SELECT * FROM guilds WHERE guild_id = {guild_id}")
                 record = curs.fetchone()
-                return GWWGuild.new(guild_id) if not record else cls(*record)
+                return GWWGuild.new(guild_id=guild_id) if not record else cls(*record)
 
     @classmethod
     def get_all(cls) -> list[Self]:
+        """Get a list of all the guild entries in the database"""
         with connect(
             host=hostname, dbname=database, user=username, password=pwd, port=port_id
         ) as conn:
             with conn.cursor() as curs:
-                curs.execute("SELECT * FROM guilds")
+                curs.execute(query="SELECT * FROM guilds")
                 records = curs.fetchall()
                 return [cls(*record) for record in records] if records else None
 
     @classmethod
-    def new(cls, guild_id: int):
+    def new(cls, guild_id: int) -> Self:
+        """Insert a new guild into the database and return the entry"""
         with connect(
             host=hostname, dbname=database, user=username, password=pwd, port=port_id
         ) as conn:
             with conn.cursor() as curs:
-                curs.execute(f"INSERT INTO guilds (guild_id) VALUES ({guild_id})")
+                curs.execute(query=f"INSERT INTO guilds (guild_id) VALUES ({guild_id})")
                 conn.commit()
-                curs.execute(f"SELECT * FROM guilds WHERE guild_id = {guild_id}")
+                curs.execute(query=f"SELECT * FROM guilds WHERE guild_id = {guild_id}")
                 record = curs.fetchone()
                 return cls(*record)
 
     @classmethod
-    def default(cls):
+    def default(cls) -> Self:
+        """Return a default class"""
         return cls(0, 0, 0, 0, False, "en", 0, 0, False, False, False)
 
-    def delete(guild_id: int):
+    def delete(guild_id: int) -> None:
+        """Delete a guild from the database"""
         with connect(
             host=hostname, dbname=database, user=username, password=pwd, port=port_id
         ) as conn:
             with conn.cursor() as curs:
-                curs.execute(f"DELETE FROM guilds WHERE guild_id = {guild_id}")
+                curs.execute(query=f"DELETE FROM guilds WHERE guild_id = {guild_id}")
                 conn.commit()
 
-    def save_changes(self):
+    def save_changes(self) -> None:
+        """Save any changes made to this entry"""
         with connect(
             host=hostname, dbname=database, user=username, password=pwd, port=port_id
         ) as conn:
             with conn.cursor() as curs:
                 curs.execute(
-                    f"""UPDATE guilds SET dashboard_channel_id = {self.dashboard_channel_id},
+                    query=f"""UPDATE guilds SET dashboard_channel_id = {self.dashboard_channel_id},
                     dashboard_message_id = {self.dashboard_message_id},
                     announcement_channel_id = {self.announcement_channel_id},
                     patch_notes = {self.patch_notes},
@@ -127,14 +136,13 @@ class GWWGuild(ReprMixin):
 
 
 class BotDashboard(ReprMixin):
-    __slots__ = ("channel_id", "message_id")
-
-    def __init__(self):
+    def __init__(self) -> None:
+        """Organised data for the bot's mini dashboard"""
         with connect(
             host=hostname, dbname=database, user=username, password=pwd, port=port_id
         ) as conn:
             with conn.cursor() as curs:
-                curs.execute("SELECT * FROM bot_dashboard")
+                curs.execute(query="SELECT * FROM bot_dashboard")
                 record = curs.fetchone()
                 if record:
                     self.channel_id = record[0]
@@ -143,54 +151,57 @@ class BotDashboard(ReprMixin):
                     self.channel_id = 0
                     self.message_id = 0
 
-    def save_changes(self):
+    def save_changes(self) -> None:
+        """Save any changes made to this entry"""
         with connect(
             host=hostname, dbname=database, user=username, password=pwd, port=port_id
         ) as conn:
             with conn.cursor() as curs:
-                curs.execute(f"UPDATE bot_dashboard SET message_id = {self.message_id}")
+                curs.execute(
+                    query=f"UPDATE bot_dashboard SET message_id = {self.message_id}"
+                )
                 conn.commit()
 
 
 class MajorOrder(ReprMixin):
-    __slots__ = "id"
-
-    def __init__(self):
+    def __init__(self) -> None:
+        """Organised data for the Major Order info in the database"""
         with connect(
             host=hostname, dbname=database, user=username, password=pwd, port=port_id
         ) as conn:
             with conn.cursor() as curs:
-                curs.execute("SELECT * FROM major_order")
+                curs.execute(query="SELECT * FROM major_order")
                 record = curs.fetchone()
                 self.id = record[0]
 
-    def save_changes(self):
+    def save_changes(self) -> None:
+        """Save any changes made to this entry"""
         with connect(
             host=hostname, dbname=database, user=username, password=pwd, port=port_id
         ) as conn:
             with conn.cursor() as curs:
-                curs.execute(f"UPDATE major_order SET id = {self.id}")
+                curs.execute(query=f"UPDATE major_order SET id = {self.id}")
                 conn.commit()
 
 
 class GlobalEvent(ReprMixin):
-    __slots__ = "id"
-
-    def __init__(self):
+    def __init__(self) -> None:
+        """Organised data for the Global Events info in the database"""
         with connect(
             host=hostname, dbname=database, user=username, password=pwd, port=port_id
         ) as conn:
             with conn.cursor() as curs:
-                curs.execute("SELECT * FROM global_events")
+                curs.execute(query="SELECT * FROM global_events")
                 record = curs.fetchone()
                 self.id = record[0]
 
-    def save_changes(self):
+    def save_changes(self) -> None:
+        """Save any changes made to this entry"""
         with connect(
             host=hostname, dbname=database, user=username, password=pwd, port=port_id
         ) as conn:
             with conn.cursor() as curs:
-                curs.execute(f"UPDATE global_events SET id = {self.id}")
+                curs.execute(query=f"UPDATE global_events SET id = {self.id}")
                 conn.commit()
 
 
@@ -206,6 +217,7 @@ class Campaign(ReprMixin):
         event_type: int,
         event_faction: str,
     ):
+        """Organised data for the Campaigns info in the database"""
         self.id: int = id
         self.owner: str = owner
         self.planet_index: int = planet_index
@@ -214,12 +226,13 @@ class Campaign(ReprMixin):
         self.event_faction: str | None = event_faction
 
     @classmethod
-    def get_all(cls) -> list:
+    def get_all(cls) -> list[Self]:
+        """Get a list of all the campaign entries in the database"""
         with connect(
             host=hostname, dbname=database, user=username, password=pwd, port=port_id
         ) as conn:
             with conn.cursor() as curs:
-                curs.execute("SELECT * FROM campaigns")
+                curs.execute(query="SELECT * FROM campaigns")
                 records = curs.fetchall()
                 return [cls(*record) for record in records] if records else None
 
@@ -230,7 +243,8 @@ class Campaign(ReprMixin):
         event: bool,
         event_type: int,
         event_faction: str,
-    ):
+    ) -> None:
+        """Inserts a new entry into the campaigns database"""
         with connect(
             host=hostname, dbname=database, user=username, password=pwd, port=port_id
         ) as conn:
@@ -238,80 +252,83 @@ class Campaign(ReprMixin):
                 if event_type == None:
                     event_type = 0
                 curs.execute(
-                    f"INSERT INTO campaigns (id, owner, planet_index, event, event_type, event_faction) VALUES {id, owner, planet_index, event, event_type, f'{event_faction}'}"
+                    query=f"INSERT INTO campaigns (id, owner, planet_index, event, event_type, event_faction) VALUES {id, owner, planet_index, event, event_type, f'{event_faction}'}"
                 )
                 conn.commit()
-                curs.execute
 
-    def delete(id: int):
+    def delete(id: int) -> None:
+        """Delets a campaign from the database"""
         with connect(
             host=hostname, dbname=database, user=username, password=pwd, port=port_id
         ) as conn:
             with conn.cursor() as curs:
-                curs.execute(f"DELETE FROM campaigns WHERE id = {id}")
+                curs.execute(query=f"DELETE FROM campaigns WHERE id = {id}")
                 conn.commit()
 
 
 class Dispatch(ReprMixin):
-    __slots__ = "id"
-
-    def __init__(self):
+    def __init__(self) -> None:
+        """Organised data for the Dispatch info in the database"""
         with connect(
             host=hostname, dbname=database, user=username, password=pwd, port=port_id
         ) as conn:
             with conn.cursor() as curs:
-                curs.execute("SELECT * FROM dispatches")
+                curs.execute(query="SELECT * FROM dispatches")
                 record = curs.fetchone()
                 self.id = record[0]
 
-    def save_changes(self):
+    def save_changes(self) -> None:
+        """Save the changes to the DB"""
         with connect(
             host=hostname, dbname=database, user=username, password=pwd, port=port_id
         ) as conn:
             with conn.cursor() as curs:
-                curs.execute(f"UPDATE dispatches SET id = {self.id}")
+                curs.execute(query=f"UPDATE dispatches SET id = {self.id}")
                 conn.commit()
 
 
 class Steam(ReprMixin):
-    __slots__ = "id"
-
-    def __init__(self):
+    def __init__(self) -> None:
         with connect(
             host=hostname, dbname=database, user=username, password=pwd, port=port_id
         ) as conn:
             with conn.cursor() as curs:
-                curs.execute("SELECT * FROM steam")
+                curs.execute(query="SELECT * FROM steam")
                 record = curs.fetchone()
                 self.id = record[0]
 
-    def save_changes(self):
+    def save_changes(self) -> None:
+        """Save any changes made to this entry"""
         with connect(
             host=hostname, dbname=database, user=username, password=pwd, port=port_id
         ) as conn:
             with conn.cursor() as curs:
-                curs.execute(f"UPDATE steam SET id = {self.id}")
+                curs.execute(query=f"UPDATE steam SET id = {self.id}")
                 conn.commit()
 
 
 class FeedbackUser(ReprMixin):
     __slots__ = ("user_id", "banned", "reason", "good_feedback")
 
-    def __init__(self, user_id: int, banned: bool, reason: str, good_feedback: bool):
-        self.user_id = user_id
-        self.banned = banned
-        self.reason = reason
-        self.good_feedback = good_feedback
+    def __init__(
+        self, user_id: int, banned: bool, reason: str, good_feedback: bool
+    ) -> None:
+        """Organised data for the for user feedback info in the database"""
+        self.user_id: int = user_id
+        self.banned: bool = banned
+        self.reason: str = reason
+        self.good_feedback: bool = good_feedback
 
     @classmethod
-    def get_by_id(cls, user_id: int):
+    def get_by_id(cls, user_id: int) -> Self:
+        """Fetch a user by their ID"""
         with connect(
             host=hostname, dbname=database, user=username, password=pwd, port=port_id
         ) as conn:
             with conn.cursor() as curs:
-                curs.execute(f"SELECT * FROM feedback WHERE user_id = {user_id}")
+                curs.execute(query=f"SELECT * FROM feedback WHERE user_id = {user_id}")
                 record = curs.fetchone()
-                return FeedbackUser.new(user_id) if not record else cls(*record)
+                return FeedbackUser.new(user_id=user_id) if not record else cls(*record)
 
     @classmethod
     def new(
@@ -320,34 +337,37 @@ class FeedbackUser(ReprMixin):
         banned: bool = False,
         reason: str = "None Given",
         good_feedback: bool = False,
-    ):
+    ) -> Self:
+        """Insert a new user into the feedback database and return the entry"""
         with connect(
             host=hostname, dbname=database, user=username, password=pwd, port=port_id
         ) as conn:
             with conn.cursor() as curs:
                 curs.execute(
-                    f"INSERT INTO feedback (user_id, banned, reason, good_feedback) VALUES {user_id, banned, reason, good_feedback}"
+                    query=f"INSERT INTO feedback (user_id, banned, reason, good_feedback) VALUES {user_id, banned, reason, good_feedback}"
                 )
                 conn.commit()
-                curs.execute(f"SELECT * FROM feedback WHERE user_id = {user_id}")
+                curs.execute(query=f"SELECT * FROM feedback WHERE user_id = {user_id}")
                 result = curs.fetchone()
                 return cls(*result) if result else None
 
-    def delete(user_id: int):
+    def delete(user_id: int) -> None:
+        """Delete a user from the feedback database"""
         with connect(
             host=hostname, dbname=database, user=username, password=pwd, port=port_id
         ) as conn:
             with conn.cursor() as curs:
-                curs.execute(f"DELETE FROM feedback WHERE id = {user_id}")
+                curs.execute(query=f"DELETE FROM feedback WHERE id = {user_id}")
                 conn.commit()
 
-    def save_changes(self):
+    def save_changes(self) -> None:
+        """Save any changes made to this entry"""
         with connect(
             host=hostname, dbname=database, user=username, password=pwd, port=port_id
         ) as conn:
             with conn.cursor() as curs:
                 curs.execute(
-                    f"UPDATE feedback SET user_id = {self.user_id}, banned = {self.banned}, reason = '{self.reason}', good_feedback = {self.good_feedback} where user_id = {self.user_id}"
+                    query=f"UPDATE feedback SET user_id = {self.user_id}, banned = {self.banned}, reason = '{self.reason}', good_feedback = {self.good_feedback} where user_id = {self.user_id}"
                 )
                 conn.commit()
 
@@ -355,33 +375,34 @@ class FeedbackUser(ReprMixin):
 class DSS(ReprMixin):
     __slots__ = ("planet_index", "ta1_status", "ta2_status", "ta3_status")
 
-    def __init__(self):
+    def __init__(self) -> None:
+        """Organised data for the DSS info in the database"""
         with connect(
             host=hostname, dbname=database, user=username, password=pwd, port=port_id
         ) as conn:
             with conn.cursor() as curs:
-                curs.execute(f"SELECT * FROM dss")
+                curs.execute(query=f"SELECT * FROM dss")
                 record = curs.fetchone()
-                self.planet_index = record[0]
-                self.ta1_status = record[1]
-                self.ta2_status = record[2]
-                self.ta3_status = record[3]
+                self.planet_index: int = record[0]
+                self.ta1_status: int = record[1]
+                self.ta2_status: int = record[2]
+                self.ta3_status: int = record[3]
 
-    def save_changes(self):
+    def save_changes(self) -> None:
+        """Save any changes made to this entry"""
         with connect(
             host=hostname, dbname=database, user=username, password=pwd, port=port_id
         ) as conn:
             with conn.cursor() as curs:
                 curs.execute(
-                    f"UPDATE dss SET planet_index = {self.planet_index}, ta1_status = {self.ta1_status}, ta2_status = {self.ta2_status}, ta3_status = {self.ta3_status}"
+                    query=f"UPDATE dss SET planet_index = {self.planet_index}, ta1_status = {self.ta1_status}, ta2_status = {self.ta2_status}, ta3_status = {self.ta3_status}"
                 )
                 conn.commit()
 
 
 class Meridia(ReprMixin):
-    __slots__ = "locations"
-
-    def __init__(self):
+    def __init__(self) -> None:
+        """Organised data for the Meridia database info"""
         with connect(
             host=hostname,
             dbname=database,
@@ -390,9 +411,11 @@ class Meridia(ReprMixin):
             port=port_id,
         ) as conn:
             with conn.cursor() as curs:
-                curs.execute(f"SELECT * FROM meridia")
+                curs.execute(query=f"SELECT * FROM meridia")
                 records = curs.fetchall()
-                self.locations = [self.Location(*record) for record in records]
+                self.locations: list[Meridia.Location] = [
+                    Meridia.Location(*record) for record in records
+                ]
         self.now = datetime.now()
         self.last_4_hours = [
             location
@@ -401,8 +424,8 @@ class Meridia(ReprMixin):
         ]
 
     @property
-    def speed(self):
-        "returns speed in units per second"
+    def speed(self) -> float:
+        "Returns Meridia's speed in Super Units per second"
         current_location = self.locations[-1]
         location_four_hours_ago = self.locations[-16]
         time_difference = (
@@ -411,22 +434,24 @@ class Meridia(ReprMixin):
         delta_x = current_location.x - location_four_hours_ago.x
         delta_y = current_location.y - location_four_hours_ago.y
         distance_moved = sqrt(delta_x**2 + delta_y**2)
-        return distance_moved / time_difference  # in units per second
+        return distance_moved / time_difference  # in super units per second
 
     class Location(ReprMixin):
-        def __init__(self, timestamp, x, y):
+        def __init__(self, timestamp: datetime, x: float, y: float) -> None:
+            """A timestamped location"""
             self.timestamp: datetime = timestamp
-            self.x = x
-            self.y = y
-            self.as_tuple = (self.x, self.y)
+            self.x: float = x
+            self.y: float = y
+            self.as_tuple: tuple = (self.x, self.y)
 
-    def new_location(self, timestamp, x, y):
+    def new_location(self, timestamp, x, y) -> None:
+        """Add a new location entry into the database"""
         with connect(
             host=hostname, dbname=database, user=username, password=pwd, port=port_id
         ) as conn:
             with conn.cursor() as curs:
                 curs.execute(
-                    f"INSERT into meridia (timestamp, x, y) VALUES {timestamp, x, y}"
+                    query=f"INSERT into meridia (timestamp, x, y) VALUES {timestamp, x, y}"
                 )
                 conn.commit()
                 self.locations.append(

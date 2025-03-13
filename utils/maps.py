@@ -4,7 +4,7 @@ from data.lists import faction_colours
 from datetime import datetime
 from disnake import Colour, Embed, File, TextChannel
 from PIL import Image, ImageDraw, ImageFont
-from utils.data import Data, Tasks
+from utils.data import Data
 
 
 class Maps:
@@ -143,7 +143,6 @@ class Maps:
         }
         background_draw = ImageDraw.Draw(im=background)
         for task in self.data.assignment.tasks:
-            task: Tasks.Task
             if task.type in (11, 13):
                 self._draw_ellipse(
                     draw=background_draw,

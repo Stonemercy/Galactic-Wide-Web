@@ -13,7 +13,14 @@ from data.lists import (
     stratagem_image_dict,
 )
 from disnake import APISlashCommand, Colour, Embed, File, ModalInteraction, OptionType
-from utils.data import DSS, GlobalResources, PersonalOrder, Planet, Steam, Superstore
+from utils.data import (
+    DSS,
+    DarkEnergy,
+    PersonalOrder,
+    Planet,
+    Steam,
+    Superstore,
+)
 from utils.db import GWWGuild
 from utils.emojis import Emojis
 from utils.functions import health_bar, short_format
@@ -60,15 +67,15 @@ class PlanetCommandEmbed(Embed, EmbedReprMixin):
             )
         )
         title_exclamation = ""
-        if planet.dss:
+        if planet.dss_in_orbit:
             title_exclamation += Emojis.dss["dss"]
             title_exclamation += Emojis.dss["operational_support"]
         if planet.in_assignment:
             title_exclamation += Emojis.icons["MO"]
         planet_health_bar = health_bar(
-            (planet.event.progress if planet.event else planet.health_perc),
-            (planet.event.faction if planet.event else planet.current_owner),
-            True if planet.event else False,
+            planet.event.progress if planet.event else planet.health_perc,
+            planet.event.faction if planet.event else planet.health_perc,
+            True if planet.event or planet.current_owner != "Humans" else False,
         )
         if planet.event:
             planet_health_bar += f" 🛡️ {Emojis.factions[planet.event.faction]}"
@@ -94,7 +101,7 @@ class PlanetCommandEmbed(Embed, EmbedReprMixin):
             ),
             inline=False,
         )
-        if planet.dss:
+        if planet.dss_in_orbit:
             self.add_field(
                 f"{Emojis.dss['operational_support']} Operational Support",
                 f"The presence of the {Emojis.dss['dss']} DSS near this planet provides a slight boost to **Liberation Campaign** progress.",
@@ -841,7 +848,7 @@ class DSSCommandEmbed(Embed, EmbedReprMixin):
             faction_emoji=Emojis.factions[dss_data.planet.current_owner],
         )
         self.description += language_json["dashboard"]["DSSEmbed"]["next_move"].format(
-            timestamp=f"<t:{int(dss_data.election_date_time.timestamp())}:R>"
+            timestamp=f"<t:{int(dss_data.move_timer_datetime.timestamp())}:R>"
         )
         self.set_thumbnail(
             "https://cdn.discordapp.com/attachments/1212735927223590974/1312446626975187065/DSS.png?ex=674c86ab&is=674b352b&hm=3184fde3e8eece703b0e996501de23c89dc085999ebff1a77009fbee2b09ccad&"
@@ -989,7 +996,7 @@ class MeridiaCommandEmbed(Embed, EmbedReprMixin):
         self,
         language_json: dict,
         planet_names_json: dict,
-        dark_energy_resource: GlobalResources.DarkEnergy,
+        dark_energy_resource: DarkEnergy,
         total_de_available: int,
         active_invasions: int,
         dark_energy_changes: dict[str:int, str:list],

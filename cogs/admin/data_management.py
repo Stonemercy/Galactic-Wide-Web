@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from datetime import time
+from datetime import datetime, time
 from disnake import Activity, ActivityType
 from disnake.ext import commands, tasks
 from main import GalacticWideWebBot
@@ -47,8 +47,23 @@ class DataManagementCog(commands.Cog):
     )
     async def pull_from_api(self):
         if self.bot.data.loaded:
+            first_load = False
             self.bot.previous_data = self.bot.data.copy()
-        await self.bot.data.pull_from_api(self.bot)
+        else:
+            first_load = True
+        await self.bot.data.pull_from_api(
+            logger=self.bot.logger, moderator_channel=self.bot.moderator_channel
+        )
+        if first_load:
+            now = datetime.now()
+            if now < self.bot.ready_time:
+                change = f"{(self.bot.ready_time - now).total_seconds():.2f} seconds faster than the given 30"
+            else:
+                change = f"Took {(now - self.bot.ready_time).total_seconds():.2f} seconds longer than the given 30"
+            self.bot.logger.info(
+                f"Startup complete in {(now - self.bot.startup_time).total_seconds():.2f} seconds - {change}"
+            )
+            self.bot.ready_time = now
 
     @pull_from_api.before_loop
     async def before_pull_from_api(self):

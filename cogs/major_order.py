@@ -40,7 +40,6 @@ class MajorOrderCog(commands.Cog):
                 assignment=self.bot.data.assignment,
                 planets=self.bot.data.planets,
                 liberation_changes=self.bot.data.liberation_changes,
-                player_requirements=self.bot.data.planets_with_player_reqs,
                 language_json=guild_language,
                 json_dict=self.bot.json_dict,
             ),
