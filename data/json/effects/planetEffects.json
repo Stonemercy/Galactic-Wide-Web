@@ -1,8 +1,38 @@
 {
+	"1120": {
+		"galacticEffectId": 1120,
+		"name": "group_BroodAcid",
+		"description": "[EST] Terminids on this planet have increased Acid production."
+	},
+	"1121": {
+		"galacticEffectId": 1121,
+		"name": "group_BroodPredator",
+		"description": "[EST] Terminids on this planet are of the Predator strain."
+	},
+	"1122": {
+		"galacticEffectId": 1122,
+		"name": "group_BroodArmored",
+		"description": "[EST] Terminids on this planet are more armored than usual."
+	},
+	"1124": {
+		"galacticEffectId": 1124,
+		"name": "extract_SuperPilotShortage",
+		"description": "[EST] Extraction appears slower than usual."
+	},
+	"1125": {
+		"galacticEffectId": 1125,
+		"name": "extract_SuperAerialDominance",
+		"description": "[EST] Extract appears quicker than usual"
+	},
 	"1127": {
 		"galacticEffectId": 1127,
 		"name": "WEAPONS EXPERIMENTATION",
 		"description": "The Eagle 500kg Bomb stratagem has been temporarily authorized for use by all Helldivers."
+	},
+	"1128": {
+		"galacticEffectId": 1128,
+		"name": "strat_Eagle500KgBomb4",
+		"description": "[EST] The Eagle 500kg Bomb stratagem has been temporarily authorized for use by all Helldivers."
 	},
 	"1129": {
 		"galacticEffectId": 1129,
@@ -13,6 +43,41 @@
 		"galacticEffectId": 1132,
 		"name": "WEAPONS EXPERIMENTATION",
 		"description": "The EMS Mortar Sentry stratagem has been temporarily authorized for use by all Helldivers."
+	},
+	"1133": {
+		"galacticEffectId": 1133,
+		"name": "strat_EMSMortarSentry",
+		"description": "[EST] The EMS Mortar Sentry has been temporarily authorized for use by all Helldivers."
+	},
+	"1134": {
+		"galacticEffectId": 1134,
+		"name": "ammo_Shortage1",
+		"description": "[EST] Helldivers start with less ammo than usual."
+	},
+	"1136": {
+		"galacticEffectId": 1136,
+		"name": "war_Lib1000",
+		"description": "No idea tbh"
+	},
+	"1137": {
+		"galacticEffectId": 1137,
+		"name": "strat_Railgun",
+		"description": "[EST] The Railgun has been temporarily authorized for use by all Helldivers."
+	},
+	"1140": {
+		"galacticEffectId": 1140,
+		"name": "ammo_Shortage2",
+		"description": "[EST] Helldivers start with less ammo than usual."
+	},
+	"1141": {
+		"galacticEffectId": 1141,
+		"name": "war_Lib200",
+		"description": "No idea tbh"
+	},
+	"1144": {
+		"galacticEffectId": 1144,
+		"name": "ammo_Shortage3",
+		"description": "[EST] Helldivers start with less ammo than usual."
 	},
 	"1145": {
 		"galacticEffectId": 1145,
@@ -43,6 +108,11 @@
 		"galacticEffectId": 1163,
 		"name": "WEAPONS EXPERIMENTATION",
 		"description": "The Eagle 110MM Rocket Pods stratagem has been temporarily authorized for use by all Helldivers."
+	},
+	"1165": {
+		"galacticEffectId": 1165,
+		"name": "strat_JumpPack",
+		"description": "The Jump Pack stratagem has been temporarily authorized for use by all Helldivers."
 	},
 	"1166": {
 		"galacticEffectId": 1166,
@@ -89,10 +159,25 @@
 		"name": "WEAPONS EXPERIMENTATION",
 		"description": "The Command stratagem has been temporarily authorized for use by all Helldivers."
 	},
+	"1182": {
+		"galacticEffectId": 1182,
+		"name": "extract_AerialDominance",
+		"description": "[EST] Lower cooldown on eagles (?)"
+	},
+	"1183": {
+		"galacticEffectId": 1183,
+		"name": "extract_PilotShortage",
+		"description": "[EST] Longer cooldown on eagles (?)"
+	},
 	"1184": {
 		"galacticEffectId": 1184,
 		"name": "WEAPONS EXPERIMENTATION",
 		"description": "The Incendiary Mines stratagem has been temporarily authorized for use by all Helldivers."
+	},
+	"1185": {
+		"galacticEffectId": 1185,
+		"name": "strat_AntiPersonnelMinefield",
+		"description": "[EST] Anti-Personnel Mines stratagem has been temporarily authorized for use by all Helldivers."
 	},
 	"1186": {
 		"galacticEffectId": 1186,
@@ -179,6 +264,41 @@
 		"name": "WEAPONS EXPERIMENTATION",
 		"description": "The HMG Emplacement stratagem has been temporarily authorized for use by all Helldivers."
 	},
+	"1208": {
+		"galacticEffectId": 1208,
+		"name": "game_PLANETARY_BOMBARDMENT",
+		"description": "[EST] Planetary Bombardment is active on this planet"
+	},
+	"1209": {
+		"galacticEffectId": 1209,
+		"name": "game_EAGLE_STORM",
+		"description": "[EST] Eagle Storm is active on this planet"
+	},
+	"1210": {
+		"galacticEffectId": 1210,
+		"name": "boost_HellpodSpaceOptimization",
+		"description": "[EST] The Hellpod Space Optimization Booster has been deployed for all Helldivers"
+	},
+	"1211": {
+		"galacticEffectId": 1211,
+		"name": "mark_PLANETARY_BOMBARDMENT",
+		"description": "[EST] This planet has been marked for Planetary Bombardment"
+	},
+	"1213": {
+		"galacticEffectId": 1213,
+		"name": "mark_ORBITAL_BLOCKADE",
+		"description": "[EST] This planet has been marked for an Orbital Blockade"
+	},
+	"1214": {
+		"galacticEffectId": 1214,
+		"name": "war_HEAVY_ORDNANCE_DISTRIBUTION",
+		"description": "[EST] Heavy Ordnance has been distributed to all helldivers"
+	},
+	"1215": {
+		"galacticEffectId": 1215,
+		"name": "war_ORBITAL_BLOCKADE",
+		"description": "[EST] Something to do with Orbital Blockade"
+	},
 	"1217": {
 		"galacticEffectId": 1217,
 		"name": "DEMOCRACY SPACE STATION",
@@ -186,13 +306,23 @@
 	},
 	"1222": {
 		"galacticEffectId": 1222,
-		"name": "UNKNOWN EFFECT- LIKELY REINFORCEMENT BUDGET?",
-		"description": "(probably) Increases the number of available reinforcements."
+		"name": "UNK_ELDss",
+		"description": "[EST] Increases the number of available reinforcements."
 	},
 	"1223": {
 		"galacticEffectId": 1223,
 		"name": "WEAPONS EXPERIMENTATION",
 		"description": "The Shield Generator Relay stratagem has been temporarily authorized for use by all Helldivers."
+	},
+	"1224": {
+		"galacticEffectId": 1224,
+		"name": "boost_IncreasedReinforcementBudget",
+		"description": "[EST] Increases the number of available reinforcements."
+	},
+	"1225": {
+		"galacticEffectId": 1225,
+		"name": "war_SuperEarthMobilizes",
+		"description": "No idea tbh"
 	},
 	"1226": {
 		"galacticEffectId": 1228,
@@ -288,6 +418,10 @@
 		"galacticEffectId": 1251,
 		"name": "SUPPLY CHAIN EXPEDIENCIES",
 		"description": "Eagle Re-Arm times decreased by 50%"
+	},
+	"1252": {
+		"galacticEffectId": 1252,
+		"name": "mark_Annihilated2",
+		"description": "[EST] A planet destroyed by Meridia"
 	}
-
 }
