@@ -519,7 +519,7 @@ class GlobalEvent(ReprMixin):
         chunks = []
         current_chunk = ""
         for sentence in formatted_sentences:
-            if len(obj=current_chunk) + len(obj=sentence) + 2 <= 1024:
+            if len(current_chunk) + len(sentence) + 2 <= 1024:
                 current_chunk += sentence + "\n\n"
             else:
                 chunks.append(object=current_chunk.strip())
