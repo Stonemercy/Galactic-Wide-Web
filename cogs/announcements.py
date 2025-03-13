@@ -8,7 +8,6 @@ from utils.embeds.loop_embeds import (
     GlobalEventsLoopEmbed,
     SteamLoopEmbed,
 )
-from utils.testing.assignment import TestAssignment
 
 
 class AnnouncementsCog(commands.Cog):
@@ -139,18 +138,18 @@ class AnnouncementsCog(commands.Cog):
     @tasks.loop(
         time=[time(hour=6, minute=20, second=0), time(hour=18, minute=20, second=0)]
     )
-    async def major_order_updates(self, test: bool = False):
+    async def major_order_updates(self):
         mo_updates_start = datetime.now()
         if (
             not self.bot.interface_handler.loaded
             or mo_updates_start < self.bot.ready_time
             or not self.bot.data.loaded
-            or (not self.bot.data.assignment and not test)
+            or not self.bot.data.assignment
         ):
             return
         embeds = {
             lang: Dashboard.MajorOrderEmbed(
-                assignment=self.bot.data.assignment if not test else TestAssignment(),
+                assignment=self.bot.data.assignment,
                 planets=self.bot.data.planets,
                 liberation_changes=self.bot.data.liberation_changes,
                 language_json=self.bot.json_dict["languages"][lang],
