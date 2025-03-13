@@ -145,7 +145,7 @@
         "variations": "Varianti"
     },
     "SteamEmbed": {
-        "head_here": "...\nVai [qui](<{url}>) per leggere le note complete sulla patch"
+        "head_here": "...\n# Vai [qui](<{url}>) per leggere le note complete sulla patch"
     },
     "StratagemEmbed": {
         "key_input": "Input tasti",

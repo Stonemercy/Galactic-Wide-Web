@@ -145,7 +145,7 @@
         "variations": "Variaciones"
     },
     "SteamEmbed": {
-        "head_here": "...\nPor favor dirígete [aquí](<{url}>) para leer las notas completas del parche"
+        "head_here": "...\n# Por favor dirígete [aquí](<{url}>) para leer las notas completas del parche"
     },
     "StratagemEmbed": {
         "key_input": "Entrada clave",

@@ -145,7 +145,7 @@
         "variations": "Variations"
     },
     "SteamEmbed": {
-        "head_here": "...\nVeuillez vous rendre [ici](<{url}>) pour lire les notes de mise à jour complètes"
+        "head_here": "...\n# Veuillez vous rendre [ici](<{url}>) pour lire les notes de mise à jour complètes"
     },
     "StratagemEmbed": {
         "key_input": "Entrée de clé",
