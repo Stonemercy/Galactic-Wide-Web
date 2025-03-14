@@ -271,7 +271,7 @@ class Maps:
             angles = []
             while len(angles) < 7:
                 candidate = randint(0, 360)
-                if all(abs(candidate - a) >= 30 for a in angles):
+                if all(abs(candidate - a) >= 35 for a in angles):
                     angles.append(candidate)
             crack_colour = (
                 self.dim_faction_colours[self.sector_info[planet.sector]["faction"]]
