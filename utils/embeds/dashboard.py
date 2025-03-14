@@ -844,7 +844,14 @@ class Dashboard:
                             change = f"{liberation_change.rate_per_hour:+.2f}%/hour"
                             liberation_text = f"\n`{change:^25}`"
                             if planet.event.required_players:
-                                required_players = f"\n{language_json['dashboard']['DefenceEmbed']['players_required']}: **~{planet.event.required_players:,.0f}+**"
+                                if (
+                                    0
+                                    < planet.event.required_players
+                                    < 2.5 * total_players
+                                ):
+                                    required_players = f"\n{language_json['dashboard']['DefenceEmbed']['players_required']}: **~{planet.event.required_players:,.0f}+**"
+                                else:
+                                    required_players = f"\n{language_json['dashboard']['DefenceEmbed']['players_required']}: **IMPOSSIBLE**"
                     time_remaining = (
                         f"<t:{planet.event.end_time_datetime.timestamp():.0f}:R>"
                     )
@@ -876,7 +883,7 @@ class Dashboard:
                         (
                             f"{feature_text}"
                             f"\n{language_json['ends']} {time_remaining}"
-                            f"\n{language_json['dashboard']['DefenceEmbed']['level']} **{int(planet.event.max_health / 50000)}**"
+                            f"\n{language_json['dashboard']['DefenceEmbed']['level']} **{int(planet.event.max_health / 50_000)}**"
                             f"{outlook_text}"
                             f"\n{language_json['dashboard']['heroes'].format(heroes=player_count)}"
                             f"{required_players}"
