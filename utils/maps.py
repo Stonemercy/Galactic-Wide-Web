@@ -204,7 +204,7 @@ class Maps:
         Modifications:
             Meridia - Made to look like the wormhole
             Planets with 1240 active effect - Coloured red
-            Planets with 1241 active effect - Coloured red and cracked
+            Planets with 1241 or 1252 active effect - Coloured red and cracked
 
         Args:
             background (Image.Image): The map to edit
@@ -228,10 +228,7 @@ class Maps:
                     ],
                     fill=inside,
                 )
-            elif (
-                1241 in self.data.planets[index].active_effects
-                or 1240 in self.data.planets[index].active_effects
-            ):
+            elif set([1240, 1241, 1252]) & set(self.data.planets[index].active_effects):
                 background_draw.ellipse(
                     xy=[
                         (coords[0] - 10, coords[1] - 10),
@@ -257,7 +254,7 @@ class Maps:
                 )
 
     def _draw_cracks(self, background: Image.Image):
-        """Draws cracks on planets affected with effect 1241
+        """Draws cracks on planets affected with effect 1241 or 1252
 
         Args:
             background (Image.Image): The map to edit
@@ -266,7 +263,7 @@ class Maps:
         affected_planets = [
             planet
             for planet in self.data.planets.values()
-            if 1241 in planet.active_effects
+            if set([1241, 1252]) & set(planet.active_effects)
         ]
         radius = 11
         for planet in affected_planets:

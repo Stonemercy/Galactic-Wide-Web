@@ -167,7 +167,7 @@ class MeridiaCog(commands.Cog):
         padding_distance = 0.01559
         time_to_reach_planets = {}
         for planet in planets_in_path:
-            if 1241 in planet.active_effects:
+            if set([1241, 1252]) & set(planet.active_effects):
                 continue
             delta_x_to_planet = planet.position["x"] - current_location.x
             delta_y_to_planet = planet.position["y"] - current_location.y
