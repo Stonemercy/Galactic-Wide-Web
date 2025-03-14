@@ -1,8 +1,9 @@
 from datetime import datetime
+from sys import argv, executable
 from disnake import AppCmdInter, Colour, Embed, Permissions
 from disnake.ext import commands
 from main import GalacticWideWebBot
-from os import getenv
+from os import execv, getenv
 from utils.checks import wait_for_startup
 from utils.db import FeedbackUser
 
@@ -232,6 +233,21 @@ class AdminCommandsCog(commands.Cog):
             ephemeral=True,
             embeds=embeds,
         )
+
+    @wait_for_startup()
+    @commands.is_owner()
+    @commands.slash_command(
+        guild_ids=SUPPORT_SERVER_ID,
+        description="Restarts the bot",
+        default_member_permissions=Permissions(administrator=True),
+    )
+    async def restart_bot(
+        self,
+        inter: AppCmdInter,
+    ):
+        await inter.send("Restarting the bot...", ephemeral=True)
+        python = executable
+        execv(python, [python] + argv)
 
 
 def setup(bot: GalacticWideWebBot):
