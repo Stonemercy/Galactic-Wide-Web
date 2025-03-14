@@ -399,6 +399,11 @@
 		"name": "UNKNOWN",
 		"description": "Something on Meridia"
 	},
+	"1243": {
+		"galacticEffectId": 1243,
+		"name": "PREDATOR STRAIN",
+		"description": "A Gloom-enhanced strain of Terminids has been reported on this planet. SEAF patrols have been lured into ambushes, and picked off by unseen assailants. Every ounce of a Helldiver's superior senses will be required to hunt down this dangerous threat."
+	},
 	"1244": {
 		"galacticEffectId": 1244,
 		"name": "GLOOM RESEARCH EXPEDITION",
