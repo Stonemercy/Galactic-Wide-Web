@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 from data.lists import (
     assignment_task_images_dict,
     stratagem_id_dict,
@@ -823,7 +823,8 @@ class Dashboard:
                             planet.index
                         )
                         if liberation_change and liberation_change.rate_per_hour != 0:
-                            now_seconds = int(datetime.now().timestamp())
+                            now = datetime.now()
+                            now_seconds = int(now.timestamp())
                             seconds_until_complete = int(
                                 (
                                     (100 - liberation_change.liberation)
@@ -851,7 +852,11 @@ class Dashboard:
                                 ):
                                     required_players = f"\n{language_json['dashboard']['DefenceEmbed']['players_required']}: **~{planet.event.required_players:,.0f}+**"
                                 else:
-                                    required_players = f"\n{language_json['dashboard']['DefenceEmbed']['players_required']}: **IMPOSSIBLE**"
+                                    one_hour_ago = now - timedelta(hours=1)
+                                    if planet.event.start_time_datetime > one_hour_ago:
+                                        required_players = f"\n{language_json['dashboard']['DefenceEmbed']['players_required']}: *Gathering Data*"
+                                    else:
+                                        required_players = f"\n{language_json['dashboard']['DefenceEmbed']['players_required']}: **IMPOSSIBLE**"
                     time_remaining = (
                         f"<t:{planet.event.end_time_datetime.timestamp():.0f}:R>"
                     )
