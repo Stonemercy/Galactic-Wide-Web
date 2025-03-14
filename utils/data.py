@@ -522,7 +522,7 @@ class GlobalEvent(ReprMixin):
             if len(current_chunk) + len(sentence) + 2 <= 1024:
                 current_chunk += sentence + "\n\n"
             else:
-                chunks.append(object=current_chunk.strip())
+                chunks.append(current_chunk.strip())
                 current_chunk = sentence + "\n\n"
         if current_chunk:
             chunks.append(current_chunk.strip())
