@@ -576,15 +576,16 @@ class Dashboard:
                     liberation_text = ""
                     planet_lib_changes = liberation_changes.get_by_index(planet.index)
                     if planet_lib_changes and planet_lib_changes.rate_per_hour != 0:
-                        now_seconds = int(datetime.now().timestamp())
-                        seconds_until_complete = int(
-                            (
-                                (100 - planet_lib_changes.liberation)
-                                / planet_lib_changes.rate_per_hour
+                        if planet.event:
+                            now_seconds = int(datetime.now().timestamp())
+                            seconds_until_complete = int(
+                                (
+                                    (100 - planet_lib_changes.liberation)
+                                    / planet_lib_changes.rate_per_hour
+                                )
+                                * 3600
                             )
-                            * 3600
-                        )
-                        outlook_text = f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['victory'])} <t:{now_seconds + seconds_until_complete}:R>"
+                            outlook_text = f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['victory'])} <t:{now_seconds + seconds_until_complete}:R>"
                         change = f"{planet_lib_changes.rate_per_hour:+.2f}%/hour"
                         liberation_text = f"\n`{change:^25}`"
                     completed = (
