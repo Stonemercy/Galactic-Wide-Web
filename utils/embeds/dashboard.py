@@ -576,7 +576,7 @@ class Dashboard:
                     liberation_text = ""
                     planet_lib_changes = liberation_changes.get_by_index(planet.index)
                     if planet_lib_changes and planet_lib_changes.rate_per_hour != 0:
-                        if planet.event:
+                        if planet_lib_changes.rate_per_hour > 0:
                             now_seconds = int(datetime.now().timestamp())
                             seconds_until_complete = int(
                                 (
