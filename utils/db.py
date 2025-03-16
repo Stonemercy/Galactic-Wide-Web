@@ -442,7 +442,7 @@ class Meridia(ReprMixin):
             self.timestamp: datetime = timestamp
             self.x: float = x
             self.y: float = y
-            self.as_tuple: tuple = (self.x, self.y)
+            self.as_tuple: tuple[float, float] = (self.x, self.y)
 
     def new_location(self, timestamp, x, y) -> None:
         """Add a new location entry into the database"""
