@@ -428,5 +428,10 @@
 		"galacticEffectId": 1252,
 		"name": "FRACTURED PLANET",
 		"description": "All that remains of a planet torn apart by the Meridian singularity. A solemn reminder of the desolation Tyranny leaves in its wake."
+	},
+	"1253": {
+		"galacticEffectId": 1253,
+		"name": "FUEL RATIONS",
+		"description": "Fuel for Vehicles has been reduced."
 	}
 }
