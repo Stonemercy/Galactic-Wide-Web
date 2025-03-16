@@ -331,10 +331,10 @@ class GlobalEventsLoopEmbed(Embed, EmbedReprMixin):
             if not specific_planets:
                 specific_planets = "All"
             for effect_id in global_event.effect_ids:
-                effect = planet_effects_json.get(str(effect_id))
+                effect = planet_effects_json.get(str(effect_id), None)
                 if not effect:
                     self.add_field(
-                        "UNKNOWN effect",
+                        f"UNKNOWN effect (ID {effect_id})",
                         f"-# Now active of the following planet(s):\n- {specific_planets}",
                         inline=False,
                     )
