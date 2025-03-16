@@ -433,5 +433,10 @@
 		"galacticEffectId": 1253,
 		"name": "FUEL RATIONS",
 		"description": "Fuel for Vehicles has been reduced."
+	},
+	"1254": {
+		"galacticEffectId": 1254,
+		"name": "WEAPONS EXPERIMENTATION",
+		"description": "The Heavy Machine Gun stratagem is available all Helldivers."
 	}
 }
