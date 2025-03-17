@@ -510,6 +510,7 @@ class Dashboard:
                 status_emoji=(
                     Emojis.icons["MO_task_complete"]
                     if task.progress_perc == 1
+                    or (not planet.event and planet.current_owner == "Humans")
                     else Emojis.icons["MO_task_incomplete"]
                 ),
                 planet=planet_names_json[str(planet.index)]["names"][
@@ -569,7 +570,7 @@ class Dashboard:
                     inline=False,
                 )
             else:
-                if task.progress_perc == 1:
+                if task.progress_perc == 1 or planet.current_owner == "Humans":
                     self.add_field(obj_text, "", inline=False)
                 else:
                     outlook_text = ""
