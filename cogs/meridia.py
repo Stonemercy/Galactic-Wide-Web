@@ -29,9 +29,7 @@ class MeridiaCog(commands.Cog):
         now = datetime.now()
         newest_coords = self.bot.data.meridia_position
         meridia = Meridia()
-        old_coords = meridia.locations[-1].as_tuple
-        if newest_coords != old_coords:
-            meridia.new_location(datetime.now().isoformat(), *newest_coords)
+        meridia.new_location(datetime.now().isoformat(), *newest_coords)
         if (
             now.hour % 4 == 0
             and now.minute == 10
