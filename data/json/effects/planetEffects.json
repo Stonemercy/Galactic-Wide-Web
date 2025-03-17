@@ -414,6 +414,11 @@
 		"name": "PREDATOR STRAIN",
 		"description": "A Gloom-enhanced strain of Terminids has been reported on this planet. SEAF patrols have been lured into ambushes, and picked off by unseen assailants. Every ounce of a Helldiver's superior senses will be required to hunt down this dangerous threat."
 	},
+	"1246": {
+		"galacticEffectId": 1246,
+		"name": "UNKNOWN",
+		"description": ""
+	},
 	"1250": {
 		"galacticEffectId": 1250,
 		"name": "SUPPLY CHAIN DIFFICULTIES",
@@ -438,5 +443,10 @@
 		"galacticEffectId": 1254,
 		"name": "WEAPONS EXPERIMENTATION",
 		"description": "The Heavy Machine Gun stratagem is available all Helldivers."
+	},
+	"1255": {
+		"galacticEffectId": 1255,
+		"name": "UNKNOWN",
+		"description": ""
 	}
 }
