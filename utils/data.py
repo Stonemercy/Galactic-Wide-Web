@@ -503,7 +503,7 @@ class GlobalEvent(ReprMixin):
     def __init__(self, raw_global_event_data: dict) -> None:
         """Organised data of a global event"""
         self.id: int = raw_global_event_data["eventId"]
-        self.title: str = raw_global_event_data["title"]
+        self.title: str = steam_format(raw_global_event_data["title"])
         self.message: str = steam_format(content=raw_global_event_data["message"])
         self.faction: int = raw_global_event_data["race"]
         self.flag: int = raw_global_event_data["flag"]
