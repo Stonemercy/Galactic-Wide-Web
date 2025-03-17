@@ -74,7 +74,7 @@ class PlanetCommandEmbed(Embed, EmbedReprMixin):
             title_exclamation += Emojis.icons["MO"]
         planet_health_bar = health_bar(
             planet.event.progress if planet.event else planet.health_perc,
-            planet.event.faction if planet.event else planet.health_perc,
+            planet.event.faction if planet.event else planet.current_owner,
             True if planet.event or planet.current_owner != "Humans" else False,
         )
         if planet.event:
