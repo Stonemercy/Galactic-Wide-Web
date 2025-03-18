@@ -212,21 +212,21 @@ class Maps:
         background_draw = ImageDraw.Draw(im=background)
         for index, coords in self.planet_coordinates.items():
             if index == 64:
-                inside = (28, 22, 48)
-                outside = (106, 76, 180)
+                for i in range(12, 6, -1):
+                    background_draw.ellipse(
+                        xy=[
+                            (coords[0] - i, coords[1] - i),
+                            (coords[0] + i, coords[1] + i),
+                        ],
+                        fill=(i * 20, i * 5, i * 20),
+                    )
                 background_draw.ellipse(
                     xy=[
-                        (coords[0] - 10, coords[1] - 10),
-                        (coords[0] + 10, coords[1] + 10),
+                        (coords[0] - 7, coords[1] - 7),
+                        (coords[0] + 7, coords[1] + 7),
                     ],
-                    fill=outside,
-                )
-                background_draw.ellipse(
-                    xy=[
-                        (coords[0] - 8, coords[1] - 8),
-                        (coords[0] + 8, coords[1] + 8),
-                    ],
-                    fill=inside,
+                    fill=(0, 0, 0),
+                    outline=(200, 100, 255),
                 )
             elif set([1240, 1241, 1252]) & set(self.data.planets[index].active_effects):
                 background_draw.ellipse(
