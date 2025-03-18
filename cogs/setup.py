@@ -152,8 +152,15 @@ class SetupCog(commands.Cog):
                         language_json=guild_language, selected=True
                     ),
                 )
-                await inter.response.edit_message(components=action_rows)
-                return
+                try:
+                    await inter.response.edit_message(components=action_rows)
+                    return
+                except NotFound:
+                    await inter.send(
+                        "There was an issue editing the setup message. Your settings have been saved so just use the command again!\nApologies for the inconvenience",
+                        ephemeral=True,
+                    )
+                    return
             elif inter.component.custom_id == "set_dashboard_button":
                 action_rows.append(
                     ActionRow(
