@@ -75,7 +75,6 @@ class Maps:
                     radius=17,
                 )
             self._draw_planets(background=background)
-            self._draw_cracks(background=background)
             if self.data.dss and self.data.dss != "Error":
                 self._add_dss_icon(background=background)
             if self.arrow_needed:
@@ -228,7 +227,7 @@ class Maps:
                     fill=(0, 0, 0),
                     outline=(200, 100, 255),
                 )
-            elif set([1240, 1241, 1252]) & set(self.data.planets[index].active_effects):
+            elif 1240 in self.data.planets[index].active_effects:
                 background_draw.ellipse(
                     xy=[
                         (coords[0] - 10, coords[1] - 10),
@@ -236,6 +235,32 @@ class Maps:
                     ],
                     fill="red",
                 )
+            elif set([1241, 1252]) & set(self.data.planets[index].active_effects):
+                planet_image = Image.new("RGBA", (2000, 2000), (0, 0, 0, 0))
+                planet_draw = ImageDraw.Draw(planet_image)
+                planet_draw.ellipse(
+                    xy=[
+                        (coords[0] - 10, coords[1] - 10),
+                        (coords[0] + 10, coords[1] + 10),
+                    ],
+                    fill="red",
+                )
+                cx, cy = self.planet_coordinates[index]
+                angles = []
+                while len(angles) < 7:
+                    candidate = randint(0, 360)
+                    if all(abs(candidate - a) >= 30 for a in angles):
+                        angles.append(candidate)
+                for start_angle in angles:
+                    step_size = 11 * 1.2
+                    new_x = cx + int(step_size * cos(radians(start_angle)))
+                    new_y = cy + int(step_size * sin(radians(start_angle)))
+                    planet_draw.line(
+                        [(cx, cy), (new_x, new_y)],
+                        fill=(0, 0, 0, 0),
+                        width=randint(3, 4),
+                    )
+                background.paste(im=planet_image, mask=planet_image)
             else:
                 current_owner = self.data.planets[index].current_owner
                 background_draw.ellipse(
@@ -251,40 +276,6 @@ class Maps:
                             for colour in faction_colours[current_owner]
                         )
                     ),
-                )
-
-    def _draw_cracks(self, background: Image.Image):
-        """Draws cracks on planets affected with effect 1241 or 1252
-
-        Args:
-            background (Image.Image): The map to edit
-        """
-        draw = ImageDraw.Draw(background)
-        affected_planets = [
-            planet
-            for planet in self.data.planets.values()
-            if set([1241, 1252]) & set(planet.active_effects)
-        ]
-        radius = 11
-        for planet in affected_planets:
-            cx, cy = self.planet_coordinates[planet.index]
-            angles = []
-            while len(angles) < 7:
-                candidate = randint(0, 360)
-                if all(abs(candidate - a) >= 30 for a in angles):
-                    angles.append(candidate)
-            crack_colour = (
-                self.dim_faction_colours[self.sector_info[planet.sector]["faction"]]
-                if self.sector_info.get(planet.sector, {"faction": "Humans"})["faction"]
-                != "Humans"
-                else "black"
-            )
-            for start_angle in angles:
-                step_size = radius * 1.2
-                new_x = cx + int(step_size * cos(radians(start_angle)))
-                new_y = cy + int(step_size * sin(radians(start_angle)))
-                draw.line(
-                    [(cx, cy), (new_x, new_y)], fill=crack_colour, width=randint(3, 4)
                 )
 
     def _add_dss_icon(self, background: Image.Image):
