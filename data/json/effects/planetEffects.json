@@ -236,12 +236,12 @@
 	},
 	"1202": {
 		"galacticEffectId": 1202,
-		"name": "THE JET BRIGADE",
+		"name": "[Mission Modifier] THE JET BRIGADE",
 		"description": "The Automatons have deployed a new series of specialized models on this planet. These upgraded bots utilize stolen Jump Pack technology, heartlessly pillaged from the bodies of fallen Helldivers and reverse-engineered into something nearly unrecognizeable."
 	},
 	"1203": {
 		"galacticEffectId": 1203,
-		"name": "THE JET BRIGADE 2",
+		"name": "[Galactic Map Marker] THE JET BRIGADE",
 		"description": "The Automatons have deployed a new series of specialized models on this planet. These upgraded bots utilize stolen Jump Pack technology, heartlessly pillaged from the bodies of fallen Helldivers and reverse-engineered into something nearly unrecognizeable."
 	},
 	"1204": {
@@ -266,12 +266,12 @@
 	},
 	"1208": {
 		"galacticEffectId": 1208,
-		"name": "game_PLANETARY_BOMBARDMENT",
+		"name": "[Mission Modifier] PLANETARY BOMBARDMENT",
 		"description": "[EST] Planetary Bombardment is active on this planet"
 	},
 	"1209": {
 		"galacticEffectId": 1209,
-		"name": "game_EAGLE_STORM",
+		"name": "[Mission Modifier] EAGLE STORM",
 		"description": "[EST] Eagle Storm is active on this planet"
 	},
 	"1210": {
@@ -396,28 +396,38 @@
 	},
 	"1242": {
 		"galacticEffectId": 1242,
-		"name": "UNKNOWN",
+		"name": "[Galactic Map Marker] Planet Trajectory",
 		"description": "Something on Meridia"
 	},
 	"1243": {
 		"galacticEffectId": 1243,
-		"name": "PREDATOR STRAIN",
+		"name": "[Mission Modifier] PREDATOR STRAIN",
 		"description": "A Gloom-enhanced strain of Terminids has been reported on this planet. SEAF patrols have been lured into ambushes, and picked off by unseen assailants. Every ounce of a Helldiver's superior senses will be required to hunt down this dangerous threat."
 	},
 	"1244": {
 		"galacticEffectId": 1244,
-		"name": "GLOOM RESEARCH EXPEDITION",
+		"name": "[Mission Modifier] GLOOM SPORE BURSTER STRAIN",
 		"description": "The Gloom may hold the key to stopping the Illuminate from moving the Meridian Singularity. A scientific expedition is being conducted to this planet, at extreme cost and risk. The Helldivers must secure every scrap of useful data on the Gloom. The expedition will focus its efforts on the area inside and around the colonies lost to the Gloom. This will allow the Helldivers to find and repurpose on location Super Earth equipment for the most diverse data gathering."
 	},
 	"1245": {
 		"galacticEffectId": 1245,
-		"name": "PREDATOR STRAIN",
+		"name": "[Galactic Map Marker] PREDATOR STRAIN",
 		"description": "A Gloom-enhanced strain of Terminids has been reported on this planet. SEAF patrols have been lured into ambushes, and picked off by unseen assailants. Every ounce of a Helldiver's superior senses will be required to hunt down this dangerous threat."
 	},
 	"1246": {
 		"galacticEffectId": 1246,
 		"name": "UNKNOWN",
 		"description": ""
+	},
+	"1248": {
+		"galacticEffectId": 1248,
+		"name": "[Mission Modifier] INCINERATION CORPS",
+		"description": "An Automaton unit equipped with flame throwers and incendiary ammunition is active on this planet. These wanton arsonists will not rest until they have razed all that mankind holds dear."
+	},
+	"1249": {
+		"galacticEffectId": 1249,
+		"name": "[Galactic Map Marker] INCINERATION CORPS",
+		"description": "An Automaton unit equipped with flame throwers and incendiary ammunition is active on this planet. These wanton arsonists will not rest until they have razed all that mankind holds dear."
 	},
 	"1250": {
 		"galacticEffectId": 1250,
