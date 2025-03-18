@@ -169,7 +169,6 @@ Example:
     2: "https://cdn.discordapp.com/attachments/edited/to/save.some?space"
 """
 
-
 help_dict = {
     "automaton": {
         "long_description": "Returns information on an Automaton or variation. This information is manually updated by the GWW's owner, if there are any inaccuracies please contact our support server.",
