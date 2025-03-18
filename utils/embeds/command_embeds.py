@@ -25,6 +25,7 @@ from utils.db import GWWGuild
 from utils.emojis import Emojis
 from utils.functions import health_bar, short_format
 from utils.mixins import EmbedReprMixin
+from utils.trackers import LiberationChangesTracker
 
 
 class PlanetCommandEmbed(Embed, EmbedReprMixin):
@@ -34,9 +35,18 @@ class PlanetCommandEmbed(Embed, EmbedReprMixin):
         planet: Planet,
         language_json: dict,
         planet_effects: list,
+        liberation_changes: LiberationChangesTracker,
+        total_players: int,
     ):
         super().__init__(colour=Colour.from_rgb(*faction_colours[planet.current_owner]))
-        self.add_planet_info(planet_names, planet, language_json, planet_effects)
+        self.add_planet_info(
+            planet_names,
+            planet,
+            language_json,
+            planet_effects,
+            liberation_changes,
+            total_players,
+        )
         self.add_mission_stats(planet, language_json)
         self.add_hero_stats(planet, language_json)
         self.add_field("", "", inline=False)
@@ -48,6 +58,8 @@ class PlanetCommandEmbed(Embed, EmbedReprMixin):
         planet: Planet,
         language_json: dict,
         planet_effects: list,
+        liberation_changes: LiberationChangesTracker,
+        total_players,
     ):
         sector = language_json["PlanetEmbed"]["sector"].format(sector=planet.sector)
         owner = language_json["PlanetEmbed"]["owner"].format(
@@ -72,35 +84,97 @@ class PlanetCommandEmbed(Embed, EmbedReprMixin):
             title_exclamation += Emojis.dss["operational_support"]
         if planet.in_assignment:
             title_exclamation += Emojis.icons["MO"]
-        planet_health_bar = health_bar(
-            planet.event.progress if planet.event else planet.health_perc,
-            planet.event.faction if planet.event else planet.current_owner,
-            True if planet.event or planet.current_owner != "Humans" else False,
-        )
-        if planet.event:
-            planet_health_bar += f" 🛡️ {Emojis.factions[planet.event.faction]}"
-        if planet.current_owner == "Humans":
-            health_text = (
-                f"{1 - planet.event.progress:^25,.2%}"
-                if planet.event
-                else f"{(planet.health_perc):^25,.2%}"
-            )
-        else:
-            health_text = f"{1 - (planet.health_perc):^25,.2%}"
         self.add_field(
             f"__**{planet_names['names'][language_json['code_long']]}**__ {title_exclamation}",
-            (
-                f"{sector}"
-                f"{owner}"
-                f"{biome}"
-                f"{environmentals}"
-                f"{language_json['PlanetEmbed']['liberation_progress']}\n"
-                f"{planet_health_bar}\n"
-                f"`{health_text}`\n"
-                "\u200b\n"
-            ),
+            (f"{sector}" f"{owner}" f"{biome}" f"{environmentals}"),
             inline=False,
         )
+
+        outlook_text = ""
+        required_players = ""
+        liberation_text = ""
+        if liberation_changes.has_data:
+            liberation_change = liberation_changes.get_by_index(
+                planet_index=planet.index
+            )
+            now = datetime.now()
+            now_seconds = int(now.timestamp())
+            if liberation_change.rate_per_hour != 0:
+                seconds_until_complete = int(
+                    (
+                        (100 - liberation_change.liberation)
+                        / liberation_change.rate_per_hour
+                    )
+                    * 3600
+                )
+        if planet.event:
+            planet_health_bar = (
+                health_bar(planet.event.progress, planet.event.faction, True)
+                + f" 🛡️ {Emojis.factions[planet.event.faction]}"
+            )
+            if liberation_change and liberation_change.rate_per_hour != 0:
+                winning = (
+                    datetime.fromtimestamp(now_seconds + seconds_until_complete)
+                    < planet.event.end_time_datetime
+                )
+                if winning:
+                    outlook_text = f"{language_json['dashboard']['outlook'].format(outlook=language_json['victory'])} <t:{now_seconds + seconds_until_complete}:R>\n"
+                else:
+                    outlook_text = f"{language_json['dashboard']['outlook'].format(outlook=language_json['defeat'])}\n"
+                change = f"{liberation_change.rate_per_hour:+.2f}%/hour"
+                liberation_text = f"\n`{change:^25}`"
+                if planet.event.required_players:
+                    if 0 < planet.event.required_players < 2.5 * total_players:
+                        required_players = f"\n{language_json['dashboard']['DefenceEmbed']['players_required']}: **~{planet.event.required_players:,.0f}+**"
+                    else:
+                        if planet.event.start_time_datetime > now - timedelta(hours=1):
+                            required_players = f"{language_json['dashboard']['DefenceEmbed']['players_required']}: *Gathering Data*"
+                        else:
+                            required_players = f"{language_json['dashboard']['DefenceEmbed']['players_required']}: **IMPOSSIBLE**"
+            health_text = f"{1 - planet.event.progress:^25,.2%}"
+            self.add_field(
+                "",
+                (
+                    f"{outlook_text}"
+                    f"Heroes: **{planet.stats['playerCount']:,}**\n"
+                    f"{required_players}"
+                    f"\n{language_json['PlanetEmbed']['liberation_progress']}"
+                    f"\n{planet_health_bar}"
+                    f"\n`{health_text}`"
+                    f"{liberation_text}"
+                    "\u200b\n"
+                ),
+                inline=False,
+            )
+        else:
+            health_text = (
+                f"{1 - (planet.health_perc):^25,.2%}"
+                if planet.current_owner != "Humans"
+                else f"{(planet.health_perc):^25,.2%}"
+            )
+            planet_health_bar = health_bar(
+                planet.health_perc,
+                planet.current_owner,
+                True if planet.current_owner != "Humans" else False,
+            )
+            if liberation_change and liberation_change.rate_per_hour > 0:
+                change = f"{liberation_change.rate_per_hour:+.2f}%/hour"
+                liberation_text = f"\n`{change:^25}`"
+                outlook_text = f"{language_json['dashboard']['outlook'].format(outlook=language_json['victory'])} <t:{now_seconds + seconds_until_complete}:R>\n"
+
+            self.add_field(
+                "",
+                (
+                    f"{outlook_text}"
+                    f"Heroes: **{planet.stats['playerCount']:,}**"
+                    f"\n{language_json['PlanetEmbed']['liberation_progress']}"
+                    f"\n{planet_health_bar}"
+                    f"\n`{health_text}`"
+                    f"{liberation_text}"
+                    "\u200b\n"
+                ),
+                inline=False,
+            )
         if planet.dss_in_orbit:
             self.add_field(
                 f"{Emojis.dss['operational_support']} Operational Support",
