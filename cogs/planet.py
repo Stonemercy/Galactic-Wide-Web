@@ -69,6 +69,8 @@ class PlanetCog(commands.Cog):
                 self.bot.json_dict["planet_effects"].get(str(effect), None)
                 for effect in planet_data.active_effects
             ],
+            liberation_changes=self.bot.data.liberation_changes,
+            total_players=self.bot.data.total_players,
         )
         embeds = [embed]
         if not embed.image_set:
