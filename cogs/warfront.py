@@ -29,11 +29,11 @@ class WarfrontCog(commands.Cog):
             description="If you want the response to be seen by others in the server.",
         ),
     ):
+        await inter.response.defer(ephemeral=ephemeral)
         ephemeral = public != "Yes"
         self.bot.logger.info(
             f"{self.qualified_name} | /{inter.application_command.name} <{faction = }> <{public = }>"
         )
-        await inter.response.defer(ephemeral=ephemeral)
         if inter.guild:
             guild = GWWGuild.get_by_id(inter.guild_id)
         else:
