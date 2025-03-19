@@ -17,7 +17,7 @@ class ErrorHandlerCog(commands.Cog):
             now = datetime.now()
             if now < self.bot.ready_time:
                 return await inter.send(
-                    (
+                    content=(
                         f"Please wait {int((self.bot.ready_time - now).total_seconds())} seconds to use this.\n"
                         f"Ready <t:{int(self.bot.ready_time.timestamp())}:R>"
                     ),
@@ -26,24 +26,25 @@ class ErrorHandlerCog(commands.Cog):
                 )
         elif isinstance(error, commands.NotOwner):
             await inter.send(
-                f"You need to be the owner of {inter.guild.me.mention} to use this command.",
+                content=f"You need to be the owner of {inter.guild.me.mention} to use this command.",
                 ephemeral=True,
             )
             return
         else:
             try:
                 await inter.send(
-                    "There was an unexpected error. Please try again.", ephemeral=True
+                    content="There was an unexpected error. Please try again.",
+                    ephemeral=True,
                 )
                 await self.bot.moderator_channel.send(
-                    f"{self.bot.owner.mention}```py\n{''.join(format_exception(type(error), error, error.__traceback__))[-1900:]}\n```"
+                    content=f"{self.bot.owner.mention}```py\n{''.join(format_exception(type(error), value=error, tb=error.__traceback__))[-1900:]}\n```"
                 )
             except Exception as e:
                 await self.bot.moderator_channel.send(
-                    f"{self.bot.owner.mention} {error} | {e}"
+                    content=f"{self.bot.owner.mention} {error} | {e}"
                 )
             raise error
 
 
 def setup(bot: GalacticWideWebBot):
-    bot.add_cog(ErrorHandlerCog(bot))
+    bot.add_cog(cog=ErrorHandlerCog(bot))
