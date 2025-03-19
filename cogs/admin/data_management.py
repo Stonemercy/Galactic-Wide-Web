@@ -61,7 +61,7 @@ class DataManagementCog(commands.Cog):
             else:
                 change = f"Took {(now - self.bot.ready_time).total_seconds():.2f} seconds longer than the given 30"
             self.bot.logger.info(
-                f"Startup complete in {(now - self.bot.startup_time).total_seconds():.2f} seconds - {change}"
+                msg=f"Startup complete in {(now - self.bot.startup_time).total_seconds():.2f} seconds - {change}"
             )
             self.bot.ready_time = now
 
@@ -85,10 +85,10 @@ class DataManagementCog(commands.Cog):
             ):
                 total_changes.append(
                     APIChanges(
-                        self.bot.data.planets[0],
-                        "Galactic Impact Mod",
-                        self.bot.previous_data.galactic_impact_mod,
-                        self.bot.data.galactic_impact_mod,
+                        planet=self.bot.data.planets[0],
+                        statistic="Galactic Impact Mod",
+                        before=self.bot.previous_data.galactic_impact_mod,
+                        after=self.bot.data.galactic_impact_mod,
                     )
                 )
             for planet in self.bot.previous_data.planets.values():
@@ -96,22 +96,22 @@ class DataManagementCog(commands.Cog):
                 if planet.regen_perc_per_hour != new_data.regen_perc_per_hour:
                     total_changes.append(
                         APIChanges(
-                            planet,
-                            "Regen %",
-                            planet.regen_perc_per_hour,
-                            new_data.regen_perc_per_hour,
+                            planet=planet,
+                            statistic="Regen %",
+                            before=planet.regen_perc_per_hour,
+                            after=new_data.regen_perc_per_hour,
                         )
                     )
                 if sorted(planet.waypoints) != sorted(new_data.waypoints):
                     total_changes.append(
                         APIChanges(
-                            planet,
-                            "Waypoints",
-                            [
+                            planet=planet,
+                            statistic="Waypoints",
+                            before=[
                                 self.bot.data.planets[waypoint].name
                                 for waypoint in planet.waypoints
                             ],
-                            [
+                            after=[
                                 self.bot.data.planets[waypoint].name
                                 for waypoint in new_data.waypoints
                             ],
@@ -120,24 +120,24 @@ class DataManagementCog(commands.Cog):
                 if planet.position != new_data.position and planet.index != 64:
                     total_changes.append(
                         APIChanges(
-                            planet,
-                            "Location",
-                            (planet.position["x"], planet.position["y"]),
-                            (new_data.position["x"], new_data.position["y"]),
+                            planet=planet,
+                            statistic="Location",
+                            before=(planet.position["x"], planet.position["y"]),
+                            after=(new_data.position["x"], new_data.position["y"]),
                         )
                     )
                 if planet.active_effects != new_data.active_effects:
                     total_changes.append(
                         APIChanges(
-                            planet,
-                            "Effects",
-                            [
+                            planet=planet,
+                            statistic="Effects",
+                            before=[
                                 self.bot.json_dict["planet_effects"].get(
                                     str(effect), effect
                                 )
                                 for effect in planet.active_effects
                             ],
-                            [
+                            after=[
                                 self.bot.json_dict["planet_effects"].get(
                                     str(effect), effect
                                 )
