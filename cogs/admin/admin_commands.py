@@ -1,9 +1,9 @@
 from datetime import datetime
-from sys import argv, executable
-from disnake import AppCmdInter, Colour, Embed, Permissions
+from disnake import AppCmdInter, Permissions
 from disnake.ext import commands
 from main import GalacticWideWebBot
 from os import execv, getenv
+from sys import argv, executable
 from utils.checks import wait_for_startup
 from utils.db import FeedbackUser
 
@@ -25,12 +25,12 @@ class AdminCommandsCog(commands.Cog):
     async def force_update_dashboards(self, inter: AppCmdInter):
         await inter.response.defer(ephemeral=True)
         self.bot.logger.critical(
-            f"{self.qualified_name} | /{inter.application_command.name} | used by <@{inter.author.id}> | @{inter.author.global_name}"
+            msg=f"{self.qualified_name} | /{inter.application_command.name} | used by <@{inter.author.id}> | @{inter.author.global_name}"
         )
         update_start = datetime.now()
-        await self.bot.get_cog("DashboardCog").dashboard_poster()
+        await self.bot.get_cog(name="DashboardCog").dashboard_poster()
         await inter.send(
-            f"Forced updates of {len(self.bot.interface_handler.dashboards)} dashboards in {(datetime.now() - update_start).total_seconds():.2f} seconds",
+            content=f"Forced updates of {len(self.bot.interface_handler.dashboards)} dashboards in {(datetime.now() - update_start).total_seconds():.2f} seconds",
             ephemeral=True,
         )
 
@@ -44,13 +44,13 @@ class AdminCommandsCog(commands.Cog):
     async def force_update_maps(self, inter: AppCmdInter):
         await inter.response.defer(ephemeral=True)
         self.bot.logger.critical(
-            f"{self.qualified_name} | /{inter.application_command.name} | used by <@{inter.author.id}> | @{inter.author.global_name}"
+            msg=f"{self.qualified_name} | /{inter.application_command.name} | used by <@{inter.author.id}> | @{inter.author.global_name}"
         )
         update_start = datetime.now()
-        await self.bot.get_cog("MapCog").map_poster()
+        await self.bot.get_cog(name="MapCog").map_poster()
         text = f"Forced updates of {len(self.bot.interface_handler.maps)} maps in {(datetime.now() - update_start).total_seconds():.2f} seconds"
-        self.bot.logger.info(text)
-        await inter.send(text, ephemeral=True)
+        self.bot.logger.info(msg=text)
+        await inter.send(content=text, ephemeral=True)
 
     @wait_for_startup()
     @commands.is_owner()
@@ -62,13 +62,13 @@ class AdminCommandsCog(commands.Cog):
     async def force_mo_update(self, inter: AppCmdInter, test: bool = False):
         await inter.response.defer(ephemeral=True)
         self.bot.logger.critical(
-            f"{self.qualified_name} | /{inter.application_command.name} | used by <@{inter.author.id}> | @{inter.author.global_name}"
+            msg=f"{self.qualified_name} | /{inter.application_command.name} | used by <@{inter.author.id}> | @{inter.author.global_name}"
         )
         update_start = datetime.now()
-        await self.bot.get_cog("AnnouncementsCog").major_order_updates(test=test)
+        await self.bot.get_cog(name="AnnouncementsCog").major_order_updates(test=test)
         text = f"Forced updates of {len(self.bot.interface_handler.news_feeds.channels_dict['MO'])} MO updates in {(datetime.now() - update_start).total_seconds():.2f} seconds"
-        self.bot.logger.info(text)
-        await inter.send(text, ephemeral=True)
+        self.bot.logger.info(msg=text)
+        await inter.send(content=text, ephemeral=True)
 
     @wait_for_startup()
     @commands.is_owner()
@@ -86,15 +86,15 @@ class AdminCommandsCog(commands.Cog):
     ):
         await inter.response.defer(ephemeral=True)
         self.bot.logger.critical(
-            f"{self.qualified_name} | /{inter.application_command.name} <{user_id = }> | used by <@{inter.author.id}> | @{inter.author.global_name}"
+            msg=f"{self.qualified_name} | /{inter.application_command.name} <{user_id = }> | used by <@{inter.author.id}> | @{inter.author.global_name}"
         )
-        feedback_user = FeedbackUser.get_by_id(user_id)
+        feedback_user = FeedbackUser.get_by_id(user_id=user_id)
         if not feedback_user.banned:
-            return await inter.send("That user isn't banned", ephemeral=True)
+            await inter.send(content="That user isn't banned", ephemeral=True)
         else:
             feedback_user.banned = True
             feedback_user.save_changes()
-            await inter.send(f"Unbanned <@{user_id}>", ephemeral=True)
+            await inter.send(content=f"Unbanned <@{user_id}>", ephemeral=True)
 
     @wait_for_startup()
     @commands.is_owner()
@@ -114,15 +114,17 @@ class AdminCommandsCog(commands.Cog):
     ):
         await inter.response.defer(ephemeral=True)
         self.bot.logger.critical(
-            f"{self.qualified_name} | /{inter.application_command.name} <{user_id = }> | used by <@{inter.author.id}> | @{inter.author.global_name}"
+            msg=f"{self.qualified_name} | /{inter.application_command.name} <{user_id = }> | used by <@{inter.author.id}> | @{inter.author.global_name}"
         )
-        feedback_user = FeedbackUser.get_by_id(user_id)
+        feedback_user = FeedbackUser.get_by_id(user_id=user_id)
         if not feedback_user.banned:
-            return await inter.send("That user isn't banned", ephemeral=True)
+            await inter.send(content="That user isn't banned", ephemeral=True)
         else:
             feedback_user.reason = reason
             feedback_user.save_changes()
-            await inter.send(f"Reason set for <@{user_id}>:\n{reason}", ephemeral=True)
+            await inter.send(
+                content=f"Reason set for <@{user_id}>:\n{reason}", ephemeral=True
+            )
 
     @wait_for_startup()
     @commands.is_owner()
@@ -140,15 +142,17 @@ class AdminCommandsCog(commands.Cog):
     ):
         await inter.response.defer(ephemeral=True)
         self.bot.logger.critical(
-            f"{self.qualified_name} | /{inter.application_command.name} <{user_id = }> | used by <@{inter.author.id}> | @{inter.author.global_name}"
+            msg=f"{self.qualified_name} | /{inter.application_command.name} <{user_id = }> | used by <@{inter.author.id}> | @{inter.author.global_name}"
         )
-        feedback_user = FeedbackUser.get_by_id(user_id)
+        feedback_user = FeedbackUser.get_by_id(user_id=user_id)
         if not feedback_user.good_feedback:
-            return await inter.send("That user isn't a good user", ephemeral=True)
+            await inter.send(content="That user isn't a good user", ephemeral=True)
         else:
             feedback_user.good_feedback = False
             feedback_user.save_changes()
-            await inter.send(f"<@{user_id}> removed from good feedback", ephemeral=True)
+            await inter.send(
+                content=f"<@{user_id}> removed from good feedback", ephemeral=True
+            )
 
     @wait_for_startup()
     @commands.is_owner()
@@ -164,23 +168,27 @@ class AdminCommandsCog(commands.Cog):
     ):
         await inter.response.defer(ephemeral=True)
         self.bot.logger.critical(
-            f"{self.qualified_name} | /{inter.application_command.name} <{file_name = }> | used by <@{inter.author.id}> | @{inter.author.global_name}"
+            msg=f"{self.qualified_name} | /{inter.application_command.name} <{file_name = }> | used by <@{inter.author.id}> | @{inter.author.global_name}"
         )
         possible_paths = [f"cogs.{file_name}", f"cogs.admin.{file_name}"]
 
         for path in possible_paths:
             try:
-                self.bot.reload_extension(path)
-                await inter.send(f"🔄 Successfully reloaded `{path}`!", ephemeral=True)
+                self.bot.reload_extension(name=path)
+                await inter.send(
+                    content=f"🔄 Successfully reloaded `{path}`!", ephemeral=True
+                )
                 return
             except commands.ExtensionNotLoaded:
                 continue
             except Exception as e:
-                await inter.send(f"❌ Failed to reload `{path}`\n```{e}```")
+                await inter.send(
+                    content=f"❌ Failed to reload `{path}`\n```{e}```", ephemeral=True
+                )
                 return
 
         await inter.send(
-            f"⚠️ No matching extension found for `{file_name}` in `cogs/` or `cogs/admin/`."
+            content=f"⚠️ No matching extension found for `{file_name}` in `cogs/` or `cogs/admin/`."
         )
 
     @wait_for_startup()
@@ -194,34 +202,8 @@ class AdminCommandsCog(commands.Cog):
         self,
         inter: AppCmdInter,
     ):
-        embeds = []
-        for place, guild in enumerate(
-            sorted(
-                [guild for guild in self.bot.guilds],
-                key=lambda guild: guild.member_count,
-                reverse=True,
-            )[:5],
-            start=1,
-        ):
-            embed = (
-                Embed(title=f"Guild #{place}", colour=Colour.brand_green())
-                .add_field("Name", guild.name, inline=False)
-                .add_field("Users", guild.member_count, inline=False)
-                .add_field(
-                    "Big guild?", {True: "Yes", False: "No"}[guild.large], inline=False
-                )
-                .add_field(
-                    "Created",
-                    f"<t:{int(guild.created_at.timestamp())}:R>",
-                    inline=False,
-                )
-                .add_field("Owner", f"<@{guild.owner_id}>", inline=False)
-                .set_thumbnail(guild.icon.url if guild.icon else None)
-                .set_image(guild.banner.url if guild.banner else None)
-            )
-            embeds.append(embed)
         await inter.send(
-            (
+            content=(
                 f"- Dashboard messages:\n  - Amount: {len(self.bot.interface_handler.dashboards)}\n\n"
                 f"- Announcement channels:\n  - Amount: {len(self.bot.interface_handler.news_feeds.channels_dict['Generic'])}\n\n"
                 f"- Patch Channels:\n  - Amount: {len(self.bot.interface_handler.news_feeds.channels_dict['Patch'])}\n\n"
@@ -231,7 +213,6 @@ class AdminCommandsCog(commands.Cog):
                 f"- Detailed Dispatches Channels:\n  - Amount: {len(self.bot.interface_handler.news_feeds.channels_dict['DetailedDispatches'])}"
             ),
             ephemeral=True,
-            embeds=embeds,
         )
 
     @wait_for_startup()
@@ -245,10 +226,10 @@ class AdminCommandsCog(commands.Cog):
         self,
         inter: AppCmdInter,
     ):
-        await inter.send("Restarting the bot...", ephemeral=True)
+        await inter.send(content="Restarting the bot...", ephemeral=True)
         python = executable
-        execv(python, [python] + argv)
+        execv(path=python, argv=[python] + argv)
 
 
 def setup(bot: GalacticWideWebBot):
-    bot.add_cog(AdminCommandsCog(bot))
+    bot.add_cog(cog=AdminCommandsCog(bot))
