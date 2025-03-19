@@ -156,4 +156,4 @@ class DataManagementCog(commands.Cog):
 
 
 def setup(bot: GalacticWideWebBot):
-    bot.add_cog(DataManagementCog(bot))
+    bot.add_cog(cog=DataManagementCog(bot))
