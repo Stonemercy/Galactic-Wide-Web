@@ -97,16 +97,17 @@ class PlanetCommandEmbed(Embed, EmbedReprMixin):
             liberation_change = liberation_changes.get_by_index(
                 planet_index=planet.index
             )
-            now = datetime.now()
-            now_seconds = int(now.timestamp())
-            if liberation_change.rate_per_hour != 0:
-                seconds_until_complete = int(
-                    (
-                        (100 - liberation_change.liberation)
-                        / liberation_change.rate_per_hour
+            if liberation_change:
+                now = datetime.now()
+                now_seconds = int(now.timestamp())
+                if liberation_change.rate_per_hour != 0:
+                    seconds_until_complete = int(
+                        (
+                            (100 - liberation_change.liberation)
+                            / liberation_change.rate_per_hour
+                        )
+                        * 3600
                     )
-                    * 3600
-                )
         if planet.event:
             planet_health_bar = (
                 health_bar(planet.event.progress, planet.event.faction, True)
