@@ -36,6 +36,10 @@ class UsageLoggerCog(commands.Cog):
         await self.bot.moderator_channel.send(embed=embed)
         self.bot.command_usage.clear()
 
+    @usage_report.before_loop
+    async def before_usage_report(self):
+        await self.bot.wait_until_ready()
+
 
 def setup(bot: GalacticWideWebBot):
-    bot.add_cog(UsageLoggerCog(bot))
+    bot.add_cog(cog=UsageLoggerCog(bot))
