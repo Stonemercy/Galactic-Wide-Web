@@ -31,8 +31,10 @@ class GuildManagementCog(commands.Cog):
 
     @commands.Cog.listener()
     async def on_guild_join(self, guild: Guild):
-        GWWGuild.new(guild.id)
-        embed = (
+        guild_in_db = GWWGuild.get_by_id(guild_id=guild.id)
+        if not guild_in_db:
+            GWWGuild.new(guild_id=guild.id)
+        embed = (  # Convert to proper embed in loop_embeds
             Embed(title="New guild joined!", colour=Colour.brand_green())
             .add_field("Name", guild.name, inline=False)
             .add_field("Users", guild.member_count, inline=False)

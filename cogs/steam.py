@@ -37,6 +37,11 @@ class SteamCog(commands.Cog):
         )
         if inter.guild:
             guild = GWWGuild.get_by_id(inter.guild_id)
+            if not guild:
+                self.bot.logger.error(
+                    msg=f"Guild {inter.guild_id} - {inter.guild.name} - had the bot installed but wasn't found in the DB"
+                )
+                guild = GWWGuild.new(inter.guild_id)
         else:
             guild = GWWGuild.default()
         await inter.send(
@@ -57,6 +62,11 @@ class SteamCog(commands.Cog):
         ][0]
         if inter.guild:
             guild = GWWGuild.get_by_id(inter.guild_id)
+            if not guild:
+                self.bot.logger.error(
+                    msg=f"Guild {inter.guild_id} - {inter.guild.name} - had the bot installed but wasn't found in the DB"
+                )
+                guild = GWWGuild.new(inter.guild_id)
         else:
             guild = GWWGuild.default()
         embed = SteamCommandEmbed(

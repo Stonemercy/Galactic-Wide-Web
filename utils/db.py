@@ -65,7 +65,7 @@ class GWWGuild(ReprMixin):
         return {v: k for k, v in language_dict.items()}[self.language]
 
     @classmethod
-    def get_by_id(cls, guild_id: int) -> Self:
+    def get_by_id(cls, guild_id: int) -> Self | None:
         """Get a guild from the DB by their guild ID"""
         with connect(
             host=hostname, dbname=database, user=username, password=pwd, port=port_id
@@ -73,7 +73,7 @@ class GWWGuild(ReprMixin):
             with conn.cursor() as curs:
                 curs.execute(query=f"SELECT * FROM guilds WHERE guild_id = {guild_id}")
                 record = curs.fetchone()
-                return GWWGuild.new(guild_id=guild_id) if not record else cls(*record)
+                return None if not record else cls(*record)
 
     @classmethod
     def get_all(cls) -> list[Self]:
