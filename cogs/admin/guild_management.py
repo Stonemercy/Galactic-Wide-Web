@@ -36,38 +36,46 @@ class GuildManagementCog(commands.Cog):
             GWWGuild.new(guild_id=guild.id)
         embed = (  # Convert to proper embed in loop_embeds
             Embed(title="New guild joined!", colour=Colour.brand_green())
-            .add_field("Name", guild.name, inline=False)
-            .add_field("Users", guild.member_count, inline=False)
+            .add_field(name="Name", value=guild.name, inline=False)
+            .add_field(name="Locale", value=guild.preferred_locale)
+            .add_field(name="Already in DB?", value=guild_in_db != None)
+            .add_field(name="Users", value=guild.member_count, inline=False)
             .add_field(
-                "Big guild?", {True: "Yes", False: "No"}[guild.large], inline=False
-            )
-            .add_field(
-                "Created",
-                f"<t:{int(guild.created_at.timestamp())}:R>",
+                name="Big guild?",
+                value={True: "Yes", False: "No"}[guild.large],
                 inline=False,
             )
-            .add_field("Owner", f"<@{guild.owner_id}>", inline=False)
-            .set_thumbnail(guild.icon.url if guild.icon else None)
-            .set_image(guild.banner.url if guild.banner else None)
+            .add_field(
+                name="Created",
+                value=f"<t:{int(guild.created_at.timestamp())}:R>",
+                inline=False,
+            )
+            .add_field(name="Owner", value=f"<@{guild.owner_id}>", inline=False)
+            .set_thumbnail(url=guild.icon.url if guild.icon else None)
+            .set_image(url=guild.banner.url if guild.banner else None)
         )
         await self.bot.moderator_channel.send(embed=embed)
 
     @commands.Cog.listener()
     async def on_guild_remove(self, guild: Guild):
-        GWWGuild.delete(guild.id)
-        embed = (
+        GWWGuild.delete(guild_id=guild.id)
+        embed = (  # Convert to proper embed in loop_embeds
             Embed(title="Guild left", colour=Colour.brand_red())
-            .add_field("Name", guild.name, inline=False)
-            .add_field("Users", guild.member_count, inline=False)
+            .add_field(name="Name", value=guild.name, inline=False)
+            .add_field(name="Users", value=guild.member_count, inline=False)
             .add_field(
-                "Big guild?", {True: "Yes", False: "No"}[guild.large], inline=False
+                name="Big guild?",
+                value={True: "Yes", False: "No"}[guild.large],
+                inline=False,
             )
             .add_field(
-                "Created", f"<t:{int(guild.created_at.timestamp())}:R>", inline=False
+                name="Created",
+                value=f"<t:{int(guild.created_at.timestamp())}:R>",
+                inline=False,
             )
-            .add_field("Owner", f"<@{guild.owner_id}>", inline=False)
-            .set_thumbnail(guild.icon.url if guild.icon else None)
-            .set_image(guild.banner.url if guild.banner else None)
+            .add_field(name="Owner", value=f"<@{guild.owner_id}>", inline=False)
+            .set_thumbnail(url=guild.icon.url if guild.icon else None)
+            .set_image(url=guild.banner.url if guild.banner else None)
         )
         await self.bot.moderator_channel.send(embed=embed)
 
@@ -78,7 +86,7 @@ class GuildManagementCog(commands.Cog):
             bot_dashboard.channel_id
         ) or await self.bot.fetch_channel(bot_dashboard.channel_id)
         if bot_dashboard.message_id == 0:
-            message = await channel.send("Placeholder message, please ignore.")
+            message = await channel.send(content="Placeholder message, please ignore.")
             bot_dashboard.message_id = message.id
             bot_dashboard.save_changes()
         else:
@@ -93,7 +101,7 @@ class GuildManagementCog(commands.Cog):
                 message = channel.get_partial_message(bot_dashboard.message_id)
             except Exception as e:
                 self.bot.logger.error(
-                    f"{self.qualified_name} | bot_dashboard | {e} | {channel.id}"
+                    msg=f"{self.qualified_name} | bot_dashboard | {e} | {channel.id}"
                 )
             try:
                 await message.edit(
@@ -106,10 +114,10 @@ class GuildManagementCog(commands.Cog):
                 ),
             except Exception as e:
                 await self.bot.moderator_channel.send(
-                    f"<@{self.bot.owner_id}>\n```py\n{e}\n```\n`bot_dashboard function in guild_management.py`"
+                    content=f"<@{self.bot.owner_id}>\n```py\n{e}\n```\n`bot_dashboard function in guild_management.py`"
                 )
                 self.bot.logger.error(
-                    f"{self.qualified_name} | bot_dashboard | {e} | {message}"
+                    msg=f"{self.qualified_name} | bot_dashboard | {e} | {message}"
                 )
 
     @bot_dashboard.before_loop
@@ -125,26 +133,24 @@ class GuildManagementCog(commands.Cog):
     )
     async def dashboard_checking(self):
         now = datetime.now()
-        guild = GWWGuild.get_by_id(1212722266392109088)
+        guild = GWWGuild.get_by_id(guild_id=1212722266392109088)
         if guild:
             try:
                 channel = self.bot.get_channel(
                     guild.dashboard_channel_id
                 ) or await self.bot.fetch_channel(guild.dashboard_channel_id)
                 message = await channel.fetch_message(guild.dashboard_message_id)
-                updated_time = message.edited_at.replace(tzinfo=None) + timedelta(
-                    hours=1
-                )
+                updated_time = message.edited_at.replace(tzinfo=None)
                 if updated_time < (
                     now - timedelta(minutes=16)
                 ) and self.bot.startup_time < (now - timedelta(minutes=16)):
                     await self.bot.moderator_channel.send(
-                        f"<@{self.bot.owner_id}> {message.jump_url} was last edited <t:{int(message.edited_at.timestamp())}:R> :warning:"
+                        content=f"<@{self.bot.owner_id}> {message.jump_url} was last edited <t:{int(message.edited_at.timestamp())}:R> :warning:"
                     )
-                    await sleep(15 * 60)
+                    await sleep(delay=15 * 60)
             except Exception as e:
                 self.bot.logger.error(
-                    f"{self.qualified_name} | dashboard_checking | {e}"
+                    msg=f"{self.qualified_name} | dashboard_checking | {e}"
                 )
 
     @dashboard_checking.before_loop
@@ -161,13 +167,13 @@ class GuildManagementCog(commands.Cog):
                 ]:
                     self.guilds_to_remove.append(guild.id)
             if self.guilds_to_remove:
-                embed = Embed(
+                embed = Embed(  # Convert to proper embed in loop_embeds
                     title="Servers in DB that don't have the bot installed",
                     colour=Colour.brand_red(),
                     description="These servers are in the PostgreSQL database but not in the `self.bot.guilds` list.",
                 ).add_field(
-                    "Guilds:",
-                    "\n".join([str(id) for id in self.guilds_to_remove]),
+                    name="Guilds:",
+                    value="\n".join(self.guilds_to_remove),
                     inline=False,
                 )
                 await self.bot.moderator_channel.send(
@@ -189,17 +195,17 @@ class GuildManagementCog(commands.Cog):
     async def ban_listener(self, inter: MessageInteraction):
         if inter.component.custom_id == "guild_remove":
             for guild_id in self.guilds_to_remove:
-                GWWGuild.delete(guild_id)
+                GWWGuild.delete(guild_id=guild_id)
                 self.bot.logger.info(
-                    f"{self.qualified_name} | ban_listener | removed {guild_id} from the DB"
+                    msg=f"{self.qualified_name} | ban_listener | removed {guild_id} from the DB"
                 )
-                await inter.send(f"Deleted guilds `{guild_id}` from the DB")
+                await inter.send(content=f"Deleted guild `{guild_id}` from the DB")
             embed: Embed = inter.message.embeds[0].add_field(
-                "", "# GUILDS DELETED", inline=False
+                name="", value="# GUILDS DELETED", inline=False
             )
-            await inter.message.edit(components=[], embed=embed)
+            await inter.message.edit(components=None, embed=embed)
             self.guilds_to_remove.clear()
 
 
 def setup(bot: GalacticWideWebBot):
-    bot.add_cog(GuildManagementCog(bot))
+    bot.add_cog(cog=GuildManagementCog(bot))
