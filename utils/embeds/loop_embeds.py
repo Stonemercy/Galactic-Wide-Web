@@ -1,6 +1,7 @@
 from datetime import datetime
 from math import inf
 from os import getpid
+from re import DOTALL, search
 from psutil import Process, cpu_percent
 from data.lists import faction_colours, stratagem_image_dict, stratagem_id_dict
 from disnake import Colour, Embed, OptionType
@@ -297,8 +298,12 @@ class BotDashboardLoopEmbed(Embed, EmbedReprMixin):
 class DispatchesLoopEmbed(Embed, EmbedReprMixin):
     def __init__(self, language_json: dict, dispatch: Dispatch):
         super().__init__(colour=Colour.from_rgb(*faction_colours["MO"]))
-        self.title, *description = dispatch.message.split("\n\n")
-        self.description = "\n\n".join(description)
+        title_match = search(r"\*\*(.*?)\*\*", dispatch.message)
+        self.title = title_match.group(1) if title_match else None
+        description_match = search(r"\*\*.*?\*\*\s*(.*)", dispatch.message, DOTALL)
+        self.description = (
+            description_match.group(1).strip() if description_match else None
+        )
         self.set_footer(text=language_json["message"].format(message_id=dispatch.id))
 
 
