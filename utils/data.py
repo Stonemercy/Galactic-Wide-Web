@@ -206,7 +206,7 @@ class Data(ReprMixin):
                     war_start_timestamp=self.war_start_timestamp,
                 )
             else:
-                self.dss: str = "Error"
+                self.dss = self.__data__["dss"]
 
         if self.planets:
             self.planet_events: list[Planet] = sorted(
