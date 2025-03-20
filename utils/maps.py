@@ -261,6 +261,7 @@ class Maps:
                         width=randint(3, 4),
                     )
                 background.paste(im=planet_image, mask=planet_image)
+                planet_image.close()
             else:
                 current_owner = self.data.planets[index].current_owner
                 background_draw.ellipse(
