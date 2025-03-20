@@ -29,8 +29,7 @@ class WarfrontCog(commands.Cog):
             description="If you want the response to be seen by others in the server.",
         ),
     ):
-        await inter.response.defer(ephemeral=ephemeral)
-        ephemeral = public != "Yes"
+        await inter.response.defer(ephemeral=public != "Yes")
         self.bot.logger.info(
             f"{self.qualified_name} | /{inter.application_command.name} <{faction = }> <{public = }>"
         )
