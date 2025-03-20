@@ -228,7 +228,27 @@ class AdminCommandsCog(commands.Cog):
     ):
         await inter.send(content="Restarting the bot...", ephemeral=True)
         python = executable
-        execv(path=python, argv=[python] + argv)
+        execv(python, [python] + argv)
+
+    @wait_for_startup()
+    @commands.is_owner()
+    @commands.slash_command(
+        guild_ids=SUPPORT_SERVER_ID,
+        description="Fake a guild adding the bot",
+        default_member_permissions=Permissions(administrator=True),
+    )
+    async def fake_on_guild_join(self, inter: AppCmdInter):
+        await inter.response.defer(ephemeral=True)
+        self.bot.logger.critical(
+            msg=f"{self.qualified_name} | /{inter.application_command.name} | used by <@{inter.author.id}> | @{inter.author.global_name}"
+        )
+        fake_guild: Guild = sorted(
+            [guild for guild in self.bot.guilds if guild.member_count > 10000]
+        )[-1]
+        self.bot.dispatch(event_name="guild_join", guild=fake_guild)
+        await inter.send(
+            content=f"Faked guild join for {fake_guild.name}", ephemeral=True
+        )
 
 
 def setup(bot: GalacticWideWebBot):
