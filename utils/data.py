@@ -728,6 +728,12 @@ class DSS(ReprMixin):
             for tactical_action_raw_data in raw_dss_data["tacticalActions"]
         ]
 
+    def get_ta_by_name(self, name: str):
+        if name in [ta.name for ta in self.tactical_actions]:
+            return [ta for ta in self.tactical_actions if ta.name == name][0]
+        else:
+            return None
+
     class TacticalAction(ReprMixin):
         def __init__(self, tactical_action_raw_data: dict, war_start_time: int) -> None:
             """A Tactical Action for the DSS"""

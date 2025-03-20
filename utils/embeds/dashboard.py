@@ -37,11 +37,11 @@ class Dashboard:
         )
         self._defence_embed = self.DefenceEmbed(
             planet_events=data.planet_events,
-            dss=data.dss,
             liberation_changes=data.liberation_changes,
             language_json=language_json,
             planet_names=json_dict["planets"],
             total_players=data.total_players,
+            eagle_storm=data.dss.get_ta_by_name("EAGLE STORM"),
         )
         self._illuminate_embed = self.AttackEmbed(
             campaigns=[
@@ -800,11 +800,11 @@ class Dashboard:
         def __init__(
             self,
             planet_events: list[Planet],
-            dss: DSS,
             liberation_changes: LiberationChangesTracker,
             language_json: dict,
             planet_names: dict,
             total_players: int,
+            eagle_storm: DSS.TacticalAction,
         ):
             total_players_doing_defence = (
                 sum(planet.stats["playerCount"] for planet in planet_events)
@@ -815,6 +815,7 @@ class Dashboard:
                 colour=Colour.blue(),
             )
             if planet_events:
+                now = datetime.now()
                 self.set_thumbnail("https://helldivers.io/img/defense.png")
                 for planet in planet_events:
                     outlook_text = ""
@@ -825,7 +826,6 @@ class Dashboard:
                             planet.index
                         )
                         if liberation_change and liberation_change.rate_per_hour != 0:
-                            now = datetime.now()
                             now_seconds = int(now.timestamp())
                             seconds_until_complete = int(
                                 (
@@ -834,11 +834,22 @@ class Dashboard:
                                 )
                                 * 3600
                             )
+                            win_time = planet.event.end_time_datetime
+                            if planet.dss_in_orbit:
+                                if eagle_storm.status == 2:
+                                    win_time = (
+                                        planet.event.end_time_datetime
+                                        + timedelta(
+                                            seconds=(
+                                                eagle_storm.status_end_datetime - now
+                                            ).total_seconds()
+                                        )
+                                    )
                             winning = (
                                 datetime.fromtimestamp(
                                     now_seconds + seconds_until_complete
                                 )
-                                < planet.event.end_time_datetime
+                                < win_time
                             )
                             if winning:
                                 outlook_text = f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['victory'])} <t:{now_seconds + seconds_until_complete}:R>"
@@ -859,15 +870,18 @@ class Dashboard:
                                         required_players = f"\n{language_json['dashboard']['DefenceEmbed']['players_required']}: *Gathering Data*"
                                     else:
                                         required_players = f"\n{language_json['dashboard']['DefenceEmbed']['players_required']}: **IMPOSSIBLE**"
-                    time_remaining = (
-                        f"<t:{planet.event.end_time_datetime.timestamp():.0f}:R>"
+                    event_end_datetime = (
+                        planet.event.end_time_datetime
+                        + timedelta(
+                            seconds=(
+                                eagle_storm.status_end_datetime - now
+                            ).total_seconds()
+                        )
+                        if eagle_storm.status == 2 and planet.dss_in_orbit
+                        else planet.event.end_time_datetime
                     )
+                    time_remaining = f"<t:{int(event_end_datetime.timestamp())}:R>"
                     if planet.dss_in_orbit:
-                        eagle_storm: DSS.TacticalAction = [
-                            ta
-                            for ta in dss.tactical_actions
-                            if ta.name == "EAGLE STORM"
-                        ][0]
                         if eagle_storm.status == 2 and planet.event.type != 2:
                             time_remaining += language_json["dashboard"][
                                 "DefenceEmbed"
