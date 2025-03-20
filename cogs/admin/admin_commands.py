@@ -1,5 +1,5 @@
 from datetime import datetime
-from disnake import AppCmdInter, Permissions
+from disnake import AppCmdInter, Guild, Permissions
 from disnake.ext import commands
 from main import GalacticWideWebBot
 from os import execv, getenv
