@@ -44,32 +44,36 @@ class WarfrontCog(commands.Cog):
             guild = GWWGuild.default()
         guild_language = self.bot.json_dict["languages"][guild.language]
         defence_embed = Dashboard.DefenceEmbed(
-            [
+            planet_events=[
                 planet
                 for planet in self.bot.data.planet_events
                 if planet.event.faction == faction
             ],
-            self.bot.data.dss,
-            self.bot.data.liberation_changes,
-            guild_language,
-            self.bot.json_dict["planets"],
-            self.bot.data.total_players,
+            liberation_changes=self.bot.data.liberation_changes,
+            language_json=guild_language,
+            planet_names=self.bot.json_dict["planets"],
+            total_players=self.bot.data.total_players,
+            eagle_storm=self.bot.data.dss.get_ta_by_name("EAGLE STORM"),
         )
         attack_embed = Dashboard.AttackEmbed(
-            [
+            campaigns=[
                 campaign
                 for campaign in self.bot.data.campaigns
                 if campaign.faction == faction and not campaign.planet.event
             ],
-            self.bot.data.liberation_changes,
-            guild_language,
-            self.bot.json_dict["planets"],
-            faction,
-            self.bot.data.total_players,
+            liberation_changes=self.bot.data.liberation_changes,
+            language_json=guild_language,
+            planet_names=self.bot.json_dict["planets"],
+            faction=faction,
+            total_players=self.bot.data.total_players,
         )
-        for embed in [defence_embed, attack_embed]:
+        embeds = [defence_embed, attack_embed]
+        for embed in embeds.copy():
+            if len(embed.fields) == 0:
+                embeds.remove(embed)
+                continue
             embed.set_image("https://i.imgur.com/cThNy4f.png")
-        await inter.send(embeds=[defence_embed, attack_embed])
+        await inter.send(embeds=embeds)
 
 
 def setup(bot: GalacticWideWebBot):
