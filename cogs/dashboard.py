@@ -36,6 +36,14 @@ class DashboardCog(commands.Cog):
             )
             for lang in list({guild.language for guild in GWWGuild.get_all()})
         }
+        for lang, dashboard in dashboards.items():
+            if dashboard.character_count() > 6000:
+                dashboard = Dashboard(
+                    data=self.bot.data,
+                    language_code=lang,
+                    json_dict=self.bot.json_dict,
+                    with_health_bars=False,
+                )
         await self.bot.interface_handler.edit_dashboards(dashboards)
         self.bot.logger.info(
             f"Updated {len(self.bot.interface_handler.dashboards)} dashboards in {(datetime.now()-dashboards_start).total_seconds():.2f} seconds"

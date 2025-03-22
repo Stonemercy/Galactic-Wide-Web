@@ -21,7 +21,13 @@ from utils.trackers import LiberationChangesTracker
 
 
 class Dashboard:
-    def __init__(self, data: Data, language_code: str, json_dict: dict):
+    def __init__(
+        self,
+        data: Data,
+        language_code: str,
+        json_dict: dict,
+        with_health_bars: bool = True,
+    ):
         language_json = json_dict["languages"][language_code]
         self._major_order_embed = self.MajorOrderEmbed(
             assignment=data.assignment,
@@ -29,6 +35,7 @@ class Dashboard:
             liberation_changes=data.liberation_changes,
             language_json=language_json,
             json_dict=json_dict,
+            with_health_bars=with_health_bars,
         )
         self._dss_embed = self.DSSEmbed(
             dss=data.dss,
@@ -42,6 +49,7 @@ class Dashboard:
             planet_names=json_dict["planets"],
             total_players=data.total_players,
             eagle_storm=data.dss.get_ta_by_name("EAGLE STORM"),
+            with_health_bars=with_health_bars,
         )
         self._illuminate_embed = self.AttackEmbed(
             campaigns=[
@@ -54,6 +62,7 @@ class Dashboard:
             planet_names=json_dict["planets"],
             faction="Illuminate",
             total_players=data.total_players,
+            with_health_bars=with_health_bars,
         )
         self._automaton_embed = self.AttackEmbed(
             campaigns=[
@@ -66,6 +75,7 @@ class Dashboard:
             planet_names=json_dict["planets"],
             faction="Automaton",
             total_players=data.total_players,
+            with_health_bars=with_health_bars,
         )
         self._terminids_embed = self.AttackEmbed(
             campaigns=[
@@ -78,6 +88,7 @@ class Dashboard:
             planet_names=json_dict["planets"],
             faction="Terminids",
             total_players=data.total_players,
+            with_health_bars=with_health_bars,
         )
         self._footer_embed = self.FooterEmbed(
             language_json=language_json,
@@ -120,7 +131,7 @@ class Dashboard:
                     "https://i.imgur.com/cThNy4f.png"
                 )  # blank line (max size, dont change)
         embeds_to_skip = (self.DarkEnergyEmbed, self.DSSEmbed)
-        if self.character_count() > 5900:
+        if self.character_count() > 5900 or not with_health_bars:
             self.embeds = [
                 embed
                 for embed in self.embeds.copy()
@@ -156,7 +167,9 @@ class Dashboard:
             liberation_changes: LiberationChangesTracker,
             language_json: dict,
             json_dict: dict,
+            with_health_bars: bool,
         ):
+            self.with_health_bars = with_health_bars
             super().__init__(
                 title=language_json["dashboard"]["MajorOrderEmbed"]["title"],
                 colour=Colour.from_rgb(r=255, g=220, b=0),
@@ -252,12 +265,16 @@ class Dashboard:
                     language_json["code_long"]
                 ],
             )
+            if self.with_health_bars:
+                task_health_bar = f"{task.health_bar}\n"
+            else:
+                task_health_bar = ""
             value = (
                 ""
                 if task.progress_perc == 1
                 else (
                     f"{language_json['dashboard']['progress']}: **{task.progress:,.0f}**\n"
-                    f"{task.health_bar}\n"
+                    f"{task_health_bar}"
                     f"`{(task.progress_perc):^25,.2%}`\n"
                 )
             )
@@ -308,12 +325,16 @@ class Dashboard:
                 full_task += language_json["dashboard"]["MajorOrderEmbed"]["tasks"][
                     "type3_planet"
                 ].format(planet=planet_to_use)
+            if self.with_health_bars:
+                task_health_bar = f"{task.health_bar}\n"
+            else:
+                task_health_bar = ""
             self.add_field(
                 name=full_task,
                 value=(
                     (
                         f"{language_json['dashboard']['progress']}: **{(task.progress):,.0f}**\n"
-                        f"{task.health_bar}\n"
+                        f"{task_health_bar}"
                         f"`{(task.progress_perc):^25,.2%}`"
                     )
                     if task.progress_perc != 1
@@ -331,16 +352,15 @@ class Dashboard:
             liberation_changes: LiberationChangesTracker,
         ):
             """Liberate a planet"""
-            task_health_bar = health_bar(
-                planet.health_perc,
-                planet.current_owner,
-                True if planet.current_owner != "Humans" else False,
-            )
             completed = (
                 f"**{language_json['dashboard']['MajorOrderEmbed']['liberated']}**"
                 if planet.current_owner == "Humans"
                 else ""
             )
+            if self.with_health_bars:
+                task_health_bar = f"{health_bar(planet.health_perc, planet.current_owner, True if planet.current_owner != 'Humans' else False)} {completed}\n"
+            else:
+                task_health_bar = ""
             health_text = (
                 f"{1 - (planet.health_perc):^25,.2%}"
                 if planet.current_owner != "Humans"
@@ -388,7 +408,7 @@ class Dashboard:
                     f"{feature_text}"
                     f"{outlook_text}"
                     f"{language_json['dashboard']['progress']}:\n"
-                    f"{task_health_bar} {completed}\n"
+                    f"{task_health_bar}"
                     f"`{health_text}`\n"
                 ),
                 inline=False,
@@ -456,6 +476,10 @@ class Dashboard:
                     if task.progress_perc != 1
                     else ""
                 )
+                if self.with_health_bars:
+                    task_health_bar = f"{health_bar(perc=planet.event.progress, race=planet.event.faction, reverse=True)} 🛡️"
+                else:
+                    task_health_bar = ""
                 self.add_field(
                     objective_text,
                     (
@@ -466,7 +490,7 @@ class Dashboard:
                         f"{outlook_text}"
                         f"{required_players}"
                         f"\n{language_json['dashboard']['progress']}:\n"
-                        f"{health_bar(perc=planet.event.progress, race=planet.event.faction, reverse=True)} 🛡️"
+                        f"{task_health_bar}"
                         f"\n`{1 - planet.event.progress:^25,.2%}`"
                         f"{liberation_text}"
                     ),
@@ -484,11 +508,15 @@ class Dashboard:
                     number=task.values[0],
                     faction=language_json["factions"][str(task.values[1])],
                 )
+                if self.with_health_bars:
+                    task_health_bar = f"{task.health_bar}\n"
+                else:
+                    task_health_bar = ""
                 self.add_field(
                     objective_text,
                     (
                         f"{language_json['dashboard']['progress']}: {int(task.progress)}/{task.values[0]}\n"
-                        f"{task.health_bar}\n"
+                        f"{task_health_bar}"
                         f"`{(task.progress_perc):^25,.2%}`\n"
                     ),
                     inline=False,
@@ -553,6 +581,10 @@ class Dashboard:
                 time_remaining = (
                     f"<t:{planet.event.end_time_datetime.timestamp():.0f}:R>"
                 )
+                if self.with_health_bars:
+                    task_health_bar = f"{health_bar(perc=planet.event.progress, race=planet.event.faction, reverse=True)} 🛡️"
+                else:
+                    task_health_bar = ""
                 self.add_field(
                     obj_text,
                     (
@@ -563,7 +595,7 @@ class Dashboard:
                         f"\n{player_count}"
                         f"{required_players}"
                         f"\n{language_json['dashboard']['progress']}:\n"
-                        f"{health_bar(perc=planet.event.progress, race=planet.event.faction, reverse=True)} 🛡️"
+                        f"{task_health_bar}"
                         f"\n`{1 - planet.event.progress:^25,.2%}`"
                         f"{liberation_text}"
                     ),
@@ -599,6 +631,10 @@ class Dashboard:
                         if planet.current_owner != "Humans"
                         else f"{(planet.health_perc):^25,.2%}"
                     )
+                    if self.with_health_bars:
+                        task_health_bar = f"{health_bar(perc=planet.health_perc,race=planet.current_owner, reverse=True if planet.current_owner != 'Humans' else False)} {completed}"
+                    else:
+                        task_health_bar = ""
                     self.add_field(
                         obj_text,
                         (
@@ -606,7 +642,7 @@ class Dashboard:
                             f"{outlook_text}"
                             f"\n{player_count}"
                             f"\n{language_json['dashboard']['progress']}:\n"
-                            f"{health_bar(perc=planet.health_perc,race=planet.current_owner, reverse=True if planet.current_owner != 'Humans' else False)} {completed}"
+                            f"{task_health_bar}"
                             f"\n`{health_text}`"
                             f"{liberation_text}"
                         ),
@@ -618,15 +654,18 @@ class Dashboard:
             percent = {i: (i + 10) / 20 for i in range(-10, 12, 2)}[
                 [key for key in range(-10, 12, 2) if key <= task.progress][-1]
             ]
+            event_health_bar = ""
             if percent > 0.5:
                 outlook = language_json["victory"]
-                event_health_bar = health_bar(
-                    perc=percent,
-                    race="Humans",
-                )
+                if self.with_health_bars:
+                    event_health_bar = health_bar(
+                        perc=percent,
+                        race="Humans",
+                    )
             else:
                 outlook = language_json["defeat"]
-                event_health_bar = health_bar(perc=percent, race="Automaton")
+                if self.with_health_bars:
+                    event_health_bar = health_bar(perc=percent, race="Automaton")
             self.add_field(
                 name=language_json["dashboard"]["MajorOrderEmbed"]["tasks"][
                     "type15"
@@ -805,6 +844,7 @@ class Dashboard:
             planet_names: dict,
             total_players: int,
             eagle_storm: DSS.TacticalAction,
+            with_health_bars: bool,
         ):
             total_players_doing_defence = (
                 sum(planet.stats["playerCount"] for planet in planet_events)
@@ -899,6 +939,10 @@ class Dashboard:
                     if planet.dss_in_orbit:
                         exclamation += Emojis.dss["dss"]
                     player_count = f'**{planet.stats["playerCount"]:,}**'
+                    if with_health_bars:
+                        event_health_bar = f"\n{planet.event.health_bar}"
+                    else:
+                        event_health_bar = ""
                     self.add_field(
                         f"{Emojis.factions[planet.event.faction]} - __**{planet_names[str(planet.index)]['names'][language_json['code_long']]}**__ {exclamation}",
                         (
@@ -909,7 +953,7 @@ class Dashboard:
                             f"\n{language_json['dashboard']['heroes'].format(heroes=player_count)}"
                             f"{required_players}"
                             f"\n{language_json['dashboard']['DefenceEmbed']['event_health']}:"
-                            f"\n{planet.event.health_bar}"
+                            f"{event_health_bar}"
                             f"\n`{1 - (planet.event.health / planet.event.max_health):^25,.2%}`"
                             f"{liberation_text}"
                             "\u200b\n"
@@ -931,6 +975,7 @@ class Dashboard:
             planet_names: dict,
             faction: str,
             total_players: int,
+            with_health_bars: bool,
         ):
             super().__init__(
                 title=language_json["dashboard"]["AttackEmbed"]["title"].format(
@@ -982,11 +1027,10 @@ class Dashboard:
                         exclamation += Emojis.dss["dss"]
                     if campaign.planet.regen_perc_per_hour <= 0.25:
                         exclamation += f" :warning: {campaign.planet.regen_perc_per_hour:.2f}% REGEN :warning:"
-                    planet_health_bar = health_bar(
-                        campaign.planet.health / campaign.planet.max_health,
-                        campaign.planet.current_owner,
-                        True,
-                    )
+                    if with_health_bars:
+                        planet_health_bar = f"\n{health_bar(campaign.planet.health / campaign.planet.max_health, campaign.planet.current_owner, True)}"
+                    else:
+                        planet_health_bar = ""
                     planet_health_text = f"`{(1 - (campaign.planet.health / campaign.planet.max_health)):^25.2%}`"
                     feature_text = (
                         language_json["dashboard"]["AttackEmbed"]["feature"].format(
@@ -1003,7 +1047,7 @@ class Dashboard:
                             f"{feature_text}"
                             f"{time_to_complete}"
                             f"\n{language_json['dashboard']['AttackEmbed']['planet_health']}:"
-                            f"\n{planet_health_bar}"
+                            f"{planet_health_bar}"
                             f"\n{planet_health_text}"
                             f"{liberation_text}"
                         ),
