@@ -77,6 +77,12 @@ class InterfaceHandler:
 
         for message in self.dashboards.copy():
             guild = GWWGuild.get_by_id(message.guild.id)
+            if not guild:
+                self.dashboards.remove(message)
+                self.bot.logger.error(
+                    f"edit_dashboard | guild not found in DB | removed from dashboards dict | {message.guild.id = }"
+                )
+                continue
             localized_dashboard = dashboards_dict.get(
                 guild.language, dashboards_dict["en"]
             )
@@ -106,6 +112,12 @@ class InterfaceHandler:
 
         for message in self.maps.copy():
             guild = GWWGuild.get_by_id(message.guild.id)
+            if not guild:
+                self.maps.remove(message)
+                self.bot.logger.error(
+                    f"edit_map | guild not found in DB | removed from maps dict | {message.guild.id = }"
+                )
+                continue
             self.bot.loop.create_task(edit_map(message, map_dict[guild.language]))
             await sleep(0.03)
         self.busy = False

@@ -1065,7 +1065,7 @@ class Dashboard:
                         exclamation += f" {Emojis.dss['dss']}"
                     if campaign.planet.regen < 1:
                         exclamation += " :warning: 0% REGEN :warning:"
-                    skipped_planets_text += f"-# {Emojis.factions[campaign.planet.current_owner]} - {planet_names[str(campaign.planet.index)]['names'][language_json['code_long']]} - **{campaign.planet.stats['playerCount']:,}** {exclamation}\n"
+                    skipped_planets_text += f"-# {planet_names[str(campaign.planet.index)]['names'][language_json['code_long']]} - **{campaign.planet.stats['playerCount']:,}** {exclamation}\n"
                 if skipped_planets_text != "":
                     self.add_field(
                         f"{language_json['dashboard']['AttackEmbed']['low_impact']}",
