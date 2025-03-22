@@ -1,5 +1,5 @@
-from datetime import datetime
-from math import inf
+from datetime import datetime, timedelta
+from math import inf, sqrt
 from os import getpid
 from re import DOTALL, search
 from psutil import Process, cpu_percent
@@ -9,6 +9,7 @@ from utils.bot import GalacticWideWebBot
 from utils.data import (
     DSS,
     Campaign,
+    DarkEnergy,
     Dispatch,
     GlobalEvent,
     PersonalOrder,
@@ -615,7 +616,7 @@ class UsageLoopEmbed(Embed, EmbedReprMixin):
 
 
 class MeridiaLoopEmbed(Embed, EmbedReprMixin):
-    def __init__(self, meridia: Meridia):
+    def __init__(self, meridia: Meridia, dark_energy: DarkEnergy):
         super().__init__(title="Meridia Update", colour=Colour.from_rgb(106, 76, 180))
         self.set_thumbnail(
             url="https://cdn.discordapp.com/emojis/1331357764039086212.webp?size=96"
@@ -625,6 +626,11 @@ class MeridiaLoopEmbed(Embed, EmbedReprMixin):
                 location
                 for location in meridia.locations[-16:][::-1]
                 if location.timestamp.minute == meridia.locations[-1].timestamp.minute
+                and location.timestamp.hour
+                in range(
+                    (meridia.locations[-1].timestamp - timedelta(hours=3)).hour,
+                    (meridia.locations[-1].timestamp + timedelta(hours=1)).hour,
+                )
             ],
             1,
         ):
@@ -638,4 +644,10 @@ class MeridiaLoopEmbed(Embed, EmbedReprMixin):
                     f"{location.as_tuple}"
                 ),
             )
-        self.add_field("Speed", f"{(meridia.speed*1000)*3600:.2f}SU/hour", inline=False)
+        self.add_field("Speed", f"{(meridia.speed*1000)*3600:.4f}SU/hour", inline=False)
+        self.add_field("Dark Energy", f"{dark_energy.current_value:,.2f}")
+        self.add_field(
+            "Distance from Super Earth",
+            f"{sqrt(meridia.locations[-1].x**2 + meridia.locations[-1].y**2) * 1000:.2f} SU",
+            inline=False,
+        )

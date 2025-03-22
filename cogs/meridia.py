@@ -35,7 +35,9 @@ class MeridiaCog(commands.Cog):
             and now.minute == 10
             and meridia.locations[-1].timestamp > now - timedelta(hours=4)
         ):
-            embed = MeridiaLoopEmbed(meridia=meridia)
+            embed = MeridiaLoopEmbed(
+                meridia=meridia, dark_energy=self.bot.data.global_resources.dark_energy
+            )
             msg = await self.bot.api_changes_channel.send(embed=embed)
             await msg.publish()
 
