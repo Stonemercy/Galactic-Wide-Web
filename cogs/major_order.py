@@ -47,6 +47,7 @@ class MajorOrderCog(commands.Cog):
                 liberation_changes=self.bot.data.liberation_changes,
                 language_json=guild_language,
                 json_dict=self.bot.json_dict,
+                with_health_bars=True,
             ),
             components=[
                 WikiButton(link=f"https://helldivers.wiki.gg/wiki/Major_Orders")
