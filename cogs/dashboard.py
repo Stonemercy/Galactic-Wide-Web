@@ -36,9 +36,9 @@ class DashboardCog(commands.Cog):
             )
             for lang in list({guild.language for guild in GWWGuild.get_all()})
         }
-        for lang, dashboard in dashboards.items():
+        for lang, dashboard in dashboards.copy().items():
             if dashboard.character_count() > 6000:
-                dashboard = Dashboard(
+                dashboards[lang] = Dashboard(
                     data=self.bot.data,
                     language_code=lang,
                     json_dict=self.bot.json_dict,
