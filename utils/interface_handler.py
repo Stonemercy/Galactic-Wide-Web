@@ -154,6 +154,12 @@ class InterfaceHandler:
         list_to_use = self.news_feeds.channels_dict[news_type]
         for channel in list_to_use.copy():
             guild = GWWGuild.get_by_id(channel.guild.id)
+            if not guild:
+                list_to_use.remove(channel)
+                self.bot.logger.error(
+                    f"send_news | guild not found in DB | removed from {news_type} dict | {channel.guild.id = }"
+                )
+                continue
             self.bot.loop.create_task(
                 send_embed(channel, embeds_dict[guild.language], components)
             )
