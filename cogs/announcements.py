@@ -46,6 +46,7 @@ class AnnouncementsCog(commands.Cog):
                     liberation_changes=self.bot.data.liberation_changes,
                     language_json=self.bot.json_dict["languages"][lang],
                     json_dict=self.bot.json_dict,
+                    with_health_bars=True,
                 )
                 for lang in list({guild.language for guild in GWWGuild.get_all()})
             }
