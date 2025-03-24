@@ -358,7 +358,7 @@ class Dashboard:
                 else ""
             )
             if self.with_health_bars:
-                task_health_bar = f"{health_bar(planet.health_perc, planet.current_owner, True if planet.current_owner != 'Humans' else False)} {completed}\n"
+                task_health_bar = f"{health_bar(planet.health_perc, planet.current_owner, True if planet.current_owner != 'Humans' else False)} {completed}"
             else:
                 task_health_bar = ""
             health_text = (
@@ -391,6 +391,7 @@ class Dashboard:
             )
             planet_lib_changes = liberation_changes.get_by_index(planet.index)
             outlook_text = ""
+            liberation_text = ""
             if planet_lib_changes and planet_lib_changes.rate_per_hour > 0.01:
                 now_seconds = int(datetime.now().timestamp())
                 seconds_until_complete = int(
@@ -401,6 +402,8 @@ class Dashboard:
                     * 3600
                 )
                 outlook_text = f"{language_json['dashboard']['outlook'].format(outlook=language_json['victory'])} <t:{now_seconds + seconds_until_complete}:R>\n"
+                change = f"{planet_lib_changes.rate_per_hour:+.2f}%/hour"
+                liberation_text = f"\n`{change:^25}`"
             self.add_field(
                 name=obj_text,
                 value=(
@@ -409,7 +412,8 @@ class Dashboard:
                     f"{outlook_text}"
                     f"{language_json['dashboard']['progress']}:\n"
                     f"{task_health_bar}"
-                    f"`{health_text}`\n"
+                    f"\n`{health_text}`"
+                    f"{liberation_text}"
                 ),
                 inline=False,
             )
