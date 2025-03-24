@@ -173,7 +173,9 @@ class GuildManagementCog(commands.Cog):
                     description="These servers are in the PostgreSQL database but not in the `self.bot.guilds` list.",
                 ).add_field(
                     name="Guilds:",
-                    value="\n".join(self.guilds_to_remove),
+                    value="\n".join(
+                        [str(guild_id) for guild_id in self.guilds_to_remove]
+                    ),
                     inline=False,
                 )
                 await self.bot.moderator_channel.send(
