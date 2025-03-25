@@ -357,14 +357,22 @@ class Dashboard:
                 if planet.current_owner == "Humans"
                 else ""
             )
-            if self.with_health_bars:
+            active_planet = planet.stats["playerCount"] > 100
+            if self.with_health_bars and active_planet:
                 task_health_bar = f"{health_bar(planet.health_perc, planet.current_owner, True if planet.current_owner != 'Humans' else False)} {completed}"
             else:
                 task_health_bar = ""
             health_text = (
-                f"{1 - (planet.health_perc):^25,.2%}"
-                if planet.current_owner != "Humans"
-                else f"{(planet.health_perc):^25,.2%}"
+                (
+                    f"\n`{1 - (planet.health_perc):^25,.2%}`"
+                    if planet.current_owner != "Humans"
+                    else f"\n`{(planet.health_perc):^25,.2%}`"
+                )
+                if active_planet
+                else ""
+            )
+            progress_text = (
+                f"{language_json['dashboard']['progress']}:\n" if active_planet else ""
             )
             feature_text = (
                 "" if not planet.feature else f"\nFeature: {planet.feature}\n"
@@ -386,7 +394,7 @@ class Dashboard:
                     heroes=f'{planet.stats["playerCount"]:,}'
                 )
                 + "\n"
-                if planet.stats["playerCount"] > 100
+                if planet.stats["playerCount"] > 100 and task.progress != 1
                 else ""
             )
             planet_lib_changes = liberation_changes.get_by_index(planet.index)
@@ -410,9 +418,9 @@ class Dashboard:
                     f"{player_count}"
                     f"{feature_text}"
                     f"{outlook_text}"
-                    f"{language_json['dashboard']['progress']}:\n"
+                    f"{progress_text}"
                     f"{task_health_bar}"
-                    f"\n`{health_text}`"
+                    f"{health_text}"
                     f"{liberation_text}"
                 ),
                 inline=False,
