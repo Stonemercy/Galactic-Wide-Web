@@ -416,11 +416,11 @@ class Meridia(ReprMixin):
                 self.locations: list[Meridia.Location] = [
                     Meridia.Location(*record) for record in records
                 ]
-        self.now = datetime.now()
+        now = datetime.now()
         self.last_4_hours = [
             location
             for location in self.locations
-            if location.timestamp > self.now - timedelta(hours=4, minutes=5)
+            if location.timestamp > now - timedelta(hours=4, minutes=5)
         ]
 
     @property
