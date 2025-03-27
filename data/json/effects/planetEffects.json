@@ -458,5 +458,10 @@
 		"galacticEffectId": 1255,
 		"name": "UNKNOWN",
 		"description": ""
+	},
+	"1256": {
+		"galacticEffectId": 1256,
+		"name": "WEAPONS EXPERIMENTATION",
+		"description": "The Grenadier Battlement stratagem is available to all Helldivers."
 	}
 }
