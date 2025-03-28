@@ -626,11 +626,9 @@ class MeridiaLoopEmbed(Embed, EmbedReprMixin):
                 location
                 for location in meridia.locations[-16:][::-1]
                 if location.timestamp.minute == meridia.locations[-1].timestamp.minute
-                and location.timestamp.hour
-                in range(
-                    (meridia.locations[-1].timestamp - timedelta(hours=3)).hour,
-                    (meridia.locations[-1].timestamp + timedelta(hours=1)).hour,
-                )
+                and (meridia.locations[-1].timestamp - timedelta(hours=3)).hour
+                <= location.timestamp.hour % 24
+                <= (meridia.locations[-1].timestamp + timedelta(hours=1)).hour
             ],
             1,
         ):
