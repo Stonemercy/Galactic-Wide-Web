@@ -140,7 +140,9 @@ class GuildManagementCog(commands.Cog):
                     guild.dashboard_channel_id
                 ) or await self.bot.fetch_channel(guild.dashboard_channel_id)
                 message = await channel.fetch_message(guild.dashboard_message_id)
-                updated_time = message.edited_at.replace(tzinfo=None)
+                updated_time = message.edited_at.replace(tzinfo=None) + timedelta(
+                    hours=1
+                )
                 if updated_time < (
                     now - timedelta(minutes=16)
                 ) and self.bot.startup_time < (now - timedelta(minutes=16)):

@@ -627,10 +627,10 @@ class Planet(ReprMixin):
             self.end_time: str = raw_event_data["endTime"]
             self.start_time_datetime: datetime = datetime.fromisoformat(
                 self.start_time
-            ).replace(tzinfo=None)
+            ).replace(tzinfo=None) + timedelta(hours=1)
             self.end_time_datetime: datetime = datetime.fromisoformat(
                 self.end_time
-            ).replace(tzinfo=None)
+            ).replace(tzinfo=None) + timedelta(hours=1)
             self.progress: float = self.health / self.max_health
             self.required_players: int = 0
             self.level: int = int(self.max_health / 50000)
