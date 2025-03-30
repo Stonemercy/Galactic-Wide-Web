@@ -708,7 +708,7 @@ class Dashboard:
             rewards_text = ""
             for reward in rewards:
                 reward_name = reward_names.get(str(reward["type"]), "Unknown")
-                rewards_text += f"{reward['amount']:,} **{reward_name}s** {getattr(Emojis.Items, reward_name.replace(' ', '_').lower(), default='')}\n"
+                rewards_text += f"{reward['amount']:,} **{reward_name}s** {getattr(Emojis.Items, reward_name.replace(' ', '_').lower(), '')}\n"
             self.add_field(
                 language_json["dashboard"]["MajorOrderEmbed"]["rewards"], rewards_text
             )

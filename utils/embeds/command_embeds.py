@@ -66,7 +66,7 @@ class PlanetCommandEmbed(Embed, EmbedReprMixin):
         environmentals = language_json["PlanetEmbed"]["environmentals"].format(
             environmentals="".join(
                 [
-                    f"\n- {getattr(Emojis.Weather,hazard['name'], default='')} **{hazard['name']}**\n  - -# {hazard['description']}"
+                    f"\n- {getattr(Emojis.Weather,hazard['name'], '')} **{hazard['name']}**\n  - -# {hazard['description']}"
                     for hazard in planet.hazards
                 ]
             )
@@ -179,7 +179,7 @@ class PlanetCommandEmbed(Embed, EmbedReprMixin):
             effects = ""
             for effect in planet_effects:
                 try:
-                    effects += f"\n- {getattr(Emojis.PlanetEffects, effect['name'], default='')} **{effect['name'].upper()}**\n  - -# {effect['description']}\n"
+                    effects += f"\n- {getattr(Emojis.PlanetEffects, effect['name'], '')} **{effect['name'].upper()}**\n  - -# {effect['description']}\n"
                 except:
                     pass
             if effects:

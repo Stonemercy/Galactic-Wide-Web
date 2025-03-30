@@ -126,7 +126,7 @@ class PersonalOrderLoopEmbed(Embed, EmbedReprMixin):
                 item = item_names_json.get(str(task.values[5]), None)
                 if item:
                     item = item["name"]
-                    full_objective = f"Successfully extract with {task.values[2]} {item}s {getattr(Emojis.Items, item.replace(' ', '_').lower(), default='')}"
+                    full_objective = f"Successfully extract with {task.values[2]} {item}s {getattr(Emojis.Items, item.replace(' ', '_').lower(), '')}"
                 else:
                     full_objective = (
                         f"Successfully extract from with {task.values[2]} **UNMAPPED**s"
@@ -193,7 +193,7 @@ class PersonalOrderLoopEmbed(Embed, EmbedReprMixin):
             reward_name = reward_types[str(reward.type)]
             self.add_field(
                 "Reward",
-                f"{reward.amount} {reward_name}s {getattr(Emojis.Items, reward_name.replace(' ', '_').lower(), default='')}",
+                f"{reward.amount} {reward_name}s {getattr(Emojis.Items, reward_name.replace(' ', '_').lower(), '')}",
                 inline=False,
             )
 
