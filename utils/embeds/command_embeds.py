@@ -3,18 +3,11 @@ from math import sqrt
 from data.lists import (
     faction_colours,
     help_dict,
-    warbond_images_dict,
-    emotes_list,
-    player_cards_list,
-    victory_poses_list,
-    titles_list,
-    stratagem_permit_list,
     stratagem_id_dict,
     stratagem_image_dict,
 )
 from disnake import APISlashCommand, Colour, Embed, File, ModalInteraction, OptionType
 from utils.data import (
-    DSS,
     DarkEnergy,
     PersonalOrder,
     Planet,
@@ -64,7 +57,7 @@ class PlanetCommandEmbed(Embed, EmbedReprMixin):
         sector = language_json["PlanetEmbed"]["sector"].format(sector=planet.sector)
         owner = language_json["PlanetEmbed"]["owner"].format(
             faction=language_json["factions"][planet.current_owner],
-            faction_emoji=Emojis.factions[planet.current_owner],
+            faction_emoji=getattr(Emojis.Factions, planet.current_owner.lower()),
         )
         biome = language_json["PlanetEmbed"]["biome"].format(
             biome_name=planet.biome["name"],
@@ -73,17 +66,17 @@ class PlanetCommandEmbed(Embed, EmbedReprMixin):
         environmentals = language_json["PlanetEmbed"]["environmentals"].format(
             environmentals="".join(
                 [
-                    f"\n- {Emojis.weather.get(hazard['name'], '')} **{hazard['name']}**\n  - -# {hazard['description']}"
+                    f"\n- {getattr(Emojis.Weather,hazard['name'], default='')} **{hazard['name']}**\n  - -# {hazard['description']}"
                     for hazard in planet.hazards
                 ]
             )
         )
         title_exclamation = ""
         if planet.dss_in_orbit:
-            title_exclamation += Emojis.dss["dss"]
-            title_exclamation += Emojis.dss["operational_support"]
+            title_exclamation += Emojis.DSS.icon
+            title_exclamation += Emojis.DSS.operational_support
         if planet.in_assignment:
-            title_exclamation += Emojis.icons["MO"]
+            title_exclamation += Emojis.Icons.mo
         self.add_field(
             f"__**{planet_names['names'][language_json['code_long']]}**__ {title_exclamation}",
             (f"{sector}" f"{owner}" f"{biome}" f"{environmentals}"),
@@ -111,7 +104,7 @@ class PlanetCommandEmbed(Embed, EmbedReprMixin):
         if planet.event:
             planet_health_bar = (
                 health_bar(planet.event.progress, planet.event.faction, True)
-                + f" 🛡️ {Emojis.factions[planet.event.faction]}"
+                + f" 🛡️ {getattr(Emojis.Factions, planet.event.faction.lower())}"
             )
             if liberation_change and liberation_change.rate_per_hour != 0:
                 winning = (
@@ -178,15 +171,15 @@ class PlanetCommandEmbed(Embed, EmbedReprMixin):
             )
         if planet.dss_in_orbit:
             self.add_field(
-                f"{Emojis.dss['operational_support']} Operational Support",
-                f"The presence of the {Emojis.dss['dss']} DSS near this planet provides a slight boost to **Liberation Campaign** progress.",
+                f"{Emojis.DSS.operational_support} Operational Support",
+                f"The presence of the {Emojis.DSS.icon} DSS near this planet provides a slight boost to **Liberation Campaign** progress.",
                 inline=False,
             )
         if planet_effects:
             effects = ""
             for effect in planet_effects:
                 try:
-                    effects += f"\n- {Emojis.planet_effects.get(effect['name'], '')} **{effect['name'].upper()}**\n  - -# {effect['description']}\n"
+                    effects += f"\n- {getattr(Emojis.PlanetEffects, effect['name'], default='')} **{effect['name'].upper()}**\n  - -# {effect['description']}\n"
                 except:
                     pass
             if effects:
@@ -307,441 +300,6 @@ class HelpCommandEmbed(Embed, EmbedReprMixin):
                 ),
                 inline=False,
             )
-
-
-class WeaponCommandEmbeds:
-    class Primary(Embed, EmbedReprMixin):
-        def __init__(
-            self,
-            weapon_json: dict,
-            json_dict: dict,
-            language_json: dict,
-        ):
-            super().__init__(
-                colour=Colour.blue(),
-                title=weapon_json["name"],
-                description=weapon_json["description"],
-            )
-            gun_fire_modes = ""
-            for i in weapon_json["fire_mode"]:
-                gun_fire_modes += f"\n- **{json_dict['items']['fire_modes'][str(i)]}**"
-
-            features = ""
-            for i in weapon_json["traits"]:
-                if i != 0:
-                    features += f"\n- **{json_dict['items']['weapon_traits'][str(i)]}**"
-                else:
-                    features = "\n- None"
-
-            if 9 in weapon_json["traits"]:
-                weapon_json["capacity"] = language_json["WeaponEmbed"][
-                    "constant_fire"
-                ].format(number=weapon_json["capacity"])
-                weapon_json["fire_rate"] = 60
-            if weapon_json["capacity"] == 999:
-                weapon_json["capacity"] = "**∞**"
-            information = ""
-            information += language_json["WeaponEmbed"]["type"].format(
-                type=json_dict["items"]["weapon_types"][str(weapon_json["type"])]
-            )
-            information += language_json["WeaponEmbed"]["damage"].format(
-                damage=weapon_json["damage"]
-            )
-            information += language_json["WeaponEmbed"]["fire_rate"].format(
-                fire_rate=weapon_json["fire_rate"]
-            )
-            information += language_json["WeaponEmbed"]["dps"].format(
-                dps=f'{((weapon_json["damage"] * weapon_json["fire_rate"]) / 60):.2f}'
-            )
-            information += language_json["WeaponEmbed"]["capacity"].format(
-                capacity=weapon_json["capacity"],
-            )
-            information += language_json["WeaponEmbed"]["fire_modes"].format(
-                fire_modes=gun_fire_modes
-            )
-            information += language_json["WeaponEmbed"]["features"].format(
-                features=features
-            )
-            self.add_field(
-                language_json["WeaponEmbed"]["information_title"],
-                information,
-            )
-            try:
-                self.set_thumbnail(
-                    file=File(
-                        f"resources/weapons/{weapon_json['name'].replace(' ', '-').replace('&', 'n')}.png"
-                    )
-                )
-                self.image_set = True
-            except:
-                self.image_set = False
-
-    class Secondary(Embed, EmbedReprMixin):
-        def __init__(
-            self,
-            weapon_json: dict,
-            json_dict: dict,
-            language_json: dict,
-        ):
-            super().__init__(
-                colour=Colour.blue(),
-                title=weapon_json["name"],
-                description=weapon_json["description"],
-            )
-            gun_fire_modes = ""
-            for i in weapon_json["fire_mode"]:
-                gun_fire_modes += f"\n- **{json_dict['items']['fire_modes'][str(i)]}**"
-
-            features = ""
-            for i in weapon_json["traits"]:
-                if i != 0:
-                    features += f"\n- **{json_dict['items']['weapon_traits'][str(i)]}**"
-                else:
-                    features = "\n- None"
-
-            if 9 in weapon_json["traits"]:
-                weapon_json["capacity"] = language_json["WeaponEmbed"][
-                    "constant_fire"
-                ].format(number=weapon_json["capacity"])
-                weapon_json["fire_rate"] = 60
-            if weapon_json["capacity"] == 999:
-                weapon_json["capacity"] = "**∞**"
-            information = ""
-            information += language_json["WeaponEmbed"]["damage"].format(
-                damage=weapon_json["damage"]
-            )
-            information += language_json["WeaponEmbed"]["fire_rate"].format(
-                fire_rate=weapon_json["fire_rate"]
-            )
-            information += language_json["WeaponEmbed"]["dps"].format(
-                dps=f'{((weapon_json["damage"] * weapon_json["fire_rate"]) / 60):.2f}'
-            )
-            information += language_json["WeaponEmbed"]["capacity"].format(
-                capacity=weapon_json["capacity"],
-            )
-            information += language_json["WeaponEmbed"]["fire_modes"].format(
-                fire_modes=gun_fire_modes
-            )
-            information += language_json["WeaponEmbed"]["features"].format(
-                features=features
-            )
-            self.add_field(
-                language_json["WeaponEmbed"]["information_title"],
-                information,
-            )
-            try:
-                self.set_thumbnail(
-                    file=File(
-                        f"resources/weapons/{weapon_json['name'].replace(' ', '-')}.png"
-                    )
-                )
-                self.image_set = True
-            except:
-                self.image_set = False
-
-    class Grenade(Embed, EmbedReprMixin):
-        def __init__(self, grenade_json: dict, language_json: dict):
-            super().__init__(
-                colour=Colour.blue(),
-                title=grenade_json["name"],
-                description=grenade_json["description"],
-            )
-            information = ""
-            information += language_json["WeaponEmbed"]["damage"].format(
-                damage=grenade_json["damage"]
-            )
-            information += language_json["WeaponEmbed"]["fuse_time"].format(
-                fuse_time=grenade_json["fuse_time"]
-            )
-            information += language_json["WeaponEmbed"]["penetration"].format(
-                penetration=grenade_json["penetration"]
-            )
-            information += language_json["WeaponEmbed"]["radius"].format(
-                radius=grenade_json["outer_radius"]
-            )
-
-            self.add_field(
-                language_json["WeaponEmbed"]["information_title"],
-                information,
-            )
-            try:
-                self.set_thumbnail(
-                    file=File(
-                        f"resources/weapons/{grenade_json['name'].replace(' ', '-')}.png"
-                    )
-                )
-                self.image_set = True
-            except:
-                self.image_set = False
-
-
-class BoosterCommandEmbed(Embed, EmbedReprMixin):
-    def __init__(self, booster: dict):
-        super().__init__(
-            colour=Colour.blue(),
-            title=booster["name"],
-            description=booster["description"],
-        )
-        try:
-            self.set_thumbnail(
-                file=File(f"resources/boosters/{booster['name'].replace(' ', '_')}.png")
-            )
-            self.image_set = True
-        except:
-            self.image_set = False
-
-
-class WarbondCommandEmbed(Embed, EmbedReprMixin):
-    def __init__(self, warbond_json: dict, json_dict: dict, page: int):
-        warbond_page = warbond_json["json"][str(page)]
-        formatted_index = {
-            warbond["name"]: warbond
-            for warbond in json_dict["warbonds"]["index"].values()
-        }
-        cost = formatted_index[warbond_json["name"]]["credits_to_unlock"]
-        super().__init__(
-            colour=Colour.blue(),
-            title=warbond_json["name"],
-            description=(
-                f"Page {page}/{list(warbond_json['json'].keys())[-1]}\n"
-                f"Cost to unlock warbond: **{cost}** {Emojis.items['Super Credits']}\n"
-                f"Medals to unlock page: **{warbond_page['medals_to_unlock'] }** {Emojis.items['Medal']}\n"
-            ),
-        )
-        self.set_image(warbond_images_dict[warbond_json["name"]])
-        item_number = 1
-        for item in warbond_page["items"]:
-            item_json = None
-            item_type = None
-            for item_key, item_value in json_dict["items"]["armor"].items():
-                if int(item_key) == item["item_id"]:
-                    item_json = item_value
-                    item_type = "armor"
-                    break
-            for item_key, item_value in json_dict["items"]["primary_weapons"].items():
-                if item_type != None:
-                    break
-                if int(item_key) == item["item_id"]:
-                    item_json = item_value
-                    item_type = "primary"
-                    break
-            for item_key, item_value in json_dict["items"]["secondary_weapons"].items():
-                if item_type != None:
-                    break
-                if int(item_key) == item["item_id"]:
-                    item_json = item_value
-                    item_type = "secondary"
-                    break
-            for item_key, item_value in json_dict["items"]["grenades"].items():
-                if item_type != None:
-                    break
-                if int(item_key) == item["item_id"]:
-                    item_json = item_value
-                    item_type = "grenade"
-                    break
-
-            if item_json != None:
-                if item_type == "armor":
-                    self.add_field(
-                        f"{item_json['name']}",
-                        (
-                            "Type: **Armor**\n"
-                            f"Slot: **{json_dict['items']['armor_slots'][str(item_json['slot'])]}** {Emojis.armour[json_dict['items']['armor_slots'][str(item_json['slot'])]]}\n"
-                            f"Armor Rating: **{item_json['armor_rating']}**\n"
-                            f"Speed: **{item_json['speed']}**\n"
-                            f"Stamina Regen: **{item_json['stamina_regen']}**\n"
-                            f"Passive: **{json_dict['items']['armor_perks'][str(item_json['passive'])]['name']}**\n"
-                            f"Medal Cost: **{item.get('medal_cost', None)} {Emojis.items['Medal']}**\n\n"
-                        ),
-                    )
-                elif item_type == "primary":
-                    self.add_field(
-                        f"{item_json['name']}",
-                        (
-                            "Type: **Primary**\n"
-                            f"Weapon type: **{json_dict['items']['weapon_types'][str(item_json['type'])]}**\n"
-                            f"Damage: **{item_json['damage']}**\n"
-                            f"Capacity: **{item_json['capacity']}**\n"
-                            f"Recoil: **{item_json['recoil']}**\n"
-                            f"Fire Rate: **{item_json['fire_rate']}**\n"
-                            f"Medal Cost: **{item['medal_cost']} {Emojis.items['Medal']}**\n\n"
-                        ),
-                    )
-                elif item_type == "secondary":
-                    self.add_field(
-                        f"{item_json['name']}",
-                        (
-                            "Type: **Secondary**\n"
-                            f"Damage: **{item_json['damage']}**\n"
-                            f"Capacity: **{item_json['capacity']}**\n"
-                            f"Recoil: **{item_json['recoil']}**\n"
-                            f"Fire Rate: **{item_json['fire_rate']}**\n"
-                            f"Medal Cost: **{item['medal_cost']} {Emojis.items['Medal']}**\n\n"
-                        ),
-                    )
-                elif item_type == "grenade":
-                    self.add_field(
-                        f"{item_json['name']}",
-                        (
-                            "Type: **Grenade**\n"
-                            f"Damage: **{item_json['damage']}**\n"
-                            f"Penetration: **{item_json['penetration']}**\n"
-                            f"Outer Radius: **{item_json['outer_radius']}**\n"
-                            f"Fuse Time: **{item_json['fuse_time']}**\n"
-                            f"Medal Cost: **{item['medal_cost']} {Emojis.items['Medal']}**\n\n"
-                        ),
-                    )
-            elif (
-                "Super Credits"
-                in json_dict["items"]["item_names"][str(item["item_id"])]["name"]
-            ):
-                self.add_field(
-                    f"{json_dict['items']['item_names'][str(item['item_id'])]['name']} {Emojis.items['Super Credits']}",
-                    f"Medal cost: **{item['medal_cost']} {Emojis.items['Medal']}**",
-                )
-            elif (
-                json_dict["items"]["item_names"][str(item["item_id"])]["name"]
-                in emotes_list
-            ):
-                self.add_field(
-                    f"{json_dict['items']['item_names'][str(item['item_id'])]['name']}",
-                    (
-                        "Type: Emote\n"
-                        f"Medal cost: **{item['medal_cost']} {Emojis.items['Medal']}**"
-                    ),
-                )
-            elif (
-                json_dict["items"]["item_names"][str(item["item_id"])]["name"]
-                in victory_poses_list
-            ):
-                self.add_field(
-                    f"{json_dict['items']['item_names'][str(item['item_id'])]['name']}",
-                    (
-                        "Type: Victory Pose\n"
-                        f"Medal cost: **{item['medal_cost']} {Emojis.items['Medal']}**"
-                    ),
-                )
-            elif (
-                json_dict["items"]["item_names"][str(item["item_id"])]["name"]
-                in player_cards_list
-            ):
-                self.add_field(
-                    f"{json_dict['items']['item_names'][str(item['item_id'])]['name']}",
-                    (
-                        "Type: Player Card\n"
-                        f"Medal cost: **{item['medal_cost']} {Emojis.items['Medal']}**"
-                    ),
-                )
-            elif str(item["item_id"]) in json_dict["items"]["boosters"]:
-                self.add_field(
-                    f"{json_dict['items']['item_names'][str(item['item_id'])]['name']}",
-                    (
-                        "Type: Booster\n"
-                        f"Medal cost: **{item['medal_cost']} {Emojis.items['Medal']}**"
-                    ),
-                )
-            elif (
-                json_dict["items"]["item_names"][str(item["item_id"])]["name"]
-                in titles_list
-            ):
-                self.add_field(
-                    f"{json_dict['items']['item_names'][str(item['item_id'])]['name']}",
-                    (
-                        "Type: Title\n"
-                        f"Medal cost: **{item['medal_cost']} {Emojis.items['Medal']}**"
-                    ),
-                )
-            elif (
-                json_dict["items"]["item_names"][str(item["item_id"])]["name"]
-                in stratagem_permit_list
-            ):
-                self.add_field(
-                    f"{json_dict['items']['item_names'][str(item['item_id'])]['name']}",
-                    (
-                        "Type: Stratagem Permit\n"
-                        f"Medal cost: **{item['medal_cost']} {Emojis.items['Medal']}**"
-                    ),
-                )
-            else:
-                self.add_field(
-                    f"{json_dict['items']['item_names'][str(item['item_id'])]['name']}",
-                    f"Medal cost: **{item['medal_cost']} {Emojis.items['Medal']}**",
-                )
-            if item_number % 2 == 0:
-                self.add_field("", "")
-            item_number += 1
-
-
-class StratagemCommandEmbed(Embed, EmbedReprMixin):
-    def __init__(self, stratagem_name: str, stratagem_stats: dict, language_json: dict):
-        super().__init__(title=stratagem_name, colour=Colour.brand_green())
-        key_inputs = ""
-        for key in stratagem_stats["keys"]:
-            key_inputs += Emojis.stratagems[key]
-        self.add_field(
-            language_json["StratagemEmbed"]["key_input"], key_inputs, inline=False
-        )
-        self.add_field(
-            language_json["StratagemEmbed"]["uses"],
-            stratagem_stats["uses"],
-            inline=False,
-        )
-        self.add_field(
-            language_json["StratagemEmbed"]["cooldown"],
-            f"{stratagem_stats['cooldown']} seconds ({(stratagem_stats['cooldown']/60):.2f} minutes)",
-        )
-        try:
-            self.set_thumbnail(
-                file=File(
-                    f"resources/stratagems/{stratagem_name.replace('/', '_').replace(' ', '_')}.png"
-                )
-            )
-            self.image_set = True
-        except:
-            self.image_set = False
-
-
-class FactionCommandEmbed(Embed, EmbedReprMixin):
-    def __init__(
-        self,
-        faction: str,
-        species_info: dict,
-        language_json: dict,
-        variation: bool = False,
-    ):
-        super().__init__(
-            colour=Colour.from_rgb(*faction_colours[faction]),
-            title=species_info["name"],
-            description=species_info["info"]["desc"],
-        )
-        file_name = species_info["name"].replace(" ", "_")
-        start_emoji = Emojis.difficulty[str(species_info["info"]["start"])]
-        self.add_field(
-            language_json["EnemyEmbed"]["introduced"],
-            f"{language_json['EnemyEmbed']['difficulty']} {species_info['info']['start']} {start_emoji}",
-            inline=False,
-        ).add_field(
-            language_json["EnemyEmbed"]["tactics"],
-            species_info["info"]["tactics"],
-            inline=False,
-        ).add_field(
-            language_json["EnemyEmbed"]["weak_spots"],
-            species_info["info"]["weak spots"],
-            inline=False,
-        )
-        variations = ""
-        if not variation and species_info["info"]["variations"] != None:
-            for i in species_info["info"]["variations"]:
-                variations += f"\n- {i}"
-            self.add_field(language_json["EnemyEmbed"]["variations"], variations)
-        try:
-            self.set_thumbnail(
-                file=File(f"resources/enemies/{faction.lower()}/{file_name}.png")
-            )
-            self.image_set = True
-        except Exception as e:
-            self.image_set = False
-            self.error = e
 
 
 class SetupCommandEmbed(Embed, EmbedReprMixin):
@@ -897,10 +455,10 @@ class SuperstoreCommandEmbed(Embed, EmbedReprMixin):
                 for passive in passives_list:
                     passives += f"-# - {passive}\n"
             self.add_field(
-                f"{item['name']} - {item['store_cost']} {Emojis.items['Super Credits']}",
+                f"{item['name']} - {item['store_cost']} {Emojis.Items.super_credits}",
                 (
                     f"{item_type}"
-                    f"Slot: **{item['slot']}** {Emojis.armour[item['slot']]}\n"
+                    f"Slot: **{item['slot']}** {getattr(Emojis.Armour, item['slot'].lower())}\n"
                     f"Armor: **{item['armor_rating']}**\n"
                     f"Speed: **{item['speed']}**\n"
                     f"Stamina Regen: **{item['stamina_regen']}**\n"
@@ -908,67 +466,6 @@ class SuperstoreCommandEmbed(Embed, EmbedReprMixin):
                 ),
             )
         self.insert_field_at(1, "", "").insert_field_at(4, "", "")
-
-
-class DSSCommandEmbed(Embed, EmbedReprMixin):
-    def __init__(self, dss_data: DSS, language_json: dict):
-        super().__init__(
-            title=language_json["dss"]["title"],
-            colour=Colour.from_rgb(r=38, g=156, b=182),
-        )
-        self.description = language_json["dashboard"]["DSSEmbed"][
-            "stationed_at"
-        ].format(
-            planet=dss_data.planet.name,
-            faction_emoji=Emojis.factions[dss_data.planet.current_owner],
-        )
-        self.description += language_json["dashboard"]["DSSEmbed"]["next_move"].format(
-            timestamp=f"<t:{int(dss_data.move_timer_datetime.timestamp())}:R>"
-        )
-        self.set_thumbnail(
-            "https://cdn.discordapp.com/attachments/1212735927223590974/1312446626975187065/DSS.png?ex=674c86ab&is=674b352b&hm=3184fde3e8eece703b0e996501de23c89dc085999ebff1a77009fbee2b09ccad&"
-        ).set_image(
-            "https://cdn.discordapp.com/attachments/1212735927223590974/1312448218398986331/dss.jpg?ex=674c8827&is=674b36a7&hm=def01cbdf1920b85617b1028a95ec982484c70a5cf9bed14b9072319fd018246&"
-        )
-        for tactical_action in dss_data.tactical_actions:
-            tactical_action: DSS.TacticalAction
-            ta_health_bar = health_bar(
-                tactical_action.cost.progress,
-                "MO" if tactical_action.cost.progress != 1 else "Humans",
-            )
-            status = {1: "preparing", 2: "active", 3: "on_cooldown"}[
-                tactical_action.status
-            ]
-            if status == "preparing":
-                submittable_formatted = language_json["dashboard"]["DSSEmbed"][
-                    "max_submitable"
-                ].format(
-                    emoji=Emojis.items[tactical_action.cost.item],
-                    number=f"{tactical_action.cost.max_per_seconds[0]:,}",
-                    item=tactical_action.cost.item,
-                    hours=f"{tactical_action.cost.max_per_seconds[1]/3600:.0f}",
-                )
-                cost = (
-                    f"{submittable_formatted}\n"
-                    f"{ta_health_bar}\n"
-                    f"`{tactical_action.cost.progress:^25.2%}`"
-                )
-            elif status == "active":
-                cost = f"{language_json['ends']} <t:{int(tactical_action.status_end_datetime.timestamp())}:R>"
-            elif status == "on_cooldown":
-                cost = f"{language_json['dashboard']['DSSEmbed']['off_cooldown'].capitalize()} <t:{int(tactical_action.status_end_datetime.timestamp())}:R>"
-            ta_long_description = tactical_action.strategic_description.replace(
-                ". ", ".\n-# "
-            )
-            self.add_field(
-                f"{Emojis.dss[tactical_action.name.lower().replace(' ', '_')]} {tactical_action.name.title()}",
-                (
-                    f"{language_json['dashboard']['DSSEmbed']['status']}: **{language_json['dashboard']['DSSEmbed'][status].capitalize()}**\n"
-                    f"-# {ta_long_description}\n"
-                    f"{cost}\n\u200b\n"
-                ),
-                inline=False,
-            )
 
 
 class PersonalOrderCommandEmbed(Embed, EmbedReprMixin):
@@ -994,7 +491,7 @@ class PersonalOrderCommandEmbed(Embed, EmbedReprMixin):
                 item = item_names_json.get(str(task.values[5]), None)
                 if item:
                     item = item["name"]
-                    full_objective = f"Successfully extract with {task.values[2]} {item}s {Emojis.items[item]}"
+                    full_objective = f"Successfully extract with {task.values[2]} {item}s {getattr(Emojis.Items, item.replace(' ', '_').lower())}"
                 else:
                     full_objective = (
                         f"Successfully extract from with {task.values[2]} **UNMAPPED**s"
@@ -1061,7 +558,7 @@ class PersonalOrderCommandEmbed(Embed, EmbedReprMixin):
             reward_name = reward_types[str(reward.type)]
             self.add_field(
                 "Reward",
-                f"{reward.amount} {reward_name}s {Emojis.items[reward_name]}",
+                f"{reward.amount} {reward_name}s {getattr(Emojis.Items, reward_name.replace(' ', '_').lower())}",
                 inline=False,
             )
 

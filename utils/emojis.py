@@ -3,71 +3,96 @@ from dataclasses import dataclass
 
 @dataclass
 class Emojis:
-    armour = {
-        "Head": "<:helmet:1247853903509327942>",
-        "Body": "<:body:1247853233330847754>",
-        "Cloak": "<:cape:1247852505547935794>",
-    }
-    items = {
-        "Super Credits": "<:super_credits:1233145615031074946>",
-        "Medal": "<:medal:1226254158278037504>",
-        "Common Sample": "<:Common_Sample:1306611420510687334>",
-        "Rare Sample": "<:Rare_Sample:1306611408406052874>",
-        "Requisition Slip": "<:Requisition_Slip:1306611395986587689>",
-    }
-    icons = {
-        "discord": "<:discordlogo:1298574603098132512>",
-        "kofi": "<:kofilogo:1298575039859396628>",
-        "github": "<:githublogo:1298575626864955414>",
-        "wiki": "<:wiki:1296193978525417524>",
-        "hdc": "<:hdc:1336735906350104586>",
-        "victory": "<:victory:1238069280508215337>",
-        "MO": "<:MO:1240706769043456031>",
-        "MO_task_complete": "<:MO_task_complete:1325865957037445192>",
-        "MO_task_incomplete": "<:MO_task_incomplete:1325865167359316042>",
-    }
-    factions = {
-        1: "<:human:1306623209465974925>",
-        2: "<:terminid:1312127076169682965>",
-        3: "<:automaton:1312126862989725707>",
-        4: "<:illuminate:1317057914145603635>",
-        "Humans": "<:human:1306623209465974925>",
-        "Terminids": "<:terminid:1312127076169682965>",
-        "Automaton": "<:automaton:1312126862989725707>",
-        "Illuminate": "<:illuminate:1317057914145603635>",
-    }
-    decoration = {
-        "left_banner": "<:left_banner:1272562768897376328>",
-        "right_banner": "<:right_banner:1272562767597015151>",
-    }
-    stratagems = {
-        "up": "<:Up_Arrow:1277557874041557002>",
-        "down": "<:Down_Arrow:1277557875849302107>",
-        "left": "<:Left_Arrow:1277557877787066389>",
-        "right": "<:Right_Arrow:1277557872246652928> ",
-    }
-    difficulty = {
-        "1": "<:trivial:1297107859766640661>",
-        "2": "<:easy:1297107895254519842>",
-        "3": "<:medium:1297108514057097261>",
-        "4": "<:challenging:1297108398663532554>",
-        "5": "<:hard:1297108434323247218>",
-        "6": "<:extreme:1297108419290857512>",
-        "7": "<:suicide_mission:1297108547515191306>",
-        "8": "<:impossible:1297108475196997663>",
-        "9": "<:helldive:1297108452124131348>",
-        "10": "<:super_helldive:1219238179551318067>",
-        "?": "?",
-    }
-    dss = {
-        "dss": "<:DSS:1308177676250513449>",
-        "orbital_blockade": "<:orbital_blockade:1318875016909029388>",
-        "heavy_ordnance_distribution": "<:heavy_ordnance_distribution:1318874283350687816>",
-        "eagle_storm": "<:eagle_storm:1318874257773690881>",
-        "operational_support": "<:operational_support:1340990960120631376>",
-    }
-    weather = {
-        "Intense Heat": "<:intense_heat:1340988491374264360>",
-        "Tremors": "<:tremors:1340991266510475296>",
-    }
-    planet_effects = {}
+
+    @dataclass
+    class Wiki:
+        main_menu = "<:_:1354916944142274620>"
+        primary = "<:_:1354951675567145130>"
+        secondary = "<:_:1354955761758765126>"
+        grenade = "<:_:1354955442652188692>"
+        booster = "<:_:1354953966261244126>"
+        stratagem = "<:_:1354953975123935424>"
+        equipment = "<:_:1354957720658120814>"
+        weapons = "<:_:1354956549012979865>"
+        warbond = "<:_:1354958322293411942>"
+        enemies = "<:_:1354958906576732221>"
+
+    @dataclass
+    class Armour:
+        head = "<:_:1247853903509327942>"
+        body = "<:_:1247853233330847754>"
+        cloak = "<:_:1247852505547935794>"
+
+    @dataclass
+    class Items:
+        super_credits = "<:_:1233145615031074946>"
+        medal = "<:_:1226254158278037504>"
+        common_sample = "<:_:1306611420510687334>"
+        rare_sample = "<:_:1306611408406052874>"
+        requisition_slip = "<:_:1306611395986587689>"
+
+    @dataclass
+    class Icons:
+        discord = "<:_:1298574603098132512>"
+        kofi = "<:_:1298575039859396628>"
+        github = "<:_:1298575626864955414>"
+        wiki = "<:_:1296193978525417524>"
+        hdc = "<:_:1336735906350104586>"
+        victory = "<:_:1238069280508215337>"
+        mo = "<:_:1240706769043456031>"
+        mo_task_complete = "<:_:1325865957037445192>"
+        mo_task_incomplete = "<:_:1325865167359316042>"
+
+    @dataclass
+    class Factions:
+        # 1: "<:_:1306623209465974925>"
+        # 2: "<:_:1312127076169682965>"
+        # 3: "<:_:1312126862989725707>"
+        # 4: "<:_:1317057914145603635>"
+        humans = "<:_:1306623209465974925>"
+        terminids = "<:_:1312127076169682965>"
+        automaton = "<:_:1312126862989725707>"
+        illuminate = "<:_:1317057914145603635>"
+
+    @dataclass
+    class Decoration:
+        left_banner = "<:_:1272562768897376328>"
+        right_banner = "<:_:1272562767597015151>"
+
+    @dataclass
+    class Stratagems:
+        up = "<:_:1277557874041557002>"
+        down = "<:_:1277557875849302107>"
+        left = "<:_:1277557877787066389>"
+        right = "<:_:1277557872246652928> "
+
+    @dataclass
+    class Difficulty:
+        difficulty1 = "<:_:1297107859766640661>"
+        difficulty2 = "<:_:1297107895254519842>"
+        difficulty3 = "<:_:1297108514057097261>"
+        difficulty4 = "<:_:1297108398663532554>"
+        difficulty5 = "<:_:1297108434323247218>"
+        difficulty6 = "<:_:1297108419290857512>"
+        difficulty7 = "<:_:1297108547515191306>"
+        difficulty8 = "<:_:1297108475196997663>"
+        difficulty9 = "<:_:1297108452124131348>"
+        difficulty10 = "<:_:1219238179551318067>"
+        difficultyunknown = "?"
+
+    @dataclass
+    class DSS:
+        icon = "<:_:1308177676250513449>"
+        orbital_blockade = "<:_:1318875016909029388>"
+        heavy_ordnance_distribution = "<:_:1318874283350687816>"
+        eagle_storm = "<:_:1318874257773690881>"
+        operational_support = "<:_:1340990960120631376>"
+
+    @dataclass
+    class Weather:
+        intense_heat = "<:_:1340988491374264360>"
+        tremors = "<:_:1340991266510475296>"
+
+    @dataclass
+    class PlanetEffects:
+        pass

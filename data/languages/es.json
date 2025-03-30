@@ -87,7 +87,7 @@
         "with_time_remaining": "-# Los Helldivers han __repelido con éxito a {faction}__ {faction_emoji} con {hours} horas restantes\n",
         "no_territory_change": "-# Los **{faction}** se han retirado y __no ha habido cambios en la propiedad del territorio__ {faction_emoji}\n",
         "dss": {
-            "has_moved": "El DSS se ha movido de **{planet1}** {faction_emoji1} a **{planet2}** {faction_emoji2} {exclamation}\n",
+            "has_moved": "El DSS se ha movido de **{planet1}** {faction_emoji1} {exclamation1} a **{planet2}** {faction_emoji2} {exclamation2}\n",
             "ta_status_change": "{emoji} **{ta_name}** ahora está **{status}**\n"
         }
     },
@@ -137,39 +137,13 @@
         "footer_message_not_set": "-# Si ves `No configurado` donde debería haber un canal/mensaje, revisa los permisos del bot!",
         "footer_message_announcements_asterisk": "-# \\* para configurar esto, los Anuncios deben estar configurados"
     },
-    "EnemyEmbed": {
-        "introduced": "Introducido",
-        "difficulty": "Dificultad",
-        "tactics": "Tácticas",
-        "weak_spots": "Puntos débiles",
-        "variations": "Variaciones"
-    },
     "SteamEmbed": {
         "head_here": "...\n# Por favor dirígete [aquí](<{url}>) para leer las notas completas del parche"
-    },
-    "StratagemEmbed": {
-        "key_input": "Entrada clave",
-        "uses": "Usos",
-        "cooldown": "Tiempo de recarga"
     },
     "WarfrontEmbed": {
         "title": "Frente de guerra para {faction} {faction_emoji}",
         "description": "Hay {number} campañas disponibles para unirse",
         "defending_title": "Defendiendo"
-    },
-    "WeaponEmbed": {
-        "constant_fire": "{number} segundos de fuego constante",
-        "information_title": "Información",
-        "type": "Tipo: **`{type}`**\n",
-        "damage": "Daño: **`{damage}`**\n",
-        "fire_rate": "Tasa de fuego: **`{fire_rate}rpm`**\n",
-        "dps": "DPS: **`{dps}/s`**\n",
-        "capacity": "Capacidad: **`{capacity}`**\n",
-        "fire_modes": "Modos de disparo:{fire_modes}\n",
-        "features": "Características:{features}",
-        "fuse_time": "Tiempo de fusible: **`{fuse_time} segundos`**\n",
-        "penetration": "Penetración: **`{penetration}`**\n",
-        "radius": "Radio: **`{radius}`**"
     },
     "MeridiaEmbed": {
         "reaches": "Alcanza {number}% <t:{timestamp}:R>",
@@ -223,5 +197,167 @@
         "Terminids": "Terminidos",
         "Automaton": "Autómatas",
         "Illuminate": "Iluminados"
+    },
+    "wiki": {
+        "buttons": {
+            "WikiGGButton": {
+                "label": "Helldivers Wiki"
+            },
+            "MainMenuButton": {
+                "label": "Main Menu"
+            },
+            "DSSButton": {
+                "label": "DSS"
+            },
+            "EnemiesHomeButton": {
+                "label": "Enemies"
+            },
+            "WarbondButton": {
+                "label": "Warbonds"
+            },
+            "EquipmentHomeButton": {
+                "label": "Equipment"
+            },
+            "WarbondPreviousPageButton": {
+                "label": "Previous Page"
+            },
+            "WarbondNextPageButton": {
+                "label": "Next Page"
+            },
+            "WeaponsHomeButton": {
+                "label": "Weapons"
+            },
+            "PrimaryWeaponsButton": {
+                "label": "Primary"
+            },
+            "SecondaryWeaponsButton": {
+                "label": "Secondary"
+            },
+            "GrenadesButton": {
+                "label": "Grenades"
+            },
+            "BoostersButton": {
+                "label": "Boosters"
+            },
+            "StratagemsButton": {
+                "label": "Stratagems"
+            }
+        },
+        "embeds": {
+            "WikiHomeEmbed": {
+                "title": "Welcome to the GWW Wiki",
+                "dss_name": "Democracy Space Station",
+                "dss_value": "Learn more about the DSS, with links to the Helldivers Companion and the Helldivers Wiki.",
+                "enemies_name": "Enemies",
+                "enemies_value": "Discover details about the enemies of Democracy:\n-# - Automaton\n-# - Illuminate\n-# - Terminids",
+                "warbonds_name": "Warbonds",
+                "warbonds_value": "Explore information about all currently available Warbonds.",
+                "equipment_name": "Equipment",
+                "equipment_value": "Find details on:\n-# - Weapons\n-# - Boosters\n-# - Stratagems"
+            },
+            "DSSEmbed": {
+                "title": "Democracy Space Station",
+                "stationed_at": "Stationed at **{planet}** {faction_emoji}\n",
+                "next_move": "Moving {timestamp}",
+                "max_submitable": "Max submitable:\n-# {emoji} **{number}** {item}s every **{hours}** hours",
+                "ends": "Ends",
+                "preparing": "Preparing",
+                "active": "active",
+                "on_cooldown": "on cooldown",
+                "off_cooldown": "off cooldown",
+                "status": "Status"
+            },
+            "EnemyHomeEmbed": {
+                "title": "Select the faction you are looking for"
+            },
+            "EnemyPageEmbed": {
+                "introduced": "Introduced",
+                "difficulty": "Difficulty",
+                "tactics": "Tactics",
+                "weak_spots": "Weak spots",
+                "variations": "Variations"
+            },
+            "WarbondEmbed": {
+                "page": "Page",
+                "cost_to_unlock": "Cost to unlock warbond",
+                "medals_to_unlock": "Medals to unlock page",
+                "type": "Type",
+                "armor": "Armor",
+                "primary": "Primary",
+                "secondary": "Secondary",
+                "grenade": "Grenade",
+                "emote": "Emote",
+                "victory_pose": "Victory pose",
+                "player_card": "Player card",
+                "booster": "Booster",
+                "title": "Title",
+                "stratagem_permit": "Stratagem permit",
+                "slot": "Slot",
+                "armor_rating": "Armor rating",
+                "speed": "Speed",
+                "stamina_regen": "Stamina regen",
+                "passive": "Passive",
+                "medal_cost": "Medal cost",
+                "weapon_type": "Weapon type",
+                "damage": "Damage",
+                "capacity": "Capacity",
+                "recoil": "Recoil",
+                "fire_rate": "Fire rate",
+                "penetration": "Penetration",
+                "radius": "Radius",
+                "fuse_time": "Fuse time"
+            },
+            "EquipmentHomeEmbed": {
+                "title": "Select the equipment type you want to explore",
+                "weapons_name": "Weapons",
+                "weapons_value": "Includes information on:\n-# - Primary Weapons\n-# - Secondary Weapons\n-# - Grenades",
+                "boosters_name": "Boosters",
+                "boosters_value": "Details on all available boosters.",
+                "stratagems_name": "Stratagems",
+                "stratagems_value": "Information on all available stratagems."
+            },
+            "WeaponsHomeEmbed": {
+                "title": "Select the weapon type you want to explore",
+                "primary_weapons_name": "Primary Weapons",
+                "primary_weapons_value": "Details on all available primary weapons.",
+                "secondary_weapons_name": "Secondary Weapons",
+                "secondary_weapons_value": "Details on all available secondary weapons.",
+                "grenades_name": "Grenades",
+                "grenades_value": "Information on all available grenades."
+            },
+            "PrimaryWeaponsEmbed": {
+                "constant_fire": "{number} seconds of constant fire",
+                "information_title": "Information",
+                "type": "Type: **`{type}`**\n",
+                "damage": "Damage: **`{damage}`**\n",
+                "fire_rate": "Fire rate: **`{fire_rate}rpm`**\n",
+                "dps": "DPS: **`{dps}/s`**\n",
+                "capacity": "Capacity: **`{capacity}`**\n",
+                "fire_modes": "Fire modes:{fire_modes}\n",
+                "features": "Features:{features}"
+            },
+            "SecondaryWeaponsEmbed": {
+                "constant_fire": "{number} seconds of constant fire",
+                "information_title": "Information",
+                "damage": "Damage: **`{damage}`**\n",
+                "fire_rate": "Fire rate: **`{fire_rate}rpm`**\n",
+                "dps": "DPS: **`{dps}/s`**\n",
+                "capacity": "Capacity: **`{capacity}`**\n",
+                "fire_modes": "Fire modes:{fire_modes}\n",
+                "features": "Features:{features}"
+            },
+            "GrenadesEmbed": {
+                "information_title": "Information",
+                "damage": "Damage: **`{damage}`**\n",
+                "fuse_time": "Fuse time: **`{fuse_time} seconds`**\n",
+                "penetration": "Penetration: **`{penetration}`**\n",
+                "radius": "Radius: **`{radius}`**"
+            },
+            "StratagemsEmbed": {
+                "key_input": "Key input",
+                "uses": "Uses",
+                "cooldown": "Cooldown"
+            }
+        }
     }
 }

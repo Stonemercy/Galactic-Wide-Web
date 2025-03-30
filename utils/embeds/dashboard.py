@@ -255,9 +255,9 @@ class Dashboard:
                 "type2"
             ].format(
                 status_emoji=(
-                    Emojis.icons["MO_task_complete"]
+                    Emojis.Icons.mo_task_complete
                     if task.progress_perc == 1
-                    else Emojis.icons["MO_task_incomplete"]
+                    else Emojis.Icons.mo_task_incomplete
                 ),
                 amount=short_format(task.values[2]),
                 item=item_names_json[str(task.values[4])]["name"],
@@ -306,9 +306,9 @@ class Dashboard:
                 "type3"
             ].format(
                 status_emoji=(
-                    Emojis.icons["MO_task_complete"]
+                    Emojis.Icons.mo_task_complete
                     if task.progress_perc == 1
-                    else Emojis.icons["MO_task_incomplete"]
+                    else Emojis.Icons.mo_task_incomplete
                 ),
                 amount=short_format(task.values[2]),
                 target=target,
@@ -381,9 +381,9 @@ class Dashboard:
                 "type11"
             ].format(
                 status_emoji=(
-                    Emojis.icons["MO_task_complete"]
+                    Emojis.Icons.mo_task_complete
                     if task.progress_perc == 1
-                    else Emojis.icons["MO_task_incomplete"]
+                    else Emojis.Icons.mo_task_incomplete
                 ),
                 planet=planet_names_json[str(planet.index)]["names"][
                     language_json["code_long"]
@@ -468,9 +468,9 @@ class Dashboard:
                     "type12_with_planet"
                 ].format(
                     status_emoji=(
-                        Emojis.icons["MO_task_complete"]
+                        Emojis.Icons.mo_task_complete
                         if task.progress_perc == 1
-                        else Emojis.icons["MO_task_incomplete"]
+                        else Emojis.Icons.mo_task_incomplete
                     ),
                     planet=planet_names_json[str(planet.index)]["names"][
                         language_json["code_long"]
@@ -513,9 +513,9 @@ class Dashboard:
                     "type12_without_planet"
                 ].format(
                     status_emoji=(
-                        Emojis.icons["MO_task_complete"]
+                        Emojis.Icons.mo_task_complete
                         if task.progress_perc == 1
-                        else Emojis.icons["MO_task_incomplete"]
+                        else Emojis.Icons.mo_task_incomplete
                     ),
                     number=task.values[0],
                     faction=language_json["factions"][str(task.values[1])],
@@ -548,10 +548,10 @@ class Dashboard:
                 "type13"
             ].format(
                 status_emoji=(
-                    Emojis.icons["MO_task_complete"]
+                    Emojis.Icons.mo_task_complete
                     if task.progress_perc == 1
                     or (not planet.event and planet.current_owner == "Humans")
-                    else Emojis.icons["MO_task_incomplete"]
+                    else Emojis.Icons.mo_task_incomplete
                 ),
                 planet=planet_names_json[str(planet.index)]["names"][
                     language_json["code_long"]
@@ -683,9 +683,9 @@ class Dashboard:
                     "type15"
                 ].format(
                     status_emoji=(
-                        Emojis.icons["MO_task_complete"]
+                        Emojis.Icons.mo_task_complete
                         if task.progress_perc >= 1
-                        else Emojis.icons["MO_task_incomplete"]
+                        else Emojis.Icons.mo_task_incomplete
                     )
                 ),
                 value=(
@@ -708,7 +708,7 @@ class Dashboard:
             rewards_text = ""
             for reward in rewards:
                 reward_name = reward_names.get(str(reward["type"]), "Unknown")
-                rewards_text += f"{reward['amount']:,} **{reward_name}s** {Emojis.items.get(reward_name, '')}\n"
+                rewards_text += f"{reward['amount']:,} **{reward_name}s** {getattr(Emojis.Items, reward_name.replace(' ', '_').lower(), default='')}\n"
             self.add_field(
                 language_json["dashboard"]["MajorOrderEmbed"]["rewards"], rewards_text
             )
@@ -729,7 +729,9 @@ class Dashboard:
                     planet=planet_names_json[str(dss.planet.index)]["names"][
                         language_json["code_long"]
                     ],
-                    faction_emoji=Emojis.factions[dss.planet.current_owner],
+                    faction_emoji=getattr(
+                        Emojis.Factions, dss.planet.current_owner.lower()
+                    ),
                 )
                 self.description += language_json["dashboard"]["DSSEmbed"][
                     "next_move"
@@ -748,7 +750,10 @@ class Dashboard:
                         submittable_formatted = language_json["dashboard"]["DSSEmbed"][
                             "max_submitable"
                         ].format(
-                            emoji=Emojis.items[tactical_action.cost.item],
+                            emoji=getattr(
+                                Emojis.Items,
+                                tactical_action.cost.item.replace(" ", "_").lower(),
+                            ),
                             number=f"{tactical_action.cost.max_per_seconds[0]:,}",
                             item=tactical_action.cost.item,
                             hours=f"{tactical_action.cost.max_per_seconds[1]/3600:.0f}",
@@ -767,7 +772,7 @@ class Dashboard:
                     elif status == "on_cooldown":
                         cost = f"{language_json['dashboard']['DSSEmbed']['off_cooldown'].capitalize()} <t:{int(tactical_action.status_end_datetime.timestamp())}:R>"
                     self.add_field(
-                        f"{Emojis.dss[tactical_action.name.lower().replace(' ', '_')]} {tactical_action.name.title()}",
+                        f"{getattr(Emojis.DSS, tactical_action.name.lower().replace(' ', '_'))} {tactical_action.name.title()}",
                         (
                             f"{language_json['dashboard']['DSSEmbed']['status']}: **{language_json['dashboard']['DSSEmbed'][status].capitalize()}**\n"
                             f"{cost}"
@@ -938,7 +943,7 @@ class Dashboard:
                             time_remaining += language_json["dashboard"][
                                 "DefenceEmbed"
                             ]["defence_held_by_dss"]
-                    exclamation = Emojis.icons["MO"] if planet.in_assignment else ""
+                    exclamation = Emojis.Icons.mo if planet.in_assignment else ""
                     feature_text = ""
                     if planet.feature:
                         feature_text += f"Feature: {planet.feature}"
@@ -949,14 +954,14 @@ class Dashboard:
                             number=f"{(planet.event.remaining_dark_energy / 1_000_000):.2%}"
                         )
                     if planet.dss_in_orbit:
-                        exclamation += Emojis.dss["dss"]
+                        exclamation += Emojis.DSS.icon
                     player_count = f'**{planet.stats["playerCount"]:,}**'
                     if with_health_bars:
                         event_health_bar = f"\n{planet.event.health_bar}"
                     else:
                         event_health_bar = ""
                     self.add_field(
-                        f"{Emojis.factions[planet.event.faction]} - __**{planet_names[str(planet.index)]['names'][language_json['code_long']]}**__ {exclamation}",
+                        f"{getattr(Emojis.Factions, planet.event.faction.lower())} - __**{planet_names[str(planet.index)]['names'][language_json['code_long']]}**__ {exclamation}",
                         (
                             f"{feature_text}"
                             f"\n{language_json['ends']} {time_remaining}"
@@ -1033,10 +1038,10 @@ class Dashboard:
                                 continue
 
                     exclamation = (
-                        Emojis.icons["MO"] if campaign.planet.in_assignment else ""
+                        Emojis.Icons.mo if campaign.planet.in_assignment else ""
                     )
                     if campaign.planet.dss_in_orbit:
-                        exclamation += Emojis.dss["dss"]
+                        exclamation += Emojis.DSS.icon
                     if campaign.planet.regen_perc_per_hour <= 0.25:
                         exclamation += f" :warning: {campaign.planet.regen_perc_per_hour:.2f}% REGEN :warning:"
                     if with_health_bars:
@@ -1053,7 +1058,7 @@ class Dashboard:
                     )
                     player_count = f'**{campaign.planet.stats["playerCount"]:,}**'
                     self.add_field(
-                        f"{Emojis.factions[campaign.planet.current_owner]} - __**{planet_names[str(campaign.planet.index)]['names'][language_json['code_long']]}**__ {exclamation}",
+                        f"{getattr(Emojis.Factions, campaign.planet.current_owner.lower())} - __**{planet_names[str(campaign.planet.index)]['names'][language_json['code_long']]}**__ {exclamation}",
                         (
                             f"{language_json['dashboard']['heroes'].format(heroes=player_count)}"
                             f"{feature_text}"
@@ -1071,10 +1076,10 @@ class Dashboard:
                 for campaign in skipped_campaigns:
                     campaign: Campaign
                     exclamation = (
-                        Emojis.icons["MO"] if campaign.planet.in_assignment else ""
+                        Emojis.Icons.mo if campaign.planet.in_assignment else ""
                     )
                     if campaign.planet.dss_in_orbit:
-                        exclamation += f" {Emojis.dss['dss']}"
+                        exclamation += f" {Emojis.DSS.icon}"
                     if campaign.planet.regen < 1:
                         exclamation += " :warning: 0% REGEN :warning:"
                     skipped_planets_text += f"-# {planet_names[str(campaign.planet.index)]['names'][language_json['code_long']]} - **{campaign.planet.stats['playerCount']:,}** {exclamation}\n"
