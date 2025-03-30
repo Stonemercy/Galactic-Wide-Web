@@ -204,158 +204,158 @@
                 "label": "Helldivers Wiki"
             },
             "MainMenuButton": {
-                "label": "Main Menu"
+                "label": "Menu Principal"
             },
             "DSSButton": {
-                "label": "DSS"
+                "label": "EED"
             },
             "EnemiesHomeButton": {
-                "label": "Enemies"
+                "label": "Inimigos"
             },
             "WarbondButton": {
-                "label": "Warbonds"
+                "label": "Bônus de Guerra"
             },
             "EquipmentHomeButton": {
-                "label": "Equipment"
+                "label": "Equipamento"
             },
             "WarbondPreviousPageButton": {
-                "label": "Previous Page"
+                "label": "Página Anterior"
             },
             "WarbondNextPageButton": {
-                "label": "Next Page"
+                "label": "Próxima Página"
             },
             "WeaponsHomeButton": {
-                "label": "Weapons"
+                "label": "Armas"
             },
             "PrimaryWeaponsButton": {
-                "label": "Primary"
+                "label": "Primária"
             },
             "SecondaryWeaponsButton": {
-                "label": "Secondary"
+                "label": "Secundária"
             },
             "GrenadesButton": {
-                "label": "Grenades"
+                "label": "Granadas"
             },
             "BoostersButton": {
-                "label": "Boosters"
+                "label": "Impulsionadores"
             },
             "StratagemsButton": {
-                "label": "Stratagems"
+                "label": "Estratégias"
             }
         },
         "embeds": {
             "WikiHomeEmbed": {
-                "title": "Welcome to the GWW Wiki",
-                "dss_name": "Democracy Space Station",
-                "dss_value": "Learn more about the DSS, with links to the Helldivers Companion and the Helldivers Wiki.",
-                "enemies_name": "Enemies",
-                "enemies_value": "Discover details about the enemies of Democracy:\n-# - Automaton\n-# - Illuminate\n-# - Terminids",
-                "warbonds_name": "Warbonds",
-                "warbonds_value": "Explore information about all currently available Warbonds.",
-                "equipment_name": "Equipment",
-                "equipment_value": "Find details on:\n-# - Weapons\n-# - Boosters\n-# - Stratagems"
+                "title": "Bem-vindo a Wiki da Rede Galáctica",
+                "dss_name": "Estação Espacial Democracia",
+                "dss_value": "Aprenda mais sobre a EED, com links para o Helldivers Companion e a Helldivers Wiki.",
+                "enemies_name": "Inimigos",
+                "enemies_value": "Descubra detalhes sobre os inimigos da Democracia:\n-# - Automatôs\n-# - Iluminados\n-# - Terminídios",
+                "warbonds_name": "Bônus de Guerra",
+                "warbonds_value": "Explore informações sobre todos os Bônus de Guerra disponíveis atualmente.",
+                "equipment_name": "Equipamento",
+                "equipment_value": "Encontre detalhes sobre:\n-# - Armas\n-# - Impulsionadores\n-# - Estratégias"
             },
             "DSSEmbed": {
-                "title": "Democracy Space Station",
-                "stationed_at": "Stationed at **{planet}** {faction_emoji}\n",
-                "next_move": "Moving {timestamp}",
-                "max_submitable": "Max submitable:\n-# {emoji} **{number}** {item}s every **{hours}** hours",
-                "ends": "Ends",
-                "preparing": "Preparing",
-                "active": "active",
-                "on_cooldown": "on cooldown",
-                "off_cooldown": "off cooldown",
+                "title": "Estação Espacial Democracia",
+                "stationed_at": "Estacionada em **{planet}** {faction_emoji}\n",
+                "next_move": "Movendo {timestamp}",
+                "max_submitable": "Máximo submissível:\n-# {emoji} **{number}** {item}s a cada **{hours}** horas",
+                "ends": "Finaliza",
+                "preparing": "Preparando",
+                "active": "ativo",
+                "on_cooldown": "em cooldown",
+                "off_cooldown": "fora do cooldown",
                 "status": "Status"
             },
             "EnemyHomeEmbed": {
-                "title": "Select the faction you are looking for"
+                "title": "Selecione a facção que está procurando"
             },
             "EnemyPageEmbed": {
-                "introduced": "Introduced",
-                "difficulty": "Difficulty",
-                "tactics": "Tactics",
-                "weak_spots": "Weak spots",
-                "variations": "Variations"
+                "introduced": "Introduzido",
+                "difficulty": "Dificuldade",
+                "tactics": "Táticas",
+                "weak_spots": "Pontos fracos",
+                "variations": "Variações"
             },
             "WarbondEmbed": {
-                "page": "Page",
-                "cost_to_unlock": "Cost to unlock warbond",
-                "medals_to_unlock": "Medals to unlock page",
-                "type": "Type",
-                "armor": "Armor",
-                "primary": "Primary",
-                "secondary": "Secondary",
-                "grenade": "Grenade",
-                "emote": "Emote",
-                "victory_pose": "Victory pose",
-                "player_card": "Player card",
-                "booster": "Booster",
-                "title": "Title",
-                "stratagem_permit": "Stratagem permit",
+                "page": "Página",
+                "cost_to_unlock": "Custo para desbloquear Bônus de Guerra",
+                "medals_to_unlock": "Medalhas para desbloquear página",
+                "type": "Tipo",
+                "armor": "Armadura",
+                "primary": "Primária",
+                "secondary": "Secundária",
+                "grenade": "Granada",
+                "emote": "Gesto",
+                "victory_pose": "Pose de Vitória",
+                "player_card": "Titúlo de Jogador",
+                "booster": "Impulsionador",
+                "title": "Titúlo",
+                "stratagem_permit": "Permissão de Estratégia",
                 "slot": "Slot",
-                "armor_rating": "Armor rating",
-                "speed": "Speed",
-                "stamina_regen": "Stamina regen",
-                "passive": "Passive",
-                "medal_cost": "Medal cost",
-                "weapon_type": "Weapon type",
-                "damage": "Damage",
-                "capacity": "Capacity",
-                "recoil": "Recoil",
-                "fire_rate": "Fire rate",
-                "penetration": "Penetration",
-                "radius": "Radius",
-                "fuse_time": "Fuse time"
+                "armor_rating": "Classificação de Armadura",
+                "speed": "Velocidade",
+                "stamina_regen": "Regen. de Estamina",
+                "passive": "Passiva",
+                "medal_cost": "Custo de Medalhas",
+                "weapon_type": "Tipo de Arma",
+                "damage": "Dano",
+                "capacity": "Capacidade",
+                "recoil": "Recúo",
+                "fire_rate": "Taxa de Disparo",
+                "penetration": "Penetração",
+                "radius": "Raio",
+                "fuse_time": "Tempo de Fusível"
             },
             "EquipmentHomeEmbed": {
-                "title": "Select the equipment type you want to explore",
-                "weapons_name": "Weapons",
-                "weapons_value": "Includes information on:\n-# - Primary Weapons\n-# - Secondary Weapons\n-# - Grenades",
-                "boosters_name": "Boosters",
-                "boosters_value": "Details on all available boosters.",
-                "stratagems_name": "Stratagems",
-                "stratagems_value": "Information on all available stratagems."
+                "title": "Selecione o tipo de equipamento que deseja explorar",
+                "weapons_name": "Armas",
+                "weapons_value": "Incluí informações sobre:\n-# - Armas Primárias\n-# - Armas Secundárias\n-# - Granadas",
+                "boosters_name": "Impulsionadores",
+                "boosters_value": "Detalhes sobre todos os impulsionadores disponíveis.",
+                "stratagems_name": "Estratégias",
+                "stratagems_value": "Informações sobre todas as estratégias disponíveis."
             },
             "WeaponsHomeEmbed": {
-                "title": "Select the weapon type you want to explore",
-                "primary_weapons_name": "Primary Weapons",
-                "primary_weapons_value": "Details on all available primary weapons.",
-                "secondary_weapons_name": "Secondary Weapons",
-                "secondary_weapons_value": "Details on all available secondary weapons.",
-                "grenades_name": "Grenades",
-                "grenades_value": "Information on all available grenades."
+                "title": "Selecione o tipo de arma que deseja explorar",
+                "primary_weapons_name": "Armas Primárias",
+                "primary_weapons_value": "Detalhes sobre todas as armas primárias disponíveis. ",
+                "secondary_weapons_name": "Armas Secundárias",
+                "secondary_weapons_value": "Detalhes sobre todas as armas secundárias disponíveis.",
+                "grenades_name": "Granadas",
+                "grenades_value": "Informação sobre todas as granadas disponíveis."
             },
             "PrimaryWeaponsEmbed": {
-                "constant_fire": "{number} seconds of constant fire",
-                "information_title": "Information",
-                "type": "Type: **`{type}`**\n",
-                "damage": "Damage: **`{damage}`**\n",
-                "fire_rate": "Fire rate: **`{fire_rate}rpm`**\n",
+                "constant_fire": "{number} segundos de fogo constante",
+                "information_title": "Informação",
+                "type": "Tipo: **`{type}`**\n",
+                "damage": "Dano: **`{damage}`**\n",
+                "fire_rate": "Taxa de Disparo: **`{fire_rate}rpm`**\n",
                 "dps": "DPS: **`{dps}/s`**\n",
-                "capacity": "Capacity: **`{capacity}`**\n",
-                "fire_modes": "Fire modes:{fire_modes}\n",
-                "features": "Features:{features}"
+                "capacity": "Capacidade: **`{capacity}`**\n",
+                "fire_modes": "Modos de Disparo:{fire_modes}\n",
+                "features": "Características:{features}"
             },
             "SecondaryWeaponsEmbed": {
-                "constant_fire": "{number} seconds of constant fire",
-                "information_title": "Information",
-                "damage": "Damage: **`{damage}`**\n",
-                "fire_rate": "Fire rate: **`{fire_rate}rpm`**\n",
+                "constant_fire": "{number} segundos de fogo constante",
+                "information_title": "Informação",
+                "damage": "Dano: **`{damage}`**\n",
+                "fire_rate": "Taxa de disparo: **`{fire_rate}rpm`**\n",
                 "dps": "DPS: **`{dps}/s`**\n",
-                "capacity": "Capacity: **`{capacity}`**\n",
-                "fire_modes": "Fire modes:{fire_modes}\n",
-                "features": "Features:{features}"
+                "capacity": "Capacidade: **`{capacity}`**\n",
+                "fire_modes": "Modos de Disparo:{fire_modes}\n",
+                "features": "Características:{features}"
             },
             "GrenadesEmbed": {
-                "information_title": "Information",
-                "damage": "Damage: **`{damage}`**\n",
-                "fuse_time": "Fuse time: **`{fuse_time} seconds`**\n",
-                "penetration": "Penetration: **`{penetration}`**\n",
-                "radius": "Radius: **`{radius}`**"
+                "information_title": "Informação",
+                "damage": "Dano: **`{damage}`**\n",
+                "fuse_time": "Tempo de Fusível: **`{fuse_time} seconds`**\n",
+                "penetration": "Penetração: **`{penetration}`**\n",
+                "radius": "Raio: **`{radius}`**"
             },
             "StratagemsEmbed": {
-                "key_input": "Key input",
-                "uses": "Uses",
+                "key_input": "Teclas chave",
+                "uses": "Usos",
                 "cooldown": "Cooldown"
             }
         }
