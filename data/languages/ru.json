@@ -201,162 +201,162 @@
     "wiki": {
         "buttons": {
             "WikiGGButton": {
-                "label": "Helldivers Wiki"
+                "label": "Helldivers Вики"
             },
             "MainMenuButton": {
-                "label": "Main Menu"
+                "label": "Главное меню"
             },
             "DSSButton": {
-                "label": "DSS"
+                "label": "ДКС"
             },
             "EnemiesHomeButton": {
-                "label": "Enemies"
+                "label": "Враги"
             },
             "WarbondButton": {
-                "label": "Warbonds"
+                "label": "Боевые заслуги"
             },
             "EquipmentHomeButton": {
-                "label": "Equipment"
+                "label": "Снаряжение"
             },
             "WarbondPreviousPageButton": {
-                "label": "Previous Page"
+                "label": "Предыдущая страница"
             },
             "WarbondNextPageButton": {
-                "label": "Next Page"
+                "label": "Следующая страница"
             },
             "WeaponsHomeButton": {
-                "label": "Weapons"
+                "label": "Оружие"
             },
             "PrimaryWeaponsButton": {
-                "label": "Primary"
+                "label": "Основные"
             },
             "SecondaryWeaponsButton": {
-                "label": "Secondary"
+                "label": "Дополнительное"
             },
             "GrenadesButton": {
-                "label": "Grenades"
+                "label": "Гранаты"
             },
             "BoostersButton": {
-                "label": "Boosters"
+                "label": "Усилители"
             },
             "StratagemsButton": {
-                "label": "Stratagems"
+                "label": "Стратагемы"
             }
         },
         "embeds": {
             "WikiHomeEmbed": {
-                "title": "Welcome to the GWW Wiki",
-                "dss_name": "Democracy Space Station",
-                "dss_value": "Learn more about the DSS, with links to the Helldivers Companion and the Helldivers Wiki.",
-                "enemies_name": "Enemies",
-                "enemies_value": "Discover details about the enemies of Democracy:\n-# - Automaton\n-# - Illuminate\n-# - Terminids",
-                "warbonds_name": "Warbonds",
-                "warbonds_value": "Explore information about all currently available Warbonds.",
-                "equipment_name": "Equipment",
-                "equipment_value": "Find details on:\n-# - Weapons\n-# - Boosters\n-# - Stratagems"
+                "title": "Добро пожаловать на GWW Вики",
+                "dss_name": "Демократическая космическая станция",
+                "dss_value": "Узнайте больше о ДКС, по ссылке на Helldivers Companion и the Helldivers Wiki.",
+                "enemies_name": "Враги",
+                "enemies_value": "Узнайте больше о врагах демократии:\n-# - Автоматоны\n-# - Иллюминаты\n-# - Терминиды",
+                "warbonds_name": "Боевые заслуги",
+                "warbonds_value": "Узнайте больше о доступных на данный момент боевых заслугах.",
+                "equipment_name": "Снаряжение",
+                "equipment_value": "Узнайте больше о:\n-# - Оружиях\n-# - Усилителях\n-# - Стратагемах"
             },
             "DSSEmbed": {
-                "title": "Democracy Space Station",
-                "stationed_at": "Stationed at **{planet}** {faction_emoji}\n",
-                "next_move": "Moving {timestamp}",
-                "max_submitable": "Max submitable:\n-# {emoji} **{number}** {item}s every **{hours}** hours",
-                "ends": "Ends",
-                "preparing": "Preparing",
-                "active": "active",
-                "on_cooldown": "on cooldown",
-                "off_cooldown": "off cooldown",
-                "status": "Status"
+                "title": "Демократическая Космическая Станция",
+                "stationed_at": "Находится на планете **{planet}** {faction_emoji}\n",
+                "next_move": "Переместиться {timestamp}",
+                "max_submitable": "Поступает:\n-# {emoji} **{number}** {item} каждые **{hours}** часа",
+                "ends": "Заканчивается",
+                "preparing": "Подготовка",
+                "active": "Активно",
+                "on_cooldown": "Перезарядка",
+                "off_cooldown": "Доступно",
+                "status": "Статус"
             },
             "EnemyHomeEmbed": {
-                "title": "Select the faction you are looking for"
+                "title": "Выбереите фракцию которую вы ищите"
             },
             "EnemyPageEmbed": {
-                "introduced": "Introduced",
-                "difficulty": "Difficulty",
-                "tactics": "Tactics",
-                "weak_spots": "Weak spots",
-                "variations": "Variations"
+                "introduced": "Представлены",
+                "difficulty": "Сложность",
+                "tactics": "Тактики",
+                "weak_spots": "Слабые места",
+                "variations": "Вариации"
             },
             "WarbondEmbed": {
-                "page": "Page",
-                "cost_to_unlock": "Cost to unlock warbond",
-                "medals_to_unlock": "Medals to unlock page",
-                "type": "Type",
-                "armor": "Armor",
-                "primary": "Primary",
-                "secondary": "Secondary",
-                "grenade": "Grenade",
-                "emote": "Emote",
-                "victory_pose": "Victory pose",
-                "player_card": "Player card",
-                "booster": "Booster",
-                "title": "Title",
-                "stratagem_permit": "Stratagem permit",
-                "slot": "Slot",
-                "armor_rating": "Armor rating",
-                "speed": "Speed",
-                "stamina_regen": "Stamina regen",
-                "passive": "Passive",
-                "medal_cost": "Medal cost",
-                "weapon_type": "Weapon type",
-                "damage": "Damage",
-                "capacity": "Capacity",
-                "recoil": "Recoil",
-                "fire_rate": "Fire rate",
-                "penetration": "Penetration",
-                "radius": "Radius",
-                "fuse_time": "Fuse time"
+                "page": "Страница",
+                "cost_to_unlock": "Стоит для открытия заслуги",
+                "medals_to_unlock": "Медалей чтобы открыть страницу",
+                "type": "Тип",
+                "armor": "Броня",
+                "primary": "Основное",
+                "secondary": "Дополнительное",
+                "grenade": "Граната",
+                "emote": "Эмоция",
+                "victory_pose": "Победная поза",
+                "player_card": "Карточка игрока",
+                "booster": "Усилитель",
+                "title": "Титул",
+                "stratagem_permit": "Разрешение на использование стартагемы",
+                "slot": "Слот",
+                "armor_rating": "Рейтинг брони",
+                "speed": "Скорость",
+                "stamina_regen": "Восстановление выносливости",
+                "passive": "Пассивная способность",
+                "medal_cost": "Стоимость в медалях",
+                "weapon_type": "Тип оружия",
+                "damage": "Урон",
+                "capacity": "Вместимость",
+                "recoil": "Отдача",
+                "fire_rate": "Огнестрельность",
+                "penetration": "Пробивная способность",
+                "radius": "Радиус",
+                "fuse_time": "Время активации"
             },
             "EquipmentHomeEmbed": {
-                "title": "Select the equipment type you want to explore",
-                "weapons_name": "Weapons",
-                "weapons_value": "Includes information on:\n-# - Primary Weapons\n-# - Secondary Weapons\n-# - Grenades",
-                "boosters_name": "Boosters",
-                "boosters_value": "Details on all available boosters.",
-                "stratagems_name": "Stratagems",
-                "stratagems_value": "Information on all available stratagems."
+                "title": "Выберите тип снаряжения который вам необходим",
+                "weapons_name": "Оружия",
+                "weapons_value": "Включает информациб о:\n-# - Основных орудиях\n-# - Дополнительных орудиях\n-# - Гранатах",
+                "boosters_name": "Усилители",
+                "boosters_value": "Информация о усилителях.",
+                "stratagems_name": "Стратагемы",
+                "stratagems_value": "Информация о всех доступных стартагемах."
             },
             "WeaponsHomeEmbed": {
-                "title": "Select the weapon type you want to explore",
-                "primary_weapons_name": "Primary Weapons",
-                "primary_weapons_value": "Details on all available primary weapons.",
-                "secondary_weapons_name": "Secondary Weapons",
-                "secondary_weapons_value": "Details on all available secondary weapons.",
-                "grenades_name": "Grenades",
-                "grenades_value": "Information on all available grenades."
+                "title": "Выберите тип орудия который вам необходим",
+                "primary_weapons_name": "Основные орудия",
+                "primary_weapons_value": "Информация о всех основных орудиях.",
+                "secondary_weapons_name": "Дополнительные орудия",
+                "secondary_weapons_value": "Информация о всех дополнительных орудиях.",
+                "grenades_name": "Гранаты",
+                "grenades_value": "Информация о всех доступных гранатах."
             },
             "PrimaryWeaponsEmbed": {
-                "constant_fire": "{number} seconds of constant fire",
-                "information_title": "Information",
-                "type": "Type: **`{type}`**\n",
-                "damage": "Damage: **`{damage}`**\n",
-                "fire_rate": "Fire rate: **`{fire_rate}rpm`**\n",
-                "dps": "DPS: **`{dps}/s`**\n",
-                "capacity": "Capacity: **`{capacity}`**\n",
-                "fire_modes": "Fire modes:{fire_modes}\n",
-                "features": "Features:{features}"
+                "constant_fire": "{number} секунд беспрерывного огня",
+                "information_title": "Информация",
+                "type": "Тип: **`{type}`**\n",
+                "damage": "Урон: **`{damage}`**\n",
+                "fire_rate": "Скорострельность: **`{fire_rate}rpm`**\n",
+                "dps": "ДПС: **`{dps}/s`**\n",
+                "capacity": "Вместимость: **`{capacity}`**\n",
+                "fire_modes": "Режим стрельбы:{fire_modes}\n",
+                "features": "Особенности:{features}"
             },
             "SecondaryWeaponsEmbed": {
-                "constant_fire": "{number} seconds of constant fire",
-                "information_title": "Information",
-                "damage": "Damage: **`{damage}`**\n",
-                "fire_rate": "Fire rate: **`{fire_rate}rpm`**\n",
-                "dps": "DPS: **`{dps}/s`**\n",
-                "capacity": "Capacity: **`{capacity}`**\n",
-                "fire_modes": "Fire modes:{fire_modes}\n",
-                "features": "Features:{features}"
+                "constant_fire": "{number} секунд беспрерывного огня",
+                "information_title": "Информация",
+                "damage": "Урон: **`{damage}`**\n",
+                "fire_rate": "Скорострельность: **`{fire_rate}rpm`**\n",
+                "dps": "ДПС: **`{dps}/s`**\n",
+                "capacity": "Вместимость: **`{capacity}`**\n",
+                "fire_modes": "Режим стрельбы:{fire_modes}\n",
+                "features": "Особенности:{features}"
             },
             "GrenadesEmbed": {
-                "information_title": "Information",
-                "damage": "Damage: **`{damage}`**\n",
-                "fuse_time": "Fuse time: **`{fuse_time} seconds`**\n",
-                "penetration": "Penetration: **`{penetration}`**\n",
-                "radius": "Radius: **`{radius}`**"
+                "information_title": "Информация",
+                "damage": "Урон: **`{damage}`**\n",
+                "fuse_time": "Время активации: **`{fuse_time} seconds`**\n",
+                "penetration": "Пробивная способность: **`{penetration}`**\n",
+                "radius": "Радиус: **`{radius}`**"
             },
             "StratagemsEmbed": {
-                "key_input": "Key input",
-                "uses": "Uses",
-                "cooldown": "Cooldown"
+                "key_input": "Комбинация",
+                "uses": "Количество использований",
+                "cooldown": "Перезарядка"
             }
         }
     }
