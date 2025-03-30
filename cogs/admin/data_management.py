@@ -1,18 +1,8 @@
-from dataclasses import dataclass
 from datetime import datetime, time
 from disnake import Activity, ActivityType
 from disnake.ext import commands, tasks
 from main import GalacticWideWebBot
-from utils.data import Planet
-from utils.embeds.loop_embeds import APIChangesLoopEmbed
-
-
-@dataclass
-class APIChanges:
-    planet: Planet
-    statistic: str
-    before: int | list
-    after: int | list
+from utils.embeds.loop_embeds import APIChanges, APIChangesLoopEmbed
 
 
 class DataManagementCog(commands.Cog):

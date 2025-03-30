@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 from datetime import datetime, timedelta
 from math import inf, sqrt
 from os import getpid
@@ -22,8 +23,16 @@ from utils.emojis import Emojis
 from utils.mixins import EmbedReprMixin
 
 
+@dataclass
+class APIChanges:
+    planet: Planet
+    statistic: str
+    before: int | list
+    after: int | list
+
+
 class APIChangesLoopEmbed(Embed, EmbedReprMixin):
-    def __init__(self, total_changes: list):
+    def __init__(self, total_changes: list[APIChanges]):
         super().__init__(title="New changes in the API!", colour=Colour.brand_red())
         for change in total_changes:
             faction_emoji = (
