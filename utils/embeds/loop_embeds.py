@@ -99,7 +99,7 @@ class APIChangesLoopEmbed(Embed, EmbedReprMixin):
                 for effect in new_effects:
                     if type(effect) == dict:
                         self.add_field(
-                            "New effect",
+                            f"{faction_emoji} {change.planet.name} New effect",
                             f"**{effect['name']}**\n{effect['description']}",
                             inline=False,
                         )
