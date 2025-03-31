@@ -28,7 +28,7 @@ class UsageLoggerCog(commands.Cog):
     async def on_guild_remove(self, guild: Guild):
         self.guilds_joined -= 1
 
-    @tasks.loop(time=time(hour=22, minute=0, second=0))
+    @tasks.loop(time=time(hour=21, minute=0, second=0))
     async def usage_report(self):
         if self.bot.command_usage == {}:
             return

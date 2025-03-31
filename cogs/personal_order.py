@@ -88,7 +88,7 @@ class PersonalOrderCog(commands.Cog):
     #     )
 
     @tasks.loop(
-        time=[time(hour=10, minute=10, second=0), time(hour=22, minute=10, second=0)]
+        time=[time(hour=9, minute=10, second=0), time(hour=21, minute=10, second=0)]
     )
     async def personal_order_update(self):
         po_updates_start = datetime.now()

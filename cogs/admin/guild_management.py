@@ -159,7 +159,7 @@ class GuildManagementCog(commands.Cog):
     async def before_dashboard_check(self):
         await self.bot.wait_until_ready()
 
-    @tasks.loop(time=[time(hour=0, minute=0, second=0, microsecond=0)])
+    @tasks.loop(time=[time(hour=23, minute=0, second=0, microsecond=0)])
     async def guild_checking(self):
         guilds: list[GWWGuild] = GWWGuild.get_all()
         if guilds:
