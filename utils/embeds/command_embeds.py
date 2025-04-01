@@ -119,7 +119,7 @@ class PlanetCommandEmbed(Embed, EmbedReprMixin):
                 liberation_text = f"\n`{change:^25}`"
                 if planet.event.required_players:
                     if 0 < planet.event.required_players < 2.5 * total_players:
-                        required_players = f"\n{language_json['dashboard']['DefenceEmbed']['players_required']}: **~{planet.event.required_players:,.0f}+**"
+                        required_players = f"{language_json['dashboard']['DefenceEmbed']['players_required']}: **~{planet.event.required_players:,.0f}+**"
                     else:
                         if planet.event.start_time_datetime > now - timedelta(hours=1):
                             required_players = f"{language_json['dashboard']['DefenceEmbed']['players_required']}: *Gathering Data*"
