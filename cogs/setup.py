@@ -215,8 +215,11 @@ class SetupCog(commands.Cog):
                         language_json=guild_language, selected=True
                     ),
                 )
-                await inter.response.edit_message(components=action_rows)
-                return
+                try:
+                    await inter.response.edit_message(components=action_rows)
+                    return
+                except NotFound as e:
+                    await self.bot.moderator_channel.send(f"Setup\n```py\ne\n```")
             elif inter.component.custom_id == "set_announcements_button":
                 action_rows.append(
                     ActionRow(
@@ -294,15 +297,21 @@ class SetupCog(commands.Cog):
                 action_rows[0].insert_item(
                     2, Setup.Map.MapButton(language_json=guild_language, selected=True)
                 )
-                await inter.response.edit_message(components=action_rows)
-                return
+                try:
+                    await inter.response.edit_message(components=action_rows)
+                    return
+                except NotFound as e:
+                    await self.bot.moderator_channel.send(f"Setup\n```py\ne\n```")
             elif inter.component.custom_id == "set_map_button":
                 self.clear_extra_buttons(action_rows)
                 action_rows.append(
                     ActionRow(Setup.Map.MapChannelSelect(language_json=guild_language))
                 )
-                await inter.response.edit_message(components=action_rows)
-                return
+                try:
+                    await inter.response.edit_message(components=action_rows)
+                    return
+                except NotFound as e:
+                    await self.bot.moderator_channel.send(f"Setup\n```py\ne\n```")
             elif inter.component.custom_id == "clear_map_button":
                 self.clear_extra_buttons(action_rows)
                 guild.map_channel_id = 0
