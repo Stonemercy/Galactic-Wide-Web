@@ -15,6 +15,10 @@ class WarfrontCog(commands.Cog):
         description="Returns information on a specific War front",
         install_types=ApplicationInstallTypes.all(),
         contexts=InteractionContextTypes.all(),
+        extras={
+            "long_description": "Returns information on each campaign for a specific faction",
+            "example_usage": "**`/warfront faction:Illuminate public:Yes`** would return information on the Illuminate warfront that other members in the server can see.",
+        },
     )
     async def warfront(
         self,

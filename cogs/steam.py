@@ -21,6 +21,10 @@ class SteamCog(commands.Cog):
         description="Get previous Steam posts",
         install_types=ApplicationInstallTypes.all(),
         contexts=InteractionContextTypes.all(),
+        extras={
+            "long_description": "Returns the latest patch notes",
+            "example_usage": "**`/steam public:Yes`** returns an embed with the most recent patch notes, it also has a dropdown for the most recent 10 patch notes you can choose from. Other people can see this too.",
+        },
     )
     async def steam(
         self,

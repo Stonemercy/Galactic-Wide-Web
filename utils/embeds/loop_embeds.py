@@ -258,7 +258,7 @@ class BotDashboardLoopEmbed(Embed, EmbedReprMixin):
             "All Maps": ("MapCog", "map_poster"),
             "Update data": ("DataManagementCog", "pull_from_api"),
             "Major Order Update": ("AnnouncementsCog", "major_order_updates"),
-            "Personal Order Update": ("PersonalOrderCog", "personal_order_update"),
+            # "Personal Order Update": ("PersonalOrderCog", "personal_order_update"),
         }
         update_times = {}
         for label, (cog_name, attribute_name) in cogs.items():

@@ -16,6 +16,10 @@ class MajorOrderCog(commands.Cog):
         description="Returns information on an Automaton or variation.",
         install_types=ApplicationInstallTypes.all(),
         contexts=InteractionContextTypes.all(),
+        extras={
+            "long_description": "Returns information on the current Major Order, if there is one",
+            "example_usage": "**`/major_order public:Yes`** would return information on the current Major Order that other members in the server can see.",
+        },
     )
     async def major_order(
         self,

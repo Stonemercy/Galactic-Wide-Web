@@ -24,6 +24,10 @@ class PlanetCog(commands.Cog):
         description="Returns the war details on a specific planet.",
         install_types=ApplicationInstallTypes.all(),
         contexts=InteractionContextTypes.all(),
+        extras={
+            "long_description": "Returns the war details on a specific planet. This includes a lot of stats that arent available in the dashboard.",
+            "example_usage": "**`/planet planet:Heeth with_map:Yes public:Yes`** returns a large embed with all of the stats the planet has. It also includes a map with an arrow pointing to the planet. It can also be seen by others in discord.",
+        },
     )
     async def planet(
         self,

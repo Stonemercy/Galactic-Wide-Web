@@ -58,6 +58,10 @@ class MapCog(commands.Cog):
         description="Get an up-to-date map of the galaxy",
         install_types=ApplicationInstallTypes.all(),
         contexts=InteractionContextTypes.all(),
+        extras={
+            "long_description": "Get an up-to-date map of the galaxy. This is generated upon use of the command so it may take a couple of seconds.",
+            "example_usage": "**`/map faction:Automaton public:Yes`** would return a map of the galaxy zoomed in on Automaton planets with names over active planets. It can also be seen by others in discord.",
+        },
     )
     async def map(
         self,

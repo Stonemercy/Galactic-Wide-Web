@@ -53,6 +53,10 @@ class SetupCog(commands.Cog):
         description="Change GWW settings.",
         default_member_permissions=Permissions(manage_guild=True),
         contexts=InteractionContextTypes(guild=True),
+        extras={
+            "long_description": "Change the GWW settings for your server.",
+            "example_usage": "**`/setup`** brings up a message with buttons you can use to change the bot's settings.",
+        },
     )
     async def setup(
         self,

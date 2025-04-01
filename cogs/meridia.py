@@ -50,6 +50,10 @@ class MeridiaCog(commands.Cog):
         description="Get up-to-date information on Meridia",
         install_types=ApplicationInstallTypes.all(),
         contexts=InteractionContextTypes.all(),
+        extras={
+            "long_description": "Get an view of the Meridian Singularity and it's direction of travel. This is generated upon use of the command so it may take a couple of seconds.",
+            "example_usage": "**`/meridia public:Yes`** would return some brief information of the Meridian Singularity and it's estimated direction, including any planets in it's path. It can also be seen by others in discord.",
+        },
     )
     async def meridia(
         self,

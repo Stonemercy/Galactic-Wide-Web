@@ -70,6 +70,24 @@ class AdminCommandsCog(commands.Cog):
         self.bot.logger.info(msg=text)
         await inter.send(content=text, ephemeral=True)
 
+    # @wait_for_startup()
+    # @commands.is_owner()
+    # @commands.slash_command(
+    #     guild_ids=SUPPORT_SERVER_ID,
+    #     description="Forces MO updates to be sent ASAP",
+    #     default_member_permissions=Permissions(administrator=True),
+    # )
+    # async def force_po_update(self, inter: AppCmdInter):
+    #     await inter.response.defer(ephemeral=True)
+    #     self.bot.logger.critical(
+    #         f"{self.qualified_name} | /{inter.application_command.name} | used by <@{inter.author.id}> | @{inter.author.global_name}"
+    #     )
+    #     update_start = datetime.now()
+    #     await self.personal_order_update()
+    #     text = f"Forced updates of {len(self.bot.interface_handler.news_feeds.channels_dict['PO'])} PO updates in {(datetime.now() - update_start).total_seconds():.2f} seconds"
+    #     self.bot.logger.info(text)
+    #     await inter.send(text, ephemeral=True)
+
     @wait_for_startup()
     @commands.is_owner()
     @commands.slash_command(

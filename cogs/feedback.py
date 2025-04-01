@@ -24,6 +24,10 @@ class FeedbackCog(commands.Cog):
         description="Provide feedback for the bot",
         install_types=ApplicationInstallTypes.all(),
         contexts=InteractionContextTypes.all(),
+        extras={
+            "long_description": "Provide feedback for the bot. The feedback sent through this modal will go directly to a private channel for me to review.",
+            "example_usage": "**`/feedback`** opens a pop-up modal for you to enter your feedback into.",
+        },
     )
     async def feedback(
         self,

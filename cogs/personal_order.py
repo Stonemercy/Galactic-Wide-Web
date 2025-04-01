@@ -20,35 +20,21 @@ SUPPORT_SERVER_ID = [int(getenv("SUPPORT_SERVER"))]
 class PersonalOrderCog(commands.Cog):
     def __init__(self, bot: GalacticWideWebBot):
         self.bot = bot
-        self.personal_order_update.start()
+        ###### DISABLED UNTIL SOURCE IS UPDATED ######
+        # self.personal_order_update.start()
 
-    def cog_unload(self):
-        self.personal_order_update.stop()
+    # def cog_unload(self):
+    #     self.personal_order_update.stop()
 
-    @wait_for_startup()
-    @commands.is_owner()
-    @commands.slash_command(
-        guild_ids=SUPPORT_SERVER_ID,
-        description="Forces MO updates to be sent ASAP",
-        default_member_permissions=Permissions(administrator=True),
-    )
-    async def force_po_update(self, inter: AppCmdInter):
-        await inter.response.defer(ephemeral=True)
-        self.bot.logger.critical(
-            f"{self.qualified_name} | /{inter.application_command.name} | used by <@{inter.author.id}> | @{inter.author.global_name}"
-        )
-        update_start = datetime.now()
-        await self.personal_order_update()
-        text = f"Forced updates of {len(self.bot.interface_handler.news_feeds.channels_dict['PO'])} PO updates in {(datetime.now() - update_start).total_seconds():.2f} seconds"
-        self.bot.logger.info(text)
-        await inter.send(text, ephemeral=True)
-
-    ###### DISABLED UNTIL SOURCE IS UPDATED ######
     # @wait_for_startup()
     # @commands.slash_command(
     #     description="Returns information on todays personal order.",
     #     install_types=ApplicationInstallTypes.all(),
     #     contexts=InteractionContextTypes.all(),
+    #     extras={
+    #         "long_description": "Returns the current Personal Order",
+    #         "example_usage": "**`/personal_order public:Yes`** returns an embed with todays personal order details. It can also be seen by others in discord.",
+    #     },
     # )
     # async def personal_order(
     #     self,
@@ -87,36 +73,36 @@ class PersonalOrderCog(commands.Cog):
     #         ephemeral=public != "Yes",
     #     )
 
-    @tasks.loop(
-        time=[time(hour=9, minute=10, second=0), time(hour=21, minute=10, second=0)]
-    )
-    async def personal_order_update(self):
-        po_updates_start = datetime.now()
-        if (
-            not self.bot.interface_handler.loaded
-            or po_updates_start < self.bot.ready_time
-            or not self.bot.data.loaded
-            or not self.bot.data.personal_order
-        ):
-            return
-        embeds = {
-            lang: PersonalOrderLoopEmbed(
-                personal_order=self.bot.data.personal_order,
-                language_json=self.bot.json_dict["languages"][lang],
-                reward_types=self.bot.json_dict["items"]["reward_types"],
-                item_names_json=self.bot.json_dict["items"]["item_names"],
-                enemy_ids_json=self.bot.json_dict["enemies"]["enemy_ids"],
-            )
-            for lang in list(set([guild.language for guild in GWWGuild.get_all()]))
-        }
-        await self.bot.interface_handler.send_news("PO", embeds)
-        self.bot.logger.info(
-            f"Sent Personal Order announcements out to {len(self.bot.interface_handler.news_feeds.channels_dict['PO'])} channels"
-        )
+    # @tasks.loop(
+    #     time=[time(hour=9, minute=10, second=0), time(hour=21, minute=10, second=0)]
+    # )
+    # async def personal_order_update(self):
+    #     po_updates_start = datetime.now()
+    #     if (
+    #         not self.bot.interface_handler.loaded
+    #         or po_updates_start < self.bot.ready_time
+    #         or not self.bot.data.loaded
+    #         or not self.bot.data.personal_order
+    #     ):
+    #         return
+    #     embeds = {
+    #         lang: PersonalOrderLoopEmbed(
+    #             personal_order=self.bot.data.personal_order,
+    #             language_json=self.bot.json_dict["languages"][lang],
+    #             reward_types=self.bot.json_dict["items"]["reward_types"],
+    #             item_names_json=self.bot.json_dict["items"]["item_names"],
+    #             enemy_ids_json=self.bot.json_dict["enemies"]["enemy_ids"],
+    #         )
+    #         for lang in list(set([guild.language for guild in GWWGuild.get_all()]))
+    #     }
+    #     await self.bot.interface_handler.send_news("PO", embeds)
+    #     self.bot.logger.info(
+    #         f"Sent Personal Order announcements out to {len(self.bot.interface_handler.news_feeds.channels_dict['PO'])} channels"
+    #     )
 
-    @personal_order_update.before_loop
-    async def before_personal_order_update(self):
-        await self.bot.wait_until_ready()
+    # @personal_order_update.before_loop
+    # async def before_personal_order_update(self):
+    #     await self.bot.wait_until_ready()
 
 
 def setup(bot: GalacticWideWebBot):
