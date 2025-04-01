@@ -87,13 +87,15 @@ class GWWGuild(ReprMixin):
                 return [cls(*record) for record in records] if records else None
 
     @classmethod
-    def new(cls, guild_id: int) -> Self:
+    def new(cls, guild_id: int, language: str = "en") -> Self:
         """Insert a new guild into the database and return the entry"""
         with connect(
             host=hostname, dbname=database, user=username, password=pwd, port=port_id
         ) as conn:
             with conn.cursor() as curs:
-                curs.execute(query=f"INSERT INTO guilds (guild_id) VALUES ({guild_id})")
+                curs.execute(
+                    query=f"INSERT INTO guilds (guild_id, language) VALUES {guild_id, language}"
+                )
                 conn.commit()
                 curs.execute(query=f"SELECT * FROM guilds WHERE guild_id = {guild_id}")
                 record = curs.fetchone()

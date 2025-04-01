@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from disnake import Locale
 from utils.emojis import Emojis
 
 language_dict = {
@@ -19,6 +20,28 @@ Format:
 Example:
 
     "English": "en"
+"""
+
+locales_dict = {
+    Locale.en_GB: "en",
+    Locale.en_US: "en",
+    Locale.fr: "fr",
+    Locale.de: "de",
+    Locale.it: "it",
+    Locale.pt_BR: "pt-br",
+    Locale.ru: "ru",
+    Locale.es_ES: "es",
+    Locale.es_LATAM: "es",
+}
+"""Dictionary of locales supported by the bot
+
+Format:
+
+    Disnake.Locale: "language-code"
+    
+Example:
+
+    Locale.en_GB: "en"
 """
 
 json_dict = {

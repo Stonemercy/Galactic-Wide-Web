@@ -1,4 +1,5 @@
 from asyncio import sleep
+from data.lists import locales_dict
 from datetime import datetime, timedelta, time
 from disnake import (
     ButtonStyle,
@@ -32,12 +33,17 @@ class GuildManagementCog(commands.Cog):
     @commands.Cog.listener()
     async def on_guild_join(self, guild: Guild):
         guild_in_db = GWWGuild.get_by_id(guild_id=guild.id)
-        if not guild_in_db:
-            GWWGuild.new(guild_id=guild.id)
+        if guild_in_db:
+            await self.bot.moderator_channel.send(
+                f"Guild **{guild.name}** just added the bot but was already in the DB"
+            )
+        else:
+            language = locales_dict.get(guild.preferred_locale, "en")
+            guild_in_db = GWWGuild.new(guild_id=guild.id, language=language)
         embed = (  # Convert to proper embed in loop_embeds
             Embed(title="New guild joined!", colour=Colour.brand_green())
             .add_field(name="Name", value=guild.name, inline=False)
-            .add_field(name="Locale", value=guild.preferred_locale)
+            .add_field(name="Locale", value=guild.preferred_locale, inline=False)
             .add_field(name="Already in DB?", value=guild_in_db != None)
             .add_field(name="Users", value=guild.member_count, inline=False)
             .add_field(
