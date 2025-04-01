@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta
 from data.lists import (
+    SpecialUnits,
     assignment_task_images_dict,
     stratagem_id_dict,
     faction_colours,
@@ -29,6 +30,23 @@ class Dashboard:
         with_health_bars: bool = True,
     ):
         language_json = json_dict["languages"][language_code]
+        gambit_planets = {}
+        for campaign in data.campaigns:
+            if (
+                campaign.planet.current_owner == "Humans"
+                or len(campaign.planet.defending_from) == 0
+                or 1190 in campaign.planet.active_effects
+            ):
+                continue
+            else:
+                for defending_index in campaign.planet.attack_targets:
+                    defending_planet = data.planets[defending_index]
+                    if (
+                        len(defending_planet.defending_from) < 2
+                        and defending_planet.event
+                    ):
+                        gambit_planets[defending_index] = campaign.planet
+
         self._major_order_embed = self.MajorOrderEmbed(
             assignment=data.assignment,
             planets=data.planets,
@@ -50,6 +68,7 @@ class Dashboard:
             total_players=data.total_players,
             eagle_storm=data.dss.get_ta_by_name("EAGLE STORM"),
             with_health_bars=with_health_bars,
+            gambit_planets=gambit_planets,
         )
         self._illuminate_embed = self.AttackEmbed(
             campaigns=[
@@ -62,6 +81,7 @@ class Dashboard:
             planet_names=json_dict["planets"],
             faction="Illuminate",
             total_players=data.total_players,
+            gambit_planets=gambit_planets,
             with_health_bars=with_health_bars,
         )
         self._automaton_embed = self.AttackEmbed(
@@ -75,6 +95,7 @@ class Dashboard:
             planet_names=json_dict["planets"],
             faction="Automaton",
             total_players=data.total_players,
+            gambit_planets=gambit_planets,
             with_health_bars=with_health_bars,
         )
         self._terminids_embed = self.AttackEmbed(
@@ -88,6 +109,7 @@ class Dashboard:
             planet_names=json_dict["planets"],
             faction="Terminids",
             total_players=data.total_players,
+            gambit_planets=gambit_planets,
             with_health_bars=with_health_bars,
         )
         self._footer_embed = self.FooterEmbed(
@@ -544,6 +566,10 @@ class Dashboard:
         ):
             """Hold a planet until the end of the MO"""
             feature_text = "" if not planet.feature else f"Feature: {planet.feature}"
+            for special_unit in SpecialUnits().get_from_effects_list(
+                active_effects=planet.active_effects
+            ):
+                feature_text += f"{special_unit[0]} {special_unit[1]}"
             obj_text = language_json["dashboard"]["MajorOrderEmbed"]["tasks"][
                 "type13"
             ].format(
@@ -723,15 +749,20 @@ class Dashboard:
                 self.set_thumbnail(
                     url="https://cdn.discordapp.com/attachments/1213146233825271818/1310906165823148043/DSS.png?ex=6746ec01&is=67459a81&hm=ab1c29616fd787f727848b04e44c26cc74e045b6e725c45b9dd8a902ec300757&"
                 )
+                faction_emojis = getattr(
+                    Emojis.Factions, dss.planet.current_owner.lower()
+                )
+                for special_unit in SpecialUnits().get_from_effects_list(
+                    active_effects=dss.planet.active_effects
+                ):
+                    faction_emojis += special_unit[1]
                 self.description = language_json["dashboard"]["DSSEmbed"][
                     "stationed_at"
                 ].format(
                     planet=planet_names_json[str(dss.planet.index)]["names"][
                         language_json["code_long"]
                     ],
-                    faction_emoji=getattr(
-                        Emojis.Factions, dss.planet.current_owner.lower()
-                    ),
+                    faction_emoji=faction_emojis,
                 )
                 self.description += language_json["dashboard"]["DSSEmbed"][
                     "next_move"
@@ -862,6 +893,7 @@ class Dashboard:
             total_players: int,
             eagle_storm: DSS.TacticalAction,
             with_health_bars: bool,
+            gambit_planets: dict[int, Planet],
         ):
             total_players_doing_defence = (
                 sum(planet.stats["playerCount"] for planet in planet_events)
@@ -882,6 +914,11 @@ class Dashboard:
                         liberation_change = liberation_changes.get_by_index(
                             planet.index
                         )
+                        if planet.index in gambit_planets:
+                            gambit_planet = gambit_planets[planet.index]
+                            gambit_lib_change = liberation_changes.get_by_index(
+                                gambit_planet.index
+                            )
                         if liberation_change and liberation_change.rate_per_hour != 0:
                             now_seconds = int(now.timestamp())
                             seconds_until_complete = int(
@@ -891,17 +928,24 @@ class Dashboard:
                                 )
                                 * 3600
                             )
-                            win_time = planet.event.end_time_datetime
-                            if planet.dss_in_orbit:
-                                if eagle_storm.status == 2:
-                                    win_time = (
-                                        planet.event.end_time_datetime
-                                        + timedelta(
-                                            seconds=(
-                                                eagle_storm.status_end_datetime - now
-                                            ).total_seconds()
-                                        )
+                            if (
+                                planet.index in gambit_planets
+                                and gambit_lib_change.rate_per_hour != 0
+                            ):
+                                seconds_until_gambit_complete = int(
+                                    (
+                                        (100 - gambit_lib_change.liberation)
+                                        / gambit_lib_change.rate_per_hour
                                     )
+                                    * 3600
+                                )
+                            win_time = planet.event.end_time_datetime
+                            if planet.dss_in_orbit and eagle_storm.status == 2:
+                                win_time += timedelta(
+                                    seconds=(
+                                        eagle_storm.status_end_datetime - now
+                                    ).total_seconds()
+                                )
                             winning = (
                                 datetime.fromtimestamp(
                                     now_seconds + seconds_until_complete
@@ -911,7 +955,20 @@ class Dashboard:
                             if winning:
                                 outlook_text = f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['victory'])} <t:{now_seconds + seconds_until_complete}:R>"
                             else:
-                                outlook_text = f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['defeat'])}"
+                                if (
+                                    planet.index in gambit_planets
+                                    and gambit_lib_change.rate_per_hour != 0
+                                    and datetime.fromtimestamp(
+                                        now_seconds + seconds_until_gambit_complete
+                                    )
+                                    < win_time
+                                ):
+                                    outlook_text = f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['victory'])} <t:{now_seconds + seconds_until_gambit_complete}:R>"
+                                    outlook_text += f"\n> -# thanks to **{gambit_planet.name}** liberation"
+                                else:
+                                    outlook_text = f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['defeat'])}"
+                                    if planet.index in gambit_planets:
+                                        outlook_text += f"\n> -# :chess_pawn: Can be ended by liberating **{gambit_planet.name}**"
                             change = f"{liberation_change.rate_per_hour:+.2f}%/hour"
                             liberation_text = f"\n`{change:^25}`"
                             if planet.event.required_players:
@@ -955,6 +1012,10 @@ class Dashboard:
                         )
                     if planet.dss_in_orbit:
                         exclamation += Emojis.DSS.icon
+                    for special_unit in SpecialUnits().get_from_effects_list(
+                        active_effects=planet.active_effects
+                    ):
+                        exclamation += special_unit[1]
                     player_count = f'**{planet.stats["playerCount"]:,}**'
                     if with_health_bars:
                         event_health_bar = f"\n{planet.event.health_bar}"
@@ -992,6 +1053,7 @@ class Dashboard:
             planet_names: dict,
             faction: str,
             total_players: int,
+            gambit_planets: dict[int, Planet],
             with_health_bars: bool,
         ):
             super().__init__(
@@ -1044,6 +1106,14 @@ class Dashboard:
                         exclamation += Emojis.DSS.icon
                     if campaign.planet.regen_perc_per_hour <= 0.25:
                         exclamation += f" :warning: {campaign.planet.regen_perc_per_hour:.2f}% REGEN :warning:"
+                    if campaign.planet.index in [
+                        planet.index for planet in gambit_planets.values()
+                    ]:
+                        exclamation += ":chess_pawn:"
+                    for special_unit in SpecialUnits().get_from_effects_list(
+                        active_effects=campaign.planet.active_effects
+                    ):
+                        exclamation += special_unit[1]
                     if with_health_bars:
                         planet_health_bar = f"\n{health_bar(campaign.planet.health / campaign.planet.max_health, campaign.planet.current_owner, True)}"
                     else:
@@ -1082,6 +1152,14 @@ class Dashboard:
                         exclamation += f" {Emojis.DSS.icon}"
                     if campaign.planet.regen < 1:
                         exclamation += " :warning: 0% REGEN :warning:"
+                    if campaign.planet.index in [
+                        planet.index for planet in gambit_planets.values()
+                    ]:
+                        exclamation += ":chess_pawn:"
+                    for special_unit in SpecialUnits().get_from_effects_list(
+                        active_effects=campaign.planet.active_effects
+                    ):
+                        exclamation += special_unit[1]
                     skipped_planets_text += f"-# {planet_names[str(campaign.planet.index)]['names'][language_json['code_long']]} - **{campaign.planet.stats['playerCount']:,}** {exclamation}\n"
                 if skipped_planets_text != "":
                     self.add_field(

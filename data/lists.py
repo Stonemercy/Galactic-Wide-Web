@@ -1,3 +1,6 @@
+from dataclasses import dataclass
+from utils.emojis import Emojis
+
 language_dict = {
     "English": "en",
     "Français": "fr",
@@ -547,3 +550,20 @@ Example:
 
     1078307866: "https://helldivers.wiki.gg/images/f/f6/Orbital_Gatling_Barrage_Stratagem_Icon.png"
 """
+
+
+@dataclass
+class SpecialUnits:
+    _1202 = _1203 = ("THE JET BRIGADE", Emojis.PlanetEffects.jet_brigade)
+    _1243 = _1245 = ("PREDATOR STRAIN", Emojis.PlanetEffects.predator_strain)
+    _1244 = ("SPORE BURSTER STRAIN", "")
+    _1248 = _1249 = ("INCINERATION CORPS", Emojis.PlanetEffects.incineration_corps)
+
+    def get_from_effects_list(
+        self, active_effects: list[int]
+    ) -> list | list[tuple[str, str]]:
+        special_units = set()
+        for ae in active_effects:
+            if special_unit := getattr(self, f"_{ae}", None):
+                special_units.add(special_unit)
+        return list(special_units)

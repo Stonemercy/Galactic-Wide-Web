@@ -341,6 +341,12 @@ class Data(ReprMixin):
                 planet = self.planets[planet_effect["index"]]
                 planet.active_effects.append(planet_effect["galacticEffectId"])
 
+            for planet_attack in self.__data__["status"]["planetAttacks"]:
+                source_planet = self.planets[planet_attack["source"]]
+                target_planet = self.planets[planet_attack["target"]]
+                source_planet.attack_targets.append(target_planet.index)
+                target_planet.defending_from.append(source_planet.index)
+
     def update_liberation_rates(self) -> None:
         """Update the liberation changes in the tracker for each active campaign"""
         for campaign in self.campaigns:
@@ -599,6 +605,8 @@ class Planet(ReprMixin):
         self.dss_in_orbit: bool = False
         self.in_assignment: bool = False
         self.active_effects: list[int] | list = []
+        self.attack_targets: list[int] | list = []
+        self.defending_from: list[int] | list = []
 
         # BIOME/SECTOR/HAZARDS OVERWRITE #
         if self.index == 64:

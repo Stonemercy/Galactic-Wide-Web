@@ -4,7 +4,12 @@ from math import inf, sqrt
 from os import getpid
 from re import DOTALL, search
 from psutil import Process, cpu_percent
-from data.lists import faction_colours, stratagem_image_dict, stratagem_id_dict
+from data.lists import (
+    SpecialUnits,
+    faction_colours,
+    stratagem_image_dict,
+    stratagem_id_dict,
+)
 from disnake import Colour, Embed, OptionType
 from utils.bot import GalacticWideWebBot
 from utils.data import (
@@ -466,6 +471,12 @@ class CampaignLoopEmbed(Embed, EmbedReprMixin):
                 description += f"> *{self.language_json['ends']} {time_remaining}*\n"
                 if campaign.planet.feature:
                     description += f"> -# Feature: {campaign.planet.feature}\n"
+            for special_unit in SpecialUnits().get_from_effects_list(
+                active_effects=campaign.planet.active_effects
+            ):
+                description += (
+                    f"> -# Special Unit: **{special_unit[0]}** {special_unit[1]}\n"
+                )
         else:
             description += self.language_json["CampaignEmbed"]["liberate"].format(
                 planet=self.planet_names_json[str(campaign.planet.index)]["names"][
@@ -476,6 +487,12 @@ class CampaignLoopEmbed(Embed, EmbedReprMixin):
             )
             if campaign.planet.feature:
                 description += f"-# Feature: {campaign.planet.feature}\n"
+            for special_unit in SpecialUnits().get_from_effects_list(
+                active_effects=campaign.planet.active_effects
+            ):
+                description += (
+                    f"-# Special Unit: **{special_unit[0]}** {special_unit[1]}\n"
+                )
         self.set_field_at(2, self.fields[2].name, description, inline=False)
 
     def add_campaign_victory(self, planet: Planet, taken_from: str):
@@ -495,7 +512,11 @@ class CampaignLoopEmbed(Embed, EmbedReprMixin):
             exclamation=exclamation,
         )
         if planet.feature:
-            description += f"-# Feature: {planet.feature}\n"
+            description += f"-# Feature: {planet.feature}\n"  # TRANSLATE THIS
+        for special_unit in SpecialUnits().get_from_effects_list(
+            active_effects=planet.active_effects
+        ):
+            description += f"-# Special Unit: **{special_unit[0]}** {special_unit[1]}\n"  # TRANSLATE THIS
         self.set_field_at(0, self.fields[0].name, description, inline=False)
 
     def add_def_victory(self, planet: Planet):
@@ -513,7 +534,11 @@ class CampaignLoopEmbed(Embed, EmbedReprMixin):
             exclamation=exclamation,
         )
         if planet.feature:
-            description += f"-# Feature: {planet.feature}\n"
+            description += f"-# Feature: {planet.feature}\n"  # TRANSLATE THIS
+        for special_unit in SpecialUnits().get_from_effects_list(
+            active_effects=planet.active_effects
+        ):
+            description += f"-# Special Unit: **{special_unit[0]}** {special_unit[1]}\n"  # TRANSLATE THIS
         self.set_field_at(0, self.fields[0].name, description, inline=False)
 
     def add_planet_lost(self, planet: Planet):
@@ -532,7 +557,11 @@ class CampaignLoopEmbed(Embed, EmbedReprMixin):
             exclamation=exclamation,
         )
         if planet.feature:
-            description += f"-# Feature: {planet.feature}\n"
+            description += f"-# Feature: {planet.feature}\n"  # TRANSLATE THIS
+        for special_unit in SpecialUnits().get_from_effects_list(
+            active_effects=planet.active_effects
+        ):
+            description += f"-# Special Unit: **{special_unit[0]}** {special_unit[1]}\n"
         self.set_field_at(1, self.fields[1].name, description, inline=False)
 
     def add_invasion_over(
@@ -568,7 +597,11 @@ class CampaignLoopEmbed(Embed, EmbedReprMixin):
                 hours=f"{hours_left:.2f}",
             )
         if planet.feature:
-            description += f"-# Feature: {planet.feature}\n"
+            description += f"-# Feature: {planet.feature}\n"  # TRANSLATE THIS
+        for special_unit in SpecialUnits().get_from_effects_list(
+            active_effects=planet.active_effects
+        ):
+            description += f"-# Special Unit: **{special_unit[0]}** {special_unit[1]}\n"  # TRANSLATE THIS
         self.set_field_at(4, name, description, inline=False)
 
     def remove_empty(self):
@@ -581,17 +614,25 @@ class CampaignLoopEmbed(Embed, EmbedReprMixin):
         exclamation1 = ""
         exclamation2 = ""
         if before_planet.in_assignment:
+            exclamation1 += Emojis.Icons.mo
+        if before_planet.event:
+            exclamation1 += (
+                f" 🛡️ {getattr(Emojis.Factions, before_planet.event.faction.lower())}"
+            )
+        if after_planet.in_assignment:
             exclamation2 += Emojis.Icons.mo
         if after_planet.event:
             exclamation2 += (
                 f" 🛡️ {getattr(Emojis.Factions, after_planet.event.faction.lower())}"
             )
-        if before_planet.in_assignment:
-            exclamation1 += Emojis.Icons.mo
-        if after_planet.event:
-            exclamation1 += (
-                f" 🛡️ {getattr(Emojis.Factions, after_planet.event.faction.lower())}"
-            )
+        for special_unit in SpecialUnits().get_from_effects_list(
+            active_effects=before_planet.active_effects
+        ):
+            exclamation1 += special_unit[1]
+        for special_unit in SpecialUnits().get_from_effects_list(
+            active_effects=after_planet.active_effects
+        ):
+            exclamation2 += special_unit[1]
         description += self.language_json["CampaignEmbed"]["dss"]["has_moved"].format(
             planet1=self.planet_names_json[str(before_planet.index)]["names"][
                 self.language_json["code_long"]
@@ -607,7 +648,7 @@ class CampaignLoopEmbed(Embed, EmbedReprMixin):
             exclamation2=exclamation2,
         )
         if after_planet.feature:
-            description += f"-# Feature: {after_planet.feature}\n"
+            description += f"-# Feature: {after_planet.feature}\n"  # TRANSLATE THIS
         self.set_field_at(3, self.fields[3].name, description, inline=False)
 
     def ta_status_changed(self, tactical_action: DSS.TacticalAction):
