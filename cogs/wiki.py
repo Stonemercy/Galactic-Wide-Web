@@ -22,6 +22,10 @@ class WikiCog(commands.Cog):
         description="Browse the GWW's wiki",
         install_types=ApplicationInstallTypes.all(),
         contexts=InteractionContextTypes.all(),
+        extras={
+            "long_description": "Returns information the following subjects:\n - DSS\n - Enemies\n - Warbonds\n - Equipment",
+            "example_usage": "**`/wiki`** would return a menu you can click through.",
+        },
     )
     async def wiki(
         self,
