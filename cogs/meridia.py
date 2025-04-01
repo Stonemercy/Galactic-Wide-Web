@@ -177,7 +177,7 @@ class MeridiaCog(commands.Cog):
             delta_x_to_planet = planet.position["x"] - current_location.x
             delta_y_to_planet = planet.position["y"] - current_location.y
             distance_to_planet = sqrt(delta_x_to_planet**2 + delta_y_to_planet**2)
-            adjusted_distance = max(distance_to_planet - padding_distance, 0)
+            adjusted_distance = max(distance_to_planet - 2 * padding_distance, 0)
             time_to_reach_planets[planet.index] = int(
                 (
                     datetime.now()
