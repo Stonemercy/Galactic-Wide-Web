@@ -68,6 +68,7 @@ class MapCog(commands.Cog):
             description="Do you want other people to see the response to this command?",
         ),
     ):
+        await inter.response.defer(ephemeral=public != "Yes")
         self.bot.logger.info(
             f"{self.qualified_name} | /{inter.application_command.name} <{public = }>"
         )
