@@ -683,17 +683,16 @@ class MeridiaLoopEmbed(Embed, EmbedReprMixin):
         self.set_thumbnail(
             url="https://cdn.discordapp.com/emojis/1331357764039086212.webp?size=96"
         )
-        for index, location in enumerate(
+        timestamps = sorted(
             [
                 location
-                for location in meridia.locations[-16:][::-1]
-                if location.timestamp.minute == meridia.locations[-1].timestamp.minute
-                and (meridia.locations[-1].timestamp - timedelta(hours=3)).hour
-                <= location.timestamp.hour % 24
-                <= (meridia.locations[-1].timestamp + timedelta(hours=1)).hour
+                for location in meridia.locations
+                if location.timestamp.minute == 10
             ],
-            1,
-        ):
+            key=lambda location: location.timestamp,
+            reverse=True,
+        )[:4]
+        for index, location in enumerate(timestamps, 1):
             if index == 3:
                 self.add_field("", "", inline=False)
             self.add_field(
