@@ -86,11 +86,14 @@ class Emojis:
 
     @dataclass
     class Weather:
-        intense_heat = "<:s:1340988491374264360>"
-        tremors = "<:s:1340991266510475296>"
+        intense_heat = "<:s:1357272522227318847>"
+        fire_tornadoes = "<:s:1357272531798851584>"
+        extreme_cold = "<:s:1357272540413825075>"
+        blizzards = "<:s:1357272548626268340>"
+        tremors = "<:s:1357278857232646164>"
 
     @dataclass
-    class PlanetEffects:
+    class SpecialUnits:
         predator_strain = "<:s:1355905145992646877>"
         jet_brigade = "<:s:1355912552143393039>"
         incineration_corps = "<:s:1355913678704349336>"

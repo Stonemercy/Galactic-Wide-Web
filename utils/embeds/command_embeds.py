@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta
 from math import sqrt
 from data.lists import (
+    SpecialUnits,
     faction_colours,
     stratagem_id_dict,
     stratagem_image_dict,
@@ -24,35 +25,35 @@ from disnake.ext.commands.slash_core import InvokableSlashCommand
 class PlanetCommandEmbed(Embed, EmbedReprMixin):
     def __init__(
         self,
-        planet_names: dict,
+        planet_name: str,
         planet: Planet,
         language_json: dict,
-        planet_effects: list,
+        planet_effects_json: dict,
         liberation_changes: LiberationChangesTracker,
         total_players: int,
     ):
         super().__init__(colour=Colour.from_rgb(*faction_colours[planet.current_owner]))
         self.add_planet_info(
-            planet_names,
-            planet,
-            language_json,
-            planet_effects,
-            liberation_changes,
-            total_players,
+            planet_name=planet_name,
+            planet=planet,
+            language_json=language_json,
+            planet_effects_json=planet_effects_json,
+            liberation_changes=liberation_changes,
+            total_players=total_players,
         )
-        self.add_mission_stats(planet, language_json)
-        self.add_hero_stats(planet, language_json)
-        self.add_field("", "", inline=False)
-        self.add_misc_stats(planet, language_json)
+        self.add_mission_stats(planet=planet, language_json=language_json)
+        self.add_hero_stats(planet=planet, language_json=language_json)
+        self.add_field(name="", value="", inline=False)
+        self.add_misc_stats(planet=planet, language_json=language_json)
 
     def add_planet_info(
         self,
-        planet_names: dict,
+        planet_name: str,
         planet: Planet,
         language_json: dict,
-        planet_effects: list,
+        planet_effects_json: list,
         liberation_changes: LiberationChangesTracker,
-        total_players,
+        total_players: int,
     ):
         sector = language_json["PlanetEmbed"]["sector"].format(sector=planet.sector)
         owner = language_json["PlanetEmbed"]["owner"].format(
@@ -66,7 +67,7 @@ class PlanetCommandEmbed(Embed, EmbedReprMixin):
         environmentals = language_json["PlanetEmbed"]["environmentals"].format(
             environmentals="".join(
                 [
-                    f"\n- {getattr(Emojis.Weather,hazard['name'], '')} **{hazard['name']}**\n  - -# {hazard['description']}"
+                    f"\n- {getattr(Emojis.Weather, hazard['name'], '')} **{hazard['name']}**\n  - -# {hazard['description']}"
                     for hazard in planet.hazards
                 ]
             )
@@ -78,7 +79,7 @@ class PlanetCommandEmbed(Embed, EmbedReprMixin):
         if planet.in_assignment:
             title_exclamation += Emojis.Icons.mo
         self.add_field(
-            f"__**{planet_names['names'][language_json['code_long']]}**__ {title_exclamation}",
+            f"__**{planet_name}**__ {title_exclamation}",
             (f"{sector}" f"{owner}" f"{biome}" f"{environmentals}"),
             inline=False,
         )
@@ -101,6 +102,8 @@ class PlanetCommandEmbed(Embed, EmbedReprMixin):
                         )
                         * 3600
                     )
+        else:
+            liberation_change = None
         if planet.event:
             planet_health_bar = (
                 health_bar(planet.event.progress, planet.event.faction, True)
@@ -155,7 +158,6 @@ class PlanetCommandEmbed(Embed, EmbedReprMixin):
                 change = f"{liberation_change.rate_per_hour:+.2f}%/hour"
                 liberation_text = f"\n`{change:^25}`"
                 outlook_text = f"{language_json['dashboard']['outlook'].format(outlook=language_json['victory'])} <t:{now_seconds + seconds_until_complete}:R>\n"
-
             self.add_field(
                 "",
                 (
@@ -175,18 +177,27 @@ class PlanetCommandEmbed(Embed, EmbedReprMixin):
                 f"The presence of the {Emojis.DSS.icon} DSS near this planet provides a slight boost to **Liberation Campaign** progress.",
                 inline=False,
             )
-        if planet_effects:
-            effects = ""
-            for effect in planet_effects:
+        effects = ""
+        special_units = []
+        for ae in planet.active_effects:
+            if special_unit := SpecialUnits.get_from_effects_list([ae]):
+                special_unit = special_unit[0]
+                if special_unit not in special_units:
+                    special_units.append(special_unit)
+                    effects += f"\n- **{special_unit[0]}** {special_unit[1]}"
+            else:
                 try:
-                    effects += f"\n- {getattr(Emojis.PlanetEffects, effect['name'], '')} **{effect['name'].upper()}**\n  - -# {effect['description']}\n"
+                    effect = planet_effects_json[str(ae)]
+                    effects += (
+                        f"\n- **{effect['name']}**\n  - -# {effect['description']}"
+                    )
                 except:
                     pass
-            if effects:
-                self.add_field("Planetary Effects", effects, inline=False)
+        if effects:
+            self.add_field("Planetary Effects", effects, inline=False)
         self.add_field(
             "Distance from Super Earth",
-            f"{sqrt(planet.position['x']**2 + planet.position['y']**2) * 1000:.2f} SU",
+            f"**{sqrt(planet.position['x']**2 + planet.position['y']**2) * 1000:.2f}** SU",
             inline=False,
         )
 

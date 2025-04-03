@@ -66,18 +66,16 @@ class PlanetCog(commands.Cog):
         else:
             guild = GWWGuild.default()
         guild_language = self.bot.json_dict["languages"][guild.language]
+        planet_name = [
+            planet_names
+            for planet_names in self.bot.json_dict["planets"].values()
+            if planet_names["name"].lower() == planet.lower()
+        ][0]["names"][guild_language["code_long"]]
         embed = PlanetCommandEmbed(
-            planet_names=[
-                planet_names
-                for planet_names in self.bot.json_dict["planets"].values()
-                if planet_names["name"].lower() == planet.lower()
-            ][0],
+            planet_name=planet_name,
             planet=planet_data,
             language_json=guild_language,
-            planet_effects=[
-                self.bot.json_dict["planet_effects"].get(str(effect), None)
-                for effect in planet_data.active_effects
-            ],
+            planet_effects_json=self.bot.json_dict["planet_effects"],
             liberation_changes=self.bot.data.liberation_changes,
             total_players=self.bot.data.total_players,
         )
