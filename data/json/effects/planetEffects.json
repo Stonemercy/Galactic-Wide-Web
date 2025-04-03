@@ -468,5 +468,10 @@
 		"galacticEffectId": 1257,
 		"name": "BATTLEFIELD IMPACT",
 		"description": "Cascading logistical distruptions have resulted in the temporary emplacement of ammunition rationing measures. Resupply pod ammunition will be decreased to 50% for all operations on this planet until further notice."
+	},
+	"1258": {
+		"galacticEffectId": 1258,
+		"name": "BATTLEFIELD IMPACT",
+		"description": "Cryo-good transport is facing interdictions by Automaton fleets, reducing Reinforcements to 3 for all operations on this planet in the short term."
 	}
 }
