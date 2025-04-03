@@ -566,7 +566,7 @@ class Dashboard:
         ):
             """Hold a planet until the end of the MO"""
             feature_text = "" if not planet.feature else f"Feature: {planet.feature}"
-            for special_unit in SpecialUnits().get_from_effects_list(
+            for special_unit in SpecialUnits.get_from_effects_list(
                 active_effects=planet.active_effects
             ):
                 feature_text += f"{special_unit[0]} {special_unit[1]}"
@@ -752,7 +752,7 @@ class Dashboard:
                 faction_emojis = getattr(
                     Emojis.Factions, dss.planet.current_owner.lower()
                 )
-                for special_unit in SpecialUnits().get_from_effects_list(
+                for special_unit in SpecialUnits.get_from_effects_list(
                     active_effects=dss.planet.active_effects
                 ):
                     faction_emojis += special_unit[1]
@@ -1012,7 +1012,7 @@ class Dashboard:
                         )
                     if planet.dss_in_orbit:
                         exclamation += Emojis.DSS.icon
-                    for special_unit in SpecialUnits().get_from_effects_list(
+                    for special_unit in SpecialUnits.get_from_effects_list(
                         active_effects=planet.active_effects
                     ):
                         exclamation += special_unit[1]
@@ -1110,7 +1110,7 @@ class Dashboard:
                         planet.index for planet in gambit_planets.values()
                     ]:
                         exclamation += ":chess_pawn:"
-                    for special_unit in SpecialUnits().get_from_effects_list(
+                    for special_unit in SpecialUnits.get_from_effects_list(
                         active_effects=campaign.planet.active_effects
                     ):
                         exclamation += special_unit[1]
@@ -1156,7 +1156,7 @@ class Dashboard:
                         planet.index for planet in gambit_planets.values()
                     ]:
                         exclamation += ":chess_pawn:"
-                    for special_unit in SpecialUnits().get_from_effects_list(
+                    for special_unit in SpecialUnits.get_from_effects_list(
                         active_effects=campaign.planet.active_effects
                     ):
                         exclamation += special_unit[1]

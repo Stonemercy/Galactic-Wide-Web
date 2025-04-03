@@ -471,7 +471,7 @@ class CampaignLoopEmbed(Embed, EmbedReprMixin):
                 description += f"> *{self.language_json['ends']} {time_remaining}*\n"
                 if campaign.planet.feature:
                     description += f"> -# Feature: {campaign.planet.feature}\n"
-            for special_unit in SpecialUnits().get_from_effects_list(
+            for special_unit in SpecialUnits.get_from_effects_list(
                 active_effects=campaign.planet.active_effects
             ):
                 description += (
@@ -487,7 +487,7 @@ class CampaignLoopEmbed(Embed, EmbedReprMixin):
             )
             if campaign.planet.feature:
                 description += f"-# Feature: {campaign.planet.feature}\n"
-            for special_unit in SpecialUnits().get_from_effects_list(
+            for special_unit in SpecialUnits.get_from_effects_list(
                 active_effects=campaign.planet.active_effects
             ):
                 description += (
@@ -513,7 +513,7 @@ class CampaignLoopEmbed(Embed, EmbedReprMixin):
         )
         if planet.feature:
             description += f"-# Feature: {planet.feature}\n"  # TRANSLATE THIS
-        for special_unit in SpecialUnits().get_from_effects_list(
+        for special_unit in SpecialUnits.get_from_effects_list(
             active_effects=planet.active_effects
         ):
             description += f"-# Special Unit: **{special_unit[0]}** {special_unit[1]}\n"  # TRANSLATE THIS
@@ -535,7 +535,7 @@ class CampaignLoopEmbed(Embed, EmbedReprMixin):
         )
         if planet.feature:
             description += f"-# Feature: {planet.feature}\n"  # TRANSLATE THIS
-        for special_unit in SpecialUnits().get_from_effects_list(
+        for special_unit in SpecialUnits.get_from_effects_list(
             active_effects=planet.active_effects
         ):
             description += f"-# Special Unit: **{special_unit[0]}** {special_unit[1]}\n"  # TRANSLATE THIS
@@ -558,7 +558,7 @@ class CampaignLoopEmbed(Embed, EmbedReprMixin):
         )
         if planet.feature:
             description += f"-# Feature: {planet.feature}\n"  # TRANSLATE THIS
-        for special_unit in SpecialUnits().get_from_effects_list(
+        for special_unit in SpecialUnits.get_from_effects_list(
             active_effects=planet.active_effects
         ):
             description += f"-# Special Unit: **{special_unit[0]}** {special_unit[1]}\n"
@@ -598,7 +598,7 @@ class CampaignLoopEmbed(Embed, EmbedReprMixin):
             )
         if planet.feature:
             description += f"-# Feature: {planet.feature}\n"  # TRANSLATE THIS
-        for special_unit in SpecialUnits().get_from_effects_list(
+        for special_unit in SpecialUnits.get_from_effects_list(
             active_effects=planet.active_effects
         ):
             description += f"-# Special Unit: **{special_unit[0]}** {special_unit[1]}\n"  # TRANSLATE THIS
@@ -625,11 +625,11 @@ class CampaignLoopEmbed(Embed, EmbedReprMixin):
             exclamation2 += (
                 f" 🛡️ {getattr(Emojis.Factions, after_planet.event.faction.lower())}"
             )
-        for special_unit in SpecialUnits().get_from_effects_list(
+        for special_unit in SpecialUnits.get_from_effects_list(
             active_effects=before_planet.active_effects
         ):
             exclamation1 += special_unit[1]
-        for special_unit in SpecialUnits().get_from_effects_list(
+        for special_unit in SpecialUnits.get_from_effects_list(
             active_effects=after_planet.active_effects
         ):
             exclamation2 += special_unit[1]
