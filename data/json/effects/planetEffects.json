@@ -463,5 +463,10 @@
 		"galacticEffectId": 1256,
 		"name": "WEAPONS EXPERIMENTATION",
 		"description": "The Grenadier Battlement stratagem is available to all Helldivers."
+	},
+	"1257": {
+		"galacticEffectId": 1257,
+		"name": "BATTLEFIELD IMPACT",
+		"description": "Cascading logistical distruptions have resulted in the temporary emplacement of ammunition rationing measures. Resupply pod ammunition will be decreased to 50% for all operations on this planet until further notice."
 	}
 }
