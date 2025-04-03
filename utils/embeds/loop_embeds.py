@@ -109,7 +109,11 @@ class APIChangesLoopEmbed(Embed, EmbedReprMixin):
                             inline=False,
                         )
                     else:
-                        self.add_field("New effect", effect, inline=False)
+                        self.add_field(
+                            f"{faction_emoji} {change.planet.name} New effect",
+                            effect,
+                            inline=False,
+                        )
             elif change.statistic == "Galactic Impact Mod":
                 self.add_field(
                     "Big jump in the Galactic Impact Modifier :warning:",
