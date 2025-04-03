@@ -389,14 +389,15 @@ class Data(ReprMixin):
             seconds_to_complete = int(
                 (progress_needed / lib_changes.rate_per_hour) * 3600
             )
-            winning = (
-                now + timedelta(seconds=seconds_to_complete)
-                < planet.event.end_time_datetime
-            )
+            win_time = planet.event.end_time_datetime
+            eagle_storm = self.dss.get_ta_by_name("EAGLE STORM")
+            if planet.dss_in_orbit and eagle_storm.status == 2:
+                win_time += timedelta(
+                    seconds=(eagle_storm.status_end_datetime - now).total_seconds()
+                )
+            winning = now + timedelta(seconds=seconds_to_complete) < win_time
             if not winning:
-                hours_left = (
-                    planet.event.end_time_datetime - now
-                ).total_seconds() / 3600
+                hours_left = (win_time - now).total_seconds() / 3600
                 progress_needed_per_hour = progress_needed / hours_left
                 amount_ratio = progress_needed_per_hour / lib_changes.rate_per_hour
                 required_players = planet.stats["playerCount"] * amount_ratio
