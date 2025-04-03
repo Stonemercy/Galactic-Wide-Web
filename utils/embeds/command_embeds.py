@@ -67,7 +67,7 @@ class PlanetCommandEmbed(Embed, EmbedReprMixin):
         environmentals = language_json["PlanetEmbed"]["environmentals"].format(
             environmentals="".join(
                 [
-                    f"\n- {getattr(Emojis.Weather, hazard['name'], '')} **{hazard['name']}**\n  - -# {hazard['description']}"
+                    f"\n- {getattr(Emojis.Weather, hazard['name'].replace(' ', '_').lower(), '')} **{hazard['name']}**\n  - -# {hazard['description']}"
                     for hazard in planet.hazards
                 ]
             )
