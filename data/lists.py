@@ -482,11 +482,12 @@ Example:
 
 @dataclass
 class SpecialUnits:
-    _1202 = _1203 = ("THE JET BRIGADE", Emojis.PlanetEffects.jet_brigade)
-    _1243 = _1245 = ("PREDATOR STRAIN", Emojis.PlanetEffects.predator_strain)
+    _1202 = _1203 = ("THE JET BRIGADE", Emojis.SpecialUnits.jet_brigade)
+    _1243 = _1245 = ("PREDATOR STRAIN", Emojis.SpecialUnits.predator_strain)
     _1244 = ("SPORE BURSTER STRAIN", "")
-    _1248 = _1249 = ("INCINERATION CORPS", Emojis.PlanetEffects.incineration_corps)
+    _1248 = _1249 = ("INCINERATION CORPS", Emojis.SpecialUnits.incineration_corps)
 
+    @classmethod
     def get_from_effects_list(
         self, active_effects: list[int]
     ) -> list | list[tuple[str, str]]:
