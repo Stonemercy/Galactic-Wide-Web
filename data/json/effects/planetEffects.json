@@ -1,4 +1,19 @@
 {
+	"1117": {
+		"galacticEffectId": 1117,
+		"name": "group_DivisionPanzer",
+		"description": "[EST] Panzer division of bots (?)"
+	},
+	"1118": {
+		"galacticEffectId": 1118,
+		"name": "group_DivisionAssault",
+		"description": "[EST] Assault division of bots (?)"
+	},
+	"1119": {
+		"galacticEffectId": 1119,
+		"name": "group_DivisionPhalanx",
+		"description": "[EST] Phalanx division of bots (?)"
+	},
 	"1120": {
 		"galacticEffectId": 1120,
 		"name": "group_BroodAcid",
@@ -73,6 +88,11 @@
 		"galacticEffectId": 1141,
 		"name": "war_Lib200",
 		"description": "No idea tbh"
+	},
+	"1142": {
+		"galacticEffectId": 1142,
+		"name": "WEAPONS EXPERIMENTATION",
+		"description": "The Eagle 500kg Bomb stratagem has been temporarily authorized for use by all Helldivers."
 	},
 	"1144": {
 		"galacticEffectId": 1144,
