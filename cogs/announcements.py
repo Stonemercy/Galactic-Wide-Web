@@ -89,6 +89,8 @@ class AnnouncementsCog(commands.Cog):
             return
         last_dispatch = Dispatch()
         if last_dispatch.id != self.bot.data.dispatch.id:
+            if self.bot.data.dispatch.message == "":
+                return
             embeds = {
                 lang: DispatchesLoopEmbed(
                     self.bot.json_dict["languages"][lang], self.bot.data.dispatch
