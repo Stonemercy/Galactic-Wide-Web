@@ -44,7 +44,6 @@ class GuildManagementCog(commands.Cog):
             Embed(title="New guild joined!", colour=Colour.brand_green())
             .add_field(name="Name", value=guild.name, inline=False)
             .add_field(name="Locale", value=guild.preferred_locale, inline=False)
-            .add_field(name="Already in DB?", value=guild_in_db != None)
             .add_field(name="Users", value=guild.member_count, inline=False)
             .add_field(
                 name="Big guild?",
