@@ -109,6 +109,12 @@ class WarUpdatesCog(commands.Cog):
                     Campaign.delete(old_campaign.id)
         for new_campaign in self.bot.data.campaigns:  # loop through new campaigns
             if new_campaign.id not in old_campaign_ids:  # if campaign is brand new
+                if (
+                    new_campaign.planet.event
+                    and new_campaign.planet.event.type == 2
+                    and new_campaign.planet.event.potential_buildup == 0
+                ):
+                    continue
                 time_remaining = (
                     None
                     if not new_campaign.planet.event
