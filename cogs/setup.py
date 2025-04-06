@@ -135,6 +135,7 @@ class SetupCog(commands.Cog):
         }
         if inter.component.custom_id not in allowed_ids:
             return
+        await inter.response.defer()
         action_rows = ActionRow.rows_from_message(inter.message)
         guild = GWWGuild.get_by_id(inter.guild_id)
         guild_language = self.bot.json_dict["languages"][guild.language]
@@ -162,7 +163,7 @@ class SetupCog(commands.Cog):
                     ),
                 )
                 try:
-                    await inter.response.edit_message(components=action_rows)
+                    await inter.edit_original_response(components=action_rows)
                     return
                 except NotFound:
                     await inter.send(
@@ -178,7 +179,7 @@ class SetupCog(commands.Cog):
                         )
                     )
                 )
-                await inter.response.edit_message(components=action_rows)
+                await inter.edit_original_response(components=action_rows)
                 return
             elif inter.component.custom_id == "clear_dashboard_button":
                 guild.dashboard_channel_id = 0
@@ -190,7 +191,7 @@ class SetupCog(commands.Cog):
                     if message.guild.id != inter.guild_id
                 ]
                 self.reset_row_1(action_rows[0])
-                await inter.response.edit_message(
+                await inter.edit_original_response(
                     embed=SetupCommandEmbed(
                         guild, self.bot.json_dict["languages"][guild.language]
                     ),
@@ -220,7 +221,7 @@ class SetupCog(commands.Cog):
                     ),
                 )
                 try:
-                    await inter.response.edit_message(components=action_rows)
+                    await inter.edit_original_response(components=action_rows)
                     return
                 except NotFound as e:
                     await self.bot.moderator_channel.send(f"Setup\n```py\n{e}\n```")
@@ -232,7 +233,7 @@ class SetupCog(commands.Cog):
                         )
                     )
                 )
-                await inter.response.edit_message(components=action_rows)
+                await inter.edit_original_response(components=action_rows)
                 return
             elif inter.component.custom_id == "clear_announcements_button":
                 try:
@@ -275,7 +276,7 @@ class SetupCog(commands.Cog):
                     )
                 )
                 self.reset_row_1(action_rows[0])
-                await inter.response.edit_message(
+                await inter.edit_original_response(
                     embed=SetupCommandEmbed(
                         guild, self.bot.json_dict["languages"][guild.language]
                     ),
@@ -302,7 +303,7 @@ class SetupCog(commands.Cog):
                     2, Setup.Map.MapButton(language_json=guild_language, selected=True)
                 )
                 try:
-                    await inter.response.edit_message(components=action_rows)
+                    await inter.edit_original_response(components=action_rows)
                     return
                 except NotFound as e:
                     await self.bot.moderator_channel.send(f"Setup\n```py\n{e}\n```")
@@ -312,7 +313,7 @@ class SetupCog(commands.Cog):
                     ActionRow(Setup.Map.MapChannelSelect(language_json=guild_language))
                 )
                 try:
-                    await inter.response.edit_message(components=action_rows)
+                    await inter.edit_original_response(components=action_rows)
                     return
                 except NotFound as e:
                     await self.bot.moderator_channel.send(f"Setup\n```py\n{e}\n```")
@@ -351,7 +352,7 @@ class SetupCog(commands.Cog):
                     ),
                 )
                 try:
-                    await inter.response.edit_message(
+                    await inter.edit_original_response(
                         embed=SetupCommandEmbed(
                             guild, self.bot.json_dict["languages"][guild.language]
                         ),
@@ -375,7 +376,7 @@ class SetupCog(commands.Cog):
                     0, Setup.PatchNotes.PatchNotesButton(language_json=guild_language)
                 )
                 action_rows[1][0].disabled = False
-                await inter.response.edit_message(
+                await inter.edit_original_response(
                     embed=SetupCommandEmbed(
                         guild, self.bot.json_dict["languages"][guild.language]
                     ),
@@ -399,7 +400,7 @@ class SetupCog(commands.Cog):
                     ),
                 )
                 action_rows[1][0].disabled = False
-                await inter.response.edit_message(
+                await inter.edit_original_response(
                     embed=SetupCommandEmbed(
                         guild, self.bot.json_dict["languages"][guild.language]
                     ),
@@ -424,7 +425,7 @@ class SetupCog(commands.Cog):
                     ),
                 )
                 action_rows[1].children[1].disabled = False
-                await inter.response.edit_message(
+                await inter.edit_original_response(
                     embed=SetupCommandEmbed(
                         guild, self.bot.json_dict["languages"][guild.language]
                     ),
@@ -455,7 +456,7 @@ class SetupCog(commands.Cog):
                     ),
                 )
                 action_rows[1].children[1].disabled = False
-                await inter.response.edit_message(
+                await inter.edit_original_response(
                     embed=SetupCommandEmbed(
                         guild, self.bot.json_dict["languages"][guild.language]
                     ),
@@ -480,7 +481,7 @@ class SetupCog(commands.Cog):
                     ),
                 )
                 action_rows[1].children[2].disabled = False
-                await inter.response.edit_message(
+                await inter.edit_original_response(
                     embed=SetupCommandEmbed(
                         guild, self.bot.json_dict["languages"][guild.language]
                     ),
@@ -511,7 +512,7 @@ class SetupCog(commands.Cog):
                     ),
                 )
                 action_rows[1].children[2].disabled = False
-                await inter.response.edit_message(
+                await inter.edit_original_response(
                     embed=SetupCommandEmbed(
                         guild, self.bot.json_dict["languages"][guild.language]
                     ),
@@ -539,7 +540,7 @@ class SetupCog(commands.Cog):
                     ),
                 )
                 action_rows[1].children[3].disabled = False
-                await inter.response.edit_message(
+                await inter.edit_original_response(
                     embed=SetupCommandEmbed(
                         guild, self.bot.json_dict["languages"][guild.language]
                     ),
@@ -570,7 +571,7 @@ class SetupCog(commands.Cog):
                     ),
                 )
                 action_rows[1].children[3].disabled = False
-                await inter.response.edit_message(
+                await inter.edit_original_response(
                     embed=SetupCommandEmbed(
                         guild, self.bot.json_dict["languages"][guild.language]
                     ),
@@ -588,6 +589,7 @@ class SetupCog(commands.Cog):
         }
         if inter.component.custom_id not in allowed_ids:
             return
+        await inter.response.defer()
         action_rows = ActionRow.rows_from_message(inter.message)
         guild = GWWGuild.get_by_id(inter.guild_id)
         guild_language = self.bot.json_dict["languages"][guild.language]
@@ -644,7 +646,7 @@ class SetupCog(commands.Cog):
                 embed = SetupCommandEmbed(guild, guild_language)
                 self.clear_extra_buttons(action_rows)
                 self.reset_row_1(action_rows[0])
-                await inter.response.edit_message(embed=embed, components=action_rows)
+                await inter.edit_original_response(embed=embed, components=action_rows)
         elif inter.component.custom_id == "announcements_channel_select":
             try:
                 announcement_channel = self.bot.get_channel(
@@ -688,9 +690,8 @@ class SetupCog(commands.Cog):
                 action_rows[1].children[1].disabled = False
                 action_rows[1].children[2].disabled = False
                 action_rows[1].children[3].disabled = False
-                await inter.response.edit_message(embed=embed, components=action_rows)
+                await inter.edit_original_response(embed=embed, components=action_rows)
         elif inter.component.custom_id == "map_channel_select":
-            await inter.response.defer()
             try:
                 map_channel = self.bot.get_channel(
                     inter.values[0]
@@ -720,7 +721,7 @@ class SetupCog(commands.Cog):
             else:
                 self.clear_extra_buttons(action_rows)
                 self.reset_row_1(action_rows[0])
-                await inter.edit_original_message(components=action_rows)
+                await inter.edit_original_response(components=action_rows)
                 await inter.send(
                     "Generating map, please wait...", delete_after=10, ephemeral=True
                 )
@@ -739,7 +740,7 @@ class SetupCog(commands.Cog):
                 guild.save_changes()
                 self.bot.interface_handler.maps.append(message)
                 embed = SetupCommandEmbed(guild, guild_language)
-                await inter.edit_original_message(embed=embed, components=action_rows)
+                await inter.edit_original_response(embed=embed, components=action_rows)
         elif inter.component.custom_id == "language_select":
             guild.language = inter.values[0].lower()
             guild.save_changes()
@@ -747,7 +748,7 @@ class SetupCog(commands.Cog):
             embed = SetupCommandEmbed(
                 guild, self.bot.json_dict["languages"][guild.language]
             )
-            await inter.response.edit_message(
+            await inter.edit_original_response(
                 embed=embed,
                 components=[
                     (
