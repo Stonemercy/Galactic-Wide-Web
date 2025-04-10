@@ -173,7 +173,7 @@ class MeridiaCog(commands.Cog):
             )
 
         current_location: Meridia.Location = meridia_info.locations[-1]
-        padding_distance = 0.01559
+        padding_distance = 0.006
         time_to_reach_planets = {}
         for planet in planets_in_path:
             if set([1241, 1252]) & set(planet.active_effects):
