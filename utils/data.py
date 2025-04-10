@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 from disnake import TextChannel
 from logging import Logger
 from os import getenv
-from typing import ValuesView
+from typing import ItemsView, ValuesView
 from utils.functions import health_bar, steam_format
 from utils.mixins import ReprMixin
 from utils.trackers import LiberationChangesTracker
@@ -677,6 +677,9 @@ class Planets(dict):
         return None if not planet_list else planet_list[0]
 
     # For typehinting #
+    def items(self) -> ItemsView[int, Planet]:
+        return super().items()
+
     def values(self) -> ValuesView[Planet]:
         return super().values()
 
