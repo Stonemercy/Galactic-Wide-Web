@@ -17,6 +17,7 @@ resources/currencies
 resources/difficulty_icons
 resources/DSS
 resources/weather_icons
+resources/maps
 
 # JSON
 data/json/.github
