@@ -706,7 +706,7 @@ class MeridiaLoopEmbed(Embed, EmbedReprMixin):
                 ),
             )
         self.add_field("Speed", f"{(meridia.speed*1000)*3600:.4f}SU/hour", inline=False)
-        self.add_field("Dark Energy", f"{dark_energy.current_value:,.2f}")
+        self.add_field("Dark Energy", f"{(dark_energy.current_value/1_000_000):,.2%}")
         self.add_field(
             "Distance from Super Earth",
             f"{sqrt(meridia.locations[-1].x**2 + meridia.locations[-1].y**2) * 1000:.2f} SU",
