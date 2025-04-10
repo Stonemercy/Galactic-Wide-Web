@@ -384,9 +384,16 @@ class SetupCog(commands.Cog):
                 )
                 return
             else:  # want to enable
-                channel = self.bot.get_channel(
-                    guild.announcement_channel_id
-                ) or await self.bot.fetch_channel(guild.announcement_channel_id)
+                try:
+                    channel = self.bot.get_channel(
+                        guild.announcement_channel_id
+                    ) or await self.bot.fetch_channel(guild.announcement_channel_id)
+                except NotFound as e:
+                    await inter.send(
+                        "There was an issue finding your announcements channel.\nApologies for the inconvenience",
+                        ephemeral=True,
+                    )
+                    return
                 self.bot.interface_handler.news_feeds.channels_dict["Patch"].append(
                     channel
                 )
