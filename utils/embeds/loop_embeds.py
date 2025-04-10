@@ -286,15 +286,13 @@ class BotDashboardLoopEmbed(Embed, EmbedReprMixin):
         )[:10]
         biggest_guilds_text = ""
         for index, guild in enumerate(ten_biggest_guilds, 1):
-            name = guild.name
-            user_count = guild.member_count
             url = (
                 f"\n-# - Invite: https://discord.com/invite/{guild.vanity_url_code}"
                 if guild.vanity_url_code
                 else ""
             )
             biggest_guilds_text += (
-                f"{index}. **{name}** - {user_count:,} members{url}\n"
+                f"{index}. **{guild.name}** - {guild.member_count:,} members{url}\n"
             )
         self.add_field(
             "Top 10 Guilds",
