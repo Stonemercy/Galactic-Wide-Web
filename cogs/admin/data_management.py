@@ -23,7 +23,7 @@ class DataManagementCog(commands.Cog):
         await self.pull_from_api()
         await self.bot.change_presence(
             activity=Activity(
-                name=f"democracy spread",
+                name="democracy spread",
                 type=ActivityType.watching,
             )
         )
