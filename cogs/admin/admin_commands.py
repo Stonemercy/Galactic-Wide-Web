@@ -77,24 +77,22 @@ class AdminCommandsCog(commands.Cog):
             msg=f"{self.qualified_name} | /{inter.application_command.name} <{file_name = }> | used by <@{inter.author.id}> | @{inter.author.global_name}"
         )
         possible_paths = [f"cogs.{file_name}", f"cogs.admin.{file_name}"]
-
         for path in possible_paths:
             try:
                 self.bot.reload_extension(name=path)
                 await inter.send(
-                    content=f"🔄 Successfully reloaded `{path}`!", ephemeral=True
+                    content=f"Successfully reloaded `{path}`", ephemeral=True
                 )
                 return
             except commands.ExtensionNotLoaded:
                 continue
             except Exception as e:
                 await inter.send(
-                    content=f"❌ Failed to reload `{path}`\n```{e}```", ephemeral=True
+                    content=f"Failed to reload `{path}`\n```py\n{e}```", ephemeral=True
                 )
                 return
-
         await inter.send(
-            content=f"⚠️ No matching extension found for `{file_name}` in `cogs/` or `cogs/admin/`."
+            content=f":warning: No matching extension found for `{file_name}` in `cogs/` or `cogs/admin/`."
         )
 
     @wait_for_startup()
