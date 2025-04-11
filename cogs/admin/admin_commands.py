@@ -19,74 +19,47 @@ class AdminCommandsCog(commands.Cog):
     @commands.is_owner()
     @commands.slash_command(
         guild_ids=SUPPORT_SERVER_ID,
-        description="Forces dashboards to update ASAP",
+        description="Forces the choice to update ASAP",
         default_member_permissions=Permissions(administrator=True),
     )
-    async def force_update_dashboards(self, inter: AppCmdInter):
+    async def force_update_feature(
+        self,
+        inter: AppCmdInter,
+        feature: str = commands.Param(
+            choices=[
+                "Dashboard",
+                "Map",
+                "MO Update",
+                # "PO Update",
+            ]
+        ),
+    ):
         await inter.response.defer(ephemeral=True)
         self.bot.logger.critical(
-            msg=f"{self.qualified_name} | /{inter.application_command.name} | used by <@{inter.author.id}> | @{inter.author.global_name}"
+            msg=f"{self.qualified_name} | /{inter.application_command.name} <{feature = }> | used by <@{inter.author.id}> | @{inter.author.global_name}"
         )
         update_start = datetime.now()
-        await self.bot.get_cog(name="DashboardCog").dashboard_poster()
-        await inter.send(
-            content=f"Forced updates of {len(self.bot.interface_handler.dashboards)} dashboards in {(datetime.now() - update_start).total_seconds():.2f} seconds",
-            ephemeral=True,
-        )
-
-    @wait_for_startup()
-    @commands.is_owner()
-    @commands.slash_command(
-        guild_ids=SUPPORT_SERVER_ID,
-        description="Forces maps to update ASAP",
-        default_member_permissions=Permissions(administrator=True),
-    )
-    async def force_update_maps(self, inter: AppCmdInter):
-        await inter.response.defer(ephemeral=True)
-        self.bot.logger.critical(
-            msg=f"{self.qualified_name} | /{inter.application_command.name} | used by <@{inter.author.id}> | @{inter.author.global_name}"
-        )
-        update_start = datetime.now()
-        await self.bot.get_cog(name="MapCog").map_poster()
-        text = f"Forced updates of {len(self.bot.interface_handler.maps)} maps in {(datetime.now() - update_start).total_seconds():.2f} seconds"
-        self.bot.logger.info(msg=text)
-        await inter.send(content=text, ephemeral=True)
-
-    @wait_for_startup()
-    @commands.is_owner()
-    @commands.slash_command(
-        guild_ids=SUPPORT_SERVER_ID,
-        description="Forces MO updates to be sent ASAP",
-        default_member_permissions=Permissions(administrator=True),
-    )
-    async def force_mo_update(self, inter: AppCmdInter, test: bool = False):
-        await inter.response.defer(ephemeral=True)
-        self.bot.logger.critical(
-            msg=f"{self.qualified_name} | /{inter.application_command.name} | used by <@{inter.author.id}> | @{inter.author.global_name}"
-        )
-        update_start = datetime.now()
-        await self.bot.get_cog(name="AnnouncementsCog").major_order_updates(test=test)
-        text = f"Forced updates of {len(self.bot.interface_handler.news_feeds.channels_dict['MO'])} MO updates in {(datetime.now() - update_start).total_seconds():.2f} seconds"
-        self.bot.logger.info(msg=text)
-        await inter.send(content=text, ephemeral=True)
-
-    # @wait_for_startup()
-    # @commands.is_owner()
-    # @commands.slash_command(
-    #     guild_ids=SUPPORT_SERVER_ID,
-    #     description="Forces MO updates to be sent ASAP",
-    #     default_member_permissions=Permissions(administrator=True),
-    # )
-    # async def force_po_update(self, inter: AppCmdInter):
-    #     await inter.response.defer(ephemeral=True)
-    #     self.bot.logger.critical(
-    #         f"{self.qualified_name} | /{inter.application_command.name} | used by <@{inter.author.id}> | @{inter.author.global_name}"
-    #     )
-    #     update_start = datetime.now()
-    #     await self.personal_order_update()
-    #     text = f"Forced updates of {len(self.bot.interface_handler.news_feeds.channels_dict['PO'])} PO updates in {(datetime.now() - update_start).total_seconds():.2f} seconds"
-    #     self.bot.logger.info(text)
-    #     await inter.send(text, ephemeral=True)
+        match feature:
+            case "Dashboard":
+                await self.bot.get_cog(name="DashboardCog").dashboard_poster()
+                text = f"Forced updates of {len(self.bot.interface_handler.dashboards)} dashboards in {(datetime.now() - update_start).total_seconds():.2f} seconds"
+                self.bot.logger.info(msg=text)
+                await inter.send(content=text, ephemeral=True)
+            case "Map":
+                await self.bot.get_cog(name="MapCog").map_poster()
+                text = f"Forced updates of {len(self.bot.interface_handler.maps)} maps in {(datetime.now() - update_start).total_seconds():.2f} seconds"
+                self.bot.logger.info(msg=text)
+                await inter.send(content=text, ephemeral=True)
+            case "MO Update":
+                await self.bot.get_cog(name="AnnouncementsCog").major_order_updates()
+                text = f"Forced updates of {len(self.bot.interface_handler.news_feeds.channels_dict['MO'])} MO updates in {(datetime.now() - update_start).total_seconds():.2f} seconds"
+                self.bot.logger.info(msg=text)
+                await inter.send(content=text, ephemeral=True)
+            # case "PO Update":
+            #     await self.bot.get_cog(name="PersonalOrderCog").personal_order_update()
+            #     text = f"Forced updates of {len(self.bot.interface_handler.news_feeds.channels_dict['PO'])} PO updates in {(datetime.now() - update_start).total_seconds():.2f} seconds"
+            #     self.bot.logger.info(msg=text)
+            #     await inter.send(content=text, ephemeral=True)
 
     @wait_for_startup()
     @commands.is_owner()
