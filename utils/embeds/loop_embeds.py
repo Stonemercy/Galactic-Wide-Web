@@ -224,7 +224,7 @@ class BotDashboardLoopEmbed(Embed, EmbedReprMixin):
             "This is the dashboard for all information about the GWW itself"
         )
         commands = ""
-        for global_command in bot.global_slash_commands:
+        for global_command in sorted(bot.global_slash_commands, key=lambda sc: sc.name):
             for option in global_command.options:
                 if option.type == OptionType.sub_command:
                     commands += (
