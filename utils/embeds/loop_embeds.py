@@ -9,6 +9,7 @@ from data.lists import (
     faction_colours,
     stratagem_image_dict,
     stratagem_id_dict,
+    locales_dict,
 )
 from disnake import Colour, Embed, Guild, OptionType
 from utils.bot import GalacticWideWebBot
@@ -722,6 +723,16 @@ verification_dict = {
     4: "Member must have a verified phone on their Discord account.",
 }
 
+flag_dict = {
+    "en": ":flag_gb:",
+    "fr": ":flag_fr:",
+    "de": ":flag_de:",
+    "it": ":flag_it:",
+    "pt-br": ":flag_br:",
+    "ru": ":flag_ru:",
+    "es": ":flag_es:",
+}
+
 
 class GuildJoinListenerEmbed(Embed, EmbedReprMixin):
     def __init__(self, guild: Guild):
@@ -759,7 +770,79 @@ class GuildJoinListenerEmbed(Embed, EmbedReprMixin):
             value=f"{str(guild.verification_level).capitalize()}\n-# {verification_dict[guild.verification_level.value]}",
             inline=True,
         )
-        self.add_field(name="🌐 Locale", value=guild.preferred_locale)
+        self.add_field(
+            name="🌐 Locale",
+            value=f"{flag_dict.get(locales_dict.get(guild.preferred_locale, None), None)} {guild.preferred_locale}",
+        )
+        if guild.features:
+            features_text = ""
+            for feature in guild.features:
+                if feature in [
+                    "COMMUNITY",
+                    "CREATOR_MONETIZABLE",
+                    "CREATOR_MONETIZABLE_PROVISIONAL",
+                    "CREATOR_STORE_PAGE",
+                    "DEVELOPER_SUPPORT_SERVER",
+                    "DISCOVERABLE",
+                    "ENABLED_DISCOVERABLE_BEFORE",
+                    "FEATURABLE",
+                    "GUILD_HOME_TEST",
+                    "HAS_DIRECTORY_ENTRY",
+                    "HUB",
+                    "LINKED_TO_HUB",
+                    "NEWS",
+                    "PARTNERED",
+                    "ROLE_SUBSCRIPTIONS_AVAILABLE_FOR_PURCHASE",
+                    "ROLE_SUBSCRIPTIONS_ENABLED",
+                    "VANITY_URL",
+                    "VERIFIED",
+                    "VIP_REGIONS",
+                    "WELCOME_SCREEN_ENABLED",
+                ]:
+                    features_text += f"-# - {feature.replace('_', ' ').capitalize()}\n"
+            self.add_field(name="Features", value=features_text or "None", inline=False)
+
+
+class GuildLeaveListenerEmbed(Embed, EmbedReprMixin):
+    def __init__(self, guild: Guild):
+        super().__init__(
+            title="Bot has been removed from a guild",
+            description=f"The bot has been removed from **{guild.name}**",
+            colour=Colour.brand_red(),
+        )
+        if guild.icon.url:
+            self.set_thumbnail(url=guild.icon.url)
+        if guild.banner:
+            self.set_image(url=guild.banner.url)
+        self.add_field(name="Guild ID", value=f"-# {guild.id}")
+        self.add_field(name="👑 Owner", value=f"<@{guild.owner_id}>")
+        if guild.vanity_url_code:
+            self.add_field(
+                name="Vanity URL code",
+                value=f"<https://discord.com/invite/{guild.vanity_url_code}>",
+                inline=False,
+            )
+        else:
+            self.add_field("", "", inline=False)
+        self.add_field(name="👥 Members", value=f"**{guild.member_count}**")
+        self.add_field(
+            name="Channels",
+            value=f"Text: **{len(guild.text_channels)}**\nVoice: **{len(guild.voice_channels)}**",
+        )
+        self.add_field(
+            name="Created On",
+            value=f"<t:{int(guild.created_at.timestamp())}:F>\n<t:{int(guild.created_at.timestamp())}:R>",
+            inline=False,
+        )
+        self.add_field(
+            name="Verification Level",
+            value=f"{str(guild.verification_level).capitalize()}\n-# {verification_dict[guild.verification_level.value]}",
+            inline=True,
+        )
+        self.add_field(
+            name="🌐 Locale",
+            value=f"{flag_dict.get(locales_dict.get(guild.preferred_locale, None), None)} {guild.preferred_locale}",
+        )
         if guild.features:
             features_text = ""
             for feature in guild.features:

@@ -12,7 +12,11 @@ from disnake.ext import commands, tasks
 from disnake.ui import Button
 from main import GalacticWideWebBot
 from utils.db import BotDashboard, GWWGuild
-from utils.embeds.loop_embeds import BotDashboardLoopEmbed, GuildJoinListenerEmbed
+from utils.embeds.loop_embeds import (
+    BotDashboardLoopEmbed,
+    GuildJoinListenerEmbed,
+    GuildLeaveListenerEmbed,
+)
 from utils.interactables import AppDirectoryButton, GitHubButton, KoFiButton
 
 
@@ -46,24 +50,7 @@ class GuildManagementCog(commands.Cog):
     @commands.Cog.listener()
     async def on_guild_remove(self, guild: Guild):
         GWWGuild.delete(guild_id=guild.id)
-        embed = (  # Convert to proper embed in loop_embeds
-            Embed(title="Guild left", colour=Colour.brand_red())
-            .add_field(name="Name", value=guild.name, inline=False)
-            .add_field(name="Users", value=guild.member_count, inline=False)
-            .add_field(
-                name="Big guild?",
-                value={True: "Yes", False: "No"}[guild.large],
-                inline=False,
-            )
-            .add_field(
-                name="Created",
-                value=f"<t:{int(guild.created_at.timestamp())}:R>",
-                inline=False,
-            )
-            .add_field(name="Owner", value=f"<@{guild.owner_id}>", inline=False)
-            .set_thumbnail(url=guild.icon.url if guild.icon else None)
-            .set_image(url=guild.banner.url if guild.banner else None)
-        )
+        embed = GuildLeaveListenerEmbed(guild=guild)
         await self.bot.moderator_channel.send(embed=embed)
 
     @tasks.loop(minutes=1)
