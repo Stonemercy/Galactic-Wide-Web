@@ -625,6 +625,13 @@ class Planet(ReprMixin):
             }
             self.hazards = []
 
+    @property
+    def map_waypoints(self) -> tuple[float, float]:
+        return (
+            (self.position["x"] * 1000) + 1000,
+            ((self.position["y"] * -1) * 1000) + 1000,
+        )
+
     class Event(ReprMixin):
         def __init__(self, raw_event_data) -> None:
             """Organised data for a planet's event (defence campaign)"""

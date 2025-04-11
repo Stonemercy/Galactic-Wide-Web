@@ -7,6 +7,7 @@ from logging import INFO, FileHandler, Formatter, getLogger
 from os import getenv, listdir
 from utils.data import Data
 from utils.interface_handler import InterfaceHandler
+from utils.maps import Maps
 
 MODERATOR_CHANNEL_ID = int(getenv(key="MODERATION_CHANNEL"))
 FEEDBACK_CHANNEL_ID = int(getenv(key="FEEDBACK_CHANNEL"))
@@ -40,6 +41,7 @@ class GalacticWideWebBot(commands.AutoShardedInteractionBot):
         self.feedback_channel: TextChannel | None = None
         self.waste_bin_channel: TextChannel | None = None
         self.api_changes_channel: TextChannel | None = None
+        self.maps = Maps()
 
     async def on_ready(self) -> None:
         await self.get_channels()

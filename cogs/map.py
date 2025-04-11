@@ -1,6 +1,9 @@
 from datetime import datetime, time, timedelta
 from disnake import (
     AppCmdInter,
+    Colour,
+    Embed,
+    File,
     InteractionContextTypes,
     ApplicationInstallTypes,
 )
@@ -34,17 +37,53 @@ class MapCog(commands.Cog):
             )
         except:
             pass
-        maps = Maps(
-            data=self.bot.data,
-            waste_bin_channel=self.bot.waste_bin_channel,
-            planet_names_json=self.bot.json_dict["planets"],
-            languages_json_list=[
-                self.bot.json_dict["languages"][lang]
-                for lang in list({guild.language for guild in GWWGuild.get_all()})
-            ],
+        map_embeds = {
+            code: Embed(colour=Colour.dark_embed())
+            for code in self.bot.json_dict["languages"].keys()
+        }
+        fifteen_minutes_ago = datetime.now() - timedelta(minutes=15)
+        requirements_met = not all(
+            [
+                code in self.bot.maps.latest_maps.keys()
+                and self.bot.maps.latest_maps[code].updated_at > fifteen_minutes_ago
+                for code in self.bot.json_dict["languages"].keys()
+            ]
         )
-        await maps.localize()
-        await self.bot.interface_handler.edit_maps(maps.embeds)
+        if requirements_met:
+            await self.bot.maps.update_base_map(
+                planets=self.bot.data.planets,
+                assignment=self.bot.data.assignment,
+                campaigns=self.bot.data.campaigns,
+                dss=self.bot.data.dss,
+            )
+        for language_code, embed in map_embeds.items():
+            latest_map = self.bot.maps.latest_maps.get(language_code, None)
+            if not latest_map:
+                language_json = self.bot.json_dict["languages"][language_code]
+                self.bot.maps.localize_map(
+                    language_code_short=language_json["code"],
+                    language_code_long=language_json["code_long"],
+                    planets=self.bot.data.planets,
+                    active_planets=[
+                        campaign.planet.index for campaign in self.bot.data.campaigns
+                    ],
+                    dss=self.bot.data.dss,
+                    planet_names_json=self.bot.json_dict["planets"],
+                )
+                message = await self.bot.waste_bin_channel.send(
+                    file=File(
+                        fp=self.bot.maps.FileLocations.localized_map_path(
+                            language_json["code"]
+                        )
+                    )
+                )
+                self.bot.maps.latest_maps[language_json["code"]] = Maps.LatestMap(
+                    datetime.now(), message.attachments[0].url
+                )
+                latest_map = self.bot.maps.latest_maps[language_json["code"]]
+            embed.set_image(url=latest_map.map_link)
+            embed.add_field("", f"-# Updated <t:{int(datetime.now().timestamp())}:R>")
+        await self.bot.interface_handler.edit_maps(map_dict=map_embeds)
         self.bot.logger.info(
             f"Updated {len(self.bot.interface_handler.maps)} maps in {(datetime.now()-maps_start).total_seconds():.2f} seconds"
         )
@@ -85,18 +124,42 @@ class MapCog(commands.Cog):
                 guild = GWWGuild.new(inter.guild_id)
         else:
             guild = GWWGuild.default()
-        await inter.send(
-            f"Map generating. Should be done <t:{int((datetime.now() + timedelta(seconds=10)).timestamp())}:R>",
-            ephemeral=public != "Yes",
-        )
-        map = Maps(
-            data=self.bot.data,
-            waste_bin_channel=self.bot.waste_bin_channel,
-            planet_names_json=self.bot.json_dict["planets"],
-            languages_json_list=[self.bot.json_dict["languages"][guild.language]],
-        )
-        await map.localize()
-        await inter.edit_original_response(content="", embeds=map.embeds.values())
+        latest_map = self.bot.maps.latest_maps.get(guild.language, None)
+        fifteen_minutes_ago = datetime.now() - timedelta(minutes=15)
+        if not latest_map or (
+            latest_map and latest_map.updated_at < fifteen_minutes_ago
+        ):
+            await self.bot.maps.update_base_map(
+                planets=self.bot.data.planets,
+                assignment=self.bot.data.assignment,
+                campaigns=self.bot.data.campaigns,
+                dss=self.bot.data.dss,
+            )
+            language_json = self.bot.json_dict["languages"][guild.language]
+            self.bot.maps.localize_map(
+                language_code_short=language_json["code"],
+                language_code_long=language_json["code_long"],
+                planets=self.bot.data.planets,
+                active_planets=[
+                    campaign.planet.index for campaign in self.bot.data.campaigns
+                ],
+                dss=self.bot.data.dss,
+                planet_names_json=self.bot.json_dict["planets"],
+            )
+            message = await self.bot.waste_bin_channel.send(
+                file=File(
+                    fp=self.bot.maps.FileLocations.localized_map_path(
+                        language_json["code"]
+                    )
+                )
+            )
+            self.bot.maps.latest_maps[language_json["code"]] = Maps.LatestMap(
+                datetime.now(), message.attachments[0].url
+            )
+            latest_map = self.bot.maps.latest_maps[language_json["code"]]
+        embed = Embed(colour=Colour.dark_embed())
+        embed.set_image(url=latest_map.map_link)
+        await inter.edit_original_response(content="", embed=embed)
 
 
 def setup(bot: GalacticWideWebBot):

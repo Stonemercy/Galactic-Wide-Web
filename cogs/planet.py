@@ -1,4 +1,12 @@
-from disnake import AppCmdInter, InteractionContextTypes, ApplicationInstallTypes
+from datetime import datetime, timedelta
+from disnake import (
+    AppCmdInter,
+    Colour,
+    Embed,
+    File,
+    InteractionContextTypes,
+    ApplicationInstallTypes,
+)
 from disnake.ext import commands
 from main import GalacticWideWebBot
 from utils.checks import wait_for_startup
@@ -85,15 +93,43 @@ class PlanetCog(commands.Cog):
                 f"Image missing for biome of **planet __{planet}__** {planet_data.biome} <@{self.bot.owner_id}> :warning:"
             )
         if with_map == "Yes":
-            map = Maps(
-                data=self.bot.data,
-                waste_bin_channel=self.bot.waste_bin_channel,
-                planet_names_json=self.bot.json_dict["planets"],
-                languages_json_list=[guild_language],
-                target_planet=planet_data.index,
-            )
-            await map.localize()
-            embeds.append(map.embeds[guild.language])
+            fifteen_minutes_ago = datetime.now() - timedelta(minutes=15)
+            latest_map = self.bot.maps.latest_maps.get(guild.language)
+            if not latest_map or (
+                latest_map and latest_map.updated_at > fifteen_minutes_ago
+            ):
+                await self.bot.maps.update_base_map(
+                    planets=self.bot.data.planets,
+                    assignment=self.bot.data.assignment,
+                    campaigns=self.bot.data.campaigns,
+                    dss=self.bot.data.dss,
+                )
+                language_json = self.bot.json_dict["languages"][guild.language]
+                self.bot.maps.localize_map(
+                    language_code_short=language_json["code"],
+                    language_code_long=language_json["code_long"],
+                    planets=self.bot.data.planets,
+                    active_planets=[
+                        campaign.planet.index for campaign in self.bot.data.campaigns
+                    ],
+                    dss=self.bot.data.dss,
+                    planet_names_json=self.bot.json_dict["planets"],
+                )
+                message = await self.bot.waste_bin_channel.send(
+                    file=File(
+                        fp=self.bot.maps.FileLocations.localized_map_path(
+                            language_json["code"]
+                        )
+                    )
+                )
+                self.bot.maps.latest_maps[language_json["code"]] = Maps.LatestMap(
+                    datetime.now(), message.attachments[0].url
+                )
+                latest_map = self.bot.maps.latest_maps[language_json["code"]]
+            self.bot.maps.draw_arrow(language_code=guild.language, planet=planet_data)
+            embed = Embed(colour=Colour.dark_embed())
+            embed.set_image(file=File(self.bot.maps.FileLocations.arrow_map))
+            embeds.append(embed)
         await inter.send(
             embeds=embeds,
             ephemeral=public != "Yes",

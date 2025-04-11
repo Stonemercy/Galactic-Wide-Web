@@ -1,5 +1,6 @@
+from asyncio import to_thread
 from datetime import datetime, timedelta
-from disnake import AppCmdInter, Permissions
+from disnake import AppCmdInter, File, Permissions
 from disnake.ext import commands, tasks
 from main import GalacticWideWebBot
 from os import getenv
@@ -7,7 +8,7 @@ from random import choice
 from utils.checks import wait_for_startup
 from utils.db import DSS as DSSDB, GWWGuild, Campaign
 from utils.embeds.loop_embeds import CampaignLoopEmbed
-from utils.data import DSS
+from utils.maps import Maps
 
 SUPPORT_SERVER = [int(getenv("SUPPORT_SERVER"))]
 
@@ -35,80 +36,101 @@ class WarUpdatesCog(commands.Cog):
         languages = list({guild.language for guild in GWWGuild.get_all()})
         embeds = {
             lang: CampaignLoopEmbed(
-                self.bot.json_dict["languages"][lang], self.bot.json_dict["planets"]
+                language_json=self.bot.json_dict["languages"][lang],
+                planet_names_json=self.bot.json_dict["planets"],
             )
             for lang in languages
         }
         new_updates = False
-        new_campaign_ids = [campaign.id for campaign in self.bot.data.campaigns]
+        need_to_update_sectors = False
         if not old_campaigns:
             for new_campaign in self.bot.data.campaigns:
                 Campaign.new(
-                    new_campaign.id,
-                    new_campaign.planet.current_owner,
-                    new_campaign.planet.index,
-                    new_campaign.planet.event is not None,
-                    (
+                    id=new_campaign.id,
+                    owner=new_campaign.planet.current_owner,
+                    planet_index=new_campaign.planet.index,
+                    event=bool(new_campaign.planet.event),
+                    event_type=(
                         new_campaign.planet.event.type
                         if new_campaign.planet.event
                         else None
                     ),
-                    (
+                    event_faction=(
                         new_campaign.planet.event.faction
                         if new_campaign.planet.event
                         else None
                     ),
                 )
             return
-        old_campaign_ids = [old_campaign.id for old_campaign in old_campaigns]
-        for old_campaign in old_campaigns:  # loop through old campaigns
+
+        new_campaign_ids = [c.id for c in self.bot.data.campaigns]
+        # loop through old campaigns
+        for old_campaign in old_campaigns:
+
+            # if campaign has ended
             if old_campaign.id not in new_campaign_ids:
-                # if campaign is no longer active
                 planet = self.bot.data.planets[old_campaign.planet_index]
+
+                # if campaign was defence and we won
                 if planet.current_owner == "Humans" and old_campaign.owner == "Humans":
+
+                    # if event was invasion (no territory taken)
                     if old_campaign.event_type == 2:
-                        old_planet = self.bot.previous_data.planets[
+                        previous_data_planet = self.bot.previous_data.planets[
                             old_campaign.planet_index
                         ]
                         win_status = False
                         hours_left = 0
-                        if old_planet.event:
+
+                        # if I have data on the event (sometimes dont)
+                        if previous_data_planet.event:
                             win_status = (
-                                old_planet.event.end_time_datetime > datetime.now()
+                                previous_data_planet.event.end_time_datetime
+                                > update_start
                             )
                             hours_left = (
-                                old_planet.event.end_time_datetime - datetime.now()
+                                previous_data_planet.event.end_time_datetime
+                                - update_start
                             ).total_seconds() / 3600
                         for embed in embeds.values():
                             embed.add_invasion_over(
-                                planet,
-                                old_campaign.event_faction,
+                                planet=planet,
+                                faction=old_campaign.event_faction,
                                 hours_left=hours_left,
                                 win_status=win_status,
                             )
                     else:
+                        # if event wasnt invasion (territory taken)
                         for embed in embeds.values():
-                            embed.add_def_victory(planet)
-                    new_updates = True
-                    self.bot.data.liberation_changes.remove_entry(planet.index)
-                    Campaign.delete(old_campaign.id)
-                if planet.current_owner != old_campaign.owner:  # if owner has changed
-                    if old_campaign.owner == "Humans":  # if defence campaign loss
+                            embed.add_def_victory(planet=planet)
+
+                # if owner has changed
+                if planet.current_owner != old_campaign.owner:
+
+                    # if defence campaign loss
+                    if old_campaign.owner == "Humans":
                         for embed in embeds.values():
-                            embed.add_planet_lost(planet)
-                        new_updates = True
-                        self.bot.data.liberation_changes.remove_entry(planet.index)
-                        Campaign.delete(old_campaign.id)
-                    elif planet.current_owner == "Humans":  # if attack campaign win
+                            embed.add_planet_lost(planet=planet)
+
+                    # if attack campaign win
+                    elif planet.current_owner == "Humans":
                         for embed in embeds.values():
-                            embed.add_campaign_victory(planet, old_campaign.owner)
-                        new_updates = True
-                        self.bot.data.liberation_changes.remove_entry(planet.index)
-                        Campaign.delete(old_campaign.id)
-                elif planet.current_owner != "Humans":
-                    Campaign.delete(old_campaign.id)
-        for new_campaign in self.bot.data.campaigns:  # loop through new campaigns
-            if new_campaign.id not in old_campaign_ids:  # if campaign is brand new
+                            embed.add_campaign_victory(
+                                planet=planet, taken_from=old_campaign.owner
+                            )
+                self.bot.data.liberation_changes.remove_entry(planet_index=planet.index)
+                Campaign.delete(old_campaign.id)
+                new_updates = True
+                need_to_update_sectors = True
+
+        old_campaign_ids = [old_campaign.id for old_campaign in old_campaigns]
+        # loop through old campaigns
+        for new_campaign in self.bot.data.campaigns:
+
+            # if campaign is brand new
+            if new_campaign.id not in old_campaign_ids:
+
+                # if campaign is an illuminate invasion but doesnt have the buildup data
                 if (
                     new_campaign.planet.event
                     and new_campaign.planet.event.type == 2
@@ -118,43 +140,44 @@ class WarUpdatesCog(commands.Cog):
                 time_remaining = (
                     None
                     if not new_campaign.planet.event
-                    else f"<t:{datetime.fromisoformat(new_campaign.planet.event.end_time).timestamp():.0f}:R>"
+                    else f"<t:{new_campaign.planet.event.end_time_datetime.timestamp():.0f}:R>"
                 )
                 for embed in embeds.values():
                     embed.add_new_campaign(new_campaign, time_remaining)
-                new_updates = True
                 Campaign.new(
-                    new_campaign.id,
-                    new_campaign.planet.current_owner,
-                    new_campaign.planet.index,
-                    new_campaign.planet.event is not None,
-                    (
+                    id=new_campaign.id,
+                    owner=new_campaign.planet.current_owner,
+                    planet_index=new_campaign.planet.index,
+                    event=bool(new_campaign.planet.event),
+                    event_type=(
                         new_campaign.planet.event.type
                         if new_campaign.planet.event
                         else None
                     ),
-                    (
+                    event_faction=(
                         new_campaign.planet.event.faction
                         if new_campaign.planet.event
                         else None
                     ),
                 )
-            continue
+                new_updates = True
+                need_to_update_sectors = True
 
-        # DSS STUFF
+        # DSS updates
         if self.bot.data.dss != "Error":
             last_dss_info = DSSDB()
+
+            # if DSS has moved
             if last_dss_info.planet_index != self.bot.data.dss.planet.index:
                 for embed in embeds.values():
                     embed.dss_moved(
-                        self.bot.data.planets[last_dss_info.planet_index],
-                        self.bot.data.dss.planet,
+                        before_planet=self.bot.data.planets[last_dss_info.planet_index],
+                        after_planet=self.bot.data.dss.planet,
                     )
                 last_dss_info.planet_index = self.bot.data.dss.planet.index
                 last_dss_info.save_changes()
                 new_updates = True
             for index, ta in enumerate(self.bot.data.dss.tactical_actions, 1):
-                ta: DSS.TacticalAction
                 old_status = getattr(last_dss_info, f"ta{index}_status")
                 if old_status != ta.status:
                     for embed in embeds.values():
@@ -170,6 +193,42 @@ class WarUpdatesCog(commands.Cog):
             self.bot.logger.info(
                 f"Sent war announcements out to {len(self.bot.interface_handler.news_feeds.channels_dict['Generic'])} channels"
             )
+            if need_to_update_sectors:
+                await to_thread(
+                    self.bot.maps.update_sectors, planets=self.bot.data.planets
+                )
+                self.bot.maps.update_waypoint_lines(planets=self.bot.data.planets)
+            self.bot.maps.update_assignment_tasks(
+                assignment=self.bot.data.assignment,
+                planets=self.bot.data.planets,
+                campaigns=self.bot.data.campaigns,
+            )
+            self.bot.maps.update_planets(
+                planets=self.bot.data.planets,
+                active_planets=[
+                    campaign.planet.index for campaign in self.bot.data.campaigns
+                ],
+            )
+            self.bot.maps.update_dss(dss=self.bot.data.dss)
+            for lang in self.bot.json_dict["languages"].values():
+                self.bot.maps.localize_map(
+                    language_code_short=lang["code"],
+                    language_code_long=lang["code_long"],
+                    planets=self.bot.data.planets,
+                    active_planets=[
+                        campaign.planet.index for campaign in self.bot.data.campaigns
+                    ],
+                    dss=self.bot.data.dss,
+                    planet_names_json=self.bot.json_dict["planets"],
+                )
+                message = await self.bot.waste_bin_channel.send(
+                    file=File(
+                        fp=self.bot.maps.FileLocations.localized_map_path(lang["code"])
+                    )
+                )
+                self.bot.maps.latest_maps[lang["code"]] = Maps.LatestMap(
+                    datetime.now(), message.attachments[0].url
+                )
 
     @campaign_check.before_loop
     async def before_campaign_check(self):
