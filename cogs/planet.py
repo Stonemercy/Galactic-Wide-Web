@@ -96,7 +96,7 @@ class PlanetCog(commands.Cog):
             fifteen_minutes_ago = datetime.now() - timedelta(minutes=15)
             latest_map = self.bot.maps.latest_maps.get(guild.language)
             if not latest_map or (
-                latest_map and latest_map.updated_at > fifteen_minutes_ago
+                latest_map and latest_map.updated_at < fifteen_minutes_ago
             ):
                 await self.bot.maps.update_base_map(
                     planets=self.bot.data.planets,
