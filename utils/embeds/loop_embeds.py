@@ -870,3 +870,17 @@ class GuildLeaveListenerEmbed(Embed, EmbedReprMixin):
                 ]:
                     features_text += f"-# - {feature.replace('_', ' ').capitalize()}\n"
             self.add_field(name="Features", value=features_text or "None", inline=False)
+
+
+class GuildsNotInDBLoopEmbed(Embed, EmbedReprMixin):
+    def __init__(self, guilds_to_remove: list[int]):
+        super().__init__(
+            title="Guilds in DB that don't have the bot installed",
+            colour=Colour.brand_red(),
+            description="These servers are in the database but not in the `self.bot.guilds` list.",
+        )
+        self.add_field(
+            name="Guilds:",
+            value="\n".join([str(guild_id) for guild_id in guilds_to_remove]),
+            inline=False,
+        )

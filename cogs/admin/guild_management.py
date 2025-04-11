@@ -3,7 +3,6 @@ from data.lists import locales_dict
 from datetime import datetime, timedelta, time
 from disnake import (
     ButtonStyle,
-    Colour,
     Embed,
     Guild,
     MessageInteraction,
@@ -16,6 +15,7 @@ from utils.embeds.loop_embeds import (
     BotDashboardLoopEmbed,
     GuildJoinListenerEmbed,
     GuildLeaveListenerEmbed,
+    GuildsNotInDBLoopEmbed,
 )
 from utils.interactables import AppDirectoryButton, GitHubButton, KoFiButton
 
@@ -143,17 +143,7 @@ class GuildManagementCog(commands.Cog):
                 ]:
                     self.guilds_to_remove.append(guild.id)
             if self.guilds_to_remove:
-                embed = Embed(  # Convert to proper embed in loop_embeds
-                    title="Servers in DB that don't have the bot installed",
-                    colour=Colour.brand_red(),
-                    description="These servers are in the PostgreSQL database but not in the `self.bot.guilds` list.",
-                ).add_field(
-                    name="Guilds:",
-                    value="\n".join(
-                        [str(guild_id) for guild_id in self.guilds_to_remove]
-                    ),
-                    inline=False,
-                )
+                embed = GuildsNotInDBLoopEmbed(guilds_to_remove=self.guilds_to_remove)
                 await self.bot.moderator_channel.send(
                     embed=embed,
                     components=[
