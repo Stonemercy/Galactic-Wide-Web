@@ -99,30 +99,6 @@ class AdminCommandsCog(commands.Cog):
     @commands.is_owner()
     @commands.slash_command(
         guild_ids=SUPPORT_SERVER_ID,
-        description="Get Data",
-        default_member_permissions=Permissions(administrator=True),
-    )
-    async def get_data(
-        self,
-        inter: AppCmdInter,
-    ):
-        await inter.send(
-            content=(
-                f"- Dashboard messages:\n  - Amount: {len(self.bot.interface_handler.dashboards)}\n\n"
-                f"- Announcement channels:\n  - Amount: {len(self.bot.interface_handler.news_feeds.channels_dict['Generic'])}\n\n"
-                f"- Patch Channels:\n  - Amount: {len(self.bot.interface_handler.news_feeds.channels_dict['Patch'])}\n\n"
-                f"- Major Order channels:\n  - Amount: {len(self.bot.interface_handler.news_feeds.channels_dict['MO'])}\n\n"
-                f"- Personal Order channels:\n  - Amount: {len(self.bot.interface_handler.news_feeds.channels_dict['PO'])}\n\n"
-                f"- Map messages:\n  - Amount: {len(self.bot.interface_handler.maps)}\n\n"
-                f"- Detailed Dispatches Channels:\n  - Amount: {len(self.bot.interface_handler.news_feeds.channels_dict['DetailedDispatches'])}"
-            ),
-            ephemeral=True,
-        )
-
-    @wait_for_startup()
-    @commands.is_owner()
-    @commands.slash_command(
-        guild_ids=SUPPORT_SERVER_ID,
         description="Restarts the bot",
         default_member_permissions=Permissions(administrator=True),
     )
@@ -141,18 +117,24 @@ class AdminCommandsCog(commands.Cog):
         description="Fake a guild adding the bot",
         default_member_permissions=Permissions(administrator=True),
     )
-    async def fake_on_guild_join(self, inter: AppCmdInter):
+    async def fake_event(
+        self, inter: AppCmdInter, event: str = commands.Param(choices=["guild_join"])
+    ):
         await inter.response.defer(ephemeral=True)
         self.bot.logger.critical(
             msg=f"{self.qualified_name} | /{inter.application_command.name} | used by <@{inter.author.id}> | @{inter.author.global_name}"
         )
-        fake_guild: Guild = sorted(
-            [guild for guild in self.bot.guilds if guild.member_count > 10000]
-        )[-1]
-        self.bot.dispatch(event_name="guild_join", guild=fake_guild)
-        await inter.send(
-            content=f"Faked guild join for {fake_guild.name}", ephemeral=True
-        )
+        match event:
+            case "guild_join":
+                fake_guild: Guild = sorted(
+                    [guild for guild in self.bot.guilds if guild.member_count > 5000]
+                )[-1]
+                self.bot.dispatch(event_name=event, guild=fake_guild)
+                await inter.send(
+                    content=f"Faked guild_join for {fake_guild.name}", ephemeral=True
+                )
+            case _:
+                await inter.send("Event not organsied", ephemeral=True)
 
 
 def setup(bot: GalacticWideWebBot):
