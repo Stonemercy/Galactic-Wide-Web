@@ -12,7 +12,7 @@ from disnake.ext import commands, tasks
 from disnake.ui import Button
 from main import GalacticWideWebBot
 from utils.db import BotDashboard, GWWGuild
-from utils.embeds.loop_embeds import BotDashboardLoopEmbed
+from utils.embeds.loop_embeds import BotDashboardLoopEmbed, GuildJoinListenerEmbed
 from utils.interactables import AppDirectoryButton, GitHubButton, KoFiButton
 
 
@@ -40,25 +40,7 @@ class GuildManagementCog(commands.Cog):
         else:
             language = locales_dict.get(guild.preferred_locale, "en")
             guild_in_db = GWWGuild.new(guild_id=guild.id, language=language)
-        embed = (  # Convert to proper embed in loop_embeds
-            Embed(title="New guild joined!", colour=Colour.brand_green())
-            .add_field(name="Name", value=guild.name, inline=False)
-            .add_field(name="Locale", value=guild.preferred_locale, inline=False)
-            .add_field(name="Users", value=guild.member_count, inline=False)
-            .add_field(
-                name="Big guild?",
-                value={True: "Yes", False: "No"}[guild.large],
-                inline=False,
-            )
-            .add_field(
-                name="Created",
-                value=f"<t:{int(guild.created_at.timestamp())}:R>",
-                inline=False,
-            )
-            .add_field(name="Owner", value=f"<@{guild.owner_id}>", inline=False)
-            .set_thumbnail(url=guild.icon.url if guild.icon else None)
-            .set_image(url=guild.banner.url if guild.banner else None)
-        )
+        embed = GuildJoinListenerEmbed(guild=guild)
         await self.bot.moderator_channel.send(embed=embed)
 
     @commands.Cog.listener()

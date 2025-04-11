@@ -1,4 +1,5 @@
 from datetime import datetime
+from random import choice
 from disnake import AppCmdInter, Guild, Permissions
 from disnake.ext import commands
 from main import GalacticWideWebBot
@@ -114,7 +115,7 @@ class AdminCommandsCog(commands.Cog):
     @commands.is_owner()
     @commands.slash_command(
         guild_ids=SUPPORT_SERVER_ID,
-        description="Fake a guild adding the bot",
+        description="Fake a event for the bot",
         default_member_permissions=Permissions(administrator=True),
     )
     async def fake_event(
@@ -126,12 +127,12 @@ class AdminCommandsCog(commands.Cog):
         )
         match event:
             case "guild_join":
-                fake_guild: Guild = sorted(
-                    [guild for guild in self.bot.guilds if guild.member_count > 5000]
-                )[-1]
+                fake_guild: Guild = choice(self.bot.guilds)
                 self.bot.dispatch(event_name=event, guild=fake_guild)
                 await inter.send(
-                    content=f"Faked guild_join for {fake_guild.name}", ephemeral=True
+                    content=f"Faked guild_join for {fake_guild.name}",
+                    ephemeral=True,
+                    delete_after=10,
                 )
             case _:
                 await inter.send("Event not organsied", ephemeral=True)

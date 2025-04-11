@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from datetime import datetime, timedelta
+from datetime import datetime
 from math import inf, sqrt
 from os import getpid
 from re import DOTALL, search
@@ -10,7 +10,7 @@ from data.lists import (
     stratagem_image_dict,
     stratagem_id_dict,
 )
-from disnake import Colour, Embed, OptionType
+from disnake import Colour, Embed, Guild, OptionType
 from utils.bot import GalacticWideWebBot
 from utils.data import (
     DSS,
@@ -712,3 +712,78 @@ class MeridiaLoopEmbed(Embed, EmbedReprMixin):
             f"{sqrt(meridia.locations[-1].x**2 + meridia.locations[-1].y**2) * 1000:.2f} SU",
             inline=False,
         )
+
+
+verification_dict = {
+    0: "No criteria set.",
+    1: "Member must have a verified email on their Discord account.",
+    2: "Member must have a verified email and be registered on Discord for more than five minutes.",
+    3: "Member must have a verified email, be registered on Discord for more than five minutes, and be a member of the guild itself for more than ten minutes.",
+    4: "Member must have a verified phone on their Discord account.",
+}
+
+
+class GuildJoinListenerEmbed(Embed, EmbedReprMixin):
+    def __init__(self, guild: Guild):
+        super().__init__(
+            title="Bot added to a new guild",
+            description=f"The bot has been added to **{guild.name}**",
+            colour=Colour.green(),
+        )
+        if guild.icon.url:
+            self.set_thumbnail(url=guild.icon.url)
+        if guild.banner:
+            self.set_image(url=guild.banner.url)
+        self.add_field(name="Guild ID", value=f"-# {guild.id}")
+        self.add_field(name="👑 Owner", value=f"<@{guild.owner_id}>")
+        if guild.vanity_url_code:
+            self.add_field(
+                name="Vanity URL code",
+                value=f"<https://discord.com/invite/{guild.vanity_url_code}>",
+                inline=False,
+            )
+        else:
+            self.add_field("", "", inline=False)
+        self.add_field(name="👥 Members", value=f"**{guild.member_count}**")
+        self.add_field(
+            name="Channels",
+            value=f"Text: **{len(guild.text_channels)}**\nVoice: **{len(guild.voice_channels)}**",
+        )
+        self.add_field(
+            name="Created On",
+            value=f"<t:{int(guild.created_at.timestamp())}:F>\n<t:{int(guild.created_at.timestamp())}:R>",
+            inline=False,
+        )
+        self.add_field(
+            name="Verification Level",
+            value=f"{str(guild.verification_level).capitalize()}\n-# {verification_dict[guild.verification_level.value]}",
+            inline=True,
+        )
+        self.add_field(name="🌐 Locale", value=guild.preferred_locale)
+        if guild.features:
+            features_text = ""
+            for feature in guild.features:
+                if feature in [
+                    "COMMUNITY",
+                    "CREATOR_MONETIZABLE",
+                    "CREATOR_MONETIZABLE_PROVISIONAL",
+                    "CREATOR_STORE_PAGE",
+                    "DEVELOPER_SUPPORT_SERVER",
+                    "DISCOVERABLE",
+                    "ENABLED_DISCOVERABLE_BEFORE",
+                    "FEATURABLE",
+                    "GUILD_HOME_TEST",
+                    "HAS_DIRECTORY_ENTRY",
+                    "HUB",
+                    "LINKED_TO_HUB",
+                    "NEWS",
+                    "PARTNERED",
+                    "ROLE_SUBSCRIPTIONS_AVAILABLE_FOR_PURCHASE",
+                    "ROLE_SUBSCRIPTIONS_ENABLED",
+                    "VANITY_URL",
+                    "VERIFIED",
+                    "VIP_REGIONS",
+                    "WELCOME_SCREEN_ENABLED",
+                ]:
+                    features_text += f"-# - {feature.replace('_', ' ').capitalize()}\n"
+            self.add_field(name="Features", value=features_text or "None", inline=False)
