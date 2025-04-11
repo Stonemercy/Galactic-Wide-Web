@@ -46,9 +46,10 @@ class HelpCog(commands.Cog):
         self.bot.logger.info(
             f"{self.qualified_name}, /{inter.application_command.name} <{command = }>"
         )
+        slash_commands = None
+        slash_command = None
         if command != "all":
             slash_command = self.bot.get_slash_command(command)
-            slash_commands = None
         else:
             slash_commands = (
                 self.bot.global_application_commands
@@ -59,7 +60,6 @@ class HelpCog(commands.Cog):
                     if command.contexts.private_channel
                 ]
             )
-            slash_command = None
         if not slash_command and not slash_commands:
             return await inter.send(
                 "That command was not found, please select from the list.",
