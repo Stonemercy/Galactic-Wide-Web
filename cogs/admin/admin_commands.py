@@ -119,18 +119,20 @@ class AdminCommandsCog(commands.Cog):
         default_member_permissions=Permissions(administrator=True),
     )
     async def fake_event(
-        self, inter: AppCmdInter, event: str = commands.Param(choices=["guild_join"])
+        self,
+        inter: AppCmdInter,
+        event: str = commands.Param(choices=["guild_join", "guild_remove"]),
     ):
         await inter.response.defer(ephemeral=True)
         self.bot.logger.critical(
             msg=f"{self.qualified_name} | /{inter.application_command.name} | used by <@{inter.author.id}> | @{inter.author.global_name}"
         )
         match event:
-            case "guild_join":
+            case "guild_join" | "guild_remove":
                 fake_guild: Guild = choice(self.bot.guilds)
                 self.bot.dispatch(event_name=event, guild=fake_guild)
                 await inter.send(
-                    content=f"Faked guild_join for {fake_guild.name}",
+                    content=f"Faked {event} for {fake_guild.name}",
                     ephemeral=True,
                     delete_after=10,
                 )
