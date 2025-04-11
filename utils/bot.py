@@ -10,7 +10,6 @@ from utils.interface_handler import InterfaceHandler
 from utils.maps import Maps
 
 MODERATOR_CHANNEL_ID = int(getenv(key="MODERATION_CHANNEL"))
-FEEDBACK_CHANNEL_ID = int(getenv(key="FEEDBACK_CHANNEL"))
 WASTE_BIN_CHANNEL_ID = int(getenv(key="WASTE_BIN_CHANNEL"))
 API_CHANGES_CHANNEL_ID = int(getenv(key="API_CHANGES_CHANNEL"))
 
@@ -38,7 +37,6 @@ class GalacticWideWebBot(commands.AutoShardedInteractionBot):
         self.previous_data: Data | None = None
         self.command_usage: dict = {}
         self.moderator_channel: TextChannel | None = None
-        self.feedback_channel: TextChannel | None = None
         self.waste_bin_channel: TextChannel | None = None
         self.api_changes_channel: TextChannel | None = None
         self.maps = Maps()
@@ -70,7 +68,6 @@ class GalacticWideWebBot(commands.AutoShardedInteractionBot):
         """Fetches the specific channels needed for the bots functions"""
         channel_dict = {
             "moderator_channel": MODERATOR_CHANNEL_ID,
-            "feedback_channel": FEEDBACK_CHANNEL_ID,
             "waste_bin_channel": WASTE_BIN_CHANNEL_ID,
             "api_changes_channel": API_CHANGES_CHANNEL_ID,
         }

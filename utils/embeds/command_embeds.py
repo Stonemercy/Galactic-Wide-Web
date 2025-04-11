@@ -430,19 +430,6 @@ class SetupCommandEmbed(Embed, EmbedReprMixin):
         )
 
 
-class FeedbackCommandEmbed(Embed, EmbedReprMixin):
-    def __init__(self, inter: ModalInteraction):
-        super().__init__(
-            title=inter.text_values["title"],
-            description=inter.text_values["description"],
-            colour=Colour.og_blurple(),
-        )
-        self.set_author(
-            name=inter.author.id,
-            icon_url=inter.author.avatar.url if inter.author.avatar != None else None,
-        )
-
-
 class SuperstoreCommandEmbed(Embed, EmbedReprMixin):
     def __init__(self, superstore: Superstore):
         super().__init__(title=f"Superstore Rotation", colour=Colour.blue())
