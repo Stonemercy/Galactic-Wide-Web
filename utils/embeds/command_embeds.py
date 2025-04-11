@@ -6,7 +6,7 @@ from data.lists import (
     stratagem_id_dict,
     stratagem_image_dict,
 )
-from disnake import APISlashCommand, Colour, Embed, File, ModalInteraction, OptionType
+from disnake import APISlashCommand, Colour, Embed, File, OptionType
 from utils.data import (
     DarkEnergy,
     PersonalOrder,
