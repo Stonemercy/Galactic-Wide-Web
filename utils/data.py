@@ -276,9 +276,10 @@ class Data(ReprMixin):
             )
 
         if self.__data__["dispatches"]:
-            self.dispatch: Dispatch = Dispatch(
-                raw_dispatch_data=self.__data__["dispatches"][0]
-            )
+            self.dispatches: list[Dispatch] = [
+                Dispatch(raw_dispatch_data=data)
+                for data in self.__data__["dispatches"][:10][::-1]
+            ]
 
         if self.__data__["thumbnails"]:
             self.thumbnails = self.__data__["thumbnails"]

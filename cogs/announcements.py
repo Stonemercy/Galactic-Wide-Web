@@ -88,21 +88,23 @@ class AnnouncementsCog(commands.Cog):
         ):
             return
         last_dispatch = Dispatch()
-        if last_dispatch.id != self.bot.data.dispatch.id:
-            if self.bot.data.dispatch.message == "":
-                return
-            embeds = {
-                lang: DispatchesLoopEmbed(
-                    self.bot.json_dict["languages"][lang], self.bot.data.dispatch
+        for dispatch in self.bot.data.dispatches:
+            if last_dispatch.id < dispatch.id:
+                if len(dispatch.message) < 25:
+                    continue
+                embeds = {
+                    lang: DispatchesLoopEmbed(
+                        self.bot.json_dict["languages"][lang], dispatch
+                    )
+                    for lang in list({guild.language for guild in GWWGuild.get_all()})
+                }
+                await self.bot.interface_handler.send_news("Generic", embeds)
+                last_dispatch.id = dispatch.id
+                last_dispatch.save_changes()
+                self.bot.logger.info(
+                    f"Sent generic announcements out to {len(self.bot.interface_handler.news_feeds.channels_dict['Generic'])} channels"
                 )
-                for lang in list({guild.language for guild in GWWGuild.get_all()})
-            }
-            await self.bot.interface_handler.send_news("Generic", embeds)
-            last_dispatch.id = self.bot.data.dispatch.id
-            last_dispatch.save_changes()
-            self.bot.logger.info(
-                f"Sent generic announcements out to {len(self.bot.interface_handler.news_feeds.channels_dict['Generic'])} channels"
-            )
+                return
 
     @dispatch_check.before_loop
     async def before_dispatch_check(self):
