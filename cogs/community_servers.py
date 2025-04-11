@@ -13,6 +13,10 @@ class CommunityServersCog(commands.Cog):
     @commands.slash_command(
         description="Get all community servers and their invite links",
         default_member_permissions=Permissions(administrator=True),
+        extras={
+            "long_description": "Returns a list of as many servers the bot can send in one message. These servers are listed as Communities and have a vanity link.",
+            "example_usage": '**`/community_servers`** returns a list of every server the bot is on that is listed as "Community" and has a custom invite URL.',
+        },
     )
     async def community_servers(self, inter: AppCmdInter):
         await inter.response.defer(ephemeral=True)
