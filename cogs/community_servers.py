@@ -33,7 +33,7 @@ class CommunityServersCog(commands.Cog):
         )
         guilds_text = "# Community Servers\n"
         for index, guild in enumerate(communities_with_links, start=1):
-            if len(guilds_text) < 1900:
+            if len(guilds_text) < 1800:
                 guilds_text += f"\n-# {index}. [{guild.name}](<https://discord.com/invite/{guild.vanity_url_code}>)"
             else:
                 guilds_text += (
