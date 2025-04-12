@@ -328,7 +328,7 @@ class SetupCog(commands.Cog):
                     if message.guild.id != inter.guild_id
                 ]
                 self.reset_row_1(action_rows[0])
-                await inter.response.edit_message(
+                await inter.edit_original_response(
                     embed=SetupCommandEmbed(
                         guild, self.bot.json_dict["languages"][guild.language]
                     ),
