@@ -91,6 +91,7 @@ class MeridiaCog(commands.Cog):
         fig.patch.set_facecolor("black")
         ax.set_facecolor("black")
         ax.imshow(map_img, extent=[0, 2000, 0, 2000])
+        map_img.close()
         ax.set_xlim(x_min, x_max)
         ax.set_ylim(y_min, y_max)
         ax.plot(x, y, "o", color=(0.5, 0, 0.5), label="Coordinates")
