@@ -1,6 +1,9 @@
+from datetime import datetime, timedelta
 from disnake import (
     AppCmdInter,
     ButtonStyle,
+    Colour,
+    Embed,
     File,
     MessageInteraction,
     NotFound,
@@ -729,19 +732,57 @@ class SetupCog(commands.Cog):
                 self.clear_extra_buttons(action_rows)
                 self.reset_row_1(action_rows[0])
                 await inter.edit_original_response(components=action_rows)
-                await inter.send(
-                    "Generating map, please wait...", delete_after=10, ephemeral=True
-                )
-                map = Maps(
-                    data=self.bot.data,
-                    waste_bin_channel=self.bot.waste_bin_channel,
-                    planet_names_json=self.bot.json_dict["planets"],
-                    languages_json_list=[guild_language],
-                )
-                await map.localize()
-                message = await map_channel.send(
-                    embed=map.embeds[guild.language],
-                )
+                latest_map = self.bot.maps.latest_maps.get(guild.language, None)
+                fifteen_minutes_ago = datetime.now() - timedelta(minutes=15)
+                if latest_map and latest_map.updated_at > fifteen_minutes_ago:
+                    message = await map_channel.send(
+                        embed=Embed(colour=Colour.dark_embed())
+                        .set_image(url=latest_map.map_link)
+                        .add_field(
+                            "", f"-# Updated <t:{int(datetime.now().timestamp())}:R>"
+                        ),
+                    )
+                else:
+                    await inter.send(
+                        "Generating map, please wait...",
+                        delete_after=12,
+                        ephemeral=True,
+                    )
+                    await self.bot.maps.update_base_map(
+                        planets=self.bot.data.planets,
+                        assignment=self.bot.data.assignment,
+                        campaigns=self.bot.data.campaigns,
+                        dss=self.bot.data.dss,
+                    )
+                    self.bot.maps.localize_map(
+                        language_code_short=guild_language["code"],
+                        language_code_long=guild_language["code_long"],
+                        planets=self.bot.data.planets,
+                        active_planets=[
+                            campaign.planet.index
+                            for campaign in self.bot.data.campaigns
+                        ],
+                        dss=self.bot.data.dss,
+                        planet_names_json=self.bot.json_dict["planets"],
+                    )
+                    message = await self.bot.waste_bin_channel.send(
+                        file=File(
+                            fp=self.bot.maps.FileLocations.localized_map_path(
+                                guild_language["code"]
+                            )
+                        )
+                    )
+                    self.bot.maps.latest_maps[guild_language["code"]] = Maps.LatestMap(
+                        datetime.now(), message.attachments[0].url
+                    )
+                    latest_map = self.bot.maps.latest_maps[guild_language["code"]]
+                    message = await map_channel.send(
+                        embed=Embed(colour=Colour.dark_embed())
+                        .set_image(url=latest_map.map_link)
+                        .add_field(
+                            "", f"-# Updated <t:{int(datetime.now().timestamp())}:R>"
+                        ),
+                    )
                 guild.map_channel_id = map_channel.id
                 guild.map_message_id = message.id
                 guild.save_changes()
