@@ -39,29 +39,27 @@ class MapCog(commands.Cog):
             pass
         map_embeds = {
             code: Embed(colour=Colour.dark_embed())
-            for code in self.bot.json_dict["languages"].keys()
+            for code in self.bot.json_dict["languages"]
         }
         fifteen_minutes_ago = datetime.now() - timedelta(minutes=15)
-        requirements_met = not all(
+        need_to_update_maps = not all(
             [
-                code in self.bot.maps.latest_maps.keys()
+                code in self.bot.maps.latest_maps
                 and self.bot.maps.latest_maps[code].updated_at > fifteen_minutes_ago
-                for code in self.bot.json_dict["languages"].keys()
+                for code in self.bot.json_dict["languages"]
             ]
         )
-        if requirements_met:
+        if need_to_update_maps:
             await self.bot.maps.update_base_map(
                 planets=self.bot.data.planets,
                 assignment=self.bot.data.assignment,
                 campaigns=self.bot.data.campaigns,
                 dss=self.bot.data.dss,
             )
-        for language_code, embed in map_embeds.items():
-            latest_map = self.bot.maps.latest_maps.get(language_code, None)
-            if not latest_map:
+            for language_code, embed in map_embeds.items():
                 language_json = self.bot.json_dict["languages"][language_code]
                 self.bot.maps.localize_map(
-                    language_code_short=language_json["code"],
+                    language_code_short=language_code,
                     language_code_long=language_json["code_long"],
                     planets=self.bot.data.planets,
                     active_planets=[
@@ -72,15 +70,14 @@ class MapCog(commands.Cog):
                 )
                 message = await self.bot.waste_bin_channel.send(
                     file=File(
-                        fp=self.bot.maps.FileLocations.localized_map_path(
-                            language_json["code"]
-                        )
+                        fp=self.bot.maps.FileLocations.localized_map_path(language_code)
                     )
                 )
-                self.bot.maps.latest_maps[language_json["code"]] = Maps.LatestMap(
+                self.bot.maps.latest_maps[language_code] = Maps.LatestMap(
                     datetime.now(), message.attachments[0].url
                 )
-                latest_map = self.bot.maps.latest_maps[language_json["code"]]
+        for language_code, embed in map_embeds.items():
+            latest_map = self.bot.maps.latest_maps[language_code]
             embed.set_image(url=latest_map.map_link)
             embed.add_field("", f"-# Updated <t:{int(datetime.now().timestamp())}:R>")
         await self.bot.interface_handler.edit_maps(map_dict=map_embeds)
