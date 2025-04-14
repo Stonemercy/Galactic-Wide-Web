@@ -197,6 +197,14 @@ class Dashboards(list):
                     f"Dashboards.populate() ERROR | {e} | {guild.id = }"
                 )
 
+    def remove_entry(self, guild_id_to_remove: int):
+        messages_to_remove = [
+            message for message in self.copy() if message.guild.id == guild_id_to_remove
+        ]
+        for message in messages_to_remove:
+            if message in self:
+                self.remove(message)
+
 
 class NewsFeeds:
     """All NewsFeeds configured"""
@@ -259,6 +267,17 @@ class NewsFeeds:
         self.__personal_order_channels__.clear()
         self.__detailed_dispatches_channels__.clear()
 
+    def remove_entry(self, guild_id_to_remove: int):
+        for channel_type, list_of_channels in self.channels_dict.copy().items():
+            channels_to_remove = [
+                channel
+                for channel in list_of_channels
+                if channel.guild.id == guild_id_to_remove
+            ]
+            for channel in channels_to_remove:
+                if channel in self.channels_dict[channel_type]:
+                    self.channels_dict[channel_type].remove(channel)
+
 
 class Maps(list):
     """A list of all Maps configured"""
@@ -285,3 +304,11 @@ class Maps(list):
                 )
             except Exception as e:
                 self.bot.logger.error(f"Maps.populate() ERROR | {e} | {guild.id = }")
+
+    def remove_entry(self, guild_id_to_remove: int):
+        messages_to_remove = [
+            message for message in self.copy() if message.guild.id == guild_id_to_remove
+        ]
+        for message in messages_to_remove:
+            if message in self:
+                self.remove(message)

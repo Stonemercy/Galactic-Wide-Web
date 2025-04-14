@@ -64,6 +64,21 @@ class GWWGuild(ReprMixin):
         e.g. `en` becomes `English`"""
         return {v: k for k, v in language_dict.items()}[self.language]
 
+    @property
+    def ids_in_use(self) -> list[int]:
+        return [
+            id
+            for id in [
+                self.id,
+                self.announcement_channel_id,
+                self.dashboard_channel_id,
+                self.dashboard_message_id,
+                self.map_channel_id,
+                self.map_message_id,
+            ]
+            if id != 0
+        ]
+
     @classmethod
     def get_by_id(cls, guild_id: int) -> Self | None:
         """Get a guild from the DB by their guild ID"""
@@ -114,6 +129,23 @@ class GWWGuild(ReprMixin):
             with conn.cursor() as curs:
                 curs.execute(query=f"DELETE FROM guilds WHERE guild_id = {guild_id}")
                 conn.commit()
+
+    def reset(self) -> None:
+        """Reset this entry to default"""
+        with connect(
+            host=hostname, dbname=database, user=username, password=pwd, port=port_id
+        ) as conn:
+            with conn.cursor() as curs:
+                self.dashboard_channel_id = 0
+                self.dashboard_message_id = 0
+                self.announcement_channel_id = 0
+                self.patch_notes = False
+                self.map_channel_id = 0
+                self.map_message_id = 0
+                self.major_order_updates = False
+                self.personal_order_updates = False
+                self.detailed_dispatches = False
+                self.save_changes()
 
     def save_changes(self) -> None:
         """Save any changes made to this entry"""

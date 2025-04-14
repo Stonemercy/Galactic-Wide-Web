@@ -6,6 +6,7 @@ from main import GalacticWideWebBot
 from os import execv, getenv
 from sys import argv, executable
 from utils.checks import wait_for_startup
+from utils.db import GWWGuild
 
 
 SUPPORT_SERVER_ID = [int(getenv("SUPPORT_SERVER"))]
@@ -138,6 +139,56 @@ class AdminCommandsCog(commands.Cog):
                 )
             case _:
                 await inter.send("Event not organsied", ephemeral=True)
+
+    @wait_for_startup()
+    @commands.is_owner()
+    @commands.slash_command(
+        guild_ids=SUPPORT_SERVER_ID,
+        description="Reset a guild in the DB",
+        default_member_permissions=Permissions(administrator=True),
+    )
+    async def reset_guild(
+        self, inter: AppCmdInter, id_to_check: int = commands.Param(large=True)
+    ):
+        await inter.response.defer(ephemeral=True)
+        self.bot.logger.critical(
+            msg=f"{self.qualified_name} | /{inter.application_command.name} <{id_to_check = } | used by <@{inter.author.id}> | @{inter.author.global_name}"
+        )
+        all_guilds = GWWGuild.get_all()
+        for guild in all_guilds:
+            if id_to_check in guild.ids_in_use:
+                try:
+                    self.bot.interface_handler.dashboards.remove_entry(
+                        guild_id_to_remove=guild.id
+                    )
+                    self.bot.interface_handler.maps.remove_entry(
+                        guild_id_to_remove=guild.id
+                    )
+                    self.bot.interface_handler.news_feeds.remove_entry(
+                        guild_id_to_remove=guild.id
+                    )
+                except:
+                    pass
+                guild.reset()
+                await inter.send(
+                    f"Successfully reset guild with ID {guild.id}", ephemeral=True
+                )
+                guild_in_discord = self.bot.get_guild(
+                    guild.id
+                ) or await self.bot.fetch_guild(guild.id)
+                if guild_in_discord:
+                    guild_owner = (
+                        guild_in_discord.owner
+                        if guild_in_discord.owner
+                        else self.bot.get_user(guild_in_discord.owner_id)
+                        or await self.bot.fetch_user(guild_in_discord.owner_id)
+                    )
+                    if guild_owner:
+                        await guild_owner.send(
+                            "Unfortunately there was an error on our end that resulted in your server settings (for this bot) being reset."
+                        )
+                return
+        await inter.send(f"Didn't find a guild with `{id_to_check}` in it's ID's")
 
 
 def setup(bot: GalacticWideWebBot):
