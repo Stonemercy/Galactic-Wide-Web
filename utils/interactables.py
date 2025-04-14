@@ -269,3 +269,25 @@ class Setup:
                     self.emoji = "✅"
                 else:
                     self.emoji = "❌"
+
+
+class CommunityServers:
+    class PreviousPageButton(Button):
+        def __init__(self, disabled: bool = False):
+            super().__init__(
+                style=ButtonStyle.green,
+                label="Previous Page",
+                custom_id="CommunityServerPreviousPageButton",
+                emoji=Emojis.Stratagems.left,
+                disabled=disabled,
+            )
+
+    class NextPageButton(Button):
+        def __init__(self, disabled: bool = False):
+            super().__init__(
+                style=ButtonStyle.green,
+                label="Next Page",
+                custom_id="CommunityServerNextPageButton",
+                emoji=Emojis.Stratagems.right,
+                disabled=disabled,
+            )

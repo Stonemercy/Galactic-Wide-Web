@@ -6,7 +6,7 @@ from data.lists import (
     stratagem_id_dict,
     stratagem_image_dict,
 )
-from disnake import APISlashCommand, Colour, Embed, File, OptionType
+from disnake import APISlashCommand, Colour, Embed, File, Guild, OptionType
 from utils.data import (
     DarkEnergy,
     PersonalOrder,
@@ -643,3 +643,41 @@ class SteamCommandEmbed(Embed, EmbedReprMixin):
                 "head_here"
             ].format(url=steam.url)
         self.description = steam.content
+
+
+class CommunityServersCommandEmbed(Embed, EmbedReprMixin):
+    def __init__(self, guilds: list[Guild], language_json: dict, new_index: int):
+        super().__init__(
+            title="Community Servers",
+            colour=Colour.blue(),
+            description=f"The GWW is in **{len(guilds)}** community servers",
+        )
+        for index, guild in enumerate(
+            guilds[new_index - 16 : new_index], start=max(1, new_index - 15)
+        ):
+            if self.character_count() < 6000 and len(self.fields) < 24:
+                self.add_field(
+                    name=f"{index}. {guild.name}",
+                    value=f"Members: **{guild.member_count}**\nInvite: [Link](<https://discord.com/invite/{guild.vanity_url_code}>)",
+                )
+                if index % 2 == 0:
+                    self.add_field("", "", inline=False)
+            else:
+                break
+        self.set_footer(text=f"{max(0, new_index)}/{len(guilds)}")
+
+    def character_count(self):
+        total_characters = 0
+        if self.title:
+            total_characters += len(self.title.strip())
+        if self.description:
+            total_characters += len(self.description.strip())
+        if self.footer:
+            total_characters += len(self._footer.get("text", "").strip())
+        if self.author:
+            total_characters += len(self._author.get("name", "").strip())
+        if self.fields:
+            for field in self.fields:
+                total_characters += len(field.name.strip())
+                total_characters += len(field.value.strip())
+        return total_characters

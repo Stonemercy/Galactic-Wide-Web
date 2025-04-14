@@ -1,7 +1,10 @@
-from disnake import AppCmdInter, Permissions
+from disnake import AppCmdInter, Guild, MessageInteraction, NotFound
 from disnake.ext import commands
 from main import GalacticWideWebBot
 from utils.checks import wait_for_startup
+from utils.db import GWWGuild
+from utils.embeds.command_embeds import CommunityServersCommandEmbed
+from utils.interactables import CommunityServers
 
 
 class CommunityServersCog(commands.Cog):
@@ -9,7 +12,6 @@ class CommunityServersCog(commands.Cog):
         self.bot = bot
 
     @wait_for_startup()
-    @commands.is_owner()
     @commands.slash_command(
         description="Get all community servers and their invite links",
         extras={
@@ -22,7 +24,29 @@ class CommunityServersCog(commands.Cog):
         self.bot.logger.critical(
             msg=f"{self.qualified_name} | /{inter.application_command.name} | used by <@{inter.author.id}> | @{inter.author.global_name}"
         )
-        communities_with_links = sorted(
+        if inter.guild:
+            guild = GWWGuild.get_by_id(inter.guild_id)
+            if not guild:
+                self.bot.logger.error(
+                    msg=f"Guild {inter.guild_id} - {inter.guild.name} - had the bot installed but wasn't found in the DB"
+                )
+                guild = GWWGuild.new(inter.guild_id)
+        else:
+            guild = GWWGuild.default()
+        embed = CommunityServersCommandEmbed(
+            guilds=self.communities_with_links,
+            language_json=self.bot.json_dict["languages"][guild.language],
+            new_index=16,
+        )
+        components = [
+            CommunityServers.PreviousPageButton(disabled=True),
+            CommunityServers.NextPageButton(),
+        ]
+        await inter.send(embed=embed, components=components, ephemeral=True)
+
+    @property
+    def communities_with_links(self) -> list[Guild]:
+        return sorted(
             [
                 guild
                 for guild in self.bot.guilds
@@ -31,16 +55,68 @@ class CommunityServersCog(commands.Cog):
             key=lambda guild: guild.member_count,
             reverse=True,
         )
-        guilds_text = "# Community Servers\n"
-        for index, guild in enumerate(communities_with_links, start=1):
-            if len(guilds_text) < 1800:
-                guilds_text += f"\n-# {index}. [{guild.name}](<https://discord.com/invite/{guild.vanity_url_code}>)"
-            else:
-                guilds_text += (
-                    f"\nThese are the top {index-1} community servers this bot is in"
+
+    @commands.Cog.listener("on_button_click")
+    async def on_button_clicks(self, inter: MessageInteraction):
+        if inter.component.custom_id not in (
+            "CommunityServerPreviousPageButton",
+            "CommunityServerNextPageButton",
+        ):
+            return
+        await inter.response.defer()
+        guild = GWWGuild.get_by_id(inter.guild_id)
+        # guild_language = self.bot.json_dict["languages"][guild.language]
+        match inter.component.custom_id:
+            case "CommunityServerPreviousPageButton":
+                index = int(inter.message.embeds[0].footer.text.split("/")[0])
+                new_index = max(16, index - 16)
+                print(f"{new_index = }")
+                embed = CommunityServersCommandEmbed(
+                    guilds=self.communities_with_links,
+                    language_json=self.bot.json_dict["languages"][guild.language],
+                    new_index=new_index,
                 )
-                break
-        await inter.send(content=guilds_text, ephemeral=True)
+                components = [
+                    CommunityServers.PreviousPageButton(disabled=new_index <= 16),
+                    CommunityServers.NextPageButton(),
+                ]
+                try:
+                    await inter.edit_original_response(
+                        embed=embed, components=components
+                    )
+                    return
+                except NotFound:
+                    await inter.send(
+                        "There was an issue editing the setup message. Your settings have been saved so just use the command again!\nApologies for the inconvenience",
+                        ephemeral=True,
+                    )
+                    return
+            case "CommunityServerNextPageButton":
+                index = int(inter.message.embeds[0].footer.text.split("/")[0])
+                new_index = min(len(self.communities_with_links), index + 16)
+                print(f"{new_index = }")
+                embed = CommunityServersCommandEmbed(
+                    guilds=self.communities_with_links,
+                    language_json=self.bot.json_dict["languages"][guild.language],
+                    new_index=new_index,
+                )
+                components = [
+                    CommunityServers.PreviousPageButton(),
+                    CommunityServers.NextPageButton(
+                        disabled=new_index >= len(self.communities_with_links)
+                    ),
+                ]
+                try:
+                    await inter.edit_original_response(
+                        embed=embed, components=components
+                    )
+                    return
+                except NotFound:
+                    await inter.send(
+                        "There was an issue editing the setup message. Your settings have been saved so just use the command again!\nApologies for the inconvenience",
+                        ephemeral=True,
+                    )
+                    return
 
 
 def setup(bot: GalacticWideWebBot):
