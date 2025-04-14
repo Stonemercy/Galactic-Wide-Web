@@ -155,7 +155,7 @@ class AdminCommandsCog(commands.Cog):
     ):
         await inter.response.defer(ephemeral=True)
         self.bot.logger.critical(
-            msg=f"{self.qualified_name} | /{inter.application_command.name} <{id_to_check = } | used by <@{inter.author.id}> | @{inter.author.global_name}"
+            msg=f"{self.qualified_name} | /{inter.application_command.name} <{id_to_check = }> | used by <@{inter.author.id}> | @{inter.author.global_name}"
         )
         all_guilds = GWWGuild.get_all()
         for guild in all_guilds:
