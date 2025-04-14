@@ -148,7 +148,10 @@ class AdminCommandsCog(commands.Cog):
         default_member_permissions=Permissions(administrator=True),
     )
     async def reset_guild(
-        self, inter: AppCmdInter, id_to_check: int = commands.Param(large=True)
+        self,
+        inter: AppCmdInter,
+        id_to_check: int = commands.Param(large=True),
+        reason: str = commands.Param(default="No reason given"),
     ):
         await inter.response.defer(ephemeral=True)
         self.bot.logger.critical(
@@ -185,7 +188,7 @@ class AdminCommandsCog(commands.Cog):
                     )
                     if guild_owner:
                         await guild_owner.send(
-                            "Unfortunately there was an error on our end that resulted in your server settings (for this bot) being reset."
+                            f"Unfortunately there was an error on our end that resulted in your server settings (for this bot) being reset.\nReason:\n-# {reason}"
                         )
                 return
         await inter.send(f"Didn't find a guild with `{id_to_check}` in it's ID's")
