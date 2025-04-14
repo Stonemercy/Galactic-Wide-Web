@@ -1,4 +1,4 @@
-from disnake import AppCmdInter, InteractionContextTypes, ApplicationInstallTypes
+from disnake import AppCmdInter, Embed, InteractionContextTypes, ApplicationInstallTypes
 from disnake.ext import commands
 from main import GalacticWideWebBot
 from utils.checks import wait_for_startup
@@ -91,7 +91,7 @@ class WarfrontCog(commands.Cog):
             with_health_bars=True,
             gambit_planets=gambit_planets,
         )
-        embeds = [defence_embed, attack_embed]
+        embeds: list[Embed] = [defence_embed, attack_embed]
         for embed in embeds.copy():
             if len(embed.fields) == 0:
                 embeds.remove(embed)
