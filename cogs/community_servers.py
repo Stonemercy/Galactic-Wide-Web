@@ -30,6 +30,7 @@ class CommunityServersCog(commands.Cog):
                 if "COMMUNITY" in guild.features and guild.vanity_url_code
             ],
             key=lambda guild: guild.member_count,
+            reverse=True,
         )
         guilds_text = "# Community Servers\n"
         for index, guild in enumerate(communities_with_links, start=1):
