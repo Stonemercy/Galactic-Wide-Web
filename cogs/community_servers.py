@@ -93,7 +93,6 @@ class CommunityServersCog(commands.Cog):
             case "CommunityServerNextPageButton":
                 index = int(inter.message.embeds[0].footer.text.split("/")[0])
                 new_index = min(len(self.communities_with_links), index + 16)
-                print(f"{new_index = }")
                 embed = CommunityServersCommandEmbed(
                     guilds=self.communities_with_links,
                     language_json=self.bot.json_dict["languages"][guild.language],
