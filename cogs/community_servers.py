@@ -21,8 +21,8 @@ class CommunityServersCog(commands.Cog):
     )
     async def community_servers(self, inter: AppCmdInter):
         await inter.response.defer(ephemeral=True)
-        self.bot.logger.critical(
-            msg=f"{self.qualified_name} | /{inter.application_command.name} | used by <@{inter.author.id}> | @{inter.author.global_name}"
+        self.bot.logger.info(
+            msg=f"{self.qualified_name} | /{inter.application_command.name}"
         )
         if inter.guild:
             guild = GWWGuild.get_by_id(inter.guild_id)
