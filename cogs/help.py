@@ -44,7 +44,7 @@ class HelpCog(commands.Cog):
     ):
         await inter.response.defer(ephemeral=public != "Yes")
         self.bot.logger.info(
-            f"{self.qualified_name}, /{inter.application_command.name} <{command = }>"
+            f"{self.qualified_name} | /{inter.application_command.name} <{command = }>"
         )
         slash_commands = None
         slash_command = None

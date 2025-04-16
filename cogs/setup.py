@@ -668,7 +668,6 @@ class SetupCog(commands.Cog):
                     ephemeral=True,
                 )
                 return
-
             my_permissions = announcement_channel.permissions_for(inter.guild.me)
             annnnouncement_perms_have = my_permissions.is_superset(
                 self.annnnouncement_perms_needed
