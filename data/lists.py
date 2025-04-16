@@ -23,8 +23,6 @@ Example:
 """
 
 locales_dict = {
-    Locale.en_GB: "en",
-    Locale.en_US: "en",
     Locale.fr: "fr",
     Locale.de: "de",
     Locale.it: "it",
