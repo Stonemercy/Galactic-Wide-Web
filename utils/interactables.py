@@ -142,7 +142,11 @@ class Setup:
                     placeholder=language_json["setup"]["buttons"][
                         "announcements_channel_select"
                     ],
-                    channel_types=[ChannelType.text, ChannelType.news],
+                    channel_types=[
+                        ChannelType.text,
+                        ChannelType.news,
+                        ChannelType.public_thread,
+                    ],
                 )
 
         class ClearAnnouncementsButton(Button):
