@@ -1,4 +1,4 @@
-from aiohttp import ClientSession
+from aiohttp import ClientSession, ClientSSLError
 from asyncio import sleep
 from copy import deepcopy
 from datetime import datetime, timedelta
@@ -73,108 +73,106 @@ class Data(ReprMixin):
                 "X-Super-Contact": "Stonemercy",
             }
         ) as session:
-            async with session.get(url=f"{api_to_use}") as r:
-                if r.status != 200:
-                    api_to_use = backup_api
-                    logger.critical(msg="API/USING BACKUP")
-                    await moderator_channel.send(content=f"API/USING BACKUP\n{r}")
+            try:
+                async with session.get(url=f"{api_to_use}") as r:
+                    if r.status != 200:
+                        api_to_use = backup_api
+                        logger.critical(msg="API/USING BACKUP")
+                        await moderator_channel.send(content=f"API/USING BACKUP\n{r}")
+            except ClientSSLError as e:
+                print(e)
 
-                for endpoint in list(self.__data__.keys()):
-                    if endpoint == "thumbnails":
-                        async with session.get(
-                            url="https://helldivers.news/api/planets"
-                        ) as r:
-                            if r.status == 200:
-                                self.__data__[endpoint] = await r.json()
-                            else:
-                                logger.error(msg=f"API/THUMBNAILS, {r.status}")
-                        continue
-                    if endpoint == "superstore":
-                        continue
-                        async with session.get(
-                            url="https://api.diveharder.com/v1/store_rotation"
-                        ) as r:
-                            if r.status == 200:
-                                self.__data__[endpoint] = await r.json()
-                            else:
-                                logger.error(msg=f"API/SUPERSTORE, {r.status}")
-                        continue
-                    if endpoint == "dss":
-                        async with session.get(
-                            url="https://api.diveharder.com/raw/dss"
-                        ) as r:
-                            if r.status == 200:
-                                data = await r.json()
-                                if data == "Error":
-                                    self.__data__[endpoint] = data
-                                    continue
-                                if type(data[0]) == str:
-                                    logger.error(msg=f"API/DSS, {data[0] = }")
-                                    continue
-                                tactical_actions = data[0].get("tacticalActions", None)
-                                if tactical_actions:
-                                    names_present = tactical_actions[0].get(
-                                        "name", None
-                                    )
-                                    if not names_present:
-                                        logger.error(
-                                            msg=f"API/DSS, Tactical Action has no name"
-                                        )
-                                        continue
-                                self.__data__[endpoint] = data[0]
-                            else:
-                                logger.error(msg=f"API/DSS, {r.status}")
-                        continue
-                    if endpoint == "personal_order":
-                        continue
-                        async with session.get(
-                            url="https://api.diveharder.com/v1/personal_order"
-                        ) as r:
-                            if r.status == 200:
-                                data = await r.json()
-                                self.__data__[endpoint] = data[-1]
-                            elif r.status == 204:
-                                continue
-                            else:
-                                logger.error(msg=f"API/Personal_Order, {r.status}")
-                        continue
-                    if endpoint == "status":
-                        async with session.get(
-                            url="https://api.diveharder.com/raw/status"
-                        ) as r:
-                            if r.status == 200:
-                                data = await r.json()
+            for endpoint in list(self.__data__.keys()):
+                if endpoint == "thumbnails":
+                    async with session.get(
+                        url="https://helldivers.news/api/planets"
+                    ) as r:
+                        if r.status == 200:
+                            self.__data__[endpoint] = await r.json()
+                        else:
+                            logger.error(msg=f"API/THUMBNAILS, {r.status}")
+                    continue
+                if endpoint == "superstore":
+                    continue
+                    async with session.get(
+                        url="https://api.diveharder.com/v1/store_rotation"
+                    ) as r:
+                        if r.status == 200:
+                            self.__data__[endpoint] = await r.json()
+                        else:
+                            logger.error(msg=f"API/SUPERSTORE, {r.status}")
+                    continue
+                if endpoint == "dss":
+                    async with session.get(
+                        url="https://api.diveharder.com/raw/dss"
+                    ) as r:
+                        if r.status == 200:
+                            data = await r.json()
+                            if data == "Error":
                                 self.__data__[endpoint] = data
-                            else:
-                                logger.error(msg=f"API/Status, {r.status}")
-                        continue
+                                continue
+                            if type(data[0]) == str:
+                                logger.error(msg=f"API/DSS, {data[0] = }")
+                                continue
+                            tactical_actions = data[0].get("tacticalActions", None)
+                            if tactical_actions:
+                                names_present = tactical_actions[0].get("name", None)
+                                if not names_present:
+                                    logger.error(
+                                        msg=f"API/DSS, Tactical Action has no name"
+                                    )
+                                    continue
+                            self.__data__[endpoint] = data[0]
+                        else:
+                            logger.error(msg=f"API/DSS, {r.status}")
+                    continue
+                if endpoint == "personal_order":
+                    continue
+                    async with session.get(
+                        url="https://api.diveharder.com/v1/personal_order"
+                    ) as r:
+                        if r.status == 200:
+                            data = await r.json()
+                            self.__data__[endpoint] = data[-1]
+                        elif r.status == 204:
+                            continue
+                        else:
+                            logger.error(msg=f"API/Personal_Order, {r.status}")
+                    continue
+                if endpoint == "status":
+                    async with session.get(
+                        url="https://api.diveharder.com/raw/status"
+                    ) as r:
+                        if r.status == 200:
+                            data = await r.json()
+                            self.__data__[endpoint] = data
+                        else:
+                            logger.error(msg=f"API/Status, {r.status}")
+                    continue
 
-                    try:
-                        async with session.get(
-                            url=f"{api_to_use}/api/v1/{endpoint}"
-                        ) as r:
-                            if r.status == 200:
-                                json = await r.json()
-                                if endpoint == "dispatches":
-                                    if not json[0]["message"]:
+                try:
+                    async with session.get(url=f"{api_to_use}/api/v1/{endpoint}") as r:
+                        if r.status == 200:
+                            json = await r.json()
+                            if endpoint == "dispatches":
+                                if not json[0]["message"]:
+                                    continue
+                            elif endpoint == "assignments":
+                                if json not in ([], None):
+                                    if not json[0]["briefing"]:
                                         continue
-                                elif endpoint == "assignments":
-                                    if json not in ([], None):
-                                        if not json[0]["briefing"]:
-                                            continue
-                                self.__data__[endpoint] = json
-                            else:
-                                logger.error(msg=f"API/{endpoint.upper()}, {r.status}")
-                                await moderator_channel.send(
-                                    content=f"API/{endpoint.upper()}\n{r}"
-                                )
-                    except Exception as e:
-                        logger.error(msg=f"API/{endpoint.upper()}, {e}")
-                        await moderator_channel.send(
-                            content=f"API/{endpoint.upper()}\n{r}"
-                        )
-                    if api_to_use == backup_api:
-                        await sleep(2)
+                            self.__data__[endpoint] = json
+                        else:
+                            logger.error(msg=f"API/{endpoint.upper()}, {r.status}")
+                            await moderator_channel.send(
+                                content=f"API/{endpoint.upper()}\n{r}"
+                            )
+                except Exception as e:
+                    logger.error(msg=f"API/{endpoint.upper()}, {e}")
+                    await moderator_channel.send(content=f"API/{endpoint.upper()}\n{r}")
+                if api_to_use == backup_api:
+                    await sleep(2)
+
         self.format_data()
         self.update_liberation_rates()
         self.update_dark_energy_rate()
