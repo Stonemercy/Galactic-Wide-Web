@@ -340,10 +340,10 @@ class Data(ReprMixin):
             self.planet_active_effects = self.__data__["status"]["planetActiveEffects"]
             for planet_effect in self.planet_active_effects:
                 planet = self.planets[planet_effect["index"]]
-                planet.active_effects.append(planet_effect["galacticEffectId"])
+                planet.active_effects.add(planet_effect["galacticEffectId"])
             for ge in self.global_events:
                 for planet_index in ge.planet_indices:
-                    self.planets[planet_index].active_effects += ge.effect_ids
+                    self.planets[planet_index].active_effects |= set(ge.effect_ids)
 
             for planet_attack in self.__data__["status"]["planetAttacks"]:
                 source_planet = self.planets[planet_attack["source"]]
@@ -609,7 +609,7 @@ class Planet(ReprMixin):
         }.get(self.index, None)
         self.dss_in_orbit: bool = False
         self.in_assignment: bool = False
-        self.active_effects: list[int] | list = []
+        self.active_effects: set[int] | set = set()
         self.attack_targets: list[int] | list = []
         self.defending_from: list[int] | list = []
 

@@ -487,10 +487,10 @@ class SpecialUnits:
 
     @classmethod
     def get_from_effects_list(
-        self, active_effects: list[int]
-    ) -> list | list[tuple[str, str]]:
+        self, active_effects: set[int]
+    ) -> set | set[tuple[str, str]]:
         special_units = set()
         for ae in active_effects:
             if special_unit := getattr(self, f"_{ae}", None):
                 special_units.add(special_unit)
-        return list(special_units)
+        return special_units

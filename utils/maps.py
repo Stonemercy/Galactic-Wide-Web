@@ -196,7 +196,7 @@ class Maps:
                         ],
                         fill="red",
                     )
-                elif set([1241, 1252]) & set(planet.active_effects):
+                elif set([1241, 1252]) & planet.active_effects:
                     planet_image = Image.new("RGBA", (2000, 2000), (0, 0, 0, 0))
                     planet_draw = ImageDraw.Draw(planet_image)
                     planet_draw.ellipse(
