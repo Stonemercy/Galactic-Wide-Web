@@ -57,7 +57,7 @@ class HelpCog(commands.Cog):
                 else [
                     command
                     for command in self.bot.global_slash_commands
-                    if command.contexts.private_channel
+                    if command.contexts and command.contexts.private_channel
                 ]
             )
         if not slash_command and not slash_commands:
