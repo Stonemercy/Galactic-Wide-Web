@@ -253,7 +253,16 @@ class Dashboard:
                     elif task.type == 15:
                         self.add_type_15(task=task, language_json=language_json)
                     else:
-                        self.add_field("", "Calibrating...")
+                        self.add_field(
+                            name=f"{Emojis.Decoration.alert_icon} UNRECOGNIZED TASK",
+                            value=(
+                                f"-# ||{task.type}@"
+                                f"{'|'.join(str(v) for v in task.values)}-"
+                                f"{'|'.join(str(vt) for vt in task.value_types)}||"
+                            ),
+                            inline=False,
+                        )
+
                 self.add_rewards(
                     rewards=assignment.rewards,
                     language_json=language_json,
