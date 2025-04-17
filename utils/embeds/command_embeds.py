@@ -181,7 +181,7 @@ class PlanetCommandEmbed(Embed, EmbedReprMixin):
         special_units = []
         for ae in planet.active_effects:
             if special_unit := SpecialUnits.get_from_effects_list([ae]):
-                special_unit = special_unit[0]
+                special_unit = list(special_unit)[0]
                 if special_unit not in special_units:
                     special_units.append(special_unit)
                     effects += f"\n- **{special_unit[0]}** {special_unit[1]}"
