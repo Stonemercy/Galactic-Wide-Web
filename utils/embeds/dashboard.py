@@ -957,7 +957,7 @@ class Dashboard:
                             else:
                                 if (
                                     planet.index in gambit_planets
-                                    and gambit_lib_change.rate_per_hour != 0
+                                    and gambit_lib_change.rate_per_hour > 0
                                     and datetime.fromtimestamp(
                                         now_seconds + seconds_until_gambit_complete
                                     )
