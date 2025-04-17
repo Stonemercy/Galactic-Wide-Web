@@ -366,7 +366,7 @@
 	},
 	"1230": {
 		"galacticEffectId": 1230,
-		"name": "UNKNOWN",
+		"name": "UNKNOWN [1230]",
 		"description": "Something on Meridia"
 	},
 	"1231": {
@@ -436,8 +436,8 @@
 	},
 	"1246": {
 		"galacticEffectId": 1246,
-		"name": "UNKNOWN",
-		"description": ""
+		"name": "UNKNOWN [1246]",
+		"description": "Possibly +2% planet regen"
 	},
 	"1248": {
 		"galacticEffectId": 1248,
@@ -476,8 +476,8 @@
 	},
 	"1255": {
 		"galacticEffectId": 1255,
-		"name": "UNKNOWN",
-		"description": ""
+		"name": "UNKNOWN [1255]",
+		"description": "Possibly +2% planet regen"
 	},
 	"1256": {
 		"galacticEffectId": 1256,
