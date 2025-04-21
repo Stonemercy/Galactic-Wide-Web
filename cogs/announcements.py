@@ -186,12 +186,16 @@ class AnnouncementsCog(commands.Cog):
         last_GE = GlobalEvent()
         for global_event in self.bot.data.global_events:
             if global_event.id > last_GE.id:
-                if global_event.assignment_id != 0 or all(
-                    [
-                        not global_event.title,
-                        not global_event.message,
-                        not global_event.effect_ids,
-                    ]
+                if (
+                    global_event.assignment_id != 0
+                    or all(
+                        [
+                            not global_event.title,
+                            not global_event.message,
+                            not global_event.effect_ids,
+                        ]
+                    )
+                    or global_event.title.upper() == "BRIEFING"
                 ):
                     last_GE.id = global_event.id
                     last_GE.save_changes()
