@@ -262,6 +262,8 @@ class Dashboard:
                             ),
                             inline=False,
                         )
+                    if assignment.flags == 1 and len(assignment.tasks) > 1:
+                        self.add_field("or", "", inline=False)
 
                 self.add_rewards(
                     rewards=assignment.rewards,

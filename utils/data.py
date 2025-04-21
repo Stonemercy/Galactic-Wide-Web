@@ -446,6 +446,7 @@ class Assignment(ReprMixin):
         self.rewards: list[dict] = raw_assignment_data["rewards"]
         self.ends_at: str = raw_assignment_data["expiration"]
         self.ends_at_datetime: datetime = datetime.fromisoformat(self.ends_at)
+        self.flags: int = raw_assignment_data.get("flags", 0)
 
     class Task(ReprMixin):
         def __init__(self, task: dict, current_progress: int | float) -> None:
