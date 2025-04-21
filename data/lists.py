@@ -480,17 +480,19 @@ Example:
 
 @dataclass
 class SpecialUnits:
-    _1202 = _1203 = ("THE JET BRIGADE", Emojis.SpecialUnits.jet_brigade)
-    _1243 = _1245 = ("PREDATOR STRAIN", Emojis.SpecialUnits.predator_strain)
-    _1244 = ("SPORE BURSTER STRAIN", "")
-    _1248 = _1249 = ("INCINERATION CORPS", Emojis.SpecialUnits.incineration_corps)
+    unit_codes_map = {
+        ("THE JET BRIGADE", Emojis.SpecialUnits.jet_brigade): {1202, 1203},
+        ("PREDATOR STRAIN", Emojis.SpecialUnits.predator_strain): {1243, 1245},
+        ("SPORE BURSTER STRAIN", ""): {1244},
+        ("INCINERATION CORPS", Emojis.SpecialUnits.incineration_corps): {1248, 1249},
+    }
 
     @classmethod
     def get_from_effects_list(
-        self, active_effects: set[int]
+        cls, active_effects: set[int]
     ) -> set | set[tuple[str, str]]:
         special_units = set()
-        for ae in active_effects:
-            if special_unit := getattr(self, f"_{ae}", None):
-                special_units.add(special_unit)
+        for unit_info, required_codes in cls.unit_codes_map.items():
+            if required_codes.issubset(active_effects):
+                special_units.add(unit_info)
         return special_units
