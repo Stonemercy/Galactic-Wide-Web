@@ -44,23 +44,24 @@ class AdminCommandsCog(commands.Cog):
             case "Dashboard":
                 await self.bot.get_cog(name="DashboardCog").dashboard_poster()
                 text = f"Forced updates of {len(self.bot.interface_handler.dashboards)} dashboards in {(datetime.now() - update_start).total_seconds():.2f} seconds"
-                self.bot.logger.info(msg=text)
-                await inter.send(content=text, ephemeral=True)
             case "Map":
                 await self.bot.get_cog(name="MapCog").map_poster()
                 text = f"Forced updates of {len(self.bot.interface_handler.maps)} maps in {(datetime.now() - update_start).total_seconds():.2f} seconds"
-                self.bot.logger.info(msg=text)
-                await inter.send(content=text, ephemeral=True)
             case "MO Update":
                 await self.bot.get_cog(name="AnnouncementsCog").major_order_updates()
                 text = f"Forced updates of {len(self.bot.interface_handler.news_feeds.channels_dict['MO'])} MO updates in {(datetime.now() - update_start).total_seconds():.2f} seconds"
-                self.bot.logger.info(msg=text)
-                await inter.send(content=text, ephemeral=True)
             # case "PO Update":
             #     await self.bot.get_cog(name="PersonalOrderCog").personal_order_update()
             #     text = f"Forced updates of {len(self.bot.interface_handler.news_feeds.channels_dict['PO'])} PO updates in {(datetime.now() - update_start).total_seconds():.2f} seconds"
-            #     self.bot.logger.info(msg=text)
-            #     await inter.send(content=text, ephemeral=True)
+        self.bot.logger.info(msg=text)
+        await inter.send(content=text, ephemeral=True)
+
+    def extension_names_autocomp(inter: AppCmdInter, user_input: str):
+        return [
+            ext.split(".")[-1]
+            for ext in list(inter.bot.extensions.keys())
+            if user_input.lower() in ext.lower()
+        ][:25]
 
     @wait_for_startup()
     @commands.is_owner()
@@ -72,7 +73,10 @@ class AdminCommandsCog(commands.Cog):
     async def reload_extension(
         self,
         inter: AppCmdInter,
-        file_name: str = commands.Param(description="The extension to reload"),
+        file_name: str = commands.Param(
+            description="The extension to reload",
+            autocomplete=extension_names_autocomp,
+        ),
     ):
         await inter.response.defer(ephemeral=True)
         self.bot.logger.critical(
