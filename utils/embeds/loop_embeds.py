@@ -280,25 +280,6 @@ class BotDashboardLoopEmbed(Embed, EmbedReprMixin):
             "\n".join(f"{label}: {time}" for label, time in update_times.items()),
         )
         self.add_field("", "", inline=False)
-        ten_biggest_guilds = sorted(
-            [guild for guild in bot.guilds],
-            key=lambda guild: guild.member_count,
-            reverse=True,
-        )[:10]
-        biggest_guilds_text = ""
-        for index, guild in enumerate(ten_biggest_guilds, 1):
-            url = (
-                f"\n-# - Invite: https://discord.com/invite/{guild.vanity_url_code}"
-                if guild.vanity_url_code
-                else ""
-            )
-            biggest_guilds_text += (
-                f"{index}. **{guild.name}** - {guild.member_count:,} members{url}\n"
-            )
-        self.add_field(
-            "Top 10 Guilds",
-            biggest_guilds_text,
-        )
         self.add_field(
             "Credits",
             (
