@@ -144,11 +144,12 @@ class MapCog(commands.Cog):
                 planet_names_json=self.bot.json_dict["planets"],
             )
             message = await self.bot.waste_bin_channel.send(
+                content=language_json["code"],
                 file=File(
                     fp=self.bot.maps.FileLocations.localized_map_path(
                         language_json["code"]
                     )
-                )
+                ),
             )
             self.bot.maps.latest_maps[language_json["code"]] = Maps.LatestMap(
                 datetime.now(), message.attachments[0].url
