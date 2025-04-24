@@ -553,17 +553,17 @@ class Dashboard:
                     number=task.values[0],
                     faction=language_json["factions"][str(task.values[1])],
                 )
-                if self.with_health_bars:
-                    task_health_bar = f"{task.health_bar}\n"
+                if self.with_health_bars and task.progress_perc != 1:
+                    task_health_bar = (
+                        f"{language_json['dashboard']['progress']}: {int(task.progress)}/{task.values[0]}\n"
+                        f"{task.health_bar}\n"
+                        f"`{(task.progress_perc):^25,.2%}`\n"
+                    )
                 else:
                     task_health_bar = ""
                 self.add_field(
                     objective_text,
-                    (
-                        f"{language_json['dashboard']['progress']}: {int(task.progress)}/{task.values[0]}\n"
-                        f"{task_health_bar}"
-                        f"`{(task.progress_perc):^25,.2%}`\n"
-                    ),
+                    f"{task_health_bar}",
                     inline=False,
                 )
 
