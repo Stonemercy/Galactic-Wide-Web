@@ -164,7 +164,7 @@ class WarUpdatesCog(commands.Cog):
                 need_to_update_sectors = True
 
         # DSS updates
-        if self.bot.data.dss != "Error":
+        if type(self.bot.data.dss) != str:
             last_dss_info = DSSDB()
 
             # if DSS has moved

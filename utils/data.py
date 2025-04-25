@@ -195,7 +195,7 @@ class Data(ReprMixin):
             )
 
         if self.__data__["dss"]:
-            if self.__data__["dss"] != "Error":
+            if type(self.__data__["dss"]) != str:
                 dss_planet: Planet = self.planets[self.__data__["dss"]["planetIndex"]]
                 dss_planet.dss_in_orbit = True
                 self.dss: DSS = DSS(

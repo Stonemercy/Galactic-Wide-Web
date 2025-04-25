@@ -756,7 +756,7 @@ class Dashboard:
                 title=language_json["dss"]["title"],
                 colour=Colour.from_rgb(*faction_colours["DSS"]),
             )
-            if dss not in ("Error", None):
+            if type(dss) != str:
                 self.set_thumbnail(
                     url="https://cdn.discordapp.com/attachments/1213146233825271818/1310906165823148043/DSS.png?ex=6746ec01&is=67459a81&hm=ab1c29616fd787f727848b04e44c26cc74e045b6e725c45b9dd8a902ec300757&"
                 )

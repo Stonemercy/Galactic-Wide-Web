@@ -242,7 +242,7 @@ class Maps:
             background.save(fp=Maps.FileLocations.planets_map)
 
     def update_dss(self, dss: DSS):
-        if dss and dss != "Error":
+        if dss and type(dss) != str:
             with Image.open(
                 fp=Maps.FileLocations.planets_map
             ) as background, Image.open("resources/DSS.png") as dss_icon:
@@ -338,7 +338,7 @@ class Maps:
         for index, planet in planets.items():
             if index in active_planets:
                 border_colour = "black"
-                if dss and dss != "Error":
+                if dss and type(dss) != str:
                     if index == dss.planet.index:
                         border_colour = "deepskyblue"
                 name_text = planet_names_json[str(index)]["names"][
