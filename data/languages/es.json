@@ -13,12 +13,14 @@
             "title": "Orden Mayor",
             "MO_unavailable": "Espere más órdenes del Alto Mando de la Super Tierra",
             "liberated": "LIBERADO",
+            "feature": "Feature",
             "rewards": "Recompensas",
             "tasks": {
                 "type2": "{status_emoji} Extraer con éxito {amount} {item} en {planet}",
                 "type3": "{status_emoji} Eliminar {amount} {target}",
                 "type3_weapon": " usando la __{weapon_to_use}__ ",
                 "type3_planet": " en {planet}",
+                "type9": "{status_emoji} Complete an Operation against {faction} on {difficulty} or higher {amount} times",
                 "type11": "{status_emoji} Liberar {planet}",
                 "type12_with_planet": "{status_emoji} Defender {planet} contra {number} ataques de {faction}",
                 "type12_without_planet": "{status_emoji} Defender contra {number} ataques de {faction}",
@@ -89,7 +91,9 @@
         "dss": {
             "has_moved": "El DSS se ha movido de **{planet1}** {faction_emoji1} {exclamation1} a **{planet2}** {faction_emoji2} {exclamation2}\n",
             "ta_status_change": "{emoji} **{ta_name}** ahora está **{status}**\n"
-        }
+        },
+        "feature": "Feature",
+        "special_unit": "Special Unit"
     },
     "PlanetEmbed": {
         "sector": "Sector: **{sector}**\n",
@@ -197,6 +201,18 @@
         "Terminids": "Terminidos",
         "Automaton": "Autómatas",
         "Illuminate": "Iluminados"
+    },
+    "difficulty": {
+        "1": "Trivial",
+        "2": "Easy ",
+        "3": "Medium",
+        "4": "Challenging",
+        "5": "Hard",
+        "6": "Extreme",
+        "7": "Suicide Mission",
+        "8": "Impossible",
+        "9": "Helldive",
+        "10": "Super Helldive"
     },
     "wiki": {
         "buttons": {

@@ -496,11 +496,11 @@ class CampaignLoopEmbed(Embed, EmbedReprMixin):
             exclamation=exclamation,
         )
         if planet.feature:
-            description += f"-# Feature: {planet.feature}\n"  # TRANSLATE THIS
+            description += f"-# {self.language_json["CampaignEmbed"]["feature"]}: {planet.feature}\n"
         for special_unit in SpecialUnits.get_from_effects_list(
             active_effects=planet.active_effects
         ):
-            description += f"-# Special Unit: **{special_unit[0]}** {special_unit[1]}\n"  # TRANSLATE THIS
+            description += f"-# {self.language_json["CampaignEmbed"]["special_unit"]}: **{special_unit[0]}** {special_unit[1]}\n"
         self.set_field_at(0, self.fields[0].name, description, inline=False)
 
     def add_def_victory(self, planet: Planet):
@@ -518,11 +518,11 @@ class CampaignLoopEmbed(Embed, EmbedReprMixin):
             exclamation=exclamation,
         )
         if planet.feature:
-            description += f"-# Feature: {planet.feature}\n"  # TRANSLATE THIS
+            description += f"-# {self.language_json["CampaignEmbed"]["feature"]}: {planet.feature}\n"
         for special_unit in SpecialUnits.get_from_effects_list(
             active_effects=planet.active_effects
         ):
-            description += f"-# Special Unit: **{special_unit[0]}** {special_unit[1]}\n"  # TRANSLATE THIS
+            description += f"-# {self.language_json["CampaignEmbed"]["special_unit"]}: **{special_unit[0]}** {special_unit[1]}\n"
         self.set_field_at(0, self.fields[0].name, description, inline=False)
 
     def add_planet_lost(self, planet: Planet):
@@ -541,11 +541,11 @@ class CampaignLoopEmbed(Embed, EmbedReprMixin):
             exclamation=exclamation,
         )
         if planet.feature:
-            description += f"-# Feature: {planet.feature}\n"  # TRANSLATE THIS
+            description += f"-# {self.language_json["CampaignEmbed"]["feature"]}: {planet.feature}\n"
         for special_unit in SpecialUnits.get_from_effects_list(
             active_effects=planet.active_effects
         ):
-            description += f"-# Special Unit: **{special_unit[0]}** {special_unit[1]}\n"
+            description += f"-# {self.language_json["CampaignEmbed"]["special_unit"]}: **{special_unit[0]}** {special_unit[1]}\n"
         self.set_field_at(1, self.fields[1].name, description, inline=False)
 
     def add_invasion_over(
@@ -581,11 +581,11 @@ class CampaignLoopEmbed(Embed, EmbedReprMixin):
                 hours=f"{hours_left:.2f}",
             )
         if planet.feature:
-            description += f"-# Feature: {planet.feature}\n"  # TRANSLATE THIS
+            description += f"-# {self.language_json["CampaignEmbed"]["feature"]}: {planet.feature}\n"
         for special_unit in SpecialUnits.get_from_effects_list(
             active_effects=planet.active_effects
         ):
-            description += f"-# Special Unit: **{special_unit[0]}** {special_unit[1]}\n"  # TRANSLATE THIS
+            description += f"-# {self.language_json["CampaignEmbed"]["special_unit"]}: **{special_unit[0]}** {special_unit[1]}\n"
         self.set_field_at(4, name, description, inline=False)
 
     def remove_empty(self):
@@ -632,7 +632,7 @@ class CampaignLoopEmbed(Embed, EmbedReprMixin):
             exclamation2=exclamation2,
         )
         if after_planet.feature:
-            description += f"-# Feature: {after_planet.feature}\n"  # TRANSLATE THIS
+            description += f"-# {self.language_json["CampaignEmbed"]["feature"]}: {after_planet.feature}\n"
         self.set_field_at(3, self.fields[3].name, description, inline=False)
 
     def ta_status_changed(self, tactical_action: DSS.TacticalAction):

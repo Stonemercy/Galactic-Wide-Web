@@ -224,6 +224,8 @@ class Dashboard:
                             species_dict=json_dict["enemies"]["enemy_ids"],
                             planet_names=json_dict["planets"],
                         )
+                    elif task.type == 9:
+                        self.add_type_9(task=task, language_json=language_json)
                     elif task.type == 11:
                         self.add_type_11(
                             task=task,
@@ -376,6 +378,42 @@ class Dashboard:
                 inline=False,
             )
 
+        def add_type_9(self, task: Assignment.Task, language_json: dict):
+            """Complete an Operation against {faction} on {difficulty} or higher {amount} times"""
+            faction = language_json["factions"][str(task.values[0])]
+            amount = f"{task.values[1]:,}"
+            difficulty = language_json["difficulty"][str(task.values[3])]
+            status_emoji = (
+                Emojis.Icons.mo_task_complete
+                if task.progress_perc == 1
+                else Emojis.Icons.mo_task_incomplete
+            )
+            full_task = language_json["dashboard"]["MajorOrderEmbed"]["tasks"][
+                "type9"
+            ].format(
+                status_emoji=status_emoji,
+                faction=faction,
+                difficulty=difficulty,
+                amount=amount,
+            )
+            if self.with_health_bars:
+                task_health_bar = f"{task.health_bar}\n"
+            else:
+                task_health_bar = ""
+            self.add_field(
+                name=full_task,
+                value=(
+                    (
+                        f"{language_json['dashboard']['progress']}: **{(task.progress):,.0f}**\n"
+                        f"{task_health_bar}"
+                        f"`{(task.progress_perc):^25,.2%}`"
+                    )
+                    if task.progress_perc != 1
+                    else ""
+                ),
+                inline=False,
+            )
+
         def add_type_11(
             self,
             task: Assignment.Task,
@@ -408,7 +446,9 @@ class Dashboard:
                 f"{language_json['dashboard']['progress']}:\n" if active_planet else ""
             )
             feature_text = (
-                "" if not planet.feature else f"\nFeature: {planet.feature}\n"
+                ""
+                if not planet.feature
+                else f"\n{language_json['dashboard']['MajorOrderEmbed']['feature']}: **{planet.feature}**\n"
             )
             obj_text = language_json["dashboard"]["MajorOrderEmbed"]["tasks"][
                 "type11"
@@ -422,13 +462,8 @@ class Dashboard:
                     language_json["code_long"]
                 ],
             )
-            player_count = (
-                language_json["dashboard"]["heroes"].format(
-                    heroes=f'{planet.stats["playerCount"]:,}'
-                )
-                + "\n"
-                if planet.stats["playerCount"] > 100 and task.progress != 1
-                else ""
+            player_count = language_json["dashboard"]["heroes"].format(
+                heroes=f'{planet.stats["playerCount"]:,}'
             )
             planet_lib_changes = liberation_changes.get_by_index(planet.index)
             outlook_text = ""
@@ -491,7 +526,7 @@ class Dashboard:
                     else:
                         outlook_text = f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['defeat'])}"
                     change = f"{planet_lib_changes.rate_per_hour:+.2f}%/hour"
-                    liberation_text = f"\n`{change:^25}`"
+                    liberation_text = f"`{change:^25}`"
                     if planet.event.required_players != 0:
                         required_players = f"\n{language_json['dashboard']['DefenceEmbed']['players_required']}: **~{planet.event.required_players:,.0f}+**"
                 time_remaining = (
@@ -522,7 +557,11 @@ class Dashboard:
                     else ""
                 )
                 if self.with_health_bars:
-                    task_health_bar = f"{health_bar(perc=planet.event.progress, race=planet.event.faction, reverse=True)} 🛡️"
+                    task_health_bar = (
+                        f"\n{language_json['dashboard']['progress']}:\n"
+                        f"{health_bar(perc=planet.event.progress, race=planet.event.faction, reverse=True)} 🛡️\n"
+                        f"`{1 - planet.event.progress:^25,.2%}`\n"
+                    )
                 else:
                     task_health_bar = ""
                 self.add_field(
@@ -534,9 +573,7 @@ class Dashboard:
                         f"\n{language_json['dashboard']['DefenceEmbed']['level']} {int(planet.event.max_health / 50000)}"
                         f"{outlook_text}"
                         f"{required_players}"
-                        f"\n{language_json['dashboard']['progress']}:\n"
                         f"{task_health_bar}"
-                        f"\n`{1 - planet.event.progress:^25,.2%}`"
                         f"{liberation_text}"
                     ),
                     inline=False,

@@ -468,6 +468,8 @@ class Assignment(ReprMixin):
                     self.progress_perc,
                     (self.values[0] if self.progress != 1 else "Humans"),
                 )
+            elif self.type == 9:
+                return health_bar(self.progress_perc, self.values[0])
             elif self.type == 11:
                 return
             elif self.type == 12:
@@ -491,10 +493,12 @@ class Assignment(ReprMixin):
             """Returns the progress of the task as a float (0-1)"""
             if self.type in (15, 12):
                 progress_value = self.values[0]
-            elif self.type in (13, 11):
-                progress_value = 1
+            elif self.type == 9:
+                progress_value = self.values[1]
             elif self.type in (3, 2):
                 progress_value = self.values[2]
+            elif self.type in (13, 11):
+                progress_value = 1
             return self.progress / progress_value
 
 
