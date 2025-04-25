@@ -13,14 +13,14 @@
             "title": "Главный приказ",
             "MO_unavailable": "Ждите дальнейших распоряжений Верховного командования Супер-Земли",
             "liberated": "ОСВОБОЖДЕН(А)",
-            "feature": "Feature",
+            "feature": "Объект интереса",
             "rewards": "Награда",
             "tasks": {
                 "type2": "{status_emoji} Успешно эвакуироваться с {amount} {item} на {planet}",
                 "type3": "{status_emoji} Убить {amount} {target}",
                 "type3_weapon": " используя __{weapon_to_use}__ ",
                 "type3_planet": " on {planet}",
-                "type9": "{status_emoji} Complete an Operation against {faction} on {difficulty} or higher {amount} times",
+                "type9": "{status_emoji} Выполните операцию против {faction} на сложности {difficulty} или выше {amount} раз",
                 "type11": "{status_emoji} Освободить {planet}",
                 "type12_with_planet": "{status_emoji} Защитите {planet} от {number} атак(и) {faction}",
                 "type12_without_planet": "{status_emoji} Защититесь от {number} атак(и) со стороны {faction}",
@@ -60,7 +60,7 @@
             "title": "Фронт {faction}",
             "planet_health": "Освобождение планеты",
             "low_impact": "Планеты с малой скоростью особождения",
-            "feature": "\nFeature: {feature}"
+            "feature": "\nОбъект интереса: {feature}"
         },
         "FooterEmbed": {
             "other_updated": "Обновлено",
@@ -92,8 +92,8 @@
             "has_moved": "ДКС переместилась с **{planet1}** {faction_emoji1} {exclamation1} на **{planet2}** {faction_emoji2} {exclamation2}\n",
             "ta_status_change": "{emoji} **{ta_name}** теперь **{status}**\n"
         },
-        "feature": "Feature",
-        "special_unit": "Special Unit"
+        "feature": "Объект интереса",
+        "special_unit": "Особый отряд"
     },
     "PlanetEmbed": {
         "sector": "Сектор: **{sector}**\n",
@@ -203,16 +203,16 @@
         "Illuminate": "Иллюминатов"
     },
     "difficulty": {
-        "1": "Trivial",
-        "2": "Easy ",
-        "3": "Medium",
-        "4": "Challenging",
-        "5": "Hard",
-        "6": "Extreme",
-        "7": "Suicide Mission",
-        "8": "Impossible",
-        "9": "Helldive",
-        "10": "Super Helldive"
+        "1": "Простейшая",
+        "2": "Лёгкая",
+        "3": "Средняя",
+        "4": "Непростая",
+        "5": "Высокая",
+        "6": "Экстрим",
+        "7": "Самоубийство",
+        "8": "Невозможная",
+        "9": "Прямо в ад",
+        "10": "Мега-ад"
     },
     "wiki": {
         "buttons": {
