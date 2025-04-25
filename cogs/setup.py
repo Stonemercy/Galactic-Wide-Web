@@ -138,7 +138,13 @@ class SetupCog(commands.Cog):
         }
         if inter.component.custom_id not in allowed_ids:
             return
-        await inter.response.defer()
+        try:
+            await inter.response.defer()
+        except NotFound:
+            await inter.send(
+                "There was an error with this interaction, please try again."
+            )
+            return
         action_rows = ActionRow.rows_from_message(inter.message)
         guild = GWWGuild.get_by_id(inter.guild_id)
         guild_language = self.bot.json_dict["languages"][guild.language]
