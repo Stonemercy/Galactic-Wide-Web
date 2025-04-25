@@ -19,7 +19,7 @@
                 "type2": "{status_emoji} Extraia com sucesso com {amount} {item} em {planet}",
                 "type3": "{status_emoji} Mate {amount} {target}",
                 "type3_weapon": " usando  __{weapon_to_use}__ ",
-                "type3_planet": " on {planet}",
+                "type3_planet": " em {planet}",
                 "type9": "{status_emoji} Complete an Operation against {faction} on {difficulty} or higher {amount} times",
                 "type11": "{status_emoji} Libere {planet}",
                 "type12_with_planet": "{status_emoji} Defenda {planeta} contra {number} ataques dos {faction}",
@@ -30,7 +30,7 @@
         },
         "DSSEmbed": {
             "stationed_at": "Estacionada em **{planet}** {faction_emoji}\n",
-            "next_move": "Movendo {timestamp}",
+            "next_move": "Se movendo {timestamp}",
             "max_submitable": "Maxímo submissível:\n-# {emoji} **{number}** {item}s a cada **{hours}** horas",
             "status": "Status",
             "preparing": "Preparando",
@@ -53,7 +53,7 @@
             "event_health": "Liberação Planetária",
             "players_required": "Necessário para Vitória",
             "level": "Nível de invasão",
-            "defence_held_by_dss": "\n> -# DEFESA MANTIDA PELA EED",
+            "defence_held_by_dss": "\n> -# DEFESA SEGURADA PELA EED",
             "dark_energy_remaining": "\nEst. **Energia Escura** restante: **{number}**"
         },
         "AttackEmbed": {
@@ -86,7 +86,7 @@
         "been_defended": "{emoji} **{planet}** foi defendido com sucesso {exclamation}\n",
         "been_lost": "💀 **{planet}** foi perdido para os **{faction}** {faction_emoji} {exclamation}\n",
         "invasion_over": "A invasão em {planet} acabou {faction_emoji} {exclamation}\n",
-        "with_time_remaining": "-# The Helldivers have __successfully pushed back the {faction}__ {faction_emoji} with {hours} hours remaining\n",
+        "with_time_remaining": "-# Os Helldivers expulsaram com sucesso os {faction}__ {faction_emoji} com {hours} horas restando\n",
         "no_territory_change": "-# Os **{faction}** foram embora e __nenhum território mudou de posse__ {faction_emoji}\n",
         "dss": {
             "has_moved": "A EED se moveu de **{planet1}** {faction_emoji1} {exclamation1} para **{planet2}** {faction_emoji2} {exclamation2}\n",
