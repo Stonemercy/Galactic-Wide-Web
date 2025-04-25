@@ -430,9 +430,10 @@ class SetupCog(commands.Cog):
                 ) or await self.bot.fetch_channel(guild.announcement_channel_id)
                 guild.major_order_updates = False
                 guild.save_changes()
-                self.bot.interface_handler.news_feeds.channels_dict["MO"].remove(
-                    channel
-                )
+                if channel in self.bot.interface_handler.news_feeds.channels_dict["MO"]:
+                    self.bot.interface_handler.news_feeds.channels_dict["MO"].remove(
+                        channel
+                    )
                 action_rows[1].pop(1)
                 action_rows[1].insert_item(
                     1,
