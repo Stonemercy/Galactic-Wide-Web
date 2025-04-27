@@ -372,12 +372,15 @@ class SetupCog(commands.Cog):
                 return
         elif inter.component.custom_id == "patch_notes_button":
             if guild.patch_notes:  # want to disable
-                channel = self.bot.get_channel(
-                    guild.announcement_channel_id
-                ) or await self.bot.fetch_channel(guild.announcement_channel_id)
-                self.bot.interface_handler.news_feeds.channels_dict["Patch"].remove(
-                    channel
-                )
+                try:
+                    channel = self.bot.get_channel(
+                        guild.announcement_channel_id
+                    ) or await self.bot.fetch_channel(guild.announcement_channel_id)
+                    self.bot.interface_handler.news_feeds.channels_dict["Patch"].remove(
+                        channel
+                    )
+                except NotFound | ValueError:
+                    pass
                 guild.patch_notes = False
                 guild.save_changes()
                 action_rows[1].pop(0)
@@ -425,15 +428,17 @@ class SetupCog(commands.Cog):
                 return
         elif inter.component.custom_id == "major_order_updates_button":
             if guild.major_order_updates:  # want to disable
-                channel = self.bot.get_channel(
-                    guild.announcement_channel_id
-                ) or await self.bot.fetch_channel(guild.announcement_channel_id)
-                guild.major_order_updates = False
-                guild.save_changes()
-                if channel in self.bot.interface_handler.news_feeds.channels_dict["MO"]:
+                try:
+                    channel = self.bot.get_channel(
+                        guild.announcement_channel_id
+                    ) or await self.bot.fetch_channel(guild.announcement_channel_id)
                     self.bot.interface_handler.news_feeds.channels_dict["MO"].remove(
                         channel
                     )
+                except NotFound | ValueError:
+                    pass
+                guild.major_order_updates = False
+                guild.save_changes()
                 action_rows[1].pop(1)
                 action_rows[1].insert_item(
                     1,
