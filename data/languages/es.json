@@ -203,16 +203,16 @@
         "Illuminate": "Iluminados"
     },
     "difficulty": {
-        "1": "Trivial",
-        "2": "Easy ",
-        "3": "Medium",
-        "4": "Challenging",
-        "5": "Hard",
-        "6": "Extreme",
-        "7": "Suicide Mission",
-        "8": "Impossible",
-        "9": "Helldive",
-        "10": "Super Helldive"
+        "1": "Tirado",
+        "2": "Fácil",
+        "3": "Medio",
+        "4": "Complicado",
+        "5": "Difícil",
+        "6": "Extremo",
+        "7": "Misión Suicida",
+        "8": "Imposible",
+        "9": "Infernal",
+        "10": "Super Helldiver"
     },
     "wiki": {
         "buttons": {
