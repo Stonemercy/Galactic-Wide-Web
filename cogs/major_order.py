@@ -1,4 +1,9 @@
-from disnake import AppCmdInter, InteractionContextTypes, ApplicationInstallTypes
+from disnake import (
+    AppCmdInter,
+    InteractionContextTypes,
+    ApplicationInstallTypes,
+    NotFound,
+)
 from disnake.ext import commands
 from main import GalacticWideWebBot
 from utils.checks import wait_for_startup
@@ -30,7 +35,13 @@ class MajorOrderCog(commands.Cog):
             description="If you want the response to be seen by others in the server.",
         ),
     ):
-        await inter.response.defer(ephemeral=public != "Yes")
+        try:
+            await inter.response.defer(ephemeral=public != "Yes")
+        except NotFound:
+            await inter.send(
+                "There was an error with that command, please try again.",
+                ephemeral=True,
+            )
         self.bot.logger.info(
             f"{self.qualified_name} | /{inter.application_command.name} <{public = }>"
         )
