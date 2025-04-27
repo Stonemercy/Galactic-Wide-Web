@@ -72,3 +72,38 @@ def steam_format(content: str):
     )
     content = sub(r"\[img\](.*?\..{3,4})\[/img\]\n\n", "", content)
     return content
+
+
+def split_long_string(text: str) -> list[str]:
+    """Splits a string into 1024 lenth chunks"""
+    parts = []
+    while len(text) > 1024:
+        split_index = text.rfind("\n", 0, 1024)
+        if split_index == -1:
+            split_index = 1024
+        parts.append(text[:split_index].rstrip())
+        text = text[split_index:].lstrip("\n")
+    if text:
+        parts.append(text)
+    return parts
+
+
+def compare_translations(reference: dict, target: dict, path="") -> list[str]:
+    """Compares dictionaries and returns a list of all differences with their keys"""
+    diffs = []
+    all_keys = set(reference.keys()).union(target.keys())
+    for key in all_keys:
+        full_path = f"{path}.{key}" if path else key
+        ref_val = reference.get(key)
+        tgt_val = target.get(key)
+        if isinstance(ref_val, dict) and isinstance(tgt_val, dict):
+            diffs.extend(
+                compare_translations(reference=ref_val, target=tgt_val, path=full_path)
+            )
+        elif key not in target:
+            diffs.append(f"Missing in target: `{full_path}`")
+        elif key not in reference:
+            diffs.append(f"Extra in target: `{full_path}`")
+        elif ref_val == tgt_val:
+            diffs.append(f"Untranslated: `{full_path}`")
+    return diffs
