@@ -91,7 +91,7 @@ class GWWGuild(ReprMixin):
                 return None if not record else cls(*record)
 
     @classmethod
-    def get_all(cls) -> list[Self]:
+    def get_all(cls) -> list[Self] | None:
         """Get a list of all the guild entries in the database"""
         with connect(
             host=hostname, dbname=database, user=username, password=pwd, port=port_id
@@ -121,6 +121,7 @@ class GWWGuild(ReprMixin):
         """Return a default class"""
         return cls(0, 0, 0, 0, False, "en", 0, 0, False, False, False)
 
+    @staticmethod
     def delete(guild_id: int) -> None:
         """Delete a guild from the database"""
         with connect(
