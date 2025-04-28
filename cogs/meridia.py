@@ -77,7 +77,7 @@ class MeridiaCog(commands.Cog):
                 guild = GWWGuild.new(inter.guild_id)
         else:
             guild = GWWGuild.default()
-        map_img = Image.open(f"resources/{guild.language}.webp")
+        map_img = Image.open(f"resources/maps/{guild.language}.webp")
         meridia_info = Meridia()
         coordinates_fixed = [
             ((x + 1) / 2 * 2000, (y + 1) / 2 * 2000)
