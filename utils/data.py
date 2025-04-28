@@ -603,7 +603,7 @@ class Planet(ReprMixin):
         self.stats: dict = raw_planet_data["statistics"]
         self.thumbnail = None
         self.feature: str | None = {
-            5: "Repulsive Gravity Field Generator Construction Site",
+            5: "Negative Energy Labratory",
             45: "Center for Civilian Surveillance",
             64: "Meridian Singularity",
             125: "Centre of Science",
