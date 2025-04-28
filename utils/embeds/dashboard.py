@@ -450,28 +450,21 @@ class Dashboard:
                     planet_lib_changes = liberation_changes.get_by_index(planet.index)
                     if planet_lib_changes and planet_lib_changes.rate_per_hour > 0.01:
                         now_seconds = int(datetime.now().timestamp())
-                        seconds_until_complete = int(
-                            (
-                                (100 - planet_lib_changes.liberation)
-                                / planet_lib_changes.rate_per_hour
-                            )
-                            * 3600
-                        )
                         if planet.event:
                             winning = (
-                                now_seconds + seconds_until_complete
+                                now_seconds + planet_lib_changes.seconds_until_complete
                                 < planet.event.end_time_datetime.timestamp()
                             )
                             value_text += f"{language_json['ends']} <t:{planet.event.end_time_datetime.timestamp():.0f}:R>"
                             if winning:
-                                value_text += f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['victory'])} <t:{now_seconds + seconds_until_complete}:R>"
+                                value_text += f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['victory'])} <t:{now_seconds + planet_lib_changes.seconds_until_complete}:R>"
                             else:
                                 value_text += f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['defeat'])}"
                             value_text += f"\n{language_json['dashboard']['progress']}:"
                             value_text += f"\n{health_bar(planet.event.progress, planet.event.faction, True)}"
                             value_text += f"\n`{(1-planet.event.progress):^25,.2%}`"
                         else:
-                            value_text += f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['victory'])} <t:{now_seconds + seconds_until_complete}:R>"
+                            value_text += f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['victory'])} <t:{now_seconds + planet_lib_changes.seconds_until_complete}:R>"
                             value_text += f"\n{language_json['dashboard']['progress']}:"
                             value_text += f"\n{health_bar(planet.health_perc, planet.current_owner, True)}"
                             value_text += f"\n`{(planet.health_perc):^25,.2%}`"
@@ -505,19 +498,14 @@ class Dashboard:
                 planet_lib_changes = liberation_changes.get_by_index(planet.index)
                 if planet_lib_changes and planet_lib_changes.rate_per_hour != 0:
                     now_seconds = int(datetime.now().timestamp())
-                    seconds_until_complete = int(
-                        (
-                            (100 - planet_lib_changes.liberation)
-                            / planet_lib_changes.rate_per_hour
-                        )
-                        * 3600
-                    )
                     winning = (
-                        datetime.fromtimestamp(now_seconds + seconds_until_complete)
+                        datetime.fromtimestamp(
+                            now_seconds + planet_lib_changes.seconds_until_complete
+                        )
                         < planet.event.end_time_datetime
                     )
                     if winning:
-                        outlook_text = f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['victory'])} <t:{now_seconds + seconds_until_complete}:R>"
+                        outlook_text = f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['victory'])} <t:{now_seconds + planet_lib_changes.seconds_until_complete}:R>"
                     else:
                         outlook_text = f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['defeat'])}"
                     change = f"{planet_lib_changes.rate_per_hour:+.2f}%/hour"
@@ -640,19 +628,14 @@ class Dashboard:
                 planet_lib_changes = liberation_changes.get_by_index(planet.index)
                 if planet_lib_changes and planet_lib_changes.rate_per_hour != 0:
                     now_seconds = int(datetime.now().timestamp())
-                    seconds_until_complete = int(
-                        (
-                            (100 - planet_lib_changes.liberation)
-                            / planet_lib_changes.rate_per_hour
-                        )
-                        * 3600
-                    )
                     winning = (
-                        datetime.fromtimestamp(now_seconds + seconds_until_complete)
+                        datetime.fromtimestamp(
+                            now_seconds + planet_lib_changes.seconds_until_complete
+                        )
                         < planet.event.end_time_datetime
                     )
                     if winning:
-                        outlook_text = f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['victory'])} <t:{now_seconds + seconds_until_complete}:R>"
+                        outlook_text = f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['victory'])} <t:{now_seconds + planet_lib_changes.seconds_until_complete}:R>"
                     else:
                         outlook_text = f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['defeat'])}"
                     change = f"{planet_lib_changes.rate_per_hour:+.2f}%/hour"
@@ -692,14 +675,7 @@ class Dashboard:
                     if planet_lib_changes and planet_lib_changes.rate_per_hour != 0:
                         if planet_lib_changes.rate_per_hour > 0:
                             now_seconds = int(datetime.now().timestamp())
-                            seconds_until_complete = int(
-                                (
-                                    (100 - planet_lib_changes.liberation)
-                                    / planet_lib_changes.rate_per_hour
-                                )
-                                * 3600
-                            )
-                            outlook_text = f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['victory'])} <t:{now_seconds + seconds_until_complete}:R>"
+                            outlook_text = f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['victory'])} <t:{now_seconds + planet_lib_changes.seconds_until_complete}:R>"
                         change = f"{planet_lib_changes.rate_per_hour:+.2f}%/hour"
                         liberation_text = f"\n`{change:^25}`"
                     completed = (
@@ -964,13 +940,6 @@ class Dashboard:
                             )
                         if liberation_change and liberation_change.rate_per_hour != 0:
                             now_seconds = int(now.timestamp())
-                            seconds_until_complete = int(
-                                (
-                                    (100 - liberation_change.liberation)
-                                    / liberation_change.rate_per_hour
-                                )
-                                * 3600
-                            )
                             if (
                                 planet.index in gambit_planets
                                 and gambit_lib_change.rate_per_hour != 0
@@ -991,12 +960,13 @@ class Dashboard:
                                 )
                             winning = (
                                 datetime.fromtimestamp(
-                                    now_seconds + seconds_until_complete
+                                    now_seconds
+                                    + liberation_change.seconds_until_complete
                                 )
                                 < win_time
                             )
                             if winning:
-                                outlook_text = f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['victory'])} <t:{now_seconds + seconds_until_complete}:R>"
+                                outlook_text = f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['victory'])} <t:{now_seconds + liberation_change.seconds_until_complete}:R>"
                             else:
                                 if (
                                     planet.index in gambit_planets
