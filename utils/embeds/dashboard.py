@@ -228,7 +228,6 @@ class Dashboard:
                         self.add_type_9(task=task, language_json=language_json)
                     elif task.type == 11:
                         self.add_type_11(
-                            task=task,
                             language_json=language_json,
                             planet=planets[task.values[2]],
                             planet_names_json=json_dict["planets"],
@@ -416,83 +415,79 @@ class Dashboard:
 
         def add_type_11(
             self,
-            task: Assignment.Task,
             language_json: dict,
             planet: Planet,
             planet_names_json: dict,
             liberation_changes: LiberationChangesTracker,
         ):
             """Liberate a planet"""
-            completed = (
-                f"**{language_json['dashboard']['MajorOrderEmbed']['liberated']}**"
-                if planet.current_owner == "Humans"
-                else ""
-            )
-            active_planet = planet.stats["playerCount"] > 100
-            if self.with_health_bars and active_planet:
-                task_health_bar = f"{health_bar(planet.health_perc, planet.current_owner, True if planet.current_owner != 'Humans' else False)} {completed}"
+            if planet.current_owner == "Humans" and not planet.event:
+                obj_text = language_json["dashboard"]["MajorOrderEmbed"]["tasks"][
+                    "type11"
+                ].format(
+                    status_emoji=Emojis.Icons.mo_task_complete,
+                    planet=planet_names_json[str(planet.index)]["names"][
+                        language_json["code_long"]
+                    ],
+                )
+                self.add_field(name=obj_text, value="", inline=False)
             else:
-                task_health_bar = ""
-            health_text = (
-                (
-                    f"\n`{1 - (planet.health_perc):^25,.2%}`"
-                    if planet.current_owner != "Humans"
-                    else f"\n`{(planet.health_perc):^25,.2%}`"
+                obj_text = language_json["dashboard"]["MajorOrderEmbed"]["tasks"][
+                    "type11"
+                ].format(
+                    status_emoji=Emojis.Icons.mo_task_incomplete,
+                    planet=planet_names_json[str(planet.index)]["names"][
+                        language_json["code_long"]
+                    ],
                 )
-                if active_planet
-                else ""
-            )
-            progress_text = (
-                f"{language_json['dashboard']['progress']}:\n" if active_planet else ""
-            )
-            feature_text = (
-                ""
-                if not planet.feature
-                else f"\n{language_json['dashboard']['MajorOrderEmbed']['feature']}: **{planet.feature}**\n"
-            )
-            obj_text = language_json["dashboard"]["MajorOrderEmbed"]["tasks"][
-                "type11"
-            ].format(
-                status_emoji=(
-                    Emojis.Icons.mo_task_complete
-                    if task.progress_perc == 1
-                    else Emojis.Icons.mo_task_incomplete
-                ),
-                planet=planet_names_json[str(planet.index)]["names"][
-                    language_json["code_long"]
-                ],
-            )
-            player_count = language_json["dashboard"]["heroes"].format(
-                heroes=f'{planet.stats["playerCount"]:,}'
-            )
-            planet_lib_changes = liberation_changes.get_by_index(planet.index)
-            outlook_text = ""
-            liberation_text = ""
-            if planet_lib_changes and planet_lib_changes.rate_per_hour > 0.01:
-                now_seconds = int(datetime.now().timestamp())
-                seconds_until_complete = int(
-                    (
-                        (100 - planet_lib_changes.liberation)
-                        / planet_lib_changes.rate_per_hour
+                value_text = ""
+                if planet.stats["playerCount"] > 100:
+                    value_text += language_json["dashboard"]["heroes"].format(
+                        heroes=f'{planet.stats["playerCount"]:,}'
                     )
-                    * 3600
-                )
-                outlook_text = f"{language_json['dashboard']['outlook'].format(outlook=language_json['victory'])} <t:{now_seconds + seconds_until_complete}:R>\n"
-                change = f"{planet_lib_changes.rate_per_hour:+.2f}%/hour"
-                liberation_text = f"\n`{change:^25}`"
-            self.add_field(
-                name=obj_text,
-                value=(
-                    f"{player_count}"
-                    f"{feature_text}"
-                    f"{outlook_text}"
-                    f"{progress_text}"
-                    f"{task_health_bar}"
-                    f"{health_text}"
-                    f"{liberation_text}"
-                ),
-                inline=False,
-            )
+                    if planet.feature:
+                        value_text += f"\n{language_json['dashboard']['MajorOrderEmbed']['feature']}: **{planet.feature}**\n"
+                    planet_lib_changes = liberation_changes.get_by_index(planet.index)
+                    if planet_lib_changes and planet_lib_changes.rate_per_hour > 0.01:
+                        now_seconds = int(datetime.now().timestamp())
+                        seconds_until_complete = int(
+                            (
+                                (100 - planet_lib_changes.liberation)
+                                / planet_lib_changes.rate_per_hour
+                            )
+                            * 3600
+                        )
+                        if planet.event:
+                            winning = (
+                                now_seconds + seconds_until_complete
+                                < planet.event.end_time_datetime.timestamp()
+                            )
+                            value_text += f"{language_json['ends']} <t:{planet.event.end_time_datetime.timestamp():.0f}:R>"
+                            if winning:
+                                value_text += f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['victory'])} <t:{now_seconds + seconds_until_complete}:R>"
+                            else:
+                                value_text += f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['defeat'])}"
+                            value_text += f"\n{language_json['dashboard']['progress']}:"
+                            value_text += f"\n{health_bar(planet.event.progress, planet.event.faction, True)}"
+                            value_text += f"\n`{(1-planet.event.progress):^25,.2%}`"
+                        else:
+                            value_text += f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['victory'])} <t:{now_seconds + seconds_until_complete}:R>"
+                            value_text += f"\n{language_json['dashboard']['progress']}:"
+                            value_text += f"\n{health_bar(planet.health_perc, planet.current_owner, True)}"
+                            value_text += f"\n`{(planet.health_perc):^25,.2%}`"
+                        change = f"{planet_lib_changes.rate_per_hour:+.2f}%/hour"
+                        value_text += f"\n`{change:^25}`"
+                    self.add_field(
+                        name=obj_text,
+                        value=value_text,
+                        inline=False,
+                    )
+                else:
+                    self.add_field(
+                        name=obj_text,
+                        value=value_text,
+                        inline=False,
+                    )
 
         def add_type_12(
             self,
