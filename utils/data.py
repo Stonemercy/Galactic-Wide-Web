@@ -603,13 +603,13 @@ class Planet(ReprMixin):
         self.stats: dict = raw_planet_data["statistics"]
         self.thumbnail = None
         self.feature: str | None = {
-            5: "Negative Energy Labratory",
-            45: "Center for Civilian Surveillance",
-            64: "Meridian Singularity",
-            125: "Centre of Science",
-            126: "Xenoentomology Center",
-            130: "Factory Hub",
-            161: "Deep Mantle Forge Complex",
+            5: "Negative Energy Labratory",  # Pilen V
+            45: "Center for Civilian Surveillance",  # Mastia
+            64: "Meridian Singularity",  # Meridia
+            125: "Centre of Science",  # Fenrir III
+            126: "Xenoentomology Center",  # Turing
+            130: "Factory Hub",  # Achernar Secundus
+            161: "Deep Mantle Forge Complex",  # Claorell
         }.get(self.index, None)
         self.dss_in_orbit: bool = False
         self.in_assignment: bool = False
