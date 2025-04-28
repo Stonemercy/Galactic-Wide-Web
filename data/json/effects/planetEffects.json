@@ -498,5 +498,10 @@
 		"galacticEffectId": 1264,
 		"name": "Reduced stims",
 		"description": "Stim capacity reduced by 2"
+	},
+	"1268": {
+		"galacticEffectId": 1268,
+		"name": "Negative Energy Laboratory",
+		"description": "Scientists without fear of implosion or spaghettification study negative energy here."
 	}
 }
