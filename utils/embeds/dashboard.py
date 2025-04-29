@@ -1095,18 +1095,10 @@ class Dashboard:
                             campaign.planet.index
                         )
                         if liberation_change:
-                            lib_per_hour = liberation_change.rate_per_hour
                             now_seconds = int(datetime.now().timestamp())
-                            if lib_per_hour > 0.01:
-                                seconds_to_complete = int(
-                                    (
-                                        (100 - liberation_change.liberation)
-                                        / lib_per_hour
-                                    )
-                                    * 3600
-                                )
-                                time_to_complete = f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['victory'])} <t:{now_seconds + seconds_to_complete}:R>"
-                                change = f"{lib_per_hour:+.2f}%/hour"
+                            if liberation_change.rate_per_hour > 0.01:
+                                time_to_complete = f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['victory'])} <t:{now_seconds + liberation_change.seconds_until_complete}:R>"
+                                change = f"{liberation_change.rate_per_hour:+.2f}%/hour"
                                 liberation_text = f"\n`{change:^25}`"
                             else:
                                 skipped_campaigns.append(campaign)

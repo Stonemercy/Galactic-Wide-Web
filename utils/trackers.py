@@ -38,9 +38,9 @@ class LiberationTrackerEntry(ReprMixin):
         return sum(self.changes_list) * (60 / self.max_entries)
 
     @property
-    def seconds_until_complete(self) -> float | None:
+    def seconds_until_complete(self) -> int | None:
         if self.rate_per_hour > 0:
-            return ((100 - self.liberation) / self.rate_per_hour) * 3600
+            return int(((100 - self.liberation) / self.rate_per_hour) * 3600)
 
 
 class LiberationChangesTracker(ReprMixin):
