@@ -254,7 +254,13 @@ class Data(ReprMixin):
                         ]:
                             self.planets[index].in_assignment = True
                 elif task.type in (11, 13):
-                    self.planets[task.values[2]].in_assignment = True
+                    if (
+                        self.planets[task.values[2]].event
+                        and self.planets[task.values[2]].event.type == 2
+                    ):
+                        continue
+                    else:
+                        self.planets[task.values[2]].in_assignment = True
         else:
             self.assignment = None
 
