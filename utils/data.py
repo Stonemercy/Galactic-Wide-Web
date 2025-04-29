@@ -54,7 +54,7 @@ class Data(ReprMixin):
         self.loaded: bool = False
         self.liberation_changes: LiberationChangesTracker = LiberationChangesTracker()
         self.dark_energy_changes: dict = {"total": 0, "changes": []}
-        self.meridia_position: None | tuple[int, int] = None
+        self.meridia_position: None | tuple[float, float] = None
         self.personal_order = None
         self.fetched_at = None
         self.assignment = None
@@ -323,7 +323,7 @@ class Data(ReprMixin):
             self.global_resources: GlobalResources = GlobalResources(
                 raw_global_resources_data=self.__data__["status"]["globalResources"]
             )
-            self.meridia_position: tuple[int, int] = (
+            self.meridia_position: tuple[float, float] = (
                 self.__data__["status"]["planetStatus"][64]["position"]["x"],
                 self.__data__["status"]["planetStatus"][64]["position"]["y"],
             )
