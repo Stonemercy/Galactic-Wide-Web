@@ -421,7 +421,11 @@ class Dashboard:
             liberation_changes: LiberationChangesTracker,
         ):
             """Liberate a planet"""
-            if planet.current_owner == "Humans" and not planet.event:
+            if (planet.current_owner == "Humans" and not planet.event) or (
+                planet.current_owner == "Humans"
+                and planet.event
+                and planet.event.type == 2
+            ):
                 obj_text = language_json["dashboard"]["MajorOrderEmbed"]["tasks"][
                     "type11"
                 ].format(
