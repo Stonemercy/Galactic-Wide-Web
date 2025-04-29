@@ -854,25 +854,17 @@ class Dashboard:
             rate = f"{rate_per_hour:+.2%}/hr"
             completion_timestamp = ""
             now_seconds = int(datetime.now().timestamp())
-            if rate_per_hour > 0:
-                seconds_until_complete = int(
-                    ((1 - dark_energy_changes["total"]) / rate_per_hour) * 3600
+            if rate_per_hour != 0:
+                seconds_until_end = (
+                    int(((1 - dark_energy_changes["total"]) / rate_per_hour) * 3600)
+                    if rate_per_hour > 0
+                    else int((dark_energy_changes["total"] / abs(rate_per_hour)) * 3600)
                 )
                 completion_timestamp = language_json["dashboard"]["DarkEnergyEmbed"][
                     "reaches"
                 ].format(
-                    number=100,
-                    timestamp=(now_seconds + seconds_until_complete),
-                )
-            elif rate_per_hour < 0:
-                seconds_until_zero = int(
-                    (dark_energy_changes["total"] / abs(rate_per_hour)) * 3600
-                )
-                completion_timestamp = language_json["dashboard"]["DarkEnergyEmbed"][
-                    "reaches"
-                ].format(
-                    number=0,
-                    timestamp=(now_seconds + seconds_until_zero),
+                    number=100 if rate_per_hour > 0 else 0,
+                    timestamp=(now_seconds + seconds_until_end),
                 )
             self.add_field(
                 "",
