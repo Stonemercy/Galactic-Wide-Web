@@ -1,4 +1,5 @@
 from datetime import datetime
+from sys import exc_info
 from disnake import AppCmdInter
 from disnake.ext import commands
 from main import GalacticWideWebBot
@@ -10,13 +11,15 @@ class ErrorHandlerCog(commands.Cog):
         self.bot = bot
 
     @commands.Cog.listener()
-    async def on_slash_command_error(self, inter: AppCmdInter, error):
+    async def on_slash_command_error(
+        self, inter: AppCmdInter, error: commands.CommandError
+    ):
         if hasattr(inter.application_command, "on_error"):
             return
         if isinstance(error, commands.CheckFailure):
             now = datetime.now()
             if now < self.bot.ready_time:
-                return await inter.send(
+                await inter.send(
                     content=(
                         f"Please wait {int((self.bot.ready_time - now).total_seconds())} seconds to use this.\n"
                         f"Ready <t:{int(self.bot.ready_time.timestamp())}:R>"
@@ -24,6 +27,7 @@ class ErrorHandlerCog(commands.Cog):
                     ephemeral=True,
                     delete_after=int((self.bot.ready_time - now).total_seconds()),
                 )
+                return
         elif isinstance(error, commands.NotOwner):
             await inter.send(
                 content=f"You need to be the owner of {inter.guild.me.mention} to use this command.",
@@ -43,7 +47,15 @@ class ErrorHandlerCog(commands.Cog):
                 await self.bot.moderator_channel.send(
                     content=f"{self.bot.owner.mention} {error} | {e}"
                 )
-            raise error
+                raise error
+
+    @commands.Cog.listener()
+    async def on_error(self, event_method: str, *args, **kwargs):
+        exc_type, exc_value, exc_traceback = exc_info()
+        await self.bot.moderator_channel.send(
+            content=f"{self.bot.owner.mention}\nUnhandled Event Error\n```py\n{''.join(format_exception(exc_type, exc_value, exc_traceback))}```",
+            event=event_method,
+        )
 
 
 def setup(bot: GalacticWideWebBot):
