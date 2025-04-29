@@ -45,9 +45,9 @@ class TranslationsCog(commands.Cog):
                             f"-# Missing: {missing_count}"
                         ),
                     )
-                    embeds.append(embed)
                 else:
                     embed.add_field("None :)", "Everything has been translated so far")
+                embeds.append(embed)
             await inter.send(
                 embeds=embeds,
                 components=[SupportServerButton()],
