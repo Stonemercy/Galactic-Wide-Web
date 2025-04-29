@@ -416,8 +416,8 @@
 	},
 	"1242": {
 		"galacticEffectId": 1242,
-		"name": "[Galactic Map Marker] Planet Trajectory",
-		"description": "Something on Meridia"
+		"name": "MOVING PLANET",
+		"description": "This planet is moving and could collide with others."
 	},
 	"1243": {
 		"galacticEffectId": 1243,
