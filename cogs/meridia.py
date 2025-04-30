@@ -31,6 +31,8 @@ class MeridiaCog(commands.Cog):
         meridia = Meridia()
         if newest_coords != meridia.locations[-1].as_tuple:
             meridia.new_location(datetime.now().isoformat(), *newest_coords)
+        else:
+            return
         if (
             now.hour % 4 == 0
             and now.minute == 10
