@@ -866,6 +866,10 @@ class Dashboard:
                     number=100 if rate_per_hour > 0 else 0,
                     timestamp=(now_seconds + seconds_until_end),
                 )
+            else:
+                completion_timestamp = (
+                    f"**MERIDIA IS STATIONARY** {Emojis.Icons.victory}"
+                )
             self.add_field(
                 "",
                 f"{dark_energy_resource.health_bar}\n**`{dark_energy_resource.perc:^25.3%}`**\n**`{rate:^25}`**",
