@@ -866,38 +866,36 @@ class Dashboard:
                     number=100 if rate_per_hour > 0 else 0,
                     timestamp=(now_seconds + seconds_until_end),
                 )
-            else:
-                completion_timestamp = (
-                    f"**MERIDIA IS STATIONARY** {Emojis.Icons.victory}"
+                self.add_field(
+                    "",
+                    f"{dark_energy_resource.health_bar}\n**`{dark_energy_resource.perc:^25.3%}`**\n**`{rate:^25}`**",
+                    inline=False,
                 )
-            self.add_field(
-                "",
-                f"{dark_energy_resource.health_bar}\n**`{dark_energy_resource.perc:^25.3%}`**\n**`{rate:^25}`**",
-                inline=False,
-            )
-            warning = ""
-            if (
-                (total_de_available / dark_energy_resource.max_value)
-                + dark_energy_resource.perc
-            ) > 1:
-                warning = ":warning:"
-            active_invasions_fmt = language_json["dashboard"]["DarkEnergyEmbed"][
-                "active_invasions"
-            ].format(number=active_invasions)
-            total_to_be_harvested = language_json["dashboard"]["DarkEnergyEmbed"][
-                "total_to_be_harvested"
-            ].format(
-                warning=warning,
-                number=f"{(total_de_available / dark_energy_resource.max_value):.2%}",
-            )
-            self.add_field(
-                "",
-                (
-                    f"{completion_timestamp}\n"
-                    f"{active_invasions_fmt}\n"
-                    f"{total_to_be_harvested}"
-                ),
-            )
+                warning = ""
+                if (
+                    (total_de_available / dark_energy_resource.max_value)
+                    + dark_energy_resource.perc
+                ) > 1:
+                    warning = ":warning:"
+                active_invasions_fmt = language_json["dashboard"]["DarkEnergyEmbed"][
+                    "active_invasions"
+                ].format(number=active_invasions)
+                total_to_be_harvested = language_json["dashboard"]["DarkEnergyEmbed"][
+                    "total_to_be_harvested"
+                ].format(
+                    warning=warning,
+                    number=f"{(total_de_available / dark_energy_resource.max_value):.2%}",
+                )
+                self.add_field(
+                    "",
+                    (
+                        f"{completion_timestamp}\n"
+                        f"{active_invasions_fmt}\n"
+                        f"{total_to_be_harvested}"
+                    ),
+                )
+            else:
+                self.add_field(f"**MERIDIA IS STATIONARY** {Emojis.Icons.victory}", "")
             self.set_thumbnail(
                 url="https://cdn.discordapp.com/emojis/1331357764039086212.webp?size=96"
             )
