@@ -54,7 +54,7 @@ class AnnouncementsCog(commands.Cog):
                 ge
                 for ge in self.bot.data.global_events
                 if ge.assignment_id == self.bot.data.assignment.id
-                or ge.title.upper() == "BRIEFING"
+                or (ge.assignment_id == 0 and ge.title.upper() == "BRIEFING")
             ]
             if mo_briefing_list:
                 mo_briefing = mo_briefing_list[0]
