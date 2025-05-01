@@ -631,7 +631,7 @@ class Planet(ReprMixin):
             }
             self.sector = "Celeste"
             self.hazards = []
-        elif set((1241, 1252)) | self.active_effects:
+        elif self.index in (127, 85, 51):
             self.biome = {
                 "name": "Fractured Planet",
                 "description": "All that remains of a planet torn apart by the Meridian singularity. A solemn reminder of the desolation Tyranny leaves in its wake.",
