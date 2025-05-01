@@ -629,7 +629,7 @@ class Planet(ReprMixin):
                 "name": "Black Hole",
                 "description": "The planet is gone, the ultimate price to pay in the war for humanity's survival.",
             }
-            self.sector = "Orion"
+            self.sector = "Celeste"
             self.hazards = []
         elif set((1241, 1252)) | self.active_effects:
             self.biome = {
