@@ -6,6 +6,7 @@ from disnake import (
     File,
     InteractionContextTypes,
     ApplicationInstallTypes,
+    NotFound,
 )
 from disnake.ext import commands, tasks
 from main import GalacticWideWebBot
@@ -108,10 +109,16 @@ class MapCog(commands.Cog):
             description="Do you want other people to see the response to this command?",
         ),
     ):
-        await inter.response.defer(ephemeral=public != "Yes")
         self.bot.logger.info(
             f"{self.qualified_name} | /{inter.application_command.name} <{public = }>"
         )
+        try:
+            await inter.response.defer(ephemeral=public != "Yes")
+        except NotFound:
+            await self.bot.moderator_channel.send(
+                f"Map defer failed after {(datetime.now() - inter.created_at).total_seconds():.2f} seconds"
+            )
+            return
         if inter.guild:
             guild = GWWGuild.get_by_id(inter.guild_id)
             if not guild:
