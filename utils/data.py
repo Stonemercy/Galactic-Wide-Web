@@ -609,7 +609,6 @@ class Planet(ReprMixin):
         self.stats: dict = raw_planet_data["statistics"]
         self.thumbnail = None
         self.feature: str | None = {
-            5: "Negative Energy Labratory",  # Pilen V
             45: "Center for Civilian Surveillance",  # Mastia
             64: "Meridian Singularity",  # Meridia
             125: "Centre of Science",  # Fenrir III
