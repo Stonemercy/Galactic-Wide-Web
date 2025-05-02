@@ -499,6 +499,16 @@
 		"name": "Reduced stims",
 		"description": "Stim capacity reduced by 2"
 	},
+	"1265": {
+		"galacticEffectId": 1265,
+		"name": "strat_FastReconVehicle",
+		"description": "Cooldown of FRV Stratagem increased by 50%"
+	},
+	"1267": {
+		"galacticEffectId": 1267,
+		"name": "strat_OrbitalGasStrike",
+		"description": "The Orbital Gas Strike stratagem has been temporarily authorized for use by all Helldivers."
+	},
 	"1268": {
 		"galacticEffectId": 1268,
 		"name": "Negative Energy Laboratory",
