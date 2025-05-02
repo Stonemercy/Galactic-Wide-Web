@@ -600,7 +600,7 @@ class Dashboard:
             planet_names_json: dict,
         ):
             """Hold a planet until the end of the MO"""
-            feature_text = "" if not planet.feature else f"Feature: {planet.feature}"
+            feature_text = "" if not planet.feature else f"{language_json["dashboard"]["MajorOrderEmbed"]["feature"]}: {planet.feature}"
             for special_unit in SpecialUnits.get_from_effects_list(
                 active_effects=planet.active_effects
             ):
