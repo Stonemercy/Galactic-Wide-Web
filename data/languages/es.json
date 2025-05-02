@@ -54,7 +54,8 @@
             "players_required": "Requeridos para la Victoria",
             "level": "Nivel de Invasión",
             "defence_held_by_dss": "\n> -# DEFENSA MANTENIDA POR DSS",
-            "dark_energy_remaining": "\nEst. **Energía Oscura** restante: **{number}**"
+            "dark_energy_remaining": "\nEst. **Energía Oscura** restante: **{number}**",
+            "feature": "Feature"
         },
         "AttackEmbed": {
             "title": "Atacando a {faction}",

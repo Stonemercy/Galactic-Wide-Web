@@ -54,7 +54,8 @@
             "players_required": "Erforderlich für den Sieg",
             "level": "Invasion Stufe",
             "defence_held_by_dss": "\n> -# DEFENCE HELD BY DSS",
-            "dark_energy_remaining": "\nEst. **Dark Energy** remaining: **{number}**"
+            "dark_energy_remaining": "\nEst. **Dark Energy** remaining: **{number}**",
+            "feature": "Feature"
         },
         "AttackEmbed": {
             "title": "Angriff auf {faction}",

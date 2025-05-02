@@ -54,7 +54,8 @@
             "players_required": "Требуется для победы",
             "level": "Уровень вторжения",
             "defence_held_by_dss": "\n> -# ОБОРОНА ВЕДЕТСЯ ДКС",
-            "dark_energy_remaining": "\nПредполагаемое количество **Темной энергии**: **{number}**"
+            "dark_energy_remaining": "\nПредполагаемое количество **Темной энергии**: **{number}**",
+            "feature": "Объект интереса"
         },
         "AttackEmbed": {
             "title": "Фронт {faction}",

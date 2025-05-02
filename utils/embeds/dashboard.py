@@ -534,7 +534,9 @@ class Dashboard:
                     faction=language_json["factions"][str(task.values[1])],
                 )
                 feature_text = (
-                    "" if not planet.feature else f"Feature: {planet.feature}"
+                    ""
+                    if not planet.feature
+                    else f"{language_json['dashboard']['MajorOrderEmbed']['feature']}: **{planet.feature}**"
                 )
                 player_count = (
                     language_json["dashboard"]["heroes"].format(
@@ -600,7 +602,11 @@ class Dashboard:
             planet_names_json: dict,
         ):
             """Hold a planet until the end of the MO"""
-            feature_text = "" if not planet.feature else f"{language_json["dashboard"]["MajorOrderEmbed"]["feature"]}: {planet.feature}"
+            feature_text = (
+                ""
+                if not planet.feature
+                else f"{language_json['dashboard']['MajorOrderEmbed']['feature']}: **{planet.feature}**"
+            )
             for special_unit in SpecialUnits.get_from_effects_list(
                 active_effects=planet.active_effects
             ):
@@ -1014,7 +1020,7 @@ class Dashboard:
                     exclamation = Emojis.Icons.mo if planet.in_assignment else ""
                     feature_text = ""
                     if planet.feature:
-                        feature_text += f"Feature: {planet.feature}"
+                        feature_text += f"{language_json['dashboard']['DefenceEmbed']['feature']}: **{planet.feature}**"
                     if planet.event.potential_buildup != 0:
                         feature_text += language_json["dashboard"]["DefenceEmbed"][
                             "dark_energy_remaining"
