@@ -92,6 +92,13 @@ class Emojis:
         extreme_cold = "<:s:1357272540413825075>"
         blizzards = "<:s:1357272548626268340>"
         tremors = "<:s:1357278857232646164>"
+        acid_storms = "<:s:1368174678023081994>"
+        ion_storms = "<:s:1368174752690339980>"
+        meteor_storms = "<:s:1368174763754655851>"
+        rain_storms = "<:s:1368174778279530546>"
+        sandstorms = "<:s:1368174789243441202>"
+        thick_fog = "<:s:1368174807232938026>"
+        volcanic_activity = "<:s:1368174822722633738>"
 
     @dataclass
     class SpecialUnits:
