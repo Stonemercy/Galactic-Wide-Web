@@ -1114,7 +1114,7 @@ class Dashboard:
                     if campaign.planet.dss_in_orbit:
                         exclamation += Emojis.DSS.icon
                     if campaign.planet.regen_perc_per_hour <= 0.25:
-                        exclamation += f" :warning: {campaign.planet.regen_perc_per_hour:.2f}% REGEN :warning:"
+                        exclamation += f":warning: {campaign.planet.regen_perc_per_hour:.2f}% REGEN :warning:"
                     if campaign.planet.index in [
                         planet.index for planet in gambit_planets.values()
                     ]:
@@ -1158,9 +1158,9 @@ class Dashboard:
                         Emojis.Icons.mo if campaign.planet.in_assignment else ""
                     )
                     if campaign.planet.dss_in_orbit:
-                        exclamation += f" {Emojis.DSS.icon}"
-                    if campaign.planet.regen < 1:
-                        exclamation += " :warning: 0% REGEN :warning:"
+                        exclamation += f"{Emojis.DSS.icon}"
+                    if campaign.planet.regen_perc_per_hour < 0.01:
+                        exclamation += f":warning: {campaign.planet.regen_perc_per_hour:.2%} REGEN :warning:"
                     if campaign.planet.index in [
                         planet.index for planet in gambit_planets.values()
                     ]:
