@@ -148,9 +148,10 @@ class SetupCog(commands.Cog):
             return
         try:
             await inter.response.defer()
-        except NotFound:
-            await inter.send(
-                "There was an error with this interaction, please try again."
+        except (NotFound, InteractionTimedOut):
+            await inter.channel.send(
+                "There was an error with this interaction, please try again.",
+                delete_after=5,
             )
             return
         action_rows = ActionRow.rows_from_message(inter.message)
@@ -621,9 +622,10 @@ class SetupCog(commands.Cog):
             return
         try:
             await inter.response.defer()
-        except NotFound:
-            await self.bot.moderator_channel.send(
-                f"Setup dropdown defer failed after {(datetime.now() - inter.created_at).total_seconds():.2f} seconds"
+        except (NotFound, InteractionTimedOut):
+            await inter.channel.send(
+                "There was an error with that dropdown, please try again.",
+                delete_after=5,
             )
             return
         action_rows = ActionRow.rows_from_message(inter.message)
