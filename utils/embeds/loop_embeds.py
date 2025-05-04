@@ -787,7 +787,7 @@ class GuildLeaveListenerEmbed(Embed, EmbedReprMixin):
             description=f"The bot has been removed from **{guild.name}**",
             colour=Colour.brand_red(),
         )
-        if guild.icon.url:
+        if guild.icon:
             self.set_thumbnail(url=guild.icon.url)
         if guild.banner:
             self.set_image(url=guild.banner.url)
