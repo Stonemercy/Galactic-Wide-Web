@@ -115,8 +115,9 @@ class MapCog(commands.Cog):
         try:
             await inter.response.defer(ephemeral=public != "Yes")
         except NotFound:
-            await self.bot.moderator_channel.send(
-                f"Map defer failed after {(datetime.now() - inter.created_at).total_seconds():.2f} seconds"
+            await inter.send(
+                "There was an error with that command, please try again.",
+                ephemeral=True,
             )
             return
         if inter.guild:

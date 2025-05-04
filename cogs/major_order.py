@@ -42,6 +42,7 @@ class MajorOrderCog(commands.Cog):
                 "There was an error with that command, please try again.",
                 ephemeral=True,
             )
+            return
         self.bot.logger.info(
             f"{self.qualified_name} | /{inter.application_command.name} <{public = }>"
         )

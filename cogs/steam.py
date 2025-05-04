@@ -3,6 +3,7 @@ from disnake import (
     MessageInteraction,
     InteractionContextTypes,
     ApplicationInstallTypes,
+    NotFound,
 )
 from disnake.ext import commands
 from main import GalacticWideWebBot
@@ -35,7 +36,14 @@ class SteamCog(commands.Cog):
             description="Do you want other people to see the response to this command?",
         ),
     ):
-        await inter.response.defer(ephemeral=public != "Yes")
+        try:
+            await inter.response.defer(ephemeral=public != "Yes")
+        except NotFound:
+            await inter.send(
+                "There was an error with that command, please try again.",
+                ephemeral=True,
+            )
+            return
         self.bot.logger.info(
             f"{self.qualified_name} | /{inter.application_command.name}"
         )

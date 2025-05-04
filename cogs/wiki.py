@@ -5,6 +5,7 @@ from disnake import (
     ApplicationInstallTypes,
     InteractionContextTypes,
     MessageInteraction,
+    NotFound,
 )
 from disnake.ext import commands
 from main import GalacticWideWebBot
@@ -31,7 +32,14 @@ class WikiCog(commands.Cog):
         self,
         inter: AppCmdInter,
     ):
-        await inter.response.defer(ephemeral=True)
+        try:
+            await inter.response.defer(ephemeral=True)
+        except NotFound:
+            await inter.send(
+                "There was an error with that command, please try again.",
+                ephemeral=True,
+            )
+            return
         self.bot.logger.info(
             f"{self.qualified_name} | /{inter.application_command.name}"
         )

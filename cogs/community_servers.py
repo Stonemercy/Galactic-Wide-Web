@@ -20,7 +20,14 @@ class CommunityServersCog(commands.Cog):
         },
     )
     async def community_servers(self, inter: AppCmdInter):
-        await inter.response.defer(ephemeral=True)
+        try:
+            await inter.response.defer(ephemeral=True)
+        except NotFound:
+            await inter.send(
+                "There was an error with that command, please try again.",
+                ephemeral=True,
+            )
+            return
         self.bot.logger.info(
             msg=f"{self.qualified_name} | /{inter.application_command.name}"
         )

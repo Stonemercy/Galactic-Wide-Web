@@ -1,4 +1,4 @@
-from disnake import AppCmdInter, Embed, File
+from disnake import AppCmdInter, Embed, File, NotFound
 from disnake.ext import commands
 from main import GalacticWideWebBot
 from utils.checks import wait_for_startup
@@ -21,7 +21,14 @@ class TranslationsCog(commands.Cog):
             choices=["de", "es", "fr", "it", "pt-br", "ru", "ALL"]
         ),
     ):
-        await inter.response.defer(ephemeral=True)
+        try:
+            await inter.response.defer(ephemeral=True)
+        except NotFound:
+            await inter.send(
+                "There was an error with that command, please try again.",
+                ephemeral=True,
+            )
+            return
         self.bot.logger.info(
             msg=f"{self.qualified_name} | /{inter.application_command.name} | used by <@{inter.author.id}> | @{inter.author.global_name}"
         )
