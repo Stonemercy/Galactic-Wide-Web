@@ -81,6 +81,7 @@ class Data(ReprMixin):
                         await moderator_channel.send(content=f"API/USING BACKUP\n{r}")
             except ClientSSLError as e:
                 print(e)
+                raise e
 
             for endpoint in list(self.__data__.keys()):
                 if endpoint == "thumbnails":
