@@ -1,4 +1,10 @@
-from disnake import AppCmdInter, Guild, MessageInteraction, NotFound
+from disnake import (
+    AppCmdInter,
+    Guild,
+    InteractionTimedOut,
+    MessageInteraction,
+    NotFound,
+)
 from disnake.ext import commands
 from main import GalacticWideWebBot
 from utils.checks import wait_for_startup
@@ -22,10 +28,10 @@ class CommunityServersCog(commands.Cog):
     async def community_servers(self, inter: AppCmdInter):
         try:
             await inter.response.defer(ephemeral=True)
-        except NotFound:
-            await inter.send(
+        except (NotFound, InteractionTimedOut):
+            await inter.channel.send(
                 "There was an error with that command, please try again.",
-                ephemeral=True,
+                delete_after=5,
             )
             return
         self.bot.logger.info(

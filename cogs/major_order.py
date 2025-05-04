@@ -2,6 +2,7 @@ from disnake import (
     AppCmdInter,
     InteractionContextTypes,
     ApplicationInstallTypes,
+    InteractionTimedOut,
     NotFound,
 )
 from disnake.ext import commands
@@ -37,10 +38,10 @@ class MajorOrderCog(commands.Cog):
     ):
         try:
             await inter.response.defer(ephemeral=public != "Yes")
-        except NotFound:
-            await inter.send(
+        except (NotFound, InteractionTimedOut):
+            await inter.channel.send(
                 "There was an error with that command, please try again.",
-                ephemeral=True,
+                delete_after=5,
             )
             return
         self.bot.logger.info(

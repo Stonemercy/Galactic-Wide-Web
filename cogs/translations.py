@@ -1,4 +1,4 @@
-from disnake import AppCmdInter, Embed, File, NotFound
+from disnake import AppCmdInter, Embed, File, InteractionTimedOut, NotFound
 from disnake.ext import commands
 from main import GalacticWideWebBot
 from utils.checks import wait_for_startup
@@ -23,10 +23,10 @@ class TranslationsCog(commands.Cog):
     ):
         try:
             await inter.response.defer(ephemeral=True)
-        except NotFound:
-            await inter.send(
+        except (NotFound, InteractionTimedOut):
+            await inter.channel.send(
                 "There was an error with that command, please try again.",
-                ephemeral=True,
+                delete_after=5,
             )
             return
         self.bot.logger.info(
