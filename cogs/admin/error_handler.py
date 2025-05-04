@@ -45,7 +45,7 @@ class ErrorHandlerCog(commands.Cog):
                 )
             except Exception as e:
                 await self.bot.moderator_channel.send(
-                    content=f"{self.bot.owner.mention} {error} | {e}"
+                    content=f"{self.bot.owner.mention}\n```\n{error}```\n```\n{e}```"
                 )
                 raise error
 
