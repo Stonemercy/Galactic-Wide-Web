@@ -445,7 +445,7 @@ class Dashboard:
                     ],
                 )
                 value_text = ""
-                if planet.stats["playerCount"] > 100:
+                if planet.stats["playerCount"] > 1000:
                     value_text += language_json["dashboard"]["heroes"].format(
                         heroes=f'{planet.stats["playerCount"]:,}'
                     )
