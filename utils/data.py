@@ -158,10 +158,6 @@ class Data(ReprMixin):
                             if endpoint == "dispatches":
                                 if not json[0]["message"]:
                                     continue
-                            elif endpoint == "assignments":
-                                if json not in ([], None):
-                                    if not json[0]["briefing"]:
-                                        continue
                             self.__data__[endpoint] = json
                         else:
                             logger.error(msg=f"API/{endpoint.upper()}, {r.status}")
