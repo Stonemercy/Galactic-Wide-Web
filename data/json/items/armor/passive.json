@@ -62,5 +62,9 @@
 	"15": {
 		"name": "Acclimated",
 		"description": "Provides 50% resistance to fire, gas, acid, and electrical damage."
+	},
+	"16": {
+		"name": "Integrated Explosives",
+		"description": "Armor explodes 1.5s after the wearer dies."
 	}
 }

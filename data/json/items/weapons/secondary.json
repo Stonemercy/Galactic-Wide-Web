@@ -170,5 +170,20 @@
 			4,
 			12
 		]
+	},
+	"1007": {
+		"name": "GP-31 Ultimatum",
+		"description": "A pistol front-loaded with a single, powerful explosive. The weight of the projectile limits the weapon's range.",
+		"damage": 4500,
+		"capacity": 1,
+		"recoil": 43,
+		"fire_rate": 900,
+		"fire_mode": [
+			0
+		],
+		"traits": [
+			4,
+			6
+		]
 	}
 }

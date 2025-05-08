@@ -48,5 +48,20 @@
 		"name": "Urban Legends",
 		"id": "urban_legends",
 		"credits_to_unlock": 1000
+	},
+	"10": {
+		"name": "Servants of Freedom",
+		"id": "servants_of_freedom",
+		"credits_to_unlock": 1000
+	},
+	"11": {
+		"name": "Borderline Justice",
+		"id": "borderline_justice",
+		"credits_to_unlock": 1000
+	},
+	"12": {
+		"name": "Masters of Ceremony",
+		"id": "masters_of_ceremony",
+		"credits_to_unlock": 1000
 	}
 }

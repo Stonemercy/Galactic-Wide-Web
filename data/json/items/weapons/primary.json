@@ -537,5 +537,23 @@
 			2,
 			6
 		]
+	},
+	"1005": {
+		"name": "LAS-17 Double-Edge Sickle",
+		"description": "A LAS-16 Sickle model with all overheating protections conveniently removed, allowing for far longer bursts of fire. Does more damage when overheating, at the cost of slightly burning the user.",
+		"type": 5,
+		"damage": 55,
+		"capacity": 15,
+		"recoil": 2,
+		"fire_rate": 700,
+		"fire_mode": [
+			2
+		],
+		"traits": [
+			1,
+			2,
+			3,
+			9
+		]
 	}
 }

@@ -78,5 +78,13 @@
 		"penetration": 6,
 		"outer_radius": 7,
 		"fuse_time": 2.9
+	},
+	"1014": {
+		"name": "G-50 Seeker",
+		"description": "A grenade that releases a cloud of toxic gas, effective at blinding and slowing both organic and inorganic enemies.",
+		"damage": 400,
+		"penetration": 4,
+		"outer_radius": 7,
+		"fuse_time": 0
 	}
 }
