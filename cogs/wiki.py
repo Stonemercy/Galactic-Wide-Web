@@ -556,7 +556,12 @@ class WikiCog(commands.Cog):
                 )
             components = Wiki.Buttons.boosters_rows(
                 language_json=guild_language,
-                booster_names=sorted(self.bot.json_dict["stratagems"].keys()),
+                booster_names=sorted(
+                    [
+                        v["name"]
+                        for v in self.bot.json_dict["items"]["boosters"].values()
+                    ]
+                ),
             )
             await inter.response.edit_message(embed=embed, components=components)
             return
