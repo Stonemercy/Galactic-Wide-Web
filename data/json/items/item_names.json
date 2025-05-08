@@ -1730,5 +1730,65 @@
 	"1014": {
 		"name": "G-50 Seeker",
 		"mix_id": "1014"
+	},
+	"1101": {
+		"name": "Reaper of Bounties",
+		"mix_id": "1101"
+	},
+	"1102": {
+		"name": "R-6 Deadeye",
+		"mix_id": "1102"
+	},
+	"1103": {
+		"name": "Reaper of Bounties",
+		"mix_id": "1103"
+	},
+	"1104": {
+		"name": "GS-17 Frontier Marshal",
+		"mix_id": "1104"
+	},
+	"1105": {
+		"name": "GS-17 Frontier Marshal",
+		"mix_id": "1105"
+	},
+	"1106": {
+		"name": "GS-66 Lawmaker",
+		"mix_id": "1106"
+	},
+	"1107": {
+		"name": "Way of the Bandolier",
+		"mix_id": "1107"
+	},
+	"1108": {
+		"name": "GS-66 Lawmaker",
+		"mix_id": "1108"
+	},
+	"1109": {
+		"name": "Way of the Bandolier",
+		"mix_id": "1109"
+	},
+	"1110": {
+		"name": "LAS-58 Talon",
+		"mix_id": "1110"
+	},
+	"1111": {
+		"name": "TED-63 Dynamite",
+		"mix_id": "1111"
+	},
+	"1112": {
+		"name": "Sample Extricator",
+		"mix_id": "1112"
+	},
+	"1113": {
+		"name": "Tip Hat",
+		"mix_id": "1113"
+	},
+	"1114": {
+		"name": "LIFT-860 Hover Pack",
+		"mix_id": "1114"
+	},
+	"1115": {
+		"name": "Super Sheriff",
+		"mix_id": "1115"
 	}
 }

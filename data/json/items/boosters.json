@@ -54,5 +54,9 @@
 	"908": {
 		"name": "Armed Resupply Pods",
 		"description": "Mounts a modified AR-23 Liberator to all resupply pods, allowing them to double as automatic turrets."
+	},
+	"1112": {
+		"name": "Sample Extricator",
+		"description": "Large enemies now have a chance of dropping Samples on death. Capped at 10 drops per mission."
 	}
 }

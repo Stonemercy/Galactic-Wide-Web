@@ -86,5 +86,17 @@
 		"penetration": 4,
 		"outer_radius": 7,
 		"fuse_time": 0
+	},
+	"1111": {
+		"name": "TED-63 Dynamite",
+		"description": "Creates a far-reaching incendiary blast ideal for crowd control against smaller enemies of Freedom. Equipped with a programmable timer for strategic versatility.",
+		"damage": 700,
+		"penetration": 3,
+		"outer_radius": 12,
+		"fuse_time": [
+			5,
+			15,
+			60
+		]
 	}
 }

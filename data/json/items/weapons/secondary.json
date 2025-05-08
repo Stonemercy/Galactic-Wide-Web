@@ -185,5 +185,20 @@
 			4,
 			6
 		]
+	},
+	"1110": {
+		"name": "LAS-58 Talon",
+		"description": "An accurate, hard-hitting laser revolver with bespoke break action for heat sink swaps.",
+		"damage": 200,
+		"capacity": 7,
+		"recoil": 2,
+		"fire_rate": 750,
+		"fire_mode": [
+			0
+		],
+		"traits": [
+			2,
+			9
+		]
 	}
 }

@@ -555,5 +555,21 @@
 			3,
 			9
 		]
+	},
+	"1102": {
+		"name": "R-6 Deadeye",
+		"description": "A mighty rifle with a signature lever-action enabling single round reload. Powerful precision suited to mid- and long-range combat.",
+		"type": 4,
+		"damage": 300,
+		"capacity": 8,
+		"recoil": 120,
+		"fire_rate": 100,
+		"fire_mode": [
+			13
+		],
+		"traits": [
+			2,
+			5
+		]
 	}
 }
