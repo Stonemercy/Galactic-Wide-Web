@@ -52,7 +52,7 @@ json_dict = {
         "ru": {"path": "data/languages/ru.json", "value": None},
         "es": {"path": "data/languages/es.json", "value": None},
     },
-    "stratagems": {"path": "data/json_custom/stratagems.json", "value": None},
+    "stratagems": {"path": "data/json/stratagems/stratagems.json", "value": None},
     "warbonds": {
         "index": {"path": "data/json/warbonds.json", "value": None},
         "helldivers_mobilize": {

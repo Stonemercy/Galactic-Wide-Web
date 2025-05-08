@@ -83,8 +83,7 @@
 		"name": "Haunted Swamp",
 		"description": "Squelching mud, twisting roots; the odor of rot and anarchy. A teeming, endless morass."
 	},
-	"fractured_planet":
-	{
+	"fractured_planet": {
 		"name": "Fractured Planet",
 		"description": "All that remains of a planet torn apart by the Meridian singularity. A solemn reminder of the desolation Tyranny leaves in its wake."
 	},
