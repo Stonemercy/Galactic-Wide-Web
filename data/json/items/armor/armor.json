@@ -2469,7 +2469,7 @@
 		"stamina_regen": 100,
 		"passive": 0
 	},
-	"101": {
+	"9901": {
 		"name": "AC-1 Dutiful",
 		"description": "The breathing apparatus built into this armor helps both soldiers and colonists thrive, even when assigned to planets with atmospheres rated \"suboptimal\", \"extreme\", and \"character building\".",
 		"type": 1,
@@ -2479,7 +2479,7 @@
 		"stamina_regen": 100,
 		"passive": 15
 	},
-	"102": {
+	"9902": {
 		"name": "AC-1 Dutiful",
 		"description": "The breathing apparatus built into this armor helps both soldiers and colonists thrive, even when assigned to planets with atmospheres rated \"suboptimal\", \"extreme\", and \"character building\".",
 		"type": 1,
@@ -2489,7 +2489,7 @@
 		"stamina_regen": 100,
 		"passive": 0
 	},
-	"103": {
+	"9903": {
 		"name": "Strength in Our Arms",
 		"description": "The symbol on this cape represents the pillars of freedom: duty, obedience, and loyalty.",
 		"type": 1,
@@ -2499,7 +2499,7 @@
 		"stamina_regen": 100,
 		"passive": 0
 	},
-	"104": {
+	"9904": {
 		"name": "AC-2 Obedient",
 		"description": "The muted colors and relaxed, high-mobility fit make this a favouite among long-distance snipers and hide-and-seek champions alike.",
 		"type": 0,
@@ -2509,7 +2509,7 @@
 		"stamina_regen": 125,
 		"passive": 15
 	},
-	"105": {
+	"9905": {
 		"name": "AC-2 Obedient",
 		"description": "The helmet is equipped with heptofocal specialty lenses, making it a favourite among long-distance snipers and micro-sculpture enthusiats alike.",
 		"type": 1,
