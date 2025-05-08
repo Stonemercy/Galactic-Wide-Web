@@ -532,7 +532,7 @@ class WikiCog(commands.Cog):
             )
             if not embed.image_set:
                 await self.bot.moderator_channel.send(
-                    f"Image missing for **weapon grenades __{weapon_info[0]}__** <@{self.bot.owner_id}> :warning:"
+                    f"Image missing for **weapon grenade __{grenade_name}__** <@{self.bot.owner_id}> :warning:"
                 )
             components = Wiki.Buttons.grenades_rows(
                 language_json=guild_language,
