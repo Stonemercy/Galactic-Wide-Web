@@ -720,18 +720,14 @@ class Dashboard:
             """Win more campaigns than lost"""
             clamped_progress = max(min(task.progress, 5), -5)
             percent = (clamped_progress + 5) / 10
-            event_health_bar = ""
-            if percent > 0.5:
-                outlook = language_json["victory"]
-                if self.with_health_bars:
-                    event_health_bar = health_bar(
-                        perc=percent,
-                        race="Humans",
-                    )
-            else:
-                outlook = language_json["defeat"]
-                if self.with_health_bars:
-                    event_health_bar = health_bar(perc=percent, race="Automaton")
+            event_health_bar = (
+                ""
+                if not self.with_health_bars
+                else health_bar(
+                    perc=percent,
+                    race="Humans" if task.progress_perc >= 1 else "Automaton",
+                )
+            )
             self.add_field(
                 name=language_json["dashboard"]["MajorOrderEmbed"]["tasks"][
                     "type15"
@@ -742,11 +738,7 @@ class Dashboard:
                         else Emojis.Icons.mo_task_incomplete
                     )
                 ),
-                value=(
-                    f"{language_json['dashboard']['outlook'].format(outlook=outlook)}\n"
-                    f"{event_health_bar}\n"
-                    f"`{task.progress_perc:^25,}`\n"
-                ),
+                value=(f"{event_health_bar}\n" f"`{task.progress_perc:^25,}`\n"),
                 inline=False,
             )
 
