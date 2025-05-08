@@ -2409,7 +2409,7 @@
 		"stamina_regen": 100,
 		"passive": 0
 	},
-	"1": {
+	"901": {
 		"name": "SR-24 Street Scout",
 		"description": "This armor's nostalgic color scheme brings to mind beloved trappings of colonial yesteryear: concrete frontier domiciles, slate-colored civilian jumpsuits, and Space Settlers' Pie.",
 		"type": 0,
@@ -2419,7 +2419,7 @@
 		"stamina_regen": 125,
 		"passive": 14
 	},
-	"23": {
+	"902": {
 		"name": "SR-24 Street Scout",
 		"description": "This armor's nostalgic color scheme brings to mind beloved trappings of colonial yesteryear: concrete frontier domiciles, slate-colored civilian jumpsuits, and Space Settlers' Pie.",
 		"type": 1,
@@ -2429,7 +2429,7 @@
 		"stamina_regen": 100,
 		"passive": 0
 	},
-	"3": {
+	"903": {
 		"name": "Greatcloak of Rebar Resolve",
 		"description": "Inside the collar is embroidered: 'Wherever I may plant my shield, know that I will never yield.' and 'machine washable'.",
 		"type": 1,
@@ -2439,7 +2439,7 @@
 		"stamina_regen": 100,
 		"passive": 0
 	},
-	"12": {
+	"911": {
 		"name": "SR-18 Roadblock",
 		"description": "The crest on this armor's shoulder shows friendlies that safety is near, and foes that they have reached the end of the road.",
 		"type": 1,
@@ -2449,7 +2449,7 @@
 		"stamina_regen": 100,
 		"passive": 0
 	},
-	"13": {
+	"912": {
 		"name": "SR-18 Roadblock",
 		"description": "The crest on this armor's shoulder shows friendlies that safety is near, and foes that they have reached the end of the road.",
 		"type": 2,
@@ -2459,9 +2459,9 @@
 		"stamina_regen": 50,
 		"passive": 14
 	},
-	"14": {
+	"913": {
 		"name": "Holder of the Yellow Line",
-		"description": "",
+		"description": "Since ancient times, the yellow line has symbolized an uncrossable boundary. To don this cape is to draw that line between tyranny and liberty, between alien monstrosities and Super Earth property, and never yield the right of way.",
 		"type": 1,
 		"slot": 1,
 		"armor_rating": 100,

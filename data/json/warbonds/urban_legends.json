@@ -3,19 +3,19 @@
         "medals_to_unlock": 0,
         "items": [
             {
-                "item_id": 1,
+                "item_id": 901,
                 "medal_cost": 40
             },
             {
-                "item_id": 23,
+                "item_id": 902,
                 "medal_cost": 30
             },
             {
-                "item_id": 3,
+                "item_id": 903,
                 "medal_cost": 8
             },
             {
-                "item_id": 4,
+                "item_id": 904,
                 "medal_cost": 2
             },
             {
@@ -23,15 +23,15 @@
                 "medal_cost": 7
             },
             {
-                "item_id": 6,
+                "item_id": 905,
                 "medal_cost": 30
             },
             {
-                "item_id": 7,
+                "item_id": 906,
                 "medal_cost": 75
             },
             {
-                "item_id": 8,
+                "item_id": 907,
                 "medal_cost": 20
             }
         ]
@@ -40,27 +40,27 @@
         "medals_to_unlock": 160,
         "items": [
             {
-                "item_id": 9,
+                "item_id": 908,
                 "medal_cost": 55
             },
             {
-                "item_id": 10,
+                "item_id": 909,
                 "medal_cost": 85
             },
             {
-                "item_id": 11,
+                "item_id": 910,
                 "medal_cost": 50
             },
             {
-                "item_id": 12,
+                "item_id": 911,
                 "medal_cost": 35
             },
             {
-                "item_id": 13,
+                "item_id": 912,
                 "medal_cost": 45
             },
             {
-                "item_id": 14,
+                "item_id": 913,
                 "medal_cost": 20
             },
             {
@@ -68,7 +68,7 @@
                 "medal_cost": 12
             },
             {
-                "item_id": 16,
+                "item_id": 914,
                 "medal_cost": 5
             }
         ]
@@ -77,7 +77,7 @@
         "medals_to_unlock": 250,
         "items": [
             {
-                "item_id": 17,
+                "item_id": 915,
                 "medal_cost": 55
             },
             {
@@ -85,19 +85,19 @@
                 "medal_cost": 32
             },
             {
-                "item_id": 19,
+                "item_id": 916,
                 "medal_cost": 50
             },
             {
-                "item_id": 20,
+                "item_id": 917,
                 "medal_cost": 20
             },
             {
-                "item_id": 21,
+                "item_id": 918,
                 "medal_cost": 110
             },
             {
-                "item_id": 22,
+                "item_id": 919,
                 "medal_cost": 50
             }
         ]

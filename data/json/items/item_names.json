@@ -1563,81 +1563,81 @@
 		"name": "CE-101 Guerilla Gorilla",
 		"mix_id": "1128708923"
 	},
-	"1": {
+	"901": {
 		"name": "SR-24 Street Scout",
-		"mix_id": "1"
+		"mix_id": "901"
 	},
-	"23": {
+	"902": {
 		"name": "SR-24 Street Scout",
-		"mix_id": "23"
+		"mix_id": "902"
 	},
-	"3": {
+	"903": {
 		"name": "Greatcloak of Rebar Resolve",
-		"mix_id": "3"
+		"mix_id": "903"
 	},
-	"4": {
+	"904": {
 		"name": "Rebar Resolve",
-		"mix_id": "4"
+		"mix_id": "904"
 	},
-	"6": {
+	"905": {
 		"name": "CQC-19 Stun Lance",
-		"mix_id": "6"
+		"mix_id": "905"
 	},
-	"7": {
+	"906": {
 		"name": "Directional Shield",
-		"mix_id": "7"
+		"mix_id": "906"
 	},
-	"8": {
+	"907": {
 		"name": "Concrete Jungle Hellpod Pattern",
-		"mix_id": "8"
+		"mix_id": "907"
 	},
-	"9": {
+	"908": {
 		"name": "Armed Resupply Pods",
-		"mix_id": "9"
+		"mix_id": "908"
 	},
-	"10": {
+	"909": {
 		"name": "Flame Sentry",
-		"mix_id": "10"
+		"mix_id": "909"
 	},
-	"11": {
+	"910": {
 		"name": "Concrete Jungle Shuttle Pattern",
-		"mix_id": "11"
+		"mix_id": "910"
 	},
-	"12": {
+	"911": {
 		"name": "SR-18 Roadblock",
-		"mix_id": "12"
+		"mix_id": "911"
 	},
-	"13": {
+	"912": {
 		"name": "SR-18 Roadblock",
-		"mix_id": "13"
+		"mix_id": "912"
 	},
-	"14": {
+	"913": {
 		"name": "Holder of the Yellow Line",
-		"mix_id": "14"
+		"mix_id": "913"
 	},
-	"16": {
+	"914": {
 		"name": "Holder of the Yellow Line",
-		"mix_id": "16"
+		"mix_id": "914"
 	},
-	"17": {
+	"915": {
 		"name": "Concrete Jungle Vehicle Pattern",
-		"mix_id": "17"
+		"mix_id": "915"
 	},
-	"19": {
+	"916": {
 		"name": "This is Democracy",
-		"mix_id": "19"
+		"mix_id": "916"
 	},
-	"20": {
+	"917": {
 		"name": "Super Pedestrian",
-		"mix_id": "20"
+		"mix_id": "917"
 	},
-	"21": {
+	"918": {
 		"name": "Anti-Tank Emplacement",
-		"mix_id": "21"
+		"mix_id": "918"
 	},
-	"22": {
+	"919": {
 		"name": "Concrete Jungle Exosuit Pattern",
-		"mix_id": "22"
+		"mix_id": "919"
 	},
 	"101": {
 		"name": "AC-1 Dutiful",
