@@ -166,7 +166,14 @@ class MapCog(commands.Cog):
             latest_map = self.bot.maps.latest_maps[language_json["code"]]
         embed = Embed(colour=Colour.dark_embed())
         embed.set_image(url=latest_map.map_link)
-        await inter.edit_original_response(content="", embed=embed)
+        try:
+            await inter.edit_original_response(content="", embed=embed)
+        except NotFound:
+            await inter.channel.send(
+                "There was an error with that command, please try again.",
+                delete_after=5,
+            )
+            return
 
 
 def setup(bot: GalacticWideWebBot):
