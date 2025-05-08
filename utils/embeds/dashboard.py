@@ -718,8 +718,8 @@ class Dashboard:
 
         def add_type_15(self, task: Assignment.Task, language_json: dict):
             """Win more campaigns than lost"""
-            percent = {i: (i + 10) / 20 for i in range(-10, 12, 2)}[
-                [key for key in range(-10, 12, 2) if key <= task.progress][-1]
+            percent = {i: (i + 5) / 10 for i in range(-5, 6, 1)}[
+                [key for key in range(-5, 6, 1) if key <= task.progress][-1]
             ]
             event_health_bar = ""
             if percent > 0.5:
