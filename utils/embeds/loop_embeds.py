@@ -296,13 +296,12 @@ class BotDashboardLoopEmbed(Embed, EmbedReprMixin):
 
 class DispatchesLoopEmbed(Embed, EmbedReprMixin):
     def __init__(self, language_json: dict, dispatch: Dispatch):
-        super().__init__(colour=Colour.from_rgb(*faction_colours["MO"]))
-        title_match = search(r"\*\*(.*?)\*\*", dispatch.message)
-        self.title = title_match.group(1) if title_match else None
-        description_match = search(r"\*\*.*?\*\*\s*(.*)", dispatch.message, DOTALL)
-        self.description = (
-            description_match.group(1).strip() if description_match else None
+        super().__init__(
+            title="NEW DISPATCH", colour=Colour.from_rgb(*faction_colours["MO"])
         )
+        disp_spltln = dispatch.message.splitlines()
+        self.title = disp_spltln[0].replace("*", "")
+        self.description = "\n".join(disp_spltln[1:]).replace("*", "")
         self.set_footer(text=language_json["message"].format(message_id=dispatch.id))
 
 
