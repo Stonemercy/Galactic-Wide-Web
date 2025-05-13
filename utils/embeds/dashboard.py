@@ -206,60 +206,63 @@ class Dashboard:
                     self.set_thumbnail(url=image_link)
                 self.add_description(assignment=assignment, language_json=language_json)
                 for task in assignment.tasks:
-                    if task.type == 2:
-                        self.add_type_2(
-                            task=task,
-                            language_json=language_json,
-                            item_names_json=json_dict["items"]["item_names"],
-                            planet_names_json=json_dict["planets"],
-                            planet=planets[task.values[8]],
-                        )
-                    elif task.type == 3:
-                        self.add_type_3(
-                            task=task,
-                            language_json=language_json,
-                            species_dict=json_dict["enemies"]["enemy_ids"],
-                            planet_names=json_dict["planets"],
-                        )
-                    elif task.type == 9:
-                        self.add_type_9(task=task, language_json=language_json)
-                    elif task.type == 11:
-                        self.add_type_11(
-                            language_json=language_json,
-                            planet=planets[task.values[2]],
-                            planet_names_json=json_dict["planets"],
-                            liberation_changes=liberation_changes,
-                        )
-                    elif task.type == 12:
-                        self.add_type_12(
-                            task=task,
-                            language_json=language_json,
-                            liberation_changes=liberation_changes,
-                            planet_names_json=json_dict["planets"],
-                            planet=(
-                                planets[task.values[3]] if task.values[3] != 0 else None
-                            ),
-                        )
-                    elif task.type == 13:
-                        self.add_type_13(
-                            task=task,
-                            language_json=language_json,
-                            planet=planets[task.values[2]],
-                            liberation_changes=liberation_changes,
-                            planet_names_json=json_dict["planets"],
-                        )
-                    elif task.type == 15:
-                        self.add_type_15(task=task, language_json=language_json)
-                    else:
-                        self.add_field(
-                            name=f"{Emojis.Decoration.alert_icon} UNRECOGNIZED TASK",
-                            value=(
-                                f"-# ||{task.type}@"
-                                f"{'|'.join(str(v) for v in task.values)}-"
-                                f"{'|'.join(str(vt) for vt in task.value_types)}||"
-                            ),
-                            inline=False,
-                        )
+                    match task.type:
+                        case 2:
+                            self.add_type_2(
+                                task=task,
+                                language_json=language_json,
+                                item_names_json=json_dict["items"]["item_names"],
+                                planet_names_json=json_dict["planets"],
+                                planet=planets[task.values[8]],
+                            )
+                        case 3:
+                            self.add_type_3(
+                                task=task,
+                                language_json=language_json,
+                                species_dict=json_dict["enemies"]["enemy_ids"],
+                                planet_names=json_dict["planets"],
+                            )
+                        case 9:
+                            self.add_type_9(task=task, language_json=language_json)
+                        case 11:
+                            self.add_type_11(
+                                language_json=language_json,
+                                planet=planets[task.values[2]],
+                                planet_names_json=json_dict["planets"],
+                                liberation_changes=liberation_changes,
+                            )
+                        case 12:
+                            self.add_type_12(
+                                task=task,
+                                language_json=language_json,
+                                liberation_changes=liberation_changes,
+                                planet_names_json=json_dict["planets"],
+                                planet=(
+                                    planets[task.values[3]]
+                                    if task.values[3] != 0
+                                    else None
+                                ),
+                            )
+                        case 13:
+                            self.add_type_13(
+                                task=task,
+                                language_json=language_json,
+                                planet=planets[task.values[2]],
+                                liberation_changes=liberation_changes,
+                                planet_names_json=json_dict["planets"],
+                            )
+                        case 15:
+                            self.add_type_15(task=task, language_json=language_json)
+                        case _:
+                            self.add_field(
+                                name=f"{Emojis.Decoration.alert_icon} UNRECOGNIZED TASK",
+                                value=(
+                                    f"-# ||{task.type}@"
+                                    f"{'|'.join(str(v) for v in task.values)}-"
+                                    f"{'|'.join(str(vt) for vt in task.value_types)}||"
+                                ),
+                                inline=False,
+                            )
                     if assignment.flags == 1 and len(assignment.tasks) > 1:
                         self.add_field("or", "", inline=False)
 
