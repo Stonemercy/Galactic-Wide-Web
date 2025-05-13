@@ -26,7 +26,6 @@ class Data(ReprMixin):
         "total_players",
         "steam",
         "thumbnails",
-        "superstore",
         "dss",
         "personal_order",
         "global_events",
@@ -46,7 +45,6 @@ class Data(ReprMixin):
             "planets": None,
             "steam": None,
             "thumbnails": None,
-            "superstore": None,
             "dss": None,
             "personal_order": None,
             "status": None,
@@ -91,16 +89,6 @@ class Data(ReprMixin):
                             self.__data__[endpoint] = await r.json()
                         else:
                             logger.error(msg=f"API/THUMBNAILS, {r.status}")
-                    continue
-                if endpoint == "superstore":
-                    continue
-                    async with session.get(
-                        url="https://api.diveharder.com/v1/store_rotation"
-                    ) as r:
-                        if r.status == 200:
-                            self.__data__[endpoint] = await r.json()
-                        else:
-                            logger.error(msg=f"API/SUPERSTORE, {r.status}")
                     continue
                 if endpoint == "dss":
                     async with session.get(
@@ -294,9 +282,6 @@ class Data(ReprMixin):
                 Steam(raw_steam_data=raw_steam_data)
                 for raw_steam_data in self.__data__["steam"]
             ]
-
-        if self.__data__["superstore"]:  # SHELVED
-            self.superstore: Superstore = Superstore(self.__data__["superstore"])
 
         if self.__data__["personal_order"]:  # SHELVED
             self.personal_order: PersonalOrder = PersonalOrder(
@@ -736,12 +721,6 @@ class Steam(ReprMixin):
         self.content: str = steam_format(content=raw_steam_data["content"])
         self.author: str = raw_steam_data["author"]
         self.url: str = raw_steam_data["url"]
-
-
-class Superstore(ReprMixin):  # SHELVED
-    def __init__(self, superstore):
-        self.expiration = superstore["expire_time"]
-        self.items: dict = superstore["items"]
 
 
 class DSS(ReprMixin):

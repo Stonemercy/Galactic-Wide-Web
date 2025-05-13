@@ -69,7 +69,6 @@ class WikiCog(commands.Cog):
             "AutomatonButton",
             "IlluminateButton",
             "TerminidsButton",
-            "SuperstoreButton",
             "WarbondButton",
             "_prev_page",
             "_next_page",

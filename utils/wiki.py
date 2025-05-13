@@ -70,14 +70,6 @@ class Wiki:
                     emoji=Emojis.Wiki.enemies,
                 )
 
-        class SuperStoreButton(Button, ReprMixin):
-            def __init__(self, language_json: dict, disabled: bool = False):
-                super().__init__(
-                    label="[PH] Superstore [/PH]",
-                    disabled=disabled,
-                    custom_id="SuperstoreButton",
-                )
-
         class WarbondButton(Button, ReprMixin):
             def __init__(self, language_json: dict, disabled: bool = False):
                 super().__init__(
@@ -138,18 +130,6 @@ class Wiki:
                     custom_id="TerminidsButton",
                     emoji=Emojis.Factions.terminids,
                 )
-
-        class SuperstorePage1Button(Button, ReprMixin):
-            def __init__(self):
-                pass
-
-        class SuperstorePage2Button(Button, ReprMixin):
-            def __init__(self):
-                pass
-
-        class SuperstorePage3Button(Button, ReprMixin):
-            def __init__(self):
-                pass
 
         class EquipmentHomeButton(Button, ReprMixin):
             def __init__(self, language_json: dict, disabled: bool = False):
@@ -227,7 +207,6 @@ class Wiki:
                             "EnemiesHomeButton"
                         ]
                     ),
-                    # Wiki.Buttons.SuperStoreButton(language_json=language_json),
                     Wiki.Buttons.WarbondButton(
                         language_json=language_json["wiki"]["buttons"]["WarbondButton"]
                     ),
@@ -686,12 +665,6 @@ class Wiki:
                 except Exception as e:
                     self.image_set = False
                     self.error = e
-
-        # class SuperstoreEmbed(Embed, EmbedReprMixin):
-        #     """Shelved until source is fixed"""
-
-        #     def __init__(self):
-        #         pass
 
         class WarbondEmbed(Embed, EmbedReprMixin):
             def __init__(

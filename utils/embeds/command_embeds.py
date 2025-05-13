@@ -7,13 +7,7 @@ from data.lists import (
     stratagem_image_dict,
 )
 from disnake import APISlashCommand, Colour, Embed, File, Guild, OptionType
-from utils.data import (
-    DarkEnergy,
-    PersonalOrder,
-    Planet,
-    Steam,
-    Superstore,
-)
+from utils.data import DarkEnergy, PersonalOrder, Planet, Steam
 from utils.db import GWWGuild
 from utils.emojis import Emojis
 from utils.functions import health_bar, short_format
@@ -428,38 +422,6 @@ class SetupCommandEmbed(Embed, EmbedReprMixin):
             language_json["SetupEmbed"]["footer_message_announcements_asterisk"],
             inline=False,
         )
-
-
-class SuperstoreCommandEmbed(Embed, EmbedReprMixin):
-    def __init__(self, superstore: Superstore):
-        super().__init__(title=f"Superstore Rotation", colour=Colour.blue())
-        now = datetime.now()
-        expiration = datetime.strptime(superstore.expiration, "%d-%b-%Y %H:%M")
-        warning = " :warning:" if expiration < now + timedelta(days=1) else ""
-        self.description = f"Rotates <t:{int(expiration.timestamp())}:R>{warning}"
-        for item in superstore.items:
-            if "unmapped" in item["name"].lower():
-                self.add_field("Item is new", "Try again later")
-                continue
-            passives = ""
-            item_type = f"Type: **{item['type']}**\n" if item["slot"] == "Body" else ""
-            if item["slot"] == "Body":
-                passives_list = item["passive"]["description"].splitlines()
-                passives = f"**{item['passive']['name']}**\n"
-                for passive in passives_list:
-                    passives += f"-# - {passive}\n"
-            self.add_field(
-                f"{item['name']} - {item['store_cost']} {Emojis.Items.super_credits}",
-                (
-                    f"{item_type}"
-                    f"Slot: **{item['slot']}** {getattr(Emojis.Armour, item['slot'].lower())}\n"
-                    f"Armor: **{item['armor_rating']}**\n"
-                    f"Speed: **{item['speed']}**\n"
-                    f"Stamina Regen: **{item['stamina_regen']}**\n"
-                    f"{passives}"
-                ),
-            )
-        self.insert_field_at(1, "", "").insert_field_at(4, "", "")
 
 
 class PersonalOrderCommandEmbed(Embed, EmbedReprMixin):
