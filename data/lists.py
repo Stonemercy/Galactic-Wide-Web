@@ -145,7 +145,7 @@ faction_colours = {
     "Terminids": (234, 167, 43),
     "Illuminate": (107, 59, 187),
     "Humans": (107, 183, 234),
-    "MO": (255, 232, 00),
+    "MO": (255, 220, 0),
     "DSS": (214, 232, 248),
 }
 """Dictionary of Colours used by the bot
