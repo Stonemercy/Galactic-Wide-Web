@@ -207,43 +207,44 @@ class Data(ReprMixin):
                 4: "Illuminate",
             }
             for task in self.assignment.tasks:
-                if task.type == 2:
-                    self.planets[task.values[8]].in_assignment = True
-                elif task.type == 3:
-                    if task.progress == 1:
-                        continue
-                    if task.values[9] != 0:
-                        self.planets[task.values[9]].in_assignment = True
-                        continue
-                    for index in [
-                        planet.index
-                        for planet in self.planets.values()
-                        if planet.current_owner == factions[task.values[0]]
-                        or (
-                            planet.event
-                            and planet.event.faction == factions[task.values[0]]
-                        )
-                    ]:
-                        self.planets[index].in_assignment = True
-                elif task.type == 12:
-                    if self.planet_events:
-                        if task.values[3] != 0:
-                            self.planets[task.values[3]].in_assignment = True
+                match task.type:
+                    case 2:
+                        self.planets[task.values[8]].in_assignment = True
+                    case 3:
+                        if task.progress == 1:
+                            continue
+                        if task.values[9] != 0:
+                            self.planets[task.values[9]].in_assignment = True
                             continue
                         for index in [
                             planet.index
-                            for planet in self.planet_events
-                            if planet.event.faction == factions[task.values[1]]
+                            for planet in self.planets.values()
+                            if planet.current_owner == factions[task.values[0]]
+                            or (
+                                planet.event
+                                and planet.event.faction == factions[task.values[0]]
+                            )
                         ]:
                             self.planets[index].in_assignment = True
-                elif task.type in (11, 13):
-                    if (
-                        self.planets[task.values[2]].event
-                        and self.planets[task.values[2]].event.type == 2
-                    ):
-                        continue
-                    else:
-                        self.planets[task.values[2]].in_assignment = True
+                    case 12:
+                        if self.planet_events:
+                            if task.values[3] != 0:
+                                self.planets[task.values[3]].in_assignment = True
+                                continue
+                            for index in [
+                                planet.index
+                                for planet in self.planet_events
+                                if planet.event.faction == factions[task.values[1]]
+                            ]:
+                                self.planets[index].in_assignment = True
+                    case 11 | 13:
+                        if (
+                            self.planets[task.values[2]].event
+                            and self.planets[task.values[2]].event.type == 2
+                        ):
+                            continue
+                        else:
+                            self.planets[task.values[2]].in_assignment = True
         else:
             self.assignment = None
 
