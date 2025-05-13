@@ -112,14 +112,8 @@ class MeridiaCog(commands.Cog):
         ax.set_xlim(x_min, x_max)
         ax.set_ylim(y_min, y_max)
         ax.plot(x, y, "o", color=(0.5, 0, 0.5), label="Coordinates")
-        dataponts_to_use = 2
-        while dataponts_to_use < 5:
-            if len(x) > dataponts_to_use + 1:
-                dataponts_to_use += 1
-            else:
-                break
-        dp_to_use = -dataponts_to_use
-        if len(x) > 1:
+        if len(x) > 1 and x[-1] != x[-2]:
+            dp_to_use = -min(len(x) - 1, 4)
             ax.arrow(
                 x[dp_to_use],
                 y[dp_to_use],
@@ -171,24 +165,25 @@ class MeridiaCog(commands.Cog):
             arrow_length = 25
             head_x = future_x - dx * arrow_length
             head_y = future_y - dy * arrow_length
-            ax.arrow(
-                head_x,
-                head_y,
-                dx * arrow_length,
-                dy * arrow_length,
-                head_width=10,
-                head_length=25,
-                fc=(1, 0, 0.75),
-                ec=(1, 0, 0.75),
-            )
-            ax.plot(
-                future_x,
-                future_y,
-                "o",
-                color=(1, 0, 0.75),
-                markersize=1,
-                label="Future Position",
-            )
+            if x[-1] != x[-2]:
+                ax.arrow(
+                    head_x,
+                    head_y,
+                    dx * arrow_length,
+                    dy * arrow_length,
+                    head_width=10,
+                    head_length=25,
+                    fc=(1, 0, 0.75),
+                    ec=(1, 0, 0.75),
+                )
+                ax.plot(
+                    future_x,
+                    future_y,
+                    "o",
+                    color=(1, 0, 0.75),
+                    markersize=1,
+                    label="Future Position",
+                )
 
         current_location: Meridia.Location = meridia_info.locations[-1]
         padding_distance = 0.006
@@ -217,9 +212,7 @@ class MeridiaCog(commands.Cog):
         ax.spines["left"].set_visible(False)
         ax.spines["bottom"].set_visible(False)
         ax.set_frame_on(False)
-        ax.set_title(
-            "Estimated Direction of Meridia", color="white", fontsize=16, pad=20
-        )
+        ax.set_title("The path of Meridia", color="white", fontsize=16, pad=20)
         plt.savefig(
             "resources/meridia_map.webp",
             dpi=300,

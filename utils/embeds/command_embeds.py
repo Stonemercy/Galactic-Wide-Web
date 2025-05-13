@@ -568,7 +568,11 @@ class MeridiaCommandEmbed(Embed, EmbedReprMixin):
         dark_energy_changes: dict[str:int, str:list],
         time_to_reach_planets: dict[str:float],
     ):
-        super().__init__(title="Meridia", colour=Colour.from_rgb(106, 76, 180))
+        super().__init__(
+            title="Meridia",
+            colour=Colour.from_rgb(106, 76, 180),
+            description="-# This is the path Meridia has taken\n-# ||the gaps were caused by AH||",
+        )
         rate_per_hour = sum(dark_energy_changes["changes"]) * 12
         rate = f"{rate_per_hour:+.2%}/hr"
         completion_timestamp = ""
