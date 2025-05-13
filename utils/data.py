@@ -6,6 +6,8 @@ from disnake import TextChannel
 from logging import Logger
 from os import getenv
 from typing import ItemsView, ValuesView
+from data.lists import SpecialUnits
+from utils.emojis import Emojis
 from utils.functions import health_bar, steam_format
 from utils.mixins import ReprMixin
 from utils.trackers import LiberationChangesTracker
@@ -52,10 +54,14 @@ class Data(ReprMixin):
         self.loaded: bool = False
         self.liberation_changes: LiberationChangesTracker = LiberationChangesTracker()
         self.dark_energy_changes: dict = {"total": 0, "changes": []}
+        self.the_great_host_changes: dict = {"total": 0, "changes": []}
         self.meridia_position: None | tuple[float, float] = None
         self.personal_order = None
         self.fetched_at = None
         self.assignment = None
+        self.dss = None
+        self.global_resources = None
+        self.gambit_planets = {}
         self.galactic_impact_mod: float = 0.0
         self.global_events: list[GlobalEvent] | list = []
 
@@ -92,17 +98,11 @@ class Data(ReprMixin):
                     continue
                 if endpoint == "dss":
                     async with session.get(
-                        url="https://api.diveharder.com/raw/dss"
+                        url="https://api.live.prod.thehelldiversgame.com/api/SpaceStation/801/749875195"
                     ) as r:
                         if r.status == 200:
                             data = await r.json()
-                            if data == "Error":
-                                self.__data__[endpoint] = data
-                                continue
-                            if type(data[0]) == str:
-                                logger.error(msg=f"API/DSS, {data[0] = }")
-                                continue
-                            tactical_actions = data[0].get("tacticalActions", None)
+                            tactical_actions = data.get("tacticalActions", None)
                             if tactical_actions:
                                 names_present = tactical_actions[0].get("name", None)
                                 if not names_present:
@@ -110,7 +110,7 @@ class Data(ReprMixin):
                                         msg=f"API/DSS, Tactical Action has no name"
                                     )
                                     continue
-                            self.__data__[endpoint] = data[0]
+                            self.__data__[endpoint] = data
                         else:
                             logger.error(msg=f"API/DSS, {r.status}")
                     continue
@@ -129,7 +129,7 @@ class Data(ReprMixin):
                     continue
                 if endpoint == "status":
                     async with session.get(
-                        url="https://api.diveharder.com/raw/status"
+                        url="https://api.live.prod.thehelldiversgame.com/api/WarSeason/801/Status"
                     ) as r:
                         if r.status == 200:
                             data = await r.json()
@@ -159,7 +159,9 @@ class Data(ReprMixin):
 
         self.format_data()
         self.update_liberation_rates()
-        self.update_dark_energy_rate()
+        if self.global_resources != None:
+            self.update_dark_energy_rate()
+            self.update_great_host_health()
         self.get_needed_players()
         self.fetched_at = datetime.now()
         if not self.loaded:
@@ -301,6 +303,7 @@ class Data(ReprMixin):
                     )
                 else:
                     continue
+
             self.global_resources: GlobalResources = GlobalResources(
                 raw_global_resources_data=self.__data__["status"]["globalResources"]
             )
@@ -336,6 +339,22 @@ class Data(ReprMixin):
                 source_planet.attack_targets.append(target_planet.index)
                 target_planet.defending_from.append(source_planet.index)
 
+            for campaign in self.campaigns:
+                if (
+                    campaign.planet.current_owner == "Humans"
+                    or len(campaign.planet.defending_from) == 0
+                    or 1190 in campaign.planet.active_effects
+                ):
+                    continue
+                else:
+                    for defending_index in campaign.planet.attack_targets:
+                        defending_planet = self.planets[defending_index]
+                        if (
+                            len(defending_planet.defending_from) < 2
+                            and defending_planet.event
+                        ):
+                            self.gambit_planets[defending_index] = campaign.planet
+
     def update_liberation_rates(self) -> None:
         """Update the liberation changes in the tracker for each active campaign"""
         for campaign in self.campaigns:
@@ -362,6 +381,23 @@ class Data(ReprMixin):
                         )
                     )
             self.dark_energy_changes["total"] = self.global_resources.dark_energy.perc
+
+    def update_great_host_health(self) -> None:
+        """Update the changes in The Great Host's health"""
+        if self.global_resources.the_great_host:
+            if self.the_great_host_changes["total"] != 0:
+                if len(self.the_great_host_changes["changes"]) == 5:
+                    self.the_great_host_changes["changes"].pop(0)
+                while len(self.the_great_host_changes["changes"]) < 5:
+                    self.the_great_host_changes["changes"].append(
+                        (
+                            self.global_resources.the_great_host.perc
+                            - self.the_great_host_changes["total"]
+                        )
+                    )
+            self.the_great_host_changes["total"] = (
+                self.global_resources.the_great_host.perc
+            )
 
     def get_needed_players(self) -> None:
         """Update the planets with their required helldivers for victory"""
@@ -550,6 +586,17 @@ class DarkEnergy(GlobalResource):
         return health_bar(self.perc, "Illuminate")
 
 
+class TheGreatHost(GlobalResource):
+    def __init__(self, raw_global_resource_data: dict) -> None:
+        """Organised data for The Great Host"""
+        super().__init__(raw_global_resource_data=raw_global_resource_data)
+
+    @property
+    def health_bar(self) -> str:
+        """Returns the health bar set up for The Great Host"""
+        return health_bar(self.perc, "Illuminate")
+
+
 class GlobalResources(list[GlobalResource]):
     def __init__(self, raw_global_resources_data: list[dict]) -> None:
         """An organised list of Global Resources."""
@@ -557,6 +604,10 @@ class GlobalResources(list[GlobalResource]):
         for raw_global_resource_data in raw_global_resources_data:
             if raw_global_resource_data["id32"] == 194773219:
                 self.dark_energy: DarkEnergy = DarkEnergy(
+                    raw_global_resource_data=raw_global_resource_data
+                )
+            elif raw_global_resource_data["id32"] == 175685818:
+                self.the_great_host: TheGreatHost = TheGreatHost(
                     raw_global_resource_data=raw_global_resource_data
                 )
             else:
@@ -630,6 +681,21 @@ class Planet(ReprMixin):
             (self.position["x"] * 1000) + 1000,
             ((self.position["y"] * -1) * 1000) + 1000,
         )
+
+    @property
+    def exclamations(self) -> str:
+        result = ""
+        if self.event:
+            result += f":shield:{getattr(Emojis.Factions, self.event.faction.lower())}"
+        if self.in_assignment:
+            result += Emojis.Icons.mo
+        if self.dss_in_orbit:
+            result += Emojis.DSS.icon
+        for special_unit in SpecialUnits.get_from_effects_list(
+            active_effects=self.active_effects
+        ):
+            result += special_unit[1]
+        return result
 
     class Event(ReprMixin):
         def __init__(self, raw_event_data) -> None:

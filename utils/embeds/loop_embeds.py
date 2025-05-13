@@ -399,11 +399,7 @@ class CampaignLoopEmbed(Embed, EmbedReprMixin):
 
     def add_new_campaign(self, campaign: Campaign, time_remaining: str | None):
         description = self.fields[2].value
-        exclamation = ""
-        if campaign.planet.dss_in_orbit:
-            exclamation += Emojis.DSS.icon
-        if campaign.planet.in_assignment:
-            exclamation += Emojis.Icons.mo
+        exclamation = campaign.planet.exclamations
         if campaign.planet.event and time_remaining:
             def_level_exc = {
                 0: "",
@@ -420,44 +416,77 @@ class CampaignLoopEmbed(Embed, EmbedReprMixin):
                 if key <= campaign.planet.event.level
             ][-1]
             def_level_exc = def_level_exc[key]
-            if campaign.planet.event.type != 2:
-                description += self.language_json["CampaignEmbed"][
-                    "defend_planet"
-                ].format(
-                    planet=self.planet_names_json[str(campaign.planet.index)]["names"][
-                        self.language_json["code_long"]
-                    ],
-                    faction_emoji=getattr(Emojis.Factions, campaign.faction.lower()),
-                    exclamation=exclamation,
-                )
-                description += self.language_json["CampaignEmbed"][
-                    "invasion_level"
-                ].format(level=campaign.planet.event.level, exclamation=def_level_exc)
-                description += f"> *{self.language_json['ends']} {time_remaining}*\n"
-                if campaign.planet.feature:
-                    description += f"> -# {self.language_json['CampaignEmbed']['feature']}: {campaign.planet.feature}\n"
-            else:
-                description += self.language_json["CampaignEmbed"][
-                    "repel_invasion"
-                ].format(
-                    planet=self.planet_names_json[str(campaign.planet.index)]["names"][
-                        self.language_json["code_long"]
-                    ],
-                    faction_emoji=getattr(Emojis.Factions, campaign.faction.lower()),
-                    exclamation=exclamation,
-                )
-                description += self.language_json["CampaignEmbed"][
-                    "invasion_level"
-                ].format(level=campaign.planet.event.level, exclamation=def_level_exc)
-                potential_de = (
-                    f"{(campaign.planet.event.potential_buildup / 1_000_000):.2%}"
-                )
-                description += self.language_json["CampaignEmbed"][
-                    "potential_dark_energy"
-                ].format(number=potential_de)
-                description += f"> *{self.language_json['ends']} {time_remaining}*\n"
-                if campaign.planet.feature:
-                    description += f"> -# {self.language_json['CampaignEmbed']['feature']}: {campaign.planet.feature}\n"
+            match campaign.planet.event.type:
+                case 1:
+                    description += self.language_json["CampaignEmbed"][
+                        "defend_planet"
+                    ].format(
+                        planet=self.planet_names_json[str(campaign.planet.index)][
+                            "names"
+                        ][self.language_json["code_long"]],
+                        faction_emoji=getattr(
+                            Emojis.Factions, campaign.faction.lower()
+                        ),
+                        exclamation=exclamation,
+                    )
+                    description += self.language_json["CampaignEmbed"][
+                        "invasion_level"
+                    ].format(
+                        level=campaign.planet.event.level, exclamation=def_level_exc
+                    )
+                    description += (
+                        f"> *{self.language_json['ends']} {time_remaining}*\n"
+                    )
+                    if campaign.planet.feature:
+                        description += f"> -# {self.language_json['CampaignEmbed']['feature']}: {campaign.planet.feature}\n"
+                case 2:
+                    description += self.language_json["CampaignEmbed"][
+                        "repel_invasion"
+                    ].format(
+                        planet=self.planet_names_json[str(campaign.planet.index)][
+                            "names"
+                        ][self.language_json["code_long"]],
+                        faction_emoji=getattr(
+                            Emojis.Factions, campaign.faction.lower()
+                        ),
+                        exclamation=exclamation,
+                    )
+                    description += self.language_json["CampaignEmbed"][
+                        "invasion_level"
+                    ].format(
+                        level=campaign.planet.event.level, exclamation=def_level_exc
+                    )
+                    potential_de = (
+                        f"{(campaign.planet.event.potential_buildup / 1_000_000):.2%}"
+                    )
+                    description += self.language_json["CampaignEmbed"][
+                        "potential_dark_energy"
+                    ].format(number=potential_de)
+                    description += (
+                        f"> *{self.language_json['ends']} {time_remaining}*\n"
+                    )
+                    if campaign.planet.feature:
+                        description += f"> -# {self.language_json['CampaignEmbed']['feature']}: {campaign.planet.feature}\n"
+                case 3:
+                    description += self.language_json["CampaignEmbed"][
+                        "defend_planet"
+                    ].format(
+                        planet=self.planet_names_json[str(campaign.planet.index)][
+                            "names"
+                        ][self.language_json["code_long"]],
+                        faction_emoji=getattr(
+                            Emojis.Factions, campaign.faction.lower()
+                        ),
+                        exclamation=exclamation,
+                    )
+
+                    description += (
+                        f"> *{self.language_json['ends']} {time_remaining}*\n"
+                    )
+
+                    if campaign.planet.feature:
+                        description += f"> -# {self.language_json['CampaignEmbed']['feature']}: {campaign.planet.feature}\n"
+
             for special_unit in SpecialUnits.get_from_effects_list(
                 active_effects=campaign.planet.active_effects
             ):
@@ -480,11 +509,6 @@ class CampaignLoopEmbed(Embed, EmbedReprMixin):
 
     def add_campaign_victory(self, planet: Planet, taken_from: str):
         description = self.fields[0].value
-        exclamation = ""
-        if planet.dss_in_orbit:
-            exclamation += Emojis.DSS.icon
-        if planet.in_assignment:
-            exclamation += Emojis.Icons.mo
         description += self.language_json["CampaignEmbed"]["been_liberated"].format(
             emoji=Emojis.Icons.victory,
             planet=self.planet_names_json[str(planet.index)]["names"][
@@ -492,7 +516,7 @@ class CampaignLoopEmbed(Embed, EmbedReprMixin):
             ],
             faction=self.language_json["factions"][taken_from],
             faction_emoji=getattr(Emojis.Factions, taken_from.lower()),
-            exclamation=exclamation,
+            exclamation=planet.exclamations,
         )
         if planet.feature:
             description += f"-# {self.language_json['CampaignEmbed']['feature']}: {planet.feature}\n"
@@ -504,17 +528,12 @@ class CampaignLoopEmbed(Embed, EmbedReprMixin):
 
     def add_def_victory(self, planet: Planet):
         description = self.fields[0].value
-        exclamation = ""
-        if planet.dss_in_orbit:
-            exclamation += Emojis.DSS.icon
-        if planet.in_assignment:
-            exclamation += Emojis.Icons.mo
         description += self.language_json["CampaignEmbed"]["been_defended"].format(
             emoji=Emojis.Icons.victory,
             planet=self.planet_names_json[str(planet.index)]["names"][
                 self.language_json["code_long"]
             ],
-            exclamation=exclamation,
+            exclamation=planet.exclamations,
         )
         if planet.feature:
             description += f"-# {self.language_json['CampaignEmbed']['feature']}: {planet.feature}\n"
@@ -526,18 +545,13 @@ class CampaignLoopEmbed(Embed, EmbedReprMixin):
 
     def add_planet_lost(self, planet: Planet):
         description = self.fields[1].value
-        exclamation = ""
-        if planet.dss_in_orbit:
-            exclamation += Emojis.DSS.icon
-        if planet.in_assignment:
-            exclamation += Emojis.Icons.mo
         description += self.language_json["CampaignEmbed"]["been_lost"].format(
             planet=self.planet_names_json[str(planet.index)]["names"][
                 self.language_json["code_long"]
             ],
             faction=self.language_json["factions"][planet.current_owner],
             faction_emoji=getattr(Emojis.Factions, planet.current_owner.lower()),
-            exclamation=exclamation,
+            exclamation=planet.exclamations,
         )
         if planet.feature:
             description += f"-# {self.language_json['CampaignEmbed']['feature']}: {planet.feature}\n"
@@ -552,17 +566,12 @@ class CampaignLoopEmbed(Embed, EmbedReprMixin):
     ):
         name = self.fields[4].name
         description = self.fields[4].value
-        exclamation = ""
-        if planet.dss_in_orbit:
-            exclamation += Emojis.DSS.icon
-        if planet.in_assignment:
-            exclamation += Emojis.Icons.mo
         description += self.language_json["CampaignEmbed"]["invasion_over"].format(
             planet=self.planet_names_json[str(planet.index)]["names"][
                 self.language_json["code_long"]
             ],
             faction_emoji=getattr(Emojis.Factions, planet.current_owner.lower()),
-            exclamation=exclamation,
+            exclamation=planet.exclamations,
         )
         if not win_status:
             description += self.language_json["CampaignEmbed"][
@@ -594,28 +603,8 @@ class CampaignLoopEmbed(Embed, EmbedReprMixin):
 
     def dss_moved(self, before_planet: Planet, after_planet: Planet):
         description = self.fields[3].value
-        exclamation1 = ""
-        exclamation2 = ""
-        if before_planet.in_assignment:
-            exclamation1 += Emojis.Icons.mo
-        if before_planet.event:
-            exclamation1 += (
-                f" 🛡️ {getattr(Emojis.Factions, before_planet.event.faction.lower())}"
-            )
-        if after_planet.in_assignment:
-            exclamation2 += Emojis.Icons.mo
-        if after_planet.event:
-            exclamation2 += (
-                f" 🛡️ {getattr(Emojis.Factions, after_planet.event.faction.lower())}"
-            )
-        for special_unit in SpecialUnits.get_from_effects_list(
-            active_effects=before_planet.active_effects
-        ):
-            exclamation1 += special_unit[1]
-        for special_unit in SpecialUnits.get_from_effects_list(
-            active_effects=after_planet.active_effects
-        ):
-            exclamation2 += special_unit[1]
+        exclamation1 = before_planet.exclamations
+        exclamation2 = after_planet.exclamations
         description += self.language_json["CampaignEmbed"]["dss"]["has_moved"].format(
             planet1=self.planet_names_json[str(before_planet.index)]["names"][
                 self.language_json["code_long"]
