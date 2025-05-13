@@ -77,7 +77,15 @@ class CommunityServersCog(commands.Cog):
         ):
             return
         await inter.response.defer()
-        guild = GWWGuild.get_by_id(inter.guild_id)
+        if inter.guild:
+            guild = GWWGuild.get_by_id(inter.guild_id)
+            if not guild:
+                self.bot.logger.error(
+                    msg=f"Guild {inter.guild_id} - {inter.guild.name} - had the bot installed but wasn't found in the DB"
+                )
+                guild = GWWGuild.new(inter.guild_id)
+        else:
+            guild = GWWGuild.default()
         # guild_language = self.bot.json_dict["languages"][guild.language]
         match inter.component.custom_id:
             case "CommunityServerPreviousPageButton":
