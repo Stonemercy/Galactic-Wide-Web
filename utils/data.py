@@ -283,10 +283,10 @@ class Data(ReprMixin):
                 for raw_steam_data in self.__data__["steam"]
             ]
 
-        if self.__data__["personal_order"]:  # SHELVED
-            self.personal_order: PersonalOrder = PersonalOrder(
-                self.__data__["personal_order"]
-            )
+        # if self.__data__["personal_order"]:  # SHELVED
+        #     self.personal_order: PersonalOrder = PersonalOrder(
+        #         self.__data__["personal_order"]
+        #     )
 
         if self.__data__["status"]:
             self.galactic_impact_mod: float = self.__data__["status"][
