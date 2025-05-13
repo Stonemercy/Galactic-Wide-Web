@@ -191,7 +191,7 @@ class Dashboard:
             self.with_health_bars = with_health_bars
             super().__init__(
                 title=language_json["dashboard"]["MajorOrderEmbed"]["title"],
-                colour=Colour.from_rgb(r=255, g=220, b=0),
+                colour=Colour.from_rgb(*faction_colours["MO"]),
             )
             if not assignment:
                 self.add_field(
