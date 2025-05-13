@@ -80,7 +80,6 @@ class Data(ReprMixin):
                         logger.critical(msg="API/USING BACKUP")
                         await moderator_channel.send(content=f"API/USING BACKUP\n{r}")
             except ClientSSLError as e:
-                print(e)
                 raise e
 
             for endpoint in list(self.__data__.keys()):
