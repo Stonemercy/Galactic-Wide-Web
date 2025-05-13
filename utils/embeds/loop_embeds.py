@@ -101,7 +101,11 @@ class APIChangesLoopEmbed(Embed, EmbedReprMixin):
                             inline=False,
                         )
                     else:
-                        self.add_field("Removed effect", effect, inline=False)
+                        self.add_field(
+                            f"{faction_emoji} {change.planet.name} Removed effect",
+                            effect,
+                            inline=False,
+                        )
                 for effect in new_effects:
                     if type(effect) == dict:
                         self.add_field(
