@@ -181,16 +181,13 @@ class Data(ReprMixin):
             )
 
         if self.__data__["dss"]:
-            if type(self.__data__["dss"]) != str:
-                dss_planet: Planet = self.planets[self.__data__["dss"]["planetIndex"]]
-                dss_planet.dss_in_orbit = True
-                self.dss: DSS = DSS(
-                    raw_dss_data=self.__data__["dss"],
-                    planet=dss_planet,
-                    war_start_timestamp=self.war_start_timestamp,
-                )
-            else:
-                self.dss = self.__data__["dss"]
+            dss_planet: Planet = self.planets[self.__data__["dss"]["planetIndex"]]
+            dss_planet.dss_in_orbit = True
+            self.dss: DSS = DSS(
+                raw_dss_data=self.__data__["dss"],
+                planet=dss_planet,
+                war_start_timestamp=self.war_start_timestamp,
+            )
 
         if self.planets:
             self.planet_events: list[Planet] = sorted(
