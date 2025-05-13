@@ -562,7 +562,7 @@ class MeridiaCommandEmbed(Embed, EmbedReprMixin):
         self,
         language_json: dict,
         planet_names_json: dict,
-        dark_energy_resource: DarkEnergy,
+        dark_energy_resource: DarkEnergy | None,
         total_de_available: int,
         active_invasions: int,
         dark_energy_changes: dict[str:int, str:list],
@@ -589,27 +589,30 @@ class MeridiaCommandEmbed(Embed, EmbedReprMixin):
             completion_timestamp = language_json["MeridiaEmbed"]["reaches"].format(
                 number=0, timestamp=complete_seconds
             )
-        self.add_field(
-            "",
-            f"{dark_energy_resource.health_bar}\n**`{dark_energy_resource.perc:^25.3%}`**\n**`{rate:^25}`**",
-            inline=False,
-        )
-        warning = ""
-        if (
-            (total_de_available / dark_energy_resource.max_value)
-            + dark_energy_resource.perc
-        ) > 1:
-            warning = ":warning:"
-        active_invasions_fmt = language_json["MeridiaEmbed"]["active_invasions"].format(
-            number=active_invasions
-        )
-        total_to_be_harvested = language_json["MeridiaEmbed"][
-            "total_to_be_harvested"
-        ].format(
-            warning=warning,
-            number=f"{(total_de_available / dark_energy_resource.max_value):.2%}",
-            total_available=f"{(total_de_available / dark_energy_resource.max_value)+dark_energy_resource.perc:.2%}",
-        )
+        active_invasions_fmt = ""
+        total_to_be_harvested = ""
+        if dark_energy_resource:
+            self.add_field(
+                "",
+                f"{dark_energy_resource.health_bar}\n**`{dark_energy_resource.perc:^25.3%}`**\n**`{rate:^25}`**",
+                inline=False,
+            )
+            warning = ""
+            if (
+                (total_de_available / dark_energy_resource.max_value)
+                + dark_energy_resource.perc
+            ) > 1:
+                warning = ":warning:"
+            active_invasions_fmt = language_json["MeridiaEmbed"][
+                "active_invasions"
+            ].format(number=active_invasions)
+            total_to_be_harvested = language_json["MeridiaEmbed"][
+                "total_to_be_harvested"
+            ].format(
+                warning=warning,
+                number=f"{(total_de_available / dark_energy_resource.max_value):.2%}",
+                total_available=f"{(total_de_available / dark_energy_resource.max_value)+dark_energy_resource.perc:.2%}",
+            )
         self.add_field(
             "",
             (
