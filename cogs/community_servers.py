@@ -1,6 +1,8 @@
 from disnake import (
     AppCmdInter,
+    ApplicationInstallTypes,
     Guild,
+    InteractionContextTypes,
     InteractionTimedOut,
     MessageInteraction,
     NotFound,
@@ -20,6 +22,8 @@ class CommunityServersCog(commands.Cog):
     @wait_for_startup()
     @commands.slash_command(
         description="Get all community servers and their invite links",
+        install_types=ApplicationInstallTypes.all(),
+        contexts=InteractionContextTypes.all(),
         extras={
             "long_description": "Returns a list of as many servers the bot can send in one message. These servers are listed as Communities and have a vanity link.",
             "example_usage": '**`/community_servers`** returns a list of every server the bot is on that is listed as "Community" and has a custom invite URL.',

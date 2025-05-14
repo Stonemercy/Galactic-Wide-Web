@@ -1,4 +1,12 @@
-from disnake import AppCmdInter, Embed, File, InteractionTimedOut, NotFound
+from disnake import (
+    AppCmdInter,
+    ApplicationInstallTypes,
+    Embed,
+    File,
+    InteractionContextTypes,
+    InteractionTimedOut,
+    NotFound,
+)
 from disnake.ext import commands
 from main import GalacticWideWebBot
 from utils.checks import wait_for_startup
@@ -13,6 +21,12 @@ class TranslationsCog(commands.Cog):
     @wait_for_startup()
     @commands.slash_command(
         description="Check language JSON for missing translations",
+        install_types=ApplicationInstallTypes.all(),
+        contexts=InteractionContextTypes.all(),
+        extras={
+            "long_description": "Returns information on the current bot translations",
+            "example_usage": "**`/check_missing_translations language_to_check:de`** would return info on how much of the bot needs translated in German",
+        },
     )
     async def check_missing_translations(
         self,

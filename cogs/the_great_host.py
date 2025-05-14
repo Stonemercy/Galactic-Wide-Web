@@ -1,4 +1,10 @@
-from disnake import AppCmdInter, InteractionTimedOut, NotFound
+from disnake import (
+    AppCmdInter,
+    ApplicationInstallTypes,
+    InteractionContextTypes,
+    InteractionTimedOut,
+    NotFound,
+)
 from disnake.ext import commands
 from main import GalacticWideWebBot
 from utils.checks import wait_for_startup
@@ -13,6 +19,12 @@ class TheGreatHostCog(commands.Cog):
     @wait_for_startup()
     @commands.slash_command(
         description="Check status of The Great Host",
+        install_types=ApplicationInstallTypes.all(),
+        contexts=InteractionContextTypes.all(),
+        extras={
+            "long_description": "Returns information on The Great Host",
+            "example_usage": "**`/the_great_host public:Yes`** would return information on The Great Host that other members in the server can see.",
+        },
     )
     async def the_great_host(
         self,
