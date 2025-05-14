@@ -333,7 +333,7 @@ class Maps:
         dss: DSS,
         planet_names_json: dict,
     ):
-        font = ImageFont.truetype("gww-font.ttf", 35)
+        font = ImageFont.truetype("resources/gww-font.ttf", 35)
         background_draw = ImageDraw.Draw(im=background)
         for index, planet in planets.items():
             if index in active_planets:
