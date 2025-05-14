@@ -52,6 +52,12 @@ class APIChangesLoopEmbed(Embed, EmbedReprMixin):
                     f"Planet Regeneration: **{change.before}**%/hr {Emojis.Stratagems.right} **{change.after}**%/hr",
                     inline=False,
                 )
+            elif change.statistic == "Max Health":
+                self.add_field(
+                    f"{faction_emoji} {change.planet.name}",
+                    f"Max Health: **{change.before}** {Emojis.Stratagems.right} **{change.after}**",
+                    inline=False,
+                )
             elif change.statistic == "Waypoints":
                 desctiption = "Waypoints:"
                 waypoints_removed = [

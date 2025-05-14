@@ -92,6 +92,15 @@ class DataManagementCog(commands.Cog):
                             after=new_data.regen_perc_per_hour,
                         )
                     )
+                if planet.max_health != new_data.max_health:
+                    total_changes.append(
+                        APIChanges(
+                            planet=planet,
+                            statistic="Max Health",
+                            before=planet.max_health,
+                            after=new_data.max_health,
+                        )
+                    )
                 if sorted(planet.waypoints) != sorted(new_data.waypoints):
                     total_changes.append(
                         APIChanges(
