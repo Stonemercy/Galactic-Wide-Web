@@ -571,5 +571,20 @@
 			2,
 			5
 		]
+	},
+	"1205": {
+		"name": "R-2 Amendment",
+		"description": "",
+		"type": 4,
+		"damage": 200,
+		"capacity": 20,
+		"recoil": 29,
+		"fire_rate": 480,
+		"fire_mode": [
+			0
+		],
+		"traits": [
+			1
+		]
 	}
 }

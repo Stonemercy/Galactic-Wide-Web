@@ -1563,6 +1563,22 @@
 		"name": "CE-101 Guerilla Gorilla",
 		"mix_id": "1128708923"
 	},
+	"501": {
+		"name": "Undergrowth Vehicle Pattern",
+		"mix_id": "501"
+	},
+	"601": {
+		"name": "Safety Orange Vehicle Pattern",
+		"mix_id": "601"
+	},
+	"701": {
+		"name": "Mustard Vehicle Pattern",
+		"mix_id": "701"
+	},
+	"801": {
+		"name": "Inconspicuous Black Vehicle Pattern",
+		"mix_id": "801"
+	},
 	"901": {
 		"name": "SR-24 Street Scout",
 		"mix_id": "901"
@@ -1790,5 +1806,65 @@
 	"1115": {
 		"name": "Super Sheriff",
 		"mix_id": "1115"
+	},
+	"1201": {
+		"name": "RE-2310 Honorary Guard",
+		"mix_id": "1201"
+	},
+	"1202": {
+		"name": "Federation's Embrace",
+		"mix_id": "1202"
+	},
+	"1203": {
+		"name": "RE-2310 Honorary Guard",
+		"mix_id": "1203"
+	},
+	"1204": {
+		"name": "Federation's Embrace",
+		"mix_id": "1204"
+	},
+	"1205": {
+		"name": "R-2 Amendment",
+		"mix_id": "1205"
+	},
+	"1206": {
+		"name": "Humble Regalia",
+		"mix_id": "1206"
+	},
+	"1207": {
+		"name": "CQC-2 Sabre",
+		"mix_id": "1207"
+	},
+	"1208": {
+		"name": "Humble Regalia",
+		"mix_id": "1208"
+	},
+	"1209": {
+		"name": "RE-1861 Parade Commander",
+		"mix_id": "1209"
+	},
+	"1210": {
+		"name": "RE-1861 Parade Commander",
+		"mix_id": "1210"
+	},
+	"1211": {
+		"name": "One True Flag",
+		"mix_id": "1211"
+	},
+	"1212": {
+		"name": "Decorated Hero",
+		"mix_id": "1212"
+	},
+	"1213": {
+		"name": "Lockstep",
+		"mix_id": "1213"
+	},
+	"1214": {
+		"name": "Supply Scanner",
+		"mix_id": "1214"
+	},
+	"1215": {
+		"name": "G-142 Pyrotech",
+		"mix_id": "1215"
 	}
 }

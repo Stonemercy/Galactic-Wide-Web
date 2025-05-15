@@ -2638,5 +2638,65 @@
 		"speed": 100,
 		"stamina_regen": 100,
 		"passive": 0
+	},
+	"1201": {
+		"name": "RE-2310 Honorary Guard",
+		"description": "",
+		"type": 1,
+		"slot": 0,
+		"armor_rating": 100,
+		"speed": 100,
+		"stamina_regen": 100,
+		"passive": 0
+	},
+	"1202": {
+		"name": "Federation's Embrace",
+		"description": "",
+		"type": 1,
+		"slot": 1,
+		"armor_rating": 100,
+		"speed": 100,
+		"stamina_regen": 100,
+		"passive": 0
+	},
+	"1203": {
+		"name": "RE-2310 Honorary Guard",
+		"description": "",
+		"type": 0,
+		"slot": 2,
+		"armor_rating": 100,
+		"speed": 500,
+		"stamina_regen": 100,
+		"passive": 18
+	},
+	"1206": {
+		"name": "Humble Regalia",
+		"description": "",
+		"type": 1,
+		"slot": 1,
+		"armor_rating": 100,
+		"speed": 100,
+		"stamina_regen": 100,
+		"passive": 0
+	},
+	"1209": {
+		"name": "RE-1861 Parade Commander",
+		"description": "",
+		"type": 1,
+		"slot": 0,
+		"armor_rating": 100,
+		"speed": 100,
+		"stamina_regen": 100,
+		"passive": 0
+	},
+	"1210": {
+		"name": "RE-1861 Parade Commander",
+		"description": "",
+		"type": 0,
+		"slot": 2,
+		"armor_rating": 50,
+		"speed": 550,
+		"stamina_regen": 125,
+		"passive": 18
 	}
 }

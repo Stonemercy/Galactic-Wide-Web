@@ -58,5 +58,10 @@
 		"name": "Borderline Justice",
 		"id": "borderline_justice",
 		"credits_to_unlock": 1000
+	},
+	"12": {
+		"name": "Masters of Ceremony",
+		"id": "masters_of_ceremony",
+		"credits_to_unlock": 1000
 	}
 }

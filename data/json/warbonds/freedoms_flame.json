@@ -99,6 +99,10 @@
 			{
 				"item_id": 4219002488,
 				"medal_cost": 32
+			},
+			{
+				"item_id": 601,
+				"medal_cost": 55
 			}
 		]
 	}

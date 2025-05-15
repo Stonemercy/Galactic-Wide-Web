@@ -200,5 +200,18 @@
 			2,
 			9
 		]
+	},
+	"1207": {
+		"name": "CQC-2 Sabre",
+		"description": "",
+		"damage": 0,
+		"capacity": 0,
+		"recoil": 6,
+		"fire_rate": 0,
+		"fire_mode": [],
+		"traits": [
+			1,
+			4
+		]
 	}
 }

@@ -70,5 +70,9 @@
 	"17": {
 		"name": "Gunslinger",
 		"description": "Increases sidearms reload speed by 40%. Sidearm draw/holster speed increased by 50%. Sidearm recoil reduced by 70%."
+	},
+	"18": {
+		"name": "Reinforced Epaulettes",
+		"description": "Gives wearer a 50% chance to avoid grievous limb injury."
 	}
 }

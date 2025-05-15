@@ -100,6 +100,10 @@ json_dict = {
             "path": "data/json/warbonds/borderline_justice.json",
             "value": None,
         },
+        "masters_of_ceremony": {
+            "path": "data/json/warbonds/masters_of_ceremony.json",
+            "value": None,
+        },
     },
     "planets": {"path": "data/json/planets/planets.json", "value": None},
     "items": {
@@ -172,6 +176,7 @@ warbond_images_dict = {
     "Urban Legends": "https://cdn.discordapp.com/attachments/1212735927223590974/1317150385047081110/urban_legends.png?ex=675da363&is=675c51e3&hm=5e894ce871829ccc6ce2899b695692b15a08aad3921f0c390b14cd3b4685ce2c&",
     "Servants of Freedom": "https://helldivers.wiki.gg/images/thumb/a/a9/Servants_of_Freedom_Premium_Warbond_Cover.png/1280px-Servants_of_Freedom_Premium_Warbond_Cover.png?e4ff67",
     "Borderline Justice": "https://helldivers.wiki.gg/images/d/db/Borderline_Justice_Premium_Warbond_Cover.png?df22f7=&format=original",
+    "Masters of Ceremony": "https://helldivers.wiki.gg/images/6/65/Masters_of_Ceremony_Premium_Warbond_Cover.png?6bb032=&format=original",
 }
 """Dictionary of Warbond images hosted by Discord
 
@@ -216,6 +221,7 @@ emotes_list = [
     "This is Democracy",
     "Raise Weapon",
     "Tip Hat",
+    "Lockstep",
 ]
 """A list of emote names
 
@@ -294,6 +300,8 @@ player_cards_list = [
     "Per Democrasum",
     "Reaper of Bounties",
     "Way of the Bandolier",
+    "Federation's Embrace",
+    "Humble Regalia",
 ]
 """A list of player card names
 
@@ -333,6 +341,7 @@ titles_list = [
     "Assault Infantry",
     "Servant of Freedom",
     "Super Sheriff",
+    "Decorated Hero",
 ]
 """A list of title names
 
@@ -349,6 +358,7 @@ stratagem_permit_list = [
     "Directional Shield",
     "Portable Hellbomb",
     "LIFT-860 Hover Pack",
+    "One True Flag",
 ]
 """A list of stratagem permit names
 

@@ -1,0 +1,89 @@
+{
+    "1": {
+        "medals_to_unlock": 0,
+        "items": [
+            {
+                "item_id": 1201,
+                "medal_cost": 30
+            },
+            {
+                "item_id": 1202,
+                "medal_cost": 8
+            },
+            {
+                "item_id": 1203,
+                "medal_cost": 45
+            },
+            {
+                "item_id": 1204,
+                "medal_cost": 2
+            },
+            {
+                "item_id": 4219002488,
+                "medal_cost": 7
+            },
+            {
+                "item_id": 1205,
+                "medal_cost": 35
+            }
+        ]
+    },
+    "2": {
+        "medals_to_unlock": 95,
+        "items": [
+            {
+                "item_id": 4219002488,
+                "medal_cost": 12
+            },
+            {
+                "item_id": 1206,
+                "medal_cost": 8
+            },
+            {
+                "item_id": 1207,
+                "medal_cost": 40
+            },
+            {
+                "item_id": 1208,
+                "medal_cost": 2
+            },
+            {
+                "item_id": 1209,
+                "medal_cost": 45
+            },
+            {
+                "item_id": 1210,
+                "medal_cost": 55
+            }
+        ]
+    },
+    "3": {
+        "medals_to_unlock": 230,
+        "items": [
+            {
+                "item_id": 1211,
+                "medal_cost": 110
+            },
+            {
+                "item_id": 1212,
+                "medal_cost": 25
+            },
+            {
+                "item_id": 4219002488,
+                "medal_cost": 32
+            },
+            {
+                "item_id": 1213,
+                "medal_cost": 55
+            },
+            {
+                "item_id": 1214,
+                "medal_cost": 65
+            },
+            {
+                "item_id": 1215,
+                "medal_cost": 65
+            }
+        ]
+    }
+}
