@@ -4,6 +4,7 @@ from disnake import (
     Colour,
     Embed,
     File,
+    HTTPException,
     InteractionContextTypes,
     ApplicationInstallTypes,
     InteractionTimedOut,
@@ -152,18 +153,27 @@ class MapCog(commands.Cog):
                 dss=self.bot.data.dss,
                 planet_names_json=self.bot.json_dict["planets"],
             )
-            message = await self.bot.waste_bin_channel.send(
-                content=language_json["code"],
-                file=File(
-                    fp=self.bot.maps.FileLocations.localized_map_path(
-                        language_json["code"]
+            try:
+                message = await self.bot.waste_bin_channel.send(
+                    file=File(
+                        fp=self.bot.maps.FileLocations.localized_map_path(
+                            language_json["code"]
+                        )
+                    ),
+                )
+                self.bot.maps.latest_maps[language_json["code"]] = Maps.LatestMap(
+                    datetime.now(), message.attachments[0].url
+                )
+                latest_map = self.bot.maps.latest_maps[language_json["code"]]
+            except HTTPException as e:
+                await self.bot.moderator_channel.send(
+                    (
+                        f"Error with Maps command\n"
+                        f"Language: **{language_json['code']}**\n"
+                        f"Filepath: **{self.bot.maps.FileLocations.localized_map_path(language_json['code'])}**"
                     )
-                ),
-            )
-            self.bot.maps.latest_maps[language_json["code"]] = Maps.LatestMap(
-                datetime.now(), message.attachments[0].url
-            )
-            latest_map = self.bot.maps.latest_maps[language_json["code"]]
+                )
+                raise e
         embed = Embed(colour=Colour.dark_embed())
         embed.set_image(url=latest_map.map_link)
         try:
