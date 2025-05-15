@@ -11,6 +11,7 @@ class DataManagementCog(commands.Cog):
         self.startup.start()
         self.pull_from_api.start()
         self.check_changes.start()
+        self.mentioned_new_effects = set()
 
     def cog_unload(self):
         self.startup.stop()
@@ -144,6 +145,32 @@ class DataManagementCog(commands.Cog):
                             ],
                         )
                     )
+            active_effects = (
+                {
+                    str(e)
+                    for planet in self.bot.data.planets.values()
+                    if planet.active_effects
+                    for e in planet.active_effects
+                }
+                | {
+                    str(id)
+                    for ge in self.bot.data.global_events
+                    if ge.effect_ids
+                    for id in ge.effect_ids
+                }
+                | {"9999", "4212"}
+            )
+            new_effects: set = {
+                e
+                for e in (active_effects - self.bot.json_dict["planet_effects"].keys())
+                if e not in self.mentioned_new_effects
+            }
+            if new_effects:
+                formatted_effects = "\n-# - ".join(new_effects)
+                await self.bot.moderator_channel.send(
+                    f"NEW EFFECTS {self.bot.owner.mention}\n-# - {formatted_effects}"
+                )
+                self.mentioned_new_effects |= new_effects
         if total_changes:
             embed = APIChangesLoopEmbed(total_changes=total_changes)
             msg = await self.bot.api_changes_channel.send(embed=embed)
