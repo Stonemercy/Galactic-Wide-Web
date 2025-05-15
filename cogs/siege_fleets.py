@@ -1,6 +1,7 @@
 from disnake import (
     AppCmdInter,
     ApplicationInstallTypes,
+    Embed,
     InteractionContextTypes,
     InteractionTimedOut,
     NotFound,
@@ -12,23 +13,37 @@ from utils.db import GWWGuild
 from utils.embeds.dashboard import Dashboard
 
 
-class TheGreatHostCog(commands.Cog):
+class SiegeFleetsCog(commands.Cog):
     def __init__(self, bot: GalacticWideWebBot):
         self.bot = bot
 
+    async def fleet_autocomp(inter: AppCmdInter, user_input: str):
+        return [
+            p.event.siege_fleet.name
+            for p in [
+                p
+                for p in inter.bot.data.planets.values()
+                if p.event and p.event.siege_fleet
+            ]
+            if user_input.lower() in p.event.siege_fleet.name.lower()
+        ]
+
     @wait_for_startup()
     @commands.slash_command(
-        description="Check status of The Great Host",
+        description="Check status of fleets currently sieging our territory",
         install_types=ApplicationInstallTypes.all(),
         contexts=InteractionContextTypes.all(),
         extras={
-            "long_description": "Returns information on The Great Host",
-            "example_usage": "**`/the_great_host public:Yes`** would return information on The Great Host that other members in the server can see.",
+            "long_description": "Returns information on fleets currently sieging our territory",
+            "example_usage": "**`/siege_fleets public:Yes`** would return information on The Great Host that other members in the server can see.",
         },
     )
-    async def the_great_host(
+    async def siege_fleets(
         self,
         inter: AppCmdInter,
+        fleet: str = commands.Param(
+            autocomplete=fleet_autocomp, description="The fleet you want to lookup"
+        ),
         public: str = commands.Param(
             choices=["Yes", "No"],
             default="No",
@@ -44,7 +59,7 @@ class TheGreatHostCog(commands.Cog):
             )
             return
         self.bot.logger.info(
-            msg=f"{self.qualified_name} | /{inter.application_command.name} <{public = }>"
+            msg=f"{self.qualified_name} | /{inter.application_command.name} <{public = }> <{fleet = }>"
         )
         if inter.guild:
             guild = GWWGuild.get_by_id(inter.guild_id)
@@ -56,15 +71,18 @@ class TheGreatHostCog(commands.Cog):
         else:
             guild = GWWGuild.default()
         guild_language = self.bot.json_dict["languages"][guild.language]
-        await inter.send(
-            embed=Dashboard.TheGreatHostEmbed(
+        embed = {
+            "The Great Host": Dashboard.TheGreatHostEmbed(
                 the_great_host_resource=self.bot.data.global_resources.the_great_host,
                 the_great_host_changes=self.bot.data.the_great_host_changes,
                 language_json=guild_language,
             ),
+        }.get(fleet, Embed(title="Fleet not found"))
+        await inter.send(
+            embed=embed,
             ephemeral=public != "Yes",
         )
 
 
 def setup(bot: GalacticWideWebBot):
-    bot.add_cog(TheGreatHostCog(bot))
+    bot.add_cog(SiegeFleetsCog(bot))

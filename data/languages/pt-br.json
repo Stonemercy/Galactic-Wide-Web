@@ -78,7 +78,7 @@
         "planets_lost": "Planetas perdidos",
         "new_battles": "Novas campanhas",
         "invasions": "Invasões",
-        "defend_planet": "🛡️ Defender **{planet}** {faction_emoji} {exclamation}\n",
+        "defend_planet": "🛡️ Defender **{planet}** {exclamation}\n",
         "invasion_level": "> -# Nível de invasão **{level}**{exclamation}\n",
         "potential_dark_energy": "> Possível progresso de **Energia Escura**: **{number}**\n",
         "repel_invasion": "🛡️ Repelir a invasão em {planet} {faction_emoji} {exclamation}\n",

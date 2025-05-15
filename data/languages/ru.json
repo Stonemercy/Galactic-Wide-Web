@@ -78,7 +78,7 @@
         "planets_lost": "Потери территорий",
         "new_battles": "Вторжение на планету",
         "invasions": "Вторжение",
-        "defend_planet": "🛡️ Защитите **{planet}** {faction_emoji} {exclamation}\n",
+        "defend_planet": "🛡️ Защитите **{planet}** {exclamation}\n",
         "invasion_level": "> -# Уровень вторжения **{level}** {exclamation}\n",
         "potential_dark_energy": "> Потенциальный прогресс **Темной энергии**: **{number}**\n",
         "repel_invasion": "🛡️ Отразить вторжение на {planet} {faction_emoji} {exclamation}\n",

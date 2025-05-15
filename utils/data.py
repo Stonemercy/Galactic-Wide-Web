@@ -305,6 +305,7 @@ class Data(ReprMixin):
             self.global_resources: GlobalResources = GlobalResources(
                 raw_global_resources_data=self.__data__["status"]["globalResources"]
             )
+
             self.meridia_position: tuple[float, float] = (
                 self.__data__["status"]["planetStatus"][64]["position"]["x"],
                 self.__data__["status"]["planetStatus"][64]["position"]["y"],
@@ -313,18 +314,19 @@ class Data(ReprMixin):
                 "x": self.meridia_position[0],
                 "y": self.meridia_position[1],
             }
-            planets_with_buildup: dict[int, int] = {}
             for planet in self.__data__["status"]["planetEvents"]:
                 if planet["potentialBuildUp"] != 0:
-                    planets_with_buildup[planet["planetIndex"]] = planet[
-                        "potentialBuildUp"
-                    ]
-            for index, buildup in planets_with_buildup.items():
-                planet: Planet = self.planets[index]
-                if planet.event:
-                    planet.event.potential_buildup = buildup
-            self.planet_active_effects = self.__data__["status"]["planetActiveEffects"]
-            for planet_effect in self.planet_active_effects:
+                    self.planets[planet["planetIndex"]].event.potential_buildup = (
+                        planet["potentialBuildUp"]
+                    )
+                if planet["globalResourceId"] != 0:
+                    self.planets[planet["planetIndex"]].event.siege_fleet = (
+                        self.global_resources.get_by_id(planet["globalResourceId"])
+                    )
+                    self.planets[planet["planetIndex"]].event.siege_fleet.faction = (
+                        self.planets[planet["planetIndex"]].event.faction
+                    )
+            for planet_effect in self.__data__["status"]["planetActiveEffects"]:
                 planet = self.planets[planet_effect["index"]]
                 planet.active_effects.add(planet_effect["galacticEffectId"])
             for ge in self.global_events:
@@ -573,6 +575,24 @@ class GlobalResource(ReprMixin):
         self.perc: float = self.current_value / self.max_value
 
 
+class SiegeFleet(GlobalResource):
+    def __init__(self, raw_global_resource_data: dict) -> None:
+        """Organised data of a Siege Fleet"""
+        self.id: int = raw_global_resource_data["id32"]
+        self.name = {
+            175685818: "The Great Host",
+        }.get(self.id, None)
+        self.current_value: int = raw_global_resource_data["currentValue"]
+        self.max_value: int = raw_global_resource_data["maxValue"]
+        self.perc: float = self.current_value / self.max_value
+        self.faction = None
+
+    @property
+    def health_bar(self) -> str:
+        """Returns the health bar set up for the Siege Fleet"""
+        return health_bar(self.perc, self.faction)
+
+
 class DarkEnergy(GlobalResource):
     def __init__(self, raw_global_resource_data: dict) -> None:
         """Organised data for Dark Energy"""
@@ -584,15 +604,10 @@ class DarkEnergy(GlobalResource):
         return health_bar(self.perc, "Illuminate")
 
 
-class TheGreatHost(GlobalResource):
+class TheGreatHost(SiegeFleet):
     def __init__(self, raw_global_resource_data: dict) -> None:
         """Organised data for The Great Host"""
         super().__init__(raw_global_resource_data=raw_global_resource_data)
-
-    @property
-    def health_bar(self) -> str:
-        """Returns the health bar set up for The Great Host"""
-        return health_bar(self.perc, "Illuminate")
 
 
 class GlobalResources(list[GlobalResource]):
@@ -612,6 +627,10 @@ class GlobalResources(list[GlobalResource]):
                 self.append(
                     GlobalResource(raw_global_resource_data=raw_global_resource_data)
                 )
+
+    def get_by_id(self, id: int):
+        if gr_list := [gr for gr in self if gr.id == id]:
+            return gr_list[0]
 
 
 class Planet(ReprMixin):
@@ -715,6 +734,7 @@ class Planet(ReprMixin):
             self.required_players: int = 0
             self.level: int = int(self.max_health / 50000)
             self.potential_buildup: int = 0
+            self.siege_fleet: SiegeFleet | None = None
 
         @property
         def remaining_dark_energy(self) -> float:

@@ -480,19 +480,13 @@ class CampaignLoopEmbed(Embed, EmbedReprMixin):
                         planet=self.planet_names_json[str(campaign.planet.index)][
                             "names"
                         ][self.language_json["code_long"]],
-                        faction_emoji=getattr(
-                            Emojis.Factions, campaign.faction.lower()
-                        ),
                         exclamation=exclamation,
                     )
-
                     description += (
                         f"> *{self.language_json['ends']} {time_remaining}*\n"
                     )
-
                     if campaign.planet.feature:
                         description += f"> -# {self.language_json['CampaignEmbed']['feature']}: {campaign.planet.feature}\n"
-
             for special_unit in SpecialUnits.get_from_effects_list(
                 active_effects=campaign.planet.active_effects
             ):

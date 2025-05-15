@@ -515,6 +515,7 @@ class SpecialUnits:
         ("PREDATOR STRAIN", Emojis.SpecialUnits.predator_strain): {1243, 1245},
         ("SPORE BURSTER STRAIN", ""): {1244},
         ("INCINERATION CORPS", Emojis.SpecialUnits.incineration_corps): {1248, 1249},
+        ("THE GREAT HOST", ""): {1269},
     }
 
     @classmethod

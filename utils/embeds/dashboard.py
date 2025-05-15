@@ -250,6 +250,9 @@ class Dashboard:
                                 planet=planets[task.values[2]],
                                 liberation_changes=liberation_changes,
                                 planet_names_json=json_dict["planets"],
+                                total_players=sum(
+                                    [p.stats["playerCount"] for p in planets.values()]
+                                ),
                             )
                         case 15:
                             self.add_type_15(task=task, language_json=language_json)
@@ -600,6 +603,7 @@ class Dashboard:
             planet: Planet,
             liberation_changes: LiberationChangesTracker,
             planet_names_json: dict,
+            total_players: int,
         ):
             """Hold a planet until the end of the MO"""
             feature_text = (
@@ -610,7 +614,7 @@ class Dashboard:
             for special_unit in SpecialUnits.get_from_effects_list(
                 active_effects=planet.active_effects
             ):
-                feature_text += f"{special_unit[0]} {special_unit[1]}"
+                feature_text += f"-# {special_unit[0]} {special_unit[1]}"
             obj_text = language_json["dashboard"]["MajorOrderEmbed"]["tasks"][
                 "type13"
             ].format(
@@ -659,25 +663,42 @@ class Dashboard:
                     task_health_bar = f"{health_bar(perc=planet.event.progress, race=planet.event.faction, reverse=True)} 🛡️"
                 else:
                     task_health_bar = ""
-                self.add_field(
-                    obj_text,
-                    (
-                        f"{feature_text}"
-                        f"\n{language_json['ends']} {time_remaining}"
-                        f"\n{language_json['dashboard']['DefenceEmbed']['level']} **{int(planet.event.max_health / 50000)}**"
-                        f"{outlook_text}"
-                        f"\n{player_count}"
-                        f"{required_players}"
-                        f"\n{language_json['dashboard']['progress']}:\n"
-                        f"{task_health_bar}"
-                        f"\n`{1 - planet.event.progress:^25,.2%}`"
-                        f"{liberation_text}"
-                    ),
-                    inline=False,
-                )
+                if planet.event.type != 3:
+                    self.add_field(
+                        obj_text,
+                        (
+                            f"{feature_text}"
+                            f"\n{language_json['ends']} {time_remaining}"
+                            f"\n{language_json['dashboard']['DefenceEmbed']['level']} **{int(planet.event.max_health / 50000)}**"
+                            f"{outlook_text}"
+                            f"\n{player_count}"
+                            f"{required_players}"
+                            f"\n{language_json['dashboard']['progress']}:\n"
+                            f"{task_health_bar}"
+                            f"\n`{1 - planet.event.progress:^25,.2%}`"
+                            f"{liberation_text}"
+                        ),
+                        inline=False,
+                    )
+                else:
+                    self.add_field(
+                        obj_text,
+                        (
+                            f"{feature_text}"
+                            f"\n{language_json['ends']} {time_remaining}"
+                            f"\n{player_count}"
+                            f"\n{planet.event.siege_fleet.health_bar}"
+                            f"\n`{planet.event.siege_fleet.perc:^25,.2%}`"
+                        ),
+                        inline=False,
+                    )
             else:
-                if task.progress_perc == 1 or planet.current_owner == "Humans":
-                    self.add_field(obj_text, "", inline=False)
+                if (
+                    task.progress_perc == 1
+                    or planet.current_owner == "Humans"
+                    or planet.stats["playerCount"] < total_players * 0.05
+                ):
+                    self.add_field(obj_text, feature_text, inline=False)
                 else:
                     outlook_text = ""
                     liberation_text = ""
