@@ -913,7 +913,7 @@ class Dashboard:
             )
             rate_per_hour = sum(the_great_host_changes["changes"]) * 12
             rate = f"{rate_per_hour:+.2%}/hr"
-            completion_timestamp = ""
+            completion_timestamp = None
             now_seconds = int(datetime.now().timestamp())
             if rate_per_hour != 0:
                 seconds_until_depleted = (
@@ -938,10 +938,11 @@ class Dashboard:
                 ),
                 inline=False,
             )
-            self.add_field(
-                "",
-                (f"-# {completion_timestamp}\n"),
-            )
+            if completion_timestamp:
+                self.add_field(
+                    "",
+                    (f"-# {completion_timestamp}\n"),
+                )
             self.set_thumbnail(
                 url="https://cdn.discordapp.com/emojis/1334887870305144883.webp?size=96"
             )
