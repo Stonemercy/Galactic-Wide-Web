@@ -1013,13 +1013,11 @@ class Dashboard:
                             # Invasion campaign
                             self.add_event_type_2(planet=planet)
                         case 3:
-                            # Siege campaign (?)
-                            self.add_event_type_3(
-                                planet=planet, the_great_host=the_great_host
-                            )
-                        case 4:
-                            # Hold Locations campaign
-                            self.add_event_type_4()
+                            # Siege campaign
+                            self.add_event_type_3(planet=planet)
+                        case _:
+                            # Unknown campaigns
+                            self.add_unknown_event_type()
             else:
                 self.add_field(
                     language_json["dashboard"]["DefenceEmbed"]["no_threats"],
@@ -1196,7 +1194,7 @@ class Dashboard:
                 inline=False,
             )
 
-        def add_event_type_3(self, planet: Planet, the_great_host: TheGreatHost | None):
+        def add_event_type_3(self, planet: Planet):
             feature_text = ""
             if planet.feature:
                 feature_text += f"{self.language_json['dashboard']['DefenceEmbed']['feature']}: **{planet.feature}**"
@@ -1217,9 +1215,9 @@ class Dashboard:
                         "defence_held_by_dss"
                     ]
             if self.with_health_bars:
-                the_great_host_health_bar = f"\n{the_great_host.health_bar}"
+                siege_fleet_health_bar = f"\n{planet.event.siege_fleet.health_bar}"
             else:
-                the_great_host_health_bar = ""
+                siege_fleet_health_bar = ""
             player_count = f'**{planet.stats["playerCount"]:,}**'
             self.add_field(
                 f"{getattr(Emojis.Factions, planet.event.faction.lower())} - __**{self.planet_names[str(planet.index)]['names'][self.language_json['code_long']]}**__ {planet.exclamations}",
@@ -1227,49 +1225,20 @@ class Dashboard:
                     f"{feature_text}"
                     f"\n{self.language_json['ends']} {time_remaining}"
                     f"\n{self.language_json['dashboard']['heroes'].format(heroes=player_count)}"
-                    f"\nThe Great Host strength:"
-                    f"{the_great_host_health_bar}"
-                    f"\n`{(the_great_host.perc):^25,.2%}`"
+                    f"\n-# {planet.event.siege_fleet.name} strength:"
+                    f"{siege_fleet_health_bar}"
+                    f"\n`{(planet.event.siege_fleet.perc):^25,.2%}`"
                     "\u200b\n"
                 ),
                 inline=False,
             )
 
-        def add_event_type_3(self, planet: Planet, the_great_host: TheGreatHost | None):
-            feature_text = ""
-            if planet.feature:
-                feature_text += f"{self.language_json['dashboard']['DefenceEmbed']['feature']}: **{planet.feature}**"
-            event_end_datetime = (
-                planet.event.end_time_datetime
-                + timedelta(
-                    seconds=(
-                        self.eagle_storm.status_end_datetime - self.now
-                    ).total_seconds()
-                )
-                if planet.dss_in_orbit and self.eagle_storm.status == 2
-                else planet.event.end_time_datetime
-            )
-            time_remaining = f"<t:{int(event_end_datetime.timestamp())}:R>"
-            if planet.dss_in_orbit:
-                if self.eagle_storm.status == 2:
-                    time_remaining += self.language_json["dashboard"]["DefenceEmbed"][
-                        "defence_held_by_dss"
-                    ]
-            if self.with_health_bars:
-                the_great_host_health_bar = f"\n{the_great_host.health_bar}"
-            else:
-                the_great_host_health_bar = ""
-            player_count = f'**{planet.stats["playerCount"]:,}**'
+        def add_unknown_event_type(self, planet: Planet):
             self.add_field(
-                f"{getattr(Emojis.Factions, planet.event.faction.lower())} - __**{self.planet_names[str(planet.index)]['names'][self.language_json['code_long']]}**__ {planet.exclamations}",
+                f"{Emojis.Decoration.alert_icon} NEW DEFENCE TYPE",
                 (
-                    f"{feature_text}"
-                    f"\n{self.language_json['ends']} {time_remaining}"
-                    f"\n{self.language_json['dashboard']['heroes'].format(heroes=player_count)}"
-                    f"\nThe Great Host strength:"
-                    f"{the_great_host_health_bar}"
-                    f"\n`{(the_great_host.perc):^25,.2%}`"
-                    "\u200b\n"
+                    f"-# {planet.event.type}|{planet.event.health}/{planet.event.max_health}\n"
+                    f"{planet.event.siege_fleet or ''}"
                 ),
                 inline=False,
             )

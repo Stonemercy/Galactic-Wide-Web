@@ -584,7 +584,7 @@ class SiegeFleet(GlobalResource):
         """Organised data of a Siege Fleet"""
         self.id: int = raw_global_resource_data["id32"]
         self.name = {
-            175685818: "The Great Host",
+            175685818: "THE GREAT HOST",
         }.get(self.id, None)
         self.current_value: int = raw_global_resource_data["currentValue"]
         self.max_value: int = raw_global_resource_data["maxValue"]
