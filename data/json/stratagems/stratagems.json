@@ -81,17 +81,6 @@
         "uses": "Unlimited",
         "cooldown": 300
     },
-    "LIFT-850_Jump_Pack": {
-        "keys": [
-            "down",
-            "up",
-            "up",
-            "down",
-            "up"
-        ],
-        "uses": "Unlimited",
-        "cooldown": 480
-    },
     "MG-43 Machine Gun": {
         "keys": [
             "down",
