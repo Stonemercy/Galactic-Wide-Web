@@ -969,7 +969,7 @@ class Dashboard:
                     (f"-# {completion_timestamp}\n"),
                 )
             self.set_thumbnail(
-                url="https://cdn.discordapp.com/emojis/1334887870305144883.webp?size=96"
+                url="https://cdn.discordapp.com/attachments/1212735927223590974/1372960719653568603/iluminat.png?ex=6828accf&is=68275b4f&hm=9069a2c2b0ab944699c5e5382aa2b58611b6eb9af22eef56433e63c9fa9c27c2&"
             )
 
     class DefenceEmbed(Embed, EmbedReprMixin):
