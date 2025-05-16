@@ -351,17 +351,17 @@ class Dashboard:
                 target=target,
             )
             if task.values[5] != 0:
-                weapon_to_use = stratagem_id_dict.get(task.values[5], "Unknown")
                 full_task += language_json["dashboard"]["MajorOrderEmbed"]["tasks"][
                     "type3_weapon"
-                ].format(weapon_to_use=weapon_to_use)
+                ].format(weapon_to_use=stratagem_id_dict.get(task.values[5], "Unknown"))
             if task.values[9] != 0:
-                planet_to_use = planet_names[str(task.values[9])]["names"][
-                    language_json["code_long"]
-                ]
                 full_task += language_json["dashboard"]["MajorOrderEmbed"]["tasks"][
                     "type3_planet"
-                ].format(planet=planet_to_use)
+                ].format(
+                    planet=planet_names[str(task.values[9])]["names"][
+                        language_json["code_long"]
+                    ]
+                )
             if self.with_health_bars:
                 task_health_bar = f"{task.health_bar}\n"
             else:
@@ -382,21 +382,17 @@ class Dashboard:
 
         def add_type_9(self, task: Assignment.Task, language_json: dict):
             """Complete an Operation against {faction} on {difficulty} or higher {amount} times"""
-            faction = language_json["factions"][str(task.values[0])]
-            amount = f"{task.values[1]:,}"
-            difficulty = language_json["difficulty"][str(task.values[3])]
-            status_emoji = (
-                Emojis.Icons.mo_task_complete
-                if task.progress_perc == 1
-                else Emojis.Icons.mo_task_incomplete
-            )
             full_task = language_json["dashboard"]["MajorOrderEmbed"]["tasks"][
                 "type9"
             ].format(
-                status_emoji=status_emoji,
-                faction=faction,
-                difficulty=difficulty,
-                amount=amount,
+                status_emoji=(
+                    Emojis.Icons.mo_task_complete
+                    if task.progress_perc == 1
+                    else Emojis.Icons.mo_task_incomplete
+                ),
+                faction=language_json["factions"][str(task.values[0])],
+                difficulty=language_json["difficulty"][str(task.values[3])],
+                amount=f"{task.values[1]:,}",
             )
             if self.with_health_bars:
                 task_health_bar = f"{task.health_bar}\n"
