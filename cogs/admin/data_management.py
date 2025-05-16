@@ -145,21 +145,17 @@ class DataManagementCog(commands.Cog):
                             ],
                         )
                     )
-            active_effects = (
-                {
-                    str(e)
-                    for planet in self.bot.data.planets.values()
-                    if planet.active_effects
-                    for e in planet.active_effects
-                }
-                | {
-                    str(id)
-                    for ge in self.bot.data.global_events
-                    if ge.effect_ids
-                    for id in ge.effect_ids
-                }
-                | {"9999", "4212"}
-            )
+            active_effects = {
+                str(e)
+                for planet in self.bot.data.planets.values()
+                if planet.active_effects
+                for e in planet.active_effects
+            } | {
+                str(id)
+                for ge in self.bot.data.global_events
+                if ge.effect_ids
+                for id in ge.effect_ids
+            }
             new_effects: set = {
                 e
                 for e in (active_effects - self.bot.json_dict["planet_effects"].keys())
