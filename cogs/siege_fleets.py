@@ -72,7 +72,7 @@ class SiegeFleetsCog(commands.Cog):
             guild = GWWGuild.default()
         guild_language = self.bot.json_dict["languages"][guild.language]
         embed = {
-            "The Great Host": Dashboard.TheGreatHostEmbed(
+            "THE GREAT HOST": Dashboard.TheGreatHostEmbed(
                 the_great_host_resource=self.bot.data.global_resources.the_great_host,
                 the_great_host_changes=self.bot.data.the_great_host_changes,
                 language_json=guild_language,
