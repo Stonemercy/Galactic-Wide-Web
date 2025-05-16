@@ -323,9 +323,12 @@ class Data(ReprMixin):
                     self.planets[planet["planetIndex"]].event.siege_fleet = (
                         self.global_resources.get_by_id(planet["globalResourceId"])
                     )
-                    self.planets[planet["planetIndex"]].event.siege_fleet.faction = (
-                        self.planets[planet["planetIndex"]].event.faction
-                    )
+                    if self.planets[planet["planetIndex"]].event.siege_fleet:
+                        self.planets[
+                            planet["planetIndex"]
+                        ].event.siege_fleet.faction = self.planets[
+                            planet["planetIndex"]
+                        ].event.faction
             for planet_effect in self.__data__["status"]["planetActiveEffects"]:
                 planet = self.planets[planet_effect["index"]]
                 planet.active_effects.add(planet_effect["galacticEffectId"])
@@ -623,6 +626,7 @@ class GlobalResources(list[GlobalResource]):
                 self.the_great_host: TheGreatHost = TheGreatHost(
                     raw_global_resource_data=raw_global_resource_data
                 )
+                self.append(self.the_great_host)
             else:
                 self.append(
                     GlobalResource(raw_global_resource_data=raw_global_resource_data)
@@ -813,6 +817,7 @@ class DSS(ReprMixin):
     ) -> None:
         """Organised data for the DSS"""
         self.planet: Planet = planet
+        self.flags: int = raw_dss_data["flags"]
         self.move_timer_timestamp: int = raw_dss_data["currentElectionEndWarTime"]
         self.move_timer_datetime: datetime = datetime.fromtimestamp(
             war_start_timestamp + self.move_timer_timestamp
