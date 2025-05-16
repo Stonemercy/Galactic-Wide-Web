@@ -578,7 +578,7 @@ class WikiCog(commands.Cog):
             )
             if not embed.image_set:
                 await self.bot.moderator_channel.send(
-                    f"Image missing for **stratagem __{booster_info[0]}__** <@{self.bot.owner_id}> :warning:"
+                    f"Image missing for **stratagem __{stratagem_info[0]}__** <@{self.bot.owner_id}> :warning:"
                 )
             components = Wiki.Buttons.stratagems_rows(
                 language_json=guild_language,
