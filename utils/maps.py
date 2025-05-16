@@ -242,7 +242,7 @@ class Maps:
             background.save(fp=Maps.FileLocations.planets_map)
 
     def update_dss(self, dss: DSS):
-        if dss and type(dss) != str:
+        if dss and dss.flags == 1:
             with Image.open(
                 fp=Maps.FileLocations.planets_map
             ) as background, Image.open("resources/DSS.png") as dss_icon:
@@ -251,7 +251,10 @@ class Maps:
                     int(dss.planet.map_waypoints[0]) - 17,
                     int(dss.planet.map_waypoints[1]) - 130,
                 )
-                dss_icon = background.paste(dss_icon, dss_coords, dss_icon)
+                background.paste(dss_icon, dss_coords, dss_icon)
+                background.save(fp=Maps.FileLocations.dss_map)
+        else:
+            with Image.open(fp=Maps.FileLocations.planets_map) as background:
                 background.save(fp=Maps.FileLocations.dss_map)
 
     def draw_arrow(self, language_code: str, planet: Planet):
@@ -295,7 +298,6 @@ class Maps:
         language_code_long: str,
         planets: Planets,
         active_planets: list[int],
-        dss: DSS,
         planet_names_json: dict,
     ):
         with Image.open(fp=Maps.FileLocations.dss_map) as background:
@@ -304,7 +306,6 @@ class Maps:
                 language_code=language_code_long,
                 planets=planets,
                 active_planets=active_planets,
-                dss=dss,
                 planet_names_json=planet_names_json,
             )
             background.save(fp=f"resources/maps/{language_code_short}.webp")
@@ -330,17 +331,13 @@ class Maps:
         language_code: str,
         planets: Planets,
         active_planets: list[int],
-        dss: DSS,
         planet_names_json: dict,
     ):
         font = ImageFont.truetype("resources/gww-font.ttf", 35)
         background_draw = ImageDraw.Draw(im=background)
         for index, planet in planets.items():
             if index in active_planets:
-                border_colour = "black"
-                if dss and type(dss) != str:
-                    if index == dss.planet.index:
-                        border_colour = "deepskyblue"
+                border_colour = "deepskyblue" if planet.dss_in_orbit else "black"
                 name_text = planet_names_json[str(index)]["names"][
                     language_code
                 ].replace(" ", "\n")

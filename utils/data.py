@@ -182,7 +182,8 @@ class Data(ReprMixin):
 
         if self.__data__["dss"]:
             dss_planet: Planet = self.planets[self.__data__["dss"]["planetIndex"]]
-            dss_planet.dss_in_orbit = True
+            if self.__data__["dss"]["flags"] == 1:
+                dss_planet.dss_in_orbit = True
             self.dss: DSS = DSS(
                 raw_dss_data=self.__data__["dss"],
                 planet=dss_planet,
