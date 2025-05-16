@@ -188,6 +188,18 @@ class Maps:
                         fill=(0, 0, 0),
                         outline=(200, 100, 255),
                     )
+                elif planet.index == 0:
+                    with Image.open("resources/super_earth.png") as se_icon:
+                        se_icon = se_icon.convert("RGBA")
+                        background.paste(
+                            se_icon,
+                            (
+                                planet.map_waypoints[0] - 25,
+                                planet.map_waypoints[1] - 25,
+                            ),
+                            se_icon,
+                        )
+                        se_icon.close()
                 elif 1240 in planet.active_effects:
                     background_draw.ellipse(
                         xy=[
