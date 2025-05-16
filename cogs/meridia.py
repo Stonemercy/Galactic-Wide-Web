@@ -141,9 +141,9 @@ class MeridiaCog(commands.Cog):
 
             # Check for close planets
             planets_to_check = [
-                effect["index"]
-                for effect in self.bot.data.planet_active_effects
-                if effect["galacticEffectId"] == 1240
+                p.index
+                for p in self.bot.data.planets.values()
+                if 1240 in p.active_effects
             ]
             points_in_path = {
                 index: coords
