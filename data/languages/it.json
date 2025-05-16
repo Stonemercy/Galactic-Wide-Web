@@ -9,8 +9,10 @@
         "heroes": "Eroi: **{heroes}**",
         "outlook": "Prospettiva: **{outlook}**",
         "progress": "Progresso attuale",
+        "shrunk_temporarily": "Il conteggio dei caratteri ha superato i 6000; il cruscotto si è temporaneamente ristretto.",
         "MajorOrderEmbed": {
             "title": "Ordine Maggiore",
+            "assignment": "Assegnazione #{id}",
             "MO_unavailable": "Restate in attesa di ulteriori ordini dall'alto commando della Super Terra",
             "liberated": "LIBERATO",
             "feature": "Feature",

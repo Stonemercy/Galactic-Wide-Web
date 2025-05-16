@@ -9,8 +9,10 @@
         "heroes": "Héros: **{heroes}**",
         "outlook": "Perspectives: **{outlook}**",
         "progress": "Progression",
+        "shrunk_temporarily": "Le nombre de caractères a dépassé 6000 ; le tableau de bord a été réduit temporairement",
         "MajorOrderEmbed": {
             "title": "Ordres Prioritaire",
+            "assignment": "Affectation #{id}",
             "MO_unavailable": "Préparez-vous à recevoir d'autres ordres de l'état-major de la Super-Terre",
             "liberated": "LIBÉRÉE",
             "feature": "Feature",

@@ -9,8 +9,10 @@
         "heroes": "Heroes: **{heroes}**",
         "outlook": "Outlook: **{outlook}**",
         "progress": "Current progress",
+        "shrunk_temporarily": "Character count exceeded 6000; dashboard shrunk temporarily",
         "MajorOrderEmbed": {
             "title": "Major Order",
+            "assignment": "Assignment #{id}",
             "MO_unavailable": "Stand by for further orders from Super Earth High Command",
             "liberated": "LIBERATED",
             "feature": "Feature",

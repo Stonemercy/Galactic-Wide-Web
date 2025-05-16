@@ -9,8 +9,10 @@
         "heroes": "Helden: **{heroes}**",
         "outlook": "Aussicht: **{outlook}**",
         "progress": "Aktueller Fortschritt",
+        "shrunk_temporarily": "Zeichenanzahl überschritten 6000; Dashboard vorübergehend verkleinert",
         "MajorOrderEmbed": {
             "title": "Großer Befehl",
+            "assignment": "Aufgabe #{id}",
             "MO_unavailable": "Für weitere Befehle vom Oberkommando Über-Erdes bereithalten",
             "liberated": "BEFREIT",
             "feature": "Feature",

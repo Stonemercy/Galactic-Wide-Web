@@ -9,8 +9,10 @@
         "heroes": "Heróis: **{heroes}**",
         "outlook": "Panorama: **{outlook}**",
         "progress": "Progresso atual",
+        "shrunk_temporarily": "A contagem de caracteres excedeu 6000; o painel foi reduzido temporariamente",
         "MajorOrderEmbed": {
             "title": "Ordem Imperativa",
+            "assignment": "Atribuição #{id}",
             "MO_unavailable": "Aguarde para mais ordens do Alto Comando da Super Terra",
             "liberated": "LIBERADO",
             "feature": "Recurso",

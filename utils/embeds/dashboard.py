@@ -158,7 +158,7 @@ class Dashboard:
             ]
             self.embeds[-1].add_field(
                 "",
-                "-# *Character count exceeded 6000, dashboard shrunk temporarily",
+                f"-# *{language_json['dashboard']['shrunk_temporarily']}",
             )
 
     def character_count(self):
@@ -768,7 +768,9 @@ class Dashboard:
                 name=assignment.title, value=assignment.description, inline=False
             )
             self.set_footer(
-                text=language_json["message"].format(message_id=assignment.id)
+                text=language_json["dashboard"]["MajorOrderEmbed"]["assignment"].format(
+                    id=assignment.id
+                )
             )
 
         def add_rewards(self, rewards: dict, language_json: dict, reward_names: dict):

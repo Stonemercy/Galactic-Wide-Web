@@ -9,8 +9,10 @@
         "heroes": "Héroes: **{heroes}**",
         "outlook": "Perspectiva: **{outlook}**",
         "progress": "Progreso actual",
+        "shrunk_temporarily": "El recuento de caracteres ha superado los 6000; el salpicadero se ha reducido temporalmente",
         "MajorOrderEmbed": {
             "title": "Orden Mayor",
+            "assignment": "Asignación #{id}",
             "MO_unavailable": "Espere más órdenes del Alto Mando de la Super Tierra",
             "liberated": "LIBERADO",
             "feature": "Feature",
