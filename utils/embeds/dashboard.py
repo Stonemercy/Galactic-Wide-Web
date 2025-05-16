@@ -56,7 +56,6 @@ class Dashboard:
             eagle_storm=eagle_storm,
             with_health_bars=with_health_bars,
             gambit_planets=data.gambit_planets,
-            the_great_host=data.global_resources.the_great_host,
         )
         self._illuminate_embed = self.AttackEmbed(
             campaigns=[
@@ -984,7 +983,6 @@ class Dashboard:
             eagle_storm: DSS.TacticalAction | None,
             with_health_bars: bool,
             gambit_planets: dict[int, Planet],
-            the_great_host: TheGreatHost | None,
         ):
             self.planet_names = planet_names
             self.language_json = language_json

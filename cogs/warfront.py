@@ -91,7 +91,6 @@ class WarfrontCog(commands.Cog):
             eagle_storm=self.bot.data.dss.get_ta_by_name("EAGLE STORM"),
             with_health_bars=True,
             gambit_planets=gambit_planets,
-            the_great_host=self.bot.data.global_resources.the_great_host,
         )
         attack_embed = Dashboard.AttackEmbed(
             campaigns=[
