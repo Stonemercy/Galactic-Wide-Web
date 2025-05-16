@@ -328,7 +328,7 @@ class Dashboard:
             species_dict: dict,
             planet_names: dict,
         ):
-            """Kill enemies of a type {on {planet}}"""
+            """Kill enemies of a type [on {planet}]"""
             species = (
                 species_dict.get(str(task.values[3]), "Unknown")
                 if task.values[3] != 0
