@@ -10,6 +10,7 @@ from disnake.ext import commands
 from main import GalacticWideWebBot
 from utils.checks import wait_for_startup
 from utils.db import GWWGuild
+from utils.embeds.command_embeds import WarfrontAllPlanetsEmbed
 from utils.embeds.dashboard import Dashboard
 
 
@@ -106,7 +107,10 @@ class WarfrontCog(commands.Cog):
             with_health_bars=True,
             gambit_planets=gambit_planets,
         )
-        embeds: list[Embed] = [defence_embed, attack_embed]
+        all_planets_embed = WarfrontAllPlanetsEmbed(
+            planets=self.bot.data.planets, faction=faction
+        )
+        embeds: list[Embed] = [defence_embed, attack_embed, all_planets_embed]
         for embed in embeds.copy():
             if len(embed.fields) == 0:
                 embeds.remove(embed)

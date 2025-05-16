@@ -7,7 +7,7 @@ from data.lists import (
     stratagem_image_dict,
 )
 from disnake import APISlashCommand, Colour, Embed, File, Guild, OptionType
-from utils.data import DarkEnergy, PersonalOrder, Planet, Steam
+from utils.data import DarkEnergy, PersonalOrder, Planet, Planets, Steam
 from utils.db import GWWGuild
 from utils.emojis import Emojis
 from utils.functions import health_bar, short_format
@@ -650,3 +650,20 @@ class CommunityServersCommandEmbed(Embed, EmbedReprMixin):
                 total_characters += len(field.name.strip())
                 total_characters += len(field.value.strip())
         return total_characters
+
+
+class WarfrontAllPlanetsEmbed(Embed, EmbedReprMixin):
+    def __init__(self, planets: Planets, faction: str):
+        planets_list = sorted(
+            [p for p in planets.values() if p.current_owner == faction],
+            key=lambda planet: planet.stats["playerCount"],
+            reverse=True,
+        )
+        super().__init__(
+            title=f"All planets for {faction}",
+            colour=Colour.from_rgb(*faction_colours[faction]),
+            description=f"There are **{len(planets_list)}** planets under {faction} control",
+        )
+        name = "Planets list"
+        value = " - ".join([f"**{p.name}**" for p in planets_list])
+        self.add_field(name=name, value=value)
