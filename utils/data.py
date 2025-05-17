@@ -683,7 +683,7 @@ class Planet(ReprMixin):
         self.thumbnail = None
         self.feature: str | None = {
             45: "Center for Civilian Surveillance",  # Mastia
-            64: "Meridian Singularity",  # Meridia
+            64: "Meridian Black Hole",  # Meridia
             125: "Centre of Science",  # Fenrir III
             126: "Xenoentomology Center",  # Turing
             130: "Factory Hub",  # Achernar Secundus
