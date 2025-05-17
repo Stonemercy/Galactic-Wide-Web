@@ -612,6 +612,7 @@ class TheGreatHost(SiegeFleet):
     def __init__(self, raw_global_resource_data: dict) -> None:
         """Organised data for The Great Host"""
         super().__init__(raw_global_resource_data=raw_global_resource_data)
+        self.faction = "Illuminate"
 
 
 class GlobalResources(list[GlobalResource]):
