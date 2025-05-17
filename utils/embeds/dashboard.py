@@ -133,13 +133,15 @@ class Dashboard:
                     language_json,
                 )
                 self.embeds.insert(2, self._dark_energy_embed)
-            if data.global_resources.the_great_host:
-                self._the_great_host_embed = self.TheGreatHostEmbed(
-                    data.global_resources.the_great_host,
-                    data.the_great_host_changes,
-                    language_json,
+
+        if data.sieges:
+            for planet in data.sieges:
+                siege_embed = self.SiegeEmbed(
+                    planet_under_siege=planet,
+                    siege_changes=data.siege_fleet_changes.get(planet.index),
+                    language_json=language_json,
                 )
-                self.embeds.insert(2, self._the_great_host_embed)
+                self.embeds.insert(2, siege_embed)
 
         for embed in self.embeds.copy():
             if len(embed.fields) == 0:
@@ -148,7 +150,7 @@ class Dashboard:
                 embed.set_image(
                     "https://i.imgur.com/cThNy4f.png"
                 )  # blank line (max size, dont change)
-        embeds_to_skip = (self.TheGreatHostEmbed, self.DarkEnergyEmbed, self.DSSEmbed)
+        embeds_to_skip = (self.DarkEnergyEmbed, self.DSSEmbed)
         if self.character_count() > 5900 or not with_health_bars:
             self.embeds = [
                 embed
@@ -682,7 +684,7 @@ class Dashboard:
                             f"{feature_text}"
                             f"\n{language_json['ends']} {time_remaining}"
                             f"\n{player_count}"
-                            f"\n{planet.event.siege_fleet.health_bar}"
+                            f"\n{planet.event.siege_fleet.health_bar} 🛡️"
                             f"\n`{planet.event.siege_fleet.perc:^25,.2%}`"
                         ),
                         inline=False,
@@ -924,29 +926,29 @@ class Dashboard:
                 url="https://cdn.discordapp.com/emojis/1331357764039086212.webp?size=96"
             )
 
-    class TheGreatHostEmbed(Embed, EmbedReprMixin):
+    class SiegeEmbed(Embed, EmbedReprMixin):
         def __init__(
             self,
-            the_great_host_resource: TheGreatHost,
-            the_great_host_changes: dict[str:int, str:list],
+            planet_under_siege: Planet,
+            siege_changes: dict[str:int, str:list],
             language_json: dict,
         ):
             super().__init__(
-                title="The Great Host",
-                description="-# The Illuminate invasion fleet, constructed in secret behind the veil of the Meridian Wormhole. It is headed for Super Earth itself.",
-                colour=Colour.from_rgb(*faction_colours["Illuminate"]),
+                title=f"SIEGE FROM {planet_under_siege.event.siege_fleet.name}",
+                description=f"-# {planet_under_siege.event.siege_fleet.description}",
+                colour=Colour.from_rgb(
+                    *faction_colours[planet_under_siege.event.faction]
+                ),
             )
-            rate_per_hour = sum(the_great_host_changes["changes"]) * 12
+            rate_per_hour = sum(siege_changes["changes"]) * 12
             rate = f"{rate_per_hour:+.2%}/hr"
             completion_timestamp = None
             now_seconds = int(datetime.now().timestamp())
             if rate_per_hour != 0:
                 seconds_until_depleted = (
-                    int(((1 - the_great_host_changes["total"]) / rate_per_hour) * 3600)
+                    int(((1 - siege_changes["total"]) / rate_per_hour) * 3600)
                     if rate_per_hour > 0
-                    else int(
-                        (the_great_host_changes["total"] / abs(rate_per_hour)) * 3600
-                    )
+                    else int((siege_changes["total"] / abs(rate_per_hour)) * 3600)
                 )
                 completion_timestamp = language_json["dashboard"]["DarkEnergyEmbed"][
                     "reaches"
@@ -957,8 +959,8 @@ class Dashboard:
             self.add_field(
                 "",
                 (
-                    f"{the_great_host_resource.health_bar}\n"
-                    f"**`{the_great_host_resource.perc:^25.3%}`**\n"
+                    f"{planet_under_siege.event.siege_fleet.health_bar}\n"
+                    f"**`{planet_under_siege.event.siege_fleet.perc:^25.3%}`**\n"
                     f"**`{rate:^25}`**"
                 ),
                 inline=False,

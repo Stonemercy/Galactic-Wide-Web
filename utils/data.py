@@ -36,6 +36,7 @@ class Data(ReprMixin):
         "dark_energy_changes",
         "meridia_position",
         "galactic_impact_mod",
+        "sieges",
     )
 
     def __init__(self) -> None:
@@ -54,12 +55,13 @@ class Data(ReprMixin):
         self.loaded: bool = False
         self.liberation_changes: LiberationChangesTracker = LiberationChangesTracker()
         self.dark_energy_changes: dict = {"total": 0, "changes": []}
-        self.the_great_host_changes: dict = {"total": 0, "changes": []}
+        self.siege_fleet_changes: dict = {}
         self.meridia_position: None | tuple[float, float] = None
         self.personal_order = None
         self.fetched_at = None
         self.assignment = None
         self.dss = None
+        self.sieges = None
         self.global_resources = None
         self.gambit_planets = {}
         self.galactic_impact_mod: float = 0.0
@@ -161,7 +163,7 @@ class Data(ReprMixin):
         self.update_liberation_rates()
         if self.global_resources != None:
             self.update_dark_energy_rate()
-            self.update_great_host_health()
+            self.update_siege_fleet_health()
         self.get_needed_players()
         self.fetched_at = datetime.now()
         if not self.loaded:
@@ -330,6 +332,7 @@ class Data(ReprMixin):
                         ].event.siege_fleet.faction = self.planets[
                             planet["planetIndex"]
                         ].event.faction
+
             for planet_effect in self.__data__["status"]["planetActiveEffects"]:
                 planet = self.planets[planet_effect["index"]]
                 planet.active_effects.add(planet_effect["galacticEffectId"])
@@ -359,6 +362,10 @@ class Data(ReprMixin):
                         ):
                             self.gambit_planets[defending_index] = campaign.planet
 
+        if siege_list := [p for p in self.planet_events if p.event.siege_fleet]:
+            if siege_list != []:
+                self.sieges: list[Planet] = siege_list
+
     def update_liberation_rates(self) -> None:
         """Update the liberation changes in the tracker for each active campaign"""
         for campaign in self.campaigns:
@@ -386,22 +393,22 @@ class Data(ReprMixin):
                     )
             self.dark_energy_changes["total"] = self.global_resources.dark_energy.perc
 
-    def update_great_host_health(self) -> None:
-        """Update the changes in The Great Host's health"""
-        if self.global_resources.the_great_host:
-            if self.the_great_host_changes["total"] != 0:
-                if len(self.the_great_host_changes["changes"]) == 5:
-                    self.the_great_host_changes["changes"].pop(0)
-                while len(self.the_great_host_changes["changes"]) < 5:
-                    self.the_great_host_changes["changes"].append(
-                        (
-                            self.global_resources.the_great_host.perc
-                            - self.the_great_host_changes["total"]
-                        )
-                    )
-            self.the_great_host_changes["total"] = (
-                self.global_resources.the_great_host.perc
-            )
+    def update_siege_fleet_health(self) -> None:
+        """Update the changes in Siege Fleets health"""
+        if self.sieges:
+            for planet in self.sieges:
+                if planet.index not in self.siege_fleet_changes:
+                    self.siege_fleet_changes[planet.index] = {"total": 0, "changes": []}
+                else:
+                    fleet_changes = self.siege_fleet_changes[planet.index]
+                    if fleet_changes["total"] != 0:
+                        if len(fleet_changes["changes"]) == 5:
+                            fleet_changes["changes"].pop(0)
+                        while len(fleet_changes["changes"]) < 5:
+                            fleet_changes["changes"].append(
+                                (planet.event.siege_fleet.perc - fleet_changes["total"])
+                            )
+                    fleet_changes["total"] = planet.event.siege_fleet.perc
 
     def get_needed_players(self) -> None:
         """Update the planets with their required helldivers for victory"""
@@ -579,13 +586,23 @@ class GlobalResource(ReprMixin):
         self.perc: float = self.current_value / self.max_value
 
 
+known_fleets = {
+    175685818: {
+        "name": "THE GREAT HOST",
+        "description": "The Illuminate invasion fleet, constructed in secret behind the veil of the Meridian Wormhole. It is headed for Super Earth itself.",
+    }
+}
+
+
 class SiegeFleet(GlobalResource):
     def __init__(self, raw_global_resource_data: dict) -> None:
         """Organised data of a Siege Fleet"""
         self.id: int = raw_global_resource_data["id32"]
-        self.name = {
-            175685818: "THE GREAT HOST",
-        }.get(self.id, None)
+        known_fleet_entry = known_fleets.get(self.id, None)
+        self.name = "" if not known_fleet_entry else known_fleet_entry["name"]
+        self.description = (
+            "" if not known_fleet_entry else known_fleet_entry["description"]
+        )
         self.current_value: int = raw_global_resource_data["currentValue"]
         self.max_value: int = raw_global_resource_data["maxValue"]
         self.perc: float = self.current_value / self.max_value

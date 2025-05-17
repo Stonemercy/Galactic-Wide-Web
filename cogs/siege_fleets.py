@@ -1,6 +1,7 @@
 from disnake import (
     AppCmdInter,
     ApplicationInstallTypes,
+    Colour,
     Embed,
     InteractionContextTypes,
     InteractionTimedOut,
@@ -20,11 +21,7 @@ class SiegeFleetsCog(commands.Cog):
     async def fleet_autocomp(inter: AppCmdInter, user_input: str):
         return [
             p.event.siege_fleet.name
-            for p in [
-                p
-                for p in inter.bot.data.planets.values()
-                if p.event and p.event.siege_fleet
-            ]
+            for p in inter.bot.data.sieges
             if user_input.lower() in p.event.siege_fleet.name.lower()
         ]
 
@@ -71,17 +68,25 @@ class SiegeFleetsCog(commands.Cog):
         else:
             guild = GWWGuild.default()
         guild_language = self.bot.json_dict["languages"][guild.language]
-        embed = {
-            "THE GREAT HOST": Dashboard.TheGreatHostEmbed(
-                the_great_host_resource=self.bot.data.global_resources.the_great_host,
-                the_great_host_changes=self.bot.data.the_great_host_changes,
+        try:
+            siege_chosen = [
+                p for p in self.bot.data.sieges if p.event.siege_fleet.name == fleet
+            ][0]
+            embed = Dashboard.SiegeEmbed(
+                planet_under_siege=siege_chosen,
+                siege_changes=self.bot.data.siege_fleet_changes[siege_chosen.index],
                 language_json=guild_language,
-            ),
-        }.get(fleet, Embed(title="Fleet not found"))
-        await inter.send(
-            embed=embed,
-            ephemeral=public != "Yes",
-        )
+            )
+        except IndexError:
+            embed = Embed(
+                title="Fleet not found, please select from the list",
+                colour=Colour.dark_embed(),
+            )
+        finally:
+            await inter.send(
+                embed=embed,
+                ephemeral=public != "Yes",
+            )
 
 
 def setup(bot: GalacticWideWebBot):
