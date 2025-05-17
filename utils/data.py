@@ -701,7 +701,7 @@ class Planet(ReprMixin):
                 "name": "Super Earth",
                 "description": "Super Earth is the blinding beacon that shines the light of democracy through the stars. The sprawling heart that beats in time to mankind's quest of liberation. Here live the wealthy, important and proud. Here live those who have pulled themselves up by their bootstraps and achieved their dreams. Here live the citizens of Super Earth.",
             }
-        if self.index == 64:
+        elif self.index == 64:
             self.biome = {
                 "name": "Black Hole",
                 "description": "The planet is gone, the ultimate price to pay in the war for humanity's survival.",
