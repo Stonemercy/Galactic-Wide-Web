@@ -645,6 +645,7 @@ class GlobalResources(list[GlobalResource]):
                 self.dark_energy: DarkEnergy = DarkEnergy(
                     raw_global_resource_data=raw_global_resource_data
                 )
+                self.append(self.dark_energy)
             elif raw_global_resource_data["id32"] == 175685818:
                 self.the_great_host: TheGreatHost = TheGreatHost(
                     raw_global_resource_data=raw_global_resource_data
