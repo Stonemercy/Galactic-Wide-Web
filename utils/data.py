@@ -598,11 +598,15 @@ class SiegeFleet(GlobalResource):
     def __init__(self, raw_global_resource_data: dict) -> None:
         """Organised data of a Siege Fleet"""
         self.id: int = raw_global_resource_data["id32"]
-        known_fleet_entry = known_fleets.get(self.id, None)
-        self.name = "" if not known_fleet_entry else known_fleet_entry["name"]
-        self.description = (
-            "" if not known_fleet_entry else known_fleet_entry["description"]
+        known_fleet_entry = known_fleets.get(
+            self.id,
+            {
+                "name": "Unknown",
+                "description": "This fleet is new to the GWW and we are gathering data.",
+            },
         )
+        self.name = known_fleet_entry["name"]
+        self.description = known_fleet_entry["description"]
         self.current_value: int = raw_global_resource_data["currentValue"]
         self.max_value: int = raw_global_resource_data["maxValue"]
         self.perc: float = self.current_value / self.max_value

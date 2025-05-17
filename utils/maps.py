@@ -251,6 +251,20 @@ class Maps:
                             )
                         ),
                     )
+                if planet.event and planet.event.siege_fleet:
+                    with Image.open(
+                        f"resources/siege_fleets/{planet.event.siege_fleet.name.replace(' ', '_').lower()}.png"
+                    ) as fleet_icon:
+                        fleet_icon = fleet_icon.convert("RGBA")
+                        background.paste(
+                            fleet_icon,
+                            (
+                                int(planet.map_waypoints[0] - 25),
+                                int(planet.map_waypoints[1] - 50),
+                            ),
+                            fleet_icon,
+                        )
+                        fleet_icon.close()
             background.save(fp=Maps.FileLocations.planets_map)
 
     def update_dss(self, dss: DSS):
@@ -349,12 +363,21 @@ class Maps:
         background_draw = ImageDraw.Draw(im=background)
         for index, planet in planets.items():
             if index in active_planets:
-                border_colour = "deepskyblue" if planet.dss_in_orbit else "black"
+                if planet.dss_in_orbit:
+                    border_colour = "deepskyblue"
+                elif planet.event and planet.event.siege_fleet:
+                    border_colour = faction_colours[planet.event.faction]
+                else:
+                    border_colour = "black"
                 name_text = planet_names_json[str(index)]["names"][
                     language_code
                 ].replace(" ", "\n")
+                if planet.event and planet.event.siege_fleet or planet.dss_in_orbit:
+                    xy = (planet.map_waypoints[0], planet.map_waypoints[1] - 50)
+                else:
+                    xy = planet.map_waypoints
                 background_draw.multiline_text(
-                    xy=planet.map_waypoints,
+                    xy=xy,
                     text=name_text,
                     anchor="md",
                     font=font,
