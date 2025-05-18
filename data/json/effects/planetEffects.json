@@ -37,7 +37,7 @@
 	"1125": {
 		"galacticEffectId": 1125,
 		"name": "extract_SuperAerialDominance",
-		"description": "[EST] Extract appears quicker than usual"
+		"description": "[EST] Extraction appears faster than usual"
 	},
 	"1127": {
 		"galacticEffectId": 1127,
@@ -232,7 +232,7 @@
 	"1195": {
 		"galacticEffectId": 1195,
 		"name": "DSS Construction Site - Phase 1",
-		"description": "Construction has began on the Democracy Space Station.  The local populace is honored to host thousands of construction crews for this historic event."
+		"description": "Construction has begun on the Democracy Space Station. The local populace is honored to host thousands of construction crews for this historic event."
 	},
 	"1196": {
 		"galacticEffectId": 1196,
@@ -257,12 +257,12 @@
 	"1202": {
 		"galacticEffectId": 1202,
 		"name": "[Mission Modifier] THE JET BRIGADE",
-		"description": "The Automatons have deployed a new series of specialized models on this planet. These upgraded bots utilize stolen Jump Pack technology, heartlessly pillaged from the bodies of fallen Helldivers and reverse-engineered into something nearly unrecognizeable."
+		"description": "The Automatons have deployed a new series of specialized models on this planet. These upgraded bots utilize stolen Jump Pack technology, heartlessly pillaged from the bodies of fallen Helldivers and reverse-engineered into something nearly unrecognizable."
 	},
 	"1203": {
 		"galacticEffectId": 1203,
 		"name": "[Galactic Map Marker] THE JET BRIGADE",
-		"description": "The Automatons have deployed a new series of specialized models on this planet. These upgraded bots utilize stolen Jump Pack technology, heartlessly pillaged from the bodies of fallen Helldivers and reverse-engineered into something nearly unrecognizeable."
+		"description": "The Automatons have deployed a new series of specialized models on this planet. These upgraded bots utilize stolen Jump Pack technology, heartlessly pillaged from the bodies of fallen Helldivers and reverse-engineered into something nearly unrecognizable."
 	},
 	"1204": {
 		"galacticEffectId": 1204,
@@ -372,7 +372,7 @@
 	"1231": {
 		"galacticEffectId": 1231,
 		"name": "WEAPONS EXPERIMENTATION",
-		"description": "The Gas Mines Stratagem is available to all Helldivers."
+		"description": "The Gas Mines stratagem is available to all Helldivers."
 	},
 	"1232": {
 		"galacticEffectId": 1232,
