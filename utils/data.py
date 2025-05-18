@@ -37,6 +37,7 @@ class Data(ReprMixin):
         "meridia_position",
         "galactic_impact_mod",
         "sieges",
+        "steam_playercount",
     )
 
     def __init__(self) -> None:
@@ -51,6 +52,7 @@ class Data(ReprMixin):
             "dss": None,
             "personal_order": None,
             "status": None,
+            "steam_playercount": None,
         }
         self.loaded: bool = False
         self.liberation_changes: LiberationChangesTracker = LiberationChangesTracker()
@@ -63,6 +65,7 @@ class Data(ReprMixin):
         self.dss = None
         self.sieges = None
         self.global_resources = None
+        self.steam_playercount = 0
         self.gambit_planets = {}
         self.galactic_impact_mod: float = 0.0
         self.global_events: list[GlobalEvent] | list = []
@@ -98,7 +101,7 @@ class Data(ReprMixin):
                         else:
                             logger.error(msg=f"API/THUMBNAILS, {r.status}")
                     continue
-                if endpoint == "dss":
+                elif endpoint == "dss":
                     async with session.get(
                         url="https://api.live.prod.thehelldiversgame.com/api/SpaceStation/801/749875195"
                     ) as r:
@@ -116,7 +119,7 @@ class Data(ReprMixin):
                         else:
                             logger.error(msg=f"API/DSS, {r.status}")
                     continue
-                if endpoint == "personal_order":
+                elif endpoint == "personal_order":
                     continue
                     async with session.get(
                         url="https://api.diveharder.com/v1/personal_order"
@@ -129,7 +132,7 @@ class Data(ReprMixin):
                         else:
                             logger.error(msg=f"API/Personal_Order, {r.status}")
                     continue
-                if endpoint == "status":
+                elif endpoint == "status":
                     async with session.get(
                         url="https://api.live.prod.thehelldiversgame.com/api/WarSeason/801/Status"
                     ) as r:
@@ -138,6 +141,17 @@ class Data(ReprMixin):
                             self.__data__[endpoint] = data
                         else:
                             logger.error(msg=f"API/Status, {r.status}")
+                    continue
+                elif endpoint == "steam_playercount":
+                    async with session.get(
+                        url="https://api.steampowered.com/ISteamUserStats/GetNumberOfCurrentPlayers/v1/",
+                        params={"appid": 553850},
+                    ) as r:
+                        if r.status == 200:
+                            data = await r.json()
+                            self.steam_playercount = data["response"]["player_count"]
+                        else:
+                            logger.error(msg=f"API/STEAM_PLAYERCOUNT, {r.status}")
                     continue
 
                 try:

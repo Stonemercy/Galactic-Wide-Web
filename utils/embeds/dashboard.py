@@ -102,6 +102,7 @@ class Dashboard:
         self._footer_embed = self.FooterEmbed(
             language_json=language_json,
             total_players=data.total_players,
+            steam_players=data.steam_playercount,
             data_time=data.fetched_at,
         )
         self.embeds = [
@@ -1344,7 +1345,11 @@ class Dashboard:
 
     class FooterEmbed(Embed, EmbedReprMixin):
         def __init__(
-            self, language_json: dict, total_players: int, data_time: datetime
+            self,
+            language_json: dict,
+            total_players: int,
+            steam_players: int,
+            data_time: datetime,
         ):
             super().__init__(colour=Colour.dark_embed())
             now = datetime.now()
@@ -1361,7 +1366,8 @@ class Dashboard:
                 "",
                 (
                     f"-# {language_json['dashboard']['FooterEmbed']['total_players']}\n"
-                    f"-# {total_players:,}"
+                    f"-# {Emojis.Icons.steam} {steam_players:,}\n"
+                    f"-# {Emojis.Icons.playstation} {total_players - steam_players:,}"
                 ),
                 inline=False,
             )
