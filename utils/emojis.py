@@ -42,6 +42,8 @@ class Emojis:
         mo = "<:s:1240706769043456031>"
         mo_task_complete = "<:s:1325865957037445192>"
         mo_task_incomplete = "<:s:1325865167359316042>"
+        steam = "<:s:1373613637012426772>"
+        playstation = "<:s:1373613628552511559>"
 
     @dataclass
     class Factions:
