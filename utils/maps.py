@@ -6,36 +6,39 @@ from math import cos, radians, sin
 from PIL import Image, ImageDraw, ImageFont
 from random import randint
 from utils.data import DSS, Assignment, Campaign, Planet, Planets
+from utils.decorators import timeit
+from utils.mixins import ReprMixin
+
+faction_mapping: dict[int, str] = {
+    1: "Humans",
+    2: "Terminids",
+    3: "Automaton",
+    4: "Illuminate",
+}
+dim_faction_colours: dict[str, tuple[float, float, float]] = {
+    faction: tuple(int(colour / 2.5) for colour in colours)
+    for faction, colours in faction_colours.items()
+}
 
 
 class Maps:
     def __init__(self):
-        self.dim_faction_colours = {
-            faction: tuple(int(colour / 2.5) for colour in colours)
-            for faction, colours in faction_colours.items()
-        }
-        self.faction_mapping = {
-            1: "Humans",
-            2: "Terminids",
-            3: "Automaton",
-            4: "Illuminate",
-        }
-        self.latest_maps: dict[str, Maps.LatestMap] = {}
+        self.latest_maps: dict[str, Maps.LatestMap] | dict = {}
 
     @dataclass
-    class LatestMap:
+    class LatestMap(ReprMixin):
         updated_at: datetime
         map_link: str
 
     @dataclass
     class FileLocations:
-        empty_map = "resources/maps/empty_map.webp"
-        sector_map = "resources/maps/sector_map.webp"
-        waypoints_map = "resources/maps/waypoints_map.webp"
-        assignment_map = "resources/maps/assignment_map.webp"
-        dss_map = "resources/maps/dss_map.webp"
-        planets_map = "resources/maps/planets_map.webp"
-        arrow_map = "resources/maps/arrow_map.webp"
+        empty_map: str = "resources/maps/empty_map.webp"
+        sector_map: str = "resources/maps/sector_map.webp"
+        waypoints_map: str = "resources/maps/waypoints_map.webp"
+        assignment_map: str = "resources/maps/assignment_map.webp"
+        dss_map: str = "resources/maps/dss_map.webp"
+        planets_map: str = "resources/maps/planets_map.webp"
+        arrow_map: str = "resources/maps/arrow_map.webp"
 
         def localized_map_path(language_code: str) -> str:
             return f"resources/maps/{language_code}.webp"
@@ -46,7 +49,7 @@ class Maps:
         assignment: Assignment,
         campaigns: list[Campaign],
         dss: DSS,
-    ):
+    ) -> None:
         await to_thread(self.update_sectors, planets=planets)
         self.update_waypoint_lines(planets=planets)
         self.update_assignment_tasks(
@@ -60,13 +63,13 @@ class Maps:
         )
         self.update_dss(dss=dss)
 
-    def update_sectors(self, planets: Planets):
-        valid_planets = [
+    def update_sectors(self, planets: Planets) -> None:
+        valid_planets: list[Planet] = [
             planet
             for planet in planets.values()
             if not (planet.current_owner == "Humans" and not planet.event)
         ]
-        sector_info = {
+        sector_info: dict[str, dict[str, tuple | list]] = {
             planet.sector: {
                 "coords": planet.map_waypoints,
                 "faction": [],
@@ -85,13 +88,13 @@ class Maps:
                 ImageDraw.floodfill(
                     image=background,
                     xy=info["coords"],
-                    value=self.dim_faction_colours[info["faction"]],
+                    value=dim_faction_colours[info["faction"]],
                     thresh=25,
                 )
             background.putalpha(alpha=alpha)
             background.save(fp=Maps.FileLocations.sector_map)
 
-    def update_waypoint_lines(self, planets: Planets):
+    def update_waypoint_lines(self, planets: Planets) -> None:
         with Image.open(fp=Maps.FileLocations.sector_map) as background:
             draw_on_background_with_sectors = ImageDraw.Draw(im=background)
             for index, planet in planets.items():
@@ -107,7 +110,7 @@ class Maps:
                             ),
                             width=2,
                         )
-                    except:
+                    except KeyError:
                         continue
             background.save(fp=Maps.FileLocations.waypoints_map)
 
@@ -116,7 +119,7 @@ class Maps:
         assignment: Assignment,
         planets: Planets,
         campaigns: list[Campaign] | list,
-    ):
+    ) -> None:
         with Image.open(fp=Maps.FileLocations.waypoints_map) as background:
             if assignment:
                 background_draw = ImageDraw.Draw(im=background)
@@ -133,11 +136,7 @@ class Maps:
                         ]
                     ):
                         for planet in planet_events:
-                            if (
-                                planet.current_owner == "Humans"
-                                and planet.event.faction
-                                == self.faction_mapping[task.values[1]]
-                            ):
+                            if planet.event.faction == faction_mapping[task.values[1]]:
                                 self._draw_ellipse(
                                     draw=background_draw,
                                     coords=planet.map_waypoints,
@@ -151,7 +150,7 @@ class Maps:
                         )
                     elif task.type == 3 and task.progress != 1:
                         for campaign in campaigns:
-                            if campaign.faction == self.faction_mapping[task.values[0]]:
+                            if campaign.faction == faction_mapping[task.values[0]]:
                                 self._draw_ellipse(
                                     draw=background_draw,
                                     coords=campaign.planet.map_waypoints,
@@ -159,15 +158,14 @@ class Maps:
                                 )
         background.save(fp=Maps.FileLocations.assignment_map)
 
-    def update_planets(self, planets: Planets, active_planets: list[int]):
+    def update_planets(self, planets: Planets, active_planets: list[int]) -> None:
         with Image.open(fp=Maps.FileLocations.assignment_map) as background:
             background_draw = ImageDraw.Draw(im=background)
             for index, planet in planets.items():
-                coords = planet.map_waypoints
                 if planet.dss_in_orbit:
                     self._draw_ellipse(
                         draw=background_draw,
-                        coords=coords,
+                        coords=planet.map_waypoints,
                         fill_colour=faction_colours["DSS"],
                         radius=17,
                     )
@@ -175,22 +173,27 @@ class Maps:
                     for i in range(12, 6, -1):
                         background_draw.ellipse(
                             xy=[
-                                (coords[0] - i, coords[1] - i),
-                                (coords[0] + i, coords[1] + i),
+                                (
+                                    planet.map_waypoints[0] - i,
+                                    planet.map_waypoints[1] - i,
+                                ),
+                                (
+                                    planet.map_waypoints[0] + i,
+                                    planet.map_waypoints[1] + i,
+                                ),
                             ],
                             fill=(i * 20, i * 5, i * 20),
                         )
                     background_draw.ellipse(
                         xy=[
-                            (coords[0] - 7, coords[1] - 7),
-                            (coords[0] + 7, coords[1] + 7),
+                            (planet.map_waypoints[0] - 7, planet.map_waypoints[1] - 7),
+                            (planet.map_waypoints[0] + 7, planet.map_waypoints[1] + 7),
                         ],
                         fill=(0, 0, 0),
                         outline=(200, 100, 255),
                     )
                 elif planet.index == 0:
                     with Image.open("resources/super_earth.png") as se_icon:
-                        se_icon = se_icon.convert("RGBA")
                         background.paste(
                             se_icon,
                             (
@@ -199,12 +202,17 @@ class Maps:
                             ),
                             se_icon,
                         )
-                        se_icon.close()
                 elif 1240 in planet.active_effects:
                     background_draw.ellipse(
                         xy=[
-                            (coords[0] - 10, coords[1] - 10),
-                            (coords[0] + 10, coords[1] + 10),
+                            (
+                                planet.map_waypoints[0] - 10,
+                                planet.map_waypoints[1] - 10,
+                            ),
+                            (
+                                planet.map_waypoints[0] + 10,
+                                planet.map_waypoints[1] + 10,
+                            ),
                         ],
                         fill="red",
                     )
@@ -213,8 +221,14 @@ class Maps:
                     planet_draw = ImageDraw.Draw(planet_image)
                     planet_draw.ellipse(
                         xy=[
-                            (coords[0] - 10, coords[1] - 10),
-                            (coords[0] + 10, coords[1] + 10),
+                            (
+                                planet.map_waypoints[0] - 10,
+                                planet.map_waypoints[1] - 10,
+                            ),
+                            (
+                                planet.map_waypoints[0] + 10,
+                                planet.map_waypoints[1] + 10,
+                            ),
                         ],
                         fill="red",
                     )
@@ -236,18 +250,23 @@ class Maps:
                     background.paste(im=planet_image, mask=planet_image)
                     planet_image.close()
                 else:
-                    current_owner = planet.current_owner
                     background_draw.ellipse(
                         xy=[
-                            (coords[0] - 10, coords[1] - 10),
-                            (coords[0] + 10, coords[1] + 10),
+                            (
+                                planet.map_waypoints[0] - 10,
+                                planet.map_waypoints[1] - 10,
+                            ),
+                            (
+                                planet.map_waypoints[0] + 10,
+                                planet.map_waypoints[1] + 10,
+                            ),
                         ],
                         fill=(
-                            faction_colours[current_owner]
+                            faction_colours[planet.current_owner]
                             if index in active_planets
                             else tuple(
                                 int(colour / 1.5)
-                                for colour in faction_colours[current_owner]
+                                for colour in faction_colours[planet.current_owner]
                             )
                         ),
                     )
@@ -255,7 +274,6 @@ class Maps:
                     with Image.open(
                         f"resources/siege_fleets/{planet.event.siege_fleet.name.replace(' ', '_').lower()}.png"
                     ) as fleet_icon:
-                        fleet_icon = fleet_icon.convert("RGBA")
                         background.paste(
                             fleet_icon,
                             (
@@ -264,15 +282,13 @@ class Maps:
                             ),
                             fleet_icon,
                         )
-                        fleet_icon.close()
             background.save(fp=Maps.FileLocations.planets_map)
 
-    def update_dss(self, dss: DSS):
+    def update_dss(self, dss: DSS) -> None:
         if dss and dss.flags == 1:
             with Image.open(
                 fp=Maps.FileLocations.planets_map
             ) as background, Image.open("resources/DSS.png") as dss_icon:
-                dss_icon = dss_icon.convert("RGBA")
                 dss_coords = (
                     int(dss.planet.map_waypoints[0]) - 17,
                     int(dss.planet.map_waypoints[1]) - 130,
@@ -283,7 +299,7 @@ class Maps:
             with Image.open(fp=Maps.FileLocations.planets_map) as background:
                 background.save(fp=Maps.FileLocations.dss_map)
 
-    def draw_arrow(self, language_code: str, planet: Planet):
+    def draw_arrow(self, language_code: str, planet: Planet) -> None:
         with Image.open(
             fp=Maps.FileLocations.localized_map_path(language_code=language_code)
         ) as background:
@@ -325,7 +341,7 @@ class Maps:
         planets: Planets,
         active_planets: list[int],
         planet_names_json: dict,
-    ):
+    ) -> None:
         with Image.open(fp=Maps.FileLocations.dss_map) as background:
             self._write_names(
                 background=background,
@@ -342,7 +358,7 @@ class Maps:
         coords: tuple,
         fill_colour: tuple,
         radius: int = 15,
-    ):
+    ) -> None:
         draw.ellipse(
             [
                 (coords[0] - radius, coords[1] - radius),
@@ -358,7 +374,7 @@ class Maps:
         planets: Planets,
         active_planets: list[int],
         planet_names_json: dict,
-    ):
+    ) -> None:
         font = ImageFont.truetype("resources/gww-font.ttf", 35)
         background_draw = ImageDraw.Draw(im=background)
         for index, planet in planets.items():
