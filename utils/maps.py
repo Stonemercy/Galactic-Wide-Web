@@ -230,7 +230,7 @@ class Maps:
                                 planet.map_waypoints[1] + 10,
                             ),
                         ],
-                        fill="red",
+                        fill=(102, 99, 100),
                     )
                     cx, cy = planet.map_waypoints
                     angles = []
@@ -245,7 +245,7 @@ class Maps:
                         planet_draw.line(
                             [(cx, cy), (new_x, new_y)],
                             fill=(0, 0, 0, 0),
-                            width=randint(3, 4),
+                            width=randint(2, 4),
                         )
                     background.paste(im=planet_image, mask=planet_image)
                     planet_image.close()
