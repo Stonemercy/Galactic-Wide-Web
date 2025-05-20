@@ -1000,7 +1000,7 @@ class Dashboard:
             language_json: dict,
         ):
             super().__init__(
-                title=f"{Emojis.Decoration.alert_icon} BATTLE FOR {campaign.planet.name} {Emojis.Decoration.alert_icon}",
+                title=f"BATTLE FOR {campaign.planet.name}",
                 description=f"Total players on planet: **{campaign.planet.stats['playerCount']:,}**",
                 colour=Colour.from_rgb(*faction_colours[campaign.planet.current_owner]),
             )
@@ -1053,7 +1053,7 @@ class Dashboard:
                             self.add_field("", "")
                         rate = f"{sum(region_changes[region.index]['changes']) * 12:+.2f}%/hour"
                         self.add_field(
-                            f"{Emojis.Decoration.alert_icon} {region.name}",
+                            f"{region.name}",
                             (
                                 f"Current owner: {region.owner}\n"
                                 f"{health_bar(region.perc, siege_fleet.faction)}\n"
