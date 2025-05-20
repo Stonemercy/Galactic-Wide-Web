@@ -6,7 +6,6 @@ from math import cos, radians, sin
 from PIL import Image, ImageDraw, ImageFont
 from random import randint
 from utils.data import DSS, Assignment, Campaign, Planet, Planets
-from utils.decorators import timeit
 from utils.mixins import ReprMixin
 
 faction_mapping: dict[int, str] = {
