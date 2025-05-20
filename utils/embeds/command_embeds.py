@@ -7,7 +7,7 @@ from data.lists import (
     stratagem_image_dict,
 )
 from disnake import APISlashCommand, Colour, Embed, File, Guild, OptionType
-from utils.data import DarkEnergy, PersonalOrder, Planet, Planets, Steam
+from utils.data import DarkEnergy, PersonalOrder, Planet, Planets, SiegeFleet, Steam
 from utils.db import GWWGuild
 from utils.emojis import Emojis
 from utils.functions import health_bar, short_format
@@ -667,3 +667,49 @@ class WarfrontAllPlanetsEmbed(Embed, EmbedReprMixin):
         name = "Planets list"
         value = " - ".join([f"**{p.name}**" for p in planets_list])
         self.add_field(name=name, value=value)
+
+
+class SiegeFleetCommandEmbed(Embed, EmbedReprMixin):
+    def __init__(
+        self,
+        siege_fleet: SiegeFleet,
+        siege_changes: dict[str:int, str:list],
+        language_json: dict,
+    ):
+        super().__init__(
+            title=f"{siege_fleet.name}",
+            description=f"-# {siege_fleet.description}",
+            colour=Colour.from_rgb(*faction_colours[siege_fleet.faction]),
+        )
+        rate_per_hour = sum(siege_changes["changes"]) * 12
+        rate = f"{rate_per_hour:+.2%}/hr"
+        completion_timestamp = None
+        if rate_per_hour != 0:
+            seconds_until_depleted = (
+                int(((1 - siege_changes["total"]) / rate_per_hour) * 3600)
+                if rate_per_hour > 0
+                else int((siege_changes["total"] / abs(rate_per_hour)) * 3600)
+            )
+            completion_timestamp = language_json["dashboard"]["DarkEnergyEmbed"][
+                "reaches"
+            ].format(
+                number=100 if rate_per_hour > 0 else 0,
+                timestamp=(int(datetime.now().timestamp()) + seconds_until_depleted),
+            )
+        self.add_field(
+            "",
+            (
+                f"{siege_fleet.health_bar}\n"
+                f"**`{siege_fleet.perc:^25.3%}`**\n"
+                f"**`{rate:^25}`**"
+            ),
+            inline=False,
+        )
+        if completion_timestamp:
+            self.add_field(
+                "",
+                (f"-# {completion_timestamp}\n"),
+            )
+        self.set_thumbnail(
+            url="https://cdn.discordapp.com/attachments/1212735927223590974/1372960719653568603/iluminat.png?ex=6828accf&is=68275b4f&hm=9069a2c2b0ab944699c5e5382aa2b58611b6eb9af22eef56433e63c9fa9c27c2&"
+        )

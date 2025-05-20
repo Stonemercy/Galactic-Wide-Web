@@ -10,8 +10,9 @@ from disnake import (
 from disnake.ext import commands
 from main import GalacticWideWebBot
 from utils.checks import wait_for_startup
+from utils.data import SiegeFleet
 from utils.db import GWWGuild
-from utils.embeds.dashboard import Dashboard
+from utils.embeds.command_embeds import SiegeFleetCommandEmbed
 
 
 class SiegeFleetsCog(commands.Cog):
@@ -20,9 +21,10 @@ class SiegeFleetsCog(commands.Cog):
 
     async def fleet_autocomp(inter: AppCmdInter, user_input: str):
         return [
-            p.event.siege_fleet.name
-            for p in inter.bot.data.sieges
-            if user_input.lower() in p.event.siege_fleet.name.lower()
+            gr.name
+            for gr in inter.bot.data.global_resources
+            if isinstance(gr, SiegeFleet)
+            if user_input.lower() in gr.name.lower()
         ]
 
     @wait_for_startup()
@@ -69,12 +71,14 @@ class SiegeFleetsCog(commands.Cog):
             guild = GWWGuild.default()
         guild_language = self.bot.json_dict["languages"][guild.language]
         try:
-            siege_chosen = [
-                p for p in self.bot.data.sieges if p.event.siege_fleet.name == fleet
+            fleet_chosen = [
+                gr
+                for gr in self.bot.data.global_resources
+                if isinstance(gr, SiegeFleet) and gr.name == fleet
             ][0]
-            embed = Dashboard.SiegeEmbed(
-                planet_under_siege=siege_chosen,
-                siege_changes=self.bot.data.siege_fleet_changes[siege_chosen.index],
+            embed = SiegeFleetCommandEmbed(
+                siege_fleet=fleet_chosen,
+                siege_changes=self.bot.data.siege_fleet_changes[fleet_chosen.id],
                 language_json=guild_language,
             )
         except IndexError:
