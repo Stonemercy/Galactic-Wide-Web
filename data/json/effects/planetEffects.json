@@ -533,5 +533,10 @@
 		"galacticEffectId": 1272,
 		"name": "Razed Helldiver Training Sites",
 		"description": "Reinforcement budget reduced by 1"
+	},
+	"1273": {
+		"galacticEffectId": 1273,
+		"name": "Eagle Rearm Time Increase",
+		"description": "Increases the cooldown of the Eagle Rearm stratagem by 30%"
 	}
 }
