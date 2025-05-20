@@ -17,7 +17,7 @@ class HelpCog(commands.Cog):
         self.bot = bot
 
     async def help_autocomp(inter: AppCmdInter, user_input: str):
-        commands_list = [i.name for i in inter.bot.global_slash_commands]
+        commands_list = sorted([i.name for i in inter.bot.global_slash_commands])
         commands_list.insert(0, "all")
         return [
             command
