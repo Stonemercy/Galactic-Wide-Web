@@ -558,6 +558,10 @@ class Wiki:
                     title=language_json["title"],
                     colour=Colour.from_rgb(r=38, g=156, b=182),
                 )
+                if dss_data.flags == 2:
+                    self.add_field("The DSS is currently unavailable.", "")
+                    self.colour = Colour.brand_red()
+                    return
                 self.description = language_json["stationed_at"].format(
                     planet=dss_data.planet.name,
                     faction_emoji=getattr(
