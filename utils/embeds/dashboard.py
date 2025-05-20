@@ -1000,7 +1000,6 @@ class Dashboard:
             language_json: dict,
         ):
             super().__init__(
-                title=f"BATTLE FOR {campaign.planet.name}",
                 description=f"Total players on planet: **{campaign.planet.stats['playerCount']:,}**",
                 colour=Colour.from_rgb(*faction_colours[campaign.planet.current_owner]),
             )
@@ -1055,7 +1054,7 @@ class Dashboard:
                         self.add_field(
                             f"{region.name}",
                             (
-                                f"Current owner: {region.owner}\n"
+                                f"Current owner: **{region.owner}** {getattr(Emojis.Factions, region.owner.lower())}\n"
                                 f"{health_bar(region.perc, siege_fleet.faction)}\n"
                                 f"**`{region.perc:^25.3%}`**\n"
                                 f"`{rate:^25}`"
@@ -1064,6 +1063,10 @@ class Dashboard:
                         )
                 if inactive_regions:
                     self.add_field("Inactive regions", "".join(inactive_regions))
+            self.set_author(
+                name=f"BATTLE FOR {campaign.planet.name}",
+                icon_url="https://cdn.discordapp.com/emojis/1362562770586828880.gif?size=32&quality=lossless",
+            )
             self.set_thumbnail(
                 url="https://cdn.discordapp.com/attachments/1212735927223590974/1372960719653568603/iluminat.png?ex=6828accf&is=68275b4f&hm=9069a2c2b0ab944699c5e5382aa2b58611b6eb9af22eef56433e63c9fa9c27c2&"
             )
