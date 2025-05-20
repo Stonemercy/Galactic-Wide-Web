@@ -518,5 +518,20 @@
 		"galacticEffectId": 1269,
 		"name": "The Great Host",
 		"description": "The Illuminate invasion fleet, constructed in secret behind the veil of the Meridian Wormhole. It is headed for Super Earth itself."
+	},
+	"1270": {
+		"galacticEffectId": 1270,
+		"name": "UNKNOWN [1270]",
+		"description": "No idea"
+	},
+	"1271": {
+		"galacticEffectId": 1271,
+		"name": "Increased Siege Resistance",
+		"description": "Increases planet health"
+	},
+	"1272": {
+		"galacticEffectId": 1272,
+		"name": "Razed Helldiver Training Sites",
+		"description": "Reinforcement budget reduced by 1"
 	}
 }
