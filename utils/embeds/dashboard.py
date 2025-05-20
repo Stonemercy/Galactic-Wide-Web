@@ -1062,7 +1062,6 @@ class Dashboard:
                             ),
                             inline=False,
                         )
-                        print(region.perc)
                 if inactive_regions:
                     self.add_field("Inactive regions", "".join(inactive_regions))
             self.set_thumbnail(
