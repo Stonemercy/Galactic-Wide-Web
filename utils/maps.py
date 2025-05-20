@@ -281,6 +281,18 @@ class Maps:
                             ),
                             fleet_icon,
                         )
+                elif 1269 in planet.active_effects:
+                    with Image.open(
+                        f"resources/siege_fleets/the_great_host.png"
+                    ) as fleet_icon:
+                        background.paste(
+                            fleet_icon,
+                            (
+                                int(planet.map_waypoints[0] - 25),
+                                int(planet.map_waypoints[1] - 50),
+                            ),
+                            fleet_icon,
+                        )
             background.save(fp=Maps.FileLocations.planets_map)
 
     def update_dss(self, dss: DSS) -> None:
@@ -339,6 +351,7 @@ class Maps:
         language_code_long: str,
         planets: Planets,
         active_planets: list[int],
+        type_3_campaigns: list[Campaign],
         planet_names_json: dict,
     ) -> None:
         with Image.open(fp=Maps.FileLocations.dss_map) as background:
@@ -347,6 +360,7 @@ class Maps:
                 language_code=language_code_long,
                 planets=planets,
                 active_planets=active_planets,
+                type_3_campaigns=type_3_campaigns,
                 planet_names_json=planet_names_json,
             )
             background.save(fp=f"resources/maps/{language_code_short}.webp")
@@ -372,6 +386,7 @@ class Maps:
         language_code: str,
         planets: Planets,
         active_planets: list[int],
+        type_3_campaigns: list[Campaign],
         planet_names_json: dict,
     ) -> None:
         font = ImageFont.truetype("resources/gww-font.ttf", 35)
@@ -382,12 +397,22 @@ class Maps:
                     border_colour = "deepskyblue"
                 elif planet.event and planet.event.siege_fleet:
                     border_colour = faction_colours[planet.event.faction]
+                elif planet.index in [c.planet.index for c in type_3_campaigns]:
+                    border_colour = faction_colours[
+                        [c for c in type_3_campaigns if c.planet.index == planet.index][
+                            0
+                        ].faction
+                    ]
                 else:
                     border_colour = "black"
                 name_text = planet_names_json[str(index)]["names"][
                     language_code
                 ].replace(" ", "\n")
-                if planet.event and planet.event.siege_fleet or planet.dss_in_orbit:
+                if (
+                    (planet.event and planet.event.siege_fleet)
+                    or planet.dss_in_orbit
+                    or planet.index in [c.planet.index for c in type_3_campaigns]
+                ):
                     xy = (planet.map_waypoints[0], planet.map_waypoints[1] - 50)
                 else:
                     xy = planet.map_waypoints

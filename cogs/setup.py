@@ -789,6 +789,9 @@ class SetupCog(commands.Cog):
                             campaign.planet.index
                             for campaign in self.bot.data.campaigns
                         ],
+                        type_3_campaigns=[
+                            c for c in self.bot.data.campaigns if c.type == 3
+                        ],
                         planet_names_json=self.bot.json_dict["planets"],
                     )
                     message = await self.bot.waste_bin_channel.send(
