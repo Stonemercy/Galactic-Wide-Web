@@ -14,6 +14,24 @@ from utils.trackers import LiberationChangesTracker
 
 api = getenv(key="API")
 backup_api = getenv(key="BU_API")
+factions = {
+    1: "Humans",
+    2: "Terminids",
+    3: "Automaton",
+    4: "Illuminate",
+}
+
+regions = {
+    0: {
+        0: "Eagleopolis",
+        1: "Administrative Center 02",
+        2: "Rememberance",
+        3: "York Supreme",
+        4: "Port Mercy",
+        5: "Prosperity City",
+        6: "Equality-on-Sea",
+    }
+}
 
 
 class Data(ReprMixin):
@@ -34,6 +52,7 @@ class Data(ReprMixin):
         "loaded",
         "liberation_changes",
         "dark_energy_changes",
+        "region_changes",
         "meridia_position",
         "galactic_impact_mod",
         "sieges",
@@ -52,12 +71,14 @@ class Data(ReprMixin):
             "dss": None,
             "personal_order": None,
             "status": None,
+            "warinfo": None,
             "steam_playercount": None,
         }
         self.loaded: bool = False
         self.liberation_changes: LiberationChangesTracker = LiberationChangesTracker()
         self.dark_energy_changes: dict = {"total": 0, "changes": []}
         self.siege_fleet_changes: dict = {}
+        self.region_changes: dict = {}
         self.meridia_position: None | tuple[float, float] = None
         self.personal_order = None
         self.fetched_at = None
@@ -142,6 +163,15 @@ class Data(ReprMixin):
                         else:
                             logger.error(msg=f"API/Status, {r.status}")
                     continue
+                elif endpoint == "warinfo":
+                    async with session.get(
+                        url="https://api.live.prod.thehelldiversgame.com/api/WarSeason/801/WarInfo"
+                    ) as r:
+                        if r.status == 200:
+                            self.__data__[endpoint] = await r.json()
+                        else:
+                            logger.error(msg=f"API/WARINFO, {r.status}")
+                    continue
                 elif endpoint == "steam_playercount":
                     async with session.get(
                         url="https://api.steampowered.com/ISteamUserStats/GetNumberOfCurrentPlayers/v1/",
@@ -175,6 +205,7 @@ class Data(ReprMixin):
 
         self.format_data()
         self.update_liberation_rates()
+        self.update_region_changes()
         if self.global_resources != None:
             self.update_dark_energy_rate()
             self.update_siege_fleet_health()
@@ -217,12 +248,6 @@ class Data(ReprMixin):
             self.assignment: Assignment = Assignment(
                 raw_assignment_data=self.__data__["assignments"][0]
             )
-            factions = {
-                1: "Humans",
-                2: "Terminids",
-                3: "Automaton",
-                4: "Illuminate",
-            }
             for task in self.assignment.tasks:
                 match task.type:
                     case 2:
@@ -376,6 +401,25 @@ class Data(ReprMixin):
                         ):
                             self.gambit_planets[defending_index] = campaign.planet
 
+        if self.__data__["warinfo"]:
+            if not self.__data__["warinfo"].get("planetRegions") or not self.__data__[
+                "status"
+            ].get("planetRegions"):
+                pass
+            else:
+                for region in self.__data__["warinfo"]["planetRegions"]:
+                    self.planets[region["planetIndex"]].regions[
+                        region["regionIndex"]
+                    ] = Planet.Region(raw_planet_region_data=region)
+
+                for region in self.__data__["status"]["planetRegions"]:
+                    if region["regionIndex"] not in self.planets:
+                        continue
+                    else:
+                        self.planets[region["planetIndex"]].regions[
+                            region["regionIndex"]
+                        ].update_from_status_data(raw_planet_region_data=region)
+
         if siege_list := [p for p in self.planet_events if p.event.siege_fleet]:
             if siege_list != []:
                 self.sieges: list[Planet] = siege_list
@@ -411,10 +455,15 @@ class Data(ReprMixin):
         """Update the changes in Siege Fleets health"""
         if self.sieges:
             for planet in self.sieges:
-                if planet.index not in self.siege_fleet_changes:
-                    self.siege_fleet_changes[planet.index] = {"total": 0, "changes": []}
+                if planet.event.siege_fleet.id not in self.siege_fleet_changes:
+                    self.siege_fleet_changes[planet.event.siege_fleet.id] = {
+                        "total": 0,
+                        "changes": [],
+                    }
                 else:
-                    fleet_changes = self.siege_fleet_changes[planet.index]
+                    fleet_changes = self.siege_fleet_changes[
+                        planet.event.siege_fleet.id
+                    ]
                     if fleet_changes["total"] != 0:
                         if len(fleet_changes["changes"]) == 5:
                             fleet_changes["changes"].pop(0)
@@ -423,7 +472,52 @@ class Data(ReprMixin):
                                 (planet.event.siege_fleet.perc - fleet_changes["total"])
                             )
                     fleet_changes["total"] = planet.event.siege_fleet.perc
+        elif siege_fleets := [
+            gr for gr in self.global_resources if isinstance(gr, SiegeFleet)
+        ]:
+            for fleet in siege_fleets:
+                if fleet.id not in self.siege_fleet_changes:
+                    self.siege_fleet_changes[fleet.id] = {
+                        "total": 0,
+                        "changes": [],
+                    }
+                else:
+                    fleet_changes = self.siege_fleet_changes[fleet.id]
+                    if fleet_changes["total"] != 0:
+                        if len(fleet_changes["changes"]) == 5:
+                            fleet_changes["changes"].pop(0)
+                        while len(fleet_changes["changes"]) < 5:
+                            fleet_changes["changes"].append(
+                                (fleet.perc - fleet_changes["total"])
+                            )
+                    fleet_changes["total"] = fleet.perc
 
+    @timeit
+    def update_region_changes(self) -> None:
+        """Update the liberation changes in the tracker for each active region"""
+        for campaign in self.campaigns:
+            if campaign.planet.regions:
+                if campaign.planet.index not in self.region_changes:
+                    self.region_changes[campaign.planet.index] = {}
+                planet_changes = self.region_changes[campaign.planet.index]
+                for region in campaign.planet.regions.values():
+                    if region.index not in planet_changes:
+                        self.region_changes[region.planet_index][region.index] = {
+                            "total": 0,
+                            "changes": [],
+                        }
+                    else:
+                        region_changes = planet_changes[region.index]
+                        if region_changes["total"] != 0:
+                            if len(region_changes["changes"]) == 5:
+                                region_changes["changes"].pop(0)
+                            while len(region_changes["changes"]) < 5:
+                                region_changes["changes"].append(
+                                    (region.perc - region_changes["total"])
+                                )
+                        region_changes["total"] = region.perc
+
+    @timeit
     def get_needed_players(self) -> None:
         """Update the planets with their required helldivers for victory"""
         now = datetime.now()
@@ -624,7 +718,7 @@ class SiegeFleet(GlobalResource):
         self.current_value: int = raw_global_resource_data["currentValue"]
         self.max_value: int = raw_global_resource_data["maxValue"]
         self.perc: float = self.current_value / self.max_value
-        self.faction = None
+        self.faction: str | None = None
 
     @property
     def health_bar(self) -> str:
@@ -713,6 +807,7 @@ class Planet(ReprMixin):
         self.active_effects: set[int] | set = set()
         self.attack_targets: list[int] | list = []
         self.defending_from: list[int] | list = []
+        self.regions: dict[int, Planet.Region] | dict = {}
 
         # BIOME/SECTOR/HAZARDS OVERWRITE #
         if self.index == 0:
@@ -795,6 +890,36 @@ class Planet(ReprMixin):
         def health_bar(self) -> str:
             """Returns the health bar for the planet's event"""
             return health_bar(perc=self.progress, race=self.faction, reverse=True)
+
+    class Region(ReprMixin):
+        def __init__(self, raw_planet_region_data: dict):
+            self.is_updated: bool = False
+            self.planet_index = raw_planet_region_data["planetIndex"]
+            self.index: int = raw_planet_region_data["regionIndex"]
+            self.name = regions.get(self.planet_index, {}).get(self.index, "Megacity")
+            self.owner: int = 0
+            self.health: int = raw_planet_region_data["maxHealth"]
+            self.max_health: int = raw_planet_region_data["maxHealth"]
+            self.regen_per_sec: int = 0
+            self.availability_factor: int = 0
+            self.is_available: bool = False
+            self.players: int = 0
+            self.size: int = raw_planet_region_data["regionSize"]
+
+        @property
+        def perc(self):
+            return self.health / self.max_health
+
+        def update_from_status_data(self, raw_planet_region_data: dict):
+            self.owner: int = factions[raw_planet_region_data["owner"]]
+            self.health: int = raw_planet_region_data["health"]
+            self.regen_per_sec: int = raw_planet_region_data.get(
+                "regenPerSecond"
+            ) or raw_planet_region_data.get("regerPerSecond")
+            self.availability_factor: int = raw_planet_region_data["availabilityFactor"]
+            self.is_available: bool = raw_planet_region_data["isAvailable"]
+            self.players: int = raw_planet_region_data["players"]
+            self.is_updated: bool = True
 
 
 class Planets(dict):

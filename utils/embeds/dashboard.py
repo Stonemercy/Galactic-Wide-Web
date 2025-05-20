@@ -14,7 +14,7 @@ from utils.data import (
     Data,
     Planet,
     Planets,
-    TheGreatHost,
+    SiegeFleet,
 )
 from utils.emojis import Emojis
 from utils.functions import health_bar, short_format
@@ -143,6 +143,20 @@ class Dashboard:
                     language_json=language_json,
                 )
                 self.embeds.insert(2, siege_embed)
+
+        if type_3_campaigns := [c for c in data.campaigns if c.type == 3]:
+            for campaign in type_3_campaigns:
+                active_siege = [
+                    gr for gr in data.global_resources if isinstance(gr, SiegeFleet)
+                ][0]
+                battle_for_se_embed = self.BattleForSuperEarthEmbed(
+                    campaign=campaign,
+                    region_changes=data.region_changes[campaign.planet.index],
+                    siege_fleet=active_siege,
+                    siege_fleet_changes=data.siege_fleet_changes.get(active_siege.id),
+                    language_json=language_json,
+                )
+                self.embeds.insert(2, battle_for_se_embed)
 
         for embed in self.embeds.copy():
             if len(embed.fields) == 0:
@@ -972,6 +986,85 @@ class Dashboard:
                     "",
                     (f"-# {completion_timestamp}\n"),
                 )
+            self.set_thumbnail(
+                url="https://cdn.discordapp.com/attachments/1212735927223590974/1372960719653568603/iluminat.png?ex=6828accf&is=68275b4f&hm=9069a2c2b0ab944699c5e5382aa2b58611b6eb9af22eef56433e63c9fa9c27c2&"
+            )
+
+    class BattleForSuperEarthEmbed(Embed, EmbedReprMixin):
+        def __init__(
+            self,
+            campaign: Campaign,
+            region_changes: dict,
+            siege_fleet: SiegeFleet,
+            siege_fleet_changes: dict,
+            language_json: dict,
+        ):
+            super().__init__(
+                title=f"{Emojis.Decoration.alert_icon} BATTLE FOR {campaign.planet.name} {Emojis.Decoration.alert_icon}",
+                description=f"Total players on planet: **{campaign.planet.stats['playerCount']:,}**",
+                colour=Colour.from_rgb(*faction_colours[campaign.planet.current_owner]),
+            )
+            rate_per_hour = sum(siege_fleet_changes["changes"]) * 12
+            rate = f"{rate_per_hour:+.2%}/hr"
+            completion_timestamp = ""
+            if rate_per_hour != 0:
+                seconds_until_depleted = (
+                    int(((1 - siege_fleet_changes["total"]) / rate_per_hour) * 3600)
+                    if rate_per_hour > 0
+                    else int((siege_fleet_changes["total"] / abs(rate_per_hour)) * 3600)
+                )
+                completion_timestamp = language_json["dashboard"]["DarkEnergyEmbed"][
+                    "reaches"
+                ].format(
+                    number=100 if rate_per_hour > 0 else 0,
+                    timestamp=(
+                        int(datetime.now().timestamp()) + seconds_until_depleted
+                    ),
+                )
+            self.add_field(
+                "",
+                (
+                    f"{siege_fleet.health_bar}\n"
+                    f"**`{siege_fleet.perc:^25.3%}`**\n"
+                    f"**`{rate:^25}`**"
+                    f"\n-# {completion_timestamp}"
+                ),
+                inline=False,
+            )
+            if campaign.planet.regions:
+                conquered_regions = [
+                    f"**{r.name}**\n"
+                    for r in campaign.planet.regions.values()
+                    if r.owner != "Humans"
+                ]
+                active_regions = [
+                    r for r in campaign.planet.regions.values() if r.is_available
+                ]
+                inactive_regions = [
+                    f"-# **{r.name}**\n"
+                    for r in campaign.planet.regions.values()
+                    if not r.is_available
+                ]
+                if conquered_regions:
+                    self.add_field("Conquered Regions", "".join(conquered_regions))
+                if active_regions:
+                    for index, region in enumerate(active_regions, 1):
+                        if index % 2:
+                            self.add_field("", "")
+                        rate = f"{sum(region_changes[region.index]['changes']) * 12:+.2f}%/hour"
+                        self.add_field(
+                            f"{Emojis.Decoration.alert_icon} {region.name}",
+                            (
+                                f"Current owner: {region.owner}\n"
+                                f"{health_bar(region.perc, siege_fleet.faction)}\n"
+                                f"**`{region.perc:^25.3%}`**\n"
+                                f"`{rate:^25}`"
+                            ),
+                            inline=False,
+                        )
+                        print(region.perc)
+                if inactive_regions:
+                    self.add_field("Inactive regions", "".join(inactive_regions))
             self.set_thumbnail(
                 url="https://cdn.discordapp.com/attachments/1212735927223590974/1372960719653568603/iluminat.png?ex=6828accf&is=68275b4f&hm=9069a2c2b0ab944699c5e5382aa2b58611b6eb9af22eef56433e63c9fa9c27c2&"
             )

@@ -5,7 +5,6 @@ def health_bar(perc: float, race: str | int, reverse: bool = False):
     perc = min(perc, 1)
     if reverse:
         perc = 1 - perc
-    perc = int(perc)
     faction_numbers = {
         1: "Humans",
         2: "Terminids",
@@ -21,8 +20,8 @@ def health_bar(perc: float, race: str | int, reverse: bool = False):
         "Humans": "<:hc:1229362077974401024>",
         "MO": "<:moc:1229360522181476403>",
     }[race]
-    progress_bar = health_icon * (perc * 10)
-    while perc < 0.9:
+    progress_bar = health_icon * int((perc * 10))
+    while perc < 1:
         progress_bar += "<:nc:1229450109901606994>"
         perc += 0.1
     return progress_bar
