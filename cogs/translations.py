@@ -32,7 +32,8 @@ class TranslationsCog(commands.Cog):
         self,
         inter: AppCmdInter,
         language_to_check: str = commands.Param(
-            choices=["de", "es", "fr", "it", "pt-br", "ru", "ALL"]
+            choices=["de", "es", "fr", "it", "pt-br", "ru", "ALL"],
+            description="The language you want to check the missing translations for.",
         ),
     ):
         try:
