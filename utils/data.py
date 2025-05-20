@@ -687,7 +687,7 @@ class Planet(ReprMixin):
         self.waypoints: list[int] = raw_planet_data["waypoints"]
         self.max_health: int = raw_planet_data["maxHealth"]
         self.health: int = raw_planet_data["health"]
-        self.health_perc: float = self.health / self.max_health
+        self.health_perc: float = min(self.health / self.max_health, 1)
         self.current_owner: str = raw_planet_data["currentOwner"]
         self.regen: float = raw_planet_data["regenPerSecond"]
         self.regen_perc_per_hour: float = round(
