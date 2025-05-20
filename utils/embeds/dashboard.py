@@ -944,7 +944,6 @@ class Dashboard:
             rate_per_hour = sum(siege_changes["changes"]) * 12
             rate = f"{rate_per_hour:+.2%}/hr"
             completion_timestamp = None
-            now_seconds = int(datetime.now().timestamp())
             if rate_per_hour != 0:
                 seconds_until_depleted = (
                     int(((1 - siege_changes["total"]) / rate_per_hour) * 3600)
@@ -955,7 +954,9 @@ class Dashboard:
                     "reaches"
                 ].format(
                     number=100 if rate_per_hour > 0 else 0,
-                    timestamp=(now_seconds + seconds_until_depleted),
+                    timestamp=(
+                        int(datetime.now().timestamp()) + seconds_until_depleted
+                    ),
                 )
             self.add_field(
                 "",
