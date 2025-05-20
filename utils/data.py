@@ -14,6 +14,7 @@ from utils.trackers import LiberationChangesTracker
 
 api = getenv(key="API")
 backup_api = getenv(key="BU_API")
+
 factions = {
     1: "Humans",
     2: "Terminids",
@@ -420,10 +421,6 @@ class Data(ReprMixin):
                             region["regionIndex"]
                         ].update_from_status_data(raw_planet_region_data=region)
 
-        if siege_list := [p for p in self.planet_events if p.event.siege_fleet]:
-            if siege_list != []:
-                self.sieges: list[Planet] = siege_list
-
     def update_liberation_rates(self) -> None:
         """Update the liberation changes in the tracker for each active campaign"""
         for campaign in self.campaigns:
@@ -453,26 +450,7 @@ class Data(ReprMixin):
 
     def update_siege_fleet_health(self) -> None:
         """Update the changes in Siege Fleets health"""
-        if self.sieges:
-            for planet in self.sieges:
-                if planet.event.siege_fleet.id not in self.siege_fleet_changes:
-                    self.siege_fleet_changes[planet.event.siege_fleet.id] = {
-                        "total": 0,
-                        "changes": [],
-                    }
-                else:
-                    fleet_changes = self.siege_fleet_changes[
-                        planet.event.siege_fleet.id
-                    ]
-                    if fleet_changes["total"] != 0:
-                        if len(fleet_changes["changes"]) == 5:
-                            fleet_changes["changes"].pop(0)
-                        while len(fleet_changes["changes"]) < 5:
-                            fleet_changes["changes"].append(
-                                (planet.event.siege_fleet.perc - fleet_changes["total"])
-                            )
-                    fleet_changes["total"] = planet.event.siege_fleet.perc
-        elif siege_fleets := [
+        if siege_fleets := [
             gr for gr in self.global_resources if isinstance(gr, SiegeFleet)
         ]:
             for fleet in siege_fleets:
@@ -492,10 +470,10 @@ class Data(ReprMixin):
                             )
                     fleet_changes["total"] = fleet.perc
 
-    @timeit
     def update_region_changes(self) -> None:
         """Update the liberation changes in the tracker for each active region"""
-        for campaign in self.campaigns:
+        regional_campaigns = [c for c in self.campaigns if c.planet.regions]
+        for campaign in regional_campaigns:
             if campaign.planet.regions:
                 if campaign.planet.index not in self.region_changes:
                     self.region_changes[campaign.planet.index] = {}
@@ -517,7 +495,6 @@ class Data(ReprMixin):
                                 )
                         region_changes["total"] = region.perc
 
-    @timeit
     def get_needed_players(self) -> None:
         """Update the planets with their required helldivers for victory"""
         now = datetime.now()
