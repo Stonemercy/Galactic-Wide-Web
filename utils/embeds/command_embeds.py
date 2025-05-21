@@ -12,7 +12,7 @@ from utils.db import GWWGuild
 from utils.emojis import Emojis
 from utils.functions import health_bar, short_format
 from utils.mixins import EmbedReprMixin
-from utils.trackers import LiberationChangesTracker
+from utils.trackers import BaseTracker, BaseTrackerEntry
 from disnake.ext.commands.slash_core import InvokableSlashCommand
 
 
@@ -23,7 +23,7 @@ class PlanetCommandEmbed(Embed, EmbedReprMixin):
         planet: Planet,
         language_json: dict,
         planet_effects_json: dict,
-        liberation_changes: LiberationChangesTracker,
+        liberation_changes: BaseTracker,
         total_players: int,
     ):
         super().__init__(colour=Colour.from_rgb(*faction_colours[planet.current_owner]))
@@ -46,7 +46,7 @@ class PlanetCommandEmbed(Embed, EmbedReprMixin):
         planet: Planet,
         language_json: dict,
         planet_effects_json: list,
-        liberation_changes: LiberationChangesTracker,
+        liberation_changes: BaseTracker,
         total_players: int,
     ):
         sector = language_json["PlanetEmbed"]["sector"].format(sector=planet.sector)
@@ -82,17 +82,15 @@ class PlanetCommandEmbed(Embed, EmbedReprMixin):
         required_players = ""
         liberation_text = ""
         if liberation_changes.has_data:
-            liberation_change = liberation_changes.get_by_index(
-                planet_index=planet.index
-            )
+            liberation_change = liberation_changes.get_entry(key=planet.index)
             if liberation_change:
                 now = datetime.now()
                 now_seconds = int(now.timestamp())
-                if liberation_change.rate_per_hour != 0:
+                if liberation_change.change_rate_per_hour != 0:
                     seconds_until_complete = int(
                         (
-                            (100 - liberation_change.liberation)
-                            / liberation_change.rate_per_hour
+                            (100 - liberation_change.value)
+                            / liberation_change.change_rate_per_hour
                         )
                         * 3600
                     )
@@ -103,7 +101,7 @@ class PlanetCommandEmbed(Embed, EmbedReprMixin):
                 health_bar(planet.event.progress, planet.event.faction, True)
                 + f" 🛡️ {getattr(Emojis.Factions, planet.event.faction.lower())}"
             )
-            if liberation_change and liberation_change.rate_per_hour != 0:
+            if liberation_change and liberation_change.change_rate_per_hour != 0:
                 winning = (
                     datetime.fromtimestamp(now_seconds + seconds_until_complete)
                     < planet.event.end_time_datetime
@@ -112,7 +110,7 @@ class PlanetCommandEmbed(Embed, EmbedReprMixin):
                     outlook_text = f"{language_json['dashboard']['outlook'].format(outlook=language_json['victory'])} <t:{now_seconds + seconds_until_complete}:R>\n"
                 else:
                     outlook_text = f"{language_json['dashboard']['outlook'].format(outlook=language_json['defeat'])}\n"
-                change = f"{liberation_change.rate_per_hour:+.2f}%/hour"
+                change = f"{liberation_change.change_rate_per_hour:+.2f}%/hour"
                 liberation_text = f"\n`{change:^25}`"
                 if planet.event.required_players:
                     if 0 < planet.event.required_players < 2.5 * total_players:
@@ -148,8 +146,8 @@ class PlanetCommandEmbed(Embed, EmbedReprMixin):
                 planet.current_owner,
                 True if planet.current_owner != "Humans" else False,
             )
-            if liberation_change and liberation_change.rate_per_hour > 0:
-                change = f"{liberation_change.rate_per_hour:+.2f}%/hour"
+            if liberation_change and liberation_change.change_rate_per_hour > 0:
+                change = f"{liberation_change.change_rate_per_hour:+.2f}%/hour"
                 liberation_text = f"\n`{change:^25}`"
                 outlook_text = f"{language_json['dashboard']['outlook'].format(outlook=language_json['victory'])} <t:{now_seconds + seconds_until_complete}:R>\n"
             self.add_field(
@@ -673,7 +671,7 @@ class SiegeFleetCommandEmbed(Embed, EmbedReprMixin):
     def __init__(
         self,
         siege_fleet: SiegeFleet,
-        siege_changes: dict[str:int, str:list],
+        siege_changes: BaseTrackerEntry,
         language_json: dict,
     ):
         super().__init__(
@@ -681,20 +679,17 @@ class SiegeFleetCommandEmbed(Embed, EmbedReprMixin):
             description=f"-# {siege_fleet.description}",
             colour=Colour.from_rgb(*faction_colours[siege_fleet.faction]),
         )
-        rate_per_hour = sum(siege_changes["changes"]) * 12
-        rate = f"{rate_per_hour:+.2%}/hr"
+        rate = f"{siege_changes.change_rate_per_hour:+.2%}/hr"
         completion_timestamp = None
-        if rate_per_hour != 0:
-            seconds_until_depleted = (
-                int(((1 - siege_changes["total"]) / rate_per_hour) * 3600)
-                if rate_per_hour > 0
-                else int((siege_changes["total"] / abs(rate_per_hour)) * 3600)
-            )
+        if siege_changes.change_rate_per_hour != 0:
             completion_timestamp = language_json["dashboard"]["DarkEnergyEmbed"][
                 "reaches"
             ].format(
-                number=100 if rate_per_hour > 0 else 0,
-                timestamp=(int(datetime.now().timestamp()) + seconds_until_depleted),
+                number=100 if siege_changes.change_rate_per_hour > 0 else 0,
+                timestamp=(
+                    int(datetime.now().timestamp())
+                    + siege_changes.seconds_until_complete
+                ),
             )
         self.add_field(
             "",

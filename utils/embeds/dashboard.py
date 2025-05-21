@@ -19,7 +19,7 @@ from utils.data import (
 from utils.emojis import Emojis
 from utils.functions import health_bar, short_format
 from utils.mixins import EmbedReprMixin
-from utils.trackers import LiberationChangesTracker
+from utils.trackers import BaseTracker, BaseTrackerEntry
 
 
 class Dashboard:
@@ -34,7 +34,7 @@ class Dashboard:
         self._major_order_embed = self.MajorOrderEmbed(
             assignment=data.assignment,
             planets=data.planets,
-            liberation_changes=data.liberation_changes,
+            liberation_changes_tracker=data.liberation_changes,
             language_json=language_json,
             json_dict=json_dict,
             with_health_bars=with_health_bars,
@@ -139,7 +139,7 @@ class Dashboard:
             for planet in data.sieges:
                 siege_embed = self.SiegeEmbed(
                     planet_under_siege=planet,
-                    siege_changes=data.siege_fleet_changes.get(planet.index),
+                    siege_changes=data.siege_fleet_changes.get_entry(planet.index),
                     language_json=language_json,
                 )
                 self.embeds.insert(2, siege_embed)
@@ -151,9 +151,11 @@ class Dashboard:
                 ][0]
                 battle_for_se_embed = self.BattleForSuperEarthEmbed(
                     campaign=campaign,
-                    region_changes=data.region_changes[campaign.planet.index],
+                    region_changes=data.region_changes,
                     siege_fleet=active_siege,
-                    siege_fleet_changes=data.siege_fleet_changes.get(active_siege.id),
+                    siege_fleet_changes=data.siege_fleet_changes.get_entry(
+                        active_siege.id
+                    ),
                     language_json=language_json,
                 )
                 self.embeds.insert(2, battle_for_se_embed)
@@ -199,7 +201,7 @@ class Dashboard:
             self,
             assignment: Assignment | None,
             planets: Planets,
-            liberation_changes: LiberationChangesTracker,
+            liberation_changes_tracker: BaseTracker,
             language_json: dict,
             json_dict: dict,
             with_health_bars: bool,
@@ -245,13 +247,13 @@ class Dashboard:
                                 language_json=language_json,
                                 planet=planets[task.values[2]],
                                 planet_names_json=json_dict["planets"],
-                                liberation_changes=liberation_changes,
+                                liberation_changes=liberation_changes_tracker,
                             )
                         case 12:
                             self.add_type_12(
                                 task=task,
                                 language_json=language_json,
-                                liberation_changes=liberation_changes,
+                                liberation_changes=liberation_changes_tracker,
                                 planet_names_json=json_dict["planets"],
                                 planet=(
                                     planets[task.values[3]]
@@ -264,7 +266,7 @@ class Dashboard:
                                 task=task,
                                 language_json=language_json,
                                 planet=planets[task.values[2]],
-                                liberation_changes=liberation_changes,
+                                liberation_changes=liberation_changes_tracker,
                                 planet_names_json=json_dict["planets"],
                                 total_players=sum(
                                     [p.stats["playerCount"] for p in planets.values()]
@@ -433,7 +435,7 @@ class Dashboard:
             language_json: dict,
             planet: Planet,
             planet_names_json: dict,
-            liberation_changes: LiberationChangesTracker,
+            liberation_changes: BaseTracker,
         ):
             """Liberate a planet"""
             if (planet.current_owner == "Humans" and not planet.event) or (
@@ -466,8 +468,11 @@ class Dashboard:
                     )
                     if planet.feature:
                         value_text += f"\n{language_json['dashboard']['MajorOrderEmbed']['feature']}: **{planet.feature}**\n"
-                    planet_lib_changes = liberation_changes.get_by_index(planet.index)
-                    if planet_lib_changes and planet_lib_changes.rate_per_hour > 0.01:
+                    planet_lib_changes = liberation_changes.get_entry(key=planet.index)
+                    if (
+                        planet_lib_changes
+                        and planet_lib_changes.change_rate_per_hour > 0.01
+                    ):
                         now_seconds = int(datetime.now().timestamp())
                         if planet.event:
                             winning = (
@@ -487,7 +492,7 @@ class Dashboard:
                             value_text += f"\n{language_json['dashboard']['progress']}:"
                             value_text += f"\n{health_bar(planet.health_perc, planet.current_owner, True)}"
                             value_text += f"\n`{(planet.health_perc):^25,.2%}`"
-                        change = f"{planet_lib_changes.rate_per_hour:+.2f}%/hour"
+                        change = f"{planet_lib_changes.change_rate_per_hour:+.2%}/hour"
                         value_text += f"\n`{change:^25}`"
                     self.add_field(
                         name=obj_text,
@@ -505,7 +510,7 @@ class Dashboard:
             self,
             task: Assignment.Task,
             language_json: dict,
-            liberation_changes: LiberationChangesTracker,
+            liberation_changes: BaseTracker,
             planet_names_json: dict,
             planet: Planet | None,
         ):
@@ -514,8 +519,8 @@ class Dashboard:
                 outlook_text = ""
                 required_players = ""
                 liberation_text = ""
-                planet_lib_changes = liberation_changes.get_by_index(planet.index)
-                if planet_lib_changes and planet_lib_changes.rate_per_hour != 0:
+                planet_lib_changes = liberation_changes.get_entry(planet.index)
+                if planet_lib_changes and planet_lib_changes.change_rate_per_hour != 0:
                     now_seconds = int(datetime.now().timestamp())
                     winning = (
                         datetime.fromtimestamp(
@@ -527,7 +532,7 @@ class Dashboard:
                         outlook_text = f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['victory'])} <t:{now_seconds + planet_lib_changes.seconds_until_complete}:R>"
                     else:
                         outlook_text = f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['defeat'])}"
-                    change = f"{planet_lib_changes.rate_per_hour:+.2f}%/hour"
+                    change = f"{planet_lib_changes.change_rate_per_hour:+.2%}/hour"
                     liberation_text = f"`{change:^25}`"
                     if planet.event.required_players != 0:
                         required_players = f"\n{language_json['dashboard']['DefenceEmbed']['players_required']}: **~{planet.event.required_players:,.0f}+**"
@@ -613,7 +618,7 @@ class Dashboard:
             task: Assignment.Task,
             language_json: dict,
             planet: Planet,
-            liberation_changes: LiberationChangesTracker,
+            liberation_changes: BaseTracker,
             planet_names_json: dict,
             total_players: int,
         ):
@@ -651,8 +656,8 @@ class Dashboard:
                 outlook_text = ""
                 required_players = ""
                 liberation_text = ""
-                planet_lib_changes = liberation_changes.get_by_index(planet.index)
-                if planet_lib_changes and planet_lib_changes.rate_per_hour != 0:
+                planet_lib_changes = liberation_changes.get_entry(planet.index)
+                if planet_lib_changes and planet_lib_changes.change_rate_per_hour != 0:
                     now_seconds = int(datetime.now().timestamp())
                     winning = (
                         datetime.fromtimestamp(
@@ -664,7 +669,7 @@ class Dashboard:
                         outlook_text = f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['victory'])} <t:{now_seconds + planet_lib_changes.seconds_until_complete}:R>"
                     else:
                         outlook_text = f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['defeat'])}"
-                    change = f"{planet_lib_changes.rate_per_hour:+.2f}%/hour"
+                    change = f"{planet_lib_changes.change_rate_per_hour:+.2%}/hour"
                     liberation_text = f"\n`{change:^25}`"
                     if planet.event.required_players != 0:
                         required_players = f"\n{language_json['dashboard']['DefenceEmbed']['players_required']}: **~{planet.event.required_players:,.0f}+**"
@@ -714,12 +719,15 @@ class Dashboard:
                 else:
                     outlook_text = ""
                     liberation_text = ""
-                    planet_lib_changes = liberation_changes.get_by_index(planet.index)
-                    if planet_lib_changes and planet_lib_changes.rate_per_hour != 0:
-                        if planet_lib_changes.rate_per_hour > 0:
+                    planet_lib_changes = liberation_changes.get_entry(planet.index)
+                    if (
+                        planet_lib_changes
+                        and planet_lib_changes.change_rate_per_hour != 0
+                    ):
+                        if planet_lib_changes.change_rate_per_hour > 0:
                             now_seconds = int(datetime.now().timestamp())
                             outlook_text = f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['victory'])} <t:{now_seconds + planet_lib_changes.seconds_until_complete}:R>"
-                        change = f"{planet_lib_changes.rate_per_hour:+.2f}%/hour"
+                        change = f"{planet_lib_changes.change_rate_per_hour:+.2%}/hour"
                         liberation_text = f"\n`{change:^25}`"
                     completed = (
                         f"**{language_json['dashboard']['MajorOrderEmbed']['liberated']}**"
@@ -994,45 +1002,41 @@ class Dashboard:
         def __init__(
             self,
             campaign: Campaign,
-            region_changes: dict,
+            region_changes: BaseTracker,
             siege_fleet: SiegeFleet,
-            siege_fleet_changes: dict,
+            siege_fleet_changes: BaseTrackerEntry,
             language_json: dict,
         ):
             super().__init__(
                 description=f"Total players on planet: **{campaign.planet.stats['playerCount']:,}**",
                 colour=Colour.from_rgb(*faction_colours[campaign.planet.current_owner]),
             )
-            rate_per_hour = sum(siege_fleet_changes["changes"]) * 12
-            rate = f"{rate_per_hour:+.2%}/hr"
-            completion_timestamp = ""
-            if rate_per_hour != 0:
-                seconds_until_depleted = (
-                    int(((1 - siege_fleet_changes["total"]) / rate_per_hour) * 3600)
-                    if rate_per_hour > 0
-                    else int((siege_fleet_changes["total"] / abs(rate_per_hour)) * 3600)
-                )
+            rate = f"{siege_fleet_changes.change_rate_per_hour:+.2%}/hr"
+            formatted_timestamp = ""
+            if siege_fleet_changes.change_rate_per_hour != 0:
                 completion_timestamp = language_json["dashboard"]["DarkEnergyEmbed"][
                     "reaches"
                 ].format(
-                    number=100 if rate_per_hour > 0 else 0,
+                    number=100 if siege_fleet_changes.change_rate_per_hour > 0 else 0,
                     timestamp=(
-                        int(datetime.now().timestamp()) + seconds_until_depleted
+                        int(datetime.now().timestamp())
+                        + siege_fleet_changes.seconds_until_complete
                     ),
                 )
+                formatted_timestamp = f"\n-# {completion_timestamp}"
             self.add_field(
-                "",
+                f"{siege_fleet.name} Strength",
                 (
                     f"{siege_fleet.health_bar}\n"
                     f"**`{siege_fleet.perc:^25.3%}`**\n"
                     f"**`{rate:^25}`**"
-                    f"\n-# {completion_timestamp}"
+                    f"{formatted_timestamp}"
                 ),
                 inline=False,
             )
             if campaign.planet.regions:
                 conquered_regions = [
-                    f"**{r.name}**\n"
+                    f"{r.type} **{r.name}**\n"
                     for r in campaign.planet.regions.values()
                     if r.owner != "Humans"
                 ]
@@ -1040,7 +1044,7 @@ class Dashboard:
                     r for r in campaign.planet.regions.values() if r.is_available
                 ]
                 inactive_regions = [
-                    f"-# **{r.name}**\n"
+                    f"-# {r.type} **{r.name}**\n"
                     for r in campaign.planet.regions.values()
                     if not r.is_available
                 ]
@@ -1050,14 +1054,28 @@ class Dashboard:
                     for index, region in enumerate(active_regions, 1):
                         if index % 2:
                             self.add_field("", "")
-                        rate = f"{sum(region_changes[region.index]['changes']) * 12:+.2f}%/hour"
+                        region_change = region_changes.get_entry(
+                            key=(campaign.planet.index, region.index)
+                        )
+                        if region_change:
+                            rate = f"{region_change.change_rate_per_hour:+.2%}%/hour"
+                            formatted_rate = f"\n`{rate:^25}`"
+                            winning = region_change.change_rate_per_hour > 0
+                            if winning:
+                                outlook_text = "Winning"
+                            else:
+                                outlook_text = "Losing"
+                            time_until_complete = f"\n-# {outlook_text} <t:{int(datetime.now().timestamp() + region_change.seconds_until_complete)}:R>"
+                        else:
+                            formatted_rate, time_until_complete = ""
                         self.add_field(
-                            f"{region.name}",
+                            f"{region.type} {region.name}",
                             (
-                                f"Current owner: **{region.owner}** {getattr(Emojis.Factions, region.owner.lower())}\n"
-                                f"{health_bar(region.perc, siege_fleet.faction)}\n"
-                                f"**`{region.perc:^25.3%}`**\n"
-                                f"`{rate:^25}`"
+                                f"Under **{region.owner if region.owner != 'Humans' else 'our'}** control {getattr(Emojis.Factions, region.owner.lower())}\n"
+                                f"{health_bar(region.perc, 'Humans', empty_colour=siege_fleet.faction)}\n"
+                                f"**`{region.perc:^25.3%}`**"
+                                f"{formatted_rate}"
+                                f"{time_until_complete}"
                             ),
                             inline=False,
                         )
@@ -1075,7 +1093,7 @@ class Dashboard:
         def __init__(
             self,
             planet_events: list[Planet],
-            liberation_changes: LiberationChangesTracker,
+            liberation_changes: BaseTracker,
             language_json: dict,
             planet_names: dict,
             total_players: int,
@@ -1127,22 +1145,22 @@ class Dashboard:
             required_players = ""
             liberation_text = ""
             if self.liberation_changes.has_data:
-                liberation_change = self.liberation_changes.get_by_index(planet.index)
+                liberation_change = self.liberation_changes.get_entry(planet.index)
                 if planet.index in self.gambit_planets:
                     gambit_planet = self.gambit_planets[planet.index]
-                    gambit_lib_change = self.liberation_changes.get_by_index(
+                    gambit_lib_change = self.liberation_changes.get_entry(
                         gambit_planet.index
                     )
-                if liberation_change and liberation_change.rate_per_hour != 0:
+                if liberation_change and liberation_change.change_rate_per_hour != 0:
                     now_seconds = int(self.now.timestamp())
                     if (
                         planet.index in self.gambit_planets
-                        and gambit_lib_change.rate_per_hour != 0
+                        and gambit_lib_change.change_rate_per_hour != 0
                     ):
                         seconds_until_gambit_complete = int(
                             (
-                                (100 - gambit_lib_change.liberation)
-                                / gambit_lib_change.rate_per_hour
+                                (100 - gambit_lib_change.value)
+                                / gambit_lib_change.change_rate_per_hour
                             )
                             * 3600
                         )
@@ -1164,7 +1182,7 @@ class Dashboard:
                     else:
                         if (
                             planet.index in self.gambit_planets
-                            and gambit_lib_change.rate_per_hour > 0
+                            and gambit_lib_change.change_rate_per_hour > 0
                             and datetime.fromtimestamp(
                                 now_seconds + seconds_until_gambit_complete
                             )
@@ -1178,7 +1196,7 @@ class Dashboard:
                             outlook_text = f"\n{self.language_json['dashboard']['outlook'].format(outlook=self.language_json['defeat'])}"
                             if planet.index in self.gambit_planets:
                                 outlook_text += f"\n> -# :chess_pawn: Can be ended by liberating **{gambit_planet.name}**"
-                    change = f"{liberation_change.rate_per_hour:+.2f}%/hour"
+                    change = f"{liberation_change.change_rate_per_hour:+.2%}/hour"
                     liberation_text = f"\n`{change:^25}`"
                     if planet.event.required_players:
                         if 0 < planet.event.required_players < 2.5 * self.total_players:
@@ -1234,8 +1252,8 @@ class Dashboard:
             feature_text = ""
             outlook_text = ""
             if self.liberation_changes.has_data:
-                liberation_change = self.liberation_changes.get_by_index(planet.index)
-                if liberation_change and liberation_change.rate_per_hour != 0:
+                liberation_change = self.liberation_changes.get_entry(planet.index)
+                if liberation_change and liberation_change.change_rate_per_hour != 0:
                     now_seconds = int(self.now.timestamp())
                     win_time = planet.event.end_time_datetime
                     winning = (
@@ -1248,7 +1266,7 @@ class Dashboard:
                         outlook_text = f"\n{self.language_json['dashboard']['outlook'].format(outlook=self.language_json['victory'])} <t:{now_seconds + liberation_change.seconds_until_complete}:R>"
                     else:
                         outlook_text = f"\n{self.language_json['dashboard']['outlook'].format(outlook=self.language_json['defeat'])}"
-                    change = f"{liberation_change.rate_per_hour:+.2f}%/hour"
+                    change = f"{liberation_change.change_rate_per_hour:+.2%}/hour"
                     liberation_text = f"\n`{change:^25}`"
                     if planet.event.required_players:
                         if 0 < planet.event.required_players < 2.5 * self.total_players:
@@ -1344,7 +1362,7 @@ class Dashboard:
         def __init__(
             self,
             campaigns: list[Campaign],
-            liberation_changes: LiberationChangesTracker,
+            liberation_changes: BaseTracker,
             language_json: dict,
             planet_names: dict,
             faction: str,
@@ -1374,14 +1392,14 @@ class Dashboard:
                     change = ""
                     liberation_text = ""
                     if liberation_changes.has_data:
-                        liberation_change = liberation_changes.get_by_index(
+                        liberation_change = liberation_changes.get_entry(
                             campaign.planet.index
                         )
                         if liberation_change:
                             now_seconds = int(datetime.now().timestamp())
-                            if liberation_change.rate_per_hour > 0.01:
+                            if liberation_change.change_rate_per_hour > 0.01:
                                 time_to_complete = f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['victory'])} <t:{now_seconds + liberation_change.seconds_until_complete}:R>"
-                                change = f"{liberation_change.rate_per_hour:+.2f}%/hour"
+                                change = f"{liberation_change.change_rate_per_hour:+.2%}/hour"
                                 liberation_text = f"\n`{change:^25}`"
                             else:
                                 skipped_campaigns.append(campaign)

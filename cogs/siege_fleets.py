@@ -78,7 +78,9 @@ class SiegeFleetsCog(commands.Cog):
             ][0]
             embed = SiegeFleetCommandEmbed(
                 siege_fleet=fleet_chosen,
-                siege_changes=self.bot.data.siege_fleet_changes[fleet_chosen.id],
+                siege_changes=self.bot.data.siege_fleet_changes.get_entry(
+                    fleet_chosen.id
+                ),
                 language_json=guild_language,
             )
         except IndexError:

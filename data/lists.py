@@ -291,7 +291,7 @@ player_cards_list = [
     "Purifying Eclipse",
     "The Breach",
     "Standard of Safe Distance",
-    "Patient Zero's Rememberance",
+    "Patient Zero's Remembrance",
     "Proof of Faultless Virtue",
     "Pride of the Whistleblower",
     "Rebar Resolve",

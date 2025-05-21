@@ -1,79 +1,55 @@
-from random import uniform
+from collections import deque
+from typing import Any
 from utils.mixins import ReprMixin
 
 
-class LiberationTrackerEntry(ReprMixin):
-    def __init__(
-        self,
-        planet_index: int,
-        liberation: float,
-        max_entries: int = 15,
-    ) -> None:
-        """An entry for the Liberation Tracker"""
-        self.liberation = liberation
-        self.planet_index = planet_index
-        self.changes_list = []
-        self.max_entries = max_entries
+class BaseTrackerEntry(ReprMixin):
+    def __init__(self, value: int | float, max_entries: int = 15):
+        self.value: int | float = value
+        self.max_entries: int = max_entries
+        self.changes_list: deque = deque(maxlen=self.max_entries)
 
-    def update_liberation(self, new_liberation: float) -> None:
-        """Update an entry's data
-
-        If it's a campaign's first entry, the data fills up with numbers within 10% of the first change
-        e.g. change is 0.10%, the list fills up with numbers from 0.09% to 0.11%
-        """
+    def update_data(self, new_value: int | float) -> None:
+        delta: int | float = new_value - self.value
         if not self.changes_list:
-            lower_range = (new_liberation - self.liberation) / 1.1
-            upper_range = (new_liberation - self.liberation) * 1.1
-            while len(self.changes_list) < self.max_entries:
-                self.changes_list.append(uniform(lower_range, upper_range))
-
-        while len(self.changes_list) > self.max_entries:
-            self.changes_list.pop(0)
-        self.changes_list.append(new_liberation - self.liberation)
-        self.liberation = new_liberation
+            self.changes_list.extend([delta] * self.max_entries)
+        else:
+            self.changes_list.append(delta)
+        self.value: int | float = new_value
 
     @property
-    def rate_per_hour(self) -> float:
-        """The entry's rate of change per hour"""
-        return sum(self.changes_list) * (60 / self.max_entries)
+    def change_rate_per_hour(self) -> int | float:
+        if not self.changes_list:
+            return 0
+        return sum(self.changes_list) * (60 / len(self.changes_list))
 
     @property
-    def seconds_until_complete(self) -> int | None:
-        if self.rate_per_hour > 0:
-            return int(((100 - self.liberation) / self.rate_per_hour) * 3600)
+    def seconds_until_complete(self) -> int:
+        rate: int | float = self.change_rate_per_hour
+        if rate > 0:
+            return int(((100 - self.value) / rate) * 3600)
+        elif rate < 0:
+            return abs(int(((self.value) / rate) * 3600))
+        return 0
 
 
-class LiberationChangesTracker(ReprMixin):
+class BaseTracker(ReprMixin):
     def __init__(self) -> None:
-        """A tracker for planet liberation changes"""
-        self._raw_dict = {}
-        self.has_data = False
+        self._raw_dict: dict | dict[Any, BaseTrackerEntry] = {}
+        self.has_data: bool = False
 
-    def add_new_entry(self, planet_index: int, liberation: float) -> None:
-        """Adds a new entry to the tracker"""
-        if planet_index not in self._raw_dict:
-            self._raw_dict[planet_index] = LiberationTrackerEntry(
-                planet_index=planet_index, liberation=liberation
-            )
+    def add_entry(self, key, value) -> None:
+        if key not in self._raw_dict:
+            self._raw_dict[key] = BaseTrackerEntry(value=value)
+        else:
+            entry: BaseTrackerEntry = self._raw_dict[key]
+            entry.update_data(new_value=value)
 
-    def get_by_index(self, planet_index: int) -> LiberationTrackerEntry | None:
-        """Gets an entry by planet index, returning `None` if not present"""
-        if planet_index in self._raw_dict:
-            return self._raw_dict[planet_index]
+    def get_entry(self, key) -> BaseTrackerEntry | None:
+        return self._raw_dict.get(key)
 
-    def update_liberation(self, planet_index: int, new_liberation: float):
-        """Update a planet's liberation rate"""
-        if planet_index in self.tracked_planets:
-            entry: LiberationTrackerEntry = self._raw_dict[planet_index]
-            entry.update_liberation(new_liberation=new_liberation)
-        if not self.has_data:
-            self.has_data = True
+    def all_keys(self) -> list:
+        return list(self._raw_dict.keys())
 
-    def remove_entry(self, planet_index: int):
-        """Remove a campaign entry from the tracker"""
-        if planet_index in self._raw_dict:
-            self._raw_dict.pop(planet_index, None)
-
-    @property
-    def tracked_planets(self):
-        return self._raw_dict.keys()
+    def as_dict(self) -> dict:
+        return {k: v.value for k, v in self._raw_dict.items()}

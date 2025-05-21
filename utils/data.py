@@ -10,7 +10,7 @@ from data.lists import SpecialUnits
 from utils.emojis import Emojis
 from utils.functions import health_bar, steam_format
 from utils.mixins import ReprMixin
-from utils.trackers import LiberationChangesTracker
+from utils.trackers import BaseTracker, BaseTrackerEntry
 
 api = getenv(key="API")
 backup_api = getenv(key="BU_API")
@@ -26,13 +26,15 @@ regions = {
     0: {
         0: "Eagleopolis",
         1: "Administrative Center 02",
-        2: "Rememberance",
+        2: "Remembrance",
         3: "York Supreme",
         4: "Port Mercy",
         5: "Prosperity City",
         6: "Equality-on-Sea",
     }
 }
+
+region_types = {3: "Mega City", 2: "Town", 1: "Settlement"}
 
 
 class Data(ReprMixin):
@@ -76,10 +78,10 @@ class Data(ReprMixin):
             "steam_playercount": None,
         }
         self.loaded: bool = False
-        self.liberation_changes: LiberationChangesTracker = LiberationChangesTracker()
-        self.dark_energy_changes: dict = {"total": 0, "changes": []}
-        self.siege_fleet_changes: dict = {}
-        self.region_changes: dict = {}
+        self.liberation_changes: BaseTracker = BaseTracker()
+        self.global_resource_changes: BaseTracker = BaseTracker()
+        self.siege_fleet_changes: BaseTracker = BaseTracker()
+        self.region_changes: BaseTracker = BaseTracker()
         self.meridia_position: None | tuple[float, float] = None
         self.personal_order = None
         self.fetched_at = None
@@ -208,7 +210,7 @@ class Data(ReprMixin):
         self.update_liberation_rates()
         self.update_region_changes()
         if self.global_resources != None:
-            self.update_dark_energy_rate()
+            self.update_global_resource_rates()
             self.update_siege_fleet_health()
         self.get_needed_players()
         self.fetched_at = datetime.now()
@@ -424,29 +426,15 @@ class Data(ReprMixin):
     def update_liberation_rates(self) -> None:
         """Update the liberation changes in the tracker for each active campaign"""
         for campaign in self.campaigns:
-            if campaign.planet.index not in self.liberation_changes.tracked_planets:
-                self.liberation_changes.add_new_entry(
-                    planet_index=campaign.planet.index, liberation=campaign.progress
-                )
-            else:
-                self.liberation_changes.update_liberation(
-                    planet_index=campaign.planet.index, new_liberation=campaign.progress
-                )
+            self.liberation_changes.add_entry(
+                key=campaign.planet.index, value=campaign.progress
+            )
 
-    def update_dark_energy_rate(self) -> None:
-        """Update the changes in dark energy"""
-        if self.global_resources.dark_energy:
-            if self.dark_energy_changes["total"] != 0:
-                if len(self.dark_energy_changes["changes"]) == 5:
-                    self.dark_energy_changes["changes"].pop(0)
-                while len(self.dark_energy_changes["changes"]) < 5:
-                    self.dark_energy_changes["changes"].append(
-                        (
-                            self.global_resources.dark_energy.perc
-                            - self.dark_energy_changes["total"]
-                        )
-                    )
-            self.dark_energy_changes["total"] = self.global_resources.dark_energy.perc
+    def update_global_resource_rates(self) -> None:
+        """Update the changes in global resources"""
+        if self.global_resources:
+            for gr in self.global_resources:
+                self.global_resource_changes.add_entry(key=gr.id, value=gr.perc)
 
     def update_siege_fleet_health(self) -> None:
         """Update the changes in Siege Fleets health"""
@@ -454,46 +442,18 @@ class Data(ReprMixin):
             gr for gr in self.global_resources if isinstance(gr, SiegeFleet)
         ]:
             for fleet in siege_fleets:
-                if fleet.id not in self.siege_fleet_changes:
-                    self.siege_fleet_changes[fleet.id] = {
-                        "total": 0,
-                        "changes": [],
-                    }
-                else:
-                    fleet_changes = self.siege_fleet_changes[fleet.id]
-                    if fleet_changes["total"] != 0:
-                        if len(fleet_changes["changes"]) == 5:
-                            fleet_changes["changes"].pop(0)
-                        while len(fleet_changes["changes"]) < 5:
-                            fleet_changes["changes"].append(
-                                (fleet.perc - fleet_changes["total"])
-                            )
-                    fleet_changes["total"] = fleet.perc
+                self.siege_fleet_changes.add_entry(key=fleet.id, value=fleet.perc)
 
     def update_region_changes(self) -> None:
         """Update the liberation changes in the tracker for each active region"""
         regional_campaigns = [c for c in self.campaigns if c.planet.regions]
         for campaign in regional_campaigns:
-            if campaign.planet.regions:
-                if campaign.planet.index not in self.region_changes:
-                    self.region_changes[campaign.planet.index] = {}
-                planet_changes = self.region_changes[campaign.planet.index]
-                for region in campaign.planet.regions.values():
-                    if region.index not in planet_changes:
-                        self.region_changes[region.planet_index][region.index] = {
-                            "total": 0,
-                            "changes": [],
-                        }
-                    else:
-                        region_changes = planet_changes[region.index]
-                        if region_changes["total"] != 0:
-                            if len(region_changes["changes"]) == 5:
-                                region_changes["changes"].pop(0)
-                            while len(region_changes["changes"]) < 5:
-                                region_changes["changes"].append(
-                                    (region.perc - region_changes["total"])
-                                )
-                        region_changes["total"] = region.perc
+            for region in campaign.planet.regions.values():
+                if not region.is_available:
+                    continue
+                self.region_changes.add_entry(
+                    key=(campaign.planet.index, region.index), value=region.perc
+                )
 
     def get_needed_players(self) -> None:
         """Update the planets with their required helldivers for victory"""
@@ -501,18 +461,16 @@ class Data(ReprMixin):
         if not self.planet_events:
             return
         for planet in self.planet_events:
-            lib_changes = self.liberation_changes.get_by_index(
-                planet_index=planet.index
+            lib_changes: BaseTrackerEntry = self.liberation_changes.get_entry(
+                key=planet.index
             )
-            if lib_changes.rate_per_hour == 0:
-                return
-            progress_needed = 100 - lib_changes.liberation
-            seconds_to_complete = int(
-                (progress_needed / lib_changes.rate_per_hour) * 3600
-            )
+            if lib_changes.change_rate_per_hour == 0:
+                continue
+            progress_needed = 100 - lib_changes.value
+            seconds_to_complete = int((progress_needed / lib_changes.value) * 3600)
             win_time = planet.event.end_time_datetime
-            eagle_storm = self.dss.get_ta_by_name("EAGLE STORM")
-            if planet.dss_in_orbit and eagle_storm.status == 2:
+            if planet.dss_in_orbit:
+                eagle_storm = self.dss.get_ta_by_name("EAGLE STORM")
                 win_time += timedelta(
                     seconds=(eagle_storm.status_end_datetime - now).total_seconds()
                 )
@@ -520,7 +478,7 @@ class Data(ReprMixin):
             if not winning:
                 hours_left = (win_time - now).total_seconds() / 3600
                 progress_needed_per_hour = progress_needed / hours_left
-                amount_ratio = progress_needed_per_hour / lib_changes.rate_per_hour
+                amount_ratio = progress_needed_per_hour / lib_changes.value
                 required_players = planet.stats["playerCount"] * amount_ratio
                 planet.event.required_players = required_players
 
@@ -882,6 +840,7 @@ class Planet(ReprMixin):
             self.is_available: bool = False
             self.players: int = 0
             self.size: int = raw_planet_region_data["regionSize"]
+            self.type = region_types.get(self.size, "")
 
         @property
         def perc(self):

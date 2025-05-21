@@ -1,7 +1,21 @@
 from re import sub
 
+faction_emojis = {
+    "Terminids": "<:tc:1229360523217342475>",
+    "Automaton": "<:ac:1229360519689801738>",
+    "Illuminate": "<:ic:1246938273734197340>",
+    "Humans": "<:hc:1229362077974401024>",
+    "MO": "<:moc:1229360522181476403>",
+    "empty": "<:nc:1229450109901606994>",
+}
 
-def health_bar(perc: float, race: str | int, reverse: bool = False):
+
+def health_bar(
+    perc: float,
+    race: str | int,
+    reverse: bool = False,
+    empty_colour="empty",
+):
     perc = min(perc, 1)
     if reverse:
         perc = 1 - perc
@@ -13,16 +27,10 @@ def health_bar(perc: float, race: str | int, reverse: bool = False):
     }
     if race in faction_numbers:
         race = faction_numbers[race]
-    health_icon = {
-        "Terminids": "<:tc:1229360523217342475>",
-        "Automaton": "<:ac:1229360519689801738>",
-        "Illuminate": "<:ic:1246938273734197340>",
-        "Humans": "<:hc:1229362077974401024>",
-        "MO": "<:moc:1229360522181476403>",
-    }[race]
+    health_icon = faction_emojis[race]
     progress_bar = health_icon * int((perc * 10))
     while perc < 1:
-        progress_bar += "<:nc:1229450109901606994>"
+        progress_bar += faction_emojis[empty_colour]
         perc += 0.1
     return progress_bar
 
