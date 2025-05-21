@@ -27,7 +27,7 @@ class BaseTrackerEntry(ReprMixin):
     def seconds_until_complete(self) -> int:
         rate: int | float = self.change_rate_per_hour
         if rate > 0:
-            return int(((100 - self.value) / rate) * 3600)
+            return int(((1 - self.value) / rate) * 3600)
         elif rate < 0:
             return abs(int(((self.value) / rate) * 3600))
         return 0

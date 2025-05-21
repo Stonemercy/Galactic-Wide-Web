@@ -56,6 +56,7 @@ class Data(ReprMixin):
         "liberation_changes",
         "dark_energy_changes",
         "region_changes",
+        "major_order_changes",
         "meridia_position",
         "galactic_impact_mod",
         "sieges",
@@ -82,6 +83,7 @@ class Data(ReprMixin):
         self.global_resource_changes: BaseTracker = BaseTracker()
         self.siege_fleet_changes: BaseTracker = BaseTracker()
         self.region_changes: BaseTracker = BaseTracker()
+        self.major_order_changes: BaseTracker = BaseTracker()
         self.meridia_position: None | tuple[float, float] = None
         self.personal_order = None
         self.fetched_at = None
@@ -209,7 +211,9 @@ class Data(ReprMixin):
         self.format_data()
         self.update_liberation_rates()
         self.update_region_changes()
-        if self.global_resources != None:
+        if self.assignment:
+            self.update_major_order_rates()
+        if self.global_resources:
             self.update_global_resource_rates()
             self.update_siege_fleet_health()
         self.get_needed_players()
@@ -436,6 +440,12 @@ class Data(ReprMixin):
             for gr in self.global_resources:
                 self.global_resource_changes.add_entry(key=gr.id, value=gr.perc)
 
+    def update_major_order_rates(self) -> None:
+        """Update the changes in Major Order tasks"""
+        if self.assignment:
+            for index, task in enumerate(self.assignment.tasks, start=1):
+                self.major_order_changes.add_entry(key=index, value=task.progress_perc)
+
     def update_siege_fleet_health(self) -> None:
         """Update the changes in Siege Fleets health"""
         if siege_fleets := [
@@ -522,7 +532,9 @@ class Assignment(ReprMixin):
             )
         self.rewards: list[dict] = raw_assignment_data["rewards"]
         self.ends_at: str = raw_assignment_data["expiration"]
-        self.ends_at_datetime: datetime = datetime.fromisoformat(self.ends_at)
+        self.ends_at_datetime: datetime = datetime.fromisoformat(self.ends_at).replace(
+            tzinfo=None
+        )
         self.flags: int = raw_assignment_data.get("flags", 0)
 
     class Task(ReprMixin):

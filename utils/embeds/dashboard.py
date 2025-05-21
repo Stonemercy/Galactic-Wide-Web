@@ -35,6 +35,7 @@ class Dashboard:
             assignment=data.assignment,
             planets=data.planets,
             liberation_changes_tracker=data.liberation_changes,
+            mo_task_tracker=data.major_order_changes,
             language_json=language_json,
             json_dict=json_dict,
             with_health_bars=with_health_bars,
@@ -202,11 +203,14 @@ class Dashboard:
             assignment: Assignment | None,
             planets: Planets,
             liberation_changes_tracker: BaseTracker,
+            mo_task_tracker: BaseTracker,
             language_json: dict,
             json_dict: dict,
             with_health_bars: bool,
         ):
             self.with_health_bars = with_health_bars
+            self.assignment = assignment
+            self.completion_timestamps = []
             super().__init__(
                 title=language_json["dashboard"]["MajorOrderEmbed"]["title"],
                 colour=Colour.from_rgb(*faction_colours["MO"]),
@@ -223,7 +227,12 @@ class Dashboard:
                 if image_link:
                     self.set_thumbnail(url=image_link)
                 self.add_description(assignment=assignment, language_json=language_json)
-                for task in assignment.tasks:
+                for index, task in enumerate(assignment.tasks, start=1):
+                    tracker = mo_task_tracker.get_entry(index)
+                    if tracker and tracker.change_rate_per_hour != 0:
+                        self.completion_timestamps.append(
+                            datetime.now().timestamp() + tracker.seconds_until_complete
+                        )
                     match task.type:
                         case 2:
                             self.add_type_2(
@@ -232,6 +241,7 @@ class Dashboard:
                                 item_names_json=json_dict["items"]["item_names"],
                                 planet_names_json=json_dict["planets"],
                                 planet=planets[task.values[8]],
+                                tracker=tracker,
                             )
                         case 3:
                             self.add_type_3(
@@ -239,9 +249,12 @@ class Dashboard:
                                 language_json=language_json,
                                 species_dict=json_dict["enemies"]["enemy_ids"],
                                 planet_names=json_dict["planets"],
+                                tracker=tracker,
                             )
                         case 9:
-                            self.add_type_9(task=task, language_json=language_json)
+                            self.add_type_9(
+                                task=task, language_json=language_json, tracker=tracker
+                            )
                         case 11:
                             self.add_type_11(
                                 language_json=language_json,
@@ -292,10 +305,29 @@ class Dashboard:
                     language_json=language_json,
                     reward_names=json_dict["items"]["reward_types"],
                 )
+                end_timestamp = assignment.ends_at_datetime.timestamp()
+                outlook_text = ""
+                winning_all_tasks = [
+                    ts < end_timestamp for ts in self.completion_timestamps
+                ]
+                if all(winning_all_tasks) and winning_all_tasks != []:
+                    outlook_text = "Winning"
+                    if {13, 15} & set([t.type for t in assignment.tasks]):
+                        outlook_text += (
+                            f" <t:{int(assignment.ends_at_datetime.timestamp())}:R>"
+                        )
+                    else:
+                        oldest_time = sorted(self.completion_timestamps, reverse=True)[
+                            0
+                        ]
+                        outlook_text += f" <t:{int(oldest_time)}:R>"
+
                 self.add_field(
                     language_json["ends"],
                     f"<t:{int(datetime.fromisoformat(assignment.ends_at).timestamp())}:R>",
                 )
+                if outlook_text != "":
+                    self.add_field("Outlook", f"{outlook_text}")
 
         def add_type_2(
             self,
@@ -304,6 +336,7 @@ class Dashboard:
             item_names_json: dict,
             planet_names_json: dict,
             planet: Planet,
+            tracker: BaseTrackerEntry,
         ):
             """Extract with certain items from a certain planet"""
             name = language_json["dashboard"]["MajorOrderEmbed"]["tasks"][
@@ -324,6 +357,24 @@ class Dashboard:
                 task_health_bar = f"{task.health_bar}\n"
             else:
                 task_health_bar = ""
+            if tracker and tracker.change_rate_per_hour != 0:
+                rate = f"{tracker.change_rate_per_hour:+.2%}/hour"
+                formatted_rate = f"\n`{rate:^25}`"
+                winning = (
+                    tracker.change_rate_per_hour > 0
+                    and datetime.now()
+                    + timedelta(seconds=tracker.seconds_until_complete)
+                    < self.assignment.ends_at_datetime
+                )
+                if winning:
+                    outlook_text = "Complete"
+                else:
+                    outlook_text = "Failure"
+                time_until_complete = f"\n-# {outlook_text} <t:{int(datetime.now().timestamp() + tracker.seconds_until_complete)}:R>"
+            else:
+                formatted_rate = ""
+                time_until_complete = ""
+
             value = (
                 ""
                 if task.progress_perc == 1
@@ -331,6 +382,8 @@ class Dashboard:
                     f"{language_json['dashboard']['progress']}: **{task.progress:,.0f}**\n"
                     f"{task_health_bar}"
                     f"`{(task.progress_perc):^25,.2%}`\n"
+                    f"{formatted_rate}"
+                    f"{time_until_complete}"
                 )
             )
             self.add_field(
@@ -345,6 +398,7 @@ class Dashboard:
             language_json: dict,
             species_dict: dict,
             planet_names: dict,
+            tracker: BaseTrackerEntry,
         ):
             """Kill enemies of a type [on {planet}]"""
             species = (
@@ -384,6 +438,23 @@ class Dashboard:
                 task_health_bar = f"{task.health_bar}\n"
             else:
                 task_health_bar = ""
+            if tracker and tracker.change_rate_per_hour != 0:
+                rate = f"{tracker.change_rate_per_hour:+.2%}/hour"
+                formatted_rate = f"\n`{rate:^25}`"
+                winning = (
+                    tracker.change_rate_per_hour > 0
+                    and datetime.now()
+                    + timedelta(seconds=tracker.seconds_until_complete)
+                    < self.assignment.ends_at_datetime
+                )
+                if winning:
+                    outlook_text = "Complete"
+                else:
+                    outlook_text = "Failure"
+                time_until_complete = f"\n-# {outlook_text} <t:{int(datetime.now().timestamp() + tracker.seconds_until_complete)}:R>"
+            else:
+                formatted_rate = ""
+                time_until_complete = ""
             self.add_field(
                 name=full_task,
                 value=(
@@ -391,6 +462,8 @@ class Dashboard:
                         f"{language_json['dashboard']['progress']}: **{(task.progress):,.0f}**\n"
                         f"{task_health_bar}"
                         f"`{(task.progress_perc):^25,.2%}`"
+                        f"{formatted_rate}"
+                        f"{time_until_complete}"
                     )
                     if task.progress_perc != 1
                     else ""
@@ -398,7 +471,12 @@ class Dashboard:
                 inline=False,
             )
 
-        def add_type_9(self, task: Assignment.Task, language_json: dict):
+        def add_type_9(
+            self,
+            task: Assignment.Task,
+            language_json: dict,
+            tracker: BaseTrackerEntry,
+        ):
             """Complete an Operation against {faction} on {difficulty} or higher {amount} times"""
             full_task = language_json["dashboard"]["MajorOrderEmbed"]["tasks"][
                 "type9"
@@ -416,6 +494,23 @@ class Dashboard:
                 task_health_bar = f"{task.health_bar}\n"
             else:
                 task_health_bar = ""
+            if tracker and tracker.change_rate_per_hour != 0:
+                rate = f"{tracker.change_rate_per_hour:+.2%}/hour"
+                formatted_rate = f"\n`{rate:^25}`"
+                winning = (
+                    tracker.change_rate_per_hour > 0
+                    and datetime.now()
+                    + timedelta(seconds=tracker.seconds_until_complete)
+                    < self.assignment.ends_at_datetime
+                )
+                if winning:
+                    outlook_text = "Complete"
+                else:
+                    outlook_text = "Failure"
+                time_until_complete = f"\n-# {outlook_text} <t:{int(datetime.now().timestamp() + tracker.seconds_until_complete)}:R>"
+            else:
+                formatted_rate = ""
+                time_until_complete = ""
             self.add_field(
                 name=full_task,
                 value=(
@@ -423,6 +518,8 @@ class Dashboard:
                         f"{language_json['dashboard']['progress']}: **{(task.progress):,.0f}**\n"
                         f"{task_health_bar}"
                         f"`{(task.progress_perc):^25,.2%}`"
+                        f"{formatted_rate}"
+                        f"{time_until_complete}"
                     )
                     if task.progress_perc != 1
                     else ""
@@ -1057,8 +1154,8 @@ class Dashboard:
                         region_change = region_changes.get_entry(
                             key=(campaign.planet.index, region.index)
                         )
-                        if region_change:
-                            rate = f"{region_change.change_rate_per_hour:+.2%}%/hour"
+                        if region_change and region_change.change_rate_per_hour != 0:
+                            rate = f"{region_change.change_rate_per_hour:+.2%}/hour"
                             formatted_rate = f"\n`{rate:^25}`"
                             winning = region_change.change_rate_per_hour > 0
                             if winning:
@@ -1067,7 +1164,8 @@ class Dashboard:
                                 outlook_text = "Losing"
                             time_until_complete = f"\n-# {outlook_text} <t:{int(datetime.now().timestamp() + region_change.seconds_until_complete)}:R>"
                         else:
-                            formatted_rate, time_until_complete = ""
+                            formatted_rate = ""
+                            time_until_complete = ""
                         self.add_field(
                             f"{region.type} {region.name}",
                             (
@@ -1407,7 +1505,7 @@ class Dashboard:
 
                     exclamation = campaign.planet.exclamations
                     if campaign.planet.regen_perc_per_hour <= 0.25:
-                        exclamation += f":warning: {campaign.planet.regen_perc_per_hour:.2f}% REGEN :warning:"
+                        exclamation += f":warning: {campaign.planet.regen_perc_per_hour:.2%} REGEN :warning:"
                     if campaign.planet.index in [
                         planet.index for planet in gambit_planets.values()
                     ]:

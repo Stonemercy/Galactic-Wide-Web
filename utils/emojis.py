@@ -53,6 +53,15 @@ class Emojis:
         illuminate = "<:s:1317057914145603635>"
 
     @dataclass
+    class FactionColours:
+        humans = "<:s:1374794320128770078>"
+        terminids = "<:s:1374793659404521522>"
+        automaton = "<:s:1374793571604889600>"
+        illuminate = "<:s:1374793643583602909>"
+        mo = "<:s:1374793627213234206>"
+        empty = "<:s:1374794686836899900>"
+
+    @dataclass
     class Decoration:
         left_banner = "<:s:1272562768897376328>"
         right_banner = "<:s:1272562767597015151>"

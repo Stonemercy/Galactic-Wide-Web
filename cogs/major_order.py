@@ -61,7 +61,8 @@ class MajorOrderCog(commands.Cog):
             embed=Dashboard.MajorOrderEmbed(
                 assignment=self.bot.data.assignment,
                 planets=self.bot.data.planets,
-                liberation_changes=self.bot.data.liberation_changes,
+                liberation_changes_tracker=self.bot.data.liberation_changes,
+                mo_task_tracker=self.bot.data.major_order_changes,
                 language_json=guild_language,
                 json_dict=self.bot.json_dict,
                 with_health_bars=True,

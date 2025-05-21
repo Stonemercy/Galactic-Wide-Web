@@ -1,13 +1,5 @@
 from re import sub
-
-faction_emojis = {
-    "Terminids": "<:tc:1229360523217342475>",
-    "Automaton": "<:ac:1229360519689801738>",
-    "Illuminate": "<:ic:1246938273734197340>",
-    "Humans": "<:hc:1229362077974401024>",
-    "MO": "<:moc:1229360522181476403>",
-    "empty": "<:nc:1229450109901606994>",
-}
+from utils.emojis import Emojis
 
 
 def health_bar(
@@ -27,10 +19,10 @@ def health_bar(
     }
     if race in faction_numbers:
         race = faction_numbers[race]
-    health_icon = faction_emojis[race]
+    health_icon = getattr(Emojis.FactionColours, race.lower())
     progress_bar = health_icon * int((perc * 10))
     while perc < 1:
-        progress_bar += faction_emojis[empty_colour]
+        progress_bar += getattr(Emojis.FactionColours, empty_colour.lower())
         perc += 0.1
     return progress_bar
 
