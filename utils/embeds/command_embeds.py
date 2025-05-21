@@ -680,7 +680,7 @@ class SiegeFleetCommandEmbed(Embed, EmbedReprMixin):
             colour=Colour.from_rgb(*faction_colours[siege_fleet.faction]),
         )
         rate = f"{siege_changes.change_rate_per_hour:+.2%}/hr"
-        completion_timestamp = None
+        formatted_timestamp = ""
         if siege_changes.change_rate_per_hour != 0:
             completion_timestamp = language_json["dashboard"]["DarkEnergyEmbed"][
                 "reaches"
@@ -691,20 +691,17 @@ class SiegeFleetCommandEmbed(Embed, EmbedReprMixin):
                     + siege_changes.seconds_until_complete
                 ),
             )
+            formatted_timestamp = f"\n-# {completion_timestamp}"
         self.add_field(
             "",
             (
                 f"{siege_fleet.health_bar}\n"
                 f"**`{siege_fleet.perc:^25.3%}`**\n"
                 f"**`{rate:^25}`**"
+                f"{formatted_timestamp}"
             ),
             inline=False,
         )
-        if completion_timestamp:
-            self.add_field(
-                "",
-                (f"-# {completion_timestamp}\n"),
-            )
         self.set_thumbnail(
             url="https://cdn.discordapp.com/attachments/1212735927223590974/1372960719653568603/iluminat.png?ex=6828accf&is=68275b4f&hm=9069a2c2b0ab944699c5e5382aa2b58611b6eb9af22eef56433e63c9fa9c27c2&"
         )
