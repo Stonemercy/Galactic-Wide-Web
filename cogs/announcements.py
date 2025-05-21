@@ -43,7 +43,7 @@ class AnnouncementsCog(commands.Cog):
                 lang: Dashboard.MajorOrderEmbed(
                     assignment=self.bot.data.assignment,
                     planets=self.bot.data.planets,
-                    liberation_changes=self.bot.data.liberation_changes,
+                    liberation_changes_tracker=self.bot.data.liberation_changes,
                     mo_task_tracker=self.bot.data.major_order_changes,
                     language_json=self.bot.json_dict["languages"][lang],
                     json_dict=self.bot.json_dict,
@@ -158,7 +158,7 @@ class AnnouncementsCog(commands.Cog):
             lang: Dashboard.MajorOrderEmbed(
                 assignment=self.bot.data.assignment,
                 planets=self.bot.data.planets,
-                liberation_changes=self.bot.data.liberation_changes,
+                liberation_changes_tracker=self.bot.data.liberation_changes,
                 mo_task_tracker=self.bot.data.major_order_changes,
                 language_json=self.bot.json_dict["languages"][lang],
                 json_dict=self.bot.json_dict,
