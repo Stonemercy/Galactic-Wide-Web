@@ -22,24 +22,13 @@ factions = {
     4: "Illuminate",
 }
 
-regions = {
-    0: {
-        0: "Eagleopolis",
-        1: "Administrative Center 02",
-        2: "Remembrance",
-        3: "York Supreme",
-        4: "Port Mercy",
-        5: "Prosperity City",
-        6: "Equality-on-Sea",
-    }
-}
-
 region_types = {3: "Mega City", 2: "Town", 1: "Settlement"}
 
 
 class Data(ReprMixin):
     __slots__ = (
         "__data__",
+        "json_dict",
         "fetched_at",
         "assignment",
         "campaigns",
@@ -63,8 +52,9 @@ class Data(ReprMixin):
         "steam_playercount",
     )
 
-    def __init__(self) -> None:
+    def __init__(self, json_dict: dict) -> None:
         """The object to retrieve and organise all 3rd-party data used by the bot"""
+        self.json_dict = json_dict
         self.__data__: dict[str,] = {
             "assignments": None,
             "campaigns": None,
@@ -417,7 +407,10 @@ class Data(ReprMixin):
                 for region in self.__data__["warinfo"]["planetRegions"]:
                     self.planets[region["planetIndex"]].regions[
                         region["regionIndex"]
-                    ] = Planet.Region(raw_planet_region_data=region)
+                    ] = Planet.Region(
+                        planet_regions_json_dict=self.json_dict["planetRegions"],
+                        raw_planet_region_data=region,
+                    )
 
                 for region in self.__data__["status"]["planetRegions"]:
                     if region["regionIndex"] not in self.planets:
@@ -839,11 +832,23 @@ class Planet(ReprMixin):
             return health_bar(perc=self.progress, race=self.faction, reverse=True)
 
     class Region(ReprMixin):
-        def __init__(self, raw_planet_region_data: dict):
+        def __init__(
+            self, planet_regions_json_dict: dict, raw_planet_region_data: dict
+        ):
+            self.settings_hash = raw_planet_region_data["settingsHash"]
             self.is_updated: bool = False
             self.planet_index = raw_planet_region_data["planetIndex"]
             self.index: int = raw_planet_region_data["regionIndex"]
-            self.name = regions.get(self.planet_index, {}).get(self.index, "Megacity")
+            self.name = (
+                planet_regions_json_dict.get(str(self.planet_index), {})
+                .get(str(self.settings_hash), {})
+                .get("name", "Megacity")
+            )
+            self.description = (
+                planet_regions_json_dict.get(str(self.planet_index), {})
+                .get(str(self.settings_hash), {})
+                .get("description", "")
+            )
             self.owner: int = 0
             self.health: int = raw_planet_region_data["maxHealth"]
             self.max_health: int = raw_planet_region_data["maxHealth"]

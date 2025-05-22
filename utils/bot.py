@@ -33,7 +33,7 @@ class GalacticWideWebBot(commands.AutoShardedInteractionBot):
         self.interface_handler = InterfaceHandler(bot=self)
         self.json_dict = json_dict.copy()
         self.load_json()
-        self.data = Data()
+        self.data = Data(json_dict=self.json_dict)
         self.previous_data: Data | None = None
         self.command_usage: dict = {}
         self.moderator_channel: TextChannel | None = None
