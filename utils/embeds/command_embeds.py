@@ -525,7 +525,7 @@ class MeridiaCommandEmbed(Embed, EmbedReprMixin):
         dark_energy_resource: DarkEnergy | None,
         total_de_available: int,
         active_invasions: int,
-        dark_energy_changes: dict[str:int, str:list],
+        dark_energy_changes: BaseTrackerEntry | None,
         time_to_reach_planets: dict[str:float],
     ):
         super().__init__(
@@ -533,26 +533,24 @@ class MeridiaCommandEmbed(Embed, EmbedReprMixin):
             colour=Colour.from_rgb(106, 76, 180),
             description="-# This is the path Meridia has taken\n-# ||the gaps were caused by AH||",
         )
-        rate_per_hour = sum(dark_energy_changes["changes"]) * 12
-        rate = f"{rate_per_hour:+.2%}/hr"
         completion_timestamp = ""
-        now_seconds = int(datetime.now().timestamp())
-        if rate_per_hour > 0:
-            seconds_until_complete = int(
-                ((1 - dark_energy_changes["total"]) / rate_per_hour) * 3600
-            )
-            complete_seconds = now_seconds + seconds_until_complete
-            completion_timestamp = language_json["MeridiaEmbed"]["reaches"].format(
-                number=100, timestamp=complete_seconds
-            )
-        elif rate_per_hour < 0:
-            seconds_until_zero = int(
-                (dark_energy_changes["total"] / abs(rate_per_hour)) * 3600
-            )
-            complete_seconds = now_seconds + seconds_until_zero
-            completion_timestamp = language_json["MeridiaEmbed"]["reaches"].format(
-                number=0, timestamp=complete_seconds
-            )
+        if dark_energy_changes:
+            rate = f"{dark_energy_changes.change_rate_per_hour:+.2%}/hr"
+            now_seconds = int(datetime.now().timestamp())
+            if dark_energy_changes.change_rate_per_hour > 0:
+                complete_seconds = (
+                    now_seconds + dark_energy_changes.seconds_until_complete
+                )
+                completion_timestamp = language_json["MeridiaEmbed"]["reaches"].format(
+                    number=100, timestamp=complete_seconds
+                )
+            elif dark_energy_changes.change_rate_per_hour < 0:
+                complete_seconds = (
+                    now_seconds + dark_energy_changes.seconds_until_complete
+                )
+                completion_timestamp = language_json["MeridiaEmbed"]["reaches"].format(
+                    number=0, timestamp=complete_seconds
+                )
         active_invasions_fmt = ""
         total_to_be_harvested = ""
         if dark_energy_resource:

@@ -694,7 +694,7 @@ class TheGreatHost(SiegeFleet):
 class GlobalResources(list[GlobalResource]):
     def __init__(self, raw_global_resources_data: list[dict]) -> None:
         """An organised list of Global Resources."""
-        self.dark_energy = None
+        self.dark_energy = self.the_great_host = None
         for raw_global_resource_data in raw_global_resources_data:
             if raw_global_resource_data["id32"] == 194773219:
                 self.dark_energy: DarkEnergy = DarkEnergy(

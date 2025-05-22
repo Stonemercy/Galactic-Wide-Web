@@ -220,25 +220,31 @@ class MeridiaCog(commands.Cog):
             facecolor="black",
         )
         plt.close(fig)
+        dark_energy = self.bot.data.global_resources.dark_energy
+        dark_energy_changes = (
+            self.bot.data.global_resource_changes.get_entry(dark_energy.id)
+            if dark_energy
+            else None
+        )
         embed = MeridiaCommandEmbed(
-            self.bot.json_dict["languages"][guild.language],
-            self.bot.json_dict["planets"],
-            self.bot.data.global_resources.dark_energy,
-            sum(
+            language_json=self.bot.json_dict["languages"][guild.language],
+            planet_names_json=self.bot.json_dict["planets"],
+            dark_energy_resource=dark_energy,
+            total_de_available=sum(
                 [
                     planet.event.remaining_dark_energy
                     for planet in self.bot.data.planet_events
                 ]
             ),
-            len(
+            active_invasions=len(
                 [
                     planet
                     for planet in self.bot.data.planet_events
                     if planet.event.potential_buildup != 0
                 ]
             ),
-            self.bot.data.dark_energy_changes,
-            time_to_reach_planets,
+            dark_energy_changes=dark_energy_changes,
+            time_to_reach_planets=time_to_reach_planets,
         )
         embed.set_image(file=File("resources/meridia_map.webp"))
         await inter.send(
