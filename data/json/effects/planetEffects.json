@@ -538,5 +538,10 @@
 		"galacticEffectId": 1273,
 		"name": "Eagle Rearm Time Increase",
 		"description": "Increases the cooldown of the Eagle Rearm stratagem by 30%"
+	},
+	"1274": {
+		"galacticEffectId": 1274,
+		"name": "",
+		"description": "The M-105 Stalwart stratagem is temporarily available to all Helldivers."
 	}
 }
