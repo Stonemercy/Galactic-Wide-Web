@@ -1,3 +1,4 @@
+from math import ceil
 from re import sub
 from utils.emojis import Emojis
 
@@ -20,10 +21,11 @@ def health_bar(
     if race in faction_numbers:
         race = faction_numbers[race]
     health_icon = getattr(Emojis.FactionColours, race.lower())
-    progress_bar = health_icon * int((perc * 10))
-    while perc < 1:
+    perc_round = ceil(perc * 10)
+    progress_bar = health_icon * perc_round
+    while perc_round < 10:
         progress_bar += getattr(Emojis.FactionColours, empty_colour.lower())
-        perc += 0.1
+        perc_round += 1
     return progress_bar
 
 
