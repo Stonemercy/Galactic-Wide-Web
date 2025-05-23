@@ -85,7 +85,7 @@ class TranslationsCog(commands.Cog):
                 extra_count = len([s for s in diffs if "Extra" in s])
                 missing_count = len([s for s in diffs if "Missing" in s])
                 embed.add_field(
-                    f"{len(diffs)} total lines incorrect",
+                    f"{len(diffs)} total lines are the same as English",
                     (
                         f"-# Untranslated: {untranslated_count}\n"
                         f"-# Extra: {extra_count}\n"
@@ -98,7 +98,7 @@ class TranslationsCog(commands.Cog):
                         embed.add_field("", chunk, inline=False)
                 else:
                     embed.add_field(
-                        "Incorrect lines should be clear to see as they are the same as English",
+                        "Untranslated lines should be clear to see as they are the same as English",
                         "",
                         inline=False,
                     )
