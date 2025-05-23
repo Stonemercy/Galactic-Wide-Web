@@ -527,7 +527,7 @@ class Assignment(ReprMixin):
         self.ends_at: str = raw_assignment_data["expiration"]
         self.ends_at_datetime: datetime = datetime.fromisoformat(self.ends_at).replace(
             tzinfo=None
-        )
+        ) + timedelta(hours=1)
         self.flags: int = raw_assignment_data.get("flags", 0)
 
     class Task(ReprMixin):
