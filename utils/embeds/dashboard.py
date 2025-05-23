@@ -251,6 +251,10 @@ class Dashboard:
                                 planet_names=json_dict["planets"],
                                 tracker=tracker,
                             )
+                        case 7:
+                            self.add_type_7(
+                                task=task, language_json=language_json, tracker=tracker
+                            )
                         case 9:
                             self.add_type_9(
                                 task=task, language_json=language_json, tracker=tracker
@@ -327,7 +331,7 @@ class Dashboard:
                     f"<t:{int(datetime.fromisoformat(assignment.ends_at).timestamp())}:R>",
                 )
                 if outlook_text != "":
-                    self.add_field("Outlook", f"{outlook_text}")
+                    self.add_field("Outlook", f"{outlook_text}", inline=False)
 
         def add_type_2(
             self,
@@ -434,6 +438,61 @@ class Dashboard:
                         language_json["code_long"]
                     ]
                 )
+            if self.with_health_bars:
+                task_health_bar = f"{task.health_bar}\n"
+            else:
+                task_health_bar = ""
+            if tracker and tracker.change_rate_per_hour != 0:
+                rate = f"{tracker.change_rate_per_hour:+.2%}/hour"
+                formatted_rate = f"\n`{rate:^25}`"
+                winning = (
+                    tracker.change_rate_per_hour > 0
+                    and datetime.now()
+                    + timedelta(seconds=tracker.seconds_until_complete)
+                    < self.assignment.ends_at_datetime
+                )
+                if winning:
+                    outlook_text = "Complete"
+                else:
+                    outlook_text = "Failure"
+                time_until_complete = f"\n-# {outlook_text} <t:{int(datetime.now().timestamp() + tracker.seconds_until_complete)}:R>"
+            else:
+                formatted_rate = ""
+                time_until_complete = ""
+            self.add_field(
+                name=full_task,
+                value=(
+                    (
+                        f"{language_json['dashboard']['progress']}: **{(task.progress):,.0f}**\n"
+                        f"{task_health_bar}"
+                        f"`{(task.progress_perc):^25,.2%}`"
+                        f"{formatted_rate}"
+                        f"{time_until_complete}"
+                    )
+                    if task.progress_perc != 1
+                    else ""
+                ),
+                inline=False,
+            )
+
+        def add_type_7(
+            self,
+            task: Assignment.Task,
+            language_json: dict,
+            tracker: BaseTrackerEntry,
+        ):
+            """Extract from a successful Mission against {faction} {number} times"""
+            full_task = language_json["dashboard"]["MajorOrderEmbed"]["tasks"][
+                "type7"
+            ].format(
+                status_emoji=(
+                    Emojis.Icons.mo_task_complete
+                    if task.progress_perc == 1
+                    else Emojis.Icons.mo_task_incomplete
+                ),
+                faction=language_json["factions"][str(task.values[0])],
+                amount=f"{task.values[2]:,}",
+            )
             if self.with_health_bars:
                 task_health_bar = f"{task.health_bar}\n"
             else:

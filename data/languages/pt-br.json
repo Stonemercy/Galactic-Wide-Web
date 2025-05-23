@@ -22,6 +22,7 @@
                 "type3": "{status_emoji} Mate {amount} {target}",
                 "type3_weapon": " usando  __{weapon_to_use}__ ",
                 "type3_planet": " em {planet}",
+                "type7": "Extract from a successful Mission against {faction} {amount} times",
                 "type9": "{status_emoji} Complete uma Operação contra {faction} em {difficulty} ou mais alto {amount} vezes",
                 "type11": "{status_emoji} Libere {planet}",
                 "type12_with_planet": "{status_emoji} Defenda {planeta} contra {number} ataques dos {faction}",

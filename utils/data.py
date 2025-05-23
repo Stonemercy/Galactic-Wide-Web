@@ -541,46 +541,50 @@ class Assignment(ReprMixin):
         @property
         def health_bar(self) -> str:
             """Returns a health_bar based on the task type and progress"""
-            if self.type == 2:
-                return health_bar(
-                    self.progress_perc, "MO" if self.progress != 1 else "Humans"
-                )
-            elif self.type == 3:
-                return health_bar(
-                    self.progress_perc,
-                    (self.values[0] if self.progress != 1 else "Humans"),
-                )
-            elif self.type == 9:
-                return health_bar(self.progress_perc, self.values[0])
-            elif self.type == 11:
-                return
-            elif self.type == 12:
-                return health_bar(
-                    self.progress_perc,
-                    "MO" if self.progress < 1 else "Humans",
-                )
-            elif self.type == 13:
-                return ""
-            elif self.type == 15:
-                percent = {i: (i + 10) / 20 for i in range(-10, 12, 2)}[
-                    [key for key in range(-10, 12, 2) if key <= self.progress][-1]
-                ]
-                return health_bar(
-                    percent,
-                    "Humans" if self.progress > 0 else "Automaton",
-                )
+            match self.type:
+                case 2:
+                    return health_bar(
+                        self.progress_perc, "MO" if self.progress != 1 else "Humans"
+                    )
+                case 3:
+                    return health_bar(
+                        self.progress_perc,
+                        (self.values[0] if self.progress != 1 else "Humans"),
+                    )
+                case 7:
+                    return health_bar(self.progress_perc, self.values[0])
+                case 9:
+                    return health_bar(self.progress_perc, self.values[0])
+                case 11:
+                    return
+                case 12:
+                    return health_bar(
+                        self.progress_perc,
+                        "MO" if self.progress < 1 else "Humans",
+                    )
+                case 13:
+                    return ""
+                case 15:
+                    percent = {i: (i + 10) / 20 for i in range(-10, 12, 2)}[
+                        [key for key in range(-10, 12, 2) if key <= self.progress][-1]
+                    ]
+                    return health_bar(
+                        percent,
+                        "Humans" if self.progress > 0 else "Automaton",
+                    )
 
         @property
         def progress_perc(self) -> float:
             """Returns the progress of the task as a float (0-1)"""
-            if self.type in (15, 12):
-                progress_value = self.values[0]
-            elif self.type == 9:
-                progress_value = self.values[1]
-            elif self.type in (3, 2):
-                progress_value = self.values[2]
-            elif self.type in (13, 11):
-                progress_value = 1
+            match self.type:
+                case 12 | 15:
+                    progress_value = self.values[0]
+                case 9:
+                    progress_value = self.values[1]
+                case 2 | 3 | 7:
+                    progress_value = self.values[2]
+                case 13 | 11:
+                    progress_value = 1
             return self.progress / progress_value
 
 
