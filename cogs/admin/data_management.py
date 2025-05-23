@@ -145,6 +145,18 @@ class DataManagementCog(commands.Cog):
                             ],
                         )
                     )
+                if planet.regions:
+                    for region in planet.regions.values():
+                        new_region = new_data.regions[region.index]
+                        if region.regen_per_sec != new_region.regen_per_sec:
+                            total_changes.append(
+                                APIChanges(
+                                    planet=planet,
+                                    statistic="Region Regen",
+                                    before=region,
+                                    after=new_region,
+                                )
+                            )
             active_effects = {
                 str(e)
                 for planet in self.bot.data.planets.values()

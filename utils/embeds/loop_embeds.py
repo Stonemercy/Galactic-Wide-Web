@@ -46,91 +46,100 @@ class APIChangesLoopEmbed(Embed, EmbedReprMixin):
                 if not change.planet.event
                 else getattr(Emojis.Factions, change.planet.event.faction.lower())
             )
-            if change.statistic == "Regen %":
-                self.add_field(
-                    f"{faction_emoji} {change.planet.name}",
-                    f"Planet Regeneration: **{change.before}**%/hr {Emojis.Stratagems.right} **{change.after}**%/hr",
-                    inline=False,
-                )
-            elif change.statistic == "Max Health":
-                self.add_field(
-                    f"{faction_emoji} {change.planet.name}",
-                    f"Max Health: **{change.before}** {Emojis.Stratagems.right} **{change.after}**",
-                    inline=False,
-                )
-            elif change.statistic == "Waypoints":
-                desctiption = "Waypoints:"
-                waypoints_removed = [
-                    waypoint
-                    for waypoint in change.before
-                    if waypoint not in change.after
-                ]
-                waypoints_added = [
-                    waypoint
-                    for waypoint in change.after
-                    if waypoint not in change.before
-                ]
-                if waypoints_removed:
-                    wp_list = "\n  - ".join(waypoints_removed)
-                    desctiption += f"\n- Removed:\n  - {wp_list}"
-                if waypoints_added:
-                    wp_list = "\n  - ".join(waypoints_added)
-                    desctiption += f"\n- Added:\n  - {wp_list}"
-                self.add_field(
-                    f"{faction_emoji} {change.planet.name}",
-                    desctiption,
-                    inline=False,
-                )
-            elif change.statistic == "Location":
-                if change.planet.index == 64:
-                    self.title = "Meridia has moved"
-                    self.set_thumbnail(
-                        url="https://cdn.discordapp.com/emojis/1331357764039086212.webp?size=96"
+            match change.statistic:
+                case "Regen %":
+                    self.add_field(
+                        f"{faction_emoji} {change.planet.name}",
+                        f"Planet Regeneration: **{change.before}**%/hr {Emojis.Stratagems.right} **{change.after}**%/hr",
+                        inline=False,
                     )
-                description = f"Location:\n{change.before} {Emojis.Stratagems.right} {change.after}"
-                description += f"\nChange: ({change.after[0] - change.before[0]:+.8f}, {change.after[1] - change.before[1]:+.8f})"
-                self.add_field(
-                    f"{faction_emoji} {change.planet.name}", description, inline=False
-                )
-            elif change.statistic == "Effects":
-                removed_effects = [
-                    effect for effect in change.before if effect not in change.after
-                ]
-                new_effects = [
-                    effect for effect in change.after if effect not in change.before
-                ]
-                for effect in removed_effects:
-                    if type(effect) == dict:
-                        self.add_field(
-                            f"{faction_emoji} {change.planet.name} Removed effect",
-                            f"**{effect['name']}**\n-# {effect['description']}",
-                            inline=False,
+                case "Max Health":
+                    self.add_field(
+                        f"{faction_emoji} {change.planet.name}",
+                        f"Max Health: **{change.before}** {Emojis.Stratagems.right} **{change.after}**",
+                        inline=False,
+                    )
+                case "Waypoints":
+                    desctiption = "Waypoints:"
+                    waypoints_removed = [
+                        waypoint
+                        for waypoint in change.before
+                        if waypoint not in change.after
+                    ]
+                    waypoints_added = [
+                        waypoint
+                        for waypoint in change.after
+                        if waypoint not in change.before
+                    ]
+                    if waypoints_removed:
+                        wp_list = "\n  - ".join(waypoints_removed)
+                        desctiption += f"\n- Removed:\n  - {wp_list}"
+                    if waypoints_added:
+                        wp_list = "\n  - ".join(waypoints_added)
+                        desctiption += f"\n- Added:\n  - {wp_list}"
+                    self.add_field(
+                        f"{faction_emoji} {change.planet.name}",
+                        desctiption,
+                        inline=False,
+                    )
+                case "Location":
+                    if change.planet.index == 64:
+                        self.title = "Meridia has moved"
+                        self.set_thumbnail(
+                            url="https://cdn.discordapp.com/emojis/1331357764039086212.webp?size=96"
                         )
-                    else:
-                        self.add_field(
-                            f"{faction_emoji} {change.planet.name} Removed effect",
-                            effect,
-                            inline=False,
-                        )
-                for effect in new_effects:
-                    if type(effect) == dict:
-                        self.add_field(
-                            f"{faction_emoji} {change.planet.name} New effect",
-                            f"**{effect['name']}**\n-# {effect['description']}",
-                            inline=False,
-                        )
-                    else:
-                        self.add_field(
-                            f"{faction_emoji} {change.planet.name} New effect",
-                            effect,
-                            inline=False,
-                        )
-            elif change.statistic == "Galactic Impact Mod":
-                self.add_field(
-                    "Big jump in the Galactic Impact Modifier :warning:",
-                    f"Before: {change.before}\nAfter: {change.after}\n-# Change: {change.before - change.after:+}",
-                    inline=False,
-                )
+                    description = f"Location:\n{change.before} {Emojis.Stratagems.right} {change.after}"
+                    description += f"\nChange: ({change.after[0] - change.before[0]:+.8f}, {change.after[1] - change.before[1]:+.8f})"
+                    self.add_field(
+                        f"{faction_emoji} {change.planet.name}",
+                        description,
+                        inline=False,
+                    )
+                case "Effects":
+                    removed_effects = [
+                        effect for effect in change.before if effect not in change.after
+                    ]
+                    new_effects = [
+                        effect for effect in change.after if effect not in change.before
+                    ]
+                    for effect in removed_effects:
+                        if type(effect) == dict:
+                            self.add_field(
+                                f"{faction_emoji} {change.planet.name} Removed effect",
+                                f"**{effect['name']}**\n-# {effect['description']}",
+                                inline=False,
+                            )
+                        else:
+                            self.add_field(
+                                f"{faction_emoji} {change.planet.name} Removed effect",
+                                effect,
+                                inline=False,
+                            )
+                    for effect in new_effects:
+                        if type(effect) == dict:
+                            self.add_field(
+                                f"{faction_emoji} {change.planet.name} New effect",
+                                f"**{effect['name']}**\n-# {effect['description']}",
+                                inline=False,
+                            )
+                        else:
+                            self.add_field(
+                                f"{faction_emoji} {change.planet.name} New effect",
+                                effect,
+                                inline=False,
+                            )
+                case "Galactic Impact Mod":
+                    self.add_field(
+                        "Big jump in the Galactic Impact Modifier :warning:",
+                        f"Before: {change.before}\nAfter: {change.after}\n-# Change: {change.before - change.after:+}",
+                        inline=False,
+                    )
+                case "Region Regen":
+                    self.add_field(
+                        f"{faction_emoji} {change.planet.name}",
+                        f"Region Regeneration: **{change.before.regen_per_hour}**%/hr {Emojis.Stratagems.right} **{change.after.regen_per_hour}**%/hr",
+                        inline=False,
+                    )
 
 
 class PersonalOrderLoopEmbed(Embed, EmbedReprMixin):
