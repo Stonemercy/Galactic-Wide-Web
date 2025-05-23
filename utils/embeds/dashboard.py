@@ -1192,7 +1192,7 @@ class Dashboard:
             )
             if campaign.planet.regions:
                 conquered_regions = [
-                    f"{r.type} **{r.name}**\n"
+                    f"{r.type} **{r.name}** {getattr(Emojis.Factions, r.owner.lower())}\n"
                     for r in campaign.planet.regions.values()
                     if r.owner != "Humans"
                 ]
