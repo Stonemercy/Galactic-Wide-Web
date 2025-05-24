@@ -864,6 +864,10 @@ class Planet(ReprMixin):
             self.type = region_types.get(self.size, "")
 
         @property
+        def regen_per_hour(self):
+            return self.regen_per_sec * 3600
+
+        @property
         def perc(self):
             return self.health / self.max_health
 
