@@ -1202,7 +1202,7 @@ class Dashboard:
                 inactive_regions = [
                     f"-# {r.type} **{r.name}**\n"
                     for r in campaign.planet.regions.values()
-                    if not r.is_available
+                    if not r.is_available and r.owner == "Humans"
                 ]
                 if conquered_regions:
                     self.add_field("Conquered Regions", "".join(conquered_regions))
