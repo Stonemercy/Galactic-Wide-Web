@@ -22,7 +22,7 @@
                 "type3": "{status_emoji} Убить {amount} {target}",
                 "type3_weapon": " используя __{weapon_to_use}__ ",
                 "type3_planet": " на {planet}",
-                "type7": "Extract from a successful Mission against {faction} {amount} times",
+                "type7": "Эвакуируйтесь, успешно выполнив задание против {faction} {amount} раз(а)",
                 "type9": "{status_emoji} Выполните операцию против {faction} на сложности {difficulty} или выше {amount} раз",
                 "type11": "{status_emoji} Освободить {planet}",
                 "type12_with_planet": "{status_emoji} Защитите {planet} от {number} атак(и) {faction}",
