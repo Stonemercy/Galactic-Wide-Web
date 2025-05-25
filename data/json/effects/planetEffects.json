@@ -31,8 +31,8 @@
 	},
 	"1124": {
 		"galacticEffectId": 1124,
-		"name": "extract_SuperPilotShortage",
-		"description": "[EST] Extraction appears slower than usual."
+		"name": "Extended Extraction Times",
+		"description": "Pelican Extraction times will take 30 seconds longer."
 	},
 	"1125": {
 		"galacticEffectId": 1125,
@@ -543,5 +543,15 @@
 		"galacticEffectId": 1274,
 		"name": "",
 		"description": "The M-105 Stalwart stratagem is temporarily available to all Helldivers."
+	},
+	"1275": {
+		"galacticEffectId": 1275,
+		"name": "",
+		"description": "Orbital Stratagem Cooldowns are increased by 60 seconds."
+	},
+	"1276": {
+		"galacticEffectId": 1276,
+		"name": "EMERGENCY ARSENAL AUGMENTATION",
+		"description": "The Shield Generator Relay stratagem is temporarily available to all Helldivers."
 	}
 }
