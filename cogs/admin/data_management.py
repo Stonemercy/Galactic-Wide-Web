@@ -3,6 +3,7 @@ from disnake import Activity, ActivityType
 from disnake.ext import commands, tasks
 from main import GalacticWideWebBot
 from utils.embeds.loop_embeds import APIChanges, APIChangesLoopEmbed
+from utils.functions import out_of_normal_range
 
 
 class DataManagementCog(commands.Cog):
@@ -66,13 +67,9 @@ class DataManagementCog(commands.Cog):
     async def check_changes(self):
         total_changes: list[APIChanges] = []
         if self.bot.previous_data:
-            if (
-                self.bot.previous_data.galactic_impact_mod != 0
-                and abs(
-                    self.bot.data.galactic_impact_mod
-                    - self.bot.previous_data.galactic_impact_mod
-                )
-                >= 0.1
+            if self.bot.previous_data.galactic_impact_mod != 0 and out_of_normal_range(
+                before=self.bot.previous_data.galactic_impact_mod,
+                after=self.bot.data.galactic_impact_mod,
             ):
                 total_changes.append(
                     APIChanges(

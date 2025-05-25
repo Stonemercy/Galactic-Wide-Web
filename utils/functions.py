@@ -108,3 +108,16 @@ def compare_translations(reference: dict, target: dict, path="") -> list[str]:
         elif ref_val == tgt_val:
             diffs.append(f"Untranslated: `{full_path}`")
     return diffs
+
+
+def out_of_normal_range(before: int | float, after: int | float) -> bool:
+    """Returns a bool based on if the `after` is 25% more or less than the `before`
+
+    Args:
+        before (`int` | `float`)
+        after (`int` | `float`)
+
+    Returns:
+        `bool`
+    """
+    return after < before * 0.75 or after > before * 1.25
