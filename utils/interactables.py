@@ -213,7 +213,10 @@ class Setup:
                     custom_id="language_select",
                     placeholder=language_json["setup"]["buttons"]["language_select"],
                     options=[
-                        SelectOption(label=lang.upper())
+                        SelectOption(
+                            label=f"{lang.upper()}",
+                            emoji=getattr(Emojis.Flags, lang.replace("-", "_")),
+                        )
                         for lang in language_dict.values()
                     ],
                 )

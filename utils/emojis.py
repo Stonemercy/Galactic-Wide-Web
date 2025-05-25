@@ -117,3 +117,13 @@ class Emojis:
         jet_brigade = "<:s:1355912552143393039>"
         incineration_corps = "<:s:1355913678704349336>"
         the_great_host = "<:s:1372871467255070751>"
+
+    @dataclass
+    class Flags:
+        en = "🇬🇧"
+        fr = "🇫🇷"
+        de = "🇩🇪"
+        it = "🇮🇹"
+        pt_br = "🇧🇷"
+        ru = "🇷🇺"
+        es = "🇪🇸"
