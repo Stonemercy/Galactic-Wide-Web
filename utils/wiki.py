@@ -1,4 +1,3 @@
-from re import L
 from disnake import Colour, Embed, File, ButtonStyle, SelectOption
 from disnake.ui import Button, StringSelect, ActionRow
 from data.lists import (
