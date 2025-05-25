@@ -753,29 +753,30 @@ class GuildJoinListenerEmbed(Embed, EmbedReprMixin):
         )
         if guild.features:
             features_text = ""
+            notable_features = [
+                "COMMUNITY",
+                "CREATOR_MONETIZABLE",
+                "CREATOR_MONETIZABLE_PROVISIONAL",
+                "CREATOR_STORE_PAGE",
+                "DEVELOPER_SUPPORT_SERVER",
+                "DISCOVERABLE",
+                "ENABLED_DISCOVERABLE_BEFORE",
+                "FEATURABLE",
+                "GUILD_HOME_TEST",
+                "HAS_DIRECTORY_ENTRY",
+                "HUB",
+                "LINKED_TO_HUB",
+                "NEWS",
+                "PARTNERED",
+                "ROLE_SUBSCRIPTIONS_AVAILABLE_FOR_PURCHASE",
+                "ROLE_SUBSCRIPTIONS_ENABLED",
+                "VANITY_URL",
+                "VERIFIED",
+                "VIP_REGIONS",
+                "WELCOME_SCREEN_ENABLED",
+            ]
             for feature in guild.features:
-                if feature in [
-                    "COMMUNITY",
-                    "CREATOR_MONETIZABLE",
-                    "CREATOR_MONETIZABLE_PROVISIONAL",
-                    "CREATOR_STORE_PAGE",
-                    "DEVELOPER_SUPPORT_SERVER",
-                    "DISCOVERABLE",
-                    "ENABLED_DISCOVERABLE_BEFORE",
-                    "FEATURABLE",
-                    "GUILD_HOME_TEST",
-                    "HAS_DIRECTORY_ENTRY",
-                    "HUB",
-                    "LINKED_TO_HUB",
-                    "NEWS",
-                    "PARTNERED",
-                    "ROLE_SUBSCRIPTIONS_AVAILABLE_FOR_PURCHASE",
-                    "ROLE_SUBSCRIPTIONS_ENABLED",
-                    "VANITY_URL",
-                    "VERIFIED",
-                    "VIP_REGIONS",
-                    "WELCOME_SCREEN_ENABLED",
-                ]:
+                if feature in notable_features:
                     features_text += f"-# - {feature.replace('_', ' ').capitalize()}\n"
             self.add_field(name="Features", value=features_text or "None", inline=False)
 
