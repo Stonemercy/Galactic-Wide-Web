@@ -749,7 +749,7 @@ class GuildJoinListenerEmbed(Embed, EmbedReprMixin):
         )
         self.add_field(
             name="🌐 Locale",
-            value=f"{flag_dict.get(locales_dict.get(guild.preferred_locale, None), '')} {guild.preferred_locale}",
+            value=f"{flag_dict.get(locales_dict.get(guild.preferred_locale, "en"), '')} {guild.preferred_locale}",
         )
         if guild.features:
             features_text = ""
