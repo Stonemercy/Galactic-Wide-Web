@@ -58,7 +58,7 @@
             "level": "Invasion niveau",
             "defence_held_by_dss": "\n> -# DÉFENSE TENUE PAR LA SSD",
             "dark_energy_remaining": "\nEst. **Énergie Sombre** restante: **{number}**",
-            "feature": "Feature"
+            "feature": "Fonctionnalité"
         },
         "AttackEmbed": {
             "title": "Attaque de {faction}",
@@ -96,8 +96,8 @@
             "has_moved": "La SSD s'est déplacée de **{planet1}** {faction_emoji1} {exclamation1} à **{planet2}** {faction_emoji2} {exclamation2}\n",
             "ta_status_change": "{emoji} **{ta_name}** est maintenant **{status}**\n"
         },
-        "feature": "Feature",
-        "special_unit": "Special Unit"
+        "feature": "Fonctionnalité",
+        "special_unit": "Unité Spéciale"
     },
     "PlanetEmbed": {
         "sector": "Secteur : **{sector}**\n",
@@ -207,16 +207,16 @@
         "Illuminate": "Illuministes"
     },
     "difficulty": {
-        "1": "Trivial",
-        "2": "Easy ",
-        "3": "Medium",
-        "4": "Challenging",
-        "5": "Hard",
-        "6": "Extreme",
-        "7": "Suicide Mission",
+        "1": "Anecdotique",
+        "2": "Facile",
+        "3": "Moyenne",
+        "4": "Dangereuse",
+        "5": "Difficile",
+        "6": "Extrême",
+        "7": "Suicidaire",
         "8": "Impossible",
-        "9": "Helldive",
-        "10": "Super Helldive"
+        "9": "Infernale",
+        "10": "Super Infernale"
     },
     "wiki": {
         "buttons": {
@@ -224,34 +224,34 @@
                 "label": "Helldivers Wiki"
             },
             "MainMenuButton": {
-                "label": "Main Menu"
+                "label": "Menu principal"
             },
             "DSSButton": {
-                "label": "DSS"
+                "label": "SSD"
             },
             "EnemiesHomeButton": {
-                "label": "Enemies"
+                "label": "Ennemis"
             },
             "WarbondButton": {
                 "label": "Warbonds"
             },
             "EquipmentHomeButton": {
-                "label": "Equipment"
+                "label": "Equipement"
             },
             "WarbondPreviousPageButton": {
-                "label": "Previous Page"
+                "label": "Page Précédente"
             },
             "WarbondNextPageButton": {
-                "label": "Next Page"
+                "label": "Page Suivante"
             },
             "WeaponsHomeButton": {
-                "label": "Weapons"
+                "label": "Armes"
             },
             "PrimaryWeaponsButton": {
-                "label": "Primary"
+                "label": "Primaire"
             },
             "SecondaryWeaponsButton": {
-                "label": "Secondary"
+                "label": "Secondaire"
             },
             "GrenadesButton": {
                 "label": "Grenades"
@@ -260,7 +260,7 @@
                 "label": "Boosters"
             },
             "StratagemsButton": {
-                "label": "Stratagems"
+                "label": "Stratagèmes"
             }
         },
         "embeds": {
