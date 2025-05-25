@@ -76,7 +76,7 @@ def steam_format(content: str):
 
 
 def split_long_string(text: str) -> list[str]:
-    """Splits a string into 1024 lenth chunks"""
+    """Splits a string into 1024 length chunks"""
     parts = []
     while len(text) > 1024:
         split_index = text.rfind("\n", 0, 1024)
