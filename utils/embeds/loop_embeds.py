@@ -32,8 +32,8 @@ from utils.mixins import EmbedReprMixin
 class APIChanges:
     planet: Planet
     statistic: str
-    before: int | list
-    after: int | list
+    before: int | list | Planet.Region
+    after: int | list | Planet.Region
 
 
 class APIChangesLoopEmbed(Embed, EmbedReprMixin):
@@ -135,7 +135,7 @@ class APIChangesLoopEmbed(Embed, EmbedReprMixin):
                     )
                 case "Region Regen":
                     self.add_field(
-                        f"{faction_emoji} {change.planet.name}",
+                        f"{faction_emoji} {change.planet.name} - Region: {change.after.name}",
                         f"Region Regeneration: **{change.before.regen_per_hour}**%/hr {Emojis.Stratagems.right} **{change.after.regen_per_hour}**%/hr",
                         inline=False,
                     )
