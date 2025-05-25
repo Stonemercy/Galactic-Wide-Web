@@ -2,7 +2,6 @@ from dataclasses import dataclass
 from datetime import datetime
 from math import inf, sqrt
 from os import getpid
-from re import DOTALL, search
 from psutil import Process, cpu_percent
 from data.lists import (
     SpecialUnits,
