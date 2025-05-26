@@ -31,15 +31,31 @@ class Dashboard:
         with_health_bars: bool = True,
     ):
         language_json = json_dict["languages"][language_code]
-        self._major_order_embed = self.MajorOrderEmbed(
-            assignment=data.assignment,
-            planets=data.planets,
-            liberation_changes_tracker=data.liberation_changes,
-            mo_task_tracker=data.major_order_changes,
-            language_json=language_json,
-            json_dict=json_dict,
-            with_health_bars=with_health_bars,
-        )
+        if data.assignments:
+            self._major_order_embeds = [
+                self.MajorOrderEmbed(
+                    assignment=assignment,
+                    planets=data.planets,
+                    liberation_changes_tracker=data.liberation_changes,
+                    mo_task_tracker=data.major_order_changes,
+                    language_json=language_json,
+                    json_dict=json_dict,
+                    with_health_bars=with_health_bars,
+                )
+                for assignment in data.assignments
+            ]
+        else:
+            self._major_order_embeds = [
+                self.MajorOrderEmbed(
+                    assignment=None,
+                    planets=None,
+                    liberation_changes_tracker=None,
+                    mo_task_tracker=None,
+                    language_json=language_json,
+                    json_dict=None,
+                    with_health_bars=False,
+                )
+            ]
         self._dss_embed = self.DSSEmbed(
             dss=data.dss,
             language_json=language_json,
@@ -107,7 +123,6 @@ class Dashboard:
             data_time=data.fetched_at,
         )
         self.embeds = [
-            self._major_order_embed,
             self._dss_embed,
             self._defence_embed,
             self._illuminate_embed,
@@ -115,6 +130,8 @@ class Dashboard:
             self._terminids_embed,
             self._footer_embed,
         ]
+        for embed in self._major_order_embeds:
+            self.embeds.insert(0, embed)
         if data.global_resources != None:
             if data.global_resources.dark_energy:
                 remaining_de = sum(
@@ -215,7 +232,7 @@ class Dashboard:
                 title=language_json["dashboard"]["MajorOrderEmbed"]["title"],
                 colour=Colour.from_rgb(*faction_colours["MO"]),
             )
-            if not assignment:
+            if not self.assignment:
                 self.add_field(
                     name="",
                     value=language_json["major_order"]["MO_unavailable"],
@@ -223,12 +240,15 @@ class Dashboard:
             else:
                 task_numbers = [task.type for task in assignment.tasks]
                 task_for_image = max(set(task_numbers), key=task_numbers.count)
-                image_link = assignment_task_images_dict.get(task_for_image, None)
+                image_link = assignment_task_images_dict.get(
+                    task_for_image,
+                    "https://cdn.discordapp.com/attachments/1212735927223590974/1338186496967966720/mo_icon_liberate.png?ex=67aa2acb&is=67a8d94b&hm=aa64d3140e3d0e84f1e471906dca59c193e3db72cca0fb9ee1069740a776359a&",
+                )
                 if image_link:
                     self.set_thumbnail(url=image_link)
                 self.add_description(assignment=assignment, language_json=language_json)
                 for index, task in enumerate(assignment.tasks, start=1):
-                    tracker = mo_task_tracker.get_entry(index)
+                    tracker = mo_task_tracker.get_entry((assignment.id, index))
                     if tracker and tracker.change_rate_per_hour != 0:
                         self.completion_timestamps.append(
                             datetime.now().timestamp() + tracker.seconds_until_complete
@@ -954,9 +974,11 @@ class Dashboard:
             for reward in rewards:
                 reward_name = reward_names.get(str(reward["type"]), "Unknown")
                 rewards_text += f"{reward['amount']:,} **{reward_name}s** {getattr(Emojis.Items, reward_name.replace(' ', '_').lower(), '')}\n"
-            self.add_field(
-                language_json["dashboard"]["MajorOrderEmbed"]["rewards"], rewards_text
-            )
+            if rewards_text != "":
+                self.add_field(
+                    language_json["dashboard"]["MajorOrderEmbed"]["rewards"],
+                    rewards_text,
+                )
 
     class DSSEmbed(Embed, EmbedReprMixin):
         def __init__(

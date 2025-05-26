@@ -57,16 +57,33 @@ class MajorOrderCog(commands.Cog):
         else:
             guild = GWWGuild.default()
         guild_language = self.bot.json_dict["languages"][guild.language]
+        if self.bot.data.assignments:
+            embeds = [
+                Dashboard.MajorOrderEmbed(
+                    assignment=major_order,
+                    planets=self.bot.data.planets,
+                    liberation_changes_tracker=self.bot.data.liberation_changes,
+                    mo_task_tracker=self.bot.data.major_order_changes,
+                    language_json=guild_language,
+                    json_dict=self.bot.json_dict,
+                    with_health_bars=True,
+                )
+                for major_order in self.bot.data.assignments
+            ]
+        else:
+            embeds = [
+                Dashboard.MajorOrderEmbed(
+                    assignment=None,
+                    planets=None,
+                    liberation_changes_tracker=None,
+                    mo_task_tracker=None,
+                    language_json=guild_language,
+                    json_dict=None,
+                    with_health_bars=False,
+                )
+            ]
         await inter.send(
-            embed=Dashboard.MajorOrderEmbed(
-                assignment=self.bot.data.assignment,
-                planets=self.bot.data.planets,
-                liberation_changes_tracker=self.bot.data.liberation_changes,
-                mo_task_tracker=self.bot.data.major_order_changes,
-                language_json=guild_language,
-                json_dict=self.bot.json_dict,
-                with_health_bars=True,
-            ),
+            embeds=embeds,
             components=[
                 WikiButton(link=f"https://helldivers.wiki.gg/wiki/Major_Orders")
             ],

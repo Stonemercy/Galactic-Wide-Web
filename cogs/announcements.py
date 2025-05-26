@@ -34,46 +34,57 @@ class AnnouncementsCog(commands.Cog):
             or announcement_start < self.bot.ready_time
             or not self.bot.data.loaded
             or self.bot.interface_handler.busy
-            or not self.bot.data.assignment
+            or not self.bot.data.assignments
         ):
             return
         last_MO = MajorOrder()
-        if last_MO.id != self.bot.data.assignment.id:
-            embeds = {
-                lang: Dashboard.MajorOrderEmbed(
-                    assignment=self.bot.data.assignment,
-                    planets=self.bot.data.planets,
-                    liberation_changes_tracker=self.bot.data.liberation_changes,
-                    mo_task_tracker=self.bot.data.major_order_changes,
-                    language_json=self.bot.json_dict["languages"][lang],
-                    json_dict=self.bot.json_dict,
-                    with_health_bars=True,
-                )
-                for lang in list({guild.language for guild in GWWGuild.get_all()})
-            }
-            mo_briefing_list = [
-                ge
-                for ge in self.bot.data.global_events
-                if ge.assignment_id == self.bot.data.assignment.id
-                or (ge.assignment_id == 0 and ge.title.upper() == "BRIEFING")
-            ]
-            if mo_briefing_list:
-                mo_briefing = mo_briefing_list[0]
-                for embed in embeds.values():
-                    embed.insert_field_at(
-                        0, mo_briefing.title, mo_briefing.split_message[0], inline=False
+        for major_order in self.bot.data.assignments:
+            if last_MO.id < major_order.id:
+                embeds = {
+                    lang: [
+                        Dashboard.MajorOrderEmbed(
+                            assignment=major_order,
+                            planets=self.bot.data.planets,
+                            liberation_changes_tracker=self.bot.data.liberation_changes,
+                            mo_task_tracker=self.bot.data.major_order_changes,
+                            language_json=self.bot.json_dict["languages"][lang],
+                            json_dict=self.bot.json_dict,
+                            with_health_bars=True,
+                        )
+                    ]
+                    for lang in list({guild.language for guild in GWWGuild.get_all()})
+                }
+                mo_briefing = [
+                    ge
+                    for ge in self.bot.data.global_events
+                    if ge.assignment_id == major_order.id
+                    and ge.title != ""
+                    and ge.message != ""
+                ]
+                if mo_briefing:
+                    mo_briefing = mo_briefing[0]
+                    for embed_list in embeds.values():
+                        for embed in embed_list:
+                            embed.insert_field_at(
+                                0,
+                                mo_briefing.title,
+                                mo_briefing.split_message[0],
+                                inline=False,
+                            )
+                            for index, chunk in enumerate(
+                                mo_briefing.split_message[1:], 1
+                            ):
+                                embed.insert_field_at(index, "", chunk, inline=False)
+                else:
+                    self.bot.logger.info(
+                        f"MO briefing not available for assignment {major_order.id}"
                     )
-                    for index, chunk in enumerate(mo_briefing.split_message[1:], 1):
-                        embed.insert_field_at(index, "", chunk, inline=False)
-            else:
-                self.bot.logger.info(f"MO briefing not available")
-                return
-            last_MO.id = self.bot.data.assignment.id
-            last_MO.save_changes()
-            await self.bot.interface_handler.send_news("Generic", embeds)
-            self.bot.logger.info(
-                f"Sent MO announcements out to {len(self.bot.interface_handler.news_feeds.channels_dict['Generic'])} channels"
-            )
+                last_MO.id = major_order.id
+                last_MO.save_changes()
+                await self.bot.interface_handler.send_news("Generic", embeds)
+                self.bot.logger.info(
+                    f"Sent MO announcements out to {len(self.bot.interface_handler.news_feeds.channels_dict['Generic'])} channels"
+                )
 
     @major_order_check.before_loop
     async def before_mo_check(self):
@@ -151,19 +162,22 @@ class AnnouncementsCog(commands.Cog):
             not self.bot.interface_handler.loaded
             or mo_updates_start < self.bot.ready_time
             or not self.bot.data.loaded
-            or not self.bot.data.assignment
+            or not self.bot.data.assignments
         ):
             return
         embeds = {
-            lang: Dashboard.MajorOrderEmbed(
-                assignment=self.bot.data.assignment,
-                planets=self.bot.data.planets,
-                liberation_changes_tracker=self.bot.data.liberation_changes,
-                mo_task_tracker=self.bot.data.major_order_changes,
-                language_json=self.bot.json_dict["languages"][lang],
-                json_dict=self.bot.json_dict,
-                with_health_bars=True,
-            )
+            lang: [
+                Dashboard.MajorOrderEmbed(
+                    assignment=major_order,
+                    planets=self.bot.data.planets,
+                    liberation_changes_tracker=self.bot.data.liberation_changes,
+                    mo_task_tracker=self.bot.data.major_order_changes,
+                    language_json=self.bot.json_dict["languages"][lang],
+                    json_dict=self.bot.json_dict,
+                    with_health_bars=True,
+                )
+                for major_order in self.bot.data.assignments
+            ]
             for lang in list(set([guild.language for guild in GWWGuild.get_all()]))
         }
         await self.bot.interface_handler.send_news("MO", embeds)

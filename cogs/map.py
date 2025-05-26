@@ -55,7 +55,7 @@ class MapCog(commands.Cog):
         if need_to_update_maps:
             await self.bot.maps.update_base_map(
                 planets=self.bot.data.planets,
-                assignment=self.bot.data.assignment,
+                assignments=self.bot.data.assignments,
                 campaigns=self.bot.data.campaigns,
                 dss=self.bot.data.dss,
             )
@@ -140,7 +140,7 @@ class MapCog(commands.Cog):
         ):
             await self.bot.maps.update_base_map(
                 planets=self.bot.data.planets,
-                assignment=self.bot.data.assignment,
+                assignments=self.bot.data.assignments,
                 campaigns=self.bot.data.campaigns,
                 dss=self.bot.data.dss,
             )

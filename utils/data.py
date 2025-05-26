@@ -30,7 +30,7 @@ class Data(ReprMixin):
         "__data__",
         "json_dict",
         "fetched_at",
-        "assignment",
+        "assignments",
         "campaigns",
         "dispatch",
         "planets",
@@ -77,7 +77,7 @@ class Data(ReprMixin):
         self.meridia_position: None | tuple[float, float] = None
         self.personal_order = None
         self.fetched_at = None
-        self.assignment = None
+        self.assignments = []
         self.dss = None
         self.sieges = None
         self.global_resources = None
@@ -201,7 +201,7 @@ class Data(ReprMixin):
         self.format_data()
         self.update_liberation_rates()
         self.update_region_changes()
-        if self.assignment:
+        if self.assignments:
             self.update_major_order_rates()
         if self.global_resources:
             self.update_global_resource_rates()
@@ -242,50 +242,50 @@ class Data(ReprMixin):
             )
 
         if self.__data__["assignments"] not in ([], None):
-            self.assignment: Assignment = Assignment(
-                raw_assignment_data=self.__data__["assignments"][0]
-            )
-            for task in self.assignment.tasks:
-                match task.type:
-                    case 2:
-                        self.planets[task.values[8]].in_assignment = True
-                    case 3:
-                        if task.progress == 1:
-                            continue
-                        if task.values[9] != 0:
-                            self.planets[task.values[9]].in_assignment = True
-                            continue
-                        for index in [
-                            planet.index
-                            for planet in self.planets.values()
-                            if planet.current_owner == factions[task.values[0]]
-                            or (
-                                planet.event
-                                and planet.event.faction == factions[task.values[0]]
-                            )
-                        ]:
-                            self.planets[index].in_assignment = True
-                    case 12:
-                        if self.planet_events:
-                            if task.values[3] != 0:
-                                self.planets[task.values[3]].in_assignment = True
+            self.assignments: list[Assignment] = [
+                Assignment(raw_assignment_data=assignment)
+                for assignment in self.__data__["assignments"]
+            ]
+            for assignment in self.assignments:
+                for task in assignment.tasks:
+                    match task.type:
+                        case 2:
+                            self.planets[task.values[8]].in_assignment = True
+                        case 3:
+                            if task.progress == 1:
+                                continue
+                            if task.values[9] != 0:
+                                self.planets[task.values[9]].in_assignment = True
                                 continue
                             for index in [
                                 planet.index
-                                for planet in self.planet_events
-                                if planet.event.faction == factions[task.values[1]]
+                                for planet in self.planets.values()
+                                if planet.current_owner == factions[task.values[0]]
+                                or (
+                                    planet.event
+                                    and planet.event.faction == factions[task.values[0]]
+                                )
                             ]:
                                 self.planets[index].in_assignment = True
-                    case 11 | 13:
-                        if (
-                            self.planets[task.values[2]].event
-                            and self.planets[task.values[2]].event.type == 2
-                        ):
-                            continue
-                        else:
-                            self.planets[task.values[2]].in_assignment = True
-        else:
-            self.assignment = None
+                        case 12:
+                            if self.planet_events:
+                                if task.values[3] != 0:
+                                    self.planets[task.values[3]].in_assignment = True
+                                    continue
+                                for index in [
+                                    planet.index
+                                    for planet in self.planet_events
+                                    if planet.event.faction == factions[task.values[1]]
+                                ]:
+                                    self.planets[index].in_assignment = True
+                        case 11 | 13:
+                            if (
+                                self.planets[task.values[2]].event
+                                and self.planets[task.values[2]].event.type == 2
+                            ):
+                                continue
+                            else:
+                                self.planets[task.values[2]].in_assignment = True
 
         if self.__data__["campaigns"] not in ([], None):
             self.campaigns: list[Campaign] = sorted(
@@ -435,9 +435,12 @@ class Data(ReprMixin):
 
     def update_major_order_rates(self) -> None:
         """Update the changes in Major Order tasks"""
-        if self.assignment:
-            for index, task in enumerate(self.assignment.tasks, start=1):
-                self.major_order_changes.add_entry(key=index, value=task.progress_perc)
+        if self.assignments:
+            for assignment in self.assignments:
+                for index, task in enumerate(assignment.tasks, start=1):
+                    self.major_order_changes.add_entry(
+                        key=(assignment.id, index), value=task.progress_perc
+                    )
 
     def update_siege_fleet_health(self) -> None:
         """Update the changes in Siege Fleets health"""

@@ -1,5 +1,5 @@
 from asyncio import sleep
-from disnake import Forbidden, NotFound
+from disnake import Forbidden, NotFound, TextChannel
 from utils.db import GWWGuild
 from utils.interactables import WikiButton
 
@@ -125,9 +125,9 @@ class InterfaceHandler:
     async def send_news(self, news_type: str, embeds_dict: dict):
         self.busy = True
 
-        async def send_embed(channel, embed, components):
+        async def send_embeds(channel: TextChannel, embeds, components):
             try:
-                await channel.send(embed=embed, components=components)
+                await channel.send(embeds=embeds, components=components)
             except (NotFound, Forbidden) as e:
                 for channels_list in self.news_feeds.channels_dict.values():
                     if channel in channels_list:
@@ -161,7 +161,7 @@ class InterfaceHandler:
                 )
                 continue
             self.bot.loop.create_task(
-                send_embed(channel, embeds_dict[guild.language], components)
+                send_embeds(channel, embeds_dict[guild.language], components)
             )
             await sleep(0.03)
         self.busy = False

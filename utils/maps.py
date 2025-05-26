@@ -45,14 +45,14 @@ class Maps:
     async def update_base_map(
         self,
         planets: Planets,
-        assignment: Assignment,
+        assignments: list[Assignment],
         campaigns: list[Campaign],
         dss: DSS,
     ) -> None:
         await to_thread(self.update_sectors, planets=planets)
         self.update_waypoint_lines(planets=planets)
         self.update_assignment_tasks(
-            assignment=assignment,
+            assignments=assignments,
             planets=planets,
             campaigns=campaigns,
         )
@@ -115,46 +115,50 @@ class Maps:
 
     def update_assignment_tasks(
         self,
-        assignment: Assignment,
+        assignments: list[Assignment],
         planets: Planets,
         campaigns: list[Campaign] | list,
     ) -> None:
         with Image.open(fp=Maps.FileLocations.waypoints_map) as background:
-            if assignment:
-                background_draw = ImageDraw.Draw(im=background)
-                for task in assignment.tasks:
-                    if task.type in (11, 13):
-                        self._draw_ellipse(
-                            draw=background_draw,
-                            coords=planets[task.values[2]].map_waypoints,
-                            fill_colour=faction_colours["MO"],
-                        )
-                    elif task.type == 12 and (
-                        planet_events := [
-                            planet for planet in planets.values() if planet.event
-                        ]
-                    ):
-                        for planet in planet_events:
-                            if planet.event.faction == faction_mapping[task.values[1]]:
-                                self._draw_ellipse(
-                                    draw=background_draw,
-                                    coords=planet.map_waypoints,
-                                    fill_colour=faction_colours["MO"],
-                                )
-                    elif task.type == 2:
-                        self._draw_ellipse(
-                            draw=background_draw,
-                            coords=planets[task.values[8]].map_waypoints,
-                            fill_colour=faction_colours["MO"],
-                        )
-                    elif task.type == 3 and task.progress != 1:
-                        for campaign in campaigns:
-                            if campaign.faction == faction_mapping[task.values[0]]:
-                                self._draw_ellipse(
-                                    draw=background_draw,
-                                    coords=campaign.planet.map_waypoints,
-                                    fill_colour=faction_colours["MO"],
-                                )
+            if assignments:
+                for assignment in assignments:
+                    background_draw = ImageDraw.Draw(im=background)
+                    for task in assignment.tasks:
+                        if task.type in (11, 13):
+                            self._draw_ellipse(
+                                draw=background_draw,
+                                coords=planets[task.values[2]].map_waypoints,
+                                fill_colour=faction_colours["MO"],
+                            )
+                        elif task.type == 12 and (
+                            planet_events := [
+                                planet for planet in planets.values() if planet.event
+                            ]
+                        ):
+                            for planet in planet_events:
+                                if (
+                                    planet.event.faction
+                                    == faction_mapping[task.values[1]]
+                                ):
+                                    self._draw_ellipse(
+                                        draw=background_draw,
+                                        coords=planet.map_waypoints,
+                                        fill_colour=faction_colours["MO"],
+                                    )
+                        elif task.type == 2:
+                            self._draw_ellipse(
+                                draw=background_draw,
+                                coords=planets[task.values[8]].map_waypoints,
+                                fill_colour=faction_colours["MO"],
+                            )
+                        elif task.type == 3 and task.progress != 1:
+                            for campaign in campaigns:
+                                if campaign.faction == faction_mapping[task.values[0]]:
+                                    self._draw_ellipse(
+                                        draw=background_draw,
+                                        coords=campaign.planet.map_waypoints,
+                                        fill_colour=faction_colours["MO"],
+                                    )
         background.save(fp=Maps.FileLocations.assignment_map)
 
     def update_planets(self, planets: Planets, active_planets: list[int]) -> None:

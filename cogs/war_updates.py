@@ -199,7 +199,7 @@ class WarUpdatesCog(commands.Cog):
                 )
                 self.bot.maps.update_waypoint_lines(planets=self.bot.data.planets)
             self.bot.maps.update_assignment_tasks(
-                assignment=self.bot.data.assignment,
+                assignments=self.bot.data.assignments,
                 planets=self.bot.data.planets,
                 campaigns=self.bot.data.campaigns,
             )
