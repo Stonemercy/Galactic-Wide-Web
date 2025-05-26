@@ -136,7 +136,7 @@ class APIChangesLoopEmbed(Embed, EmbedReprMixin):
                 case "Region Regen":
                     self.add_field(
                         f"{faction_emoji} {change.planet.name} - Region: {change.after.name}",
-                        f"Region Regeneration: **{change.before.regen_per_hour}**%/hr {Emojis.Stratagems.right} **{change.after.regen_per_hour}**%/hr",
+                        f"Region Regeneration: **{change.before.regen_per_hour:.2f}**%/hr {Emojis.Stratagems.right} **{change.after.regen_per_hour:.2f}**%/hr",
                         inline=False,
                     )
 
