@@ -48,6 +48,10 @@ class BaseTracker(ReprMixin):
     def get_entry(self, key) -> BaseTrackerEntry | None:
         return self._raw_dict.get(key)
 
+    def remove_entry(self, key) -> None:
+        if key in self._raw_dict:
+            self._raw_dict.pop(key)
+
     def all_keys(self) -> list:
         return list(self._raw_dict.keys())
 

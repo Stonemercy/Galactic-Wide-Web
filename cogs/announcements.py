@@ -106,9 +106,11 @@ class AnnouncementsCog(commands.Cog):
                 if len(dispatch.message) < 25:
                     continue
                 embeds = {
-                    lang: DispatchesLoopEmbed(
-                        self.bot.json_dict["languages"][lang], dispatch
-                    )
+                    lang: [
+                        DispatchesLoopEmbed(
+                            self.bot.json_dict["languages"][lang], dispatch
+                        )
+                    ]
                     for lang in list({guild.language for guild in GWWGuild.get_all()})
                 }
                 await self.bot.interface_handler.send_news("Generic", embeds)
@@ -137,9 +139,11 @@ class AnnouncementsCog(commands.Cog):
         if last_patch_notes.id != self.bot.data.steam[0].id:
             languages = list({guild.language for guild in GWWGuild.get_all()})
             embeds = {
-                lang: SteamLoopEmbed(
-                    self.bot.data.steam[0], self.bot.json_dict["languages"][lang]
-                )
+                lang: [
+                    SteamLoopEmbed(
+                        self.bot.data.steam[0], self.bot.json_dict["languages"][lang]
+                    )
+                ]
                 for lang in languages
             }
             await self.bot.interface_handler.send_news("Patch", embeds)
@@ -218,12 +222,14 @@ class AnnouncementsCog(commands.Cog):
                     last_GE.save_changes()
                     continue
                 embeds = {
-                    lang: GlobalEventsLoopEmbed(
-                        self.bot.data.planets,
-                        self.bot.json_dict["languages"][lang],
-                        self.bot.json_dict["planet_effects"],
-                        global_event,
-                    )
+                    lang: [
+                        GlobalEventsLoopEmbed(
+                            self.bot.data.planets,
+                            self.bot.json_dict["languages"][lang],
+                            self.bot.json_dict["planet_effects"],
+                            global_event,
+                        )
+                    ]
                     for lang in list({guild.language for guild in GWWGuild.get_all()})
                 }
                 last_GE.id = global_event.id

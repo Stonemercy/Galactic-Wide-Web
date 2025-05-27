@@ -35,10 +35,12 @@ class WarUpdatesCog(commands.Cog):
         old_campaigns: list[Campaign] = Campaign.get_all()
         languages = list({guild.language for guild in GWWGuild.get_all()})
         embeds = {
-            lang: CampaignLoopEmbed(
-                language_json=self.bot.json_dict["languages"][lang],
-                planet_names_json=self.bot.json_dict["planets"],
-            )
+            lang: [
+                CampaignLoopEmbed(
+                    language_json=self.bot.json_dict["languages"][lang],
+                    planet_names_json=self.bot.json_dict["planets"],
+                )
+            ]
             for lang in languages
         }
         new_updates = False
@@ -92,8 +94,8 @@ class WarUpdatesCog(commands.Cog):
                                 previous_data_planet.event.end_time_datetime
                                 - update_start
                             ).total_seconds() / 3600
-                        for embed in embeds.values():
-                            embed.add_invasion_over(
+                        for embed_list in embeds.values():
+                            embed_list[0].add_invasion_over(
                                 planet=planet,
                                 faction=old_campaign.event_faction,
                                 hours_left=hours_left,
@@ -101,21 +103,21 @@ class WarUpdatesCog(commands.Cog):
                             )
                     else:
                         # if event wasnt invasion (territory taken)
-                        for embed in embeds.values():
-                            embed.add_def_victory(planet=planet)
+                        for embed_list in embeds.values():
+                            embed_list[0].add_def_victory(planet=planet)
 
                 # if owner has changed
                 if planet.current_owner != old_campaign.owner:
 
                     # if defence campaign loss
                     if old_campaign.owner == "Humans":
-                        for embed in embeds.values():
-                            embed.add_planet_lost(planet=planet)
+                        for embed_list in embeds.values():
+                            embed_list[0].add_planet_lost(planet=planet)
 
                     # if attack campaign win
                     elif planet.current_owner == "Humans":
-                        for embed in embeds.values():
-                            embed.add_campaign_victory(
+                        for embed_list in embeds.values():
+                            embed_list[0].add_campaign_victory(
                                 planet=planet, taken_from=old_campaign.owner
                             )
                 self.bot.data.liberation_changes.remove_entry(planet_index=planet.index)
@@ -142,8 +144,8 @@ class WarUpdatesCog(commands.Cog):
                     if not new_campaign.planet.event
                     else f"<t:{new_campaign.planet.event.end_time_datetime.timestamp():.0f}:R>"
                 )
-                for embed in embeds.values():
-                    embed.add_new_campaign(new_campaign, time_remaining)
+                for embed_list in embeds.values():
+                    embed_list[0].add_new_campaign(new_campaign, time_remaining)
                 Campaign.new(
                     id=new_campaign.id,
                     owner=new_campaign.planet.current_owner,
@@ -169,8 +171,8 @@ class WarUpdatesCog(commands.Cog):
 
             # if DSS has moved
             if last_dss_info.planet_index != self.bot.data.dss.planet.index:
-                for embed in embeds.values():
-                    embed.dss_moved(
+                for embed_list in embeds.values():
+                    embed_list[0].dss_moved(
                         before_planet=self.bot.data.planets[last_dss_info.planet_index],
                         after_planet=self.bot.data.dss.planet,
                     )
@@ -180,15 +182,15 @@ class WarUpdatesCog(commands.Cog):
             for index, ta in enumerate(self.bot.data.dss.tactical_actions, 1):
                 old_status = getattr(last_dss_info, f"ta{index}_status")
                 if old_status != ta.status:
-                    for embed in embeds.values():
-                        embed.ta_status_changed(ta)
+                    for embed_list in embeds.values():
+                        embed_list[0].ta_status_changed(ta)
                     setattr(last_dss_info, f"ta{index}_status", ta.status)
                     last_dss_info.save_changes()
                     new_updates = True
 
         if new_updates:
-            for embed in embeds.values():
-                embed.remove_empty()
+            for embed_list in embeds.values():
+                embed_list[0].remove_empty()
             await self.bot.interface_handler.send_news("Generic", embeds)
             self.bot.logger.info(
                 f"Sent war announcements out to {len(self.bot.interface_handler.news_feeds.channels_dict['Generic'])} channels"
