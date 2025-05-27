@@ -207,7 +207,7 @@ class MajorOrder(ReprMixin):
             with conn.cursor() as curs:
                 curs.execute(query="SELECT * FROM major_order")
                 record = curs.fetchone()
-                self.id = record[0]
+                self.ids: list = record[0]
 
     def save_changes(self) -> None:
         """Save any changes made to this entry"""
@@ -215,7 +215,7 @@ class MajorOrder(ReprMixin):
             host=hostname, dbname=database, user=username, password=pwd, port=port_id
         ) as conn:
             with conn.cursor() as curs:
-                curs.execute(query=f"UPDATE major_order SET id = {self.id}")
+                curs.execute(query=f"UPDATE major_order SET ids = ARRAY{self.ids}")
                 conn.commit()
 
 

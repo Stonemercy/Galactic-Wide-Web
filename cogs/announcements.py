@@ -37,9 +37,9 @@ class AnnouncementsCog(commands.Cog):
             or not self.bot.data.assignments
         ):
             return
-        last_MO = MajorOrder()
+        active_mo_ids = MajorOrder()
         for major_order in self.bot.data.assignments:
-            if last_MO.id < major_order.id:
+            if major_order.id not in active_mo_ids.ids:
                 embeds = {
                     lang: [
                         Dashboard.MajorOrderEmbed(
@@ -79,12 +79,17 @@ class AnnouncementsCog(commands.Cog):
                     self.bot.logger.info(
                         f"MO briefing not available for assignment {major_order.id}"
                     )
-                last_MO.id = major_order.id
-                last_MO.save_changes()
+                active_mo_ids.ids.append(major_order.id)
+                active_mo_ids.save_changes()
                 await self.bot.interface_handler.send_news("Generic", embeds)
                 self.bot.logger.info(
                     f"Sent MO announcements out to {len(self.bot.interface_handler.news_feeds.channels_dict['Generic'])} channels"
                 )
+        current_mo_ids = [mo.id for mo in self.bot.data.assignments]
+        for active_id in active_mo_ids.ids.copy():
+            if active_id not in current_mo_ids:
+                active_mo_ids.ids.remove(active_id)
+                active_mo_ids.save_changes()
 
     @major_order_check.before_loop
     async def before_mo_check(self):
