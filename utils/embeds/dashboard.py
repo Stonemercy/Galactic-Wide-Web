@@ -1020,9 +1020,12 @@ class Dashboard:
                             tactical_action.cost.progress,
                             "MO" if tactical_action.cost.progress != 1 else "Humans",
                         )
-                        status = {1: "preparing", 2: "active", 3: "on_cooldown"}[
-                            tactical_action.status
-                        ]
+                        status = {
+                            0: "active",
+                            1: "preparing",
+                            2: "active",
+                            3: "on_cooldown",
+                        }[tactical_action.status]
                         if status == "preparing":
                             submittable_formatted = language_json["dashboard"][
                                 "DSSEmbed"

@@ -632,7 +632,7 @@ class CampaignLoopEmbed(Embed, EmbedReprMixin):
         self.set_field_at(3, self.fields[3].name, description, inline=False)
 
     def ta_status_changed(self, tactical_action: DSS.TacticalAction):
-        statuses = {1: "preparing", 2: "active", 3: "on_cooldown"}
+        statuses = {0: "active", 1: "preparing", 2: "active", 3: "on_cooldown"}
         description = self.fields[3].value
         description += self.language_json["CampaignEmbed"]["dss"][
             "ta_status_change"
@@ -640,7 +640,7 @@ class CampaignLoopEmbed(Embed, EmbedReprMixin):
             emoji=getattr(Emojis.DSS, tactical_action.name.replace(" ", "_").lower()),
             ta_name=tactical_action.name,
             status=self.language_json["dashboard"]["DSSEmbed"][
-                statuses[tactical_action.status]
+                statuses.get(tactical_action.status, "active")
             ],
         )
         self.set_field_at(3, self.fields[3].name, description, inline=False)
