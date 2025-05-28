@@ -563,5 +563,10 @@
 		"galacticEffectId": 1278,
 		"name": "",
 		"description": "Ammunition Combat Loads will be reduced by 50%"
+	},
+	"1279": {
+		"galacticEffectId": 1279,
+		"name": "",
+		"description": "All Helldiver loadouts will be augmented with the Fast Recon Vehicle strategem for their missions."
 	}
 }
