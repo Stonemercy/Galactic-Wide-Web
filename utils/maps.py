@@ -60,7 +60,7 @@ class Maps:
             planets=planets,
             active_planets=[campaign.planet.index for campaign in campaigns],
         )
-        self.update_dss(dss=dss)
+        self.update_dss(dss=dss, type_3_campaigns=[c for c in campaigns if c.type == 3])
 
     def update_sectors(self, planets: Planets) -> None:
         valid_planets: list[Planet] = [
@@ -299,14 +299,17 @@ class Maps:
                         )
             background.save(fp=Maps.FileLocations.planets_map)
 
-    def update_dss(self, dss: DSS) -> None:
+    def update_dss(self, dss: DSS, type_3_campaigns: list[Campaign]) -> None:
         if dss and dss.flags == 1:
             with Image.open(
                 fp=Maps.FileLocations.planets_map
             ) as background, Image.open("resources/DSS.png") as dss_icon:
+                verti_diff = 130
+                if dss.planet.index in [c.planet.index for c in type_3_campaigns]:
+                    verti_diff += 100
                 dss_coords = (
                     int(dss.planet.map_waypoints[0]) - 17,
-                    int(dss.planet.map_waypoints[1]) - 130,
+                    int(dss.planet.map_waypoints[1]) - verti_diff,
                 )
                 background.paste(dss_icon, dss_coords, dss_icon)
                 background.save(fp=Maps.FileLocations.dss_map)

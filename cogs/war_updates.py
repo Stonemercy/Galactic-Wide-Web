@@ -211,7 +211,10 @@ class WarUpdatesCog(commands.Cog):
                     campaign.planet.index for campaign in self.bot.data.campaigns
                 ],
             )
-            self.bot.maps.update_dss(dss=self.bot.data.dss)
+            self.bot.maps.update_dss(
+                dss=self.bot.data.dss,
+                type_3_campaigns=[c for c in self.bot.data.campaigns if c.type == 3],
+            )
             for lang in self.bot.json_dict["languages"].values():
                 self.bot.maps.localize_map(
                     language_code_short=lang["code"],

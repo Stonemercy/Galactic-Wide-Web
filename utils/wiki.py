@@ -577,32 +577,41 @@ class Wiki:
                 )
                 for tactical_action in dss_data.tactical_actions:
                     tactical_action: DSS.TacticalAction
-                    ta_health_bar = health_bar(
-                        tactical_action.cost.progress,
-                        "MO" if tactical_action.cost.progress != 1 else "Humans",
-                    )
-                    status = {1: "preparing", 2: "active", 3: "on_cooldown"}[
-                        tactical_action.status
-                    ]
+                    status = {
+                        0: "inactive",
+                        1: "preparing",
+                        2: "active",
+                        3: "on_cooldown",
+                    }[tactical_action.status]
                     if status == "preparing":
-                        submittable_formatted = language_json["max_submitable"].format(
-                            emoji=getattr(
-                                Emojis.Items,
-                                tactical_action.cost.item.replace(" ", "_").lower(),
-                            ),
-                            number=f"{tactical_action.cost.max_per_seconds[0]:,}",
-                            item=tactical_action.cost.item,
-                            hours=f"{tactical_action.cost.max_per_seconds[1]/3600:.0f}",
-                        )
-                        cost = (
-                            f"{submittable_formatted}\n"
-                            f"{ta_health_bar}\n"
-                            f"`{tactical_action.cost.progress:^25.2%}`"
-                        )
+                        cost = ""
+                        for ta_cost in tactical_action.cost:
+                            submittable_formatted = language_json[
+                                "max_submitable"
+                            ].format(
+                                emoji=getattr(
+                                    Emojis.Items,
+                                    ta_cost.item.replace(" ", "_").lower(),
+                                ),
+                                number=f"{ta_cost.max_per_seconds[0]:,}",
+                                item=ta_cost.item,
+                                hours=f"{ta_cost.max_per_seconds[1]/3600:.0f}",
+                            )
+                            ta_cost_health_bar = health_bar(
+                                ta_cost.progress,
+                                "MO" if ta_cost.progress != 1 else "Humans",
+                            )
+                            cost = (
+                                f"{submittable_formatted}\n"
+                                f"{ta_cost_health_bar}\n"
+                                f"`{ta_cost.progress:^25.2%}`"
+                            )
                     elif status == "active":
                         cost = f"{language_json['ends']} <t:{int(tactical_action.status_end_datetime.timestamp())}:R>"
                     elif status == "on_cooldown":
                         cost = f"{language_json['off_cooldown'].capitalize()} <t:{int(tactical_action.status_end_datetime.timestamp())}:R>"
+                    else:
+                        continue
                     ta_long_description = tactical_action.strategic_description.replace(
                         ". ", ".\n-# "
                     )

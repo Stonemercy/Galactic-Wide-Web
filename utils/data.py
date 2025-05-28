@@ -978,9 +978,10 @@ class DSS(ReprMixin):
             self.strategic_description: str = steam_format(
                 content=tactical_action_raw_data["strategicDescription"]
             )
-            self.cost: DSS.TacticalAction.Cost = DSS.TacticalAction.Cost(
-                tactical_action_raw_data["cost"][0]
-            )
+            self.cost: list[DSS.TacticalAction.Cost] = [
+                DSS.TacticalAction.Cost(cost=cost)
+                for cost in tactical_action_raw_data["cost"]
+            ]
 
         class Cost(ReprMixin):
             def __init__(self, cost) -> None:

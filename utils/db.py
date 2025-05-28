@@ -357,6 +357,7 @@ class DSS(ReprMixin):
                 self.ta1_status: int = record[1]
                 self.ta2_status: int = record[2]
                 self.ta3_status: int = record[3]
+                self.ta4_status: int = record[4]
 
     def save_changes(self) -> None:
         """Save any changes made to this entry"""
@@ -365,7 +366,7 @@ class DSS(ReprMixin):
         ) as conn:
             with conn.cursor() as curs:
                 curs.execute(
-                    query=f"UPDATE dss SET planet_index = {self.planet_index}, ta1_status = {self.ta1_status}, ta2_status = {self.ta2_status}, ta3_status = {self.ta3_status}"
+                    query=f"UPDATE dss SET planet_index = {self.planet_index}, ta1_status = {self.ta1_status}, ta2_status = {self.ta2_status}, ta3_status = {self.ta3_status}, ta4_status = {self.ta4_status}"
                 )
                 conn.commit()
 
