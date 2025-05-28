@@ -553,5 +553,15 @@
 		"galacticEffectId": 1276,
 		"name": "EMERGENCY ARSENAL AUGMENTATION",
 		"description": "The Shield Generator Relay stratagem is temporarily available to all Helldivers."
+	},
+	"1277": {
+		"galacticEffectId": 1277,
+		"name": "WEAPONS EXPERIMENTATION",
+		"description": "The Orbital Napalm Barrage stratagem is available to all Helldivers."
+	},
+	"1278": {
+		"galacticEffectId": 1278,
+		"name": "",
+		"description": "Ammunition Combat Loads will be reduced by 50%"
 	}
 }
