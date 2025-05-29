@@ -744,7 +744,7 @@ class Dashboard:
                 if self.with_health_bars:
                     task_health_bar = (
                         f"\n{language_json['dashboard']['progress']}:\n"
-                        f"{health_bar(perc=planet.event.progress, race=planet.event.faction, reverse=True)} 🛡️\n"
+                        f"{planet.event.health_bar} 🛡️\n"
                         f"`{planet.event.progress:^25,.2%}`\n"
                     )
                 else:

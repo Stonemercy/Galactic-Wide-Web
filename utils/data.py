@@ -835,7 +835,7 @@ class Planet(ReprMixin):
         @property
         def health_bar(self) -> str:
             """Returns the health bar for the planet's event"""
-            return health_bar(perc=self.progress, race=self.faction, reverse=True)
+            return health_bar(perc=self.progress, race=self.faction)
 
     class Region(ReprMixin):
         def __init__(
