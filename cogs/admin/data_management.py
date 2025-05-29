@@ -144,8 +144,11 @@ class DataManagementCog(commands.Cog):
                     )
                 if planet.regions:
                     for region in planet.regions.values():
-                        new_region = new_data.regions[region.index]
-                        if region.regen_per_sec != new_region.regen_per_sec:
+                        new_region = new_data.regions.get(region.index, None)
+                        if (
+                            new_region
+                            and region.regen_per_sec != new_region.regen_per_sec
+                        ):
                             total_changes.append(
                                 APIChanges(
                                     planet=planet,
