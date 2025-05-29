@@ -358,9 +358,9 @@ class Data(ReprMixin):
                     self.planets[planet["planetIndex"]].event.potential_buildup = (
                         planet["potentialBuildUp"]
                     )
-                if planet["globalResourceId"] != 0:
+                if global_resource_id := planet.get("globalResourceId", None):
                     self.planets[planet["planetIndex"]].event.siege_fleet = (
-                        self.global_resources.get_by_id(planet["globalResourceId"])
+                        self.global_resources.get_by_id(global_resource_id)
                     )
                     if self.planets[planet["planetIndex"]].event.siege_fleet:
                         self.planets[
