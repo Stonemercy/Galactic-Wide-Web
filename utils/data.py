@@ -10,7 +10,7 @@ from data.lists import SpecialUnits
 from utils.emojis import Emojis
 from utils.functions import health_bar, steam_format
 from utils.mixins import ReprMixin
-from utils.trackers import BaseTracker, BaseTrackerEntry
+from utils.trackers import BaseTracker
 
 api = getenv(key="API")
 backup_api = getenv(key="BU_API")
@@ -463,27 +463,25 @@ class Data(ReprMixin):
 
     def get_needed_players(self) -> None:
         """Update the planets with their required helldivers for victory"""
-        now = datetime.now()
         if not self.planet_events:
             return
+        now = datetime.now()
         for planet in self.planet_events:
-            lib_changes: BaseTrackerEntry = self.liberation_changes.get_entry(
-                key=planet.index
-            )
+            lib_changes = self.liberation_changes.get_entry(key=planet.index)
             if lib_changes.change_rate_per_hour == 0:
                 continue
-            progress_needed = 100 - lib_changes.value
-            seconds_to_complete = int((progress_needed / lib_changes.value) * 3600)
             win_time = planet.event.end_time_datetime
             if planet.dss_in_orbit:
                 eagle_storm = self.dss.get_ta_by_name("EAGLE STORM")
                 win_time += timedelta(
                     seconds=(eagle_storm.status_end_datetime - now).total_seconds()
                 )
-            winning = now + timedelta(seconds=seconds_to_complete) < win_time
+            winning = (
+                now + timedelta(seconds=lib_changes.seconds_until_complete) < win_time
+            )
             if not winning:
                 hours_left = (win_time - now).total_seconds() / 3600
-                progress_needed_per_hour = progress_needed / hours_left
+                progress_needed_per_hour = (1 - lib_changes.value) / hours_left
                 amount_ratio = progress_needed_per_hour / lib_changes.value
                 required_players = planet.stats["playerCount"] * amount_ratio
                 planet.event.required_players = required_players
@@ -814,7 +812,8 @@ class Planet(ReprMixin):
             self.end_time_datetime: datetime = datetime.fromisoformat(
                 self.end_time
             ).replace(tzinfo=None) + timedelta(hours=1)
-            self.progress: float = self.health / self.max_health
+            self.progress: float = 1 - (self.health / self.max_health)
+            """A float from 0-1"""
             self.required_players: int = 0
             self.level: int = int(self.max_health / 50000)
             self.potential_buildup: int = 0
@@ -917,9 +916,9 @@ class Campaign(ReprMixin):
         self.type: int = raw_campaign_data["type"]
         self.count: int = raw_campaign_data["count"]
         self.progress: float = (
-            (1 - (self.planet.health / self.planet.max_health)) * 100
+            (1 - (self.planet.health / self.planet.max_health))
             if not self.planet.event
-            else (1 - (self.planet.event.progress)) * 100
+            else self.planet.event.progress
         )
         self.faction: str = (
             self.planet.event.faction

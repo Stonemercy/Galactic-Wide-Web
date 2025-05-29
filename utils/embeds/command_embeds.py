@@ -81,51 +81,44 @@ class PlanetCommandEmbed(Embed, EmbedReprMixin):
         outlook_text = ""
         required_players = ""
         liberation_text = ""
-        if liberation_changes.has_data:
-            liberation_change = liberation_changes.get_entry(key=planet.index)
-            if liberation_change:
-                now = datetime.now()
-                now_seconds = int(now.timestamp())
-                if liberation_change.change_rate_per_hour != 0:
-                    seconds_until_complete = int(
-                        (
-                            (100 - liberation_change.value)
-                            / liberation_change.change_rate_per_hour
-                        )
-                        * 3600
-                    )
-        else:
-            liberation_change = None
+        liberation_change = liberation_changes.get_entry(key=planet.index)
         if planet.event:
             planet_health_bar = (
                 health_bar(planet.event.progress, planet.event.faction, True)
                 + f" 🛡️ {getattr(Emojis.Factions, planet.event.faction.lower())}"
             )
             if liberation_change and liberation_change.change_rate_per_hour != 0:
+                estimated_end_timestamp = int(
+                    datetime.now().timestamp()
+                    + liberation_change.seconds_until_complete
+                )
                 winning = (
-                    datetime.fromtimestamp(now_seconds + seconds_until_complete)
+                    datetime.fromtimestamp(estimated_end_timestamp)
                     < planet.event.end_time_datetime
                 )
                 if winning:
-                    outlook_text = f"{language_json['dashboard']['outlook'].format(outlook=language_json['victory'])} <t:{now_seconds + seconds_until_complete}:R>\n"
+                    outlook_text = f"{language_json['dashboard']['outlook'].format(outlook=language_json['victory'])} <t:{estimated_end_timestamp}:R>\n"
                 else:
                     outlook_text = f"{language_json['dashboard']['outlook'].format(outlook=language_json['defeat'])}\n"
-                change = f"{liberation_change.change_rate_per_hour:+.2f}%/hour"
+                change = f"{liberation_change.change_rate_per_hour:+.2%}/hour"
                 liberation_text = f"\n`{change:^25}`"
                 if planet.event.required_players:
                     if 0 < planet.event.required_players < 2.5 * total_players:
-                        required_players = f"{language_json['dashboard']['DefenceEmbed']['players_required']}: **~{planet.event.required_players:,.0f}+**"
+                        required_players = f"\n{language_json['dashboard']['DefenceEmbed']['players_required']}: **~{planet.event.required_players:,.0f}+**"
                     else:
-                        if planet.event.start_time_datetime > now - timedelta(hours=1):
-                            required_players = f"{language_json['dashboard']['DefenceEmbed']['players_required']}: *Gathering Data*"
+                        if (
+                            planet.event.start_time_datetime
+                            > datetime.now() - timedelta(hours=1)
+                        ):
+                            required_players = f"\n{language_json['dashboard']['DefenceEmbed']['players_required']}: *Gathering Data*"
                         else:
-                            required_players = f"{language_json['dashboard']['DefenceEmbed']['players_required']}: **IMPOSSIBLE**"
-            health_text = f"{1 - planet.event.progress:^25,.2%}"
+                            required_players = f"\n{language_json['dashboard']['DefenceEmbed']['players_required']}: **IMPOSSIBLE**"
+            health_text = f"{planet.event.progress:^25,.2%}"
             self.add_field(
                 "",
                 (
                     f"{outlook_text}"
-                    f"Heroes: **{planet.stats['playerCount']:,}**\n"
+                    f"Heroes: **{planet.stats['playerCount']:,}**"
                     f"{required_players}"
                     f"\n{language_json['PlanetEmbed']['liberation_progress']}"
                     f"\n{planet_health_bar}"
@@ -136,6 +129,9 @@ class PlanetCommandEmbed(Embed, EmbedReprMixin):
                 inline=False,
             )
         else:
+            estimated_end_timestamp = int(
+                datetime.now().timestamp() + liberation_change.seconds_until_complete
+            )
             health_text = (
                 f"{1 - (planet.health_perc):^25,.2%}"
                 if planet.current_owner != "Humans"
@@ -149,7 +145,7 @@ class PlanetCommandEmbed(Embed, EmbedReprMixin):
             if liberation_change and liberation_change.change_rate_per_hour > 0:
                 change = f"{liberation_change.change_rate_per_hour:+.2f}%/hour"
                 liberation_text = f"\n`{change:^25}`"
-                outlook_text = f"{language_json['dashboard']['outlook'].format(outlook=language_json['victory'])} <t:{now_seconds + seconds_until_complete}:R>\n"
+                outlook_text = f"{language_json['dashboard']['outlook'].format(outlook=language_json['victory'])} <t:{estimated_end_timestamp}:R>\n"
             self.add_field(
                 "",
                 (

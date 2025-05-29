@@ -745,7 +745,7 @@ class Dashboard:
                     task_health_bar = (
                         f"\n{language_json['dashboard']['progress']}:\n"
                         f"{health_bar(perc=planet.event.progress, race=planet.event.faction, reverse=True)} 🛡️\n"
-                        f"`{1 - planet.event.progress:^25,.2%}`\n"
+                        f"`{planet.event.progress:^25,.2%}`\n"
                     )
                 else:
                     task_health_bar = ""
@@ -1330,14 +1330,13 @@ class Dashboard:
             outlook_text = ""
             required_players = ""
             liberation_text = ""
-            if self.liberation_changes.has_data:
-                liberation_change = self.liberation_changes.get_entry(planet.index)
+            if liberation_change := self.liberation_changes.get_entry(planet.index):
                 if planet.index in self.gambit_planets:
                     gambit_planet = self.gambit_planets[planet.index]
                     gambit_lib_change = self.liberation_changes.get_entry(
                         gambit_planet.index
                     )
-                if liberation_change and liberation_change.change_rate_per_hour != 0:
+                if liberation_change.change_rate_per_hour != 0:
                     now_seconds = int(self.now.timestamp())
                     if (
                         planet.index in self.gambit_planets
