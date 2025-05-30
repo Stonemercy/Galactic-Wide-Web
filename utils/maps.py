@@ -415,11 +415,9 @@ class Maps:
                 name_text = planet_names_json[str(index)]["names"][
                     language_code
                 ].replace(" ", "\n")
-                if (
-                    (planet.event and planet.event.siege_fleet)
-                    or planet.dss_in_orbit
-                    or planet.index in [c.planet.index for c in type_3_campaigns]
-                ):
+                if (planet.event and planet.event.siege_fleet) or planet.index in [
+                    c.planet.index for c in type_3_campaigns
+                ]:
                     xy = (planet.map_waypoints[0], planet.map_waypoints[1] - 50)
                 else:
                     xy = planet.map_waypoints
