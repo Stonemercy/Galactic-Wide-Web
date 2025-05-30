@@ -129,9 +129,6 @@ class PlanetCommandEmbed(Embed, EmbedReprMixin):
                 inline=False,
             )
         else:
-            estimated_end_timestamp = int(
-                datetime.now().timestamp() + liberation_change.seconds_until_complete
-            )
             health_text = (
                 f"{1 - (planet.health_perc):^25,.2%}"
                 if planet.current_owner != "Humans"
@@ -143,6 +140,10 @@ class PlanetCommandEmbed(Embed, EmbedReprMixin):
                 True if planet.current_owner != "Humans" else False,
             )
             if liberation_change and liberation_change.change_rate_per_hour > 0:
+                estimated_end_timestamp = int(
+                    datetime.now().timestamp()
+                    + liberation_change.seconds_until_complete
+                )
                 change = f"{liberation_change.change_rate_per_hour:+.2f}%/hour"
                 liberation_text = f"\n`{change:^25}`"
                 outlook_text = f"{language_json['dashboard']['outlook'].format(outlook=language_json['victory'])} <t:{estimated_end_timestamp}:R>\n"
