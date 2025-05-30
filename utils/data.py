@@ -286,6 +286,8 @@ class Data(ReprMixin):
                                 continue
                             else:
                                 self.planets[task.values[2]].in_assignment = True
+        else:
+            self.assignments = []
 
         if self.__data__["campaigns"] not in ([], None):
             self.campaigns: list[Campaign] = sorted(
