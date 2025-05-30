@@ -1436,9 +1436,8 @@ class Dashboard:
         def add_event_type_2(self, planet: Planet):
             feature_text = ""
             outlook_text = ""
-            if self.liberation_changes.has_data:
-                liberation_change = self.liberation_changes.get_entry(planet.index)
-                if liberation_change and liberation_change.change_rate_per_hour != 0:
+            if liberation_change := self.liberation_changes.get_entry(planet.index):
+                if liberation_change.change_rate_per_hour != 0:
                     now_seconds = int(self.now.timestamp())
                     win_time = planet.event.end_time_datetime
                     winning = (
@@ -1576,19 +1575,19 @@ class Dashboard:
                     time_to_complete = ""
                     change = ""
                     liberation_text = ""
-                    if liberation_changes.has_data:
-                        liberation_change = liberation_changes.get_entry(
-                            campaign.planet.index
-                        )
-                        if liberation_change:
+                    if liberation_change := liberation_changes.get_entry(
+                        key=campaign.planet.index
+                    ):
+                        if liberation_change.change_rate_per_hour > 0.01:
                             now_seconds = int(datetime.now().timestamp())
-                            if liberation_change.change_rate_per_hour > 0.01:
-                                time_to_complete = f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['victory'])} <t:{now_seconds + liberation_change.seconds_until_complete}:R>"
-                                change = f"{liberation_change.change_rate_per_hour:+.2%}/hour"
-                                liberation_text = f"\n`{change:^25}`"
-                            else:
-                                skipped_campaigns.append(campaign)
-                                continue
+                            time_to_complete = f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['victory'])} <t:{now_seconds + liberation_change.seconds_until_complete}:R>"
+                            change = (
+                                f"{liberation_change.change_rate_per_hour:+.2%}/hour"
+                            )
+                            liberation_text = f"\n`{change:^25}`"
+                        else:
+                            skipped_campaigns.append(campaign)
+                            continue
 
                     exclamation = campaign.planet.exclamations
                     if campaign.planet.regen_perc_per_hour <= 0.25:

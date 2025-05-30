@@ -36,7 +36,6 @@ class BaseTrackerEntry(ReprMixin):
 class BaseTracker(ReprMixin):
     def __init__(self) -> None:
         self._raw_dict: dict | dict[Any, BaseTrackerEntry] = {}
-        self.has_data: bool = False
 
     def add_entry(self, key, value) -> None:
         if key not in self._raw_dict:
