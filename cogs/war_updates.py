@@ -120,7 +120,7 @@ class WarUpdatesCog(commands.Cog):
                             embed_list[0].add_campaign_victory(
                                 planet=planet, taken_from=old_campaign.owner
                             )
-                self.bot.data.liberation_changes.remove_entry(planet_index=planet.index)
+                self.bot.data.liberation_changes.remove_entry(key=planet.index)
                 Campaign.delete(old_campaign.id)
                 new_updates = True
                 need_to_update_sectors = True
