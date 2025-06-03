@@ -83,8 +83,7 @@ class AdminCommandsCog(commands.Cog):
         self.bot.logger.critical(
             msg=f"{self.qualified_name} | /{inter.application_command.name} <{file_name = }> | used by <@{inter.author.id}> | @{inter.author.global_name}"
         )
-        possible_paths = [f"cogs.{file_name}", f"cogs.admin.{file_name}"]
-        for path in possible_paths:
+        for path in [f"cogs.{file_name}", f"cogs.admin.{file_name}"]:
             try:
                 self.bot.reload_extension(name=path)
                 await inter.send(
@@ -101,21 +100,6 @@ class AdminCommandsCog(commands.Cog):
         await inter.send(
             content=f":warning: No matching extension found for `{file_name}` in `cogs/` or `cogs/admin/`."
         )
-
-    @wait_for_startup()
-    @commands.is_owner()
-    @commands.slash_command(
-        guild_ids=SUPPORT_SERVER_ID,
-        description="Restarts the bot",
-        default_member_permissions=Permissions(administrator=True),
-    )
-    async def restart_bot(
-        self,
-        inter: AppCmdInter,
-    ):
-        await inter.send(content="Restarting the bot...", ephemeral=True)
-        python = executable
-        execv(python, [python] + argv)
 
     @wait_for_startup()
     @commands.is_owner()
