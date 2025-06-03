@@ -42,6 +42,10 @@ class GalacticWideWebBot(commands.AutoShardedInteractionBot):
         self.api_changes_channel: TextChannel | None = None
         self.maps = Maps()
 
+    @property
+    def time_until_ready(self) -> int:
+        return int((self.ready_time - datetime.now()).total_seconds())
+
     async def on_ready(self) -> None:
         await self.get_channels()
         self.logger.info(

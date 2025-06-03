@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import timedelta
 from sys import exc_info
 from disnake import AppCmdInter
 from disnake.ext import commands
@@ -17,15 +17,17 @@ class ErrorHandlerCog(commands.Cog):
         if hasattr(inter.application_command, "on_error"):
             return
         if isinstance(error, commands.CheckFailure):
-            now = datetime.now()
-            if now < self.bot.ready_time:
+            if (
+                inter.created_at.replace(tzinfo=None) + timedelta(hours=1)
+                < self.bot.ready_time
+            ):
                 await inter.send(
                     content=(
-                        f"Please wait {int((self.bot.ready_time - now).total_seconds())} seconds to use this.\n"
+                        f"Please wait {self.bot.time_until_ready} seconds to use this.\n"
                         f"Ready <t:{int(self.bot.ready_time.timestamp())}:R>"
                     ),
                     ephemeral=True,
-                    delete_after=int((self.bot.ready_time - now).total_seconds()),
+                    delete_after=self.bot.time_until_ready,
                 )
                 return
         elif isinstance(error, commands.NotOwner):
