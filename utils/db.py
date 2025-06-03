@@ -7,12 +7,12 @@ from psycopg2 import connect
 from typing import Self
 from utils.mixins import ReprMixin
 
-load_dotenv(dotenv_path="data/.env")
-hostname = getenv(key="DB_hostname")
+load_dotenv(dotenv_path=".env")
+hostname = getenv(key="DB_HOSTNAME")
 database = getenv(key="DB_NAME")
-username = getenv(key="DB_username")
-pwd = getenv(key="DB_pwd")
-port_id = getenv(key="DB_port_id")
+username = getenv(key="DB_USERNAME")
+pwd = getenv(key="DB_PWD")
+port_id = getenv(key="DB_PORT_ID")
 
 
 class GWWGuild(ReprMixin):

@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 from disnake import Activity, ActivityType, Intents, TextChannel
 from disnake.ext import commands
 from json import load
-from logging import INFO, FileHandler, Formatter, getLogger
+from logging import INFO, Formatter, StreamHandler, getLogger
 from os import getenv, listdir
 from utils.data import Data
 from utils.interface_handler import InterfaceHandler
@@ -23,7 +23,8 @@ class GalacticWideWebBot(commands.AutoShardedInteractionBot):
         )
         self.logger = getLogger()
         self.logger.setLevel(level=INFO)
-        handler = FileHandler(filename="bot.log", encoding="utf-8", mode="w")
+        self.logger.handlers.clear()
+        handler = StreamHandler()
         handler.setFormatter(
             fmt=Formatter("%(asctime)s - %(levelname)s - %(name)s - %(message)s")
         )
@@ -46,8 +47,6 @@ class GalacticWideWebBot(commands.AutoShardedInteractionBot):
         self.logger.info(
             msg=f"Loaded {len(self.cogs)}/{len([f for f in listdir('cogs') if f.endswith('.py')]) + len([f for f in listdir('cogs/admin') if f.endswith('.py')])} cogs successfully"
         )
-        self.owner = [owner for owner in self.owners][0]
-        self.owner_id = self.owner.id
 
     def load_json(self) -> None:
         for key, values in self.json_dict.copy().items():

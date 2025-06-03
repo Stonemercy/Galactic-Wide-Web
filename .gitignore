@@ -1,5 +1,5 @@
 *.env
-env/
+.venv/
 *.log
 *.code-workspace
 .vscode/
