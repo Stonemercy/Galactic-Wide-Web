@@ -199,11 +199,11 @@
     "factions": {
         "1": "Humans",
         "2": "Terminids",
-        "3": "Automaton",
+        "3": "Automatons",
         "4": "Illuminate",
         "Humans": "Humans",
         "Terminids": "Terminids",
-        "Automaton": "Automaton",
+        "Automaton": "Automatons",
         "Illuminate": "Illuminate"
     },
     "difficulty": {
