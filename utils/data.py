@@ -485,7 +485,9 @@ class Data(ReprMixin):
             if not winning:
                 hours_left = (win_time - now).total_seconds() / 3600
                 progress_needed_per_hour = (1 - lib_changes.value) / hours_left
-                amount_ratio = progress_needed_per_hour / lib_changes.value
+                amount_ratio = (
+                    progress_needed_per_hour / lib_changes.change_rate_per_hour
+                )
                 required_players = planet.stats["playerCount"] * amount_ratio
                 planet.event.required_players = required_players
 
