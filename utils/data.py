@@ -475,9 +475,10 @@ class Data(ReprMixin):
             win_time = planet.event.end_time_datetime
             if planet.dss_in_orbit:
                 eagle_storm = self.dss.get_ta_by_name("EAGLE STORM")
-                win_time += timedelta(
-                    seconds=(eagle_storm.status_end_datetime - now).total_seconds()
-                )
+                if eagle_storm and eagle_storm.status == 2:
+                    win_time += timedelta(
+                        seconds=(eagle_storm.status_end_datetime - now).total_seconds()
+                    )
             winning = (
                 now + timedelta(seconds=lib_changes.seconds_until_complete) < win_time
             )
