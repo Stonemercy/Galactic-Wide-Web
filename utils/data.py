@@ -395,7 +395,7 @@ class Data(ReprMixin):
                     for defending_index in campaign.planet.attack_targets:
                         defending_planet = self.planets[defending_index]
                         if (
-                            len(defending_planet.defending_from) < 2
+                            len(defending_planet.defending_from) == 1
                             and defending_planet.event
                         ):
                             self.gambit_planets[defending_index] = campaign.planet
