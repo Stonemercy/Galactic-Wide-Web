@@ -1,3 +1,4 @@
+from html import unescape
 from math import floor
 from re import sub
 from utils.emojis import Emojis
@@ -38,7 +39,9 @@ def short_format(num):
 
 
 def steam_format(content: str):
+    content = unescape(content)
     replacements = {
+        "\n\n": ["[p][/p]"],
         "": [
             "[/h1]",
             "[/h2]",
@@ -51,6 +54,8 @@ def steam_format(content: str):
             "[list]\n",
             "[/list]",
             "[/*]",
+            "[p]",
+            "[/p]",
         ],
         "# ": ["[h1]"],
         "## ": ["[h2]"],
@@ -66,12 +71,18 @@ def steam_format(content: str):
             content = content.replace(replacee, replacement)
     content = sub(r"\[url=(.+?)](.+?)\[/url\]", r"[\2]\(\1\)", content)
     content = sub(r"\[img\](.*?)\[\/img\]", r"", content)
+    content = sub(r'\[img src="(.*?)"\](?:\[/img\])?', "\n", content)
+    content = sub(r"\[img\](.*?\..{3,4})\[/img\]\n\n", "", content)
     content = sub(
         r"\[previewyoutube=(.+);full\]\[/previewyoutube\]",
         "[YouTube](https://www.youtube.com/watch?v=" + r"\1)",
         content,
     )
-    content = sub(r"\[img\](.*?\..{3,4})\[/img\]\n\n", "", content)
+    content = sub(
+        r'\[previewyoutube="([\w\-]+);.*?"\](?:\[/previewyoutube\])?',
+        lambda m: f"[Watch Video](https://www.youtube.com/watch?v={m.group(1)})\n\n",
+        content,
+    )
     return content
 
 
