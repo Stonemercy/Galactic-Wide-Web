@@ -384,6 +384,7 @@ class Data(ReprMixin):
                 source_planet.attack_targets.append(target_planet.index)
                 target_planet.defending_from.append(source_planet.index)
 
+            self.gambit_planets.clear()
             for campaign in self.campaigns:
                 if (
                     campaign.planet.current_owner == "Humans"
