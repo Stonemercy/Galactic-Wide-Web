@@ -59,10 +59,10 @@ class GuildManagementCog(commands.Cog):
         channel = self.bot.get_channel(
             bot_dashboard.channel_id
         ) or await self.bot.fetch_channel(bot_dashboard.channel_id)
-        if bot_dashboard.message_id == 0:
-            message = await channel.send(content="Placeholder message, please ignore.")
-            bot_dashboard.message_id = message.id
-            bot_dashboard.save_changes()
+        if not channel:
+            await self.bot.moderator_channel.send(
+                f"@stonemercy\nbot_dashboard channel returned {channel}"
+            )
         else:
             now = datetime.now()
             if now.minute == 0 or now - timedelta(minutes=2) < self.bot.startup_time:
