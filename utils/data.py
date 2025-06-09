@@ -972,6 +972,7 @@ class DSS(ReprMixin):
     class TacticalAction(ReprMixin):
         def __init__(self, tactical_action_raw_data: dict, war_start_time: int) -> None:
             """A Tactical Action for the DSS"""
+            self.id: int = tactical_action_raw_data["id32"]
             self.name: str = tactical_action_raw_data["name"]
             self.description: str = tactical_action_raw_data["description"]
             self.status: int = tactical_action_raw_data["status"]

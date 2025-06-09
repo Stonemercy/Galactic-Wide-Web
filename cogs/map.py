@@ -13,7 +13,7 @@ from disnake import (
 from disnake.ext import commands, tasks
 from main import GalacticWideWebBot
 from utils.checks import wait_for_startup
-from utils.db import GWWGuild
+from utils.dbv2 import GWWGuild, GWWGuilds
 from utils.maps import Maps
 
 
@@ -40,16 +40,14 @@ class MapCog(commands.Cog):
             )
         except:
             pass
-        map_embeds = {
-            code: Embed(colour=Colour.dark_embed())
-            for code in self.bot.json_dict["languages"]
-        }
+        unique_langs = GWWGuilds().unique_languages
+        map_embeds = {lang: Embed(colour=Colour.dark_embed()) for lang in unique_langs}
         fifteen_minutes_ago = datetime.now() - timedelta(minutes=15)
         need_to_update_maps = not all(
             [
-                code in self.bot.maps.latest_maps
-                and self.bot.maps.latest_maps[code].updated_at > fifteen_minutes_ago
-                for code in self.bot.json_dict["languages"]
+                lang in self.bot.maps.latest_maps
+                and self.bot.maps.latest_maps[lang].updated_at > fifteen_minutes_ago
+                for lang in unique_langs
             ]
         )
         if need_to_update_maps:
@@ -85,7 +83,7 @@ class MapCog(commands.Cog):
             latest_map = self.bot.maps.latest_maps[language_code]
             embed.set_image(url=latest_map.map_link)
             embed.add_field("", f"-# Updated <t:{int(datetime.now().timestamp())}:R>")
-        await self.bot.interface_handler.edit_maps(map_dict=map_embeds)
+        await self.bot.interface_handler.send_feature("maps", map_embeds)
         self.bot.logger.info(
             f"Updated {len(self.bot.interface_handler.maps)} maps in {(datetime.now()-maps_start).total_seconds():.2f} seconds"
         )
@@ -125,12 +123,12 @@ class MapCog(commands.Cog):
             )
             return
         if inter.guild:
-            guild = GWWGuild.get_by_id(inter.guild_id)
+            guild = GWWGuilds.get_specific_guild(id=inter.guild_id)
             if not guild:
                 self.bot.logger.error(
                     msg=f"Guild {inter.guild_id} - {inter.guild.name} - had the bot installed but wasn't found in the DB"
                 )
-                guild = GWWGuild.new(inter.guild_id)
+                guild = GWWGuilds.add(inter.guild_id, "en", [])
         else:
             guild = GWWGuild.default()
         latest_map = self.bot.maps.latest_maps.get(guild.language, None)

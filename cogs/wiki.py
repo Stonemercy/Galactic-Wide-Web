@@ -11,7 +11,7 @@ from disnake import (
 from disnake.ext import commands
 from main import GalacticWideWebBot
 from utils.checks import wait_for_startup
-from utils.db import GWWGuild
+from utils.dbv2 import GWWGuild, GWWGuilds
 from utils.wiki import Wiki
 
 
@@ -45,12 +45,12 @@ class WikiCog(commands.Cog):
             f"{self.qualified_name} | /{inter.application_command.name}"
         )
         if inter.guild:
-            guild = GWWGuild.get_by_id(inter.guild_id)
+            guild = GWWGuilds.get_specific_guild(id=inter.guild_id)
             if not guild:
                 self.bot.logger.error(
                     msg=f"Guild {inter.guild_id} - {inter.guild.name} - had the bot installed but wasn't found in the DB"
                 )
-                guild = GWWGuild.new(inter.guild_id)
+                guild = GWWGuilds.add(inter.guild_id, "en", [])
         else:
             guild = GWWGuild.default()
         guild_language = self.bot.json_dict["languages"][guild.language]
@@ -84,7 +84,12 @@ class WikiCog(commands.Cog):
         if comp_id not in allowed_ids and comp_id[-10:] not in allowed_ids:
             return
         if inter.guild:
-            guild = GWWGuild.get_by_id(guild_id=inter.guild.id)
+            guild = GWWGuilds.get_specific_guild(id=inter.guild_id)
+            if not guild:
+                self.bot.logger.error(
+                    msg=f"Guild {inter.guild_id} - {inter.guild.name} - had the bot installed but wasn't found in the DB"
+                )
+                guild = GWWGuilds.add(inter.guild_id, "en", [])
         else:
             guild = GWWGuild.default()
         guild_language = self.bot.json_dict["languages"][guild.language]
@@ -369,7 +374,12 @@ class WikiCog(commands.Cog):
         if comp_id not in allowed_ids and comp_id[:-1] not in allowed_ids:
             return
         if inter.guild:
-            guild = GWWGuild.get_by_id(guild_id=inter.guild.id)
+            guild = GWWGuilds.get_specific_guild(id=inter.guild_id)
+            if not guild:
+                self.bot.logger.error(
+                    msg=f"Guild {inter.guild_id} - {inter.guild.name} - had the bot installed but wasn't found in the DB"
+                )
+                guild = GWWGuilds.add(inter.guild_id, "en", [])
         else:
             guild = GWWGuild.default()
         guild_language = self.bot.json_dict["languages"][guild.language]
