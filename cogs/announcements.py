@@ -108,7 +108,7 @@ class AnnouncementsCog(commands.Cog):
         last_dispatch = Dispatch()
         for dispatch in self.bot.data.dispatches:
             if last_dispatch.id < dispatch.id:
-                if len(dispatch.message) < 25:
+                if len(dispatch.message) < 5:
                     continue
                 embeds = {
                     lang: [
