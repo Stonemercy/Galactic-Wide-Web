@@ -98,14 +98,15 @@ class AdminCommandsCog(commands.Cog):
                 )
                 return
         await inter.send(
-            content=f":warning: No matching extension found for `{file_name}` in `cogs/` or `cogs/admin/`."
+            content=f":warning: No matching extension found for `{file_name}` in `cogs/` or `cogs/admin/`.",
+            ephemeral=True,
         )
 
     @wait_for_startup()
     @commands.is_owner()
     @commands.slash_command(
         guild_ids=SUPPORT_SERVER_ID,
-        description="Fake a event for the bot",
+        description="Fake an event for the bot",
         default_member_permissions=Permissions(administrator=True),
     )
     async def fake_event(
@@ -177,7 +178,7 @@ class AdminCommandsCog(commands.Cog):
                     )
                     if guild_owner:
                         await guild_owner.send(
-                            f"Unfortunately there was an error on our end that resulted in your server settings (for this bot) being reset.\nReason:\n-# {reason}"
+                            content=f"Unfortunately there was an error on our end that resulted in your server settings (for this bot) being reset.\nReason:\n-# {reason}"
                         )
                 return
         await inter.send(f"Didn't find a guild with `{id_to_check}` in it's ID's")
