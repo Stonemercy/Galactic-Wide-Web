@@ -139,6 +139,12 @@ class APIChangesLoopEmbed(Embed, EmbedReprMixin):
                         f"Region Regeneration: **{change.before.regen_per_hour:.2f}**%/hr {Emojis.Stratagems.right} **{change.after.regen_per_hour:.2f}**%/hr",
                         inline=False,
                     )
+                case "Planet Owner":
+                    self.add_field(
+                        f"{faction_emoji} {change.planet.name}",
+                        f"Planet Owner: **{change.before}** {Emojis.Stratagems.right} **{change.after}**",
+                        inline=False,
+                    )
 
 
 class PersonalOrderLoopEmbed(Embed, EmbedReprMixin):

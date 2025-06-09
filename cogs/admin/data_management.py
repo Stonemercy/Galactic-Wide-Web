@@ -157,6 +157,15 @@ class DataManagementCog(commands.Cog):
                                     after=new_region,
                                 )
                             )
+                if planet.current_owner != new_data.current_owner:
+                    total_changes.append(
+                        APIChanges(
+                            planet=planet,
+                            statistic="Planet Owner",
+                            before=planet.current_owner,
+                            after=new_data.current_owner,
+                        )
+                    )
             active_effects = {
                 str(e)
                 for planet in self.bot.data.planets.values()
