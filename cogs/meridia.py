@@ -12,8 +12,7 @@ from main import GalacticWideWebBot
 from math import sqrt
 from numpy import array, hypot
 from utils.checks import wait_for_startup
-from utils.db import Meridia
-from utils.dbv2 import GWWGuild, GWWGuilds
+from utils.db import GWWGuild, Meridia
 from utils.embeds.command_embeds import MeridiaCommandEmbed
 import matplotlib.pyplot as plt
 import PIL.Image as Image
@@ -87,12 +86,12 @@ class MeridiaCog(commands.Cog):
             f"{self.qualified_name} | /{inter.application_command.name} <{public = }>"
         )
         if inter.guild:
-            guild = GWWGuilds.get_specific_guild(id=inter.guild_id)
+            guild = GWWGuild.get_by_id(inter.guild_id)
             if not guild:
                 self.bot.logger.error(
                     msg=f"Guild {inter.guild_id} - {inter.guild.name} - had the bot installed but wasn't found in the DB"
                 )
-                guild = GWWGuilds.add(inter.guild_id, "en", [])
+                guild = GWWGuild.new(inter.guild_id)
         else:
             guild = GWWGuild.default()
         map_img = Image.open(f"resources/maps/{guild.language}.webp")

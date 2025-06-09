@@ -1,7 +1,7 @@
 from datetime import datetime, time
 from disnake.ext import commands, tasks
 from main import GalacticWideWebBot
-from utils.dbv2 import GWWGuilds
+from utils.db import GWWGuild
 from utils.embeds.dashboard import Dashboard
 
 
@@ -28,14 +28,13 @@ class DashboardCog(commands.Cog):
             or dashboards_start < self.bot.ready_time
         ):
             return
-        unique_langs = GWWGuilds().unique_languages
         dashboards = {
             lang: Dashboard(
                 data=self.bot.data,
                 language_code=lang,
                 json_dict=self.bot.json_dict,
             )
-            for lang in unique_langs
+            for lang in list({guild.language for guild in GWWGuild.get_all()})
         }
         for lang, dashboard in dashboards.copy().items():
             if dashboard.character_count() > 6000:
@@ -45,7 +44,7 @@ class DashboardCog(commands.Cog):
                     json_dict=self.bot.json_dict,
                     with_health_bars=False,
                 )
-        await self.bot.interface_handler.send_feature("dashboards", dashboards)
+        await self.bot.interface_handler.edit_dashboards(dashboards)
         self.bot.logger.info(
             f"Updated {len(self.bot.interface_handler.dashboards)} dashboards in {(datetime.now()-dashboards_start).total_seconds():.2f} seconds"
         )

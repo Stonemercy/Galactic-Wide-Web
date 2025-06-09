@@ -1,7 +1,7 @@
 from datetime import datetime, time
 from disnake.ext import commands, tasks
 from main import GalacticWideWebBot
-from utils.dbv2 import WarInfo, GWWGuilds
+from utils.db import GlobalEvent, Steam, GWWGuild, MajorOrder, Dispatch
 from utils.embeds.dashboard import Dashboard
 from utils.embeds.loop_embeds import (
     DispatchesLoopEmbed,
@@ -37,15 +37,9 @@ class AnnouncementsCog(commands.Cog):
             or not self.bot.data.assignments
         ):
             return
-        current_war_info = WarInfo()
-        if current_war_info.major_order_ids == None:
-            await self.bot.moderator_channel.send(
-                "# No major order IDs found in the database. Please check the war info table."
-            )
-            return
+        active_mo_ids = MajorOrder()
         for major_order in self.bot.data.assignments:
-            if major_order.id not in current_war_info.major_order_ids:
-                unique_langs = GWWGuilds().unique_languages
+            if major_order.id not in active_mo_ids.ids:
                 embeds = {
                     lang: [
                         Dashboard.MajorOrderEmbed(
@@ -58,7 +52,7 @@ class AnnouncementsCog(commands.Cog):
                             with_health_bars=True,
                         )
                     ]
-                    for lang in unique_langs
+                    for lang in list({guild.language for guild in GWWGuild.get_all()})
                 }
                 mo_briefing = [
                     ge
@@ -85,19 +79,17 @@ class AnnouncementsCog(commands.Cog):
                     self.bot.logger.info(
                         f"MO briefing not available for assignment {major_order.id}"
                     )
-                current_war_info.major_order_ids.append(major_order.id)
-                current_war_info.save_changes()
-                await self.bot.interface_handler.send_feature(
-                    "war_announcements", embeds, "MO"
-                )
+                active_mo_ids.ids.append(major_order.id)
+                active_mo_ids.save_changes()
+                await self.bot.interface_handler.send_news("Generic", embeds)
                 self.bot.logger.info(
-                    f"Sent MO announcements out to {len(self.bot.interface_handler.major_order_updates)} channels"
+                    f"Sent MO announcements out to {len(self.bot.interface_handler.news_feeds.channels_dict['Generic'])} channels"
                 )
         current_mo_ids = [mo.id for mo in self.bot.data.assignments]
-        for active_id in current_war_info.major_order_ids.copy():
+        for active_id in active_mo_ids.ids.copy():
             if active_id not in current_mo_ids:
-                current_war_info.major_order_ids.remove(active_id)
-                current_war_info.save_changes()
+                active_mo_ids.ids.remove(active_id)
+                active_mo_ids.save_changes()
 
     @major_order_check.before_loop
     async def before_mo_check(self):
@@ -113,32 +105,24 @@ class AnnouncementsCog(commands.Cog):
             or self.bot.interface_handler.busy
         ):
             return
-        current_war_info = WarInfo()
-        if not current_war_info.dispatch_id:
-            await self.bot.moderator_channel.send(
-                "# No dispatch ID found in the database. Please check the war info table."
-            )
-            return
+        last_dispatch = Dispatch()
         for dispatch in self.bot.data.dispatches:
-            if current_war_info.dispatch_id < dispatch.id:
+            if last_dispatch.id < dispatch.id:
                 if len(dispatch.message) < 5:
                     continue
-                unique_langs = GWWGuilds().unique_languages
                 embeds = {
                     lang: [
                         DispatchesLoopEmbed(
                             self.bot.json_dict["languages"][lang], dispatch
                         )
                     ]
-                    for lang in unique_langs
+                    for lang in list({guild.language for guild in GWWGuild.get_all()})
                 }
-                await self.bot.interface_handler.send_feature(
-                    "war_announcements", embeds
-                )
-                current_war_info.dispatch_id = dispatch.id
-                current_war_info.save_changes()
+                await self.bot.interface_handler.send_news("Generic", embeds)
+                last_dispatch.id = dispatch.id
+                last_dispatch.save_changes()
                 self.bot.logger.info(
-                    f"Sent dispatch out to {len(self.bot.interface_handler.war_announcements)} channels"
+                    f"Sent generic announcements out to {len(self.bot.interface_handler.news_feeds.channels_dict['Generic'])} channels"
                 )
                 return
 
@@ -156,22 +140,22 @@ class AnnouncementsCog(commands.Cog):
             or self.bot.interface_handler.busy
         ):
             return
-        current_war_info = WarInfo()
-        if current_war_info.patch_notes_id != self.bot.data.steam[0].id:
-            unique_langs = GWWGuilds().unique_languages
+        last_patch_notes = Steam()
+        if last_patch_notes.id != self.bot.data.steam[0].id:
+            languages = list({guild.language for guild in GWWGuild.get_all()})
             embeds = {
                 lang: [
                     SteamLoopEmbed(
                         self.bot.data.steam[0], self.bot.json_dict["languages"][lang]
                     )
                 ]
-                for lang in unique_langs
+                for lang in languages
             }
-            await self.bot.interface_handler.send_feature("patch_notes", embeds)
-            current_war_info.patch_notes_id = self.bot.data.steam[0].id
-            current_war_info.save_changes()
+            await self.bot.interface_handler.send_news("Patch", embeds)
+            last_patch_notes.id = self.bot.data.steam[0].id
+            last_patch_notes.save_changes()
             self.bot.logger.info(
-                f"Sent patch announcements out to {len(self.bot.interface_handler.patch_notes)} channels"
+                f"Sent patch announcements out to {len(self.bot.interface_handler.news_feeds.channels_dict['Patch'])} channels"
             )
 
     @steam_check.before_loop
@@ -190,7 +174,6 @@ class AnnouncementsCog(commands.Cog):
             or not self.bot.data.assignments
         ):
             return
-        unique_langs = GWWGuilds().unique_languages
         embeds = {
             lang: [
                 Dashboard.MajorOrderEmbed(
@@ -204,13 +187,11 @@ class AnnouncementsCog(commands.Cog):
                 )
                 for major_order in self.bot.data.assignments
             ]
-            for lang in unique_langs
+            for lang in list(set([guild.language for guild in GWWGuild.get_all()]))
         }
-        await self.bot.interface_handler.send_feature(
-            "major_order_updates", embeds, "MO"
-        )
+        await self.bot.interface_handler.send_news("MO", embeds)
         self.bot.logger.info(
-            f"Sent MO announcements out to {len(self.bot.interface_handler.major_order_updates)} channels"
+            f"Sent MO announcements out to {len(self.bot.interface_handler.news_feeds.channels_dict['MO'])} channels"
         )
 
     @major_order_updates.before_loop
@@ -228,9 +209,9 @@ class AnnouncementsCog(commands.Cog):
             or not self.bot.data.global_events
         ):
             return
-        current_war_info = WarInfo()
+        last_GE = GlobalEvent()
         for global_event in self.bot.data.global_events:
-            if global_event.id > current_war_info.global_event_id:
+            if global_event.id > last_GE.id:
                 if (
                     global_event.assignment_id != 0
                     or all(
@@ -242,10 +223,9 @@ class AnnouncementsCog(commands.Cog):
                     )
                     or global_event.title.upper() == "BRIEFING"
                 ):
-                    current_war_info.global_event_id = global_event.id
-                    current_war_info.save_changes()
+                    last_GE.id = global_event.id
+                    last_GE.save_changes()
                     continue
-                unique_langs = GWWGuilds().unique_languages
                 embeds = {
                     lang: [
                         GlobalEventsLoopEmbed(
@@ -255,15 +235,13 @@ class AnnouncementsCog(commands.Cog):
                             global_event,
                         )
                     ]
-                    for lang in unique_langs
+                    for lang in list({guild.language for guild in GWWGuild.get_all()})
                 }
-                current_war_info.global_event_id = global_event.id
-                current_war_info.save_changes()
-                await self.bot.interface_handler.send_feature(
-                    "detailed_dispatches", embeds
-                )
+                last_GE.id = global_event.id
+                last_GE.save_changes()
+                await self.bot.interface_handler.send_news("DetailedDispatches", embeds)
                 self.bot.logger.info(
-                    f"Sent Global Event out to {len(self.bot.interface_handler.detailed_dispatches)} channels"
+                    f"Sent Global Event out to {len(self.bot.interface_handler.news_feeds.channels_dict['DetailedDispatches'])} channels"
                 )
                 break
 

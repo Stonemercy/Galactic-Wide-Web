@@ -9,7 +9,7 @@ from disnake import (
 from disnake.ext import commands
 from main import GalacticWideWebBot
 from utils.checks import wait_for_startup
-from utils.dbv2 import GWWGuild, GWWGuilds
+from utils.db import GWWGuild
 from utils.embeds.command_embeds import SteamCommandEmbed
 from utils.interactables import SteamStringSelect
 
@@ -49,12 +49,12 @@ class SteamCog(commands.Cog):
             f"{self.qualified_name} | /{inter.application_command.name}"
         )
         if inter.guild:
-            guild = GWWGuilds.get_specific_guild(id=inter.guild_id)
+            guild = GWWGuild.get_by_id(inter.guild_id)
             if not guild:
                 self.bot.logger.error(
                     msg=f"Guild {inter.guild_id} - {inter.guild.name} - had the bot installed but wasn't found in the DB"
                 )
-                guild = GWWGuilds.add(inter.guild_id, "en", [])
+                guild = GWWGuild.new(inter.guild_id)
         else:
             guild = GWWGuild.default()
         await inter.send(
@@ -74,12 +74,12 @@ class SteamCog(commands.Cog):
             steam for steam in self.bot.data.steam if steam.title == inter.values[0]
         ][0]
         if inter.guild:
-            guild = GWWGuilds.get_specific_guild(id=inter.guild_id)
+            guild = GWWGuild.get_by_id(inter.guild_id)
             if not guild:
                 self.bot.logger.error(
                     msg=f"Guild {inter.guild_id} - {inter.guild.name} - had the bot installed but wasn't found in the DB"
                 )
-                guild = GWWGuilds.add(inter.guild_id, "en", [])
+                guild = GWWGuild.new(inter.guild_id)
         else:
             guild = GWWGuild.default()
         embed = SteamCommandEmbed(

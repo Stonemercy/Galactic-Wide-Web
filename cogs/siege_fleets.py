@@ -11,7 +11,7 @@ from disnake.ext import commands
 from main import GalacticWideWebBot
 from utils.checks import wait_for_startup
 from utils.data import SiegeFleet
-from utils.dbv2 import GWWGuild, GWWGuilds
+from utils.db import GWWGuild
 from utils.embeds.command_embeds import SiegeFleetCommandEmbed
 
 
@@ -61,12 +61,12 @@ class SiegeFleetsCog(commands.Cog):
             msg=f"{self.qualified_name} | /{inter.application_command.name} <{public = }> <{fleet = }>"
         )
         if inter.guild:
-            guild = GWWGuilds.get_specific_guild(id=inter.guild_id)
+            guild = GWWGuild.get_by_id(inter.guild_id)
             if not guild:
                 self.bot.logger.error(
                     msg=f"Guild {inter.guild_id} - {inter.guild.name} - had the bot installed but wasn't found in the DB"
                 )
-                guild = GWWGuilds.add(inter.guild_id, "en", [])
+                guild = GWWGuild.new(inter.guild_id)
         else:
             guild = GWWGuild.default()
         guild_language = self.bot.json_dict["languages"][guild.language]

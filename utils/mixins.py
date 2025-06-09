@@ -5,10 +5,7 @@ class ReprMixin:
     """Class to clearly represent objects"""
 
     def __repr__(object):
-        if object.__dict__:
-            items = (f"{k} = {v}" for k, v in object.__dict__.items())
-        elif object.__slots__:
-            items = (f"{slot} = {getattr(object, slot)}" for slot in object.__slots__)
+        items = (f"{k} = {v}" for k, v in object.__dict__.items())
         return f"<{object.__class__.__name__}: {{{', '.join(items)}}}>"
 
 

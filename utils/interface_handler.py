@@ -1,9 +1,7 @@
 from asyncio import sleep
-from disnake import Embed, Forbidden, NotFound, PartialMessage, TextChannel
-from disnake.ext.commands import AutoShardedInteractionBot
-from utils.dbv2 import Feature, GWWGuilds, GWWGuild as GWWGuildv2
+from disnake import Forbidden, NotFound, TextChannel
+from utils.db import GWWGuild
 from utils.interactables import WikiButton
-from utils.mixins import ReprMixin
 
 
 class InterfaceHandler:
@@ -11,274 +9,306 @@ class InterfaceHandler:
         self.bot = bot
         self.busy = False
         self.loaded = False
-        self.all_guilds = GWWGuilds(fetch_all=True)
-        self.dashboards = BaseFeatureInteractionHandler(
-            features=[
-                f for g in self.all_guilds for f in g.features if f.name == "dashboard"
+        self.all_guilds: list[GWWGuild] = GWWGuild.get_all()
+        self.dashboards = Dashboards(
+            all_guilds=[
+                guild
+                for guild in self.all_guilds
+                if guild.dashboard_channel_id and guild.dashboard_message_id
             ],
             bot=self.bot,
         )
-        self.war_announcements = BaseFeatureInteractionHandler(
-            features=[
-                f
-                for g in self.all_guilds
-                for f in g.features
-                if f.name == "war_announcements"
+        self.news_feeds = NewsFeeds(
+            all_guilds=[
+                guild for guild in self.all_guilds if guild.announcement_channel_id
             ],
             bot=self.bot,
         )
-        self.dss_announcements = BaseFeatureInteractionHandler(
-            features=[
-                f
-                for g in self.all_guilds
-                for f in g.features
-                if f.name == "dss_announcements"
+        self.maps = Maps(
+            all_guilds=[
+                guild
+                for guild in self.all_guilds
+                if guild.map_channel_id and guild.map_message_id
             ],
             bot=self.bot,
         )
-        self.patch_notes = BaseFeatureInteractionHandler(
-            features=[
-                f
-                for g in self.all_guilds
-                for f in g.features
-                if f.name == "patch_notes"
-            ],
-            bot=self.bot,
-        )
-        self.major_order_updates = BaseFeatureInteractionHandler(
-            features=[
-                f
-                for g in self.all_guilds
-                for f in g.features
-                if f.name == "major_order_updates"
-            ],
-            bot=self.bot,
-        )
-        # self.personal_order_updates = BaseFeatureInteractionHandler(
-        #     features=[
-        #         f
-        #         for g in self.all_guilds
-        #         for f in g.features
-        #         if f.name == "personal_order_updates"
-        #     ],
-        #     bot=self.bot,
-        # )
-        self.detailed_dispatches = BaseFeatureInteractionHandler(
-            features=[
-                f
-                for g in self.all_guilds
-                for f in g.features
-                if f.name == "detailed_dispatches"
-            ],
-            bot=self.bot,
-        )
-        self.maps = BaseFeatureInteractionHandler(
-            features=[
-                f for g in self.all_guilds for f in g.features if f.name == "map"
-            ],
-            bot=self.bot,
-        )
-        self.lists = [
-            self.dashboards,
-            self.war_announcements,
-            self.dss_announcements,
-            self.patch_notes,
-            self.major_order_updates,
-            # self.personal_order_updates,
-            self.detailed_dispatches,
-            self.maps,
-        ]
 
     async def populate_lists(self):
-        for list in self.lists:
-            list.clear()
-            await list.populate()
+        self.dashboards.clear()
+        self.maps.clear()
+        self.news_feeds.clear()
+        await self.dashboards.populate()
+        await self.news_feeds.populate()
+        await self.maps.populate()
         self.loaded = True
         number_of_guilds = len(self.all_guilds)
         self.bot.logger.info(
             (
                 f"populate_lists completed | "
                 f"{len(self.dashboards)} dashboards ({(len(self.dashboards) / number_of_guilds):.0%}) | "
-                f"{len(self.war_announcements)} war announcement channels ({(len(self.war_announcements) / number_of_guilds):.0%}) | "
-                f"{len(self.patch_notes)} patch channels ({(len(self.patch_notes) / number_of_guilds):.0%}) | "
-                f"{len(self.major_order_updates)} MO channels ({(len(self.major_order_updates) / number_of_guilds):.0%}) | "
-                # f"{len(self.personal_order_updates)} PO channels ({(len(self.personal_order_updates) / number_of_guilds):.0%}) | "
-                f"{len(self.detailed_dispatches)} Detailed Dispatch channels ({(len(self.detailed_dispatches) / number_of_guilds):.0%}) | "
+                f"{len(self.news_feeds.channels_dict['Generic'])} announcement channels ({(len(self.news_feeds.channels_dict['Generic']) / number_of_guilds):.0%}) | "
+                f"{len(self.news_feeds.channels_dict['Patch'])} patch channels ({(len(self.news_feeds.channels_dict['Patch']) / number_of_guilds):.0%}) | "
+                f"{len(self.news_feeds.channels_dict['MO'])} MO channels ({(len(self.news_feeds.channels_dict['MO']) / number_of_guilds):.0%}) | "
+                f"{len(self.news_feeds.channels_dict['PO'])} PO channels ({(len(self.news_feeds.channels_dict['PO']) / number_of_guilds):.0%}) | "
+                f"{len(self.news_feeds.channels_dict['DetailedDispatches'])} Detailed Dispatch channels ({(len(self.news_feeds.channels_dict['DetailedDispatches']) / number_of_guilds):.0%}) | "
                 f"{len(self.maps)} maps ({(len(self.maps) / number_of_guilds):.0%})"
             )
         )
 
-    async def edit_dashboard(self, message: PartialMessage, embeds: list[Embed]):
-        try:
-            await message.edit(embeds=embeds)
-        except (NotFound, Forbidden) as e:
-            self.dashboards.remove(message)
-            guild: GWWGuildv2 = GWWGuilds.get_specific_guild(message.guild.id)
-            guild.features = [f for f in guild.features if f.name != "dashboard"]
-            guild.update_features()
-            guild.save_changes()
-            return self.bot.logger.error(
-                f"edit_dashboard | {e} | removed from dashboards dict and reset in DB | {guild.guild_id = }"
-            )
-        except Exception as e:
-            return self.bot.logger.error(
-                f"edit_dashboard | {e} | {message.guild.id = }"
-            )
-
-    async def edit_map(self, message: PartialMessage, embed: Embed):
-        try:
-            await message.edit(embed=embed)
-        except (NotFound, Forbidden) as e:
-            self.maps.remove(message)
-            guild: GWWGuildv2 = GWWGuilds.get_specific_guild(message.guild.id)
-            guild.features = [f for f in guild.features if f.name != "map"]
-            guild.update_features()
-            guild.save_changes()
-            return self.bot.logger.error(
-                f"edit_map | {e} | removed from maps dict and reset in DB | {guild.guild_id = }"
-            )
-        except Exception as e:
-            return self.bot.logger.error(f"edit_map | {e} | {message.guild.id = }")
-
-    async def send_embeds(
-        self,
-        feature_type: str,
-        channel: TextChannel,
-        embeds: list[Embed],
-        components: list,
-    ):
-        try:
-            await channel.send(embeds=embeds, components=components)
-        except (NotFound, Forbidden) as e:
-            feature_list: list[Feature] = getattr(self, feature_type)
-            if channel in feature_list:
-                feature_list.remove(channel)
-            guild: GWWGuildv2 = GWWGuilds.get_specific_guild(channel.guild.id)
-            guild.features = [f for f in guild.features if f.name != feature_type]
-            guild.update_features()
-            guild.save_changes()
-            return self.bot.logger.error(
-                f"send_embed | {feature_type} | {e} | removed from {feature_type} list and reset in DB | {channel.guild.id = }"
-            )
-        except Exception as e:
-            return self.bot.logger.error(f"send_embed | {e} | {channel.guild.id = }")
-
-    async def send_feature(
-        self, feature_type: str, content: dict, announcement_type: str = None
-    ):
+    async def edit_dashboards(self, dashboards_dict: dict):
         self.busy = True
-        list_to_use: BaseFeatureInteractionHandler = getattr(self, feature_type)
-        components = None
-        match feature_type:
-            case "dashboards":
-                for message in list_to_use.copy():
-                    message: PartialMessage
-                    guild: GWWGuildv2 = GWWGuilds.get_specific_guild(message.guild.id)
-                    if not guild:
-                        list_to_use.remove(message)
-                        self.bot.logger.error(
-                            f"send_feature {feature_type} | guild not found in DB | removed from {feature_type} dict | {message.guild.id = }"
-                        )
-                        continue
-                    else:
-                        localized_dashboard = content.get(guild.language, content["en"])
-                        self.bot.loop.create_task(
-                            self.edit_dashboard(message, localized_dashboard.embeds)
-                        )
-                        await sleep(0.029)  # discord accepts 1 message every 0.02s
-            case "maps":
-                for message in list_to_use.copy():
-                    message: PartialMessage
-                    guild: GWWGuildv2 = GWWGuilds.get_specific_guild(message.guild.id)
-                    if not guild:
-                        list_to_use.remove(message)
-                        self.bot.logger.error(
-                            f"send_feature {feature_type} | guild not found in DB | removed from {feature_type} dict | {message.guild.id = }"
-                        )
-                        continue
-                    else:
-                        self.bot.loop.create_task(
-                            self.edit_map(message, content[guild.language])
-                        )
-                        await sleep(0.03)  # discord accepts 1 message every 0.02s
-            case _:
-                if announcement_type == "MO":
-                    components = [
-                        WikiButton(
-                            link=f"https://helldivers.wiki.gg/wiki/Major_Orders#Recent"
-                        )
-                    ]
-                else:
-                    components = None
-                for channel in list_to_use.copy():
-                    channel: TextChannel
-                    guild = GWWGuilds.get_specific_guild(channel.guild.id)
-                    if not guild:
-                        list_to_use.remove(channel)
-                        self.bot.logger.error(
-                            f"send_feature | guild not found in DB | removed from {feature_type} dict | {channel.guild.id = }"
-                        )
-                        continue
-                    else:
-                        self.bot.loop.create_task(
-                            self.send_embeds(
-                                feature_type,
-                                channel,
-                                content[guild.language],
-                                components,
-                            )
-                        )
-                        await sleep(0.03)
+
+        async def edit_dashboard(message, embeds):
+            try:
+                await message.edit(embeds=embeds)
+            except (NotFound, Forbidden) as e:
+                self.dashboards.remove(message)
+                guild = GWWGuild.get_by_id(message.guild.id)
+                guild.dashboard_channel_id = 0
+                guild.dashboard_message_id = 0
+                guild.save_changes()
+                return self.bot.logger.error(
+                    f"edit_dashboard | {e} | removed from dashboards dict and reset in DB | {guild.id = }"
+                )
+            except Exception as e:
+                return self.bot.logger.error(
+                    f"edit_dashboard | {e} | {message.guild.id = }"
+                )
+
+        for message in self.dashboards.copy():
+            guild = GWWGuild.get_by_id(message.guild.id)
+            if not guild:
+                self.dashboards.remove(message)
+                self.bot.logger.error(
+                    f"edit_dashboard | guild not found in DB | removed from dashboards dict | {message.guild.id = }"
+                )
+                continue
+            localized_dashboard = dashboards_dict.get(
+                guild.language, dashboards_dict["en"]
+            )
+            self.bot.loop.create_task(
+                edit_dashboard(message, localized_dashboard.embeds)
+            )
+            await sleep(0.03)  # discord accepts 1 message every 0.02s
+        self.busy = False
+
+    async def edit_maps(self, map_dict: dict):
+        self.busy = True
+
+        async def edit_map(message, embed):
+            try:
+                await message.edit(embed=embed)
+            except (NotFound, Forbidden) as e:
+                self.maps.remove(message)
+                guild = GWWGuild.get_by_id(message.guild.id)
+                guild.map_channel_id = 0
+                guild.map_message_id = 0
+                guild.save_changes()
+                return self.bot.logger.error(
+                    f"edit_map | {e} | removed from maps dict and reset in DB | {guild.id = }"
+                )
+            except Exception as e:
+                return self.bot.logger.error(f"edit_map | {e} | {message.guild.id = }")
+
+        for message in self.maps.copy():
+            guild = GWWGuild.get_by_id(message.guild.id)
+            if not guild:
+                self.maps.remove(message)
+                self.bot.logger.error(
+                    f"edit_map | guild not found in DB | removed from maps dict | {message.guild.id = }"
+                )
+                continue
+            self.bot.loop.create_task(edit_map(message, map_dict[guild.language]))
+            await sleep(0.03)
+        self.busy = False
+
+    async def send_news(self, news_type: str, embeds_dict: dict):
+        self.busy = True
+
+        async def send_embeds(channel: TextChannel, embeds, components):
+            try:
+                await channel.send(embeds=embeds, components=components)
+            except (NotFound, Forbidden) as e:
+                for channels_list in self.news_feeds.channels_dict.values():
+                    if channel in channels_list:
+                        channels_list.remove(channel)
+                guild = GWWGuild.get_by_id(channel.guild.id)
+                guild.announcement_channel_id = 0
+                guild.patch_notes = False
+                guild.major_order_updates = False
+                guild.save_changes()
+                return self.bot.logger.error(
+                    f"send_embed | {e} | removed from news feeds list and reset in DB | {guild.id = }"
+                )
+            except Exception as e:
+                return self.bot.logger.error(
+                    f"send_embed | {e} | {channel.guild.id = }"
+                )
+
+        if news_type == "MO":
+            components = [
+                WikiButton(link=f"https://helldivers.wiki.gg/wiki/Major_Orders#Recent")
+            ]
+        else:
+            components = None
+        list_to_use = self.news_feeds.channels_dict[news_type]
+        for channel in list_to_use.copy():
+            guild = GWWGuild.get_by_id(channel.guild.id)
+            if not guild:
+                list_to_use.remove(channel)
+                self.bot.logger.error(
+                    f"send_news | guild not found in DB | removed from {news_type} dict | {channel.guild.id = }"
+                )
+                continue
+            self.bot.loop.create_task(
+                send_embeds(channel, embeds_dict[guild.language], components)
+            )
+            await sleep(0.03)
         self.busy = False
 
 
-class BaseFeatureInteractionHandler(list, ReprMixin):
-    def __init__(self, features: list[Feature], bot: AutoShardedInteractionBot):
-        self.features = features
+class Dashboards(list):
+    """A list of all Dashboards configured"""
+
+    def __init__(self, all_guilds: list[GWWGuild], bot):
+        self.all_guilds = all_guilds
         self.bot = bot
 
     async def populate(self):
-        """Fills the list with PartialMessages or Channels"""
-        for feature in self.features:
+        """Fills the list with PartialMessages"""
+        for guild in self.all_guilds:
             try:
-                channel = self.bot.get_channel(
-                    feature.channel_id
-                ) or await self.bot.fetch_channel(feature.channel_id)
-                if feature.message_id:
-                    message = channel.get_partial_message(feature.message_id)
-                    self.append(message)
-                else:
-                    self.append(channel)
+                dashboard_channel = self.bot.get_channel(
+                    guild.dashboard_channel_id
+                ) or await self.bot.fetch_channel(guild.dashboard_channel_id)
+                dashboard_message = dashboard_channel.get_partial_message(
+                    guild.dashboard_message_id
+                )
+                self.append(dashboard_message)
             except NotFound as e:
-                guild: GWWGuildv2 = GWWGuilds.get_specific_guild(id=feature.guild_id)
-                if not guild:
-                    self.remove_entry(feature.guild_id)
-                    self.bot.logger.error(
-                        f"{feature.name}.populate() ERROR | guild not found in DB | removed from {feature.name} list | {feature.guild_id = }"
-                    )
-                    continue
-                else:
-                    guild.features = [
-                        f for f in guild.features if f.name != "dashboard"
-                    ]
-                    guild.update_features()
-                    guild.save_changes()
-                    self.bot.logger.error(
-                        f"{feature.name}.populate() ERROR | {e} | reset in DB | {guild.guild_id = }"
-                    )
+                guild.dashboard_channel_id = 0
+                guild.dashboard_message_id = 0
+                guild.save_changes()
+                self.bot.logger.error(
+                    f"Dashboards.populate() ERROR | {e} | reset in DB | {guild.id = }"
+                )
             except Exception as e:
                 self.bot.logger.error(
-                    f"{feature.name}.populate() ERROR | {e} | {feature.guild_id = }"
+                    f"Dashboards.populate() ERROR | {e} | {guild.id = }"
                 )
 
-    def add_entry(self, feature: Feature):
-        if feature not in self:
-            self.append(feature)
+    def remove_entry(self, guild_id_to_remove: int):
+        messages_to_remove = [
+            message for message in self.copy() if message.guild.id == guild_id_to_remove
+        ]
+        for message in messages_to_remove:
+            if message in self:
+                self.remove(message)
+
+
+class NewsFeeds:
+    """All NewsFeeds configured"""
+
+    def __init__(self, all_guilds: list[GWWGuild], bot):
+        self.all_guilds = all_guilds
+        self.bot = bot
+        self.__announcement_channels__ = []
+        self.__patch_note_channels__ = []
+        self.__major_order_channels__ = []
+        self.__personal_order_channels__ = []
+        self.__detailed_dispatches_channels__ = []
+
+    @property
+    def channels_dict(self):
+        return {
+            "Generic": self.__announcement_channels__,
+            "Patch": self.__patch_note_channels__,
+            "MO": self.__major_order_channels__,
+            "PO": self.__personal_order_channels__,
+            "DetailedDispatches": self.__detailed_dispatches_channels__,
+        }
+
+    async def populate(self):
+        """Fills the dicts with Channels"""
+        for guild in self.all_guilds:
+            try:
+                announcement_channel = self.bot.get_channel(
+                    guild.announcement_channel_id
+                ) or await self.bot.fetch_channel(guild.announcement_channel_id)
+                self.__announcement_channels__.append(announcement_channel)
+                if guild.patch_notes:
+                    self.__patch_note_channels__.append(announcement_channel)
+                if guild.major_order_updates:
+                    self.__major_order_channels__.append(announcement_channel)
+                if guild.personal_order_updates:
+                    self.__personal_order_channels__.append(announcement_channel)
+                if guild.detailed_dispatches:
+                    self.__detailed_dispatches_channels__.append(announcement_channel)
+
+            except NotFound as e:
+                guild.announcement_channel_id = 0
+                guild.patch_notes = False
+                guild.major_order_updates = False
+                guild.personal_order_updates = False
+                guild.detailed_dispatches = False
+                guild.save_changes()
+                self.bot.logger.error(
+                    f"NewsFeeds.populate() ERROR | {e} | reset in DB | {guild.id = }"
+                )
+            except Exception as e:
+                self.bot.logger.error(
+                    f"NewsFeeds.populate() ERROR | {e} | {guild.id = }"
+                )
+
+    def clear(self):
+        self.__announcement_channels__.clear()
+        self.__patch_note_channels__.clear()
+        self.__major_order_channels__.clear()
+        self.__personal_order_channels__.clear()
+        self.__detailed_dispatches_channels__.clear()
 
     def remove_entry(self, guild_id_to_remove: int):
-        features_to_remove = [
-            f for f in self.copy() if f.guild_id == guild_id_to_remove
+        for channel_type, list_of_channels in self.channels_dict.copy().items():
+            channels_to_remove = [
+                channel
+                for channel in list_of_channels
+                if channel.guild.id == guild_id_to_remove
+            ]
+            for channel in channels_to_remove:
+                if channel in self.channels_dict[channel_type]:
+                    self.channels_dict[channel_type].remove(channel)
+
+
+class Maps(list):
+    """A list of all Maps configured"""
+
+    def __init__(self, all_guilds: list[GWWGuild], bot):
+        self.all_guilds = all_guilds
+        self.bot = bot
+
+    async def populate(self):
+        """Fills the dict with PartialMessages"""
+        for guild in self.all_guilds:
+            try:
+                map_channel = self.bot.get_channel(
+                    guild.map_channel_id
+                ) or await self.bot.fetch_channel(guild.map_channel_id)
+                map_message = map_channel.get_partial_message(guild.map_message_id)
+                self.append(map_message)
+            except NotFound as e:
+                guild.map_channel_id = 0
+                guild.map_message_id = 0
+                guild.save_changes()
+                self.bot.logger.error(
+                    f"Maps.populate() ERROR | {e} | reset in DB | {guild.id = }"
+                )
+            except Exception as e:
+                self.bot.logger.error(f"Maps.populate() ERROR | {e} | {guild.id = }")
+
+    def remove_entry(self, guild_id_to_remove: int):
+        messages_to_remove = [
+            message for message in self.copy() if message.guild.id == guild_id_to_remove
         ]
-        for feature in features_to_remove:
-            if feature in self:
-                self.remove(feature)
+        for message in messages_to_remove:
+            if message in self:
+                self.remove(message)
