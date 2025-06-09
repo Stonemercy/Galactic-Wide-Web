@@ -91,23 +91,15 @@ class InterfaceHandler:
         ]
 
     async def populate_lists(self):
-        for list in self.lists:
-            list.clear()
-            await list.populate()
-        self.loaded = True
+        outcome_text = "populate_lists completed | "
         number_of_guilds = len(self.all_guilds)
-        self.bot.logger.info(
-            (
-                f"populate_lists completed | "
-                f"{len(self.dashboards)} dashboards ({(len(self.dashboards) / number_of_guilds):.0%}) | "
-                f"{len(self.war_announcements)} war announcement channels ({(len(self.war_announcements) / number_of_guilds):.0%}) | "
-                f"{len(self.patch_notes)} patch channels ({(len(self.patch_notes) / number_of_guilds):.0%}) | "
-                f"{len(self.major_order_updates)} MO channels ({(len(self.major_order_updates) / number_of_guilds):.0%}) | "
-                # f"{len(self.personal_order_updates)} PO channels ({(len(self.personal_order_updates) / number_of_guilds):.0%}) | "
-                f"{len(self.detailed_dispatches)} Detailed Dispatch channels ({(len(self.detailed_dispatches) / number_of_guilds):.0%}) | "
-                f"{len(self.maps)} maps ({(len(self.maps) / number_of_guilds):.0%})"
-            )
-        )
+        for feature_list in self.lists:
+            feature_list.clear()
+            await feature_list.populate()
+            feature_example = feature_list.features[0]
+            outcome_text += f"{len(feature_list)} {feature_example.name.replace('_', ' ')} {'messages' if feature_example.message_id else 'channels'} ({(len(feature_list) / number_of_guilds):.0%}) | "
+        self.loaded = True
+        self.bot.logger.info(outcome_text)
 
     async def edit_dashboard(self, message: PartialMessage, embeds: list[Embed]):
         try:
