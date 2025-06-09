@@ -513,12 +513,12 @@ class Assignment(ReprMixin):
         """Organised data of an Assignment or Major Order"""
         self.id: int = raw_assignment_data["id"]
         self.title: str = (
-            steam_format(content=raw_assignment_data["briefing"])
+            raw_assignment_data["briefing"]
             if raw_assignment_data["briefing"] not in ([], None)
             else ""
         )
         self.description: str = (
-            steam_format(content=raw_assignment_data["description"])
+            raw_assignment_data["description"]
             if raw_assignment_data["description"]
             not in ([], None, raw_assignment_data["briefing"])
             else ""
