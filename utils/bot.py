@@ -51,6 +51,7 @@ class GalacticWideWebBot(commands.AutoShardedInteractionBot):
         self.logger.info(
             msg=f"Loaded {len(self.cogs)}/{len([f for f in listdir('cogs') if f.endswith('.py')]) + len([f for f in listdir('cogs/admin') if f.endswith('.py')])} cogs successfully"
         )
+        self.owner = list(self.owners)[0] if self.owners else None
 
     def load_json(self) -> None:
         for key, values in self.json_dict.copy().items():
