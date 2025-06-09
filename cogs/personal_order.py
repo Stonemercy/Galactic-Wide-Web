@@ -1,18 +1,19 @@
-from datetime import datetime, time
+# from datetime import datetime, time
 from os import getenv
-from disnake import (
-    AppCmdInter,
-    Permissions,
-    InteractionContextTypes,
-    ApplicationInstallTypes,
-)
-from disnake.ext import commands, tasks
+
+# from disnake import (
+#     AppCmdInter,
+#     Permissions,
+#     InteractionContextTypes,
+#     ApplicationInstallTypes,
+# )
+from disnake.ext import commands  # , tasks
 from main import GalacticWideWebBot
-from utils.checks import wait_for_startup
-from utils.db import GWWGuild
-from utils.embeds.command_embeds import PersonalOrderCommandEmbed
-from utils.embeds.loop_embeds import PersonalOrderLoopEmbed
-from utils.interactables import WikiButton
+
+# from utils.checks import wait_for_startup
+# from utils.embeds.command_embeds import PersonalOrderCommandEmbed
+# from utils.embeds.loop_embeds import PersonalOrderLoopEmbed
+# from utils.interactables import WikiButton
 
 SUPPORT_SERVER_ID = [int(getenv("SUPPORT_SERVER"))]
 
