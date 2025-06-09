@@ -144,7 +144,7 @@ class SetupCog(commands.Cog):
         if "dashboard" in inter.component.custom_id:
             self.clear_extra_buttons(action_rows)
             if inter.component.custom_id == "dashboard_button":
-                if "dashboard" in active_feature_names:
+                if "dashboards" in active_feature_names:
                     dashboard_row = ActionRow(
                         Setup.Dashboard.ClearDashboardButton(
                             language_json=guild_language
@@ -183,7 +183,7 @@ class SetupCog(commands.Cog):
                 await inter.edit_original_response(components=action_rows)
                 return
             elif inter.component.custom_id == "clear_dashboard_button":
-                guild.features = [f for f in guild.features if f.name != "dashboard"]
+                guild.features = [f for f in guild.features if f.name != "dashboards"]
                 guild.update_features()
                 guild.save_changes()
                 self.bot.interface_handler.dashboards.remove_entry(guild.guild_id)
@@ -198,7 +198,7 @@ class SetupCog(commands.Cog):
         elif "map" in inter.component.custom_id:
             if inter.component.custom_id == "map_button":
                 self.clear_extra_buttons(action_rows)
-                if "map" in active_feature_names:
+                if "maps" in active_feature_names:
                     map_row = ActionRow(
                         Setup.Map.ClearMapButton(language_json=guild_language)
                     )
@@ -229,7 +229,7 @@ class SetupCog(commands.Cog):
                     await self.bot.moderator_channel.send(f"Setup\n```py\n{e}\n```")
             elif inter.component.custom_id == "clear_map_button":
                 self.clear_extra_buttons(action_rows)
-                guild.features = [f for f in guild.features if f.name != "map"]
+                guild.features = [f for f in guild.features if f.name != "maps"]
                 guild.update_features()
                 guild.save_changes()
                 self.bot.interface_handler.maps.remove_entry(guild.guild_id)

@@ -306,7 +306,7 @@ class SetupCommandEmbed(Embed, EmbedReprMixin):
 
         # dashboard
         dashboard_text = language_json["SetupEmbed"]["dashboard_desc"]
-        dashboard_feature = [f for f in guild.features if f.name == "dashboard"]
+        dashboard_feature = [f for f in guild.features if f.name == "dashboards"]
         if dashboard_feature:
             setup_emoji = ":white_check_mark:"
             dashboard = dashboard_feature[0]
@@ -325,7 +325,7 @@ class SetupCommandEmbed(Embed, EmbedReprMixin):
 
         # map
         map_text = language_json["SetupEmbed"]["map_desc"]
-        map_feature = [f for f in guild.features if f.name == "map"]
+        map_feature = [f for f in guild.features if f.name == "maps"]
         if map_feature:
             setup_emoji = ":white_check_mark:"
             galaxy_map = map_feature[0]

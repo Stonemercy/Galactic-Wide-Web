@@ -118,7 +118,7 @@ class GuildManagementCog(commands.Cog):
         if guild:
             try:
                 dashboard: list[Feature] = [
-                    f for f in guild.features if f.name == "dashboard"
+                    f for f in guild.features if f.name == "dashboards"
                 ]
                 if not dashboard:
                     self.bot.logger.info(

@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 from data.lists import language_dict
 from os import getenv
 from psycopg2 import connect
-from psycopg2.extras import Json
+from psycopg2.extras import Json, DictCursor
 from utils.mixins import ReprMixin
 
 load_dotenv(dotenv_path=".env")
@@ -167,28 +167,30 @@ class Feature(ReprMixin):
     channel_id: int
     message_id: int | None = None
 
-    def disable(self):
-        with connection() as conn:
-            with conn.cursor() as curs:
-                curs.execute(
-                    query=f"DELETE FROM feature.{self.name} WHERE guild_id = {self.guild_id}"
-                )
-                conn.commit()
-
 
 class GWWGuild(ReprMixin):
-    def __init__(
-        self,
-        guild_id: int,
-        language: str,
-        feature_keys: list[str],
-    ):
-        self.guild_id = guild_id
-        self.language = language
-        self.feature_keys = feature_keys
+    def __init__(self, row: dict):
+        self.guild_id = row.get("guild_id")
+        self.language = row.get("language", "en")
+        self.feature_keys = row.get("feature_keys", [])
         self.features: list[Feature] = []
-        if feature_keys:
-            self.get_features()
+        if len(row) > 3:
+            features_dict: dict[str, dict[str, int]] = {}
+            for key, value in row.items():
+                if "__" in key and value is not None:
+                    feature, field = key.split("__", 1)
+                    if not features_dict.get(feature):
+                        features_dict[feature] = {}
+                    features_dict[feature][field] = value
+            for feature, values in features_dict.items():
+                self.features.append(
+                    Feature(
+                        feature,
+                        self.guild_id,
+                        values.get("channel_id"),
+                        values.get("message_id"),
+                    )
+                )
 
     @property
     def language_long(self) -> str:
@@ -196,19 +198,6 @@ class GWWGuild(ReprMixin):
 
         e.g. `en` becomes `English`"""
         return {v: k for k, v in language_dict.items()}[self.language]
-
-    def get_features(self):
-        with connection() as conn:
-            with conn.cursor() as curs:
-                for feature_key in self.feature_keys:
-                    curs.execute(
-                        query=f"SELECT * FROM feature.{feature_key} WHERE guild_id = {self.guild_id}"
-                    )
-                    record = curs.fetchone()
-                    if record:
-                        self.features.append(
-                            Feature(feature_key, self.guild_id, *record[1:])
-                        )
 
     def update_features(self):
         update_feature_keys = False
@@ -297,19 +286,42 @@ class GWWGuild(ReprMixin):
     @classmethod
     def default(cls) -> Self:
         """Return a default class"""
-        return cls(0, "en", [])
+        return cls({"guild_id": 0, "language": "en", "feature_keys": []})
 
 
 class GWWGuilds(list[GWWGuild], ReprMixin):
     def __init__(self, fetch_all: bool = False):
         if fetch_all:
             with connection() as conn:
-                with conn.cursor() as curs:
-                    curs.execute("SELECT * FROM discord.guilds")
+                with conn.cursor(cursor_factory=DictCursor) as curs:
+                    curs.execute(
+                        (
+                            "SELECT "
+                            "g.guild_id, g.language, g.feature_keys, "
+                            "d.channel_id AS dashboards__channel_id, d.message_id AS dashboards__message_id, "
+                            "m.channel_id AS maps__channel_id, m.message_id AS maps__message_id, "
+                            "wa.channel_id AS war_announcements__channel_id, "
+                            "dss.channel_id AS dss_announcements__channel_id, "
+                            "pn.channel_id AS patch_notes__channel_id, "
+                            "mo.channel_id AS major_order_updates__channel_id, "
+                            "po.channel_id AS personal_order_updates__channel_id, "
+                            "dd.channel_id AS detailed_dispatches__channel_id "
+                            "FROM discord.guilds g "
+                            "LEFT JOIN feature.dashboards d ON g.guild_id = d.guild_id "
+                            "LEFT JOIN feature.maps m ON g.guild_id = m.guild_id "
+                            "LEFT JOIN feature.war_announcements wa ON g.guild_id = wa.guild_id "
+                            "LEFT JOIN feature.dss_announcements dss ON g.guild_id = dss.guild_id "
+                            "LEFT JOIN feature.patch_notes pn ON g.guild_id = pn.guild_id "
+                            "LEFT JOIN feature.major_order_updates mo ON g.guild_id = mo.guild_id "
+                            "LEFT JOIN feature.personal_order_updates po ON g.guild_id = po.guild_id "
+                            "LEFT JOIN feature.detailed_dispatches dd ON g.guild_id = dd.guild_id"
+                        )
+                    )
                     records = curs.fetchall()
                     if records:
                         for record in records:
-                            self.append(GWWGuild(*record))
+                            record_dict = dict(record)
+                            self.append(GWWGuild(record_dict))
 
     @property
     def unique_languages(self) -> list[str]:
@@ -321,13 +333,33 @@ class GWWGuilds(list[GWWGuild], ReprMixin):
 
     def get_specific_guild(id: int) -> GWWGuild | None:
         with connection() as conn:
-            with conn.cursor() as curs:
+            with conn.cursor(cursor_factory=DictCursor) as curs:
                 curs.execute(
-                    query=f"SELECT * FROM discord.guilds WHERE guild_id = {id}"
+                    (
+                        "SELECT "
+                        "g.guild_id, g.language, g.feature_keys, "
+                        "d.channel_id AS dashboards__channel_id, d.message_id AS dashboards__message_id, "
+                        "m.channel_id AS maps__channel_id, m.message_id AS maps__message_id, "
+                        "wa.channel_id AS war_announcements__channel_id, "
+                        "dss.channel_id AS dss_announcements__channel_id, "
+                        "pn.channel_id AS patch_notes__channel_id, "
+                        "mo.channel_id AS major_order_updates__channel_id, "
+                        "po.channel_id AS personal_order__updates_channel_id, "
+                        "dd.channel_id AS detailed_dispatches__channel_id "
+                        "FROM discord.guilds g "
+                        "LEFT JOIN feature.dashboards d ON g.guild_id = d.guild_id "
+                        "LEFT JOIN feature.maps m ON g.guild_id = m.guild_id "
+                        "LEFT JOIN feature.war_announcements wa ON g.guild_id = wa.guild_id "
+                        "LEFT JOIN feature.dss_announcements dss ON g.guild_id = dss.guild_id "
+                        "LEFT JOIN feature.patch_notes pn ON g.guild_id = pn.guild_id "
+                        "LEFT JOIN feature.major_order_updates mo ON g.guild_id = mo.guild_id "
+                        "LEFT JOIN feature.personal_order_updates po ON g.guild_id = po.guild_id "
+                        f"LEFT JOIN feature.detailed_dispatches dd ON g.guild_id = dd.guild_id WHERE g.guild_id = {id}"
+                    )
                 )
                 record = curs.fetchone()
                 if record:
-                    return GWWGuild(*record)
+                    return GWWGuild(dict(record))
         return None
 
     def add(
@@ -335,7 +367,6 @@ class GWWGuilds(list[GWWGuild], ReprMixin):
         language: str,
         feature_keys: list[str],
     ) -> GWWGuild:
-        print(guild_id, feature_keys)
         with connection() as conn:
             with conn.cursor() as curs:
                 curs.execute(
@@ -343,4 +374,4 @@ class GWWGuilds(list[GWWGuild], ReprMixin):
                     vars=(guild_id, language, feature_keys),
                 )
                 conn.commit()
-        return GWWGuild(guild_id, language, feature_keys)
+        return GWWGuilds.get_specific_guild(guild_id)
