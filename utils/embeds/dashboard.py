@@ -857,7 +857,7 @@ class Dashboard:
                     f"<t:{planet.event.end_time_datetime.timestamp():.0f}:R>"
                 )
                 if self.with_health_bars:
-                    task_health_bar = f"{health_bar(perc=planet.event.progress, race=planet.event.faction, reverse=True)} 🛡️"
+                    task_health_bar = f"{health_bar(perc=planet.event.progress, race=planet.event.faction)} 🛡️"
                 else:
                     task_health_bar = ""
                 if planet.event.type != 3:
