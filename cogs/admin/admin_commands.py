@@ -3,10 +3,9 @@ from random import choice
 from disnake import AppCmdInter, Guild, Permissions
 from disnake.ext import commands
 from main import GalacticWideWebBot
-from os import execv, getenv
-from sys import argv, executable
+from os import getenv
 from utils.checks import wait_for_startup
-from utils.db import GWWGuild
+from utils.dbv2 import GWWGuilds
 
 
 SUPPORT_SERVER_ID = [int(getenv("SUPPORT_SERVER"))]
@@ -49,7 +48,7 @@ class AdminCommandsCog(commands.Cog):
                 text = f"Forced updates of {len(self.bot.interface_handler.maps)} maps in {(datetime.now() - update_start).total_seconds():.2f} seconds"
             case "MO Update":
                 await self.bot.get_cog(name="AnnouncementsCog").major_order_updates()
-                text = f"Forced updates of {len(self.bot.interface_handler.news_feeds.channels_dict['MO'])} MO updates in {(datetime.now() - update_start).total_seconds():.2f} seconds"
+                text = f"Forced updates of {len(self.bot.interface_handler.major_order_updates)} MO updates in {(datetime.now() - update_start).total_seconds():.2f} seconds"
             # case "PO Update":
             #     await self.bot.get_cog(name="PersonalOrderCog").personal_order_update()
             #     text = f"Forced updates of {len(self.bot.interface_handler.news_feeds.channels_dict['PO'])} PO updates in {(datetime.now() - update_start).total_seconds():.2f} seconds"
@@ -147,28 +146,24 @@ class AdminCommandsCog(commands.Cog):
         self.bot.logger.critical(
             msg=f"{self.qualified_name} | /{inter.application_command.name} <{id_to_check = }> | used by <@{inter.author.id}> | @{inter.author.global_name}"
         )
-        all_guilds = GWWGuild.get_all()
+        all_guilds = GWWGuilds(fetch_all=True)
         for guild in all_guilds:
-            if id_to_check in guild.ids_in_use:
+            if id_to_check in [
+                v for f in guild.features for v in (f.channel_id, f.message_id) if v
+            ]:
                 try:
-                    self.bot.interface_handler.dashboards.remove_entry(
-                        guild_id_to_remove=guild.id
-                    )
-                    self.bot.interface_handler.maps.remove_entry(
-                        guild_id_to_remove=guild.id
-                    )
-                    self.bot.interface_handler.news_feeds.remove_entry(
-                        guild_id_to_remove=guild.id
-                    )
+                    for list in self.bot.interface_handler.lists:
+                        list.remove_entry(guild_id_to_remove=guild.guild_id)
                 except:
                     pass
                 guild.reset()
                 await inter.send(
-                    f"Successfully reset guild with ID {guild.id}", ephemeral=True
+                    content=f"Successfully reset guild with ID {guild.guild_id}",
+                    ephemeral=True,
                 )
                 guild_in_discord = self.bot.get_guild(
-                    guild.id
-                ) or await self.bot.fetch_guild(guild.id)
+                    guild.guild_id
+                ) or await self.bot.fetch_guild(guild.guild_id)
                 if guild_in_discord:
                     guild_owner = (
                         guild_in_discord.owner
