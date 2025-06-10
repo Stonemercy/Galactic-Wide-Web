@@ -1,20 +1,21 @@
 from asyncio import sleep
 from disnake import Embed, Forbidden, NotFound, PartialMessage, TextChannel
 from disnake.ext.commands import AutoShardedInteractionBot
-from utils.dbv2 import Feature, GWWGuilds, GWWGuild as GWWGuildv2
+from utils.dbv2 import Feature, GWWGuilds, GWWGuild as GWWGuild
 from utils.interactables import WikiButton
 from utils.mixins import ReprMixin
 
 
 class InterfaceHandler:
     def __init__(self, bot):
+        self.wait_time = 0.029
         self.bot = bot
         self.busy = False
         self.loaded = False
         self.all_guilds = GWWGuilds(fetch_all=True)
         self.dashboards = BaseFeatureInteractionHandler(
             features=[
-                f for g in self.all_guilds for f in g.features if f.name == "dashboard"
+                f for g in self.all_guilds for f in g.features if f.name == "dashboards"
             ],
             bot=self.bot,
         )
@@ -74,7 +75,7 @@ class InterfaceHandler:
         )
         self.maps = BaseFeatureInteractionHandler(
             features=[
-                f for g in self.all_guilds for f in g.features if f.name == "map"
+                f for g in self.all_guilds for f in g.features if f.name == "maps"
             ],
             bot=self.bot,
         )
@@ -90,30 +91,22 @@ class InterfaceHandler:
         ]
 
     async def populate_lists(self):
-        for list in self.lists:
-            list.clear()
-            await list.populate()
-        self.loaded = True
+        outcome_text = "populate_lists completed | "
         number_of_guilds = len(self.all_guilds)
-        self.bot.logger.info(
-            (
-                f"populate_lists completed | "
-                f"{len(self.dashboards)} dashboards ({(len(self.dashboards) / number_of_guilds):.0%}) | "
-                f"{len(self.war_announcements)} war announcement channels ({(len(self.war_announcements) / number_of_guilds):.0%}) | "
-                f"{len(self.patch_notes)} patch channels ({(len(self.patch_notes) / number_of_guilds):.0%}) | "
-                f"{len(self.major_order_updates)} MO channels ({(len(self.major_order_updates) / number_of_guilds):.0%}) | "
-                # f"{len(self.personal_order_updates)} PO channels ({(len(self.personal_order_updates) / number_of_guilds):.0%}) | "
-                f"{len(self.detailed_dispatches)} Detailed Dispatch channels ({(len(self.detailed_dispatches) / number_of_guilds):.0%}) | "
-                f"{len(self.maps)} maps ({(len(self.maps) / number_of_guilds):.0%})"
-            )
-        )
+        for feature_list in self.lists:
+            feature_list.clear()
+            await feature_list.populate()
+            feature_example = feature_list.features[0]
+            outcome_text += f"{len(feature_list)} {feature_example.name.replace('_', ' ')} {'messages' if feature_example.message_id else 'channels'} ({(len(feature_list) / number_of_guilds):.0%}) | "
+        self.loaded = True
+        self.bot.logger.info(outcome_text)
 
     async def edit_dashboard(self, message: PartialMessage, embeds: list[Embed]):
         try:
             await message.edit(embeds=embeds)
         except (NotFound, Forbidden) as e:
             self.dashboards.remove(message)
-            guild: GWWGuildv2 = GWWGuilds.get_specific_guild(message.guild.id)
+            guild: GWWGuild = GWWGuilds.get_specific_guild(message.guild.id)
             guild.features = [f for f in guild.features if f.name != "dashboard"]
             guild.update_features()
             guild.save_changes()
@@ -130,7 +123,7 @@ class InterfaceHandler:
             await message.edit(embed=embed)
         except (NotFound, Forbidden) as e:
             self.maps.remove(message)
-            guild: GWWGuildv2 = GWWGuilds.get_specific_guild(message.guild.id)
+            guild: GWWGuild = GWWGuilds.get_specific_guild(message.guild.id)
             guild.features = [f for f in guild.features if f.name != "map"]
             guild.update_features()
             guild.save_changes()
@@ -153,7 +146,7 @@ class InterfaceHandler:
             feature_list: list[Feature] = getattr(self, feature_type)
             if channel in feature_list:
                 feature_list.remove(channel)
-            guild: GWWGuildv2 = GWWGuilds.get_specific_guild(channel.guild.id)
+            guild: GWWGuild = GWWGuilds.get_specific_guild(channel.guild.id)
             guild.features = [f for f in guild.features if f.name != feature_type]
             guild.update_features()
             guild.save_changes()
@@ -173,7 +166,7 @@ class InterfaceHandler:
             case "dashboards":
                 for message in list_to_use.copy():
                     message: PartialMessage
-                    guild: GWWGuildv2 = GWWGuilds.get_specific_guild(message.guild.id)
+                    guild: GWWGuild = GWWGuilds.get_specific_guild(message.guild.id)
                     if not guild:
                         list_to_use.remove(message)
                         self.bot.logger.error(
@@ -185,11 +178,11 @@ class InterfaceHandler:
                         self.bot.loop.create_task(
                             self.edit_dashboard(message, localized_dashboard.embeds)
                         )
-                        await sleep(0.029)  # discord accepts 1 message every 0.02s
+                        await sleep(self.wait_time)
             case "maps":
                 for message in list_to_use.copy():
                     message: PartialMessage
-                    guild: GWWGuildv2 = GWWGuilds.get_specific_guild(message.guild.id)
+                    guild: GWWGuild = GWWGuilds.get_specific_guild(message.guild.id)
                     if not guild:
                         list_to_use.remove(message)
                         self.bot.logger.error(
@@ -200,7 +193,7 @@ class InterfaceHandler:
                         self.bot.loop.create_task(
                             self.edit_map(message, content[guild.language])
                         )
-                        await sleep(0.03)  # discord accepts 1 message every 0.02s
+                        await sleep(self.wait_time)
             case _:
                 if announcement_type == "MO":
                     components = [
@@ -228,7 +221,7 @@ class InterfaceHandler:
                                 components,
                             )
                         )
-                        await sleep(0.03)
+                        await sleep(self.wait_time)
         self.busy = False
 
 
@@ -250,7 +243,7 @@ class BaseFeatureInteractionHandler(list, ReprMixin):
                 else:
                     self.append(channel)
             except NotFound as e:
-                guild: GWWGuildv2 = GWWGuilds.get_specific_guild(id=feature.guild_id)
+                guild: GWWGuild = GWWGuilds.get_specific_guild(id=feature.guild_id)
                 if not guild:
                     self.remove_entry(feature.guild_id)
                     self.bot.logger.error(
@@ -277,7 +270,7 @@ class BaseFeatureInteractionHandler(list, ReprMixin):
 
     def remove_entry(self, guild_id_to_remove: int):
         features_to_remove = [
-            f for f in self.copy() if f.guild_id == guild_id_to_remove
+            f for f in self.copy() if f.guild.id == guild_id_to_remove
         ]
         for feature in features_to_remove:
             if feature in self:

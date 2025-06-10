@@ -13,18 +13,21 @@ from utils.embeds.loop_embeds import (
 class AnnouncementsCog(commands.Cog):
     def __init__(self, bot: GalacticWideWebBot):
         self.bot = bot
-        self.major_order_check.start()
-        self.global_event_check.start()
-        self.dispatch_check.start()
-        self.steam_check.start()
-        self.major_order_updates.start()
+        self.loops = (
+            self.major_order_check,
+            self.global_event_check,
+            self.dispatch_check,
+            self.steam_check,
+            self.major_order_updates,
+        )
+        for loop in self.loops:
+            if not loop.is_running():
+                loop.start()
 
     def cog_unload(self):
-        self.major_order_check.stop()
-        self.global_event_check.stop()
-        self.dispatch_check.stop()
-        self.steam_check.stop()
-        self.major_order_updates.stop()
+        for loop in self.loops:
+            if loop.is_running():
+                loop.stop()
 
     @tasks.loop(minutes=1)
     async def major_order_check(self):

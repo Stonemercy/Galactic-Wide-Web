@@ -610,19 +610,6 @@ class CampaignLoopEmbed(Embed, EmbedReprMixin):
             description += f"-# {self.language_json['CampaignEmbed']['special_unit']}: **{special_unit[0]}** {special_unit[1]}\n"
         self.set_field_at(4, name, description, inline=False)
 
-    def add_campaign_cancelled(self, planet: Planet):
-        description = self.fields[0].value
-        description += (
-            f"{Emojis.Decoration.alert_icon} The campaign on **{self.planet_names_json[str(planet.index)]['names'][self.language_json['code_long']]}** has been cancelled!\n",
-        )
-        if planet.feature:
-            description += f"-# {self.language_json['CampaignEmbed']['feature']}: {planet.feature}\n"
-        for special_unit in SpecialUnits.get_from_effects_list(
-            active_effects=planet.active_effects
-        ):
-            description += f"-# {self.language_json['CampaignEmbed']['special_unit']}: **{special_unit[0]}** {special_unit[1]}\n"
-        self.set_field_at(0, self.fields[0].name, description, inline=False)
-
     def remove_empty(self):
         for field in self.fields.copy():
             if field.value == "":
