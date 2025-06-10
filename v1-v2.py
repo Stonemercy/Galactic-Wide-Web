@@ -3,10 +3,10 @@ from utils.dbv2 import Feature, GWWGuild, GWWGuilds as GWWGuildsV2
 
 all_old_guilds = GWWGuildV1.get_all()
 print(f"Processing {len(all_old_guilds)} V1 guilds")
-for old_guild in all_old_guilds:
+for count, old_guild in enumerate(all_old_guilds, 1):
     new_guild = None
     print("=" * 25)
-    print(f"Processing guild: {old_guild.id}")
+    print(f"#{count} Processing guild: {old_guild.id}")
     active_features = []
     if old_guild.announcement_channel_id != 0:
         active_features.extend(
