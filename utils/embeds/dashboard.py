@@ -667,7 +667,7 @@ class Dashboard:
                             value_text += f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['victory'])} <t:{now_seconds + planet_lib_changes.seconds_until_complete}:R>"
                             value_text += f"\n{language_json['dashboard']['progress']}:"
                             value_text += f"\n{health_bar(planet.health_perc, planet.current_owner, True)}"
-                            value_text += f"\n`{(planet.health_perc):^25,.2%}`"
+                            value_text += f"\n`{(1-planet.health_perc):^25,.2%}`"
                         change = f"{planet_lib_changes.change_rate_per_hour:+.2%}/hour"
                         value_text += f"\n`{change:^25}`"
                     self.add_field(
