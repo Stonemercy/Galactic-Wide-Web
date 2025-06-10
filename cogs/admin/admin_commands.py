@@ -1,7 +1,9 @@
 from datetime import datetime
+from inspect import getmembers
 from random import choice
 from disnake import AppCmdInter, Guild, Permissions
 from disnake.ext import commands
+from disnake.ext.tasks import Loop
 from main import GalacticWideWebBot
 from os import getenv
 from utils.checks import wait_for_startup
@@ -177,6 +179,28 @@ class AdminCommandsCog(commands.Cog):
                         )
                 return
         await inter.send(f"Didn't find a guild with `{id_to_check}` in it's ID's")
+
+    @wait_for_startup()
+    @commands.is_owner()
+    @commands.slash_command(
+        guild_ids=SUPPORT_SERVER_ID,
+        description="Get all running loops",
+        default_member_permissions=Permissions(administrator=True),
+    )
+    async def get_loops(
+        self,
+        inter: AppCmdInter,
+    ):
+        await inter.response.defer(ephemeral=True)
+        self.bot.logger.critical(
+            msg=f"{self.qualified_name} | /{inter.application_command.name} | used by <@{inter.author.id}> | @{inter.author.global_name}"
+        )
+        loops = []
+        for cog in self.bot.cogs.values():
+            for name, member in getmembers(cog):
+                if isinstance(member, Loop):
+                    loops.append(f"`{cog.__class__.__name__}.{name}`\n")
+        await inter.send("".join(sorted(loops)), ephemeral=True)
 
 
 def setup(bot: GalacticWideWebBot):
