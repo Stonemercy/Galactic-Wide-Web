@@ -489,11 +489,6 @@ class SetupCommandEmbed(Embed, EmbedReprMixin):
         self.add_field(
             "", language_json["SetupEmbed"]["footer_message_not_set"], inline=False
         )
-        self.add_field(
-            "",
-            language_json["SetupEmbed"]["footer_message_announcements_asterisk"],
-            inline=False,
-        )
 
 
 class PersonalOrderCommandEmbed(Embed, EmbedReprMixin):
