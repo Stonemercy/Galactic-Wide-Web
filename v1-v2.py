@@ -6,8 +6,7 @@ print(f"Processing {len(all_old_guilds)} V1 guilds")
 for old_guild in all_old_guilds:
     new_guild = None
     print("=" * 25)
-    print(f"Processing guild:")
-    print(old_guild)
+    print(f"Processing guild: {old_guild.id}")
     active_features = []
     if old_guild.announcement_channel_id != 0:
         active_features.extend(
@@ -25,7 +24,7 @@ for old_guild in all_old_guilds:
     if 0 not in (old_guild.dashboard_channel_id, old_guild.dashboard_message_id):
         active_features.append(
             Feature(
-                "dashboard",
+                "dashboards",
                 old_guild.id,
                 old_guild.dashboard_channel_id,
                 old_guild.dashboard_message_id,
@@ -40,7 +39,7 @@ for old_guild in all_old_guilds:
     if 0 not in (old_guild.map_channel_id, old_guild.map_message_id):
         active_features.append(
             Feature(
-                "map", old_guild.id, old_guild.map_channel_id, old_guild.map_message_id
+                "maps", old_guild.id, old_guild.map_channel_id, old_guild.map_message_id
             )
         )
     if old_guild.patch_notes:
@@ -49,23 +48,12 @@ for old_guild in all_old_guilds:
         )
 
     new_guild: GWWGuild = GWWGuildsV2.add(old_guild.id, old_guild.language, [])
-    print(new_guild.feature_keys)
-    print(f"{new_guild = }")
     new_guild.features.extend(active_features)
-    print(new_guild.features)
     new_guild.update_features()
-    print(new_guild.feature_keys)
     new_guild.save_changes()
 
     new_guild_entry = GWWGuildsV2.get_specific_guild(old_guild.id)
-    print(f"{new_guild_entry = }")
     if not new_guild_entry:
         print("GUILD ENTRY DIDNT WORK")
-    elif len(new_guild_entry.feature_keys) != len(active_features):
-        print(
-            f"GUILD ENTRY FEATURES DIFFERENT LENGTH {len(new_guild_entry.feature_keys)} from {len(active_features)}"
-        )
     else:
         print("GUILD ENTRY SUCCESSFUL")
-
-    print("=" * 25)
