@@ -208,7 +208,7 @@ class GWWGuild(ReprMixin):
                         update_feature_keys = True
                         self.feature_keys.append(feature.name)
                         match feature.name:
-                            case "dashboard" | "map":
+                            case "dashboards" | "maps":
                                 curs.execute(
                                     f"INSERT INTO feature.{feature.name} (guild_id, channel_id, message_id) VALUES (%s, %s, %s)",
                                     (
