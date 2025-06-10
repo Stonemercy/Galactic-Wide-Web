@@ -321,7 +321,11 @@ class Dashboard:
                                 ),
                                 inline=False,
                             )
-                    if assignment.flags == 1 and len(assignment.tasks) > 1:
+                    if (
+                        assignment.flags == 2
+                        and len(assignment.tasks) > 1
+                        and task != assignment.tasks[-1]
+                    ):
                         self.add_field("or", "", inline=False)
 
                 self.add_rewards(
@@ -868,7 +872,7 @@ class Dashboard:
                             f"{required_players}"
                             f"\n{language_json['dashboard']['progress']}:\n"
                             f"{task_health_bar}"
-                            f"\n`{1 - planet.event.progress:^25,.2%}`"
+                            f"\n`{planet.event.progress:^25,.2%}`"
                             f"{liberation_text}"
                         ),
                         inline=False,

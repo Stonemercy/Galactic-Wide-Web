@@ -9,15 +9,16 @@ from utils.functions import out_of_normal_range
 class DataManagementCog(commands.Cog):
     def __init__(self, bot: GalacticWideWebBot):
         self.bot = bot
-        self.startup.start()
-        self.pull_from_api.start()
-        self.check_changes.start()
+        self.loops = (self.startup, self.pull_from_api, self.check_changes)
+        for loop in self.loops:
+            if not loop.is_running():
+                loop.start()
         self.mentioned_new_effects = set()
 
     def cog_unload(self):
-        self.startup.stop()
-        self.pull_from_api.stop()
-        self.check_changes.stop()
+        for loop in self.loops:
+            if loop.is_running():
+                loop.stop()
 
     @tasks.loop(count=1)
     async def startup(self):

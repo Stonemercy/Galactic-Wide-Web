@@ -23,10 +23,12 @@ from utils.embeds.loop_embeds import MeridiaLoopEmbed
 class MeridiaCog(commands.Cog):
     def __init__(self, bot: GalacticWideWebBot):
         self.bot = bot
-        self.meridia_update.start()
+        if not self.meridia_update.is_running():
+            self.meridia_update.start()
 
     def cog_unload(self):
-        self.meridia_update.stop()
+        if self.meridia_update.is_running():
+            self.meridia_update.stop()
 
     @tasks.loop(
         time=[time(hour=i, minute=j) for i in range(24) for j in range(10, 60, 15)]

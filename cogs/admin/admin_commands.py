@@ -199,7 +199,11 @@ class AdminCommandsCog(commands.Cog):
         for cog in self.bot.cogs.values():
             for name, member in getmembers(cog):
                 if isinstance(member, Loop):
-                    loops.append(f"`{cog.__class__.__name__}.{name}`\n")
+                    if member.next_iteration:
+                        timestamp = f" - <t:{int(member.next_iteration.timestamp())}:R>"
+                    else:
+                        timestamp = ""
+                    loops.append(f"`{cog.__class__.__name__}.{name}`{timestamp}\n")
         await inter.send("".join(sorted(loops)), ephemeral=True)
 
 

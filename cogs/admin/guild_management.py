@@ -23,17 +23,18 @@ from utils.interactables import AppDirectoryButton, GitHubButton, KoFiButton
 class GuildManagementCog(commands.Cog):
     def __init__(self, bot: GalacticWideWebBot):
         self.bot = bot
-        self.bot_dashboard.start()
-        self.dashboard_checking.start()
-        self.guild_checking.start()
+        self.loops = (self.bot_dashboard, self.dashboard_checking, self.guild_checking)
+        for loop in self.loops:
+            if not loop.is_running():
+                loop.start()
         self.guilds_to_remove = []
         self.user_installs = 0
         self.bot_dashboard_db = BotDashboard()
 
     def cog_unload(self):
-        self.bot_dashboard.stop()
-        self.dashboard_checking.stop()
-        self.guild_checking.stop()
+        for loop in self.loops:
+            if loop.is_running():
+                loop.stop()
 
     @commands.Cog.listener()
     async def on_guild_join(self, guild: Guild):

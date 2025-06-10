@@ -8,10 +8,12 @@ from utils.embeds.dashboard import Dashboard
 class DashboardCog(commands.Cog):
     def __init__(self, bot: GalacticWideWebBot):
         self.bot = bot
-        self.dashboard_poster.start()
+        if not self.dashboard_poster.is_running():
+            self.dashboard_poster.start()
 
     def cog_unload(self):
-        self.dashboard_poster.stop()
+        if self.dashboard_poster.is_running():
+            self.dashboard_poster.stop()
 
     @tasks.loop(
         time=[

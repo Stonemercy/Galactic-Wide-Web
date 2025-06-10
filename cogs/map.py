@@ -20,10 +20,12 @@ from utils.maps import Maps
 class MapCog(commands.Cog):
     def __init__(self, bot: GalacticWideWebBot):
         self.bot = bot
-        self.map_poster.start()
+        if not self.map_poster.is_running():
+            self.map_poster.start()
 
     def cog_unload(self):
-        self.map_poster.stop()
+        if self.map_poster.is_running():
+            self.map_poster.stop()
 
     @tasks.loop(time=[time(hour=hour, minute=5, second=0) for hour in range(24)])
     async def map_poster(self):

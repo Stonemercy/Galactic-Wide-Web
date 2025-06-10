@@ -9,10 +9,12 @@ class UsageLoggerCog(commands.Cog):
     def __init__(self, bot: GalacticWideWebBot):
         self.bot = bot
         self.guilds_joined = 0
-        self.usage_report.start()
+        if not self.usage_report.is_running():
+            self.usage_report.start()
 
     def cog_unload(self):
-        self.usage_report.stop()
+        if self.usage_report.is_running():
+            self.usage_report.stop()
 
     @commands.Cog.listener()
     async def on_slash_command(self, inter: AppCmdInter):

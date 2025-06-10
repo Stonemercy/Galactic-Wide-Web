@@ -14,10 +14,15 @@ SUPPORT_SERVER = [int(getenv("SUPPORT_SERVER"))]
 class WarUpdatesCog(commands.Cog):
     def __init__(self, bot: GalacticWideWebBot):
         self.bot = bot
-        self.campaign_check.start()
+        self.loops = (self.campaign_check, self.dss_check)
+        for loop in self.loops:
+            if not loop.is_running():
+                loop.start()
 
     def cog_unload(self):
-        self.campaign_check.stop()
+        for loop in self.loops:
+            if loop.is_running():
+                loop.stop()
 
     @tasks.loop(minutes=1)
     async def campaign_check(self):
@@ -42,7 +47,6 @@ class WarUpdatesCog(commands.Cog):
             for lang in unique_langs
         }
         new_updates = False
-        dss_updates = False
         need_to_update_sectors = False
         if not old_campaigns:
             for new_campaign in self.bot.data.campaigns:
@@ -116,10 +120,6 @@ class WarUpdatesCog(commands.Cog):
                             embed_list[0].add_campaign_victory(
                                 planet=planet, taken_from=old_campaign.planet_owner
                             )
-                else:
-                    # if campaign was cancelled
-                    for embed_list in embeds.values():
-                        embed_list[0].add_campaign_cancelled(planet=planet)
                 self.bot.data.liberation_changes.remove_entry(key=planet.index)
                 old_campaign.delete()
                 new_updates = True
@@ -162,46 +162,6 @@ class WarUpdatesCog(commands.Cog):
                 )
                 new_updates = True
                 need_to_update_sectors = True
-
-        if self.bot.data.dss != None:
-            # DSS updates
-            last_dss_info = DSSInfo()
-            if (
-                last_dss_info.planet_index == None
-                or not last_dss_info.tactical_action_statuses
-            ):
-                last_dss_info.planet_index = self.bot.data.dss.planet.index
-                last_dss_info.tactical_action_statuses = {
-                    ta.id: ta.status for ta in self.bot.data.dss.tactical_actions
-                }
-                last_dss_info.save_changes()
-                return
-            if last_dss_info.planet_index != self.bot.data.dss.planet.index:
-                # if DSS has moved
-                for embed_list in embeds.values():
-                    embed_list[0].dss_moved(
-                        before_planet=self.bot.data.planets[last_dss_info.planet_index],
-                        after_planet=self.bot.data.dss.planet,
-                    )
-                last_dss_info.planet_index = self.bot.data.dss.planet.index
-                last_dss_info.save_changes()
-                dss_updates = True
-            for ta in self.bot.data.dss.tactical_actions:
-                old_status = last_dss_info.tactical_action_statuses.get(ta.id)
-                if not old_status or old_status != ta.status:
-                    for embed_list in embeds.values():
-                        embed_list[0].ta_status_changed(ta)
-                        last_dss_info.tactical_action_statuses[ta.id] = ta.status
-                        last_dss_info.save_changes()
-                    dss_updates = True
-
-        if dss_updates:
-            for embed_list in embeds.values():
-                embed_list[0].remove_empty()
-            await self.bot.interface_handler.send_feature("dss_announcements", embeds)
-            self.bot.logger.info(
-                f"Sent DSS announcements out to {len(self.bot.interface_handler.dss_announcements)} channels"
-            )
 
         if new_updates:
             for embed_list in embeds.values():
@@ -254,6 +214,104 @@ class WarUpdatesCog(commands.Cog):
 
     @campaign_check.before_loop
     async def before_campaign_check(self):
+        await self.bot.wait_until_ready()
+
+    @tasks.loop(minutes=1)
+    async def dss_check(self):
+        update_start = datetime.now()
+        if (
+            not self.bot.interface_handler.loaded
+            or not self.bot.data.loaded
+            or not self.bot.previous_data
+            or update_start < self.bot.ready_time
+            or self.bot.interface_handler.busy
+        ):
+            return
+
+        dss_updates = False
+        unique_langs = GWWGuilds().unique_languages
+        if self.bot.data.dss != None:
+            # DSS updates
+            embeds = {
+                lang: [
+                    CampaignLoopEmbed(
+                        language_json=self.bot.json_dict["languages"][lang],
+                        planet_names_json=self.bot.json_dict["planets"],
+                    )
+                ]
+                for lang in unique_langs
+            }
+            last_dss_info = DSSInfo()
+
+            if (
+                last_dss_info.planet_index == None
+                or not last_dss_info.tactical_action_statuses
+            ):
+                last_dss_info.planet_index = self.bot.data.dss.planet.index
+                last_dss_info.tactical_action_statuses = {
+                    ta.id: ta.status for ta in self.bot.data.dss.tactical_actions
+                }
+                last_dss_info.save_changes()
+                return
+            if last_dss_info.planet_index != self.bot.data.dss.planet.index:
+                # if DSS has moved
+                for embed_list in embeds.values():
+                    embed_list[0].dss_moved(
+                        before_planet=self.bot.data.planets[last_dss_info.planet_index],
+                        after_planet=self.bot.data.dss.planet,
+                    )
+                last_dss_info.planet_index = self.bot.data.dss.planet.index
+                last_dss_info.save_changes()
+                dss_updates = True
+            for ta in self.bot.data.dss.tactical_actions:
+                old_status = last_dss_info.tactical_action_statuses.get(ta.id)
+                if not old_status or old_status != ta.status:
+                    for embed_list in embeds.values():
+                        embed_list[0].ta_status_changed(ta)
+                        last_dss_info.tactical_action_statuses[ta.id] = ta.status
+                        last_dss_info.save_changes()
+                    dss_updates = True
+
+        if dss_updates:
+            for embed_list in embeds.values():
+                embed_list[0].remove_empty()
+            await self.bot.interface_handler.send_feature("dss_announcements", embeds)
+            self.bot.logger.info(
+                f"Sent DSS announcements out to {len(self.bot.interface_handler.dss_announcements)} channels"
+            )
+            self.bot.maps.update_planets(
+                planets=self.bot.data.planets,
+                active_planets=[
+                    campaign.planet.index for campaign in self.bot.data.campaigns
+                ],
+            )
+            self.bot.maps.update_dss(
+                dss=self.bot.data.dss,
+                type_3_campaigns=[c for c in self.bot.data.campaigns if c.type == 3],
+            )
+            for lang in unique_langs:
+                lang_json = self.bot.json_dict["languages"][lang]
+                self.bot.maps.localize_map(
+                    language_code_short=lang,
+                    language_code_long=lang_json["code_long"],
+                    planets=self.bot.data.planets,
+                    active_planets=[
+                        campaign.planet.index for campaign in self.bot.data.campaigns
+                    ],
+                    type_3_campaigns=[
+                        c for c in self.bot.data.campaigns if c.type == 3
+                    ],
+                    planet_names_json=self.bot.json_dict["planets"],
+                )
+                message = await self.bot.waste_bin_channel.send(
+                    file=File(fp=self.bot.maps.FileLocations.localized_map_path(lang))
+                )
+                self.bot.maps.latest_maps[lang] = Maps.LatestMap(
+                    datetime.now(), message.attachments[0].url
+                )
+
+    @dss_check.before_loop
+    async def before_dss_check(self):
         await self.bot.wait_until_ready()
 
 
