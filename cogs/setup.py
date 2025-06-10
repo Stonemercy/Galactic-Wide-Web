@@ -440,7 +440,7 @@ class SetupCog(commands.Cog):
                     return
                 guild.features.append(
                     Feature(
-                        "dashboard", guild.guild_id, dashboard_channel.id, message.id
+                        "dashboards", guild.guild_id, dashboard_channel.id, message.id
                     )
                 )
                 guild.update_features()
@@ -535,7 +535,7 @@ class SetupCog(commands.Cog):
                         ),
                     )
                 guild.features.append(
-                    Feature("map", guild.guild_id, map_channel.id, message.id)
+                    Feature("maps", guild.guild_id, map_channel.id, message.id)
                 )
                 guild.update_features()
                 guild.save_changes()
