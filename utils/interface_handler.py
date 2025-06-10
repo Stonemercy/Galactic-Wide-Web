@@ -245,20 +245,20 @@ class BaseFeatureInteractionHandler(list, ReprMixin):
             except NotFound as e:
                 guild: GWWGuild = GWWGuilds.get_specific_guild(id=feature.guild_id)
                 if not guild:
-                    self.remove_entry(feature.guild_id)
                     self.bot.logger.error(
-                        f"{feature.name}.populate() ERROR | guild not found in DB | removed from {feature.name} list | {feature.guild_id = }"
+                        f"{feature.name}.populate() ERROR | {e} | not found in DB either | {feature.guild_id = }"
                     )
                     continue
                 else:
                     guild.features = [
-                        f for f in guild.features if f.name != "dashboard"
+                        f for f in guild.features if f.name != feature.name
                     ]
                     guild.update_features()
                     guild.save_changes()
                     self.bot.logger.error(
                         f"{feature.name}.populate() ERROR | {e} | reset in DB | {guild.guild_id = }"
                     )
+                self.remove_entry(feature.guild_id)
             except Exception as e:
                 self.bot.logger.error(
                     f"{feature.name}.populate() ERROR | {e} | {feature.guild_id = }"
