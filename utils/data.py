@@ -815,10 +815,10 @@ class Planet(ReprMixin):
             self.end_time: str = raw_event_data["endTime"]
             self.start_time_datetime: datetime = datetime.fromisoformat(
                 self.start_time
-            ).replace(tzinfo=None) + timedelta(hours=1)
+            ).replace(tzinfo=None)
             self.end_time_datetime: datetime = datetime.fromisoformat(
                 self.end_time
-            ).replace(tzinfo=None) + timedelta(hours=1)
+            ).replace(tzinfo=None)
             self.progress: float = 1 - (self.health / self.max_health)
             """A float from 0-1"""
             self.required_players: int = 0
@@ -881,7 +881,7 @@ class Planet(ReprMixin):
             return self.health / self.max_health
 
         def update_from_status_data(self, raw_planet_region_data: dict):
-            self.owner: int = factions[raw_planet_region_data["owner"]]
+            self.owner: str = factions[raw_planet_region_data["owner"]]
             self.health: int = raw_planet_region_data["health"]
             self.regen_per_sec: int = raw_planet_region_data.get(
                 "regenPerSecond"
