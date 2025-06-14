@@ -149,6 +149,11 @@
 		"name": "WEAPONS EXPERIMENTATION",
 		"description": "The Laser Cannon stratagem has been temporarily authorized for use by all Helldivers."
 	},
+	"1169": {
+		"galacticEffectId": 1168,
+		"name": "WEAPONS EXPERIMENTATION",
+		"description": "The Expendable Anti-Tank stratagem isa available to all Helldivers."
+	},
 	"1170": {
 		"galacticEffectId": 1170,
 		"name": "WEAPONS EXPERIMENTATION",
