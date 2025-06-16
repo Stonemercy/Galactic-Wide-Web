@@ -46,6 +46,7 @@ class SetupCog(commands.Cog):
         self.current_features = [
             "war_announcements",
             "dss_announcements",
+            "region_announcements",
             "patch_notes",
             "major_order_updates",
             # "personal_order_updates",
@@ -250,8 +251,8 @@ class SetupCog(commands.Cog):
                     )
                     for f in self.current_features
                 ]
-                for i in range(0, len(feature_buttons), 5):
-                    action_rows.append(ActionRow(*feature_buttons[i : i + 5]))
+                for i in range(0, len(feature_buttons), 3):
+                    action_rows.append(ActionRow(*feature_buttons[i : i + 3]))
                 self.reset_row(action_rows[0])
                 action_rows[0].pop(2)
                 action_rows[0].insert_item(
@@ -266,7 +267,7 @@ class SetupCog(commands.Cog):
                 except NotFound as e:
                     await self.bot.moderator_channel.send(f"Setup\n```py\n{e}\n```")
             elif "set_features_button-" in inter.component.custom_id:
-                self.clear_extra_buttons(action_rows=action_rows, from_row=2)
+                self.clear_extra_buttons(action_rows=action_rows, from_row=3)
                 feature_type = inter.component.custom_id.split("-")[1]
                 action_rows.append(
                     ActionRow(
@@ -286,8 +287,9 @@ class SetupCog(commands.Cog):
                 getattr(self.bot.interface_handler, feature_type).remove_entry(
                     guild.guild_id
                 )
-                self.clear_extra_buttons(action_rows=action_rows, from_row=2)
+                self.clear_extra_buttons(action_rows=action_rows, from_row=3)
                 self.reset_row(action_rows[1])
+                self.reset_row(action_rows[2])
                 await inter.edit_original_response(
                     embed=SetupCommandEmbed(
                         guild, self.bot.json_dict["languages"][guild.language]
@@ -299,7 +301,7 @@ class SetupCog(commands.Cog):
                 for feature in self.current_features:
                     if inter.component.custom_id == f"{feature}_features_button":
                         currently_enabled = feature in active_feature_names
-                        self.clear_extra_buttons(action_rows=action_rows, from_row=2)
+                        self.clear_extra_buttons(action_rows=action_rows, from_row=3)
                         if currently_enabled:
                             action_rows.append(
                                 ActionRow(
@@ -318,15 +320,20 @@ class SetupCog(commands.Cog):
                                     )
                                 )
                             )
-                        index_to_reset = None
-                        for index, button in enumerate(action_rows[1].children):
-                            if feature in button.custom_id:
-                                index_to_reset = index
-                                break
-                        self.reset_row(action_rows[1])
-                        action_rows[1].pop(index_to_reset)
-                        action_rows[1].insert_item(
-                            index_to_reset,
+                        button_index = None
+                        buttons_to_check = (
+                            action_rows[1].children,
+                            action_rows[2].children,
+                        )
+                        for row_index, row in enumerate(buttons_to_check):
+                            for index, button in enumerate(row):
+                                if feature in button.custom_id:
+                                    button_index = index
+                                    break
+                        self.reset_row(action_rows[row_index])
+                        action_rows[row_index].pop(button_index)
+                        action_rows[row_index].insert_item(
+                            button_index,
                             Setup.Features.FeatureButton(
                                 feature_type=feature,
                                 language_json=guild_language,
@@ -579,8 +586,9 @@ class SetupCog(commands.Cog):
                 list_to_update: list = getattr(self.bot.interface_handler, feature_type)
                 list_to_update.append(channel)
                 embed = SetupCommandEmbed(guild, guild_language)
-                self.clear_extra_buttons(action_rows, from_row=2)
+                self.clear_extra_buttons(action_rows, from_row=3)
                 self.reset_row(action_rows[1])
+                self.reset_row(action_rows[2])
                 await inter.edit_original_response(embed=embed, components=action_rows)
         elif inter.component.custom_id == "language_select":
             guild.language = inter.values[0].lower()

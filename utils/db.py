@@ -9,7 +9,7 @@ from utils.mixins import ReprMixin
 
 load_dotenv(dotenv_path=".env")
 hostname = getenv(key="DB_HOSTNAME")
-database = getenv(key="DB_NAME")
+database = getenv(key="DBV1_NAME")
 username = getenv(key="DB_USERNAME")
 pwd = getenv(key="DB_PWD")
 port_id = getenv(key="DB_PORT_ID")

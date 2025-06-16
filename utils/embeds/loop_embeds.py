@@ -635,6 +635,77 @@ class CampaignLoopEmbed(Embed, EmbedReprMixin):
         self.set_field_at(3, self.fields[3].name, description, inline=False)
 
 
+class RegionLoopEmbed(Embed, EmbedReprMixin):
+    def __init__(self, language_json: dict, planet_names_json: dict):
+        self.language_json = language_json
+        self.planet_names_json = planet_names_json
+        super().__init__(
+            title=f"{Emojis.Decoration.left_banner} Planetary Region Updates {Emojis.Decoration.right_banner}",
+            colour=Colour.brand_red(),
+        )
+        self.add_field("Region Victories", "", inline=False)
+        self.add_field("Regions Lost", "", inline=False)
+        self.add_field("Regions Now Available", "", inline=False)
+
+    def add_region_now_available(self, planet: Planet, region: Planet.Region):
+        description = self.fields[2].value
+        exclamation = planet.exclamations
+        description += f"\n{getattr(Emojis.Factions, region.owner.lower())} **{self.planet_names_json[str(planet.index)]['names'][self.language_json['code_long']]}** {exclamation} **{region.name}** is now open!"
+        if planet.feature:
+            description += f"\n-# Feature: {planet.feature}"
+        for special_unit in SpecialUnits.get_from_effects_list(
+            active_effects=planet.active_effects
+        ):
+            description += f"\n-# Special Unit: **{special_unit[0]}** {special_unit[1]}"
+        self.set_field_at(2, self.fields[2].name, description, inline=False)
+
+    def add_region_victory(
+        self, planet: Planet, region: Planet.Region, taken_from: str
+    ):
+        description = self.fields[0].value
+        description += f"\n{Emojis.Icons.victory} **{region.name}** on **{planet.name}** has been taken from the {taken_from} {getattr(Emojis.Factions, taken_from.lower())}{planet.exclamations}"
+        if planet.feature:
+            description += f"\n-# Feature: {planet.feature}"
+        for special_unit in SpecialUnits.get_from_effects_list(
+            active_effects=planet.active_effects
+        ):
+            description += f"\n-# Special Unit: **{special_unit[0]}** {special_unit[1]}"
+        self.set_field_at(0, self.fields[0].name, description, inline=False)
+
+    def add_region_lost(self, planet: Planet, region: Planet.Region, taken_by: str):
+        description = self.fields[0].value
+        description += f"\n{Emojis.Icons.victory} **{region.name}** on **{planet.name}** has been taken by the {taken_by} {getattr(Emojis.Factions, taken_by.lower())}{planet.exclamations}"
+        if planet.feature:
+            description += f"\n-# Feature: {planet.feature}"
+        for special_unit in SpecialUnits.get_from_effects_list(
+            active_effects=planet.active_effects
+        ):
+            description += f"\n-# Special Unit: **{special_unit[0]}** {special_unit[1]}"
+        self.set_field_at(0, self.fields[0].name, description, inline=False)
+
+    def add_new_region_appeared(self, planet: Planet, region: Planet.Region):
+        description = self.fields[2].value
+        exclamation = planet.exclamations
+        description += f"\n{getattr(Emojis.Factions, region.owner.lower())} **{self.planet_names_json[str(planet.index)]['names'][self.language_json['code_long']]}** {exclamation} has a new region!"
+        description += (
+            f"\n-# Region: __**{region.name}**__ - **`{region.size}* {region.type}`**"
+        )
+        if region.description:
+            description += f"\n-# {region.description}"
+        if planet.feature:
+            description += f"\n-# Feature: {planet.feature}"
+        for special_unit in SpecialUnits.get_from_effects_list(
+            active_effects=planet.active_effects
+        ):
+            description += f"\n-# Special Unit: **{special_unit[0]}** {special_unit[1]}"
+        self.set_field_at(2, self.fields[2].name, description, inline=False)
+
+    def remove_empty(self):
+        for field in self.fields.copy():
+            if field.value == "":
+                self.remove_field(self.fields.index(field))
+
+
 class UsageLoopEmbed(Embed, EmbedReprMixin):
     def __init__(self, command_usage: dict, guilds_joined: int):
         super().__init__(title="Daily Usage", colour=Colour.dark_theme())

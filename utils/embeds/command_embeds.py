@@ -23,7 +23,7 @@ class PlanetCommandEmbed(Embed, EmbedReprMixin):
         planet: Planet,
         language_json: dict,
         planet_effects_json: dict,
-        liberation_changes: BaseTracker,
+        liberation_change: BaseTrackerEntry,
         total_players: int,
     ):
         super().__init__(colour=Colour.from_rgb(*faction_colours[planet.current_owner]))
@@ -32,7 +32,7 @@ class PlanetCommandEmbed(Embed, EmbedReprMixin):
             planet=planet,
             language_json=language_json,
             planet_effects_json=planet_effects_json,
-            liberation_changes=liberation_changes,
+            liberation_change=liberation_change,
             total_players=total_players,
         )
         self.add_mission_stats(planet=planet, language_json=language_json)
@@ -46,7 +46,7 @@ class PlanetCommandEmbed(Embed, EmbedReprMixin):
         planet: Planet,
         language_json: dict,
         planet_effects_json: list,
-        liberation_changes: BaseTracker,
+        liberation_change: BaseTrackerEntry | None,
         total_players: int,
     ):
         sector = language_json["PlanetEmbed"]["sector"].format(sector=planet.sector)
@@ -81,7 +81,6 @@ class PlanetCommandEmbed(Embed, EmbedReprMixin):
         outlook_text = ""
         required_players = ""
         liberation_text = ""
-        liberation_change = liberation_changes.get_entry(key=planet.index)
         if planet.event:
             planet_health_bar = (
                 health_bar(planet.event.progress, planet.event.faction, True)
@@ -256,6 +255,72 @@ class PlanetCommandEmbed(Embed, EmbedReprMixin):
             self.image_set = False
 
 
+class PlanetCommandRegionEmbed(Embed, EmbedReprMixin):
+    def __init__(
+        self,
+        planet: Planet,
+        planet_changes: BaseTrackerEntry,
+        region_changes: BaseTracker,
+    ):
+        super().__init__(colour=Colour.from_rgb(*faction_colours[planet.current_owner]))
+        for region in planet.regions.values():
+            region_emojis = getattr(Emojis.RegionIcons, region.owner)
+            level_emoji = getattr(region_emojis, f"_{region.size}")
+            description = f"{level_emoji} **{region.size}*** {region.type}"
+            description += f"{region.description}\n"
+            if region.is_available:
+                health_to_get_from = (
+                    planet.max_health if not planet.event else planet.event.max_health
+                )
+                description += f"Boost when liberated: **{(region.max_health * 0.5) / health_to_get_from:.2%}**"
+                description += f"\n{region.health_bar}"
+                description += f"\n`{region.perc:^25,.2%}`"
+                region_change = region_changes.get_entry(region.settings_hash)
+                if region_change:
+                    change = f"{region_change.change_rate_per_hour:+.2%}/hour"
+                    description += f"\n`{change:^25}`"
+            elif region.owner != "Humans":
+                stat_to_use = "liberation" if not planet.event else "defence duration"
+                if region.availability_factor != 1 and (
+                    1 - region.availability_factor
+                ) > (planet.event.progress if planet.event else 1 - planet.health_perc):
+                    description += f"Unlocks when **{stat_to_use}** reaches **{1 - region.availability_factor:.0%}**"
+                if planet_changes.change_rate_per_hour > 0:
+                    if planet.event:
+                        seconds_until_we_win = planet_changes.seconds_until_complete
+                        event_duration_in_seconds = (
+                            planet.event.end_time_datetime.timestamp()
+                            - planet.event.start_time_datetime.timestamp()
+                        )
+                        progress_in_seconds = (
+                            datetime.now().timestamp()
+                            - planet.event.start_time_datetime.timestamp()
+                        )
+                        current_progress = (
+                            progress_in_seconds / event_duration_in_seconds
+                        )
+                        progress_needed = (
+                            1 - region.availability_factor
+                        ) - current_progress
+                        time_to_unlock = seconds_until_we_win * progress_needed
+                        description += f"\n-# <t:{int(datetime.now().timestamp() + time_to_unlock)}:R>"
+                    else:
+                        seconds_until_we_win = planet_changes.seconds_until_complete
+                        current_progress = 1 - planet.health_perc
+                        progress_needed = (
+                            1 - region.availability_factor
+                        ) - current_progress
+                        time_to_unlock = seconds_until_we_win * progress_needed
+                        description += f"\n-# <t:{int(datetime.now().timestamp() + time_to_unlock)}:R>"
+
+            self.add_field(
+                f"{getattr(Emojis.Factions, region.owner.lower() or planet.current_owner.lower())} {region.name}",
+                description,
+                inline=False,
+            )
+            self.set_image("https://i.imgur.com/cThNy4f.png")
+
+
 class HelpCommandEmbed(Embed, EmbedReprMixin):
     def __init__(
         self,
@@ -385,6 +450,29 @@ class SetupCommandEmbed(Embed, EmbedReprMixin):
             # language_json["SetupEmbed"]["announcements"], # TRANSLATE
             f"{setup_emoji} DSS Announcements",
             dss_announcements_text,
+            inline=False,
+        )
+
+        # region announcements
+        # region_announcements_text = f"{language_json['SetupEmbed']['announcements_desc']}" # TRANSLATE
+        region_announcements_text = "-# Announcements regarding planetary regions (e.g. new regions have appeared or regions have been won etc.)\n"
+        region_announcements_feature = [
+            f for f in guild.features if f.name == "region_announcements"
+        ]
+        if region_announcements_feature:
+            setup_emoji = ":white_check_mark:"
+            region_announcements = region_announcements_feature[0]
+            # region_announcements_text += f"{language_json['SetupEmbed']['announcement_channel']}: <#{dss_announcements.channel_id}>" # TRANSLATE
+            region_announcements_text += (
+                f"Region Announcements Channel: <#{region_announcements.channel_id}>"
+            )
+        else:
+            setup_emoji = ":x:"
+            region_announcements_text += f"**{language_json['SetupEmbed']['not_set']}**"
+        self.add_field(
+            # language_json["SetupEmbed"]["announcements"], # TRANSLATE
+            f"{setup_emoji} Region Announcements",
+            region_announcements_text,
             inline=False,
         )
 

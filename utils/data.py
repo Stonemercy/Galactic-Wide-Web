@@ -22,7 +22,7 @@ factions = {
     4: "Illuminate",
 }
 
-region_types = {3: "Mega City", 2: "Town", 1: "Settlement"}
+region_types = {4: "Mega City", 3: "City", 2: "Town", 1: "Settlement"}
 
 
 class Data(ReprMixin):
@@ -455,13 +455,13 @@ class Data(ReprMixin):
 
     def update_region_changes(self) -> None:
         """Update the liberation changes in the tracker for each active region"""
-        regional_campaigns = [c for c in self.campaigns if c.planet.regions]
-        for campaign in regional_campaigns:
-            for region in campaign.planet.regions.values():
-                if not region.is_available:
+        planets_with_regions = [p for p in self.planets.values() if p.regions]
+        for planet in planets_with_regions:
+            for region in planet.regions.values():
+                if not region.is_available or not region.is_updated:
                     continue
                 self.region_changes.add_entry(
-                    key=(campaign.planet.index, region.index), value=region.perc
+                    key=region.settings_hash, value=region.perc
                 )
 
     def get_needed_players(self) -> None:
@@ -848,29 +848,25 @@ class Planet(ReprMixin):
         def __init__(
             self, planet_regions_json_dict: dict, raw_planet_region_data: dict
         ):
-            self.settings_hash = raw_planet_region_data["settingsHash"]
+            self.settings_hash: int = raw_planet_region_data["settingsHash"]
             self.is_updated: bool = False
-            self.planet_index = raw_planet_region_data["planetIndex"]
+            self.planet_index: int = raw_planet_region_data["planetIndex"]
             self.index: int = raw_planet_region_data["regionIndex"]
-            self.name = (
-                planet_regions_json_dict.get(str(self.planet_index), {})
-                .get(str(self.settings_hash), {})
-                .get("name", "Megacity")
-            )
-            self.description = (
-                planet_regions_json_dict.get(str(self.planet_index), {})
-                .get(str(self.settings_hash), {})
-                .get("description", "")
-            )
-            self.owner: int = 0
+            self.name: str = planet_regions_json_dict.get(
+                str(self.settings_hash), {}
+            ).get("name", "Colony")
+            self.description: str = planet_regions_json_dict.get(
+                str(self.settings_hash), {}
+            ).get("description", "")
+            self.owner: str = ""
             self.health: int = raw_planet_region_data["maxHealth"]
             self.max_health: int = raw_planet_region_data["maxHealth"]
             self.regen_per_sec: int = 0
             self.availability_factor: int = 0
             self.is_available: bool = False
             self.players: int = 0
-            self.size: int = raw_planet_region_data["regionSize"]
-            self.type = region_types.get(self.size, "")
+            self.size: int = raw_planet_region_data["regionSize"] + 1
+            self.type: str = region_types.get(self.size, "")
 
         @property
         def regen_per_hour(self) -> float:
@@ -878,7 +874,12 @@ class Planet(ReprMixin):
 
         @property
         def perc(self):
-            return self.health / self.max_health
+            return 1 - self.health / self.max_health
+
+        @property
+        def health_bar(self) -> str:
+            """Returns the health bar for the region"""
+            return health_bar(perc=self.perc, race=self.owner)
 
         def update_from_status_data(self, raw_planet_region_data: dict):
             self.owner: str = factions[raw_planet_region_data["owner"]]

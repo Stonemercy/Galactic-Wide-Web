@@ -37,6 +37,15 @@ class InterfaceHandler:
             ],
             bot=self.bot,
         )
+        self.region_announcements = BaseFeatureInteractionHandler(
+            features=[
+                f
+                for g in self.all_guilds
+                for f in g.features
+                if f.name == "region_announcements"
+            ],
+            bot=self.bot,
+        )
         self.patch_notes = BaseFeatureInteractionHandler(
             features=[
                 f
@@ -79,25 +88,25 @@ class InterfaceHandler:
             ],
             bot=self.bot,
         )
-        self.lists = [
-            self.dashboards,
-            self.war_announcements,
-            self.dss_announcements,
-            self.patch_notes,
-            self.major_order_updates,
-            # self.personal_order_updates,
-            self.detailed_dispatches,
-            self.maps,
-        ]
+        self.lists = {
+            "dashboards": self.dashboards,
+            "war_announcements": self.war_announcements,
+            "dss_announcements": self.dss_announcements,
+            "region_announcements": self.region_announcements,
+            "patch_notes": self.patch_notes,
+            "major_order_updates": self.major_order_updates,
+            # "personal_order_updates": self.personal_order_updates,
+            "detailed_dispatches": self.detailed_dispatches,
+            "maps": self.maps,
+        }
 
     async def populate_lists(self):
         outcome_text = "populate_lists completed | "
         number_of_guilds = len(self.all_guilds)
-        for feature_list in self.lists:
+        for feature_type, feature_list in self.lists.items():
             feature_list.clear()
             await feature_list.populate()
-            feature_example = feature_list.features[0]
-            outcome_text += f"{len(feature_list)} {feature_example.name.replace('_', ' ')} {'messages' if feature_example.message_id else 'channels'} ({(len(feature_list) / number_of_guilds):.0%}) | "
+            outcome_text += f"{len(feature_list)} {feature_type.replace('_', ' ')} {'messages' if feature_type in ('dashboards', 'maps') else 'channels'} ({(len(feature_list) / number_of_guilds):.0%}) | "
         self.loaded = True
         self.bot.logger.info(outcome_text)
 

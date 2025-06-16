@@ -4,8 +4,8 @@ from disnake import File
 from disnake.ext import commands, tasks
 from main import GalacticWideWebBot
 from os import getenv
-from utils.dbv2 import DSSInfo, GWWGuilds, WarCampaigns
-from utils.embeds.loop_embeds import CampaignLoopEmbed
+from utils.dbv2 import DSSInfo, GWWGuilds, PlanetRegions, WarCampaigns
+from utils.embeds.loop_embeds import CampaignLoopEmbed, RegionLoopEmbed
 from utils.maps import Maps
 
 SUPPORT_SERVER = [int(getenv("SUPPORT_SERVER"))]
@@ -14,7 +14,7 @@ SUPPORT_SERVER = [int(getenv("SUPPORT_SERVER"))]
 class WarUpdatesCog(commands.Cog):
     def __init__(self, bot: GalacticWideWebBot):
         self.bot = bot
-        self.loops = (self.campaign_check, self.dss_check)
+        self.loops = (self.campaign_check, self.dss_check, self.region_check)
         for loop in self.loops:
             if not loop.is_running():
                 loop.start()
@@ -313,6 +313,124 @@ class WarUpdatesCog(commands.Cog):
 
     @dss_check.before_loop
     async def before_dss_check(self):
+        await self.bot.wait_until_ready()
+
+    @tasks.loop(minutes=1)
+    async def region_check(self):
+        update_start = datetime.now()
+        if (
+            not self.bot.interface_handler.loaded
+            or not self.bot.data.loaded
+            or not self.bot.previous_data
+            or update_start < self.bot.ready_time
+            or self.bot.interface_handler.busy
+        ):
+            return
+        region_updates = False
+        unique_langs = GWWGuilds().unique_languages
+        regions = [
+            r for p in self.bot.data.planets.values() for r in p.regions.values()
+        ]
+        old_region_data = PlanetRegions()
+        if not old_region_data:
+            for region in regions:
+                if region.is_updated and region.is_available:
+                    old_region_data.add(
+                        region.settings_hash,
+                        region.owner,
+                        region.planet_index,
+                    )
+            return
+
+        embeds = {
+            lang: [
+                RegionLoopEmbed(
+                    language_json=self.bot.json_dict["languages"][lang],
+                    planet_names_json=self.bot.json_dict["planets"],
+                )
+            ]
+            for lang in unique_langs
+        }
+
+        new_region_hashes = [
+            r.settings_hash for r in regions if r.is_available and r.is_updated
+        ]
+        for old_region in old_region_data:
+            # loop through old regions
+            if old_region.settings_hash not in new_region_hashes:
+                # if region has become unavailable
+                region = [
+                    r for r in regions if r.settings_hash == old_region.settings_hash
+                ]
+                if region:
+                    # if region is still in API
+                    region = region[0]
+                    planet = self.bot.data.planets[region.planet_index]
+                    if region.owner == "Humans" and old_region.owner != "Humans":
+                        # if region was a victory for us
+                        for embed_list in embeds.values():
+                            embed_list[0].add_region_victory(
+                                planet=planet,
+                                region=region,
+                                taken_from=old_region.owner,
+                            )
+                    elif region.owner != old_region.owner:
+                        # if owner has changed
+                        if old_region.owner == "Humans":
+                            for embed_list in embeds.values():
+                                embed_list[0].add_region_lost(
+                                    planet=planet,
+                                    region=region,
+                                    taken_from=old_region.owner,
+                                )
+                        elif region.owner == "Humans":
+                            # if attack campaign win
+                            for embed_list in embeds.values():
+                                embed_list[0].add_region_victory(
+                                    planet=planet,
+                                    region=region,
+                                    taken_from=old_region.owner,
+                                )
+                    self.bot.data.region_changes.remove_entry(old_region.settings_hash)
+                    old_region.delete()
+                    region_updates = True
+
+        if regions:
+            # region updates
+            old_region_hashes = [r.settings_hash for r in old_region_data]
+            for region in regions:
+                # loop through new campaigns
+                if (
+                    region.settings_hash not in old_region_hashes
+                    and region.is_available
+                    and region.is_updated
+                ):
+                    # if region is brand new
+                    planet = self.bot.data.planets[region.planet_index]
+                    for embed_list in embeds.values():
+                        embed_list[0].add_new_region_appeared(
+                            planet=planet, region=region
+                        )
+                    old_region_data.add(
+                        region.settings_hash,
+                        region.owner,
+                        region.planet_index,
+                    )
+                    region_updates = True
+
+            if region_updates:
+                for embed_list in embeds.values():
+                    embed_list[0].remove_empty()
+                if len(embed_list[0].fields) != 0:
+                    await self.bot.interface_handler.send_feature(
+                        "region_announcements", embeds
+                    )
+                    self.bot.logger.info(
+                        f"Sent region announcements out to {len(self.bot.interface_handler.region_announcements)} channels"
+                    )
+
+    @region_check.before_loop
+    async def before_region_check(self):
         await self.bot.wait_until_ready()
 
 

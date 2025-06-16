@@ -9,8 +9,7 @@ from utils.mixins import ReprMixin
 
 load_dotenv(dotenv_path=".env")
 hostname = getenv(key="DB_HOSTNAME")
-database = getenv(key="DB_NAME")
-database = "GWW V2"
+database = getenv(key="DBV2_NAME")
 username = getenv(key="DB_USERNAME")
 pwd = getenv(key="DB_PWD")
 port_id = getenv(key="DB_PORT_ID")
@@ -302,6 +301,7 @@ class GWWGuilds(list[GWWGuild], ReprMixin):
                             "m.channel_id AS maps__channel_id, m.message_id AS maps__message_id, "
                             "wa.channel_id AS war_announcements__channel_id, "
                             "dss.channel_id AS dss_announcements__channel_id, "
+                            "ra.channel_id AS region_announcements__channel_id, "
                             "pn.channel_id AS patch_notes__channel_id, "
                             "mo.channel_id AS major_order_updates__channel_id, "
                             "po.channel_id AS personal_order_updates__channel_id, "
@@ -311,6 +311,7 @@ class GWWGuilds(list[GWWGuild], ReprMixin):
                             "LEFT JOIN feature.maps m ON g.guild_id = m.guild_id "
                             "LEFT JOIN feature.war_announcements wa ON g.guild_id = wa.guild_id "
                             "LEFT JOIN feature.dss_announcements dss ON g.guild_id = dss.guild_id "
+                            "LEFT JOIN feature.region_announcements ra ON g.guild_id = ra.guild_id "
                             "LEFT JOIN feature.patch_notes pn ON g.guild_id = pn.guild_id "
                             "LEFT JOIN feature.major_order_updates mo ON g.guild_id = mo.guild_id "
                             "LEFT JOIN feature.personal_order_updates po ON g.guild_id = po.guild_id "
@@ -342,6 +343,7 @@ class GWWGuilds(list[GWWGuild], ReprMixin):
                         "m.channel_id AS maps__channel_id, m.message_id AS maps__message_id, "
                         "wa.channel_id AS war_announcements__channel_id, "
                         "dss.channel_id AS dss_announcements__channel_id, "
+                        "ra.channel_id AS region_announcements__channel_id, "
                         "pn.channel_id AS patch_notes__channel_id, "
                         "mo.channel_id AS major_order_updates__channel_id, "
                         "po.channel_id AS personal_order__updates_channel_id, "
@@ -351,6 +353,7 @@ class GWWGuilds(list[GWWGuild], ReprMixin):
                         "LEFT JOIN feature.maps m ON g.guild_id = m.guild_id "
                         "LEFT JOIN feature.war_announcements wa ON g.guild_id = wa.guild_id "
                         "LEFT JOIN feature.dss_announcements dss ON g.guild_id = dss.guild_id "
+                        "LEFT JOIN feature.region_announcements ra ON g.guild_id = ra.guild_id "
                         "LEFT JOIN feature.patch_notes pn ON g.guild_id = pn.guild_id "
                         "LEFT JOIN feature.major_order_updates mo ON g.guild_id = mo.guild_id "
                         "LEFT JOIN feature.personal_order_updates po ON g.guild_id = po.guild_id "
@@ -375,3 +378,40 @@ class GWWGuilds(list[GWWGuild], ReprMixin):
                 )
                 conn.commit()
         return GWWGuilds.get_specific_guild(guild_id)
+
+
+@dataclass
+class PlanetRegion(ReprMixin):
+    settings_hash: int
+    owner: str
+    planet_index: int
+
+    def delete(self):
+        with connection() as conn:
+            with conn.cursor() as curs:
+                curs.execute(
+                    query=f"DELETE FROM war.regions WHERE settings_hash = {self.settings_hash}"
+                )
+                conn.commit()
+
+
+class PlanetRegions(list[PlanetRegion], ReprMixin):
+    def __init__(self):
+        with connection() as conn:
+            with conn.cursor() as curs:
+                curs.execute("SELECT * FROM war.regions")
+                records = curs.fetchall()
+                if records:
+                    for record in records:
+                        self.append(PlanetRegion(*record))
+
+    def add(self, settings_hash: int, owner: str, planet_index: int) -> None:
+        with connection() as conn:
+            with conn.cursor() as curs:
+                curs.execute(
+                    query=f"INSERT INTO war.regions (settings_hash, owner, planet_index) VALUES (%s, %s, %s)",
+                    vars=(settings_hash, owner, planet_index),
+                )
+
+                conn.commit()
+        self.append(PlanetRegion(settings_hash, owner, planet_index))
