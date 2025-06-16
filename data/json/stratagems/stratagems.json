@@ -34,6 +34,18 @@
         "uses": "Unlimited",
         "cooldown": 480
     },
+    "AX/ARC-3 'Guard Dog' K-9": {
+        "keys": [
+            "down",
+            "up",
+            "left",
+            "up",
+            "right",
+            "left"
+        ],
+        "uses": "Unlimited",
+        "cooldown": 480
+    },
     "SH-20 Ballistic Shield Backpack": {
         "keys": [
             "down",
@@ -211,6 +223,17 @@
             "up",
             "left",
             "down"
+        ],
+        "uses": "Unlimited",
+        "cooldown": 480
+    },
+    "GL-52 De-Escalator": {
+        "keys": [
+            "left",
+            "right",
+            "up",
+            "left",
+            "right"
         ],
         "uses": "Unlimited",
         "cooldown": 480

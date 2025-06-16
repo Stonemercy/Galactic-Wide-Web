@@ -371,8 +371,8 @@ stratagem_permit_list = [
     "Portable Hellbomb",
     "LIFT-860 Hover Pack",
     "One True Flag",
-    "De-Escalator",
-    "'Guard Dog' K-9",
+    "GL-52 De-Escalator",
+    "AX/ARC-3 'Guard Dog' K-9",
 ]
 """A list of stratagem permit names
 
