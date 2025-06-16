@@ -329,6 +329,11 @@
 		"name": "DEMOCRACY SPACE STATION",
 		"description": "A Helldiver-operated weapon of mass liberation. Paid for with the blood of soldiers and the credits of taxpayers, this technological marvel is Democracy made manifest."
 	},
+	"1219": {
+		"galacticEffectId": 1219,
+		"name": "UNKNOWN [1219]",
+		"description": "Possibly planet decay"
+	},
 	"1222": {
 		"galacticEffectId": 1222,
 		"name": "UNK_ELDss",
