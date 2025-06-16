@@ -8,7 +8,7 @@ from utils.mixins import ReprMixin
 
 class InterfaceHandler:
     def __init__(self, bot):
-        self.wait_time = 0.029
+        self.wait_time = 0.028
         self.bot = bot
         self.busy = False
         self.loaded = False
