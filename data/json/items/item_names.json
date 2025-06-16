@@ -1866,5 +1866,89 @@
 	"1215": {
 		"name": "G-142 Pyrotech",
 		"mix_id": "1215"
+	},
+	"1301": {
+		"name": "BP-20 Correct Officer",
+		"mix_id": "1301"
+	},
+	"1302": {
+		"name": "BP-20 Correct Officer",
+		"mix_id": "1302"
+	},
+	"1303": {
+		"name": "Miranda's Legacy",
+		"mix_id": "1303"
+	},
+	"1304": {
+		"name": "Miranda's Legacy",
+		"mix_id": "1304"
+	},
+	"1305": {
+		"name": "Signal: Hold",
+		"mix_id": "1305"
+	},
+	"1306": {
+		"name": "AR-32 Pacifier",
+		"mix_id": "1306"
+	},
+	"1307": {
+		"name": "True Blue Hellpod Pattern",
+		"mix_id": "1307"
+	},
+	"1308": {
+		"name": "Stun Pods",
+		"mix_id": "1308"
+	},
+	"1309": {
+		"name": "De-Escalator",
+		"mix_id": "1309"
+	},
+	"1310": {
+		"name": "True Blue Shuttle Pattern",
+		"mix_id": "1310"
+	},
+	"1311": {
+		"name": "BP-32 Jackboot",
+		"mix_id": "1311"
+	},
+	"1312": {
+		"name": "BP-32 Jackboot",
+		"mix_id": "1312"
+	},
+	"1313": {
+		"name": "Mother Eagle's Wings",
+		"mix_id": "1313"
+	},
+	"1314": {
+		"name": "Mother Eagle's Wings",
+		"mix_id": "1314"
+	},
+	"1315": {
+		"name": "Signal: Silence",
+		"mix_id": "1315"
+	},
+	"1316": {
+		"name": "True Blue Vehicle Pattern",
+		"mix_id": "1316"
+	},
+	"1317": {
+		"name": "Signal: Group Up",
+		"mix_id": "1317"
+	},
+	"1318": {
+		"name": "G-109 Urchin",
+		"mix_id": "1318"
+	},
+	"1319": {
+		"name": "'Guard Dog' K-9",
+		"mix_id": "1319"
+	},
+	"1320": {
+		"name": "Extra Judicial",
+		"mix_id": "1320"
+	},
+	"1321": {
+		"name": "True Blue Exosuit Pattern",
+		"mix_id": "1321"
 	}
 }

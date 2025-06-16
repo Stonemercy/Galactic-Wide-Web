@@ -586,5 +586,21 @@
 		"traits": [
 			1
 		]
+	},
+	"1306": {
+		"name": "AR-32 Pacifier",
+		"description": "",
+		"type": 1,
+		"damage": 50,
+		"capacity": 40,
+		"recoil": 14,
+		"fire_rate": 700,
+		"fire_mode": [
+			2
+		],
+		"traits": [
+			2,
+			12
+		]
 	}
 }

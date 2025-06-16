@@ -62,5 +62,9 @@
 	"1214": {
 		"name": "Sample Scanner",
 		"description": "Gives Helldivers a 15% chance to retrieve twice the samples on sample pickup."
+	},
+	"1308": {
+		"name": "Stun Pods",
+		"description": "Exposes Hellpod wiring upon surface contact, stunning any units in the vicinity of the drop site."
 	}
 }

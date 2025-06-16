@@ -74,5 +74,9 @@
 	"18": {
 		"name": "Reinforced Epaulettes",
 		"description": "Gives wearer a 50% chance to avoid grievous limb injury."
+	},
+	"19": {
+		"name": "Ballistic Padding",
+		"description": "Provides 25% resistance to chest damage. Provides 25% resistance to explosive damage. Prevents all damage from bleeding if chest haemorrhages."
 	}
 }

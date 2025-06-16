@@ -104,6 +104,10 @@ json_dict = {
             "path": "data/json/warbonds/masters_of_ceremony.json",
             "value": None,
         },
+        "force_of_law": {
+            "path": "data/json/warbonds/force_of_law.json",
+            "value": None,
+        },
     },
     "planets": {"path": "data/json/planets/planets.json", "value": None},
     "planetRegions": {"path": "data/json/planets/planetRegions.json", "value": None},
@@ -178,6 +182,7 @@ warbond_images_dict = {
     "Servants of Freedom": "https://helldivers.wiki.gg/images/thumb/a/a9/Servants_of_Freedom_Premium_Warbond_Cover.png/1280px-Servants_of_Freedom_Premium_Warbond_Cover.png?e4ff67",
     "Borderline Justice": "https://helldivers.wiki.gg/images/d/db/Borderline_Justice_Premium_Warbond_Cover.png?df22f7=&format=original",
     "Masters of Ceremony": "https://helldivers.wiki.gg/images/6/65/Masters_of_Ceremony_Premium_Warbond_Cover.png?6bb032=&format=original",
+    "Force of Law": "https://helldivers.wiki.gg/images/7/74/Force_of_Law_Premium_Warbond_Cover.png?2d54ef=&format=original",
 }
 """Dictionary of Warbond images hosted by Discord
 
@@ -223,6 +228,9 @@ emotes_list = [
     "Raise Weapon",
     "Tip Hat",
     "Lockstep",
+    "Signal: Hold",
+    "Signal: Silence",
+    "Signal: Group Up",
 ]
 """A list of emote names
 
@@ -303,6 +311,8 @@ player_cards_list = [
     "Way of the Bandolier",
     "Federation's Embrace",
     "Humble Regalia",
+    "Miranda's Legacy",
+    "Mother Eagle's Wings",
 ]
 """A list of player card names
 
@@ -343,6 +353,7 @@ titles_list = [
     "Servant of Freedom",
     "Super Sheriff",
     "Decorated Hero",
+    "Extra Judicial",
 ]
 """A list of title names
 
@@ -360,6 +371,8 @@ stratagem_permit_list = [
     "Portable Hellbomb",
     "LIFT-860 Hover Pack",
     "One True Flag",
+    "De-Escalator",
+    "'Guard Dog' K-9",
 ]
 """A list of stratagem permit names
 

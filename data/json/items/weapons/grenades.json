@@ -106,5 +106,13 @@
 		"penetration": 3,
 		"outer_radius": 5,
 		"fuse_time": 0
+	},
+	"1318": {
+		"name": "G-109 Urchin",
+		"description": "",
+		"damage": 0,
+		"penetration": 6,
+		"outer_radius": 4,
+		"fuse_time": 0
 	}
 }
