@@ -571,7 +571,7 @@
 	},
 	"1278": {
 		"galacticEffectId": 1278,
-		"name": "",
+		"name": "game_AmmoAmount",
 		"description": "Ammunition Combat Loads will be reduced by 50%"
 	},
 	"1279": {
