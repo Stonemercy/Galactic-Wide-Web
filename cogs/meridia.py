@@ -192,19 +192,20 @@ class MeridiaCog(commands.Cog):
         current_location: Meridia.Location = meridia_info.locations[-1]
         padding_distance = 0.006
         time_to_reach_planets = {}
-        for planet in planets_in_path:
-            if set([1241, 1252]) & planet.active_effects:
-                continue
-            delta_x_to_planet = planet.position["x"] - current_location.x
-            delta_y_to_planet = planet.position["y"] - current_location.y
-            distance_to_planet = sqrt(delta_x_to_planet**2 + delta_y_to_planet**2)
-            adjusted_distance = max(distance_to_planet - 2 * padding_distance, 0)
-            time_to_reach_planets[planet.index] = int(
-                (
-                    datetime.now()
-                    + timedelta(seconds=adjusted_distance / meridia_info.speed)
-                ).timestamp()
-            )
+        if meridia_info.speed > 0.00001:
+            for planet in planets_in_path:
+                if set([1241, 1252]) & planet.active_effects:
+                    continue
+                delta_x_to_planet = planet.position["x"] - current_location.x
+                delta_y_to_planet = planet.position["y"] - current_location.y
+                distance_to_planet = sqrt(delta_x_to_planet**2 + delta_y_to_planet**2)
+                adjusted_distance = max(distance_to_planet - 2 * padding_distance, 0)
+                time_to_reach_planets[planet.index] = int(
+                    (
+                        datetime.now()
+                        + timedelta(seconds=adjusted_distance / meridia_info.speed)
+                    ).timestamp()
+                )
         time_to_reach_planets = dict(
             sorted(time_to_reach_planets.copy().items(), key=lambda x: x[1])
         )
