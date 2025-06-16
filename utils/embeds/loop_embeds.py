@@ -281,40 +281,23 @@ class BotDashboardLoopEmbed(Embed, EmbedReprMixin):
             ),
             inline=True,
         )
-        cogs = {
-            "This Dashboard": ("GuildManagementCog", "bot_dashboard"),
-            "All Dashboards": ("DashboardCog", "dashboard_poster"),
-            "All Maps": ("MapCog", "map_poster"),
-            "Update data": ("DataManagementCog", "pull_from_api"),
-            "Major Order Update": ("AnnouncementsCog", "major_order_updates"),
-            # "Personal Order Update": ("PersonalOrderCog", "personal_order_update"),
-        }
-        update_times = {}
-        for label, (cog_name, attribute_name) in cogs.items():
-            next_iteration = getattr(
-                bot.get_cog(cog_name), attribute_name
-            ).next_iteration
-            update_times[label] = (
-                f"<t:{int(next_iteration.timestamp())}:R>"
-                if next_iteration
-                else "**__ERROR__**:warning:"
-            )
-        self.add_field(
-            "Update Timers",
-            "\n".join(f"{label}: {time}" for label, time in update_times.items()),
-        )
         self.add_field("", "", inline=False)
         self.add_field(
             "Credits",
             (
                 "https://helldivers.wiki.gg/ - Most of my enemy information is from them, as well as a lot of the enemy images.\n\n"
-                "https://helldivers.news/ - Planet images are from them, their website is also amazing.\n\n"
+                "https://helldivers.news/ - Planet images are from them\n\n"
                 "https://github.com/helldivers-2/ - The people over here are kind and helpful, great work too!\n\n"
                 "and **You**\n"
             ),
             inline=False,
         )
-
+        loop_errors = ""
+        for loop in bot.loops:
+            if not loop.next_iteration and not loop.count:
+                loop_errors += f"{loop.coro.__name__} - **__ERROR__**:warning:\n"
+        if loop_errors:
+            self.add_field("Loop errors", loop_errors, inline=False)
         self.add_field("", f"-# Updated <t:{int(now.timestamp())}:R>")
 
 
