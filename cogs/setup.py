@@ -321,16 +321,21 @@ class SetupCog(commands.Cog):
                                 )
                             )
                         button_index = None
+                        row_index = None
                         buttons_to_check = (
                             action_rows[1].children,
                             action_rows[2].children,
                         )
-                        for row_index, row in enumerate(buttons_to_check):
-                            for index, button in enumerate(row):
+                        for r_index, row in enumerate(buttons_to_check, 1):
+                            for b_index, button in enumerate(row):
                                 if feature in button.custom_id:
-                                    button_index = index
+                                    button_index = b_index
                                     break
-                        self.reset_row(action_rows[row_index])
+                            if button_index != None:
+                                row_index = r_index
+                                break
+                        for row in action_rows[1:]:
+                            self.reset_row(row)
                         action_rows[row_index].pop(button_index)
                         action_rows[row_index].insert_item(
                             button_index,
