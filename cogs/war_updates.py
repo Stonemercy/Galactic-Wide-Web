@@ -18,6 +18,7 @@ class WarUpdatesCog(commands.Cog):
         for loop in self.loops:
             if not loop.is_running():
                 loop.start()
+                self.bot.loops.append(loop)
 
     def cog_unload(self):
         for loop in self.loops:

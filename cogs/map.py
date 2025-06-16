@@ -22,6 +22,7 @@ class MapCog(commands.Cog):
         self.bot = bot
         if not self.map_poster.is_running():
             self.map_poster.start()
+            self.bot.loops.append(self.map_poster)
 
     def cog_unload(self):
         if self.map_poster.is_running():

@@ -1,7 +1,7 @@
 from data.lists import json_dict
 from datetime import datetime, timedelta
 from disnake import Activity, ActivityType, Intents, TextChannel
-from disnake.ext import commands
+from disnake.ext import commands, tasks
 from json import load
 from logging import INFO, Formatter, StreamHandler, getLogger
 from os import getenv, listdir
@@ -41,6 +41,7 @@ class GalacticWideWebBot(commands.AutoShardedInteractionBot):
         self.waste_bin_channel: TextChannel | None = None
         self.api_changes_channel: TextChannel | None = None
         self.maps = Maps()
+        self.loops: list[tasks.Loop] = []
 
     @property
     def time_until_ready(self) -> int:
@@ -51,7 +52,7 @@ class GalacticWideWebBot(commands.AutoShardedInteractionBot):
         self.logger.info(
             msg=f"Loaded {len(self.cogs)}/{len([f for f in listdir('cogs') if f.endswith('.py')]) + len([f for f in listdir('cogs/admin') if f.endswith('.py')])} cogs successfully"
         )
-        self.owner = list(self.owners)[0] if self.owners else None
+        self.owner = (await self.application_info()).team.owner
 
     def load_json(self) -> None:
         for key, values in self.json_dict.copy().items():

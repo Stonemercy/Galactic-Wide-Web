@@ -11,6 +11,7 @@ class UsageLoggerCog(commands.Cog):
         self.guilds_joined = 0
         if not self.usage_report.is_running():
             self.usage_report.start()
+            self.bot.loops.append(self.usage_report)
 
     def cog_unload(self):
         if self.usage_report.is_running():

@@ -10,6 +10,7 @@ class DashboardCog(commands.Cog):
         self.bot = bot
         if not self.dashboard_poster.is_running():
             self.dashboard_poster.start()
+            self.bot.loops.append(self.dashboard_poster)
 
     def cog_unload(self):
         if self.dashboard_poster.is_running():

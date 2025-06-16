@@ -25,6 +25,7 @@ class MeridiaCog(commands.Cog):
         self.bot = bot
         if not self.meridia_update.is_running():
             self.meridia_update.start()
+            self.bot.loops.append(self.meridia_update)
 
     def cog_unload(self):
         if self.meridia_update.is_running():

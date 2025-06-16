@@ -13,6 +13,7 @@ class DataManagementCog(commands.Cog):
         for loop in self.loops:
             if not loop.is_running():
                 loop.start()
+                self.bot.loops.append(loop)
         self.mentioned_new_effects = set()
 
     def cog_unload(self):
