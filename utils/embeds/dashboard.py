@@ -1582,7 +1582,7 @@ class Dashboard:
                     if liberation_change := liberation_changes.get_entry(
                         key=campaign.planet.index
                     ):
-                        if liberation_change.change_rate_per_hour > 0.01:
+                        if liberation_change.change_rate_per_hour > 0:
                             now_seconds = int(datetime.now().timestamp())
                             time_to_complete = f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['victory'])} <t:{now_seconds + liberation_change.seconds_until_complete}:R>"
                             change = (
@@ -1631,7 +1631,7 @@ class Dashboard:
                 skipped_planets_text = ""
                 for campaign in skipped_campaigns:
                     exclamation = campaign.planet.exclamations
-                    if campaign.planet.regen_perc_per_hour < 0.01:
+                    if campaign.planet.regen_perc_per_hour < 0.25:
                         exclamation += f":warning: {campaign.planet.regen_perc_per_hour:.2%} REGEN :warning:"
                     if campaign.planet.index in [
                         planet.index for planet in gambit_planets.values()
