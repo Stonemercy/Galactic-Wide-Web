@@ -107,11 +107,11 @@ class InterfaceHandler:
         except (NotFound, Forbidden) as e:
             self.dashboards.remove(message)
             guild: GWWGuild = GWWGuilds.get_specific_guild(message.guild.id)
-            guild.features = [f for f in guild.features if f.name != "dashboard"]
+            guild.features = [f for f in guild.features if f.name != "dashboards"]
             guild.update_features()
             guild.save_changes()
             return self.bot.logger.error(
-                f"edit_dashboard | {e} | removed from dashboards dict and reset in DB | {guild.guild_id = }"
+                f"edit_dashboard | {e} | reset in DB | {guild.guild_id = }"
             )
         except Exception as e:
             return self.bot.logger.error(
@@ -124,11 +124,11 @@ class InterfaceHandler:
         except (NotFound, Forbidden) as e:
             self.maps.remove(message)
             guild: GWWGuild = GWWGuilds.get_specific_guild(message.guild.id)
-            guild.features = [f for f in guild.features if f.name != "map"]
+            guild.features = [f for f in guild.features if f.name != "maps"]
             guild.update_features()
             guild.save_changes()
             return self.bot.logger.error(
-                f"edit_map | {e} | removed from maps dict and reset in DB | {guild.guild_id = }"
+                f"edit_map | {e} | reset in DB | {guild.guild_id = }"
             )
         except Exception as e:
             return self.bot.logger.error(f"edit_map | {e} | {message.guild.id = }")
@@ -151,7 +151,7 @@ class InterfaceHandler:
             guild.update_features()
             guild.save_changes()
             return self.bot.logger.error(
-                f"send_embed | {feature_type} | {e} | removed from {feature_type} list and reset in DB | {channel.guild.id = }"
+                f"send_embed | {feature_type} | {e} | reset in DB | {channel.guild.id = }"
             )
         except Exception as e:
             return self.bot.logger.error(f"send_embed | {e} | {channel.guild.id = }")
@@ -170,7 +170,7 @@ class InterfaceHandler:
                     if not guild:
                         list_to_use.remove(message)
                         self.bot.logger.error(
-                            f"send_feature {feature_type} | guild not found in DB | removed from {feature_type} dict | {message.guild.id = }"
+                            f"send_feature {feature_type} | guild not found in DB | {message.guild.id = }"
                         )
                         continue
                     else:
@@ -186,7 +186,7 @@ class InterfaceHandler:
                     if not guild:
                         list_to_use.remove(message)
                         self.bot.logger.error(
-                            f"send_feature {feature_type} | guild not found in DB | removed from {feature_type} dict | {message.guild.id = }"
+                            f"send_feature {feature_type} | guild not found in DB | {message.guild.id = }"
                         )
                         continue
                     else:
@@ -209,7 +209,7 @@ class InterfaceHandler:
                     if not guild:
                         list_to_use.remove(channel)
                         self.bot.logger.error(
-                            f"send_feature | guild not found in DB | removed from {feature_type} dict | {channel.guild.id = }"
+                            f"send_feature | guild not found in DB | {channel.guild.id = }"
                         )
                         continue
                     else:
