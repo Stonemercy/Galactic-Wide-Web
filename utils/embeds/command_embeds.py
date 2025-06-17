@@ -267,7 +267,8 @@ class PlanetCommandRegionEmbed(Embed, EmbedReprMixin):
             region_emojis = getattr(Emojis.RegionIcons, region.owner)
             level_emoji = getattr(region_emojis, f"_{region.size}")
             description = f"{level_emoji} **{region.size}*** {region.type}"
-            description += f"{region.description}\n"
+            if region.description:
+                description += f"\n-# {region.description}"
             if region.is_available:
                 health_to_get_from = (
                     planet.max_health if not planet.event else planet.event.max_health

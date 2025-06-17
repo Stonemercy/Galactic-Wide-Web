@@ -416,12 +416,21 @@ class Data(ReprMixin):
                     )
 
                 for region in self.__data__["status"]["planetRegions"]:
-                    if region["regionIndex"] not in self.planets:
+                    if region["planetIndex"] not in self.planets:
                         continue
                     else:
                         self.planets[region["planetIndex"]].regions[
                             region["regionIndex"]
                         ].update_from_status_data(raw_planet_region_data=region)
+
+                for planet in self.planets.values():
+                    planet.regions = {
+                        region.index: region
+                        for region in sorted(
+                            planet.regions.copy().values(),
+                            key=lambda region: region.availability_factor,
+                        )
+                    }
 
     def update_liberation_rates(self) -> None:
         """Update the liberation changes in the tracker for each active campaign"""
@@ -858,7 +867,7 @@ class Planet(ReprMixin):
             self.description: str = planet_regions_json_dict.get(
                 str(self.settings_hash), {}
             ).get("description", "")
-            self.owner: str = ""
+            self.owner: str = "Humans"
             self.health: int = raw_planet_region_data["maxHealth"]
             self.max_health: int = raw_planet_region_data["maxHealth"]
             self.regen_per_sec: int = 0
