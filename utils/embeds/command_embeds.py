@@ -270,10 +270,11 @@ class PlanetCommandRegionEmbed(Embed, EmbedReprMixin):
             if region.description:
                 description += f"\n-# {region.description}"
             if region.is_available:
+                description += f"\n-# Heroes: **{region.players}** ({region.players / planet.stats['playerCount']:.2%})"
                 health_to_get_from = (
                     planet.max_health if not planet.event else planet.event.max_health
                 )
-                description += f"Boost when liberated: **{(region.max_health * 0.5) / health_to_get_from:.2%}**"
+                description += f"\nBoost when liberated: **{(region.max_health * 0.5) / health_to_get_from:.2%}**"
                 description += f"\n{region.health_bar}"
                 description += f"\n`{region.perc:^25,.2%}`"
                 region_change = region_changes.get_entry(region.settings_hash)
@@ -285,7 +286,7 @@ class PlanetCommandRegionEmbed(Embed, EmbedReprMixin):
                 if region.availability_factor != 1 and (
                     1 - region.availability_factor
                 ) > (planet.event.progress if planet.event else 1 - planet.health_perc):
-                    description += f"Unlocks when **{stat_to_use}** reaches **{1 - region.availability_factor:.0%}**"
+                    description += f"\nUnlocks when **{stat_to_use}** reaches **{1 - region.availability_factor:.0%}**"
                 if planet_changes.change_rate_per_hour > 0:
                     if planet.event:
                         seconds_until_we_win = planet_changes.seconds_until_complete
