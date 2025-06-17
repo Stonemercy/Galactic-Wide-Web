@@ -2,10 +2,10 @@
 
 <p align="center">
 	<a href="https://discord.gg/Z8Ae5H5DjZ">
-		<img alt="Servers" src="https://img.shields.io/badge/servers-2150+-brightgreen?style=for-the-badge">
+		<img alt="Servers" src="https://img.shields.io/badge/servers-2450+-brightgreen?style=for-the-badge">
 	</a>
 	<a href="https://discord.gg/Z8Ae5H5Dj">
-		<img alt="Visible Users" src="https://img.shields.io/badge/visible users-230,000+-brightgreen?style=for-the-badge">
+		<img alt="Visible Users" src="https://img.shields.io/badge/visible users-290,000+-brightgreen?style=for-the-badge">
 	</a>
   <br>
 	<img alt="Commits made" src="https://img.shields.io/github/last-commit/Stonemercy/Galactic-Wide-Web?style=for-the-badge">
