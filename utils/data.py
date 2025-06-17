@@ -8,7 +8,7 @@ from os import getenv
 from typing import ItemsView, ValuesView
 from data.lists import SpecialUnits
 from utils.emojis import Emojis
-from utils.functions import health_bar, steam_format
+from utils.functions import dispatch_format, health_bar, steam_format
 from utils.mixins import ReprMixin
 from utils.trackers import BaseTracker
 
@@ -601,7 +601,7 @@ class Dispatch(ReprMixin):
         """Organised data of a dispatch"""
         self.id: int = raw_dispatch_data["id"]
         self.message = (
-            steam_format(content=raw_dispatch_data["message"])
+            dispatch_format(text=raw_dispatch_data["message"])
             if raw_dispatch_data["message"]
             else ""
         )
@@ -611,8 +611,8 @@ class GlobalEvent(ReprMixin):
     def __init__(self, raw_global_event_data: dict) -> None:
         """Organised data of a global event"""
         self.id: int = raw_global_event_data["eventId"]
-        self.title: str = steam_format(raw_global_event_data["title"])
-        self.message: str = steam_format(content=raw_global_event_data["message"])
+        self.title: str = dispatch_format(raw_global_event_data["title"])
+        self.message: str = dispatch_format(text=raw_global_event_data["message"])
         self.faction: int = raw_global_event_data["race"]
         self.flag: int = raw_global_event_data["flag"]
         self.assignment_id: int = raw_global_event_data["assignmentId32"]
@@ -940,7 +940,7 @@ class Steam(ReprMixin):
         """Organised data for a Steam announcements"""
         self.id: int = int(raw_steam_data["id"])
         self.title: str = raw_steam_data["title"]
-        self.content: str = steam_format(content=raw_steam_data["content"])
+        self.content: str = steam_format(text=raw_steam_data["content"])
         self.author: str = raw_steam_data["author"]
         self.url: str = raw_steam_data["url"]
 
@@ -983,8 +983,8 @@ class DSS(ReprMixin):
             self.status_end_datetime: datetime = datetime.fromtimestamp(
                 war_start_time + self.status_end
             )
-            self.strategic_description: str = steam_format(
-                content=tactical_action_raw_data["strategicDescription"]
+            self.strategic_description: str = dispatch_format(
+                text=tactical_action_raw_data["strategicDescription"]
             )
             self.cost: list[DSS.TacticalAction.Cost] = [
                 DSS.TacticalAction.Cost(cost=cost)

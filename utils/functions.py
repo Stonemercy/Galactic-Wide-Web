@@ -1,6 +1,5 @@
-from html import unescape
 from math import floor
-from re import sub
+from re import sub, DOTALL
 from utils.emojis import Emojis
 
 
@@ -38,52 +37,112 @@ def short_format(num):
     return "{:.{}f}{}".format(num, 2, ["", "K", "M", "B", "T", "Q"][magnitude])
 
 
-def steam_format(content: str):
-    content = unescape(content)
-    replacements = {
-        "\n\n": ["[p][/p]"],
-        "": [
-            "[/h1]",
-            "[/h2]",
-            "[/h3]",
-            "[/h4]",
-            "[/h5]",
-            "[/h6]",
-            "[/quote]",
-            "[list]",
-            "[list]\n",
-            "[/list]",
-            "[/*]",
-            "[p]",
-            "[/p]",
-        ],
-        "# ": ["[h1]"],
-        "## ": ["[h2]"],
-        "### ": ["[h3]", "[h4]", "[h5]", "[h6]"],
-        "*": ["[i]", "[/i]"],
-        "**": ["<i=1>", "<i=3>", "</i>", "[b]", "[/b]"],
-        "> ": ["[quote]"],
-        "__": ["[u]", "[/u]"],
-        "- ": ["[*]\n", "[*]"],
-    }
-    for replacement, replacees in replacements.items():
-        for replacee in replacees:
-            content = content.replace(replacee, replacement)
-    content = sub(r"\[url=(.+?)](.+?)\[/url\]", r"[\2]\(\1\)", content)
-    content = sub(r"\[img\](.*?)\[\/img\]", r"", content)
-    content = sub(r'\[img src="(.*?)"\](?:\[/img\])?', "\n", content)
-    content = sub(r"\[img\](.*?\..{3,4})\[/img\]\n\n", "", content)
-    content = sub(
-        r"\[previewyoutube=(.+);full\]\[/previewyoutube\]",
-        "[YouTube](https://www.youtube.com/watch?v=" + r"\1)",
-        content,
+def steam_format(text: str):
+    # Remove empty paragraphs and standalone [p][/p] tags
+    text = sub(r"\[p\]\[/p\]", "\n", text)
+    text = sub(r"\[p\]\s*\[/p\]", "\n", text)
+
+    # Convert headers with better spacing
+    text = sub(r"\[h1\](.*?)\[/h1\]", r"# \1\n", text)
+    text = sub(r"\[h2\](.*?)\[/h2\]", r"## \1\n", text)
+    text = sub(r"\[h3\](.*?)\[/h3\]", r"### \1\n", text)
+    text = sub(r"\[p\]\[b\](.*?)\[/b\]\[/p\]", r"### \1\n", text)
+
+    # Convert bold and italic text
+    text = sub(r"\[b\](.*?)\[/b\]", r"**\1**", text)
+    text = sub(r"\[i\](.*?)\[/i\]", r"*\1*", text)
+
+    # Convert URLs
+    text = sub(r'\[url="(.*?)"\](.*?)\[/url\]', r"[\2](\1)", text)
+    text = sub(r"\[url\](.*?)\[/url\]", r"\1", text)
+
+    # Convert lists with better formatting
+    # Handle list items with paragraphs
+    text = sub(r"\[\*\]\[p\](.*?)\[/p\]\[/\*\]", r"• \1", text, flags=DOTALL)
+    text = sub(r"\[\*\](.*?)\[/\*\]", r"• \1\n", text, flags=DOTALL)
+
+    # Remove list container tags
+    text = sub(r"\[list\]", "", text)
+    text = sub(r"\[/list\]", "\n", text)
+
+    # Convert remaining paragraph tags - handle them differently for better formatting
+    # First, handle paragraphs that are standalone (not in lists)
+    text = sub(r"\[p\](.*?)\[/p\](?!\s*\[)", r"\1\n", text, flags=DOTALL)
+    # Then handle any remaining paragraph tags
+    text = sub(r"\[p\](.*?)\[/p\]", r"\1\n", text, flags=DOTALL)
+
+    # Clean up bullet point formatting and ensure proper line breaks
+    text = sub(r"•\s*\n\s*", "• ", text)  # Remove newlines immediately after bullets
+    text = sub(
+        r"(• .*?)\n(?=• )", r"\1\n", text
+    )  # Ensure single line breaks between bullets
+
+    # Fix the overview section formatting - convert bullet points to a more readable format
+    # Look for the pattern where we have bullets right after headers
+    text = sub(
+        r"(# \*\*Overview\*\*)\n(• .*?)(?=\n\n|\n#)",
+        lambda m: m.group(1) + "\n" + m.group(2).replace("• ", "• "),
+        text,
+        flags=DOTALL,
     )
-    content = sub(
-        r'\[previewyoutube="([\w\-]+);.*?"\](?:\[/previewyoutube\])?',
-        lambda m: f"[Watch Video](https://www.youtube.com/watch?v={m.group(1)})\n\n",
-        content,
-    )
-    return content
+
+    # Improve line breaks and spacing
+    text = sub(r"\n\s*\n\s*\n+", "\n\n", text)  # Multiple newlines to double
+    text = sub(r"^\s*\n+", "", text)  # Remove leading newlines
+    text = sub(r"\n+\s*$", "", text)  # Remove trailing newlines
+
+    # Add proper spacing around sections
+    text = sub(r"(# .*?)\n+(?=•)", r"\1\n", text)  # H1 header to bullets
+    text = sub(r"(## .*?)\n+(?=•)", r"\1\n", text)  # Header to bullets
+    text = sub(r"(### .*?)\n+(?=•)", r"\1\n", text)  # Subheader to bullets
+    text = sub(r"(\n• .*?)\n+(?=#)", r"\1\n\n", text)  # Bullets to H1 header
+    text = sub(r"(\n• .*?)\n+(?=##)", r"\1\n\n", text)  # Bullets to header
+    text = sub(r"(\n• .*?)\n+(?=###)", r"\1\n\n", text)  # Bullets to subheader
+
+    # Add spacing between headers and regular paragraphs
+    text = sub(r"(# .*?)\n+(?=\w)", r"\1\n", text)  # H1 to paragraph
+    text = sub(r"(## .*?)\n+(?=\w)", r"\1\n", text)  # H2 to paragraph
+    text = sub(r"(### .*?)\n+(?=\w)", r"\1\n", text)  # H3 to paragraph
+
+    # Add spacing between paragraphs and headers
+    text = sub(r"(\w.*?)\n+(?=#)", r"\1\n\n", text)  # Paragraph to H1
+    text = sub(r"(\w.*?)\n+(?=##)", r"\1\n\n", text)  # Paragraph to H2
+    text = sub(r"(\w.*?)\n+(?=###)", r"\1\n\n", text)  # Paragraph to H3
+
+    # Fix spacing between sections
+    text = sub(r"(\n• .*?)\n+(?=\n• )", r"\1\n", text)
+    text = sub(r"(# .*?)\n+(# )", r"\1\n\n\2", text)  # H1 to H1
+    text = sub(r"(## .*?)\n+(## )", r"\1\n\n\2", text)  # H2 to H2
+    text = sub(r"(### .*?)\n+(### )", r"\1\n\n\2", text)  # H3 to H3
+
+    # Clean up any remaining tags that weren't converted
+    text = sub(r"\[.*?\]", "", text)
+
+    # Final cleanup - ensure consistent spacing and fix any remaining formatting issues
+    text = sub(r"\n{3,}", "\n\n", text)  # No more than 2 consecutive newlines
+    text = sub(
+        r"(\n• .*?)\n{2,}(?=• )", r"\1\n", text
+    )  # Single space between bullet points
+
+    # Clean up whitespace around bullet points
+    text = sub(r"• +", "• ", text)  # Remove extra spaces after bullets
+    text = sub(r"• • +", "• ", text)  # Remove extra bullets
+    text = sub(r"\n+• ", "\n• ", text)  # Ensure single newline before bullets
+    text = sub(r"• ", "\n• ", text)  # Ensure single newline before bullets
+
+    # Ensure proper spacing for standalone paragraphs
+    text = sub(r"(\w.*?)\n(\w)", r"\1\n\n\2", text)  # Add spacing between paragraphs
+    text = sub(r"\n\n\n", "\n\n", text)  # But don't allow triple spacing
+
+    return text
+
+
+def dispatch_format(text: str):
+    replacements = ["<i=1>", "<i=3>", "</i>"]
+    for replacement in replacements:
+        text = text.replace(replacement, "**")
+
+    return text
 
 
 def split_long_string(text: str) -> list[str]:
