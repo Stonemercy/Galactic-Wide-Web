@@ -1,7 +1,4 @@
-from dotenv import load_dotenv
 from os import getenv
-
-load_dotenv("data/.env")
 from utils.bot import GalacticWideWebBot
 
 bot = GalacticWideWebBot()
