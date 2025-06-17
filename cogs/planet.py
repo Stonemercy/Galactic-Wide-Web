@@ -109,7 +109,7 @@ class PlanetCog(commands.Cog):
             )
         if not embeds[0].image_set:
             await self.bot.moderator_channel.send(
-                f"Image missing for biome of **planet __{planet}__** {planet_data.biome} <@{self.bot.owner_id}> :warning:"
+                f"Image missing for biome of **planet __{planet}__** {planet_data.biome} <@{self.bot.owner.id}> :warning:"
             )
         if with_map == "Yes":
             fifteen_minutes_ago = datetime.now() - timedelta(minutes=15)

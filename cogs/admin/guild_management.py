@@ -97,7 +97,7 @@ class GuildManagementCog(commands.Cog):
                 ),
             except Exception as e:
                 await self.bot.moderator_channel.send(
-                    content=f"<@{self.bot.owner_id}>\n```py\n{e}\n```\n`bot_dashboard function in guild_management.py`"
+                    content=f"<@{self.bot.owner.id}>\n```py\n{e}\n```\n`bot_dashboard function in guild_management.py`"
                 )
                 self.bot.logger.error(
                     msg=f"{self.qualified_name} | bot_dashboard | {e} | {message}"
@@ -140,7 +140,7 @@ class GuildManagementCog(commands.Cog):
                         now - timedelta(minutes=16)
                     ) and self.bot.startup_time < (now - timedelta(minutes=16)):
                         await self.bot.moderator_channel.send(
-                            content=f"<@{self.bot.owner_id}> {message.jump_url} was last edited <t:{int(message.edited_at.timestamp())}:R> :warning:"
+                            content=f"<@{self.bot.owner.id}> {message.jump_url} was last edited <t:{int(message.edited_at.timestamp())}:R> :warning:"
                         )
                         await sleep(delay=15 * 60)
             except Exception as e:

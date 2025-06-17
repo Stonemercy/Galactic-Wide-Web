@@ -52,7 +52,7 @@ class GalacticWideWebBot(commands.AutoShardedInteractionBot):
         self.logger.info(
             msg=f"Loaded {len(self.cogs)}/{len([f for f in listdir('cogs') if f.endswith('.py')]) + len([f for f in listdir('cogs/admin') if f.endswith('.py')])} cogs successfully"
         )
-        self.owner = (await self.application_info()).team.owner
+        await self.get_owner()
 
     def load_json(self) -> None:
         for key, values in self.json_dict.copy().items():
@@ -84,3 +84,15 @@ class GalacticWideWebBot(commands.AutoShardedInteractionBot):
                     self.get_channel(channel_id)
                     or await self.fetch_channel(channel_id),
                 )
+
+    async def get_owner(self) -> None:
+        max_retries = 10
+        retries = 0
+        while not self.owner and retries < max_retries:
+            if self.owners:
+                self.owner = list(self.owners)[0]
+            elif self.owner_ids:
+                self.owner = self.get_user(
+                    list(self.owner_ids)[0]
+                ) or await self.fetch_user(list(self.owner_ids)[0])
+            retries += 1

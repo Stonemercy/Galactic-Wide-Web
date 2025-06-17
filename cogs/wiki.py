@@ -269,7 +269,7 @@ class WikiCog(commands.Cog):
             )
             if not embed.image_set:
                 await self.bot.moderator_channel.send(
-                    f"Image missing for **weapon primary __{first_weapon[0]}__** <@{self.bot.owner_id}> :warning:"
+                    f"Image missing for **weapon primary __{first_weapon[0]}__** <@{self.bot.owner.id}> :warning:"
                 )
             components = Wiki.Buttons.primary_weapon_rows(
                 language_json=guild_language,
@@ -291,7 +291,7 @@ class WikiCog(commands.Cog):
             )
             if not embed.image_set:
                 await self.bot.moderator_channel.send(
-                    f"Image missing for **weapon secondary __{first_weapon[0]}__** <@{self.bot.owner_id}> :warning:"
+                    f"Image missing for **weapon secondary __{first_weapon[0]}__** <@{self.bot.owner.id}> :warning:"
                 )
             components = Wiki.Buttons.secondary_weapon_rows(
                 language_json=guild_language,
@@ -312,7 +312,7 @@ class WikiCog(commands.Cog):
             )
             if not embed.image_set:
                 await self.bot.moderator_channel.send(
-                    f"Image missing for **weapon grenades __{first_grenade[0]}__** <@{self.bot.owner_id}> :warning:"
+                    f"Image missing for **weapon grenades __{first_grenade[0]}__** <@{self.bot.owner.id}> :warning:"
                 )
             components = Wiki.Buttons.grenades_rows(
                 language_json=guild_language,
@@ -330,7 +330,7 @@ class WikiCog(commands.Cog):
             embed = Wiki.Embeds.BoostersEmbed(booster_info=first_booster)
             if not embed.image_set:
                 await self.bot.moderator_channel.send(
-                    f"Image missing for **booster __{first_booster[0]}__** <@{self.bot.owner_id}> :warning:"
+                    f"Image missing for **booster __{first_booster[0]}__** <@{self.bot.owner.id}> :warning:"
                 )
             components = Wiki.Buttons.boosters_rows(
                 language_json=guild_language,
@@ -348,7 +348,7 @@ class WikiCog(commands.Cog):
             )
             if not embed.image_set:
                 await self.bot.moderator_channel.send(
-                    f"Image missing for **stratagem __{stratagem_info[0]}__** <@{self.bot.owner_id}> :warning:"
+                    f"Image missing for **stratagem __{stratagem_info[0]}__** <@{self.bot.owner.id}> :warning:"
                 )
             components = Wiki.Buttons.stratagems_rows(
                 language_json=guild_language,
@@ -478,7 +478,7 @@ class WikiCog(commands.Cog):
             )
             if not embed.image_set:
                 await self.bot.moderator_channel.send(
-                    f"Image missing for **weapon primary __{weapon_info[0]}__** <@{self.bot.owner_id}> :warning:"
+                    f"Image missing for **weapon primary __{weapon_info[0]}__** <@{self.bot.owner.id}> :warning:"
                 )
             components = Wiki.Buttons.primary_weapon_rows(
                 language_json=guild_language,
@@ -512,7 +512,7 @@ class WikiCog(commands.Cog):
             )
             if not embed.image_set:
                 await self.bot.moderator_channel.send(
-                    f"Image missing for **weapon secondary __{weapon_info[0]}__** <@{self.bot.owner_id}> :warning:"
+                    f"Image missing for **weapon secondary __{weapon_info[0]}__** <@{self.bot.owner.id}> :warning:"
                 )
             components = Wiki.Buttons.secondary_weapon_rows(
                 language_json=guild_language,
@@ -541,7 +541,7 @@ class WikiCog(commands.Cog):
             )
             if not embed.image_set:
                 await self.bot.moderator_channel.send(
-                    f"Image missing for **weapon grenade __{grenade_name}__** <@{self.bot.owner_id}> :warning:"
+                    f"Image missing for **weapon grenade __{grenade_name}__** <@{self.bot.owner.id}> :warning:"
                 )
             components = Wiki.Buttons.grenades_rows(
                 language_json=guild_language,
@@ -561,7 +561,7 @@ class WikiCog(commands.Cog):
             embed = Wiki.Embeds.BoostersEmbed(booster_info=booster_info)
             if not embed.image_set:
                 await self.bot.moderator_channel.send(
-                    f"Image missing for **booster __{booster_info[0]}__** <@{self.bot.owner_id}> :warning:"
+                    f"Image missing for **booster __{booster_info[0]}__** <@{self.bot.owner.id}> :warning:"
                 )
             components = Wiki.Buttons.boosters_rows(
                 language_json=guild_language,
@@ -588,7 +588,7 @@ class WikiCog(commands.Cog):
             )
             if not embed.image_set:
                 await self.bot.moderator_channel.send(
-                    f"Image missing for **stratagem __{stratagem_info[0]}__** <@{self.bot.owner_id}> :warning:"
+                    f"Image missing for **stratagem __{stratagem_info[0]}__** <@{self.bot.owner.id}> :warning:"
                 )
             components = Wiki.Buttons.stratagems_rows(
                 language_json=guild_language,
