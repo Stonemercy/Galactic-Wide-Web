@@ -183,7 +183,7 @@ class AnnouncementsCog(commands.Cog):
         await self.bot.wait_until_ready()
 
     @tasks.loop(
-        time=[time(hour=5, minute=20, second=0), time(hour=17, minute=20, second=0)]
+        time=[time(hour=5, minute=20, second=30), time(hour=17, minute=20, second=30)]
     )
     async def major_order_updates(self):
         mo_updates_start = datetime.now()
