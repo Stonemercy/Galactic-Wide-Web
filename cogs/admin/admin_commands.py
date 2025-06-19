@@ -1,13 +1,12 @@
 from datetime import datetime
-from inspect import getmembers
 from random import choice
 from disnake import AppCmdInter, Guild, Permissions
 from disnake.ext import commands
-from disnake.ext.tasks import Loop
 from main import GalacticWideWebBot
 from os import getenv
 from utils.checks import wait_for_startup
 from utils.dbv2 import GWWGuilds
+from utils.embeds.command_embeds import BotInfoCommandEmbeds
 
 
 SUPPORT_SERVER_ID = [int(getenv("SUPPORT_SERVER"))]
@@ -184,10 +183,10 @@ class AdminCommandsCog(commands.Cog):
     @commands.is_owner()
     @commands.slash_command(
         guild_ids=SUPPORT_SERVER_ID,
-        description="Get all running loops",
+        description="Get info from the bot",
         default_member_permissions=Permissions(administrator=True),
     )
-    async def get_loops(
+    async def get_bot_info(
         self,
         inter: AppCmdInter,
     ):
@@ -195,16 +194,8 @@ class AdminCommandsCog(commands.Cog):
         self.bot.logger.critical(
             msg=f"{self.qualified_name} | /{inter.application_command.name} | used by <@{inter.author.id}> | @{inter.author.global_name}"
         )
-        loops = []
-        for cog in self.bot.cogs.values():
-            for name, member in getmembers(cog):
-                if isinstance(member, Loop):
-                    if member.next_iteration:
-                        timestamp = f" - <t:{int(member.next_iteration.timestamp())}:R>"
-                    else:
-                        timestamp = ""
-                    loops.append(f"`{cog.__class__.__name__}.{name}`{timestamp}\n")
-        await inter.send("".join(sorted(loops)), ephemeral=True)
+        embeds = BotInfoCommandEmbeds(bot=self.bot)
+        await inter.send(embeds=embeds, ephemeral=True)
 
 
 def setup(bot: GalacticWideWebBot):
