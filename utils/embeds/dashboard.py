@@ -228,6 +228,7 @@ class Dashboard:
             self.with_health_bars = with_health_bars
             self.assignment = assignment
             self.completion_timestamps = []
+            self.total_players = sum([p.stats["playerCount"] for p in planets.values()])
             super().__init__(
                 title=language_json["dashboard"]["MajorOrderEmbed"]["title"],
                 colour=Colour.from_rgb(*faction_colours["MO"]),
@@ -642,7 +643,7 @@ class Dashboard:
                     ],
                 )
                 value_text = ""
-                if planet.stats["playerCount"] > 1000:
+                if planet.stats["playerCount"] > (self.total_players * 0.05):
                     value_text += language_json["dashboard"]["heroes"].format(
                         heroes=f'{planet.stats["playerCount"]:,}'
                     )
@@ -651,7 +652,7 @@ class Dashboard:
                     planet_lib_changes = liberation_changes.get_entry(key=planet.index)
                     if (
                         planet_lib_changes
-                        and planet_lib_changes.change_rate_per_hour > 0.01
+                        and planet_lib_changes.change_rate_per_hour > 0
                     ):
                         now_seconds = int(datetime.now().timestamp())
                         if planet.event:
