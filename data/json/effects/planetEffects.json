@@ -578,5 +578,10 @@
 		"galacticEffectId": 1279,
 		"name": "",
 		"description": "All Helldiver loadouts will be augmented with the Fast Recon Vehicle strategem for their missions."
+	},
+	"1280": {
+		"galacticEffectId": 1280,
+		"name": "WEAPONS EXPERIMENTATION",
+		"description": "The Orbital Smoke Strike stratagem is available to all Helldivers."
 	}
 }
