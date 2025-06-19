@@ -583,5 +583,10 @@
 		"galacticEffectId": 1280,
 		"name": "WEAPONS EXPERIMENTATION",
 		"description": "The Orbital Smoke Strike stratagem is available to all Helldivers."
+	},
+	"1281": {
+		"galacticEffectId": 1281,
+		"name": "WEAPONS EXPERIMENTATION",
+		"description": "The Eagle Smoke Strike stratagem is available to all Helldivers."
 	}
 }
