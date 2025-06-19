@@ -49,7 +49,7 @@ class APIChangesLoopEmbed(Embed, EmbedReprMixin):
                 case "Regen %":
                     self.add_field(
                         f"{faction_emoji} {change.planet.name}",
-                        f"Planet Regeneration: **{change.before}**%/hr {Emojis.Stratagems.right} **{change.after}**%/hr",
+                        f"Planet Regeneration: **{change.before:.2%}**/hr {Emojis.Stratagems.right} **{change.after:.2%}**/hr",
                         inline=False,
                     )
                 case "Max Health":
