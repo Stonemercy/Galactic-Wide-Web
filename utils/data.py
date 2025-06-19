@@ -746,7 +746,7 @@ class Planet(ReprMixin):
         self.current_owner: str = raw_planet_data["currentOwner"]
         self.regen: float = raw_planet_data["regenPerSecond"]
         self.regen_perc_per_hour: float = round(
-            number=(((self.regen * 3600) / self.max_health) * 100), ndigits=2
+            number=(((self.regen * 3600) / self.max_health)), ndigits=4
         )
         self.event: Planet.Event | None = (
             Planet.Event(raw_event_data=raw_planet_data["event"])

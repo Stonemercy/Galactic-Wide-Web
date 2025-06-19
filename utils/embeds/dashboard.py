@@ -1594,7 +1594,7 @@ class Dashboard:
                             continue
 
                     exclamation = campaign.planet.exclamations
-                    if campaign.planet.regen_perc_per_hour <= 0.25:
+                    if campaign.planet.regen_perc_per_hour <= 0.0025:
                         exclamation += f":warning: {campaign.planet.regen_perc_per_hour:.2%} REGEN :warning:"
                     if campaign.planet.index in [
                         planet.index for planet in gambit_planets.values()
@@ -1631,7 +1631,7 @@ class Dashboard:
                 skipped_planets_text = ""
                 for campaign in skipped_campaigns:
                     exclamation = campaign.planet.exclamations
-                    if campaign.planet.regen_perc_per_hour < 0.25:
+                    if campaign.planet.regen_perc_per_hour < 0.0025:
                         exclamation += f":warning: {campaign.planet.regen_perc_per_hour:.2%} REGEN :warning:"
                     if campaign.planet.index in [
                         planet.index for planet in gambit_planets.values()
