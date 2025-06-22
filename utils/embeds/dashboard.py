@@ -218,7 +218,7 @@ class Dashboard:
         def __init__(
             self,
             assignment: Assignment | None,
-            planets: Planets,
+            planets: Planets | None,
             liberation_changes_tracker: BaseTracker,
             mo_task_tracker: BaseTracker,
             language_json: dict,
@@ -228,7 +228,6 @@ class Dashboard:
             self.with_health_bars = with_health_bars
             self.assignment = assignment
             self.completion_timestamps = []
-            self.total_players = sum([p.stats["playerCount"] for p in planets.values()])
             super().__init__(
                 title=language_json["dashboard"]["MajorOrderEmbed"]["title"],
                 colour=Colour.from_rgb(*faction_colours["MO"]),
@@ -239,6 +238,9 @@ class Dashboard:
                     value=language_json["major_order"]["MO_unavailable"],
                 )
             else:
+                self.total_players = sum(
+                    [p.stats["playerCount"] for p in planets.values()]
+                )
                 task_numbers = [task.type for task in assignment.tasks]
                 task_for_image = max(set(task_numbers), key=task_numbers.count)
                 image_link = assignment_task_images_dict.get(
