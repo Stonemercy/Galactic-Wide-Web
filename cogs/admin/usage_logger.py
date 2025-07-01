@@ -38,6 +38,7 @@ class UsageLoggerCog(commands.Cog):
         embed = UsageLoopEmbed(self.bot.command_usage, self.guilds_joined)
         await self.bot.moderator_channel.send(embed=embed)
         self.bot.command_usage.clear()
+        self.guilds_joined = 0
 
     @usage_report.before_loop
     async def before_usage_report(self):
