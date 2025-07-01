@@ -182,10 +182,10 @@ class Dashboard:
             if len(embed.fields) == 0:
                 self.embeds.remove(embed)
             else:
-                embed.set_image(
-                    "https://i.imgur.com/cThNy4f.png"
-                )  # blank line (max size, dont change)
+                # add blank line (max size, dont change)
+                embed.set_image("https://i.imgur.com/cThNy4f.png")
         embeds_to_skip = (self.DarkEnergyEmbed, self.DSSEmbed)
+
         if self.character_count() > 5900 or not with_health_bars:
             self.embeds = [
                 embed
