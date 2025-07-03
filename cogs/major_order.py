@@ -8,6 +8,7 @@ from disnake import (
 from disnake.ext import commands
 from main import GalacticWideWebBot
 from utils.checks import wait_for_startup
+from utils.data import GlobalEvent
 from utils.dbv2 import GWWGuild, GWWGuilds
 from utils.embeds.dashboard import Dashboard
 from utils.interactables import WikiButton
@@ -58,9 +59,10 @@ class MajorOrderCog(commands.Cog):
             guild = GWWGuild.default()
         guild_language = self.bot.json_dict["languages"][guild.language]
         if self.bot.data.assignments:
-            embeds = [
-                Dashboard.MajorOrderEmbed(
-                    assignment=major_order,
+            embeds = []
+            for assignment in self.bot.data.assignments:
+                embed = Dashboard.MajorOrderEmbed(
+                    assignment=assignment,
                     planets=self.bot.data.planets,
                     liberation_changes_tracker=self.bot.data.liberation_changes,
                     mo_task_tracker=self.bot.data.major_order_changes,
@@ -68,8 +70,23 @@ class MajorOrderCog(commands.Cog):
                     json_dict=self.bot.json_dict,
                     with_health_bars=True,
                 )
-                for major_order in self.bot.data.assignments
-            ]
+                announcement: GlobalEvent = [
+                    ge
+                    for ge in self.bot.data.global_events
+                    if ge.assignment_id == assignment.id
+                    and ge.title != ""
+                    and ge.message != ""
+                ]
+                if announcement := announcement[0] if announcement else None:
+                    embed.insert_field_at(
+                        0,
+                        announcement.title,
+                        announcement.split_message[0],
+                        inline=False,
+                    )
+                    for index, chunk in enumerate(announcement.split_message[1:], 1):
+                        embed.insert_field_at(index, "", chunk, inline=False)
+                embeds.append(embed)
         else:
             embeds = [
                 Dashboard.MajorOrderEmbed(
