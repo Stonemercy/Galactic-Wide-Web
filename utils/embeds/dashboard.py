@@ -31,21 +31,24 @@ class Dashboard:
         with_health_bars: bool = True,
     ):
         language_json = json_dict["languages"][language_code]
+        self.embeds: list[Embed] = []
+
+        # Major Order embeds
         if data.assignments:
-            self._major_order_embeds = [
-                self.MajorOrderEmbed(
-                    assignment=assignment,
-                    planets=data.planets,
-                    liberation_changes_tracker=data.liberation_changes,
-                    mo_task_tracker=data.major_order_changes,
-                    language_json=language_json,
-                    json_dict=json_dict,
-                    with_health_bars=with_health_bars,
+            for assignment in data.assignments:
+                self.embeds.append(
+                    self.MajorOrderEmbed(
+                        assignment=assignment,
+                        planets=data.planets,
+                        liberation_changes_tracker=data.liberation_changes,
+                        mo_task_tracker=data.major_order_changes,
+                        language_json=language_json,
+                        json_dict=json_dict,
+                        with_health_bars=with_health_bars,
+                    )
                 )
-                for assignment in data.assignments
-            ]
         else:
-            self._major_order_embeds = [
+            self.embeds.append(
                 self.MajorOrderEmbed(
                     assignment=None,
                     planets=None,
@@ -55,83 +58,94 @@ class Dashboard:
                     json_dict=None,
                     with_health_bars=False,
                 )
-            ]
-        self._dss_embed = self.DSSEmbed(
-            dss=data.dss,
-            language_json=language_json,
-            planet_names_json=json_dict["planets"],
+            )
+
+        # DSS Eembed
+        self.embeds.append(
+            self.DSSEmbed(
+                dss=data.dss,
+                language_json=language_json,
+                planet_names_json=json_dict["planets"],
+            )
         )
-        eagle_storm = (
-            data.dss.get_ta_by_name("EAGLE STORM") if data.dss != None else None
+
+        # Defence embed
+        if data.planet_events:
+            eagle_storm = (
+                data.dss.get_ta_by_name("EAGLE STORM") if data.dss != None else None
+            )
+            self.embeds.append(
+                self.DefenceEmbed(
+                    planet_events=data.planet_events,
+                    liberation_changes=data.liberation_changes,
+                    language_json=language_json,
+                    planet_names=json_dict["planets"],
+                    total_players=data.total_players,
+                    eagle_storm=eagle_storm,
+                    with_health_bars=with_health_bars,
+                    gambit_planets=data.gambit_planets,
+                )
+            )
+
+        # Attack embeds
+        self.embeds.append(
+            self.AttackEmbed(
+                campaigns=[
+                    campaign
+                    for campaign in data.campaigns
+                    if campaign.faction == "Illuminate" and not campaign.planet.event
+                ],
+                liberation_changes=data.liberation_changes,
+                language_json=language_json,
+                planet_names=json_dict["planets"],
+                faction="Illuminate",
+                total_players=data.total_players,
+                gambit_planets=data.gambit_planets,
+                with_health_bars=with_health_bars,
+            )
         )
-        self._defence_embed = self.DefenceEmbed(
-            planet_events=data.planet_events,
-            liberation_changes=data.liberation_changes,
-            language_json=language_json,
-            planet_names=json_dict["planets"],
-            total_players=data.total_players,
-            eagle_storm=eagle_storm,
-            with_health_bars=with_health_bars,
-            gambit_planets=data.gambit_planets,
+        self.embeds.append(
+            self.AttackEmbed(
+                campaigns=[
+                    campaign
+                    for campaign in data.campaigns
+                    if campaign.faction == "Automaton" and not campaign.planet.event
+                ],
+                liberation_changes=data.liberation_changes,
+                language_json=language_json,
+                planet_names=json_dict["planets"],
+                faction="Automaton",
+                total_players=data.total_players,
+                gambit_planets=data.gambit_planets,
+                with_health_bars=with_health_bars,
+            )
         )
-        self._illuminate_embed = self.AttackEmbed(
-            campaigns=[
-                campaign
-                for campaign in data.campaigns
-                if campaign.faction == "Illuminate" and not campaign.planet.event
-            ],
-            liberation_changes=data.liberation_changes,
-            language_json=language_json,
-            planet_names=json_dict["planets"],
-            faction="Illuminate",
-            total_players=data.total_players,
-            gambit_planets=data.gambit_planets,
-            with_health_bars=with_health_bars,
+        self.embeds.append(
+            self.AttackEmbed(
+                campaigns=[
+                    campaign
+                    for campaign in data.campaigns
+                    if campaign.faction == "Terminids" and not campaign.planet.event
+                ],
+                liberation_changes=data.liberation_changes,
+                language_json=language_json,
+                planet_names=json_dict["planets"],
+                faction="Terminids",
+                total_players=data.total_players,
+                gambit_planets=data.gambit_planets,
+                with_health_bars=with_health_bars,
+            )
         )
-        self._automaton_embed = self.AttackEmbed(
-            campaigns=[
-                campaign
-                for campaign in data.campaigns
-                if campaign.faction == "Automaton" and not campaign.planet.event
-            ],
-            liberation_changes=data.liberation_changes,
-            language_json=language_json,
-            planet_names=json_dict["planets"],
-            faction="Automaton",
-            total_players=data.total_players,
-            gambit_planets=data.gambit_planets,
-            with_health_bars=with_health_bars,
+        self.embeds.append(
+            self.FooterEmbed(
+                language_json=language_json,
+                total_players=data.total_players,
+                steam_players=data.steam_playercount,
+                data_time=data.fetched_at,
+            )
         )
-        self._terminids_embed = self.AttackEmbed(
-            campaigns=[
-                campaign
-                for campaign in data.campaigns
-                if campaign.faction == "Terminids" and not campaign.planet.event
-            ],
-            liberation_changes=data.liberation_changes,
-            language_json=language_json,
-            planet_names=json_dict["planets"],
-            faction="Terminids",
-            total_players=data.total_players,
-            gambit_planets=data.gambit_planets,
-            with_health_bars=with_health_bars,
-        )
-        self._footer_embed = self.FooterEmbed(
-            language_json=language_json,
-            total_players=data.total_players,
-            steam_players=data.steam_playercount,
-            data_time=data.fetched_at,
-        )
-        self.embeds = [
-            self._dss_embed,
-            self._defence_embed,
-            self._illuminate_embed,
-            self._automaton_embed,
-            self._terminids_embed,
-            self._footer_embed,
-        ]
-        for embed in self._major_order_embeds:
-            self.embeds.insert(0, embed)
+
+        # Dark Energy stuff (not in use)
         if data.global_resources != None:
             if data.global_resources.dark_energy:
                 remaining_de = sum(
@@ -153,6 +167,7 @@ class Dashboard:
                 )
                 self.embeds.insert(2, self._dark_energy_embed)
 
+        # Siege stuff (only SE so far)
         if data.sieges:
             for planet in data.sieges:
                 siege_embed = self.SiegeEmbed(
@@ -258,12 +273,16 @@ class Dashboard:
                         )
                     match task.type:
                         case 2:
+                            if task.values[8] != 0:
+                                planet: Planet = planets[task.values[8]]
+                            else:
+                                planet = None
                             self.add_type_2(
                                 task=task,
                                 language_json=language_json,
                                 item_names_json=json_dict["items"]["item_names"],
                                 planet_names_json=json_dict["planets"],
-                                planet=planets[task.values[8]],
+                                planet=planet,
                                 tracker=tracker,
                             )
                         case 3:
@@ -366,7 +385,7 @@ class Dashboard:
             language_json: dict,
             item_names_json: dict,
             planet_names_json: dict,
-            planet: Planet,
+            planet: Planet | None,
             tracker: BaseTrackerEntry,
         ):
             """Extract with certain items from a certain planet"""
@@ -380,10 +399,14 @@ class Dashboard:
                 ),
                 amount=short_format(task.values[2]),
                 item=item_names_json[str(task.values[4])]["name"],
-                planet=planet_names_json[str(planet.index)]["names"][
-                    language_json["code_long"]
-                ],
             )
+            if planet:
+                name += (
+                    f" on {planet_names_json[str(planet.index)]['names'][language_json['code_long']]}",
+                )
+            elif task.values[0] != 0:
+                faction = language_json["factions"][str(task.values[0])]
+                name += f" from any {faction} controlled planet"
             if self.with_health_bars:
                 task_health_bar = f"{task.health_bar}\n"
             else:
@@ -412,7 +435,7 @@ class Dashboard:
                 else (
                     f"{language_json['dashboard']['progress']}: **{task.progress:,.0f}**\n"
                     f"{task_health_bar}"
-                    f"`{(task.progress_perc):^25,.2%}`\n"
+                    f"`{(task.progress_perc):^25,.2%}`"
                     f"{formatted_rate}"
                     f"{time_until_complete}"
                 )
@@ -1336,6 +1359,7 @@ class Dashboard:
             outlook_text = ""
             required_players = ""
             liberation_text = ""
+            regions_text = ""
             if liberation_change := self.liberation_changes.get_entry(planet.index):
                 if planet.index in self.gambit_planets:
                     gambit_planet = self.gambit_planets[planet.index]
@@ -1398,6 +1422,9 @@ class Dashboard:
                                 required_players = f"\n{self.language_json['dashboard']['DefenceEmbed']['players_required']}: *Gathering Data*"
                             else:
                                 required_players = f"\n{self.language_json['dashboard']['DefenceEmbed']['players_required']}: **IMPOSSIBLE**"
+            for region in planet.regions.values():
+                if region.is_available:
+                    regions_text += f"\n-# ↳ {getattr(getattr(Emojis.RegionIcons, region.owner), f'_{region.size}')} {region.type} **{region.name}** - {region.perc:.2%}"
             if planet.feature:
                 feature_text += f"{self.language_json['dashboard']['DefenceEmbed']['feature']}: **{planet.feature}**"
             event_end_datetime = (
@@ -1434,6 +1461,7 @@ class Dashboard:
                     f"{event_health_bar}"
                     f"\n`{1 - (planet.event.health / planet.event.max_health):^25,.2%}`"
                     f"{liberation_text}"
+                    f"{regions_text}"
                     "\u200b\n"
                 ),
                 inline=False,
@@ -1640,6 +1668,9 @@ class Dashboard:
                     ]:
                         exclamation += ":chess_pawn:"
                     skipped_planets_text += f"-# {planet_names[str(campaign.planet.index)]['names'][language_json['code_long']]} - **{campaign.planet.stats['playerCount']:,}** {exclamation}\n"
+                    for region in campaign.planet.regions.values():
+                        if region.is_available:
+                            skipped_planets_text += f"-# ↳ {getattr(getattr(Emojis.RegionIcons, region.owner), f'_{region.size}')} {region.type} **{region.name}** - {region.perc:.2%}\n"
                 if skipped_planets_text != "":
                     self.add_field(
                         f"{language_json['dashboard']['AttackEmbed']['low_impact']}",

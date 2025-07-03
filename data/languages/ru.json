@@ -18,7 +18,7 @@
             "feature": "Объект интереса",
             "rewards": "Награда",
             "tasks": {
-                "type2": "{status_emoji} Успешно эвакуироваться с {amount} {item} на {planet}",
+                "type2": "{status_emoji} Успешно эвакуироваться с {amount} {item}",
                 "type3": "{status_emoji} Убить {amount} {target}",
                 "type3_weapon": " используя __{weapon_to_use}__ ",
                 "type3_planet": " на {planet}",

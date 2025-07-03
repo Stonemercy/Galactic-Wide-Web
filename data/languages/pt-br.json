@@ -18,7 +18,7 @@
             "feature": "Recurso",
             "rewards": "Recompensas",
             "tasks": {
-                "type2": "{status_emoji} Extraia com sucesso com {amount} {item} em {planet}",
+                "type2": "{status_emoji} Extraia com sucesso com {amount} {item}",
                 "type3": "{status_emoji} Mate {amount} {target}",
                 "type3_weapon": " usando  __{weapon_to_use}__ ",
                 "type3_planet": " em {planet}",

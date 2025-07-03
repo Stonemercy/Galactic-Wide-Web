@@ -250,7 +250,15 @@ class Data(ReprMixin):
                 for task in assignment.tasks:
                     match task.type:
                         case 2:
-                            self.planets[task.values[8]].in_assignment = True
+                            if task.values[8] != 0:
+                                self.planets[task.values[8]].in_assignment = True
+                            elif task.values[0] != 0:
+                                for planet in [
+                                    p
+                                    for p in self.planets.values()
+                                    if p.current_owner == factions[task.values[0]]
+                                ]:
+                                    planet.in_assignment = True
                         case 3:
                             if task.progress == 1:
                                 continue

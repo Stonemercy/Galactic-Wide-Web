@@ -146,11 +146,24 @@ class Maps:
                                         fill_colour=faction_colours["MO"],
                                     )
                         elif task.type == 2:
-                            self._draw_ellipse(
-                                draw=background_draw,
-                                coords=planets[task.values[8]].map_waypoints,
-                                fill_colour=faction_colours["MO"],
-                            )
+                            if task.values[8] != 0:
+                                self._draw_ellipse(
+                                    draw=background_draw,
+                                    coords=planets[task.values[8]].map_waypoints,
+                                    fill_colour=faction_colours["MO"],
+                                )
+                            elif task.values[0] != 0:
+                                for planet in [
+                                    c.planet
+                                    for c in campaigns
+                                    if c.planet.current_owner
+                                    == faction_mapping[task.values[0]]
+                                ]:
+                                    self._draw_ellipse(
+                                        draw=background_draw,
+                                        coords=planet.map_waypoints,
+                                        fill_colour=faction_colours["MO"],
+                                    )
                         elif task.type == 3 and task.progress != 1:
                             for campaign in campaigns:
                                 if campaign.faction == faction_mapping[task.values[0]]:

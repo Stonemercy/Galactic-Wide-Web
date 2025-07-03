@@ -18,7 +18,7 @@
             "feature": "Feature",
             "rewards": "Recompensas",
             "tasks": {
-                "type2": "{status_emoji} Extraer con éxito {amount} {item} en {planet}",
+                "type2": "{status_emoji} Extraer con éxito {amount} {item}",
                 "type3": "{status_emoji} Eliminar {amount} {target}",
                 "type3_weapon": " usando la __{weapon_to_use}__ ",
                 "type3_planet": " en {planet}",
