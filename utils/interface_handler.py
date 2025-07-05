@@ -5,10 +5,13 @@ from utils.dbv2 import Feature, GWWGuilds, GWWGuild as GWWGuild
 from utils.interactables import WikiButton
 from utils.mixins import ReprMixin
 
+# Time to wait between feature updates to avoid rate limits (in seconds)
+WAIT_TIME = 0.022
+
 
 class InterfaceHandler:
-    def __init__(self, bot):
-        self.wait_time = 0.027
+    def __init__(self, bot: AutoShardedInteractionBot):
+        self.wait_time = WAIT_TIME
         self.bot = bot
         self.busy = False
         self.loaded = False
