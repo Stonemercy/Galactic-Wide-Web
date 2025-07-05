@@ -265,12 +265,21 @@ class Dashboard:
                 if image_link:
                     self.set_thumbnail(url=image_link)
                 self.add_description(assignment=assignment, language_json=language_json)
+                now_timestamp = datetime.now().timestamp()
                 for index, task in enumerate(assignment.tasks, start=1):
                     tracker = mo_task_tracker.get_entry((assignment.id, index))
                     if tracker and tracker.change_rate_per_hour != 0:
                         self.completion_timestamps.append(
-                            datetime.now().timestamp() + tracker.seconds_until_complete
+                            now_timestamp + tracker.seconds_until_complete
                         )
+                    elif task.type == 11:
+                        lib_changes = liberation_changes_tracker.get_entry(
+                            task.values[2]
+                        )
+                        if lib_changes and lib_changes.change_rate_per_hour > 0:
+                            self.completion_timestamps.append(
+                                now_timestamp + lib_changes.seconds_until_complete
+                            )
                     match task.type:
                         case 2:
                             if task.values[8] != 0:
@@ -295,11 +304,15 @@ class Dashboard:
                             )
                         case 7:
                             self.add_type_7(
-                                task=task, language_json=language_json, tracker=tracker
+                                task=task,
+                                language_json=language_json,
+                                tracker=tracker,
                             )
                         case 9:
                             self.add_type_9(
-                                task=task, language_json=language_json, tracker=tracker
+                                task=task,
+                                language_json=language_json,
+                                tracker=tracker,
                             )
                         case 11:
                             self.add_type_11(
@@ -332,7 +345,10 @@ class Dashboard:
                                 ),
                             )
                         case 15:
-                            self.add_type_15(task=task, language_json=language_json)
+                            self.add_type_15(
+                                task=task,
+                                language_json=language_json,
+                            )
                         case _:
                             self.add_field(
                                 name=f"{Emojis.Decoration.alert_icon} UNRECOGNIZED TASK",
@@ -355,12 +371,17 @@ class Dashboard:
                     language_json=language_json,
                     reward_names=json_dict["items"]["reward_types"],
                 )
-                end_timestamp = assignment.ends_at_datetime.timestamp()
-                outlook_text = ""
+                outlook_text = "Failing"
                 winning_all_tasks = [
-                    ts < end_timestamp for ts in self.completion_timestamps
+                    ts < assignment.ends_at_datetime.timestamp()
+                    for ts in self.completion_timestamps
                 ]
-                if all(winning_all_tasks) and winning_all_tasks != []:
+                if (
+                    winning_all_tasks
+                    and all(winning_all_tasks)
+                    and len(winning_all_tasks)
+                    == len([t for t in assignment.tasks if t.progress_perc != 1])
+                ):
                     outlook_text = "Winning"
                     if {13, 15} & set([t.type for t in assignment.tasks]):
                         outlook_text += (
@@ -1609,6 +1630,7 @@ class Dashboard:
                     time_to_complete = ""
                     change = ""
                     liberation_text = ""
+                    region_text = ""
                     if liberation_change := liberation_changes.get_entry(
                         key=campaign.planet.index
                     ):
@@ -1643,6 +1665,8 @@ class Dashboard:
                         else ""
                     )
                     player_count = f'**{campaign.planet.stats["playerCount"]:,}**'
+                    for region in campaign.planet.regions:
+                        region_text += f"\n-# ↳ {getattr(getattr(Emojis.RegionIcons, campaign.planet.regions[region].owner), f'_{campaign.planet.regions[region].size}')} {campaign.planet.regions[region].type} **{campaign.planet.regions[region].name}** - {campaign.planet.regions[region].perc:.2%}"
                     self.add_field(
                         f"{getattr(Emojis.Factions, campaign.planet.current_owner.lower())} - __**{planet_names[str(campaign.planet.index)]['names'][language_json['code_long']]}**__ {exclamation}",
                         (
@@ -1653,6 +1677,7 @@ class Dashboard:
                             f"{planet_health_bar}"
                             f"\n{planet_health_text}"
                             f"{liberation_text}"
+                            f"{region_text}"
                         ),
                         inline=False,
                     )
