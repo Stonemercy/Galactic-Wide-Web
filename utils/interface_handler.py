@@ -156,7 +156,7 @@ class InterfaceHandler:
         try:
             await channel.send(embeds=embeds, components=components)
         except (NotFound, Forbidden) as e:
-            feature_list: list[Feature] = getattr(self, feature_type)
+            feature_list: BaseFeatureInteractionHandler = getattr(self, feature_type)
             if channel in feature_list:
                 feature_list.remove(channel)
             guild: GWWGuild = GWWGuilds.get_specific_guild(channel.guild.id)
@@ -214,8 +214,6 @@ class InterfaceHandler:
                             link=f"https://helldivers.wiki.gg/wiki/Major_Orders#Recent"
                         )
                     ]
-                else:
-                    components = None
                 for channel in list_to_use.copy():
                     channel: TextChannel
                     guild = GWWGuilds.get_specific_guild(channel.guild.id)
