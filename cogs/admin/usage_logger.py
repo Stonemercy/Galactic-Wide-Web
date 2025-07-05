@@ -16,6 +16,7 @@ class UsageLoggerCog(commands.Cog):
     def cog_unload(self):
         if self.usage_report.is_running():
             self.usage_report.stop()
+            self.bot.loops.remove(self.usage_report)
 
     @commands.Cog.listener()
     async def on_slash_command(self, inter: AppCmdInter):

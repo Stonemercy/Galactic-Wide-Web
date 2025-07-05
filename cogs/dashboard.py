@@ -15,6 +15,7 @@ class DashboardCog(commands.Cog):
     def cog_unload(self):
         if self.dashboard_poster.is_running():
             self.dashboard_poster.stop()
+            self.bot.loops.remove(self.dashboard_poster)
 
     @tasks.loop(
         time=[

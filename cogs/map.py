@@ -27,6 +27,7 @@ class MapCog(commands.Cog):
     def cog_unload(self):
         if self.map_poster.is_running():
             self.map_poster.stop()
+            self.bot.loops.remove(self.map_poster)
 
     @tasks.loop(time=[time(hour=hour, minute=5, second=0) for hour in range(24)])
     async def map_poster(self):

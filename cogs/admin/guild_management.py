@@ -36,6 +36,7 @@ class GuildManagementCog(commands.Cog):
         for loop in self.loops:
             if loop.is_running():
                 loop.stop()
+                self.bot.loops.remove(loop)
 
     @commands.Cog.listener()
     async def on_guild_join(self, guild: Guild):

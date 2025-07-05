@@ -29,6 +29,7 @@ class AnnouncementsCog(commands.Cog):
         for loop in self.loops:
             if loop.is_running():
                 loop.stop()
+                self.bot.loops.remove(loop)
 
     @tasks.loop(minutes=1)
     async def major_order_check(self):

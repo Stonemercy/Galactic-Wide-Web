@@ -30,6 +30,7 @@ class MeridiaCog(commands.Cog):
     def cog_unload(self):
         if self.meridia_update.is_running():
             self.meridia_update.stop()
+            self.bot.loops.remove(self.meridia_update)
 
     @tasks.loop(
         time=[time(hour=i, minute=j) for i in range(24) for j in range(10, 60, 15)]

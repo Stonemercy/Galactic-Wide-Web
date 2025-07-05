@@ -20,6 +20,7 @@ class DataManagementCog(commands.Cog):
         for loop in self.loops:
             if loop.is_running():
                 loop.stop()
+                self.bot.loops.remove(loop)
 
     @tasks.loop(count=1)
     async def startup(self):
