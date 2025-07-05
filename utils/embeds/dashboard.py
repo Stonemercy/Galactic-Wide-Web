@@ -1665,8 +1665,9 @@ class Dashboard:
                         else ""
                     )
                     player_count = f'**{campaign.planet.stats["playerCount"]:,}**'
-                    for region in campaign.planet.regions:
-                        region_text += f"\n-# ↳ {getattr(getattr(Emojis.RegionIcons, campaign.planet.regions[region].owner), f'_{campaign.planet.regions[region].size}')} {campaign.planet.regions[region].type} **{campaign.planet.regions[region].name}** - {campaign.planet.regions[region].perc:.2%}"
+                    for region in campaign.planet.regions.values():
+                        if region.is_available:
+                            region_text += f"\n-# ↳ {getattr(getattr(Emojis.RegionIcons, region.owner), f'_{region.size}')} {region.type} **{region.name}** - {region.perc:.2%}"
                     self.add_field(
                         f"{getattr(Emojis.Factions, campaign.planet.current_owner.lower())} - __**{planet_names[str(campaign.planet.index)]['names'][language_json['code_long']]}**__ {exclamation}",
                         (
