@@ -371,7 +371,7 @@ class Dashboard:
                     language_json=language_json,
                     reward_names=json_dict["items"]["reward_types"],
                 )
-                outlook_text = "Failing"
+                outlook_text = ""
                 winning_all_tasks = [
                     ts < assignment.ends_at_datetime.timestamp()
                     for ts in self.completion_timestamps
