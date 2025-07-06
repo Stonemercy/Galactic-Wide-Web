@@ -569,7 +569,7 @@ class Assignment(ReprMixin):
                 case 2:
                     return health_bar(
                         self.progress_perc,
-                        "MO" if self.progress_perc != 1 else "Humans",
+                        "Humans",
                     )
                 case 3:
                     return health_bar(
