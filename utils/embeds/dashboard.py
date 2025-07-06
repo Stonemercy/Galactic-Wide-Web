@@ -409,7 +409,7 @@ class Dashboard:
             planet: Planet | None,
             tracker: BaseTrackerEntry,
         ):
-            """Extract with certain items from a certain planet"""
+            """Extract with certain items"""
             name = language_json["dashboard"]["MajorOrderEmbed"]["tasks"][
                 "type2"
             ].format(
@@ -428,39 +428,27 @@ class Dashboard:
             elif task.values[0] != 0:
                 faction = language_json["factions"][str(task.values[0])]
                 name += f" from any {faction} controlled planet"
-            if self.with_health_bars:
-                task_health_bar = f"{task.health_bar}\n"
-            else:
-                task_health_bar = ""
-            if tracker and tracker.change_rate_per_hour != 0:
-                rate = f"{tracker.change_rate_per_hour:+.2%}/hour"
-                formatted_rate = f"\n`{rate:^25}`"
-                winning = (
-                    tracker.change_rate_per_hour > 0
-                    and datetime.now()
-                    + timedelta(seconds=tracker.seconds_until_complete)
-                    < self.assignment.ends_at_datetime
-                )
-                if winning:
-                    outlook_text = "Complete"
-                else:
-                    outlook_text = "Failure"
-                time_until_complete = f"\n-# {outlook_text} <t:{int(datetime.now().timestamp() + tracker.seconds_until_complete)}:R>"
-            else:
-                formatted_rate = ""
-                time_until_complete = ""
+            value = ""
+            if task.progress_perc != 1:
+                value += f"{language_json['dashboard']['progress']}: **{task.progress:,.0f}**"
+                if self.with_health_bars:
+                    value += f"\n{task.health_bar}"
+                value += f"`{(task.progress_perc):^25,.2%}`"
+                if tracker and tracker.change_rate_per_hour != 0:
+                    rate = f"{tracker.change_rate_per_hour:+.2%}/hour"
+                    value += f"\n`{rate:^25}`"
+                    winning = (
+                        tracker.change_rate_per_hour > 0
+                        and datetime.now()
+                        + timedelta(seconds=tracker.seconds_until_complete)
+                        < self.assignment.ends_at_datetime
+                    )
+                    if winning:
+                        outlook_text = "Complete"
+                    else:
+                        outlook_text = "Failure"
+                    value += f"\n-# {outlook_text} <t:{int(datetime.now().timestamp() + tracker.seconds_until_complete)}:R>"
 
-            value = (
-                ""
-                if task.progress_perc == 1
-                else (
-                    f"{language_json['dashboard']['progress']}: **{task.progress:,.0f}**\n"
-                    f"{task_health_bar}"
-                    f"`{(task.progress_perc):^25,.2%}`"
-                    f"{formatted_rate}"
-                    f"{time_until_complete}"
-                )
-            )
             self.add_field(
                 name=name,
                 value=value,
@@ -695,43 +683,48 @@ class Dashboard:
                     )
                     if planet.feature:
                         value_text += f"\n{language_json['dashboard']['MajorOrderEmbed']['feature']}: **{planet.feature}**\n"
+
                     planet_lib_changes = liberation_changes.get_entry(key=planet.index)
-                    if (
-                        planet_lib_changes
-                        and planet_lib_changes.change_rate_per_hour > 0
-                    ):
-                        now_seconds = int(datetime.now().timestamp())
-                        if planet.event:
+                    now_seconds = int(datetime.now().timestamp())
+                    if planet.event:
+                        if (
+                            planet_lib_changes
+                            and planet_lib_changes.change_rate_per_hour > 0
+                        ):
                             winning = (
                                 now_seconds + planet_lib_changes.seconds_until_complete
                                 < planet.event.end_time_datetime.timestamp()
                             )
-                            value_text += f"{language_json['ends']} <t:{planet.event.end_time_datetime.timestamp():.0f}:R>"
-                            if winning:
-                                value_text += f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['victory'])} <t:{now_seconds + planet_lib_changes.seconds_until_complete}:R>"
-                            else:
-                                value_text += f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['defeat'])}"
-                            value_text += f"\n{language_json['dashboard']['progress']}:"
-                            value_text += f"\n{health_bar(planet.event.progress, planet.event.faction, True)}"
-                            value_text += f"\n`{(1-planet.event.progress):^25,.2%}`"
-                        else:
+                        value_text += f"{language_json['ends']} <t:{planet.event.end_time_datetime.timestamp():.0f}:R>"
+                        if planet_lib_changes and winning:
                             value_text += f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['victory'])} <t:{now_seconds + planet_lib_changes.seconds_until_complete}:R>"
-                            value_text += f"\n{language_json['dashboard']['progress']}:"
-                            value_text += f"\n{health_bar(planet.health_perc, planet.current_owner, True)}"
-                            value_text += f"\n`{(1-planet.health_perc):^25,.2%}`"
+                        else:
+                            value_text += f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['defeat'])}"
+                        value_text += f"\n{language_json['dashboard']['progress']}:"
+                        value_text += f"\n{health_bar(planet.event.progress, planet.event.faction, True)}"
+                        value_text += f"\n`{(1-planet.event.progress):^25,.2%}`"
+                    else:
+                        if (
+                            planet_lib_changes
+                            and planet_lib_changes.change_rate_per_hour > 0
+                        ):
+                            value_text += f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['victory'])} <t:{now_seconds + planet_lib_changes.seconds_until_complete}:R>"
+                        value_text += f"\n{language_json['dashboard']['progress']}:"
+                        value_text += (
+                            f"\n{health_bar(planet.health_perc, 'Humans', True)}"
+                        )
+                        value_text += f"\n`{(1-planet.health_perc):^25,.2%}`"
+                    if (
+                        planet_lib_changes
+                        and planet_lib_changes.change_rate_per_hour > 0
+                    ):
                         change = f"{planet_lib_changes.change_rate_per_hour:+.2%}/hour"
                         value_text += f"\n`{change:^25}`"
-                    self.add_field(
-                        name=obj_text,
-                        value=value_text,
-                        inline=False,
-                    )
-                else:
-                    self.add_field(
-                        name=obj_text,
-                        value=value_text,
-                        inline=False,
-                    )
+                self.add_field(
+                    name=obj_text,
+                    value=value_text,
+                    inline=False,
+                )
 
         def add_type_12(
             self,
@@ -1646,14 +1639,14 @@ class Dashboard:
                             continue
 
                     exclamation = campaign.planet.exclamations
-                    if campaign.planet.regen_perc_per_hour <= 0.0025:
+                    if campaign.planet.regen_perc_per_hour <= 0.001:
                         exclamation += f":warning: {campaign.planet.regen_perc_per_hour:.2%} REGEN :warning:"
                     if campaign.planet.index in [
                         planet.index for planet in gambit_planets.values()
                     ]:
                         exclamation += ":chess_pawn:"
                     if with_health_bars:
-                        planet_health_bar = f"\n{health_bar(campaign.planet.health / campaign.planet.max_health, campaign.planet.current_owner, True)}"
+                        planet_health_bar = f"\n{health_bar(campaign.planet.health_perc, campaign.planet.current_owner, True)}"
                     else:
                         planet_health_bar = ""
                     planet_health_text = f"`{(1 - (campaign.planet.health / campaign.planet.max_health)):^25.2%}`"
@@ -1687,7 +1680,7 @@ class Dashboard:
                 skipped_planets_text = ""
                 for campaign in skipped_campaigns:
                     exclamation = campaign.planet.exclamations
-                    if campaign.planet.regen_perc_per_hour < 0.0025:
+                    if campaign.planet.regen_perc_per_hour < 0.001:
                         exclamation += f":warning: {campaign.planet.regen_perc_per_hour:.2%} REGEN :warning:"
                     if campaign.planet.index in [
                         planet.index for planet in gambit_planets.values()
