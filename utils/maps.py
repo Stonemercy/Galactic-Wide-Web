@@ -124,6 +124,8 @@ class Maps:
                 for assignment in assignments:
                     background_draw = ImageDraw.Draw(im=background)
                     for task in assignment.tasks:
+                        if task.progress_perc == 1:
+                            continue
                         if task.type in (11, 13):
                             self._draw_ellipse(
                                 draw=background_draw,
