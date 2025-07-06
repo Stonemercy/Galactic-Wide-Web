@@ -277,7 +277,7 @@ class PlanetCommandRegionEmbed(Embed, EmbedReprMixin):
                 health_to_get_from = (
                     planet.max_health if not planet.event else planet.event.max_health
                 )
-                description += f"\nBoost when liberated: **{(region.max_health * 0.5) / health_to_get_from:.2%}**"
+                description += f"\nBoost when liberated: **{(region.max_health * 1.5) / health_to_get_from:.2%}**"
                 description += f"\n{region.health_bar}"
                 description += f"\n`{region.perc:^25,.2%}`"
                 region_change = region_changes.get_entry(region.settings_hash)
