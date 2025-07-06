@@ -248,6 +248,8 @@ class Data(ReprMixin):
             ]
             for assignment in self.assignments:
                 for task in assignment.tasks:
+                    if task.progress_perc == 1:
+                        continue
                     match task.type:
                         case 2:
                             if task.values[8] != 0:
@@ -260,8 +262,6 @@ class Data(ReprMixin):
                                 ]:
                                     planet.in_assignment = True
                         case 3:
-                            if task.progress == 1:
-                                continue
                             if task.values[9] != 0:
                                 self.planets[task.values[9]].in_assignment = True
                                 continue
