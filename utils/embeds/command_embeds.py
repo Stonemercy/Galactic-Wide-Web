@@ -791,6 +791,10 @@ class CommunityServersCommandEmbed(Embed, EmbedReprMixin):
                     self.add_field("", "", inline=False)
             else:
                 break
+        try:
+            self.set_image([g for g in guilds if g.banner][0].banner.url)
+        except:
+            pass
         self.set_footer(text=f"{max(0, new_index)}/{len(guilds)}")
 
     def character_count(self):
