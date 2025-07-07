@@ -185,16 +185,12 @@ class AnnouncementsCog(commands.Cog):
 
     @tasks.loop(time=[time(hour=5, minute=20), time(hour=17, minute=20)])
     async def major_order_updates(self):
-        shard_info = (
-            f"Shard {self.bot.shard_id}"
-            if self.bot.shard_id is not None
-            else "No sharding"
-        )
         mo_updates_start = datetime.now()
-        self.bot.logger.info(f"MO loop starting - {shard_info} at {mo_updates_start}")
+        self.bot.logger.info(f"MO loop starting at {mo_updates_start}")
         if (
             not self.bot.interface_handler.loaded
             or mo_updates_start < self.bot.ready_time
+            or mo_updates_start.minute != 20
             or not self.bot.data.loaded
             or not self.bot.data.assignments
         ):
