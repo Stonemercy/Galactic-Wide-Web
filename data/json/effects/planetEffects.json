@@ -588,5 +588,10 @@
 		"galacticEffectId": 1281,
 		"name": "WEAPONS EXPERIMENTATION",
 		"description": "The Eagle Smoke Strike stratagem is available to all Helldivers."
+	},
+	"1282": {
+		"galacticEffectId": 1282,
+		"name": "Helldiver Training Facilities",
+		"description": "Here, the best of the best go through the rigorous Helldiver training that will earn them their capes."
 	}
 }
