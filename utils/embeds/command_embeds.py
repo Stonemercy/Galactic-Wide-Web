@@ -785,7 +785,12 @@ class CommunityServersCommandEmbed(Embed, EmbedReprMixin):
             if self.character_count() < 6000 and len(self.fields) < 24:
                 self.add_field(
                     name=f"{index}. {guild.name}",
-                    value=f"Members: **{guild.member_count}**\nInvite: [Link](<https://discord.com/invite/{guild.vanity_url_code}>)",
+                    value=(
+                        f"Members: **{guild.member_count}**"
+                        f"\nInvite: [Link](<https://discord.com/invite/{guild.vanity_url_code}>)"
+                        f"\nLocale: **{guild.preferred_locale}**"
+                        f"\nCreated: <t:{int(guild.created_at.timestamp())}:R>"
+                    ),
                 )
                 if index % 2 == 0:
                     self.add_field("", "", inline=False)
