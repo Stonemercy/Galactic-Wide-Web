@@ -595,23 +595,13 @@ class Dashboard:
             language_json: dict,
             tracker: BaseTrackerEntry,
         ):
-            """Complete an Operation against {faction} on {difficulty} or higher {amount} times"""
-            full_task = language_json["dashboard"]["MajorOrderEmbed"]["tasks"][
-                "type9"
-            ].format(
-                status_emoji=(
-                    Emojis.Icons.mo_task_complete
-                    if task.progress_perc == 1
-                    else Emojis.Icons.mo_task_incomplete
-                ),
-                faction=language_json["factions"][str(task.values[0])],
-                difficulty=language_json["difficulty"][str(task.values[3])],
-                amount=f"{task.values[1]:,}",
-            )
+            """Complete an Operation [against {faction}] on {difficulty} or higher {amount} times"""
+            full_task = f"Complete an Operation on {language_json['difficulty'][str(task.values[3])]} or higher {task.values[1]:,} times"
             if self.with_health_bars:
                 task_health_bar = f"{task.health_bar}\n"
             else:
                 task_health_bar = ""
+            time_until_complete = ""
             if tracker and tracker.change_rate_per_hour != 0:
                 rate = f"{tracker.change_rate_per_hour:+.2%}/hour"
                 formatted_rate = f"\n`{rate:^25}`"
@@ -622,13 +612,9 @@ class Dashboard:
                     < self.assignment.ends_at_datetime
                 )
                 if winning:
-                    outlook_text = "Complete"
-                else:
-                    outlook_text = "Failure"
-                time_until_complete = f"\n-# {outlook_text} <t:{int(datetime.now().timestamp() + tracker.seconds_until_complete)}:R>"
+                    time_until_complete = f"\n-# Complete <t:{int(datetime.now().timestamp() + tracker.seconds_until_complete)}:R>"
             else:
                 formatted_rate = ""
-                time_until_complete = ""
             self.add_field(
                 name=full_task,
                 value=(

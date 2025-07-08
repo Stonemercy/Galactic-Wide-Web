@@ -579,7 +579,7 @@ class Assignment(ReprMixin):
                 case 7:
                     return health_bar(self.progress_perc, self.values[0])
                 case 9:
-                    return health_bar(self.progress_perc, self.values[0])
+                    return health_bar(self.progress_perc, "Humans")
                 case 11:
                     return
                 case 12:
