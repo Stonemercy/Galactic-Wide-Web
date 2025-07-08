@@ -596,7 +596,7 @@ class Dashboard:
             tracker: BaseTrackerEntry,
         ):
             """Complete an Operation [against {faction}] on {difficulty} or higher {amount} times"""
-            full_task = f"Complete an Operation on {language_json['difficulty'][str(task.values[3])]} or higher {task.values[1]:,} times"
+            full_task = f"{Emojis.Icons.mo_task_complete if task.progress_perc == 1 else Emojis.Icons.mo_task_incomplete} Complete an Operation on {language_json['difficulty'][str(task.values[3])]} or higher {task.values[1]:,} times"
             if self.with_health_bars:
                 task_health_bar = f"{task.health_bar}\n"
             else:
