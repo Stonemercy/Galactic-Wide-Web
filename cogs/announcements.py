@@ -183,14 +183,15 @@ class AnnouncementsCog(commands.Cog):
     async def before_steam_check(self):
         await self.bot.wait_until_ready()
 
-    @tasks.loop(time=[time(hour=5, minute=20), time(hour=17, minute=20)])
+    @tasks.loop(
+        time=[time(hour=5, minute=20, second=30), time(hour=17, minute=20, second=30)]
+    )
     async def major_order_updates(self):
         mo_updates_start = datetime.now()
         self.bot.logger.info(f"MO loop starting at {mo_updates_start}")
         if (
             not self.bot.interface_handler.loaded
             or mo_updates_start < self.bot.ready_time
-            or mo_updates_start.minute != 20
             or not self.bot.data.loaded
             or not self.bot.data.assignments
         ):
