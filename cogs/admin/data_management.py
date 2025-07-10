@@ -192,9 +192,13 @@ class DataManagementCog(commands.Cog):
                 )
                 self.mentioned_new_effects |= new_effects
         if total_changes:
-            embed = APIChangesLoopEmbed(total_changes=total_changes)
-            msg = await self.bot.api_changes_channel.send(embed=embed)
-            await msg.publish()
+            chunked_changes = [
+                total_changes[i : i + 20] for i in range(0, len(total_changes), 20)
+            ]
+            for chunk in chunked_changes:
+                embed = APIChangesLoopEmbed(total_changes=chunk)
+                msg = await self.bot.moderator_channel.send(embed=embed)
+                await msg.publish()
 
     @check_changes.before_loop
     async def before_check_changes(self):
