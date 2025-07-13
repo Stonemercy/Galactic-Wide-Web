@@ -118,7 +118,7 @@ class InterfaceHandler:
         try:
             await message.edit(embeds=embeds)
         except (NotFound, Forbidden) as e:
-            self.dashboards.remove(message)
+            self.dashboards.remove_entry(message.guild.id)
             guild: GWWGuild = GWWGuilds.get_specific_guild(message.guild.id)
             guild.features = [f for f in guild.features if f.name != "dashboards"]
             guild.update_features()
@@ -280,9 +280,6 @@ class BaseFeatureInteractionHandler(list, ReprMixin):
             self.append(feature)
 
     def remove_entry(self, guild_id_to_remove: int):
-        features_to_remove = [
-            f for f in self.copy() if f.guild.id == guild_id_to_remove
-        ]
+        features_to_remove = [f for f in list(self) if f.guild.id == guild_id_to_remove]
         for feature in features_to_remove:
-            if feature in self:
-                self.remove(feature)
+            self.remove(feature)
