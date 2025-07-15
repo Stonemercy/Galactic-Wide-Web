@@ -427,9 +427,13 @@ class Data(ReprMixin):
                     if region["planetIndex"] not in self.planets:
                         continue
                     else:
-                        self.planets[region["planetIndex"]].regions[
-                            region["regionIndex"]
-                        ].update_from_status_data(raw_planet_region_data=region)
+                        planet_region = self.planets[region["planetIndex"]].regions.get(
+                            region["regionIndex"], None
+                        )
+                        if planet_region:
+                            planet_region.update_from_status_data(
+                                raw_planet_region_data=region
+                            )
 
                 for planet in self.planets.values():
                     planet.regions = {
