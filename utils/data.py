@@ -533,7 +533,8 @@ class Assignment(ReprMixin):
     def __init__(self, raw_assignment_data: dict) -> None:
         """Organised data of an Assignment or Major Order"""
         self.id: int = raw_assignment_data["id"]
-        self.title: str = (
+        self.title: str = raw_assignment_data["title"]
+        self.briefing: str = (
             raw_assignment_data["briefing"]
             if raw_assignment_data["briefing"] not in ([], None)
             else ""

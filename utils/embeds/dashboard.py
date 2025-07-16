@@ -244,7 +244,7 @@ class Dashboard:
             self.assignment = assignment
             self.completion_timestamps = []
             super().__init__(
-                title=language_json["dashboard"]["MajorOrderEmbed"]["title"],
+                title=assignment.title,
                 colour=Colour.from_rgb(*faction_colours["MO"]),
             )
             if not self.assignment:
@@ -990,7 +990,7 @@ class Dashboard:
 
         def add_description(self, assignment: Assignment, language_json: dict):
             self.add_field(
-                name=assignment.title, value=assignment.description, inline=False
+                name=assignment.briefing, value=assignment.description, inline=False
             )
             self.set_footer(
                 text=language_json["dashboard"]["MajorOrderEmbed"]["assignment"].format(
