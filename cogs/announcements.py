@@ -13,6 +13,7 @@ from utils.embeds.loop_embeds import (
 class AnnouncementsCog(commands.Cog):
     def __init__(self, bot: GalacticWideWebBot):
         self.bot = bot
+        self.last_mo_update: None | datetime = None
         self.loops = (
             self.major_order_check,
             self.global_event_check,
@@ -189,6 +190,15 @@ class AnnouncementsCog(commands.Cog):
     async def major_order_updates(self):
         mo_updates_start = datetime.now()
         self.bot.logger.info(f"MO loop starting at {mo_updates_start}")
+        if (
+            self.last_mo_update
+            and (mo_updates_start - self.last_mo_update).total_seconds() < 600
+        ):
+            self.bot.logger.info(
+                f"Skipping duplicate MO loop execution at {mo_updates_start}"
+            )
+            return
+        self.last_mo_update = mo_updates_start
         if (
             not self.bot.interface_handler.loaded
             or mo_updates_start < self.bot.ready_time
