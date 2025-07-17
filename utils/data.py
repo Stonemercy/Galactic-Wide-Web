@@ -492,7 +492,7 @@ class Data(ReprMixin):
         now = datetime.now()
         for planet in self.planet_events:
             lib_changes = self.liberation_changes.get_entry(key=planet.index)
-            if lib_changes.change_rate_per_hour == 0:
+            if not lib_changes or lib_changes.change_rate_per_hour == 0:
                 continue
             win_time = planet.event.end_time_datetime
             if planet.dss_in_orbit:
