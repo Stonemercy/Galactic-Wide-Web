@@ -394,8 +394,9 @@ class Dashboard:
                         outlook_text += f" <t:{int(oldest_time)}:R>"
 
                 self.add_field(
-                    language_json["ends"],
-                    f"<t:{int(datetime.fromisoformat(assignment.ends_at).timestamp())}:R>",
+                    "",
+                    f"-# {language_json['ends']} <t:{int(datetime.fromisoformat(assignment.ends_at).timestamp())}:R>",
+                    inline=False,
                 )
                 if outlook_text != "":
                     self.add_field("Outlook", f"{outlook_text}", inline=False)
