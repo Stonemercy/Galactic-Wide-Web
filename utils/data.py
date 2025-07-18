@@ -752,7 +752,7 @@ class Planet(ReprMixin):
         self.biome: dict = raw_planet_data["biome"]
         self.hazards: list[dict] = raw_planet_data["hazards"]
         self.position: dict = raw_planet_data["position"]
-        self.waypoints: list[int] = raw_planet_data["waypoints"]
+        self.waypoints: set[int] = set(raw_planet_data["waypoints"])
         self.max_health: int = raw_planet_data["maxHealth"]
         self.health: int = raw_planet_data["health"]
         self.health_perc: float = min(self.health / self.max_health, 1)
