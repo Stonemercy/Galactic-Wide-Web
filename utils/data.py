@@ -79,6 +79,7 @@ class Data(ReprMixin):
         self.fetched_at = None
         self.assignments = []
         self.dss = None
+        self.dispatches: list = []
         self.sieges = None
         self.global_resources = None
         self.steam_playercount = 0
@@ -178,7 +179,19 @@ class Data(ReprMixin):
                         else:
                             logger.error(msg=f"API/STEAM_PLAYERCOUNT, {r.status}")
                     continue
-
+                elif endpoint == "dispatches":
+                    async with session.get(
+                        url=f"https://api.live.prod.thehelldiversgame.com/api/NewsFeed/801?maxEntries=1024"
+                    ) as r:
+                        if r.status == 200:
+                            json = await r.json()
+                            self.__data__[endpoint] = json
+                        elif r.status != 500:
+                            logger.error(msg=f"API/{endpoint.upper()}, {r.status}")
+                            await moderator_channel.send(
+                                content=f"API/{endpoint.upper()}\n{r}"
+                            )
+                        continue
                 try:
                     async with session.get(url=f"{api_to_use}/api/v1/{endpoint}") as r:
                         if r.status == 200:
@@ -314,8 +327,7 @@ class Data(ReprMixin):
 
         if self.__data__["dispatches"]:
             self.dispatches: list[Dispatch] = [
-                Dispatch(raw_dispatch_data=data)
-                for data in self.__data__["dispatches"][:10][::-1]
+                Dispatch(raw_dispatch_data=data) for data in self.__data__["dispatches"]
             ]
 
         if self.__data__["thumbnails"]:

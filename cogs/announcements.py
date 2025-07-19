@@ -125,7 +125,7 @@ class AnnouncementsCog(commands.Cog):
                 "# No dispatch ID found in the database. Please check the war info table."
             )
             return
-        for dispatch in self.bot.data.dispatches:
+        for dispatch in self.bot.data.dispatches[-10:]:
             if current_war_info.dispatch_id < dispatch.id:
                 if len(dispatch.message) < 5:
                     continue
