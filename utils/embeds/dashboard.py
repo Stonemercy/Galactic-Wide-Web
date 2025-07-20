@@ -833,11 +833,11 @@ class Dashboard:
             feature_text = ""
             if task.progress_perc != 1:
                 if planet.feature:
-                    feature_text += f"{language_json['dashboard']['MajorOrderEmbed']['feature']}: **{planet.feature}**"
+                    feature_text += f"\n{language_json['dashboard']['MajorOrderEmbed']['feature']}: **{planet.feature}**"
                 for special_unit in SpecialUnits.get_from_effects_list(
                     active_effects=planet.active_effects
                 ):
-                    feature_text += f"-# {special_unit[0]} {special_unit[1]}"
+                    feature_text += f"\n-# {special_unit[0]} {special_unit[1]}"
             obj_text = language_json["dashboard"]["MajorOrderEmbed"]["tasks"][
                 "type13"
             ].format(
