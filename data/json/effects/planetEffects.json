@@ -598,5 +598,10 @@
 		"galacticEffectId": 1283,
 		"name": "FACTORY STRIDER SURGE",
 		"description": "Significantly higher Factory Strider numbers have been observed on this planet."
+	},
+	"1284": {
+		"galacticEffectId": 1284,
+		"name": "WEAPONS EXPERIMENTATION",
+		"description": "The Recoilless Rifle stratagem is available to all Helldivers."
 	}
 }
