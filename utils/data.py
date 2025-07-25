@@ -634,11 +634,7 @@ class Dispatch(ReprMixin):
     def __init__(self, raw_dispatch_data: dict) -> None:
         """Organised data of a dispatch"""
         self.id: int = raw_dispatch_data["id"]
-        self.message = (
-            dispatch_format(text=raw_dispatch_data["message"])
-            if raw_dispatch_data["message"]
-            else ""
-        )
+        self.message = dispatch_format(text=raw_dispatch_data.get("message", ""))
 
 
 class GlobalEvent(ReprMixin):
