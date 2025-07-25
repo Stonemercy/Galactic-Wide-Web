@@ -20,7 +20,7 @@
             "tasks": {
                 "type2": "{status_emoji} Successfully extract with {amount} {item}",
                 "type3": "{status_emoji} Kill {amount} {target}",
-                "type3_weapon": " using the __{weapon_to_use}__ ",
+                "type3_weapon": " using the __{weapon_to_use}__",
                 "type3_planet": " on {planet}",
                 "type7": "Extract from a successful Mission against {faction} {amount} times",
                 "type9": "{status_emoji} Complete an Operation against {faction} on {difficulty} or higher {amount} times",

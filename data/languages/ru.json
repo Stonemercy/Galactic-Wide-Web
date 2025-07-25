@@ -20,7 +20,7 @@
             "tasks": {
                 "type2": "{status_emoji} Успешно эвакуироваться с {amount} {item}",
                 "type3": "{status_emoji} Убить {amount} {target}",
-                "type3_weapon": " используя __{weapon_to_use}__ ",
+                "type3_weapon": " используя __{weapon_to_use}__",
                 "type3_planet": " на {planet}",
                 "type7": "Эвакуируйтесь, успешно выполнив задание против {faction} {amount} раз(а)",
                 "type9": "{status_emoji} Выполните операцию против {faction} на сложности {difficulty} или выше {amount} раз",
