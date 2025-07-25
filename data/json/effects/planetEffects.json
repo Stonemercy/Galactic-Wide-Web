@@ -593,5 +593,10 @@
 		"galacticEffectId": 1282,
 		"name": "Helldiver Training Facilities",
 		"description": "Here, the best of the best go through the rigorous Helldiver training that will earn them their capes."
+	},
+	"1283": {
+		"galacticEffectId": 1283,
+		"name": "FACTORY STRIDER SURGE",
+		"description": "Significantly higher Factory Strider numbers have been observed on this planet."
 	}
 }
