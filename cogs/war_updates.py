@@ -110,6 +110,7 @@ class WarUpdatesCog(commands.Cog):
                         # TODO: if event is type 3, siege victory
                         for embed_list in embeds.values():
                             embed_list[0].add_def_victory(planet=planet)
+                    new_updates = True
                 elif planet.current_owner != old_campaign.planet_owner:
                     # if owner has changed
                     if old_campaign.planet_owner == "Humans":
@@ -122,9 +123,9 @@ class WarUpdatesCog(commands.Cog):
                             embed_list[0].add_campaign_victory(
                                 planet=planet, taken_from=old_campaign.planet_owner
                             )
+                    new_updates = True
                 self.bot.data.liberation_changes.remove_entry(key=planet.index)
                 old_campaign.delete()
-                new_updates = True
                 need_to_update_sectors = True
 
         old_campaign_ids = [old_campaign.campaign_id for old_campaign in old_campaigns]
