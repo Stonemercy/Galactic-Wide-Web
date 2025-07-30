@@ -1893,7 +1893,7 @@
 	},
 	"64": {
 		"name": "Meridia",
-		"sector": "Orion",
+		"sector": "Celeste",
 		"biome": "blackhole",
 		"environmentals": [
 			"none"
