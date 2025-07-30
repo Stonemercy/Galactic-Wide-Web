@@ -244,7 +244,7 @@ class Dashboard:
             self.assignment = assignment
             self.completion_timestamps = []
             super().__init__(
-                title=assignment.title if assignment else "",
+                title=assignment.title if assignment else "Awaiting Major Order",
                 colour=Colour.from_rgb(*faction_colours["MO"]),
             )
             if not self.assignment:
