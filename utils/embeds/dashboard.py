@@ -423,9 +423,7 @@ class Dashboard:
                 item=item_names_json[str(task.values[4])]["name"],
             )
             if planet:
-                name += (
-                    f" on {planet_names_json[str(planet.index)]['names'][language_json['code_long']]}",
-                )
+                name += f" on {planet_names_json[str(planet.index)]['names'][language_json['code_long']]}"
             elif task.values[0] != 0:
                 faction = language_json["factions"][str(task.values[0])]
                 name += f" from any {faction} controlled planet"
