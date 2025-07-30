@@ -400,7 +400,7 @@ class Dashboard:
 
                 self.add_field(
                     "",
-                    f"-# {language_json['ends']} <t:{int(datetime.fromisoformat(assignment.ends_at).timestamp())}:R>",
+                    f"-# {language_json['ends']} <t:{int(assignment.ends_at_datetime.timestamp())}:R>",
                     inline=False,
                 )
                 if outlook_text != "":
