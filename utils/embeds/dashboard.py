@@ -432,7 +432,7 @@ class Dashboard:
                 value += f"{language_json['dashboard']['progress']}: **{task.progress:,.0f}**"
                 if self.with_health_bars:
                     value += f"\n{task.health_bar}"
-                value += f"`{(task.progress_perc):^25,.2%}`"
+                value += f"\n`{(task.progress_perc):^25,.2%}`"
                 if tracker and tracker.change_rate_per_hour != 0:
                     rate = f"{tracker.change_rate_per_hour:+.2%}/hour"
                     value += f"\n`{rate:^25}`"
