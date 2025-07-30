@@ -608,5 +608,25 @@
 		"galacticEffectId": 1284,
 		"name": "WEAPONS EXPERIMENTATION",
 		"description": "The Recoilless Rifle stratagem is available to all Helldivers."
+	},
+	"1285": {
+		"galacticEffectId": 1285,
+		"name": "IMPALER SURGE",
+		"description": "Significantly higher Impaler numbers have been observed on this planet."
+	},
+	"1286": {
+		"galacticEffectId": 1286,
+		"name": "MAXIMUM SECURITY CITY CONSTRUCTION SITE",
+		"description": "One of 3 Maximum Security Cities is under construction here."
+	},
+	"1287": {
+		"galacticEffectId": 1287,
+		"name": "MAXIMUM SECURITY CITY",
+		"description": "One of 3 Maximum Security Cities is located here."
+	},
+	"1288": {
+		"galacticEffectId": 1288,
+		"name": "SPORE BURSTER SCAVENGER SURGE",
+		"description": "Significantly higher Spore Burster Scanveger numbers have been observed on this planet."
 	}
 }
