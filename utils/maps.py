@@ -48,6 +48,7 @@ class Maps:
         assignments: list[Assignment],
         campaigns: list[Campaign],
         dss: DSS,
+        sector_names: dict,
     ) -> None:
         await to_thread(self.update_sectors, planets=planets)
         self.update_waypoint_lines(planets=planets)
@@ -55,6 +56,7 @@ class Maps:
             assignments=assignments,
             planets=planets,
             campaigns=campaigns,
+            sector_names=sector_names,
         )
         self.update_planets(
             planets=planets,
@@ -118,6 +120,7 @@ class Maps:
         assignments: list[Assignment],
         planets: Planets,
         campaigns: list[Campaign] | list,
+        sector_names: dict,
     ) -> None:
         with Image.open(fp=Maps.FileLocations.waypoints_map) as background:
             if assignments:
@@ -149,11 +152,25 @@ class Maps:
                                     )
                         elif task.type == 2:
                             if task.values[8] != 0:
-                                self._draw_ellipse(
-                                    draw=background_draw,
-                                    coords=planets[task.values[8]].map_waypoints,
-                                    fill_colour=faction_colours["MO"],
-                                )
+                                if task.values[7] == 2:
+                                    sector_name = sector_names[str(task.values[8])]
+                                    planets_in_sector = [
+                                        p
+                                        for p in planets.values()
+                                        if p.sector.lower() == sector_name.lower()
+                                    ]
+                                    for planet in planets_in_sector:
+                                        self._draw_ellipse(
+                                            draw=background_draw,
+                                            coords=planet.map_waypoints,
+                                            fill_colour=faction_colours["MO"],
+                                        )
+                                else:
+                                    self._draw_ellipse(
+                                        draw=background_draw,
+                                        coords=planets[task.values[8]].map_waypoints,
+                                        fill_colour=faction_colours["MO"],
+                                    )
                             elif task.values[0] != 0:
                                 for planet in [
                                     c.planet

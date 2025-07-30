@@ -282,16 +282,21 @@ class Dashboard:
                             )
                     match task.type:
                         case 2:
+                            planet = sector_name = None
                             if task.values[8] != 0:
-                                planet: Planet = planets[task.values[8]]
-                            else:
-                                planet = None
+                                if task.values[7] == 2:
+                                    sector_name = json_dict["sectors"][
+                                        str(task.values[8])
+                                    ]
+                                else:
+                                    planet: Planet = planets[task.values[8]]
                             self.add_type_2(
                                 task=task,
                                 language_json=language_json,
                                 item_names_json=json_dict["items"]["item_names"],
                                 planet_names_json=json_dict["planets"],
                                 planet=planet,
+                                sector_name=sector_name,
                                 tracker=tracker,
                             )
                         case 3:
@@ -408,6 +413,7 @@ class Dashboard:
             item_names_json: dict,
             planet_names_json: dict,
             planet: Planet | None,
+            sector_name: str | None,
             tracker: BaseTrackerEntry,
         ):
             """Extract with certain items"""
@@ -424,6 +430,8 @@ class Dashboard:
             )
             if planet:
                 name += f" on {planet_names_json[str(planet.index)]['names'][language_json['code_long']]}"
+            elif sector_name:
+                name += f" in the __{sector_name}__ SECTOR"
             elif task.values[0] != 0:
                 faction = language_json["factions"][str(task.values[0])]
                 name += f" from any {faction} controlled planet"

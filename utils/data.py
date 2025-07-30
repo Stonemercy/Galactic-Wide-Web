@@ -266,7 +266,19 @@ class Data(ReprMixin):
                     match task.type:
                         case 2:
                             if task.values[8] != 0:
-                                self.planets[task.values[8]].in_assignment = True
+                                if task.values[7] == 2:
+                                    sector_name = self.json_dict["sectors"][
+                                        str(task.values[8])
+                                    ]
+                                    planets_in_assignment = [
+                                        p
+                                        for p in self.planets.values()
+                                        if p.sector.lower() == sector_name.lower()
+                                    ]
+                                    for planet in planets_in_assignment:
+                                        planet.in_assignment = True
+                                else:
+                                    self.planets[task.values[8]].in_assignment = True
                             elif task.values[0] != 0:
                                 for planet in [
                                     p

@@ -111,6 +111,7 @@ json_dict = {
     },
     "planets": {"path": "data/json/planets/planets.json", "value": None},
     "planetRegions": {"path": "data/json/planets/planetRegions.json", "value": None},
+    "sectors": {"path": "data/json/planets/sectors.json", "value": None},
     "items": {
         "item_names": {"path": "data/json/items/item_names.json", "value": None},
         "armor": {"path": "data/json/items/armor/armor.json", "value": None},

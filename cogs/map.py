@@ -60,6 +60,7 @@ class MapCog(commands.Cog):
                 assignments=self.bot.data.assignments,
                 campaigns=self.bot.data.campaigns,
                 dss=self.bot.data.dss,
+                sector_names=self.bot.json_dict["sectors"],
             )
             for language_code, embed in map_embeds.items():
                 language_json = self.bot.json_dict["languages"][language_code]
@@ -145,6 +146,7 @@ class MapCog(commands.Cog):
                 assignments=self.bot.data.assignments,
                 campaigns=self.bot.data.campaigns,
                 dss=self.bot.data.dss,
+                sector_names=self.bot.json_dict["sectors"],
             )
             language_json = self.bot.json_dict["languages"][guild.language]
             self.bot.maps.localize_map(
