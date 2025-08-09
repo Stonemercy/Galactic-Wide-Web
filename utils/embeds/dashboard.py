@@ -267,14 +267,16 @@ class Dashboard:
                 self.add_description(assignment=assignment, language_json=language_json)
                 now_timestamp = datetime.now().timestamp()
                 for index, task in enumerate(assignment.tasks, start=1):
-                    tracker = mo_task_tracker.get_entry((assignment.id, index))
+                    tracker: BaseTrackerEntry | None = mo_task_tracker.get_entry(
+                        (assignment.id, index)
+                    )
                     if tracker and tracker.change_rate_per_hour != 0:
                         self.completion_timestamps.append(
                             now_timestamp + tracker.seconds_until_complete
                         )
                     elif task.type == 11:
                         lib_changes = liberation_changes_tracker.get_entry(
-                            task.values[2]
+                            task.planet_index
                         )
                         if lib_changes and lib_changes.change_rate_per_hour > 0:
                             self.completion_timestamps.append(
@@ -283,13 +285,12 @@ class Dashboard:
                     match task.type:
                         case 2:
                             planet = sector_name = None
-                            if task.values[8] != 0:
-                                if task.values[7] == 2:
-                                    sector_name = json_dict["sectors"][
-                                        str(task.values[8])
-                                    ]
-                                else:
-                                    planet: Planet = planets[task.values[8]]
+                            if task.planet_index:
+                                planet: Planet = planets.get(task.planet_index)
+                            elif task.sector_index:
+                                sector_name: str = json_dict["sectors"][
+                                    str(task.sector_index)
+                                ]
                             self.add_type_2(
                                 task=task,
                                 language_json=language_json,
@@ -322,7 +323,7 @@ class Dashboard:
                         case 11:
                             self.add_type_11(
                                 language_json=language_json,
-                                planet=planets[task.values[2]],
+                                planet=planets[task.planet_index],
                                 planet_names_json=json_dict["planets"],
                                 liberation_changes=liberation_changes_tracker,
                             )
@@ -332,17 +333,13 @@ class Dashboard:
                                 language_json=language_json,
                                 liberation_changes=liberation_changes_tracker,
                                 planet_names_json=json_dict["planets"],
-                                planet=(
-                                    planets[task.values[3]]
-                                    if task.values[3] != 0
-                                    else None
-                                ),
+                                planet=planets.get(task.planet_index),
                             )
                         case 13:
                             self.add_type_13(
                                 task=task,
                                 language_json=language_json,
-                                planet=planets[task.values[2]],
+                                planet=planets[task.planet_index],
                                 liberation_changes=liberation_changes_tracker,
                                 planet_names_json=json_dict["planets"],
                                 total_players=sum(
@@ -358,9 +355,8 @@ class Dashboard:
                             self.add_field(
                                 name=f"{Emojis.Decoration.alert_icon} UNRECOGNIZED TASK",
                                 value=(
-                                    f"-# ||{task.type}@"
-                                    f"{'|'.join(str(v) for v in task.values)}-"
-                                    f"{'|'.join(str(vt) for vt in task.value_types)}||"
+                                    f"-# ||{task}||\n"
+                                    f"{'|'.join(str(f'{k}:{v}') for k, v in task.values_dict.items())}"
                                 ),
                                 inline=False,
                             )
@@ -414,7 +410,7 @@ class Dashboard:
             planet_names_json: dict,
             planet: Planet | None,
             sector_name: str | None,
-            tracker: BaseTrackerEntry,
+            tracker: BaseTrackerEntry | None,
         ):
             """Extract with certain items"""
             name = language_json["dashboard"]["MajorOrderEmbed"]["tasks"][
@@ -425,15 +421,15 @@ class Dashboard:
                     if task.progress_perc == 1
                     else Emojis.Icons.mo_task_incomplete
                 ),
-                amount=short_format(task.values[2]),
-                item=item_names_json[str(task.values[4])]["name"],
+                amount=short_format(task.target),
+                item=item_names_json[str(task.item_id)]["name"],
             )
             if planet:
                 name += f" on {planet_names_json[str(planet.index)]['names'][language_json['code_long']]}"
             elif sector_name:
                 name += f" in the __{sector_name}__ SECTOR"
-            elif task.values[0] != 0:
-                faction = language_json["factions"][str(task.values[0])]
+            elif task.faction:
+                faction = language_json["factions"][task.faction]
                 name += f" from any {faction} controlled planet"
             value = ""
             if task.progress_perc != 1:
@@ -472,15 +468,11 @@ class Dashboard:
         ):
             """Kill enemies of a type [on {planet}]"""
             species = (
-                species_dict.get(str(task.values[3]), "Unknown")
-                if task.values[3] != 0
+                species_dict.get(str(task.enemy_id), "Unknown")
+                if task.enemy_id
                 else None
             )
-            target = (
-                language_json["factions"][str(task.values[0])]
-                if not species
-                else species
-            )
+            target = language_json["factions"][task.faction] if not species else species
             full_task = language_json["dashboard"]["MajorOrderEmbed"]["tasks"][
                 "type3"
             ].format(
@@ -489,18 +481,18 @@ class Dashboard:
                     if task.progress_perc == 1
                     else Emojis.Icons.mo_task_incomplete
                 ),
-                amount=short_format(task.values[2]),
+                amount=short_format(task.target),
                 target=target,
             )
-            if task.values[5] != 0:
+            if task.item_id:
                 full_task += language_json["dashboard"]["MajorOrderEmbed"]["tasks"][
                     "type3_weapon"
-                ].format(weapon_to_use=stratagem_id_dict.get(task.values[5], "Unknown"))
-            if task.values[9] != 0:
+                ].format(weapon_to_use=stratagem_id_dict.get(task.item_id, "Unknown"))
+            if task.planet_index:
                 full_task += language_json["dashboard"]["MajorOrderEmbed"]["tasks"][
                     "type3_planet"
                 ].format(
-                    planet=planet_names[str(task.values[9])]["names"][
+                    planet=planet_names[str(task.planet_index)]["names"][
                         language_json["code_long"]
                     ]
                 )
@@ -556,8 +548,8 @@ class Dashboard:
                     if task.progress_perc == 1
                     else Emojis.Icons.mo_task_incomplete
                 ),
-                faction=language_json["factions"][str(task.values[0])],
-                amount=f"{task.values[2]:,}",
+                faction=language_json["factions"][task.faction],
+                amount=f"{task.target:,}",
             )
             if self.with_health_bars:
                 task_health_bar = f"{task.health_bar}\n"
@@ -602,8 +594,8 @@ class Dashboard:
             language_json: dict,
             tracker: BaseTrackerEntry,
         ):
-            """Complete an Operation [against {faction}] on {difficulty} or higher {amount} times"""
-            full_task = f"{Emojis.Icons.mo_task_complete if task.progress_perc == 1 else Emojis.Icons.mo_task_incomplete} Complete an Operation on {language_json['difficulty'][str(task.values[3])]} or higher {task.values[1]:,} times"
+            """Complete an Operation [against {faction}] on [{difficulty} or higher] {amount} times"""
+            full_task = f"{Emojis.Icons.mo_task_complete if task.progress_perc == 1 else Emojis.Icons.mo_task_incomplete} Complete an Operation on {language_json['difficulty'][str(task.difficulty)]} or higher {task.target:,} times"
             if self.with_health_bars:
                 task_health_bar = f"{task.health_bar}\n"
             else:
@@ -763,8 +755,8 @@ class Dashboard:
                     planet=planet_names_json[str(planet.index)]["names"][
                         language_json["code_long"]
                     ],
-                    number=task.values[0],
-                    faction=language_json["factions"][str(task.values[1])],
+                    number=task.target,
+                    faction=language_json["factions"][task.faction],
                 )
                 feature_text = (
                     ""
@@ -809,12 +801,12 @@ class Dashboard:
                         if task.progress_perc == 1
                         else Emojis.Icons.mo_task_incomplete
                     ),
-                    number=task.values[0],
-                    faction=language_json["factions"][str(task.values[1])],
+                    number=task.target,
+                    faction=language_json["factions"][task.faction],
                 )
                 if self.with_health_bars and task.progress_perc != 1:
                     task_health_bar = (
-                        f"{language_json['dashboard']['progress']}: {int(task.progress)}/{task.values[0]}\n"
+                        f"{language_json['dashboard']['progress']}: {int(task.progress)}/{task.target}\n"
                         f"{task.health_bar}\n"
                         f"`{(task.progress_perc):^25,.2%}`\n"
                     )

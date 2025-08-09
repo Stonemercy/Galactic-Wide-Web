@@ -265,60 +265,59 @@ class Data(ReprMixin):
                         continue
                     match task.type:
                         case 2:
-                            if task.values[8] != 0:
-                                if task.values[7] == 2:
-                                    sector_name = self.json_dict["sectors"][
-                                        str(task.values[8])
-                                    ]
-                                    planets_in_assignment = [
-                                        p
-                                        for p in self.planets.values()
-                                        if p.sector.lower() == sector_name.lower()
-                                    ]
-                                    for planet in planets_in_assignment:
-                                        planet.in_assignment = True
-                                else:
-                                    self.planets[task.values[8]].in_assignment = True
-                            elif task.values[0] != 0:
+                            if task.sector_index:
+                                sector_name: str = self.json_dict["sectors"][
+                                    str(task.sector_index)
+                                ]
+                                planets_in_assignment = [
+                                    p
+                                    for p in self.planets.values()
+                                    if p.sector.lower() == sector_name.lower()
+                                ]
+                                for planet in planets_in_assignment:
+                                    planet.in_assignment = True
+                            elif task.planet_index:
+                                self.planets[task.planet_index].in_assignment = True
+                            elif task.faction:
                                 for planet in [
                                     p
                                     for p in self.planets.values()
-                                    if p.current_owner == factions[task.values[0]]
+                                    if p.current_owner == task.faction
                                 ]:
                                     planet.in_assignment = True
                         case 3:
-                            if task.values[9] != 0:
-                                self.planets[task.values[9]].in_assignment = True
+                            if task.planet_index:
+                                self.planets[task.planet_index].in_assignment = True
                                 continue
                             for index in [
                                 planet.index
                                 for planet in self.planets.values()
-                                if planet.current_owner == factions[task.values[0]]
+                                if planet.current_owner == task.faction
                                 or (
                                     planet.event
-                                    and planet.event.faction == factions[task.values[0]]
+                                    and planet.event.faction == task.faction
                                 )
                             ]:
                                 self.planets[index].in_assignment = True
                         case 12:
                             if self.planet_events:
-                                if task.values[3] != 0:
-                                    self.planets[task.values[3]].in_assignment = True
+                                if task.planet_index:
+                                    self.planets[task.planet_index].in_assignment = True
                                     continue
                                 for index in [
                                     planet.index
                                     for planet in self.planet_events
-                                    if planet.event.faction == factions[task.values[1]]
+                                    if planet.event.faction == task.faction
                                 ]:
                                     self.planets[index].in_assignment = True
                         case 11 | 13:
                             if (
-                                self.planets[task.values[2]].event
-                                and self.planets[task.values[2]].event.type == 2
+                                self.planets[task.planet_index].event
+                                and self.planets[task.planet_index].event.type == 2
                             ):
                                 continue
                             else:
-                                self.planets[task.values[2]].in_assignment = True
+                                self.planets[task.planet_index].in_assignment = True
         else:
             self.assignments = []
 
@@ -584,12 +583,63 @@ class Assignment(ReprMixin):
         self.flags: int = raw_assignment_data.get("flags", 0)
 
     class Task(ReprMixin):
+        """Organised data of an Assignment Task"""
+
+        __slots__ = (
+            "faction",
+            "target",
+            "enemy_id",
+            "item_id",
+            "objective",
+            "value8",
+            "value10",
+            "difficulty",
+            "location_type",
+            "planet_index",
+            "sector_index",
+            "type",
+            "progress",
+        )
+
         def __init__(self, task: dict, current_progress: int | float) -> None:
-            """Organised data of an Assignment Task"""
             self.type: int = task["type"]
-            self.progress: float = current_progress
-            self.values: list = task["values"]
-            self.value_types: list = task["valueTypes"]
+            self.progress: int | float = current_progress
+            self.values_dict = dict(zip(task["valueTypes"], task["values"]))
+            self.faction = self.target = self.enemy_id = self.item_id = (
+                self.objective
+            ) = self.value8 = self.difficulty = self.value10 = self.planet_index = (
+                self.sector_index
+            ) = None
+
+            if faction := self.values_dict.get(1):
+                self.faction: str = factions.get(faction, "Unknown")
+            if target := self.values_dict.get(3):
+                self.target: int | float = target
+            if enemy_id := self.values_dict.get(4):
+                self.enemy_id: int = enemy_id
+            if self.values_dict.get(6):
+                self.item_id = self.values_dict.get(5)
+            if objective := self.values_dict.get(7):
+                self.objective = objective
+                print(f"OBJECTIVE USED: {self.type, self.objective = }")
+            if value8 := self.values_dict.get(8):
+                self.value8 = value8
+                print(f"VALUE8 USED: {self.type, self.value8 = }")
+            if difficulty := self.values_dict.get(9):
+                self.difficulty = difficulty
+            if value10 := self.values_dict.get(8):
+                self.value10 = value10
+                print(f"VALUE10 USED: {self.type, self.value10 = }")
+            if location_type := self.values_dict.get(11):
+                if location_type == 1:
+                    self.planet_index: int = self.values_dict.get(12)
+                elif location_type == 2:
+                    self.sector_index: int = self.values_dict.get(12)
+
+        @property
+        def progress_perc(self) -> float:
+            """Returns the progress of the task as a float (0-1)"""
+            return self.progress / self.target
 
         @property
         def health_bar(self) -> str:
@@ -603,10 +653,10 @@ class Assignment(ReprMixin):
                 case 3:
                     return health_bar(
                         self.progress_perc,
-                        (self.values[0] if self.progress_perc != 1 else "Humans"),
+                        (self.faction if self.progress_perc != 1 else "Humans"),
                     )
                 case 7:
-                    return health_bar(self.progress_perc, self.values[0])
+                    return health_bar(self.progress_perc, self.faction)
                 case 9:
                     return health_bar(self.progress_perc, "Humans")
                 case 11:
@@ -626,20 +676,6 @@ class Assignment(ReprMixin):
                         percent,
                         "Humans" if self.progress > 0 else "Automaton",
                     )
-
-        @property
-        def progress_perc(self) -> float:
-            """Returns the progress of the task as a float (0-1)"""
-            match self.type:
-                case 12 | 15:
-                    progress_value = self.values[0]
-                case 9:
-                    progress_value = self.values[1]
-                case 2 | 3 | 7:
-                    progress_value = self.values[2]
-                case 13 | 11:
-                    progress_value = 1
-            return self.progress / progress_value
 
 
 class Dispatch(ReprMixin):
