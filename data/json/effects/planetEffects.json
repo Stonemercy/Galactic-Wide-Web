@@ -628,5 +628,10 @@
 		"galacticEffectId": 1288,
 		"name": "SPORE BURSTER SCAVENGER SURGE",
 		"description": "Significantly higher Spore Burster Scanveger numbers have been observed on this planet."
+	},
+	"1289": {
+		"galacticEffectId": 1289,
+		"name": "ARSENAL BOOST",
+		"description": "High Command has authorized high-volume use of the Orbital Railcannon Stratagem. The mandated waiting period between salvos has been lowered significantly."
 	}
 }
