@@ -213,7 +213,7 @@ class DispatchesLoopEmbed(Embed, EmbedReprMixin):
         )
         disp_spltln = dispatch.message.splitlines()
         self.title = disp_spltln[0].replace("*", "")
-        self.description = "\n".join(disp_spltln[1:]).replace("*", "")
+        self.description = "\n".join(disp_spltln[1:])
         self.set_footer(text=language_json["message"].format(message_id=dispatch.id))
 
 
