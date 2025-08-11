@@ -31,6 +31,11 @@ class MajorOrderCog(commands.Cog):
     async def major_order(
         self,
         inter: AppCmdInter,
+        with_announcement: str = commands.Param(
+            choices=["Yes", "No"],
+            default="No",
+            description="If you want the large briefing to be attached.",
+        ),
         public: str = commands.Param(
             choices=["Yes", "No"],
             default="No",
@@ -46,7 +51,7 @@ class MajorOrderCog(commands.Cog):
             )
             return
         self.bot.logger.info(
-            f"{self.qualified_name} | /{inter.application_command.name} <{public = }>"
+            f"{self.qualified_name} | /{inter.application_command.name} <{with_announcement = }> <{public = }>"
         )
         if inter.guild:
             guild = GWWGuilds.get_specific_guild(id=inter.guild_id)
@@ -70,22 +75,25 @@ class MajorOrderCog(commands.Cog):
                     json_dict=self.bot.json_dict,
                     with_health_bars=True,
                 )
-                announcement: GlobalEvent = [
-                    ge
-                    for ge in self.bot.data.global_events
-                    if ge.assignment_id == assignment.id
-                    and ge.title != ""
-                    and ge.message != ""
-                ]
-                if announcement := announcement[0] if announcement else None:
-                    embed.insert_field_at(
-                        0,
-                        announcement.title,
-                        announcement.split_message[0],
-                        inline=False,
-                    )
-                    for index, chunk in enumerate(announcement.split_message[1:], 1):
-                        embed.insert_field_at(index, "", chunk, inline=False)
+                if with_announcement == "Yes":
+                    announcements: list[GlobalEvent] = [
+                        ge
+                        for ge in self.bot.data.global_events
+                        if ge.assignment_id == assignment.id
+                        and ge.title != ""
+                        and ge.message != ""
+                    ]
+                    if announcement := announcements[0] if announcements else None:
+                        embed.insert_field_at(
+                            0,
+                            announcement.title,
+                            announcement.split_message[0],
+                            inline=False,
+                        )
+                        for index, chunk in enumerate(
+                            announcement.split_message[1:], 1
+                        ):
+                            embed.insert_field_at(index, "", chunk, inline=False)
                 embeds.append(embed)
         else:
             embeds = [
