@@ -633,5 +633,10 @@
 		"galacticEffectId": 1289,
 		"name": "ARSENAL BOOST",
 		"description": "High Command has authorized high-volume use of the Orbital Railcannon Stratagem. The mandated waiting period between salvos has been lowered significantly."
+	},
+	"1290": {
+		"galacticEffectId": 1290,
+		"name": "WEAPONS EXPERIMENTATION",
+		"description": "The Orbital Railcannon Strike stratagem has been temporarily authorized for use by all Helldivers."
 	}
 }
