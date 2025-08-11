@@ -528,7 +528,7 @@ class SpecialUnits:
     unit_codes_map = {
         ("THE JET BRIGADE", Emojis.SpecialUnits.jet_brigade): {1202, 1203},
         ("PREDATOR STRAIN", Emojis.SpecialUnits.predator_strain): {1243, 1245},
-        ("SPORE BURSTER STRAIN", ""): {1244},
+        ("SPORE BURSTER STRAIN", Emojis.SpecialUnits.spore_burster_strain): {1244},
         ("INCINERATION CORPS", Emojis.SpecialUnits.incineration_corps): {1248, 1249},
         ("THE GREAT HOST", Emojis.SpecialUnits.the_great_host): {1269},
     }
