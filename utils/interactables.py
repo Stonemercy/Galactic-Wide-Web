@@ -249,20 +249,6 @@ class Setup:
                 else:
                     self.emoji = "❌"
 
-    class PersonalOrder:
-        class PersonalOrderUpdatesButton(Button):
-            def __init__(self, language_json: dict, enabled: bool = False):
-                super().__init__(
-                    style=ButtonStyle.gray,
-                    label=language_json["setup"]["buttons"]["personal_order"],
-                    custom_id="personal_order_updates_button",
-                    disabled=True,
-                )
-                if enabled:
-                    self.emoji = "✅"
-                else:
-                    self.emoji = "❌"
-
     class DetailedDispatches:
         class DetailedDispatchesButton(Button):
             def __init__(self, language_json: dict, enabled: bool = False):

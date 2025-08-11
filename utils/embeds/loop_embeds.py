@@ -18,7 +18,6 @@ from utils.data import (
     DarkEnergy,
     Dispatch,
     GlobalEvent,
-    PersonalOrder,
     Planet,
     Planets,
     Steam,
@@ -145,100 +144,6 @@ class APIChangesLoopEmbed(Embed, EmbedReprMixin):
                         f"Planet Owner: **{change.before}** {Emojis.Stratagems.right} **{change.after}**",
                         inline=False,
                     )
-
-
-class PersonalOrderLoopEmbed(Embed, EmbedReprMixin):
-    def __init__(
-        self,
-        personal_order: PersonalOrder,
-        language_json: dict,
-        reward_types: dict,
-        item_names_json: dict,
-        enemy_ids_json: dict,
-    ):
-        super().__init__(
-            description=f"Personal order ends <t:{int(personal_order.expiration_datetime.timestamp())}:R>",
-            colour=Colour.from_rgb(*faction_colours["MO"]),
-        )
-        self.set_thumbnail(
-            url="https://cdn.discordapp.com/attachments/1212735927223590974/1329395683861594132/personal_order_icon.png?ex=678a2fb6&is=6788de36&hm=2f38b1b89aa5475862c8fdbde8d8fdbd003b39e8a4591d868a51814d57882da2&"
-        )
-        for task in personal_order.setting.tasks:
-            task: PersonalOrder.Setting.Tasks.Task
-            if task.type == 2:  # Extract with {number} {items}
-                item = item_names_json.get(str(task.values[5]), None)
-                if item:
-                    item = item["name"]
-                    full_objective = f"Successfully extract with {task.values[2]} {item}s {getattr(Emojis.Items, item.replace(' ', '_').lower(), '')}"
-                else:
-                    full_objective = (
-                        f"Successfully extract from with {task.values[2]} **UNMAPPED**s"
-                    )
-                self.add_field(full_objective, "", inline=False)
-            elif task.type == 3:  # Kill {number} {species} {stratagem}
-                full_objective = f"Kill {task.values[2]} "
-                if task.values[3] != 0:
-                    enemy = enemy_ids_json.get(str(task.values[3]), "Unknown")
-                    if enemy[-1] == "s":
-                        full_objective += enemy
-                    else:
-                        full_objective += f"{enemy}s"
-                else:
-                    full_objective += (
-                        language_json["factions"][str(task.values[0])]
-                        if task.values[0]
-                        else "Enemies"
-                    )
-                stratagem = stratagem_id_dict.get(task.values[5], None)
-                if stratagem:
-                    self.set_thumbnail(url=stratagem_image_dict[task.values[5]])
-                    full_objective += (
-                        f" with the {stratagem_id_dict[task.values[5]]}"
-                        if task.values[5]
-                        else ""
-                    )
-                self.add_field(
-                    full_objective,
-                    "",
-                    inline=False,
-                )
-            elif task.type == 4:  # Complete {number} {tier} objectives
-                objective_type = {1: "primary", 2: "secondary"}[task.values[3]]
-                full_objective = (
-                    f"Complete {task.values[2]} {objective_type} objectives"
-                )
-                self.add_field(
-                    full_objective,
-                    "",
-                    inline=False,
-                )
-            elif (
-                task.type == 7
-            ):  # Extract from successful mission {faction} {number} times
-                faction_text = ""
-                faction = {
-                    1: "Humans",
-                    2: "Terminids",
-                    3: "Automaton",
-                    4: "Illuminate",
-                }.get(task.values[0], None)
-                if faction:
-                    faction_text = f"against {faction} "
-                full_objective = f"Extract from a successful Mission {faction_text}{task.values[2]} times"
-                self.add_field(
-                    full_objective,
-                    "",
-                    inline=False,
-                )
-
-        for reward in personal_order.setting.rewards:
-            reward: PersonalOrder.Setting.Rewards.Reward
-            reward_name = reward_types[str(reward.type)]
-            self.add_field(
-                "Reward",
-                f"{reward.amount} {reward_name}s {getattr(Emojis.Items, reward_name.replace(' ', '_').lower(), '')}",
-                inline=False,
-            )
 
 
 class BotDashboardLoopEmbed(Embed, EmbedReprMixin):

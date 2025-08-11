@@ -9,7 +9,7 @@ from data.lists import (
 )
 from disnake import APISlashCommand, Colour, Embed, File, Guild, OptionType
 from utils.bot import GalacticWideWebBot
-from utils.data import DarkEnergy, PersonalOrder, Planet, Planets, SiegeFleet, Steam
+from utils.data import DarkEnergy, Planet, Planets, SiegeFleet, Steam
 from utils.dbv2 import GWWGuild
 from utils.emojis import Emojis
 from utils.functions import health_bar, short_format
@@ -519,27 +519,6 @@ class SetupCommandEmbed(Embed, EmbedReprMixin):
             inline=False,
         )
 
-        # # po updates
-        # po_updates_text = language_json["SetupEmbed"]["po_updates_desc"]
-        # po_updates_feature = [
-        #     f for f in guild.features if f.name == "personal_order_updates"
-        # ]
-        # if po_updates_feature:
-        #     setup_emoji = ":white_check_mark:"
-        #     po_updates = po_updates_feature[0]
-        #     # po_updates_text += f"{language_json['SetupEmbed']['announcement_channel']}: <#{dss_announcements.channel_id}>" # TRANSLATE
-        #     po_updates_text += (
-        #         f"Personal Order Updates Channel: <#{po_updates.channel_id}>"
-        #     )
-        # else:
-        #     setup_emoji = ":x:"
-        #     po_updates_text += f"**{language_json['SetupEmbed']['not_set']}**"
-        # self.add_field(
-        #     f"{setup_emoji} {language_json["SetupEmbed"]["po_updates"]}",
-        #     po_updates_text,
-        #     inline=False,
-        # )
-
         # detailed dispatches
         ddispatches_text = language_json["SetupEmbed"]["detailed_dispatches_desc"]
         ddispatches_feature = [
@@ -582,101 +561,6 @@ class SetupCommandEmbed(Embed, EmbedReprMixin):
         self.add_field(
             "", language_json["SetupEmbed"]["footer_message_not_set"], inline=False
         )
-
-
-class PersonalOrderCommandEmbed(Embed, EmbedReprMixin):
-    def __init__(
-        self,
-        personal_order: PersonalOrder,
-        language_json: dict,
-        reward_types: dict,
-        item_names_json: dict,
-        enemy_ids_json: dict,
-    ):
-        super().__init__(
-            description=f"Personal order ends <t:{int(personal_order.expiration_datetime.timestamp())}:R>",
-            colour=Colour.from_rgb(*faction_colours["MO"]),
-        )
-        self.set_thumbnail(
-            url="https://cdn.discordapp.com/attachments/1212735927223590974/1329395683861594132/personal_order_icon.png?ex=678a2fb6&is=6788de36&hm=2f38b1b89aa5475862c8fdbde8d8fdbd003b39e8a4591d868a51814d57882da2&"
-        )
-
-        for task in personal_order.setting.tasks:
-            task: PersonalOrder.Setting.Tasks.Task
-            if task.type == 2:  # Extract with {number} {items}
-                item = item_names_json.get(str(task.values[5]), None)
-                if item:
-                    item = item["name"]
-                    full_objective = f"Successfully extract with {task.values[2]} {item}s {getattr(Emojis.Items, item.replace(' ', '_').lower())}"
-                else:
-                    full_objective = (
-                        f"Successfully extract from with {task.values[2]} **UNMAPPED**s"
-                    )
-                self.add_field(full_objective, "", inline=False)
-            elif task.type == 3:  # Kill {number} {species} {stratagem}
-                full_objective = f"Kill {task.values[2]} "
-                if task.values[3] != 0:
-                    enemy = enemy_ids_json.get(str(task.values[3]), "Unknown")
-                    if enemy[-1] == "s":
-                        full_objective += enemy
-                    else:
-                        full_objective += f"{enemy}s"
-                else:
-                    full_objective += (
-                        language_json["factions"][str(task.values[0])]
-                        if task.values[0]
-                        else "Enemies"
-                    )
-                stratagem = stratagem_id_dict.get(task.values[5], None)
-                if stratagem:
-                    self.set_thumbnail(url=stratagem_image_dict[task.values[5]])
-                    full_objective += (
-                        f" with the {stratagem_id_dict[task.values[5]]}"
-                        if task.values[5]
-                        else ""
-                    )
-                self.add_field(
-                    full_objective,
-                    "",
-                    inline=False,
-                )
-            elif task.type == 4:  # Complete {number} {tier} objectives
-                objective_type = {1: "primary", 2: "secondary"}[task.values[3]]
-                full_objective = (
-                    f"Complete {task.values[2]} {objective_type} objectives"
-                )
-                self.add_field(
-                    full_objective,
-                    "",
-                    inline=False,
-                )
-            elif (
-                task.type == 7
-            ):  # Extract from successful mission {faction} {number} times
-                faction_text = ""
-                faction = {
-                    1: "Humans",
-                    2: "Terminids",
-                    3: "Automaton",
-                    4: "Illuminate",
-                }.get(task.values[0], None)
-                if faction:
-                    faction_text = f"against {faction} "
-                full_objective = f"Extract from a successful Mission {faction_text}{task.values[2]} times"
-                self.add_field(
-                    full_objective,
-                    "",
-                    inline=False,
-                )
-
-        for reward in personal_order.setting.rewards:
-            reward: PersonalOrder.Setting.Rewards.Reward
-            reward_name = reward_types[str(reward.type)]
-            self.add_field(
-                "Reward",
-                f"{reward.amount} {reward_name}s {getattr(Emojis.Items, reward_name.replace(' ', '_').lower())}",
-                inline=False,
-            )
 
 
 class MeridiaCommandEmbed(Embed, EmbedReprMixin):

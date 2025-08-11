@@ -49,7 +49,6 @@ class SetupCog(commands.Cog):
             "region_announcements",
             "patch_notes",
             "major_order_updates",
-            # "personal_order_updates",
             "detailed_dispatches",
         ]
 

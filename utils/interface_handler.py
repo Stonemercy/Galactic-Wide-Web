@@ -67,15 +67,6 @@ class InterfaceHandler:
             ],
             bot=self.bot,
         )
-        # self.personal_order_updates = BaseFeatureInteractionHandler(
-        #     features=[
-        #         f
-        #         for g in self.all_guilds
-        #         for f in g.features
-        #         if f.name == "personal_order_updates"
-        #     ],
-        #     bot=self.bot,
-        # )
         self.detailed_dispatches = BaseFeatureInteractionHandler(
             features=[
                 f
@@ -98,7 +89,6 @@ class InterfaceHandler:
             "region_announcements": self.region_announcements,
             "patch_notes": self.patch_notes,
             "major_order_updates": self.major_order_updates,
-            # "personal_order_updates": self.personal_order_updates,
             "detailed_dispatches": self.detailed_dispatches,
             "maps": self.maps,
         }

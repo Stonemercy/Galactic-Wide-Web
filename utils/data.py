@@ -39,7 +39,6 @@ class Data(ReprMixin):
         "steam",
         "thumbnails",
         "dss",
-        "personal_order",
         "global_events",
         "loaded",
         "liberation_changes",
@@ -63,7 +62,6 @@ class Data(ReprMixin):
             "steam": None,
             "thumbnails": None,
             "dss": None,
-            "personal_order": None,
             "status": None,
             "warinfo": None,
             "steam_playercount": None,
@@ -75,7 +73,6 @@ class Data(ReprMixin):
         self.region_changes: BaseTracker = BaseTracker()
         self.major_order_changes: BaseTracker = BaseTracker()
         self.meridia_position: None | tuple[float, float] = None
-        self.personal_order = None
         self.fetched_at = None
         self.assignments = []
         self.dss = None
@@ -135,19 +132,6 @@ class Data(ReprMixin):
                             self.__data__[endpoint] = data
                         else:
                             logger.error(msg=f"API/DSS, {r.status}")
-                    continue
-                elif endpoint == "personal_order":
-                    continue
-                    async with session.get(
-                        url="https://api.diveharder.com/v1/personal_order"
-                    ) as r:
-                        if r.status == 200:
-                            data = await r.json()
-                            self.__data__[endpoint] = data[-1]
-                        elif r.status == 204:
-                            continue
-                        else:
-                            logger.error(msg=f"API/Personal_Order, {r.status}")
                     continue
                 elif endpoint == "status":
                     async with session.get(
@@ -354,11 +338,6 @@ class Data(ReprMixin):
                 Steam(raw_steam_data=raw_steam_data)
                 for raw_steam_data in self.__data__["steam"]
             ]
-
-        # if self.__data__["personal_order"]:  # SHELVED
-        #     self.personal_order: PersonalOrder = PersonalOrder(
-        #         self.__data__["personal_order"]
-        #     )
 
         if self.__data__["status"]:
             self.galactic_impact_mod: float = self.__data__["status"][
@@ -1084,44 +1063,3 @@ class DSS(ReprMixin):
                     cost["maxDonationAmount"],
                     cost["maxDonationPeriodSeconds"],
                 )
-
-
-class PersonalOrder(ReprMixin):  # SHELVED
-    def __init__(self, personal_order: dict):
-        self.id: int = personal_order["id32"]
-        self.expiration_secs_from_now: int = personal_order["expiresIn"]
-        self.expiration_datetime: datetime = datetime.fromtimestamp(
-            datetime.now().timestamp() + self.expiration_secs_from_now
-        )
-        self.setting = self.Setting(personal_order["setting"])
-
-    class Setting(ReprMixin):
-        def __init__(self, setting: dict):
-            self.type: int = setting["type"]
-            self.title: str = setting["overrideTitle"]
-            self.brief: str = setting["overrideBrief"]
-            self.description: str = setting["taskDescription"]
-            self.tasks = self.Tasks(setting["tasks"])
-            self.rewards = self.Rewards(setting["rewards"])
-            self.flags: int = setting["flags"]
-
-        class Tasks(list):
-            def __init__(self, tasks: list):
-                for task in tasks:
-                    self.append(self.Task(task))
-
-            class Task(ReprMixin):
-                def __init__(self, task: dict):
-                    self.type: int = task["type"]
-                    self.values: dict = task["values"]
-                    self.value_types: dict = task["valueTypes"]
-
-        class Rewards(list):
-            def __init__(self, rewards: list):
-                for reward in rewards:
-                    self.append(self.Reward(reward))
-
-            class Reward(ReprMixin):
-                def __init__(self, reward: dict):
-                    self.type: int = reward["type"]
-                    self.amount: int = reward["amount"]

@@ -50,9 +50,6 @@ class AdminCommandsCog(commands.Cog):
             case "MO Update":
                 await self.bot.get_cog(name="AnnouncementsCog").major_order_updates()
                 text = f"Forced updates of {len(self.bot.interface_handler.major_order_updates)} MO updates in {(datetime.now() - update_start).total_seconds():.2f} seconds"
-            # case "PO Update":
-            #     await self.bot.get_cog(name="PersonalOrderCog").personal_order_update()
-            #     text = f"Forced updates of {len(self.bot.interface_handler.news_feeds.channels_dict['PO'])} PO updates in {(datetime.now() - update_start).total_seconds():.2f} seconds"
         self.bot.logger.info(msg=text)
         await inter.send(content=text, ephemeral=True)
 
