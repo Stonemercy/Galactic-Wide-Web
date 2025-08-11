@@ -4,8 +4,6 @@ from math import sqrt
 from data.lists import (
     SpecialUnits,
     faction_colours,
-    stratagem_id_dict,
-    stratagem_image_dict,
 )
 from disnake import APISlashCommand, Colour, Embed, File, Guild, OptionType
 from utils.bot import GalacticWideWebBot
