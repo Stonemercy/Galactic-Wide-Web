@@ -108,6 +108,10 @@ json_dict = {
             "path": "data/json/warbonds/force_of_law.json",
             "value": None,
         },
+        "control_group": {
+            "path": "data/json/warbonds/control_group.json",
+            "value": None,
+        },
     },
     "planets": {"path": "data/json/planets/planets.json", "value": None},
     "planetRegions": {"path": "data/json/planets/planetRegions.json", "value": None},
@@ -184,6 +188,7 @@ warbond_images_dict = {
     "Borderline Justice": "https://helldivers.wiki.gg/images/d/db/Borderline_Justice_Premium_Warbond_Cover.png?df22f7=&format=original",
     "Masters of Ceremony": "https://helldivers.wiki.gg/images/6/65/Masters_of_Ceremony_Premium_Warbond_Cover.png?6bb032=&format=original",
     "Force of Law": "https://helldivers.wiki.gg/images/7/74/Force_of_Law_Premium_Warbond_Cover.png?2d54ef=&format=original",
+    "Control Group": "https://helldivers.wiki.gg/images/Control_Group_Premium_Warbond_Cover.png?5db88e=&format=original",
 }
 """Dictionary of Warbond images hosted by Discord
 
@@ -232,6 +237,7 @@ emotes_list = [
     "Signal: Hold",
     "Signal: Silence",
     "Signal: Group Up",
+    "Protect Eardrums",
 ]
 """A list of emote names
 
@@ -314,6 +320,8 @@ player_cards_list = [
     "Humble Regalia",
     "Miranda's Legacy",
     "Mother Eagle's Wings",
+    "Conductor of Brilliance",
+    "Over Artifice Triumphant",
 ]
 """A list of player card names
 
@@ -355,6 +363,7 @@ titles_list = [
     "Super Sheriff",
     "Decorated Hero",
     "Extra Judicial",
+    "Exemplary Subject",
 ]
 """A list of title names
 
@@ -374,6 +383,9 @@ stratagem_permit_list = [
     "One True Flag",
     "GL-52 De-Escalator",
     "AX/ARC-3 'Guard Dog' K-9",
+    "PLAS-45 Epoch",
+    "A/LAS-98 Laser Sentry",
+    "LIFT-182 Warp Pack",
 ]
 """A list of stratagem permit names
 
@@ -389,44 +401,56 @@ stratagem_id_dict = {
     4158531749: "Orbital 380mm HE Barrage",
     808823003: "Orbital Walking Barrage",
     1520012896: "Orbital Laser",
-    549159351: "Orbital Napalm Barrage",
     2197477188: "Orbital Railcannon Strike",
-    3039399791: "MD-6 Anti-Personnel Minefield",
-    336620886: "B-1 Supply Pack",
-    961518079: "LAS-98 Laser Cannon",
-    1159284196: "GL-21 Grenade Launcher",
-    3111134131: "MD-I4 Incendiary Mines",
-    4277455125: 'AX/LAS-5 "Guard Dog" Rover',
-    2369837022: "SH-20 Ballistic Shield Backpack",
-    2138935687: "ARC-3 Arc Thrower",
-    783152568: "MD-17 Anti-Tank Mines",
-    1597673685: "LAS-99 Quasar Cannon",
-    485637029: "SH-32 Shield Generator Pack",
-    3484474549: 'AX/TX-13 "Guard Dog" Dog Breath',
-    1228689284: "A/MG-43 Machine Gun Sentry",
-    2446402932: "A/G-16 Gatling Sentry",
-    461790327: "A/M-12 Mortar Sentry",
-    3791047893: 'AX/AR-23 "Guard Dog"',
-    2616066963: "A/AC-8 Autocannon Sentry",
-    3467463065: "A/MLS-4X Rocket Sentry",
-    3157053145: "A/M-23 EMS Mortar Sentry",
+    201738752: "Orbital Railcannon Strike",
     2391781446: "Orbital Precision Strike",
     1134323464: "Orbital Gas Strike",
     3551336597: "Orbital EMS Strike",
     1363304012: "Orbital Smoke Strike",
+    691091357: "Orbital Napalm Barrage",
+    336620886: "B-1 Supply Pack",
+    4277455125: 'AX/LAS-5 "Guard Dog" Rover',
+    2369837022: "SH-20 Ballistic Shield Backpack",
+    485637029: "SH-32 Shield Generator Pack",
+    3484474549: 'AX/TX-13 "Guard Dog" Dog Breath',
+    3791047893: 'AX/AR-23 "Guard Dog"',
+    3863540692: "LIFT-850 Jump Pack",
+    1382612374: "SH-51 Directional Shield",
+    66059712: "PB-100 Portable Hellbomb",
+    230501979: "LIFT-860 Hover Pack",
+    2686392625: "AX/ARC-3 'Guard Dog' K-9",
+    3123380863: "LIFT-182 Warp Pack",
+    3111134131: "MD-I4 Incendiary Mines",
+    783152568: "MD-17 Anti-Tank Mines",
+    3564779466: "MD-8 Gas Mines",
+    3039399791: "MD-6 Anti-Personnel Minefield",
+    1228689284: "A/MG-43 Machine Gun Sentry",
+    2446402932: "A/G-16 Gatling Sentry",
+    461790327: "A/M-12 Mortar Sentry",
+    2616066963: "A/AC-8 Autocannon Sentry",
+    3467463065: "A/MLS-4X Rocket Sentry",
+    3157053145: "A/M-23 EMS Mortar Sentry",
+    1671728820: "A/ARC-3 Tesla Tower",
     70017975: "FX-12 Shield Generator Relay",
     3827587060: "E/MG-101 HMG Emplacement",
-    1671728820: "A/ARC-3 Tesla Tower",
+    669794144: "A/FLAM-40 Flame Sentry",
+    3106925116: "E/AT-12 Anti-Tank Emplacement",
+    1736727415: "E/GL-21 Grenadier Battlement",
+    914471076: "A/LAS-98 Laser Sentry",
     3857719901: "EXO-45 Patriot Exosuit",
     754365924: "EXO-49 Emancipator Exosuit",
-    2025422424: "Eagle Strafing Run",
+    2074801524: "M-102 Fast Reconnaissance Vehicle",
     700547364: "Eagle Airstrike",
+    2025422424: "Eagle Strafing Run",
     1220665708: "Eagle Cluster Bomb",
     1427614189: "Eagle Napalm Airstrike",
     1062482104: "Eagle Smoke Strike",
-    3863540692: "LIFT-850 Jump Pack",
     3723465233: "Eagle 100mm Rocket Pods",
     1982351727: "Eagle 500kg Bomb",
+    961518079: "LAS-98 Laser Cannon",
+    1159284196: "GL-21 Grenade Launcher",
+    2138935687: "ARC-3 Arc Thrower",
+    1597673685: "LAS-99 Quasar Cannon",
     934703916: "MG-43 Machine Gun",
     1978117092: "M-105 Stalwart",
     376960160: "APW-1 Anti-Materiel Rifle",
@@ -440,6 +464,9 @@ stratagem_id_dict = {
     202236804: "FAF-14 Spear",
     295440526: "RS-422 Railgun",
     1725541340: "TX-41 Sterilizer",
+    1326547218: "CQC-1 One True Flag",
+    3560739565: "GL-52 De-Escalator",
+    2961443701: "PLAS-45 Epoch",
 }
 """Dictionary of stratagem ID's and names
 
@@ -450,76 +477,6 @@ Format:
 Example:
 
     1078307866: "Orbital Gatling Barrage",
-"""
-
-stratagem_image_dict = {
-    1078307866: "https://helldivers.wiki.gg/images/f/f6/Orbital_Gatling_Barrage_Stratagem_Icon.png",
-    2831720448: "https://helldivers.wiki.gg/images/2/28/Orbital_Airburst_Strike_Stratagem_Icon.png",
-    2928105092: "https://helldivers.wiki.gg/images/4/40/Orbital_120mm_HE_Barrage_Stratagem_Icon.png",
-    4158531749: "https://helldivers.wiki.gg/images/1/12/Orbital_380mm_HE_Barrage_Stratagem_Icon.png",
-    808823003: "https://helldivers.wiki.gg/images/5/53/Orbital_Walking_Barrage_Stratagem_Icon.png",
-    1520012896: "https://helldivers.wiki.gg/images/d/d8/Orbital_Laser_Stratagem_Icon.png",
-    549159351: "https://helldivers.wiki.gg/images/9/97/Orbital_Napalm_Barrage_Stratagem_Icon.png",
-    2197477188: "https://helldivers.wiki.gg/images/6/6f/Orbital_Railcannon_Strike_Stratagem_Icon.png",
-    3039399791: "https://helldivers.wiki.gg/images/b/bb/Anti-Personnel_Minefield_Stratagem_Icon.png",
-    336620886: "https://helldivers.wiki.gg/images/6/61/Supply_Pack_Stratagem_Icon.png",
-    1159284196: "https://helldivers.wiki.gg/images/c/cf/Grenade_Launcher_Stratagem_Icon.png",
-    961518079: "https://helldivers.wiki.gg/images/c/c3/Laser_Cannon_Stratagem_Icon.png",
-    3111134131: "https://helldivers.wiki.gg/images/a/a9/Incendiary_Minefield_Stratagem_Icon.png",
-    4277455125: "https://helldivers.wiki.gg/images/6/6f/Guard_Dog_Rover_Stratagem_Icon.png",
-    2369837022: "https://helldivers.wiki.gg/images/3/37/Ballistic_Shield_Backpack_Stratagem_Icon.png",
-    2138935687: "https://helldivers.wiki.gg/images/1/10/Arc_Thrower_Stratagem_Icon.png",
-    783152568: "https://helldivers.wiki.gg/images/b/ba/MD-17_Anti-Tank_Mines_Stratagem_Icon.png",
-    1597673685: "https://helldivers.wiki.gg/images/8/87/Quasar_Cannon_Stratagem_Icon.png",
-    485637029: "https://helldivers.wiki.gg/images/9/99/Shield_Generator_Pack_Stratagem_Icon.png",
-    3484474549: "https://helldivers.wiki.gg/images/2/20/Guard_Dog_Dog_Breath_Stratagem_Icon.png",
-    1228689284: "https://helldivers.wiki.gg/images/5/5a/Machine_Gun_Sentry_Stratagem_Icon.png",
-    2446402932: "https://helldivers.wiki.gg/images/2/28/Gatling_Sentry_Stratagem_Icon.png",
-    461790327: "https://helldivers.wiki.gg/images/a/ad/Mortar_Sentry_Stratagem_Icon.png",
-    3791047893: "https://helldivers.wiki.gg/images/7/73/Guard_Dog_Stratagem_Icon.png",
-    2616066963: "https://helldivers.wiki.gg/images/a/a7/Autocannon_Sentry_Stratagem_Icon.png",
-    3467463065: "https://helldivers.wiki.gg/images/6/62/Rocket_Sentry_Stratagem_Icon.png",
-    3157053145: "https://helldivers.wiki.gg/images/a/a8/AM-23_EMS_Mortar_Sentry_Stratagem_Icon.png",
-    2391781446: "https://helldivers.wiki.gg/images/2/2a/Orbital_Precision_Strike_Stratagem_Icon.png",
-    1134323464: "https://helldivers.wiki.gg/images/c/cd/Orbital_Gas_Strike_Stratagem_Icon.png",
-    3551336597: "https://helldivers.wiki.gg/images/1/16/Orbital_EMS_Strike_Stratagem_Icon.png",
-    1363304012: "https://helldivers.wiki.gg/images/b/bc/Orbital_Smoke_Strike_Stratagem_Icon.png",
-    70017975: "https://helldivers.wiki.gg/images/e/e4/Shield_Generator_Relay_Stratagem_Icon.png",
-    3827587060: "https://helldivers.wiki.gg/images/0/03/HMG_Emplacement_Stratagem_Icon.png",
-    1671728820: "https://helldivers.wiki.gg/images/8/8f/Tesla_Tower_Stratagem_Icon.png",
-    3857719901: "https://helldivers.wiki.gg/images/3/30/EXO-45_Patriot_Exosuit_Stratagem_Icon.png",
-    754365924: "https://helldivers.wiki.gg/images/8/82/EXO-49_Emancipator_Exosuit_Stratagem_Icon.png",
-    2025422424: "https://helldivers.wiki.gg/images/f/f3/Eagle_Strafing_Run_Stratagem_Icon.png",
-    700547364: "https://helldivers.wiki.gg/images/7/72/Eagle_Airstrike_Stratagem_Icon.png",
-    1220665708: "https://helldivers.wiki.gg/images/4/4f/Eagle_Cluster_Bomb_Stratagem_Icon.png",
-    1427614189: "https://helldivers.wiki.gg/images/4/42/Eagle_Napalm_Airstrike_Stratagem_Icon.png",
-    3863540692: "https://helldivers.wiki.gg/images/f/f5/Jump_Pack_Stratagem_Icon.png",
-    1062482104: "https://helldivers.wiki.gg/images/0/05/Eagle_Smoke_Strike_Stratagem_Icon.png",
-    3723465233: "https://helldivers.wiki.gg/images/e/ef/Eagle_110mm_Rocket_Pods_Stratagem_Icon.png",
-    1982351727: "https://helldivers.wiki.gg/images/e/e5/Eagle_500kg_Bomb_Stratagem_Icon.png",
-    934703916: "https://helldivers.wiki.gg/images/e/e0/Machine_Gun_Stratagem_Icon.png",
-    376960160: "https://helldivers.wiki.gg/images/3/3c/Anti-Materiel_Rifle_Stratagem_Icon.png",
-    1978117092: "https://helldivers.wiki.gg/images/4/46/Stalwart_Stratagem_Icon.png",
-    1207425221: "https://helldivers.wiki.gg/images/1/1c/Expendable_Anti-Tank_Stratagem_Icon.png",
-    1594211884: "https://helldivers.wiki.gg/images/7/70/Recoilless_Rifle_Stratagem_Icon.png",
-    1944161163: "https://helldivers.wiki.gg/images/7/75/Flamethrower_Stratagem_Icon.png",
-    841182351: "https://helldivers.wiki.gg/images/e/ef/Autocannon_Stratagem_Icon.png",
-    4038802832: "https://helldivers.wiki.gg/images/d/d9/Heavy_Machine_Gun_Stratagem_Icon.png",
-    3201417018: "https://helldivers.wiki.gg/images/a/ad/RL-77_Airburst_Rocket_Launcher_Stratagem_Icon.png",
-    3212037062: "https://helldivers.wiki.gg/images/7/78/Commando_Stratagem_Icon.png",
-    295440526: "https://helldivers.wiki.gg/images/3/35/Railgun_Stratagem_Icon.png",
-    202236804: "https://helldivers.wiki.gg/images/5/54/Spear_Stratagem_Icon.png",
-    1725541340: "https://helldivers.wiki.gg/images/2/29/Sterilizer_Stratagem_Icon.png",
-}
-"""Dictionary of stratagem ID's and Icons
-
-Format:
-
-    stratagem_id: "stratagem_image_link"
-
-Example:
-
-    1078307866: "https://helldivers.wiki.gg/images/f/f6/Orbital_Gatling_Barrage_Stratagem_Icon.png"
 """
 
 

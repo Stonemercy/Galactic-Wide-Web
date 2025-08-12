@@ -68,5 +68,10 @@
 		"name": "Force of Law",
 		"id": "force_of_law",
 		"credits_to_unlock": 1000
+	},
+	"14": {
+		"name": "Control Group",
+		"id": "control_group",
+		"credits_to_unlock": 1000
 	}
 }

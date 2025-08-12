@@ -602,5 +602,26 @@
 			2,
 			12
 		]
+	},
+	"1405": {
+		"name": "VG-70 Variable",
+		"description": "A speed-loaded volley gun with three different firing modes and three different RPM options. Warning: recoil varies significantly between firing modes.",
+		"type": 8,
+		"damage": 85,
+		"capacity": 49,
+		"recoil": 7,
+		"fire_rate": [
+			300,
+			550,
+			750
+		],
+		"fire_mode": [
+			2,
+			9,
+			10
+		],
+		"traits": [
+			1
+		]
 	}
 }

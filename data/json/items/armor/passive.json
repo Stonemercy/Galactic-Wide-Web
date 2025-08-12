@@ -78,5 +78,9 @@
 	"19": {
 		"name": "Ballistic Padding",
 		"description": "Provides 25% resistance to chest damage. Provides 25% resistance to explosive damage. Prevents all damage from bleeding if chest haemorrhages."
+	},
+	"20": {
+		"name": "Adreno-Defibrillator",
+		"description": "Provides one-time, short-lived resuscitation upon death, given that the Helldiver's body is still intact. Increases stim effect duration by 2.0s. Provides 50% resistance to arc damage."
 	}
 }

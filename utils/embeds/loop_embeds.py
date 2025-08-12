@@ -6,8 +6,6 @@ from psutil import Process, cpu_percent
 from data.lists import (
     SpecialUnits,
     faction_colours,
-    stratagem_image_dict,
-    stratagem_id_dict,
     locales_dict,
 )
 from disnake import Colour, Embed, Guild, OptionType
@@ -234,18 +232,7 @@ class GlobalEventsLoopEmbed(Embed, EmbedReprMixin):
         super().__init__(
             title=global_event.title, colour=Colour.from_rgb(*faction_colours["MO"])
         )
-        if "OPEN LICENSE" in global_event.title:
-            stratagem_name = global_event.title[15:]
-            stratagem_code = [
-                code
-                for code, name in stratagem_id_dict.items()
-                if stratagem_name.lower() in name.lower()
-            ]
-            if stratagem_code:
-                stratagem_code = stratagem_code[0]
-                stratagem_image = stratagem_image_dict.get(stratagem_code, None)
-                self.set_thumbnail(url=stratagem_image)
-        elif global_event.flag == 0:
+        if global_event.flag == 0:
             specific_planets = "\n- ".join(
                 [planets[index].name for index in global_event.planet_indices]
             )

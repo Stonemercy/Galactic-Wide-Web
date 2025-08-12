@@ -1950,5 +1950,65 @@
 	"1321": {
 		"name": "True Blue Exosuit Pattern",
 		"mix_id": "1321"
+	},
+	"1401": {
+		"name": "AD-26 Bleeding Edge",
+		"mix_id": "1401"
+	},
+	"1402": {
+		"name": "AD-26 Bleeding Edge",
+		"mix_id": "1402"
+	},
+	"1403": {
+		"name": "Conductor of Brilliance",
+		"mix_id": "1403"
+	},
+	"1404": {
+		"name": "Conductor of Brilliance",
+		"mix_id": "1404"
+	},
+	"1405": {
+		"name": "VG-70 Variable",
+		"mix_id": "1405"
+	},
+	"1406": {
+		"name": "PLAS-45 Epoch",
+		"mix_id": "1406"
+	},
+	"1407": {
+		"name": "AD-49 Apollonian",
+		"mix_id": "1407"
+	},
+	"1408": {
+		"name": "A/LAS-98 Laser Sentry",
+		"mix_id": "1408"
+	},
+	"1409": {
+		"name": "AD-49 Apollonian",
+		"mix_id": "1409"
+	},
+	"1410": {
+		"name": "Over Artifice Triumphant",
+		"mix_id": "1410"
+	},
+	"1411": {
+		"name": "Over Artifice Triumphant",
+		"mix_id": "1411"
+	},
+	"1412": {
+		"name": "Protect Eardrums",
+		"mix_id": "1412"
+	},
+	"1413": {
+		"name": "LIFT-182 Warp Pack",
+		"mix_id": "1413"
+	},
+	"1414": {
+		"name": "Exemplary Subject",
+		"mix_id": "1414"
+	},
+	"1415": {
+		"name": "G-31 Arc",
+		"mix_id": "1415"
 	}
 }

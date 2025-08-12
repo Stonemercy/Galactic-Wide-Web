@@ -114,5 +114,13 @@
 		"penetration": 6,
 		"outer_radius": 4,
 		"fuse_time": 0
+	},
+	"1415": {
+		"name": "G-31 Arc",
+		"description": "A throwable device engineered to bounce when hitting the ground, releasing bursts of electricity on each impact. Warning: may bounce unpredictably.",
+		"damage": 100,
+		"penetration": 4,
+		"outer_radius": 10,
+		"fuse_time": 0
 	}
 }
