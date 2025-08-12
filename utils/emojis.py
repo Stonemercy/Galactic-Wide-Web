@@ -148,7 +148,7 @@ class Emojis:
         jet_brigade = "<:s:1355912552143393039>"
         incineration_corps = "<:s:1355913678704349336>"
         the_great_host = "<:s:1372871467255070751>"
-        spore_burster_strain = "<:s:1404612059492122720>"
+        spore_burster_strain = "<:s:1404621462278504529>"
 
     @dataclass
     class Flags:
