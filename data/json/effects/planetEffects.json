@@ -621,8 +621,8 @@
 	},
 	"1287": {
 		"galacticEffectId": 1287,
-		"name": "MAXIMUM SECURITY CITY",
-		"description": "One of 3 Maximum Security Cities is located here."
+		"name": "NEW HOPE CITY",
+		"description": "The flagship Maximum Security City. Impregnable to Tyranny; the future of the Federation."
 	},
 	"1288": {
 		"galacticEffectId": 1288,
@@ -638,5 +638,15 @@
 		"galacticEffectId": 1290,
 		"name": "WEAPONS EXPERIMENTATION",
 		"description": "The Orbital Railcannon Strike stratagem has been temporarily authorized for use by all Helldivers."
+	},
+	"1291": {
+		"galacticEffectId": 1291,
+		"name": "NEW ASPIRATION CITY",
+		"description": "One of 3 Maximum Security Cities. Impregnable to Tyranny; the future of the Federation"
+	},
+	"1292": {
+		"galacticEffectId": 1292,
+		"name": "NEW YEARNING CITY",
+		"description": "One of 3 Maximum Security Cities. Impregnable to Tyranny; the future of the Federation"
 	}
 }
