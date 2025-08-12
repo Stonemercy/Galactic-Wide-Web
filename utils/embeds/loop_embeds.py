@@ -184,8 +184,14 @@ class BotDashboardLoopEmbed(Embed, EmbedReprMixin):
                 f"**Last restart**: <t:{int(bot.startup_time.timestamp())}:R>\n"
                 f"**Latency**: {int(latency * 1000)}ms"
             ),
-            inline=True,
         )
+        shardinfo = "\n".join(
+            [
+                f"Shard **#{shard.id}** - **{shard.latency * 1000:.0f}ms**"
+                for shard in bot.shards.values()
+            ]
+        )
+        self.add_field("Shards", f"Total Shards: {bot.shard_count}\n{shardinfo}")
         self.add_field("", "", inline=False)
         self.add_field(
             "Credits",
