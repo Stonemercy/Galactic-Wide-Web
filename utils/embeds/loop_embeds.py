@@ -545,64 +545,82 @@ class RegionLoopEmbed(Embed, EmbedReprMixin):
         self.language_json = language_json
         self.planet_names_json = planet_names_json
         super().__init__(
-            title=f"{Emojis.Decoration.left_banner} Planetary Region Updates {Emojis.Decoration.right_banner}",
+            title=f"{Emojis.Decoration.left_banner} {language_json['RegionLoopEmbed']['title']} {Emojis.Decoration.right_banner}",
             colour=Colour.brand_red(),
         )
-        self.add_field("Region Victories", "", inline=False)
-        self.add_field("Regions Lost", "", inline=False)
-        self.add_field("Regions Now Available", "", inline=False)
-
-    def add_region_now_available(self, planet: Planet, region: Planet.Region):
-        description = self.fields[2].value
-        exclamation = planet.exclamations
-        description += f"\n{getattr(Emojis.Factions, region.owner.lower())} **{self.planet_names_json[str(planet.index)]['names'][self.language_json['code_long']]}** {exclamation} **{region.name}** is now open!"
-        if planet.feature:
-            description += f"\n-# Feature: {planet.feature}"
-        for special_unit in SpecialUnits.get_from_effects_list(
-            active_effects=planet.active_effects
-        ):
-            description += f"\n-# Special Unit: **{special_unit[0]}** {special_unit[1]}"
-        self.set_field_at(2, self.fields[2].name, description, inline=False)
+        self.add_field(
+            language_json["RegionLoopEmbed"]["region_victories"], "", inline=False
+        )
+        self.add_field(
+            language_json["RegionLoopEmbed"]["regions_lost"], "", inline=False
+        )
+        self.add_field(
+            language_json["RegionLoopEmbed"]["new_regions"], "", inline=False
+        )
 
     def add_region_victory(
         self, planet: Planet, region: Planet.Region, taken_from: str
     ):
         description = self.fields[0].value
-        description += f"\n{Emojis.Icons.victory} **{region.name}** on **{planet.name}** has been taken from the {taken_from} {getattr(Emojis.Factions, taken_from.lower())}{planet.exclamations}"
+        desctiption += self.language_json["RegionLoopEmbed"]["region_victory"].format(
+            emoji=Emojis.Icons.victory,
+            region_name=region.name,
+            planet_name=self.planet_names_json[str(planet.index)]["names"][
+                self.language_json["code_long"]
+            ],
+            faction=self.language_json["factions"][taken_from],
+            faction_emoji=getattr(Emojis.Factions, taken_from.lower()),
+            exclamations=planet.exclamations,
+        )
         if planet.feature:
-            description += f"\n-# Feature: {planet.feature}"
+            description += f"\n-# {self.language_json['RegionLoopEmbed']['feature']}: {planet.feature}"
         for special_unit in SpecialUnits.get_from_effects_list(
             active_effects=planet.active_effects
         ):
-            description += f"\n-# Special Unit: **{special_unit[0]}** {special_unit[1]}"
+            description += f"\n-# {self.language_json['RegionLoopEmbed']['special_unit']}: **{special_unit[0]}** {special_unit[1]}"
         self.set_field_at(0, self.fields[0].name, description, inline=False)
 
     def add_region_lost(self, planet: Planet, region: Planet.Region, taken_by: str):
         description = self.fields[0].value
-        description += f"\n{Emojis.Icons.victory} **{region.name}** on **{planet.name}** has been taken by the {taken_by} {getattr(Emojis.Factions, taken_by.lower())}{planet.exclamations}"
+        desctiption += self.language_json["RegionLoopEmbed"]["region_lost"].format(
+            region_name=region.name,
+            planet_name=self.planet_names_json[str(planet.index)]["names"][
+                self.language_json["code_long"]
+            ],
+            faction=self.language_json["factions"][taken_by],
+            faction_emoji=getattr(Emojis.Factions, taken_by.lower()),
+            exclamations=planet.exclamations,
+        )
         if planet.feature:
-            description += f"\n-# Feature: {planet.feature}"
+            description += f"\n-# {self.language_json['RegionLoopEmbed']['feature']}: {planet.feature}"
         for special_unit in SpecialUnits.get_from_effects_list(
             active_effects=planet.active_effects
         ):
-            description += f"\n-# Special Unit: **{special_unit[0]}** {special_unit[1]}"
+            description += f"\n-# {self.language_json['RegionLoopEmbed']['special_unit']}: **{special_unit[0]}** {special_unit[1]}"
         self.set_field_at(0, self.fields[0].name, description, inline=False)
 
     def add_new_region_appeared(self, planet: Planet, region: Planet.Region):
         description = self.fields[2].value
-        exclamation = planet.exclamations
-        description += f"\n{getattr(Emojis.Factions, region.owner.lower())} **{self.planet_names_json[str(planet.index)]['names'][self.language_json['code_long']]}** {exclamation} has a new region!"
-        description += (
-            f"\n-# Region: __**{region.name}**__ - **`{region.size}* {region.type}`**"
+        description += self.language_json["RegionLoopEmbed"]["new_region"].format(
+            faction_emoji=getattr(Emojis.Factions, region.owner.lower()),
+            planet_name=self.planet_names_json[str(planet.index)]["names"][
+                self.language_json["code_long"]
+            ],
+            region_type=region.type,
+            exclamations=planet.exclamations,
+            region_name=region.name,
+            region_emoji=getattr(
+                getattr(Emojis.RegionIcons, region.owner), f"_{region.size}"
+            ),
         )
         if region.description:
             description += f"\n-# {region.description}"
         if planet.feature:
-            description += f"\n-# Feature: {planet.feature}"
+            description += f"\n-# {self.language_json['RegionLoopEmbed']['feature']}: {planet.feature}"
         for special_unit in SpecialUnits.get_from_effects_list(
             active_effects=planet.active_effects
         ):
-            description += f"\n-# Special Unit: **{special_unit[0]}** {special_unit[1]}"
+            description += f"\n-# {self.language_json['RegionLoopEmbed']['special_unit']}: **{special_unit[0]}** {special_unit[1]}"
         self.set_field_at(2, self.fields[2].name, description, inline=False)
 
     def remove_empty(self):

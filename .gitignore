@@ -13,6 +13,7 @@ resources/difficulty_icons
 resources/DSS
 resources/weather_icons
 resources/maps
+resources/icon.png
 
 # JSON
 data/json/.github

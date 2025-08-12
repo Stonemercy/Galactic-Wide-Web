@@ -132,7 +132,7 @@ class Maps:
                         if task.type in (11, 13):
                             self._draw_ellipse(
                                 draw=background_draw,
-                                coords=planets[task.values[2]].map_waypoints,
+                                coords=planets[task.planet_index].map_waypoints,
                                 fill_colour=faction_colours["MO"],
                             )
                         elif task.type == 12 and (
@@ -141,42 +141,37 @@ class Maps:
                             ]
                         ):
                             for planet in planet_events:
-                                if (
-                                    planet.event.faction
-                                    == faction_mapping[task.values[1]]
-                                ):
+                                if planet.event.faction == task.faction:
                                     self._draw_ellipse(
                                         draw=background_draw,
                                         coords=planet.map_waypoints,
                                         fill_colour=faction_colours["MO"],
                                     )
                         elif task.type == 2:
-                            if task.values[8] != 0:
-                                if task.values[7] == 2:
-                                    sector_name = sector_names[str(task.values[8])]
-                                    planets_in_sector = [
-                                        p
-                                        for p in planets.values()
-                                        if p.sector.lower() == sector_name.lower()
-                                    ]
-                                    for planet in planets_in_sector:
-                                        self._draw_ellipse(
-                                            draw=background_draw,
-                                            coords=planet.map_waypoints,
-                                            fill_colour=faction_colours["MO"],
-                                        )
-                                else:
+                            if task.sector_index:
+                                sector_name: str = sector_names[task.sector_index]
+                                planets_in_sector = [
+                                    p
+                                    for p in planets.values()
+                                    if p.sector.lower() == sector_name.lower()
+                                ]
+                                for planet in planets_in_sector:
                                     self._draw_ellipse(
                                         draw=background_draw,
-                                        coords=planets[task.values[8]].map_waypoints,
+                                        coords=planet.map_waypoints,
                                         fill_colour=faction_colours["MO"],
                                     )
-                            elif task.values[0] != 0:
+                            elif task.planet_index:
+                                self._draw_ellipse(
+                                    draw=background_draw,
+                                    coords=planets[task.planet_index].map_waypoints,
+                                    fill_colour=faction_colours["MO"],
+                                )
+                            elif task.faction:
                                 for planet in [
                                     c.planet
                                     for c in campaigns
-                                    if c.planet.current_owner
-                                    == faction_mapping[task.values[0]]
+                                    if c.planet.current_owner == task.faction
                                 ]:
                                     self._draw_ellipse(
                                         draw=background_draw,
@@ -185,7 +180,7 @@ class Maps:
                                     )
                         elif task.type == 3 and task.progress != 1:
                             for campaign in campaigns:
-                                if campaign.faction == faction_mapping[task.values[0]]:
+                                if campaign.faction == task.faction:
                                     self._draw_ellipse(
                                         draw=background_draw,
                                         coords=campaign.planet.map_waypoints,

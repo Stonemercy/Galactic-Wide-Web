@@ -806,6 +806,7 @@ class Planet(ReprMixin):
         self.feature: str | None = {
             45: "Center for Civilian Surveillance",  # Mastia
             64: "Meridian Black Hole",  # Meridia
+            114: "Jet Brigade Factories",  # Aurora Bay
             125: "Centre of Science",  # Fenrir III
             126: "Xenoentomology Center",  # Turing
             130: "Factory Hub",  # Achernar Secundus

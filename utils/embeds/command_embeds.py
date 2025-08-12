@@ -411,70 +411,55 @@ class SetupCommandEmbed(Embed, EmbedReprMixin):
         )
 
         # war announcements
-        # war_announcements_text = f"{language_json['SetupEmbed']['announcements_desc']}" # TRANSLATE
-        war_announcements_text = "-# General announcements regarding the war (e.g. New MO's, planets lost/won, general dispatches etc.)\n"
+        war_announcements_text = f"{language_json['SetupEmbed']['wa_desc']}"
         war_announcements_feature = [
             f for f in guild.features if f.name == "war_announcements"
         ]
         if war_announcements_feature:
             setup_emoji = ":white_check_mark:"
             war_announcements = war_announcements_feature[0]
-            # war_announcements_text += f"{language_json['SetupEmbed']['announcement_channel']}: <#{war_announcements.channel_id}>" # TRANSLATE
-            war_announcements_text += (
-                f"War Announcements Channel: <#{war_announcements.channel_id}>"
-            )
+            war_announcements_text += f"{language_json['SetupEmbed']['wa_channel']}: <#{war_announcements.channel_id}>\n"
         else:
             setup_emoji = ":x:"
             war_announcements_text += f"**{language_json['SetupEmbed']['not_set']}**"
         self.add_field(
-            # language_json["SetupEmbed"]["announcements"], # TRANSLATE
-            f"{setup_emoji} War Announcements",
+            f"{setup_emoji} {language_json['SetupEmbed']['war_announcements']}",
             war_announcements_text,
             inline=False,
         )
 
         # dss announcements
-        # dss_announcements_text = f"{language_json['SetupEmbed']['announcements_desc']}" # TRANSLATE
-        dss_announcements_text = "-# Announcements regarding the DSS (e.g. DSS moves or the status of Tactical Actions changes)\n"
+        dss_announcements_text = f"{language_json['SetupEmbed']['dssa_desc']}"
         dss_announcements_feature = [
             f for f in guild.features if f.name == "dss_announcements"
         ]
         if dss_announcements_feature:
             setup_emoji = ":white_check_mark:"
             dss_announcements = dss_announcements_feature[0]
-            # dss_announcements_text += f"{language_json['SetupEmbed']['announcement_channel']}: <#{dss_announcements.channel_id}>" # TRANSLATE
-            dss_announcements_text += (
-                f"DSS Announcements Channel: <#{dss_announcements.channel_id}>"
-            )
+            dss_announcements_text += f"{language_json['SetupEmbed']['dssa_channel']}: <#{dss_announcements.channel_id}>"
         else:
             setup_emoji = ":x:"
             dss_announcements_text += f"**{language_json['SetupEmbed']['not_set']}**"
         self.add_field(
-            # language_json["SetupEmbed"]["announcements"], # TRANSLATE
-            f"{setup_emoji} DSS Announcements",
+            f"{setup_emoji} {language_json['SetupEmbed']['dss_announcements']}",
             dss_announcements_text,
             inline=False,
         )
 
         # region announcements
-        # region_announcements_text = f"{language_json['SetupEmbed']['announcements_desc']}" # TRANSLATE
-        region_announcements_text = "-# Announcements regarding planetary regions (e.g. new regions have appeared or regions have been won etc.)\n"
+        region_announcements_text = language_json["SetupEmbed"]["regiona_desc"]
         region_announcements_feature = [
             f for f in guild.features if f.name == "region_announcements"
         ]
         if region_announcements_feature:
             setup_emoji = ":white_check_mark:"
             region_announcements = region_announcements_feature[0]
-            # region_announcements_text += f"{language_json['SetupEmbed']['announcement_channel']}: <#{dss_announcements.channel_id}>" # TRANSLATE
-            region_announcements_text += (
-                f"Region Announcements Channel: <#{region_announcements.channel_id}>"
-            )
+            region_announcements_text += f"{language_json['SetupEmbed']['regiona_channel']}: <#{region_announcements.channel_id}>"
         else:
             setup_emoji = ":x:"
             region_announcements_text += f"**{language_json['SetupEmbed']['not_set']}**"
         self.add_field(
-            # language_json["SetupEmbed"]["announcements"], # TRANSLATE
-            f"{setup_emoji} Region Announcements",
+            f"{setup_emoji} {language_json['SetupEmbed']['region_announcements']}",
             region_announcements_text,
             inline=False,
         )
@@ -485,8 +470,7 @@ class SetupCommandEmbed(Embed, EmbedReprMixin):
         if patch_notes_feature:
             setup_emoji = ":white_check_mark:"
             patch_notes = patch_notes_feature[0]
-            # patch_notes_text += f"{language_json['SetupEmbed']['announcement_channel']}: <#{dss_announcements.channel_id}>" # TRANSLATE
-            patch_notes_text += f"Patch Notes Channel: <#{patch_notes.channel_id}>"
+            patch_notes_text += f"{language_json['SetupEmbed']['patch_notes_channel']}: <#{patch_notes.channel_id}>"
         else:
             setup_emoji = ":x:"
             patch_notes_text += f"**{language_json['SetupEmbed']['not_set']}**"
@@ -504,10 +488,7 @@ class SetupCommandEmbed(Embed, EmbedReprMixin):
         if mo_updates_feature:
             setup_emoji = ":white_check_mark:"
             mo_updates = mo_updates_feature[0]
-            # mo_updates_text += f"{language_json['SetupEmbed']['announcement_channel']}: <#{dss_announcements.channel_id}>" # TRANSLATE
-            mo_updates_text += (
-                f"Major Order Updates Channel: <#{mo_updates.channel_id}>"
-            )
+            mo_updates_text += f"{language_json['SetupEmbed']['mo_updates_channel']}: <#{mo_updates.channel_id}>"
         else:
             setup_emoji = ":x:"
             mo_updates_text += f"**{language_json['SetupEmbed']['not_set']}**"
@@ -525,10 +506,7 @@ class SetupCommandEmbed(Embed, EmbedReprMixin):
         if ddispatches_feature:
             setup_emoji = ":white_check_mark:"
             dd_dispatches = ddispatches_feature[0]
-            # ddispatches_text += f"{language_json['SetupEmbed']['announcement_channel']}: <#{dss_announcements.channel_id}>" # TRANSLATE
-            ddispatches_text += (
-                f"Detailed Dispatches Channel: <#{dd_dispatches.channel_id}>"
-            )
+            mo_updates_text += f"{language_json['SetupEmbed']['detailed_dispatches_channel']}: <#{dd_dispatches.channel_id}>"
         else:
             setup_emoji = ":x:"
             ddispatches_text += f"**{language_json['SetupEmbed']['not_set']}**"

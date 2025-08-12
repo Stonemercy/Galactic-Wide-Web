@@ -49,8 +49,7 @@ class Setup:
             def __init__(self, language_json: dict, selected: bool = False):
                 super().__init__(
                     style=ButtonStyle.gray,
-                    # label=language_json["setup"]["buttons"]["features"], # TRANSLATE
-                    label="Features",
+                    label=language_json["setup"]["buttons"]["features"],
                     custom_id="features_button",
                 )
                 if selected:
@@ -64,8 +63,7 @@ class Setup:
             ):
                 super().__init__(
                     style=ButtonStyle.gray,
-                    # label=language_json["setup"]["buttons"]["announcements"], # TRANSLATE
-                    label=feature_type.replace("_", " ").title().replace("Dss", "DSS"),
+                    label=language_json["setup"]["buttons"][feature_type],
                     custom_id=f"{feature_type}_features_button",
                 )
                 if selected:
@@ -77,8 +75,7 @@ class Setup:
             def __init__(self, feature_type: str, language_json: dict):
                 super().__init__(
                     style=ButtonStyle.green,
-                    # label=language_json["setup"]["buttons"]["set_announcements"], # TRANSLATE
-                    label="Set Feature",
+                    label=language_json["setup"]["buttons"]["set_feature"],
                     custom_id="set_features_button-" + feature_type,
                 )
 
@@ -86,8 +83,7 @@ class Setup:
             def __init__(self, feature_type: str, language_json: dict):
                 super().__init__(
                     style=ButtonStyle.red,
-                    # label=language_json["setup"]["buttons"]["clear_announcements"], # TRANSLATE
-                    label="Clear Feature",
+                    label=language_json["setup"]["buttons"]["clear_feature"],
                     custom_id="clear_features_button-" + feature_type,
                 )
 
@@ -96,7 +92,7 @@ class Setup:
                 super().__init__(
                     custom_id="feature_channel_select-" + feature_type,
                     placeholder=language_json["setup"]["buttons"][
-                        "announcements_channel_select"
+                        "feature_channel_select"
                     ],
                     channel_types=[
                         ChannelType.text,
