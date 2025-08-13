@@ -110,7 +110,7 @@
         "new_regions": "Новые регионы",
         "region_victory": "\n{emoji} **{region_name}** на планете **{planet_name}** был освобожден от {faction} {faction_emoji}{exclamations}",
         "region_lost": "\n:skull: **{region_name}** на планете **{planet_name}** перешел под контроль {faction} {faction_emoji}{exclamations}",
-        "new_region": "\n{faction_emoji} На планете **{planet_name}** появился новый регион с названием **{region_type}**!{exclamations}\n-# __**{region_name}**__ {region_emoji}",
+        "new_region": "\n{faction_emoji} На планете **{planet_name}** появился новый регион **{region_type}** с названием {exclamations}\n-# __**{region_name}**__ {region_emoji}",
         "feature": "Объект интереса",
         "special_unit": "Особый отряд"
     },
