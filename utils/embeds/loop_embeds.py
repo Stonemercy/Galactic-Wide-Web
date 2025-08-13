@@ -555,7 +555,7 @@ class RegionLoopEmbed(Embed, EmbedReprMixin):
         self, planet: Planet, region: Planet.Region, taken_from: str
     ):
         description = self.fields[0].value
-        desctiption += self.language_json["RegionLoopEmbed"]["region_victory"].format(
+        description += self.language_json["RegionLoopEmbed"]["region_victory"].format(
             emoji=Emojis.Icons.victory,
             region_name=region.name,
             planet_name=self.planet_names_json[str(planet.index)]["names"][
