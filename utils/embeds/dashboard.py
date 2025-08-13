@@ -656,9 +656,7 @@ class Dashboard:
                         field_value += f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['victory'])} <t:{now_seconds + planet_lib_changes.seconds_until_complete}:R>"
                     field_value += f"\n{language_json['dashboard']['progress']}:"
                     if self.with_health_bars:
-                        field_value += (
-                            f"\n{health_bar(planet.health_perc, 'Humans', True)}"
-                        )
+                        field_value += f"\n{health_bar(planet.health_perc, 'Humans', True, empty_colour=planet.current_owner)}"
                     field_value += f"\n`{(1-planet.health_perc):^25,.2%}`"
                 if planet_lib_changes and planet_lib_changes.change_rate_per_hour > 0:
                     change = f"{planet_lib_changes.change_rate_per_hour:+.2%}/hour"
