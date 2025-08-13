@@ -437,7 +437,9 @@ class Dashboard:
         ):
             """Kill {amount} {enemy_type}[ using the __{item_to_use}__][ on {planet}]"""
             field_name = ""
-            enemy_type = enemy_dict.get(str(task.enemy_id), "||UNKNOWN||")
+            enemy_type = enemy_dict.get(
+                str(task.enemy_id), f"||UNKNOWN [{task.enemy_id}]||"
+            )
             field_name += language_json["dashboard"]["MajorOrderEmbed"]["tasks"][
                 "type3"
             ].format(
@@ -452,7 +454,11 @@ class Dashboard:
             if task.item_id:
                 field_name += language_json["dashboard"]["MajorOrderEmbed"]["tasks"][
                     "type3_item"
-                ].format(item_to_use=stratagem_id_dict.get(task.item_id, "||UNKNOWN||"))
+                ].format(
+                    item_to_use=stratagem_id_dict.get(
+                        task.item_id, f"||UNKNOWN [{task.item_id}]||"
+                    )
+                )
             if task.planet_index:
                 field_name += language_json["dashboard"]["MajorOrderEmbed"]["tasks"][
                     "type3_planet"
