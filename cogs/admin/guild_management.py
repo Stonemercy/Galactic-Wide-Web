@@ -6,6 +6,7 @@ from disnake import (
     Embed,
     Guild,
     MessageInteraction,
+    NotFound,
 )
 from disnake.ext import commands, tasks
 from disnake.ui import Button
@@ -66,43 +67,49 @@ class GuildManagementCog(commands.Cog):
     @tasks.loop(minutes=1)
     async def bot_dashboard(self):
         bot_dashboard = self.bot_dashboard_db
-        channel = self.bot.get_channel(
-            bot_dashboard.channel_id
-        ) or await self.bot.fetch_channel(bot_dashboard.channel_id)
-        if not channel:
+        if not self.bot.bot_dashboard_channel:
+            self.bot.bot_dashboard_channel = self.bot.get_channel(
+                bot_dashboard.channel_id
+            ) or await self.bot.fetch_channel(bot_dashboard.channel_id)
+        if not self.bot.bot_dashboard_message:
+            try:
+                self.bot.bot_dashboard_message = (
+                    await self.bot.bot_dashboard_channel.fetch_message(
+                        bot_dashboard.message_id
+                    )
+                )
+            except NotFound:
+                self.bot.bot_dashboard_message = (
+                    await self.bot.bot_dashboard_channel.send(
+                        "Placeholder, please ignore."
+                    )
+                )
+                bot_dashboard.message_id = self.bot.bot_dashboard_message.id
+                bot_dashboard.save_changes()
+        now = datetime.now()
+        if now.minute == 0 or now - timedelta(minutes=2) < self.bot.startup_time:
+            app_info = await self.bot.application_info()
+            self.user_installs = app_info.approximate_user_install_count
+        dashboard_embed = BotDashboardLoopEmbed(
+            bot=self.bot, user_installs=self.user_installs
+        )
+        try:
+            await self.bot.bot_dashboard_message.edit(
+                content="",
+                embed=dashboard_embed,
+                components=[
+                    AppDirectoryButton(),
+                    KoFiButton(),
+                    GitHubButton(),
+                ],
+            ),
+        except Exception as e:
             await self.bot.moderator_channel.send(
-                f"@stonemercy\nbot_dashboard channel returned {channel}"
+                content=f"<@{self.bot.owner.id}>\n```py\n{e}\n```\n`bot_dashboard function in guild_management.py`"
             )
-        else:
-            now = datetime.now()
-            if now.minute == 0 or now - timedelta(minutes=2) < self.bot.startup_time:
-                app_info = await self.bot.application_info()
-                self.user_installs = app_info.approximate_user_install_count
-            dashboard_embed = BotDashboardLoopEmbed(
-                bot=self.bot, user_installs=self.user_installs
+            self.bot.logger.error(
+                msg=f"{self.qualified_name} | bot_dashboard | {e} | {self.bot.bot_dashboard_message}"
             )
-            try:
-                message = channel.get_partial_message(bot_dashboard.message_id)
-            except Exception as e:
-                self.bot.logger.error(
-                    msg=f"{self.qualified_name} | bot_dashboard | {e} | {channel.id}"
-                )
-            try:
-                await message.edit(
-                    embed=dashboard_embed,
-                    components=[
-                        AppDirectoryButton(),
-                        KoFiButton(),
-                        GitHubButton(),
-                    ],
-                ),
-            except Exception as e:
-                await self.bot.moderator_channel.send(
-                    content=f"<@{self.bot.owner.id}>\n```py\n{e}\n```\n`bot_dashboard function in guild_management.py`"
-                )
-                self.bot.logger.error(
-                    msg=f"{self.qualified_name} | bot_dashboard | {e} | {message}"
-                )
 
     @bot_dashboard.before_loop
     async def before_bot_dashboard(self):

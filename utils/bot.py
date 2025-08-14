@@ -1,6 +1,6 @@
 from data.lists import json_dict
 from datetime import datetime, timedelta
-from disnake import Activity, ActivityType, Intents, TextChannel
+from disnake import Activity, ActivityType, Intents, Message, TextChannel
 from disnake.ext import commands, tasks
 from json import load
 from logging import INFO, Formatter, StreamHandler, getLogger
@@ -40,6 +40,8 @@ class GalacticWideWebBot(commands.AutoShardedInteractionBot):
         self.moderator_channel: TextChannel | None = None
         self.waste_bin_channel: TextChannel | None = None
         self.api_changes_channel: TextChannel | None = None
+        self.bot_dashboard_channel: TextChannel | None = None
+        self.bot_dashboard_message: Message | None = None
         self.maps = Maps()
         self.loops: list[tasks.Loop] = []
 

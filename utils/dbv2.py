@@ -35,6 +35,14 @@ class BotDashboard(ReprMixin):
                     self.channel_id: int = record[0]
                     self.message_id: int = record[1]
 
+    def save_changes(self):
+        with connection() as conn:
+            with conn.cursor() as curs:
+                curs.execute(
+                    query=f"UPDATE bot.dashboard SET channel_id = {self.channel_id}, message_id = {self.message_id}"
+                )
+                conn.commit()
+
 
 class WarInfo(ReprMixin):
     __slots__ = ("dispatch_id", "global_event_id", "major_order_ids", "patch_notes_id")
