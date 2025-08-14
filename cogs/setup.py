@@ -438,6 +438,13 @@ class SetupCog(commands.Cog):
                     guild.language,
                     self.bot.json_dict,
                 )
+                if dashboard.character_count() > 6000:
+                    dashboard = Dashboard(
+                        self.bot.data,
+                        guild.language,
+                        self.bot.json_dict,
+                        with_health_bars=False,
+                    )
                 try:
                     message = await dashboard_channel.send(
                         embeds=dashboard.embeds, file=File("resources/banner.png")
