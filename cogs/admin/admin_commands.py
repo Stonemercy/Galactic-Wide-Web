@@ -146,11 +146,15 @@ class AdminCommandsCog(commands.Cog):
         )
         all_guilds = GWWGuilds(fetch_all=True)
         for guild in all_guilds:
-            if id_to_check in [
-                v for f in guild.features for v in (f.channel_id, f.message_id) if v
-            ]:
+            if (
+                id_to_check
+                in [
+                    v for f in guild.features for v in (f.channel_id, f.message_id) if v
+                ]
+                or id_to_check == guild.guild_id
+            ):
                 try:
-                    for list in self.bot.interface_handler.lists:
+                    for list in self.bot.interface_handler.lists.values():
                         list.remove_entry(guild_id_to_remove=guild.guild_id)
                 except:
                     pass
