@@ -99,6 +99,7 @@ class WarfrontCog(commands.Cog):
                 if campaign.faction == faction and not campaign.planet.event
             ],
             liberation_changes=self.bot.data.liberation_changes,
+            region_lib_changes=self.bot.data.region_changes,
             language_json=guild_language,
             planet_names=self.bot.json_dict["planets"],
             faction=faction,
