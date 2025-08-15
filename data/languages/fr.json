@@ -60,7 +60,7 @@
             "dark_energy_remaining": "\nEst. **Énergie Sombre** restante: **{number}**",
             "feature": "Feature",
             "thanks_to_gambit": "thanks to **{planet}** liberation",
-            "gambit_available": ":chess_pawn: Can be ended by liberation **{planet}**",
+            "gambit_available": ":chess_pawn: Can be ended by liberating **{planet}**",
             "gathering_data": "*Gathering Data*",
             "impossible": "**IMPOSSIBLE**"
         },
