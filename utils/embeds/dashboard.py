@@ -1323,7 +1323,10 @@ class Dashboard:
                         exclamation += ":chess_pawn:"
                     skipped_planets_text += f"-# {planet_names[str(campaign.planet.index)]['names'][language_json['code_long']]} - **{campaign.planet.stats['playerCount']:,}** {exclamation}\n"
                     for region in campaign.planet.regions.values():
-                        if region.is_available:
+                        if (
+                            region.is_available
+                            and region.players > total_players * 0.001
+                        ):
                             skipped_planets_text += f"-# ↳ {getattr(getattr(Emojis.RegionIcons, region.owner), f'_{region.size}')} {region.type} **{region.name}** - {region.perc:.2%}\n"
                 if skipped_planets_text != "":
                     self.add_field(
