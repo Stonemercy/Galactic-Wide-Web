@@ -349,10 +349,18 @@ class Dashboard:
                             f" <t:{int(assignment.ends_at_datetime.timestamp())}:R>"
                         )
                     else:
-                        oldest_time = sorted(self.completion_timestamps, reverse=True)[
-                            0
-                        ]
+                        oldest_time: datetime = sorted(
+                            self.completion_timestamps, reverse=True
+                        )[0]
                         outlook_text += f" <t:{int(oldest_time)}:R>"
+                        time_diff = (
+                            assignment.ends_at_datetime.timestamp() - oldest_time
+                        )
+                        hours = time_diff // 3600
+                        minutes = (time_diff % 3600) // 60
+                        outlook_text += (
+                            f"\n-# **{hours:.0f}h {minutes:.0f}m** ahead of schedule"
+                        )
 
                 self.add_field(
                     "",
