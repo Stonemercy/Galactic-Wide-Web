@@ -93,6 +93,7 @@ class Dashboard:
                     if campaign.faction == "Illuminate" and not campaign.planet.event
                 ],
                 liberation_changes=data.liberation_changes,
+                region_lib_changes=data.region_changes,
                 language_json=language_json,
                 planet_names=json_dict["planets"],
                 faction="Illuminate",
@@ -109,6 +110,7 @@ class Dashboard:
                     if campaign.faction == "Automaton" and not campaign.planet.event
                 ],
                 liberation_changes=data.liberation_changes,
+                region_lib_changes=data.region_changes,
                 language_json=language_json,
                 planet_names=json_dict["planets"],
                 faction="Automaton",
@@ -125,6 +127,7 @@ class Dashboard:
                     if campaign.faction == "Terminids" and not campaign.planet.event
                 ],
                 liberation_changes=data.liberation_changes,
+                region_lib_changes=data.region_changes,
                 language_json=language_json,
                 planet_names=json_dict["planets"],
                 faction="Terminids",
@@ -1208,6 +1211,7 @@ class Dashboard:
             self,
             campaigns: list[Campaign],
             liberation_changes: BaseTracker,
+            region_lib_changes: BaseTracker,
             language_json: dict,
             planet_names: dict,
             faction: str,
@@ -1242,7 +1246,25 @@ class Dashboard:
                     ):
                         if liberation_change.change_rate_per_hour > 0:
                             now_seconds = int(datetime.now().timestamp())
-                            time_to_complete = f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['victory'])} <t:{now_seconds + liberation_change.seconds_until_complete}:R>"
+                            for region in campaign.planet.regions.values():
+                                region_lib_change = region_lib_changes.get_entry(
+                                    region.settings_hash
+                                )
+                                if (
+                                    region_lib_change
+                                    and region_lib_change.change_rate_per_hour > 0
+                                    and (
+                                        region_lib_change.seconds_until_complete
+                                        < liberation_change.seconds_until_complete
+                                        and campaign.planet.health
+                                        - (region.max_health * 1.5)
+                                        < 0
+                                    )
+                                ):
+                                    time_to_complete = f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['victory'])} <t:{now_seconds + region_lib_change.seconds_until_complete}:R>\n-# thanks to {region.type} liberation"
+
+                            if time_to_complete == "":
+                                time_to_complete = f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['victory'])} <t:{now_seconds + liberation_change.seconds_until_complete}:R>"
                             change = (
                                 f"{liberation_change.change_rate_per_hour:+.2%}/hour"
                             )

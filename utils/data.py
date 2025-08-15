@@ -472,11 +472,10 @@ class Data(ReprMixin):
         planets_with_regions = [p for p in self.planets.values() if p.regions]
         for planet in planets_with_regions:
             for region in planet.regions.values():
-                if not region.is_available or not region.is_updated:
-                    continue
-                self.region_changes.add_entry(
-                    key=region.settings_hash, value=region.perc
-                )
+                if region.is_available:
+                    self.region_changes.add_entry(
+                        key=region.settings_hash, value=region.perc
+                    )
 
     def get_needed_players(self) -> None:
         """Update the planets with their required helldivers for victory"""
