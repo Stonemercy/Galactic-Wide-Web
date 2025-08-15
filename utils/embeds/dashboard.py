@@ -440,9 +440,13 @@ class Dashboard:
         ):
             """Kill {amount} {enemy_type}[ using the __{item_to_use}__][ on {planet}]"""
             field_name = ""
-            enemy_type = enemy_dict.get(
-                str(task.enemy_id), f"||UNKNOWN [{task.enemy_id}]||"
-            )
+            if task.enemy_id:
+                enemy_type = enemy_dict.get(
+                    str(task.enemy_id), f"||UNKNOWN [{task.enemy_id}]||"
+                )
+            else:
+                de_pluralized_factions: dict = {"Terminids": "Terminid"}
+                enemy_type = de_pluralized_factions.get(task.faction)
             field_name += language_json["dashboard"]["MajorOrderEmbed"]["tasks"][
                 "type3"
             ].format(
