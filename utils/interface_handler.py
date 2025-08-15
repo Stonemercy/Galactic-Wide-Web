@@ -6,7 +6,7 @@ from utils.interactables import WikiButton
 from utils.mixins import ReprMixin
 
 # Time to wait between feature updates to avoid rate limits (in seconds)
-WAIT_TIME = 0.019
+WAIT_TIME = 0.018
 
 
 class InterfaceHandler:
