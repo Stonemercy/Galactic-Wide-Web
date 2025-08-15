@@ -202,7 +202,6 @@ class Data(ReprMixin):
             self.update_major_order_rates()
         if self.global_resources:
             self.update_global_resource_rates()
-            self.update_siege_fleet_health()
         self.get_needed_players()
         self.fetched_at = datetime.now()
         if not self.loaded:
@@ -467,14 +466,6 @@ class Data(ReprMixin):
                     self.major_order_changes.add_entry(
                         key=(assignment.id, index), value=task.progress_perc
                     )
-
-    def update_siege_fleet_health(self) -> None:
-        """Update the changes in Siege Fleets health"""
-        if siege_fleets := [
-            gr for gr in self.global_resources if isinstance(gr, SiegeFleet)
-        ]:
-            for fleet in siege_fleets:
-                self.siege_fleet_changes.add_entry(key=fleet.id, value=fleet.perc)
 
     def update_region_changes(self) -> None:
         """Update the liberation changes in the tracker for each active region"""
