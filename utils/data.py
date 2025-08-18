@@ -582,6 +582,9 @@ class Assignment(ReprMixin):
 
             if faction := self.values_dict.get(1):
                 self.faction: str = factions.get(faction, "Unknown")
+            if value2 := self.values_dict.get(2):
+                self.value2 = value2
+                print(f"VALUE2 USED: {self.type, self.value2 = }")
             if target := self.values_dict.get(3):
                 self.target: int | float = target
             if enemy_id := self.values_dict.get(4):
@@ -596,7 +599,7 @@ class Assignment(ReprMixin):
                 print(f"VALUE8 USED: {self.type, self.value8 = }")
             if difficulty := self.values_dict.get(9):
                 self.difficulty = difficulty
-            if value10 := self.values_dict.get(8):
+            if value10 := self.values_dict.get(10):
                 self.value10 = value10
                 print(f"VALUE10 USED: {self.type, self.value10 = }")
             if location_type := self.values_dict.get(11):
