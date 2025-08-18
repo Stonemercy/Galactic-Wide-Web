@@ -586,5 +586,17 @@
     "2563609963": {
         "name": "DRYWELL",
         "description": ""
+    },
+    "1193052974": {
+        "name": "NEW ASPIRATION CITY",
+        "description": "One of 3 Maximum Security Cities. Impregnable to Tyranny; the future of the Federation."
+    },
+    "27836851": {
+        "name": "NEW YEARNING CITY",
+        "description": "One of 3 Maximum Security Cities. Impregnable to Tyranny; the future of the Federation."
+    },
+    "1239520232": {
+        "name": "NEW HOPE CITY",
+        "description": "The flagship Maximum Security City. Impregnable to Tyranny; the future of the Federation."
     }
 }
