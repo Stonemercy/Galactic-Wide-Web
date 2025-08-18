@@ -24,7 +24,7 @@
                 "type2_planet": " on {planet}",
                 "type2_sector": " in the __{sector}__ SECTOR",
                 "type2_faction": " from any {faction} controlled planet",
-                "type3": "{status_emoji} Kill {amount} {target}s",
+                "type3": "{status_emoji} Kill {amount} {target}",
                 "type3_item": " using the __{item_to_use}__",
                 "type3_planet": " on {planet}",
                 "type7": "Extract from a successful Mission against {faction} {amount} times",

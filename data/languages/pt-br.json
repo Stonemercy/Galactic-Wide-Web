@@ -24,7 +24,7 @@
                 "type2_planet": " em {planet}",
                 "type2_sector": " no SETOR __{sector}__",
                 "type2_faction": " em qualquer planeta controlado pelos {faction}",
-                "type3": "{status_emoji} Mate {amount} {target}s",
+                "type3": "{status_emoji} Mate {amount} {target}",
                 "type3_item": " usando __{item_to_use}__",
                 "type3_planet": " em {planet}",
                 "type7": "Extraia com sucesso de uma missão contra os {faction} {amount} vezes",
