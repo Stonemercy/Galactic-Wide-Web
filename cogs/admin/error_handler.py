@@ -16,6 +16,12 @@ class ErrorHandlerCog(commands.Cog):
     ):
         if hasattr(inter.application_command, "on_error"):
             return
+        if isinstance(error, commands.NotOwner):
+            await inter.send(
+                content=f"You are not allowed to use this command.",
+                ephemeral=True,
+            )
+            return
         if isinstance(error, commands.CheckFailure):
             if (
                 inter.created_at.replace(tzinfo=None) + timedelta(hours=1)
@@ -30,12 +36,8 @@ class ErrorHandlerCog(commands.Cog):
                     delete_after=self.bot.time_until_ready,
                 )
                 return
-        elif isinstance(error, commands.NotOwner):
-            await inter.send(
-                content=f"You need to be the owner of {inter.guild.me.mention} to use this command.",
-                ephemeral=True,
-            )
-            return
+            else:
+                await inter.send(error, ephemeral=True)
         else:
             try:
                 await inter.send(
