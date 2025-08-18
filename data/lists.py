@@ -431,6 +431,7 @@ stratagem_id_dict = {
     3467463065: "A/MLS-4X Rocket Sentry",
     3157053145: "A/M-23 EMS Mortar Sentry",
     1671728820: "A/ARC-3 Tesla Tower",
+    2682182269: "A/ARC-3 Tesla Tower",
     70017975: "FX-12 Shield Generator Relay",
     3827587060: "E/MG-101 HMG Emplacement",
     669794144: "A/FLAM-40 Flame Sentry",
