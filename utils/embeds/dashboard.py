@@ -361,6 +361,20 @@ class Dashboard:
                         outlook_text += (
                             f"\n-# **{hours:.0f}h {minutes:.0f}m** ahead of schedule"
                         )
+                else:
+                    if self.completion_timestamps != []:
+                        oldest_time: datetime = sorted(
+                            self.completion_timestamps, reverse=True
+                        )[0]
+                        outlook_text += f"Failure <t:{int(assignment.ends_at_datetime.timestamp())}:R>"
+                        time_diff = (
+                            oldest_time - assignment.ends_at_datetime.timestamp()
+                        )
+                        hours = time_diff // 3600
+                        minutes = (time_diff % 3600) // 60
+                        outlook_text += (
+                            f"\n-# **{hours:.0f}h {minutes:.0f}m** behind schedule"
+                        )
 
                 self.add_field(
                     "",
