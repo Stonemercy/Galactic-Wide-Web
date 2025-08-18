@@ -1,20 +1,26 @@
-from asyncio import to_thread
-from data.lists import faction_colours
+from cv2 import (
+    FLOODFILL_FIXED_RANGE,
+    FLOODFILL_MASK_ONLY,
+    IMREAD_UNCHANGED,
+    LINE_AA,
+    circle,
+    floodFill,
+    imread,
+    imwrite,
+    line,
+    merge,
+    resize,
+    split,
+)
+from numpy import uint8, zeros
+from data.lists import SpecialUnits, faction_colours
 from dataclasses import dataclass
 from datetime import datetime
-from math import cos, radians, sin
 from PIL import Image, ImageDraw, ImageFont
-from random import randint
 from utils.data import DSS, Assignment, Campaign, Planet, Planets
 from utils.mixins import ReprMixin
 
-faction_mapping: dict[int, str] = {
-    1: "Humans",
-    2: "Terminids",
-    3: "Automaton",
-    4: "Illuminate",
-}
-dim_faction_colours: dict[str, tuple[float, float, float]] = {
+DIM_FACTION_COLOURS: dict[str, tuple[int, int, int]] = {
     faction: tuple(int(colour / 2.5) for colour in colours)
     for faction, colours in faction_colours.items()
 }
@@ -50,7 +56,7 @@ class Maps:
         dss: DSS,
         sector_names: dict,
     ) -> None:
-        await to_thread(self.update_sectors, planets=planets)
+        self.update_sectors(planets=planets)
         self.update_waypoint_lines(planets=planets)
         self.update_assignment_tasks(
             assignments=assignments,
@@ -81,39 +87,58 @@ class Maps:
             sector_info[planet.sector]["faction"].append(
                 planet.current_owner if not planet.event else planet.event.faction
             )
-        with Image.open(fp=Maps.FileLocations.empty_map) as background:
-            alpha = background.getchannel(channel="A")
-            background = background.convert(mode="RGB")
-            for info in sector_info.values():
-                info["faction"] = max(set(info["faction"]), key=info["faction"].count)
-                ImageDraw.floodfill(
-                    image=background,
-                    xy=info["coords"],
-                    value=dim_faction_colours[info["faction"]],
-                    thresh=25,
-                )
-            background.putalpha(alpha=alpha)
-            background.save(fp=Maps.FileLocations.sector_map)
+        background = imread(Maps.FileLocations.empty_map, IMREAD_UNCHANGED)
+        if background.shape[2] == 4:
+            alpha_channel = background[:, :, 3].copy()
+            background_rgb = background[:, :, :3].copy()
+        else:
+            background_rgb = background.copy()
+            alpha_channel = None
+
+        for info in sector_info.values():
+            info["faction"] = max(set(info["faction"]), key=info["faction"].count)
+            color = DIM_FACTION_COLOURS[info["faction"]]
+            bgr_color = (color[2], color[1], color[0])
+            h, w = background.shape[:2]
+            mask = zeros((h + 2, w + 2), uint8)
+            floodFill(
+                image=background_rgb,
+                mask=mask,
+                seedPoint=info["coords"],
+                newVal=bgr_color,
+                loDiff=(50, 50, 50),
+                upDiff=(50, 50, 50),
+                flags=FLOODFILL_FIXED_RANGE | FLOODFILL_MASK_ONLY ^ FLOODFILL_MASK_ONLY,
+            )
+        if alpha_channel is not None:
+            background = merge(
+                [
+                    background_rgb[:, :, 0],
+                    background_rgb[:, :, 1],
+                    background_rgb[:, :, 2],
+                    alpha_channel,
+                ]
+            )
+        else:
+            background = background_rgb
+        imwrite(Maps.FileLocations.sector_map, background)
 
     def update_waypoint_lines(self, planets: Planets) -> None:
-        with Image.open(fp=Maps.FileLocations.sector_map) as background:
-            draw_on_background_with_sectors = ImageDraw.Draw(im=background)
-            for index, planet in planets.items():
-                for waypoint in planet.waypoints:
-                    try:
-                        waypoint_coords = planets[waypoint].map_waypoints
-                        draw_on_background_with_sectors.line(
-                            xy=(
-                                waypoint_coords[0],
-                                waypoint_coords[1],
-                                planet.map_waypoints[0],
-                                planet.map_waypoints[1],
-                            ),
-                            width=2,
-                        )
-                    except KeyError:
-                        continue
-            background.save(fp=Maps.FileLocations.waypoints_map)
+        background = imread(Maps.FileLocations.sector_map, IMREAD_UNCHANGED)
+        for planet in planets.values():
+            for waypoint in planet.waypoints:
+                try:
+                    line(
+                        img=background,
+                        pt1=planet.map_waypoints,
+                        pt2=planets[waypoint].map_waypoints,
+                        color=(255, 255, 255, 255),
+                        thickness=2,
+                    )
+                except KeyError:
+                    continue
+
+        imwrite(Maps.FileLocations.waypoints_map, background)
 
     def update_assignment_tasks(
         self,
@@ -122,227 +147,174 @@ class Maps:
         campaigns: list[Campaign] | list,
         sector_names: dict,
     ) -> None:
-        with Image.open(fp=Maps.FileLocations.waypoints_map) as background:
-            if assignments:
-                for assignment in assignments:
-                    background_draw = ImageDraw.Draw(im=background)
-                    for task in assignment.tasks:
-                        if task.progress_perc == 1:
-                            continue
-                        if task.type in (11, 13):
+        if assignments:
+            background = imread(Maps.FileLocations.waypoints_map, IMREAD_UNCHANGED)
+            for assignment in assignments:
+                for task in assignment.tasks:
+                    if task.progress_perc == 1:
+                        continue
+                    if task.type in (11, 13):
+                        self._draw_ellipse(
+                            image=background,
+                            coords=planets[task.planet_index].map_waypoints,
+                            fill_colour=faction_colours["MO"],
+                            radius=12,
+                        )
+                    elif task.type == 12 and (
+                        planet_events := [
+                            planet for planet in planets.values() if planet.event
+                        ]
+                    ):
+                        for planet in planet_events:
+                            if planet.event.faction == task.faction:
+                                self._draw_ellipse(
+                                    image=background,
+                                    coords=planet.map_waypoints,
+                                    fill_colour=faction_colours["MO"],
+                                    radius=12,
+                                )
+                    elif task.type == 2:
+                        if task.sector_index:
+                            sector_name: str = sector_names[task.sector_index]
+                            planets_in_sector = [
+                                p
+                                for p in planets.values()
+                                if p.sector.lower() == sector_name.lower()
+                            ]
+                            for planet in planets_in_sector:
+                                self._draw_ellipse(
+                                    image=background,
+                                    coords=planet.map_waypoints,
+                                    fill_colour=faction_colours["MO"],
+                                    radius=12,
+                                )
+                        elif task.planet_index:
                             self._draw_ellipse(
-                                draw=background_draw,
+                                image=background,
                                 coords=planets[task.planet_index].map_waypoints,
                                 fill_colour=faction_colours["MO"],
+                                radius=12,
                             )
-                        elif task.type == 12 and (
-                            planet_events := [
-                                planet for planet in planets.values() if planet.event
-                            ]
-                        ):
-                            for planet in planet_events:
-                                if planet.event.faction == task.faction:
-                                    self._draw_ellipse(
-                                        draw=background_draw,
-                                        coords=planet.map_waypoints,
-                                        fill_colour=faction_colours["MO"],
-                                    )
-                        elif task.type == 2:
-                            if task.sector_index:
-                                sector_name: str = sector_names[task.sector_index]
-                                planets_in_sector = [
-                                    p
-                                    for p in planets.values()
-                                    if p.sector.lower() == sector_name.lower()
-                                ]
-                                for planet in planets_in_sector:
-                                    self._draw_ellipse(
-                                        draw=background_draw,
-                                        coords=planet.map_waypoints,
-                                        fill_colour=faction_colours["MO"],
-                                    )
-                            elif task.planet_index:
+                        elif task.faction:
+                            for planet in [
+                                c.planet
+                                for c in campaigns
+                                if c.planet.current_owner == task.faction
+                            ]:
                                 self._draw_ellipse(
-                                    draw=background_draw,
-                                    coords=planets[task.planet_index].map_waypoints,
+                                    image=background,
+                                    coords=planet.map_waypoints,
                                     fill_colour=faction_colours["MO"],
+                                    radius=12,
                                 )
-                            elif task.faction:
-                                for planet in [
-                                    c.planet
-                                    for c in campaigns
-                                    if c.planet.current_owner == task.faction
-                                ]:
-                                    self._draw_ellipse(
-                                        draw=background_draw,
-                                        coords=planet.map_waypoints,
-                                        fill_colour=faction_colours["MO"],
-                                    )
-                        elif task.type == 3 and task.progress != 1:
-                            for campaign in campaigns:
-                                if campaign.faction == task.faction:
-                                    self._draw_ellipse(
-                                        draw=background_draw,
-                                        coords=campaign.planet.map_waypoints,
-                                        fill_colour=faction_colours["MO"],
-                                    )
-        background.save(fp=Maps.FileLocations.assignment_map)
+                    elif task.type == 3 and task.progress != 1:
+                        for campaign in campaigns:
+                            if campaign.faction == task.faction:
+                                self._draw_ellipse(
+                                    image=background,
+                                    coords=campaign.planet.map_waypoints,
+                                    fill_colour=faction_colours["MO"],
+                                    radius=12,
+                                )
+        imwrite(Maps.FileLocations.assignment_map, background)
 
     def update_planets(self, planets: Planets, active_planets: list[int]) -> None:
-        with Image.open(fp=Maps.FileLocations.assignment_map) as background:
-            background_draw = ImageDraw.Draw(im=background)
-            for index, planet in planets.items():
-                if planet.dss_in_orbit:
-                    self._draw_ellipse(
-                        draw=background_draw,
-                        coords=planet.map_waypoints,
-                        fill_colour=faction_colours["DSS"],
-                        radius=17,
+        background = imread(Maps.FileLocations.assignment_map, IMREAD_UNCHANGED)
+        PLANET_RADIUS = 8
+        for index, planet in planets.items():
+            if planet.dss_in_orbit:
+                self._draw_ellipse(
+                    image=background,
+                    coords=planet.map_waypoints,
+                    fill_colour=faction_colours["DSS"],
+                    radius=12,
+                )
+            if index == 64:
+                for i in range(PLANET_RADIUS, PLANET_RADIUS - 6, -1):
+                    circle(
+                        background,
+                        planet.map_waypoints,
+                        i,
+                        (i * 20, i * 5, i * 20, 255),
+                        -1,
                     )
-                if index == 64:
-                    for i in range(12, 6, -1):
-                        background_draw.ellipse(
-                            xy=[
-                                (
-                                    planet.map_waypoints[0] - i,
-                                    planet.map_waypoints[1] - i,
-                                ),
-                                (
-                                    planet.map_waypoints[0] + i,
-                                    planet.map_waypoints[1] + i,
-                                ),
-                            ],
-                            fill=(i * 20, i * 5, i * 20),
-                        )
-                    background_draw.ellipse(
-                        xy=[
-                            (planet.map_waypoints[0] - 7, planet.map_waypoints[1] - 7),
-                            (planet.map_waypoints[0] + 7, planet.map_waypoints[1] + 7),
-                        ],
-                        fill=(0, 0, 0),
-                        outline=(200, 100, 255),
+                circle(
+                    background,
+                    planet.map_waypoints,
+                    int(PLANET_RADIUS / 2),
+                    (0, 0, 0, 255),
+                    -1,
+                )
+            elif planet.index == 0:
+                se_icon = imread("resources/super_earth.png", IMREAD_UNCHANGED)
+                self.paste_image(background, se_icon, planet.map_waypoints)
+            elif 1240 in planet.active_effects:
+                circle(
+                    background,
+                    planet.map_waypoints,
+                    PLANET_RADIUS,
+                    (0, 0, 255, 255),
+                    -1,
+                )
+            elif set([1241, 1252]) & planet.active_effects:
+                frac_planet_icon = imread(
+                    "resources/fractured_planet.png", IMREAD_UNCHANGED
+                )
+                self.paste_image(
+                    background,
+                    frac_planet_icon,
+                    planet.map_waypoints,
+                    x_offset=-20,
+                    y_offset=10,
+                )
+            else:
+                colour = (
+                    faction_colours[planet.current_owner]
+                    if index in active_planets
+                    else tuple(
+                        int(colour / 1.5)
+                        for colour in faction_colours[planet.current_owner]
                     )
-                elif planet.index == 0:
-                    with Image.open("resources/super_earth.png") as se_icon:
-                        background.paste(
-                            se_icon,
-                            (
-                                planet.map_waypoints[0] - 25,
-                                planet.map_waypoints[1] - 25,
-                            ),
-                            se_icon,
-                        )
-                elif 1240 in planet.active_effects:
-                    background_draw.ellipse(
-                        xy=[
-                            (
-                                planet.map_waypoints[0] - 10,
-                                planet.map_waypoints[1] - 10,
-                            ),
-                            (
-                                planet.map_waypoints[0] + 10,
-                                planet.map_waypoints[1] + 10,
-                            ),
-                        ],
-                        fill="red",
+                )
+                colour = (*colour[::-1], 255)
+                circle(
+                    background,
+                    planet.map_waypoints,
+                    8,
+                    colour,
+                    -1,
+                )
+            offset = 0
+            if index in active_planets:
+                for su in SpecialUnits.get_from_effects_list(planet.active_effects):
+                    su_icon = imread(
+                        f"resources/Emojis/Planet Effects/{su[0].title()}.png",
+                        IMREAD_UNCHANGED,
                     )
-                elif set([1241, 1252]) & planet.active_effects:
-                    planet_image = Image.new("RGBA", (2000, 2000), (0, 0, 0, 0))
-                    planet_draw = ImageDraw.Draw(planet_image)
-                    planet_draw.ellipse(
-                        xy=[
-                            (
-                                planet.map_waypoints[0] - 10,
-                                planet.map_waypoints[1] - 10,
-                            ),
-                            (
-                                planet.map_waypoints[0] + 10,
-                                planet.map_waypoints[1] + 10,
-                            ),
-                        ],
-                        fill=(102, 99, 100),
+                    su_icon = resize(su_icon, (32, 32))
+                    self.paste_image(
+                        background,
+                        su_icon,
+                        planet.map_waypoints,
+                        x_offset=20 + offset,
+                        y_offset=-20,
                     )
-                    cx, cy = planet.map_waypoints
-                    angles = []
-                    while len(angles) < 7:
-                        candidate = randint(0, 360)
-                        if all(abs(candidate - a) >= 30 for a in angles):
-                            angles.append(candidate)
-                    for start_angle in angles:
-                        step_size = 11 * 1.2
-                        new_x = cx + int(step_size * cos(radians(start_angle)))
-                        new_y = cy + int(step_size * sin(radians(start_angle)))
-                        planet_draw.line(
-                            [(cx, cy), (new_x, new_y)],
-                            fill=(0, 0, 0, 0),
-                            width=randint(2, 4),
-                        )
-                    background.paste(im=planet_image, mask=planet_image)
-                    planet_image.close()
-                else:
-                    background_draw.ellipse(
-                        xy=[
-                            (
-                                planet.map_waypoints[0] - 10,
-                                planet.map_waypoints[1] - 10,
-                            ),
-                            (
-                                planet.map_waypoints[0] + 10,
-                                planet.map_waypoints[1] + 10,
-                            ),
-                        ],
-                        fill=(
-                            faction_colours[planet.current_owner]
-                            if index in active_planets
-                            else tuple(
-                                int(colour / 1.5)
-                                for colour in faction_colours[planet.current_owner]
-                            )
-                        ),
-                    )
-                if planet.event and planet.event.siege_fleet:
-                    with Image.open(
-                        f"resources/siege_fleets/{planet.event.siege_fleet.name.replace(' ', '_').lower()}.png"
-                    ) as fleet_icon:
-                        background.paste(
-                            fleet_icon,
-                            (
-                                int(planet.map_waypoints[0] - 25),
-                                int(planet.map_waypoints[1] - 50),
-                            ),
-                            fleet_icon,
-                        )
-                elif 1269 in planet.active_effects:
-                    with Image.open(
-                        f"resources/siege_fleets/the_great_host.png"
-                    ) as fleet_icon:
-                        background.paste(
-                            fleet_icon,
-                            (
-                                int(planet.map_waypoints[0] - 25),
-                                int(planet.map_waypoints[1] - 50),
-                            ),
-                            fleet_icon,
-                        )
-            background.save(fp=Maps.FileLocations.planets_map)
+                    offset += 32
+        imwrite(Maps.FileLocations.planets_map, background)
 
     def update_dss(self, dss: DSS, type_3_campaigns: list[Campaign]) -> None:
+        background = imread(Maps.FileLocations.planets_map, IMREAD_UNCHANGED)
         if dss and dss.flags == 1:
-            with Image.open(
-                fp=Maps.FileLocations.planets_map
-            ) as background, Image.open("resources/DSS.png") as dss_icon:
-                verti_diff = 130
-                if dss.planet.index in [c.planet.index for c in type_3_campaigns]:
-                    verti_diff += 100
-                dss_coords = (
-                    int(dss.planet.map_waypoints[0]) - 17,
-                    int(dss.planet.map_waypoints[1]) - verti_diff,
-                )
-                background.paste(dss_icon, dss_coords, dss_icon)
-                background.save(fp=Maps.FileLocations.dss_map)
-        else:
-            with Image.open(fp=Maps.FileLocations.planets_map) as background:
-                background.save(fp=Maps.FileLocations.dss_map)
+            dss_icon = imread("resources/DSS.png", IMREAD_UNCHANGED)
+            verti_diff = 70
+            if dss.planet.index in [c.planet.index for c in type_3_campaigns]:
+                verti_diff += 50
+            dss_coords = (
+                int(dss.planet.map_waypoints[0]) - 17,
+                int(dss.planet.map_waypoints[1]) - verti_diff,
+            )
+            self.paste_image(background, dss_icon, dss_coords)
+        imwrite(Maps.FileLocations.dss_map, background)
 
     def draw_arrow(self, language_code: str, planet: Planet) -> None:
         with Image.open(
@@ -379,6 +351,10 @@ class Maps:
             )
             background.save(fp=Maps.FileLocations.arrow_map)
 
+    def _draw_ellipse(self, image, coords, fill_colour, radius=15):
+        bgr_color = (*fill_colour[::-1], 255)
+        circle(image, coords, radius, bgr_color, -1, LINE_AA)
+
     def localize_map(
         self,
         language_code_short: str,
@@ -399,21 +375,6 @@ class Maps:
             )
             background.save(fp=f"resources/maps/{language_code_short}.webp")
 
-    def _draw_ellipse(
-        self,
-        draw: ImageDraw.ImageDraw,
-        coords: tuple,
-        fill_colour: tuple,
-        radius: int = 15,
-    ) -> None:
-        draw.ellipse(
-            [
-                (coords[0] - radius, coords[1] - radius),
-                (coords[0] + radius, coords[1] + radius),
-            ],
-            fill=fill_colour,
-        )
-
     def _write_names(
         self,
         background: Image.Image,
@@ -423,7 +384,7 @@ class Maps:
         type_3_campaigns: list[Campaign],
         planet_names_json: dict,
     ) -> None:
-        font = ImageFont.truetype("resources/gww-font.ttf", 35)
+        font = ImageFont.truetype("resources/gww-font.ttf", 25)
         background_draw = ImageDraw.Draw(im=background)
         for index, planet in planets.items():
             if index in active_planets:
@@ -458,3 +419,17 @@ class Maps:
                     align="center",
                     spacing=-10,
                 )
+
+    def paste_image(self, background, overlay, coords, x_offset=0, y_offset=0) -> None:
+        x, y = (
+            (coords[0] - int(overlay.shape[0] / 2)) + x_offset,
+            (coords[1] - int(overlay.shape[1] / 2)) + y_offset,
+        )
+        b, g, r, a = split(overlay)
+        overlay_rgb = merge((b, g, r))
+        mask = a.astype(float) / 255.0
+        mask = merge((mask, mask, mask))
+        h, w = overlay.shape[:2]
+        roi = background[y : y + h, x : x + w, :3].astype(float)
+        blended = (overlay_rgb.astype(float) * mask + roi * (1 - mask)).astype(uint8)
+        background[y : y + h, x : x + w, :3] = blended

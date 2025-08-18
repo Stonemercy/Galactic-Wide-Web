@@ -833,10 +833,10 @@ class Planet(ReprMixin):
             self.hazards = []
 
     @property
-    def map_waypoints(self) -> tuple[float, float]:
+    def map_waypoints(self) -> tuple[int, int]:
         return (
-            (self.position["x"] * 1000) + 1000,
-            ((self.position["y"] * -1) * 1000) + 1000,
+            int((self.position["x"] * 1000) + 1000),
+            int(((self.position["y"] * -1) * 1000) + 1000),
         )
 
     @property
