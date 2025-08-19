@@ -623,13 +623,12 @@ class MeridiaCommandEmbed(Embed, EmbedReprMixin):
 
 class SteamCommandEmbed(Embed, EmbedReprMixin):
     def __init__(self, steam: Steam, language_json: dict):
-        super().__init__(title=steam.title, colour=Colour.dark_grey(), url=steam.url)
+        super().__init__(title=steam.title, colour=Colour.dark_theme(), url=steam.url)
         self.set_footer(text=language_json["message"].format(message_id=steam.id))
-        if len(steam.content) > 4000:
-            steam.content = steam.content[:3900] + language_json["SteamEmbed"][
-                "head_here"
-            ].format(url=steam.url)
-        self.description = steam.content
+        self.add_field(
+            "",
+            f"-# Posted <t:{int(steam.published_at.timestamp())}:R>\n-# <t:{int(steam.published_at.timestamp())}:F>",
+        )
 
 
 class CommunityServersCommandEmbed(Embed, EmbedReprMixin):

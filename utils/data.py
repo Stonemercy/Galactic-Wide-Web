@@ -8,7 +8,7 @@ from os import getenv
 from typing import ItemsView, ValuesView
 from data.lists import SpecialUnits
 from utils.emojis import Emojis
-from utils.functions import dispatch_format, health_bar, steam_format
+from utils.functions import dispatch_format, health_bar
 from utils.mixins import ReprMixin
 from utils.trackers import BaseTracker
 
@@ -991,9 +991,11 @@ class Steam(ReprMixin):
         """Organised data for a Steam announcements"""
         self.id: int = int(raw_steam_data["id"])
         self.title: str = raw_steam_data["title"]
-        self.content: str = steam_format(text=raw_steam_data["content"])
         self.author: str = raw_steam_data["author"]
         self.url: str = raw_steam_data["url"]
+        self.published_at: datetime = datetime.fromisoformat(
+            raw_steam_data["publishedAt"]
+        )
 
 
 class DSS(ReprMixin):
