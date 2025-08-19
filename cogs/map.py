@@ -141,7 +141,7 @@ class MapCog(commands.Cog):
         if not latest_map or (
             latest_map and latest_map.updated_at < fifteen_minutes_ago
         ):
-            await self.bot.maps.update_base_map(
+            self.bot.maps.update_base_map(
                 planets=self.bot.data.planets,
                 assignments=self.bot.data.assignments,
                 campaigns=self.bot.data.campaigns,
