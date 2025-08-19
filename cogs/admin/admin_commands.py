@@ -31,7 +31,6 @@ class AdminCommandsCog(commands.Cog):
                 "Dashboard",
                 "Map",
                 "MO Update",
-                # "PO Update",
             ]
         ),
     ):
