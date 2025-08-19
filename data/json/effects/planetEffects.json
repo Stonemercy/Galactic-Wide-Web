@@ -766,5 +766,9 @@
 	"1294": {
 		"name": "BILE TITAN DROUGHT",
 		"description": "Significantly less Bile Titan numbers have been observed on this planet."
+	},
+	"1295": {
+		"name": "TYRANNY PARK 2",
+		"description": "The extensive Terminid enclosures here allow scientists to study Terminid behaviour, and civilians to take pictures with Brood Commanders."
 	}
 }
