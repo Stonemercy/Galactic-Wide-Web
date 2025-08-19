@@ -48,7 +48,7 @@ class Maps:
         def localized_map_path(language_code: str) -> str:
             return f"resources/maps/{language_code}.webp"
 
-    async def update_base_map(
+    def update_base_map(
         self,
         planets: Planets,
         assignments: list[Assignment],
@@ -147,8 +147,8 @@ class Maps:
         campaigns: list[Campaign] | list,
         sector_names: dict,
     ) -> None:
+        background = imread(Maps.FileLocations.waypoints_map, IMREAD_UNCHANGED)
         if assignments:
-            background = imread(Maps.FileLocations.waypoints_map, IMREAD_UNCHANGED)
             for assignment in assignments:
                 for task in assignment.tasks:
                     if task.progress_perc == 1:
