@@ -515,7 +515,7 @@ class SetupCog(commands.Cog):
                         delete_after=12,
                         ephemeral=True,
                     )
-                    await self.bot.maps.update_base_map(
+                    self.bot.maps.update_base_map(
                         planets=self.bot.data.planets,
                         assignments=self.bot.data.assignments,
                         campaigns=self.bot.data.campaigns,
