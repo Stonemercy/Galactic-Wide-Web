@@ -1107,7 +1107,7 @@ class GalacticWarEffect(ReprMixin):
         "values_dict",
         "count",
         "percent",
-        "value3",
+        "faction",
         "mix_id",
         "value5",
         "DEPRECATED_enemy_group",
@@ -1135,7 +1135,7 @@ class GalacticWarEffect(ReprMixin):
         )
         self.flags = gwa["flags"]
         self.values_dict = dict(zip(gwa["valueTypes"], gwa["values"]))
-        self.count = self.percent = self.value3 = self.mix_id = self.value5 = (
+        self.count = self.percent = self.faction = self.mix_id = self.value5 = (
             self.DEPRECATED_enemy_group
         ) = self.DEPRECATED_item_package = self.value8 = self.value9 = (
             self.reward_multiplier_id
@@ -1147,9 +1147,8 @@ class GalacticWarEffect(ReprMixin):
             self.count: int | float = count
         if percent := self.values_dict.get(2):
             self.percent: int | float = percent
-        if value3 := self.values_dict.get(3):
-            # unknown
-            self.value3 = value3
+        if faction := self.values_dict.get(3):
+            self.faction = faction
         if mix_id := self.values_dict.get(4):
             self.mix_id: int = mix_id
         if value5 := self.values_dict.get(5):
