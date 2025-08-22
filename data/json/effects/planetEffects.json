@@ -770,5 +770,21 @@
 	"1295": {
 		"name": "TYRANNY PARK 2",
 		"description": "The extensive Terminid enclosures here allow scientists to study Terminid behaviour, and civilians to take pictures with Brood Commanders."
+	},
+	"1296": {
+		"name": "STALKER SURGE",
+		"description": "Significantly higher Stalker numbers have been observed on this planet."
+	},
+	"1297": {
+		"name": "HUNTER SURGE",
+		"description": "Significantly higher Hunter numbers have been observed on this planet."
+	},
+	"1298": {
+		"name": "FACTORY HUB EVACUATED",
+		"description": "The Factory Hub has been evacuated. FRV cooldowns have been increased."
+	},
+	"1299": {
+		"name": "LOW-ORBIT INTERDICTION",
+		"description": "Illuminate assault forces have deployed heavy low-orbit anti-air patrols to interdict space-to-ground aircraft. Extraction time on missions against the Illuminate will take significantly longer."
 	}
 }
