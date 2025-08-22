@@ -73,7 +73,7 @@ class MajorOrderCog(commands.Cog):
                     mo_task_tracker=self.bot.data.major_order_changes,
                     language_json=guild_language,
                     json_dict=self.bot.json_dict,
-                    with_health_bars=True,
+                    full_size=True,
                 )
                 if with_announcement == "Yes":
                     announcements: list[GlobalEvent] = [
@@ -104,7 +104,7 @@ class MajorOrderCog(commands.Cog):
                     mo_task_tracker=None,
                     language_json=guild_language,
                     json_dict=None,
-                    with_health_bars=False,
+                    full_size=False,
                 )
             ]
         await inter.send(

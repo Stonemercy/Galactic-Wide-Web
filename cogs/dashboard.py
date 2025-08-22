@@ -47,7 +47,7 @@ class DashboardCog(commands.Cog):
                     data=self.bot.data,
                     language_code=lang,
                     json_dict=self.bot.json_dict,
-                    with_health_bars=False,
+                    full_size=False,
                 )
         await self.bot.interface_handler.send_feature("dashboards", dashboards)
         self.bot.logger.info(

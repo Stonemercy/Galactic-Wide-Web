@@ -61,7 +61,7 @@ class AnnouncementsCog(commands.Cog):
                             mo_task_tracker=self.bot.data.major_order_changes,
                             language_json=self.bot.json_dict["languages"][lang],
                             json_dict=self.bot.json_dict,
-                            with_health_bars=True,
+                            full_size=True,
                         )
                     ]
                     for lang in unique_langs
@@ -216,7 +216,7 @@ class AnnouncementsCog(commands.Cog):
                     mo_task_tracker=self.bot.data.major_order_changes,
                     language_json=self.bot.json_dict["languages"][lang],
                     json_dict=self.bot.json_dict,
-                    with_health_bars=True,
+                    full_size=True,
                 )
                 for major_order in self.bot.data.assignments
             ]

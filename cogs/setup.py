@@ -443,7 +443,7 @@ class SetupCog(commands.Cog):
                         self.bot.data,
                         guild.language,
                         self.bot.json_dict,
-                        with_health_bars=False,
+                        full_size=False,
                     )
                 try:
                     message = await dashboard_channel.send(

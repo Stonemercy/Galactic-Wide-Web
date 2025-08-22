@@ -89,7 +89,7 @@ class WarfrontCog(commands.Cog):
             planet_names=self.bot.json_dict["planets"],
             total_players=self.bot.data.total_players,
             eagle_storm=self.bot.data.dss.get_ta_by_name("EAGLE STORM"),
-            with_health_bars=True,
+            full_size=True,
             gambit_planets=gambit_planets,
         )
         attack_embed = Dashboard.AttackEmbed(
