@@ -67,7 +67,7 @@ class WarfrontCog(commands.Cog):
             if (
                 campaign.planet.current_owner == "Humans"
                 or len(campaign.planet.defending_from) == 0
-                or 1190 in campaign.planet.active_effects
+                or 1190 in [ae.id for ae in campaign.planet.active_effects]
             ):
                 continue
             else:
@@ -104,7 +104,7 @@ class WarfrontCog(commands.Cog):
             planet_names=self.bot.json_dict["planets"],
             faction=faction,
             total_players=self.bot.data.total_players,
-            with_health_bars=True,
+            full_size=True,
             gambit_planets=gambit_planets,
         )
         all_planets_embed = WarfrontAllPlanetsEmbed(

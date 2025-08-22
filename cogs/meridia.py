@@ -148,7 +148,7 @@ class MeridiaCog(commands.Cog):
             planets_to_check = [
                 p.index
                 for p in self.bot.data.planets.values()
-                if 1240 in p.active_effects
+                if 1240 in [ae.id for ae in p.active_effects]
             ]
             points_in_path = {
                 index: coords
@@ -195,7 +195,8 @@ class MeridiaCog(commands.Cog):
         time_to_reach_planets = {}
         if meridia_info.speed > 0.00001:
             for planet in planets_in_path:
-                if set([1241, 1252]) & planet.active_effects:
+                planet_ae_ids = [ae.id for ae in planet.active_effects]
+                if 1241 in planet_ae_ids or 1252 in planet_ae_ids:
                     continue
                 delta_x_to_planet = planet.position["x"] - current_location.x
                 delta_y_to_planet = planet.position["y"] - current_location.y

@@ -2,6 +2,7 @@ from datetime import datetime, time
 from disnake import Activity, ActivityType
 from disnake.ext import commands, tasks
 from main import GalacticWideWebBot
+from utils.embeds.command_embeds import GalacticWarEffectEmbed
 from utils.embeds.loop_embeds import APIChanges, APIChangesLoopEmbed
 from utils.functions import out_of_normal_range
 
@@ -126,23 +127,15 @@ class DataManagementCog(commands.Cog):
                             after=(new_data.position["x"], new_data.position["y"]),
                         )
                     )
-                if planet.active_effects != new_data.active_effects:
+                if sorted([ae.id for ae in planet.active_effects]) != sorted(
+                    [ae.id for ae in new_data.active_effects]
+                ):
                     total_changes.append(
                         APIChanges(
                             planet=planet,
                             statistic="Effects",
-                            before=[
-                                self.bot.json_dict["planet_effects"].get(
-                                    str(effect), effect
-                                )
-                                for effect in planet.active_effects
-                            ],
-                            after=[
-                                self.bot.json_dict["planet_effects"].get(
-                                    str(effect), effect
-                                )
-                                for effect in new_data.active_effects
-                            ],
+                            before=planet.active_effects,
+                            after=new_data.active_effects,
                         )
                     )
                 if planet.regions:
@@ -169,28 +162,15 @@ class DataManagementCog(commands.Cog):
                             after=new_data.current_owner,
                         )
                     )
-            active_effects = {
-                str(e)
-                for planet in self.bot.data.planets.values()
-                if planet.active_effects
-                for e in planet.active_effects
-            } | {
-                str(id)
-                for ge in self.bot.data.global_events
-                if ge.effect_ids
-                for id in ge.effect_ids
-            }
-            new_effects: set = {
-                e
-                for e in (active_effects - self.bot.json_dict["planet_effects"].keys())
-                if e not in self.mentioned_new_effects
-            }
-            if new_effects:
-                formatted_effects = "\n-# - ".join(new_effects)
+        for effect in self.bot.data.galactic_war_effects:
+            if not effect.planet_effect and effect.id not in self.mentioned_new_effects:
                 await self.bot.moderator_channel.send(
-                    f"NEW EFFECTS {self.bot.owner.mention}\n-# - {formatted_effects}"
+                    f"{self.bot.owner.mention} New Effect",
+                    embed=GalacticWarEffectEmbed(
+                        gwe=effect, json_dict=self.bot.json_dict
+                    ),
                 )
-                self.mentioned_new_effects |= new_effects
+                self.mentioned_new_effects.add(effect.id)
         if total_changes:
             chunked_changes = [
                 total_changes[i : i + 20] for i in range(0, len(total_changes), 20)

@@ -1,0 +1,206 @@
+{
+    "1": {
+        "name": "war_LibMultiplier",
+        "description": "Applies a liberation multiplier"
+    },
+    "20": {
+        "name": "game_SEAFSupport",
+        "description": "game_SEAFSupport"
+    },
+    "21": {
+        "name": "game_ExtractionTime",
+        "description": "Applies a change to extraction time"
+    },
+    "23": {
+        "name": "game_EagleRearmTime",
+        "description": "Applies change to Eagle Re-Arm time"
+    },
+    "24": {
+        "name": "game_VehicleFuel",
+        "description": "game_VehicleFuel"
+    },
+    "25": {
+        "name": "game_AmmoStartAmount",
+        "description": "Applies change in starting ammo"
+    },
+    "29": {
+        "name": "game_DiverMeleeDamage",
+        "description": "game_DiverMeleeDamage"
+    },
+    "32": {
+        "name": "game_StratagemPermit",
+        "description": "Gives a free stratagem"
+    },
+    "33": {
+        "name": "game_DiverRegen",
+        "description": "game_DiverRegen"
+    },
+    "36": {
+        "name": "game_CooldownTime",
+        "description": "Adjusts stratagems cooldown"
+    },
+    "40": {
+        "name": "game_EnemyDivision",
+        "description": "Adds a special enemy to missions"
+    },
+    "45": {
+        "name": "unk_AdditionalPayout",
+        "description": "unk_AdditionalPayout"
+    },
+    "47": {
+        "name": "war_ImpenetrableDefense",
+        "description": "IMPENETRABLE DEFENSE - The defenses of this planet are so strong that no enemy will be able to invade."
+    },
+    "48": {
+        "name": "war_CrippledAttackSupply",
+        "description": "CRIPPLED SUPPLY - The ability of this planet to attack is crippled."
+    },
+    "49": {
+        "name": "war_AttackIncrease",
+        "description": "ATTACK INCREASE"
+    },
+    "51": {
+        "name": "game_HealthStamina",
+        "description": "changes Health&Stam regen"
+    },
+    "52": {
+        "name": "game_NoHealing",
+        "description": "game_NoHealing"
+    },
+    "54": {
+        "name": "game_IntelScanners",
+        "description": "INTEL SCANNERS - The location of Intel is indicated on the mini-map."
+    },
+    "55": {
+        "name": "game_IntelHostility",
+        "description": "game_IntelHostility"
+    },
+    "56": {
+        "name": "game_AmmoPickupAmount",
+        "description": "Adjusts Ammo & Supply Box pickups"
+    },
+    "59": {
+        "name": "game_MultiplyPayoutBonus",
+        "description": "game_MultiplyPayoutBonus"
+    },
+    "60": {
+        "name": "game_PayoutStandardized",
+        "description": "game_PayoutStandardized"
+    },
+    "61": {
+        "name": "game_StimsStartAmount",
+        "description": "applies change in starting stims amount"
+    },
+    "63": {
+        "name": "game_StimsPickupAmount",
+        "description": "Adjusts Health & Supply Box stim pickups"
+    },
+    "67": {
+        "name": "unk_MarketPriceMult",
+        "description": "MARKET CRASH - Due to the risk of Famine, the market is concerned and prices have gone up 100%."
+    },
+    "68": {
+        "name": "unk_ItemCostByProgress",
+        "description": "modify_item_cost_by_progression_tag"
+    },
+    "69": {
+        "name": "game_ReinforceAmount",
+        "description": "Adjusts the number of starting reinforcements per squad member"
+    },
+    "70": {
+        "name": "map_PlanetBody",
+        "description": "Replaces the planets graphic"
+    },
+    "71": {
+        "name": "map_PlanetToken",
+        "description": "Gives planet a token and description, sometimes places a pawn"
+    },
+    "72": {
+        "name": "game_EnemySpawnWeight",
+        "description": "Adjusts an enemies spawn rate on a planet"
+    },
+    "73": {
+        "name": "map_PlanetCloud",
+        "description": "Adjusts the size of the gloom cloud surrounding the planet"
+    },
+    "74": {
+        "name": "war_RegenRelativePct",
+        "description": "Adjusts the planet's regen"
+    },
+    "75": {
+        "name": "game_MissionIdOverride",
+        "description": "game_MissionIdOverride"
+    },
+    "76": {
+        "name": "map_PlanetHide",
+        "description": "Hides planet from the map"
+    },
+    "77": {
+        "name": "war_RegenOverride",
+        "description": "Adjusts a planet's HP regen"
+    },
+    "78": {
+        "name": "game_GameplayGeneric",
+        "description": "game_GameplayGeneric"
+    },
+    "79": {
+        "name": "game_ThrowableStartCount",
+        "description": "game_ThrowableStartCount"
+    },
+    "80": {
+        "name": "game_StimsAmountMax",
+        "description": "Adjusts the maximum stim amount"
+    },
+    "81": {
+        "name": "game_StratagemDisabled",
+        "description": "game_StratagemDisabled"
+    },
+    "82": {
+        "name": "game_BoosterDisabled",
+        "description": "game_BoosterDisabled"
+    },
+    "83": {
+        "name": "game_BoosterPermit",
+        "description": "Gives a free booster"
+    },
+    "84": {
+        "name": "game_HealthAmountMax",
+        "description": "game_HealthAmountMax"
+    },
+    "85": {
+        "name": "game_WeaponMagCount",
+        "description": "game_WeaponMagCount"
+    },
+    "86": {
+        "name": "game_WeaponAmmoCount",
+        "description": "game_WeaponAmmoCount"
+    },
+    "87": {
+        "name": "game_AttackEffect",
+        "description": "Generates a constant attack during ops (eagles/bombardment)"
+    },
+    "88": {
+        "name": "war_PauseDefense",
+        "description": "Causes the expiretime to increment by 1 * VALUE with wartime (effective pause)"
+    },
+    "89": {
+        "name": "war_PreventAttacking",
+        "description": "Prevents attacks originating from this planet"
+    },
+    "90": {
+        "name": "war_MaxPlanetHP",
+        "description": "Adjusts a planets max HP"
+    },
+    "91": {
+        "name": "game_StratGroupCooldown",
+        "description": "game_StratGroupCooldown"
+    },
+    "92": {
+        "name": "war_Demilitarized",
+        "description": "Prevents attacks against this planet"
+    },
+    "93": {
+        "name": "game_OperationModToggle",
+        "description": "game_operation_modifier_toggle"
+    }
+}

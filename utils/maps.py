@@ -248,7 +248,7 @@ class Maps:
             elif planet.index == 0:
                 se_icon = imread("resources/super_earth.png", IMREAD_UNCHANGED)
                 self.paste_image(background, se_icon, planet.map_waypoints)
-            elif 1240 in planet.active_effects:
+            elif 1240 in [ae.id for ae in planet.active_effects]:
                 circle(
                     background,
                     planet.map_waypoints,
@@ -256,7 +256,9 @@ class Maps:
                     (0, 0, 255, 255),
                     -1,
                 )
-            elif set([1241, 1252]) & planet.active_effects:
+            elif 1241 in [ae.id for ae in planet.active_effects] or 1252 in [
+                ae.id for ae in planet.active_effects
+            ]:
                 frac_planet_icon = imread(
                     "resources/fractured_planet.png", IMREAD_UNCHANGED
                 )

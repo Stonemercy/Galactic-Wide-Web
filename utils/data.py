@@ -49,6 +49,7 @@ class Data(ReprMixin):
         "galactic_impact_mod",
         "sieges",
         "steam_playercount",
+        "galactic_war_effects",
     )
 
     def __init__(self, json_dict: dict) -> None:
@@ -65,6 +66,7 @@ class Data(ReprMixin):
             "status": None,
             "warinfo": None,
             "steam_playercount": None,
+            "galactic_war_effects": None,
         }
         self.loaded: bool = False
         self.liberation_changes: BaseTracker = BaseTracker()
@@ -82,6 +84,7 @@ class Data(ReprMixin):
         self.steam_playercount = 0
         self.gambit_planets = {}
         self.galactic_impact_mod: float = 0.0
+        self.galactic_war_effects: list[GalacticWarEffect] | list = []
         self.global_events: list[GlobalEvent] | list = []
 
     async def pull_from_api(
@@ -151,6 +154,15 @@ class Data(ReprMixin):
                             self.__data__[endpoint] = await r.json()
                         else:
                             logger.error(msg=f"API/WARINFO, {r.status}")
+                    continue
+                elif endpoint == "galactic_war_effects":
+                    async with session.get(
+                        url="https://api.live.prod.thehelldiversgame.com/api/WarSeason/GalacticWarEffects"
+                    ) as r:
+                        if r.status == 200:
+                            self.__data__[endpoint] = await r.json()
+                        else:
+                            logger.error(msg=f"API/GALACTICWAREFFECTS, {r.status}")
                     continue
                 elif endpoint == "steam_playercount":
                     async with session.get(
@@ -337,6 +349,15 @@ class Data(ReprMixin):
                 Steam(raw_steam_data=raw_steam_data)
                 for raw_steam_data in self.__data__["steam"]
             ]
+        if self.__data__["galactic_war_effects"]:
+            self.galactic_war_effects: list[GalacticWarEffect] = sorted(
+                [
+                    GalacticWarEffect(gwa=gwa, json_dict=self.json_dict)
+                    for gwa in self.__data__["galactic_war_effects"]
+                ],
+                key=lambda x: x.id,
+                reverse=True,
+            )
 
         if self.__data__["status"]:
             self.galactic_impact_mod: float = self.__data__["status"][
@@ -382,10 +403,30 @@ class Data(ReprMixin):
 
             for planet_effect in self.__data__["status"]["planetActiveEffects"]:
                 planet = self.planets[planet_effect["index"]]
-                planet.active_effects.add(planet_effect["galacticEffectId"])
+                gwe = [g for g in self.galactic_war_effects if g.id == planet_effect]
+                gwe = gwe[0] if gwe != [] else None
+                if gwe:
+                    planet.active_effects.add(gwe)
             for ge in self.global_events:
+                if ge.effect_ids and not ge.planet_indices:
+                    for planet in self.planets.values():
+                        planet.active_effects |= set(
+                            [
+                                gwe
+                                for gwe in self.galactic_war_effects
+                                if gwe.id in ge.effect_ids
+                            ]
+                        )
+
+                    continue
                 for planet_index in ge.planet_indices:
-                    self.planets[planet_index].active_effects |= set(ge.effect_ids)
+                    self.planets[planet_index].active_effects |= set(
+                        [
+                            gwe
+                            for gwe in self.galactic_war_effects
+                            if gwe.id in ge.effect_ids
+                        ]
+                    )
 
             for planet_attack in self.__data__["status"]["planetAttacks"]:
                 source_planet = self.planets[planet_attack["source"]]
@@ -398,7 +439,7 @@ class Data(ReprMixin):
                 if (
                     campaign.planet.current_owner == "Humans"
                     or len(campaign.planet.defending_from) == 0
-                    or 1190 in campaign.planet.active_effects
+                    or 1190 in [ae.id for ae in campaign.planet.active_effects]
                 ):
                     continue
                 else:
@@ -807,18 +848,13 @@ class Planet(ReprMixin):
         }.get(self.index, None)
         self.dss_in_orbit: bool = False
         self.in_assignment: bool = False
-        self.active_effects: set[int] | set = set()
+        self.active_effects: set[GalacticWarEffect] | set = set()
         self.attack_targets: list[int] | list = []
         self.defending_from: list[int] | list = []
         self.regions: dict[int, Planet.Region] | dict = {}
 
         # BIOME/SECTOR/HAZARDS OVERWRITE #
-        if self.index == 0:
-            self.biome = {
-                "name": "Super Earth",
-                "description": "Super Earth is the blinding beacon that shines the light of democracy through the stars. The sprawling heart that beats in time to mankind's quest of liberation. Here live the wealthy, important and proud. Here live those who have pulled themselves up by their bootstraps and achieved their dreams. Here live the citizens of Super Earth.",
-            }
-        elif self.index == 64:
+        if self.index == 64:
             self.biome = {
                 "name": "Black Hole",
                 "description": "The planet is gone, the ultimate price to pay in the war for humanity's survival.",
@@ -1059,3 +1095,93 @@ class DSS(ReprMixin):
                     cost["maxDonationAmount"],
                     cost["maxDonationPeriodSeconds"],
                 )
+
+
+class GalacticWarEffect(ReprMixin):
+    __slots__ = (
+        "id",
+        "planet_effect",
+        "gameplay_effect_id32",
+        "effect_type",
+        "flags",
+        "values_dict",
+        "count",
+        "percent",
+        "value3",
+        "mix_id",
+        "value5",
+        "DEPRECATED_enemy_group",
+        "DEPRECATED_item_package",
+        "value8",
+        "value9",
+        "reward_multiplier_id",
+        "value11",
+        "item_tag",
+        "hash_id",
+        "planet_body_type",
+        "value15",
+        "resource_hash",
+    )
+
+    def __init__(self, gwa: dict, json_dict) -> None:
+        """Organised data for a galactic war effect"""
+        self.__raw_json__ = gwa.copy()
+        self.id: int = gwa["id"]
+        self.planet_effect: dict | None = json_dict["planet_effects"].get(str(self.id))
+        self.gameplay_effect_id32 = gwa["gameplayEffectId32"]
+        self.effect_type = gwa["effectType"]
+        self.effect_description = json_dict["galactic_war_effects"].get(
+            str(gwa["effectType"]), {"name": "UNKNOWN", "description": ""}
+        )
+        self.flags = gwa["flags"]
+        self.values_dict = dict(zip(gwa["valueTypes"], gwa["values"]))
+        self.count = self.percent = self.value3 = self.mix_id = self.value5 = (
+            self.DEPRECATED_enemy_group
+        ) = self.DEPRECATED_item_package = self.value8 = self.value9 = (
+            self.reward_multiplier_id
+        ) = self.value11 = self.item_tag = self.hash_id = self.planet_body_type = (
+            self.value15
+        ) = self.resource_hash = None
+
+        if count := self.values_dict.get(1):
+            self.count: int | float = count
+        if percent := self.values_dict.get(2):
+            self.percent: int | float = percent
+        if value3 := self.values_dict.get(3):
+            # unknown
+            self.value3 = value3
+        if mix_id := self.values_dict.get(4):
+            self.mix_id: int = mix_id
+        if value5 := self.values_dict.get(5):
+            self.value5 = value5
+            print(f"VALUE5 USED: {self.id} {self.value5 = }")
+        if DEPRECATED_enemy_group := self.values_dict.get(6):
+            self.DEPRECATED_enemy_group = DEPRECATED_enemy_group
+        if DEPRECATED_item_package := self.values_dict.get(7):
+            self.DEPRECATED_item_package = DEPRECATED_item_package
+        if value8 := self.values_dict.get(8):
+            self.value8 = value8
+            print(f"VALUE8 USED: {self.id} {self.value8 = }")
+        if value9 := self.values_dict.get(9):
+            self.value9 = value9
+            print(f"VALUE9 USED: {self.id} {self.value9 = }")
+        if reward_multiplier_id := self.values_dict.get(10):
+            # refer to: /api/Mission/RewardEntries
+            self.reward_multiplier_id = reward_multiplier_id
+        if value11 := self.values_dict.get(11):
+            self.value11 = value11
+            print(f"VALUE11 USED: {self.id} {self.value11 = }")
+        if item_tag := self.values_dict.get(12):
+            # or item group; gets used in /Progression/Items
+            self.item_tag = item_tag
+        if hash_id := self.values_dict.get(13):
+            self.hash_id = hash_id
+        if planet_body_type := self.values_dict.get(14):
+            # BlackHole = 1, UNKNOWN = 2
+            self.planet_body_type = planet_body_type
+        if value15 := self.values_dict.get(15):
+            # might be a boolean flag, only used with game_OperationModToggle so far
+            self.value15 = value15
+        if resource_hash := self.values_dict.get(16):
+            # murmur2 resource hash
+            self.resource_hash = resource_hash

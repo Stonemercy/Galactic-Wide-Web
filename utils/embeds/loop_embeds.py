@@ -99,31 +99,17 @@ class APIChangesLoopEmbed(Embed, EmbedReprMixin):
                         effect for effect in change.after if effect not in change.before
                     ]
                     for effect in removed_effects:
-                        if type(effect) == dict:
-                            self.add_field(
-                                f"{faction_emoji} {change.planet.name} Removed effect",
-                                f"**{effect['name']}**\n-# {effect['description']}",
-                                inline=False,
-                            )
-                        else:
-                            self.add_field(
-                                f"{faction_emoji} {change.planet.name} Removed effect",
-                                effect,
-                                inline=False,
-                            )
+                        self.add_field(
+                            f"{faction_emoji} {change.planet.name} Removed effect",
+                            f"**{effect.id}**\n-# {effect.planet_effect}",
+                            inline=False,
+                        )
                     for effect in new_effects:
-                        if type(effect) == dict:
-                            self.add_field(
-                                f"{faction_emoji} {change.planet.name} New effect",
-                                f"**{effect['name']}**\n-# {effect['description']}",
-                                inline=False,
-                            )
-                        else:
-                            self.add_field(
-                                f"{faction_emoji} {change.planet.name} New effect",
-                                effect,
-                                inline=False,
-                            )
+                        self.add_field(
+                            f"{faction_emoji} {change.planet.name} New effect",
+                            f"**{effect.id}**\n-# {effect.planet_effect}",
+                            inline=False,
+                        )
                 case "Galactic Impact Mod":
                     self.add_field(
                         "Big jump in the Galactic Impact Modifier :warning:",

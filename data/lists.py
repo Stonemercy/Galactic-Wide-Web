@@ -152,6 +152,10 @@ json_dict = {
         "terminids": {"path": "data/json_custom/enemies/terminids.json", "value": None},
     },
     "planet_effects": {"path": "data/json/effects/planetEffects.json", "value": None},
+    "galactic_war_effects": {
+        "path": "data/json/effects/galactic_war_effects/effect_types.json",
+        "value": None,
+    },
 }
 
 faction_colours = {
@@ -492,11 +496,9 @@ class SpecialUnits:
     }
 
     @classmethod
-    def get_from_effects_list(
-        cls, active_effects: set[int]
-    ) -> set | set[tuple[str, str]]:
+    def get_from_effects_list(cls, active_effects: set) -> set | set[tuple[str, str]]:
         special_units = set()
         for unit_info, required_codes in cls.unit_codes_map.items():
-            if required_codes.issubset(active_effects):
+            if required_codes.issubset(set([ae.id for ae in active_effects])):
                 special_units.add(unit_info)
         return special_units
