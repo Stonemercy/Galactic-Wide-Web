@@ -6,10 +6,14 @@ class ReprMixin:
 
     def __repr__(object):
         if object.__dict__:
-            items = (f"{k} = {v}" for k, v in object.__dict__.items())
-        elif object.__slots__:
-            items = (f"{slot} = {getattr(object, slot)}" for slot in object.__slots__)
-        return f"<{object.__class__.__name__}: {{{', '.join(items)}}}>"
+            items = (f"    {k} = {v!r}" for k, v in object.__dict__.items())
+        if hasattr(object, "__slots__"):
+            items = (
+                f"    {slot} = {getattr(object, slot)!r}" for slot in object.__slots__
+            )
+        else:
+            items = []
+        return f"<{object.__class__.__name__}:\n" + "\n".join(items) + "\n>"
 
 
 class EmbedReprMixin:
