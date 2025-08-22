@@ -37,6 +37,7 @@ class PlanetCommandEmbed(Embed, EmbedReprMixin):
         self.add_hero_stats(planet=planet, language_json=language_json)
         self.add_field(name="", value="", inline=False)
         self.add_misc_stats(planet=planet, language_json=language_json)
+        self.set_footer(text=planet.index)
 
     def add_planet_info(
         self,
@@ -255,7 +256,7 @@ class PlanetCommandRegionEmbed(Embed, EmbedReprMixin):
         for region in planet.regions.values():
             region_emojis = getattr(Emojis.RegionIcons, region.owner)
             level_emoji = getattr(region_emojis, f"_{region.size}")
-            description = f"{level_emoji} **{region.size}*** {region.type}"
+            description = f"{level_emoji} **{region.type}**"
             if region.description:
                 description += f"\n-# {region.description}"
             if region.is_available:
