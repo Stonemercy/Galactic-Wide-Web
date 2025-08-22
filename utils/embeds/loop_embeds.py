@@ -139,6 +139,8 @@ class BotDashboardLoopEmbed(Embed, EmbedReprMixin):
         )
         commands = ""
         for global_command in sorted(bot.global_slash_commands, key=lambda sc: sc.name):
+            if global_command.name == "gwe":
+                continue
             for option in global_command.options:
                 if option.type == OptionType.sub_command:
                     commands += (
