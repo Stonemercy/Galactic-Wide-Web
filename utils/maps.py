@@ -298,8 +298,8 @@ class Maps:
                         background,
                         su_icon,
                         planet.map_waypoints,
-                        x_offset=20 + offset,
-                        y_offset=-20,
+                        x_offset=32 + offset,
+                        y_offset=-50,
                     )
                     offset += 32
         imwrite(Maps.FileLocations.planets_map, background)
