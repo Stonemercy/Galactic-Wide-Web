@@ -230,7 +230,7 @@ class Maps:
                     radius=12,
                 )
             if index == 64:
-                for i in range(PLANET_RADIUS, PLANET_RADIUS - 6, -1):
+                for i in range(PLANET_RADIUS, PLANET_RADIUS - 4, -1):
                     circle(
                         background,
                         planet.map_waypoints,
