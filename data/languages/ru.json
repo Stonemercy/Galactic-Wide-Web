@@ -46,7 +46,8 @@
             "preparing": "Готовится к использованию",
             "active": "Активно",
             "on_cooldown": "На перезарядке",
-            "off_cooldown": "Перезаряжено"
+            "off_cooldown": "Перезаряжено",
+            "inactive": "Inactive"
         },
         "DefenceEmbed": {
             "title": "Оборона",

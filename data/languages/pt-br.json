@@ -46,7 +46,8 @@
             "preparing": "Preparando",
             "active": "Ativo",
             "on_cooldown": "Em cooldown",
-            "off_cooldown": "Fora do cooldown"
+            "off_cooldown": "Fora do cooldown",
+            "inactive": "Inactive"
         },
         "DefenceEmbed": {
             "title": "Defendendo",

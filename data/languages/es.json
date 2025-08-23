@@ -46,7 +46,8 @@
             "preparing": "Preparando",
             "active": "Activo",
             "on_cooldown": "En enfriamiento",
-            "off_cooldown": "Enfriado"
+            "off_cooldown": "Enfriado",
+            "inactive": "Inactive"
         },
         "DefenceEmbed": {
             "title": "Defendiendo",

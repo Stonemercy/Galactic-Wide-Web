@@ -46,7 +46,8 @@
             "preparing": "Vorbereitung",
             "active": "Aktiv",
             "on_cooldown": "Abklingzeit",
-            "off_cooldown": "Keine abklingzeit"
+            "off_cooldown": "Keine abklingzeit",
+            "inactive": "Inactive"
         },
         "DefenceEmbed": {
             "title": "Verteidigung",
