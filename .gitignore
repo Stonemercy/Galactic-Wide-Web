@@ -4,7 +4,11 @@
 *.code-workspace
 .vscode/
 resources/*.webp
-resources/Emojis
+resources/Emojis/Regions
+resources/Emojis/Platforms
+resources/Emojis/Weather
+resources/Emojis/Wiki
+resources/Emojis/Major Order Tasks
 resources/dss.jpg
 resources/!old_Emojis
 resources/warbonds
