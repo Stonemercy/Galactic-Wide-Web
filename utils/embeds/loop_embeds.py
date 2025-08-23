@@ -93,15 +93,19 @@ class APIChangesLoopEmbed(Embed, EmbedReprMixin):
                     )
                 case "Effects":
                     removed_effects = [
-                        effect for effect in change.before if effect not in change.after
+                        effect
+                        for effect in change.before
+                        if effect.id not in [e.id for e in change.after]
                     ]
                     new_effects = [
-                        effect for effect in change.after if effect not in change.before
+                        effect
+                        for effect in change.after
+                        if effect.id not in [e.id for e in change.before]
                     ]
                     for effect in removed_effects:
                         self.add_field(
                             f"{faction_emoji} {change.planet.name} Removed effect",
-                            f"**{effect.id}**\n-# {effect.planet_effect}",
+                            f"**{effect.id}** - {effect.planet_effect['name']}\n-# {effect.planet_effect['description']}",
                             inline=False,
                         )
                     for effect in new_effects:
