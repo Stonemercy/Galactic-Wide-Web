@@ -286,22 +286,22 @@ class Maps:
                     colour,
                     -1,
                 )
+        for planet in [p for p in planets.values() if p.index in active_planets]:
             offset = 0
-            if index in active_planets:
-                for su in SpecialUnits.get_from_effects_list(planet.active_effects):
-                    su_icon = imread(
-                        f"resources/Emojis/Planet Effects/{su[0].title()}.png",
-                        IMREAD_UNCHANGED,
-                    )
-                    su_icon = resize(su_icon, (32, 32))
-                    self.paste_image(
-                        background,
-                        su_icon,
-                        planet.map_waypoints,
-                        x_offset=32 + offset,
-                        y_offset=-50,
-                    )
-                    offset += 32
+            for su in SpecialUnits.get_from_effects_list(planet.active_effects):
+                su_icon = imread(
+                    f"resources/Emojis/Planet Effects/{su[0].title()}.png",
+                    IMREAD_UNCHANGED,
+                )
+                su_icon = resize(su_icon, (32, 32))
+                self.paste_image(
+                    background,
+                    su_icon,
+                    planet.map_waypoints,
+                    x_offset=32 + offset,
+                    y_offset=-50,
+                )
+                offset += 32
         imwrite(Maps.FileLocations.planets_map, background)
 
     def update_dss(self, dss: DSS, type_3_campaigns: list[Campaign]) -> None:
