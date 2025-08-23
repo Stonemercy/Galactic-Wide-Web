@@ -269,7 +269,7 @@ class WarUpdatesCog(commands.Cog):
                 dss_updates = True
             for ta in self.bot.data.dss.tactical_actions:
                 old_status = last_dss_info.tactical_action_statuses.get(ta.id)
-                if not old_status or old_status != ta.status:
+                if old_status == None or old_status != ta.status:
                     for embed_list in embeds.values():
                         embed_list[0].ta_status_changed(ta)
                         last_dss_info.tactical_action_statuses[ta.id] = ta.status
