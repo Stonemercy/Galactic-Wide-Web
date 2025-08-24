@@ -1064,7 +1064,6 @@ class Dashboard:
                             ).total_seconds()
                         )
                     if win_time < planet.event.end_time_datetime:
-                        print(win_time, planet.event.end_time_datetime)
                         outlook_text = f"\n{self.language_json['dashboard']['outlook'].format(outlook=self.language_json['victory'])} <t:{int(win_time.timestamp())}:R>"
                     else:
                         if (
