@@ -438,21 +438,20 @@ class Data(ReprMixin):
                 target_planet.defending_from.append(source_planet.index)
 
             self.gambit_planets.clear()
-            for campaign in self.campaigns:
-                if (
-                    campaign.planet.current_owner == "Humans"
-                    or len(campaign.planet.defending_from) == 0
-                    or 1190 in [ae.id for ae in campaign.planet.active_effects]
-                ):
-                    continue
-                else:
-                    for defending_index in campaign.planet.attack_targets:
-                        defending_planet = self.planets[defending_index]
-                        if (
-                            len(defending_planet.defending_from) == 1
-                            and defending_planet.event
-                        ):
-                            self.gambit_planets[defending_index] = campaign.planet
+            for campaign in [
+                c
+                for c in self.campaigns
+                if c.planet.current_owner != "Humans"
+                or len(c.planet.defending_from) != 0
+                or 1190 not in [ae.id for ae in c.planet.active_effects]
+            ]:
+                for defending_index in campaign.planet.attack_targets:
+                    defending_planet = self.planets[defending_index]
+                    if (
+                        len(defending_planet.defending_from) == 1
+                        and defending_planet.event
+                    ):
+                        self.gambit_planets[defending_index] = campaign.planet
 
         if self.__data__["warinfo"]:
             if not self.__data__["warinfo"].get("planetRegions") or not self.__data__[
