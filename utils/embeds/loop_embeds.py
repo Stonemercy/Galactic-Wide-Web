@@ -111,7 +111,7 @@ class APIChangesLoopEmbed(Embed, EmbedReprMixin):
                     for effect in new_effects:
                         self.add_field(
                             f"{faction_emoji} {change.planet.name} New effect",
-                            f"**{effect.id}**\n-# {effect.planet_effect}",
+                            f"**{effect.id}** - {effect.planet_effect['name']}\n-# {effect.planet_effect['description']}",
                             inline=False,
                         )
                 case "Galactic Impact Mod":
