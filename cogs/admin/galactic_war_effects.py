@@ -1,13 +1,8 @@
-from disnake import AppCmdInter, ApplicationInstallTypes, Embed, InteractionContextTypes
+from disnake import AppCmdInter, ApplicationInstallTypes, InteractionContextTypes
 from disnake.ext import commands
 from main import GalacticWideWebBot
-from os import getenv
-from utils.checks import wait_for_startup
-from data.lists import stratagem_id_dict
+from utils.checks import is_whitelisted, wait_for_startup
 from utils.embeds.command_embeds import GalacticWarEffectEmbed
-
-
-SUPPORT_SERVER_ID = [int(getenv("SUPPORT_SERVER"))]
 
 
 class GWECog(commands.Cog):
@@ -29,7 +24,7 @@ class GWECog(commands.Cog):
         ][:25]
 
     @wait_for_startup()
-    @commands.is_owner()
+    @is_whitelisted()
     @commands.slash_command(
         description="Check a galactic effect",
         install_types=ApplicationInstallTypes.all(),

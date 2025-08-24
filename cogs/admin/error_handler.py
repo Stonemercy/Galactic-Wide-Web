@@ -16,13 +16,13 @@ class ErrorHandlerCog(commands.Cog):
     ):
         if hasattr(inter.application_command, "on_error"):
             return
-        if isinstance(error, commands.NotOwner):
+        elif isinstance(error, commands.NotOwner):
             await inter.send(
                 content=f"You are not allowed to use this command.",
                 ephemeral=True,
             )
             return
-        if isinstance(error, commands.CheckFailure):
+        elif isinstance(error, commands.CheckFailure):
             if (
                 inter.created_at.replace(tzinfo=None) + timedelta(hours=1)
                 < self.bot.ready_time
