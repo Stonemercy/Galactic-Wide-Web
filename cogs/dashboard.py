@@ -41,8 +41,8 @@ class DashboardCog(commands.Cog):
             )
             for lang in unique_langs
         }
-        compact_level = 0
         for lang, dashboard in dashboards.copy().items():
+            compact_level = 0
             while dashboard.character_count() > 6000 and compact_level < 2:
                 compact_level += 1
                 dashboards[lang] = Dashboard(

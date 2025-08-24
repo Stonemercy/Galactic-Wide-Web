@@ -114,7 +114,7 @@ class InterfaceHandler:
             guild.update_features()
             guild.save_changes()
             return self.bot.logger.error(
-                f"edit_dashboard | {e} | reset in DB | {guild.guild_id = }"
+                f"edit_dashboard | {guild.language} | {e} | reset in DB | {guild.guild_id = }"
             )
         except Exception as e:
             return self.bot.logger.error(
