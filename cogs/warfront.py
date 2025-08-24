@@ -85,6 +85,7 @@ class WarfrontCog(commands.Cog):
                 if planet.event.faction == faction
             ],
             liberation_changes=self.bot.data.liberation_changes,
+            region_lib_changes=self.bot.data.region_changes,
             language_json=guild_language,
             planet_names=self.bot.json_dict["planets"],
             total_players=self.bot.data.total_players,

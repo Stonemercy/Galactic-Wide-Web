@@ -75,6 +75,7 @@ class Dashboard:
                 self.DefenceEmbed(
                     planet_events=data.planet_events,
                     liberation_changes=data.liberation_changes,
+                    region_lib_changes=data.region_changes,
                     language_json=language_json,
                     planet_names=json_dict["planets"],
                     total_players=data.total_players,
@@ -971,6 +972,7 @@ class Dashboard:
             self,
             planet_events: list[Planet],
             liberation_changes: BaseTracker,
+            region_lib_changes: BaseTracker,
             language_json: dict,
             planet_names: dict,
             total_players: int,
@@ -982,6 +984,7 @@ class Dashboard:
             self.language_json = language_json
             self.eagle_storm = eagle_storm
             self.liberation_changes = liberation_changes
+            self.region_lib_changes = region_lib_changes
             self.gambit_planets = gambit_planets
             self.total_players = total_players
             self.full_size = full_size
@@ -1017,58 +1020,73 @@ class Dashboard:
             required_players = ""
             liberation_text = ""
             regions_text = ""
-            if liberation_change := self.liberation_changes.get_entry(planet.index):
+            now_seconds = int(self.now.timestamp())
+            if (
+                liberation_change := self.liberation_changes.get_entry(planet.index)
+            ) and self.full_size:
+
                 if planet.index in self.gambit_planets:
                     gambit_planet = self.gambit_planets[planet.index]
                     gambit_lib_change = self.liberation_changes.get_entry(
                         gambit_planet.index
                     )
                 if liberation_change.change_rate_per_hour != 0:
-                    now_seconds = int(self.now.timestamp())
-                    if (
-                        planet.index in self.gambit_planets
-                        and gambit_lib_change.change_rate_per_hour != 0
-                    ):
-                        seconds_until_gambit_complete = int(
-                            (
-                                (100 - gambit_lib_change.value)
-                                / gambit_lib_change.change_rate_per_hour
-                            )
-                            * 3600
-                        )
                     win_time = planet.event.end_time_datetime
+                    amount_to_reduce_by = 0.0
+                    for region in planet.regions.values():
+                        region_lib_change = self.region_lib_changes.get_entry(
+                            region.settings_hash
+                        )
+                        if (
+                            region_lib_change
+                            and region_lib_change.change_rate_per_hour > 0
+                        ):
+                            region_lib_time = (
+                                now_seconds + region_lib_change.seconds_until_complete
+                            )
+                            if (
+                                region_lib_time
+                                < planet.event.end_time_datetime.timestamp()
+                            ):
+                                amount_to_reduce_by += (
+                                    region.max_health * 1.5
+                                ) / planet.event.max_health
+                    if amount_to_reduce_by != 0.0:
+                        win_time = datetime.fromtimestamp(
+                            now_seconds
+                            + liberation_change.seconds_until(1 - amount_to_reduce_by)
+                        )
+
                     if planet.dss_in_orbit and self.eagle_storm.status == 2:
                         win_time += timedelta(
                             seconds=(
                                 self.eagle_storm.status_end_datetime - self.now
                             ).total_seconds()
                         )
-                    winning = (
-                        datetime.fromtimestamp(
-                            now_seconds + liberation_change.seconds_until_complete
-                        )
-                        < win_time
-                    )
-                    if winning:
-                        outlook_text = f"\n{self.language_json['dashboard']['outlook'].format(outlook=self.language_json['victory'])} <t:{now_seconds + liberation_change.seconds_until_complete}:R>"
+                    if win_time < planet.event.end_time_datetime:
+                        print(win_time, planet.event.end_time_datetime)
+                        outlook_text = f"\n{self.language_json['dashboard']['outlook'].format(outlook=self.language_json['victory'])} <t:{int(win_time.timestamp())}:R>"
                     else:
                         if (
                             planet.index in self.gambit_planets
                             and gambit_lib_change.change_rate_per_hour > 0
                             and datetime.fromtimestamp(
-                                now_seconds + seconds_until_gambit_complete
+                                now_seconds + gambit_lib_change.seconds_until_complete
                             )
                             < win_time
                         ):
-                            outlook_text = f"\n{self.language_json['dashboard']['outlook'].format(outlook=self.language_json['victory'])} <t:{now_seconds + seconds_until_gambit_complete}:R>"
+                            outlook_text = f"\n{self.language_json['dashboard']['outlook'].format(outlook=self.language_json['victory'])} <t:{now_seconds + gambit_lib_change.seconds_until_complete}:R>"
                             outlook_text += f"\n> -# {self.language_json['dashboard']['DefenceEmbed']['thanks_to_gambit'].format(planet=gambit_planet.name)}"
-                        else:
+                        if outlook_text == "":
                             outlook_text = f"\n{self.language_json['dashboard']['outlook'].format(outlook=self.language_json['defeat'])}"
                             if planet.index in self.gambit_planets:
                                 outlook_text += f"\n> -# {self.language_json['dashboard']['DefenceEmbed']['gambit_available'].format(planet=gambit_planet.name)}"
                     change = f"{liberation_change.change_rate_per_hour:+.2%}/hour"
                     liberation_text = f"\n`{change:^25}`"
-                    if planet.event.required_players:
+                    if (
+                        self.language_json["victory"] not in outlook_text
+                        and planet.event.required_players
+                    ):
                         if 0 < planet.event.required_players < 2.5 * self.total_players:
                             required_players = f"\n{self.language_json['dashboard']['DefenceEmbed']['players_required']}: **~{planet.event.required_players:,.0f}+**"
                         else:
@@ -1079,8 +1097,46 @@ class Dashboard:
                                 required_players = f"\n{self.language_json['dashboard']['DefenceEmbed']['players_required']}: {self.language_json['dashboard']['DefenceEmbed']['impossible']}"
             for region in planet.regions.values():
                 if region.is_available:
-                    regions_text += f"\n-# ↳ {getattr(getattr(Emojis.RegionIcons, region.owner), f'_{region.size}')} {region.type} **{region.name}** - {region.perc:.2%}"
-            if planet.feature:
+                    region_lib_change_text = ""
+                    if self.full_size:
+                        region_lib_change = self.region_lib_changes.get_entry(
+                            region.settings_hash
+                        )
+                        region_lib_change_text = (
+                            f"{region_lib_change.change_rate_per_hour:+.0%}/hr"
+                        )
+                    regions_text += f"\n-# ↳ {getattr(getattr(Emojis.RegionIcons, region.owner), f'_{region.size}')} {region.type} **{region.name}** - {region.perc:.0%} {region_lib_change_text}"
+                else:
+                    if (
+                        region.availability_factor > planet.event.progress
+                        and self.full_size
+                    ):
+                        current_percentage = (
+                            now_seconds - planet.event.start_time_datetime.timestamp()
+                        ) / (
+                            planet.event.end_time_datetime.timestamp()
+                            - planet.event.start_time_datetime.timestamp()
+                        )
+                        region_avail_timestamp = int(
+                            now_seconds
+                            + (
+                                (
+                                    (region.availability_factor - current_percentage)
+                                    / (1 - current_percentage)
+                                )
+                                * (
+                                    planet.event.end_time_datetime.timestamp()
+                                    - now_seconds
+                                )
+                            )
+                        )
+                        if (
+                            region_avail_timestamp
+                            < now_seconds + liberation_change.seconds_until_complete
+                        ):
+                            regions_text += f"\n-# ↳ {getattr(getattr(Emojis.RegionIcons, region.owner), f'_{region.size}')} {region.type} **{region.name}** - available <t:{region_avail_timestamp}:R>"
+                            break
+            if planet.feature and self.full_size:
                 feature_text += f"{self.language_json['dashboard']['DefenceEmbed']['feature']}: **{planet.feature}**"
             event_end_datetime = (
                 planet.event.end_time_datetime
@@ -1098,13 +1154,12 @@ class Dashboard:
                     time_remaining += self.language_json["dashboard"]["DefenceEmbed"][
                         "defence_held_by_dss"
                     ]
+            event_health_bar = ""
             if self.full_size:
                 event_health_bar = f"\n{planet.event.health_bar}"
-            else:
-                event_health_bar = ""
             player_count = f'**{planet.stats["playerCount"]:,}**'
             self.add_field(
-                f"{getattr(Emojis.Factions, planet.event.faction.lower())} - __**{self.planet_names[str(planet.index)]['names'][self.language_json['code_long']]}**__ {planet.exclamations}",
+                f"__**{self.planet_names[str(planet.index)]['names'][self.language_json['code_long']]}**__ {planet.exclamations}",
                 (
                     f"{feature_text}"
                     f"\n{self.language_json['ends']} {time_remaining}"

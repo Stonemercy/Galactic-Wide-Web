@@ -951,7 +951,7 @@ class Planet(ReprMixin):
             self.health: int = raw_planet_region_data["maxHealth"]
             self.max_health: int = raw_planet_region_data["maxHealth"]
             self.regen_per_sec: int = 0
-            self.availability_factor: int = 0
+            self.availability_factor: float = 0.0
             self.is_available: bool = False
             self.players: int = 0
             self.size: int = raw_planet_region_data["regionSize"] + 1
@@ -976,7 +976,9 @@ class Planet(ReprMixin):
             self.regen_per_sec: int = raw_planet_region_data.get(
                 "regenPerSecond"
             ) or raw_planet_region_data.get("regerPerSecond")
-            self.availability_factor: int = raw_planet_region_data["availabilityFactor"]
+            self.availability_factor: float = (
+                1 - raw_planet_region_data["availabilityFactor"]
+            )
             self.is_available: bool = raw_planet_region_data["isAvailable"]
             self.players: int = raw_planet_region_data["players"]
             self.is_updated: bool = True

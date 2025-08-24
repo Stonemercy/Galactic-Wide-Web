@@ -32,6 +32,14 @@ class BaseTrackerEntry(ReprMixin):
             return abs(int(((self.value) / rate) * 3600))
         return 0
 
+    def seconds_until(self, percentage: float) -> int:
+        rate: int | float = self.change_rate_per_hour
+        if rate > 0:
+            return int(((percentage - self.value) / rate) * 3600)
+        elif rate < 0:
+            return abs(int(((self.value) / rate) * 3600))
+        return 0
+
 
 class BaseTracker(ReprMixin):
     def __init__(self) -> None:
