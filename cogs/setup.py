@@ -434,16 +434,18 @@ class SetupCog(commands.Cog):
                 return
             else:
                 dashboard = Dashboard(
-                    self.bot.data,
-                    guild.language,
-                    self.bot.json_dict,
+                    data=self.bot.data,
+                    language_code=guild.language,
+                    json_dict=self.bot.json_dict,
                 )
-                if dashboard.character_count() > 6000:
+                compact_level = 0
+                while dashboard.character_count() > 6000 and compact_level < 2:
+                    compact_level += 1
                     dashboard = Dashboard(
-                        self.bot.data,
-                        guild.language,
-                        self.bot.json_dict,
-                        full_size=False,
+                        data=self.bot.data,
+                        language_code=guild.language,
+                        json_dict=self.bot.json_dict,
+                        compact_level=compact_level,
                     )
                 try:
                     message = await dashboard_channel.send(

@@ -26,7 +26,7 @@ class Dashboard:
         data: Data,
         language_code: str,
         json_dict: dict,
-        full_size: bool = True,
+        compact_level: int = 0,
     ):
         language_json = json_dict["languages"][language_code]
         self.embeds: list[Embed] = []
@@ -42,7 +42,7 @@ class Dashboard:
                         mo_task_tracker=data.major_order_changes,
                         language_json=language_json,
                         json_dict=json_dict,
-                        full_size=full_size,
+                        compact_level=compact_level,
                     )
                 )
         else:
@@ -54,7 +54,7 @@ class Dashboard:
                     mo_task_tracker=None,
                     language_json=language_json,
                     json_dict=None,
-                    full_size=False,
+                    compact_level=False,
                 )
             )
 
@@ -80,8 +80,8 @@ class Dashboard:
                     planet_names=json_dict["planets"],
                     total_players=data.total_players,
                     eagle_storm=eagle_storm,
-                    full_size=full_size,
                     gambit_planets=data.gambit_planets,
+                    compact_level=compact_level,
                 )
             )
 
@@ -100,7 +100,7 @@ class Dashboard:
                 faction="Illuminate",
                 total_players=data.total_players,
                 gambit_planets=data.gambit_planets,
-                full_size=full_size,
+                compact_level=compact_level,
             )
         )
         self.embeds.append(
@@ -117,7 +117,7 @@ class Dashboard:
                 faction="Automaton",
                 total_players=data.total_players,
                 gambit_planets=data.gambit_planets,
-                full_size=full_size,
+                compact_level=compact_level,
             )
         )
         self.embeds.append(
@@ -134,7 +134,7 @@ class Dashboard:
                 faction="Terminids",
                 total_players=data.total_players,
                 gambit_planets=data.gambit_planets,
-                full_size=full_size,
+                compact_level=compact_level,
             )
         )
         self.embeds.append(
@@ -154,7 +154,7 @@ class Dashboard:
                 embed.set_image("https://i.imgur.com/cThNy4f.png")
         embeds_to_skip = (self.DSSEmbed,)
 
-        if self.character_count() > 5900 or not full_size:
+        if self.character_count() > 5900 or compact_level > 0:
             self.embeds = [
                 embed
                 for embed in self.embeds.copy()
@@ -187,9 +187,9 @@ class Dashboard:
             mo_task_tracker: BaseTracker,
             language_json: dict,
             json_dict: dict,
-            full_size: bool,
+            compact_level: int = 0,
         ):
-            self.full_size = full_size
+            self.compact_level = compact_level
             self.assignment = assignment
             self.completion_timestamps = []
             super().__init__(
@@ -219,7 +219,7 @@ class Dashboard:
                 )
                 if image_link:
                     self.set_thumbnail(url=image_link)
-                if self.full_size:
+                if self.compact_level < 2:
                     self.add_description(
                         assignment=assignment, language_json=language_json
                     )
@@ -428,7 +428,7 @@ class Dashboard:
             field_value = ""
             if task.progress_perc != 1:
                 field_value += f"{language_json['dashboard']['progress']}: **{task.progress:,.0f}**"
-                if self.full_size:
+                if self.compact_level < 1:
                     field_value += f"\n{task.health_bar}"
                 field_value += f"\n`{(task.progress_perc):^25,.2%}`"
                 if tracker and tracker.change_rate_per_hour != 0:
@@ -499,7 +499,7 @@ class Dashboard:
             field_value = ""
             if task.progress_perc != 1:
                 field_value += f"{language_json['dashboard']['progress']}: **{(task.progress):,.0f}**"
-                if self.full_size:
+                if self.compact_level < 1:
                     field_value += f"\n{task.health_bar}"
                 field_value += f"\n`{(task.progress_perc):^25,.2%}`"
                 if tracker and tracker.change_rate_per_hour != 0:
@@ -544,7 +544,7 @@ class Dashboard:
             field_value = ""
             if task.progress_perc != 1:
                 field_value += f"{language_json['dashboard']['progress']}: **{(task.progress):,.0f}**"
-                if self.full_size:
+                if self.compact_level < 1:
                     field_value += f"\n{task.health_bar}"
                 field_value += f"\n`{(task.progress_perc):^25,.2%}`"
                 if tracker and tracker.change_rate_per_hour != 0:
@@ -605,7 +605,7 @@ class Dashboard:
             field_value = ""
             if task.progress_perc != 1:
                 field_value += f"{language_json['dashboard']['progress']}: **{(task.progress):,.0f}**\n"
-                if self.full_size:
+                if self.compact_level < 1:
                     field_value += f"\n{task.health_bar}\n"
                 field_value += f"\n`{(task.progress_perc):^25,.2%}`"
                 if tracker and tracker.change_rate_per_hour != 0:
@@ -674,7 +674,7 @@ class Dashboard:
                     else:
                         field_value += f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['defeat'])}"
                     field_value += f"\n{language_json['dashboard']['progress']}:"
-                    if self.full_size:
+                    if self.compact_level < 1:
                         field_value += f"\n{planet.event.health_bar}"
                     field_value += f"\n`{(1-planet.event.progress):^25,.2%}`"
                 else:
@@ -684,7 +684,7 @@ class Dashboard:
                     ):
                         field_value += f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['victory'])} <t:{now_seconds + planet_lib_changes.seconds_until_complete}:R>"
                     field_value += f"\n{language_json['dashboard']['progress']}:"
-                    if self.full_size:
+                    if self.compact_level < 1:
                         field_value += f"\n{health_bar(planet.health_perc, 'Humans', True, empty_colour=planet.current_owner)}"
                     field_value += f"\n`{(1-planet.health_perc):^25,.2%}`"
                 if planet_lib_changes and planet_lib_changes.change_rate_per_hour > 0:
@@ -750,7 +750,7 @@ class Dashboard:
                         else:
                             field_value += f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['defeat'])}"
                         field_value += f"\n{language_json['dashboard']['progress']}:"
-                        if self.full_size:
+                        if self.compact_level < 1:
                             field_value += f"\n{planet.event.health_bar} 🛡️"
                         field_value += f"\n`{planet.event.progress:^25,.2%}`"
                         change = f"{planet_lib_changes.change_rate_per_hour:+.2%}/hour"
@@ -822,7 +822,7 @@ class Dashboard:
                         if planet.event.required_players != 0:
                             field_value += f"\n{language_json['dashboard']['DefenceEmbed']['players_required']}: **~{planet.event.required_players:,.0f}+**"
                         field_value += f"\n{language_json['dashboard']['progress']}:"
-                        if self.full_size:
+                        if self.compact_level < 1:
                             field_value += f"\n{planet.event.health_bar} 🛡️"
                     field_value += f"\n`{planet.event.progress:^25,.2%}`"
                     if (
@@ -841,7 +841,7 @@ class Dashboard:
                             now_seconds = int(datetime.now().timestamp())
                             field_value += f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['victory'])} <t:{now_seconds + planet_lib_changes.seconds_until_complete}:R>"
                         field_value += f"\n{language_json['dashboard']['progress']}:\n"
-                        if self.full_size:
+                        if self.compact_level < 1:
                             field_value += f"{health_bar(perc=planet.health_perc, race=planet.current_owner, reverse=True)}"
                         if (
                             planet_lib_changes
@@ -873,7 +873,7 @@ class Dashboard:
             if task.progress_perc != 1:
                 clamped_progress = max(min(task.progress, 5), -5)
                 percent = (clamped_progress + 5) / 10
-                if self.full_size:
+                if self.compact_level < 1:
                     field_value += health_bar(
                         perc=percent,
                         race="Automaton" if task.progress_perc != 1 else "Humans",
@@ -977,8 +977,8 @@ class Dashboard:
             planet_names: dict,
             total_players: int,
             eagle_storm: DSS.TacticalAction | None,
-            full_size: bool,
             gambit_planets: dict[int, Planet],
+            compact_level: int = 0,
         ):
             self.planet_names = planet_names
             self.language_json = language_json
@@ -987,7 +987,7 @@ class Dashboard:
             self.region_lib_changes = region_lib_changes
             self.gambit_planets = gambit_planets
             self.total_players = total_players
-            self.full_size = full_size
+            self.compact_level = compact_level
             self.now = datetime.now()
             total_players_doing_defence = (
                 sum(planet.stats["playerCount"] for planet in planet_events)
@@ -1023,7 +1023,7 @@ class Dashboard:
             now_seconds = int(self.now.timestamp())
             if (
                 liberation_change := self.liberation_changes.get_entry(planet.index)
-            ) and self.full_size:
+            ) and self.compact_level < 2:
 
                 if planet.index in self.gambit_planets:
                     gambit_planet = self.gambit_planets[planet.index]
@@ -1097,7 +1097,7 @@ class Dashboard:
             for region in planet.regions.values():
                 if region.is_available:
                     region_lib_change_text = ""
-                    if self.full_size:
+                    if self.compact_level < 2:
                         region_lib_change = self.region_lib_changes.get_entry(
                             region.settings_hash
                         )
@@ -1108,7 +1108,7 @@ class Dashboard:
                 else:
                     if (
                         region.availability_factor > planet.event.progress
-                        and self.full_size
+                        and self.compact_level < 2
                     ):
                         current_percentage = (
                             now_seconds - planet.event.start_time_datetime.timestamp()
@@ -1135,7 +1135,7 @@ class Dashboard:
                         ):
                             regions_text += f"\n-# ↳ {getattr(getattr(Emojis.RegionIcons, region.owner), f'_{region.size}')} {region.type} **{region.name}** - available <t:{region_avail_timestamp}:R>"
                             break
-            if planet.feature and self.full_size:
+            if planet.feature and self.compact_level < 2:
                 feature_text += f"{self.language_json['dashboard']['DefenceEmbed']['feature']}: **{planet.feature}**"
             event_end_datetime = (
                 planet.event.end_time_datetime
@@ -1154,7 +1154,7 @@ class Dashboard:
                         "defence_held_by_dss"
                     ]
             event_health_bar = ""
-            if self.full_size:
+            if self.compact_level < 1:
                 event_health_bar = f"\n{planet.event.health_bar}"
             player_count = f'**{planet.stats["playerCount"]:,}**'
             self.add_field(
@@ -1213,7 +1213,7 @@ class Dashboard:
                     number=f"{(planet.event.remaining_dark_energy / 1_000_000):.2%}"
                 )
             time_remaining = f"<t:{int(planet.event.end_time_datetime.timestamp())}:R>"
-            if self.full_size:
+            if self.compact_level < 1:
                 event_health_bar = f"\n{planet.event.health_bar}"
             else:
                 event_health_bar = ""
@@ -1256,7 +1256,7 @@ class Dashboard:
                     time_remaining += self.language_json["dashboard"]["DefenceEmbed"][
                         "defence_held_by_dss"
                     ]
-            if self.full_size:
+            if self.compact_level < 1:
                 siege_fleet_health_bar = f"\n{planet.event.siege_fleet.health_bar}"
             else:
                 siege_fleet_health_bar = ""
@@ -1296,7 +1296,7 @@ class Dashboard:
             faction: str,
             total_players: int,
             gambit_planets: dict[int, Planet],
-            full_size: bool,
+            compact_level: int = 0,
         ):
             super().__init__(
                 title=language_json["dashboard"]["AttackEmbed"]["title"].format(
@@ -1320,9 +1320,11 @@ class Dashboard:
                     change = ""
                     liberation_text = ""
                     region_text = ""
-                    if liberation_change := liberation_changes.get_entry(
-                        key=campaign.planet.index
-                    ):
+                    if (
+                        liberation_change := liberation_changes.get_entry(
+                            key=campaign.planet.index
+                        )
+                    ) and compact_level < 2:
                         if liberation_change.change_rate_per_hour > 0:
                             now_seconds = int(datetime.now().timestamp())
                             for region in campaign.planet.regions.values():
@@ -1359,7 +1361,7 @@ class Dashboard:
                         planet.index for planet in gambit_planets.values()
                     ]:
                         exclamation += ":chess_pawn:"
-                    if full_size:
+                    if compact_level < 1:
                         planet_health_bar = f"\n{health_bar(campaign.planet.health_perc, campaign.planet.current_owner, True)}"
                     else:
                         planet_health_bar = ""
@@ -1401,7 +1403,7 @@ class Dashboard:
                     ]:
                         exclamation += ":chess_pawn:"
                     skipped_planets_text += f"-# {planet_names[str(campaign.planet.index)]['names'][language_json['code_long']]} - **{campaign.planet.stats['playerCount']:,}** {exclamation}\n"
-                    if full_size:
+                    if compact_level < 2:
                         for region in campaign.planet.regions.values():
                             if (
                                 region.is_available

@@ -41,14 +41,17 @@ class DashboardCog(commands.Cog):
             )
             for lang in unique_langs
         }
+        compact_level = 0
         for lang, dashboard in dashboards.copy().items():
-            if dashboard.character_count() > 6000:
+            while dashboard.character_count() > 6000 and compact_level < 2:
+                compact_level += 1
                 dashboards[lang] = Dashboard(
                     data=self.bot.data,
                     language_code=lang,
                     json_dict=self.bot.json_dict,
-                    full_size=False,
+                    compact_level=compact_level,
                 )
+                dashboard = dashboards[lang]
         await self.bot.interface_handler.send_feature("dashboards", dashboards)
         self.bot.logger.info(
             f"Updated {len(self.bot.interface_handler.dashboards)} dashboards in {(datetime.now()-dashboards_start).total_seconds():.2f} seconds"
