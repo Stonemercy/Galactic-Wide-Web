@@ -1031,7 +1031,10 @@ class Dashboard:
                         gambit_planet.index
                     )
                 if liberation_change.change_rate_per_hour != 0:
-                    win_time = planet.event.end_time_datetime
+                    win_time: datetime = datetime.fromtimestamp(
+                        now_seconds + liberation_change.seconds_until_complete
+                    )
+                    end_time: datetime = planet.event.end_time_datetime
                     amount_to_reduce_by = 0.0
                     for region in planet.regions.values():
                         region_lib_change = self.region_lib_changes.get_entry(
@@ -1044,13 +1047,11 @@ class Dashboard:
                             region_lib_time = (
                                 now_seconds + region_lib_change.seconds_until_complete
                             )
-                            if (
-                                region_lib_time
-                                < planet.event.end_time_datetime.timestamp()
-                            ):
+                            if region_lib_time < end_time.timestamp():
                                 amount_to_reduce_by += (
                                     region.max_health * 1.5
                                 ) / planet.event.max_health
+
                     if amount_to_reduce_by != 0.0:
                         win_time = datetime.fromtimestamp(
                             now_seconds
@@ -1058,12 +1059,12 @@ class Dashboard:
                         )
 
                     if planet.dss_in_orbit and self.eagle_storm.status == 2:
-                        win_time += timedelta(
+                        end_time += timedelta(
                             seconds=(
                                 self.eagle_storm.status_end_datetime - self.now
                             ).total_seconds()
                         )
-                    if win_time < planet.event.end_time_datetime:
+                    if win_time < end_time:
                         outlook_text = f"\n{self.language_json['dashboard']['outlook'].format(outlook=self.language_json['victory'])} <t:{int(win_time.timestamp())}:R>"
                     else:
                         if (
@@ -1097,13 +1098,15 @@ class Dashboard:
             for region in planet.regions.values():
                 if region.is_available:
                     region_lib_change_text = ""
-                    if self.compact_level < 2:
-                        region_lib_change = self.region_lib_changes.get_entry(
+                    if self.compact_level < 2 and (
+                        region_lib_change := self.region_lib_changes.get_entry(
                             region.settings_hash
                         )
-                        region_lib_change_text = (
-                            f"{region_lib_change.change_rate_per_hour:+.0%}/hr"
-                        )
+                    ):
+                        if region_lib_change.change_rate_per_hour != 0:
+                            region_lib_change_text = (
+                                f"{region_lib_change.change_rate_per_hour:+.0%}/hr"
+                            )
                     regions_text += f"\n-# ↳ {getattr(getattr(Emojis.RegionIcons, region.owner), f'_{region.size}')} {region.type} **{region.name}** - {region.perc:.0%} {region_lib_change_text}"
                 else:
                     if (
