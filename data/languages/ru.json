@@ -47,7 +47,7 @@
             "active": "Активно",
             "on_cooldown": "На перезарядке",
             "off_cooldown": "Перезаряжено",
-            "inactive": "Inactive"
+            "inactive": "Недоступно"
         },
         "DefenceEmbed": {
             "title": "Оборона",
