@@ -412,24 +412,14 @@ class Data(ReprMixin):
                 if gwe:
                     planet.active_effects.add(gwe)
             for ge in self.global_events:
-                if ge.effect_ids and not ge.planet_indices:
-                    for planet in self.planets.values():
-                        planet.active_effects |= set(
-                            [
-                                gwe
-                                for gwe in self.galactic_war_effects
-                                if gwe.id in ge.effect_ids
-                            ]
-                        )
-                else:
-                    for planet_index in ge.planet_indices:
-                        self.planets[planet_index].active_effects |= set(
-                            [
-                                gwe
-                                for gwe in self.galactic_war_effects
-                                if gwe.id in ge.effect_ids
-                            ]
-                        )
+                for planet_index in ge.planet_indices:
+                    self.planets[planet_index].active_effects |= set(
+                        [
+                            gwe
+                            for gwe in self.galactic_war_effects
+                            if gwe.id in ge.effect_ids
+                        ]
+                    )
 
             for planet_attack in self.__data__["status"]["planetAttacks"]:
                 source_planet = self.planets[planet_attack["source"]]

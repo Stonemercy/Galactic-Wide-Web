@@ -676,8 +676,8 @@
 		"description": "Increases planet health"
 	},
 	"1272": {
-		"name": "Razed Helldiver Training Sites",
-		"description": "Reinforcement budget reduced"
+		"name": "ADJUSTED REINFORCEMENT BUDGET",
+		"description": "Reinforcement budget adjusted"
 	},
 	"1273": {
 		"name": "Eagle Rearm Time Increase",
