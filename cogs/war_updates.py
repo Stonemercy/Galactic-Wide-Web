@@ -362,12 +362,11 @@ class WarUpdatesCog(commands.Cog):
             # loop through old regions
             if old_region.settings_hash not in new_region_hashes:
                 # if region has become unavailable
-                region = [
+                region_list = [
                     r for r in regions if r.settings_hash == old_region.settings_hash
                 ]
-                if region:
+                if region := region_list[0]:
                     # if region is still in API
-                    region = region[0]
                     planet = self.bot.data.planets[region.planet_index]
                     if region.owner == "Humans" and old_region.owner != "Humans":
                         # if region was a victory for us
