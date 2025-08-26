@@ -1444,7 +1444,7 @@ class Dashboard:
                 (
                     f"-# {language_json['dashboard']['FooterEmbed']['total_players']}\n"
                     f"-# {Emojis.Icons.steam} {steam_players:,}\n"
-                    f"-# {Emojis.Icons.playstation} {total_players - steam_players:,}"
+                    f"-# {Emojis.Icons.playstation}/{Emojis.Icons.xbox} {total_players - steam_players:,}"
                 ),
                 inline=False,
             )
