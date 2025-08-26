@@ -167,7 +167,13 @@ class DataManagementCog(commands.Cog):
                 await self.bot.moderator_channel.send(
                     f"{self.bot.owner.mention} New Effect",
                     embed=GalacticWarEffectEmbed(
-                        gwe=effect, json_dict=self.bot.json_dict
+                        gwe=effect,
+                        planets_with_gwe=[
+                            p
+                            for p in self.bot.data.planets.values()
+                            if effect.id in [e for e in p.active_effects]
+                        ],
+                        json_dict=self.bot.json_dict,
                     ),
                 )
                 self.mentioned_new_effects.add(effect.id)
