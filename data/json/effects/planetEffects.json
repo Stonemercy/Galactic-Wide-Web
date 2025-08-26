@@ -786,5 +786,9 @@
 	"1299": {
 		"name": "LOW-ORBIT INTERDICTION",
 		"description": "Illuminate assault forces have deployed heavy low-orbit anti-air patrols to interdict space-to-ground aircraft. Extraction time on missions against the Illuminate will take significantly longer."
+	},
+	"1300": {
+		"name": "Ammo Increase",
+		"description": "Initial ammunition will be increased by 50%"
 	}
 }
