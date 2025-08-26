@@ -249,8 +249,8 @@ class PlanetCommandRegionEmbed(Embed, EmbedReprMixin):
     def __init__(
         self,
         planet: Planet,
-        planet_changes: BaseTrackerEntry,
-        region_changes: BaseTracker,
+        planet_changes: BaseTrackerEntry | None,
+        region_changes: BaseTracker | None,
     ):
         super().__init__(colour=Colour.from_rgb(*faction_colours[planet.current_owner]))
         for region in planet.regions.values():
@@ -273,37 +273,37 @@ class PlanetCommandRegionEmbed(Embed, EmbedReprMixin):
                     description += f"\n`{change:^25}`"
             elif region.owner != "Humans":
                 stat_to_use = "liberation" if not planet.event else "defence duration"
-                if region.availability_factor != 1 and (
-                    1 - region.availability_factor
-                ) > (planet.event.progress if planet.event else 1 - planet.health_perc):
-                    description += f"\nUnlocks when **{stat_to_use}** reaches **{1 - region.availability_factor:.0%}**"
-                if planet_changes.change_rate_per_hour > 0:
-                    if planet.event:
-                        seconds_until_we_win = planet_changes.seconds_until_complete
-                        event_duration_in_seconds = (
-                            planet.event.end_time_datetime.timestamp()
-                            - planet.event.start_time_datetime.timestamp()
+                if region.availability_factor != 1 and (region.availability_factor) > (
+                    planet.event.progress if planet.event else 1 - planet.health_perc
+                ):
+                    description += f"\nUnlocks when **{stat_to_use}** reaches **{region.availability_factor:.0%}**"
+                if planet.event:
+                    now_seconds = int(datetime.now().timestamp())
+                    current_percentage = (
+                        now_seconds - planet.event.start_time_datetime.timestamp()
+                    ) / (
+                        planet.event.end_time_datetime.timestamp()
+                        - planet.event.start_time_datetime.timestamp()
+                    )
+                    region_avail_timestamp = int(
+                        now_seconds
+                        + (
+                            (
+                                (region.availability_factor - current_percentage)
+                                / (1 - current_percentage)
+                            )
+                            * (planet.event.end_time_datetime.timestamp() - now_seconds)
                         )
-                        progress_in_seconds = (
-                            datetime.now().timestamp()
-                            - planet.event.start_time_datetime.timestamp()
-                        )
-                        current_progress = (
-                            progress_in_seconds / event_duration_in_seconds
-                        )
-                        progress_needed = (
-                            1 - region.availability_factor
-                        ) - current_progress
-                        time_to_unlock = seconds_until_we_win * progress_needed
-                        description += f"\n-# <t:{int(datetime.now().timestamp() + time_to_unlock)}:R>"
-                    else:
-                        seconds_until_we_win = planet_changes.seconds_until_complete
-                        current_progress = 1 - planet.health_perc
-                        progress_needed = (
-                            1 - region.availability_factor
-                        ) - current_progress
-                        time_to_unlock = seconds_until_we_win * progress_needed
-                        description += f"\n-# <t:{int(datetime.now().timestamp() + time_to_unlock)}:R>"
+                    )
+                    description += f"\n-# <t:{region_avail_timestamp}:R>"
+                elif planet_changes and planet_changes.change_rate_per_hour > 0:
+                    seconds_until_we_win = planet_changes.seconds_until_complete
+                    current_progress = 1 - planet.health_perc
+                    progress_needed = (region.availability_factor) - current_progress
+                    time_to_unlock = seconds_until_we_win * progress_needed
+                    description += (
+                        f"\n-# <t:{int(datetime.now().timestamp() + time_to_unlock)}:R>"
+                    )
 
             self.add_field(
                 f"{getattr(Emojis.Factions, region.owner.lower() or planet.current_owner.lower())} {region.name}",
