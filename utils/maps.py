@@ -287,21 +287,23 @@ class Maps:
                     -1,
                 )
         for planet in [p for p in planets.values() if p.index in active_planets]:
-            offset = 0
+            x_offset = 0
             for su in SpecialUnits.get_from_effects_list(planet.active_effects):
                 su_icon = imread(
                     f"resources/Emojis/Planet Effects/{su[0].title()}.png",
                     IMREAD_UNCHANGED,
                 )
-                su_icon = resize(su_icon, (32, 32))
+                su_icon = resize(
+                    su_icon, (int(32 * (su_icon.shape[1] / su_icon.shape[0])), 32)
+                )
                 self.paste_image(
                     background,
                     su_icon,
                     planet.map_waypoints,
-                    x_offset=32 + offset,
-                    y_offset=-50,
+                    x_offset=35 + x_offset,
+                    y_offset=-(24 + ((planet.name.count(" ") + 1) * 24)),
                 )
-                offset += 32
+                x_offset += 35
         imwrite(Maps.FileLocations.planets_map, background)
 
     def update_dss(self, dss: DSS, type_3_campaigns: list[Campaign]) -> None:
@@ -311,6 +313,8 @@ class Maps:
             verti_diff = 70
             if dss.planet.index in [c.planet.index for c in type_3_campaigns]:
                 verti_diff += 50
+            if dss.planet.name.count(" ") > 0:
+                verti_diff += dss.planet.name.count(" ") * 25
             dss_coords = (
                 int(dss.planet.map_waypoints[0]) - 17,
                 int(dss.planet.map_waypoints[1]) - verti_diff,
@@ -416,7 +420,7 @@ class Maps:
                     text=name_text,
                     anchor="md",
                     font=font,
-                    stroke_width=3,
+                    stroke_width=2,
                     stroke_fill=border_colour,
                     align="center",
                     spacing=-10,
