@@ -455,6 +455,7 @@ class Data(ReprMixin):
                     ] = Planet.Region(
                         planet_regions_json_dict=self.json_dict["planetRegions"],
                         raw_planet_region_data=region,
+                        planet_owner=self.planets[region["planetIndex"]].current_owner,
                     )
 
                 for region in self.__data__["status"]["planetRegions"]:
@@ -925,7 +926,10 @@ class Planet(ReprMixin):
 
     class Region(ReprMixin):
         def __init__(
-            self, planet_regions_json_dict: dict, raw_planet_region_data: dict
+            self,
+            planet_regions_json_dict: dict,
+            raw_planet_region_data: dict,
+            planet_owner: str,
         ):
             self.settings_hash: int = raw_planet_region_data["settingsHash"]
             self.is_updated: bool = False
@@ -937,7 +941,7 @@ class Planet(ReprMixin):
             self.description: str = planet_regions_json_dict.get(
                 str(self.settings_hash), {}
             ).get("description", "")
-            self.owner: str = "Humans"
+            self.owner: str = planet_owner
             self.health: int = raw_planet_region_data["maxHealth"]
             self.max_health: int = raw_planet_region_data["maxHealth"]
             self.regen_per_sec: int = 0
