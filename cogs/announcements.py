@@ -126,7 +126,9 @@ class AnnouncementsCog(commands.Cog):
             return
         for dispatch in self.bot.data.dispatches[-10:]:
             if current_war_info.dispatch_id < dispatch.id:
-                if len(dispatch.message) < 5:
+                if len(dispatch.message) < 5 or "#planet" in dispatch.message:
+                    current_war_info.dispatch_id = dispatch.id
+                    current_war_info.save_changes()
                     continue
                 unique_langs = GWWGuilds().unique_languages
                 embeds = {
