@@ -1111,6 +1111,7 @@ class Dashboard:
                 else:
                     if (
                         region.availability_factor > planet.event.progress
+                        and region.owner != "Humans"
                         and self.compact_level < 2
                     ):
                         current_percentage = (
