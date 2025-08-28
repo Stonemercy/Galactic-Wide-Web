@@ -1073,7 +1073,7 @@ class Dashboard:
                             and datetime.fromtimestamp(
                                 now_seconds + gambit_lib_change.seconds_until_complete
                             )
-                            < win_time
+                            < planet.event.end_time_datetime
                         ):
                             outlook_text = f"\n{self.language_json['dashboard']['outlook'].format(outlook=self.language_json['victory'])} <t:{now_seconds + gambit_lib_change.seconds_until_complete}:R>"
                             outlook_text += f"\n> -# {self.language_json['dashboard']['DefenceEmbed']['thanks_to_gambit'].format(planet=gambit_planet.name)}"
