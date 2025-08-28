@@ -1035,6 +1035,12 @@ class Dashboard:
                         now_seconds + liberation_change.seconds_until_complete
                     )
                     end_time: datetime = planet.event.end_time_datetime
+                    if planet.dss_in_orbit and self.eagle_storm.status == 2:
+                        end_time += timedelta(
+                            seconds=(
+                                self.eagle_storm.status_end_datetime - self.now
+                            ).total_seconds()
+                        )
                     amount_to_reduce_by = 0.0
                     for region in planet.regions.values():
                         region_lib_change = self.region_lib_changes.get_entry(
@@ -1058,12 +1064,6 @@ class Dashboard:
                             + liberation_change.seconds_until(1 - amount_to_reduce_by)
                         )
 
-                    if planet.dss_in_orbit and self.eagle_storm.status == 2:
-                        end_time += timedelta(
-                            seconds=(
-                                self.eagle_storm.status_end_datetime - self.now
-                            ).total_seconds()
-                        )
                     if win_time < end_time:
                         outlook_text = f"\n{self.language_json['dashboard']['outlook'].format(outlook=self.language_json['victory'])} <t:{int(win_time.timestamp())}:R>"
                     else:
