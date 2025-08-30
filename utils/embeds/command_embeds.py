@@ -253,6 +253,7 @@ class PlanetCommandRegionEmbed(Embed, EmbedReprMixin):
         region_changes: BaseTracker | None,
     ):
         super().__init__(colour=Colour.from_rgb(*faction_colours[planet.current_owner]))
+        now_seconds = int(datetime.now().timestamp())
         for region in planet.regions.values():
             region_emojis = getattr(Emojis.RegionIcons, region.owner)
             level_emoji = getattr(region_emojis, f"_{region.size}")
@@ -271,6 +272,8 @@ class PlanetCommandRegionEmbed(Embed, EmbedReprMixin):
                 if region_change:
                     change = f"{region_change.change_rate_per_hour:+.2%}/hour"
                     description += f"\n`{change:^25}`"
+                    if region_change.change_rate_per_hour > 0:
+                        description += f"\nLiberated <t:{now_seconds + region_change.seconds_until_complete}:R>"
             elif region.owner != "Humans":
                 stat_to_use = "liberation" if not planet.event else "defence duration"
                 if region.availability_factor != 1 and (region.availability_factor) > (
@@ -278,7 +281,6 @@ class PlanetCommandRegionEmbed(Embed, EmbedReprMixin):
                 ):
                     description += f"\nUnlocks when **{stat_to_use}** reaches **{region.availability_factor:.0%}**"
                 if planet.event:
-                    now_seconds = int(datetime.now().timestamp())
                     current_percentage = (
                         now_seconds - planet.event.start_time_datetime.timestamp()
                     ) / (
