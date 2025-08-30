@@ -790,5 +790,13 @@
 	"1300": {
 		"name": "Ammo Increase",
 		"description": "Initial ammunition will be increased by 50%"
+	},
+	"1301": {
+		"name": "ARSENAL AUGMENTATION",
+		"description": "The A/G-16 Gatling Sentry stratagem has been temporarily authorized for use by all Helldivers."
+	},
+	"1302": {
+		"name": "ARSENAL AUGMENTATION",
+		"description": "The AX/LAS-5 \"Guard Dog\" Rover stratagem has been temporarily authorized for use by all Helldivers."
 	}
 }
