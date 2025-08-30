@@ -1,4 +1,5 @@
 from collections import deque
+from datetime import datetime
 from typing import Any
 from utils.mixins import ReprMixin
 
@@ -32,13 +33,16 @@ class BaseTrackerEntry(ReprMixin):
             return abs(int(((self.value) / rate) * 3600))
         return 0
 
-    def seconds_until(self, percentage: float) -> int:
-        rate: int | float = self.change_rate_per_hour
-        if rate > 0:
-            return int(((percentage - self.value) / rate) * 3600)
-        elif rate < 0:
-            return abs(int(((self.value) / rate) * 3600))
-        return 0
+    def percentage_at(self, time: datetime) -> float:
+        return (
+            self.value
+            + (
+                (self.change_rate_per_hour / 3600)
+                * (time - datetime.now()).total_seconds()
+            )
+            if self.change_rate_per_hour != 0
+            else self.value
+        )
 
 
 class BaseTracker(ReprMixin):

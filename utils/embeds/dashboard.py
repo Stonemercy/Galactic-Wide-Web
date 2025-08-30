@@ -1041,29 +1041,6 @@ class Dashboard:
                                 self.eagle_storm.status_end_datetime - self.now
                             ).total_seconds()
                         )
-                    amount_to_reduce_by = 0.0
-                    for region in planet.regions.values():
-                        region_lib_change = self.region_lib_changes.get_entry(
-                            region.settings_hash
-                        )
-                        if (
-                            region_lib_change
-                            and region_lib_change.change_rate_per_hour > 0
-                        ):
-                            region_lib_time = (
-                                now_seconds + region_lib_change.seconds_until_complete
-                            )
-                            if region_lib_time < end_time.timestamp():
-                                amount_to_reduce_by += (
-                                    region.max_health * 1.5
-                                ) / planet.event.max_health
-
-                    if amount_to_reduce_by != 0.0:
-                        win_time = datetime.fromtimestamp(
-                            now_seconds
-                            + liberation_change.seconds_until(1 - amount_to_reduce_by)
-                        )
-
                     if win_time < end_time:
                         outlook_text = f"\n{self.language_json['dashboard']['outlook'].format(outlook=self.language_json['victory'])} <t:{int(win_time.timestamp())}:R>"
                     else:
@@ -1077,6 +1054,32 @@ class Dashboard:
                         ):
                             outlook_text = f"\n{self.language_json['dashboard']['outlook'].format(outlook=self.language_json['victory'])} <t:{now_seconds + gambit_lib_change.seconds_until_complete}:R>"
                             outlook_text += f"\n> -# {self.language_json['dashboard']['DefenceEmbed']['thanks_to_gambit'].format(planet=gambit_planet.name)}"
+                        for region in planet.regions.values():
+                            region_lib_change = self.region_lib_changes.get_entry(
+                                region.settings_hash
+                            )
+                            if (
+                                region_lib_change
+                                and region_lib_change.change_rate_per_hour > 0
+                            ):
+                                region_lib_time = datetime.fromtimestamp(
+                                    now_seconds
+                                    + region_lib_change.seconds_until_complete
+                                )
+                                health_at_region_lib_time = (
+                                    liberation_change.percentage_at(
+                                        time=region_lib_time
+                                    )
+                                )
+                                if (
+                                    region_lib_time < end_time
+                                    and health_at_region_lib_time
+                                    >= (region.max_health * 1.5) / planet.max_health
+                                ):
+                                    if region_lib_time < win_time:
+                                        outlook_text = f"\n{self.language_json['dashboard']['outlook'].format(outlook=self.language_json['victory'])} <t:{int(region_lib_time.timestamp())}:R>"
+                                        outlook_text += f"\n> -# Thanks to region **{region.name}** liberation"
+                                        break
                         if outlook_text == "":
                             outlook_text = f"\n{self.language_json['dashboard']['outlook'].format(outlook=self.language_json['defeat'])}"
                             if planet.index in self.gambit_planets:
@@ -1105,7 +1108,7 @@ class Dashboard:
                     ):
                         if region_lib_change.change_rate_per_hour != 0:
                             region_lib_change_text = (
-                                f"{region_lib_change.change_rate_per_hour:+.0%}/hr"
+                                f"{region_lib_change.change_rate_per_hour:+.1%}/hr"
                             )
                     regions_text += f"\n-# ↳ {getattr(getattr(Emojis.RegionIcons, region.owner), f'_{region.size}')} {region.type} **{region.name}** - {region.perc:.0%} {region_lib_change_text}"
                 else:
