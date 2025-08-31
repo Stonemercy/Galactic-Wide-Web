@@ -19,12 +19,12 @@ WHITELIST_USERS = [164862382185644032]
 
 
 def is_whitelisted():
-    """A check that checks if the person invoking this command is in the whitelisted server"""
+    """A check that allows command invocation only by whitelisted users or members of whitelisted servers"""
 
     def predicate(inter: AppCmdInter):
         guild_id = inter.guild.id if inter.guild else None
         if inter.author.id not in WHITELIST_USERS and (
-            guild_id not in WHITELIST_SERVERS if guild_id is not None else True
+            guild_id is None or guild_id not in WHITELIST_SERVERS
         ):
             raise NotWhitelisted()
         return True
