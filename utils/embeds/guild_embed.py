@@ -80,6 +80,7 @@ class GuildEmbed(Embed, EmbedReprMixin):
             name="🌐 Locale",
             value=f"{FLAG_DICT.get(Languages.get_from_locale(guild.preferred_locale).short_code, '')} {guild.preferred_locale}",
         )
+        features_text = ""
         if guild.features:
             features_text = ""
             for feature in [
@@ -110,7 +111,11 @@ class GuildEmbed(Embed, EmbedReprMixin):
                 ]
             ]:
                 features_text += f"-# - {feature.replace('_', ' ').capitalize()}\n"
-        self.add_field(name="Features", value=features_text or "None", inline=False)
+        self.add_field(
+            name="Features",
+            value=features_text if features_text != "" else "None",
+            inline=False,
+        )
 
         if db_guild.features != []:
             db_features_text = ""
