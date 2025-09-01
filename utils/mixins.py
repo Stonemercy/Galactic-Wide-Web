@@ -7,10 +7,9 @@ class ReprMixin:
     def __repr__(object):
         if object.__dict__:
             items = (f"    {k} = {v!r}" for k, v in object.__dict__.items())
-        if hasattr(object, "__slots__"):
-            items = (
-                f"    {slot} = {getattr(object, slot)!r}" for slot in object.__slots__
-            )
+        if slots := getattr(object, "__slots__"):
+            if slots != ():
+                items = (f"    {slot} = {getattr(object, slot)!r}" for slot in slots)
         else:
             items = []
         return f"<{object.__class__.__name__}:\n" + "\n".join(items) + "\n>"
