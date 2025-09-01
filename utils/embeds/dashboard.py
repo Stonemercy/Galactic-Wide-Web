@@ -212,7 +212,7 @@ class Dashboard:
             else:
                 self.title = assignment.title
                 self.total_players = sum(
-                    [p.stats["playerCount"] for p in planets.values()]
+                    [p.stats.player_count for p in planets.values()]
                 )
                 task_numbers = [task.type for task in assignment.tasks]
                 task_for_image = max(set(task_numbers), key=task_numbers.count)
@@ -655,11 +655,11 @@ class Dashboard:
                 ],
             )
             field_value = ""
-            if task.progress_perc != 1 and planet.stats["playerCount"] > (
+            if task.progress_perc != 1 and planet.stats.player_count > (
                 self.total_players * 0.05
             ):
                 field_value += language_json["dashboard"]["heroes"].format(
-                    heroes=f'{planet.stats["playerCount"]:,}'
+                    heroes=f"{planet.stats.player_count:,}"
                 )
                 if planet.feature:
                     field_value += f"\n{language_json['dashboard']['MajorOrderEmbed']['feature']}: **{planet.feature}**"
@@ -736,7 +736,7 @@ class Dashboard:
                 if planet:
                     if planet.feature:
                         field_value += f"{language_json['dashboard']['MajorOrderEmbed']['feature']}: **{planet.feature}**"
-                    field_value += f"\n{language_json['dashboard']['heroes'].format(heroes=planet.stats['playerCount'])}"
+                    field_value += f"\n{language_json['dashboard']['heroes'].format(heroes=planet.stats.player_count)}"
                     if planet.event:
                         field_value += f"\n{language_json['ends']} <t:{planet.event.end_time_datetime.timestamp():.0f}:R>"
                         f"\n{language_json['dashboard']['DefenceEmbed']['level']} {planet.event.level}"
@@ -806,8 +806,9 @@ class Dashboard:
                     active_effects=planet.active_effects
                 ):
                     field_value += f"\n-# {special_unit[0]} {special_unit[1]}"
-                formatted_heroes = f"{planet.stats['playerCount']:,}"
-                field_value += f"\n{language_json['dashboard']['heroes'].format(heroes=formatted_heroes)}"
+                if planet.stats.player_count > 500:
+                    formatted_heroes = f"{planet.stats.player_count:,}"
+                    field_value += f"\n{language_json['dashboard']['heroes'].format(heroes=formatted_heroes)}"
                 if planet.event:
                     field_value += f"\n{language_json['ends']} <t:{planet.event.end_time_datetime.timestamp():.0f}:R>"
                     field_value += f"\n{language_json['dashboard']['DefenceEmbed']['level']} **{planet.event.level}**"
@@ -1014,7 +1015,7 @@ class Dashboard:
             self.compact_level = compact_level
             self.now = datetime.now()
             total_players_doing_defence = (
-                sum(planet.stats["playerCount"] for planet in planet_events)
+                sum(planet.stats.player_count for planet in planet_events)
                 / total_players
             )
             super().__init__(
@@ -1187,7 +1188,7 @@ class Dashboard:
             event_health_bar = ""
             if self.compact_level < 1:
                 event_health_bar = f"\n{planet.event.health_bar}"
-            player_count = f'**{planet.stats["playerCount"]:,}**'
+            player_count = f"**{planet.stats.player_count:,}**"
             self.add_field(
                 f"__**{self.planet_names[str(planet.index)]['names'][self.language_json['code_long']]}**__ {planet.exclamations}",
                 (
@@ -1248,7 +1249,7 @@ class Dashboard:
                 event_health_bar = f"\n{planet.event.health_bar}"
             else:
                 event_health_bar = ""
-            player_count = f'**{planet.stats["playerCount"]:,}**'
+            player_count = f"**{planet.stats.player_count:,}**"
             self.add_field(
                 f"{getattr(Emojis.Factions, planet.event.faction.full_name.lower())} - __**{self.planet_names[str(planet.index)]['names'][self.language_json['code_long']]}**__ {planet.exclamations}",
                 (
@@ -1291,7 +1292,7 @@ class Dashboard:
                 siege_fleet_health_bar = f"\n{planet.event.siege_fleet.health_bar}"
             else:
                 siege_fleet_health_bar = ""
-            player_count = f'**{planet.stats["playerCount"]:,}**'
+            player_count = f"**{planet.stats.player_count:,}**"
             self.add_field(
                 f"{getattr(Emojis.Factions, planet.event.faction.full_name.lower())} - __**{self.planet_names[str(planet.index)]['names'][self.language_json['code_long']]}**__ {planet.exclamations}",
                 (
@@ -1339,13 +1340,13 @@ class Dashboard:
             )
             self.set_thumbnail("https://helldivers.io/img/attack.png")
             total_players_doing_faction = (
-                sum(campaign.planet.stats["playerCount"] for campaign in campaigns)
+                sum(campaign.planet.stats.player_count for campaign in campaigns)
                 / total_players
             )
             self.title += f" ({total_players_doing_faction:.2%})"
             skipped_campaigns: list[Campaign] = []
             for campaign in campaigns:
-                if campaign.planet.stats["playerCount"] < total_players * 0.05:
+                if campaign.planet.stats.player_count < total_players * 0.05:
                     skipped_campaigns.append(campaign)
                     continue
                 else:
@@ -1406,7 +1407,7 @@ class Dashboard:
                         if campaign.planet.feature
                         else ""
                     )
-                    player_count = f'**{campaign.planet.stats["playerCount"]:,}**'
+                    player_count = f"**{campaign.planet.stats.player_count:,}**"
                     for region in campaign.planet.regions.values():
                         if region.is_available:
                             region_text += f"\n-# ↳ {getattr(getattr(Emojis.RegionIcons, region.owner.full_name), f'_{region.size}')} {region.type} **{region.name}** - {region.perc:.2%}"
@@ -1435,7 +1436,7 @@ class Dashboard:
                         planet.index for planet in gambit_planets.values()
                     ]:
                         exclamation += ":chess_pawn:"
-                    skipped_planets_text += f"-# {planet_names[str(campaign.planet.index)]['names'][language_json['code_long']]} - **{campaign.planet.stats['playerCount']:,}** {exclamation}\n"
+                    skipped_planets_text += f"-# {planet_names[str(campaign.planet.index)]['names'][language_json['code_long']]} - **{campaign.planet.stats.player_count:,}** {exclamation}\n"
                     if compact_level < 2:
                         for region in campaign.planet.regions.values():
                             if (

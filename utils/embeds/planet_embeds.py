@@ -146,7 +146,7 @@ class PlanetEmbeds(list):
                     "",
                     (
                         f"{outlook_text}"
-                        f"Heroes: **{planet.stats['playerCount']:,}**"
+                        f"Heroes: **{planet.stats.player_count:,}**"
                         f"{required_players}"
                         f"\n{language_json['PlanetEmbed']['liberation_progress']}"
                         f"\n{planet_health_bar}"
@@ -179,7 +179,7 @@ class PlanetEmbeds(list):
                     "",
                     (
                         f"{outlook_text}"
-                        f"Heroes: **{planet.stats['playerCount']:,}**"
+                        f"Heroes: **{planet.stats.player_count:,}**"
                         f"\n{language_json['PlanetEmbed']['liberation_progress']}"
                         f"\n{planet_health_bar}"
                         f"\n`{health_text}`"
@@ -215,10 +215,10 @@ class PlanetEmbeds(list):
             self.add_field(
                 language_json["PlanetEmbed"]["mission_stats"],
                 (
-                    f"{language_json['PlanetEmbed']['missions_won']}: **`{short_format(planet.stats['missionsWon'])}`**\n"
-                    f"{language_json['PlanetEmbed']['missions_lost']}: **`{short_format(planet.stats['missionsLost'])}`**\n"
-                    f"{language_json['PlanetEmbed']['missions_winrate']}: **`{planet.stats['missionSuccessRate']}%`**\n"
-                    f"{language_json['PlanetEmbed']['missions_time_spent']}: **`{planet.stats['missionTime']/31556952:.1f} years`**"
+                    f"{language_json['PlanetEmbed']['missions_won']}: **`{short_format(planet.stats.missions_won)}`**\n"
+                    f"{language_json['PlanetEmbed']['missions_lost']}: **`{short_format(planet.stats.missions_lost)}`**\n"
+                    f"{language_json['PlanetEmbed']['missions_winrate']}: **`{planet.stats.mission_success_rate}%`**\n"
+                    f"{language_json['PlanetEmbed']['missions_time_spent']}: **`{planet.stats.mission_time/31556952:.1f} years`**"
                 ),
             )
 
@@ -226,12 +226,12 @@ class PlanetEmbeds(list):
             self.add_field(
                 language_json["PlanetEmbed"]["hero_stats"],
                 (
-                    f"{language_json['PlanetEmbed']['active_heroes']}: **`{planet.stats['playerCount']:,}`**\n"
-                    f"{language_json['PlanetEmbed']['heroes_lost']}: **`{short_format(planet.stats['deaths'])}`**\n"
-                    f"{language_json['PlanetEmbed']['accidentals']}: **`{short_format(planet.stats['friendlies'])}`**\n"
-                    f"{language_json['PlanetEmbed']['shots_fired']}: **`{short_format(planet.stats['bulletsFired'])}`**\n"
-                    f"{language_json['PlanetEmbed']['shots_hit']}: **`{short_format(planet.stats['bulletsHit'])}`**\n"
-                    f"{language_json['PlanetEmbed']['accuracy']}: **`{planet.stats['accuracy']}%`**\n"
+                    f"{language_json['PlanetEmbed']['active_heroes']}: **`{planet.stats.player_count:,}`**\n"
+                    f"{language_json['PlanetEmbed']['heroes_lost']}: **`{short_format(planet.stats.deaths)}`**\n"
+                    f"{language_json['PlanetEmbed']['accidentals']}: **`{short_format(planet.stats.friendlies)}`**\n"
+                    f"{language_json['PlanetEmbed']['shots_fired']}: **`{short_format(planet.stats.bullets_fired)}`**\n"
+                    f"{language_json['PlanetEmbed']['shots_hit']}: **`{short_format(planet.stats.bullets_hit)}`**\n"
+                    f"{language_json['PlanetEmbed']['accuracy']}: **`{planet.stats.accuracy}%`**\n"
                 ),
             )
 
@@ -240,7 +240,7 @@ class PlanetEmbeds(list):
             if faction != Factions.humans:
                 self.add_field(
                     f"💀 {language_json['factions'][faction.full_name]} {language_json['PlanetEmbed']['killed']}:",
-                    f"**{short_format(planet.stats[f'{faction.singular}Kills'])}**",
+                    f"**{short_format(getattr(planet.stats, f'{faction.singular}_kills'))}**",
                     inline=False,
                 ).set_author(
                     name=language_json["PlanetEmbed"]["liberation_progress"],
@@ -287,7 +287,7 @@ class PlanetEmbeds(list):
                 if region.description:
                     description += f"\n-# {region.description}"
                 if region.is_available:
-                    description += f"\n-# Heroes: **{region.players}** ({region.players / planet.stats['playerCount']:.2%})"
+                    description += f"\n-# Heroes: **{region.players}** ({region.players / planet.stats.player_count:.2%})"
                     health_to_get_from = (
                         planet.max_health
                         if not planet.event

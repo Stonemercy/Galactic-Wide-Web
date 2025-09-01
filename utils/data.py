@@ -220,7 +220,7 @@ class Data(ReprMixin):
         if self.__data__["planets"]:
             self.planets: Planets = Planets(raw_planets_data=self.__data__["planets"])
             self.total_players: int = sum(
-                [planet.stats["playerCount"] for planet in self.planets.values()]
+                [planet.stats.player_count for planet in self.planets.values()]
             )
 
         if self.__data__["dss"]:
@@ -236,7 +236,7 @@ class Data(ReprMixin):
         if self.planets:
             self.planet_events: list[Planet] = sorted(
                 [planet for planet in self.planets.values() if planet.event],
-                key=lambda planet: planet.stats["playerCount"],
+                key=lambda planet: planet.stats.player_count,
                 reverse=True,
             )
 
@@ -318,7 +318,7 @@ class Data(ReprMixin):
                     )
                     for raw_campaign_data in self.__data__["campaigns"]
                 ],
-                key=lambda item: item.planet.stats["playerCount"],
+                key=lambda item: item.planet.stats.player_count,
                 reverse=True,
             )
 
@@ -530,7 +530,7 @@ class Data(ReprMixin):
                 amount_ratio = (
                     progress_needed_per_hour / lib_changes.change_rate_per_hour
                 )
-                required_players = planet.stats["playerCount"] * amount_ratio
+                required_players = planet.stats.player_count * amount_ratio
                 planet.event.required_players = required_players
 
     @property
@@ -836,7 +836,9 @@ class Planet(ReprMixin):
             if raw_planet_data["event"]
             else None
         )
-        self.stats: dict = raw_planet_data["statistics"]
+        self.stats: Planet.Stats = Planet.Stats(
+            raw_stats_data=raw_planet_data["statistics"]
+        )
         self.thumbnail = None
         self.feature: str | None = {
             45: "Center for Civilian Surveillance",  # Mastia
@@ -988,6 +990,24 @@ class Planet(ReprMixin):
             self.is_available: bool = raw_planet_region_data["isAvailable"]
             self.players: int = raw_planet_region_data["players"]
             self.is_updated: bool = True
+
+    class Stats:
+        def __init__(self, raw_stats_data: dict) -> None:
+            self.missions_won = raw_stats_data["missionsWon"]
+            self.missions_lost = raw_stats_data["missionsLost"]
+            self.mission_success_rate = raw_stats_data["missionSuccessRate"]
+            self.mission_time = raw_stats_data["missionTime"]
+            self.terminid_kills = raw_stats_data["terminidKills"]
+            self.automaton_kills = raw_stats_data["automatonKills"]
+            self.illuminate_kills = raw_stats_data["illuminateKills"]
+            self.bullets_fired = raw_stats_data["bulletsFired"]
+            self.bullets_hit = raw_stats_data["bulletsHit"]
+            self.accuracy = raw_stats_data["accuracy"]
+            self.time_played = raw_stats_data["timePlayed"]
+            self.deaths = raw_stats_data["deaths"]
+            self.revives = raw_stats_data["revives"]
+            self.friendlies = raw_stats_data["friendlies"]
+            self.player_count = raw_stats_data["playerCount"]
 
 
 class Planets(dict):
