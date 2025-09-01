@@ -1,47 +1,3 @@
-from dataclasses import dataclass
-from disnake import Locale
-from utils.emojis import Emojis
-
-language_dict = {
-    "English": "en",
-    "Français": "fr",
-    "Deutsch": "de",
-    "Italian": "it",
-    "Brazilian Portuguese": "pt-br",
-    "Russian": "ru",
-    "Spanish": "es",
-}
-"""Dictionary of languages supported by the bot
-
-Format:
-
-    "Full Language Name": "language-code"
-    
-Example:
-
-    "English": "en"
-"""
-
-locales_dict = {
-    Locale.fr: "fr",
-    Locale.de: "de",
-    Locale.it: "it",
-    Locale.pt_BR: "pt-br",
-    Locale.ru: "ru",
-    Locale.es_ES: "es",
-    Locale.es_LATAM: "es",
-}
-"""Dictionary of locales supported by the bot
-
-Format:
-
-    Disnake.Locale: "language-code"
-    
-Example:
-
-    Locale.en_GB: "en"
-"""
-
 json_dict = {
     "languages": {
         "en": {"path": "data/languages/en.json", "value": None},
@@ -158,71 +114,10 @@ json_dict = {
     },
 }
 
-faction_colours = {
-    "Automaton": (252, 108, 115),
-    "Terminids": (234, 167, 43),
-    "Illuminate": (107, 59, 187),
-    "Humans": (107, 183, 234),
+custom_colours = {
     "MO": (255, 220, 0),
     "DSS": (214, 232, 248),
 }
-"""Dictionary of Colours used by the bot
-
-Format:
-
-    "faction": (int, int, int)
-
-Exmaple:
-
-    "Automaton": (214, 232, 248)
-"""
-
-warbond_images_dict = {
-    "Helldivers Mobilize": "https://media.discordapp.net/attachments/1212735927223590974/1234539583086264320/helldivers_mobilize.png?ex=66311a15&is=662fc895&hm=917734dcbeeb5b89a6d3a48c17fff8af49524c9c7187506e7d4ef8a6f37c8a00&=&format=webp&quality=lossless",
-    "Steeled Veterans": "https://media.discordapp.net/attachments/1212735927223590974/1234539583438589952/steeled_veterans.png?ex=66311a15&is=662fc895&hm=3f5e97569e7581af8c0aa86b1fa39c48d29b0a6f557cbd9a5b09d77bbf6854fb&=&format=webp&quality=lossless",
-    "Cutting Edge": "https://media.discordapp.net/attachments/1212735927223590974/1234539582268112987/cutting_edge.png?ex=66311a15&is=662fc895&hm=152ca52dfb6499f403d77e5fc223252a36c612315d1a8eaabec3f4ca9165ffdf&=&format=webp&quality=lossless",
-    "Democratic Detonation": "https://media.discordapp.net/attachments/1212735927223590974/1234539582671032441/democratic_detonation.png?ex=66311a15&is=662fc895&hm=a7ea39cebf97692bce42f0f1ef04b535b4e241279860439f87a1b13dda7c13b6&=&format=webp&quality=lossless",
-    "Polar Patriots": "https://cdn.discordapp.com/attachments/1212735927223590974/1243556076113235978/polar_patriots.png?ex=6651e758&is=665095d8&hm=5892cb4b53945d328c6cc8e322f96a6dd42bbc1ab00af03ca8f0026564c13e8a&",
-    "Viper Commandos": "https://cdn.discordapp.com/attachments/1212735927223590974/1250840006356893757/viper_commandos.png?ex=666c6708&is=666b1588&hm=14b58f35a78fdbc87aaf285fb02154a814778ededbccc870930261899cf12bef&",
-    "Freedom's Flame": "https://cdn.discordapp.com/attachments/1212735927223590974/1283844729632591985/freedoms_flame.png?ex=66e47914&is=66e32794&hm=3a3d1bb0b9f67dbeb2f63e625511130971fc888d81d36b393996fe1771517fc8&",
-    "Chemical Agents": "https://cdn.discordapp.com/attachments/1212735927223590974/1286254303001972736/chemical_agents.png?ex=66ed3d2b&is=66ebebab&hm=510de52a270f795006e61129f83f0e0b70bf438a042b8b2d9859111806574cf3&",
-    "Truth Enforcers": "https://media.discordapp.net/attachments/1212735927223590974/1301502200849104947/truth_enforcers.png?ex=6724b5e1&is=67236461&hm=c36872146e2ac4fbbaac4ddab19a291927d2e938c6a3cdd00a9b333408e54d1e&=&format=webp&quality=lossless&width=1202&height=676",
-    "Urban Legends": "https://cdn.discordapp.com/attachments/1212735927223590974/1317150385047081110/urban_legends.png?ex=675da363&is=675c51e3&hm=5e894ce871829ccc6ce2899b695692b15a08aad3921f0c390b14cd3b4685ce2c&",
-    "Servants of Freedom": "https://helldivers.wiki.gg/images/thumb/a/a9/Servants_of_Freedom_Premium_Warbond_Cover.png/1280px-Servants_of_Freedom_Premium_Warbond_Cover.png?e4ff67",
-    "Borderline Justice": "https://helldivers.wiki.gg/images/d/db/Borderline_Justice_Premium_Warbond_Cover.png?df22f7=&format=original",
-    "Masters of Ceremony": "https://helldivers.wiki.gg/images/6/65/Masters_of_Ceremony_Premium_Warbond_Cover.png?6bb032=&format=original",
-    "Force of Law": "https://helldivers.wiki.gg/images/7/74/Force_of_Law_Premium_Warbond_Cover.png?2d54ef=&format=original",
-    "Control Group": "https://helldivers.wiki.gg/images/Control_Group_Premium_Warbond_Cover.png?5db88e=&format=original",
-}
-"""Dictionary of Warbond images hosted by Discord
-
-Format:
-
-    "Warbond Name": "link"
-
-Example:
-
-    "Helldivers Mobilize": "https://media.discordapp.net/attachments/edited/to/save.space"
-"""
-
-assignment_task_images_dict = {
-    2: "https://cdn.discordapp.com/attachments/1212735927223590974/1338186496967966720/mo_icon_liberate.png?ex=67aa2acb&is=67a8d94b&hm=aa64d3140e3d0e84f1e471906dca59c193e3db72cca0fb9ee1069740a776359a&",
-    3: "https://cdn.discordapp.com/attachments/1212735927223590974/1338186059934339182/mo_icon_kill.PNG?ex=67aa2a62&is=67a8d8e2&hm=91476d98d8765002e207cddde0c42a32794853904bf86689608c934b33a10ac5&",
-    11: "https://cdn.discordapp.com/attachments/1212735927223590974/1338186496967966720/mo_icon_liberate.png?ex=67aa2acb&is=67a8d94b&hm=aa64d3140e3d0e84f1e471906dca59c193e3db72cca0fb9ee1069740a776359a&",
-    12: "https://cdn.discordapp.com/attachments/1212735927223590974/1338186496552865885/mo_icon_defend.png?ex=67aa2acb&is=67a8d94b&hm=d541951b20b1bb70b9e827907b036fd4384fc5d304b4454dc5208cc0593add00&",
-    13: "https://cdn.discordapp.com/attachments/1212735927223590974/1340985264780218418/Type_13_MO.png?ex=67b45959&is=67b307d9&hm=fd3feddc3481aeb00a9f66262dba473c88d1401ba177caa0d176639ec5fdde89&",
-    15: "https://cdn.discordapp.com/attachments/1212735927223590974/1338186496967966720/mo_icon_liberate.png?ex=67aa2acb&is=67a8d94b&hm=aa64d3140e3d0e84f1e471906dca59c193e3db72cca0fb9ee1069740a776359a&",
-}
-"""Dictionary of Assignment images hosted by Discord
-
-Format:
-
-    task_type: "link"
-
-Example:
-
-    2: "https://cdn.discordapp.com/attachments/edited/to/save.some?space"
-"""
 
 emotes_list = [
     "Casual Salute",
@@ -243,12 +138,6 @@ emotes_list = [
     "Signal: Group Up",
     "Protect Eardrums",
 ]
-"""A list of emote names
-
-Example:
-
-    "Casual Salute"
-"""
 
 victory_poses_list = [
     "Clapping",
@@ -276,12 +165,6 @@ victory_poses_list = [
     "Thoracic Collision Exultation Maneuver",
     "Ew",
 ]
-"""A list of victory pose names
-
-Example:
-
-    "Clapping"
-"""
 
 player_cards_list = [
     "Independence Bringer",
@@ -327,12 +210,6 @@ player_cards_list = [
     "Conductor of Brilliance",
     "Over Artifice Triumphant",
 ]
-"""A list of player card names
-
-Example:
-
-    "Independence Bringer"
-"""
 
 titles_list = [
     "Cadet",
@@ -369,12 +246,6 @@ titles_list = [
     "Extra Judicial",
     "Exemplary Subject",
 ]
-"""A list of title names
-
-Example:
-
-    "Cadet"
-"""
 
 stratagem_permit_list = [
     "TX-41 Sterilizer",
@@ -391,12 +262,6 @@ stratagem_permit_list = [
     "A/LAS-98 Laser Sentry",
     "LIFT-182 Warp Pack",
 ]
-"""A list of stratagem permit names
-
-Example:
-
-    "TX-41 Sterilizer"
-"""
 
 stratagem_id_dict = {
     1078307866: "Orbital Gatling Barrage",
@@ -473,32 +338,3 @@ stratagem_id_dict = {
     3560739565: "GL-52 De-Escalator",
     2961443701: "PLAS-45 Epoch",
 }
-"""Dictionary of stratagem ID's and names
-
-Format:
-
-    stratagem_id: "Stratagem Name"
-
-Example:
-
-    1078307866: "Orbital Gatling Barrage",
-"""
-
-
-@dataclass
-class SpecialUnits:
-    unit_codes_map = {
-        ("THE JET BRIGADE", Emojis.SpecialUnits.jet_brigade): {1202, 1203},
-        ("PREDATOR STRAIN", Emojis.SpecialUnits.predator_strain): {1243, 1245},
-        ("SPORE BURSTER STRAIN", Emojis.SpecialUnits.spore_burster_strain): {1244},
-        ("INCINERATION CORPS", Emojis.SpecialUnits.incineration_corps): {1248, 1249},
-        ("THE GREAT HOST", Emojis.SpecialUnits.the_great_host): {1269},
-    }
-
-    @classmethod
-    def get_from_effects_list(cls, active_effects: set) -> set | set[tuple[str, str]]:
-        special_units = set()
-        for unit_info, required_codes in cls.unit_codes_map.items():
-            if required_codes.issubset(set([ae.id for ae in active_effects])):
-                special_units.add(unit_info)
-        return special_units

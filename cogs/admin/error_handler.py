@@ -1,8 +1,8 @@
 from datetime import timedelta
-from sys import exc_info
 from disnake import AppCmdInter
 from disnake.ext import commands
 from main import GalacticWideWebBot
+from sys import exc_info
 from traceback import format_exception
 
 

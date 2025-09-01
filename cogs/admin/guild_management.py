@@ -1,8 +1,8 @@
 from asyncio import sleep
-from data.lists import locales_dict
-from datetime import datetime, timedelta, time
+from datetime import datetime, time, timedelta
 from disnake import (
     ButtonStyle,
+    Colour,
     Embed,
     Guild,
     MessageInteraction,
@@ -11,13 +11,9 @@ from disnake import (
 from disnake.ext import commands, tasks
 from disnake.ui import Button
 from main import GalacticWideWebBot
+from utils.dataclasses import Languages
 from utils.dbv2 import BotDashboard, Feature, GWWGuilds, GWWGuild
-from utils.embeds.loop_embeds import (
-    BotDashboardLoopEmbed,
-    GuildJoinListenerEmbed,
-    GuildLeaveListenerEmbed,
-    GuildsNotInDBLoopEmbed,
-)
+from utils.embeds import BotDashboardEmbed, GuildEmbed
 from utils.interactables import AppDirectoryButton, GitHubButton, KoFiButton
 
 
@@ -47,9 +43,11 @@ class GuildManagementCog(commands.Cog):
                 f"Guild **{guild.name}** just added the bot but was already in the DB"
             )
         else:
-            language = locales_dict.get(guild.preferred_locale, "en")
-            GWWGuilds.add(guild_id=guild.id, language=language, feature_keys=[])
-        embed = GuildJoinListenerEmbed(guild=guild)
+            language = Languages.get_from_locale(guild.preferred_locale)
+            guild_in_db = GWWGuilds.add(
+                guild_id=guild.id, language=language.short_code, feature_keys=[]
+            )
+        embed = GuildEmbed(guild=guild, db_guild=guild_in_db, joined=True)
         await self.bot.moderator_channel.send(embed=embed)
 
     @commands.Cog.listener()
@@ -60,8 +58,8 @@ class GuildManagementCog(commands.Cog):
                 f"Guild **{guild.name}** just removed the bot but was not in the DB"
             )
         else:
+            embed = GuildEmbed(guild=guild, db_guild=guild_in_db, removed=True)
             guild_in_db.delete()
-            embed = GuildLeaveListenerEmbed(guild=guild)
             await self.bot.moderator_channel.send(embed=embed)
 
     @tasks.loop(minutes=1)
@@ -90,7 +88,7 @@ class GuildManagementCog(commands.Cog):
         if now.minute == 0 or now - timedelta(minutes=2) < self.bot.startup_time:
             app_info = await self.bot.application_info()
             self.user_installs = app_info.approximate_user_install_count
-        dashboard_embed = BotDashboardLoopEmbed(
+        dashboard_embed = BotDashboardEmbed(
             bot=self.bot, user_installs=self.user_installs
         )
         try:
@@ -169,7 +167,17 @@ class GuildManagementCog(commands.Cog):
                 if guild.guild_id not in dguild_ids:
                     self.guilds_to_remove.append(guild.guild_id)
             if self.guilds_to_remove:
-                embed = GuildsNotInDBLoopEmbed(guilds_to_remove=self.guilds_to_remove)
+                embed = Embed(
+                    title="Guilds in DB that don't have the bot installed",
+                    colour=Colour.brand_red(),
+                    description="These servers are in the database but not in the `self.bot.guilds` list.",
+                ).add_field(
+                    name="Guilds:",
+                    value="\n".join(
+                        [str(guild_id) for guild_id in self.guilds_to_remove]
+                    ),
+                    inline=False,
+                )
                 await self.bot.moderator_channel.send(
                     embed=embed,
                     components=[

@@ -1,18 +1,18 @@
+from data.lists import (
+    custom_colours,
+    emotes_list,
+    player_cards_list,
+    stratagem_permit_list,
+    titles_list,
+    victory_poses_list,
+)
 from disnake import Colour, Embed, File, ButtonStyle, SelectOption
 from disnake.ui import Button, StringSelect, ActionRow
-from data.lists import (
-    faction_colours,
-    warbond_images_dict,
-    emotes_list,
-    victory_poses_list,
-    player_cards_list,
-    titles_list,
-    stratagem_permit_list,
-)
 from utils.data import DSS
+from utils.dataclasses import Factions, WarbondImages
+from utils.emojis import Emojis
 from utils.functions import health_bar
 from utils.mixins import EmbedReprMixin, ReprMixin
-from utils.emojis import Emojis
 
 
 class Wiki:
@@ -528,7 +528,7 @@ class Wiki:
             def __init__(self, language_json: dict):
                 super().__init__(
                     title=language_json["title"],
-                    colour=Colour.from_rgb(*faction_colours["MO"]),
+                    colour=Colour.from_rgb(*custom_colours["MO"]),
                 )
                 self.add_field(
                     Emojis.DSS.icon + language_json["dss_name"],
@@ -564,7 +564,7 @@ class Wiki:
                 self.description = language_json["stationed_at"].format(
                     planet=dss_data.planet.name,
                     faction_emoji=getattr(
-                        Emojis.Factions, dss_data.planet.current_owner.lower()
+                        Emojis.Factions, dss_data.planet.current_owner.full_name.lower()
                     ),
                 )
                 self.description += language_json["next_move"].format(
@@ -641,7 +641,9 @@ class Wiki:
                 variation: bool,
             ):
                 super().__init__(
-                    colour=Colour.from_rgb(*faction_colours[faction]),
+                    colour=Colour.from_rgb(
+                        *Factions.get_from_identifier(name=faction).colour
+                    ),
                     title=species_info["name"],
                     description=species_info["info"]["desc"],
                 )
@@ -704,7 +706,7 @@ class Wiki:
                         f"{language_json['medals_to_unlock']}: **{warbond_page['medals_to_unlock'] }** {Emojis.Items.medal}\n"
                     ),
                 )
-                self.set_image(warbond_images_dict[clean_warbond_name])
+                self.set_image(url=WarbondImages.get(name=clean_warbond_name))
                 item_number = 1
                 for item in warbond_page["items"]:
                     item_json = None

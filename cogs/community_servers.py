@@ -11,8 +11,8 @@ from disnake.ext import commands
 from main import GalacticWideWebBot
 from utils.checks import wait_for_startup
 from utils.dbv2 import GWWGuild, GWWGuilds
-from utils.embeds.command_embeds import CommunityServersCommandEmbed
-from utils.interactables import CommunityServers
+from utils.embeds import CommunityServersEmbed
+from utils.interactables import NextPageButton, PreviousPageButton
 
 
 class CommunityServersCog(commands.Cog):
@@ -50,14 +50,14 @@ class CommunityServersCog(commands.Cog):
                 guild = GWWGuilds.add(inter.guild_id, "en", [])
         else:
             guild = GWWGuild.default()
-        embed = CommunityServersCommandEmbed(
+        embed = CommunityServersEmbed(
             guilds=self.communities_with_links,
             language_json=self.bot.json_dict["languages"][guild.language],
             new_index=16,
         )
         components = [
-            CommunityServers.PreviousPageButton(disabled=True),
-            CommunityServers.NextPageButton(),
+            PreviousPageButton(disabled=True),
+            NextPageButton(),
         ]
         await inter.send(embed=embed, components=components, ephemeral=True)
 
@@ -95,14 +95,14 @@ class CommunityServersCog(commands.Cog):
             case "CommunityServerPreviousPageButton":
                 index = int(inter.message.embeds[0].footer.text.split("/")[0])
                 new_index = max(16, index - 16)
-                embed = CommunityServersCommandEmbed(
+                embed = CommunityServersEmbed(
                     guilds=self.communities_with_links,
                     language_json=self.bot.json_dict["languages"][guild.language],
                     new_index=new_index,
                 )
                 components = [
-                    CommunityServers.PreviousPageButton(disabled=new_index <= 16),
-                    CommunityServers.NextPageButton(),
+                    PreviousPageButton(disabled=new_index <= 16),
+                    NextPageButton(),
                 ]
                 try:
                     await inter.edit_original_response(
@@ -118,14 +118,14 @@ class CommunityServersCog(commands.Cog):
             case "CommunityServerNextPageButton":
                 index = int(inter.message.embeds[0].footer.text.split("/")[0])
                 new_index = min(len(self.communities_with_links), index + 16)
-                embed = CommunityServersCommandEmbed(
+                embed = CommunityServersEmbed(
                     guilds=self.communities_with_links,
                     language_json=self.bot.json_dict["languages"][guild.language],
                     new_index=new_index,
                 )
                 components = [
-                    CommunityServers.PreviousPageButton(),
-                    CommunityServers.NextPageButton(
+                    PreviousPageButton(),
+                    NextPageButton(
                         disabled=new_index >= len(self.communities_with_links)
                     ),
                 ]

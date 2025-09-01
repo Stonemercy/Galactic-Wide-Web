@@ -1,11 +1,11 @@
 from datetime import datetime, timedelta
 from disnake import (
     AppCmdInter,
+    ApplicationInstallTypes,
     Colour,
     Embed,
     File,
     InteractionContextTypes,
-    ApplicationInstallTypes,
     InteractionTimedOut,
     NotFound,
 )
@@ -13,7 +13,7 @@ from disnake.ext import commands
 from main import GalacticWideWebBot
 from utils.checks import wait_for_startup
 from utils.dbv2 import GWWGuild, GWWGuilds
-from utils.embeds.command_embeds import PlanetCommandEmbed, PlanetCommandRegionEmbed
+from utils.embeds import PlanetEmbeds
 from utils.interactables import HDCButton, WikiButton
 from utils.maps import Maps
 
@@ -89,24 +89,15 @@ class PlanetCog(commands.Cog):
             if planet_names["name"].lower() == planet.lower()
         ][0]["names"][guild_language["code_long"]]
         planet_changes = self.bot.data.liberation_changes.get_entry(planet_data.index)
-        embeds = [
-            PlanetCommandEmbed(
-                planet_name=planet_name,
-                planet=planet_data,
-                language_json=guild_language,
-                planet_effects_json=self.bot.json_dict["planet_effects"],
-                liberation_change=planet_changes,
-                total_players=self.bot.data.total_players,
-            )
-        ]
-        if planet_data.regions:
-            embeds.append(
-                PlanetCommandRegionEmbed(
-                    planet=planet_data,
-                    planet_changes=planet_changes,
-                    region_changes=self.bot.data.region_changes,
-                )
-            )
+        embeds = PlanetEmbeds(
+            planet_name=planet_name,
+            planet=planet_data,
+            language_json=guild_language,
+            liberation_change=planet_changes,
+            region_changes=self.bot.data.region_changes,
+            total_players=self.bot.data.total_players,
+        )
+
         if not embeds[0].image_set:
             await self.bot.moderator_channel.send(
                 f"Image missing for biome of **planet __{planet}__** {planet_data.biome} <@{self.bot.owner.id}> :warning:"

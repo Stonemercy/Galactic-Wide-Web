@@ -1,23 +1,23 @@
 from dataclasses import dataclass
 from typing import Self
 from dotenv import load_dotenv
-from data.lists import language_dict
 from os import getenv
 from psycopg2 import connect
 from psycopg2.extras import Json, DictCursor
 from utils.mixins import ReprMixin
+from utils.dataclasses import Languages
 
 load_dotenv(dotenv_path=".env")
-hostname = getenv(key="DB_HOSTNAME")
-database = getenv(key="DBV2_NAME")
-username = getenv(key="DB_USERNAME")
-pwd = getenv(key="DB_PWD")
-port_id = getenv(key="DB_PORT_ID")
+HOSTNAME = getenv(key="DB_HOSTNAME")
+DATABASE = getenv(key="DBV2_NAME")
+USERNAME = getenv(key="DB_USERNAME")
+PWD = getenv(key="DB_PWD")
+PORT_ID = getenv(key="DB_PORT_ID")
 
 
 def connection():
     return connect(
-        host=hostname, dbname=database, user=username, password=pwd, port=port_id
+        host=HOSTNAME, dbname=DATABASE, user=USERNAME, password=PWD, port=PORT_ID
     )
 
 
@@ -178,7 +178,7 @@ class Feature(ReprMixin):
 class GWWGuild(ReprMixin):
     def __init__(self, row: dict):
         self.guild_id = row.get("guild_id")
-        self.language = row.get("language", "en")
+        self.language: str = row.get("language", "en")
         self.feature_keys = row.get("feature_keys", [])
         self.features: list[Feature] = []
         if len(row) > 3:
@@ -204,7 +204,9 @@ class GWWGuild(ReprMixin):
         """Returns the full version of the language's name
 
         e.g. `en` becomes `English`"""
-        return {v: k for k, v in language_dict.items()}[self.language]
+        return {lang.short_code: lang.full_name for lang in Languages.all}[
+            self.language
+        ]
 
     def update_features(self):
         update_feature_keys = False

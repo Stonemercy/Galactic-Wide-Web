@@ -1,64 +1,27 @@
-from datetime import datetime, time, timedelta
+from datetime import datetime, timedelta
 from disnake import (
     AppCmdInter,
+    ApplicationInstallTypes,
     File,
     InteractionContextTypes,
-    ApplicationInstallTypes,
     InteractionTimedOut,
     NotFound,
 )
-from disnake.ext import commands, tasks
+from disnake.ext import commands
 from main import GalacticWideWebBot
 from math import sqrt
+import matplotlib.pyplot as plt
 from numpy import array, hypot
+import PIL.Image as Image
 from utils.checks import wait_for_startup
 from utils.db import Meridia
 from utils.dbv2 import GWWGuild, GWWGuilds
-from utils.embeds.command_embeds import MeridiaCommandEmbed
-import matplotlib.pyplot as plt
-import PIL.Image as Image
-from utils.embeds.loop_embeds import MeridiaLoopEmbed
+from utils.embeds import MeridiaEmbed
 
 
 class MeridiaCog(commands.Cog):
     def __init__(self, bot: GalacticWideWebBot):
         self.bot = bot
-        if not self.meridia_update.is_running():
-            self.meridia_update.start()
-            self.bot.loops.append(self.meridia_update)
-
-    def cog_unload(self):
-        if self.meridia_update.is_running():
-            self.meridia_update.stop()
-            self.bot.loops.remove(self.meridia_update)
-
-    @tasks.loop(
-        time=[time(hour=i, minute=j) for i in range(24) for j in range(10, 60, 15)]
-    )
-    async def meridia_update(self):
-        if not self.bot.data.meridia_position:
-            return
-        now = datetime.now()
-        newest_coords = self.bot.data.meridia_position
-        meridia = Meridia()
-        if newest_coords != meridia.locations[-1].as_tuple:
-            meridia.new_location(datetime.now().isoformat(), *newest_coords)
-        else:
-            return
-        if (
-            now.hour % 4 == 0
-            and now.minute == 10
-            and meridia.locations[-1].timestamp > now - timedelta(hours=4)
-        ):
-            embed = MeridiaLoopEmbed(
-                meridia=meridia, dark_energy=self.bot.data.global_resources.dark_energy
-            )
-            msg = await self.bot.api_changes_channel.send(embed=embed)
-            await msg.publish()
-
-    @meridia_update.before_loop
-    async def before_check_position(self):
-        await self.bot.wait_until_ready()
 
     @wait_for_startup()
     @commands.slash_command(
@@ -233,7 +196,7 @@ class MeridiaCog(commands.Cog):
             if dark_energy
             else None
         )
-        embed = MeridiaCommandEmbed(
+        embed = MeridiaEmbed(
             language_json=self.bot.json_dict["languages"][guild.language],
             planet_names_json=self.bot.json_dict["planets"],
             dark_energy_resource=dark_energy,

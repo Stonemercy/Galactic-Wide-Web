@@ -1,8 +1,8 @@
 from disnake import (
     AppCmdInter,
+    ApplicationInstallTypes,
     Embed,
     InteractionContextTypes,
-    ApplicationInstallTypes,
     InteractionTimedOut,
     NotFound,
 )
@@ -10,8 +10,7 @@ from disnake.ext import commands
 from main import GalacticWideWebBot
 from utils.checks import wait_for_startup
 from utils.dbv2 import GWWGuild, GWWGuilds
-from utils.embeds.command_embeds import WarfrontAllPlanetsEmbed
-from utils.embeds.dashboard import Dashboard
+from utils.embeds import WarfrontAllPlanetsEmbed, Dashboard
 
 
 class WarfrontCog(commands.Cog):
@@ -65,7 +64,7 @@ class WarfrontCog(commands.Cog):
         gambit_planets = {}
         for campaign in self.bot.data.campaigns:
             if (
-                campaign.planet.current_owner == "Humans"
+                campaign.planet.current_owner.full_name == "Humans"
                 or len(campaign.planet.defending_from) == 0
                 or 1190 in [ae.id for ae in campaign.planet.active_effects]
             ):
@@ -82,7 +81,7 @@ class WarfrontCog(commands.Cog):
             planet_events=[
                 planet
                 for planet in self.bot.data.planet_events
-                if planet.event.faction == faction
+                if planet.event.faction.full_name == faction
             ],
             liberation_changes=self.bot.data.liberation_changes,
             region_lib_changes=self.bot.data.region_changes,
@@ -96,7 +95,7 @@ class WarfrontCog(commands.Cog):
             campaigns=[
                 campaign
                 for campaign in self.bot.data.campaigns
-                if campaign.faction == faction and not campaign.planet.event
+                if campaign.faction.full_name == faction and not campaign.planet.event
             ],
             liberation_changes=self.bot.data.liberation_changes,
             region_lib_changes=self.bot.data.region_changes,

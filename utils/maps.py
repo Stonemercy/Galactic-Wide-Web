@@ -1,34 +1,36 @@
 from cv2 import (
-    FLOODFILL_FIXED_RANGE,
-    FLOODFILL_MASK_ONLY,
-    IMREAD_UNCHANGED,
-    LINE_AA,
     circle,
     floodFill,
+    FLOODFILL_FIXED_RANGE,
+    FLOODFILL_MASK_ONLY,
     imread,
     imwrite,
+    IMREAD_UNCHANGED,
     line,
+    LINE_AA,
     merge,
     resize,
     split,
 )
-from numpy import uint8, zeros
-from data.lists import SpecialUnits, faction_colours
+from data.lists import custom_colours
 from dataclasses import dataclass
 from datetime import datetime
+from numpy import uint8, zeros
 from PIL import Image, ImageDraw, ImageFont
-from utils.data import DSS, Assignment, Campaign, Planet, Planets
+from utils.data import Assignment, Campaign, DSS, Planet, Planets
+from utils.dataclasses import Factions, SpecialUnits
 from utils.mixins import ReprMixin
 
 DIM_FACTION_COLOURS: dict[str, tuple[int, int, int]] = {
-    faction: tuple(int(colour / 2.5) for colour in colours)
-    for faction, colours in faction_colours.items()
+    faction.full_name: tuple(int(colour / 2.5) for colour in faction.colour)
+    for faction in Factions.all
 }
 
 
 class Maps:
     def __init__(self):
         self.latest_maps: dict[str, Maps.LatestMap] | dict = {}
+        self.TEXT_SIZE = 25
 
     @dataclass
     class LatestMap(ReprMixin):
@@ -71,22 +73,27 @@ class Maps:
         self.update_dss(dss=dss, type_3_campaigns=[c for c in campaigns if c.type == 3])
 
     def update_sectors(self, planets: Planets) -> None:
-        valid_planets: list[Planet] = [
-            planet
-            for planet in planets.values()
-            if not (planet.current_owner == "Humans" and not planet.event)
-        ]
-        sector_info: dict[str, dict[str, tuple | list]] = {
-            planet.sector: {
-                "coords": planet.map_waypoints,
-                "faction": [],
-            }
-            for planet in valid_planets
+        sectors = {}
+        for planet in planets.values():
+            if planet.sector not in sectors:
+                sectors[planet.sector] = [planet.current_owner.full_name]
+            else:
+                sectors[planet.sector].append(planet.current_owner.full_name)
+        sectors = {s: l for s, l in sectors.items() if set(l) != set(["Humans"])}
+        sector_percentages = {
+            sector: 1.5
+            - (factions.count(max(factions, key=factions.count)) / len(factions))
+            for sector, factions in sectors.items()
         }
-        for planet in valid_planets:
-            sector_info[planet.sector]["faction"].append(
-                planet.current_owner if not planet.event else planet.event.faction
-            )
+        sector_factions = {
+            s: max([i for i in f if i != "Humans"], key=f.count)
+            for s, f in sectors.items()
+        }
+        sector_coords = {}
+        for sector in sectors:
+            sector_coords[sector] = [p for p in planets.values() if p.sector == sector][
+                0
+            ].map_waypoints
         background = imread(Maps.FileLocations.empty_map, IMREAD_UNCHANGED)
         if background.shape[2] == 4:
             alpha_channel = background[:, :, 3].copy()
@@ -95,16 +102,20 @@ class Maps:
             background_rgb = background.copy()
             alpha_channel = None
 
-        for info in sector_info.values():
-            info["faction"] = max(set(info["faction"]), key=info["faction"].count)
-            color = DIM_FACTION_COLOURS[info["faction"]]
-            bgr_color = (color[2], color[1], color[0])
+        for sector, coords in sector_coords.items():
+            color = DIM_FACTION_COLOURS[sector_factions[sector]]
+            percentage = sector_percentages[sector]
+            bgr_color = (
+                int(color[2] * percentage),
+                int(color[1] * percentage),
+                int(color[0] * percentage),
+            )
             h, w = background.shape[:2]
             mask = zeros((h + 2, w + 2), uint8)
             floodFill(
                 image=background_rgb,
                 mask=mask,
-                seedPoint=info["coords"],
+                seedPoint=coords,
                 newVal=bgr_color,
                 loDiff=(50, 50, 50),
                 upDiff=(50, 50, 50),
@@ -157,7 +168,7 @@ class Maps:
                         self._draw_ellipse(
                             image=background,
                             coords=planets[task.planet_index].map_waypoints,
-                            fill_colour=faction_colours["MO"],
+                            fill_colour=custom_colours["MO"],
                             radius=12,
                         )
                     elif task.type == 12 and (
@@ -170,7 +181,7 @@ class Maps:
                                 self._draw_ellipse(
                                     image=background,
                                     coords=planet.map_waypoints,
-                                    fill_colour=faction_colours["MO"],
+                                    fill_colour=custom_colours["MO"],
                                     radius=12,
                                 )
                     elif task.type == 2:
@@ -185,14 +196,14 @@ class Maps:
                                 self._draw_ellipse(
                                     image=background,
                                     coords=planet.map_waypoints,
-                                    fill_colour=faction_colours["MO"],
+                                    fill_colour=custom_colours["MO"],
                                     radius=12,
                                 )
                         elif task.planet_index:
                             self._draw_ellipse(
                                 image=background,
                                 coords=planets[task.planet_index].map_waypoints,
-                                fill_colour=faction_colours["MO"],
+                                fill_colour=custom_colours["MO"],
                                 radius=12,
                             )
                         elif task.faction:
@@ -204,7 +215,7 @@ class Maps:
                                 self._draw_ellipse(
                                     image=background,
                                     coords=planet.map_waypoints,
-                                    fill_colour=faction_colours["MO"],
+                                    fill_colour=custom_colours["MO"],
                                     radius=12,
                                 )
                     elif task.type == 3 and task.progress != 1:
@@ -213,7 +224,7 @@ class Maps:
                                 self._draw_ellipse(
                                     image=background,
                                     coords=campaign.planet.map_waypoints,
-                                    fill_colour=faction_colours["MO"],
+                                    fill_colour=custom_colours["MO"],
                                     radius=12,
                                 )
         imwrite(Maps.FileLocations.assignment_map, background)
@@ -226,7 +237,7 @@ class Maps:
                 self._draw_ellipse(
                     image=background,
                     coords=planet.map_waypoints,
-                    fill_colour=faction_colours["DSS"],
+                    fill_colour=custom_colours["DSS"],
                     radius=12,
                 )
             if index == 64:
@@ -271,11 +282,10 @@ class Maps:
                 )
             else:
                 colour = (
-                    faction_colours[planet.current_owner]
+                    planet.current_owner.colour
                     if index in active_planets
                     else tuple(
-                        int(colour / 1.5)
-                        for colour in faction_colours[planet.current_owner]
+                        int(colour / 1.5) for colour in planet.current_owner.colour
                     )
                 )
                 colour = (*colour[::-1], 255)
@@ -290,7 +300,7 @@ class Maps:
             x_offset = 0
             for su in SpecialUnits.get_from_effects_list(planet.active_effects):
                 su_icon = imread(
-                    f"resources/Emojis/Planet Effects/{su[0].title()}.png",
+                    f"resources/Emojis/Map Icons/{su[0].title()} bordered.png",
                     IMREAD_UNCHANGED,
                 )
                 su_icon = resize(
@@ -309,12 +319,14 @@ class Maps:
     def update_dss(self, dss: DSS, type_3_campaigns: list[Campaign]) -> None:
         background = imread(Maps.FileLocations.planets_map, IMREAD_UNCHANGED)
         if dss and dss.flags == 1:
-            dss_icon = imread("resources/DSS.png", IMREAD_UNCHANGED)
-            verti_diff = 70
+            dss_icon = imread(
+                "resources/Emojis/Map Icons/dss_glow.png", IMREAD_UNCHANGED
+            )
+            verti_diff = 60
             if dss.planet.index in [c.planet.index for c in type_3_campaigns]:
                 verti_diff += 50
             if dss.planet.name.count(" ") > 0:
-                verti_diff += dss.planet.name.count(" ") * 25
+                verti_diff += dss.planet.name.count(" ") * self.TEXT_SIZE
             dss_coords = (
                 int(dss.planet.map_waypoints[0]) - 17,
                 int(dss.planet.map_waypoints[1]) - verti_diff,
@@ -390,20 +402,20 @@ class Maps:
         type_3_campaigns: list[Campaign],
         planet_names_json: dict,
     ) -> None:
-        font = ImageFont.truetype("resources/gww-font.ttf", 25)
+        font = ImageFont.truetype("resources/gww-font.ttf", self.TEXT_SIZE)
         background_draw = ImageDraw.Draw(im=background)
         for index, planet in planets.items():
             if index in active_planets:
                 if planet.dss_in_orbit:
                     border_colour = "deepskyblue"
                 elif planet.event and planet.event.siege_fleet:
-                    border_colour = faction_colours[planet.event.faction]
+                    border_colour = planet.event.faction.colour
                 elif planet.index in [c.planet.index for c in type_3_campaigns]:
-                    border_colour = faction_colours[
+                    border_colour = Factions.get_from_identifier(
                         [c for c in type_3_campaigns if c.planet.index == planet.index][
                             0
-                        ].faction
-                    ]
+                        ].faction.colour
+                    )
                 else:
                     border_colour = "black"
                 name_text = planet_names_json[str(index)]["names"][

@@ -1,26 +1,21 @@
 from math import floor
-from re import sub, DOTALL
+from utils.dataclasses.factions import Faction
 from utils.emojis import Emojis
 
 
 def health_bar(
     perc: float,
-    race: str | int,
+    faction: Faction | str,
     reverse: bool = False,
     empty_colour="empty",
 ):
     perc = min(perc, 1)
     if reverse:
         perc = 1 - perc
-    faction_numbers = {
-        1: "Humans",
-        2: "Terminids",
-        3: "Automaton",
-        4: "Illuminate",
-    }
-    if race in faction_numbers:
-        race = faction_numbers[race]
-    health_icon = getattr(Emojis.FactionColours, race.lower())
+    name_to_check = (
+        faction.full_name.lower() if type(faction) == Faction else faction.lower()
+    )
+    health_icon = getattr(Emojis.FactionColours, name_to_check)
     perc_round = floor(perc * 10)
     progress_bar = health_icon * perc_round
     while perc_round < 10:

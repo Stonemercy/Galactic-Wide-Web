@@ -1,6 +1,6 @@
-from data.lists import language_dict
 from disnake import ButtonStyle, ChannelType, SelectOption
 from disnake.ui import Button, ChannelSelect, StringSelect
+from utils.dataclasses import Languages
 from utils.emojis import Emojis
 
 
@@ -158,9 +158,11 @@ class Setup:
                     placeholder=language_json["setup"]["buttons"]["language_select"],
                     options=[
                         SelectOption(
-                            label=f"{lang.upper()}",
-                            emoji=getattr(Emojis.Flags, lang.replace("-", "_")),
+                            label=f"{lang.short_code}",
+                            emoji=getattr(
+                                Emojis.Flags, lang.short_code.replace("-", "_")
+                            ),
                         )
-                        for lang in language_dict.values()
+                        for lang in Languages.all
                     ],
                 )

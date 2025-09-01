@@ -1,19 +1,19 @@
 from datetime import datetime, timedelta
 from data.lists import (
-    SpecialUnits,
-    assignment_task_images_dict,
+    custom_colours,
     stratagem_id_dict,
-    faction_colours,
 )
 from disnake import Colour, Embed
 from utils.data import (
-    DSS,
     Assignment,
     Campaign,
     Data,
+    DSS,
+    GlobalEvent,
     Planet,
     Planets,
 )
+from utils.dataclasses import AssignmentImages, Factions, SpecialUnits
 from utils.emojis import Emojis
 from utils.functions import health_bar, short_format
 from utils.mixins import EmbedReprMixin
@@ -91,7 +91,8 @@ class Dashboard:
                 campaigns=[
                     campaign
                     for campaign in data.campaigns
-                    if campaign.faction == "Illuminate" and not campaign.planet.event
+                    if campaign.faction == Factions.illuminate
+                    and not campaign.planet.event
                 ],
                 liberation_changes=data.liberation_changes,
                 region_lib_changes=data.region_changes,
@@ -108,7 +109,8 @@ class Dashboard:
                 campaigns=[
                     campaign
                     for campaign in data.campaigns
-                    if campaign.faction == "Automaton" and not campaign.planet.event
+                    if campaign.faction == Factions.automaton
+                    and not campaign.planet.event
                 ],
                 liberation_changes=data.liberation_changes,
                 region_lib_changes=data.region_changes,
@@ -125,7 +127,8 @@ class Dashboard:
                 campaigns=[
                     campaign
                     for campaign in data.campaigns
-                    if campaign.faction == "Terminids" and not campaign.planet.event
+                    if campaign.faction == Factions.terminids
+                    and not campaign.planet.event
                 ],
                 liberation_changes=data.liberation_changes,
                 region_lib_changes=data.region_changes,
@@ -193,7 +196,7 @@ class Dashboard:
             self.assignment = assignment
             self.completion_timestamps = []
             super().__init__(
-                colour=Colour.from_rgb(*faction_colours["MO"]),
+                colour=Colour.from_rgb(*custom_colours["MO"]),
             )
             if not self.assignment:
                 self.title = language_json["dashboard"]["MajorOrderEmbed"]["mo_missing"]
@@ -213,12 +216,7 @@ class Dashboard:
                 )
                 task_numbers = [task.type for task in assignment.tasks]
                 task_for_image = max(set(task_numbers), key=task_numbers.count)
-                image_link = assignment_task_images_dict.get(
-                    task_for_image,
-                    "https://cdn.discordapp.com/attachments/1212735927223590974/1338186496967966720/mo_icon_liberate.png?ex=67aa2acb&is=67a8d94b&hm=aa64d3140e3d0e84f1e471906dca59c193e3db72cca0fb9ee1069740a776359a&",
-                )
-                if image_link:
-                    self.set_thumbnail(url=image_link)
+                self.set_thumbnail(url=AssignmentImages.get(task_for_image))
                 if self.compact_level < 2:
                     self.add_description(
                         assignment=assignment, language_json=language_json
@@ -321,7 +319,7 @@ class Dashboard:
                                 inline=False,
                             )
                     if (
-                        assignment.flags == 2
+                        assignment.flags == 3
                         and len(assignment.tasks) > 1
                         and task != assignment.tasks[-1]
                     ):
@@ -424,7 +422,7 @@ class Dashboard:
                 # [ from any {faction} controlled planet]
                 field_name += language_json["dashboard"]["MajorOrderEmbed"]["tasks"][
                     "type2_faction"
-                ].format(faction=language_json["factions"][task.faction])
+                ].format(faction=language_json["factions"][task.faction.full_name])
             field_value = ""
             if task.progress_perc != 1:
                 field_value += f"{language_json['dashboard']['progress']}: **{task.progress:,.0f}**"
@@ -468,7 +466,7 @@ class Dashboard:
                     + "s"
                 )
             else:
-                enemy_type = task.faction
+                enemy_type = task.faction.plural.title()
             field_name += language_json["dashboard"]["MajorOrderEmbed"]["tasks"][
                 "type3"
             ].format(
@@ -538,7 +536,7 @@ class Dashboard:
                     if task.progress_perc == 1
                     else Emojis.Icons.mo_task_incomplete
                 ),
-                faction=language_json["factions"][task.faction],
+                faction=language_json["factions"][task.faction.full_name],
                 amount=f"{task.target:,}",
             )
             field_value = ""
@@ -582,7 +580,7 @@ class Dashboard:
                 against_faction = language_json["dashboard"]["MajorOrderEmbed"][
                     "tasks"
                 ]["type9_against_faction"].format(
-                    faction=language_json["factions"][task.faction]
+                    faction=language_json["factions"][task.faction.full_name]
                 )
             if task.difficulty:
                 # [ on {difficulty} or higher]
@@ -685,7 +683,7 @@ class Dashboard:
                         field_value += f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['victory'])} <t:{now_seconds + planet_lib_changes.seconds_until_complete}:R>"
                     field_value += f"\n{language_json['dashboard']['progress']}:"
                     if self.compact_level < 1:
-                        field_value += f"\n{health_bar(planet.health_perc, 'Humans', True, empty_colour=planet.current_owner)}"
+                        field_value += f"\n{health_bar(planet.health_perc, 'Humans', True, empty_colour=planet.current_owner.full_name)}"
                     field_value += f"\n`{(1-planet.health_perc):^25,.2%}`"
                 if planet_lib_changes and planet_lib_changes.change_rate_per_hour > 0:
                     change = f"{planet_lib_changes.change_rate_per_hour:+.2%}/hour"
@@ -723,7 +721,7 @@ class Dashboard:
             if task.faction:
                 field_name += language_json["dashboard"]["MajorOrderEmbed"]["tasks"][
                     "type12_faction"
-                ].format(faction=language_json["factions"][task.faction])
+                ].format(faction=language_json["factions"][task.faction.full_name])
             field_value = ""
             if task.progress_perc != 1:
                 if planet:
@@ -799,7 +797,8 @@ class Dashboard:
                     active_effects=planet.active_effects
                 ):
                     field_value += f"\n-# {special_unit[0]} {special_unit[1]}"
-                field_value += f"{language_json['dashboard']['heroes'].format(heroes=planet.stats['playerCount'])}"
+                formatted_heroes = f"{planet.stats['playerCount']:,}"
+                field_value += f"\n{language_json['dashboard']['heroes'].format(heroes=formatted_heroes)}"
                 if planet.event:
                     field_value += f"\n{language_json['ends']} <t:{planet.event.end_time_datetime.timestamp():.0f}:R>"
                     field_value += f"\n{language_json['dashboard']['DefenceEmbed']['level']} **{planet.event.level}**"
@@ -842,7 +841,7 @@ class Dashboard:
                             field_value += f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['victory'])} <t:{now_seconds + planet_lib_changes.seconds_until_complete}:R>"
                         field_value += f"\n{language_json['dashboard']['progress']}:\n"
                         if self.compact_level < 1:
-                            field_value += f"{health_bar(perc=planet.health_perc, race=planet.current_owner, reverse=True)}"
+                            field_value += f"{health_bar(perc=planet.health_perc, faction=planet.current_owner, reverse=True)}"
                         if (
                             planet_lib_changes
                             and planet_lib_changes.change_rate_per_hour != 0
@@ -850,8 +849,8 @@ class Dashboard:
                             change = (
                                 f"{planet_lib_changes.change_rate_per_hour:+.2%}/hour"
                             )
+                            field_value += f"\n`{1 - (planet.health_perc):^25,.2%}`"
                             field_value += f"\n`{change:^25}`"
-                        field_value += f"{1 - (planet.health_perc):^25,.2%}"
                 self.add_field(
                     name=field_name,
                     value=field_value,
@@ -876,7 +875,11 @@ class Dashboard:
                 if self.compact_level < 1:
                     field_value += health_bar(
                         perc=percent,
-                        race="Automaton" if task.progress_perc != 1 else "Humans",
+                        faction=(
+                            Factions.automaton
+                            if task.progress_perc != 1
+                            else Factions.humans
+                        ),
                     )
                 field_value += f"`{task.progress_perc:^25,}`\n"
 
@@ -907,18 +910,30 @@ class Dashboard:
                     rewards_text,
                 )
 
+        def add_briefing(self, briefing: GlobalEvent):
+            self.insert_field_at(
+                0,
+                briefing.title,
+                briefing.split_message[0],
+                inline=False,
+            )
+            for index, chunk in enumerate(briefing.split_message[1:], 1):
+                self.insert_field_at(index, "", chunk, inline=False)
+
     class DSSEmbed(Embed, EmbedReprMixin):
         def __init__(
             self, dss: DSS | None, language_json: dict, planet_names_json: dict
         ):
             super().__init__(
                 title=language_json["dss"]["title"],
-                colour=Colour.from_rgb(*faction_colours["DSS"]),
+                colour=Colour.from_rgb(*custom_colours["DSS"]),
             )
             self.set_thumbnail(
                 url="https://cdn.discordapp.com/attachments/1213146233825271818/1310906165823148043/DSS.png?ex=6746ec01&is=67459a81&hm=ab1c29616fd787f727848b04e44c26cc74e045b6e725c45b9dd8a902ec300757&"
             )
-            faction_emojis = getattr(Emojis.Factions, dss.planet.current_owner.lower())
+            faction_emojis = getattr(
+                Emojis.Factions, dss.planet.current_owner.full_name.lower()
+            )
             for special_unit in SpecialUnits.get_from_effects_list(
                 active_effects=dss.planet.active_effects
             ):
@@ -1110,11 +1125,11 @@ class Dashboard:
                             region_lib_change_text = (
                                 f"{region_lib_change.change_rate_per_hour:+.1%}/hr"
                             )
-                    regions_text += f"\n-# ↳ {getattr(getattr(Emojis.RegionIcons, region.owner), f'_{region.size}')} {region.type} **{region.name}** - {region.perc:.0%} {region_lib_change_text}"
+                    regions_text += f"\n-# ↳ {getattr(getattr(Emojis.RegionIcons, region.owner.full_name), f'_{region.size}')} {region.type} **{region.name}** - {region.perc:.0%} {region_lib_change_text}"
                 else:
                     if (
                         region.availability_factor > planet.event.progress
-                        and region.owner != "Humans"
+                        and region.owner.full_name != "Humans"
                         and self.compact_level < 2
                     ):
                         current_percentage = (
@@ -1140,7 +1155,7 @@ class Dashboard:
                             region_avail_timestamp
                             < now_seconds + liberation_change.seconds_until_complete
                         ):
-                            regions_text += f"\n-# ↳ {getattr(getattr(Emojis.RegionIcons, region.owner), f'_{region.size}')} {region.type} **{region.name}** - available <t:{region_avail_timestamp}:R>"
+                            regions_text += f"\n-# ↳ {getattr(getattr(Emojis.RegionIcons, region.owner.full_name), f'_{region.size}')} {region.type} **{region.name}** - available <t:{region_avail_timestamp}:R>"
                             break
             if planet.feature and self.compact_level < 2:
                 feature_text += f"{self.language_json['dashboard']['DefenceEmbed']['feature']}: **{planet.feature}**"
@@ -1226,7 +1241,7 @@ class Dashboard:
                 event_health_bar = ""
             player_count = f'**{planet.stats["playerCount"]:,}**'
             self.add_field(
-                f"{getattr(Emojis.Factions, planet.event.faction.lower())} - __**{self.planet_names[str(planet.index)]['names'][self.language_json['code_long']]}**__ {planet.exclamations}",
+                f"{getattr(Emojis.Factions, planet.event.faction.full_name.lower())} - __**{self.planet_names[str(planet.index)]['names'][self.language_json['code_long']]}**__ {planet.exclamations}",
                 (
                     f"{feature_text}"
                     f"\n{self.language_json['ends']} {time_remaining}"
@@ -1269,7 +1284,7 @@ class Dashboard:
                 siege_fleet_health_bar = ""
             player_count = f'**{planet.stats["playerCount"]:,}**'
             self.add_field(
-                f"{getattr(Emojis.Factions, planet.event.faction.lower())} - __**{self.planet_names[str(planet.index)]['names'][self.language_json['code_long']]}**__ {planet.exclamations}",
+                f"{getattr(Emojis.Factions, planet.event.faction.full_name.lower())} - __**{self.planet_names[str(planet.index)]['names'][self.language_json['code_long']]}**__ {planet.exclamations}",
                 (
                     f"{feature_text}"
                     f"\n{self.language_json['ends']} {time_remaining}"
@@ -1309,7 +1324,9 @@ class Dashboard:
                 title=language_json["dashboard"]["AttackEmbed"]["title"].format(
                     faction=language_json["factions"][faction]
                 ),
-                colour=Colour.from_rgb(*faction_colours[faction]),
+                colour=Colour.from_rgb(
+                    *Factions.get_from_identifier(name=faction).colour
+                ),
             )
             self.set_thumbnail("https://helldivers.io/img/attack.png")
             total_players_doing_faction = (
@@ -1383,9 +1400,9 @@ class Dashboard:
                     player_count = f'**{campaign.planet.stats["playerCount"]:,}**'
                     for region in campaign.planet.regions.values():
                         if region.is_available:
-                            region_text += f"\n-# ↳ {getattr(getattr(Emojis.RegionIcons, region.owner), f'_{region.size}')} {region.type} **{region.name}** - {region.perc:.2%}"
+                            region_text += f"\n-# ↳ {getattr(getattr(Emojis.RegionIcons, region.owner.full_name), f'_{region.size}')} {region.type} **{region.name}** - {region.perc:.2%}"
                     self.add_field(
-                        f"{getattr(Emojis.Factions, campaign.planet.current_owner.lower())} - __**{planet_names[str(campaign.planet.index)]['names'][language_json['code_long']]}**__ {exclamation}",
+                        f"{getattr(Emojis.Factions, campaign.planet.current_owner.full_name.lower())} - __**{planet_names[str(campaign.planet.index)]['names'][language_json['code_long']]}**__ {exclamation}",
                         (
                             f"{language_json['dashboard']['heroes'].format(heroes=player_count)}"
                             f"{feature_text}"
@@ -1416,7 +1433,7 @@ class Dashboard:
                                 region.is_available
                                 and region.players > total_players * 0.001
                             ):
-                                skipped_planets_text += f"-# ↳ {getattr(getattr(Emojis.RegionIcons, region.owner), f'_{region.size}')} {region.type} **{region.name}** - {region.perc:.2%}\n"
+                                skipped_planets_text += f"-# ↳ {getattr(getattr(Emojis.RegionIcons, region.owner.full_name), f'_{region.size}')} {region.type} **{region.name}** - {region.perc:.2%}\n"
                 if skipped_planets_text != "":
                     self.add_field(
                         f"{language_json['dashboard']['AttackEmbed']['low_impact']}",

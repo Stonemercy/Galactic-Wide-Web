@@ -2,7 +2,7 @@ from disnake import AppCmdInter, ApplicationInstallTypes, InteractionContextType
 from disnake.ext import commands
 from main import GalacticWideWebBot
 from utils.checks import is_whitelisted, wait_for_startup
-from utils.embeds.command_embeds import GalacticWarEffectEmbed
+from utils.embeds import GalacticWarEffectEmbed
 
 
 class GWECog(commands.Cog):
@@ -10,7 +10,9 @@ class GWECog(commands.Cog):
         self.bot = bot
 
     async def id_autocomp(inter: AppCmdInter, user_input: str):
-        id_list = sorted([i.id for i in inter.bot.data.galactic_war_effects])
+        id_list = sorted(
+            [i.id for i in inter.bot.data.galactic_war_effects], reverse=True
+        )
         return [gwe for gwe in id_list if str(user_input).lower() in str(gwe).lower()][
             :25
         ]
@@ -68,7 +70,13 @@ class GWECog(commands.Cog):
                     for p in self.bot.data.planets.values()
                     if gwe.id in [effect.id for effect in p.active_effects]
                 ]
-                if len(planets_with_gwe) >= 261:
+                global_events_list = [
+                    i for i in self.bot.data.global_events if gwe.id in i.effect_ids
+                ]
+                if (
+                    global_events_list != []
+                    and global_events_list[0].planet_indices == []
+                ):
                     planets_with_gwe = "ALL"
                 embed = GalacticWarEffectEmbed(
                     gwe=gwe,

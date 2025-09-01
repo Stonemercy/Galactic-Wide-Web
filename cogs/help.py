@@ -1,14 +1,14 @@
 from disnake import (
     AppCmdInter,
-    InteractionContextTypes,
     ApplicationInstallTypes,
+    InteractionContextTypes,
     InteractionTimedOut,
     NotFound,
 )
 from disnake.ext import commands
 from main import GalacticWideWebBot
 from utils.checks import wait_for_startup
-from utils.embeds.command_embeds import HelpCommandEmbed
+from utils.embeds import HelpEmbed
 from utils.interactables import SupportServerButton
 
 
@@ -79,7 +79,7 @@ class HelpCog(commands.Cog):
                 ephemeral=True,
             )
         await inter.send(
-            embed=HelpCommandEmbed(
+            embed=HelpEmbed(
                 commands=slash_commands,
                 command=slash_command,
             ),

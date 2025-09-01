@@ -5,7 +5,7 @@ from disnake.ext import commands, tasks
 from main import GalacticWideWebBot
 from os import getenv
 from utils.dbv2 import DSSInfo, GWWGuilds, PlanetRegions, WarCampaigns
-from utils.embeds.loop_embeds import CampaignLoopEmbed, RegionLoopEmbed
+from utils.embeds import CampaignChangesEmbed, RegionChangesEmbed
 from utils.maps import Maps
 
 SUPPORT_SERVER = [int(getenv("SUPPORT_SERVER"))]
@@ -41,7 +41,7 @@ class WarUpdatesCog(commands.Cog):
         unique_langs = GWWGuilds().unique_languages
         embeds = {
             lang: [
-                CampaignLoopEmbed(
+                CampaignChangesEmbed(
                     language_json=self.bot.json_dict["languages"][lang],
                     planet_names_json=self.bot.json_dict["planets"],
                 )
@@ -55,7 +55,7 @@ class WarUpdatesCog(commands.Cog):
                 old_campaigns.add(
                     campaign_id=new_campaign.id,
                     planet_index=new_campaign.planet.index,
-                    planet_owner=new_campaign.planet.current_owner,
+                    planet_owner=new_campaign.planet.current_owner.full_name,
                     event=bool(new_campaign.planet.event),
                     event_type=(
                         new_campaign.planet.event.type
@@ -63,7 +63,7 @@ class WarUpdatesCog(commands.Cog):
                         else None
                     ),
                     event_faction=(
-                        new_campaign.planet.event.faction
+                        new_campaign.planet.event.faction.full_name
                         if new_campaign.planet.event
                         else None
                     ),
@@ -77,7 +77,7 @@ class WarUpdatesCog(commands.Cog):
                 # if campaign has ended
                 planet = self.bot.data.planets[old_campaign.planet_index]
                 if (
-                    planet.current_owner == "Humans"
+                    planet.current_owner.full_name == "Humans"
                     and old_campaign.planet_owner == "Humans"
                 ):
                     # if campaign was defence and we won
@@ -111,13 +111,13 @@ class WarUpdatesCog(commands.Cog):
                         for embed_list in embeds.values():
                             embed_list[0].add_def_victory(planet=planet)
                     new_updates = True
-                elif planet.current_owner != old_campaign.planet_owner:
+                elif planet.current_owner.full_name != old_campaign.planet_owner:
                     # if owner has changed
                     if old_campaign.planet_owner == "Humans":
                         # if defence campaign loss
                         for embed_list in embeds.values():
                             embed_list[0].add_planet_lost(planet=planet)
-                    elif planet.current_owner == "Humans":
+                    elif planet.current_owner.full_name == "Humans":
                         # if attack campaign win
                         for embed_list in embeds.values():
                             embed_list[0].add_campaign_victory(
@@ -150,7 +150,7 @@ class WarUpdatesCog(commands.Cog):
                 old_campaigns.add(
                     campaign_id=new_campaign.id,
                     planet_index=new_campaign.planet.index,
-                    planet_owner=new_campaign.planet.current_owner,
+                    planet_owner=new_campaign.planet.current_owner.full_name,
                     event=bool(new_campaign.planet.event),
                     event_type=(
                         new_campaign.planet.event.type
@@ -158,7 +158,7 @@ class WarUpdatesCog(commands.Cog):
                         else None
                     ),
                     event_faction=(
-                        new_campaign.planet.event.faction
+                        new_campaign.planet.event.faction.full_name
                         if new_campaign.planet.event
                         else None
                     ),
@@ -171,7 +171,7 @@ class WarUpdatesCog(commands.Cog):
                 embed_list[0].remove_empty()
             await self.bot.interface_handler.send_feature("war_announcements", embeds)
             self.bot.logger.info(
-                f"Sent war announcements out to {len(self.bot.interface_handler.war_announcements)} channels"
+                f"Sent war announcements out to {len(self.bot.interface_handler.war_announcements)} channels in {(datetime.now() - update_start).total_seconds():.2f}s"
             )
             if need_to_update_sectors:
                 await to_thread(
@@ -238,7 +238,7 @@ class WarUpdatesCog(commands.Cog):
             # DSS updates
             embeds = {
                 lang: [
-                    CampaignLoopEmbed(
+                    CampaignChangesEmbed(
                         language_json=self.bot.json_dict["languages"][lang],
                         planet_names_json=self.bot.json_dict["planets"],
                     )
@@ -281,7 +281,7 @@ class WarUpdatesCog(commands.Cog):
                 embed_list[0].remove_empty()
             await self.bot.interface_handler.send_feature("dss_announcements", embeds)
             self.bot.logger.info(
-                f"Sent DSS announcements out to {len(self.bot.interface_handler.dss_announcements)} channels"
+                f"Sent DSS announcements out to {len(self.bot.interface_handler.dss_announcements)} channels in {(datetime.now() - update_start).total_seconds():.2f}s"
             )
             self.bot.maps.update_planets(
                 planets=self.bot.data.planets,
@@ -340,14 +340,14 @@ class WarUpdatesCog(commands.Cog):
                 if region.is_updated and region.is_available:
                     old_region_data.add(
                         region.settings_hash,
-                        region.owner,
+                        region.owner.full_name,
                         region.planet_index,
                     )
             return
 
         embeds = {
             lang: [
-                RegionLoopEmbed(
+                RegionChangesEmbed(
                     language_json=self.bot.json_dict["languages"][lang],
                     planet_names_json=self.bot.json_dict["planets"],
                 )
@@ -368,7 +368,10 @@ class WarUpdatesCog(commands.Cog):
                 if region := region_list[0]:
                     # if region is still in API
                     planet = self.bot.data.planets[region.planet_index]
-                    if region.owner == "Humans" and old_region.owner != "Humans":
+                    if (
+                        region.owner.full_name == "Humans"
+                        and old_region.owner != "Humans"
+                    ):
                         # if region was a victory for us
                         for embed_list in embeds.values():
                             embed_list[0].add_region_victory(
@@ -376,7 +379,7 @@ class WarUpdatesCog(commands.Cog):
                                 region=region,
                                 taken_from=old_region.owner,
                             )
-                    elif region.owner != old_region.owner:
+                    elif region.owner.full_name != old_region.owner:
                         # if owner has changed
                         if old_region.owner == "Humans":
                             for embed_list in embeds.values():
@@ -385,7 +388,7 @@ class WarUpdatesCog(commands.Cog):
                                     region=region,
                                     taken_from=old_region.owner,
                                 )
-                        elif region.owner == "Humans":
+                        elif region.owner.full_name == "Humans":
                             # if attack campaign win
                             for embed_list in embeds.values():
                                 embed_list[0].add_region_victory(
@@ -415,7 +418,7 @@ class WarUpdatesCog(commands.Cog):
                         )
                     old_region_data.add(
                         region.settings_hash,
-                        region.owner,
+                        region.owner.full_name,
                         region.planet_index,
                     )
                     region_updates = True
@@ -428,7 +431,7 @@ class WarUpdatesCog(commands.Cog):
                         "region_announcements", embeds
                     )
                     self.bot.logger.info(
-                        f"Sent region announcements out to {len(self.bot.interface_handler.region_announcements)} channels"
+                        f"Sent region announcements out to {len(self.bot.interface_handler.region_announcements)} channels in {(datetime.now() - update_start).total_seconds():.2f}s"
                     )
 
     @region_check.before_loop

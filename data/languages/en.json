@@ -158,7 +158,7 @@
         "regiona_desc": "-# Announcements regarding planetary regions (e.g. new regions have appeared or regions have been won etc.)\n",
         "regiona_channel": "Region Announcements channel",
         "patch_notes": "Patch notes",
-        "patch_notes_desc": "-# Provides patch notes for the game to your designated Announcements channel\n",
+        "patch_notes_desc": "-# Provides links to Steam announcements for the game\n",
         "patch_notes_channel": "Patch notes channel",
         "mo_updates": "Major Order updates",
         "mo_updates_desc": "-# Provides updates for active major orders at <t:1737786000:t> and <t:1737829200:t>\n",

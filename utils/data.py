@@ -6,7 +6,8 @@ from disnake import TextChannel
 from logging import Logger
 from os import getenv
 from typing import ItemsView, ValuesView
-from data.lists import SpecialUnits
+from utils.dataclasses import Factions, SpecialUnits
+from utils.dataclasses.factions import Faction
 from utils.emojis import Emojis
 from utils.functions import dispatch_format, health_bar
 from utils.mixins import ReprMixin
@@ -15,14 +16,7 @@ from utils.trackers import BaseTracker
 api = getenv(key="API")
 backup_api = getenv(key="BU_API")
 
-factions = {
-    1: "Humans",
-    2: "Terminids",
-    3: "Automaton",
-    4: "Illuminate",
-}
-
-region_types = {4: "Mega City", 3: "City", 2: "Town", 1: "Settlement"}
+REGION_TYPES = {4: "Mega City", 3: "City", 2: "Town", 1: "Settlement"}
 
 
 class Data(ReprMixin):
@@ -47,7 +41,6 @@ class Data(ReprMixin):
         "major_order_changes",
         "meridia_position",
         "galactic_impact_mod",
-        "sieges",
         "steam_playercount",
         "galactic_war_effects",
     )
@@ -71,7 +64,6 @@ class Data(ReprMixin):
         self.loaded: bool = False
         self.liberation_changes: BaseTracker = BaseTracker()
         self.global_resource_changes: BaseTracker = BaseTracker()
-        self.siege_fleet_changes: BaseTracker = BaseTracker()
         self.region_changes: BaseTracker = BaseTracker()
         self.major_order_changes: BaseTracker = BaseTracker()
         self.meridia_position: None | tuple[float, float] = None
@@ -79,7 +71,6 @@ class Data(ReprMixin):
         self.assignments = []
         self.dss = None
         self.dispatches: list = []
-        self.sieges = None
         self.global_resources = None
         self.steam_playercount = 0
         self.gambit_planets = {}
@@ -333,7 +324,10 @@ class Data(ReprMixin):
 
         if self.__data__["dispatches"]:
             self.dispatches: list[Dispatch] = [
-                Dispatch(raw_dispatch_data=data) for data in self.__data__["dispatches"]
+                Dispatch(
+                    raw_dispatch_data=data, war_start_timestamp=self.war_start_timestamp
+                )
+                for data in sorted(self.__data__["dispatches"], key=lambda x: x["id"])
             ]
 
         if self.__data__["thumbnails"]:
@@ -431,7 +425,7 @@ class Data(ReprMixin):
             for campaign in [
                 c
                 for c in self.campaigns
-                if c.planet.current_owner != "Humans"
+                if c.planet.current_owner.full_name != "Humans"
                 or len(c.planet.defending_from) != 0
                 or 1190 not in [ae.id for ae in c.planet.active_effects]
             ]:
@@ -615,7 +609,9 @@ class Assignment(ReprMixin):
             ) = None
 
             if faction := self.values_dict.get(1):
-                self.faction: str = factions.get(faction, "Unknown")
+                self.faction: Faction | None = Factions.get_from_identifier(
+                    number=faction
+                )
             if value2 := self.values_dict.get(2):
                 self.value2 = value2
                 print(f"VALUE2 USED: {self.type, self.value2 = }")
@@ -654,23 +650,23 @@ class Assignment(ReprMixin):
                 case 2:
                     return health_bar(
                         self.progress_perc,
-                        "Humans",
+                        Factions.humans,
                     )
                 case 3:
                     return health_bar(
                         self.progress_perc,
-                        (self.faction if self.progress_perc != 1 else "Humans"),
+                        (self.faction if self.progress_perc != 1 else Factions.humans),
                     )
                 case 7:
                     return health_bar(self.progress_perc, self.faction)
                 case 9:
-                    return health_bar(self.progress_perc, "Humans")
+                    return health_bar(self.progress_perc, Factions.humans)
                 case 11:
                     return
                 case 12:
                     return health_bar(
                         self.progress_perc,
-                        "MO" if self.progress_perc < 1 else "Humans",
+                        "MO" if self.progress_perc < 1 else Factions.humans,
                     )
                 case 13:
                     return ""
@@ -680,15 +676,23 @@ class Assignment(ReprMixin):
                     ]
                     return health_bar(
                         percent,
-                        "Humans" if self.progress > 0 else "Automaton",
+                        Factions.humans if self.progress > 0 else Factions.automaton,
                     )
 
 
 class Dispatch(ReprMixin):
-    def __init__(self, raw_dispatch_data: dict) -> None:
+    def __init__(self, raw_dispatch_data: dict, war_start_timestamp: int) -> None:
         """Organised data of a dispatch"""
         self.id: int = raw_dispatch_data["id"]
-        self.message = dispatch_format(text=raw_dispatch_data.get("message", ""))
+        self.published_at: datetime = datetime.fromtimestamp(
+            war_start_timestamp + raw_dispatch_data.get("published", 0)
+        )
+        self.full_message: str = dispatch_format(
+            text=raw_dispatch_data.get("message", "")
+        )
+        split_lines = self.full_message.splitlines()
+        self.title = split_lines[0].replace("*", "")
+        self.description = "\n".join(split_lines[1:])
 
 
 class GlobalEvent(ReprMixin):
@@ -697,7 +701,9 @@ class GlobalEvent(ReprMixin):
         self.id: int = raw_global_event_data["eventId"]
         self.title: str = dispatch_format(raw_global_event_data["title"])
         self.message: str = dispatch_format(text=raw_global_event_data["message"])
-        self.faction: int = raw_global_event_data["race"]
+        self.faction: Faction = Factions.get_from_identifier(
+            number=raw_global_event_data["race"]
+        )
         self.flag: int = raw_global_event_data["flag"]
         self.assignment_id: int = raw_global_event_data["assignmentId32"]
         self.effect_ids: list[int] | list = raw_global_event_data["effectIds"]
@@ -754,7 +760,7 @@ class SiegeFleet(GlobalResource):
         self.current_value: int = raw_global_resource_data["currentValue"]
         self.max_value: int = raw_global_resource_data["maxValue"]
         self.perc: float = self.current_value / self.max_value
-        self.faction: str | None = None
+        self.faction: Faction | None = None
 
     @property
     def health_bar(self) -> str:
@@ -777,7 +783,7 @@ class TheGreatHost(SiegeFleet):
     def __init__(self, raw_global_resource_data: dict) -> None:
         """Organised data for The Great Host"""
         super().__init__(raw_global_resource_data=raw_global_resource_data)
-        self.faction = "Illuminate"
+        self.faction = Factions.illuminate
 
 
 class GlobalResources(list[GlobalResource]):
@@ -818,7 +824,9 @@ class Planet(ReprMixin):
         self.max_health: int = raw_planet_data["maxHealth"]
         self.health: int = raw_planet_data["health"]
         self.health_perc: float = min(self.health / self.max_health, 1)
-        self.current_owner: str = raw_planet_data["currentOwner"]
+        self.current_owner: Faction | None = Factions.get_from_identifier(
+            name=raw_planet_data["currentOwner"]
+        )
         self.regen: float = raw_planet_data["regenPerSecond"]
         self.regen_perc_per_hour: float = round(
             number=(((self.regen * 3600) / self.max_health)), ndigits=4
@@ -872,7 +880,7 @@ class Planet(ReprMixin):
     def exclamations(self) -> str:
         result = ""
         if self.event:
-            result += f":shield:{getattr(Emojis.Factions, self.event.faction.lower())}"
+            result += f":shield:{getattr(Emojis.Factions, self.event.faction.full_name.lower())}"
         if self.in_assignment:
             result += Emojis.Icons.mo
         if self.dss_in_orbit:
@@ -888,7 +896,9 @@ class Planet(ReprMixin):
             """Organised data for a planet's event (defence campaign)"""
             self.id: int = raw_event_data["id"]
             self.type: int = raw_event_data["eventType"]
-            self.faction: str = raw_event_data["faction"]
+            self.faction: Faction | None = Factions.get_from_identifier(
+                name=raw_event_data["faction"]
+            )
             self.health: int = raw_event_data["health"]
             self.max_health: int = raw_event_data["maxHealth"]
             self.start_time: str = raw_event_data["startTime"]
@@ -922,14 +932,14 @@ class Planet(ReprMixin):
         @property
         def health_bar(self) -> str:
             """Returns the health bar for the planet's event"""
-            return health_bar(perc=self.progress, race=self.faction)
+            return health_bar(perc=self.progress, faction=self.faction)
 
     class Region(ReprMixin):
         def __init__(
             self,
             planet_regions_json_dict: dict,
             raw_planet_region_data: dict,
-            planet_owner: str,
+            planet_owner: Faction,
         ):
             self.settings_hash: int = raw_planet_region_data["settingsHash"]
             self.is_updated: bool = False
@@ -941,7 +951,7 @@ class Planet(ReprMixin):
             self.description: str = planet_regions_json_dict.get(
                 str(self.settings_hash), {}
             ).get("description", "")
-            self.owner: str = planet_owner
+            self.owner: Faction = planet_owner
             self.health: int = raw_planet_region_data["maxHealth"]
             self.max_health: int = raw_planet_region_data["maxHealth"]
             self.regen_per_sec: int = 0
@@ -949,7 +959,7 @@ class Planet(ReprMixin):
             self.is_available: bool = False
             self.players: int = 0
             self.size: int = raw_planet_region_data["regionSize"] + 1
-            self.type: str = region_types.get(self.size, "")
+            self.type: str = REGION_TYPES.get(self.size, "")
 
         @property
         def regen_per_hour(self) -> float:
@@ -962,10 +972,12 @@ class Planet(ReprMixin):
         @property
         def health_bar(self) -> str:
             """Returns the health bar for the region"""
-            return health_bar(perc=self.perc, race=self.owner)
+            return health_bar(perc=self.perc, faction=self.owner.full_name)
 
         def update_from_status_data(self, raw_planet_region_data: dict):
-            self.owner: str = factions[raw_planet_region_data["owner"]]
+            self.owner: Faction | None = Factions.get_from_identifier(
+                number=raw_planet_region_data["owner"]
+            )
             self.health: int = raw_planet_region_data["health"]
             self.regen_per_sec: int = raw_planet_region_data.get(
                 "regenPerSecond"
@@ -1013,7 +1025,7 @@ class Campaign(ReprMixin):
             if not self.planet.event
             else self.planet.event.progress
         )
-        self.faction: str = (
+        self.faction: Faction = (
             self.planet.event.faction
             if self.planet.event
             else self.planet.current_owner
@@ -1146,7 +1158,7 @@ class GalacticWarEffect(ReprMixin):
         if percent := self.values_dict.get(2):
             self.percent: int | float = percent
         if faction := self.values_dict.get(3):
-            self.faction = faction
+            self.faction: Faction | None = Factions.get_from_identifier(number=faction)
         if mix_id := self.values_dict.get(4):
             self.mix_id: int = mix_id
         if value5 := self.values_dict.get(5):

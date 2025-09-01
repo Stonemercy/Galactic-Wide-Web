@@ -2,8 +2,8 @@ from datetime import datetime, time
 from disnake import Activity, ActivityType
 from disnake.ext import commands, tasks
 from main import GalacticWideWebBot
-from utils.embeds.command_embeds import GalacticWarEffectEmbed
-from utils.embeds.loop_embeds import APIChanges, APIChangesLoopEmbed
+from utils.dataclasses import APIChanges
+from utils.embeds import APIChangesEmbed, GalacticWarEffectEmbed
 from utils.functions import out_of_normal_range
 
 
@@ -182,9 +182,7 @@ class DataManagementCog(commands.Cog):
                 total_changes[i : i + 20] for i in range(0, len(total_changes), 20)
             ]
             for chunk in chunked_changes:
-                embed = APIChangesLoopEmbed(total_changes=chunk)
-                msg = await self.bot.api_changes_channel.send(embed=embed)
-                await msg.publish()
+                embed = APIChangesEmbed(total_changes=chunk)
 
     @check_changes.before_loop
     async def before_check_changes(self):
