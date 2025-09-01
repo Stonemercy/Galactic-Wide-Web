@@ -230,7 +230,7 @@ class Dashboard:
                         self.completion_timestamps.append(
                             now_timestamp + tracker.seconds_until_complete
                         )
-                    elif task.type == 11:
+                    elif task.type in (11, 13):
                         lib_changes = liberation_changes_tracker.get_entry(
                             task.planet_index
                         )
@@ -336,10 +336,19 @@ class Dashboard:
                     for ts in self.completion_timestamps
                 ]
                 if (
-                    winning_all_tasks
-                    and all(winning_all_tasks)
-                    and len(winning_all_tasks)
-                    == len([t for t in assignment.tasks if t.progress_perc != 1])
+                    assignment.flags != 3
+                    and (
+                        winning_all_tasks
+                        and all(winning_all_tasks)
+                        and len(winning_all_tasks)
+                        == len([t for t in assignment.tasks if t.progress_perc != 1])
+                    )
+                ) or (
+                    assignment.flags == 3
+                    and (
+                        any([t.progress_perc == 1 for t in assignment.tasks])
+                        or any(winning_all_tasks)
+                    )
                 ):
                     outlook_text = "Winning"
                     if {13, 15} & set([t.type for t in assignment.tasks]):
