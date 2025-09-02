@@ -150,6 +150,9 @@ class Emojis:
         incineration_corps = "<:s:1355913678704349336>"
         the_great_host = "<:s:1372871467255070751>"
         spore_burster_strain = "<:s:1404621462278504529>"
+        rupture_strain = "<:s:1412379243446276187>"
+        dragon_roaches = "<:s:1412386371934490666>"
+        hive_lords = "<:s:1412386384265871410>"
 
     @dataclass
     class Flags:
