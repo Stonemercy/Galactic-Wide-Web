@@ -362,6 +362,7 @@ class Data(ReprMixin):
             self.galactic_impact_mod: float = self.__data__["status"][
                 "impactMultiplier"
             ]
+            self.global_events.clear()
             for raw_global_event_data in self.__data__["status"]["globalEvents"]:
                 raw_global_event_data: dict
                 title = raw_global_event_data.get("title", None)
