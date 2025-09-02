@@ -82,5 +82,9 @@
 	"20": {
 		"name": "Adreno-Defibrillator",
 		"description": "Provides one-time, short-lived resuscitation upon death, given that the Helldiver's body is still intact. Increases stim effect duration by 2.0s. Provides 50% resistance to arc damage."
+	},
+	"21": {
+		"name": "Feet First",
+		"description": "Wearer makes 50% less noise when moving. Increases point-of-interest identification range by 30%. Provides immunity to leg injuries."
 	}
 }

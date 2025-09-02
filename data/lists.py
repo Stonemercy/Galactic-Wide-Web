@@ -68,6 +68,10 @@ json_dict = {
             "path": "data/json/warbonds/control_group.json",
             "value": None,
         },
+        "halo_3_odst": {
+            "path": "data/json/warbonds/halo_3_odst.json",
+            "value": None,
+        },
     },
     "planets": {"path": "data/json/planets/planets.json", "value": None},
     "planetRegions": {"path": "data/json/planets/planetRegions.json", "value": None},
@@ -209,6 +213,8 @@ player_cards_list = [
     "Mother Eagle's Wings",
     "Conductor of Brilliance",
     "Over Artifice Triumphant",
+    "Honored Heirloom",
+    "Eye of the Clandestine",
 ]
 
 titles_list = [
@@ -245,6 +251,7 @@ titles_list = [
     "Decorated Hero",
     "Extra Judicial",
     "Exemplary Subject",
+    "Rookie",
 ]
 
 stratagem_permit_list = [

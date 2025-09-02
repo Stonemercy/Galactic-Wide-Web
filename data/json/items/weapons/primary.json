@@ -623,5 +623,57 @@
 		"traits": [
 			1
 		]
+	},
+	"1506": {
+		"name": "MA5C Assault Rifle",
+		"description": "Often showcased in the \"Obedient Democracy Support Troopers\" cartoon, this assault rifle comes with a convenient ammo counter and compass. Produced by Martian Armory.",
+		"type": 1,
+		"damage": 80,
+		"capacity": 32,
+		"recoil": 19,
+		"fire_rate": 640,
+		"fire_mode": [
+			0,
+			1,
+			2
+		],
+		"traits": [
+			2
+		]
+	},
+	"1507": {
+		"name": "M7S SMG",
+		"description": "An SMG that fires caseless ammunition and is equipped with a non-removable suppressor. Produced by Martian Armory.",
+		"type": 3,
+		"damage": 70,
+		"capacity": 48,
+		"recoil": 8,
+		"fire_rate": 872,
+		"fire_mode": [
+			1,
+			2,
+			3
+		],
+		"traits": [
+			1,
+			4,
+			14
+		]
+	},
+	"1515": {
+		"name": "M90A Shotgun",
+		"description": "A top-loaded shotgun prominently featured in the final episode of \"Obedient Democracy Support Troopers\". Produced by Martian Armory",
+		"type": 2,
+		"damage": 605,
+		"capacity": 6,
+		"recoil": 83,
+		"fire_rate": 80,
+		"fire_mode": [
+			1
+		],
+		"traits": [
+			1,
+			5
+		]
 	}
 }

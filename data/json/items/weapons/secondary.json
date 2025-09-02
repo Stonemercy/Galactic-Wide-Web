@@ -213,5 +213,21 @@
 			1,
 			4
 		]
+	},
+	"1516": {
+		"name": "M6C/SOCOM Pistol",
+		"description": "A pistol with a built-in laser sight, suppressor, and flashlight. Produced by Martian Armory.",
+		"damage": 100,
+		"capacity": 12,
+		"recoil": 20,
+		"fire_rate": 900,
+		"fire_mode": [
+			1
+		],
+		"traits": [
+			1,
+			4,
+			14
+		]
 	}
 }

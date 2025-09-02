@@ -18,6 +18,7 @@ class WarbondImages:
     masters_of_ceremony = "https://helldivers.wiki.gg/images/6/65/Masters_of_Ceremony_Premium_Warbond_Cover.png?6bb032=&format=original"
     force_of_law = "https://helldivers.wiki.gg/images/7/74/Force_of_Law_Premium_Warbond_Cover.png?2d54ef=&format=original"
     control_group = "https://helldivers.wiki.gg/images/Control_Group_Premium_Warbond_Cover.png?5db88e=&format=original"
+    halo_3_odst = "https://helldivers.wiki.gg/images/thumb/Halo_ODST_Legendary_Warbond_Cover.png/1920px-Halo_ODST_Legendary_Warbond_Cover.png?3e16b0"
 
     def get(name: str) -> str | None:
         return getattr(

@@ -73,5 +73,10 @@
 		"name": "Control Group",
 		"id": "control_group",
 		"credits_to_unlock": 1000
+	},
+	"15": {
+		"name": "Halo 3 ODST",
+		"id": "halo_3_odst",
+		"credits_to_unlock": 1500
 	}
 }
