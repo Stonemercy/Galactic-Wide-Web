@@ -803,6 +803,10 @@
 		"name": "RUPTURE STRAIN",
 		"description": "A deadly strain of ground-bursting Terminids is present on this planet."
 	},
+	"1304": {
+		"name": "OUTPOST ALPHA",
+		"description": "The first manned site established in Gloom-infested space."
+	},
 	"1307": {
 		"name": "HIVE LORDS",
 		"description": "Terminid Hive Lords have been detected on this planet."
