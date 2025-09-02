@@ -349,7 +349,7 @@ class AdminCommandsCog(commands.Cog):
 
                             if not embeds[0].image_set:
                                 await self.bot.moderator_channel.send(
-                                    f"Image missing for biome of **planet __{planet}__** {planet.biome} <@{self.bot.owner.id}> :warning:"
+                                    f"# <@{self.bot.owner.id}> :warning:\nImage missing for biome of **planet __{planet}__** {planet.biome} {planet.biome['name'].lower().replace(' ', '_')}.png"
                                 )
                             await self.bot.waste_bin_channel.send(
                                 embeds=embeds,

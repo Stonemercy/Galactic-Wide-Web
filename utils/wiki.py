@@ -709,93 +709,64 @@ class Wiki:
                 self.set_image(url=WarbondImages.get(name=clean_warbond_name))
                 item_number = 1
                 for item in warbond_page["items"]:
-                    item_json = None
-                    item_type = None
-                    for item_key, item_value in json_dict["items"]["armor"].items():
-                        if int(item_key) == item["item_id"]:
-                            item_json = item_value
-                            item_type = "armor"
-                            break
-                    for item_key, item_value in json_dict["items"][
-                        "primary_weapons"
-                    ].items():
-                        if item_type != None:
-                            break
-                        if int(item_key) == item["item_id"]:
-                            item_json = item_value
-                            item_type = "primary"
-                            break
-                    for item_key, item_value in json_dict["items"][
-                        "secondary_weapons"
-                    ].items():
-                        if item_type != None:
-                            break
-                        if int(item_key) == item["item_id"]:
-                            item_json = item_value
-                            item_type = "secondary"
-                            break
-                    for item_key, item_value in json_dict["items"]["grenades"].items():
-                        if item_type != None:
-                            break
-                        if int(item_key) == item["item_id"]:
-                            item_json = item_value
-                            item_type = "grenade"
-                            break
-
-                    if item_json != None:
-                        if item_type == "armor":
-                            item_slot = json_dict["items"]["armor_slots"][
-                                str(item_json["slot"])
-                            ]
-                            self.add_field(
-                                f"{item_json['name']}",
-                                (
-                                    f"{language_json['type']}: **{language_json['armor']}**\n"
-                                    f"{language_json['slot']}: **{item_slot}** {getattr(Emojis.Armour, item_slot.lower())}\n"
-                                    f"{language_json['armor_rating']}: **{item_json['armor_rating']}**\n"
-                                    f"{language_json['speed']}: **{item_json['speed']}**\n"
-                                    f"{language_json['stamina_regen']}: **{item_json['stamina_regen']}**\n"
-                                    f"{language_json['passive']}: **{json_dict['items']['armor_perks'][str(item_json['passive'])]['name']}**\n"
-                                    f"{language_json['medal_cost']}: **{item.get('medal_cost', None)} {Emojis.Items.medal}**\n\n"
-                                ),
-                            )
-                        elif item_type == "primary":
-                            self.add_field(
-                                f"{item_json['name']}",
-                                (
-                                    f"{language_json['type']}: **{language_json['primary']}**\n"
-                                    f"{language_json['weapon_type']}: **{json_dict['items']['weapon_types'][str(item_json['type'])]}**\n"
-                                    f"{language_json['damage']}: **{item_json['damage']}**\n"
-                                    f"{language_json['capacity']}: **{item_json['capacity']}**\n"
-                                    f"{language_json['recoil']}: **{item_json['recoil']}**\n"
-                                    f"{language_json['fire_rate']}: **{item_json['fire_rate']}**\n"
-                                    f"{language_json['medal_cost']}: **{item['medal_cost']} {Emojis.Items.medal}**\n\n"
-                                ),
-                            )
-                        elif item_type == "secondary":
-                            self.add_field(
-                                f"{item_json['name']}",
-                                (
-                                    f"{language_json['type']}: **{language_json['secondary']}**\n"
-                                    f"{language_json['damage']}: **{item_json['damage']}**\n"
-                                    f"{language_json['capacity']}: **{item_json['capacity']}**\n"
-                                    f"{language_json['recoil']}: **{item_json['recoil']}**\n"
-                                    f"{language_json['fire_rate']}: **{item_json['fire_rate']}**\n"
-                                    f"{language_json['medal_cost']}: **{item['medal_cost']} {Emojis.Items.medal}**\n\n"
-                                ),
-                            )
-                        elif item_type == "grenade":
-                            self.add_field(
-                                f"{item_json['name']}",
-                                (
-                                    f"{language_json['type']}: **{language_json['grenade']}**\n"
-                                    f"{language_json['damage']}: **{item_json['damage']}**\n"
-                                    f"{language_json['penetration']}: **{item_json['penetration']}**\n"
-                                    f"{language_json['radius']}: **{item_json['outer_radius']}**\n"
-                                    f"{language_json['fuse_time']}: **{item_json['fuse_time']}**\n"
-                                    f"{language_json['medal_cost']}: **{item['medal_cost']} {Emojis.Items.medal}**\n\n"
-                                ),
-                            )
+                    if armor := json_dict["items"]["armor"].get(
+                        str(item["item_id"]), None
+                    ):
+                        self.add_field(
+                            f"{armor['name']}",
+                            (
+                                f"{language_json['type']}: **{language_json['armor']}**\n"
+                                f"{language_json['slot']}: **{armor['slot']}** {getattr(Emojis.Armour, armor['slot'].lower())}\n"
+                                f"{language_json['armor_rating']}: **{armor['armor_rating']}**\n"
+                                f"{language_json['speed']}: **{armor['speed']}**\n"
+                                f"{language_json['stamina_regen']}: **{armor['stamina_regen']}**\n"
+                                f"{language_json['passive']}: **{armor['passive']['name']}**\n"
+                                f"{language_json['medal_cost']}: **{item['medal_cost']} {Emojis.Items.medal}**\n\n"
+                            ),
+                        )
+                    elif primary := json_dict["items"]["primary_weapons"].get(
+                        str(item["item_id"]), None
+                    ):
+                        self.add_field(
+                            f"{primary['name']}",
+                            (
+                                f"{language_json['type']}: **{language_json['primary']}**\n"
+                                f"{language_json['weapon_type']}: **{primary['type']}**\n"
+                                f"{language_json['damage']}: **{primary['damage']}**\n"
+                                f"{language_json['capacity']}: **{primary['capacity']}**\n"
+                                f"{language_json['recoil']}: **{primary['recoil']}**\n"
+                                f"{language_json['fire_rate']}: **{primary['fire_rates']}**\n"
+                                f"{language_json['medal_cost']}: **{item['medal_cost']} {Emojis.Items.medal}**\n\n"
+                            ),
+                        )
+                    elif secondary := json_dict["items"]["secondary_weapons"].get(
+                        str(item["item_id"]), None
+                    ):
+                        self.add_field(
+                            f"{secondary['name']}",
+                            (
+                                f"{language_json['type']}: **{language_json['secondary']}**\n"
+                                f"{language_json['damage']}: **{secondary['damage']}**\n"
+                                f"{language_json['capacity']}: **{secondary['capacity']}**\n"
+                                f"{language_json['recoil']}: **{secondary['recoil']}**\n"
+                                f"{language_json['fire_rate']}: **{secondary['fire_rate']}**\n"
+                                f"{language_json['medal_cost']}: **{item['medal_cost']} {Emojis.Items.medal}**\n\n"
+                            ),
+                        )
+                    elif grenade := json_dict["items"]["grenades"].get(
+                        str(item["item_id"]), None
+                    ):
+                        self.add_field(
+                            f"{grenade['name']}",
+                            (
+                                f"{language_json['type']}: **{language_json['grenade']}**\n"
+                                f"{language_json['damage']}: **{grenade['damage']}**\n"
+                                f"{language_json['penetration']}: **{grenade['penetration']}**\n"
+                                f"{language_json['radius']}: **{grenade['outer_radius']}**\n"
+                                f"{language_json['fuse_time']}: **{grenade['fuse_time']}**\n"
+                                f"{language_json['medal_cost']}: **{item['medal_cost']} {Emojis.Items.medal}**\n\n"
+                            ),
+                        )
                     elif (
                         "Super Credits"
                         in json_dict["items"]["item_names"][str(item["item_id"])][
@@ -927,7 +898,6 @@ class Wiki:
                 self,
                 language_json: dict,
                 weapon_info: tuple[str, dict],
-                json_dict: dict,
             ):
                 weapon_name, weapon_json = weapon_info
                 super().__init__(
@@ -936,38 +906,31 @@ class Wiki:
                     description=weapon_json["description"],
                 )
                 gun_fire_modes = ""
-                for i in weapon_json["fire_mode"]:
-                    gun_fire_modes += (
-                        f"\n- **{json_dict['items']['fire_modes'][str(i)]}**"
-                    )
+                for i in weapon_json["fire_modes"]:
+                    gun_fire_modes += f"\n- **{i}**"
 
                 features = ""
                 for i in weapon_json["traits"]:
                     if i != 0:
-                        features += (
-                            f"\n- **{json_dict['items']['weapon_traits'][str(i)]}**"
-                        )
+                        features += f"\n- **{i}**"
                     else:
                         features = "\n- None"
                 if 9 in weapon_json["traits"]:
                     weapon_json["capacity"] = language_json["constant_fire"].format(
                         number=weapon_json["capacity"]
                     )
-                    weapon_json["fire_rate"] = 60
                 if weapon_json["capacity"] == 999:
                     weapon_json["capacity"] = "**∞**"
                 information = ""
-                information += language_json["type"].format(
-                    type=json_dict["items"]["weapon_types"][str(weapon_json["type"])]
-                )
+                information += language_json["type"].format(type=weapon_json["type"])
                 information += language_json["damage"].format(
                     damage=weapon_json["damage"]
                 )
                 information += language_json["fire_rate"].format(
-                    fire_rate=weapon_json["fire_rate"]
+                    fire_rate=weapon_json["fire_rates"]
                 )
                 information += language_json["dps"].format(
-                    dps=f'{((weapon_json["damage"] * weapon_json["fire_rate"]) / 60):.2f}'
+                    dps=f'{((weapon_json["damage"] * weapon_json["fire_rates"][-1]) / 60):.2f}'
                 )
                 information += language_json["capacity"].format(
                     capacity=weapon_json["capacity"],
@@ -995,7 +958,6 @@ class Wiki:
                 self,
                 language_json: dict,
                 weapon_info: tuple[str, dict],
-                json_dict: dict,
             ):
                 weapon_name, weapon_json = weapon_info
                 super().__init__(
@@ -1004,17 +966,13 @@ class Wiki:
                     description=weapon_json["description"],
                 )
                 gun_fire_modes = ""
-                for i in weapon_json["fire_mode"]:
-                    gun_fire_modes += (
-                        f"\n- **{json_dict['items']['fire_modes'][str(i)]}**"
-                    )
+                for i in weapon_json["fire_modes"]:
+                    gun_fire_modes += f"\n- **{i}**"
 
                 features = ""
                 for i in weapon_json["traits"]:
                     if i != 0:
-                        features += (
-                            f"\n- **{json_dict['items']['weapon_traits'][str(i)]}**"
-                        )
+                        features += f"\n- **{i}**"
                     else:
                         features = "\n- None"
 
@@ -1022,7 +980,6 @@ class Wiki:
                     weapon_json["capacity"] = language_json["constant_fire"].format(
                         number=weapon_json["capacity"]
                     )
-                    weapon_json["fire_rate"] = 60
                 if weapon_json["capacity"] == 999:
                     weapon_json["capacity"] = "**∞**"
                 information = ""
@@ -1030,10 +987,10 @@ class Wiki:
                     damage=weapon_json["damage"]
                 )
                 information += language_json["fire_rate"].format(
-                    fire_rate=weapon_json["fire_rate"]
+                    fire_rate=weapon_json["fire_rates"]
                 )
                 information += language_json["dps"].format(
-                    dps=f'{((weapon_json["damage"] * weapon_json["fire_rate"]) / 60):.2f}'
+                    dps=f'{((weapon_json["damage"] * weapon_json["fire_rates"][-1]) / 60):.2f}'
                 )
                 information += language_json["capacity"].format(
                     capacity=weapon_json["capacity"],
@@ -1049,7 +1006,7 @@ class Wiki:
                 try:
                     self.set_thumbnail(
                         file=File(
-                            f"resources/weapons/{weapon_json['name'].replace(' ', '-')}.png"
+                            f"resources/weapons/{weapon_json['name'].replace(' ', '-').replace('/', '-')}.png"
                         )
                     )
                     self.image_set = True

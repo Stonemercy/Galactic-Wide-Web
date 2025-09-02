@@ -265,11 +265,10 @@ class WikiCog(commands.Cog):
             embed = Wiki.Embeds.PrimaryWeaponsEmbed(
                 language_json=guild_language["wiki"]["embeds"]["PrimaryWeaponsEmbed"],
                 weapon_info=first_weapon,
-                json_dict=self.bot.json_dict,
             )
             if not embed.image_set:
                 await self.bot.moderator_channel.send(
-                    f"Image missing for **weapon primary __{first_weapon[0]}__** <@{self.bot.owner.id}> :warning:"
+                    f"# <@{self.bot.owner.id}> :warning:\nImage missing for **weapon primary __{first_weapon[0]}__** {first_weapon[0].replace(' ', '-').replace('&', 'n')}.png"
                 )
             components = Wiki.Buttons.primary_weapon_rows(
                 language_json=guild_language,
@@ -287,11 +286,10 @@ class WikiCog(commands.Cog):
             embed = Wiki.Embeds.SecondaryWeaponsEmbed(
                 language_json=guild_language["wiki"]["embeds"]["SecondaryWeaponsEmbed"],
                 weapon_info=first_weapon,
-                json_dict=self.bot.json_dict,
             )
             if not embed.image_set:
                 await self.bot.moderator_channel.send(
-                    f"Image missing for **weapon secondary __{first_weapon[0]}__** <@{self.bot.owner.id}> :warning:"
+                    f"# <@{self.bot.owner.id}> :warning:\nImage missing for **weapon secondary __{first_weapon[0]}__** {first_weapon[0].replace(' ', '-').replace('/', '-')}.png"
                 )
             components = Wiki.Buttons.secondary_weapon_rows(
                 language_json=guild_language,
@@ -312,7 +310,7 @@ class WikiCog(commands.Cog):
             )
             if not embed.image_set:
                 await self.bot.moderator_channel.send(
-                    f"Image missing for **weapon grenades __{first_grenade[0]}__** <@{self.bot.owner.id}> :warning:"
+                    f"# <@{self.bot.owner.id}> :warning:\nImage missing for **weapon grenades __{first_grenade[0]}__** {first_grenade[0].replace(' ', '-')}.png"
                 )
             components = Wiki.Buttons.grenades_rows(
                 language_json=guild_language,
@@ -330,7 +328,7 @@ class WikiCog(commands.Cog):
             embed = Wiki.Embeds.BoostersEmbed(booster_info=first_booster)
             if not embed.image_set:
                 await self.bot.moderator_channel.send(
-                    f"Image missing for **booster __{first_booster[0]}__** <@{self.bot.owner.id}> :warning:"
+                    f" <@{self.bot.owner.id}> :warning:\nImage missing for **booster __{first_booster[0]}__** {first_booster[0].replace(' ', '_')}.png"
                 )
             components = Wiki.Buttons.boosters_rows(
                 language_json=guild_language,
@@ -348,7 +346,7 @@ class WikiCog(commands.Cog):
             )
             if not embed.image_set:
                 await self.bot.moderator_channel.send(
-                    f"Image missing for **stratagem __{stratagem_info[0]}__** <@{self.bot.owner.id}> :warning:"
+                    f"# <@{self.bot.owner.id}> :warning:\nImage missing for **stratagem __{stratagem_info[0]}__** {stratagem_info[0].replace('/', '_').replace(' ', '_')}.png"
                 )
             components = Wiki.Buttons.stratagems_rows(
                 language_json=guild_language,
@@ -474,18 +472,19 @@ class WikiCog(commands.Cog):
             embed = Wiki.Embeds.PrimaryWeaponsEmbed(
                 language_json=guild_language["wiki"]["embeds"]["PrimaryWeaponsEmbed"],
                 weapon_info=weapon_info,
-                json_dict=self.bot.json_dict,
             )
             if not embed.image_set:
                 await self.bot.moderator_channel.send(
-                    f"Image missing for **weapon primary __{weapon_info[0]}__** <@{self.bot.owner.id}> :warning:"
+                    f"# <@{self.bot.owner.id}> :warning:\nImage missing for **weapon primary __{weapon_info[0]}__** {weapon_info[0].replace(' ', '-').replace('&', 'n')}.png"
                 )
             components = Wiki.Buttons.primary_weapon_rows(
                 language_json=guild_language,
                 weapon_names=sorted(primary_names),
                 main_weapon_name=weapon_name,
             )
-            await inter.response.edit_message(embed=embed, components=components)
+            await inter.response.edit_message(
+                embed=embed, components=components, attachments=None
+            )
             return
         elif comp_id[:-1] == "SecondaryWeaponsDropdown":
             secondary_names = sorted(
@@ -508,18 +507,19 @@ class WikiCog(commands.Cog):
             embed = Wiki.Embeds.SecondaryWeaponsEmbed(
                 language_json=guild_language["wiki"]["embeds"]["SecondaryWeaponsEmbed"],
                 weapon_info=weapon_info,
-                json_dict=self.bot.json_dict,
             )
             if not embed.image_set:
                 await self.bot.moderator_channel.send(
-                    f"Image missing for **weapon secondary __{weapon_info[0]}__** <@{self.bot.owner.id}> :warning:"
+                    f"# <@{self.bot.owner.id}> :warning:\nImage missing for **weapon secondary __{weapon_info[0]}__** {weapon_info[0].replace(' ', '-').replace('/', '-')}.png"
                 )
             components = Wiki.Buttons.secondary_weapon_rows(
                 language_json=guild_language,
                 weapon_names=sorted(secondary_names),
                 main_weapon_name=weapon_name,
             )
-            await inter.response.edit_message(embed=embed, components=components)
+            await inter.response.edit_message(
+                embed=embed, components=components, attachments=None
+            )
             return
         elif comp_id[:-1] == "GrenadesDropdown":
             grenade_names = sorted(
@@ -541,14 +541,16 @@ class WikiCog(commands.Cog):
             )
             if not embed.image_set:
                 await self.bot.moderator_channel.send(
-                    f"Image missing for **weapon grenade __{grenade_name}__** <@{self.bot.owner.id}> :warning:"
+                    f" <@{self.bot.owner.id}> :warning:\nImage missing for **weapon grenade __{grenade_name}__** {grenade_name.replace(' ', '-')}.png"
                 )
             components = Wiki.Buttons.grenades_rows(
                 language_json=guild_language,
                 weapon_names=sorted(grenade_names),
                 main_grenade_name=grenade_name,
             )
-            await inter.response.edit_message(embed=embed, components=components)
+            await inter.response.edit_message(
+                embed=embed, components=components, attachments=None
+            )
             return
         elif comp_id == "BoostersDropdown":
             booster_name = inter.values[0]
@@ -561,7 +563,7 @@ class WikiCog(commands.Cog):
             embed = Wiki.Embeds.BoostersEmbed(booster_info=booster_info)
             if not embed.image_set:
                 await self.bot.moderator_channel.send(
-                    f"Image missing for **booster __{booster_info[0]}__** <@{self.bot.owner.id}> :warning:"
+                    f" <@{self.bot.owner.id}> :warning:\nImage missing for **booster __{booster_info[0]}__** {booster_info[0].replace(' ', '_')}.png"
                 )
             components = Wiki.Buttons.boosters_rows(
                 language_json=guild_language,
@@ -572,7 +574,9 @@ class WikiCog(commands.Cog):
                     ]
                 ),
             )
-            await inter.response.edit_message(embed=embed, components=components)
+            await inter.response.edit_message(
+                embed=embed, components=components, attachments=None
+            )
             return
         elif comp_id[:-1] == "StratagemsDropdown":
             stratagem_name = inter.values[0]
@@ -588,13 +592,15 @@ class WikiCog(commands.Cog):
             )
             if not embed.image_set:
                 await self.bot.moderator_channel.send(
-                    f"Image missing for **stratagem __{stratagem_info[0]}__** <@{self.bot.owner.id}> :warning:"
+                    f"# <@{self.bot.owner.id}> :warning:\nImage missing for **stratagem __{stratagem_info[0]}__** {stratagem_info[0].replace('/', '_').replace(' ', '_')}.png"
                 )
             components = Wiki.Buttons.stratagems_rows(
                 language_json=guild_language,
                 stratagem_names=sorted(self.bot.json_dict["stratagems"].keys()),
             )
-            await inter.response.edit_message(embed=embed, components=components)
+            await inter.response.edit_message(
+                embed=embed, components=components, attachments=None
+            )
             return
 
 

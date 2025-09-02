@@ -78,9 +78,7 @@ json_dict = {
     "sectors": {"path": "data/json/planets/sectors.json", "value": None},
     "items": {
         "item_names": {"path": "data/json/items/item_names.json", "value": None},
-        "armor": {"path": "data/json/items/armor/armor.json", "value": None},
-        "armor_perks": {"path": "data/json/items/armor/passive.json", "value": None},
-        "armor_slots": {"path": "data/json/items/armor/slot.json", "value": None},
+        "armor": {"path": "data/json/items/armor.json", "value": None},
         "primary_weapons": {
             "path": "data/json/items/weapons/primary.json",
             "value": None,
@@ -90,12 +88,6 @@ json_dict = {
             "value": None,
         },
         "grenades": {"path": "data/json/items/weapons/grenades.json", "value": None},
-        "weapon_types": {"path": "data/json/items/weapons/types.json", "value": None},
-        "weapon_traits": {"path": "data/json/items/weapons/traits.json", "value": None},
-        "fire_modes": {
-            "path": "data/json/items/weapons/fire_modes.json",
-            "value": None,
-        },
         "boosters": {"path": "data/json/items/boosters.json", "value": None},
         "reward_types": {
             "path": "data/json/assignments/reward/type.json",

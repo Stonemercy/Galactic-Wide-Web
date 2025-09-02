@@ -11,8 +11,8 @@ class SpecialUnits:
         ("INCINERATION CORPS", Emojis.SpecialUnits.incineration_corps): {1248, 1249},
         ("THE GREAT HOST", Emojis.SpecialUnits.the_great_host): {1269},
         ("RUPTURE STRAIN", Emojis.SpecialUnits.rupture_strain): {1303},
-        ("RDRAGON ROACHES", Emojis.SpecialUnits.dragon_roaches): {9999},
-        ("RHIVE LORDS", Emojis.SpecialUnits.hive_lords): {99999},
+        ("DRAGON ROACHES", Emojis.SpecialUnits.dragon_roaches): {1306},
+        ("HIVE LORDS", Emojis.SpecialUnits.hive_lords): {1307},
     }
 
     @classmethod

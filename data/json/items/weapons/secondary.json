@@ -2,16 +2,18 @@
 	"2811723672": {
 		"name": "P-2 Peacemaker",
 		"description": "The SEAF standard pistol - offering a high fire rate, generous capacity, and fast reloading.",
-		"damage": 75,
+		"damage": 85,
 		"capacity": 15,
 		"recoil": 23,
-		"fire_rate": 900,
-		"fire_mode": [
-			0
+		"fire_rates": [
+			900
+		],
+		"fire_modes": [
+			"Semi-automatic"
 		],
 		"traits": [
-			1,
-			4
+			"Light Armor Penetrating",
+			"One Handed"
 		]
 	},
 	"3981773112": {
@@ -20,14 +22,16 @@
 		"damage": 60,
 		"capacity": 31,
 		"recoil": 15,
-		"fire_rate": 1100,
-		"fire_mode": [
-			0,
-			2
+		"fire_rates": [
+			1100
+		],
+		"fire_modes": [
+			"Semi-automatic",
+			"Automatic"
 		],
 		"traits": [
-			1,
-			4
+			"Light Armor Penetrating",
+			"One Handed"
 		]
 	},
 	"1374036584": {
@@ -36,31 +40,33 @@
 		"damage": 200,
 		"capacity": 6,
 		"recoil": 43,
-		"fire_rate": 200,
-		"fire_mode": [
-			0
+		"fire_rates": [
+			200
+		],
+		"fire_modes": [
+			"Semi-automatic"
 		],
 		"traits": [
-			3,
-			4,
-			5
+			"Heavy Armor Penetrating",
+			"One Handed",
+			"Rounds Reload"
 		]
 	},
 	"2501707184": {
 		"name": "LAS-7 Dagger",
 		"description": "A laser pistol that fires a continuous beam. Does not require ammo but can overheat and need to change batteries.",
 		"damage": 250,
-		"capacity": 7,
+		"capacity": 6.67,
 		"recoil": 0,
-		"fire_rate": 0,
-		"fire_mode": [
-			2
+		"fire_rates": [
+			60
 		],
+		"fire_modes": [],
 		"traits": [
-			1,
-			4,
-			8,
-			9
+			"Light Armor Penetrating",
+			"One Handed",
+			"Beam",
+			"Heat"
 		]
 	},
 	"2797735596": {
@@ -69,13 +75,13 @@
 		"damage": 650,
 		"capacity": 1,
 		"recoil": 43,
-		"fire_rate": 900,
-		"fire_mode": [
-			0
+		"fire_rates": [
+			35
 		],
+		"fire_modes": [],
 		"traits": [
-			4,
-			6
+			"One Handed",
+			"Explosive"
 		]
 	},
 	"1938200223": {
@@ -84,13 +90,15 @@
 		"damage": 125,
 		"capacity": 10,
 		"recoil": 40,
-		"fire_rate": 450,
-		"fire_mode": [
-			0
+		"fire_rates": [
+			450
+		],
+		"fire_modes": [
+			"Semi-automatic"
 		],
 		"traits": [
-			2,
-			4
+			"Medium Armor Penetrating",
+			"One Handed"
 		]
 	},
 	"2264358800": {
@@ -99,29 +107,32 @@
 		"damage": 405,
 		"capacity": 3,
 		"recoil": 170,
-		"fire_rate": 650,
-		"fire_mode": [
-			0,
-			5
+		"fire_rates": [
+			650
+		],
+		"fire_modes": [
+			"Semi-automatic",
+			"All Barrel"
 		],
 		"traits": [
-			1,
-			4
+			"Light Armor Penetrating",
+			"Rounds Reload"
 		]
 	},
 	"2340232366": {
 		"name": "P-72 Crisper",
 		"description": "A compact handgun-style flamethrower, able to project a jet of fire over short distances.",
-		"damage": 375,
+		"damage": 150,
 		"capacity": 30,
-		"recoil": 2,
-		"fire_rate": 0,
-		"fire_mode": [
-			2
+		"recoil": 3,
+		"fire_rates": [
+			60
 		],
+		"fire_modes": [],
 		"traits": [
-			4,
-			7
+			"Medium Armor Penetrating",
+			"Incendiary",
+			"One Handed"
 		]
 	},
 	"1084288106": {
@@ -129,61 +140,64 @@
 		"description": "Fires a ballistic dart at near-supersonic speeds, allowing the user to stim allies from a distance. Might sting.",
 		"damage": 0,
 		"capacity": 6,
-		"recoil": 6,
-		"fire_rate": 70,
-		"fire_mode": [
-			0
+		"recoil": 23,
+		"fire_rates": [
+			70
+		],
+		"fire_modes": [
+			"Semi-automatic"
 		],
 		"traits": [
-			4,
-			5,
-			11
+			"One Handed",
+			"Rounds Reload",
+			"Stimulative"
 		]
 	},
 	"1902682578": {
 		"name": "PLAS-15 Loyalist",
 		"description": "A plasma pistol that charges each shot until the trigger is released. Plasma projectiles explode on impact.",
-		"damage": 125,
+		"damage": 375,
 		"capacity": 7,
 		"recoil": 8,
-		"fire_rate": 1000,
-		"fire_mode": [
-			6
+		"fire_rates": [
+			6000
 		],
+		"fire_modes": [],
 		"traits": [
-			2,
-			4,
-			6,
-			10
+			"Medium Armor Penetrating",
+			"One Handed",
+			"Explosive",
+			"Chargeup"
 		]
 	},
 	"905": {
 		"name": "CQC-19 Stun Lance",
 		"description": "A melee weapon tipped with electrified prongs that temporarily stun targets. Can be wielded one-handed.",
-		"damage": 0,
+		"damage": 110,
 		"capacity": 0,
 		"recoil": 8,
-		"fire_rate": 0,
-		"fire_mode": [],
+		"fire_rates": [
+			117
+		],
+		"fire_modes": [],
 		"traits": [
-			1,
-			4,
-			12
+			"One Handed",
+			"Stun"
 		]
 	},
 	"1007": {
 		"name": "GP-31 Ultimatum",
 		"description": "A pistol front-loaded with a single, powerful explosive. The weight of the projectile limits the weapon's range.",
-		"damage": 4500,
+		"damage": 3000,
 		"capacity": 1,
 		"recoil": 43,
-		"fire_rate": 900,
-		"fire_mode": [
-			0
+		"fire_rates": [
+			20
 		],
+		"fire_modes": [],
 		"traits": [
-			4,
-			6
+			"One Handed",
+			"Explosive"
 		]
 	},
 	"1110": {
@@ -192,26 +206,31 @@
 		"damage": 200,
 		"capacity": 7,
 		"recoil": 2,
-		"fire_rate": 750,
-		"fire_mode": [
-			0
+		"fire_rates": [
+			750
+		],
+		"fire_modes": [
+			"Semi-automatic"
 		],
 		"traits": [
-			2,
-			9
+			"Medium Armor Penetrating",
+			"One Handed",
+			"Heat"
 		]
 	},
 	"1207": {
 		"name": "CQC-2 Sabre",
-		"description": "",
-		"damage": 0,
+		"description": "A one-handed ceremonial sword suitable for use in parades, sabrage, and combat.",
+		"damage": 110,
 		"capacity": 0,
 		"recoil": 6,
-		"fire_rate": 0,
-		"fire_mode": [],
+		"fire_rates": [
+			60
+		],
+		"fire_modes": [],
 		"traits": [
-			1,
-			4
+			"Medium Armor Penetrating",
+			"One Handed"
 		]
 	},
 	"1516": {
@@ -220,14 +239,16 @@
 		"damage": 100,
 		"capacity": 12,
 		"recoil": 20,
-		"fire_rate": 900,
-		"fire_mode": [
-			1
+		"fire_rates": [
+			900
+		],
+		"fire_modes": [
+			"Semi-automatic"
 		],
 		"traits": [
-			1,
-			4,
-			14
+			"Light Armor Penetrating",
+			"One Handed",
+			"Suppressed"
 		]
 	}
 }

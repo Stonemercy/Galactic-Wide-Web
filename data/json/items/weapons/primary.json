@@ -2,678 +2,747 @@
 	"2852344585": {
 		"name": "AR-23 Liberator",
 		"description": "The SEAF standard assault rifle, balancing power, fire rate, and weight for a reliable weapon against smaller targets.",
-		"type": 1,
-		"damage": 70,
+		"type": "Assault Rifle",
+		"damage": 80,
 		"capacity": 45,
 		"recoil": 14,
-		"fire_rate": 640,
-		"fire_mode": [
-			0,
-			1,
-			2
+		"fire_rates": [
+			640
+		],
+		"fire_modes": [
+			"Semi-automatic",
+			"Burst",
+			"Automatic"
 		],
 		"traits": [
-			1
+			"Light Armor Penetrating"
 		]
 	},
 	"1676113140": {
 		"name": "AR-23P Liberator Penetrator",
 		"description": "A modified Liberator featuring a scope and firing armor-piercing rounds, to help users take down armored targets.",
-		"type": 1,
+		"type": "Assault Rifle",
 		"damage": 60,
 		"capacity": 45,
-		"recoil": 18,
-		"fire_rate": 640,
-		"fire_mode": [
-			0,
-			1,
-			2
+		"recoil": 19,
+		"fire_rates": [
+			640
+		],
+		"fire_modes": [
+			"Semi-automatic",
+			"Burst",
+			"Automatic"
 		],
 		"traits": [
-			2
+			"Medium Armor Penetrating"
 		]
 	},
 	"376039023": {
 		"name": "AR-23C Liberator Concussive",
 		"description": "A modified Liberator featuring explosive rounds and a red-dot sight. Trades increased damage for increased recoil.",
-		"type": 1,
+		"type": "Assault Rifle",
 		"damage": 65,
-		"capacity": 30,
+		"capacity": 60,
 		"recoil": 28,
-		"fire_rate": 320,
-		"fire_mode": [
-			0,
-			2
+		"fire_rates": [
+			400
+		],
+		"fire_modes": [
+			"Semi-automatic",
+			"Automatic"
 		],
 		"traits": [
-			1
+			"Light Armor Penetrating"
 		]
 	},
 	"2088854385": {
 		"name": "SG-8 Punisher",
 		"description": "A powerful dual magazine pump-action shotgun, with limited armor penetration. Ideal for small and fast targets.",
-		"type": 2,
+		"type": "Shotgun",
 		"damage": 405,
 		"capacity": 16,
 		"recoil": 120,
-		"fire_rate": 80,
-		"fire_mode": [
-			3
+		"fire_rates": [
+			80
+		],
+		"fire_modes": [
+			"Pump Action"
 		],
 		"traits": [
-			1,
-			5
+			"Light Armor Penetrating",
+			"Rounds Reload"
 		]
 	},
 	"3955657629": {
 		"name": "SG-8P Punisher Plasma",
 		"description": "A modified Punisher shotgun firing exploding plasma rounds. Fire carefully - exploding plasma can injure squadmates.",
-		"type": 5,
+		"type": "Energy-Based",
 		"damage": 250,
 		"capacity": 8,
 		"recoil": 35,
-		"fire_rate": 100,
-		"fire_mode": [
-			3
+		"fire_rates": [
+			100
+		],
+		"fire_modes": [
+			"Semi-automatic"
 		],
 		"traits": [
-			2,
-			6
+			"Explosive"
 		]
 	},
 	"2246547985": {
 		"name": "SG-8S Slugger",
 		"description": "A modified Punisher shotgun firing heavy, high-damage slug rounds. Perfect for punching holes in big targets.",
-		"type": 2,
-		"damage": 250,
+		"type": "Shotgun",
+		"damage": 280,
 		"capacity": 16,
 		"recoil": 120,
-		"fire_rate": 80,
-		"fire_mode": [
-			0
+		"fire_rates": [
+			80
+		],
+		"fire_modes": [
+			"Semi-automatic"
 		],
 		"traits": [
-			2,
-			5
+			"Medium Armor Penetrating",
+			"Rounds Reload"
 		]
 	},
 	"1182300424": {
 		"name": "SG-225 Breaker",
 		"description": "A fully-automatic shotgun with a high rate of fire, excellent for controlling crowds. Requires frequent reloading.",
-		"type": 2,
+		"type": "Shotgun",
 		"damage": 330,
 		"capacity": 16,
 		"recoil": 55,
-		"fire_rate": 300,
-		"fire_mode": [
-			0,
-			2
+		"fire_rates": [
+			300
+		],
+		"fire_modes": [
+			"Semi-automatic",
+			"Automatic"
 		],
 		"traits": [
-			1
+			"Light Armor Penetrating"
 		]
 	},
 	"3068666625": {
 		"name": "SG-225IE Breaker Incendiary",
 		"description": "A modified Breaker shotgun firing incendiary projectiles. Generates heat during use, so limited to burst fire.",
-		"type": 2,
+		"type": "Shotgun",
 		"damage": 240,
 		"capacity": 25,
 		"recoil": 41,
-		"fire_rate": 300,
-		"fire_mode": [
-			0,
-			2
+		"fire_rates": [
+			300
+		],
+		"fire_modes": [
+			"Semi-automatic",
+			"Burst"
 		],
 		"traits": [
-			1,
-			7
+			"Light Armor Penetrating",
+			"Incendiary"
 		]
 	},
 	"3814689025": {
 		"name": "SG-225SP Breaker Spray&Pray",
 		"description": "A modified Breaker shotgun firing birdshot, small pellets which saturate an area to clear up smaller targets.",
-		"type": 2,
+		"type": "Shotgun",
 		"damage": 240,
 		"capacity": 26,
 		"recoil": 45,
-		"fire_rate": 330,
-		"fire_mode": [
-			0,
-			2
+		"fire_rates": [
+			330
+		],
+		"fire_modes": [
+			"Semi-automatic",
+			"Automatic"
 		],
 		"traits": [
-			1
+			"Light Armor Penetrating"
 		]
 	},
 	"999487482": {
 		"name": "ARC-12 Blitzer",
-		"description": "This shotgun blasts a wide burst of high-voltage electricity that arcs between all units - enemy or otherwise - within range.",
-		"type": 5,
+		"description": "This shotgun blasts a wide burst of high-voltage electricity that arcs between all units—enemy or otherwise—within range.",
+		"type": "Energy-Based",
 		"damage": 250,
 		"capacity": 999,
 		"recoil": 60,
-		"fire_rate": 45,
-		"fire_mode": [
-			0
+		"fire_rates": [
+			45
 		],
+		"fire_modes": [],
 		"traits": [
-			2
+			"Medium Armor Penetrating"
 		]
 	},
 	"2": {
 		"name": "MP-98 Knight",
 		"description": "A submachine gun with an extremely high rate of fire, which can be operated with one hand. Ideal for multitasking.",
-		"type": 3,
-		"damage": 65,
+		"type": "SMG",
+		"damage": 70,
 		"capacity": 50,
 		"recoil": 15,
-		"fire_rate": 1380,
-		"fire_mode": [
-			0,
-			1,
-			2
+		"fire_rates": [
+			1380
+		],
+		"fire_modes": [
+			"Semi-automatic",
+			"Burst",
+			"Automatic"
 		],
 		"traits": [
-			1,
-			4
+			"Light Armor Penetrating",
+			"One Handed"
 		]
 	},
 	"2821209932": {
 		"name": "SMG-37 Defender",
 		"description": "A high-caliber submachine gun which can be fired with one hand. Has a relatively low rate of fire.",
-		"type": 3,
-		"damage": 75,
+		"type": "SMG",
+		"damage": 80,
 		"capacity": 45,
 		"recoil": 10,
-		"fire_rate": 520,
-		"fire_mode": [
-			0,
-			1,
-			2
+		"fire_rates": [
+			520
+		],
+		"fire_modes": [
+			"Semi-automatic",
+			"Burst",
+			"Automatic"
 		],
 		"traits": [
-			1,
-			4
+			"Light Armor Penetrating",
+			"One Handed"
 		]
 	},
 	"2307301438": {
 		"name": "R-63 Diligence",
 		"description": "This high-caliber marksman rifle trades magazine capacity and rate of fire for powerful, accurate shots.",
-		"type": 4,
+		"type": "Marksman Rifle",
 		"damage": 165,
-		"capacity": 20,
+		"capacity": 25,
 		"recoil": 35,
-		"fire_rate": 350,
-		"fire_mode": [
-			0
+		"fire_rates": [
+			350
+		],
+		"fire_modes": [
+			"Semi-automatic"
 		],
 		"traits": [
-			1
+			"Light Armor Penetrating"
 		]
 	},
 	"924530093": {
 		"name": "R-63CS Diligence Counter Sniper",
 		"description": "A modified Diligence rifle offering increased damage, but a reduced rate of fire. Fires a single bullet at a time.",
-		"type": 4,
+		"type": "Marksman Rifle",
 		"damage": 200,
 		"capacity": 15,
 		"recoil": 53,
-		"fire_rate": 350,
-		"fire_mode": [
-			0
+		"fire_rates": [
+			350
+		],
+		"fire_modes": [
+			"Semi-automatic"
 		],
 		"traits": [
-			2
+			"Medium Armor Penetrating"
 		]
 	},
 	"3866352840": {
 		"name": "LAS-5 Scythe",
 		"description": "A laser rifle firing a continuous beam. Does not need reloading, but if it overheats a new heat sink must be fitted.",
-		"type": 5,
+		"type": "Energy-Based",
 		"damage": 350,
 		"capacity": 8,
 		"recoil": 0,
-		"fire_rate": 0,
-		"fire_mode": [
-			2
+		"fire_rates": [
+			60
 		],
+		"fire_modes": [],
 		"traits": [
-			1,
-			8,
-			9
+			"Light Armor Penetrating",
+			"Beam",
+			"Heat"
 		]
 	},
 	"1794436168": {
 		"name": "LAS-16 Sickle",
 		"description": "A laser rifle, firing in short bursts. Does not need reloading, but if it overheats a new heat sink must be fitted.",
-		"type": 5,
+		"type": "Energy-Based",
 		"damage": 55,
 		"capacity": 7,
 		"recoil": 2,
-		"fire_rate": 750,
-		"fire_mode": [
-			2
+		"fire_rates": [
+			750
+		],
+		"fire_modes": [
+			"Automatic"
 		],
 		"traits": [
-			1,
-			9
+			"Light Armor Penetrating",
+			"Heat"
 		]
 	},
 	"925809350": {
 		"name": "PLAS-1 Scorcher",
 		"description": "A plasma rifle, firing a bolt of superheated gas which explodes on impact. Avoid standing in proximity to the blast.",
-		"type": 5,
+		"type": "Energy-Based",
 		"damage": 200,
 		"capacity": 20,
 		"recoil": 20,
-		"fire_rate": 350,
-		"fire_mode": [
-			0,
-			2
+		"fire_rates": [
+			350
+		],
+		"fire_modes": [
+			"Semi-automatic",
+			"Automatic"
 		],
 		"traits": [
-			2,
-			6
+			"Light Armor Penetrating",
+			"Explosive"
 		]
 	},
 	"2121387072": {
 		"name": "JAR-5 Dominator",
 		"description": "Firing jet-propelled rounds, the Dominator trades fire rate and magazine capacity for increased damage per projectile.",
-		"type": 8,
+		"type": "Special",
 		"damage": 275,
 		"capacity": 15,
 		"recoil": 75,
-		"fire_rate": 250,
-		"fire_mode": [
-			0,
-			1
+		"fire_rates": [
+			250
+		],
+		"fire_modes": [
+			"Semi-automatic",
+			"Burst"
 		],
 		"traits": [
-			2
+			"Medium Armor Penetrating"
 		]
 	},
 	"2640366401": {
 		"name": "BR-14 Adjudicator",
 		"description": "An accurate, armor-penetrating rifle, the BR-14 Adjudicator delivers righteous judgement to medium-sized enemies, though its restrictive magazine limits its effectiveness against large groups.",
-		"type": 1,
-		"damage": 90,
+		"type": "Assault Rifle",
+		"damage": 95,
 		"capacity": 30,
-		"recoil": 38,
-		"fire_rate": 550,
-		"fire_mode": [
-			0,
-			2
+		"recoil": 24,
+		"fire_rates": [
+			550
+		],
+		"fire_modes": [
+			"Semi-automatic",
+			"Automatic"
 		],
 		"traits": [
-			2
+			"Medium Armor Penetrating"
 		]
 	},
 	"339272294": {
 		"name": "R-36 Eruptor",
 		"description": "This bolt-action rifle fires jet-assisted shells that explode shrapnel in all directions upon impact. Not recommended for close-quarters use.",
-		"type": 6,
+		"type": "Explosive",
 		"damage": 455,
 		"capacity": 5,
 		"recoil": 75,
-		"fire_rate": 25,
-		"fire_mode": [
-			0
+		"fire_rates": [
+			32
+		],
+		"fire_modes": [
+			"Bolt-Action"
 		],
 		"traits": [
-			2,
-			6
+			"Explosive",
+			"Heavy Armor Penetrating"
 		]
 	},
 	"1942567317": {
 		"name": "CB-9 Exploding Crossbow",
 		"description": "Fires powerful exploding bolts that do maximum damage upon direct impact. Gravity must be accounted for when aiming.",
-		"type": 6,
+		"type": "Explosive",
 		"damage": 620,
 		"capacity": 5,
 		"recoil": 35,
-		"fire_rate": 50,
-		"fire_mode": [
-			0
+		"fire_rates": [
+			50
 		],
+		"fire_modes": [],
 		"traits": [
-			2,
-			4,
-			6
+			"Explosive",
+			"One Handed"
 		]
 	},
 	"1920374015": {
 		"name": "AR-61 Tenderizer",
 		"description": "A high-caliber assault rifle with a restrictive magazine size but more stopping power.",
-		"type": 1,
-		"damage": 95,
+		"type": "Assault Rifle",
+		"damage": 105,
 		"capacity": 35,
 		"recoil": 10,
-		"fire_rate": 600,
-		"fire_mode": [
-			0,
-			1,
-			2
+		"fire_rates": [
+			600,
+			850
+		],
+		"fire_modes": [
+			"Semi-automatic",
+			"Burst",
+			"Automatic"
 		],
 		"traits": [
-			1
+			"Light Armor Penetrating"
 		]
 	},
 	"942049262": {
 		"name": "SMG-72 Pummeler",
 		"description": "Fires concussive rounds that stagger enemies. Slower rate of fire than other SMGs.",
-		"type": 3,
-		"damage": 65,
+		"type": "SMG",
+		"damage": 70,
 		"capacity": 45,
 		"recoil": 10,
-		"fire_rate": 475,
-		"fire_mode": [
-			0,
-			1,
-			2
+		"fire_rates": [
+			475
+		],
+		"fire_modes": [
+			"Semi-automatic",
+			"Burst",
+			"Automatic"
 		],
 		"traits": [
-			1,
-			4
+			"Light Armor Penetrating",
+			"One Handed"
 		]
 	},
 	"2887941494": {
 		"name": "PLAS-101 Purifier",
-		"description": "A plasma rifle firing a bolt of superheated gas which explodes on impact. Each shot needs to be charged up fully before it can be fired.",
-		"type": 5,
+		"description": "A plasma rifle firing a bolt of superheated gas, which can be charged by holding down the trigger. Charging up a shot fully makes the bolt explode on impact.",
+		"type": "Energy-Based",
 		"damage": 500,
 		"capacity": 15,
 		"recoil": 20,
-		"fire_rate": 1000,
-		"fire_mode": [
-			0
+		"fire_rates": [
+			6000
 		],
+		"fire_modes": [],
 		"traits": [
-			2,
-			6,
-			10
+			"Medium Armor Penetrating",
+			"Explosive",
+			"Charge Up"
 		]
 	},
 	"1160920394": {
 		"name": "AR-23A Liberator Carbine",
 		"description": "A compact version of the Liberator designed for increased viability in close quarters. Has an increased fire rate at the cost of higher spread.",
-		"type": 1,
-		"damage": 70,
+		"type": "Assault Rifle",
+		"damage": 80,
 		"capacity": 45,
-		"recoil": 25,
-		"fire_rate": 920,
-		"fire_mode": [
-			0,
-			1,
-			2
+		"recoil": 26,
+		"fire_rates": [
+			920
+		],
+		"fire_modes": [
+			"Semi-automatic",
+			"Burst",
+			"Automatic"
 		],
 		"traits": [
-			1
+			"Light Armor Penetrating"
 		]
 	},
 	"1321109120": {
 		"name": "SG-451 Cookout",
 		"description": "A pump shotgun that fires a burst of incendiary phosphorus pellets, setting targets ablaze.",
-		"type": 2,
+		"type": "Shotgun",
 		"damage": 320,
 		"capacity": 16,
 		"recoil": 100,
-		"fire_rate": 80,
-		"fire_mode": [
-			3
+		"fire_rates": [
+			80
+		],
+		"fire_modes": [
+			"Semi-automatic"
 		],
 		"traits": [
-			1,
-			5,
-			7
+			"Light Armor Penetrating",
+			"Rounds Reload",
+			"Incendiary"
 		]
 	},
 	"4108040377": {
 		"name": "FLAM-66 Torcher",
-		"description": "A lightweight flamethrower. Shoots pressurized fuel through a dispersion nozzle into an open flame",
-		"type": 8,
+		"description": "A lightweight flamethrower. Shoots pressurized fuel through a dispersion nozzle into an open flame.",
+		"type": "Special",
 		"damage": 375,
-		"capacity": 80,
+		"capacity": 125,
 		"recoil": 2,
-		"fire_rate": 0,
-		"fire_mode": [
-			2
+		"fire_rates": [
+			60
 		],
+		"fire_modes": [],
 		"traits": [
-			7
+			"Incendiary"
 		]
 	},
 	"122941246": {
 		"name": "SG-20 Halt",
 		"description": "A humane compliance weapon with two seperate magazines: one for armor-penetrating flechette rounds and one for stun rounds.",
-		"type": 2,
+		"type": "Shotgun",
 		"damage": 385,
 		"capacity": 16,
 		"recoil": 120,
-		"fire_rate": 80,
-		"fire_mode": [
-			0
+		"fire_rates": [
+			80
+		],
+		"fire_modes": [
+			"Semi-automatic"
 		],
 		"traits": [
-			1,
-			2,
-			5
+			"Light Armor Penetrating",
+			"Medium Armor Penetrating",
+			"Rounds Reload"
 		]
 	},
 	"725205791": {
 		"name": "SMG-32 Reprimand",
 		"description": "A heavy-duty submachine gun that fires large-caliber rounds, with a slower rate of fire to manage the high recoil. Ideal for use at close to medium range",
-		"type": 3,
+		"type": "SMG",
 		"damage": 125,
 		"capacity": 25,
-		"recoil": 44,
-		"fire_rate": 490,
-		"fire_mode": [
-			0,
-			1,
-			2
+		"recoil": 32,
+		"fire_rates": [
+			490
+		],
+		"fire_modes": [
+			"Semi-automatic",
+			"Burst",
+			"Automatic"
 		],
 		"traits": [
-			2
+			"Medium Armor Penetrating"
 		]
 	},
 	"4161086429": {
 		"name": "R-2124 Constitution",
 		"description": "This ceremonial rifle is modeled after antique relics from pre-Democratic times. It is traditionally gifted to every citizen upon turning 16 to encourage service.",
-		"type": 4,
+		"type": "Marksman Rifle",
 		"damage": 180,
 		"capacity": 5,
 		"recoil": 15,
-		"fire_rate": 60,
-		"fire_mode": [
-			8
+		"fire_rates": [
+			60
+		],
+		"fire_modes": [
+			"Bolt-Action"
 		],
 		"traits": [
-			2,
-			5
+			"Medium Armor Penetrating",
+			"Rounds Reload"
 		]
 	},
 	"9906": {
 		"name": "StA-52 Assault Rifle",
 		"description": "An assault rifle with a high-capacity drum magazine, good for providing sustained fire. Produced by Stäl Arms.",
-		"type": 1,
-		"damage": 70,
+		"type": "Assault Rifle",
+		"damage": 80,
 		"capacity": 56,
 		"recoil": 19,
-		"fire_rate": 790,
-		"fire_mode": [
-			2
+		"fire_rates": [
+			790
+		],
+		"fire_modes": [
+			"Semi-automatic",
+			"Automatic"
 		],
 		"traits": [
-			1
+			"Light Armor Penetrating"
 		]
 	},
 	"9907": {
 		"name": "StA-11 SMG",
 		"description": "A submachine gun with a helical-feed magazine, which gives the weapon a higher ammo capacity while making it more front-heavy. Produced by Stäl Arms.",
-		"type": 3,
-		"damage": 65,
+		"type": "SMG",
+		"damage": 70,
 		"capacity": 48,
 		"recoil": 13,
-		"fire_rate": 1050,
-		"fire_mode": [],
+		"fire_rates": [
+			1050
+		],
+		"fire_modes": [
+			"Automatic"
+		],
 		"traits": [
-			1,
-			4
+			"Light Armor Penetrating",
+			"One Handed"
 		]
 	},
 	"9908": {
 		"name": "PLAS-39 Accelerator Rifle",
 		"description": "A high-precision burst-fire plasma rifle that must be charged to fire.",
-		"type": 9,
+		"type": "Sniper Rifle",
 		"damage": 350,
 		"capacity": 9,
 		"recoil": 3,
-		"fire_rate": 550,
-		"fire_mode": [
-			0
+		"fire_rates": [
+			550
+		],
+		"fire_modes": [
+			"Burst"
 		],
 		"traits": [
-			2,
-			6
+			"Medium Armor Penetrating",
+			"Explosive"
 		]
 	},
 	"1005": {
 		"name": "LAS-17 Double-Edge Sickle",
 		"description": "A LAS-16 Sickle model with all overheating protections conveniently removed, allowing for far longer bursts of fire. Does more damage when overheating, at the cost of slightly burning the user.",
-		"type": 5,
+		"type": "Energy-Based",
 		"damage": 55,
 		"capacity": 15,
 		"recoil": 2,
-		"fire_rate": 700,
-		"fire_mode": [
-			2
+		"fire_rates": [
+			700
+		],
+		"fire_modes": [
+			"Automatic"
 		],
 		"traits": [
-			1,
-			2,
-			3,
-			9
+			"Light Armor Penetrating",
+			"Medium Armor Penetrating",
+			"Heavy Armor Penetrating",
+			"Heat"
 		]
 	},
 	"1102": {
 		"name": "R-6 Deadeye",
 		"description": "A mighty rifle with a signature lever-action enabling single round reload. Powerful precision suited to mid- and long-range combat.",
-		"type": 4,
+		"type": "Marksman Rifle",
 		"damage": 300,
 		"capacity": 8,
 		"recoil": 120,
-		"fire_rate": 100,
-		"fire_mode": [
-			13
+		"fire_rates": [
+			100
+		],
+		"fire_modes": [
+			"Lever-Action"
 		],
 		"traits": [
-			2,
-			5
+			"Medium Armor Penetrating",
+			"Rounds Reload"
 		]
 	},
 	"1205": {
 		"name": "R-2 Amendment",
-		"description": "",
-		"type": 4,
+		"description": "A semi-automatic ceremonial rifle equipped with a bayonet. Can be set to fire in three shot bursts, to easily conduct the Fallen Hero's Salute.",
+		"type": "Marksman Rifle",
 		"damage": 200,
 		"capacity": 20,
-		"recoil": 29,
-		"fire_rate": 480,
-		"fire_mode": [
-			0
+		"recoil": 20,
+		"fire_rates": [
+			480
+		],
+		"fire_modes": [
+			"Semi-automatic",
+			"Burst"
 		],
 		"traits": [
-			1
+			"Light Armor Penetrating"
 		]
 	},
 	"1306": {
 		"name": "AR-32 Pacifier",
-		"description": "",
-		"type": 1,
+		"description": "A large-capacity assault rifle firing humane stun rounds. Reports of lethal incidents have been thoroughly debunked.",
+		"type": "Assault Rifle",
 		"damage": 50,
 		"capacity": 40,
-		"recoil": 14,
-		"fire_rate": 700,
-		"fire_mode": [
-			2
+		"recoil": 18,
+		"fire_rates": [
+			700
+		],
+		"fire_modes": [
+			"Semi-automatic",
+			"Burst",
+			"Automatic"
 		],
 		"traits": [
-			2,
-			12
+			"Medium Armor Penetrating",
+			"Stun"
 		]
 	},
 	"1405": {
 		"name": "VG-70 Variable",
 		"description": "A speed-loaded volley gun with three different firing modes and three different RPM options. Warning: recoil varies significantly between firing modes.",
-		"type": 8,
+		"type": "Special",
 		"damage": 85,
 		"capacity": 49,
 		"recoil": 7,
-		"fire_rate": [
+		"fire_rates": [
 			300,
 			550,
 			750
 		],
-		"fire_mode": [
-			2,
-			9,
-			10
+		"fire_modes": [
+			"Automatic",
+			"Volley",
+			"Total"
 		],
 		"traits": [
-			1
+			"Light Armor Penetrating"
 		]
 	},
 	"1506": {
 		"name": "MA5C Assault Rifle",
 		"description": "Often showcased in the \"Obedient Democracy Support Troopers\" cartoon, this assault rifle comes with a convenient ammo counter and compass. Produced by Martian Armory.",
-		"type": 1,
+		"type": "Assault Rifle",
 		"damage": 80,
 		"capacity": 32,
 		"recoil": 19,
-		"fire_rate": 640,
-		"fire_mode": [
-			0,
-			1,
-			2
+		"fire_rates": 640,
+		"fire_modes": [
+			"Semi-automatic",
+			"Burst",
+			"Automatic"
 		],
 		"traits": [
-			2
+			"Medium Armor Penetrating"
 		]
 	},
 	"1507": {
 		"name": "M7S SMG",
 		"description": "An SMG that fires caseless ammunition and is equipped with a non-removable suppressor. Produced by Martian Armory.",
-		"type": 3,
+		"type": "SMG",
 		"damage": 70,
 		"capacity": 48,
 		"recoil": 8,
-		"fire_rate": 872,
-		"fire_mode": [
-			1,
-			2,
-			3
+		"fire_rates": 872,
+		"fire_modes": [
+			"Semi-automatic",
+			"Burst",
+			"Automatic"
 		],
 		"traits": [
-			1,
-			4,
-			14
+			"Light Armor Penetrating",
+			"One Handed",
+			"Suppressed"
 		]
 	},
 	"1515": {
 		"name": "M90A Shotgun",
 		"description": "A top-loaded shotgun prominently featured in the final episode of \"Obedient Democracy Support Troopers\". Produced by Martian Armory",
-		"type": 2,
+		"type": "Shotgun",
 		"damage": 605,
 		"capacity": 6,
 		"recoil": 83,
-		"fire_rate": 80,
-		"fire_mode": [
-			1
+		"fire_rates": 80,
+		"fire_modes": [
+			"Burst"
 		],
 		"traits": [
-			1,
-			5
+			"Light Armor Penetrating",
+			"Rounds Reload"
 		]
 	}
 }
