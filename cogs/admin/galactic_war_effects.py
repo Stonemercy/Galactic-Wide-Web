@@ -52,7 +52,7 @@ class GWECog(commands.Cog):
         ),
     ):
         await inter.response.defer(ephemeral=public != "Yes")
-        self.bot.logger.critical(
+        self.bot.logger.info(
             msg=f"{self.qualified_name} | /{inter.application_command.name} <{id = }> <{type = }> <{public = }> | used by <@{inter.author.id}> | @{inter.author.global_name}"
         )
         gwe_list = None
