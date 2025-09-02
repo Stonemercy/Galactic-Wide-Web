@@ -64,6 +64,7 @@ class Data(ReprMixin):
         self.loaded: bool = False
         self.liberation_changes: BaseTracker = BaseTracker()
         self.global_resource_changes: BaseTracker = BaseTracker()
+        self.tactical_action_changes: BaseTracker = BaseTracker()
         self.region_changes: BaseTracker = BaseTracker()
         self.major_order_changes: BaseTracker = BaseTracker()
         self.meridia_position: None | tuple[float, float] = None
@@ -205,6 +206,8 @@ class Data(ReprMixin):
             self.update_major_order_rates()
         if self.global_resources:
             self.update_global_resource_rates()
+        if self.dss:
+            self.update_tactical_action_rates()
         self.get_needed_players()
         self.fetched_at = datetime.now()
         if not self.loaded:
@@ -485,6 +488,14 @@ class Data(ReprMixin):
         if self.global_resources:
             for gr in self.global_resources:
                 self.global_resource_changes.add_entry(key=gr.id, value=gr.perc)
+
+    def update_tactical_action_rates(self) -> None:
+        """Update the changes in global resources"""
+        for ta in self.dss.tactical_actions:
+            for cost in ta.cost:
+                self.tactical_action_changes.add_entry(
+                    key=(ta.id, cost.item), value=cost.progress
+                )
 
     def update_major_order_rates(self) -> None:
         """Update the changes in Major Order tasks"""

@@ -65,6 +65,7 @@ class Dashboard:
                     dss=data.dss,
                     language_json=language_json,
                     planet_names_json=json_dict["planets"],
+                    ta_changes=data.tactical_action_changes,
                 )
             )
 
@@ -932,7 +933,11 @@ class Dashboard:
 
     class DSSEmbed(Embed, EmbedReprMixin):
         def __init__(
-            self, dss: DSS | None, language_json: dict, planet_names_json: dict
+            self,
+            dss: DSS | None,
+            language_json: dict,
+            planet_names_json: dict,
+            ta_changes: BaseTracker,
         ):
             super().__init__(
                 title=language_json["dss"]["title"],
@@ -975,6 +980,13 @@ class Dashboard:
                             field_value += f"\n{language_json['dashboard']['DSSEmbed']['max_submitable'].format(emoji=getattr(Emojis.Items,ta_cost.item.replace(' ', '_').lower()),number=f'{ta_cost.max_per_seconds[0]:,}',item=ta_cost.item,hours=f'{ta_cost.max_per_seconds[1]/3600:.0f}')}"
                             field_value += f"\n{health_bar(ta_cost.progress,'MO')}"
                             field_value += f"\n`{ta_cost.progress:^25.2%}`"
+                            cost_change = ta_changes.get_entry(
+                                (tactical_action.id, ta_cost.item)
+                            )
+                            if cost_change and cost_change.change_rate_per_hour != 0:
+                                change = f"{cost_change.change_rate_per_hour:+.2%}/hr"
+                                field_value += f"\n`{change:^25}`"
+                                field_value += f"\nReady <t:{int(datetime.now().timestamp() + cost_change.seconds_until_complete)}:R>"
                     case "active":
                         field_value += f"\n{language_json['ends']} <t:{int(tactical_action.status_end_datetime.timestamp())}:R>"
                         desc_fmtd = tactical_action.strategic_description.replace(
