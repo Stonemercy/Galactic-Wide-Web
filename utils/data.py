@@ -1157,7 +1157,9 @@ class GalacticWarEffect(ReprMixin):
         """Organised data for a galactic war effect"""
         self.__raw_json__ = gwa.copy()
         self.id: int = gwa["id"]
-        self.planet_effect: dict | None = json_dict["planet_effects"].get(str(self.id))
+        self.planet_effect: dict | None = json_dict["planet_effects"].get(
+            str(self.id), {"name": "UNKNOWN", "description": "UNKNOWN"}
+        )
         self.gameplay_effect_id32 = gwa["gameplayEffectId32"]
         self.effect_type = gwa["effectType"]
         self.effect_description = json_dict["galactic_war_effects"].get(
