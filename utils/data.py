@@ -48,7 +48,7 @@ class Data(ReprMixin):
     def __init__(self, json_dict: dict) -> None:
         """The object to retrieve and organise all 3rd-party data used by the bot"""
         self.json_dict = json_dict
-        self.__data__: dict[str,] = {
+        self.default_data_dict: dict[str,] = {
             "assignments": None,
             "campaigns": None,
             "dispatches": None,
@@ -61,6 +61,7 @@ class Data(ReprMixin):
             "steam_playercount": None,
             "galactic_war_effects": None,
         }
+        self.__data__: dict[str,] = self.default_data_dict.copy()
         self.loaded: bool = False
         self.liberation_changes: BaseTracker = BaseTracker()
         self.global_resource_changes: BaseTracker = BaseTracker()
@@ -99,6 +100,7 @@ class Data(ReprMixin):
                         await moderator_channel.send(content=f"API/USING BACKUP\n{r}")
             except ClientSSLError as e:
                 raise e
+            self.__data__ = self.default_data_dict.copy()
 
             for endpoint in list(self.__data__.keys()):
                 if endpoint == "thumbnails":
