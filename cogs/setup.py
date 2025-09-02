@@ -519,7 +519,6 @@ class SetupCog(commands.Cog):
                         planets=self.bot.data.planets,
                         assignments=self.bot.data.assignments,
                         campaigns=self.bot.data.campaigns,
-                        dss=self.bot.data.dss,
                         sector_names=self.bot.json_dict["sectors"],
                     )
                     self.bot.maps.localize_map(
@@ -529,9 +528,6 @@ class SetupCog(commands.Cog):
                         active_planets=[
                             campaign.planet.index
                             for campaign in self.bot.data.campaigns
-                        ],
-                        type_3_campaigns=[
-                            c for c in self.bot.data.campaigns if c.type == 3
                         ],
                         planet_names_json=self.bot.json_dict["planets"],
                     )
@@ -544,6 +540,14 @@ class SetupCog(commands.Cog):
                     )
                     self.bot.maps.latest_maps[guild_language["code"]] = Maps.LatestMap(
                         datetime.now(), message.attachments[0].url
+                    )
+                    self.bot.maps.add_icons(
+                        lang=guild_language["code"],
+                        planets=self.bot.data.planets,
+                        active_planets=[
+                            c.planet.index for c in self.bot.data.campaigns
+                        ],
+                        dss=self.bot.data.dss,
                     )
                     latest_map = self.bot.maps.latest_maps[guild_language["code"]]
                     message = await map_channel.send(

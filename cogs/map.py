@@ -59,7 +59,6 @@ class MapCog(commands.Cog):
                 planets=self.bot.data.planets,
                 assignments=self.bot.data.assignments,
                 campaigns=self.bot.data.campaigns,
-                dss=self.bot.data.dss,
                 sector_names=self.bot.json_dict["sectors"],
             )
             for language_code, embed in map_embeds.items():
@@ -71,10 +70,13 @@ class MapCog(commands.Cog):
                     active_planets=[
                         campaign.planet.index for campaign in self.bot.data.campaigns
                     ],
-                    type_3_campaigns=[
-                        c for c in self.bot.data.campaigns if c.type == 3
-                    ],
                     planet_names_json=self.bot.json_dict["planets"],
+                )
+                self.bot.maps.add_icons(
+                    lang=language_code,
+                    planets=self.bot.data.planets,
+                    active_planets=[c.planet.index for c in self.bot.data.campaigns],
+                    dss=self.bot.data.dss,
                 )
                 message = await self.bot.waste_bin_channel.send(
                     file=File(
@@ -145,7 +147,6 @@ class MapCog(commands.Cog):
                 planets=self.bot.data.planets,
                 assignments=self.bot.data.assignments,
                 campaigns=self.bot.data.campaigns,
-                dss=self.bot.data.dss,
                 sector_names=self.bot.json_dict["sectors"],
             )
             language_json = self.bot.json_dict["languages"][guild.language]
@@ -156,8 +157,13 @@ class MapCog(commands.Cog):
                 active_planets=[
                     campaign.planet.index for campaign in self.bot.data.campaigns
                 ],
-                type_3_campaigns=[c for c in self.bot.data.campaigns if c.type == 3],
                 planet_names_json=self.bot.json_dict["planets"],
+            )
+            self.bot.maps.add_icons(
+                lang=language_json["code"],
+                planets=self.bot.data.planets,
+                active_planets=[c.planet.index for c in self.bot.data.campaigns],
+                dss=self.bot.data.dss,
             )
             try:
                 message = await self.bot.waste_bin_channel.send(

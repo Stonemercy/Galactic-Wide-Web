@@ -43,8 +43,8 @@ class Maps:
         sector_map: str = "resources/maps/sector_map.webp"
         waypoints_map: str = "resources/maps/waypoints_map.webp"
         assignment_map: str = "resources/maps/assignment_map.webp"
-        dss_map: str = "resources/maps/dss_map.webp"
         planets_map: str = "resources/maps/planets_map.webp"
+        icons_map: str = "resources/maps/icons_map.webp"
         arrow_map: str = "resources/maps/arrow_map.webp"
 
         def localized_map_path(language_code: str) -> str:
@@ -55,7 +55,6 @@ class Maps:
         planets: Planets,
         assignments: list[Assignment],
         campaigns: list[Campaign],
-        dss: DSS,
         sector_names: dict,
     ) -> None:
         self.update_sectors(planets=planets)
@@ -70,7 +69,6 @@ class Maps:
             planets=planets,
             active_planets=[campaign.planet.index for campaign in campaigns],
         )
-        self.update_dss(dss=dss, type_3_campaigns=[c for c in campaigns if c.type == 3])
 
     def update_sectors(self, planets: Planets) -> None:
         sectors = {}
@@ -256,9 +254,6 @@ class Maps:
                     (0, 0, 0, 255),
                     -1,
                 )
-            elif planet.index == 0:
-                se_icon = imread("resources/super_earth.png", IMREAD_UNCHANGED)
-                self.paste_image(background, se_icon, planet.map_waypoints)
             elif 1240 in [ae.id for ae in planet.active_effects]:
                 circle(
                     background,
@@ -267,19 +262,8 @@ class Maps:
                     (0, 0, 255, 255),
                     -1,
                 )
-            elif 1241 in [ae.id for ae in planet.active_effects] or 1252 in [
-                ae.id for ae in planet.active_effects
-            ]:
-                frac_planet_icon = imread(
-                    "resources/fractured_planet.png", IMREAD_UNCHANGED
-                )
-                self.paste_image(
-                    background,
-                    frac_planet_icon,
-                    planet.map_waypoints,
-                    x_offset=-20,
-                    y_offset=10,
-                )
+            elif [ae for ae in planet.active_effects if ae.id in (1241, 1252)] != []:
+                continue
             else:
                 colour = (
                     planet.current_owner.colour
@@ -296,43 +280,8 @@ class Maps:
                     colour,
                     -1,
                 )
-        for planet in [p for p in planets.values() if p.index in active_planets]:
-            x_offset = 0
-            for su in SpecialUnits.get_from_effects_list(planet.active_effects):
-                su_icon = imread(
-                    f"resources/Emojis/Map Icons/{su[0].title()} bordered.png",
-                    IMREAD_UNCHANGED,
-                )
-                su_icon = resize(
-                    su_icon, (int(32 * (su_icon.shape[1] / su_icon.shape[0])), 32)
-                )
-                self.paste_image(
-                    background,
-                    su_icon,
-                    planet.map_waypoints,
-                    x_offset=35 + x_offset,
-                    y_offset=-(24 + ((planet.name.count(" ") + 1) * 24)),
-                )
-                x_offset += 35
-        imwrite(Maps.FileLocations.planets_map, background)
 
-    def update_dss(self, dss: DSS, type_3_campaigns: list[Campaign]) -> None:
-        background = imread(Maps.FileLocations.planets_map, IMREAD_UNCHANGED)
-        if dss and dss.flags == 1:
-            dss_icon = imread(
-                "resources/Emojis/Map Icons/dss_glow.png", IMREAD_UNCHANGED
-            )
-            verti_diff = 60
-            if dss.planet.index in [c.planet.index for c in type_3_campaigns]:
-                verti_diff += 50
-            if dss.planet.name.count(" ") > 0:
-                verti_diff += dss.planet.name.count(" ") * self.TEXT_SIZE
-            dss_coords = (
-                int(dss.planet.map_waypoints[0]) - 17,
-                int(dss.planet.map_waypoints[1]) - verti_diff,
-            )
-            self.paste_image(background, dss_icon, dss_coords)
-        imwrite(Maps.FileLocations.dss_map, background)
+        imwrite(Maps.FileLocations.planets_map, background)
 
     def draw_arrow(self, language_code: str, planet: Planet) -> None:
         with Image.open(
@@ -379,16 +328,14 @@ class Maps:
         language_code_long: str,
         planets: Planets,
         active_planets: list[int],
-        type_3_campaigns: list[Campaign],
         planet_names_json: dict,
     ) -> None:
-        with Image.open(fp=Maps.FileLocations.dss_map) as background:
+        with Image.open(fp=Maps.FileLocations.planets_map) as background:
             self._write_names(
                 background=background,
                 language_code=language_code_long,
                 planets=planets,
                 active_planets=active_planets,
-                type_3_campaigns=type_3_campaigns,
                 planet_names_json=planet_names_json,
             )
             background.save(fp=f"resources/maps/{language_code_short}.webp")
@@ -399,7 +346,6 @@ class Maps:
         language_code: str,
         planets: Planets,
         active_planets: list[int],
-        type_3_campaigns: list[Campaign],
         planet_names_json: dict,
     ) -> None:
         font = ImageFont.truetype("resources/gww-font.ttf", self.TEXT_SIZE)
@@ -408,27 +354,13 @@ class Maps:
             if index in active_planets:
                 if planet.dss_in_orbit:
                     border_colour = "deepskyblue"
-                elif planet.event and planet.event.siege_fleet:
-                    border_colour = planet.event.faction.colour
-                elif planet.index in [c.planet.index for c in type_3_campaigns]:
-                    border_colour = Factions.get_from_identifier(
-                        [c for c in type_3_campaigns if c.planet.index == planet.index][
-                            0
-                        ].faction.colour
-                    )
                 else:
                     border_colour = "black"
                 name_text = planet_names_json[str(index)]["names"][
                     language_code
                 ].replace(" ", "\n")
-                if (planet.event and planet.event.siege_fleet) or planet.index in [
-                    c.planet.index for c in type_3_campaigns
-                ]:
-                    xy = (planet.map_waypoints[0], planet.map_waypoints[1] - 50)
-                else:
-                    xy = planet.map_waypoints
                 background_draw.multiline_text(
-                    xy=xy,
+                    xy=planet.map_waypoints,
                     text=name_text,
                     anchor="md",
                     font=font,
@@ -451,3 +383,56 @@ class Maps:
         roi = background[y : y + h, x : x + w, :3].astype(float)
         blended = (overlay_rgb.astype(float) * mask + roi * (1 - mask)).astype(uint8)
         background[y : y + h, x : x + w, :3] = blended
+
+    def add_icons(
+        self, lang: str, planets: Planets, active_planets: list[int], dss: DSS
+    ):
+        frac_planet_icon = imread("resources/fractured_planet.png", IMREAD_UNCHANGED)
+        path = Maps.FileLocations.localized_map_path(language_code=lang)
+        background = imread(path, IMREAD_UNCHANGED)
+        for planet in planets.values():
+            if planet.index == 0:
+                se_icon = imread("resources/super_earth.png", IMREAD_UNCHANGED)
+                self.paste_image(background, se_icon, planet.map_waypoints)
+            elif [ae for ae in planet.active_effects if ae.id in (1241, 1252)] != []:
+                self.paste_image(
+                    background,
+                    frac_planet_icon,
+                    planet.map_waypoints,
+                    x_offset=-20,
+                    y_offset=10,
+                )
+            if planet.index in active_planets:
+                x_offset = 0
+                for su in SpecialUnits.get_from_effects_list(planet.active_effects):
+                    su_icon = imread(
+                        f"resources/Emojis/Map Icons/{su[0].title()} bordered.png",
+                        IMREAD_UNCHANGED,
+                    )
+                    su_icon = resize(
+                        su_icon,
+                        (int(32 * (su_icon.shape[1] / su_icon.shape[0])), 32),
+                    )
+                    self.paste_image(
+                        background,
+                        su_icon,
+                        planet.map_waypoints,
+                        x_offset=35 + x_offset,
+                        y_offset=-(
+                            20 + ((planet.name.count(" ") + 1) * self.TEXT_SIZE)
+                        ),
+                    )
+                    x_offset += su_icon.shape[0] - 5
+            if dss and planet.dss_in_orbit:
+                dss_icon = imread(
+                    "resources/Emojis/Map Icons/dss_glow.png", IMREAD_UNCHANGED
+                )
+                verti_diff = 65
+                if dss.planet.name.count(" ") > 0:
+                    verti_diff += dss.planet.name.count(" ") * self.TEXT_SIZE
+                dss_coords = (
+                    int(dss.planet.map_waypoints[0]) - 17,
+                    int(dss.planet.map_waypoints[1]) - verti_diff,
+                )
+                self.paste_image(background, dss_icon, dss_coords)
+        imwrite(path, background)
