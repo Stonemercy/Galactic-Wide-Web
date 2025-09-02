@@ -183,6 +183,8 @@ class DataManagementCog(commands.Cog):
             ]
             for chunk in chunked_changes:
                 embed = APIChangesEmbed(total_changes=chunk)
+                msg = await self.bot.api_changes_channel.send(embed=embed)
+                await msg.publish()
 
     @check_changes.before_loop
     async def before_check_changes(self):
