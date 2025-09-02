@@ -82,7 +82,6 @@ class GuildEmbed(Embed, EmbedReprMixin):
         )
         features_text = ""
         if guild.features:
-            features_text = ""
             for feature in [
                 f
                 for f in guild.features
