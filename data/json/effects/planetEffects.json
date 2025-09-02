@@ -798,5 +798,9 @@
 	"1302": {
 		"name": "ARSENAL AUGMENTATION",
 		"description": "The AX/LAS-5 \"Guard Dog\" Rover stratagem has been temporarily authorized for use by all Helldivers."
+	},
+	"1303": {
+		"name": "RUPTURE STRAIN",
+		"description": "A deadly strain of ground-bursting Terminids is present on this planet."
 	}
 }
