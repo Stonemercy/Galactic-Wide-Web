@@ -33,7 +33,11 @@ class Setup:
                     placeholder=language_json["setup"]["buttons"][
                         "dashboard_channel_select"
                     ],
-                    channel_types=[ChannelType.text, ChannelType.news],
+                    channel_types=[
+                        ChannelType.text,
+                        ChannelType.news,
+                        ChannelType.public_thread,
+                    ],
                 )
 
         class ClearDashboardButton(Button):
@@ -127,7 +131,11 @@ class Setup:
                 super().__init__(
                     custom_id="map_channel_select",
                     placeholder=language_json["setup"]["buttons"]["map_channel_select"],
-                    channel_types=[ChannelType.text, ChannelType.news],
+                    channel_types=[
+                        ChannelType.text,
+                        ChannelType.news,
+                        ChannelType.public_thread,
+                    ],
                 )
 
         class ClearMapButton(Button):
