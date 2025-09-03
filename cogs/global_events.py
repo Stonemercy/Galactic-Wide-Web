@@ -38,7 +38,7 @@ class GlobalEventsCog(commands.Cog):
                         [
                             not global_event.title,
                             not global_event.message,
-                            not global_event.effect_ids,
+                            not global_event.effects,
                         ]
                     )
                     or global_event.title.upper() == "BRIEFING"
@@ -52,7 +52,6 @@ class GlobalEventsCog(commands.Cog):
                         GlobalEventsEmbed(
                             self.bot.data.planets,
                             self.bot.json_dict["languages"][lang],
-                            self.bot.json_dict["planet_effects"],
                             global_event,
                         )
                     ]

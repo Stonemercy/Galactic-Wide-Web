@@ -1,206 +1,257 @@
 {
     "1": {
         "name": "war_LibMultiplier",
+        "simplified_name": "Liberation multiplier change",
         "description": "Applies a liberation multiplier"
     },
     "20": {
         "name": "game_SEAFSupport",
+        "simplified_name": "SEAF support",
         "description": "game_SEAFSupport"
     },
     "21": {
         "name": "game_ExtractionTime",
+        "simplified_name": "Extraction time change",
         "description": "Applies a change to extraction time"
     },
     "23": {
         "name": "game_EagleRearmTime",
+        "simplified_name": "Eagle Rearm time change",
         "description": "Applies change to Eagle Re-Arm time"
     },
     "24": {
         "name": "game_VehicleFuel",
+        "simplified_name": "Vehicle fuel change",
         "description": "game_VehicleFuel"
     },
     "25": {
         "name": "game_AmmoStartAmount",
+        "simplified_name": "Start ammo amount change",
         "description": "Applies change in starting ammo"
     },
     "29": {
         "name": "game_DiverMeleeDamage",
+        "simplified_name": "Helldiver melee damage change",
         "description": "game_DiverMeleeDamage"
     },
     "32": {
         "name": "game_StratagemPermit",
+        "simplified_name": "Stratagem granted to Helldivers",
         "description": "Gives a free stratagem"
     },
     "33": {
         "name": "game_DiverRegen",
+        "simplified_name": "Helldiver health/stamina regen change",
         "description": "game_DiverRegen"
     },
     "36": {
         "name": "game_CooldownTime",
+        "simplified_name": "Stratagem cooldown changed",
         "description": "Adjusts stratagems cooldown"
     },
     "40": {
         "name": "game_EnemyDivision",
+        "simplified_name": "Adds an enemy division",
         "description": "Adds a special enemy to missions"
     },
     "45": {
         "name": "unk_AdditionalPayout",
+        "simplified_name": "Adds additional payout",
         "description": "unk_AdditionalPayout"
     },
     "47": {
         "name": "war_ImpenetrableDefense",
+        "simplified_name": "Un-invadable planet",
         "description": "IMPENETRABLE DEFENSE - The defenses of this planet are so strong that no enemy will be able to invade."
     },
     "48": {
         "name": "war_CrippledAttackSupply",
+        "simplified_name": "Unable to attack from this planet",
         "description": "CRIPPLED SUPPLY - The ability of this planet to attack is crippled."
     },
     "49": {
         "name": "war_AttackIncrease",
+        "simplified_name": "Attack increase",
         "description": "ATTACK INCREASE"
     },
     "51": {
         "name": "game_HealthStamina",
-        "description": "changes Health&Stam regen"
+        "simplified_name": "Health and stamina adjustments",
+        "description": "Changes health & stam regen"
     },
     "52": {
         "name": "game_NoHealing",
+        "simplified_name": "Healing disabled",
         "description": "game_NoHealing"
     },
     "54": {
         "name": "game_IntelScanners",
+        "simplified_name": "Intel Scanners",
         "description": "INTEL SCANNERS - The location of Intel is indicated on the mini-map."
     },
     "55": {
         "name": "game_IntelHostility",
+        "simplified_name": "Hostile enemies",
         "description": "game_IntelHostility"
     },
     "56": {
         "name": "game_AmmoPickupAmount",
+        "simplified_name": "Ammo pickup adjustments",
         "description": "Adjusts Ammo & Supply Box pickups"
     },
     "59": {
         "name": "game_MultiplyPayoutBonus",
+        "simplified_name": "Payout bonus multiplier",
         "description": "game_MultiplyPayoutBonus"
     },
     "60": {
         "name": "game_PayoutStandardized",
+        "simplified_name": "Standardized payouts",
         "description": "game_PayoutStandardized"
     },
     "61": {
         "name": "game_StimsStartAmount",
+        "simplified_name": "Starting stim amount adjustment",
         "description": "applies change in starting stims amount"
     },
     "63": {
         "name": "game_StimsPickupAmount",
+        "simplified_name": "Stim pickup amount adjustment",
         "description": "Adjusts Health & Supply Box stim pickups"
     },
     "67": {
         "name": "unk_MarketPriceMult",
+        "simplified_name": "Market price multiplier",
         "description": "MARKET CRASH - Due to the risk of Famine, the market is concerned and prices have gone up 100%."
     },
     "68": {
         "name": "unk_ItemCostByProgress",
+        "simplified_name": "I have no idea",
         "description": "modify_item_cost_by_progression_tag"
     },
     "69": {
         "name": "game_ReinforceAmount",
+        "simplified_name": "Starting reinforcements adjustment",
         "description": "Adjusts the number of starting reinforcements per squad member"
     },
     "70": {
         "name": "map_PlanetBody",
+        "simplified_name": "Planetary graphics change",
         "description": "Replaces the planets graphic"
     },
     "71": {
         "name": "map_PlanetToken",
+        "simplified_name": "POI added to planet",
         "description": "Gives planet a token and description, sometimes places a pawn"
     },
     "72": {
         "name": "game_EnemySpawnWeight",
+        "simplified_name": "Enemy spawn adjustments",
         "description": "Adjusts an enemies spawn rate on a planet"
     },
     "73": {
         "name": "map_PlanetCloud",
+        "simplified_name": "Gloom clouds",
         "description": "Adjusts the size of the gloom cloud surrounding the planet"
     },
     "74": {
         "name": "war_RegenRelativePct",
+        "simplified_name": "Planetary regen change",
         "description": "Adjusts the planet's regen"
     },
     "75": {
         "name": "game_MissionIdOverride",
+        "simplified_name": "Overrides mission ID",
         "description": "game_MissionIdOverride"
     },
     "76": {
         "name": "map_PlanetHide",
+        "simplified_name": "Hides the planet",
         "description": "Hides planet from the map"
     },
     "77": {
         "name": "war_RegenOverride",
+        "simplified_name": "Planetary regen change",
         "description": "Adjusts a planet's HP regen"
     },
     "78": {
         "name": "game_GameplayGeneric",
+        "simplified_name": "I dont even know",
         "description": "game_GameplayGeneric"
     },
     "79": {
         "name": "game_ThrowableStartCount",
+        "simplified_name": "Starting grenade adjustments",
         "description": "game_ThrowableStartCount"
     },
     "80": {
         "name": "game_StimsAmountMax",
+        "simplified_name": "Max stims adjustment",
         "description": "Adjusts the maximum stim amount"
     },
     "81": {
         "name": "game_StratagemDisabled",
+        "simplified_name": "Disable stratagems",
         "description": "game_StratagemDisabled"
     },
     "82": {
         "name": "game_BoosterDisabled",
+        "simplified_name": "Disable boosters",
         "description": "game_BoosterDisabled"
     },
     "83": {
         "name": "game_BoosterPermit",
+        "simplified_name": "Booster granted to Helldivers",
         "description": "Gives a free booster"
     },
     "84": {
         "name": "game_HealthAmountMax",
+        "simplified_name": "Max health adjustments",
         "description": "game_HealthAmountMax"
     },
     "85": {
         "name": "game_WeaponMagCount",
+        "simplified_name": "Weapon magazine adjustments",
         "description": "game_WeaponMagCount"
     },
     "86": {
         "name": "game_WeaponAmmoCount",
+        "simplified_name": "Weapon ammo count adjustments",
         "description": "game_WeaponAmmoCount"
     },
     "87": {
         "name": "game_AttackEffect",
+        "simplified_name": "Global attacks",
         "description": "Generates a constant attack during ops (eagles/bombardment)"
     },
     "88": {
         "name": "war_PauseDefense",
+        "simplified_name": "Defence pause",
         "description": "Causes the expiretime to increment by 1 * VALUE with wartime (effective pause)"
     },
     "89": {
         "name": "war_PreventAttacking",
+        "simplified_name": "Prevent attacking from this planet",
         "description": "Prevents attacks originating from this planet"
     },
     "90": {
         "name": "war_MaxPlanetHP",
+        "simplified_name": "Adjust planet max HP",
         "description": "Adjusts a planets max HP"
     },
     "91": {
         "name": "game_StratGroupCooldown",
+        "simplified_name": "Stratagem group cooldown adjustments",
         "description": "game_StratGroupCooldown"
     },
     "92": {
         "name": "war_Demilitarized",
+        "simplified_name": "Unattackable planet",
         "description": "Prevents attacks against this planet"
     },
     "93": {
         "name": "game_OperationModToggle",
+        "simplified_name": "Operation modifier toggle",
         "description": "game_operation_modifier_toggle"
     }
 }
