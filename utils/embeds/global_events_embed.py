@@ -45,7 +45,7 @@ class GlobalEventsEmbed(Embed, EmbedReprMixin):
             for chunk in global_event.split_message:
                 self.add_field("", chunk, inline=False)
 
-        self.add_field("Expires", f"<t:{global_event.expire_time}:R>")
+        self.add_field("Ends", f"<t:{global_event.expire_time}:R>")
 
         self.set_footer(
             text=language_json["message"].format(message_id=global_event.id)
