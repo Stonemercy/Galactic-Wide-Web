@@ -190,10 +190,6 @@ class WarUpdatesCog(commands.Cog):
                     campaign.planet.index for campaign in self.bot.data.campaigns
                 ],
             )
-            self.bot.maps.update_dss(
-                dss=self.bot.data.dss,
-                type_3_campaigns=[c for c in self.bot.data.campaigns if c.type == 3],
-            )
             for lang in self.bot.json_dict["languages"].values():
                 self.bot.maps.localize_map(
                     language_code_short=lang["code"],
@@ -202,10 +198,13 @@ class WarUpdatesCog(commands.Cog):
                     active_planets=[
                         campaign.planet.index for campaign in self.bot.data.campaigns
                     ],
-                    type_3_campaigns=[
-                        c for c in self.bot.data.campaigns if c.type == 3
-                    ],
                     planet_names_json=self.bot.json_dict["planets"],
+                )
+                self.bot.maps.add_icons(
+                    lang=lang["code"],
+                    planets=self.bot.data.planets,
+                    active_planets=[c.planet.index for c in self.bot.data.campaigns],
+                    dss=self.bot.data.dss,
                 )
                 message = await self.bot.waste_bin_channel.send(
                     file=File(
@@ -289,10 +288,6 @@ class WarUpdatesCog(commands.Cog):
                     campaign.planet.index for campaign in self.bot.data.campaigns
                 ],
             )
-            self.bot.maps.update_dss(
-                dss=self.bot.data.dss,
-                type_3_campaigns=[c for c in self.bot.data.campaigns if c.type == 3],
-            )
             for lang in unique_langs:
                 lang_json = self.bot.json_dict["languages"][lang]
                 self.bot.maps.localize_map(
@@ -302,10 +297,13 @@ class WarUpdatesCog(commands.Cog):
                     active_planets=[
                         campaign.planet.index for campaign in self.bot.data.campaigns
                     ],
-                    type_3_campaigns=[
-                        c for c in self.bot.data.campaigns if c.type == 3
-                    ],
                     planet_names_json=self.bot.json_dict["planets"],
+                )
+                self.bot.maps.add_icons(
+                    lang=lang,
+                    planets=self.bot.data.planets,
+                    active_planets=[c.planet.index for c in self.bot.data.campaigns],
+                    dss=self.bot.data.dss,
                 )
                 message = await self.bot.waste_bin_channel.send(
                     file=File(fp=self.bot.maps.FileLocations.localized_map_path(lang))
