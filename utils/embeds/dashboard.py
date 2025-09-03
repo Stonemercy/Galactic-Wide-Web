@@ -862,11 +862,11 @@ class Dashboard:
                             )
                             field_value += f"\n`{1 - (planet.health_perc):^25,.2%}`"
                             field_value += f"\n`{change:^25}`"
-                self.add_field(
-                    name=field_name,
-                    value=field_value,
-                    inline=False,
-                )
+            self.add_field(
+                name=field_name,
+                value=field_value,
+                inline=False,
+            )
 
         def add_type_15(self, task: Assignment.Task, language_json: dict):
             """Liberate more planets than are lost during the order duration"""
