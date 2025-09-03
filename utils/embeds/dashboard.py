@@ -986,7 +986,7 @@ class Dashboard:
                             if cost_change and cost_change.change_rate_per_hour != 0:
                                 change = f"{cost_change.change_rate_per_hour:+.2%}/hr"
                                 field_value += f"\n`{change:^25}`"
-                                field_value += f"\nReady <t:{int(datetime.now().timestamp() + cost_change.seconds_until_complete)}:R>"
+                                field_value += f"\n-# Ready <t:{int(datetime.now().timestamp() + cost_change.seconds_until_complete)}:R>"
                     case "active":
                         field_value += f"\n{language_json['ends']} <t:{int(tactical_action.status_end_datetime.timestamp())}:R>"
                         desc_fmtd = tactical_action.strategic_description.replace(
@@ -994,7 +994,7 @@ class Dashboard:
                         )
                         field_value += f"\n-# {desc_fmtd}"
                     case "on_cooldown":
-                        field_value += f"\n{language_json['dashboard']['DSSEmbed']['off_cooldown']} <t:{int(tactical_action.status_end_datetime.timestamp())}:R>"
+                        field_value += f"\n-# {language_json['dashboard']['DSSEmbed']['off_cooldown']} <t:{int(tactical_action.status_end_datetime.timestamp())}:R>"
                     case _:
                         continue
 
