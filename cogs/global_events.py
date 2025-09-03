@@ -63,7 +63,7 @@ class GlobalEventsCog(commands.Cog):
                     "detailed_dispatches", embeds
                 )
                 self.bot.logger.info(
-                    f"Sent Global Event out to {len(self.bot.interface_handler.detailed_dispatches)} channels"
+                    f"Sent Global Event out to {len(self.bot.interface_handler.detailed_dispatches)} channels in {(datetime.now() - ge_start).total_seconds():.2f}s"
                 )
                 break
 

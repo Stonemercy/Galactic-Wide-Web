@@ -47,7 +47,7 @@ class SteamCog(commands.Cog):
             current_war_info.patch_notes_id = self.bot.data.steam[0].id
             current_war_info.save_changes()
             self.bot.logger.info(
-                f"Sent patch announcements out to {len(self.bot.interface_handler.patch_notes)} channels"
+                f"Sent patch announcements out to {len(self.bot.interface_handler.patch_notes)} channels in {(datetime.now() - patch_notes_start).total_seconds():.2f}s"
             )
 
     @steam_check.before_loop

@@ -103,7 +103,7 @@ class MajorOrderCog(commands.Cog):
                     announcement_type="MO",
                 )
                 self.bot.logger.info(
-                    f"Sent MO announcements out to {len(self.bot.interface_handler.major_order_updates)} channels in {mo_check_start - datetime.now()} seconds"
+                    f"Sent MO announcements out to {len(self.bot.interface_handler.major_order_updates)} channels in {(datetime.now() - mo_check_start).total_seconds():.2f}s"
                 )
 
         # check for old MO IDs that are no longer active
@@ -158,7 +158,7 @@ class MajorOrderCog(commands.Cog):
             feature_type="major_order_updates", content=embeds, announcement_type="MO"
         )
         self.bot.logger.info(
-            f"Sent MO announcements out to {len(self.bot.interface_handler.major_order_updates)} channels in {mo_updates_start - datetime.now()} seconds"
+            f"Sent MO announcements out to {len(self.bot.interface_handler.major_order_updates)} channels in {(datetime.now() - mo_updates_start).total_seconds():.2f}s"
         )
 
     @major_order_updates.before_loop

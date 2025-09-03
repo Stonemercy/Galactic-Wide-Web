@@ -63,7 +63,7 @@ class DispatchesCog(commands.Cog):
                 current_war_info.dispatch_id = dispatch.id
                 current_war_info.save_changes()
                 self.bot.logger.info(
-                    f"Sent dispatch out to {len(self.bot.interface_handler.war_announcements)} channels"
+                    f"Sent dispatch out to {len(self.bot.interface_handler.war_announcements)} channels in {(datetime.now() - dispatch_start).total_seconds():.2f}s"
                 )
                 return
 
