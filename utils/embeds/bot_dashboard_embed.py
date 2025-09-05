@@ -16,7 +16,7 @@ class BotDashboardEmbed(Embed, EmbedReprMixin):
         )
         commands = ""
         for global_command in sorted(bot.global_slash_commands, key=lambda sc: sc.name):
-            if global_command.name in ["gwe", "global_events"]:
+            if global_command.name in ["gwe", "global_event"]:
                 continue
             for option in global_command.options:
                 if option.type == OptionType.sub_command:
