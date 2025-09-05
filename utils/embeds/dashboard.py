@@ -952,7 +952,7 @@ class Dashboard:
                 colour=Colour.from_rgb(*custom_colours["DSS"]),
             )
             self.set_thumbnail(
-                url="https://cdn.discordapp.com/attachments/1212735927223590974/1413605663602376815/dss.png?ex=68bc8a5d&is=68bb38dd&hm=aab1c9c425e48e6e4614ac7255611a577a8075cfb1816c4309089cc6924eb40a&"
+                url="https://media.discordapp.net/attachments/1212735927223590974/1413612410819969114/0xfbbeedfa99b09fec.png?ex=68bc90a6&is=68bb3f26&hm=cd8bf236a355bbed28f4847d3d62b5908d050a7eeb7396bb9a891e108acc0241&=&format=webp&quality=lossless"
             )
             faction_emojis = getattr(
                 Emojis.Factions, dss.planet.current_owner.full_name.lower()
