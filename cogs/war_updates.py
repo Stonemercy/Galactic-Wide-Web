@@ -202,9 +202,11 @@ class WarUpdatesCog(commands.Cog):
                 )
                 self.bot.maps.add_icons(
                     lang=lang["code"],
+                    long_code=lang["code_long"],
                     planets=self.bot.data.planets,
                     active_planets=[c.planet.index for c in self.bot.data.campaigns],
                     dss=self.bot.data.dss,
+                    planet_names_json=self.bot.json_dict["planets"],
                 )
                 message = await self.bot.waste_bin_channel.send(
                     file=File(
@@ -301,9 +303,11 @@ class WarUpdatesCog(commands.Cog):
                 )
                 self.bot.maps.add_icons(
                     lang=lang,
+                    long_code=lang_json["code_long"],
                     planets=self.bot.data.planets,
                     active_planets=[c.planet.index for c in self.bot.data.campaigns],
                     dss=self.bot.data.dss,
+                    planet_names_json=self.bot.json_dict["planets"],
                 )
                 message = await self.bot.waste_bin_channel.send(
                     file=File(fp=self.bot.maps.FileLocations.localized_map_path(lang))

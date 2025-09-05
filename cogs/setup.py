@@ -543,11 +543,13 @@ class SetupCog(commands.Cog):
                     )
                     self.bot.maps.add_icons(
                         lang=guild_language["code"],
+                        long_code=guild_language["code_long"],
                         planets=self.bot.data.planets,
                         active_planets=[
                             c.planet.index for c in self.bot.data.campaigns
                         ],
                         dss=self.bot.data.dss,
+                        planet_names_json=self.bot.json_dict["planets"],
                     )
                     latest_map = self.bot.maps.latest_maps[guild_language["code"]]
                     message = await map_channel.send(

@@ -160,8 +160,6 @@ class Maps:
         if assignments:
             for assignment in assignments:
                 for task in assignment.tasks:
-                    if task.progress_perc == 1:
-                        continue
                     if task.type in (11, 13):
                         self._draw_ellipse(
                             image=background,
@@ -174,6 +172,8 @@ class Maps:
                             planet for planet in planets.values() if planet.event
                         ]
                     ):
+                        if task.progress_perc == 1:
+                            continue
                         for planet in planet_events:
                             if planet.event.faction == task.faction:
                                 self._draw_ellipse(
@@ -183,6 +183,8 @@ class Maps:
                                     radius=12,
                                 )
                     elif task.type == 2:
+                        if task.progress_perc == 1:
+                            continue
                         if task.sector_index:
                             sector_name: str = sector_names[task.sector_index]
                             planets_in_sector = [
@@ -216,7 +218,9 @@ class Maps:
                                     fill_colour=custom_colours["MO"],
                                     radius=12,
                                 )
-                    elif task.type == 3 and task.progress != 1:
+                    elif task.type == 3:
+                        if task.progress_perc == 1:
+                            continue
                         for campaign in campaigns:
                             if campaign.faction == task.faction:
                                 self._draw_ellipse(
@@ -385,7 +389,13 @@ class Maps:
         background[y : y + h, x : x + w, :3] = blended
 
     def add_icons(
-        self, lang: str, planets: Planets, active_planets: list[int], dss: DSS
+        self,
+        lang: str,
+        long_code: str,
+        planets: Planets,
+        active_planets: list[int],
+        dss: DSS,
+        planet_names_json: dict,
     ):
         frac_planet_icon = imread("resources/fractured_planet.png", IMREAD_UNCHANGED)
         path = Maps.FileLocations.localized_map_path(language_code=lang)
@@ -402,6 +412,7 @@ class Maps:
                     x_offset=-20,
                     y_offset=10,
                 )
+            loc_name = planet_names_json[str(planet.index)]["names"][long_code]
             if planet.index in active_planets:
                 x_offset = 0
                 for su in SpecialUnits.get_from_effects_list(planet.active_effects):
@@ -418,18 +429,17 @@ class Maps:
                         su_icon,
                         planet.map_waypoints,
                         x_offset=35 + x_offset,
-                        y_offset=-(
-                            20 + ((planet.name.count(" ") + 1) * self.TEXT_SIZE)
-                        ),
+                        y_offset=-(20 + ((loc_name.count(" ") + 1) * self.TEXT_SIZE)),
                     )
-                    x_offset += su_icon.shape[0] - 5
+                    x_offset += su_icon.shape[0]
             if dss and planet.dss_in_orbit:
                 dss_icon = imread(
                     "resources/Emojis/Map Icons/dss_glow.png", IMREAD_UNCHANGED
                 )
                 verti_diff = 65
-                if dss.planet.name.count(" ") > 0:
-                    verti_diff += dss.planet.name.count(" ") * self.TEXT_SIZE
+                loc_name = planet_names_json[str(planet.index)]["names"][long_code]
+                if loc_name.count(" ") > 0:
+                    verti_diff += loc_name.count(" ") * (self.TEXT_SIZE - 5)
                 dss_coords = (
                     int(dss.planet.map_waypoints[0]) - 17,
                     int(dss.planet.map_waypoints[1]) - verti_diff,
