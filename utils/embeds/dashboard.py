@@ -364,9 +364,11 @@ class Dashboard:
                         time_diff = (
                             assignment.ends_at_datetime.timestamp() - oldest_time
                         )
-                        hours = time_diff // 3600
-                        minutes = (time_diff % 3600) // 60
-                        outlook_text += f"\n-# **{hours:.0f}h {minutes:.0f}m** {language_json['dashboard']['MajorOrderEmbed']['ahead_of_schedule']}"
+                        hours = f"{time_diff // 3600:.0f}"
+                        minutes = f"{(time_diff % 3600) // 60:.0f}"
+                        outlook_text += language_json["dashboard"]["MajorOrderEmbed"][
+                            "ahead_of_schedule"
+                        ].format(hours=hours, minutes=minutes)
                 else:
                     if self.completion_timestamps != []:
                         oldest_time: datetime = sorted(
@@ -376,10 +378,12 @@ class Dashboard:
                         time_diff = (
                             oldest_time - assignment.ends_at_datetime.timestamp()
                         )
-                        hours = time_diff // 3600
-                        minutes = (time_diff % 3600) // 60
-                        if 0 < hours < 250:
-                            outlook_text += f"\n-# **{hours:.0f}h {minutes:.0f}m** {language_json['dashboard']['MajorOrderEmbed']['behind_schedule']}"
+                        hours = f"{time_diff // 3600:.0f}"
+                        minutes = f"{(time_diff % 3600) // 60:.0f}"
+                        if 0 < time_diff // 3600 < 250:
+                            outlook_text += language_json["dashboard"][
+                                "MajorOrderEmbed"
+                            ]["behind_schedule"].format(hours=hours, minutes=minutes)
 
                 self.add_field(
                     "",

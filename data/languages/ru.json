@@ -19,8 +19,8 @@
             "feature": "Объект интереса",
             "rewards": "Награда",
             "reward_pluralized": "{reward}s",
-            "ahead_of_schedule": "ahead of schedule",
-            "behind_schedule": "behind schedule",
+            "ahead_of_schedule": "\n-# на **{hours}ч {minutes}м** раньше таймера",
+            "behind_schedule": "\n-# на **{hours}ч {minutes}м** позже таймера",
             "tasks": {
                 "typeNew": "{alert_emoji} НЕ УДАЕТСЯ РАСПОЗНАТЬ ЗАДАНИЕ",
                 "type2": "{status_emoji} Успешно эвакуироваться с {amount} {item}",
@@ -53,20 +53,20 @@
             "inactive": "Недоступно",
             "tactical_actions": {
                 "EAGLE STORM": {
-                    "name": "EAGLE STORM",
-                    "description": "-# Deploys periodic **Eagle Airstrikes** during missions.\n-# Halts enemy progress in **Defence Campaigns**."
+                    "name": "БУРЯ ОРЛА",
+                    "description": "-# Периодически выполняет стратагему **Орёл: бреющий полёт** во время заданий.\n-# Замедляет прогресс врага в **оборонительных кампаниях**."
                 },
                 "ORBITAL BLOCKADE": {
-                    "name": "ORBITAL BLOCKADE",
-                    "description": "-# **Defence Campaigns** cannot originate from this planet.\n-# The **HELLPOD SPACE OPTIMISATION** Booster is automatically active for all missions."
+                    "name": "ОРБИТАЛЬНАЯ БЛОКАДА",
+                    "description": "-# **Оборонительные кампании** не могут начинаться с этой планеты.\n-# Усилитель **ОПТИМИЗАЦИЯ МЕСТА В АДСКОЙ КАПСУЛЕ** автоматически активируется для всех заданий."
                 },
                 "HEAVY ORDNANCE DISTRIBUTION": {
-                    "name": "HEAVY ORDNANCE DISTRIBUTION",
-                    "description": "-# Gives access to the **Orbital 380mm HE Barrage** stratagem during missions.\n-# Accelerates progress in **Liberation Campaigns**."
+                    "name": "РАСПРЕДЕЛЕНИЕ СНАРЯДОВ ДЛЯ ТЯЖЁЛОЙ АРТИЛЛЕРИИ",
+                    "description": "-# Открывает доступ к стратагеме **Орбитальный залп 380-мм ОФ** во время заданий.\n-# Ускоряет прогресс в **освободительных кампаниях**."
                 },
                 "EAGLE BLOCKADE": {
-                    "name": "EAGLE BLOCKADE",
-                    "description": "-# Deploys periodic **Eagle Strafing Runs** during missions.\n-# The **HELLPOD SPACE OPTIMIZATION** Booster is automatically active for all missions."
+                    "name": "БЛОКАДА ОРЛА",
+                    "description": "-# Периодически выполняет стратагему **Орёл: бреющий полёт** во время заданий.\n-# Усилитель **ОПТИМИЗАЦИЯ МЕСТА В АДСКОЙ КАПСУЛЕ** автоматически активируется для всех заданий."
                 }
             }
         },
@@ -339,20 +339,20 @@
                 "status": "Статус",
                 "tactical_actions": {
                     "EAGLE STORM": {
-                        "name": "EAGLE STORM",
-                        "description": "-# Deploys periodic **Eagle Airstrikes** during missions.\n-# Halts enemy progress in **Defence Campaigns**."
+                        "name": "БУРЯ ОРЛА",
+                        "description": "-# Периодически выполняет стратагему **Орёл: бреющий полёт** во время заданий.\n-# Замедляет прогресс врага в **оборонительных кампаниях**."
                     },
                     "ORBITAL BLOCKADE": {
-                        "name": "ORBITAL BLOCKADE",
-                        "description": "-# **Defence Campaigns** cannot originate from this planet.\n-# The **HELLPOD SPACE OPTIMISATION** Booster is automatically active for all missions."
+                        "name": "ОРБИТАЛЬНАЯ БЛОКАДА",
+                        "description": "-# **Оборонительные кампании** не могут начинаться с этой планеты.\n-# Усилитель **ОПТИМИЗАЦИЯ МЕСТА В АДСКОЙ КАПСУЛЕ** автоматически активируется для всех заданий."
                     },
                     "HEAVY ORDNANCE DISTRIBUTION": {
-                        "name": "HEAVY ORDNANCE DISTRIBUTION",
-                        "description": "-# Gives access to the **Orbital 380mm HE Barrage** stratagem during missions.\n-# Accelerates progress in **Liberation Campaigns**."
+                        "name": "РАСПРЕДЕЛЕНИЕ СНАРЯДОВ ДЛЯ ТЯЖЁЛОЙ АРТИЛЛЕРИИ",
+                        "description": "-# Открывает доступ к стратагеме **Орбитальный залп 380-мм ОФ** во время заданий.\n-# Ускоряет прогресс в **освободительных кампаниях**."
                     },
                     "EAGLE BLOCKADE": {
-                        "name": "EAGLE BLOCKADE",
-                        "description": "-# Deploys periodic **Eagle Strafing Runs** during missions.\n-# The **HELLPOD SPACE OPTIMIZATION** Booster is automatically active for all missions."
+                        "name": "БЛОКАДА ОРЛА",
+                        "description": "-# Периодически выполняет стратагему **Орёл: бреющий полёт** во время заданий.\n-# Усилитель **ОПТИМИЗАЦИЯ МЕСТА В АДСКОЙ КАПСУЛЕ** автоматически активируется для всех заданий."
                     }
                 }
             },
@@ -450,11 +450,11 @@
         }
     },
     "currencies": {
-        "Unknown Item": "Unknown Item",
-        "Medal": "Medal",
-        "Requisition Slip": "Requisition Slip",
-        "Common Sample": "Common Sample",
-        "Rare Sample": "Rare Sample",
-        "Super Sample": "Super Sample"
+        "Unknown Item": "Неизвестный предмет",
+        "Medal": "Медаль заслуги",
+        "Requisition Slip": "Реквизиция",
+        "Common Sample": "Обычный образец",
+        "Rare Sample": "Редкий образец",
+        "Super Sample": "Суперобразец"
     }
 }

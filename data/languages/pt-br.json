@@ -19,8 +19,8 @@
             "feature": "Recurso",
             "rewards": "Recompensas",
             "reward_pluralized": "{reward}s",
-            "ahead_of_schedule": "ahead of schedule",
-            "behind_schedule": "behind schedule",
+            "ahead_of_schedule": "\n-# **{hours}h {minutes}m** ahead of schedule",
+            "behind_schedule": "\n-# **{hours}h {minutes}m** behind schedule",
             "tasks": {
                 "typeNew": "{alert_emoji} OBJETIVO NÃO RECONHECIDO",
                 "type2": "{status_emoji} Extraia com sucesso com {amount} {item}",
