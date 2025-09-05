@@ -18,9 +18,9 @@
             "MO_unavailable": "Aguarde para mais ordens do Alto Comando da Super Terra",
             "feature": "Recurso",
             "rewards": "Recompensas",
-            "reward_pluralized": "{reward}s",
-            "ahead_of_schedule": "\n-# **{hours}h {minutes}m** ahead of schedule",
-            "behind_schedule": "\n-# **{hours}h {minutes}m** behind schedule",
+            "reward_pluralized": "{reward}",
+            "ahead_of_schedule": "\n-# Adiantado em **{hours}h {minutes}m**",
+            "behind_schedule": "\n-# Atrasado em **{hours}h {minutes}m**",
             "tasks": {
                 "typeNew": "{alert_emoji} OBJETIVO NÃO RECONHECIDO",
                 "type2": "{status_emoji} Extraia com sucesso com {amount} {item}",
@@ -45,28 +45,28 @@
             "stationed_at": "Estacionada em **{planet}** {faction_emoji}\n",
             "next_move": "Se movendo {timestamp}",
             "max_submitable": "Maxímo submissível:\n-# {emoji} **{number}** {item}s a cada **{hours}** horas",
-            "status": "Status",
+            "status": "Status da Ação",
             "preparing": "Preparando",
             "active": "Ativo",
             "on_cooldown": "Em cooldown",
             "off_cooldown": "Fora do cooldown",
-            "inactive": "Inactive",
+            "inactive": "Inativo",
             "tactical_actions": {
                 "EAGLE STORM": {
-                    "name": "EAGLE STORM",
-                    "description": "-# Deploys periodic **Eagle Airstrikes** during missions.\n-# Halts enemy progress in **Defence Campaigns**."
+                    "name": "ÁGUIA TEMPESTIVA",
+                    "description": "-# Envia **Ataques Aéreos via Águia** periódicos durante as missões.\n-# Restringe o progresso dos inimigos em **Campanhas de Defesa**"
                 },
                 "ORBITAL BLOCKADE": {
-                    "name": "ORBITAL BLOCKADE",
-                    "description": "-# **Defence Campaigns** cannot originate from this planet.\n-# The **HELLPOD SPACE OPTIMISATION** Booster is automatically active for all missions."
+                    "name": "BLOQUEIO ORBITAL",
+                    "description": "-# **Campanhas de Defesa** não podem ser originadas deste planeta.\n-# O reforçador **OTIMIZAÇÃO ESPACIAL DE HELLPOD** fica ativo automaticamente durante as missões."
                 },
                 "HEAVY ORDNANCE DISTRIBUTION": {
-                    "name": "HEAVY ORDNANCE DISTRIBUTION",
-                    "description": "-# Gives access to the **Orbital 380mm HE Barrage** stratagem during missions.\n-# Accelerates progress in **Liberation Campaigns**."
+                    "name": "DISTRIBUIÇÃO DE ARTILHARIA PESADA",
+                    "description": "-# Dá acesso à **Barragem Orbital DT de 380MM** durante missões.\n-# Acelera o progresso em **Campanhas de Liberação**."
                 },
                 "EAGLE BLOCKADE": {
-                    "name": "EAGLE BLOCKADE",
-                    "description": "-# Deploys periodic **Eagle Strafing Runs** during missions.\n-# The **HELLPOD SPACE OPTIMIZATION** Booster is automatically active for all missions."
+                    "name": "BLOQUEIO DE ÁGUIA",
+                    "description": "-# Envia **Metralhamentos via Águia** periódicos durante as missões.\n-# O reforçador **OTIMIZAÇÃO ESPACIAL DE HELLPOD** fica ativo automaticamente durante as missões."
                 }
             }
         },
@@ -157,7 +157,7 @@
         "liberation_progress": "Progresso de Liberação"
     },
     "SetupEmbed": {
-        "title": "Setup",
+        "title": "Configuração",
         "dashboard": "Painel",
         "dashboard_desc": "-# Um painel com informações gerais de guerra que atualiza a cada 15 minutos\n",
         "dashboard_channel": "Canal do painel",
@@ -256,7 +256,7 @@
         "Illuminate": "Iluminados"
     },
     "difficulty": {
-        "1": "Trivial",
+        "1": "Muito Fácil",
         "2": "Fácil ",
         "3": "Médio",
         "4": "Desafiador",
@@ -270,7 +270,7 @@
     "wiki": {
         "buttons": {
             "WikiGGButton": {
-                "label": "Helldivers Wiki"
+                "label": "Wiki dos Helldivers"
             },
             "MainMenuButton": {
                 "label": "Menu Principal"
@@ -329,30 +329,30 @@
                 "stationed_at": "Estacionada em **{planet}** {faction_emoji}\n",
                 "next_move": "Movendo {timestamp}",
                 "max_submitable": "Máximo submissível:\n-# {emoji} **{number}** {item}s a cada **{hours}** horas",
-                "item_pluralized": "{item}s",
+                "item_pluralized": "{item}",
                 "ends": "Finaliza",
                 "preparing": "Preparando",
                 "active": "ativo",
-                "inactive": "Inactive",
-                "on_cooldown": "em cooldown",
-                "off_cooldown": "fora do cooldown",
-                "status": "Status",
+                "inactive": "Desativado",
+                "on_cooldown": "Em cooldown",
+                "off_cooldown": "Fora do cooldown",
+                "status": "Status da Ação",
                 "tactical_actions": {
                     "EAGLE STORM": {
-                        "name": "EAGLE STORM",
-                        "description": "-# Deploys periodic **Eagle Airstrikes** during missions.\n-# Halts enemy progress in **Defence Campaigns**."
+                        "name": "ÁGUIA TEMPESTIVA",
+                        "description": "-# Envia **Ataques Aéreos via Águia** periódicos durante a missão.\n-# Restringe o progresso inimigo em **Campanhas Defensivas**"
                     },
                     "ORBITAL BLOCKADE": {
-                        "name": "ORBITAL BLOCKADE",
-                        "description": "-# **Defence Campaigns** cannot originate from this planet.\n-# The **HELLPOD SPACE OPTIMISATION** Booster is automatically active for all missions."
+                        "name": "BLOQUEIO ORBITAL",
+                        "description": "-# **Campanhas de Defesa** não podem ser originadas deste planeta.\n-# O reforçador **OTIMIZAÇÃO ESPACIAL DE HELLPOD** fica ativo automaticamente durante as missões."
                     },
                     "HEAVY ORDNANCE DISTRIBUTION": {
-                        "name": "HEAVY ORDNANCE DISTRIBUTION",
-                        "description": "-# Gives access to the **Orbital 380mm HE Barrage** stratagem during missions.\n-# Accelerates progress in **Liberation Campaigns**."
+                        "name": "DISTRIBUIÇÃO DE ARTILHARIA PESADA",
+                        "description": "-# Dá acesso à **Barragem Orbital DT de 380MM** durante missões.\n-# Acelera o progresso em **Campanhas de Liberação**."
                     },
                     "EAGLE BLOCKADE": {
-                        "name": "EAGLE BLOCKADE",
-                        "description": "-# Deploys periodic **Eagle Strafing Runs** during missions.\n-# The **HELLPOD SPACE OPTIMIZATION** Booster is automatically active for all missions."
+                        "name": "BLOQUEIO DE ÁGUIA",
+                        "description": "-# Envia **Metralhamentos via Águia** periódicos durante as missões.\n-# O reforçador **OTIMIZAÇÃO ESPACIAL DE HELLPOD** fica ativo automaticamente durante as missões."
                     }
                 }
             },
@@ -381,7 +381,7 @@
                 "booster": "Reforçadores",
                 "title": "Titúlo",
                 "stratagem_permit": "Permissão de Estratégia",
-                "slot": "Slot",
+                "slot": "Lugar",
                 "armor_rating": "Classificação de Armadura",
                 "speed": "Velocidade",
                 "stamina_regen": "Regen. de Estamina",
@@ -420,7 +420,7 @@
                 "type": "Tipo: **`{type}`**\n",
                 "damage": "Dano: **`{damage}`**\n",
                 "fire_rate": "Taxa de Disparo: **`{fire_rate}rpm`**\n",
-                "dps": "DPS: **`{dps}/s`**\n",
+                "dps": "D/PS: **`{dps}/s`**\n",
                 "capacity": "Capacidade: **`{capacity}`**\n",
                 "fire_modes": "Modos de Disparo:{fire_modes}\n",
                 "features": "Características:{features}"
@@ -430,7 +430,7 @@
                 "information_title": "Informação",
                 "damage": "Dano: **`{damage}`**\n",
                 "fire_rate": "Taxa de disparo: **`{fire_rate}rpm`**\n",
-                "dps": "DPS: **`{dps}/s`**\n",
+                "dps": "D/PS: **`{dps}/s`**\n",
                 "capacity": "Capacidade: **`{capacity}`**\n",
                 "fire_modes": "Modos de Disparo:{fire_modes}\n",
                 "features": "Características:{features}"
@@ -450,11 +450,11 @@
         }
     },
     "currencies": {
-        "Unknown Item": "Unknown Item",
-        "Medal": "Medal",
-        "Requisition Slip": "Requisition Slip",
-        "Common Sample": "Common Sample",
-        "Rare Sample": "Rare Sample",
-        "Super Sample": "Super Sample"
+        "Unknown Item": "Item desconhecido",
+        "Medal": "Medalhas",
+        "Requisition Slip": "Notas de Requisição",
+        "Common Sample": "Amostra Comum",
+        "Rare Sample": "Amostra Rara",
+        "Super Sample": "Super Amostra"
     }
 }
