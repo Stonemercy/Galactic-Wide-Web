@@ -125,9 +125,9 @@ class PlanetEmbeds(list):
                         < planet.event.end_time_datetime
                     )
                     if winning:
-                        outlook_text = f"{language_json['dashboard']['outlook'].format(outlook=language_json['victory'])} <t:{estimated_end_timestamp}:R>\n"
+                        outlook_text = f"{language_json['dashboard']['outlook']}: **{language_json['victory']}** <t:{estimated_end_timestamp}:R>\n"
                     else:
-                        outlook_text = f"{language_json['dashboard']['outlook'].format(outlook=language_json['defeat'])}\n"
+                        outlook_text = f"{language_json['dashboard']['outlook']}: **{language_json['defeat']}**\n"
                     change = f"{liberation_change.change_rate_per_hour:+.2%}/hour"
                     liberation_text = f"\n`{change:^25}`"
                     if planet.event.required_players:
@@ -174,7 +174,7 @@ class PlanetEmbeds(list):
                     )
                     change = f"{liberation_change.change_rate_per_hour:+.2f}%/hour"
                     liberation_text = f"\n`{change:^25}`"
-                    outlook_text = f"{language_json['dashboard']['outlook'].format(outlook=language_json['victory'])} <t:{estimated_end_timestamp}:R>\n"
+                    outlook_text = f"{language_json['dashboard']['outlook']}: **{language_json['victory']}** <t:{estimated_end_timestamp}:R>\n"
                 self.add_field(
                     "",
                     (

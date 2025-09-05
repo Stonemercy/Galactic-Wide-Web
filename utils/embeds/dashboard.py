@@ -351,7 +351,7 @@ class Dashboard:
                         or any(winning_all_tasks)
                     )
                 ):
-                    outlook_text = "Winning"
+                    outlook_text = language_json["complete"]
                     if {13, 15} & set([t.type for t in assignment.tasks]):
                         outlook_text += (
                             f" <t:{int(assignment.ends_at_datetime.timestamp())}:R>"
@@ -391,7 +391,11 @@ class Dashboard:
                     inline=False,
                 )
                 if outlook_text != "":
-                    self.add_field("Outlook", f"{outlook_text}", inline=False)
+                    self.add_field(
+                        language_json["dashboard"]["outlook"],
+                        f"{outlook_text}",
+                        inline=False,
+                    )
 
         def add_type_2(
             self,
@@ -681,9 +685,9 @@ class Dashboard:
                         )
                     field_value += f"{language_json['ends']} <t:{planet.event.end_time_datetime.timestamp():.0f}:R>"
                     if winning:
-                        field_value += f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['victory'])} <t:{now_seconds + planet_lib_changes.seconds_until_complete}:R>"
+                        field_value += f"\n{language_json['dashboard']['outlook']}: **{language_json['victory']}** <t:{now_seconds + planet_lib_changes.seconds_until_complete}:R>"
                     else:
-                        field_value += f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['defeat'])}"
+                        field_value += f"\n{language_json['dashboard']['outlook']}: **{language_json['defeat']}**"
                     field_value += f"\n{language_json['dashboard']['progress']}:"
                     if self.compact_level < 1:
                         field_value += f"\n{planet.event.health_bar}"
@@ -693,7 +697,7 @@ class Dashboard:
                         planet_lib_changes
                         and planet_lib_changes.change_rate_per_hour > 0
                     ):
-                        field_value += f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['victory'])} <t:{now_seconds + planet_lib_changes.seconds_until_complete}:R>"
+                        field_value += f"\n{language_json['dashboard']['outlook']}: **{language_json['victory']}** <t:{now_seconds + planet_lib_changes.seconds_until_complete}:R>"
                     field_value += f"\n{language_json['dashboard']['progress']}:"
                     if self.compact_level < 1:
                         field_value += f"\n{health_bar(planet.health_perc, 'Humans', True, empty_colour=planet.current_owner.full_name)}"
@@ -757,9 +761,9 @@ class Dashboard:
                             < planet.event.end_time_datetime
                         )
                         if winning:
-                            field_value += f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['victory'])} <t:{now_seconds + planet_lib_changes.seconds_until_complete}:R>"
+                            field_value += f"\n{language_json['dashboard']['outlook']}: **{language_json['victory']}** <t:{now_seconds + planet_lib_changes.seconds_until_complete}:R>"
                         else:
-                            field_value += f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['defeat'])}"
+                            field_value += f"\n{language_json['dashboard']['outlook']}: **{language_json['defeat']}**"
                         field_value += f"\n{language_json['dashboard']['progress']}:"
                         if self.compact_level < 1:
                             field_value += f"\n{planet.event.health_bar} 🛡️"
@@ -829,9 +833,9 @@ class Dashboard:
                             < planet.event.end_time_datetime
                         )
                         if winning:
-                            field_value += f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['victory'])} <t:{now_seconds + planet_lib_changes.seconds_until_complete}:R>"
+                            field_value += f"\n{language_json['dashboard']['outlook']}: **{language_json['victory']}** <t:{now_seconds + planet_lib_changes.seconds_until_complete}:R>"
                         else:
-                            field_value += f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['defeat'])}"
+                            field_value += f"\n{language_json['dashboard']['outlook']}: **{language_json['defeat']}**"
                         if planet.event.required_players != 0:
                             field_value += f"\n{language_json['dashboard']['DefenceEmbed']['players_required']}: **~{planet.event.required_players:,.0f}+**"
                         field_value += f"\n{language_json['dashboard']['progress']}:"
@@ -852,7 +856,7 @@ class Dashboard:
                     ):
                         if planet_lib_changes.change_rate_per_hour > 0:
                             now_seconds = int(datetime.now().timestamp())
-                            field_value += f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['victory'])} <t:{now_seconds + planet_lib_changes.seconds_until_complete}:R>"
+                            field_value += f"\n{language_json['dashboard']['outlook']}: **{language_json['victory']}** <t:{now_seconds + planet_lib_changes.seconds_until_complete}:R>"
                         field_value += f"\n{language_json['dashboard']['progress']}:\n"
                         if self.compact_level < 1:
                             field_value += f"{health_bar(perc=planet.health_perc, faction=planet.current_owner, reverse=True)}"
@@ -1083,7 +1087,7 @@ class Dashboard:
                             ).total_seconds()
                         )
                     if win_time < end_time:
-                        outlook_text = f"\n{self.language_json['dashboard']['outlook'].format(outlook=self.language_json['victory'])} <t:{int(win_time.timestamp())}:R>"
+                        outlook_text = f"\n{self.language_json['dashboard']['outlook']}: **{self.language_json['victory']}** <t:{int(win_time.timestamp())}:R>"
                     else:
                         if (
                             planet.index in self.gambit_planets
@@ -1093,7 +1097,7 @@ class Dashboard:
                             )
                             < planet.event.end_time_datetime
                         ):
-                            outlook_text = f"\n{self.language_json['dashboard']['outlook'].format(outlook=self.language_json['victory'])} <t:{now_seconds + gambit_lib_change.seconds_until_complete}:R>"
+                            outlook_text = f"\n{self.language_json['dashboard']['outlook']}: **{self.language_json['victory']}** <t:{now_seconds + gambit_lib_change.seconds_until_complete}:R>"
                             outlook_text += f"\n> -# {self.language_json['dashboard']['DefenceEmbed']['thanks_to_gambit'].format(planet=gambit_planet.name)}"
                         for region in planet.regions.values():
                             region_lib_change = self.region_lib_changes.get_entry(
@@ -1118,11 +1122,11 @@ class Dashboard:
                                     >= (region.max_health * 1.5) / planet.max_health
                                 ):
                                     if region_lib_time < win_time:
-                                        outlook_text = f"\n{self.language_json['dashboard']['outlook'].format(outlook=self.language_json['victory'])} <t:{int(region_lib_time.timestamp())}:R>"
+                                        outlook_text = f"\n{self.language_json['dashboard']['outlook']}: **{self.language_json['victory']}** <t:{int(region_lib_time.timestamp())}:R>"
                                         outlook_text += f"\n> -# Thanks to region **{region.name}** liberation"
                                         break
                         if outlook_text == "":
-                            outlook_text = f"\n{self.language_json['dashboard']['outlook'].format(outlook=self.language_json['defeat'])}"
+                            outlook_text = f"\n{self.language_json['dashboard']['outlook']}: **{self.language_json['defeat']}"
                             if planet.index in self.gambit_planets:
                                 outlook_text += f"\n> -# {self.language_json['dashboard']['DefenceEmbed']['gambit_available'].format(planet=gambit_planet.name)}"
                     change = f"{liberation_change.change_rate_per_hour:+.2%}/hour"
@@ -1392,10 +1396,10 @@ class Dashboard:
                                         < 0
                                     )
                                 ):
-                                    time_to_complete = f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['victory'])} <t:{now_seconds + region_lib_change.seconds_until_complete}:R>\n-# thanks to {region.type} liberation"
+                                    time_to_complete = f"\n{language_json['dashboard']['outlook']}: **{language_json['victory']}** <t:{now_seconds + region_lib_change.seconds_until_complete}:R>\n-# thanks to {region.type} liberation"
 
                             if time_to_complete == "":
-                                time_to_complete = f"\n{language_json['dashboard']['outlook'].format(outlook=language_json['victory'])} <t:{now_seconds + liberation_change.seconds_until_complete}:R>"
+                                time_to_complete = f"\n{language_json['dashboard']['outlook']}: **{language_json['victory']}** <t:{now_seconds + liberation_change.seconds_until_complete}:R>"
                             change = (
                                 f"{liberation_change.change_rate_per_hour:+.2%}/hour"
                             )

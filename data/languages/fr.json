@@ -9,7 +9,7 @@
     "failure": "Failure",
     "dashboard": {
         "heroes": "Héros: **{heroes}**",
-        "outlook": "Perspectives: **{outlook}**",
+        "outlook": "Perspectives",
         "progress": "Progression",
         "shrunk_temporarily": "Le nombre de caractères a dépassé 6000 ; le tableau de bord a été réduit temporairement",
         "MajorOrderEmbed": {

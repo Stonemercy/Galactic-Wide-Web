@@ -9,7 +9,7 @@
     "failure": "Failure",
     "dashboard": {
         "heroes": "Helden: **{heroes}**",
-        "outlook": "Aussicht: **{outlook}**",
+        "outlook": "Aussicht",
         "progress": "Aktueller Fortschritt",
         "shrunk_temporarily": "Zeichenanzahl überschritten 6000; Dashboard vorübergehend verkleinert",
         "MajorOrderEmbed": {

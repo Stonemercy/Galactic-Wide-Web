@@ -9,7 +9,7 @@
     "failure": "Failure",
     "dashboard": {
         "heroes": "Heroes: **{heroes}**",
-        "outlook": "Outlook: **{outlook}**",
+        "outlook": "Outlook",
         "progress": "Current progress",
         "shrunk_temporarily": "Character count exceeded 6000; dashboard shrunk temporarily",
         "MajorOrderEmbed": {

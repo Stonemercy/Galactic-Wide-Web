@@ -9,7 +9,7 @@
     "failure": "Failure",
     "dashboard": {
         "heroes": "Eroi: **{heroes}**",
-        "outlook": "Prospettiva: **{outlook}**",
+        "outlook": "Prospettiva",
         "progress": "Progresso attuale",
         "shrunk_temporarily": "Il conteggio dei caratteri ha superato i 6000; il cruscotto si è temporaneamente ristretto.",
         "MajorOrderEmbed": {

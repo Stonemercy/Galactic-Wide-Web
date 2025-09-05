@@ -9,7 +9,7 @@
     "failure": "Failure",
     "dashboard": {
         "heroes": "Héroes: **{heroes}**",
-        "outlook": "Perspectiva: **{outlook}**",
+        "outlook": "Perspectiva",
         "progress": "Progreso actual",
         "shrunk_temporarily": "El recuento de caracteres ha superado los 6000; el salpicadero se ha reducido temporalmente",
         "MajorOrderEmbed": {
