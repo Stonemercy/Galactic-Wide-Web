@@ -18,7 +18,7 @@
             "MO_unavailable": "Ждите дальнейших распоряжений Верховного командования Супер-Земли",
             "feature": "Объект интереса",
             "rewards": "Награда",
-            "reward_pluralized": "{reward}s",
+            "reward_pluralized": "{reward}",
             "ahead_of_schedule": "\n-# на **{hours}ч {minutes}м** раньше таймера",
             "behind_schedule": "\n-# на **{hours}ч {minutes}м** позже таймера",
             "tasks": {
@@ -329,7 +329,7 @@
                 "stationed_at": "Находится на планете **{planet}** {faction_emoji}\n",
                 "next_move": "Переместится {timestamp}",
                 "max_submitable": "Поступает:\n-# {emoji} **{number}** {item} каждые **{hours}** часа",
-                "item_pluralized": "{item}s",
+                "item_pluralized": "{item}",
                 "ends": "Заканчивается",
                 "preparing": "Подготовка",
                 "active": "Активно",
