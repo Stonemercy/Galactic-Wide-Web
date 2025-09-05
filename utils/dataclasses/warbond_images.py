@@ -19,6 +19,9 @@ class WarbondImages:
     force_of_law = "https://helldivers.wiki.gg/images/7/74/Force_of_Law_Premium_Warbond_Cover.png?2d54ef=&format=original"
     control_group = "https://helldivers.wiki.gg/images/Control_Group_Premium_Warbond_Cover.png?5db88e=&format=original"
     halo_3_odst = "https://helldivers.wiki.gg/images/thumb/Halo_ODST_Legendary_Warbond_Cover.png/1920px-Halo_ODST_Legendary_Warbond_Cover.png?3e16b0"
+    dust_devils = (
+        "https://helldivers.wiki.gg/images/Dust_Devils_Premium_Warbond_Cover.png?b8541f"
+    )
 
     def get(name: str) -> str | None:
         return getattr(

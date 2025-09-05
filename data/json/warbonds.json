@@ -78,5 +78,10 @@
 		"name": "Halo 3 ODST",
 		"id": "halo_3_odst",
 		"credits_to_unlock": 1500
+	},
+	"16": {
+		"name": "Dust Devils",
+		"id": "dust_devils",
+		"credits_to_unlock": 1000
 	}
 }

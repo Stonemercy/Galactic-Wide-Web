@@ -2078,5 +2078,81 @@
 	"1517": {
 		"name": "Mean Green Exosuit Pattern",
 		"mix_id": "1517"
+	},
+	"1601": {
+		"name": "Rightful Occupier",
+		"mix_id": "1601"
+	},
+	"1602": {
+		"name": "DS-42 Federation's Blade",
+		"mix_id": "1602"
+	},
+	"1603": {
+		"name": "DS-42 Federation's Blade",
+		"mix_id": "1603"
+	},
+	"1604": {
+		"name": "Rightful Occupier",
+		"mix_id": "1604"
+	},
+	"1605": {
+		"name": "AR-2 Coyote",
+		"mix_id": "1605"
+	},
+	"1606": {
+		"name": "Rattlesnake Hellpot Pattern",
+		"mix_id": "1606"
+	},
+	"1607": {
+		"name": "S-11 Speargun",
+		"mix_id": "1607"
+	},
+	"1608": {
+		"name": "Rattlesnake Shuttle Pattern",
+		"mix_id": "1608"
+	},
+	"1609": {
+		"name": "Windswept Wayfinder",
+		"mix_id": "1609"
+	},
+	"1610": {
+		"name": "DS-191 Scorpion",
+		"mix_id": "1610"
+	},
+	"1611": {
+		"name": "DS-191 Scorpion",
+		"mix_id": "1611"
+	},
+	"1612": {
+		"name": "EAT-700 Expendable Napalm",
+		"mix_id": "1612"
+	},
+	"1613": {
+		"name": "Windswept Wayfinder",
+		"mix_id": "1613"
+	},
+	"1614": {
+		"name": "Rattlesnake Vehicle Pattern",
+		"mix_id": "1614"
+	},
+	"1615": {
+		"name": "MS-11 Solo Silo",
+		"mix_id": "1615"
+	},
+	"1616": {
+		"name": "Raider's Cheer",
+		"mix_id": "1616"
+	},
+	"1617": {
+		"name": "G-7 Pineapple",
+		"mix_id": "1617"
+	},
+	"1618": {
+		"name": "Burrier of Heads",
+		"mix_id": "1618"
+	},
+	"1619": {
+		"name": "Rattlesnake Exosuit Pattern",
+		"mix_id": "1619"
 	}
 }

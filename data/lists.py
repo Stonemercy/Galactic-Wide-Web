@@ -72,6 +72,10 @@ json_dict = {
             "path": "data/json/warbonds/halo_3_odst.json",
             "value": None,
         },
+        "dust_devils": {
+            "path": "data/json/warbonds/dust_devils.json",
+            "value": None,
+        },
     },
     "planets": {"path": "data/json/planets/planets.json", "value": None},
     "planetRegions": {"path": "data/json/planets/planetRegions.json", "value": None},
@@ -133,6 +137,7 @@ emotes_list = [
     "Signal: Silence",
     "Signal: Group Up",
     "Protect Eardrums",
+    "Raider's Cheer",
 ]
 
 victory_poses_list = [
@@ -207,6 +212,8 @@ player_cards_list = [
     "Over Artifice Triumphant",
     "Honored Heirloom",
     "Eye of the Clandestine",
+    "Rightful Occupier",
+    "Windswept Wayfinder",
 ]
 
 titles_list = [
@@ -244,6 +251,7 @@ titles_list = [
     "Extra Judicial",
     "Exemplary Subject",
     "Rookie",
+    "Burier of Heads",
 ]
 
 stratagem_permit_list = [
@@ -260,6 +268,9 @@ stratagem_permit_list = [
     "PLAS-45 Epoch",
     "A/LAS-98 Laser Sentry",
     "LIFT-182 Warp Pack",
+    "S-11 Speargun",
+    "EAT-700 Expendable Napalm",
+    "MS-11 Solo Silo",
 ]
 
 stratagem_id_dict = {

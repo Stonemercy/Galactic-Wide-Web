@@ -744,5 +744,22 @@
 			"Light Armor Penetrating",
 			"Rounds Reload"
 		]
+	},
+	"1605": {
+		"name": "AR-2 Coyote",
+		"description": "A reliable assault rifle with an antique iron sight, firing incendiary ammunition.",
+		"type": "Assault Rifle",
+		"damage": 75,
+		"capacity": 45,
+		"recoil": 17,
+		"fire_rates": 600,
+		"fire_modes": [
+			"Semi-automatic",
+			"Automatic"
+		],
+		"traits": [
+			"Medium Armor Penetrating",
+			"Incendiary"
+		]
 	}
 }

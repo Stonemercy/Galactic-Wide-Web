@@ -122,5 +122,13 @@
 		"penetration": 4,
 		"outer_radius": 10,
 		"fuse_time": 0
+	},
+	"1617": {
+		"name": "G-7 Pineapple",
+		"description": "A cluster fragmentation grenade. The shrapnel submunition allows it to inflict damage over a large area.",
+		"damage": 300,
+		"penetration": 3,
+		"outer_radius": 10,
+		"fuse_time": 2.4
 	}
 }

@@ -3742,5 +3742,83 @@
 			"name": "Standard Issue",
 			"description": "No additional bonuses."
 		}
+	},
+	"1601": {
+		"name": "Rightful Occupier",
+		"description": "Painted by visionary artist Silas Garm during an intense fever, this symbol represents Humanity's great Galactic endeavor: the blood-soaked dawn of Lasting Peace.",
+		"type": "Medium",
+		"slot": "Cloak",
+		"armor_rating": 100,
+		"speed": 100,
+		"stamina_regen": 100,
+		"passive": {
+			"name": "Standard Issue",
+			"description": "No additional bonuses."
+		}
+	},
+	"1602": {
+		"name": "DS-42 Federation's Blade",
+		"description": "This patriotic armor comes recommended by the Ministry of Expansion, empowering the wearer to re-seize from our enemies any territory that any human has laid claim to, at any point in time.",
+		"type": "Heavy",
+		"slot": "Body",
+		"armor_rating": 150,
+		"speed": 450,
+		"stamina_regen": 50,
+		"passive": {
+			"name": "Desert Stormer",
+			"description": "Provides 40% resistance to fire, gas, acid, and electrical damage. Increases throwing range by 20%."
+		}
+	},
+	"1603": {
+		"name": "DS-42 Federation's Blade",
+		"description": "This patriotic armor comes recommended by the Ministry of Expansion, empowering the wearer to re-seize from our enemies any territory that any human has laid claim to, at any point in time.",
+		"type": "Medium",
+		"slot": "Head",
+		"armor_rating": 100,
+		"speed": 100,
+		"stamina_regen": 100,
+		"passive": {
+			"name": "Standard Issue",
+			"description": "No additional bonuses."
+		}
+	},
+	"1609": {
+		"name": "Windswept Wayfinder",
+		"description": "It is well-documented that soldiers raised on harsh planets have an advantage when fighting in similar environments; this insight is foundational to the Democratic Youth Scouts Exchange Program.",
+		"type": "Medium",
+		"slot": "Cloak",
+		"armor_rating": 100,
+		"speed": 100,
+		"stamina_regen": 100,
+		"passive": {
+			"name": "Standard Issue",
+			"description": "No additional bonuses."
+		}
+	},
+	"1610": {
+		"name": "DS-191 Scorpion",
+		"description": "Named for Helldiver Jack Boote, who shut down 908 illegal broadcasts before retiring with honors.",
+		"type": "Medium",
+		"slot": "Head",
+		"armor_rating": 100,
+		"speed": 100,
+		"stamina_regen": 100,
+		"passive": {
+			"name": "Standard Issue",
+			"description": "No additional bonuses."
+		}
+	},
+	"1611": {
+		"name": "DS-191 Scorpion",
+		"description": "Named for Helldiver Jack Boote, who shut down 908 illegal broadcasts before retiring with honors.",
+		"type": "Medium",
+		"slot": "Body",
+		"armor_rating": 100,
+		"speed": 500,
+		"stamina_regen": 100,
+		"passive": {
+			"name": "Desert Stormer",
+			"description": "Provides 40% resistance to fire, gas, acid, and electrical damage. Increases throwing range by 20%."
+		}
 	}
 }
