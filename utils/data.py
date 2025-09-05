@@ -253,10 +253,9 @@ class Data(ReprMixin):
             ]
             for assignment in self.assignments:
                 for task in assignment.tasks:
-                    if task.progress_perc == 1:
-                        continue
                     match task.type:
                         case 2:
+                            """Successfully extract with {amount} {item}[ on {planet}][ in the __{sector}__ SECTOR][ from any {faction} controlled planet]"""
                             if task.sector_index:
                                 sector_name: str = self.json_dict["sectors"][
                                     str(task.sector_index)
@@ -278,20 +277,37 @@ class Data(ReprMixin):
                                 ]:
                                     planet.in_assignment = True
                         case 3:
+                            """Kill {amount} {enemy_type}[ using the __{item_to_use}__][ on {planet}]"""
                             if task.planet_index:
                                 self.planets[task.planet_index].in_assignment = True
-                                continue
-                            for index in [
-                                planet.index
-                                for planet in self.planets.values()
-                                if planet.current_owner == task.faction
-                                or (
-                                    planet.event
-                                    and planet.event.faction == task.faction
-                                )
-                            ]:
-                                self.planets[index].in_assignment = True
+                            else:
+                                for index in [
+                                    planet.index
+                                    for planet in self.planets.values()
+                                    if planet.current_owner == task.faction
+                                    or (
+                                        planet.event
+                                        and planet.event.faction == task.faction
+                                    )
+                                ]:
+                                    self.planets[index].in_assignment = True
+                        case 7 | 9:
+                            """
+                            Extract from a successful Mission against {faction} {number} times
+                            |
+                            Complete an Operation[ against {faction}][ on {difficulty} or higher] {amount} times
+                            """
+                            if task.faction:
+                                for planet in [
+                                    p
+                                    for p in self.planets.values()
+                                    if p.current_owner == task.faction
+                                    or p.event
+                                    and p.event.faction == task.faction
+                                ]:
+                                    planet.in_assignment = True
                         case 12:
+                            """Defend[ {planet}] against {amount} attacks[ from the {faction}]"""
                             if self.planet_events:
                                 if task.planet_index:
                                     self.planets[task.planet_index].in_assignment = True
@@ -303,6 +319,10 @@ class Data(ReprMixin):
                                 ]:
                                     self.planets[index].in_assignment = True
                         case 11 | 13:
+                            """
+                            Liberate a planet
+                            |
+                            Hold {planet} when the order expires"""
                             if (
                                 self.planets[task.planet_index].event
                                 and self.planets[task.planet_index].event.type == 2
@@ -610,7 +630,6 @@ class Assignment(ReprMixin):
             "value8",
             "value10",
             "difficulty",
-            "location_type",
             "planet_index",
             "sector_index",
             "type",
