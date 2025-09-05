@@ -552,7 +552,9 @@ class Wiki:
                 )
 
         class DSSEmbed(Embed, EmbedReprMixin):
-            def __init__(self, language_json: dict, dss_data: DSS):
+            def __init__(
+                self, language_json: dict, dss_data: DSS, localized_planet_names: dict
+            ):
                 super().__init__(
                     title=language_json["wiki"]["embeds"]["DSSEmbed"]["title"],
                     colour=Colour.from_rgb(r=38, g=156, b=182),
@@ -564,7 +566,9 @@ class Wiki:
                 self.description = language_json["wiki"]["embeds"]["DSSEmbed"][
                     "stationed_at"
                 ].format(
-                    planet=dss_data.planet.name,
+                    planet=localized_planet_names[str(dss_data.planet.index)]["names"][
+                        language_json["code_long"]
+                    ],
                     faction_emoji=getattr(
                         Emojis.Factions, dss_data.planet.current_owner.full_name.lower()
                     ),
@@ -575,7 +579,7 @@ class Wiki:
                     timestamp=f"<t:{int(dss_data.move_timer_datetime.timestamp())}:R>"
                 )
                 self.set_thumbnail(
-                    "https://cdn.discordapp.com/attachments/1212735927223590974/1312446626975187065/DSS.png?ex=674c86ab&is=674b352b&hm=3184fde3e8eece703b0e996501de23c89dc085999ebff1a77009fbee2b09ccad&"
+                    "https://cdn.discordapp.com/attachments/1212735927223590974/1413605663602376815/dss.png?ex=68bc8a5d&is=68bb38dd&hm=aab1c9c425e48e6e4614ac7255611a577a8075cfb1816c4309089cc6924eb40a&"
                 ).set_image(
                     "https://cdn.discordapp.com/attachments/1212735927223590974/1312448218398986331/dss.jpg?ex=674c8827&is=674b36a7&hm=def01cbdf1920b85617b1028a95ec982484c70a5cf9bed14b9072319fd018246&"
                 )

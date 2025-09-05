@@ -108,6 +108,7 @@ class WikiCog(commands.Cog):
             embed = Wiki.Embeds.DSSEmbed(
                 dss_data=self.bot.data.dss,
                 language_json=guild_language,
+                localized_planet_names=self.bot.data.json_dict["planets"],
             )
             components = Wiki.Buttons.dss_action_rows(language_json=guild_language)
             await inter.response.edit_message(embed=embed, components=components)
