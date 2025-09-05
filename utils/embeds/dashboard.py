@@ -366,23 +366,20 @@ class Dashboard:
                         )
                         hours = time_diff // 3600
                         minutes = (time_diff % 3600) // 60
-                        outlook_text += (
-                            f"\n-# **{hours:.0f}h {minutes:.0f}m** ahead of schedule"
-                        )
+                        outlook_text += f"\n-# **{hours:.0f}h {minutes:.0f}m** {language_json['dashboard']['MajorOrderEmbed']['ahead_of_schedule']}"
                 else:
                     if self.completion_timestamps != []:
                         oldest_time: datetime = sorted(
                             self.completion_timestamps, reverse=True
                         )[0]
-                        outlook_text += f"Failure <t:{int(assignment.ends_at_datetime.timestamp())}:R>"
+                        outlook_text += f"{language_json['failure']} <t:{int(assignment.ends_at_datetime.timestamp())}:R>"
                         time_diff = (
                             oldest_time - assignment.ends_at_datetime.timestamp()
                         )
                         hours = time_diff // 3600
                         minutes = (time_diff % 3600) // 60
-                        outlook_text += (
-                            f"\n-# **{hours:.0f}h {minutes:.0f}m** behind schedule"
-                        )
+                        if 0 < hours < 250:
+                            outlook_text += f"\n-# **{hours:.0f}h {minutes:.0f}m** {language_json['dashboard']['MajorOrderEmbed']['behind_schedule']}"
 
                 self.add_field(
                     "",
@@ -913,8 +910,9 @@ class Dashboard:
         def add_rewards(self, rewards: dict, language_json: dict, reward_names: dict):
             rewards_text = ""
             for reward in rewards:
-                reward_name = reward_names.get(str(reward["type"]), "Unknown")
-                rewards_text += f"{reward['amount']:,} **{reward_name}s** {getattr(Emojis.Items, reward_name.replace(' ', '_').lower(), '')}\n"
+                reward_name = reward_names.get(str(reward["type"]), "Unknown Item")
+                localized_name = language_json["currencies"].get(reward_name)
+                rewards_text += f"{reward['amount']:,} **{language_json['dashboard']['MajorOrderEmbed']['reward_pluralized'].format(reward=localized_name)}** {getattr(Emojis.Items, reward_name.replace(' ', '_').lower(), '')}\n"
             if rewards_text != "":
                 self.add_field(
                     language_json["dashboard"]["MajorOrderEmbed"]["rewards"],

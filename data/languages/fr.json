@@ -18,6 +18,9 @@
             "MO_unavailable": "Préparez-vous à recevoir d'autres ordres de l'état-major de la Super-Terre",
             "feature": "Fonctionnalité",
             "rewards": "Récompenses",
+            "reward_pluralized": "{reward}s",
+            "ahead_of_schedule": "ahead of schedule",
+            "behind_schedule": "behind schedule",
             "tasks": {
                 "typeNew": "{alert_emoji} UNRECOGNIZED TASK",
                 "type2": "{status_emoji} Extraire avec succès {amount} {item}",
@@ -47,7 +50,25 @@
             "active": "Active",
             "on_cooldown": "On cooldown",
             "off_cooldown": "Off cooldown",
-            "inactive": "Inactive"
+            "inactive": "Inactive",
+            "tactical_actions": {
+                "EAGLE STORM": {
+                    "name": "EAGLE STORM",
+                    "description": "-# Deploys periodic **Eagle Airstrikes** during missions.\n-# Halts enemy progress in **Defence Campaigns**."
+                },
+                "ORBITAL BLOCKADE": {
+                    "name": "ORBITAL BLOCKADE",
+                    "description": "-# **Defence Campaigns** cannot originate from this planet.\n-# The **HELLPOD SPACE OPTIMISATION** Booster is automatically active for all missions."
+                },
+                "HEAVY ORDNANCE DISTRIBUTION": {
+                    "name": "HEAVY ORDNANCE DISTRIBUTION",
+                    "description": "-# Gives access to the **Orbital 380mm HE Barrage** stratagem during missions.\n-# Accelerates progress in **Liberation Campaigns**."
+                },
+                "EAGLE BLOCKADE": {
+                    "name": "EAGLE BLOCKADE",
+                    "description": "-# Deploys periodic **Eagle Strafing Runs** during missions.\n-# The **HELLPOD SPACE OPTIMIZATION** Booster is automatically active for all missions."
+                }
+            }
         },
         "DefenceEmbed": {
             "title": "Défense",
@@ -308,12 +329,32 @@
                 "stationed_at": "Stationnée sur **{planet}** {faction_emoji}\n",
                 "next_move": "Déplacement {timestamp}",
                 "max_submitable": "Max envoyable:\n-# {emoji} **{number}** {item}s toutes les **{hours}** heures",
+                "item_pluralized": "{item}s",
                 "ends": "Se finit",
                 "preparing": "Se prépare",
                 "active": "active",
+                "inactive": "Inactive",
                 "on_cooldown": "en rechargement",
                 "off_cooldown": "prête",
-                "status": "Statut"
+                "status": "Statut",
+                "tactical_actions": {
+                    "EAGLE STORM": {
+                        "name": "EAGLE STORM",
+                        "description": "-# Deploys periodic **Eagle Airstrikes** during missions.\n-# Halts enemy progress in **Defence Campaigns**."
+                    },
+                    "ORBITAL BLOCKADE": {
+                        "name": "ORBITAL BLOCKADE",
+                        "description": "-# **Defence Campaigns** cannot originate from this planet.\n-# The **HELLPOD SPACE OPTIMISATION** Booster is automatically active for all missions."
+                    },
+                    "HEAVY ORDNANCE DISTRIBUTION": {
+                        "name": "HEAVY ORDNANCE DISTRIBUTION",
+                        "description": "-# Gives access to the **Orbital 380mm HE Barrage** stratagem during missions.\n-# Accelerates progress in **Liberation Campaigns**."
+                    },
+                    "EAGLE BLOCKADE": {
+                        "name": "EAGLE BLOCKADE",
+                        "description": "-# Deploys periodic **Eagle Strafing Runs** during missions.\n-# The **HELLPOD SPACE OPTIMIZATION** Booster is automatically active for all missions."
+                    }
+                }
             },
             "EnemyHomeEmbed": {
                 "title": "Choisis la faction que tu veux voir"
@@ -407,5 +448,13 @@
                 "cooldown": "Rechargement"
             }
         }
+    },
+    "currencies": {
+        "Unknown Item": "Unknown Item",
+        "Medal": "Medal",
+        "Requisition Slip": "Requisition Slip",
+        "Common Sample": "Common Sample",
+        "Rare Sample": "Rare Sample",
+        "Super Sample": "Super Sample"
     }
 }

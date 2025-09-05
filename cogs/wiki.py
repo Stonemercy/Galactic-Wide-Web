@@ -107,7 +107,7 @@ class WikiCog(commands.Cog):
         elif comp_id == "DSSButton":
             embed = Wiki.Embeds.DSSEmbed(
                 dss_data=self.bot.data.dss,
-                language_json=guild_language["wiki"]["embeds"]["DSSEmbed"],
+                language_json=guild_language,
             )
             components = Wiki.Buttons.dss_action_rows(language_json=guild_language)
             await inter.response.edit_message(embed=embed, components=components)
