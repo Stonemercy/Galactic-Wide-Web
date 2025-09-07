@@ -208,11 +208,11 @@
     },
     "GlobalEventsEmbed": {
         "all": "all",
-        "unknown_effect": "UNKNOWN EFFECT",
-        "active_on_planets": "\n-# Now active on the following planet(s):\n- {planets}",
-        "enemy_identified": "Enemy identified",
-        "strat_identified": "Stratagem identified",
-        "booster_identified": "Booster identified"
+        "unknown_effect": "EFEITO DESCONHECIDO",
+        "active_on_planets": "-# Agora ativo nos seguintes planetas:\n- {planets}",
+        "enemy_identified": "Inimigo identificado",
+        "strat_identified": "Estratégia identificada",
+        "booster_identified": "Reforçador identificado"
     },
     "dss": {
         "title": "Estação Espacial Democracia"
@@ -453,7 +453,7 @@
             "StratagemsEmbed": {
                 "key_input": "Teclas chave",
                 "uses": "Usos",
-                "cooldown": "Cooldown"
+                "cooldown": "Tempo de espera"
             }
         }
     },
@@ -466,13 +466,13 @@
         "Super Sample": "Super Amostra"
     },
     "special_units": {
-        "THE JET BRIGADE": "THE JET BRIGADE",
-        "PREDATOR STRAIN": "PREDATOR STRAIN",
-        "SPORE BURSTER STRAIN": "SPORE BURSTER STRAIN",
-        "INCINERATION CORPS": "INCINERATION CORPS",
-        "THE GREAT HOST": "THE GREAT HOST",
-        "RUPTURE STRAIN": "RUPTURE STRAIN",
-        "DRAGON ROACHES": "DRAGON ROACHES",
-        "HIVE LORDS": "HIVE LORDS"
+        "THE JET BRIGADE": "BRIGADA A JATO",
+        "PREDATOR STRAIN": "CEPA PREDADORA",
+        "SPORE BURSTER STRAIN": "CEPA ESPORÍFERA",
+        "INCINERATION CORPS": "UNIDADES DE INCINERAÇÃO",
+        "THE GREAT HOST": "A GRÃ-FROTA",
+        "RUPTURE STRAIN": "CEPA ROMPEDORA",
+        "DRAGON ROACHES": "DRACOBARATAS",
+        "HIVE LORDS": "SENHORES DOS NINHOS"
     }
 }
