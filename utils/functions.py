@@ -33,7 +33,7 @@ def short_format(num):
 
 
 def dispatch_format(text: str):
-    replacements = ["<i=1>", "<I=1>", "<i=3>", "</i>", "</i=1>", "<i=1"]
+    replacements = ["<i=1>", "<I=1>", "<i=3>", "</i>", "</i=1>", "<i=1", "</i=3>"]
     for replacement in replacements:
         text = text.replace(replacement, "**")
 

@@ -33,7 +33,7 @@ class Dashboard:
 
         # Major Order embeds
         if data.assignments:
-            for assignment in data.assignments:
+            for assignment in data.assignments[language_code]:
                 self.embeds.append(
                     self.MajorOrderEmbed(
                         assignment=assignment,
@@ -813,7 +813,7 @@ class Dashboard:
                 for special_unit in SpecialUnits.get_from_effects_list(
                     active_effects=planet.active_effects
                 ):
-                    field_value += f"\n-# {special_unit[0]} {special_unit[1]}"
+                    field_value += f"\n-# {language_json['special_units'][special_unit[0]]} {special_unit[1]}"
                 if planet.stats.player_count > 500:
                     formatted_heroes = f"{planet.stats.player_count:,}"
                     field_value += f"\n{language_json['dashboard']['heroes'].format(heroes=formatted_heroes)}"
@@ -979,13 +979,13 @@ class Dashboard:
                 3: "on_cooldown",
             }
             for tactical_action in dss.tactical_actions:
-                field_name = f"{getattr(Emojis.DSS, tactical_action.name.lower().replace(' ', '_'))} {tactical_action.name.upper()}"
+                field_name = f"{getattr(Emojis.DSS, tactical_action.name.lower().replace(' ', '_'))} {language_json['dashboard']['DSSEmbed']['tactical_actions'][tactical_action.name.upper()]['name']}"
                 status = status_dict[tactical_action.status]
                 field_value = f"{language_json['dashboard']['DSSEmbed']['status']}: **{language_json['dashboard']['DSSEmbed'][status]}**"
                 match status:
                     case "preparing":
                         for ta_cost in tactical_action.cost:
-                            field_value += f"\n{language_json['dashboard']['DSSEmbed']['max_submitable'].format(emoji=getattr(Emojis.Items,ta_cost.item.replace(' ', '_').lower()),number=f'{ta_cost.max_per_seconds[0]:,}',item=ta_cost.item,hours=f'{ta_cost.max_per_seconds[1]/3600:.0f}')}"
+                            field_value += f"\n{language_json['dashboard']['DSSEmbed']['max_submitable'].format(emoji=getattr(Emojis.Items,ta_cost.item.replace(' ', '_').lower()),number=f'{ta_cost.max_per_seconds[0]:,}',item=language_json['currencies'][ta_cost.item],hours=f'{ta_cost.max_per_seconds[1]/3600:.0f}')}"
                             field_value += f"\n{health_bar(ta_cost.progress,'MO')}"
                             field_value += f"\n`{ta_cost.progress:^25.2%}`"
                             cost_change = ta_changes.get_entry(
@@ -994,7 +994,7 @@ class Dashboard:
                             if cost_change and cost_change.change_rate_per_hour != 0:
                                 change = f"{cost_change.change_rate_per_hour:+.2%}/hr"
                                 field_value += f"\n`{change:^25}`"
-                                field_value += f"\n-# Ready <t:{int(datetime.now().timestamp() + cost_change.seconds_until_complete)}:R>"
+                                field_value += f"\n-# {language_json['dashboard']['DSSEmbed']['active']} <t:{int(datetime.now().timestamp() + cost_change.seconds_until_complete)}:R>"
                     case "active":
                         field_value += f"\n{language_json['ends']} <t:{int(tactical_action.status_end_datetime.timestamp())}:R>"
                         desc_fmtd = tactical_action.strategic_description.replace(
@@ -1049,15 +1049,9 @@ class Dashboard:
                         case 1:
                             # Regular defence campaign
                             self.add_event_type_1(planet=planet)
-                        case 2:
-                            # Invasion campaign
-                            self.add_event_type_2(planet=planet)
-                        case 3:
-                            # Siege campaign
-                            self.add_event_type_3(planet=planet)
                         case _:
-                            # Unknown campaigns
-                            self.add_unknown_event_type()
+                            # Unconfigured campaigns
+                            self.add_unconfigured_event_type()
 
         def add_event_type_1(self, planet: Planet):
             feature_text = ""
@@ -1228,111 +1222,11 @@ class Dashboard:
                 inline=False,
             )
 
-        def add_event_type_2(self, planet: Planet):
-            feature_text = ""
-            outlook_text = ""
-            if liberation_change := self.liberation_changes.get_entry(planet.index):
-                if liberation_change.change_rate_per_hour != 0:
-                    now_seconds = int(self.now.timestamp())
-                    win_time = planet.event.end_time_datetime
-                    winning = (
-                        datetime.fromtimestamp(
-                            now_seconds + liberation_change.seconds_until_complete
-                        )
-                        < win_time
-                    )
-                    if winning:
-                        outlook_text = f"\n{self.language_json['dashboard']['outlook'].format(outlook=self.language_json['victory'])} <t:{now_seconds + liberation_change.seconds_until_complete}:R>"
-                    else:
-                        outlook_text = f"\n{self.language_json['dashboard']['outlook'].format(outlook=self.language_json['defeat'])}"
-                    change = f"{liberation_change.change_rate_per_hour:+.2%}/hour"
-                    liberation_text = f"\n`{change:^25}`"
-                    if planet.event.required_players:
-                        if 0 < planet.event.required_players < 2.5 * self.total_players:
-                            required_players = f"\n{self.language_json['dashboard']['DefenceEmbed']['players_required']}: **~{planet.event.required_players:,.0f}+**"
-                        else:
-                            one_hour_ago = self.now - timedelta(hours=1)
-                            if planet.event.start_time_datetime > one_hour_ago:
-                                required_players = f"\n{self.language_json['dashboard']['DefenceEmbed']['players_required']}: *Gathering Data*"
-                            else:
-                                required_players = f"\n{self.language_json['dashboard']['DefenceEmbed']['players_required']}: **IMPOSSIBLE**"
-            if planet.feature:
-                feature_text += f"{self.language_json['dashboard']['DefenceEmbed']['feature']}: **{planet.feature}**"
-            if planet.event.potential_buildup != 0:
-                feature_text += self.language_json["dashboard"]["DefenceEmbed"][
-                    "dark_energy_remaining"
-                ].format(
-                    number=f"{(planet.event.remaining_dark_energy / 1_000_000):.2%}"
-                )
-            time_remaining = f"<t:{int(planet.event.end_time_datetime.timestamp())}:R>"
-            if self.compact_level < 1:
-                event_health_bar = f"\n{planet.event.health_bar}"
-            else:
-                event_health_bar = ""
-            player_count = f"**{planet.stats.player_count:,}**"
+        def add_unconfigured_event_type(self, planet: Planet):
             self.add_field(
-                f"{getattr(Emojis.Factions, planet.event.faction.full_name.lower())} - __**{self.planet_names[str(planet.index)]['names'][self.language_json['code_long']]}**__ {planet.exclamations}",
-                (
-                    f"{feature_text}"
-                    f"\n{self.language_json['ends']} {time_remaining}"
-                    f"\n{self.language_json['dashboard']['DefenceEmbed']['level']} **{int(planet.event.max_health / 50_000)}**"
-                    f"{outlook_text}"
-                    f"\n{self.language_json['dashboard']['heroes'].format(heroes=player_count)}"
-                    f"{required_players}"
-                    f"\n{self.language_json['dashboard']['DefenceEmbed']['event_health']}:"
-                    f"{event_health_bar}"
-                    f"\n`{1 - (planet.event.health / planet.event.max_health):^25,.2%}`"
-                    f"{liberation_text}"
-                    "\u200b\n"
-                ),
-                inline=False,
-            )
-
-        def add_event_type_3(self, planet: Planet):
-            feature_text = ""
-            if planet.feature:
-                feature_text += f"{self.language_json['dashboard']['DefenceEmbed']['feature']}: **{planet.feature}**"
-            event_end_datetime = (
-                planet.event.end_time_datetime
-                + timedelta(
-                    seconds=(
-                        self.eagle_storm.status_end_datetime - self.now
-                    ).total_seconds()
-                )
-                if planet.dss_in_orbit and self.eagle_storm.status == 2
-                else planet.event.end_time_datetime
-            )
-            time_remaining = f"<t:{int(event_end_datetime.timestamp())}:R>"
-            if planet.dss_in_orbit:
-                if self.eagle_storm.status == 2:
-                    time_remaining += self.language_json["dashboard"]["DefenceEmbed"][
-                        "defence_held_by_dss"
-                    ]
-            if self.compact_level < 1:
-                siege_fleet_health_bar = f"\n{planet.event.siege_fleet.health_bar}"
-            else:
-                siege_fleet_health_bar = ""
-            player_count = f"**{planet.stats.player_count:,}**"
-            self.add_field(
-                f"{getattr(Emojis.Factions, planet.event.faction.full_name.lower())} - __**{self.planet_names[str(planet.index)]['names'][self.language_json['code_long']]}**__ {planet.exclamations}",
-                (
-                    f"{feature_text}"
-                    f"\n{self.language_json['ends']} {time_remaining}"
-                    f"\n{self.language_json['dashboard']['heroes'].format(heroes=player_count)}"
-                    f"\n-# {planet.event.siege_fleet.name} strength:"
-                    f"{siege_fleet_health_bar}"
-                    f"\n`{(planet.event.siege_fleet.perc):^25,.2%}`"
-                    "\u200b\n"
-                ),
-                inline=False,
-            )
-
-        def add_unknown_event_type(self, planet: Planet):
-            self.add_field(
-                f"{Emojis.Decoration.alert_icon} NEW DEFENCE TYPE",
+                f"{Emojis.Decoration.alert_icon} NON-CONFIGURED DEFENCE TYPE",
                 (
                     f"-# {planet.event.type}|{planet.event.health}/{planet.event.max_health}\n"
-                    f"{planet.event.siege_fleet or ''}"
                 ),
                 inline=False,
             )

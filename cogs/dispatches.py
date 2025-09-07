@@ -44,7 +44,7 @@ class DispatchesCog(commands.Cog):
                 "# No dispatch ID found in the database. Please check the war info table."
             )
             return
-        for dispatch in self.bot.data.dispatches[-10:]:
+        for index, dispatch in enumerate(self.bot.data.dispatches["en"][-10:], -10):
             if current_war_info.dispatch_id < dispatch.id:
                 if len(dispatch.full_message) < 5 or "#planet" in dispatch.full_message:
                     current_war_info.dispatch_id = dispatch.id
@@ -53,7 +53,10 @@ class DispatchesCog(commands.Cog):
                 unique_langs = GWWGuilds().unique_languages
                 embeds = {
                     lang: [
-                        DispatchEmbed(self.bot.json_dict["languages"][lang], dispatch)
+                        DispatchEmbed(
+                            self.bot.json_dict["languages"][lang],
+                            self.bot.data.dispatches[lang][index],
+                        )
                     ]
                     for lang in unique_langs
                 }
@@ -71,9 +74,20 @@ class DispatchesCog(commands.Cog):
     async def before_dispatch_check(self):
         await self.bot.wait_until_ready()
 
+    async def dispatch_autocomp(inter: AppCmdInter, user_input: str):
+        if not inter.bot.data.loaded:
+            return []
+        dispatch_list = sorted(
+            [f"{i.id}-{i.title}"[:90] for i in inter.bot.data.dispatches["en"]],
+            reverse=True,
+        )
+        return [d for d in dispatch_list if str(user_input).lower() in str(d).lower()][
+            :25
+        ]
+
     @wait_for_startup()
     @commands.slash_command(
-        description="Get the 25 most recent dispatches",
+        description="Get the 25 most recent dispatches or a specific dispatch",
         install_types=ApplicationInstallTypes.all(),
         contexts=InteractionContextTypes.all(),
         extras={
@@ -84,8 +98,10 @@ class DispatchesCog(commands.Cog):
     async def dispatches(
         self,
         inter: AppCmdInter,
-        specific: int = commands.Param(
-            default=None, description="Get a specific dispatch by ID"
+        specific: str = commands.Param(
+            autocomplete=dispatch_autocomp,
+            default=None,
+            description="Get a specific dispatch by ID",
         ),
         public: str = commands.Param(
             choices=["Yes", "No"],
@@ -116,12 +132,14 @@ class DispatchesCog(commands.Cog):
         dispatch = None
         if specific:
             specific_dispatch_list = [
-                d for d in self.bot.data.dispatches if d.id == specific
+                d
+                for d in self.bot.data.dispatches[guild.language]
+                if d.id == int(specific.split("-")[0])
             ]
             if specific_dispatch_list != []:
                 dispatch = specific_dispatch_list[0]
         else:
-            dispatch = self.bot.data.dispatches[-1]
+            dispatch = self.bot.data.dispatches[guild.language][-1]
         if not dispatch:
             await inter.send("I couldn't find that dispatch, sorry.", ephemeral=True)
             return
@@ -131,7 +149,7 @@ class DispatchesCog(commands.Cog):
                 dispatch=dispatch,
                 with_time=True,
             ),
-            components=[DispatchStringSelect(self.bot.data.dispatches)],
+            components=[DispatchStringSelect(self.bot.data.dispatches[guild.language])],
             ephemeral=public != "Yes",
         )
 
@@ -139,11 +157,6 @@ class DispatchesCog(commands.Cog):
     async def dispatches_listener(self, inter: MessageInteraction):
         if inter.component.custom_id != "dispatch":
             return
-        dispatch = [
-            d
-            for d in self.bot.data.dispatches
-            if d.id == int(inter.values[0].split("-")[0])
-        ][0]
         if inter.guild:
             guild = GWWGuilds.get_specific_guild(id=inter.guild_id)
             if not guild:
@@ -153,6 +166,11 @@ class DispatchesCog(commands.Cog):
                 guild = GWWGuilds.add(inter.guild_id, "en", [])
         else:
             guild = GWWGuild.default()
+        dispatch = [
+            d
+            for d in self.bot.data.dispatches[guild.language]
+            if d.id == int(inter.values[0].split("-")[0])
+        ][0]
         embed = DispatchEmbed(
             language_json=self.bot.json_dict["languages"][guild.language],
             dispatch=dispatch,

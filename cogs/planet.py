@@ -23,6 +23,8 @@ class PlanetCog(commands.Cog):
         self.bot = bot
 
     async def planet_autocomp(inter: AppCmdInter, user_input: str):
+        if not inter.bot.data.loaded:
+            return []
         return [
             p.name
             for p in inter.bot.data.planets.values()
@@ -110,7 +112,7 @@ class PlanetCog(commands.Cog):
             ):
                 self.bot.maps.update_base_map(
                     planets=self.bot.data.planets,
-                    assignments=self.bot.data.assignments,
+                    assignments=self.bot.data.assignments["en"],
                     campaigns=self.bot.data.campaigns,
                     sector_names=self.bot.json_dict["sectors"],
                 )

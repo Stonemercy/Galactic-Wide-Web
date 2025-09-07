@@ -77,39 +77,23 @@ class WarUpdatesCog(commands.Cog):
                 # if campaign has ended
                 planet = self.bot.data.planets[old_campaign.planet_index]
                 if (
-                    planet.current_owner.full_name == "Humans"
-                    and old_campaign.planet_owner == "Humans"
+                    planet.current_owner.full_name
+                    == old_campaign.planet_owner
+                    == "Humans"
                 ):
                     # if campaign was defence and we won
-                    if old_campaign.event_type == 2:
-                        # if event was invasion (no territory taken)
-                        previous_data_planet = self.bot.previous_data.planets[
-                            old_campaign.planet_index
-                        ]
-                        win_status = False
-                        hours_left = 0
-                        if previous_data_planet.event:
-                            # if I have data on the event (sometimes dont)
-                            win_status = (
-                                previous_data_planet.event.end_time_datetime
-                                > update_start
-                            )
-                            hours_left = (
-                                previous_data_planet.event.end_time_datetime
-                                - update_start
-                            ).total_seconds() / 3600
-                        for embed_list in embeds.values():
-                            embed_list[0].add_invasion_over(
-                                planet=planet,
-                                faction=old_campaign.event_faction,
-                                hours_left=hours_left,
-                                win_status=win_status,
-                            )
-                    else:
-                        # if event wasnt invasion (territory taken)
-                        # TODO: if event is type 3, siege victory
-                        for embed_list in embeds.values():
-                            embed_list[0].add_def_victory(planet=planet)
+                    previous_data_planet = self.bot.previous_data.planets[
+                        old_campaign.planet_index
+                    ]
+                    hours_left = 0.0
+                    if previous_data_planet.event:
+                        hours_left = (
+                            previous_data_planet.event.end_time_datetime - update_start
+                        ).total_seconds() / 3600
+                    for embed_list in embeds.values():
+                        embed_list[0].add_def_victory(
+                            planet=planet, hours_left=hours_left
+                        )
                     new_updates = True
                 elif planet.current_owner.full_name != old_campaign.planet_owner:
                     # if owner has changed
@@ -179,7 +163,7 @@ class WarUpdatesCog(commands.Cog):
                 )
                 self.bot.maps.update_waypoint_lines(planets=self.bot.data.planets)
             self.bot.maps.update_assignment_tasks(
-                assignments=self.bot.data.assignments,
+                assignments=self.bot.data.assignments["en"],
                 planets=self.bot.data.planets,
                 campaigns=self.bot.data.campaigns,
                 sector_names=self.bot.json_dict["sectors"],
@@ -339,7 +323,7 @@ class WarUpdatesCog(commands.Cog):
         old_region_data = PlanetRegions()
         if not old_region_data:
             for region in regions:
-                if region.is_updated and region.is_available:
+                if region.is_available:
                     old_region_data.add(
                         region.settings_hash,
                         region.owner.full_name,
@@ -357,9 +341,7 @@ class WarUpdatesCog(commands.Cog):
             for lang in unique_langs
         }
 
-        new_region_hashes = [
-            r.settings_hash for r in regions if r.is_available and r.is_updated
-        ]
+        new_region_hashes = [r.settings_hash for r in regions if r.is_available]
         for old_region in old_region_data:
             # loop through old regions
             if old_region.settings_hash not in new_region_hashes:
@@ -367,8 +349,9 @@ class WarUpdatesCog(commands.Cog):
                 region_list = [
                     r for r in regions if r.settings_hash == old_region.settings_hash
                 ]
-                if region := region_list[0]:
+                if region_list:
                     # if region is still in API
+                    region = region_list[0]
                     planet = self.bot.data.planets[region.planet_index]
                     if (
                         region.owner.full_name == "Humans"
@@ -410,7 +393,6 @@ class WarUpdatesCog(commands.Cog):
                 if (
                     region.settings_hash not in old_region_hashes
                     and region.is_available
-                    and region.is_updated
                 ):
                     # if region is brand new
                     planet = self.bot.data.planets[region.planet_index]

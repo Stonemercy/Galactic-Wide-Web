@@ -1,18 +1,14 @@
-from datetime import datetime
 from disnake import (
     AppCmdInter,
     ApplicationInstallTypes,
     InteractionContextTypes,
     InteractionTimedOut,
-    MessageInteraction,
     NotFound,
 )
-from disnake.ext import commands, tasks
+from disnake.ext import commands
 from main import GalacticWideWebBot
 from utils.checks import wait_for_startup
-from utils.dbv2 import GWWGuild, GWWGuilds, WarInfo
-from utils.embeds import DispatchEmbed
-from utils.interactables import DispatchStringSelect
+from utils.dbv2 import GWWGuild, GWWGuilds
 from utils.wiki import Wiki
 
 

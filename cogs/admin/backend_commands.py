@@ -11,6 +11,8 @@ class BackendCommandsCog(commands.Cog):
         self.bot = bot
 
     async def id_autocomp(inter: AppCmdInter, user_input: str):
+        if not inter.bot.data.loaded:
+            return []
         id_list = sorted(
             [i.id for i in inter.bot.data.galactic_war_effects], reverse=True
         )
@@ -19,6 +21,8 @@ class BackendCommandsCog(commands.Cog):
         ]
 
     async def type_autocomp(inter: AppCmdInter, user_input: str):
+        if not inter.bot.data.loaded:
+            return []
         type_list = set(
             sorted([i.effect_type for i in inter.bot.data.galactic_war_effects])
         )
@@ -73,7 +77,7 @@ class BackendCommandsCog(commands.Cog):
                 ]
                 global_events_list = [
                     i
-                    for i in self.bot.data.global_events
+                    for i in self.bot.data.global_events["en"]
                     if gwe.id in [j.id for j in i.effects]
                 ]
                 if (
@@ -98,7 +102,7 @@ class BackendCommandsCog(commands.Cog):
             ge
             for ge in [
                 f"{i.id}-{i.title}{[j.id for j in i.effects]}"
-                for i in inter.bot.data.global_events
+                for i in inter.bot.data.global_events["en"]
             ]
             if user_input.lower() in ge.split("-")[1].lower()
         ][:25]
@@ -127,13 +131,15 @@ class BackendCommandsCog(commands.Cog):
             msg=f"{self.qualified_name} | /{inter.application_command.name} <{title = }> <{public = }> | used by <@{inter.author.id}> | @{inter.author.global_name}"
         )
         ge_id = title.split("-")[0]
-        ge_list = [ge for ge in self.bot.data.global_events if ge.id == int(ge_id)]
+        ge_list = [
+            ge for ge in self.bot.data.global_events["en"] if ge.id == int(ge_id)
+        ]
         if ge_list:
             embeds = []
             for ge in ge_list:
                 embed = GlobalEventsEmbed(
-                    planets=self.bot.data.planets,
                     language_json=self.bot.json_dict["languages"]["en"],
+                    planet_names_json=self.bot.json_dict["planets"],
                     global_event=ge,
                 )
                 embeds.append(embed)

@@ -24,7 +24,10 @@ class RegionChangesEmbed(Embed, EmbedReprMixin):
         )
 
     def add_region_victory(
-        self, planet: Planet, region: Planet.Region, taken_from: str
+        self,
+        planet: Planet,
+        region: Planet.Region,
+        taken_from: str,
     ):
         description = self.fields[0].value
         description += self.language_json["RegionLoopEmbed"]["region_victory"].format(
@@ -42,7 +45,7 @@ class RegionChangesEmbed(Embed, EmbedReprMixin):
         for special_unit in SpecialUnits.get_from_effects_list(
             active_effects=planet.active_effects
         ):
-            description += f"\n-# {self.language_json['RegionLoopEmbed']['special_unit']}: **{special_unit[0]}** {special_unit[1]}"
+            description += f"\n-# {self.language_json['RegionLoopEmbed']['special_unit']}: **{self.language_json['special_units'][special_unit[0]]}** {special_unit[1]}"
         self.set_field_at(0, self.fields[0].name, description, inline=False)
 
     def add_region_lost(self, planet: Planet, region: Planet.Region, taken_by: str):
@@ -61,7 +64,7 @@ class RegionChangesEmbed(Embed, EmbedReprMixin):
         for special_unit in SpecialUnits.get_from_effects_list(
             active_effects=planet.active_effects
         ):
-            description += f"\n-# {self.language_json['RegionLoopEmbed']['special_unit']}: **{special_unit[0]}** {special_unit[1]}"
+            description += f"\n-# {self.language_json['RegionLoopEmbed']['special_unit']}: **{self.language_json['special_units'][special_unit[0]]}** {special_unit[1]}"
         self.set_field_at(0, self.fields[0].name, description, inline=False)
 
     def add_new_region_appeared(self, planet: Planet, region: Planet.Region):
@@ -85,7 +88,7 @@ class RegionChangesEmbed(Embed, EmbedReprMixin):
         for special_unit in SpecialUnits.get_from_effects_list(
             active_effects=planet.active_effects
         ):
-            description += f"\n-# {self.language_json['RegionLoopEmbed']['special_unit']}: **{special_unit[0]}** {special_unit[1]}"
+            description += f"\n-# {self.language_json['RegionLoopEmbed']['special_unit']}: **{self.language_json['special_units'][special_unit[0]]}** {special_unit[1]}"
         self.set_field_at(2, self.fields[2].name, description, inline=False)
 
     def remove_empty(self):

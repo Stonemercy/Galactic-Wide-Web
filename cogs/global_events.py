@@ -30,7 +30,7 @@ class GlobalEventsCog(commands.Cog):
         ):
             return
         current_war_info = WarInfo()
-        for global_event in self.bot.data.global_events:
+        for index, global_event in enumerate(self.bot.data.global_events["en"]):
             if global_event.id > current_war_info.global_event_id:
                 if (
                     global_event.assignment_id != 0
@@ -50,9 +50,9 @@ class GlobalEventsCog(commands.Cog):
                 embeds = {
                     lang: [
                         GlobalEventsEmbed(
-                            self.bot.data.planets,
                             self.bot.json_dict["languages"][lang],
-                            global_event,
+                            self.bot.json_dict["planets"],
+                            self.bot.data.global_events[lang][index],
                         )
                     ]
                     for lang in unique_langs

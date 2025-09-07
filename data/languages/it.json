@@ -206,6 +206,14 @@
         "total_to_be_harvested": "-# {warning} Total ready to be harvested: {number} (up to {total_available}) {warning}",
         "planets_in_path": "PLANETS IN DIRECT PATH"
     },
+    "GlobalEventsEmbed": {
+        "all": "all",
+        "unknown_effect": "UNKNOWN EFFECT",
+        "active_on_planets": "\n-# Now active on the following planet(s):\n- {planets}",
+        "enemy_identified": "Enemy identified",
+        "strat_identified": "Stratagem identified",
+        "booster_identified": "Booster identified"
+    },
     "dss": {
         "title": "Stazione Spaziale della Democrazia"
     },
@@ -456,5 +464,15 @@
         "Common Sample": "Common Sample",
         "Rare Sample": "Rare Sample",
         "Super Sample": "Super Sample"
+    },
+    "special_units": {
+        "THE JET BRIGADE": "THE JET BRIGADE",
+        "PREDATOR STRAIN": "PREDATOR STRAIN",
+        "SPORE BURSTER STRAIN": "SPORE BURSTER STRAIN",
+        "INCINERATION CORPS": "INCINERATION CORPS",
+        "THE GREAT HOST": "THE GREAT HOST",
+        "RUPTURE STRAIN": "RUPTURE STRAIN",
+        "DRAGON ROACHES": "DRAGON ROACHES",
+        "HIVE LORDS": "HIVE LORDS"
     }
 }

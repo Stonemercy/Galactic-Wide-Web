@@ -71,6 +71,8 @@ class AdminCommandsCog(commands.Cog):
 
     def extension_names_autocomp(inter: AppCmdInter, user_input: str):
         """Returns the name of each cog currently loaded"""
+        if not inter.bot.extensions:
+            return []
         return [
             ext.split(".")[-1]
             for ext in list(inter.bot.extensions.keys())

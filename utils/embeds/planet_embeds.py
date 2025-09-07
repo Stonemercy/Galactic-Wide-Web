@@ -197,7 +197,10 @@ class PlanetEmbeds(list):
             for special_unit in SpecialUnits.get_from_effects_list(
                 planet.active_effects
             ):
-                self.add_field("", f"\n- **{special_unit[0]}** {special_unit[1]}")
+                self.add_field(
+                    "",
+                    f"\n- **{language_json['special_units'][special_unit[0]]}** {special_unit[1]}",
+                )
 
             effects = ""
             for ae in planet.active_effects:
