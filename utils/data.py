@@ -488,7 +488,7 @@ class Data(ReprMixin):
         if self.__data__["warinfo"]:
             if not self.__data__["warinfo"].get("planetRegions") or not self.__data__[
                 "status"
-            ].get("planetRegions"):
+            ]["en"].get("planetRegions"):
                 pass
             else:
                 for region in self.__data__["warinfo"]["planetRegions"]:
@@ -500,7 +500,7 @@ class Data(ReprMixin):
                         planet_owner=self.planets[region["planetIndex"]].current_owner,
                     )
 
-                for region in self.__data__["status"]["planetRegions"]:
+                for region in self.__data__["status"]["en"]["planetRegions"]:
                     if region["planetIndex"] not in self.planets:
                         continue
                     else:
