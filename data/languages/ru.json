@@ -207,12 +207,12 @@
         "planets_in_path": "ПЛАНЕТЫ ПОД УГРОЗОЙ"
     },
     "GlobalEventsEmbed": {
-        "all": "all",
-        "unknown_effect": "UNKNOWN EFFECT",
-        "active_on_planets": "\n-# Now active on the following planet(s):\n- {planets}",
-        "enemy_identified": "Enemy identified",
-        "strat_identified": "Stratagem identified",
-        "booster_identified": "Booster identified"
+        "all": "Все",
+        "unknown_effect": "НЕИЗВЕСТНЫЙ ЭФФЕКТ",
+        "active_on_planets": "\n-# Теперь активен на следующей(их) планете(ах):\n- {planets}",
+        "enemy_identified": "Обнаружен враг",
+        "strat_identified": "Обнаружена стратагема",
+        "booster_identified": "Обнаружено усиление"
     },
     "dss": {
         "title": "Демократическая Космическая Станция"
@@ -466,13 +466,13 @@
         "Super Sample": "Суперобразец"
     },
     "special_units": {
-        "THE JET BRIGADE": "THE JET BRIGADE",
-        "PREDATOR STRAIN": "PREDATOR STRAIN",
-        "SPORE BURSTER STRAIN": "SPORE BURSTER STRAIN",
-        "INCINERATION CORPS": "INCINERATION CORPS",
-        "THE GREAT HOST": "THE GREAT HOST",
-        "RUPTURE STRAIN": "RUPTURE STRAIN",
-        "DRAGON ROACHES": "DRAGON ROACHES",
-        "HIVE LORDS": "HIVE LORDS"
+        "THE JET BRIGADE": "РЕАКТИВНАЯ БРИГАДА",
+        "PREDATOR STRAIN": "ШТАММ ХИЩНИК",
+        "SPORE BURSTER STRAIN": "ШТАММ СПОРОВИКОВ",
+        "INCINERATION CORPS": "ИСПЕПЕЛЯЮЩИЙ ОТРЯД",
+        "THE GREAT HOST": "ВЕЛИКОЕ ВОЙСКО",
+        "RUPTURE STRAIN": "ПРОРЫВНОЙ ШТАММ",
+        "DRAGON ROACHES": "ДРАКОРАКАНЫ",
+        "HIVE LORDS": "ВЛАСТЕЛИНЫ УЛЬЯ"
     }
 }
