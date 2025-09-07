@@ -417,7 +417,7 @@
 	},
 	"1203": {
 		"name": "[Galactic Map Marker] THE JET BRIGADE",
-		"description": "These upgraded bots utilize stolen Jump Pack technology, heartlessly pillaged from the bodies of fallen Helldivers and reverse-engineered into something nearly unrecognizable."
+		"description": ""
 	},
 	"1204": {
 		"name": "LIBERTY DAY",
@@ -449,7 +449,7 @@
 	},
 	"1211": {
 		"name": "[Galactic Map Marker] PLANETARY_BOMBARDMENT",
-		"description": "Planetary Bombardment is active on this planet"
+		"description": ""
 	},
 	"1212": {
 		"name": "[Galactic Map Marker] UNKNOWN [1212]",
@@ -457,7 +457,7 @@
 	},
 	"1213": {
 		"name": "[Galactic Map Marker] ORBITAL BLOCKADE",
-		"description": "Orbital Blockade is active on this planet"
+		"description": ""
 	},
 	"1214": {
 		"name": "War Liberation change",
@@ -581,7 +581,7 @@
 	},
 	"1245": {
 		"name": "[Galactic Map Marker] PREDATOR STRAIN",
-		"description": "A Gloom-enhanced strain of Terminids has been reported on this planet. SEAF patrols have been lured into ambushes, and picked off by unseen assailants. Every ounce of a Helldiver's superior senses will be required to hunt down this dangerous threat."
+		"description": ""
 	},
 	"1246": {
 		"name": "Unattackable",
@@ -597,7 +597,7 @@
 	},
 	"1249": {
 		"name": "[Galactic Map Marker] INCINERATION CORPS",
-		"description": "An Automaton unit equipped with flame throwers and incendiary ammunition is active on this planet. These wanton arsonists will not rest until they have razed all that mankind holds dear."
+		"description": ""
 	},
 	"1250": {
 		"name": "SUPPLY CHAIN DIFFICULTIES",
@@ -806,6 +806,14 @@
 	"1304": {
 		"name": "OUTPOST ALPHA",
 		"description": "The first manned site established in Gloom-infested space."
+	},
+	"1305": {
+		"name": "GLOOM INTERFERENCE",
+		"description": "Due to adverse spore conditions, Pelican pilots must exercise extreme caution when executing landing manoeuvres. Extraction times have increased by 50s."
+	},
+	"1306": {
+		"name": "DRAGONROACHES",
+		"description": "Terminid Dragonroaches menace the skies of this planet."
 	},
 	"1307": {
 		"name": "HIVE LORDS",
