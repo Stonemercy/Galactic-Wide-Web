@@ -461,9 +461,9 @@
         "Unknown Item": "Item desconhecido",
         "Medal": "Medalhas",
         "Requisition Slip": "Notas de Requisição",
-        "Common Sample": "Amostra Comum",
-        "Rare Sample": "Amostra Rara",
-        "Super Sample": "Super Amostra"
+        "Common Sample": "de Amostras Comuns",
+        "Rare Sample": "de Amostras Raras",
+        "Super Sample": "de Super Amostras"
     },
     "special_units": {
         "THE JET BRIGADE": "BRIGADA A JATO",
