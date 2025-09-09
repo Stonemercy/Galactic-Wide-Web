@@ -54,7 +54,7 @@ class MajorOrderCog(commands.Cog):
         for index, major_order in enumerate(self.bot.data.assignments["en"]):
             if major_order.id not in current_war_info.major_order_ids:
                 mo_briefing_dict = {
-                    lang: ge
+                    lang.short_code: ge
                     for lang in Languages.all
                     for ge in self.bot.data.global_events[lang.short_code]
                     if ge.assignment_id == major_order.id
@@ -88,7 +88,7 @@ class MajorOrderCog(commands.Cog):
                 for lang, embed_list in embeds.items():
                     briefing: GlobalEvent = mo_briefing_dict.get(
                         lang, mo_briefing_dict["en"]
-                    )[0]
+                    )
                     for embed in embed_list:
                         embed.insert_field_at(
                             0,
