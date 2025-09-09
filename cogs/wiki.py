@@ -338,21 +338,35 @@ class WikiCog(commands.Cog):
             await inter.response.edit_message(embed=embed, components=components)
             return
         elif comp_id == "StratagemsButton":
-            stratagem_info: tuple[str, dict] = choice(
-                list(self.bot.json_dict["stratagems"].items())
+            stratagem_info = choice(
+                [
+                    (s_name, s_item_dict)
+                    for s_dict in self.bot.json_dict["stratagems"].values()
+                    for s_name, s_item_dict in s_dict.items()
+                ]
             )
             embed = Wiki.Embeds.StratagemsEmbed(
                 language_json=guild_language["wiki"]["embeds"]["StratagemsEmbed"],
                 stratagem_info=stratagem_info,
             )
             if not embed.image_set:
+                strat_name = (
+                    stratagem_info[0]
+                    .replace("/", "_")
+                    .replace(" ", "_")
+                    .replace('"', "")
+                )
                 await self.bot.moderator_channel.send(
-                    f"# <@{self.bot.owner.id}> :warning:\nImage missing for **stratagem __{stratagem_info[0]}__** {stratagem_info[0].replace('/', '_').replace(' ', '_')}.png"
+                    f"# <@{self.bot.owner.id}> :warning:\nImage missing for **stratagem `{stratagem_info[0]}     -     {strat_name}.png`**"
                 )
             components = Wiki.Buttons.stratagems_rows(
                 language_json=guild_language,
                 stratagem_names=sorted(
-                    [name for name in self.bot.json_dict["stratagems"].keys()]
+                    [
+                        s_name
+                        for s_dict in self.bot.json_dict["stratagems"].values()
+                        for s_name in s_dict
+                    ]
                 ),
             )
             await inter.response.edit_message(embed=embed, components=components)
@@ -581,23 +595,35 @@ class WikiCog(commands.Cog):
             return
         elif comp_id[:-1] == "StratagemsDropdown":
             stratagem_name = inter.values[0]
-            stratagem_json = [
-                data
-                for name, data in self.bot.json_dict["stratagems"].items()
-                if name == stratagem_name
+            stratagem_info = [
+                (s_name, s_item_dict)
+                for s_dict in self.bot.json_dict["stratagems"].values()
+                for s_name, s_item_dict in s_dict.items()
+                if s_name == stratagem_name
             ][0]
-            stratagem_info = (stratagem_name, stratagem_json)
             embed = Wiki.Embeds.StratagemsEmbed(
                 language_json=guild_language["wiki"]["embeds"]["StratagemsEmbed"],
                 stratagem_info=stratagem_info,
             )
             if not embed.image_set:
+                strat_name = (
+                    stratagem_info[0]
+                    .replace("/", "_")
+                    .replace(" ", "_")
+                    .replace('"', "")
+                )
                 await self.bot.moderator_channel.send(
-                    f"# <@{self.bot.owner.id}> :warning:\nImage missing for **stratagem __{stratagem_info[0]}__** {stratagem_info[0].replace('/', '_').replace(' ', '_')}.png"
+                    f"# <@{self.bot.owner.id}> :warning:\nImage missing for **stratagem `{stratagem_info[0]}     -     {strat_name}.png`**"
                 )
             components = Wiki.Buttons.stratagems_rows(
                 language_json=guild_language,
-                stratagem_names=sorted(self.bot.json_dict["stratagems"].keys()),
+                stratagem_names=sorted(
+                    [
+                        s_name
+                        for s_dict in self.bot.json_dict["stratagems"].values()
+                        for s_name in s_dict
+                    ]
+                ),
             )
             await inter.response.edit_message(
                 embed=embed, components=components, attachments=None

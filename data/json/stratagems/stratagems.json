@@ -1,814 +1,1924 @@
 {
-    "LIFT-850 Jump Pack": {
-        "keys": [
-            "down",
-            "up",
-            "up",
-            "down",
-            "up"
-        ],
-        "uses": "Unlimited",
-        "cooldown": 480
-    },
-    "B-1 Supply Pack": {
-        "keys": [
-            "down",
-            "left",
-            "down",
-            "up",
-            "up",
-            "down"
-        ],
-        "uses": "Unlimited",
-        "cooldown": 480
-    },
-    "AX/LAS-5 Guard Dog Rover": {
-        "keys": [
-            "down",
-            "up",
-            "left",
-            "up",
-            "right",
-            "right"
-        ],
-        "uses": "Unlimited",
-        "cooldown": 480
-    },
-    "AX/ARC-3 'Guard Dog' K-9": {
-        "keys": [
-            "down",
-            "up",
-            "left",
-            "up",
-            "right",
-            "left"
-        ],
-        "uses": "Unlimited",
-        "cooldown": 480
-    },
-    "SH-20 Ballistic Shield Backpack": {
-        "keys": [
-            "down",
-            "left",
-            "down",
-            "down",
-            "up",
-            "left"
-        ],
-        "uses": "Unlimited",
-        "cooldown": 300
-    },
-    "SH-32 Shield Generator Pack": {
-        "keys": [
-            "down",
-            "up",
-            "left",
-            "right",
-            "left",
-            "right"
-        ],
-        "uses": "Unlimited",
-        "cooldown": 480
-    },
-    "AX/AR-23 Guard Dog": {
-        "keys": [
-            "down",
-            "up",
-            "left",
-            "up",
-            "right",
-            "down"
-        ],
-        "uses": "Unlimited",
-        "cooldown": 480
-    },
-    "B-100 Portable Hellbomb": {
-        "keys": [
-            "down",
-            "right",
-            "up",
-            "up",
-            "up"
-        ],
-        "uses": "Unlimited",
-        "cooldown": 300
-    },
-    "MG-43 Machine Gun": {
-        "keys": [
-            "down",
-            "left",
-            "down",
-            "up",
-            "right"
-        ],
-        "uses": "Unlimited",
-        "cooldown": 480
-    },
-    "APW-1 Anti-Materiel Rifle": {
-        "keys": [
-            "down",
-            "left",
-            "right",
-            "up",
-            "down"
-        ],
-        "uses": "Unlimited",
-        "cooldown": 480
-    },
-    "M-105 Stalwart": {
-        "keys": [
-            "down",
-            "left",
-            "down",
-            "up",
-            "up",
-            "left"
-        ],
-        "uses": "Unlimited",
-        "cooldown": 480
-    },
-    "EAT-17 Expendable Anti-tank": {
-        "keys": [
-            "down",
-            "down",
-            "left",
-            "up",
-            "right"
-        ],
-        "uses": "Unlimited",
-        "cooldown": 70
-    },
-    "MLS-4X Commando": {
-        "keys": [
-            "down",
-            "left",
-            "up",
-            "down",
-            "right"
-        ],
-        "uses": "Unlimited",
-        "cooldown": 120
-    },
-    "GR-8 Recoilless Rifle": {
-        "keys": [
-            "down",
-            "left",
-            "right",
-            "right",
-            "left"
-        ],
-        "uses": "Unlimited",
-        "cooldown": 480
-    },
-    "FLAM-40 Flamethrower": {
-        "keys": [
-            "down",
-            "left",
-            "up",
-            "down",
-            "up"
-        ],
-        "uses": "Unlimited",
-        "cooldown": 480
-    },
-    "AC-8 Autocannon": {
-        "keys": [
-            "down",
-            "left",
-            "up",
-            "down",
-            "down"
-        ],
-        "uses": "Unlimited",
-        "cooldown": 480
-    },
-    "MG-206 Heavy Machine Gun": {
-        "keys": [
-            "down",
-            "left",
-            "up",
-            "down",
-            "down"
-        ],
-        "uses": "Unlimited",
-        "cooldown": 480
-    },
-    "RS-422 Railgun": {
-        "keys": [
-            "down",
-            "right",
-            "down",
-            "up",
-            "left",
-            "right"
-        ],
-        "uses": "Unlimited",
-        "cooldown": 480
-    },
-    "FAF-14 Spear Launcher": {
-        "keys": [
-            "down",
-            "down",
-            "up",
-            "down",
-            "down"
-        ],
-        "uses": "Unlimited",
-        "cooldown": 480
-    },
-    "GL-21 Grenade Launcher": {
-        "keys": [
-            "down",
-            "left",
-            "up",
-            "left",
-            "down"
-        ],
-        "uses": "Unlimited",
-        "cooldown": 480
-    },
-    "GL-52 De-Escalator": {
-        "keys": [
-            "left",
-            "right",
-            "up",
-            "left",
-            "right"
-        ],
-        "uses": "Unlimited",
-        "cooldown": 480
-    },
-    "LAS-98 Laser Cannon": {
-        "keys": [
-            "down",
-            "left",
-            "down",
-            "up",
-            "left"
-        ],
-        "uses": "Unlimited",
-        "cooldown": 480
-    },
-    "ARC-3 Arc Thrower": {
-        "keys": [
-            "down",
-            "right",
-            "down",
-            "up",
-            "left",
-            "left"
-        ],
-        "uses": "Unlimited",
-        "cooldown": 480
-    },
-    "LAS-99 Quasar Cannon": {
-        "keys": [
-            "down",
-            "down",
-            "up",
-            "left",
-            "right"
-        ],
-        "uses": "Unlimited",
-        "cooldown": 480
-    },
-    "RL-77 Airburst Rocket Launcher": {
-        "keys": [
-            "down",
-            "up",
-            "up",
-            "left",
-            "right"
-        ],
-        "uses": "Unlimited",
-        "cooldown": 480
-    },
-    "TX-41 Sterilizer": {
-        "keys": [
-            "down",
-            "left",
-            "up",
-            "down",
-            "left"
-        ],
-        "uses": "Unlimited",
-        "cooldown": 480
-    },
-    "AX/TX-13 Guard Dog Dog Breath": {
-        "keys": [
-            "down",
-            "up",
-            "left",
-            "up",
-            "right",
-            "up"
-        ],
-        "uses": "Unlimited",
-        "cooldown": 480
-    },
-    "StA-X3 W.A.S.P. Launcher": {
-        "keys": [
-            "down",
-            "down",
-            "up",
-            "down",
-            "right"
-        ],
-        "uses": "Unlimited",
-        "cooldown": 480
-    },
-    "EXO-45 Patriot Exosuit": {
-        "keys": [
-            "left",
-            "down",
-            "right",
-            "up",
-            "left",
-            "down",
-            "down"
-        ],
-        "uses": 2,
-        "cooldown": 600
-    },
-    "EXO-49 Emancipator Exosuit": {
-        "keys": [
-            "left",
-            "down",
-            "right",
-            "up",
-            "left",
-            "down",
-            "up"
-        ],
-        "uses": 2,
-        "cooldown": 600
-    },
-    "M-102 Fast Recon Vehicle": {
-        "keys": [
-            "left",
-            "down",
-            "right",
-            "down",
-            "right",
-            "down",
-            "up"
-        ],
-        "uses": "Unlimited",
-        "cooldown": 480
-    },
-    "Reinforce": {
-        "keys": [
-            "up",
-            "down",
-            "right",
-            "left",
-            "up"
-        ],
-        "uses": "5 per person",
-        "cooldown": 120
-    },
-    "SOS Beacon": {
-        "keys": [
-            "up",
-            "down",
-            "right",
-            "up"
-        ],
-        "uses": 1,
-        "cooldown": 0
-    },
-    "Resupply": {
-        "keys": [
-            "down",
-            "down",
-            "up",
-            "right"
-        ],
-        "uses": "Unlimited",
-        "cooldown": 160
-    },
-    "NUX-223 Hellbomb": {
-        "keys": [
-            "down",
-            "up",
-            "left",
-            "down",
-            "up",
-            "right",
-            "down",
-            "up"
-        ],
-        "uses": "Unlimited",
-        "cooldown": 0
-    },
-    "SSSD Delivery": {
-        "keys": [
-            "down",
-            "down",
-            "down",
-            "up",
-            "up"
-        ],
-        "uses": "Unlimited",
-        "cooldown": 0
-    },
-    "Seismic Probe": {
-        "keys": [
-            "up",
-            "up",
-            "left",
-            "right",
-            "down",
-            "down"
-        ],
-        "uses": 1,
-        "cooldown": 0
-    },
-    "Upload Data": {
-        "keys": [
-            "left",
-            "right",
-            "up",
-            "up",
-            "up"
-        ],
-        "uses": "Unlimited",
-        "cooldown": 0
-    },
-    "Eagle Rearm": {
-        "keys": [
-            "up",
-            "up",
-            "left",
-            "up",
-            "right"
-        ],
-        "uses": "Unlimited",
-        "cooldown": 120
-    },
-    "SEAF Artillery": {
-        "keys": [
-            "right",
-            "up",
-            "up",
-            "down"
-        ],
-        "uses": 5,
-        "cooldown": 0
-    },
-    "Super Earth Flag": {
-        "keys": [
-            "down",
-            "up",
-            "down",
-            "up"
-        ],
-        "uses": 1,
-        "cooldown": 0
-    },
-    "E/MG-101 HMG Emplacement": {
-        "keys": [
-            "down",
-            "up",
-            "left",
-            "right",
-            "right",
-            "left"
-        ],
-        "uses": "Unlimited",
-        "cooldown": 180
-    },
-    "E/AT-12 Anti-Tank Emplacement": {
-        "keys": [
-            "left",
-            "left",
-            "up",
-            "up",
-            "right",
-            "left"
-        ],
-        "uses": "Unlimited",
-        "cooldown": 180
-    },
-    "FX-12 Shield Generator Relay": {
-        "keys": [
-            "down",
-            "down",
-            "left",
-            "right",
-            "left",
-            "right"
-        ],
-        "uses": "Unlimited",
-        "cooldown": 90
-    },
-    "A/Arc-3 Tesla Tower": {
-        "keys": [
-            "down",
-            "up",
-            "right",
-            "up",
-            "left",
-            "right"
-        ],
-        "uses": "Unlimited",
-        "cooldown": 120
-    },
-    "MD-6 Anti-Personnel Minefield": {
-        "keys": [
-            "down",
-            "left",
-            "up",
-            "right"
-        ],
-        "uses": "Unlimited",
-        "cooldown": 180
-    },
-    "MD-14 Incendiary Mines": {
-        "keys": [
-            "down",
-            "left",
-            "left",
-            "down"
-        ],
-        "uses": "Unlimited",
-        "cooldown": 180
-    },
-    "MD-17 Anti-Tank Mines": {
-        "keys": [
-            "down",
-            "left",
-            "up",
-            "up"
-        ],
-        "uses": "Unlimited",
-        "cooldown": 180
-    },
-    "A/MG-43 Machine Gun Sentry": {
-        "keys": [
-            "down",
-            "up",
-            "right",
-            "right",
-            "up"
-        ],
-        "uses": "Unlimited",
-        "cooldown": 90
-    },
-    "A/G-16 Gatling Sentry": {
-        "keys": [
-            "down",
-            "up",
-            "right",
-            "left"
-        ],
-        "uses": "Unlimited",
-        "cooldown": 150
-    },
-    "A/M-12 Mortar Sentry": {
-        "keys": [
-            "down",
-            "up",
-            "right",
-            "right",
-            "down"
-        ],
-        "uses": "Unlimited",
-        "cooldown": 180
-    },
-    "A/AC-8 Autocannon Sentry": {
-        "keys": [
-            "down",
-            "up",
-            "right",
-            "up",
-            "left",
-            "up"
-        ],
-        "uses": "Unlimited",
-        "cooldown": 150
-    },
-    "A/MLS-4X Rocket Sentry": {
-        "keys": [
-            "down",
-            "up",
-            "right",
-            "right",
-            "left"
-        ],
-        "uses": "Unlimited",
-        "cooldown": 150
-    },
-    "A/M-23 EMS Mortar Sentry": {
-        "keys": [
-            "down",
-            "up",
-            "right",
-            "down",
-            "right"
-        ],
-        "uses": "Unlimited",
-        "cooldown": 180
-    },
-    "A/FLAM-40 Flame Sentry": {
-        "keys": [
-            "down",
-            "up",
-            "right",
-            "down",
-            "up",
-            "up"
-        ],
-        "uses": "Unlimited",
-        "cooldown": 180
-    },
-    "Orbital Gatling Barrage": {
-        "keys": [
-            "right",
-            "down",
-            "left",
-            "up",
-            "up"
-        ],
-        "uses": "Unlimited",
-        "cooldown": 70
-    },
-    "Orbital Airburst Strike": {
-        "keys": [
-            "right",
-            "right",
-            "right"
-        ],
-        "uses": "Unlimited",
-        "cooldown": 100
-    },
-    "Orbital 120MM HE Barrage": {
-        "keys": [
-            "right",
-            "right",
-            "down",
-            "left",
-            "right",
-            "down"
-        ],
-        "uses": "Unlimited",
-        "cooldown": 180
-    },
-    "Orbital 380MM HE Barrage": {
-        "keys": [
-            "right",
-            "down",
-            "up",
-            "up",
-            "left",
-            "down",
-            "down"
-        ],
-        "uses": "Unlimited",
-        "cooldown": 240
-    },
-    "Orbital Walking Barrage": {
-        "keys": [
-            "right",
-            "down",
-            "right",
-            "down",
-            "right",
-            "down"
-        ],
-        "uses": "Unlimited",
-        "cooldown": 240
-    },
-    "Orbital Laser": {
-        "keys": [
-            "right",
-            "down",
-            "up",
-            "right",
-            "down"
-        ],
-        "uses": "3",
-        "cooldown": 300
-    },
-    "Orbital Railcannon Strike": {
-        "keys": [
-            "right",
-            "up",
-            "down",
-            "down",
-            "right"
-        ],
-        "uses": "Unlimited",
-        "cooldown": 210
-    },
-    "Orbital Precision Strike": {
-        "keys": [
-            "right",
-            "right",
-            "up"
-        ],
-        "uses": "Unlimited",
-        "cooldown": 100
-    },
-    "Orbital Gas Strike": {
-        "keys": [
-            "right",
-            "right",
-            "down",
-            "right"
-        ],
-        "uses": "Unlimited",
-        "cooldown": 75
-    },
-    "Orbital EMS Strike": {
-        "keys": [
-            "right",
-            "right",
-            "left",
-            "down"
-        ],
-        "uses": "Unlimited",
-        "cooldown": 75
-    },
-    "Orbital Smoke Strike": {
-        "keys": [
-            "right",
-            "right",
-            "down",
-            "up"
-        ],
-        "uses": "Unlimited",
-        "cooldown": 100
-    },
-    "Eagle Strafing Run": {
-        "keys": [
-            "up",
-            "right",
-            "right"
-        ],
-        "uses": 4,
-        "cooldown": 8
-    },
-    "Eagle Airstrike": {
-        "keys": [
-            "up",
-            "right",
-            "down",
-            "right"
-        ],
-        "uses": 2,
-        "cooldown": 8
-    },
-    "Eagle Cluster Bomb": {
-        "keys": [
-            "up",
-            "right",
-            "down",
-            "down",
-            "right"
-        ],
-        "uses": 4,
-        "cooldown": 8
-    },
-    "Eagle Napalm Airstrike": {
-        "keys": [
-            "up",
-            "right",
-            "down",
-            "up"
-        ],
-        "uses": 2,
-        "cooldown": 8
-    },
-    "Eagle Smoke Strike": {
-        "keys": [
-            "up",
-            "right",
-            "up",
-            "down"
-        ],
-        "uses": 2,
-        "cooldown": 8
-    },
-    "Eagle 110MM Rocket Pods": {
-        "keys": [
-            "up",
-            "right",
-            "up",
-            "left"
-        ],
-        "uses": 2,
-        "cooldown": 8
-    },
-    "Eagle 500kg Bomb": {
-        "keys": [
-            "up",
-            "right",
-            "down",
-            "down",
-            "down"
-        ],
-        "uses": 1,
-        "cooldown": 8
+    "Patriotic Administration Center": {
+        "MG-43 Machine Gun": {
+            "id": 934703916,
+            "description": "A machine gun designed for stationary use. Trades higher power for increased recoil and reduced accuracy.",
+            "description_long": "",
+            "button_combination": [
+                "down",
+                "left",
+                "down",
+                "up",
+                "right"
+            ],
+            "uses": -1,
+            "spawn_time": 3.0,
+            "extra_travel_time": 4.0,
+            "cooldown": 480.0,
+            "cooldown_type": "individual",
+            "call_in_type": "throw",
+            "beacon_colour": "blue",
+            "tags": [
+                "SUPPORT WEAPON",
+                "STATIONARY RELOAD"
+            ]
+        },
+        "AC-8 Autocannon": {
+            "id": 841182351,
+            "description": "A fully-automatic cannon effective against light vehicle armor. Includes support backpack required for reloading.",
+            "description_long": "A fully automatic 20mm cannon fed from a hopper containing up to two clips of 5 shots each at a time. Extremely flexible battlefield role due to the amount of variable ammunition available. The standard round is an Armor Piercing High Explosive Tracer great against heavy infantry and light vehicles. But other ammunition offers everything from anti-air capabilities to anti-tank.",
+            "button_combination": [
+                "down",
+                "left",
+                "down",
+                "up",
+                "up",
+                "right"
+            ],
+            "uses": -1,
+            "spawn_time": 3.0,
+            "extra_travel_time": 4.0,
+            "cooldown": 480.0,
+            "cooldown_type": "individual",
+            "call_in_type": "throw",
+            "beacon_colour": "blue",
+            "tags": [
+                "SUPPORT WEAPON",
+                "EXPLOSIVE",
+                "HEAVY ARMOR PENETRATING",
+                "ROUNDS RELOAD",
+                "TEAM WEAPON",
+                "LIGHT ANTI-TANK"
+            ]
+        },
+        "RS-422 Railgun": {
+            "id": 295440526,
+            "description": "An experimental weapon which prioritizes armor penetration. Must be charged between shots - so choose targets carefully.",
+            "description_long": "",
+            "button_combination": [
+                "down",
+                "right",
+                "down",
+                "up",
+                "left",
+                "right"
+            ],
+            "uses": -1,
+            "spawn_time": 3.0,
+            "extra_travel_time": 4.0,
+            "cooldown": 480.0,
+            "cooldown_type": "individual",
+            "call_in_type": "throw",
+            "beacon_colour": "blue",
+            "tags": [
+                "SUPPORT WEAPON",
+                "HEAVY ARMOR PENETRATING",
+                "CHARGEUP"
+            ]
+        },
+        "GR-8 Recoilless Rifle": {
+            "id": 1594211884,
+            "description": "A recoilless rifle effective against vehicle armor. Includes support backpack required for reloading.",
+            "description_long": "Used as the Super Earth Armed Forces standard answer to armored opposition, the recoilless rifle offers great anti armor capabilities in a very portable package. The weapon system requires support ammunition carried in a separate backpack and is best operated as a two man team with the loader carrying ammunition. The weapon can be reloaded by the weapon operator in a pinch should he have ammunition available.",
+            "button_combination": [
+                "down",
+                "left",
+                "right",
+                "right",
+                "left"
+            ],
+            "uses": -1,
+            "spawn_time": 3.0,
+            "extra_travel_time": 4.0,
+            "cooldown": 480.0,
+            "cooldown_type": "individual",
+            "call_in_type": "throw",
+            "beacon_colour": "blue",
+            "tags": [
+                "SUPPORT WEAPON",
+                "ANTI-TANK",
+                "TEAM WEAPON"
+            ]
+        },
+        "APW-1 Anti-Materiel Rifle": {
+            "id": 376960160,
+            "description": "A high-caliber sniper rifle effective over long distances against light vehicle armor. This rifle must be aimed downscope.",
+            "description_long": "A high caliber sniper rifle capable of killing most infantry and other light targets with a single well placed shot. Even capable of disabling lighter vehicles by shooting out the engine, tires, or tracks.",
+            "button_combination": [
+                "down",
+                "left",
+                "right",
+                "up",
+                "down"
+            ],
+            "uses": -1,
+            "spawn_time": 3.0,
+            "extra_travel_time": 4.0,
+            "cooldown": 480.0,
+            "cooldown_type": "individual",
+            "call_in_type": "throw",
+            "beacon_colour": "blue",
+            "tags": [
+                "SUPPORT WEAPON",
+                "HEAVY ARMOR PENETRATING",
+                "STATIONARY RELOAD"
+            ]
+        },
+        "EAT-17 Expendable Anti-Tank": {
+            "id": 1207425221,
+            "description": "A single-use weapon specialized for damaging vehicle armor. Discarded after every use.",
+            "description_long": "The Expendable Anti-Tank is a one shot support weapon specialized at taking out armored targets. Though you can carry only one, they are cheap and easy to deploy and can serve as a great on demand anti-armor weapon should you encounter unexpected enemy armor.",
+            "button_combination": [
+                "down",
+                "down",
+                "left",
+                "up",
+                "right"
+            ],
+            "uses": -1,
+            "spawn_time": 2.0,
+            "extra_travel_time": 3.0,
+            "cooldown": 70.0,
+            "cooldown_type": "individual",
+            "call_in_type": "throw",
+            "beacon_colour": "blue",
+            "tags": [
+                "SUPPORT WEAPON",
+                "EXPENDABLE",
+                "HEAVY ARMOR PENETRATING",
+                "ANTI-TANK"
+            ]
+        },
+        "MLS-4X Commando": {
+            "id": 3212037062,
+            "description": "An expendable missile launcher equipped with four laser-guided missiles.",
+            "description_long": "",
+            "button_combination": [
+                "down",
+                "left",
+                "up",
+                "down",
+                "right"
+            ],
+            "uses": -1,
+            "spawn_time": 3.0,
+            "extra_travel_time": 4.0,
+            "cooldown": 120.0,
+            "cooldown_type": "individual",
+            "call_in_type": "throw",
+            "beacon_colour": "blue",
+            "tags": [
+                "SUPPORT WEAPON",
+                "MEDIUM ARMOR PENETRATING",
+                "GUIDED",
+                "EXPENDABLE"
+            ]
+        },
+        "FLAM-40 Flamethrower": {
+            "id": 1944161163,
+            "description": "An incendiary weapon for close range. Will ignite targets, terrain, and any flammable teammates.",
+            "description_long": "",
+            "button_combination": [
+                "down",
+                "left",
+                "up",
+                "down",
+                "up"
+            ],
+            "uses": -1,
+            "spawn_time": 3.0,
+            "extra_travel_time": 4.0,
+            "cooldown": 480.0,
+            "cooldown_type": "individual",
+            "call_in_type": "throw",
+            "beacon_colour": "blue",
+            "tags": [
+                "SUPPORT WEAPON",
+                "MEDIUM ARMOR PENETRATING",
+                "INCENDIARY"
+            ]
+        },
+        "MG-206 Heavy Machine Gun": {
+            "id": 4038802832,
+            "description": "A very powerful but difficult-to-wield machine gun with intense recoil.",
+            "description_long": "",
+            "button_combination": [
+                "down",
+                "left",
+                "up",
+                "down",
+                "down"
+            ],
+            "uses": -1,
+            "spawn_time": 3.0,
+            "extra_travel_time": 4.0,
+            "cooldown": 480.0,
+            "cooldown_type": "individual",
+            "call_in_type": "throw",
+            "beacon_colour": "blue",
+            "tags": [
+                "SUPPORT WEAPON",
+                "MEDIUM ARMOR PENETRATING",
+                "STATIONARY RELOAD"
+            ]
+        },
+        "M-105 Stalwart": {
+            "id": 1978117092,
+            "description": "A compact, low caliber machine gun. Trades power for ease of use, with faster reloading than heavier machine guns.",
+            "description_long": "",
+            "button_combination": [
+                "down",
+                "left",
+                "down",
+                "up",
+                "up",
+                "left"
+            ],
+            "uses": -1,
+            "spawn_time": 3.0,
+            "extra_travel_time": 4.0,
+            "cooldown": 480.0,
+            "cooldown_type": "individual",
+            "call_in_type": "throw",
+            "beacon_colour": "blue",
+            "tags": []
+        },
+        "RL-77 Airburst Rocket Launcher": {
+            "id": 3201417018,
+            "description": "Fires a rocket that detonates within proximity of a target, and deploys a cluster of explosive bomblets.",
+            "description_long": "",
+            "button_combination": [
+                "down",
+                "up",
+                "up",
+                "left",
+                "right"
+            ],
+            "uses": -1,
+            "spawn_time": 3.0,
+            "extra_travel_time": 4.0,
+            "cooldown": 480.0,
+            "cooldown_type": "individual",
+            "call_in_type": "throw",
+            "beacon_colour": "blue",
+            "tags": [
+                "SUPPORT WEAPON",
+                "MEDIUM ARMOR PENETRATING",
+                "TEAM WEAPON",
+                "STATIONARY RELOAD"
+            ]
+        },
+        "FAF-14 Spear": {
+            "id": 202236804,
+            "description": "An anti-tank homing missile which must lock onto its target before launch. Effective against large and armored enemies.",
+            "description_long": "",
+            "button_combination": [
+                "down",
+                "down",
+                "up",
+                "down",
+                "down"
+            ],
+            "uses": -1,
+            "spawn_time": 3.0,
+            "extra_travel_time": 4.0,
+            "cooldown": 480.0,
+            "cooldown_type": "individual",
+            "call_in_type": "throw",
+            "beacon_colour": "blue",
+            "tags": [
+                "ANTI-TANK",
+                "GUIDED",
+                "TEAM WEAPON"
+            ]
+        },
+        "StA-X3 W.A.S.P. Launcher": {
+            "id": "UNKNOWN",
+            "description": "A versatile missile launcher loaded with seven lock-on homing missiles. These can either be fired from the launcher directly or as an airburst. Includes support backpack required for reloading.\nProduced by St\u00e5l Arms.",
+            "description_long": "",
+            "button_combination": [
+                "down",
+                "down",
+                "up",
+                "down",
+                "right"
+            ],
+            "uses": -1,
+            "spawn_time": 3.0,
+            "extra_travel_time": 4.0,
+            "cooldown": 480.0,
+            "cooldown_type": "individual",
+            "call_in_type": "throw",
+            "beacon_colour": "blue",
+            "tags": [
+                "ANTI-TANK",
+                "GUIDED",
+                "TEAM WEAPON"
+            ]
+        }
+    },
+    "Orbital Cannons": {
+        "Orbital Gatling Barrage": {
+            "id": 1078307866,
+            "description": "A barrage of high explosive rounds, fired from the Destroyer's high speed rotary autocannons.",
+            "description_long": " The best minds of Super Earth have over the years realized that rotary weapon systems shoot, a lot. They have since conceived of an orbital version of the rotary weapons commonly mounted on Helldiver vehicles and Hellpod stratagems.",
+            "button_combination": [
+                "right",
+                "down",
+                "left",
+                "up",
+                "up"
+            ],
+            "uses": -1,
+            "spawn_time": 2.0,
+            "extra_travel_time": 0.0,
+            "cooldown": 70.0,
+            "cooldown_type": "individual",
+            "call_in_type": "throw",
+            "beacon_colour": "red",
+            "tags": [
+                "ORBITAL",
+                "HEAVY ARMOR PENETRATING"
+            ]
+        },
+        "Orbital Airburst Strike": {
+            "id": 2831720448,
+            "description": "A projectile which explodes while airborne, creating a deadly rain of shrapnel. Not effective against heavy armor.",
+            "description_long": "The AIRBURST STRIKE is a single larger specialized projectile fired from the Helldiver Destroyer's 408mm cannons. The shot is programmed to explode above the ground and separate into multiple flechettes, each with their own explosive warhead. Extremely effective against unarmored infantry, the fact that it's a single round allows for fairly frequent firing.",
+            "button_combination": [
+                "right",
+                "right",
+                "right"
+            ],
+            "uses": -1,
+            "spawn_time": 2.0,
+            "extra_travel_time": 0.0,
+            "cooldown": 100.0,
+            "cooldown_type": "individual",
+            "call_in_type": "throw",
+            "beacon_colour": "red",
+            "tags": [
+                "ORBITAL",
+                "MEDIUM ARMOR PENETRATING",
+                "EXPLOSIVE"
+            ]
+        },
+        "Orbital 120mm HE Barrage": {
+            "id": 2928105092,
+            "description": "A precision artillery salvo over a small area, perfect for taking out concentrated enemy units.",
+            "description_long": " A precision artillery barrage fired from the 84mm Atlas Gatling cannon of a Helldiver Destroyer in low orbit. Handy for when you have to level smaller areas of the battlefield or take out enemy concentrations. The shells themselves are capable of destroying armored targets, but requires a direct hit to do any significant amount of damage making it unreliable as an anti-tank option.",
+            "button_combination": [
+                "right",
+                "right",
+                "down",
+                "left",
+                "right",
+                "down"
+            ],
+            "uses": -1,
+            "spawn_time": 5.0,
+            "extra_travel_time": 0.0,
+            "cooldown": 180.0,
+            "cooldown_type": "individual",
+            "call_in_type": "throw",
+            "beacon_colour": "red",
+            "tags": [
+                "ORBITAL",
+                "HEAVY ARMOR PENETRATING",
+                "EXPLOSIVE"
+            ]
+        },
+        "Orbital Napalm Barrage": {
+            "id": 691091357,
+            "description": "Launches a prolonged barrage of napalm shells over a wide area, setting a swath of land ablaze in mere moments.",
+            "description_long": "",
+            "button_combination": [
+                "right",
+                "right",
+                "down",
+                "left",
+                "right",
+                "up"
+            ],
+            "uses": -1,
+            "spawn_time": 5.0,
+            "extra_travel_time": 0.0,
+            "cooldown": 240.0,
+            "cooldown_type": "individual",
+            "call_in_type": "throw",
+            "beacon_colour": "red",
+            "tags": [
+                "ORBITAL",
+                "INCENDIARY",
+                "HEAVY ARMOR PENETRATING",
+                "EXPLOSIVE"
+            ]
+        },
+        "Orbital 380mm HE Barrage": {
+            "id": 4158531749,
+            "description": "A prolonged barrage, wreaking extended destruction over a large area. Communication with teammates is advised.",
+            "description_long": " A blanket artillery barrage fired by the 408mm cannons of the Helldiver Destroyer in low orbit. The barrage carries on for a significant amount of time and will obliterate most things in the targeted area. Extreme caution is advised when using this stratagem near strategic objectives and friendly lines as it can wander slightly. ",
+            "button_combination": [
+                "right",
+                "down",
+                "up",
+                "up",
+                "left",
+                "down",
+                "down"
+            ],
+            "uses": -1,
+            "spawn_time": 6.0,
+            "extra_travel_time": 0.0,
+            "cooldown": 240.0,
+            "cooldown_type": "individual",
+            "call_in_type": "throw",
+            "beacon_colour": "red",
+            "tags": [
+                "ORBITAL",
+                "HEAVY ARMOR PENETRATING"
+            ]
+        },
+        "Orbital Walking Barrage": {
+            "id": 808823003,
+            "description": "A linear artillery barrage which moves at intervals, driving the enemy out from cover while allowing an advance.",
+            "description_long": " A linear artillery barrage fired by the 408mm cannons of the Helldiver Destroyer in low orbit. The barrage continues down a line up to approximately 50 meters, obliterating most things in its way. Extreme caution is advised when using this stratagem in the way of strategic objectives and friendly lines.",
+            "button_combination": [
+                "right",
+                "down",
+                "right",
+                "down",
+                "right",
+                "down"
+            ],
+            "uses": -1,
+            "spawn_time": 3.0,
+            "extra_travel_time": 0.0,
+            "cooldown": 240.0,
+            "cooldown_type": "individual",
+            "call_in_type": "throw",
+            "beacon_colour": "red",
+            "tags": [
+                "ORBITAL",
+                "HEAVY ARMOR PENETRATING"
+            ]
+        },
+        "Orbital Laser": {
+            "id": 1520012896,
+            "description": "The Destroyer's laser cannon will sweep over the designated area, vaporizing all targets within the effective radius.",
+            "description_long": " The O-X32 is an experimental anti ship laser used for pinpoint strikes against enemy weak points. The laser is so energy dense that it has no issue cutting through the atmosphere of most planets and has found great use as a support weapon against ground targets. The laser generates an extreme amount of heat and the process of cooling the heat exchangers down takes a substantial amount of time.",
+            "button_combination": [
+                "right",
+                "down",
+                "up",
+                "right",
+                "down"
+            ],
+            "uses": 3,
+            "spawn_time": 2.0,
+            "extra_travel_time": 0.0,
+            "cooldown": 300.0,
+            "cooldown_type": "individual",
+            "call_in_type": "throw",
+            "beacon_colour": "red",
+            "tags": [
+                "ORBITAL",
+                "GUIDED",
+                "HEAVY ARMOR PENETRATING"
+            ]
+        },
+        "Orbital Railcannon Strike": {
+            "id": 201738752,
+            "description": "A high-velocity railcannon round fired at the largest target in close proximity to the beacon. Targeting is automatic.",
+            "description_long": "",
+            "button_combination": [
+                "right",
+                "up",
+                "down",
+                "down",
+                "right"
+            ],
+            "uses": -1,
+            "spawn_time": 1.0,
+            "extra_travel_time": 0.0,
+            "cooldown": 210.0,
+            "cooldown_type": "individual",
+            "call_in_type": "throw",
+            "beacon_colour": "red",
+            "tags": [
+                "ORBITAL",
+                "GUIDED",
+                "ANTI-TANK",
+                "HEAVY ARMOR PENETRATING"
+            ]
+        }
+    },
+    "Hangar": {
+        "Lift-850 Jump Pack": {
+            "id": "UNKNOWN",
+            "description": "Enables the user to jump higher than 'gravity' and 'safety' would normally allow. Must be charged before use.",
+            "description_long": "",
+            "button_combination": [
+                "down",
+                "up",
+                "up",
+                "down",
+                "up"
+            ],
+            "uses": 1,
+            "spawn_time": 5.0,
+            "extra_travel_time": 4.0,
+            "cooldown": 90.0,
+            "cooldown_type": "shared_team",
+            "call_in_type": "throw",
+            "beacon_colour": "blue",
+            "tags": []
+        },
+        "Eagle Strafing Run": {
+            "id": 2025422424,
+            "description": "A strafing run of the battlefield to clear small targets, delivered almost instantly.",
+            "description_long": " The F-89 EAGLE is a jet fighter capable of carrying large amounts of ordnance as well as both atmospheric and limited spaceflight. The F-89 comes equipped with a 23mm cannon that can be used for strafing runs against ground targets. \nOnce the Eagle is assigned to follow you into combat you can choose additional payloads for it to carry. The EAGLE is capable of delivering its ordnance with very low time intervals, but has limited carrying capacity and needs to be sent back to be rearmed should it run out. \nThe eagle is also susceptible to enemy anti-air weaponry and caution is advised when calling in strikes near enemy AA.",
+            "button_combination": [
+                "up",
+                "right",
+                "right"
+            ],
+            "uses": 4,
+            "spawn_time": 0.0,
+            "extra_travel_time": 0.0,
+            "cooldown": 15.0,
+            "cooldown_type": "individual",
+            "call_in_type": "throw",
+            "beacon_colour": "red",
+            "tags": [
+                "EAGLE",
+                "MEDIUM ARMOR PENETRATING"
+            ]
+        },
+        "Eagle 500kg Bomb": {
+            "id": 1982351727,
+            "description": "A large bomb obliterating almost any target close to impact. Make sure to clear the area.",
+            "description_long": " The DMB-500 is a evolution on the classic bombs of human history. The approach of not having any guidance system in the bomb has allowed for packing it with unprecedented amounts of conventional explosives, making for a very large explosion and resulting crater. While the bomb is not specifically designed to take out armored targets, the explosion is massive enough that a close hit will kill almost anything, armored or not. The drawback is that the Eagle pilot has to take more care when delivering the payload to make sure that the target is hit, this increases the response time of the bomb in comparison to other Eagle payloads. ",
+            "button_combination": [
+                "up",
+                "right",
+                "down",
+                "down",
+                "down"
+            ],
+            "uses": 1,
+            "spawn_time": 0.0,
+            "extra_travel_time": 0.0,
+            "cooldown": 15.0,
+            "cooldown_type": "individual",
+            "call_in_type": "throw",
+            "beacon_colour": "red",
+            "tags": [
+                "EAGLE",
+                "HEAVY ARMOR PENETRATING",
+                "EXPLOSIVE"
+            ]
+        },
+        "Eagle 110mm Rocket Pods": {
+            "id": "UNKNOWN",
+            "description": "A barrage of rocket pods, which the Eagle pilot will release on the largest target near the stratagem beacon.",
+            "description_long": " A pod of 110mm DRAGON rockets used to strike at armored targets. Your Eagle pilot will try to pick the best target available based on proximity to your beacon and armor level. The rockets have no guidance and will not always hit the target but this is usually compensated by firing a substantial amount of rockets. The amount of rockets means there might be significant collateral damage in proximity to the target.",
+            "button_combination": [
+                "up",
+                "right",
+                "up",
+                "left"
+            ],
+            "uses": 3,
+            "spawn_time": 0.0,
+            "extra_travel_time": 0.0,
+            "cooldown": 15.0,
+            "cooldown_type": "individual",
+            "call_in_type": "throw",
+            "beacon_colour": "red",
+            "tags": [
+                "EAGLE",
+                "ANTI-TANK",
+                "GUIDED"
+            ]
+        },
+        "Eagle Airstrike": {
+            "id": 700547364,
+            "description": "A barrage of bombs creating a non-targeted carpet of explosions.",
+            "description_long": " A rack of semi-guided 100-kg bombs, intended to be dropped on a area target in a high speed flyby. The bomb pattern produces a carpet of explosions killing most infantry, but has a harder time affecting armored targets unless they are directly hit by one of the bombs. A great option for creating pause in an enemy advance or taking out larger concentrations of infantry.",
+            "button_combination": [
+                "up",
+                "right",
+                "down",
+                "right"
+            ],
+            "uses": 2,
+            "spawn_time": 0.0,
+            "extra_travel_time": 0.0,
+            "cooldown": 15.0,
+            "cooldown_type": "individual",
+            "call_in_type": "throw",
+            "beacon_colour": "red",
+            "tags": [
+                "EAGLE",
+                "MEDIUM ARMOR PENETRATING"
+            ]
+        },
+        "Eagle Napalm Airstrike": {
+            "id": 1427614189,
+            "description": "A barrage of napalm bombs, creating a wall of fire which will stop the enemy in their tracks.",
+            "description_long": " The Napalm airstrike drops a row of bombs containing an extremely flammable liquid with a fairly long burn time, effectively creating a wall of fire. Great for stopping the enemy in their tracks as a universal rule for all life in the galaxy seems to be to avoid fire. The fire doesn't burn hot enough to do any significant damage to heavily armored targets.",
+            "button_combination": [
+                "up",
+                "right",
+                "down",
+                "up"
+            ],
+            "uses": 2,
+            "spawn_time": 0.0,
+            "extra_travel_time": 0.0,
+            "cooldown": 15.0,
+            "cooldown_type": "individual",
+            "call_in_type": "throw",
+            "beacon_colour": "red",
+            "tags": [
+                "EAGLE",
+                "INCENDIARY"
+            ]
+        },
+        "Eagle Cluster Bomb": {
+            "id": 1220665708,
+            "description": "",
+            "description_long": "",
+            "button_combination": [
+                "up",
+                "right",
+                "up",
+                "right",
+                "up",
+                "right"
+            ],
+            "uses": 1,
+            "spawn_time": 0.0,
+            "extra_travel_time": 0.0,
+            "cooldown": 900.0,
+            "cooldown_type": "shared_team",
+            "call_in_type": "landing_zone_beacon",
+            "beacon_colour": "red",
+            "tags": []
+        },
+        "Eagle Smoke Strike": {
+            "id": 1062482104,
+            "description": "A barrage of smoke grenades, creating a thick smoke screen to block enemies' line of sight.",
+            "description_long": "",
+            "button_combination": [
+                "up",
+                "right",
+                "up",
+                "down"
+            ],
+            "uses": 2,
+            "spawn_time": 0.0,
+            "extra_travel_time": 0.0,
+            "cooldown": 15.0,
+            "cooldown_type": "individual",
+            "call_in_type": "throw",
+            "beacon_colour": "red",
+            "tags": [
+                "EAGLE",
+                "SMOKE"
+            ]
+        },
+        "M-102 Fast Recon Vehicle": {
+            "id": "UNKNOWN",
+            "description": "A lightly-armored reconnaissance vehicle mounted with a heavy machinegun. ",
+            "description_long": "",
+            "button_combination": [
+                "left",
+                "down",
+                "right",
+                "down",
+                "right",
+                "down",
+                "up"
+            ],
+            "uses": -1,
+            "spawn_time": 0.0,
+            "extra_travel_time": 13.0,
+            "cooldown": 480.0,
+            "cooldown_type": "individual",
+            "call_in_type": "throw",
+            "beacon_colour": "blue",
+            "tags": []
+        }
+    },
+    "Bridge": {
+        "E/GL-21 Grenadier Battlement": {
+            "id": 1736727415,
+            "description": "A stationary ballistic cover with a mounted grenade launcher. Can protect multiple Helldivers from small arms fire.",
+            "description_long": "",
+            "button_combination": [
+                "down",
+                "right",
+                "down",
+                "left",
+                "right"
+            ],
+            "uses": -1,
+            "spawn_time": 3.0,
+            "extra_travel_time": 0.0,
+            "cooldown": 120.0,
+            "cooldown_type": "individual",
+            "call_in_type": "throw",
+            "beacon_colour": "blue",
+            "tags": []
+        },
+        "E/MG-101 HMG Emplacement": {
+            "id": 3827587060,
+            "description": "A manned gun emplacement offering superior firepower against lightly armored targets. Slow to turn, so place it wisely.",
+            "description_long": " The E/HMG-23 HEAVY MACHINEGUN is a turret requiring a crew of 1, armed with two highly destructive 12.5mm machineguns. The emplacement is extremely good at handling large amounts of medium armored enemies. Caution should be used when manning the E/HMG-23 as crew members are exposed to enemy fire while crewing the weapon.",
+            "button_combination": [
+                "down",
+                "up",
+                "left",
+                "right",
+                "right",
+                "left"
+            ],
+            "uses": -1,
+            "spawn_time": 3.0,
+            "extra_travel_time": 0.0,
+            "cooldown": 180.0,
+            "cooldown_type": "individual",
+            "call_in_type": "throw",
+            "beacon_colour": "blue",
+            "tags": [
+                "MANNED"
+            ]
+        },
+        "Orbital Precision Strike": {
+            "id": 2391781446,
+            "description": "A single precision shot from the Destroyer's 'ATLAS' cannon.",
+            "description_long": " Super Earth issued a contract for creation of a new main armament for the Super Destroyers of the HELLDIVERS. The contract was won by MORGUNSON who developed the LIBERTY CANNON able to deliver precise shots from relatively long distances delivering various kinds of ammunition.",
+            "button_combination": [
+                "right",
+                "right",
+                "up"
+            ],
+            "uses": -1,
+            "spawn_time": 2.0,
+            "extra_travel_time": 0.0,
+            "cooldown": 90.0,
+            "cooldown_type": "individual",
+            "call_in_type": "throw",
+            "beacon_colour": "red",
+            "tags": [
+                "ORBITAL",
+                "HEAVY ARMOR PENETRATING",
+                "EXPLOSIVE"
+            ]
+        },
+        "Orbital Gas Strike": {
+            "id": 1134323464,
+            "description": "A projectile which releases a cloud of caustic gas, blinding and slowing most enemies.",
+            "description_long": "",
+            "button_combination": [
+                "right",
+                "right",
+                "down",
+                "right"
+            ],
+            "uses": -1,
+            "spawn_time": 2.0,
+            "extra_travel_time": 0.0,
+            "cooldown": 75.0,
+            "cooldown_type": "individual",
+            "call_in_type": "throw",
+            "beacon_colour": "red",
+            "tags": [
+                "ORBITAL",
+                "POISON",
+                "HEAVY ARMOR PENETRATING"
+            ]
+        },
+        "Orbital Smoke Strike": {
+            "id": 1363304012,
+            "description": "Creates a large, thick smoke screen to block targets' line of sight.",
+            "description_long": "",
+            "button_combination": [
+                "right",
+                "right",
+                "down",
+                "up"
+            ],
+            "uses": -1,
+            "spawn_time": 2.0,
+            "extra_travel_time": 0.0,
+            "cooldown": 100.0,
+            "cooldown_type": "individual",
+            "call_in_type": "throw",
+            "beacon_colour": "red",
+            "tags": [
+                "ORBITAL",
+                "SMOKE"
+            ]
+        },
+        "Orbital EMS Strike": {
+            "id": 3551336597,
+            "description": "A \"compliance weapon\" to modify enemy behavior. The projectile temporarily stuns all targets within the strike radius.",
+            "description_long": " The orbital stun is a special shot fired from the Helldiver Destroyers 408mm cannons containing multiple devices that with sound, light, and electromagnetic pulses disorient and disables a wide variety of targets temporarily. While the Helldivers are trained to withstand this effect it can still severely lower your combat efficiency should you be hit, though that is preferable to death.",
+            "button_combination": [
+                "right",
+                "right",
+                "left",
+                "down"
+            ],
+            "uses": -1,
+            "spawn_time": 2.0,
+            "extra_travel_time": 0.0,
+            "cooldown": 75.0,
+            "cooldown_type": "individual",
+            "call_in_type": "throw",
+            "beacon_colour": "blue",
+            "tags": [
+                "ORBITAL",
+                "STUN"
+            ]
+        }
+    },
+    "Engineering Bay": {
+        "B-1 Supply Pack": {
+            "id": 336620886,
+            "description": "Supply boxes containing ammunition, with a backpack that allows the user to distribute boxes to fellow Helldivers.",
+            "description_long": "",
+            "button_combination": [
+                "down",
+                "left",
+                "down",
+                "up",
+                "up",
+                "down"
+            ],
+            "uses": -1,
+            "spawn_time": 5.0,
+            "extra_travel_time": 0.0,
+            "cooldown": 480.0,
+            "cooldown_type": "individual",
+            "call_in_type": "throw",
+            "beacon_colour": "blue",
+            "tags": []
+        },
+        "SH-20 Ballistic Shield Backpack": {
+            "id": 2369837022,
+            "description": "A backpack which can be wielded as a one-handed ballistic shield, protecting against small arms fire.",
+            "description_long": "",
+            "button_combination": [
+                "down",
+                "left",
+                "down",
+                "down",
+                "up",
+                "left"
+            ],
+            "uses": -1,
+            "spawn_time": 5.0,
+            "extra_travel_time": 0.0,
+            "cooldown": 300.0,
+            "cooldown_type": "individual",
+            "call_in_type": "throw",
+            "beacon_colour": "blue",
+            "tags": []
+        },
+        "SH-32 Shield Generator Pack": {
+            "id": 485637029,
+            "description": "A stationary energy shield which provides cover against projectiles. Has a limited lifetime once deployed.",
+            "description_long": "",
+            "button_combination": [
+                "down",
+                "down",
+                "left",
+                "right",
+                "left",
+                "right"
+            ],
+            "uses": -1,
+            "spawn_time": 0.0,
+            "extra_travel_time": 0.0,
+            "cooldown": 90.0,
+            "cooldown_type": "individual",
+            "call_in_type": "throw",
+            "beacon_colour": "blue",
+            "tags": []
+        },
+        "AX/LAS-5 \"Guard Dog\" Rover": {
+            "id": 4277455125,
+            "description": "An autonomous drone equipped with a laser rifle, providing 360\u00b0 cover. Returns to backpack to cool down.",
+            "description_long": "[TEXT NOT YET WRITTETN]",
+            "button_combination": [
+                "down",
+                "up",
+                "left",
+                "up",
+                "right",
+                "right"
+            ],
+            "uses": -1,
+            "spawn_time": 5.0,
+            "extra_travel_time": 0.0,
+            "cooldown": 480.0,
+            "cooldown_type": "individual",
+            "call_in_type": "throw",
+            "beacon_colour": "blue",
+            "tags": [
+                "AUTONOMOUS"
+            ]
+        },
+        "MD-6 Anti-Personnel Minefield": {
+            "id": 3039399791,
+            "description": "Deploys a defensive anti-personnel minefield, to halt enemy advance.",
+            "description_long": "",
+            "button_combination": [
+                "down",
+                "left",
+                "up",
+                "right"
+            ],
+            "uses": -1,
+            "spawn_time": 3.0,
+            "extra_travel_time": 0.0,
+            "cooldown": 120.0,
+            "cooldown_type": "individual",
+            "call_in_type": "throw",
+            "beacon_colour": "red",
+            "tags": []
+        },
+        "MD-14 Incendiary Mines": {
+            "id": "UNKNOWN",
+            "description": "Deploys a defensive incendiary minefield, which will set both terrain and targets alight when triggered.",
+            "description_long": "",
+            "button_combination": [
+                "down",
+                "left",
+                "left",
+                "down"
+            ],
+            "uses": -1,
+            "spawn_time": 3.0,
+            "extra_travel_time": 0.0,
+            "cooldown": 120.0,
+            "cooldown_type": "individual",
+            "call_in_type": "throw",
+            "beacon_colour": "red",
+            "tags": []
+        },
+        "MD-17 Anti-Tank Mines": {
+            "id": 783152568,
+            "description": "Scatters powerful anti-tank mines that deal heavy, armor-penetrating damage. Minefield is less densely packed relative to smaller mines.",
+            "description_long": "",
+            "button_combination": [
+                "down",
+                "left",
+                "up",
+                "up"
+            ],
+            "uses": -1,
+            "spawn_time": 3.0,
+            "extra_travel_time": 0.0,
+            "cooldown": 120.0,
+            "cooldown_type": "individual",
+            "call_in_type": "throw",
+            "beacon_colour": "red",
+            "tags": [
+                "HEAVY ARMOR PENETRATING",
+                "ANTI-TANK"
+            ]
+        },
+        "MD-8 Gas Mines": {
+            "id": 3564779466,
+            "description": "Deploys mines that release gas on activation, temporarily blinding and slowing most enemies.",
+            "description_long": "",
+            "button_combination": [
+                "down",
+                "left",
+                "left",
+                "right"
+            ],
+            "uses": -1,
+            "spawn_time": 3.0,
+            "extra_travel_time": 0.0,
+            "cooldown": 120.0,
+            "cooldown_type": "individual",
+            "call_in_type": "throw",
+            "beacon_colour": "red",
+            "tags": []
+        },
+        "Arc-3 Arc Thrower": {
+            "id": "UNKNOWN",
+            "description": "Projects an arc of lightning at close range. Charges up to project bolts, and may discharge through multiple targets.",
+            "description_long": "",
+            "button_combination": [
+                "down",
+                "right",
+                "down",
+                "up",
+                "left",
+                "left"
+            ],
+            "uses": -1,
+            "spawn_time": 3.0,
+            "extra_travel_time": 4.0,
+            "cooldown": 480.0,
+            "cooldown_type": "individual",
+            "call_in_type": "throw",
+            "beacon_colour": "blue",
+            "tags": [
+                "SUPPORT WEAPON",
+                "ARC",
+                "LIGHT ARMOR PENETRATING",
+                "CHARGEUP"
+            ]
+        },
+        "GL-21 Grenade Launcher": {
+            "id": 1159284196,
+            "description": "A grenade launcher effective against armored infantry. Not intended for use against vehicle armor or fortified buildings.",
+            "description_long": "A fully automatic grenade launcher capable of extreme Anti-Personnel destruction. The grenades have an arming time to prevent explosions that might occur close to the user, this will cause the grenades to ricochet so use caution when firing at close range.",
+            "button_combination": [
+                "down",
+                "left",
+                "up",
+                "left",
+                "down"
+            ],
+            "uses": -1,
+            "spawn_time": 3.0,
+            "extra_travel_time": 4.0,
+            "cooldown": 480.0,
+            "cooldown_type": "individual",
+            "call_in_type": "throw",
+            "beacon_colour": "blue",
+            "tags": [
+                "SUPPORT WEAPON",
+                "EXPLOSIVE"
+            ]
+        },
+        "LAS-98 Laser Cannon": {
+            "id": 961518079,
+            "description": "A laser weapon firing a continuous beam. Doesn't require ammunition, but will need heat sink replaced if it overheats.",
+            "description_long": "",
+            "button_combination": [
+                "down",
+                "left",
+                "down",
+                "up",
+                "left"
+            ],
+            "uses": -1,
+            "spawn_time": 3.0,
+            "extra_travel_time": 4.0,
+            "cooldown": 480.0,
+            "cooldown_type": "individual",
+            "call_in_type": "throw",
+            "beacon_colour": "blue",
+            "tags": [
+                "SUPPORT WEAPON",
+                "HEAVY ARMOR PENETRATING",
+                "STATIONARY RELOAD",
+                "HEAT",
+                "BEAM"
+            ]
+        },
+        "LAS-99 Quasar Cannon": {
+            "id": 1597673685,
+            "description": "Charges up to fire a powerful, explosive energy burst. Has a long cooldown period after firing.",
+            "description_long": "",
+            "button_combination": [
+                "down",
+                "down",
+                "up",
+                "left",
+                "right"
+            ],
+            "uses": -1,
+            "spawn_time": 3.0,
+            "extra_travel_time": 4.0,
+            "cooldown": 480.0,
+            "cooldown_type": "individual",
+            "call_in_type": "throw",
+            "beacon_colour": "blue",
+            "tags": [
+                "SUPPORT WEAPON",
+                "HEAVY ARMOR PENETRATING",
+                "ANTI-TANK",
+                "HEAT"
+            ]
+        }
+    },
+    "Robotics Workshop": {
+        "AX/AR-23 \"Guard Dog\"": {
+            "id": 3791047893,
+            "description": "An autonomous drone equipped with a Liberator assault rifle, providing 360\u00b0 cover. Returns to backpack to rearm.",
+            "description_long": "",
+            "button_combination": [
+                "down",
+                "up",
+                "left",
+                "up",
+                "right",
+                "down"
+            ],
+            "uses": -1,
+            "spawn_time": 5.0,
+            "extra_travel_time": 0.0,
+            "cooldown": 480.0,
+            "cooldown_type": "individual",
+            "call_in_type": "throw",
+            "beacon_colour": "blue",
+            "tags": [
+                "AUTONOMOUS"
+            ]
+        },
+        "EXO-45 Patriot Exosuit": {
+            "id": 3857719901,
+            "description": "A heavily-armored walking exosuit equipped with a rocket launcher and a heavy machine gun.",
+            "description_long": "",
+            "button_combination": [
+                "left",
+                "down",
+                "right",
+                "up",
+                "left",
+                "down",
+                "down"
+            ],
+            "uses": 3,
+            "spawn_time": 0.0,
+            "extra_travel_time": 13.0,
+            "cooldown": 600.0,
+            "cooldown_type": "individual",
+            "call_in_type": "throw",
+            "beacon_colour": "blue",
+            "tags": [
+                "GUIDED"
+            ]
+        },
+        "A/MLS-4X Rocket Sentry": {
+            "id": 3467463065,
+            "description": "A powerful automated turret, effective against armored targets. The turret will primarily aim at larger enemies.",
+            "description_long": " The A/MLS-4X ROCKET SENTRY is a valuable tool for the Helldivers as it provides autonomous anti tank capability. The Turret fires salvos of rockets and tries to asses the damage before firing again to save ammunition. Take care not to stand behind the turret due to the exhaust produced when it fires.",
+            "button_combination": [
+                "down",
+                "up",
+                "right",
+                "right",
+                "left"
+            ],
+            "uses": -1,
+            "spawn_time": 0.0,
+            "extra_travel_time": 0.0,
+            "cooldown": 150.0,
+            "cooldown_type": "individual",
+            "call_in_type": "throw",
+            "beacon_colour": "blue",
+            "tags": [
+                "AUTONOMOUS",
+                "HEAVY ARMOR PENETRATING",
+                "EXPLOSIVE"
+            ]
+        },
+        "A/MG-43 Machine Gun Sentry": {
+            "id": 1228689284,
+            "description": "An agile automated machine gun turret. Will fire at targets even if Helldivers will be caught in the crossfire.",
+            "description_long": "",
+            "button_combination": [
+                "down",
+                "up",
+                "right",
+                "right",
+                "up"
+            ],
+            "uses": -1,
+            "spawn_time": 3.0,
+            "extra_travel_time": 0.0,
+            "cooldown": 90.0,
+            "cooldown_type": "individual",
+            "call_in_type": "throw",
+            "beacon_colour": "blue",
+            "tags": [
+                "AUTONOMOUS",
+                "MEDIUM ARMOR PENETRATING"
+            ]
+        },
+        "A/G-16 Gatling Sentry": {
+            "id": 2446402932,
+            "description": "An automated turret with an extremely high rate of fire. Caution: does not check if friendly units are in line of fire.",
+            "description_long": " The A/MG-11 GATLING SENTRY is a beloved staple of the Helldivers, capable of shredding light targets en masse. Like all automated sentries it can distinguish between friend and foe and will target only enemies, but it has no safety mechanism that will prevent it from firing if a friendly is in the way of its target. It is highly recommended to stay behind the turret, though that might be difficult as it has a 360 degree field of fire.",
+            "button_combination": [
+                "down",
+                "up",
+                "right",
+                "left"
+            ],
+            "uses": -1,
+            "spawn_time": 3.0,
+            "extra_travel_time": 0.0,
+            "cooldown": 150.0,
+            "cooldown_type": "individual",
+            "call_in_type": "throw",
+            "beacon_colour": "blue",
+            "tags": [
+                "AUTONOMOUS"
+            ]
+        },
+        "A/M-12 Mortar Sentry": {
+            "id": 461790327,
+            "description": "A turret firing powerful shells in a high arc. Effective at long ranges, and able to strike at targets behind cover.",
+            "description_long": " A continuation of the early A|GL-8 grenade launcher turret, this model packs a hefty punch and has variable fire distance. The turret fires in a high arch raining shots down from above, negating cover and other things in the way. The turret normally requires line of sight to its target to do the firing but this can be removed with some clever engineering.",
+            "button_combination": [
+                "down",
+                "up",
+                "right",
+                "right",
+                "down"
+            ],
+            "uses": -1,
+            "spawn_time": 3.0,
+            "extra_travel_time": 0.0,
+            "cooldown": 180.0,
+            "cooldown_type": "individual",
+            "call_in_type": "throw",
+            "beacon_colour": "blue",
+            "tags": [
+                "AUTONOMOUS",
+                "MEDIUM ARMOR PENETRATING",
+                "EXPLOSIVE"
+            ]
+        },
+        "A/M-23 EMS Mortar Sentry": {
+            "id": 3157053145,
+            "description": "A turret firing static field generators that slow the advance of enemies.",
+            "description_long": "",
+            "button_combination": [
+                "down",
+                "up",
+                "right",
+                "down",
+                "right"
+            ],
+            "uses": -1,
+            "spawn_time": 3.0,
+            "extra_travel_time": 0.0,
+            "cooldown": 180.0,
+            "cooldown_type": "individual",
+            "call_in_type": "throw",
+            "beacon_colour": "blue",
+            "tags": [
+                "AUTONOMOUS",
+                "STUN"
+            ]
+        },
+        "A/AC-8 Autocannon Sentry": {
+            "id": 2616066963,
+            "description": "An automated cannon turret firing anti-tank ammunition over long ranges. Sacrifices agility for range and power.",
+            "description_long": "The A/AC-41 is a 40mm automatic cannon firing explosive anti-tank ammunition. The Turret is effective over long ranges and against armored targets, but has limitations when it comes to the turn speed as the servos required for the heavier than normal weight of the gun are slower. It is therefore recommended to place the turret a respectable distance from the enemy and in a position that has good fields of fire.",
+            "button_combination": [
+                "down",
+                "up",
+                "right",
+                "up",
+                "left",
+                "up"
+            ],
+            "uses": -1,
+            "spawn_time": 3.0,
+            "extra_travel_time": 0.0,
+            "cooldown": 150.0,
+            "cooldown_type": "individual",
+            "call_in_type": "throw",
+            "beacon_colour": "blue",
+            "tags": [
+                "AUTONOMOUS",
+                "HEAVY ARMOR PENETRATING",
+                "EXPLOSIVE"
+            ]
+        },
+        "EXO-49 Emancipator Exosuit": {
+            "id": 754365924,
+            "description": "A heavily-armored walking exosuit equipped with dual autocannons.",
+            "description_long": "",
+            "button_combination": [
+                "left",
+                "down",
+                "right",
+                "up",
+                "left",
+                "down",
+                "up"
+            ],
+            "uses": 3,
+            "spawn_time": 0.0,
+            "extra_travel_time": 13.0,
+            "cooldown": 600.0,
+            "cooldown_type": "individual",
+            "call_in_type": "throw",
+            "beacon_colour": "blue",
+            "tags": []
+        }
+    },
+    "Warbonds": {
+        "SH-51 Directional Shield": {
+            "id": 1382612374,
+            "description": "A one-handed device that deploys a wide energy barrier in front of the user. The barrier is semipermeable and blocks high-speed projectiles from the outside only, leaving the user free to shoot through it.",
+            "description_long": "",
+            "button_combination": [
+                "down",
+                "up",
+                "left",
+                "right",
+                "up",
+                "up"
+            ],
+            "uses": -1,
+            "spawn_time": 5.0,
+            "extra_travel_time": 0.0,
+            "cooldown": 300.0,
+            "cooldown_type": "individual",
+            "call_in_type": "throw",
+            "beacon_colour": "blue",
+            "tags": []
+        },
+        "AX/TX-13 \"Guard Dog\" Dog Breath": {
+            "id": 3484474549,
+            "description": "A drone that defends its user by firing caustic gas at nearby enemies, blinding and slowing them temporarily. Returns to backpack to refill.",
+            "description_long": "",
+            "button_combination": [
+                "down",
+                "up",
+                "left",
+                "up",
+                "right",
+                "up"
+            ],
+            "uses": -1,
+            "spawn_time": 5.0,
+            "extra_travel_time": 0.0,
+            "cooldown": 480.0,
+            "cooldown_type": "individual",
+            "call_in_type": "throw",
+            "beacon_colour": "blue",
+            "tags": [
+                "AUTONOMOUS"
+            ]
+        },
+        "B-100 Portable Hellbomb": {
+            "id": "UNKNOWN",
+            "description": "A backpack-mounted Hellbomb that can be armed by the wearer or an ally, starting a countdown. Users are recommended to remove the backpack before the countdown reaches zero.",
+            "description_long": "",
+            "button_combination": [
+                "down",
+                "right",
+                "up",
+                "up",
+                "down"
+            ],
+            "uses": -1,
+            "spawn_time": 5.0,
+            "extra_travel_time": 0.0,
+            "cooldown": 300.0,
+            "cooldown_type": "shared_team",
+            "call_in_type": "throw",
+            "beacon_colour": "blue",
+            "tags": []
+        },
+        "LIFT-182 Warp Pack": {
+            "id": 3123380863,
+            "description": "A Dark Fluid-powered backpack that generates a portable micro-wormhole. This safe and well-understood technology allows the wearer to warp short distances. Warning: do not use while pack is overloaded.",
+            "description_long": "",
+            "button_combination": [
+                "down",
+                "left",
+                "right",
+                "down",
+                "left",
+                "right"
+            ],
+            "uses": -1,
+            "spawn_time": 5.0,
+            "extra_travel_time": 0.0,
+            "cooldown": 480.0,
+            "cooldown_type": "individual",
+            "call_in_type": "throw",
+            "beacon_colour": "blue",
+            "tags": []
+        },
+        "AX/ARC-3 \"Guard Dog\" K-9": {
+            "id": "UNKNOWN",
+            "description": "A humane, autonomous drone equipped with a modified Arc Thrower. Capable of projecting arcs of lightning through multiple targets. Does not need to recharge between shots.",
+            "description_long": "",
+            "button_combination": [
+                "down",
+                "up",
+                "left",
+                "up",
+                "right",
+                "left"
+            ],
+            "uses": -1,
+            "spawn_time": 5.0,
+            "extra_travel_time": 0.0,
+            "cooldown": 480.0,
+            "cooldown_type": "individual",
+            "call_in_type": "throw",
+            "beacon_colour": "blue",
+            "tags": [
+                "AUTONOMOUS"
+            ]
+        },
+        "E/AT-12 Anti-Tank Emplacement": {
+            "id": 3106925116,
+            "description": "A powerful manned gun emplacement, capable of taking out armored targets at long ranges.",
+            "description_long": "",
+            "button_combination": [
+                "down",
+                "up",
+                "left",
+                "right",
+                "right",
+                "right"
+            ],
+            "uses": -1,
+            "spawn_time": 3.0,
+            "extra_travel_time": 0.0,
+            "cooldown": 180.0,
+            "cooldown_type": "individual",
+            "call_in_type": "throw",
+            "beacon_colour": "blue",
+            "tags": [
+                "MANNED"
+            ]
+        },
+        "TX-41 Sterelizer": {
+            "id": "UNKNOWN",
+            "description": "Atomizes caustic chemicals into a fine mist that liquifies sensitive electronics and tissues. Blinds and slows most enemies.",
+            "description_long": "",
+            "button_combination": [
+                "down",
+                "left",
+                "up",
+                "down",
+                "left"
+            ],
+            "uses": -1,
+            "spawn_time": 3.0,
+            "extra_travel_time": 4.0,
+            "cooldown": 480.0,
+            "cooldown_type": "individual",
+            "call_in_type": "throw",
+            "beacon_colour": "blue",
+            "tags": [
+                "SUPPORT WEAPON",
+                "MEDIUM ARMOR PENETRATING",
+                "POISON"
+            ]
+        },
+        "GL-52 De-Escalator": {
+            "id": 3560739565,
+            "description": "A humane grenade launcher firing high-powered arc grenades.",
+            "description_long": "",
+            "button_combination": [
+                "down",
+                "right",
+                "up",
+                "left",
+                "right"
+            ],
+            "uses": -1,
+            "spawn_time": 3.0,
+            "extra_travel_time": 4.0,
+            "cooldown": 480.0,
+            "cooldown_type": "individual",
+            "call_in_type": "throw",
+            "beacon_colour": "blue",
+            "tags": [
+                "SUPPORT WEAPON",
+                "EXPLOSIVE"
+            ]
+        },
+        "S-11 Speargun": {
+            "id": "UNKNOWN",
+            "description": "A speargun firing heavy-duty projectiles. These projectiles release a cloud of gas on impact, and must be carefully loaded one at a time.",
+            "description_long": "",
+            "button_combination": [
+                "down",
+                "right",
+                "down",
+                "left",
+                "up",
+                "right"
+            ],
+            "uses": -1,
+            "spawn_time": 3.0,
+            "extra_travel_time": 4.0,
+            "cooldown": 480.0,
+            "cooldown_type": "individual",
+            "call_in_type": "throw",
+            "beacon_colour": "blue",
+            "tags": [
+                "SUPPORT WEAPON",
+                "HEAVY ARMOR PENETRATING",
+                "CHARGEUP"
+            ]
+        },
+        "EAT-700 Expendable Napalm": {
+            "id": "UNKNOWN",
+            "description": "A single-use weapon that fires a missile containing napalm cluster bombs that release upon impact.",
+            "description_long": "",
+            "button_combination": [
+                "down",
+                "down",
+                "left",
+                "up",
+                "left"
+            ],
+            "uses": -1,
+            "spawn_time": 2.0,
+            "extra_travel_time": 3.0,
+            "cooldown": 140.0,
+            "cooldown_type": "individual",
+            "call_in_type": "throw",
+            "beacon_colour": "blue",
+            "tags": [
+                "SUPPORT WEAPON",
+                "EXPENDABLE",
+                "HEAVY ARMOR PENETRATING",
+                "ANTI-TANK"
+            ]
+        },
+        "MS-11 Solo Silo": {
+            "id": "UNKNOWN",
+            "description": "A silo that fits one single, powerful missile. Comes with a handheld targeting remote.",
+            "description_long": "",
+            "button_combination": [
+                "down",
+                "up",
+                "right",
+                "down",
+                "down"
+            ],
+            "uses": -1,
+            "spawn_time": 3.0,
+            "extra_travel_time": 4.0,
+            "cooldown": 180.0,
+            "cooldown_type": "individual",
+            "call_in_type": "throw",
+            "beacon_colour": "blue",
+            "tags": [
+                "GUIDED",
+                "ANTI-TANK"
+            ]
+        },
+        "CQC-1 One True Flag": {
+            "id": 1326547218,
+            "description": "The eternal colors of Super Earth can never be tainted. Only quenched, by the blood of its enemies.",
+            "description_long": "",
+            "button_combination": [
+                "down",
+                "left",
+                "right",
+                "right",
+                "up"
+            ],
+            "uses": -1,
+            "spawn_time": 3.0,
+            "extra_travel_time": 4.0,
+            "cooldown": 480.0,
+            "cooldown_type": "individual",
+            "call_in_type": "throw",
+            "beacon_colour": "blue",
+            "tags": [
+                "SUPPORT WEAPON",
+                "MEDIUM ARMOR PENETRATING"
+            ]
+        },
+        "PLAS-45 Epoch": {
+            "id": 2961443701,
+            "description": "A powerful plasma weapon that fires one blast at a time, each blast exploding on impact. Must be charged to fire. Warning: do not overcharge.",
+            "description_long": "",
+            "button_combination": [
+                "down",
+                "left",
+                "up",
+                "left",
+                "right"
+            ],
+            "uses": -1,
+            "spawn_time": 3.0,
+            "extra_travel_time": 4.0,
+            "cooldown": 480.0,
+            "cooldown_type": "individual",
+            "call_in_type": "throw",
+            "beacon_colour": "blue",
+            "tags": [
+                "SUPPORT WEAPON",
+                "STATIONARY RELOAD",
+                "CHARGEUP",
+                "ANTI-TANK"
+            ]
+        },
+        "A/FLAM-40 Flame Sentry": {
+            "id": 669794144,
+            "description": "An automated flamethrower turret. Warning: fuel canister prone to explosion when ruptured.",
+            "description_long": "",
+            "button_combination": [
+                "down",
+                "up",
+                "right",
+                "down",
+                "up",
+                "up"
+            ],
+            "uses": -1,
+            "spawn_time": 3.0,
+            "extra_travel_time": 0.0,
+            "cooldown": 100.0,
+            "cooldown_type": "individual",
+            "call_in_type": "throw",
+            "beacon_colour": "blue",
+            "tags": [
+                "AUTONOMOUS",
+                "HEAVY ARMOR PENETRATING",
+                "EXPLOSIVE"
+            ]
+        },
+        "A/LAS-98 Laser Sentry": {
+            "id": 914471076,
+            "description": "A turret firing powerful and precise laser beams. Warning: overloading heat sink may cause adverse effects.",
+            "description_long": "",
+            "button_combination": [
+                "down",
+                "up",
+                "right",
+                "down",
+                "up",
+                "right"
+            ],
+            "uses": -1,
+            "spawn_time": 3.0,
+            "extra_travel_time": 0.0,
+            "cooldown": 150.0,
+            "cooldown_type": "individual",
+            "call_in_type": "throw",
+            "beacon_colour": "blue",
+            "tags": [
+                "AUTONOMOUS",
+                "HEAVY ARMOR PENETRATING",
+                "HEAT"
+            ]
+        }
+    },
+    "Common Mission Stratagems": {
+        "Resupply": {
+            "id": "UNKNOWN",
+            "description": "A Hellpod containing four supply packs, to replenish personal ammunition and stims in the field.",
+            "description_long": "",
+            "button_combination": [
+                "down",
+                "down",
+                "up",
+                "right"
+            ],
+            "uses": -1,
+            "spawn_time": 5.0,
+            "extra_travel_time": 3.0,
+            "cooldown": 30.0,
+            "cooldown_type": "shared_team",
+            "call_in_type": "throw",
+            "beacon_colour": "blue",
+            "tags": []
+        },
+        "Eagle Rearm": {
+            "id": "UNKNOWN",
+            "description": "Order the Eagle Fighter to return to the ship, where it can restock its armaments.",
+            "description_long": "",
+            "button_combination": [
+                "up",
+                "up",
+                "left",
+                "up",
+                "right"
+            ],
+            "uses": -1,
+            "spawn_time": 0.0,
+            "extra_travel_time": 15.0,
+            "cooldown": 150.0,
+            "cooldown_type": "shared_team",
+            "call_in_type": "exact_location",
+            "beacon_colour": "none",
+            "tags": []
+        },
+        "SoS Beacon": {
+            "id": "UNKNOWN",
+            "description": "",
+            "description_long": "",
+            "button_combination": [
+                "left",
+                "up",
+                "up",
+                "down",
+                "left",
+                "down"
+            ],
+            "uses": -1,
+            "spawn_time": 120.0,
+            "extra_travel_time": 0.0,
+            "cooldown": 300.0,
+            "cooldown_type": "shared_team",
+            "call_in_type": "throw",
+            "beacon_colour": "blue",
+            "tags": []
+        },
+        "Reinforce": {
+            "id": "UNKNOWN",
+            "description": "A replacement for a fallen comrade.",
+            "description_long": "",
+            "button_combination": [
+                "up",
+                "down",
+                "right",
+                "left",
+                "up"
+            ],
+            "uses": -1,
+            "spawn_time": 0.0,
+            "extra_travel_time": 8.5,
+            "cooldown": 6.0,
+            "cooldown_type": "shared_team",
+            "call_in_type": "exact_location",
+            "beacon_colour": "blue",
+            "tags": []
+        }
+    },
+    "Mission Objective Stratagems": {
+        "SSSD Delivery": {
+            "id": "UNKNOWN",
+            "description": "A Hellpod containing a Super Solid State Drive, the peak of secure data storage. Used by Helldivers for everything from transfer of patriotic data to the sabotage of enemy mainframes.",
+            "description_long": "",
+            "button_combination": [
+                "down",
+                "down",
+                "down",
+                "up",
+                "up"
+            ],
+            "uses": -1,
+            "spawn_time": 5.0,
+            "extra_travel_time": 6.0,
+            "cooldown": 10.0,
+            "cooldown_type": "shared_team",
+            "call_in_type": "throw",
+            "beacon_colour": "blue",
+            "tags": []
+        },
+        "Hellbomb": {
+            "id": "UNKNOWN",
+            "description": "The Hellbomb is a tactical nuke powerful enough to destroy any perceivable target in its blast zone. For safety and budgetary reasons, it has to be armed manually once deployed.",
+            "description_long": "",
+            "button_combination": [
+                "down",
+                "up",
+                "left",
+                "down",
+                "up",
+                "right",
+                "down",
+                "up"
+            ],
+            "uses": -1,
+            "spawn_time": 5.0,
+            "extra_travel_time": 0.0,
+            "cooldown": 30.0,
+            "cooldown_type": "shared_team",
+            "call_in_type": "exact_location",
+            "beacon_colour": "blue",
+            "tags": []
+        },
+        "Super Earth Flag": {
+            "id": "UNKNOWN",
+            "description": "The main ingredient in Super Earth liberation.",
+            "description_long": "",
+            "button_combination": [
+                "down",
+                "up",
+                "down",
+                "up"
+            ],
+            "uses": -1,
+            "spawn_time": 5.0,
+            "extra_travel_time": 0.0,
+            "cooldown": 30.0,
+            "cooldown_type": "shared_team",
+            "call_in_type": "hellpad_call",
+            "beacon_colour": "blue",
+            "tags": []
+        },
+        "Prospecting Drill": {
+            "id": "UNKNOWN",
+            "description": "An advanced, mostly self-operating prospecting drill fitted into a Hellpod. Handles soil sample extraction, analysis and data upload with minimal necessary input from an operator.",
+            "description_long": "",
+            "button_combination": [
+                "down",
+                "down",
+                "left",
+                "right",
+                "down",
+                "down"
+            ],
+            "uses": -1,
+            "spawn_time": 5.0,
+            "extra_travel_time": 0.0,
+            "cooldown": 30.0,
+            "cooldown_type": "shared_team",
+            "call_in_type": "exact_location",
+            "beacon_colour": "blue",
+            "tags": []
+        },
+        "Seismic Probe": {
+            "id": "UNKNOWN",
+            "description": "A Seismic Probe fitted into a Hellpod. Is preprogrammed so that only the simplest calibration and execution secuence is needed once deployed to the surface.",
+            "description_long": "",
+            "button_combination": [
+                "up",
+                "up",
+                "left",
+                "right",
+                "down",
+                "down"
+            ],
+            "uses": -1,
+            "spawn_time": 5.0,
+            "extra_travel_time": 0.0,
+            "cooldown": 30.0,
+            "cooldown_type": "shared_team",
+            "call_in_type": "exact_location",
+            "beacon_colour": "blue",
+            "tags": []
+        },
+        "Orbital Illumination Flare": {
+            "id": "UNKNOWN",
+            "description": "A flare that illuminates the battlefield.",
+            "description_long": "An illumination flare is fired from your ship in orbit to light up the battlefield. It will start burning and give roughly 100 seconds of magnesium fueled light. Highly recommended on night missions.",
+            "button_combination": [
+                "right",
+                "right",
+                "left",
+                "left"
+            ],
+            "uses": -1,
+            "spawn_time": 0.0,
+            "extra_travel_time": 30.0,
+            "cooldown": 30.0,
+            "cooldown_type": "shared_team",
+            "call_in_type": "throw",
+            "beacon_colour": "blue",
+            "tags": []
+        },
+        "Upload Data": {
+            "id": "UNKNOWN",
+            "description": "",
+            "description_long": "",
+            "button_combination": [
+                "left",
+                "right",
+                "up",
+                "up",
+                "up"
+            ],
+            "uses": -1,
+            "spawn_time": 0.0,
+            "extra_travel_time": 0.0,
+            "cooldown": 1.0,
+            "cooldown_type": "shared_team",
+            "call_in_type": "exact_location",
+            "beacon_colour": "blue",
+            "tags": []
+        },
+        "SEAF Artillery": {
+            "id": "UNKNOWN",
+            "description": "",
+            "description_long": "",
+            "button_combination": [
+                "right",
+                "up",
+                "up",
+                "down"
+            ],
+            "uses": -1,
+            "spawn_time": 0.0,
+            "extra_travel_time": 0.0,
+            "cooldown": 15.0,
+            "cooldown_type": "shared_team",
+            "call_in_type": "exact_location",
+            "beacon_colour": "red",
+            "tags": []
+        }
     }
 }

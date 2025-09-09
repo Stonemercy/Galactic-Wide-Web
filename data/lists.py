@@ -99,13 +99,13 @@ json_dict = {
         },
     },
     "enemies": {
-        "enemy_ids": {"path": "data/json_custom/enemies/enemy_ids.json", "value": None},
-        "automaton": {"path": "data/json_custom/enemies/automaton.json", "value": None},
+        "enemy_ids": {"path": "data/json/enemies/enemy_ids.json", "value": None},
+        "automaton": {"path": "data/json/enemies/automaton.json", "value": None},
         "illuminate": {
-            "path": "data/json_custom/enemies/illuminate.json",
+            "path": "data/json/enemies/illuminate.json",
             "value": None,
         },
-        "terminids": {"path": "data/json_custom/enemies/terminids.json", "value": None},
+        "terminids": {"path": "data/json/enemies/terminids.json", "value": None},
     },
     "planet_effects": {"path": "data/json/effects/planetEffects.json", "value": None},
     "galactic_war_effects": {

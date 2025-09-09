@@ -90,5 +90,9 @@
 	"unknown": {
 		"name": "Unknown",
 		"description": "This planet's biome is unknown at this time."
+	},
+	"bug_hiveworld": {
+		"name": "Hive World",
+		"description": "This planet has been completely infested by the Terminids, transformed inside and out into a hive of Tyranny."
 	}
 }

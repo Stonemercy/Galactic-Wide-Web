@@ -1099,29 +1099,62 @@ class Wiki:
                 stratagem_info: tuple[str, dict],
             ):
                 stratagem_name, stratagem_json = stratagem_info
-                super().__init__(title=stratagem_name, colour=Colour.brand_green())
-                key_inputs = ""
-                for key in stratagem_json["keys"]:
-                    key_inputs += getattr(Emojis.Stratagems, key)
+                super().__init__(
+                    title=stratagem_name,
+                    colour=Colour.brand_green(),
+                    description=stratagem_json["description"],
+                )
+                if stratagem_json["description_long"]:
+                    fmtd_desc = stratagem_json["description_long"].replace(
+                        "\n", "\n-# "
+                    )
+                    self.description += f"\n-# {fmtd_desc}"
                 self.add_field(
                     language_json["key_input"],
-                    key_inputs,
-                    inline=False,
+                    "".join(
+                        [
+                            getattr(Emojis.Stratagems, button)
+                            for button in stratagem_json["button_combination"]
+                        ]
+                    ),
                 )
                 self.add_field(
                     language_json["uses"],
-                    stratagem_json["uses"],
-                    inline=False,
+                    (
+                        stratagem_json["uses"]
+                        if stratagem_json["uses"] != -1
+                        else "Infinite"
+                    ),
                 )
+                self.add_field("", "")
+                self.add_field(
+                    "Spawn Time",
+                    (
+                        f"**{stratagem_json['spawn_time'] + stratagem_json['extra_travel_time']}**s"
+                    ),
+                )
+                cooldown_formatted = f"**{stratagem_json['cooldown']/60:.0f}**:**{stratagem_json['cooldown']%60:.0f}**"
                 self.add_field(
                     language_json["cooldown"],
-                    f"{stratagem_json['cooldown']} seconds ({(stratagem_json['cooldown']/60):.2f} minutes)",
+                    f"**{stratagem_json['cooldown']:.0f}**s ({cooldown_formatted})\nType: **{stratagem_json['cooldown_type'].title()}**",
                 )
+                self.add_field(
+                    "Call-in",
+                    f"Type: **{stratagem_json['call_in_type'].title()}**\nBeacon: **{stratagem_json['beacon_colour'].title()}**",
+                )
+                if stratagem_json["tags"]:
+                    self.add_field(
+                        "Tags",
+                        "".join([f"\n-# - {tag}" for tag in stratagem_json["tags"]]),
+                    )
                 try:
+                    strat_path = (
+                        stratagem_name.replace("/", "_")
+                        .replace(" ", "_")
+                        .replace('"', "")
+                    )
                     self.set_thumbnail(
-                        file=File(
-                            f"resources/stratagems/{stratagem_name.replace('/', '_').replace(' ', '_')}.png"
-                        )
+                        file=File(f"resources/stratagems/{strat_path}.png")
                     )
                     self.image_set = True
                 except:
