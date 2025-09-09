@@ -50,7 +50,7 @@ class BotDashboardEmbed(Embed, EmbedReprMixin):
         )
         shardinfo = "\n".join(
             [
-                f"Shard **#{shard.id}** - **{shard.latency * 1000:.0f}ms**"
+                f"Shard **#{shard.id}** - **{shard.latency * 1000:.0f}ms** - {len([g for g in bot.guilds if g.shard_id == shard.id])} Guilds"
                 for shard in bot.shards.values()
             ]
         )
