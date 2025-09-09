@@ -818,5 +818,21 @@
 	"1307": {
 		"name": "HIVE LORDS",
 		"description": "Terminid Hive Lords have been detected on this planet."
+	},
+	"1308": {
+		"name": "[Galactic Map Marker] HIVE LORDS",
+		"description": ""
+	},
+	"1309": {
+		"name": "[Galactic Map Marker] DRAGONROACHES",
+		"description": ""
+	},
+	"1310": {
+		"name": "[Galactic Map Marker] RUPTURE STRAIN",
+		"description": ""
+	},
+	"1311": {
+		"name": "[Galactic Map Marker] HIVE WORLD",
+		"description": ""
 	}
 }
