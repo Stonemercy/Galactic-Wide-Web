@@ -14,21 +14,16 @@ class BackendCommandsCog(commands.Cog):
         if not inter.bot.data.loaded:
             return []
         id_list = sorted(
-            [i.id for i in inter.bot.data.galactic_war_effects], reverse=True
+            [
+                f"{i.id}-{i.effect_description['name']}"
+                for i in inter.bot.data.galactic_war_effects
+            ],
+            key=lambda x: int(x.split("-")[0]),
+            reverse=True,
         )
         return [gwe for gwe in id_list if str(user_input).lower() in str(gwe).lower()][
             :25
         ]
-
-    async def type_autocomp(inter: AppCmdInter, user_input: str):
-        if not inter.bot.data.loaded:
-            return []
-        type_list = set(
-            sorted([i.effect_type for i in inter.bot.data.galactic_war_effects])
-        )
-        return [
-            gwe for gwe in type_list if str(user_input).lower() in str(gwe).lower()
-        ][:25]
 
     @wait_for_startup()
     @is_whitelisted()
@@ -40,14 +35,9 @@ class BackendCommandsCog(commands.Cog):
     async def gwe(
         self,
         inter: AppCmdInter,
-        id: int = commands.Param(
+        id: str = commands.Param(
             autocomplete=id_autocomp,
             description="The ID you want to lookup",
-            default=0,
-        ),
-        type: int = commands.Param(
-            autocomplete=type_autocomp,
-            description="The type you want to lookup",
             default=0,
         ),
         public: str = commands.Param(
@@ -61,12 +51,9 @@ class BackendCommandsCog(commands.Cog):
             msg=f"{self.qualified_name} | /{inter.application_command.name} <{id = }> <{type = }> <{public = }> | used by <@{inter.author.id}> | @{inter.author.global_name}"
         )
         gwe_list = None
+        id = int(id.split("-")[0])
         if id != 0:
             gwe_list = [g for g in self.bot.data.galactic_war_effects if g.id == id]
-        elif type != 0:
-            gwe_list = [
-                g for g in self.bot.data.galactic_war_effects if g.effect_type == type
-            ]
         if gwe_list:
             embeds = []
             for gwe in gwe_list:

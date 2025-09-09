@@ -1,5 +1,5 @@
 from data.lists import stratagem_id_dict
-from disnake import Colour, Embed
+from disnake import Colour, Embed, File
 from utils.data import GalacticWarEffect, Planet
 from utils.mixins import EmbedReprMixin
 
@@ -12,18 +12,37 @@ class GalacticWarEffectEmbed(Embed, EmbedReprMixin):
         json_dict: dict,
     ):
         super().__init__(
-            title=f"{gwe.id} - {gwe.effect_description['name']}",
+            title=f"{gwe.id} - {gwe.effect_description['simplified_name']}",
             description=gwe.effect_description["description"],
             colour=Colour.dark_theme(),
         )
-        if enemy := json_dict["enemies"]["enemy_ids"].get(
-            str(gwe.hash_id or gwe.resource_hash)
-        ):
-            self.add_field("ENEMY DETECTED", enemy, inline=False)
-        if stratagem := stratagem_id_dict.get(gwe.mix_id):
-            self.add_field("STRATAGEM DETECTED", stratagem, inline=False)
-        if booster := json_dict["items"]["boosters"].get(str(gwe.mix_id)):
-            self.add_field("BOOSTER DETECTED", booster["name"], inline=False)
+        if gwe.found_enemy:
+            self.add_field("ENEMY DETECTED", gwe.found_enemy, inline=False)
+            try:
+                self.set_thumbnail(
+                    file=File(
+                        f"resources/Emojis/Planet Effects/{gwe.found_enemy.replace(' ', '_')}.png"
+                    )
+                )
+            except:
+                pass
+        if gwe.found_stratagem:
+            self.add_field("STRATAGEM DETECTED", gwe.found_stratagem, inline=False)
+            strat_path = (
+                gwe.found_stratagem.replace("/", "_").replace(" ", "_").replace('"', "")
+            )
+            self.set_thumbnail(file=File(f"resources/stratagems/{strat_path}.png"))
+        if gwe.found_booster:
+            self.add_field(
+                "BOOSTER DETECTED",
+                f"{gwe.found_booster['name']}\n-# {gwe.found_booster['description']}",
+                inline=False,
+            )
+            self.set_thumbnail(
+                file=File(
+                    f"resources/boosters/{gwe.found_booster['name'].replace(' ', '_')}.png"
+                )
+            )
         if gwe.count:
             self.add_field("INCREASED/DECREASED BY", f"{gwe.count:+}", inline=False)
         if gwe.percent != None:
