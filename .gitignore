@@ -19,6 +19,8 @@ resources/DSS
 resources/weather_icons
 resources/maps
 resources/icon.png
+resources/attack_embed_icons
+data/json_creation_scripts
 
 # JSON
 data/json/.github
