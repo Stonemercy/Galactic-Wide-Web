@@ -20,9 +20,9 @@ from utils.mixins import EmbedReprMixin
 from utils.trackers import BaseTracker, BaseTrackerEntry
 
 ATTACK_EMBED_ICONS = {
-    "illuminate": "https://media.discordapp.net/attachments/1212735927223590974/1414950798361759774/illuminate.png?ex=68c16f1e&is=68c01d9e&hm=bd8b0da46058aa587fe96399bae64caa9456ced0ac0d7af489ed7ab005e27ae0&=&format=webp&quality=lossless",
-    "automaton": "https://media.discordapp.net/attachments/1212735927223590974/1414950797900251136/automatons.png?ex=68c16f1e&is=68c01d9e&hm=633c2b698fab1eef27dbb65907f24ed1a1dfe6477a37cbb373e0ab643aecfd60&=&format=webp&quality=lossless",
-    "terminids": "https://media.discordapp.net/attachments/1212735927223590974/1414950799028785315/terminids.png?ex=68c16f1f&is=68c01d9f&hm=58483a59fb477470fef4d65693a323fd773cf8ee8f44cc027954f22504f964c3&=&format=webp&quality=lossless",
+    "illuminate": "https://media.discordapp.net/attachments/1212735927223590974/1414959912269643847/illuminate.png?ex=68c1779b&is=68c0261b&hm=f7f450e22f313d28b50f03c5aa9ee5c21ded41f79f5a528ec4f819f5283c479c&=&format=webp&quality=lossless",
+    "automaton": "https://media.discordapp.net/attachments/1212735927223590974/1414959911728709632/automaton.png?ex=68c1779b&is=68c0261b&hm=b5a82963ba2a5010f9a8e1b1f5ea0ab15f3ca29ace1dda6922053105b122fadf&=&format=webp&quality=lossless",
+    "terminids": "https://media.discordapp.net/attachments/1212735927223590974/1414959912815169636/terminids.png?ex=68c1779b&is=68c0261b&hm=3c1ad5eea04d6ca74c0a99d70244780662fa37f5e25866d4039edc921e442b0b&=&format=webp&quality=lossless",
 }
 
 
@@ -1049,7 +1049,9 @@ class Dashboard:
                 colour=Colour.blue(),
             )
             if planet_events:
-                self.set_thumbnail("https://helldivers.io/img/defense.png")
+                self.set_thumbnail(
+                    "https://cdn.discordapp.com/attachments/1212735927223590974/1414958449967632466/0x7d2b143494a63666.png?ex=68c1763f&is=68c024bf&hm=9c1978e23c9c7991376201637f004791471d0b7e0968dfec6d1af4d4a6a9ff09&"
+                )
                 for planet in planet_events:
                     match planet.event.type:
                         case 1:
