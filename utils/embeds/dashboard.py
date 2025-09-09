@@ -19,6 +19,12 @@ from utils.functions import health_bar, short_format
 from utils.mixins import EmbedReprMixin
 from utils.trackers import BaseTracker, BaseTrackerEntry
 
+ATTACK_EMBED_ICONS = {
+    "illuminate": "https://media.discordapp.net/attachments/1212735927223590974/1414950798361759774/illuminate.png?ex=68c16f1e&is=68c01d9e&hm=bd8b0da46058aa587fe96399bae64caa9456ced0ac0d7af489ed7ab005e27ae0&=&format=webp&quality=lossless",
+    "automaton": "https://media.discordapp.net/attachments/1212735927223590974/1414950797900251136/automatons.png?ex=68c16f1e&is=68c01d9e&hm=633c2b698fab1eef27dbb65907f24ed1a1dfe6477a37cbb373e0ab643aecfd60&=&format=webp&quality=lossless",
+    "terminids": "https://media.discordapp.net/attachments/1212735927223590974/1414950799028785315/terminids.png?ex=68c16f1f&is=68c01d9f&hm=58483a59fb477470fef4d65693a323fd773cf8ee8f44cc027954f22504f964c3&=&format=webp&quality=lossless",
+}
+
 
 class Dashboard:
     def __init__(
@@ -1252,7 +1258,7 @@ class Dashboard:
                     *Factions.get_from_identifier(name=faction).colour
                 ),
             )
-            self.set_thumbnail("https://helldivers.io/img/attack.png")
+            self.set_thumbnail(ATTACK_EMBED_ICONS[faction.lower()])
             total_players_doing_faction = (
                 sum(campaign.planet.stats.player_count for campaign in campaigns)
                 / total_players
