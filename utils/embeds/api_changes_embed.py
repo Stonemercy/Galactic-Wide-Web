@@ -77,15 +77,25 @@ class APIChangesEmbed(Embed, EmbedReprMixin):
                         if effect.id not in [e.id for e in change.before]
                     ]
                     for effect in removed_effects:
+                        description_fmtd = (
+                            f"\n-# {effect.planet_effect['description']}"
+                            if effect.planet_effect["description"] != ""
+                            else ""
+                        )
                         self.add_field(
                             f"{faction_emoji} {change.planet.name} Removed effect",
-                            f"**{effect.id}** - {effect.planet_effect['name']}\n-# {effect.planet_effect['description']}",
+                            f"**{effect.id}** - {effect.planet_effect['name']}{description_fmtd}",
                             inline=False,
                         )
                     for effect in new_effects:
+                        description_fmtd = (
+                            f"\n-# {effect.planet_effect['description']}"
+                            if effect.planet_effect["description"] != ""
+                            else ""
+                        )
                         self.add_field(
                             f"{faction_emoji} {change.planet.name} New effect",
-                            f"**{effect.id}** - {effect.planet_effect['name']}\n-# {effect.planet_effect['description']}",
+                            f"**{effect.id}** - {effect.planet_effect['name']}{description_fmtd}",
                             inline=False,
                         )
                 case "Galactic Impact Mod":
