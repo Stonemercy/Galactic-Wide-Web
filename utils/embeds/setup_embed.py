@@ -1,12 +1,14 @@
-from disnake import Colour, Embed
+from disnake import Colour, Embed, ShardInfo
 from utils.dbv2 import GWWGuild
 from utils.mixins import EmbedReprMixin
 
 
 class SetupEmbed(Embed, EmbedReprMixin):
-    def __init__(self, guild: GWWGuild, language_json: dict):
+    def __init__(self, guild: GWWGuild, language_json: dict, shard_info: ShardInfo):
         super().__init__(
-            title=language_json["SetupEmbed"]["title"], colour=Colour.og_blurple()
+            title=language_json["SetupEmbed"]["title"],
+            colour=Colour.og_blurple(),
+            description=f"Shard #**{shard_info.id}** - **{shard_info.latency * 1000:.0f}ms**",
         )
 
         # dashboard

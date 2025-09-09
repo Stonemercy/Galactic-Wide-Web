@@ -107,6 +107,7 @@ class SetupCog(commands.Cog):
             embed=SetupEmbed(
                 guild=guild,
                 language_json=self.bot.json_dict["languages"][guild.language],
+                shard_info=self.bot.shards[inter.guild.shard_id],
             ),
             components=components,
         )
@@ -190,7 +191,9 @@ class SetupCog(commands.Cog):
                 self.reset_row(action_rows[0])
                 await inter.edit_original_response(
                     embed=SetupEmbed(
-                        guild, self.bot.json_dict["languages"][guild.language]
+                        guild,
+                        self.bot.json_dict["languages"][guild.language],
+                        shard_info=self.bot.shards[inter.guild.shard_id],
                     ),
                     components=action_rows,
                 )
@@ -236,7 +239,9 @@ class SetupCog(commands.Cog):
                 self.reset_row(action_rows[0])
                 await inter.edit_original_response(
                     embed=SetupEmbed(
-                        guild, self.bot.json_dict["languages"][guild.language]
+                        guild,
+                        self.bot.json_dict["languages"][guild.language],
+                        shard_info=self.bot.shards[inter.guild.shard_id],
                     ),
                     components=action_rows,
                 )
@@ -291,7 +296,9 @@ class SetupCog(commands.Cog):
                 self.reset_row(action_rows[2])
                 await inter.edit_original_response(
                     embed=SetupEmbed(
-                        guild, self.bot.json_dict["languages"][guild.language]
+                        guild,
+                        self.bot.json_dict["languages"][guild.language],
+                        shard_info=self.bot.shards[inter.guild.shard_id],
                     ),
                     components=action_rows,
                 )
@@ -372,7 +379,9 @@ class SetupCog(commands.Cog):
                 try:
                     await inter.edit_original_response(
                         embed=SetupEmbed(
-                            guild, self.bot.json_dict["languages"][guild.language]
+                            guild,
+                            self.bot.json_dict["languages"][guild.language],
+                            shard_info=self.bot.shards[inter.guild.shard_id],
                         ),
                         components=action_rows,
                     )
@@ -466,7 +475,11 @@ class SetupCog(commands.Cog):
                 guild.update_features()
                 guild.save_changes()
                 self.bot.interface_handler.dashboards.append(message)
-                embed = SetupEmbed(guild, guild_language)
+                embed = SetupEmbed(
+                    guild,
+                    guild_language,
+                    shard_info=self.bot.shards[inter.guild.shard_id],
+                )
                 self.clear_extra_buttons(action_rows)
                 self.reset_row(action_rows[0])
                 await inter.edit_original_response(embed=embed, components=action_rows)
@@ -566,7 +579,11 @@ class SetupCog(commands.Cog):
                 guild.update_features()
                 guild.save_changes()
                 self.bot.interface_handler.maps.append(message)
-                embed = SetupEmbed(guild, guild_language)
+                embed = SetupEmbed(
+                    guild,
+                    guild_language,
+                    shard_info=self.bot.shards[inter.guild.shard_id],
+                )
                 await inter.edit_original_response(embed=embed, components=action_rows)
         elif "feature_channel_select-" in inter.component.custom_id:
             feature_type = inter.component.custom_id.split("-")[1]
@@ -604,7 +621,11 @@ class SetupCog(commands.Cog):
                 guild.save_changes()
                 list_to_update: list = getattr(self.bot.interface_handler, feature_type)
                 list_to_update.append(channel)
-                embed = SetupEmbed(guild, guild_language)
+                embed = SetupEmbed(
+                    guild,
+                    guild_language,
+                    shard_info=self.bot.shards[inter.guild.shard_id],
+                )
                 self.clear_extra_buttons(action_rows, from_row=3)
                 self.reset_row(action_rows[1])
                 self.reset_row(action_rows[2])
@@ -613,7 +634,11 @@ class SetupCog(commands.Cog):
             guild.language = inter.values[0].lower()
             guild.save_changes()
             guild_language = self.bot.json_dict["languages"][guild.language]
-            embed = SetupEmbed(guild, self.bot.json_dict["languages"][guild.language])
+            embed = SetupEmbed(
+                guild,
+                self.bot.json_dict["languages"][guild.language],
+                shard_info=self.bot.shards[inter.guild.shard_id],
+            )
             await inter.edit_original_response(
                 embed=embed,
                 components=[
