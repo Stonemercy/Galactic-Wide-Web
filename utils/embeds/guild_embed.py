@@ -129,3 +129,4 @@ class GuildEmbed(Embed, EmbedReprMixin):
         self.add_field(
             name="Bot Features Enabled", value=db_features_text, inline=False
         )
+        self.add_field("Shard ID", guild.shard_id, inline=False)
