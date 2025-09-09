@@ -1128,7 +1128,7 @@ class Dashboard:
                                         outlook_text += f"\n> -# Thanks to region **{region.name}** liberation"
                                         break
                         if outlook_text == "":
-                            outlook_text = f"\n{self.language_json['dashboard']['outlook']}: **{self.language_json['defeat']}"
+                            outlook_text = f"\n{self.language_json['dashboard']['outlook']}: **{self.language_json['defeat']}**"
                             if planet.index in self.gambit_planets:
                                 outlook_text += f"\n> -# {self.language_json['dashboard']['DefenceEmbed']['gambit_available'].format(planet=gambit_planet.name)}"
                     change = f"{liberation_change.change_rate_per_hour:+.2%}/hour"
