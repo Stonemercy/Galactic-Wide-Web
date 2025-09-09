@@ -149,9 +149,9 @@ class Emojis:
         jet_brigade = "<:s:1355912552143393039>"
         incineration_corps = "<:s:1355913678704349336>"
         the_great_host = "<:s:1372871467255070751>"
-        spore_burster_strain = "<:s:1404621462278504529>"
+        gloom_burster_strain = "<:s:1404621462278504529>"
         rupture_strain = "<:s:1412402213938270258>"
-        dragon_roaches = "<:s:1412402344502759425>"
+        dragonroaches = "<:s:1412402344502759425>"
         hive_lords = "<:s:1412402306334457916>"
 
     @dataclass
