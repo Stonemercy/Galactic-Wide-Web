@@ -222,7 +222,12 @@ class PlanetEmbeds(list):
             effects = ""
             for ae in planet.active_effects:
                 if ae.planet_effect:
-                    effects += f"\n- **{ae.planet_effect['name']}**\n  - -# {ae.planet_effect['description']}"
+                    description_fmtd = (
+                        f"\n  - -# {ae.planet_effect['description']}"
+                        if ae.planet_effect["description"] != ""
+                        else ""
+                    )
+                    effects += f"\n- **{ae.planet_effect['name']}**{description_fmtd}"
             if effects:
                 self.add_field("Planetary Effects", effects, inline=False)
             self.add_field(
