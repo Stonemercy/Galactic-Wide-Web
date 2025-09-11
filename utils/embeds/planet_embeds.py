@@ -111,11 +111,17 @@ class PlanetEmbeds(list):
             required_players = ""
             liberation_text = ""
             if planet.event:
-                planet_health_bar = (
-                    health_bar(planet.event.progress, planet.event.faction, True)
-                    + f" 🛡️ {getattr(Emojis.Factions, planet.event.faction.full_name.lower())}"
+                planet_health_bar = health_bar(
+                    planet.event.progress, planet.event.faction, True
                 )
                 if liberation_change and liberation_change.change_rate_per_hour != 0:
+                    planet_health_bar = health_bar(
+                        planet.event.progress,
+                        planet.event.faction,
+                        True,
+                        anim=True,
+                        increasing=liberation_change.change_rate_per_hour > 0,
+                    )
                     estimated_end_timestamp = int(
                         datetime.now().timestamp()
                         + liberation_change.seconds_until_complete
@@ -141,6 +147,7 @@ class PlanetEmbeds(list):
                                 required_players = f"\n{language_json['dashboard']['DefenceEmbed']['players_required']}: *Gathering Data*"
                             else:
                                 required_players = f"\n{language_json['dashboard']['DefenceEmbed']['players_required']}: **IMPOSSIBLE**"
+                planet_health_bar += f" 🛡️ {getattr(Emojis.Factions, planet.event.faction.full_name.lower())}"
                 health_text = f"{planet.event.progress:^25,.2%}"
                 self.add_field(
                     "",
@@ -162,12 +169,22 @@ class PlanetEmbeds(list):
                     if planet.current_owner != Factions.humans
                     else f"{(planet.health_perc):^25,.2%}"
                 )
+                reversed_health_bar = (
+                    True if planet.current_owner != Factions.humans else False
+                )
                 planet_health_bar = health_bar(
                     planet.health_perc,
                     planet.current_owner,
-                    True if planet.current_owner != Factions.humans else False,
+                    reversed_health_bar,
                 )
                 if liberation_change and liberation_change.change_rate_per_hour > 0:
+                    planet_health_bar = health_bar(
+                        planet.health_perc,
+                        planet.current_owner,
+                        reversed_health_bar,
+                        anim=True,
+                        increasing=liberation_change.change_rate_per_hour > 0,
+                    )
                     estimated_end_timestamp = int(
                         datetime.now().timestamp()
                         + liberation_change.seconds_until_complete

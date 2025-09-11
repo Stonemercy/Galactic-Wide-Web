@@ -93,6 +93,21 @@ class Emojis:
         empty = "<:s:1374794686836899900>"
 
     @dataclass
+    class FactionColoursAnim:
+        mo_increasing = "<a:s:1415770867492847799>"
+        mo_decreasing = "<a:s:1415770875583533167>"
+        dss_increasing = "<a:s:1415771043330789468>"
+        dss_decreasing = "<a:s:1415771010799763658>"
+        humans_increasing = "<a:s:1415771095239229492>"
+        humans_decreasing = "<a:s:1415771073965981796>"
+        terminids_increasing = "<a:s:1415771240312078529>"
+        terminids_decreasing = "<a:s:1415771209051668480>"
+        automaton_increasing = "<a:s:1415770968416063510>"
+        automaton_decreasing = "<a:s:1415770933012201642>"
+        illuminate_increasing = "<a:s:1415771157172453457>"
+        illuminate_decreasing = "<a:s:1415771130970509434>"
+
+    @dataclass
     class Decoration:
         left_banner = "<:s:1272562768897376328>"
         right_banner = "<:s:1272562767597015151>"

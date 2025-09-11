@@ -1,3 +1,4 @@
+from datetime import datetime
 from data.lists import (
     custom_colours,
     emotes_list,
@@ -13,6 +14,7 @@ from utils.dataclasses import Factions, WarbondImages
 from utils.emojis import Emojis
 from utils.functions import health_bar
 from utils.mixins import EmbedReprMixin, ReprMixin
+from utils.trackers import BaseTracker
 
 
 class Wiki:
@@ -553,7 +555,11 @@ class Wiki:
 
         class DSSEmbed(Embed, EmbedReprMixin):
             def __init__(
-                self, language_json: dict, dss_data: DSS, localized_planet_names: dict
+                self,
+                language_json: dict,
+                dss_data: DSS,
+                localized_planet_names: dict,
+                ta_changes: BaseTracker,
             ):
                 super().__init__(
                     title=language_json["wiki"]["embeds"]["DSSEmbed"]["title"],
@@ -612,14 +618,35 @@ class Wiki:
                                 ),
                                 hours=f"{ta_cost.max_per_seconds[1]/3600:.0f}",
                             )
-                            ta_cost_health_bar = health_bar(
-                                ta_cost.progress,
-                                "MO" if ta_cost.progress != 1 else "Humans",
+                            ta_cost_change = ta_changes.get_entry(
+                                (tactical_action.id, ta_cost.item)
                             )
+                            change_text = ""
+                            if (
+                                ta_cost_change
+                                and ta_cost_change.change_rate_per_hour != 0
+                            ):
+                                change = (
+                                    f"{ta_cost_change.change_rate_per_hour:+.2%}/hr"
+                                )
+                                change_text = f"\n`{change:^25}`"
+                                change_text += f"\n-# {language_json['dashboard']['DSSEmbed']['active']} <t:{int(datetime.now().timestamp() + ta_cost_change.seconds_until_complete)}:R>"
+                                ta_cost_health_bar = health_bar(
+                                    ta_cost.progress,
+                                    "MO" if ta_cost.progress != 1 else "Humans",
+                                    anim=True,
+                                    increasing=ta_cost_change.change_rate_per_hour > 0,
+                                )
+                            else:
+                                ta_cost_health_bar = health_bar(
+                                    ta_cost.progress,
+                                    "MO" if ta_cost.progress != 1 else "Humans",
+                                )
                             cost = (
                                 f"{submittable_formatted}\n"
                                 f"{ta_cost_health_bar}\n"
                                 f"`{ta_cost.progress:^25.2%}`"
+                                f"{change_text}"
                             )
                     elif status == "active":
                         cost = f"{language_json['wiki']['embeds']['DSSEmbed']['ends']} <t:{int(tactical_action.status_end_datetime.timestamp())}:R>"

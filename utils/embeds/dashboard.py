@@ -450,7 +450,10 @@ class Dashboard:
             if task.progress_perc != 1:
                 field_value += f"{language_json['dashboard']['progress']}: **{task.progress:,.0f}**"
                 if self.compact_level < 1:
-                    field_value += f"\n{task.health_bar}"
+                    if tracker and tracker.change_rate_per_hour != 0:
+                        field_value += f"\n{health_bar(task.progress_perc, task.faction if task.faction else 'MO', anim=True, increasing=tracker.change_rate_per_hour > 0)}"
+                    else:
+                        field_value += f"\n{task.health_bar}"
                 field_value += f"\n`{(task.progress_perc):^25,.2%}`"
                 if tracker and tracker.change_rate_per_hour != 0:
                     rate = f"{tracker.change_rate_per_hour:+.2%}/hour"
@@ -521,7 +524,10 @@ class Dashboard:
             if task.progress_perc != 1:
                 field_value += f"{language_json['dashboard']['progress']}: **{(task.progress):,.0f}**"
                 if self.compact_level < 1:
-                    field_value += f"\n{task.health_bar}"
+                    if tracker and tracker.change_rate_per_hour != 0:
+                        field_value += f"\n{health_bar(task.progress_perc, task.faction if task.faction else 'MO', anim=True, increasing=tracker.change_rate_per_hour > 0)}"
+                    else:
+                        field_value += f"\n{task.health_bar}"
                 field_value += f"\n`{(task.progress_perc):^25,.2%}`"
                 if tracker and tracker.change_rate_per_hour != 0:
                     rate = f"{tracker.change_rate_per_hour:+.2%}/hour"
@@ -566,7 +572,10 @@ class Dashboard:
             if task.progress_perc != 1:
                 field_value += f"{language_json['dashboard']['progress']}: **{(task.progress):,.0f}**"
                 if self.compact_level < 1:
-                    field_value += f"\n{task.health_bar}"
+                    if tracker and tracker.change_rate_per_hour != 0:
+                        field_value += f"\n{health_bar(task.progress_perc, task.faction if task.faction else 'MO', anim=True, increasing=tracker.change_rate_per_hour > 0)}"
+                    else:
+                        field_value += f"\n{task.health_bar}"
                 field_value += f"\n`{(task.progress_perc):^25,.2%}`"
                 if tracker and tracker.change_rate_per_hour != 0:
                     rate = f"{tracker.change_rate_per_hour:+.2%}/hour"
@@ -627,7 +636,10 @@ class Dashboard:
             if task.progress_perc != 1:
                 field_value += f"{language_json['dashboard']['progress']}: **{(task.progress):,.0f}**\n"
                 if self.compact_level < 1:
-                    field_value += f"\n{task.health_bar}\n"
+                    if tracker and tracker.change_rate_per_hour != 0:
+                        field_value += f"\n{health_bar(task.progress_perc, task.faction if task.faction else 'MO', anim=True, increasing=tracker.change_rate_per_hour > 0)}"
+                    else:
+                        field_value += f"\n{task.health_bar}\n"
                 field_value += f"\n`{(task.progress_perc):^25,.2%}`"
                 if tracker and tracker.change_rate_per_hour != 0:
                     rate = f"{tracker.change_rate_per_hour:+.2%}/hour"
@@ -696,7 +708,13 @@ class Dashboard:
                         field_value += f"\n{language_json['dashboard']['outlook']}: **{language_json['defeat']}**"
                     field_value += f"\n{language_json['dashboard']['progress']}:"
                     if self.compact_level < 1:
-                        field_value += f"\n{planet.event.health_bar}"
+                        if (
+                            planet_lib_changes
+                            and planet_lib_changes.change_rate_per_hour != 0
+                        ):
+                            field_value += f"\n{health_bar(planet.event.health_bar, planet.event.faction, anim=True, increasing=planet_lib_changes.change_rate_per_hour > 0)}"
+                        else:
+                            field_value += f"\n{planet.event.health_bar}"
                     field_value += f"\n`{(1-planet.event.progress):^25,.2%}`"
                 else:
                     if (
@@ -706,7 +724,15 @@ class Dashboard:
                         field_value += f"\n{language_json['dashboard']['outlook']}: **{language_json['victory']}** <t:{now_seconds + planet_lib_changes.seconds_until_complete}:R>"
                     field_value += f"\n{language_json['dashboard']['progress']}:"
                     if self.compact_level < 1:
-                        field_value += f"\n{health_bar(planet.health_perc, 'Humans', True, empty_colour=planet.current_owner.full_name)}"
+                        if (
+                            planet_lib_changes
+                            and planet_lib_changes.change_rate_per_hour != 0
+                        ):
+                            field_value += f"\n{health_bar(planet.health_perc, 'Humans', True, anim=True, increasing=planet_lib_changes.change_rate_per_hour > 0)}"
+                        else:
+                            field_value += (
+                                f"\n{health_bar(planet.health_perc, 'Humans', True)}"
+                            )
                     field_value += f"\n`{(1-planet.health_perc):^25,.2%}`"
                 if planet_lib_changes and planet_lib_changes.change_rate_per_hour > 0:
                     change = f"{planet_lib_changes.change_rate_per_hour:+.2%}/hour"
@@ -772,7 +798,13 @@ class Dashboard:
                             field_value += f"\n{language_json['dashboard']['outlook']}: **{language_json['defeat']}**"
                         field_value += f"\n{language_json['dashboard']['progress']}:"
                         if self.compact_level < 1:
-                            field_value += f"\n{planet.event.health_bar} 🛡️"
+                            if (
+                                planet_lib_changes
+                                and planet_lib_changes.change_rate_per_hour != 0
+                            ):
+                                field_value += f"\n{health_bar(planet.health_perc, planet.event.faction, anim=True, increasing=planet_lib_changes.change_rate_per_hour > 0)}"
+                            else:
+                                field_value += f"\n{planet.event.health_bar} 🛡️"
                         field_value += f"\n`{planet.event.progress:^25,.2%}`"
                         change = f"{planet_lib_changes.change_rate_per_hour:+.2%}/hour"
                         field_value += f"\n`{change:^25}`"
@@ -846,7 +878,13 @@ class Dashboard:
                             field_value += f"\n{language_json['dashboard']['DefenceEmbed']['players_required']}: **~{planet.event.required_players:,.0f}+**"
                         field_value += f"\n{language_json['dashboard']['progress']}:"
                         if self.compact_level < 1:
-                            field_value += f"\n{planet.event.health_bar} 🛡️"
+                            if (
+                                planet_lib_changes
+                                and planet_lib_changes.change_rate_per_hour != 0
+                            ):
+                                field_value += f"\n{health_bar(planet.event.progress, planet.event.faction, anim=True, increasing=planet_lib_changes.change_rate_per_hour > 0)}"
+                            else:
+                                field_value += f"\n{planet.event.health_bar} 🛡️"
                     field_value += f"\n`{planet.event.progress:^25,.2%}`"
                     if (
                         planet_lib_changes
@@ -865,7 +903,13 @@ class Dashboard:
                             field_value += f"\n{language_json['dashboard']['outlook']}: **{language_json['victory']}** <t:{now_seconds + planet_lib_changes.seconds_until_complete}:R>"
                         field_value += f"\n{language_json['dashboard']['progress']}:\n"
                         if self.compact_level < 1:
-                            field_value += f"{health_bar(perc=planet.health_perc, faction=planet.current_owner, reverse=True)}"
+                            if (
+                                planet_lib_changes
+                                and planet_lib_changes.change_rate_per_hour != 0
+                            ):
+                                field_value += f"\n{health_bar(planet.health_perc, planet.current_owner, anim=True, increasing=planet_lib_changes.change_rate_per_hour > 0)}"
+                            else:
+                                field_value += f"{health_bar(perc=planet.health_perc, faction=planet.current_owner, reverse=True)}"
                         if (
                             planet_lib_changes
                             and planet_lib_changes.change_rate_per_hour != 0
@@ -992,15 +1036,18 @@ class Dashboard:
                     case "preparing":
                         for ta_cost in tactical_action.cost:
                             field_value += f"\n{language_json['dashboard']['DSSEmbed']['max_submitable'].format(emoji=getattr(Emojis.Items,ta_cost.item.replace(' ', '_').lower()),number=f'{ta_cost.max_per_seconds[0]:,}',item=language_json['currencies'][ta_cost.item],hours=f'{ta_cost.max_per_seconds[1]/3600:.0f}')}"
-                            field_value += f"\n{health_bar(ta_cost.progress,'MO')}"
-                            field_value += f"\n`{ta_cost.progress:^25.2%}`"
                             cost_change = ta_changes.get_entry(
                                 (tactical_action.id, ta_cost.item)
                             )
                             if cost_change and cost_change.change_rate_per_hour != 0:
+                                field_value += f"\n{health_bar(ta_cost.progress,'MO',anim=True, increasing=cost_change.change_rate_per_hour > 0)}"
+                                field_value += f"\n`{ta_cost.progress:^25.2%}`"
                                 change = f"{cost_change.change_rate_per_hour:+.2%}/hr"
                                 field_value += f"\n`{change:^25}`"
                                 field_value += f"\n-# {language_json['dashboard']['DSSEmbed']['active']} <t:{int(datetime.now().timestamp() + cost_change.seconds_until_complete)}:R>"
+                            else:
+                                field_value += f"\n{health_bar(ta_cost.progress,'MO')}"
+                                field_value += f"\n`{ta_cost.progress:^25.2%}`"
                     case "active":
                         field_value += f"\n{language_json['ends']} <t:{int(tactical_action.status_end_datetime.timestamp())}:R>"
                         desc_fmtd = tactical_action.strategic_description.replace(
@@ -1209,7 +1256,10 @@ class Dashboard:
                     ]
             event_health_bar = ""
             if self.compact_level < 1:
-                event_health_bar = f"\n{planet.event.health_bar}"
+                if liberation_change and liberation_change.change_rate_per_hour != 0:
+                    event_health_bar = f"\n{health_bar(perc=planet.event.progress, faction=planet.event.faction, anim=True, increasing=liberation_change.change_rate_per_hour > 0)}"
+                else:
+                    event_health_bar = f"\n{planet.event.health_bar}"
             player_count = f"**{planet.stats.player_count:,}**"
             self.add_field(
                 f"__**{self.planet_names[str(planet.index)]['names'][self.language_json['code_long']]}**__ {planet.exclamations}",
@@ -1318,7 +1368,13 @@ class Dashboard:
                     ]:
                         exclamation += ":chess_pawn:"
                     if compact_level < 1:
-                        planet_health_bar = f"\n{health_bar(campaign.planet.health_perc, campaign.planet.current_owner, True)}"
+                        if (
+                            liberation_change
+                            and liberation_change.change_rate_per_hour != 0
+                        ):
+                            planet_health_bar = f"\n{health_bar(campaign.planet.health_perc, campaign.planet.current_owner, True, anim=True, increasing=liberation_change.change_rate_per_hour > 0)}"
+                        else:
+                            planet_health_bar = f"\n{health_bar(campaign.planet.health_perc, campaign.planet.current_owner, True)}"
                     else:
                         planet_health_bar = ""
                     planet_health_text = f"`{(1 - (campaign.planet.health / campaign.planet.max_health)):^25.2%}`"

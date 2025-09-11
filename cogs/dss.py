@@ -52,6 +52,7 @@ class DSSCog(commands.Cog):
             dss_data=self.bot.data.dss,
             language_json=guild_language,
             localized_planet_names=self.bot.data.json_dict["planets"],
+            ta_changes=self.bot.data.tactical_action_changes,
         )
         components = Wiki.Buttons.dss_action_rows(language_json=guild_language)
         await inter.send(embed=embed, components=components)
