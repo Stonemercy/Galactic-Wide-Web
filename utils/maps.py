@@ -417,7 +417,7 @@ class Maps:
                 x_offset = 0
                 for su in SpecialUnits.get_from_effects_list(planet.active_effects):
                     su_icon = imread(
-                        f"resources/Emojis/Map Icons/{su[0].title()} bordered.png",
+                        f"resources/Map Icons/{su[0].title()} bordered.png",
                         IMREAD_UNCHANGED,
                     )
                     su_icon = resize(
@@ -433,9 +433,7 @@ class Maps:
                     )
                     x_offset += su_icon.shape[0]
             if dss and planet.dss_in_orbit:
-                dss_icon = imread(
-                    "resources/Emojis/Map Icons/dss_glow.png", IMREAD_UNCHANGED
-                )
+                dss_icon = imread("resources/Map Icons/dss_glow.png", IMREAD_UNCHANGED)
                 verti_diff = 65
                 loc_name = planet_names_json[str(planet.index)]["names"][long_code]
                 if loc_name.count(" ") > 0:
