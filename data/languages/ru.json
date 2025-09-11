@@ -35,8 +35,9 @@
                 "type9_against_faction": " против {faction}",
                 "type9_on_difficulty": " на сложности {difficulty} или выше",
                 "type11": "{status_emoji} Освободить {planet}",
-                "type12": "{status_emoji} Защитите планету {planet} {amount} раз(а)",
-                "type12_faction": "от {faction}",
+                "type12": "{status_emoji} Отразите атаку{planet} {amount} раз(а)",
+                "type12_planet": " на планету {planet}",
+                "type12_faction": " от {faction}",
                 "type13": "{status_emoji} Удерживайте планету {planet} до истечения приказа",
                 "type15": "{status_emoji} Освободите больше планет, чем было потеряно за время действия приказа"
             }

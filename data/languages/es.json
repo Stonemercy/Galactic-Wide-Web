@@ -36,6 +36,7 @@
                 "type9_on_difficulty": " en {difficulty} o superior",
                 "type11": "{status_emoji} Liberar {planet}",
                 "type12": "{status_emoji} Defender{planet} contra {amount} ataques",
+                "type12_planet": " {planet}",
                 "type12_faction": " de los {faction}",
                 "type13": "{status_emoji} Mantener {planet} cuando expire la orden",
                 "type15": "{status_emoji} Liberar más planetas de los que se pierdan durante la duración de la orden"

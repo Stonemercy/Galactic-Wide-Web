@@ -36,6 +36,7 @@
                 "type9_on_difficulty": " on {difficulty} or higher",
                 "type11": "{status_emoji} Libera {planet}",
                 "type12": "{status_emoji} Defend{planet} against {amount} attacks",
+                "type12_planet": " {planet}",
                 "type12_faction": " from the {faction}",
                 "type13": "{status_emoji} Mantieni il controllo di {planet} alla scadenza dell'ordine",
                 "type15": "{status_emoji} Libera più pianeti di quanti ne vengano persi durante la durata dell'ordine"

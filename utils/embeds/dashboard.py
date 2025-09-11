@@ -729,7 +729,7 @@ class Dashboard:
             """Defend[ {planet}] against {amount} attacks[ from the {faction}]"""
             planet_text = ""
             if planet:
-                planet_text = f" {planet_names_json[str(planet.index)]['names'][language_json['code_long']]}"
+                planet_text = f"{language_json['dashboard']['MajorOrderEmbed']['tasks']['type12_planet'].format(planet=planet_names_json[str(planet.index)]['names'][language_json['code_long']])}"
             field_name = language_json["dashboard"]["MajorOrderEmbed"]["tasks"][
                 "type12"
             ].format(
