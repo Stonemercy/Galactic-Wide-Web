@@ -276,6 +276,7 @@ class Data(ReprMixin):
                         for assignment in assignments_list
                     ],
                     key=lambda x: x.ends_at_datetime,
+                    reverse=True,
                 )
                 self.assignments: dict[str, list[Assignment]]
             for assignment in self.assignments["en"]:
