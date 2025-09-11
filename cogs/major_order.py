@@ -67,7 +67,7 @@ class MajorOrderCog(commands.Cog):
                         self.mo_briefing_check_dict[major_order.id] = 1
                     if self.mo_briefing_check_dict[major_order.id] < 15:
                         self.bot.logger.info(
-                            f"MO briefing not available for assignment #{major_order.id}"
+                            f"MO briefing not available for assignment #{major_order.id} - Check #{self.mo_briefing_check_dict[major_order.id]}"
                         )
                         return
                 self.mo_briefing_check_dict.pop(major_order.id, None)
@@ -86,21 +86,20 @@ class MajorOrderCog(commands.Cog):
                     for lang in unique_langs
                 }
                 for lang, embed_list in embeds.items():
-                    briefing: GlobalEvent = mo_briefing_dict.get(
-                        lang, mo_briefing_dict["en"]
-                    )
-                    for embed in embed_list:
-                        embed.insert_field_at(
-                            0,
-                            briefing.title,
-                            briefing.split_message[0],
-                            inline=False,
-                        )
-                        for index, chunk in enumerate(
-                            briefing.split_message[1:],
-                            1,
-                        ):
-                            embed.insert_field_at(index, "", chunk, inline=False)
+                    briefing: GlobalEvent = mo_briefing_dict.get(lang, None)
+                    if briefing:
+                        for embed in embed_list:
+                            embed.insert_field_at(
+                                0,
+                                briefing.title,
+                                briefing.split_message[0],
+                                inline=False,
+                            )
+                            for index, chunk in enumerate(
+                                briefing.split_message[1:],
+                                1,
+                            ):
+                                embed.insert_field_at(index, "", chunk, inline=False)
                 current_war_info.major_order_ids.append(major_order.id)
                 current_war_info.save_changes()
                 await self.bot.interface_handler.send_feature(
