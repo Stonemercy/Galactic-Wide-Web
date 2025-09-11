@@ -124,13 +124,13 @@ class CampaignChangesEmbed(Embed, EmbedReprMixin):
             exclamation=planet.exclamations,
         )
         if hours_left != 0.0:
-            description += f" with {hours_left} hours remaining"
+            description += f" with **{hours_left:.0f}** hours remaining\n"
         if planet.feature:
             description += f"-# {self.language_json['CampaignEmbed']['feature']}: {planet.feature}\n"
         for special_unit in SpecialUnits.get_from_effects_list(
             active_effects=planet.active_effects
         ):
-            description += f"-# {self.language_json['CampaignEmbed']['special_unit']}: **{special_unit[0]}** {special_unit[1]}\n"
+            description += f"-# {self.language_json['CampaignEmbed']['special_unit']}: **{self.language_json['special_units'][special_unit[0]]}** {special_unit[1]}\n"
         self.set_field_at(0, self.fields[0].name, description, inline=False)
 
     def add_planet_lost(self, planet: Planet):
