@@ -4,12 +4,7 @@
 *.code-workspace
 .vscode/
 resources/*.webp
-resources/Emojis/Regions
-resources/Emojis/Platforms
-resources/Emojis/Weather
-resources/Emojis/Wiki
-resources/Emojis/Major Order Tasks
-resources/Emojis/Map Icons/dss.png
+resources/Emojis
 resources/dss.jpg
 resources/!old_Emojis
 resources/warbonds
@@ -20,6 +15,7 @@ resources/weather_icons
 resources/maps
 resources/icon.png
 resources/attack_embed_icons
+resources/defence_embed_icons
 data/json_creation_scripts
 
 # JSON
