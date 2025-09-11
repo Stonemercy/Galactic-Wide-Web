@@ -55,19 +55,14 @@ class AdminCommandsCog(commands.Cog):
         self.bot.logger.critical(
             msg=f"{self.qualified_name} | /{inter.application_command.name} <{feature = }> | used by <@{inter.author.id}> | @{inter.author.global_name}"
         )
-        update_start = datetime.now()
         match feature:
             case "Dashboard":
                 await self.bot.get_cog(name="DashboardCog").dashboard_poster()
-                text = f"Forced updates of {len(self.bot.interface_handler.dashboards)} dashboards in {(datetime.now() - update_start).total_seconds():.2f} seconds"
             case "Map":
                 await self.bot.get_cog(name="MapCog").map_poster()
-                text = f"Forced updates of {len(self.bot.interface_handler.maps)} maps in {(datetime.now() - update_start).total_seconds():.2f} seconds"
             case "MO Update":
                 await self.bot.get_cog(name="MajorOrderCog").major_order_updates()
-                text = f"Forced updates of {len(self.bot.interface_handler.major_order_updates)} MO updates in {(datetime.now() - update_start).total_seconds():.2f} seconds"
-        self.bot.logger.info(msg=text)
-        await inter.send(content=text, ephemeral=True)
+        await inter.send(content="Completed", ephemeral=True)
 
     def extension_names_autocomp(inter: AppCmdInter, user_input: str):
         """Returns the name of each cog currently loaded"""
