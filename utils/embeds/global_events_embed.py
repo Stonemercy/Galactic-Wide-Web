@@ -22,7 +22,7 @@ class GlobalEventsEmbed(Embed, EmbedReprMixin):
                 ]
             )
             if not specific_planets:
-                specific_planets = language_json["GlobalEventsEmbed"]["all"]
+                specific_planets = language_json["GlobalEventsEmbed"]["all_planets"]
             for effect in global_event.effects:
                 if "UNKNOWN" in effect.planet_effect["name"]:
                     self.add_field(

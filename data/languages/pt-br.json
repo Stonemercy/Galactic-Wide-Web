@@ -207,7 +207,7 @@
         "planets_in_path": "PLANETAS EM ROTA DE COLISÃO"
     },
     "GlobalEventsEmbed": {
-        "all": "all",
+        "all_planets": "all planets",
         "unknown_effect": "EFEITO DESCONHECIDO",
         "active_on_planets": "-# Agora ativo nos seguintes planetas:\n- {planets}",
         "enemy_identified": "Inimigo identificado",

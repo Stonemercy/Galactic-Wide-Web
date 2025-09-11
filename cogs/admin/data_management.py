@@ -173,7 +173,6 @@ class DataManagementCog(commands.Cog):
                             for p in self.bot.data.planets.values()
                             if effect.id in [e for e in p.active_effects]
                         ],
-                        json_dict=self.bot.json_dict,
                     ),
                 )
                 self.mentioned_new_effects.add(effect.id)

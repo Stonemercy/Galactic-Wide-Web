@@ -207,7 +207,7 @@
         "planets_in_path": "ПЛАНЕТЫ ПОД УГРОЗОЙ"
     },
     "GlobalEventsEmbed": {
-        "all": "Все",
+        "all_planets": "все планеты",
         "unknown_effect": "НЕИЗВЕСТНЫЙ ЭФФЕКТ",
         "active_on_planets": "\n-# Теперь активен на следующей(их) планете(ах):\n- {planets}",
         "enemy_identified": "Обнаружен враг",

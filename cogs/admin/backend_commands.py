@@ -75,7 +75,6 @@ class BackendCommandsCog(commands.Cog):
                 embed = GalacticWarEffectEmbed(
                     gwe=gwe,
                     planets_with_gwe=planets_with_gwe,
-                    json_dict=self.bot.json_dict,
                 )
                 embeds.append(embed)
             await inter.send(embeds=embeds[:5], ephemeral=public != "Yes")

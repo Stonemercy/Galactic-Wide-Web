@@ -862,6 +862,18 @@ class GalacticWarEffect(GWEReprMixin):
 
 
 class GlobalEvent(ReprMixin):
+    __slots__ = (
+        "id",
+        "title",
+        "message",
+        "faction",
+        "flag",
+        "assignment_id",
+        "effects",
+        "planet_indices",
+        "expire_time",
+    )
+
     def __init__(
         self,
         raw_global_event_data: dict,

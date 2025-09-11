@@ -207,7 +207,7 @@
         "planets_in_path": "PLANÈTE SUR LA TRAJECTOIRE DIRECTE"
     },
     "GlobalEventsEmbed": {
-        "all": "all",
+        "all_planets": "all planets",
         "unknown_effect": "UNKNOWN EFFECT",
         "active_on_planets": "\n-# Now active on the following planet(s):\n- {planets}",
         "enemy_identified": "Enemy identified",

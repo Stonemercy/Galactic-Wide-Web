@@ -9,7 +9,6 @@ class GalacticWarEffectEmbed(Embed, EmbedReprMixin):
         self,
         gwe: GalacticWarEffect,
         planets_with_gwe: list[Planet] | str,
-        json_dict: dict,
     ):
         super().__init__(
             title=f"{gwe.id} - {gwe.effect_description['simplified_name']}",
@@ -21,7 +20,7 @@ class GalacticWarEffectEmbed(Embed, EmbedReprMixin):
             try:
                 self.set_thumbnail(
                     file=File(
-                        f"resources/Emojis/Planet Effects/{gwe.found_enemy.replace(' ', '_')}.png"
+                        f"resources/Planet Effects/{gwe.found_enemy.replace(' ', '_')}.png"
                     )
                 )
             except:
