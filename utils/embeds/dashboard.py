@@ -1277,7 +1277,7 @@ class Dashboard:
                 (
                     f"{feature_text}"
                     f"\n{self.language_json['ends']} {time_remaining}"
-                    f"\n{self.language_json['dashboard']['DefenceEmbed']['level']} **{int(planet.event.max_health / 50_000)}**"
+                    f"\n{self.language_json['dashboard']['DefenceEmbed']['level']} **{planet.event.level}**"
                     f"{outlook_text}"
                     f"\n{self.language_json['dashboard']['heroes'].format(heroes=player_count)}"
                     f"{required_players}"
