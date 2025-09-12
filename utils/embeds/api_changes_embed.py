@@ -113,6 +113,6 @@ class APIChangesEmbed(Embed, EmbedReprMixin):
                 case "Planet Owner":
                     self.add_field(
                         f"{faction_emoji} {change.planet.name}",
-                        f"Planet Owner: **{change.before}** {Emojis.Stratagems.right} **{change.after}**",
+                        f"Planet Owner: **{change.before.full_name}** {Emojis.Stratagems.right} **{change.after.full_name}**",
                         inline=False,
                     )
