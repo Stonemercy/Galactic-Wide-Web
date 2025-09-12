@@ -36,7 +36,7 @@
                 "type9_on_difficulty": " na dificuldade {difficulty} ou maior",
                 "type11": "{status_emoji} Libere {planet}",
                 "type12": "{status_emoji} Defenda{planet} de {amount} ataques",
-                "type12_planet": " {planet}",
+                "type12_planet": "o planeta {planet}",
                 "type12_faction": " dos {faction}",
                 "type13": "{status_emoji} Mantenha {planet} quando a ordem expirar",
                 "type15": "{status_emoji} Libere mais planetas do que são perdidos durante a duração da ordem"
@@ -208,7 +208,7 @@
         "planets_in_path": "PLANETAS EM ROTA DE COLISÃO"
     },
     "GlobalEventsEmbed": {
-        "all_planets": "all planets",
+        "all_planets": "todos os planetas",
         "unknown_effect": "EFEITO DESCONHECIDO",
         "active_on_planets": "-# Agora ativo nos seguintes planetas:\n- {planets}",
         "enemy_identified": "Inimigo identificado",
