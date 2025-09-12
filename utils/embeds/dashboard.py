@@ -1179,7 +1179,8 @@ class Dashboard:
                                 if (
                                     region_lib_time < end_time
                                     and health_at_region_lib_time
-                                    >= (region.max_health * 1.5) / planet.max_health
+                                    >= 1
+                                    - ((region.max_health * 1.5) / planet.max_health)
                                 ):
                                     if region_lib_time < win_time:
                                         outlook_text = f"\n{self.language_json['dashboard']['outlook']}: **{self.language_json['victory']}** <t:{int(region_lib_time.timestamp())}:R>"
