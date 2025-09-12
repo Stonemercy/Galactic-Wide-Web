@@ -1158,7 +1158,7 @@ class Dashboard:
                             < planet.event.end_time_datetime
                         ):
                             outlook_text = f"\n{self.language_json['dashboard']['outlook']}: **{self.language_json['victory']}** <t:{now_seconds + gambit_lib_change.seconds_until_complete}:R>"
-                            outlook_text += f"\n> -# {self.language_json['dashboard']['DefenceEmbed']['thanks_to_gambit'].format(planet=gambit_planet.name)}"
+                            outlook_text += f"\n> -# {self.language_json['dashboard']['DefenceEmbed']['thanks_to_gambit'].format(planet=self.planet_names[str(gambit_planet.index)]['names'][self.language_json['code_long']])}"
                         for region in planet.regions.values():
                             region_lib_change = self.region_lib_changes.get_entry(
                                 region.settings_hash
