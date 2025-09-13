@@ -548,6 +548,8 @@ class Data(ReprMixin):
         if self.assignments:
             for assignment in self.assignments["en"]:
                 for index, task in enumerate(assignment.tasks, start=1):
+                    if task.type in [12, 15]:
+                        continue
                     self.major_order_changes.add_entry(
                         key=(assignment.id, index), value=task.progress_perc
                     )
