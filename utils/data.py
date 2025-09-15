@@ -749,8 +749,12 @@ class Dispatch(ReprMixin):
             text=raw_dispatch_data.get("message", "")
         )
         split_lines = self.full_message.splitlines()
-        self.title = split_lines[0].replace("*", "")
-        self.description = "\n".join(split_lines[1:])
+        if split_lines:
+            self.title = split_lines[0].replace("*", "")
+            self.description = "\n".join(split_lines[1:])
+        else:
+            self.title = "New Dispatch"
+            self.description = self.full_message
 
 
 class GalacticWarEffect(GWEReprMixin):
