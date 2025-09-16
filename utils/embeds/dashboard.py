@@ -965,7 +965,9 @@ class Dashboard:
 
         def add_description(self, assignment: Assignment, language_json: dict):
             self.add_field(
-                name=assignment.briefing, value=assignment.description, inline=False
+                name="",
+                value=f"-# {assignment.briefing}",
+                inline=False,
             )
             self.set_footer(
                 text=language_json["dashboard"]["MajorOrderEmbed"]["assignment"].format(
