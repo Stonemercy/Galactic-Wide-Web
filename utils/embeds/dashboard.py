@@ -332,7 +332,7 @@ class Dashboard:
                                 inline=False,
                             )
                     if (
-                        assignment.flags == 3
+                        assignment.flags in [2, 3]
                         and len(assignment.tasks) > 1
                         and task != assignment.tasks[-1]
                     ):
@@ -349,15 +349,16 @@ class Dashboard:
                     for ts in self.completion_timestamps
                 ]
                 if (
-                    assignment.flags != 3
+                    assignment.flags == 1
                     and (
-                        winning_all_tasks
-                        and all(winning_all_tasks)
-                        and len(winning_all_tasks)
-                        == len([t for t in assignment.tasks if t.progress_perc != 1])
+                        all(winning_all_tasks)
+                        and (
+                            len([t.progress_perc for t in assignment.tasks])
+                            == len(assignment.tasks)
+                        )
                     )
                 ) or (
-                    assignment.flags == 3
+                    assignment.flags in [2, 3]
                     and (
                         any([t.progress_perc == 1 for t in assignment.tasks])
                         or any(winning_all_tasks)
