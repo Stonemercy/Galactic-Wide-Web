@@ -913,9 +913,9 @@ class Dashboard:
                                 planet_lib_changes
                                 and planet_lib_changes.change_rate_per_hour != 0
                             ):
-                                field_value += f"\n{health_bar(planet.health_perc, planet.current_owner, anim=True, increasing=planet_lib_changes.change_rate_per_hour > 0)}"
+                                field_value += f"{health_bar(perc=planet.health_perc, faction=planet.faction, reverse=True, anim=True, increasing=planet_lib_changes.change_rate_per_hour > 0)}"
                             else:
-                                field_value += f"{health_bar(perc=planet.health_perc, faction=planet.current_owner, reverse=True)}"
+                                field_value += f"{health_bar(perc=planet.health_perc, reverse=True, faction=planet.faction)}"
                         if (
                             planet_lib_changes
                             and planet_lib_changes.change_rate_per_hour != 0
