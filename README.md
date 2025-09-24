@@ -2,10 +2,10 @@
 
 <p align="center">
 	<a href="https://discord.gg/Z8Ae5H5DjZ">
-		<img alt="Servers" src="https://img.shields.io/badge/servers-3300+-brightgreen?style=for-the-badge">
+		<img alt="Servers" src="https://img.shields.io/badge/servers-3750+-brightgreen?style=for-the-badge">
 	</a>
 	<a href="https://discord.gg/Z8Ae5H5Dj">
-		<img alt="Visible Users" src="https://img.shields.io/badge/visible users-360,000+-brightgreen?style=for-the-badge">
+		<img alt="Visible Users" src="https://img.shields.io/badge/visible users-415,000+-brightgreen?style=for-the-badge">
 	</a>
   <br>
 	<img alt="Commits made" src="https://img.shields.io/github/last-commit/Stonemercy/Galactic-Wide-Web?style=for-the-badge">
@@ -71,11 +71,6 @@ Want to try out the GWW on your server? [Invite Link](https://discord.com/oauth2
 `/setup`
 
 ![setup](resources/readme/setup.png)
-<p align="right"><a href="#top">Back to Top ↑</a></p>
-
-`/siege_fleets THE GREAT HOST`
-
-![siege_fleets](resources/readme/siege_fleets.png)
 <p align="right"><a href="#top">Back to Top ↑</a></p>
 
 `/steam`
