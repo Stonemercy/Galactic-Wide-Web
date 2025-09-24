@@ -7,19 +7,38 @@ from disnake import (
     File,
     InteractionContextTypes,
     InteractionTimedOut,
-    Message,
     MessageInteraction,
     NotFound,
     Permissions,
+    ui,
 )
 from disnake.ext import commands
 from disnake.ui import ActionRow
 from main import GalacticWideWebBot
+from utils.containers import SetupContainer
 from utils.checks import wait_for_startup
 from utils.dbv2 import Feature, GWWGuild, GWWGuilds
-from utils.embeds import Dashboard, SetupEmbed
+from utils.embeds import Dashboard
 from utils.maps import Maps
 from utils.setup import Setup
+
+CURRENT_FEATURES = [
+    "war_announcements",
+    "dss_announcements",
+    "region_announcements",
+    "patch_notes",
+    "major_order_updates",
+    "detailed_dispatches",
+]
+
+FEATURE_INDEXES = {
+    "war_announcements": 7,
+    "dss_announcements": 9,
+    "region_announcements": 11,
+    "patch_notes": 13,
+    "major_order_updates": 15,
+    "detailed_dispatches": 17,
+}
 
 
 class SetupCog(commands.Cog):
@@ -43,14 +62,6 @@ class SetupCog(commands.Cog):
             attach_files=True,
             embed_links=True,
         )
-        self.current_features = [
-            "war_announcements",
-            "dss_announcements",
-            "region_announcements",
-            "patch_notes",
-            "major_order_updates",
-            "detailed_dispatches",
-        ]
 
     def reset_row(self, action_row: ActionRow):
         for button in action_row.children:
@@ -94,31 +105,22 @@ class SetupCog(commands.Cog):
                 msg=f"Guild {inter.guild_id} - {inter.guild.name} - had the bot installed but wasn't found in the DB"
             )
             guild: GWWGuild = GWWGuilds.add(inter.guild_id, "en", [])
-        guild_language = self.bot.json_dict["languages"][guild.language]
-        components = [
-            ActionRow(
-                Setup.Dashboard.DashboardButton(language_json=guild_language),
-                Setup.Map.MapButton(language_json=guild_language),
-                Setup.Features.FeaturesButton(language_json=guild_language),
-                Setup.Language.LanguageButton(language_json=guild_language),
-            )
-        ]
         await inter.send(
-            embed=SetupEmbed(
+            components=SetupContainer(
                 guild=guild,
-                language_json=self.bot.json_dict["languages"][guild.language],
+                container_json=self.bot.json_dict["languages"][guild.language][
+                    "containers"
+                ]["SetupContainer"],
+                language_code=guild.language,
                 shard_info=self.bot.shards[inter.guild.shard_id],
-            ),
-            components=components,
+            )
         )
 
     @commands.Cog.listener("on_button_click")
     async def on_button_clicks(self, inter: MessageInteraction):
         allowed_ids = {
-            "dashboard_button",
             "set_dashboard_button",
             "clear_dashboard_button",
-            "map_button",
             "set_map_button",
             "clear_map_button",
             "language_button",
@@ -138,150 +140,102 @@ class SetupCog(commands.Cog):
                 delete_after=5,
             )
             return
-        action_rows = ActionRow.rows_from_message(inter.message)
         guild: GWWGuild = GWWGuilds.get_specific_guild(inter.guild_id)
         guild_language = self.bot.json_dict["languages"][guild.language]
-        active_feature_names = [f.name for f in guild.features]
+        container = ui.Container.from_component(inter.message.components[0])
         if "dashboard" in inter.component.custom_id:
-            self.clear_extra_buttons(action_rows)
-            if inter.component.custom_id == "dashboard_button":
-                if "dashboards" in active_feature_names:
-                    dashboard_row = ActionRow(
-                        Setup.Dashboard.ClearDashboardButton(
-                            language_json=guild_language
+            if inter.component.custom_id == "set_dashboard_button":
+                container.children.insert(
+                    3,
+                    ui.ActionRow(
+                        Setup.Dashboard.DashboardChannelSelect(
+                            container_json=guild_language["containers"][
+                                "SetupContainer"
+                            ]
                         )
-                    )
-                else:
-                    dashboard_row = ActionRow(
-                        Setup.Dashboard.SetDashboardButton(language_json=guild_language)
-                    )
-                action_rows.append(dashboard_row)
-                self.reset_row(action_rows[0])
-                action_rows[0].pop(0)
-                action_rows[0].insert_item(
-                    0,
-                    Setup.Dashboard.DashboardButton(
-                        language_json=guild_language, selected=True
                     ),
                 )
-                try:
-                    await inter.edit_original_response(components=action_rows)
-                    return
-                except NotFound:
-                    await inter.send(
-                        "There was an issue editing the setup message. Your settings have been saved so just use the command again!\nApologies for the inconvenience",
-                        ephemeral=True,
-                    )
-                    return
-            elif inter.component.custom_id == "set_dashboard_button":
-                action_rows.append(
-                    ActionRow(
-                        Setup.Dashboard.DashboardChannelSelect(
-                            language_json=guild_language
-                        )
-                    )
-                )
-                await inter.edit_original_response(components=action_rows)
+                await inter.edit_original_response(components=container)
                 return
             elif inter.component.custom_id == "clear_dashboard_button":
+                try:
+                    message = [
+                        m
+                        for m in self.bot.interface_handler.dashboards
+                        if m.guild.id == guild.guild_id
+                    ][0]
+                    await message.delete()
+                except:
+                    pass
                 guild.features = [f for f in guild.features if f.name != "dashboards"]
                 guild.update_features()
                 guild.save_changes()
                 self.bot.interface_handler.dashboards.remove_entry(guild.guild_id)
-                self.reset_row(action_rows[0])
                 await inter.edit_original_response(
-                    embed=SetupEmbed(
-                        guild,
-                        self.bot.json_dict["languages"][guild.language],
+                    components=SetupContainer(
+                        guild=guild,
+                        container_json=self.bot.json_dict["languages"][guild.language][
+                            "containers"
+                        ]["SetupContainer"],
+                        language_code=guild.language,
                         shard_info=self.bot.shards[inter.guild.shard_id],
-                    ),
-                    components=action_rows,
+                    )
                 )
                 return
         elif "map" in inter.component.custom_id:
-            if inter.component.custom_id == "map_button":
-                self.clear_extra_buttons(action_rows)
-                if "maps" in active_feature_names:
-                    map_row = ActionRow(
-                        Setup.Map.ClearMapButton(language_json=guild_language)
-                    )
-                else:
-                    map_row = ActionRow(
-                        Setup.Map.SetMapButton(language_json=guild_language)
-                    )
-                action_rows.append(map_row)
-                self.reset_row(action_rows[0])
-                action_rows[0].pop(1)
-                action_rows[0].insert_item(
-                    1, Setup.Map.MapButton(language_json=guild_language, selected=True)
+            if inter.component.custom_id == "set_map_button":
+                container.children.insert(
+                    5,
+                    ui.ActionRow(
+                        Setup.Map.MapChannelSelect(
+                            container_json=guild_language["containers"][
+                                "SetupContainer"
+                            ]
+                        )
+                    ),
                 )
-                try:
-                    await inter.edit_original_response(components=action_rows)
-                    return
-                except NotFound as e:
-                    await self.bot.moderator_channel.send(f"Setup\n```py\n{e}\n```")
-            elif inter.component.custom_id == "set_map_button":
-                self.clear_extra_buttons(action_rows)
-                action_rows.append(
-                    ActionRow(Setup.Map.MapChannelSelect(language_json=guild_language))
-                )
-                try:
-                    await inter.edit_original_response(components=action_rows)
-                    return
-                except NotFound as e:
-                    await self.bot.moderator_channel.send(f"Setup\n```py\n{e}\n```")
+                await inter.edit_original_response(components=container)
+                return
             elif inter.component.custom_id == "clear_map_button":
-                self.clear_extra_buttons(action_rows)
+                try:
+                    message = [
+                        m
+                        for m in self.bot.interface_handler.maps
+                        if m.guild.id == guild.guild_id
+                    ][0]
+                    await message.delete()
+                except:
+                    pass
                 guild.features = [f for f in guild.features if f.name != "maps"]
                 guild.update_features()
                 guild.save_changes()
                 self.bot.interface_handler.maps.remove_entry(guild.guild_id)
-                self.reset_row(action_rows[0])
                 await inter.edit_original_response(
-                    embed=SetupEmbed(
-                        guild,
-                        self.bot.json_dict["languages"][guild.language],
+                    components=SetupContainer(
+                        guild=guild,
+                        container_json=self.bot.json_dict["languages"][guild.language][
+                            "containers"
+                        ]["SetupContainer"],
+                        language_code=guild.language,
                         shard_info=self.bot.shards[inter.guild.shard_id],
-                    ),
-                    components=action_rows,
+                    )
                 )
                 return
         elif "features_button" in inter.component.custom_id:
-            if inter.component.custom_id == "features_button":
-                self.clear_extra_buttons(action_rows)
-                feature_buttons = [
-                    Setup.Features.FeatureButton(
-                        feature_type=f, language_json=guild_language
-                    )
-                    for f in self.current_features
-                ]
-                for i in range(0, len(feature_buttons), 3):
-                    action_rows.append(ActionRow(*feature_buttons[i : i + 3]))
-                self.reset_row(action_rows[0])
-                action_rows[0].pop(2)
-                action_rows[0].insert_item(
-                    2,
-                    Setup.Features.FeaturesButton(
-                        language_json=guild_language, selected=True
-                    ),
-                )
-                try:
-                    await inter.edit_original_response(components=action_rows)
-                    return
-                except NotFound as e:
-                    await self.bot.moderator_channel.send(f"Setup\n```py\n{e}\n```")
-            elif "set_features_button-" in inter.component.custom_id:
-                self.clear_extra_buttons(action_rows=action_rows, from_row=3)
+            if "set_features_button-" in inter.component.custom_id:
                 feature_type = inter.component.custom_id.split("-")[1]
-                action_rows.append(
-                    ActionRow(
+                container.children.insert(
+                    FEATURE_INDEXES[feature_type],
+                    ui.ActionRow(
                         Setup.Features.FeatureChannelSelect(
                             feature_type=feature_type,
-                            language_json=guild_language,
+                            container_json=guild_language["containers"][
+                                "SetupContainer"
+                            ],
                         )
-                    )
+                    ),
                 )
-                await inter.edit_original_response(components=action_rows)
+                await inter.edit_original_response(components=container)
                 return
             elif "clear_features_button-" in inter.component.custom_id:
                 feature_type = inter.component.custom_id.split("-")[1]
@@ -291,99 +245,32 @@ class SetupCog(commands.Cog):
                 getattr(self.bot.interface_handler, feature_type).remove_entry(
                     guild.guild_id
                 )
-                self.clear_extra_buttons(action_rows=action_rows, from_row=3)
-                self.reset_row(action_rows[1])
-                self.reset_row(action_rows[2])
                 await inter.edit_original_response(
-                    embed=SetupEmbed(
-                        guild,
-                        self.bot.json_dict["languages"][guild.language],
+                    components=SetupContainer(
+                        guild=guild,
+                        container_json=self.bot.json_dict["languages"][guild.language][
+                            "containers"
+                        ]["SetupContainer"],
+                        language_code=guild.language,
                         shard_info=self.bot.shards[inter.guild.shard_id],
                     ),
-                    components=action_rows,
                 )
                 return
-            elif "_features_button" in inter.component.custom_id:
-                for feature in self.current_features:
-                    if inter.component.custom_id == f"{feature}_features_button":
-                        currently_enabled = feature in active_feature_names
-                        self.clear_extra_buttons(action_rows=action_rows, from_row=3)
-                        if currently_enabled:
-                            action_rows.append(
-                                ActionRow(
-                                    Setup.Features.ClearFeatureButton(
-                                        feature_type=feature,
-                                        language_json=guild_language,
-                                    )
-                                )
-                            )
-                        else:
-                            action_rows.append(
-                                ActionRow(
-                                    Setup.Features.SetFeatureButton(
-                                        feature_type=feature,
-                                        language_json=guild_language,
-                                    )
-                                )
-                            )
-                        button_index = None
-                        row_index = None
-                        buttons_to_check = (
-                            action_rows[1].children,
-                            action_rows[2].children,
-                        )
-                        for r_index, row in enumerate(buttons_to_check, 1):
-                            for b_index, button in enumerate(row):
-                                if feature in button.custom_id:
-                                    button_index = b_index
-                                    break
-                            if button_index != None:
-                                row_index = r_index
-                                break
-                        for row in action_rows[1:]:
-                            self.reset_row(row)
-                        action_rows[row_index].pop(button_index)
-                        action_rows[row_index].insert_item(
-                            button_index,
-                            Setup.Features.FeatureButton(
-                                feature_type=feature,
-                                language_json=guild_language,
-                                selected=True,
-                            ),
-                        )
-                        try:
-                            await inter.edit_original_response(components=action_rows)
-                            return
-                        except NotFound as e:
-                            await self.bot.moderator_channel.send(
-                                f"Setup\n```py\n{e}\n```"
-                            )
-                        return
-
         elif "language" in inter.component.custom_id:
             if inter.component.custom_id == "language_button":
-                self.clear_extra_buttons(action_rows)
-                action_rows.append(
-                    ActionRow(
-                        Setup.Language.LanguageSelect(language_json=guild_language)
-                    )
-                )
-                self.reset_row(action_rows[0])
-                action_rows[0].pop(3)
-                action_rows[0].insert_item(
-                    3,
-                    Setup.Language.LanguageButton(
-                        language_json=guild_language, selected=True
+                container.children.insert(
+                    len(container.children),
+                    ui.ActionRow(
+                        Setup.Language.LanguageSelect(
+                            container_json=guild_language["containers"][
+                                "SetupContainer"
+                            ]
+                        )
                     ),
                 )
                 try:
                     await inter.edit_original_response(
-                        embed=SetupEmbed(
-                            guild,
-                            self.bot.json_dict["languages"][guild.language],
-                            shard_info=self.bot.shards[inter.guild.shard_id],
-                        ),
-                        components=action_rows,
+                        components=container,
                     )
                 except Exception as e:
                     self.bot.logger.error(f"ERROR SetupCog | {e}")
@@ -409,7 +296,6 @@ class SetupCog(commands.Cog):
                 delete_after=5,
             )
             return
-        action_rows = ActionRow.rows_from_message(inter.message)
         guild: GWWGuild = GWWGuilds.get_specific_guild(inter.guild_id)
         guild_language = self.bot.json_dict["languages"][guild.language]
         if inter.component.custom_id == "dashboard_channel_select":
@@ -417,7 +303,7 @@ class SetupCog(commands.Cog):
                 dashboard_channel = self.bot.get_channel(
                     inter.values[0]
                 ) or await self.bot.fetch_channel(inter.values[0])
-            except:
+            except:  # TODO EXPAND THIS TO INCLUDE NOTFOUND AND FORBIDDEN
                 await inter.send(
                     guild_language["setup"]["missing_perm"],
                     ephemeral=True,
@@ -475,14 +361,14 @@ class SetupCog(commands.Cog):
                 guild.update_features()
                 guild.save_changes()
                 self.bot.interface_handler.dashboards.append(message)
-                embed = SetupEmbed(
-                    guild,
-                    guild_language,
-                    shard_info=self.bot.shards[inter.guild.shard_id],
+                await inter.edit_original_response(
+                    components=SetupContainer(
+                        guild=guild,
+                        container_json=guild_language["containers"]["SetupContainer"],
+                        language_code=guild.language,
+                        shard_info=self.bot.shards[inter.guild.shard_id],
+                    ),
                 )
-                self.clear_extra_buttons(action_rows)
-                self.reset_row(action_rows[0])
-                await inter.edit_original_response(embed=embed, components=action_rows)
         elif inter.component.custom_id == "map_channel_select":
             try:
                 map_channel = self.bot.get_channel(
@@ -511,9 +397,6 @@ class SetupCog(commands.Cog):
                 )
                 return
             else:
-                self.clear_extra_buttons(action_rows)
-                self.reset_row(action_rows[0])
-                await inter.edit_original_response(components=action_rows)
                 latest_map = self.bot.maps.latest_maps.get(guild.language, None)
                 fifteen_minutes_ago = datetime.now() - timedelta(minutes=15)
                 if latest_map and latest_map.updated_at > fifteen_minutes_ago:
@@ -525,7 +408,7 @@ class SetupCog(commands.Cog):
                         ),
                     )
                 else:
-                    generating_message: Message = await inter.channel.send(
+                    generating_message = await inter.channel.send(
                         "Generating map, please wait..."
                     )
                     self.bot.maps.update_base_map(
@@ -579,12 +462,14 @@ class SetupCog(commands.Cog):
                 guild.update_features()
                 guild.save_changes()
                 self.bot.interface_handler.maps.append(message)
-                embed = SetupEmbed(
-                    guild,
-                    guild_language,
-                    shard_info=self.bot.shards[inter.guild.shard_id],
+                await inter.edit_original_response(
+                    components=SetupContainer(
+                        guild=guild,
+                        container_json=guild_language["containers"]["SetupContainer"],
+                        language_code=guild.language,
+                        shard_info=self.bot.shards[inter.guild.shard_id],
+                    )
                 )
-                await inter.edit_original_response(embed=embed, components=action_rows)
         elif "feature_channel_select-" in inter.component.custom_id:
             feature_type = inter.component.custom_id.split("-")[1]
             try:
@@ -621,34 +506,27 @@ class SetupCog(commands.Cog):
                 guild.save_changes()
                 list_to_update: list = getattr(self.bot.interface_handler, feature_type)
                 list_to_update.append(channel)
-                embed = SetupEmbed(
-                    guild,
-                    guild_language,
-                    shard_info=self.bot.shards[inter.guild.shard_id],
+                await inter.edit_original_response(
+                    components=SetupContainer(
+                        guild=guild,
+                        container_json=guild_language["containers"]["SetupContainer"],
+                        language_code=guild.language,
+                        shard_info=self.bot.shards[inter.guild.shard_id],
+                    )
                 )
-                self.clear_extra_buttons(action_rows, from_row=3)
-                self.reset_row(action_rows[1])
-                self.reset_row(action_rows[2])
-                await inter.edit_original_response(embed=embed, components=action_rows)
         elif inter.component.custom_id == "language_select":
             guild.language = inter.values[0].lower()
             guild.save_changes()
             guild_language = self.bot.json_dict["languages"][guild.language]
-            embed = SetupEmbed(
-                guild,
-                self.bot.json_dict["languages"][guild.language],
-                shard_info=self.bot.shards[inter.guild.shard_id],
-            )
             await inter.edit_original_response(
-                embed=embed,
-                components=[
-                    ActionRow(
-                        Setup.Dashboard.DashboardButton(language_json=guild_language),
-                        Setup.Map.MapButton(language_json=guild_language),
-                        Setup.Features.FeaturesButton(language_json=guild_language),
-                        Setup.Language.LanguageButton(language_json=guild_language),
-                    )
-                ],
+                components=SetupContainer(
+                    guild=guild,
+                    container_json=self.bot.json_dict["languages"][guild.language][
+                        "containers"
+                    ]["SetupContainer"],
+                    language_code=guild.language,
+                    shard_info=self.bot.shards[inter.guild.shard_id],
+                ),
             )
 
 

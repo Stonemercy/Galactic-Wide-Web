@@ -1,57 +1,36 @@
 {
-    "code": "es",
-    "code_long": "es-ES",
-    "ends": "Finaliza",
-    "message": "Mensaje #{message_id}",
-    "victory": "Victoria",
-    "defeat": "Derrota",
-    "complete": "Complete",
-    "failure": "Failure",
-    "dashboard": {
-        "heroes": "Héroes: **{heroes}**",
-        "outlook": "Perspectiva",
-        "progress": "Progreso actual",
-        "shrunk_temporarily": "El recuento de caracteres ha superado los 6000; el salpicadero se ha reducido temporalmente",
-        "MajorOrderEmbed": {
-            "mo_missing": "Esperando Orden Mayor",
-            "assignment": "Asignación #{id}",
-            "MO_unavailable": "Espere más órdenes del Alto Mando de la Super Tierra",
-            "feature": "Característica",
-            "rewards": "Recompensas",
-            "reward_pluralized": "{reward}s",
-            "ahead_of_schedule": "\n-# **{hours}h {minutes}m** ahead of schedule",
-            "behind_schedule": "\n-# **{hours}h {minutes}m** behind schedule",
-            "tasks": {
-                "typeNew": "{alert_emoji} TAREA NO RECONOCIDA",
-                "type2": "{status_emoji} Extraer con éxito {amount} {item}",
-                "type2_planet": " en {planet}",
-                "type2_sector": " en el SECTOR __{sector}__",
-                "type2_faction": " de cualquier planeta controlado por {faction}",
-                "type3": "{status_emoji} Eliminad {amount} {target}",
-                "type3_item": " usando el __{item_to_use}__",
-                "type3_planet": " en {planet}",
-                "type7": "Extraer satisfactoriamente de una misión contra {faction} {amount} veces",
-                "type9": "{status_emoji} Completa una operación {against_faction}{on_difficulty} {amount} veces",
-                "type9_against_faction": " contra {faction}",
-                "type9_on_difficulty": " en {difficulty} o superior",
-                "type11": "{status_emoji} Liberar {planet}",
-                "type12": "{status_emoji} Defender{planet} contra {amount} ataques",
-                "type12_planet": " {planet}",
-                "type12_faction": " de los {faction}",
-                "type13": "{status_emoji} Mantener {planet} cuando expire la orden",
-                "type15": "{status_emoji} Liberar más planetas de los que se pierdan durante la duración de la orden"
-            }
+    "code": "en",
+    "code_long": "en-GB",
+    "containers": {
+        "CampaignChangesContainer": {
+            "title": "GALACTIC WAR UPDATES",
+            "victories": "VICTORIES",
+            "losses": "LOSSES",
+            "new_campaigns": "NEW CAMPAIGNS",
+            "gambit": "Gambit",
+            "liberated": "**{planet_name}** has been liberated from the **{faction_name}**",
+            "defended": "**{planet_name}** has been successfully defended against the **{faction_name}**",
+            "ahead_of_schedule": ", **{hours_remaining} hour(s)** ahead of schedule!",
+            "defend": "### DEFEND **{planet_name}** {emojis}",
+            "invasion_level": "\n> Invasion Level **{level}{emoji}**",
+            "ends": "\n> -# Ends <t:{timestamp}:R>",
+            "liberate": "### LIBERATE **{planet_name}** {emojis}",
+            "resistance": "\n > Resistance: **{regen}/hr**",
+            "planet_lost": "**{planet_name}** has been lost to the **{faction_name}** {emojis}"
         },
-        "DSSEmbed": {
-            "stationed_at": "Estacionado en **{planet}** {faction_emoji}\n",
-            "next_move": "Programado para moverse {timestamp}",
-            "max_submitable": "Máximo enviable:\n-# {emoji} **{number}** {item}s cada **{hours}** horas",
-            "status": "Estado",
-            "preparing": "Preparando",
-            "active": "Activo",
-            "on_cooldown": "En enfriamiento",
-            "off_cooldown": "Enfriado",
-            "inactive": "Inactive",
+        "DispatchContainer": {
+            "dispatch": "Dispatch",
+            "with_time": "\n\n-# Sent <t:{timestamp}:R>"
+        },
+        "DSSChangesContainer": {
+            "title": "DSS UPDATES",
+            "gambit": "Gambit",
+            "has_moved": "\nThe DSS has moved from **{planet_name1}** to **{planet_name2}** {emojis}",
+            "ta_status_change": "\n**{ta_name}** is now **{status}**",
+            "preparing": "preparing",
+            "active": "active",
+            "inactive": "inactive",
+            "on_cooldown": "on cooldown",
             "tactical_actions": {
                 "EAGLE STORM": {
                     "name": "EAGLE STORM",
@@ -71,210 +50,246 @@
                 }
             }
         },
-        "DefenceEmbed": {
-            "title": "Defendiendo",
-            "no_threats": "Actualmente no hay amenazas para nuestra Libertad",
-            "for_now": "Por ahora...",
-            "time_unavailable": "No disponible",
-            "event_health": "Liberación del Planeta",
-            "players_required": "Requeridos para la Victoria",
-            "level": "Nivel de Invasión",
-            "defence_held_by_dss": "\n> -# DEFENSA MANTENIDA POR DSS",
-            "dark_energy_remaining": "\nEst. **Energía Oscura** restante: **{number}**",
-            "feature": "Feature",
-            "thanks_to_gambit": "gracias a la liberación de **{planet}**",
-            "gambit_available": ":chess_pawn: Puede acabar si se libera **{planet}**",
-            "gathering_data": "*Recopilando Datos*",
-            "impossible": "**IMPOSIBLE**"
+        "GlobalEventsContainer": {
+            "all_planets": "all planets",
+            "unknown_effect": "UNKNOWN EFFECT",
+            "active_on_planets": "\n-# Now active on the following planet(s):\n- {planets}",
+            "enemy_identified": "Enemy identified",
+            "strat_identified": "Stratagem identified",
+            "booster_identified": "Booster identified",
+            "expires": "Expires",
+            "global_event": "Global Event"
         },
-        "AttackEmbed": {
-            "title": "Atacando a {faction}",
-            "planet_health": "Liberación del planeta",
-            "low_impact": "Planetas de bajo impacto/población",
-            "feature": "\nCaracterística: {feature}"
+        "PlanetContainers": {
+            "PlanetContainer": {
+                "planet_info": {
+                    "sector": "Sector",
+                    "owner": "Owner",
+                    "hazards": "Hazard(s)",
+                    "biome": "Biome",
+                    "heroes": "Heroes",
+                    "liberated": "Liberated"
+                },
+                "mission_stats": {
+                    "title": "📊 Mission Stats",
+                    "missions_won": "Missions won",
+                    "missions_lost": "Missions lost",
+                    "missions_winrate": "Mission winrate",
+                    "missions_time_spent": "Time spent on missions",
+                    "years": "years"
+                },
+                "hero_stats": {
+                    "title": "📈 Hero stats",
+                    "active_heroes": "Active heroes",
+                    "heroes_lost": "Heroes lost",
+                    "accidentals": "Accidentals",
+                    "shots_fired": "Shots fired",
+                    "shots_hit": "Shots hit",
+                    "accuracy": "Accuracy"
+                },
+                "misc_stats": {
+                    "killed": "killed"
+                }
+            },
+            "RegionContainer": {
+                "heroes": "Heroes",
+                "boost_when_liberated": "Boost when liberated",
+                "liberated": "Liberated",
+                "liberation": "Liberation",
+                "defence_duration": "Defence Duration",
+                "unlocked_when": "\nUnlocks when **{stat_to_use}** reaches **{av_factor}**"
+            }
         },
-        "FooterEmbed": {
-            "other_updated": "Actualizado el",
-            "total_players": "Total de jugadores",
-            "liberty_day": "El GWW te desea un feliz Día de la Libertad",
-            "malevelon_creek_day": "El GWW te desea un feliz Día Conmemorativo de Malevelon Creek",
-            "festival_of_reckoning": "El GWW te desea un feliz Festival del Ajuste de Cuentas",
-            "new_year": "El GWW te desea un feliz Año Nuevo"
+        "RegionChangesContainer": {
+            "title": "REGION UPDATES",
+            "victories": "VICTORIES",
+            "new_regions": "NEW REGIONS AVAILABLE",
+            "region_victory": "\n### {region_name} on {planet_name} has been liberated from the {faction_name}",
+            "new_region": "### **{region_name}** is now available on **{planet_name}**",
+            "resistance": "\n > Resistance: **{regen}/hr**"
+        },
+        "SetupContainer": {
+            "title": "Setup",
+            "shard_info": "Your server is on Shard #**{shard_id}** - **{latency}ms**",
+            "not_set": "Not set",
+            "channel": "Channel",
+            "message": "Message",
+            "dashboard_title": "Dashboard",
+            "dashboard_desc": "-# A dashboard with general war information that updates every 15 minutes\n",
+            "dashboard_channel_select": "Select the channel for the dashboard",
+            "map_title": "Map",
+            "map_desc": "-# A galactic map that updates every hour at **##:05** (e.g. 09:05)\n",
+            "map_channel_select": "Select the channel for the map",
+            "war_announcements_title": "War Announcements",
+            "war_announcements_desc": "-# General announcements regarding the war (e.g. New MO's, Planets lost/won, general dispatches etc)\n",
+            "dss_announcements_title": "DSS Announcements",
+            "dss_announcements_desc": "-# Announcements regarding the DSS (e.g. DSS moves or the status of Tactical Actions changes)\n",
+            "region_announcements_title": "Region Announcements",
+            "region_announcements_desc": "-# Announcements regarding planetary regions (e.g. new regions have appeared or regions have been won etc.)\n",
+            "patch_notes_title": "Patch notes",
+            "patch_notes_desc": "-# Provides links to Steam announcements for the game\n",
+            "major_order_updates_title": "Major Order updates",
+            "major_order_updates_desc": "-# Provides updates for active major orders at <t:1737786000:t> and <t:1737829200:t>\n",
+            "detailed_dispatches_title": "Detailed Dispatches",
+            "detailed_dispatches_desc": "-# Provides the larger dispatches from Super Earth High Command\n",
+            "feature_channel_select": "Select the channel for this feature",
+            "language_button": "Language",
+            "language": "{flag_emoji} Language",
+            "language_select": "Select the language you want",
+            "set_feature": "Set {feature}",
+            "clear_feature": "Clear {feature}"
         }
     },
-    "CampaignEmbed": {
-        "title": "Actualizaciones de la Guerra Galáctica",
-        "victories": "Victorias de la campaña",
-        "planets_lost": "Planetas perdidos",
-        "new_battles": "Nuevas campañas",
-        "invasions": "Invasiones",
-        "defend_planet": "🛡️ Defender **{planet}** {exclamation}\n",
-        "invasion_level": "> -# Nivel de invasión **{level}**{exclamation}\n",
-        "potential_dark_energy": "> Progreso potencial de **Energía Oscura**: **{number}**\n",
-        "repel_invasion": "🛡️ Repeler la invasión en {planet} {faction_emoji} {exclamation}\n",
-        "liberate": "⚔️ Liberar **{planet}** {faction_emoji} {exclamation}\n",
-        "been_liberated": "{emoji} **{planet}** ha sido liberado de {faction} {faction_emoji} {exclamation}\n",
-        "been_defended": "{emoji} **{planet}** ha sido defendido con éxito {exclamation}\n",
-        "been_lost": "💀 **{planet}** ha sido perdido ante **{faction}** {faction_emoji} {exclamation}\n",
-        "invasion_over": "La invasión en {planet} ha terminado {faction_emoji} {exclamation}\n",
-        "with_time_remaining": "-# Los Helldivers han __repelido con éxito a {faction}__ {faction_emoji} con {hours} horas restantes\n",
-        "no_territory_change": "-# Los **{faction}** se han retirado y __no ha habido cambios en la propiedad del territorio__ {faction_emoji}\n",
-        "dss": {
-            "has_moved": "El DSS se ha movido de **{planet1}** {faction_emoji1} {exclamation1} a **{planet2}** {faction_emoji2} {exclamation2}\n",
-            "ta_status_change": "{emoji} **{ta_name}** ahora está **{status}**\n"
-        },
-        "feature": "Feature",
-        "special_unit": "Special Unit"
+    "embeds": {
+        "Dashboard": {
+            "heroes": "Heroes: **{heroes}**",
+            "outlook": "Outlook",
+            "progress": "Current progress",
+            "shrunk_temporarily": "Character count exceeded 6000; dashboard shrunk temporarily",
+            "MajorOrderEmbed": {
+                "mo_missing": "Awaiting Major Order",
+                "assignment": "Assignment #{id}",
+                "MO_unavailable": "Stand by for further orders from Super Earth High Command",
+                "feature": "Feature",
+                "rewards": "Rewards",
+                "reward_pluralized": "{reward}s",
+                "ahead_of_schedule": "\n-# **{hours}h {minutes}m** ahead of schedule",
+                "behind_schedule": "\n-# **{hours}h {minutes}m** behind schedule",
+                "tasks": {
+                    "typeNew": "{alert_emoji} UNRECOGNIZED TASK",
+                    "type2": "{status_emoji} **Successfully extract with {amount} {item}**",
+                    "type2_planet": " **on {planet}**",
+                    "type2_sector": " **in the __{sector}__ SECTOR**",
+                    "type2_faction": " **from any {faction} controlled planet**",
+                    "type3": "{status_emoji} **Kill {amount} {target}**",
+                    "type3_item": " **using the __{item_to_use}__**",
+                    "type3_planet": " **on {planet}**",
+                    "type7": "{status_emoji}  **Extract from a successful Mission against {faction} {amount} times**",
+                    "type9": "{status_emoji} **Complete an Operation{against_faction}{on_difficulty} {amount} times**",
+                    "type9_against_faction": " **against {faction}**",
+                    "type9_on_difficulty": " **on {difficulty} or higher**",
+                    "type11": "{status_emoji} **Liberate {planet}**",
+                    "type12": "{status_emoji} **Defend{planet} against {amount} attacks**",
+                    "type12_planet": " **{planet}**",
+                    "type12_faction": " **from the {faction}**",
+                    "type13": "{status_emoji} **Hold {planet} when the order expires**",
+                    "type15": "{status_emoji} **Liberate more planets than are lost during the order duration**"
+                }
+            },
+            "DSSEmbed": {
+                "stationed_at": "Stationed at **{planet}** {faction_emoji}\n",
+                "next_move": "Scheduled to move {timestamp}",
+                "status": "Status",
+                "preparing": "Preparing",
+                "active": "Active",
+                "on_cooldown": "On cooldown",
+                "off_cooldown": "Off cooldown",
+                "inactive": "Inactive",
+                "tactical_actions": {
+                    "EAGLE STORM": {
+                        "name": "EAGLE STORM",
+                        "description": "-# Deploys periodic **Eagle Airstrikes** during missions.\n-# Halts enemy progress in **Defence Campaigns**."
+                    },
+                    "ORBITAL BLOCKADE": {
+                        "name": "ORBITAL BLOCKADE",
+                        "description": "-# **Defence Campaigns** cannot originate from this planet.\n-# The **HELLPOD SPACE OPTIMISATION** Booster is automatically active for all missions."
+                    },
+                    "HEAVY ORDNANCE DISTRIBUTION": {
+                        "name": "HEAVY ORDNANCE DISTRIBUTION",
+                        "description": "-# Gives access to the **Orbital 380mm HE Barrage** stratagem during missions.\n-# Accelerates progress in **Liberation Campaigns**."
+                    },
+                    "EAGLE BLOCKADE": {
+                        "name": "EAGLE BLOCKADE",
+                        "description": "-# Deploys periodic **Eagle Strafing Runs** during missions.\n-# The **HELLPOD SPACE OPTIMIZATION** Booster is automatically active for all missions."
+                    }
+                }
+            },
+            "DefenceEmbed": {
+                "title": "Defending",
+                "no_threats": "There are currently no threats to our Freedom",
+                "for_now": "For now...",
+                "time_unavailable": "Unavailable",
+                "event_health": "Planet Liberation",
+                "level": "Invasion Level",
+                "defence_held_by_dss": "\n> -# DEFENCE HELD BY DSS",
+                "feature": "Feature",
+                "thanks_to_gambit": "thanks to **{planet}** liberation",
+                "gambit_available": ":chess_pawn: Can be ended by liberating **{planet}**",
+                "gathering_data": "*Gathering Data*",
+                "impossible": "**IMPOSSIBLE**"
+            },
+            "AttackEmbed": {
+                "title": "Attacking {faction}",
+                "planet_health": "Planet liberation",
+                "low_impact": "Low impact/population planets",
+                "feature": "\nFeature: {feature}"
+            },
+            "FooterEmbed": {
+                "other_updated": "Updated on",
+                "total_players": "Total players",
+                "liberty_day": "The GWW wishes you a happy Liberty Day",
+                "malevelon_creek_day": "The GWW wishes you a happy Malevelon Creek Memorial Day",
+                "festival_of_reckoning": "The GWW wishes you a happy Festival of Reckoning",
+                "new_year": "The GWW wishes you a happy New Year"
+            }
+        }
     },
-    "RegionLoopEmbed": {
-        "title": "Actualización Planetaria",
-        "region_victories": "Victoria en Región",
-        "regions_lost": "Regiones Perdidas",
-        "new_regions": "Nuevas Regiones",
-        "region_victory": "\n{emoji} **{region_name}** en **{planet_name}** ha sido liberada de {faction} {faction_emoji}{exclamations}",
-        "region_lost": "\n:skull: **{region_name}** en **{planet_name}** ha sido tomada por {faction} {faction_emoji}{exclamations}",
-        "new_region": "\n{faction_emoji} **{planet_name}** tiene una nueva **{region_type}** disponible! {exclamations}\n-# __**{region_name}**__ {region_emoji}",
-        "feature": "Característica",
-        "special_unit": "Unidad Especial"
-    },
-    "PlanetEmbed": {
-        "sector": "Sector: **{sector}**\n",
-        "owner": "Propietario: **{faction}** {faction_emoji}\n\n",
-        "biome": "🏔️ Bioma: \n- **{biome_name}**\n  - -# {biome_description}\n\n",
-        "environmentals": "🌪️ Ambiental(es):{environmentals}\n\n",
-        "mission_stats": "📊 Estadísticas de la misión",
-        "missions_won": "Misiones ganadas",
-        "missions_lost": "Misiones perdidas",
-        "missions_winrate": "Tasa de victorias de misiones",
-        "missions_time_spent": "Tiempo gastado en misiones",
-        "hero_stats": "📈 Estadísticas de héroes",
-        "active_heroes": "Héroes activos",
-        "heroes_lost": "Héroes perdidos",
-        "accidentals": "Accidentales",
-        "shots_fired": "Disparos realizados",
-        "shots_hit": "Disparos acertados",
-        "accuracy": "Precisión",
-        "killed": "muertos",
-        "liberation_progress": "Progreso de liberación"
-    },
-    "SetupEmbed": {
-        "title": "Configuración",
-        "dashboard": "Tablero",
-        "dashboard_desc": "-# Un tablero con información general sobre la guerra que se actualiza cada 15 minutos\n",
-        "dashboard_channel": "Canal del tablero",
-        "dashboard_message": "Mensaje del tablero",
-        "announcements": "Anuncios",
-        "announcements_desc": "-# Anuncios generales sobre la guerra (por ejemplo, Nuevos MO, Planetas perdidos/ganados, despachos generales)\n",
-        "announcement_channel": "Canal de Anuncios",
-        "map": "Mapa",
-        "map_desc": "-# Un mapa galáctico que se actualiza cada hora a las **##:05** (por ejemplo, 09:05)\n",
-        "map_channel": "Canal del mapa",
-        "map_message": "Mensaje del mapa",
-        "war_announcements": "Anuncios de Guerra",
-        "wa_desc": "-#Anuncios generales sobre la guerra (por ejemplo, nuevos MO, planetas perdidos/ganados, despachos generales, etc.)\n",
-        "wa_channel": "Canal de Anuncios de Guerra",
-        "dss_announcements": "Anuncios de la EED",
-        "dssa_desc": "-# Anuncios sobre el EED (por ejemplo, movimientos del EED o cambios en el estado de las acciones tácticas)\n",
-        "dssa_channel": "Canal de Anuncios de la EED",
-        "region_announcements": "Anuncios de Región",
-        "regiona_desc": "-# Anuncios sobre regiones planetarias (por ejemplo, han aparecido nuevas regiones o se han tomado regiones, etc.)\n",
-        "regiona_channel": "Canal de Anuncios de Región",
-        "patch_notes": "Notas del parche",
-        "patch_notes_desc": "-# Proporciona notas del parche para el juego a tu canal de Anuncios designado\n",
-        "patch_notes_channel": "Canal de Notas del Parche",
-        "mo_updates": "Actualizaciones de la Orden Mayor",
-        "mo_updates_desc": "-# Proporciona actualizaciones para las órdenes mayores activas en <t:1737786000:t> y <t:1737829200:t>\n",
-        "mo_updates_channel": "Canal de Ordenes Mayores Actualizadas",
-        "detailed_dispatches": "Despachos detallados",
-        "detailed_dispatches_desc": "-# Proporciona los despachos más grandes del Alto Mando de Super Earth\n",
-        "detailed_dispatches_channel": "Canal de Despachos Detallados",
-        "language": "{flag_emoji} Lenguaje",
-        "not_set": "No configurado",
-        "footer_message_not_set": "-# Si ves `No configurado` donde debería haber un canal/mensaje, revisa los permisos del bot!",
-        "footer_message_announcements_asterisk": "-# \\* para configurar esto, los Anuncios deben estar configurados"
-    },
-    "SteamEmbed": {
-        "head_here": "...\n# Por favor dirígete [aquí](<{url}>) para leer las notas completas del parche"
-    },
-    "WarfrontEmbed": {
-        "title": "Frente de guerra para {faction} {faction_emoji}",
-        "description": "Hay {number} campañas disponibles para unirse",
-        "defending_title": "Defendiendo"
-    },
-    "MeridiaEmbed": {
-        "reaches": "Alcanza {number}% <t:{timestamp}:R>",
-        "active_invasions": "-# Invasiones activas: {number}",
-        "total_to_be_harvested": "-# {warning} Total listo para ser cosechado: {number} (hasta {total_available}) {warning}",
-        "planets_in_path": "PLANETAS EN CAMINO DIRECTO"
-    },
-    "GlobalEventsEmbed": {
-        "all_planets": "all planets",
-        "unknown_effect": "UNKNOWN EFFECT",
-        "active_on_planets": "\n-# Now active on the following planet(s):\n- {planets}",
-        "enemy_identified": "Enemy identified",
-        "strat_identified": "Stratagem identified",
-        "booster_identified": "Booster identified"
-    },
+    "ends": "Ends",
+    "message": "Message #{message_id}",
+    "victory": "Victory",
+    "defeat": "Defeat",
+    "complete": "Complete",
+    "failure": "Failure",
     "dss": {
-        "title": "Estación Espacial de la Democracia"
-    },
-    "major_order": {
-        "MO_unavailable": "Espera más órdenes del Alto Mando de Super Earth"
-    },
-    "stratagems": {
-        "unavailable": "Esa estratagema no está en mi lista, por favor inténtalo de nuevo.\n-# Si crees que esto es un error, por favor contacta con mi servidor de soporte"
+        "title": "Democracy Space Station",
+        "preparing": "preparing",
+        "active": "active",
+        "inactive": "inactive",
+        "on_cooldown": "on cooldown",
+        "tactical_actions": {
+            "EAGLE STORM": {
+                "name": "EAGLE STORM",
+                "description": "-# Deploys periodic **Eagle Airstrikes** during missions.\n-# Halts enemy progress in **Defence Campaigns**."
+            },
+            "ORBITAL BLOCKADE": {
+                "name": "ORBITAL BLOCKADE",
+                "description": "-# **Defence Campaigns** cannot originate from this planet.\n-# The **HELLPOD SPACE OPTIMISATION** Booster is automatically active for all missions."
+            },
+            "HEAVY ORDNANCE DISTRIBUTION": {
+                "name": "HEAVY ORDNANCE DISTRIBUTION",
+                "description": "-# Gives access to the **Orbital 380mm HE Barrage** stratagem during missions.\n-# Accelerates progress in **Liberation Campaigns**."
+            },
+            "EAGLE BLOCKADE": {
+                "name": "EAGLE BLOCKADE",
+                "description": "-# Deploys periodic **Eagle Strafing Runs** during missions.\n-# The **HELLPOD SPACE OPTIMIZATION** Booster is automatically active for all missions."
+            }
+        }
     },
     "setup": {
-        "cant_find_channel": "No puedo encontrar ese canal. Asegúrate de que tengo permisos de `Ver canal`",
-        "missing_perm": "Falta permiso para enviar a ese canal.\nPor favor, proporciona los siguientes permisos e inténtalo de nuevo:{permissions}",
-        "buttons": {
-            "dashboard": "Tablero",
-            "set_dashboard": "Configurar Tablero",
-            "clear_dashboard": "Limpiar Tablero",
-            "dashboard_channel_select": "Selecciona el canal o comienza a escribir",
-            "map": "Mapa",
-            "set_map": "Configurar Mapa",
-            "clear_map": "Limpiar Mapa",
-            "map_channel_select": "Selecciona el canal o comienza a escribir",
-            "features": "Características",
-            "set_feature": "Elige Características",
-            "clear_feature": "Borra Características",
-            "feature_channel_select": "Elige el canal o empieza escribiendo",
-            "war_announcements": "Anuncios de Guerra",
-            "dss_announcements": "Anuncios de EED",
-            "region_announcements": "Anuncios de Región",
-            "patch_notes": "Notas del parche",
-            "major_order_updates": "Actualizaciones de la Orden Mayor",
-            "detailed_dispatches": "Despachos detallados",
-            "language": "Idioma",
-            "language_select": "Selecciona el idioma que deseas"
-        }
-    },
-    "enemies": {
-        "missing": "Ese enemigo no está en nuestros archivos. Si crees que esto es un error, por favor contacta con la Administración de GWW",
-        "species_or_variation": "Por favor elige especie *o* variación."
+        "cant_find_channel": "I can't find that channel at all. Please make sure I have `View Channel` permissions",
+        "missing_perm": "Missing permission to send to that channel.\nPlease provide the following permissions and try again:{permissions}"
     },
     "factions": {
-        "1": "Humanos",
-        "2": "Terminidos",
-        "3": "Autómatas",
-        "4": "Iluminados",
-        "Humans": "Humanos",
-        "Terminids": "Terminidos",
-        "Automaton": "Autómatas",
-        "Illuminate": "Iluminados"
+        "1": "Humans",
+        "2": "Terminids",
+        "3": "Automatons",
+        "4": "Illuminate",
+        "Humans": "Humans",
+        "Terminids": "Terminids",
+        "Automaton": "Automaton",
+        "Illuminate": "Illuminate"
     },
     "difficulty": {
-        "1": "Tirado",
-        "2": "Fácil",
-        "3": "Medio",
-        "4": "Complicado",
-        "5": "Difícil",
-        "6": "Extremo",
-        "7": "Misión Suicida",
-        "8": "Imposible",
-        "9": "Infernal",
-        "10": "Super Helldiver"
+        "1": "Trivial",
+        "2": "Easy ",
+        "3": "Medium",
+        "4": "Challenging",
+        "5": "Hard",
+        "6": "Extreme",
+        "7": "Suicide Mission",
+        "8": "Impossible",
+        "9": "Helldive",
+        "10": "Super Helldive"
     },
     "wiki": {
         "buttons": {
@@ -282,70 +297,69 @@
                 "label": "Helldivers Wiki"
             },
             "MainMenuButton": {
-                "label": "Menú Principal"
+                "label": "Main Menu"
             },
             "DSSButton": {
-                "label": "EED"
+                "label": "DSS"
             },
             "EnemiesHomeButton": {
-                "label": "Enemigos"
+                "label": "Enemies"
             },
             "WarbondButton": {
                 "label": "Warbonds"
             },
             "EquipmentHomeButton": {
-                "label": "Equipamiento"
+                "label": "Equipment"
             },
             "WarbondPreviousPageButton": {
-                "label": "Página Previa"
+                "label": "Previous Page"
             },
             "WarbondNextPageButton": {
-                "label": "Siguiente Página"
+                "label": "Next Page"
             },
             "WeaponsHomeButton": {
-                "label": "Armas"
+                "label": "Weapons"
             },
             "PrimaryWeaponsButton": {
-                "label": "Primarias"
+                "label": "Primary"
             },
             "SecondaryWeaponsButton": {
-                "label": "Secundarias"
+                "label": "Secondary"
             },
             "GrenadesButton": {
-                "label": "Granadas"
+                "label": "Grenades"
             },
             "BoostersButton": {
-                "label": "Potenciadores"
+                "label": "Boosters"
             },
             "StratagemsButton": {
-                "label": "Estratagemas"
+                "label": "Stratagems"
             }
         },
         "embeds": {
             "WikiHomeEmbed": {
-                "title": "Bienvenido a la GWW Wiki",
-                "dss_name": "Estación Espacial de la Democracia",
-                "dss_value": "Aprende más sobre la DSS, con enlaces al Helldivers Companion y la Helldivers Wiki.",
-                "enemies_name": "Enemigos",
-                "enemies_value": "Descubre detalles sobre los enemigos de la Democracia:\n-# - Autómatas\n-# - Iluminados\n-# - Terminidos",
-                "warbonds_name": "Bonos de Guerra",
-                "warbonds_value": "Explora información sobre todos los Bonos de Guerra disponibles actualmente.",
-                "equipment_name": "Equipamiento",
-                "equipment_value": "Encuentra detalles sobre:\n-# - Armas\n-# - Potenciadores\n-# - Estratagemas"
+                "title": "Welcome to the GWW Wiki",
+                "dss_name": "Democracy Space Station",
+                "dss_value": "Learn more about the DSS, with links to the Helldivers Companion and the Helldivers Wiki.",
+                "enemies_name": "Enemies",
+                "enemies_value": "Discover details about the enemies of Democracy:\n-# - Automaton\n-# - Illuminate\n-# - Terminids",
+                "warbonds_name": "Warbonds",
+                "warbonds_value": "Explore information about all currently available Warbonds.",
+                "equipment_name": "Equipment",
+                "equipment_value": "Find details on:\n-# - Weapons\n-# - Boosters\n-# - Stratagems"
             },
             "DSSEmbed": {
-                "title": "Estación Espacial de la Democracia",
-                "stationed_at": "Estacionada en **{planet}** {faction_emoji}\n",
-                "next_move": "Moviéndose {timestamp}",
-                "max_submitable": "Máximo enviable:\n-# {emoji} **{number}** {item}s cada **{hours}** horas",
+                "title": "Democracy Space Station",
+                "stationed_at": "Stationed at **{planet}** {faction_emoji}\n",
+                "next_move": "Moving {timestamp}",
                 "item_pluralized": "{item}s",
-                "ends": "Termina",
-                "preparing": "Preparando",
-                "active": "Activo",
+                "ends": "Ends",
+                "preparing": "Preparing",
+                "active": "active",
                 "inactive": "Inactive",
-                "on_cooldown": "En enfriamiento",
-                "off_cooldown": "Fuera de enfriamiento",
-                "status": "Estado",
+                "on_cooldown": "on cooldown",
+                "off_cooldown": "off cooldown",
+                "status": "Status",
                 "tactical_actions": {
                     "EAGLE STORM": {
                         "name": "EAGLE STORM",
@@ -366,95 +380,95 @@
                 }
             },
             "EnemyHomeEmbed": {
-                "title": "Selecciona la facción que estás buscando"
+                "title": "Select the faction you are looking for"
             },
             "EnemyPageEmbed": {
-                "introduced": "Introducido",
-                "difficulty": "Dificultad",
-                "tactics": "Tácticas",
-                "weak_spots": "Puntos débiles",
-                "variations": "Variaciones"
+                "introduced": "Introduced",
+                "difficulty": "Difficulty",
+                "tactics": "Tactics",
+                "weak_spots": "Weak spots",
+                "variations": "Variations"
             },
             "WarbondEmbed": {
-                "page": "Página",
-                "cost_to_unlock": "Costo para desbloquear bono de guerra",
-                "medals_to_unlock": "Medallas para desbloquear página",
-                "type": "Tipo",
-                "armor": "Armadura",
-                "primary": "Principal",
-                "secondary": "Secundaria",
-                "grenade": "Granada",
-                "emote": "Gesto",
-                "victory_pose": "Pose de victoria",
-                "player_card": "Tarjeta de jugador",
-                "booster": "Potenciador",
-                "title": "Título",
-                "stratagem_permit": "Permiso de estratagema",
-                "slot": "Ranura",
-                "armor_rating": "Clasificación de armadura",
-                "speed": "Velocidad",
-                "stamina_regen": "Regeneración de resistencia",
-                "passive": "Pasivo",
-                "medal_cost": "Coste en medallas",
-                "weapon_type": "Tipo de arma",
-                "damage": "Daño",
-                "capacity": "Capacidad",
-                "recoil": "Retroceso",
-                "fire_rate": "Cadencia de fuego",
-                "penetration": "Penetración",
-                "radius": "Radio",
-                "fuse_time": "Tiempo de fusible"
+                "page": "Page",
+                "cost_to_unlock": "Cost to unlock warbond",
+                "medals_to_unlock": "Medals to unlock page",
+                "type": "Type",
+                "armor": "Armor",
+                "primary": "Primary",
+                "secondary": "Secondary",
+                "grenade": "Grenade",
+                "emote": "Emote",
+                "victory_pose": "Victory pose",
+                "player_card": "Player card",
+                "booster": "Booster",
+                "title": "Title",
+                "stratagem_permit": "Stratagem permit",
+                "slot": "Slot",
+                "armor_rating": "Armor rating",
+                "speed": "Speed",
+                "stamina_regen": "Stamina regen",
+                "passive": "Passive",
+                "medal_cost": "Medal cost",
+                "weapon_type": "Weapon type",
+                "damage": "Damage",
+                "capacity": "Capacity",
+                "recoil": "Recoil",
+                "fire_rate": "Fire rate",
+                "penetration": "Penetration",
+                "radius": "Radius",
+                "fuse_time": "Fuse time"
             },
             "EquipmentHomeEmbed": {
-                "title": "Selecciona el tipo de equipo que quieres explorar",
-                "weapons_name": "Armas",
-                "weapons_value": "Incluye información sobre:\n-# - Armas primarias\n-# - Armas secundarias\n-# - Granadas",
-                "boosters_name": "Potenciadores",
-                "boosters_value": "Detalles sobre todos los potenciadores disponibles.",
-                "stratagems_name": "Estratagemas",
-                "stratagems_value": "Información sobre todas las estratagemas disponibles."
+                "title": "Select the equipment type you want to explore",
+                "weapons_name": "Weapons",
+                "weapons_value": "Includes information on:\n-# - Primary Weapons\n-# - Secondary Weapons\n-# - Grenades",
+                "boosters_name": "Boosters",
+                "boosters_value": "Details on all available boosters.",
+                "stratagems_name": "Stratagems",
+                "stratagems_value": "Information on all available stratagems."
             },
             "WeaponsHomeEmbed": {
-                "title": "Selecciona el tipo de arma que quieres explorar",
-                "primary_weapons_name": "Armas primarias",
-                "primary_weapons_value": "Detalles sobre todas las armas primarias disponibles.",
-                "secondary_weapons_name": "Armas secundarias",
-                "secondary_weapons_value": "Detalles sobre todas las armas secundarias disponibles.",
-                "grenades_name": "Granadas",
-                "grenades_value": "Información sobre todas las granadas disponibles."
+                "title": "Select the weapon type you want to explore",
+                "primary_weapons_name": "Primary Weapons",
+                "primary_weapons_value": "Details on all available primary weapons.",
+                "secondary_weapons_name": "Secondary Weapons",
+                "secondary_weapons_value": "Details on all available secondary weapons.",
+                "grenades_name": "Grenades",
+                "grenades_value": "Information on all available grenades."
             },
             "PrimaryWeaponsEmbed": {
-                "constant_fire": "{number} segundos de fuego constante",
-                "information_title": "Información",
-                "type": "Tipo: **`{type}`**\n",
-                "damage": "Daño: **`{damage}`**\n",
-                "fire_rate": "Cadencia de fuego: **`{fire_rate}rpm`**\n",
+                "constant_fire": "{number} seconds of constant fire",
+                "information_title": "Information",
+                "type": "Type: **`{type}`**\n",
+                "damage": "Damage: **`{damage}`**\n",
+                "fire_rate": "Fire rate: **`{fire_rate}rpm`**\n",
                 "dps": "DPS: **`{dps}/s`**\n",
-                "capacity": "Capacidad: **`{capacity}`**\n",
-                "fire_modes": "Modos de disparo:{fire_modes}\n",
-                "features": "Características:{features}"
+                "capacity": "Capacity: **`{capacity}`**\n",
+                "fire_modes": "Fire modes:{fire_modes}\n",
+                "features": "Features:{features}"
             },
             "SecondaryWeaponsEmbed": {
-                "constant_fire": "{number} segundos de fuego constante",
-                "information_title": "Información",
-                "damage": "Daño: **`{damage}`**\n",
-                "fire_rate": "Cadencia de fuego: **`{fire_rate}rpm`**\n",
+                "constant_fire": "{number} seconds of constant fire",
+                "information_title": "Information",
+                "damage": "Damage: **`{damage}`**\n",
+                "fire_rate": "Fire rate: **`{fire_rate}rpm`**\n",
                 "dps": "DPS: **`{dps}/s`**\n",
-                "capacity": "Capacidad: **`{capacity}`**\n",
-                "fire_modes": "Modos de disparo:{fire_modes}\n",
-                "features": "Características:{features}"
+                "capacity": "Capacity: **`{capacity}`**\n",
+                "fire_modes": "Fire modes:{fire_modes}\n",
+                "features": "Features:{features}"
             },
             "GrenadesEmbed": {
-                "information_title": "Información",
-                "damage": "Daño: **`{damage}`**\n",
-                "fuse_time": "Tiempo de fusible: **`{fuse_time} segundos`**\n",
-                "penetration": "Penetración: **`{penetration}`**\n",
-                "radius": "Radio: **`{radius}`**"
+                "information_title": "Information",
+                "damage": "Damage: **`{damage}`**\n",
+                "fuse_time": "Fuse time: **`{fuse_time} seconds`**\n",
+                "penetration": "Penetration: **`{penetration}`**\n",
+                "radius": "Radius: **`{radius}`**"
             },
             "StratagemsEmbed": {
-                "key_input": "Entrada de tecla",
-                "uses": "Usos",
-                "cooldown": "Enfriamiento"
+                "key_input": "Key input",
+                "uses": "Uses",
+                "cooldown": "Cooldown"
             }
         }
     },

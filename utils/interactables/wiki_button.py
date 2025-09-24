@@ -4,10 +4,14 @@ from utils.emojis import Emojis
 
 
 class WikiButton(Button):
-    def __init__(self, link: str = "https://helldivers.wiki.gg/wiki/Helldivers_Wiki"):
+    def __init__(
+        self,
+        label: str = "Helldivers Wiki",
+        link: str = "https://helldivers.wiki.gg/wiki/Helldivers_Wiki",
+    ):
         super().__init__(
             style=ButtonStyle.link,
-            label="Helldivers Wiki",
+            label=label,
             url=link,
             emoji=Emojis.Icons.wiki,
         )

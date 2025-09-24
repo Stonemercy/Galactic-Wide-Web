@@ -2,8 +2,9 @@ from disnake import Colour, Embed, Guild
 from utils.mixins import EmbedReprMixin
 
 
+# DOESNT NEED LOCALIZATION (YET)
 class CommunityServersEmbed(Embed, EmbedReprMixin):
-    def __init__(self, guilds: list[Guild], language_json: dict, new_index: int):
+    def __init__(self, guilds: list[Guild], new_index: int):
         super().__init__(
             title="Community Servers",
             colour=Colour.blue(),

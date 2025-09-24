@@ -1,8 +1,8 @@
 from datetime import datetime
 from disnake.ext import commands, tasks
 from main import GalacticWideWebBot
+from utils.containers import GlobalEventsContainer
 from utils.dbv2 import GWWGuilds, WarInfo
-from utils.embeds import GlobalEventsEmbed
 
 
 class GlobalEventsCog(commands.Cog):
@@ -26,7 +26,7 @@ class GlobalEventsCog(commands.Cog):
             or ge_start < self.bot.ready_time
             or not self.bot.data.loaded
             or self.bot.interface_handler.busy
-            or not self.bot.data.global_events
+            or not self.bot.data.global_events["en"]
         ):
             return
         current_war_info = WarInfo()
@@ -47,12 +47,17 @@ class GlobalEventsCog(commands.Cog):
                     current_war_info.save_changes()
                     continue
                 unique_langs = GWWGuilds().unique_languages
-                embeds = {
+                containers = {
                     lang: [
-                        GlobalEventsEmbed(
-                            self.bot.json_dict["languages"][lang],
-                            self.bot.json_dict["planets"],
-                            self.bot.data.global_events[lang][index],
+                        GlobalEventsContainer(
+                            long_lang_code=self.bot.json_dict["languages"][lang][
+                                "code_long"
+                            ],
+                            container_json=self.bot.json_dict["languages"][lang][
+                                "containers"
+                            ]["GlobalEventsContainer"],
+                            global_event=self.bot.data.global_events[lang][index],
+                            planets=self.bot.data.planets,
                         )
                     ]
                     for lang in unique_langs
@@ -60,7 +65,7 @@ class GlobalEventsCog(commands.Cog):
                 current_war_info.global_event_id = global_event.id
                 current_war_info.save_changes()
                 await self.bot.interface_handler.send_feature(
-                    "detailed_dispatches", embeds
+                    feature_type="detailed_dispatches", content=containers
                 )
                 self.bot.logger.info(
                     f"Sent Global Event out to {len(self.bot.interface_handler.detailed_dispatches)} channels in {(datetime.now() - ge_start).total_seconds():.2f}s"

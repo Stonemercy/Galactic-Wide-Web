@@ -12,12 +12,28 @@ from utils.dataclasses.factions import Faction
 from utils.emojis import Emojis
 from utils.functions import dispatch_format, health_bar
 from utils.mixins import GWEReprMixin, ReprMixin
-from utils.trackers import BaseTracker
+from utils.trackers import BaseTracker, BaseTrackerEntry
 
 api = getenv(key="API")
 backup_api = getenv(key="BU_API")
 
-REGION_TYPES = {4: "Mega City", 3: "City", 2: "Town", 1: "Settlement"}
+REGION_TYPES = {
+    5: "Super City ",  # guess
+    4: "Mega City",
+    3: "City",
+    2: "Town",
+    1: "Settlement",
+}
+
+DEF_LEVEL_EXC = {
+    0: "",
+    5: "!",
+    20: "!!",
+    33: "!!!",
+    50: " :warning:",
+    100: " :skull:",
+    250: " :skull_crossbones:",
+}
 
 
 class Data(ReprMixin):
@@ -32,15 +48,12 @@ class Data(ReprMixin):
         "planet_events",
         "total_players",
         "steam",
-        "thumbnails",
         "dss",
         "global_events",
         "loaded",
         "liberation_changes",
-        "dark_energy_changes",
         "region_changes",
         "major_order_changes",
-        "meridia_position",
         "galactic_impact_mod",
         "steam_playercount",
         "galactic_war_effects",
@@ -55,7 +68,6 @@ class Data(ReprMixin):
             "dispatches": {},
             "planets": None,
             "steam": None,
-            "thumbnails": None,
             "dss": None,
             "status": {},
             "warinfo": None,
@@ -69,14 +81,15 @@ class Data(ReprMixin):
         self.tactical_action_changes: BaseTracker = BaseTracker()
         self.region_changes: BaseTracker = BaseTracker()
         self.major_order_changes: BaseTracker = BaseTracker()
-        self.meridia_position: None | tuple[float, float] = None
         self.fetched_at = None
+        self.fetching = False
         self.assignments = {}
-        self.dss = None
         self.dispatches: dict = {}
+        self.dss = None
+        self.planets = None
         self.global_resources = None
         self.steam_playercount = 0
-        self.gambit_planets = {}
+        self.gambit_planets: dict[int, Planet] = {}
         self.galactic_impact_mod: float = 0.0
         self.galactic_war_effects: list[GalacticWarEffect] | list = []
         self.global_events: dict[str, list] = {}
@@ -85,6 +98,9 @@ class Data(ReprMixin):
         self, logger: Logger, moderator_channel: TextChannel
     ) -> None:
         """Pulls the data from each endpoint"""
+        if self.fetching:
+            return
+        self.fetching = True
         api_to_use = api
         async with ClientSession(
             headers={
@@ -103,6 +119,7 @@ class Data(ReprMixin):
                 raise e
             self.__data__ = self.default_data_dict.copy()
 
+        # localized endpoints
         for lang in Languages.all:
             async with ClientSession(
                 headers={
@@ -142,6 +159,7 @@ class Data(ReprMixin):
                         logger.error(msg=f"API/STATUS, {r.status}")
                         await moderator_channel.send(content=f"API/ASSIGNMENTS\n{r}")
 
+        # non-localized endpoints
         async with ClientSession(
             headers={
                 "Accept-Language": "en-GB",
@@ -151,15 +169,6 @@ class Data(ReprMixin):
         ) as session:
             for endpoint in list(self.__data__.keys()):
                 if endpoint in ("dispatches", "assignments", "status"):
-                    continue
-                if endpoint == "thumbnails":
-                    async with session.get(
-                        url="https://helldivers.news/api/planets"
-                    ) as r:
-                        if r.status == 200:
-                            self.__data__[endpoint] = await r.json()
-                        else:
-                            logger.error(msg=f"API/THUMBNAILS, {r.status}")
                     continue
                 elif endpoint == "dss":
                     async with session.get(
@@ -233,10 +242,10 @@ class Data(ReprMixin):
             self.update_global_resource_rates()
         if self.dss:
             self.update_tactical_action_rates()
-        self.get_needed_players()
         self.fetched_at = datetime.now()
         if not self.loaded:
             self.loaded = True
+        self.fetching = False
 
     def format_data(self) -> None:
         """Formats the data in `this_object.__data__` and sets the properties of `this_object`"""
@@ -246,7 +255,10 @@ class Data(ReprMixin):
             )
 
         if self.__data__["planets"]:
-            self.planets: Planets = Planets(raw_planets_data=self.__data__["planets"])
+            self.planets: Planets = Planets(
+                raw_planets_data=self.__data__["planets"],
+                planet_names_json=self.json_dict["planets"],
+            )
             self.total_players: int = sum(
                 [planet.stats.player_count for planet in self.planets.values()]
             )
@@ -301,7 +313,7 @@ class Data(ReprMixin):
                                 for planet in [
                                     p
                                     for p in self.planets.values()
-                                    if p.current_owner == task.faction
+                                    if p.faction == task.faction
                                 ]:
                                     planet.in_assignment = True
                         case 3:
@@ -312,7 +324,7 @@ class Data(ReprMixin):
                                 for index in [
                                     planet.index
                                     for planet in self.planets.values()
-                                    if planet.current_owner == task.faction
+                                    if planet.faction == task.faction
                                     or (
                                         planet.event
                                         and planet.event.faction == task.faction
@@ -329,7 +341,7 @@ class Data(ReprMixin):
                                 for planet in [
                                     p
                                     for p in self.planets.values()
-                                    if p.current_owner == task.faction
+                                    if p.faction == task.faction
                                     or p.event
                                     and p.event.faction == task.faction
                                 ]:
@@ -387,14 +399,6 @@ class Data(ReprMixin):
                 ]
                 self.dispatches: dict[str, list[Dispatch]]
 
-        if self.__data__["thumbnails"]:
-            self.thumbnails = self.__data__["thumbnails"]
-            if self.planets:
-                for thumbnail_data in self.thumbnails:
-                    self.planets[thumbnail_data["planet"]["index"]].thumbnail = (
-                        f"https://helldivers.news{thumbnail_data['planet']['image'].replace(' ', '%20')}"
-                    )
-
         if self.__data__["steam"]:
             self.steam: list[Steam] = [
                 Steam(raw_steam_data=raw_steam_data)
@@ -435,13 +439,9 @@ class Data(ReprMixin):
                 ]
             )
 
-            self.meridia_position: tuple[float, float] = (
-                self.__data__["status"]["en"]["planetStatus"][64]["position"]["x"],
-                self.__data__["status"]["en"]["planetStatus"][64]["position"]["y"],
-            )
             self.planets[64].position = {
-                "x": self.meridia_position[0],
-                "y": self.meridia_position[1],
+                "x": self.__data__["status"]["en"]["planetStatus"][64]["position"]["x"],
+                "y": self.__data__["status"]["en"]["planetStatus"][64]["position"]["y"],
             }
 
             for planet_effect in self.__data__["status"]["en"]["planetActiveEffects"]:
@@ -463,6 +463,9 @@ class Data(ReprMixin):
                             if gwe.id in [j.id for j in ge.effects]
                         ]
                     )
+                    self.planets[planet_index].active_effects = sorted(
+                        self.planets[planet_index].active_effects, key=lambda x: x.id
+                    )
 
             for planet_attack in self.__data__["status"]["en"]["planetAttacks"]:
                 source_planet = self.planets[planet_attack["source"]]
@@ -474,7 +477,7 @@ class Data(ReprMixin):
             for campaign in [
                 c
                 for c in self.campaigns
-                if c.planet.current_owner.full_name != "Humans"
+                if c.planet.faction.full_name != "Humans"
                 or len(c.planet.defending_from) != 0
                 or 1190 not in [ae.id for ae in c.planet.active_effects]
             ]:
@@ -483,6 +486,7 @@ class Data(ReprMixin):
                     if (
                         len(defending_planet.defending_from) == 1
                         and defending_planet.event
+                        and campaign.planet.regen_perc_per_hour <= 0.03
                     ):
                         self.gambit_planets[defending_index] = campaign.planet
 
@@ -498,8 +502,11 @@ class Data(ReprMixin):
                     ] = Planet.Region(
                         planet_regions_json_dict=self.json_dict["planetRegions"],
                         raw_planet_region_data=region,
-                        planet_owner=self.planets[region["planetIndex"]].current_owner,
+                        planet_owner=self.planets[region["planetIndex"]].faction,
                     )
+                    self.planets[region["planetIndex"]].regions[
+                        region["regionIndex"]
+                    ].planet = self.planets[region["planetIndex"]]
 
                 for region in self.__data__["status"]["en"]["planetRegions"]:
                     if region["planetIndex"] not in self.planets:
@@ -528,12 +535,9 @@ class Data(ReprMixin):
             self.liberation_changes.add_entry(
                 key=campaign.planet.index, value=campaign.progress
             )
-
-    def update_global_resource_rates(self) -> None:
-        """Update the changes in global resources"""
-        if self.global_resources:
-            for gr in self.global_resources:
-                self.global_resource_changes.add_entry(key=gr.id, value=gr.perc)
+            campaign.planet.tracker = self.liberation_changes.get_entry(
+                campaign.planet.index
+            )
 
     def update_tactical_action_rates(self) -> None:
         """Update the changes in global resources"""
@@ -542,17 +546,24 @@ class Data(ReprMixin):
                 self.tactical_action_changes.add_entry(
                     key=(ta.id, cost.item), value=cost.progress
                 )
+                ta.cost_changes[cost.item] = self.tactical_action_changes.get_entry(
+                    key=(ta.id, cost.item)
+                )
 
     def update_major_order_rates(self) -> None:
         """Update the changes in Major Order tasks"""
         if self.assignments:
-            for assignment in self.assignments["en"]:
-                for index, task in enumerate(assignment.tasks, start=1):
-                    if task.type in [12, 15]:
-                        continue
-                    self.major_order_changes.add_entry(
-                        key=(assignment.id, index), value=task.progress_perc
-                    )
+            for assignments_list in self.assignments.values():
+                for assignment in assignments_list:
+                    for index, task in enumerate(assignment.tasks, start=1):
+                        if task.type in [12, 15]:
+                            continue
+                        self.major_order_changes.add_entry(
+                            key=(assignment.id, index), value=task.progress_perc
+                        )
+                        task.tracker = self.major_order_changes.get_entry(
+                            key=(assignment.id, index)
+                        )
 
     def update_region_changes(self) -> None:
         """Update the liberation changes in the tracker for each active region"""
@@ -563,34 +574,9 @@ class Data(ReprMixin):
                     self.region_changes.add_entry(
                         key=region.settings_hash, value=region.perc
                     )
-
-    def get_needed_players(self) -> None:
-        """Update the planets with their required helldivers for victory"""
-        if not self.planet_events:
-            return
-        now = datetime.now()
-        for planet in self.planet_events:
-            lib_changes = self.liberation_changes.get_entry(key=planet.index)
-            if not lib_changes or lib_changes.change_rate_per_hour == 0:
-                continue
-            win_time = planet.event.end_time_datetime
-            if planet.dss_in_orbit:
-                eagle_storm = self.dss.get_ta_by_name("EAGLE STORM")
-                if eagle_storm and eagle_storm.status == 2:
-                    win_time += timedelta(
-                        seconds=(eagle_storm.status_end_datetime - now).total_seconds()
+                    region.tracker = self.region_changes.get_entry(
+                        key=region.settings_hash
                     )
-            winning = (
-                now + timedelta(seconds=lib_changes.seconds_until_complete) < win_time
-            )
-            if not winning:
-                hours_left = (win_time - now).total_seconds() / 3600
-                progress_needed_per_hour = (1 - lib_changes.value) / hours_left
-                amount_ratio = (
-                    progress_needed_per_hour / lib_changes.change_rate_per_hour
-                )
-                required_players = planet.stats.player_count * amount_ratio
-                planet.event.required_players = required_players
 
     @property
     def plot_coordinates(self) -> dict[int, tuple]:
@@ -654,6 +640,7 @@ class Assignment(ReprMixin):
             "sector_index",
             "type",
             "progress",
+            "tracker",
         )
 
         def __init__(self, task: dict, current_progress: int | float) -> None:
@@ -665,6 +652,7 @@ class Assignment(ReprMixin):
             ) = self.value8 = self.difficulty = self.value10 = self.planet_index = (
                 self.sector_index
             ) = None
+            self.tracker: BaseTrackerEntry | None = None
 
             if faction := self.values_dict.get(1):
                 self.faction: Faction | None = Factions.get_from_identifier(
@@ -704,31 +692,56 @@ class Assignment(ReprMixin):
         @property
         def health_bar(self) -> str:
             """Returns a health_bar based on the task type and progress"""
+            anim = False
+            increasing = False
+            if self.tracker != None:
+                anim = True
+                increasing = self.tracker.change_rate_per_hour > 0
+
             match self.type:
                 case 2:
+                    """Successfully extract with {amount} {item}[ on {planet}][ in the __{sector}__ SECTOR][ from any {faction} controlled planet]"""
                     return health_bar(
                         self.progress_perc,
                         Factions.humans,
+                        anim=anim,
+                        increasing=increasing,
                     )
                 case 3:
+                    """Kill {amount} {enemy_type}[ using the __{item_to_use}__][ on {planet}]"""
                     return health_bar(
                         self.progress_perc,
-                        (self.faction if self.progress_perc != 1 else Factions.humans),
+                        self.faction,
+                        anim=anim,
+                        increasing=increasing,
                     )
                 case 7:
-                    return health_bar(self.progress_perc, self.faction)
-                case 9:
-                    return health_bar(self.progress_perc, Factions.humans)
-                case 11:
-                    return
-                case 12:
+                    """Extract from a successful Mission against {faction} {number} times"""
                     return health_bar(
                         self.progress_perc,
-                        "MO" if self.progress_perc < 1 else Factions.humans,
+                        Factions.humans,
+                        anim=anim,
+                        increasing=increasing,
                     )
+                case 9:
+                    """Complete an Operation[ against {faction}][ on {difficulty} or higher] {amount} times"""
+                    return health_bar(
+                        self.progress_perc,
+                        Factions.humans,
+                        anim=anim,
+                        increasing=increasing,
+                    )
+                case 11:
+                    """Liberate a planet"""
+                    return
+                case 12:
+                    """Defend[ {planet}] against {amount} attacks[ from the {faction}]"""
+                    return health_bar(self.progress_perc, "MO")
                 case 13:
-                    return ""
+                    """Hold {planet} when the order expires"""
+                    return
                 case 15:
+                    """Liberate more planets than are lost during the order duration"""
                     percent = {i: (i + 10) / 20 for i in range(-10, 12, 2)}[
                         [key for key in range(-10, 12, 2) if key <= self.progress][-1]
                     ]
@@ -748,10 +761,10 @@ class Dispatch(ReprMixin):
         self.full_message: str = dispatch_format(
             text=raw_dispatch_data.get("message", "")
         )
-        split_lines = self.full_message.splitlines()
+        split_lines = self.full_message.splitlines(True)
         if split_lines:
             self.title = split_lines[0].replace("*", "")
-            self.description = "\n".join(split_lines[1:])
+            self.description = "".join(split_lines[1:]).strip()
         else:
             self.title = "New Dispatch"
             self.description = self.full_message
@@ -800,10 +813,16 @@ class GalacticWarEffect(GWEReprMixin):
         self.short_description_hash = gwa["descriptionGamePlayShortHash"]
         self.values_dict = dict(zip(gwa["valueTypes"], gwa["values"]))
         self.effect_description = json_dict["galactic_war_effects"].get(
-            str(gwa["effectType"]), {"name": "UNKNOWN", "description": ""}
+            str(gwa["effectType"]),
+            {"name": "UNKNOWN", "simplified_name": "", "description": ""},
         )
         self.planet_effect: dict | None = json_dict["planet_effects"].get(
-            str(self.id), {"name": f"UNKNOWN [{self.id}]", "description": "UNKNOWN"}
+            str(self.id),
+            {
+                "name": f"UNKNOWN [{self.id}]",
+                "description_long": "",
+                "description_short": "",
+            },
         )
         self.count = self.percent = self.faction = self.mix_id = self.value5 = (
             self.DEPRECATED_enemy_group
@@ -866,6 +885,14 @@ class GalacticWarEffect(GWEReprMixin):
                 str(self.resource_hash), None
             ):
                 self.found_enemy = enemy
+
+    def __hash__(self):
+        return hash((self.id))
+
+    def __eq__(self, value):
+        if not isinstance(value, type(self)):
+            return False
+        return self.id == value.id
 
 
 class GlobalEvent(ReprMixin):
@@ -931,75 +958,13 @@ class GlobalResource(ReprMixin):
         self.perc: float = self.current_value / self.max_value
 
 
-known_fleets = {
-    175685818: {
-        "name": "THE GREAT HOST",
-        "description": "The Illuminate invasion fleet, constructed in secret behind the veil of the Meridian Wormhole. It is headed for Super Earth itself.",
-    }
-}
-
-
-class SiegeFleet(GlobalResource):
-    def __init__(self, raw_global_resource_data: dict) -> None:
-        """Organised data of a Siege Fleet"""
-        self.id: int = raw_global_resource_data["id32"]
-        known_fleet_entry = known_fleets.get(
-            self.id,
-            {
-                "name": "Unknown",
-                "description": "This fleet is new to the GWW and we are gathering data.",
-            },
-        )
-        self.name = known_fleet_entry["name"]
-        self.description = known_fleet_entry["description"]
-        self.current_value: int = raw_global_resource_data["currentValue"]
-        self.max_value: int = raw_global_resource_data["maxValue"]
-        self.perc: float = self.current_value / self.max_value
-        self.faction: Faction | None = None
-
-    @property
-    def health_bar(self) -> str:
-        """Returns the health bar set up for the Siege Fleet"""
-        return health_bar(self.perc, self.faction)
-
-
-class DarkEnergy(GlobalResource):
-    def __init__(self, raw_global_resource_data: dict) -> None:
-        """Organised data for Dark Energy"""
-        super().__init__(raw_global_resource_data=raw_global_resource_data)
-
-    @property
-    def health_bar(self) -> str:
-        """Returns the health bar set up for Dark Energy"""
-        return health_bar(self.perc, "Illuminate")
-
-
-class TheGreatHost(SiegeFleet):
-    def __init__(self, raw_global_resource_data: dict) -> None:
-        """Organised data for The Great Host"""
-        super().__init__(raw_global_resource_data=raw_global_resource_data)
-        self.faction = Factions.illuminate
-
-
 class GlobalResources(list[GlobalResource]):
     def __init__(self, raw_global_resources_data: list[dict]) -> None:
         """An organised list of Global Resources."""
-        self.dark_energy = self.the_great_host = None
         for raw_global_resource_data in raw_global_resources_data:
-            if raw_global_resource_data["id32"] == 194773219:
-                self.dark_energy: DarkEnergy = DarkEnergy(
-                    raw_global_resource_data=raw_global_resource_data
-                )
-                self.append(self.dark_energy)
-            elif raw_global_resource_data["id32"] == 175685818:
-                self.the_great_host: TheGreatHost = TheGreatHost(
-                    raw_global_resource_data=raw_global_resource_data
-                )
-                self.append(self.the_great_host)
-            else:
-                self.append(
-                    GlobalResource(raw_global_resource_data=raw_global_resource_data)
-                )
+            self.append(
+                GlobalResource(raw_global_resource_data=raw_global_resource_data)
+            )
 
     def get_by_id(self, id: int):
         if gr_list := [gr for gr in self if gr.id == id]:
@@ -1007,10 +972,11 @@ class GlobalResources(list[GlobalResource]):
 
 
 class Planet(ReprMixin):
-    def __init__(self, raw_planet_data: dict) -> None:
+    def __init__(self, raw_planet_data: dict, planet_names) -> None:
         """Organised data for a specific planet"""
         self.index: int = raw_planet_data["index"]
         self.name: str = raw_planet_data["name"]
+        self.loc_names: dict = planet_names
         self.sector: str = raw_planet_data["sector"]
         self.biome: dict = raw_planet_data["biome"]
         self.hazards: list[dict] = raw_planet_data["hazards"]
@@ -1019,7 +985,7 @@ class Planet(ReprMixin):
         self.max_health: int = raw_planet_data["maxHealth"]
         self.health: int = raw_planet_data["health"]
         self.health_perc: float = min(self.health / self.max_health, 1)
-        self.current_owner: Faction | None = Factions.get_from_identifier(
+        self.faction: Faction | None = Factions.get_from_identifier(
             name=raw_planet_data["currentOwner"]
         )
         self.regen: float = raw_planet_data["regenPerSecond"]
@@ -1034,22 +1000,13 @@ class Planet(ReprMixin):
         self.stats: Planet.Stats = Planet.Stats(
             raw_stats_data=raw_planet_data["statistics"]
         )
-        self.thumbnail = None
-        self.feature: str | None = {
-            45: "Center for Civilian Surveillance",  # Mastia
-            64: "Meridian Black Hole",  # Meridia
-            114: "Jet Brigade Factories",  # Aurora Bay
-            125: "Centre of Science",  # Fenrir III
-            126: "Xenoentomology Center",  # Turing
-            130: "Factory Hub",  # Achernar Secundus
-            161: "Deep Mantle Forge Complex",  # Claorell
-        }.get(self.index, None)
         self.dss_in_orbit: bool = False
         self.in_assignment: bool = False
         self.active_effects: set[GalacticWarEffect] | set = set()
         self.attack_targets: list[int] | list = []
         self.defending_from: list[int] | list = []
         self.regions: dict[int, Planet.Region] | dict = {}
+        self.tracker: None | BaseTrackerEntry = None
 
         # BIOME/SECTOR/HAZARDS OVERWRITE #
         if self.index == 64:
@@ -1067,6 +1024,20 @@ class Planet(ReprMixin):
             self.hazards = []
 
     @property
+    def health_bar(self):
+        progress = self.health_perc if not self.event else self.event.progress
+        faction = self.faction if not self.event else self.event.faction
+        if self.tracker and self.tracker.change_rate_per_hour != 0:
+            return health_bar(
+                perc=progress,
+                faction=faction,
+                anim=True,
+                increasing=self.tracker.change_rate_per_hour > 0,
+            )
+        else:
+            return health_bar(perc=progress, faction=faction)
+
+    @property
     def map_waypoints(self) -> tuple[int, int]:
         return (
             int((self.position["x"] * 1000) + 1000),
@@ -1077,7 +1048,7 @@ class Planet(ReprMixin):
     def exclamations(self) -> str:
         result = ""
         if self.event:
-            result += f":shield:{getattr(Emojis.Factions, self.event.faction.full_name.lower())}"
+            result += f":shield:{self.event.faction.emoji}"
         if self.in_assignment:
             result += Emojis.Icons.mo
         if self.dss_in_orbit:
@@ -1110,26 +1081,18 @@ class Planet(ReprMixin):
             """A float from 0-1"""
             self.required_players: int = 0
             self.level: int = int(self.max_health / 50000)
+            self.level_exclamation: str = DEF_LEVEL_EXC[
+                [key for key in DEF_LEVEL_EXC.keys() if key <= self.level][-1]
+            ]
             self.potential_buildup: int = 0
-            self.siege_fleet: SiegeFleet | None = None
 
-        @property
-        def remaining_dark_energy(self) -> float:
-            """Returns the remaining dark energy on the planet
+        def __hash__(self):
+            return hash((self.id))
 
-            example:
-                If the `12 hour event` has `6 hours left` and the `potential_buildup is 120000`
-                the `remaining_dark_energy is 60000`"""
-            return self.potential_buildup * (
-                1
-                - (datetime.now() - self.start_time_datetime).total_seconds()
-                / (self.end_time_datetime - self.start_time_datetime).total_seconds()
-            )
-
-        @property
-        def health_bar(self) -> str:
-            """Returns the health bar for the planet's event"""
-            return health_bar(perc=self.progress, faction=self.faction)
+        def __eq__(self, value):
+            if not isinstance(value, type(self)):
+                return False
+            return self.id == value.id
 
     class Region(ReprMixin):
         def __init__(
@@ -1140,6 +1103,7 @@ class Planet(ReprMixin):
         ):
             self.settings_hash: int = raw_planet_region_data["settingsHash"]
             self.planet_index: int = raw_planet_region_data["planetIndex"]
+            self.planet: Planet | None = None
             self.index: int = raw_planet_region_data["regionIndex"]
             self.name: str = planet_regions_json_dict.get(
                 str(self.settings_hash), {}
@@ -1158,10 +1122,18 @@ class Planet(ReprMixin):
             self.players: int = 0
             self.size: int = raw_planet_region_data["regionSize"] + 1
             self.type: str = REGION_TYPES.get(self.size, "")
+            self.tracker: BaseTrackerEntry | None = None
 
         @property
-        def regen_per_hour(self) -> float:
-            return ((self.regen_per_sec * 3600) / self.max_health) * 100
+        def emoji(self) -> str:
+            return getattr(
+                getattr(Emojis.RegionIcons, self.owner.full_name),
+                f"_{self.size}",
+            )
+
+        @property
+        def regen_perc_per_hour(self) -> float:
+            return (self.regen_per_sec * 3600) / self.max_health
 
         @property
         def perc(self):
@@ -1206,10 +1178,13 @@ class Planet(ReprMixin):
 
 
 class Planets(dict):
-    def __init__(self, raw_planets_data: list[dict]) -> None:
+    def __init__(self, raw_planets_data: list[dict], planet_names_json: dict) -> None:
         """A dict in the format of `{int: Planet}` containing all of the current planets"""
         for raw_planet_data in raw_planets_data:
-            self[raw_planet_data["index"]] = Planet(raw_planet_data=raw_planet_data)
+            self[raw_planet_data["index"]] = Planet(
+                raw_planet_data=raw_planet_data,
+                planet_names=planet_names_json[str(raw_planet_data["index"])]["names"],
+            )
 
     def get_by_name(self, name: str) -> Planet | None:
         planet_list = [
@@ -1229,6 +1204,8 @@ class Planets(dict):
 
 
 class Campaign(ReprMixin):
+    __slots__ = ("id", "planet", "type", "count", "progress", "faction")
+
     def __init__(self, raw_campaign_data: dict, campaign_planet: Planet) -> None:
         """Organised data for a campaign"""
         self.id: int = raw_campaign_data["id"]
@@ -1241,9 +1218,7 @@ class Campaign(ReprMixin):
             else self.planet.event.progress
         )
         self.faction: Faction = (
-            self.planet.event.faction
-            if self.planet.event
-            else self.planet.current_owner
+            self.planet.event.faction if self.planet.event else self.planet.faction
         )
 
 
@@ -1304,6 +1279,8 @@ class DSS(ReprMixin):
                 DSS.TacticalAction.Cost(cost=cost)
                 for cost in tactical_action_raw_data["cost"]
             ]
+            self.cost_changes: dict[BaseTrackerEntry] = {}
+            self.emoji = getattr(Emojis.DSS, self.name.lower().replace(" ", "_"))
 
         class Cost(ReprMixin):
             def __init__(self, cost) -> None:

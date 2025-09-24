@@ -42,7 +42,7 @@ class MajorOrderCog(commands.Cog):
             or mo_check_start < self.bot.ready_time
             or not self.bot.data.loaded
             or self.bot.interface_handler.busy
-            or not self.bot.data.assignments
+            or not self.bot.data.assignments["en"]
         ):
             return
         current_war_info = WarInfo()
@@ -77,8 +77,6 @@ class MajorOrderCog(commands.Cog):
                         Dashboard.MajorOrderEmbed(
                             assignment=self.bot.data.assignments[lang][index],
                             planets=self.bot.data.planets,
-                            liberation_changes_tracker=self.bot.data.liberation_changes,
-                            mo_task_tracker=self.bot.data.major_order_changes,
                             language_json=self.bot.json_dict["languages"][lang],
                             json_dict=self.bot.json_dict,
                         )
@@ -89,17 +87,23 @@ class MajorOrderCog(commands.Cog):
                     briefing: GlobalEvent = mo_briefing_dict.get(lang, None)
                     if briefing:
                         for embed in embed_list:
+                            field_value = ""
+                            extra_fields = 1
+                            for chunk in briefing.split_message[1:]:
+                                if len(field_value) + len(chunk) > 1024:
+                                    embed.insert_field_at(
+                                        extra_fields, "", field_value, inline=False
+                                    )
+                                    extra_fields += 1
+                                    field_value = ""
+                                else:
+                                    field_value += f"{chunk}"
                             embed.insert_field_at(
                                 0,
                                 briefing.title,
                                 briefing.split_message[0],
                                 inline=False,
                             )
-                            for index, chunk in enumerate(
-                                briefing.split_message[1:],
-                                1,
-                            ):
-                                embed.insert_field_at(index, "", chunk, inline=False)
                 current_war_info.major_order_ids.append(major_order.id)
                 current_war_info.save_changes()
                 await self.bot.interface_handler.send_feature(
@@ -141,7 +145,7 @@ class MajorOrderCog(commands.Cog):
             not self.bot.interface_handler.loaded
             or mo_updates_start < self.bot.ready_time
             or not self.bot.data.loaded
-            or not self.bot.data.assignments
+            or not self.bot.data.assignments["en"]
         ):
             return
         unique_langs = GWWGuilds().unique_languages
@@ -150,8 +154,6 @@ class MajorOrderCog(commands.Cog):
                 Dashboard.MajorOrderEmbed(
                     assignment=major_order,
                     planets=self.bot.data.planets,
-                    liberation_changes_tracker=self.bot.data.liberation_changes,
-                    mo_task_tracker=self.bot.data.major_order_changes,
                     language_json=self.bot.json_dict["languages"][lang],
                     json_dict=self.bot.json_dict,
                 )
@@ -160,7 +162,9 @@ class MajorOrderCog(commands.Cog):
             for lang in unique_langs
         }
         await self.bot.interface_handler.send_feature(
-            feature_type="major_order_updates", content=embeds, announcement_type="MO"
+            feature_type="major_order_updates",
+            content=embeds,
+            announcement_type="MO",
         )
         self.bot.logger.info(
             f"Sent MO announcements out to {len(self.bot.interface_handler.major_order_updates)} channels in {(datetime.now() - mo_updates_start).total_seconds():.2f}s"
@@ -221,8 +225,6 @@ class MajorOrderCog(commands.Cog):
                 embed = Dashboard.MajorOrderEmbed(
                     assignment=assignment,
                     planets=self.bot.data.planets,
-                    liberation_changes_tracker=self.bot.data.liberation_changes,
-                    mo_task_tracker=self.bot.data.major_order_changes,
                     language_json=guild_language,
                     json_dict=self.bot.json_dict,
                 )
@@ -243,8 +245,6 @@ class MajorOrderCog(commands.Cog):
                 Dashboard.MajorOrderEmbed(
                     assignment=None,
                     planets=None,
-                    liberation_changes_tracker=None,
-                    mo_task_tracker=None,
                     language_json=guild_language,
                     json_dict=None,
                 )

@@ -7,9 +7,8 @@ from disnake import (
 )
 from disnake.ext import commands
 from main import GalacticWideWebBot
+from utils.containers import HelpContainer
 from utils.checks import wait_for_startup
-from utils.embeds import HelpEmbed
-from utils.interactables import SupportServerButton
 
 
 class HelpCog(commands.Cog):
@@ -87,12 +86,11 @@ class HelpCog(commands.Cog):
                 ephemeral=True,
             )
         await inter.send(
-            embed=HelpEmbed(
+            components=HelpContainer(
                 commands=slash_commands,
                 command=slash_command,
             ),
             ephemeral=public != "Yes",
-            components=[SupportServerButton()],
         )
         return
 

@@ -8,10 +8,10 @@ from disnake import (
     NotFound,
 )
 from disnake.ext import commands, tasks
-from main import GalacticWideWebBot
+from utils.bot import GalacticWideWebBot
+from utils.containers import DispatchContainer
 from utils.checks import wait_for_startup
 from utils.dbv2 import GWWGuild, GWWGuilds, WarInfo
-from utils.embeds import DispatchEmbed
 from utils.interactables import DispatchStringSelect
 
 
@@ -51,17 +51,19 @@ class DispatchesCog(commands.Cog):
                     current_war_info.save_changes()
                     continue
                 unique_langs = GWWGuilds().unique_languages
-                embeds = {
+                containers = {
                     lang: [
-                        DispatchEmbed(
-                            self.bot.json_dict["languages"][lang],
-                            self.bot.data.dispatches[lang][index],
+                        DispatchContainer(
+                            dispatch_json=self.bot.json_dict["languages"][lang][
+                                "containers"
+                            ]["DispatchContainer"],
+                            dispatch=self.bot.data.dispatches[lang][index],
                         )
                     ]
                     for lang in unique_langs
                 }
                 await self.bot.interface_handler.send_feature(
-                    "war_announcements", embeds
+                    "war_announcements", containers, "dispatch"
                 )
                 current_war_info.dispatch_id = dispatch.id
                 current_war_info.save_changes()
@@ -144,12 +146,16 @@ class DispatchesCog(commands.Cog):
             await inter.send("I couldn't find that dispatch, sorry.", ephemeral=True)
             return
         await inter.send(
-            embed=DispatchEmbed(
-                language_json=self.bot.json_dict["languages"][guild.language],
-                dispatch=dispatch,
-                with_time=True,
-            ),
-            components=[DispatchStringSelect(self.bot.data.dispatches[guild.language])],
+            components=[
+                DispatchContainer(
+                    dispatch_json=self.bot.json_dict["languages"][guild.language][
+                        "containers"
+                    ]["DispatchContainer"],
+                    dispatch=dispatch,
+                    with_time=True,
+                ),
+                DispatchStringSelect(self.bot.data.dispatches[guild.language]),
+            ],
             ephemeral=public != "Yes",
         )
 
@@ -171,12 +177,19 @@ class DispatchesCog(commands.Cog):
             for d in self.bot.data.dispatches[guild.language]
             if d.id == int(inter.values[0].split("-")[0])
         ][0]
-        embed = DispatchEmbed(
-            language_json=self.bot.json_dict["languages"][guild.language],
+        container = DispatchContainer(
+            dispatch_json=self.bot.json_dict["languages"][guild.language]["containers"][
+                "DispatchContainer"
+            ],
             dispatch=dispatch,
             with_time=True,
         )
-        await inter.response.edit_message(embed=embed)
+        await inter.response.edit_message(
+            components=[
+                container,
+                DispatchStringSelect(self.bot.data.dispatches[guild.language]),
+            ]
+        )
 
 
 def setup(bot: GalacticWideWebBot):

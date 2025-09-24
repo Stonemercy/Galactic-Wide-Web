@@ -1,838 +1,467 @@
 {
-	"1": {
-		"name": "UNKNOWN [1]",
-		"description": "The first one..."
-	},
-	"5": {
-		"name": "War Liberation change",
-		"description": "Changes liberation multiplier"
-	},
-	"8": {
-		"name": "UNKNOWN [8]",
-		"description": ""
-	},
-	"12": {
-		"name": "UNKNOWN [12]",
-		"description": "Some sort of additional payout"
-	},
-	"13": {
-		"name": "UNKNOWN [13]",
-		"description": ""
-	},
-	"55": {
-		"name": "Ammo Shortage",
-		"description": "Helldivers start with less ammo"
-	},
-	"67": {
-		"name": "Hell-thy divers",
-		"description": "Helldivers have more health and stamina regeneration"
-	},
-	"70": {
-		"name": "Intel Scanners",
-		"description": "The location of Intel is indicated on the mini-map"
-	},
-	"71": {
-		"name": "UNKNOWN [71]",
-		"description": "Something to do with enemy hostility"
-	},
-	"76": {
-		"name": "IMPENETRABLE DEFENSE",
-		"description": "The defenses of this planet are so strong that no enemy will be able to invade."
-	},
-	"77": {
-		"name": "CRIPPLED SUPPLY",
-		"description": "The ability of this planet to attack is crippled."
-	},
-	"80": {
-		"name": "ATTACK INCREASE",
-		"description": "Something to do with attacking has been increased"
-	},
-	"87": {
-		"name": "Extra Supplies",
-		"description": "Ammo pickups give more ammo"
-	},
-	"95": {
-		"name": "Quick Extraction",
-		"description": "Extraction appears faster than usual"
-	},
-	"102": {
-		"name": "ATTACK INCREASE",
-		"description": "Something to do with attacking has been increased"
-	},
-	"103": {
-		"name": "ATTACK INCREASE",
-		"description": "Something to do with attacking has been increased"
-	},
-	"104": {
-		"name": "ATTACK INCREASE",
-		"description": "Something to do with attacking has been increased"
-	},
-	"105": {
-		"name": "ATTACK INCREASE",
-		"description": "Something to do with attacking has been increased"
-	},
-	"106": {
-		"name": "ATTACK INCREASE",
-		"description": "Something to do with attacking has been increased"
-	},
-	"113": {
-		"name": "Extra Supplies",
-		"description": "Stim pickups give more stims"
-	},
-	"114": {
-		"name": "Extra Supplies",
-		"description": "Ammo pickups give less ammo"
-	},
-	"121": {
-		"name": "MARKET CRASH",
-		"description": "Due to the risk of Famine, the market is concerned and prices have gone up 100%."
-	},
-	"122": {
-		"name": "WEAPONS EXPERIMENTATION",
-		"description": "The MG-43 Machine Gun stratagem has been temporarily authorized for use by all Helldivers."
-	},
-	"123": {
-		"name": "Stim shortage",
-		"description": "Helldivers start with less stims"
-	},
-	"124": {
-		"name": "Stim shortage",
-		"description": "Supply boxes give less stims"
-	},
-	"1117": {
-		"name": "Panzer Division",
-		"description": "Panzer division of bots"
-	},
-	"1118": {
-		"name": "Assault Division",
-		"description": "Assault division of bots"
-	},
-	"1119": {
-		"name": "Phalanx Division",
-		"description": "Phalanx division of bots"
-	},
-	"1120": {
-		"name": "Acid Brood",
-		"description": "Acid division of bugs"
-	},
-	"1121": {
-		"name": "Predator Brood",
-		"description": "Predator division of bugs"
-	},
-	"1122": {
-		"name": "Armored Brood",
-		"description": "Armored division of bugs"
-	},
-	"1124": {
-		"name": "Extended Extraction Times",
-		"description": "Extraction times will take longer"
-	},
-	"1125": {
-		"name": "Super Aerial Dominance",
-		"description": "Extraction appears faster than usual"
-	},
-	"1126": {
-		"name": "Strong Divers",
-		"description": "Helldivers will melee attack slightly stronger"
-	},
-	"1127": {
-		"name": "WEAPONS EXPERIMENTATION",
-		"description": "The Eagle 500kg Bomb stratagem has been temporarily authorized for use by all Helldivers."
-	},
-	"1128": {
-		"name": "WEAPONS EXPERIMENTATION",
-		"description": "The Eagle 500kg Bomb stratagem has been temporarily authorized for use by all Helldivers."
-	},
-	"1129": {
-		"name": "WEAPONS EXPERIMENTATION",
-		"description": "The SH-32 Shield Generator Pack stratagem has been temporarily authorized for use by all Helldivers."
-	},
-	"1130": {
-		"name": "WEAPONS EXPERIMENTATION",
-		"description": "The A/ARC-3 Tesla Tower stratagem has been temporarily authorized for use by all Helldivers."
-	},
-	"1131": {
-		"name": "UNKNOWN [1131]",
-		"description": ""
-	},
-	"1132": {
-		"name": "WEAPONS EXPERIMENTATION",
-		"description": "The A/M-23 EMS Mortar Sentry stratagem has been temporarily authorized for use by all Helldivers."
-	},
-	"1133": {
-		"name": "WEAPONS EXPERIMENTATION",
-		"description": "The A/M-23 EMS Mortar Sentry stratagem has been temporarily authorized for use by all Helldivers."
-	},
-	"1134": {
-		"name": "Ammo Shortage",
-		"description": "Helldivers start with less ammo"
-	},
-	"1135": {
-		"name": "Quick Stratagem Cooldowns",
-		"description": "Cooldown of RS-422 Railgun Stratagem reduced"
-	},
-	"1136": {
-		"name": "War Liberation change",
-		"description": "Changes liberation multiplier"
-	},
-	"1137": {
-		"name": "WEAPONS EXPERIMENTATION",
-		"description": "The RS-422 Railgun stratagem has been temporarily authorized for use by all Helldivers."
-	},
-	"1138": {
-		"name": "UNKNOWN [1138]",
-		"description": "Something to do with Payout Bonuses"
-	},
-	"1139": {
-		"name": "WEAPONS EXPERIMENTATION",
-		"description": "The Eagle Napalm Airstrike stratagem has been temporarily authorized for use by all Helldivers."
-	},
-	"1140": {
-		"name": "Ammo Shortage",
-		"description": "Helldivers start with less ammo"
-	},
-	"1141": {
-		"name": "War Liberation change",
-		"description": "Changes liberation multiplier"
-	},
-	"1142": {
-		"name": "WEAPONS EXPERIMENTATION",
-		"description": "The Eagle 500kg Bomb stratagem has been temporarily authorized for use by all Helldivers."
-	},
-	"1143": {
-		"name": "WEAPONS EXPERIMENTATION",
-		"description": "The MG-43 Machine Gun stratagem has been temporarily authorized for use by all Helldivers."
-	},
-	"1144": {
-		"name": "Ammo Shortage",
-		"description": "Helldivers start with less ammo"
-	},
-	"1145": {
-		"name": "WEAPONS EXPERIMENTATION",
-		"description": "The Orbital Laser stratagem has been temporarily authorized for use by all Helldivers."
-	},
-	"1147": {
-		"name": "WEAPONS EXPERIMENTATION",
-		"description": "The Orbital EMS Strike stratagem has been temporarily authorized for use by all Helldivers."
-	},
-	"1148": {
-		"name": "WEAPONS EXPERIMENTATION",
-		"description": "The EXO-45 Patriot Exosuit stratagem has been temporarily authorized for use by all Helldivers."
-	},
-	"1149": {
-		"name": "WEAPONS EXPERIMENTATION",
-		"description": "The LIFT-850 Jump Pack stratagem has been temporarily authorized for use by all Helldivers."
-	},
-	"1150": {
-		"name": "WEAPONS EXPERIMENTATION",
-		"description": "The B-1 Supply Pack stratagem has been temporarily authorized for use by all Helldivers."
-	},
-	"1152": {
-		"name": "WEAPONS EXPERIMENTATION",
-		"description": "The APW-1 Anti-Materiel Rifle stratagem has been temporarily authorized for use by all Helldivers."
-	},
-	"1153": {
-		"name": "WEAPONS EXPERIMENTATION",
-		"description": "The RS-422 Railgun stratagem has been temporarily authorized for use by all Helldivers."
-	},
-	"1154": {
-		"name": "WEAPONS EXPERIMENTATION",
-		"description": "The Orbital Railcannon Strike stratagem has been temporarily authorized for use by all Helldivers."
-	},
-	"1155": {
-		"name": "WEAPONS EXPERIMENTATION",
-		"description": "The AC-8 Autocannon stratagem has been temporarily authorized for use by all Helldivers."
-	},
-	"1156": {
-		"name": "WEAPONS EXPERIMENTATION",
-		"description": "The Eagle 100mm Rocket Pods stratagem has been temporarily authorized for use by all Helldivers."
-	},
-	"1159": {
-		"name": "UNKNOWN [1159]",
-		"description": "Something to do with Payout Bonuses"
-	},
-	"1160": {
-		"name": "WEAPONS EXPERIMENTATION",
-		"description": "The Orbital EMS Strike stratagem has been temporarily authorized for use by all Helldivers."
-	},
-	"1161": {
-		"name": "WEAPONS EXPERIMENTATION",
-		"description": "The Eagle Napalm Airstrike stratagem has been temporarily authorized for use by all Helldivers."
-	},
-	"1162": {
-		"name": "WEAPONS EXPERIMENTATION",
-		"description": "The EXO-45 Patriot Exosuit stratagem has been temporarily authorized for use by all Helldivers."
-	},
-	"1163": {
-		"name": "WEAPONS EXPERIMENTATION",
-		"description": "The Eagle 110MM Rocket Pods stratagem has been temporarily authorized for use by all Helldivers."
-	},
-	"1165": {
-		"name": "WEAPONS EXPERIMENTATION",
-		"description": "The LIFT-850 Jump Pack stratagem has been temporarily authorized for use by all Helldivers."
-	},
-	"1166": {
-		"name": "WEAPONS EXPERIMENTATION",
-		"description": "The Eagle 500kg Bomb stratagem has been temporarily authorized for use by all Helldivers."
-	},
-	"1167": {
-		"name": "WEAPONS EXPERIMENTATION",
-		"description": "The FLAM-40 Flamethrower stratagem has been temporarily authorized for use by all Helldivers."
-	},
-	"1168": {
-		"name": "WEAPONS EXPERIMENTATION",
-		"description": "The LAS-99 Quasar Cannon stratagem has been temporarily authorized for use by all Helldivers."
-	},
-	"1169": {
-		"name": "WEAPONS EXPERIMENTATION",
-		"description": "The EAT-17 Expendable Anti-Tank stratagem has been temporarily authorized for use by all Helldivers."
-	},
-	"1170": {
-		"name": "WEAPONS EXPERIMENTATION",
-		"description": "The RL-77 Airburst Rocket Launcher stratagem has been temporarily authorized for use by all Helldivers."
-	},
-	"1171": {
-		"name": "WEAPONS EXPERIMENTATION",
-		"description": "The MD-17 Anti-Tank Mines stratagem has been temporarily authorized for use by all Helldivers."
-	},
-	"1172": {
-		"name": "WEAPONS EXPERIMENTATION",
-		"description": "The Orbital Gas Strike stratagem has been temporarily authorized for use by all Helldivers."
-	},
-	"1173": {
-		"name": "WEAPONS EXPERIMENTATION",
-		"description": "The EXO-49 Emancipator Exosuit stratagem has been temporarily authorized for use by all Helldivers."
-	},
-	"1174": {
-		"name": "WEAPONS EXPERIMENTATION",
-		"description": "The A/M-23 EMS Mortar Sentry stratagem has been temporarily authorized for use by all Helldivers."
-	},
-	"1175": {
-		"name": "WEAPONS EXPERIMENTATION",
-		"description": "The {977669797} stratagem has been temporarily authorized for use by all Helldivers."
-	},
-	"1176": {
-		"name": "Planetary body update",
-		"description": "This planet has had it's appearance changed"
-	},
-	"1177": {
-		"name": "Black Hole",
-		"description": "This planet has been turned into a black hole."
-	},
-	"1178": {
-		"name": "WEAPONS EXPERIMENTATION",
-		"description": "The FX-12 Shield Generator Relay stratagem has been temporarily authorized for use by all Helldivers."
-	},
-	"1179": {
-		"name": "WEAPONS EXPERIMENTATION",
-		"description": "The AC-8 Autocannon stratagem has been temporarily authorized for use by all Helldivers."
-	},
-	"1181": {
-		"name": "WEAPONS EXPERIMENTATION",
-		"description": "The MLS-4X Commando stratagem has been temporarily authorized for use by all Helldivers."
-	},
-	"1182": {
-		"name": "Aerial Dominance",
-		"description": "Extraction appears faster than usual"
-	},
-	"1183": {
-		"name": "Pilot Shortage",
-		"description": "Extraction times will take longer"
-	},
-	"1184": {
-		"name": "WEAPONS EXPERIMENTATION",
-		"description": "The MD-I4 Incendiary Mines stratagem has been temporarily authorized for use by all Helldivers."
-	},
-	"1185": {
-		"name": "WEAPONS EXPERIMENTATION",
-		"description": "The MD-6 Anti-Personnel Minefield stratagem has been temporarily authorized for use by all Helldivers."
-	},
-	"1186": {
-		"name": "Light Gloom",
-		"description": "This world is lightly obscured by a gloom cloud."
-	},
-	"1187": {
-		"name": "Gloom",
-		"description": "A gloom cloud enveloped this world."
-	},
-	"1188": {
-		"name": "Dense Gloom",
-		"description": "A thick gloom cloud obscures this world from view."
-	},
-	"1189": {
-		"name": "Gloom",
-		"description": "A gloom cloud enveloped this world."
-	},
-	"1190": {
-		"name": "Unreachable",
-		"description": "Our sensors can no longer monitor this planet."
-	},
-	"1191": {
-		"name": "IMPALER SURGE",
-		"description": "Significantly higher Impaler numbers have been observed on this planet."
-	},
-	"1192": {
-		"name": "IMPALER SURGE",
-		"description": "Significantly higher Impaler numbers have been observed on this planet."
-	},
-	"1193": {
-		"name": "Gloom Border",
-		"description": "This world is on the border of the interstellar wall of gloom."
-	},
-	"1194": {
-		"name": "WEAPONS EXPERIMENTATION",
-		"description": "The Orbital Napalm Barrage stratagem has been temporarily authorized for use by all Helldivers."
-	},
-	"1195": {
-		"name": "DSS Construction Site - Phase 1",
-		"description": "Construction has begun on the Democracy Space Station. The local populace is honored to host thousands of construction crews for this historic event."
-	},
-	"1196": {
-		"name": "DSS Logistics Hub",
-		"description": "Parts for the Democracy Space Station are prefabricated all over the Galaxy, then shipped here to await assembly."
-	},
-	"1197": {
-		"name": "Xenoentomology Center",
-		"description": "Those who study Terminid behavior, ecology and E-710 potential gather here for cross-disciplinary research."
-	},
-	"1198": {
-		"name": "Deep Mantle Forge Complex",
-		"description": "The smelters and refineries on this planet turn crude materials into usable hardware."
-	},
-	"1199": {
-		"name": "DSS Construction Site- Phase 2",
-		"description": "Democracy Space Station construction is well underway. The local economy is flourishing as the planet's populace has centupled, and all the Galaxy can feel their democratic fervor."
-	},
-	"1200": {
-		"name": "WEAPONS EXPERIMENTATION",
-		"description": "The A/ARC-3 Tesla Tower stratagem has been temporarily authorized for use by all Helldivers."
-	},
-	"1201": {
-		"name": "Planetary body update",
-		"description": "This planet has had it's appearance changed"
-	},
-	"1202": {
-		"name": "THE JET BRIGADE",
-		"description": "These upgraded bots utilize stolen Jump Pack technology, heartlessly pillaged from the bodies of fallen Helldivers and reverse-engineered into something nearly unrecognizable."
-	},
-	"1203": {
-		"name": "[Galactic Map Marker] THE JET BRIGADE",
-		"description": ""
-	},
-	"1204": {
-		"name": "LIBERTY DAY",
-		"description": "This planet is celebrating Liberty Day."
-	},
-	"1205": {
-		"name": "DSS CONSTRUCTION SITE - PHASE 3",
-		"description": "Construction of the Democracy Space Station is nearing completion. This project, which has employed millions, will soon take its place among the greatest achievements of Democracy."
-	},
-	"1206": {
-		"name": "TERMINID RESEARCH PRESERVE",
-		"description": "Terminids are held safely within massive compounts on this planet for study and E-710 extraction."
-	},
-	"1207": {
-		"name": "WEAPONS EXPERIMENTATION",
-		"description": "The E/MG-101 HMG Emplacement stratagem has been temporarily authorized for use by all Helldivers."
-	},
-	"1208": {
-		"name": "PLANETARY BOMBARDMENT",
-		"description": "Planetary Bombardment is active on this planet"
-	},
-	"1209": {
-		"name": "EAGLE STORM",
-		"description": "Eagle Storm is active on this planet"
-	},
-	"1210": {
-		"name": "BOOSTER EXPERIMENTATION",
-		"description": "The Hellpod Space Optimization Booster has been temporarily granted to all Helldivers."
-	},
-	"1211": {
-		"name": "[Galactic Map Marker] PLANETARY_BOMBARDMENT",
-		"description": ""
-	},
-	"1212": {
-		"name": "[Galactic Map Marker] UNKNOWN [1212]",
-		"description": ""
-	},
-	"1213": {
-		"name": "[Galactic Map Marker] ORBITAL BLOCKADE",
-		"description": ""
-	},
-	"1214": {
-		"name": "War Liberation change",
-		"description": "Changes liberation multiplier"
-	},
-	"1215": {
-		"name": "ORBITAL BLOCKADE",
-		"description": "Prevents attacks from originating from this planet"
-	},
-	"1216": {
-		"name": "EAGLE STORM",
-		"description": "Defence timers are paused on this planet"
-	},
-	"1217": {
-		"name": "DEMOCRACY SPACE STATION",
-		"description": "A Helldiver-operated weapon of mass liberation. Paid for with the blood of soldiers and the credits of taxpayers, this technological marvel is Democracy made manifest."
-	},
-	"1218": {
-		"name": "Planetary Decay",
-		"description": "Decreases this planet's regeneration"
-	},
-	"1219": {
-		"name": "Planetary Decay",
-		"description": "Decreases this planet's regeneration"
-	},
-	"1220": {
-		"name": "Planetary Regen",
-		"description": "Increases this planet's regeneration"
-	},
-	"1222": {
-		"name": "Planetary Regen",
-		"description": "Increases this planet's regeneration"
-	},
-	"1223": {
-		"name": "BOOSTER EXPERIMENTATION",
-		"description": "The Increased Reinforcement Budget Booster has been temporarily granted to all Helldivers."
-	},
-	"1224": {
-		"name": "BOOSTER EXPERIMENTATION",
-		"description": "The Increased Reinforcement Budget Booster has been temporarily granted to all Helldivers."
-	},
-	"1225": {
-		"name": "Super Earth Mobilizes",
-		"description": "Changes liberation multiplier"
-	},
-	"1226": {
-		"name": "WEAPONS EXPERIMENTATION",
-		"description": "The FAF-14 Spear stratagem has been temporarily authorized for use by all Helldivers."
-	},
-	"1227": {
-		"name": "WEAPONS EXPERIMENTATION",
-		"description": "The MG-43 Machine Gun stratagem has been temporarily authorized for use by all Helldivers."
-	},
-	"1228": {
-		"name": "MERIDIAN BLACK HOLE",
-		"description": "The prosperous Meridia was corrupted into a Terminid Supercolony, necessitating its destruction using the mysterious Dark Fluid.  This galactic scar is all that remains."
-	},
-	"1229": {
-		"name": "MERIDIAN BLACK HOLE",
-		"description": "The prosperous Meridia was corrupted into a Terminid Supercolony, necessitating its destruction using the mysterious Dark Fluid.  This galactic scar is all that remains."
-	},
-	"1230": {
-		"name": "UNKNOWN [1230]",
-		"description": "Something on Meridia"
-	},
-	"1231": {
-		"name": "WEAPONS EXPERIMENTATION",
-		"description": "The CQC-1 One True Flag stratagem has been temporarily authorized for use by all Helldivers."
-	},
-	"1232": {
-		"name": "FACTORY HUB",
-		"description": "The hard workers on this planet produce goods vital to the war effort, as well as to the prosperity of Super Earth."
-	},
-	"1233": {
-		"name": "WEAPONS EXPERIMENTATION",
-		"description": "The MD-8 Gas Mines stratagem has been temporarily authorized for use by all Helldivers."
-	},
-	"1234": {
-		"name": "CENTER OF SCIENCE",
-		"description": "On this planet, the Ministry of Science's best and brightest work on their next breakthrough."
-	},
-	"1235": {
-		"name": "WEAPONS EXPERIMENTATION",
-		"description": "The MD-17 Anti-Tank Mines stratagem has been temporarily authorized for use by all Helldivers."
-	},
-	"1236": {
-		"name": "CENTER FOR CIVILIAN SURVEILLANCE AND SAFETY",
-		"description": "The Ministry of Truth analyzes citizens' activity, speech, data, DNA, RNA, and neural topology here."
-	},
-	"1237": {
-		"name": "WEAPONS EXPERIMENTATION",
-		"description": "The Orbital 380mm HE Barrage stratagem has been temporarily authorized for use by all Helldivers."
-	},
-	"1238": {
-		"name": "OPERATIONAL SUPPORT",
-		"description": "The presence of the DSS near this planet provides a slight boost to Liberation Campaign progress."
-	},
-	"1239": {
-		"name": "JET BRIGADE FACTORIES",
-		"description": "Vertically enhanced Jet Brigade soldiers are produced here."
-	},
-	"1240": {
-		"name": "VERGE OF DESTRUCTION",
-		"description": "This planet is under threat of destruction."
-	},
-	"1241": {
-		"name": "FRACTURED PLANET",
-		"description": "All that remains of a planet torn apart by the Meridian singularity. A solemn reminder of the desolation Tyranny leaves in its wake."
-	},
-	"1242": {
-		"name": "MOVING PLANET",
-		"description": "This planet is moving and could collide with others."
-	},
-	"1243": {
-		"name": "PREDATOR STRAIN",
-		"description": "A Gloom-enhanced strain of Terminids has been reported on this planet. SEAF patrols have been lured into ambushes, and picked off by unseen assailants. Every ounce of a Helldiver's superior senses will be required to hunt down this dangerous threat."
-	},
-	"1244": {
-		"name": "GLOOM BURSTER STRAIN",
-		"description": "A Gloom-enhanced strain of Terminids has been reported on this planet. They can explode into spores"
-	},
-	"1245": {
-		"name": "[Galactic Map Marker] PREDATOR STRAIN",
-		"description": ""
-	},
-	"1246": {
-		"name": "Unattackable",
-		"description": "This planet cannot be attacked"
-	},
-	"1247": {
-		"name": "WEAPONS EXPERIMENTATION",
-		"description": "The CQC-1 One True Flag stratagem has been temporarily authorized for use by all Helldivers."
-	},
-	"1248": {
-		"name": "INCINERATION CORPS",
-		"description": "An Automaton unit equipped with flame throwers and incendiary ammunition is active on this planet. These wanton arsonists will not rest until they have razed all that mankind holds dear."
-	},
-	"1249": {
-		"name": "[Galactic Map Marker] INCINERATION CORPS",
-		"description": ""
-	},
-	"1250": {
-		"name": "SUPPLY CHAIN DIFFICULTIES",
-		"description": "Eagle Re-Arm times increased"
-	},
-	"1251": {
-		"name": "SUPPLY CHAIN EXPEDIENCIES",
-		"description": "Eagle Re-Arm times decreased"
-	},
-	"1252": {
-		"name": "FRACTURED PLANET",
-		"description": "All that remains of a planet torn apart by the Meridian singularity. A solemn reminder of the desolation Tyranny leaves in its wake."
-	},
-	"1253": {
-		"name": "FUEL RATIONS",
-		"description": "Fuel for Vehicles has been reduced."
-	},
-	"1254": {
-		"name": "WEAPONS EXPERIMENTATION",
-		"description": "The MG-206 Heavy Machine Gun stratagem has been temporarily authorized for use by all Helldivers."
-	},
-	"1255": {
-		"name": "Planetary Regen",
-		"description": "Increases this planet's regeneration"
-	},
-	"1256": {
-		"name": "WEAPONS EXPERIMENTATION",
-		"description": "The E/GL-21 Grenadier Battlement stratagem has been temporarily authorized for use by all Helldivers."
-	},
-	"1257": {
-		"name": "BATTLEFIELD IMPACT",
-		"description": "Cascading logistical distruptions have resulted in the temporary emplacement of ammunition rationing measures. Resupply pod ammunition will be decreased for all operations on this planet until further notice."
-	},
-	"1258": {
-		"name": "BATTLEFIELD IMPACT",
-		"description": "Cryo-good transport is facing interdictions by Automaton fleets, reducing Reinforcements for all operations on this planet in the short term."
-	},
-	"1261": {
-		"name": "EXOSUIT RESERVES",
-		"description": "The presence of the DSS near this planet provides a -35% cooldown reduction to the EXO-45 Patriot Exosuit stratagem."
-	},
-	"1262": {
-		"name": "EXOSUIT RESERVES",
-		"description": "The presence of the DSS near this planet provides a -35% cooldown reduction to the EXO-49 Emancipator Exosuit stratagem."
-	},
-	"1263": {
-		"name": "WEAPONS EXPERIMENTATION",
-		"description": "The M-105 Stalwart stratagem has been temporarily authorized for use by all Helldivers."
-	},
-	"1264": {
-		"name": "Reduced stims",
-		"description": "Stim capacity reduced"
-	},
-	"1265": {
-		"name": "FRV Delays",
-		"description": "Cooldown of M-102 Fast Reconnaissance Vehicle Stratagem increased"
-	},
-	"1267": {
-		"name": "WEAPONS EXPERIMENTATION",
-		"description": "The Orbital Gas Strike stratagem has been temporarily authorized for use by all Helldivers."
-	},
-	"1268": {
-		"name": "Negative Energy Laboratory",
-		"description": "Scientists without fear of implosion or spaghettification study negative energy here."
-	},
-	"1269": {
-		"name": "The Great Host",
-		"description": "The Illuminate invasion fleet, constructed in secret behind the veil of the Meridian Wormhole. It is headed for Super Earth itself."
-	},
-	"1270": {
-		"name": "UNKNOWN [1270]",
-		"description": "Some sort of operation modifier toggle"
-	},
-	"1271": {
-		"name": "Increased Siege Resistance",
-		"description": "Increases planet health"
-	},
-	"1272": {
-		"name": "ADJUSTED REINFORCEMENT BUDGET",
-		"description": "Reinforcement budget adjusted"
-	},
-	"1273": {
-		"name": "Eagle Rearm Time Increase",
-		"description": "Eagle Re-Arm times increased"
-	},
-	"1274": {
-		"name": "WEAPONS EXPERIMENTATION",
-		"description": "The M-105 Stalwart stratagem has been temporarily authorized for use by all Helldivers."
-	},
-	"1275": {
-		"name": "Slow reloading",
-		"description": "Orbital Stratagem Cooldowns are increased by 60 seconds."
-	},
-	"1276": {
-		"name": "EMERGENCY ARSENAL AUGMENTATION",
-		"description": "The FX-12 Shield Generator Relay stratagem has been temporarily authorized for use by all Helldivers."
-	},
-	"1277": {
-		"name": "WEAPONS EXPERIMENTATION",
-		"description": "The Orbital Napalm Barrage stratagem has been temporarily authorized for use by all Helldivers."
-	},
-	"1278": {
-		"name": "Low Ammo",
-		"description": "Initial ammunition will be reduced by 50%"
-	},
-	"1279": {
-		"name": "ARSENAL AUGMENTATION",
-		"description": "All Helldiver loadouts will be augmented with the Fast Recon Vehicle strategem for their missions."
-	},
-	"1280": {
-		"name": "WEAPONS EXPERIMENTATION",
-		"description": "The Orbital Smoke Strike stratagem has been temporarily authorized for use by all Helldivers."
-	},
-	"1281": {
-		"name": "WEAPONS EXPERIMENTATION",
-		"description": "The Eagle Smoke Strike stratagem has been temporarily authorized for use by all Helldivers."
-	},
-	"1282": {
-		"name": "Helldiver Training Facilities",
-		"description": "Here, the best of the best go through the rigorous Helldiver training that will earn them their capes."
-	},
-	"1283": {
-		"name": "FACTORY STRIDER SURGE",
-		"description": "Significantly higher Factory Strider numbers have been observed on this planet."
-	},
-	"1284": {
-		"name": "WEAPONS EXPERIMENTATION",
-		"description": "The GR-8 Recoilless Rifle stratagem has been temporarily authorized for use by all Helldivers."
-	},
-	"1285": {
-		"name": "IMPALER SURGE",
-		"description": "Significantly higher Impaler numbers have been observed on this planet."
-	},
-	"1286": {
-		"name": "MAXIMUM SECURITY CITY CONSTRUCTION SITE",
-		"description": "One of 3 Maximum Security Cities is under construction here."
-	},
-	"1287": {
-		"name": "NEW HOPE CITY",
-		"description": "The flagship Maximum Security City. Impregnable to Tyranny; the future of the Federation."
-	},
-	"1288": {
-		"name": "GLOOM BURSTER SCAVENGER SURGE",
-		"description": "Significantly higher Gloom Burster Scanveger numbers have been observed on this planet."
-	},
-	"1289": {
-		"name": "ARSENAL BOOST",
-		"description": "High Command has authorized high-volume use of the Orbital Railcannon Stratagem. The mandated waiting period between salvos has been lowered significantly."
-	},
-	"1290": {
-		"name": "WEAPONS EXPERIMENTATION",
-		"description": "The Orbital Railcannon Strike stratagem has been temporarily authorized for use by all Helldivers."
-	},
-	"1291": {
-		"name": "NEW ASPIRATION CITY",
-		"description": "One of 3 Maximum Security Cities. Impregnable to Tyranny; the future of the Federation"
-	},
-	"1292": {
-		"name": "NEW YEARNING CITY",
-		"description": "One of 3 Maximum Security Cities. Impregnable to Tyranny; the future of the Federation"
-	},
-	"1293": {
-		"name": "CHARGER SURGE",
-		"description": "Significantly higher Charger numbers have been observed on this planet."
-	},
-	"1294": {
-		"name": "BILE TITAN DROUGHT",
-		"description": "Significantly less Bile Titan numbers have been observed on this planet."
-	},
-	"1295": {
-		"name": "TYRANNY PARK 2",
-		"description": "The extensive Terminid enclosures here allow scientists to study Terminid behaviour, and civilians to take pictures with Brood Commanders."
-	},
-	"1296": {
-		"name": "STALKER SURGE",
-		"description": "Significantly higher Stalker numbers have been observed on this planet."
-	},
-	"1297": {
-		"name": "HUNTER SURGE",
-		"description": "Significantly higher Hunter numbers have been observed on this planet."
-	},
-	"1298": {
-		"name": "FACTORY HUB EVACUATED",
-		"description": "The Factory Hub has been evacuated. FRV cooldowns have been increased."
-	},
-	"1299": {
-		"name": "LOW-ORBIT INTERDICTION",
-		"description": "Illuminate assault forces have deployed heavy low-orbit anti-air patrols to interdict space-to-ground aircraft. Extraction time on missions against the Illuminate will take significantly longer."
-	},
-	"1300": {
-		"name": "Ammo Increase",
-		"description": "Initial ammunition will be increased by 50%"
-	},
-	"1301": {
-		"name": "ARSENAL AUGMENTATION",
-		"description": "The A/G-16 Gatling Sentry stratagem has been temporarily authorized for use by all Helldivers."
-	},
-	"1302": {
-		"name": "ARSENAL AUGMENTATION",
-		"description": "The AX/LAS-5 \"Guard Dog\" Rover stratagem has been temporarily authorized for use by all Helldivers."
-	},
-	"1303": {
-		"name": "RUPTURE STRAIN",
-		"description": "A deadly strain of ground-bursting Terminids is present on this planet."
-	},
-	"1304": {
-		"name": "OUTPOST ALPHA",
-		"description": "The first manned site established in Gloom-infested space."
-	},
-	"1305": {
-		"name": "GLOOM INTERFERENCE",
-		"description": "Due to adverse spore conditions, Pelican pilots must exercise extreme caution when executing landing manoeuvres. Extraction times have increased by 50s."
-	},
-	"1306": {
-		"name": "DRAGONROACHES",
-		"description": "Terminid Dragonroaches menace the skies of this planet."
-	},
-	"1307": {
-		"name": "HIVE LORDS",
-		"description": "Terminid Hive Lords have been detected on this planet."
-	},
-	"1308": {
-		"name": "[Galactic Map Marker] HIVE LORDS",
-		"description": ""
-	},
-	"1309": {
-		"name": "[Galactic Map Marker] DRAGONROACHES",
-		"description": ""
-	},
-	"1310": {
-		"name": "[Galactic Map Marker] RUPTURE STRAIN",
-		"description": ""
-	},
-	"1311": {
-		"name": "[Galactic Map Marker] HIVE WORLD",
-		"description": ""
-	}
+  "5": {
+    "name": "ENEMY FORCE INCREASE",
+    "description_long": "",
+    "description_short": ""
+  },
+  "12": {
+    "name": "ADDITIONAL PAYOUT",
+    "description_long": "",
+    "description_short": ""
+  },
+  "55": {
+    "name": "INCREASED STARTING AMMO",
+    "description_long": "Helldiver deploys with maximum number of magazines for their weapons.",
+    "description_short": ""
+  },
+  "67": {
+    "name": "EXPERIMENTAL SUPER SOLDIERS",
+    "description_long": "The Helldiver has faster stamina regeneration and slowly regenerates health and injuries automatically.",
+    "description_short": ""
+  },
+  "70": {
+    "name": "INTEL SCANNERS",
+    "description_long": "The location of Intel is  indicated on the mini-map.",
+    "description_short": ""
+  },
+  "71": {
+    "name": "COMPROMISED INTEL PACKAGES",
+    "description_long": "Intel Packages are compromised. Picking them up will notify the enemy of your whereabouts and cause an encounter.",
+    "description_short": ""
+  },
+  "76": {
+    "name": "IMPENETRABLE DEFENSE",
+    "description_long": "The defenses of this planet are so strong that no enemy will be able to invade.",
+    "description_short": ""
+  },
+  "77": {
+    "name": "CRIPPLED SUPPLY",
+    "description_long": "The ability of this planet to attack is crippled.",
+    "description_short": ""
+  },
+  "80": {
+    "name": "MINOR ATTACK INCREASE",
+    "description_long": "",
+    "description_short": ""
+  },
+  "87": {
+    "name": "INCREASED SUPPLIES",
+    "description_long": "Ammo and Supply boxes contains #V_ONE more magazine and #V_TWO extra rounds each.",
+    "description_short": ""
+  },
+  "102": {
+    "name": "LARGE ATTACK INCREASE",
+    "description_long": "",
+    "description_short": ""
+  },
+  "103": {
+    "name": "ATTACK INCREASE",
+    "description_long": "",
+    "description_short": ""
+  },
+  "104": {
+    "name": "SUBSTANTIAL ATTACK INCREASE",
+    "description_long": "",
+    "description_short": ""
+  },
+  "105": {
+    "name": "MAJOR ATTACK INCREASE",
+    "description_long": "",
+    "description_short": ""
+  },
+  "106": {
+    "name": "MASSIVE ATTACK INCREASE",
+    "description_long": "",
+    "description_short": ""
+  },
+  "113": {
+    "name": "PLENTYFUL STIMS",
+    "description_long": "Health Packs and Supply boxes contains #V_ONE more Stim Packs.",
+    "description_short": ""
+  },
+  "114": {
+    "name": "DECREASED SUPPLIES",
+    "description_long": "Ammo and Supply boxes contains #V_ONE less magazine and #V_TWO fewer rounds.",
+    "description_short": ""
+  },
+  "121": {
+    "name": "MARKET CRASH",
+    "description_long": "Due to the risk of Famine, the market is concerned and prices have gone up #V_ONE%.",
+    "description_short": ""
+  },
+  "122": {
+    "name": "MACHINE GUN INCENTIVE",
+    "description_long": "The local governor has decided to hand out free machine guns as an extra carrot to save this planet.",
+    "description_short": ""
+  },
+  "123": {
+    "name": "GMO'S IN STIMS?",
+    "description_long": "The growing concern over the use of GMO in Combat Stims have caused drops in production.",
+    "description_short": ""
+  },
+  "124": {
+    "name": "GMO'S IN HEALTH PACKS?",
+    "description_long": "The growing concern over the use of GMO have caused drops in production.",
+    "description_short": ""
+  },
+  "1117": {
+    "name": "PANZER DIVISION",
+    "description_long": "",
+    "description_short": ""
+  },
+  "1118": {
+    "name": "ASSAULT DIVISION",
+    "description_long": "",
+    "description_short": ""
+  },
+  "1119": {
+    "name": "PHALANX DIVISION",
+    "description_long": "",
+    "description_short": ""
+  },
+  "1120": {
+    "name": "ACID BROOD",
+    "description_long": "",
+    "description_short": ""
+  },
+  "1122": {
+    "name": "ARMORED BROOD",
+    "description_long": "",
+    "description_short": ""
+  },
+  "1129": {
+    "name": "WEAPONS EXPERIMENTATION",
+    "description_long": "",
+    "description_short": "The #V_ONE stratagem is available to all Helldivers."
+  },
+  "1142": {
+    "name": "WEAPONS EXPERIMENTATION",
+    "description_long": "",
+    "description_short": "The Eagle 500kg Bomb stratagem is temporarily available to all Helldivers."
+  },
+  "1143": {
+    "name": "WEAPONS EXPERIMENTATION",
+    "description_long": "",
+    "description_short": "The MG-43 Machine Gun stratagem is temporarily available to all Helldivers."
+  },
+  "1144": {
+    "name": "AMMO SHORTAGE",
+    "description_long": "",
+    "description_short": "Number of magazines for all weapons Helldivers deploy with decreased by #V_ONE."
+  },
+  "1145": {
+    "name": "WEAPONS EXPERIMENTATION",
+    "description_long": "",
+    "description_short": "The Orbital Laser stratagem is temporarily available to all Helldivers."
+  },
+  "1147": {
+    "name": "WEAPONS EXPERIMENTATION",
+    "description_long": "",
+    "description_short": "The Orbital EMS Strike stratagem is temporarily available to all Helldivers."
+  },
+  "1149": {
+    "name": "EQUIPMENT TESTING",
+    "description_long": "",
+    "description_short": "The Jump Pack stratagem is temporarily available to all Helldivers."
+  },
+  "1150": {
+    "name": "EQUIPMENT TESTING",
+    "description_long": "",
+    "description_short": "The Supply Backpack stratagem is temporarily available to all Helldivers."
+  },
+  "1152": {
+    "name": "WEAPONS EXPERIMENTATION",
+    "description_long": "",
+    "description_short": "The #V_ONE stratagem is available to all Helldivers."
+  },
+  "1153": {
+    "name": "WEAPONS EXPERIMENTATION",
+    "description_long": "",
+    "description_short": "The #V_ONE stratagem is available to all Helldivers."
+  },
+  "1154": {
+    "name": "WEAPONS EXPERIMENTATION",
+    "description_long": "",
+    "description_short": "The #V_ONE stratagem is available to all Helldivers."
+  },
+  "1155": {
+    "name": "WEAPONS EXPERIMENTATION",
+    "description_long": "",
+    "description_short": "The #V_ONE stratagem is available to all Helldivers."
+  },
+  "1156": {
+    "name": "WEAPONS EXPERIMENTATION",
+    "description_long": "",
+    "description_short": "The #V_ONE stratagem is available to all Helldivers."
+  },
+  "1159": {
+    "name": "ACCOUNTING CORRECTIONS",
+    "description_long": "50% bonus to Requisition and XP awarded per mission",
+    "description_short": "Boosts Requisition and XP awards by 50% to address accounting errors (responsible parties undergoing re-education)."
+  },
+  "1160": {
+    "name": "WEAPONS EXPERIMENTATION",
+    "description_long": "",
+    "description_short": "The #V_ONE stratagem is available to all Helldivers."
+  },
+  "1161": {
+    "name": "WEAPONS EXPERIMENTATION",
+    "description_long": "",
+    "description_short": "The #V_ONE stratagem is available to all Helldivers."
+  },
+  "1162": {
+    "name": "WEAPONS EXPERIMENTATION",
+    "description_long": "",
+    "description_short": "The #V_ONE stratagem is available to all Helldivers."
+  },
+  "1163": {
+    "name": "WEAPONS EXPERIMENTATION",
+    "description_long": "",
+    "description_short": "The #V_ONE stratagem is available to all Helldivers."
+  },
+  "1165": {
+    "name": "WEAPONS EXPERIMENTATION",
+    "description_long": "",
+    "description_short": "The #V_ONE stratagem is available to all Helldivers."
+  },
+  "1166": {
+    "name": "WEAPONS EXPERIMENTATION",
+    "description_long": "",
+    "description_short": "The #V_ONE stratagem is available to all Helldivers."
+  },
+  "1167": {
+    "name": "WEAPONS EXPERIMENTATION",
+    "description_long": "",
+    "description_short": "The #V_ONE stratagem is available to all Helldivers."
+  },
+  "1168": {
+    "name": "WEAPONS EXPERIMENTATION",
+    "description_long": "",
+    "description_short": "The #V_ONE stratagem is available to all Helldivers."
+  },
+  "1169": {
+    "name": "WEAPONS EXPERIMENTATION",
+    "description_long": "",
+    "description_short": "The #V_ONE stratagem is available to all Helldivers."
+  },
+  "1170": {
+    "name": "WEAPONS EXPERIMENTATION",
+    "description_long": "",
+    "description_short": "The #V_ONE stratagem is available to all Helldivers."
+  },
+  "1171": {
+    "name": "WEAPONS EXPERIMENTATION",
+    "description_long": "",
+    "description_short": "The #V_ONE stratagem is available to all Helldivers."
+  },
+  "1172": {
+    "name": "WEAPONS EXPERIMENTATION",
+    "description_long": "",
+    "description_short": "The #V_ONE stratagem is available to all Helldivers."
+  },
+  "1173": {
+    "name": "WEAPONS EXPERIMENTATION",
+    "description_long": "",
+    "description_short": "The #V_ONE stratagem is available to all Helldivers."
+  },
+  "1174": {
+    "name": "WEAPONS EXPERIMENTATION",
+    "description_long": "",
+    "description_short": "The #V_ONE stratagem is available to all Helldivers."
+  },
+  "1175": {
+    "name": "WEAPONS EXPERIMENTATION",
+    "description_long": "",
+    "description_short": "The #V_ONE stratagem is available to all Helldivers."
+  },
+  "1178": {
+    "name": "WEAPONS EXPERIMENTATION",
+    "description_long": "",
+    "description_short": "The #V_ONE stratagem is available to all Helldivers."
+  },
+  "1179": {
+    "name": "WEAPONS EXPERIMENTATION",
+    "description_long": "",
+    "description_short": "The #V_ONE stratagem is available to all Helldivers."
+  },
+  "1181": {
+    "name": "WEAPONS EXPERIMENTATION",
+    "description_long": "",
+    "description_short": "The #V_ONE stratagem is available to all Helldivers."
+  },
+  "1182": {
+    "name": "AERIAL DOMINANCE",
+    "description_long": "",
+    "description_short": "Extraction takes #V_TWO seconds less."
+  },
+  "1184": {
+    "name": "WEAPONS EXPERIMENTATION",
+    "description_long": "",
+    "description_short": "The #V_ONE stratagem is available to all Helldivers."
+  },
+  "1185": {
+    "name": "WEAPONS EXPERIMENTATION",
+    "description_long": "",
+    "description_short": "The #V_ONE stratagem is available to all Helldivers."
+  },
+  "1194": {
+    "name": "WEAPONS EXPERIMENTATION",
+    "description_long": "",
+    "description_short": "The #V_ONE stratagem is available to all Helldivers."
+  },
+  "1200": {
+    "name": "WEAPONS EXPERIMENTATION",
+    "description_long": "",
+    "description_short": "The #V_ONE stratagem is available to all Helldivers."
+  },
+  "1207": {
+    "name": "WEAPONS EXPERIMENTATION",
+    "description_long": "",
+    "description_short": "The #V_ONE stratagem is available to all Helldivers."
+  },
+  "1208": {
+    "name": "PLANETARY BOMBARDMENT",
+    "description_long": "",
+    "description_short": "The DSS fires Orbital Barrages during missions."
+  },
+  "1209": {
+    "name": "EAGLE STORM",
+    "description_long": "",
+    "description_short": "The DSS deploys Eagle Strafing Runs during missions."
+  },
+  "1210": {
+    "name": "ORBITAL BLOCKADE",
+    "description_long": "",
+    "description_short": "#V_ONE Booster is automatically active for all missions."
+  },
+  "1214": {
+    "name": "PLANETARY BOMBARDMENT",
+    "description_long": "",
+    "description_short": "Progress in Liberation Campaigns is accelerated."
+  },
+  "1215": {
+    "name": "ORBITAL BLOCKADE",
+    "description_long": "",
+    "description_short": "Defense Campaigns cannot originate from this planet."
+  },
+  "1216": {
+    "name": "EAGLE STORM",
+    "description_long": "",
+    "description_short": "Enemy progress in Defense Campaigns is slowed."
+  },
+  "1226": {
+    "name": "WEAPONS EXPERIMENTATION",
+    "description_long": "",
+    "description_short": "The #V_ONE stratagem is available to all Helldivers."
+  },
+  "1227": {
+    "name": "WEAPONS EXPERIMENTATION",
+    "description_long": "",
+    "description_short": "The #V_ONE stratagem is available to all Helldivers."
+  },
+  "1231": {
+    "name": "WEAPONS EXPERIMENTATION",
+    "description_long": "",
+    "description_short": "The #V_ONE stratagem is available to all Helldivers."
+  },
+  "1233": {
+    "name": "WEAPONS EXPERIMENTATION",
+    "description_long": "",
+    "description_short": "The #V_ONE stratagem is available to all Helldivers."
+  },
+  "1235": {
+    "name": "WEAPONS EXPERIMENTATION",
+    "description_long": "",
+    "description_short": "The #V_ONE stratagem is available to all Helldivers."
+  },
+  "1237": {
+    "name": "WEAPONS EXPERIMENTATION",
+    "description_long": "",
+    "description_short": "The #V_ONE stratagem is available to all Helldivers."
+  },
+  "1238": {
+    "name": "OPERATIONAL SUPPORT",
+    "description_long": "",
+    "description_short": "The presence of the DSS near this planet provides a slight boost to Liberation Campaign progress."
+  },
+  "1247": {
+    "name": "WEAPONS EXPERIMENTATION",
+    "description_long": "",
+    "description_short": "The #V_ONE stratagem is available to all Helldivers."
+  },
+  "1254": {
+    "name": "WEAPONS EXPERIMENTATION",
+    "description_long": "",
+    "description_short": "The #V_ONE stratagem is available to all Helldivers."
+  },
+  "1256": {
+    "name": "WEAPONS EXPERIMENTATION",
+    "description_long": "",
+    "description_short": "The #V_ONE stratagem is available to all Helldivers."
+  },
+  "1261": {
+    "name": "EXOSUIT RESERVES",
+    "description_long": "",
+    "description_short": "The presence of the DSS near this planet provides a -35% cooldown reduction to all Exosuit stratagems."
+  },
+  "1263": {
+    "name": "WEAPONS EXPERIMENTATION",
+    "description_long": "",
+    "description_short": "The #V_ONE stratagem is available to all Helldivers."
+  },
+  "1274": {
+    "name": "WEAPONS EXPERIMENTATION",
+    "description_long": "",
+    "description_short": "The #V_ONE stratagem is available to all Helldivers."
+  },
+  "1276": {
+    "name": "WEAPONS EXPERIMENTATION",
+    "description_long": "",
+    "description_short": "The #V_ONE stratagem is available to all Helldivers."
+  },
+  "1277": {
+    "name": "WEAPONS EXPERIMENTATION",
+    "description_long": "",
+    "description_short": "The #V_ONE stratagem is available to all Helldivers."
+  },
+  "1279": {
+    "name": "WEAPONS EXPERIMENTATION",
+    "description_long": "",
+    "description_short": "The #V_ONE stratagem is available to all Helldivers."
+  },
+  "1280": {
+    "name": "WEAPONS EXPERIMENTATION",
+    "description_long": "",
+    "description_short": "The #V_ONE stratagem is available to all Helldivers."
+  },
+  "1281": {
+    "name": "WEAPONS EXPERIMENTATION",
+    "description_long": "",
+    "description_short": "The #V_ONE stratagem is available to all Helldivers."
+  },
+  "1312": {
+    "name": "LIGHT GLOOM COVER",
+    "description_long": "",
+    "description_short": "Gloom particles interfere with landing Pelicans, increasing extraction times by 20 seconds."
+  },
+  "1313": {
+    "name": "MODERATE GLOOM BLANKET",
+    "description_long": "",
+    "description_short": "The Gloom covers this planet completely, obstructing a variety of logistical operations.\nExtraction times are increased by 30 seconds and Eagle Re-arm time is increased by 20%."
+  },
+  "1315": {
+    "name": "HEAVY GLOOM SHROUD",
+    "description_long": "",
+    "description_short": "This planet is completely engulfed by the Gloom, severely impeding logistical support.\nExtraction times are increased by 40 seconds, Eagle Re-arm time is increased by 30% and Ammo from pickups is reduced by 50%."
+  },
+  "1318": {
+    "name": "GLOOM SOURCE",
+    "description_long": "",
+    "description_short": "This planet continually produces a thick atmospheric Gloom cover, rendering logistical support extremely challenging.\nTotal Reinforcements are reduced by 20%, Eagle Re-arm time is increased by 30% and Ammo from pickups is reduced by 50%."
+  },
+  "1324": {
+    "name": "ULGRAMAFIC MINE",
+    "description_long": "",
+    "description_short": "A mine extracting platinum from deep-seated deposits of igneous rock."
+  }
 }

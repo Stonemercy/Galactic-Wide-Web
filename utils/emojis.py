@@ -75,6 +75,7 @@ class Emojis:
         steam = "<:s:1373613637012426772>"
         playstation = "<:s:1373613628552511559>"
         xbox = "<:s:1409811621907533845>"
+        new_icon = "<:s:1418931498035318885>"
 
     @dataclass
     class Factions:
@@ -136,7 +137,7 @@ class Emojis:
 
     @dataclass
     class DSS:
-        icon = "<:s:1308177676250513449>"
+        icon = "<:s:1417971465311223808>"
         orbital_blockade = "<:s:1318875016909029388>"
         heavy_ordnance_distribution = "<:s:1318874283350687816>"
         eagle_storm = "<:s:1318874257773690881>"
@@ -168,6 +169,12 @@ class Emojis:
         rupture_strain = "<:s:1412402213938270258>"
         dragonroaches = "<:s:1412402344502759425>"
         hive_lords = "<:s:1412402306334457916>"
+
+    @dataclass
+    class PlanetEffects:
+        black_hole = "<:s:1417101106055479327>"
+        cfcsas = "<:s:1417097098901327882>"
+        hive_world = "<:s:1417088669478813788>"
 
     @dataclass
     class Flags:

@@ -64,7 +64,7 @@ class WarfrontCog(commands.Cog):
         gambit_planets = {}
         for campaign in self.bot.data.campaigns:
             if (
-                campaign.planet.current_owner.full_name == "Humans"
+                campaign.planet.faction.full_name == "Humans"
                 or len(campaign.planet.defending_from) == 0
                 or 1190 in [ae.id for ae in campaign.planet.active_effects]
             ):
@@ -83,10 +83,7 @@ class WarfrontCog(commands.Cog):
                 for planet in self.bot.data.planet_events
                 if planet.event.faction.full_name == faction
             ],
-            liberation_changes=self.bot.data.liberation_changes,
-            region_lib_changes=self.bot.data.region_changes,
             language_json=guild_language,
-            planet_names=self.bot.json_dict["planets"],
             total_players=self.bot.data.total_players,
             eagle_storm=self.bot.data.dss.get_ta_by_name("EAGLE STORM"),
             gambit_planets=gambit_planets,
@@ -97,10 +94,7 @@ class WarfrontCog(commands.Cog):
                 for campaign in self.bot.data.campaigns
                 if campaign.faction.full_name == faction and not campaign.planet.event
             ],
-            liberation_changes=self.bot.data.liberation_changes,
-            region_lib_changes=self.bot.data.region_changes,
             language_json=guild_language,
-            planet_names=self.bot.json_dict["planets"],
             faction=faction,
             total_players=self.bot.data.total_players,
             gambit_planets=gambit_planets,

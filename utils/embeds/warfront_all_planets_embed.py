@@ -7,7 +7,7 @@ from utils.mixins import EmbedReprMixin
 class WarfrontAllPlanetsEmbed(Embed, EmbedReprMixin):
     def __init__(self, planets: Planets, faction: str):
         planets_list = sorted(
-            [p for p in planets.values() if p.current_owner.full_name == faction],
+            [p for p in planets.values() if p.faction.full_name == faction],
             key=lambda planet: planet.stats.player_count,
             reverse=True,
         )

@@ -14,16 +14,23 @@ from main import GalacticWideWebBot
 from os import getenv
 from random import choice
 from utils.checks import wait_for_startup
-from utils.dataclasses import Languages
-from utils.dbv2 import GWWGuild, GWWGuilds
-from utils.embeds import BotInfoEmbeds, Dashboard, GuildEmbed, PlanetEmbeds
-from utils.interactables import (
-    ConfirmButton,
-    HDCButton,
-    LeaveGuildButton,
-    ResetGuildButton,
-    WikiButton,
+from utils.containers import (
+    CampaignChangesContainer,
+    DSSChangesContainer,
+    RegionChangesContainer,
+    GuildContainer,
+    PlanetContainers,
 )
+from utils.dataclasses import (
+    Languages,
+    CampaignChangesJson,
+    DSSChangesJson,
+    RegionChangesJson,
+    SpecialUnits,
+)
+from utils.dbv2 import GWWGuild, GWWGuilds
+from utils.embeds import BotInfoEmbeds, Dashboard
+from utils.interactables import ConfirmButton
 
 
 SUPPORT_SERVER_ID = [int(getenv("SUPPORT_SERVER"))]
@@ -166,9 +173,8 @@ class AdminCommandsCog(commands.Cog):
             guild = self.bot.get_guild(db_guild.guild_id) or await self.bot.fetch_guild(
                 db_guild.guild_id
             )
-            embed = GuildEmbed(guild=guild, db_guild=db_guild)
-            components = [LeaveGuildButton(), ResetGuildButton()]
-            await inter.send(embed=embed, components=components, ephemeral=True)
+            container = GuildContainer(guild=guild, db_guild=db_guild, fetching=True)
+            await inter.send(components=container, ephemeral=True)
         else:
             await inter.send(
                 f"Didn't find a guild with ID `{id_to_check}` in use", ephemeral=True
@@ -222,7 +228,6 @@ class AdminCommandsCog(commands.Cog):
                             f"There was an error:\n```py\n{e}\n```", ephemeral=True
                         )
                         return
-                    components = None
                     await inter.send(
                         content=f"Successfully left **{discord_guild.name}**",
                         ephemeral=True,
@@ -239,11 +244,6 @@ class AdminCommandsCog(commands.Cog):
                         content=f"Successfully reset **{discord_guild.name}**'s settings",
                         ephemeral=True,
                     )
-                    components = [LeaveGuildButton(), ResetGuildButton()]
-            await inter.edit_original_response(
-                embed=GuildEmbed(guild=discord_guild, db_guild=db_guild),
-                components=components,
-            )
 
     @wait_for_startup()
     @commands.is_owner()
@@ -309,7 +309,7 @@ class AdminCommandsCog(commands.Cog):
 
             case "planets":
                 start_time = datetime.now()
-                seconds_to_wait = len(self.bot.data.planets) * len(Languages.all) * 0.6
+                seconds_to_wait = len(self.bot.data.planets) * len(Languages.all)
                 await inter.send(
                     f"Testing planets, should be done <t:{int(start_time.timestamp() + seconds_to_wait)}:R>",
                     ephemeral=True,
@@ -325,45 +325,22 @@ class AdminCommandsCog(commands.Cog):
                             self.bot.logger.info(
                                 f"Trying #{planet.index} {planet.name} for {lang.full_name}"
                             )
-                            planet_name = [
-                                planet_names
-                                for planet_names in self.bot.json_dict[
-                                    "planets"
-                                ].values()
-                                if planet_names["name"].lower() == planet.name.lower()
-                            ][0]["names"][lang.long_code]
-                            planet_changes = self.bot.data.liberation_changes.get_entry(
-                                planet.index
-                            )
-                            embeds = PlanetEmbeds(
-                                planet_name=planet_name,
+                            containers = PlanetContainers(
                                 planet=planet,
-                                language_json=lang_json,
-                                liberation_change=planet_changes,
-                                region_changes=self.bot.data.region_changes,
-                                total_players=self.bot.data.total_players,
+                                containers_json=lang_json["containers"][
+                                    "PlanetContainers"
+                                ],
+                                faction_json=lang_json["factions"],
                             )
 
-                            if not embeds[0].image_set:
-                                await self.bot.moderator_channel.send(
-                                    f"# <@{self.bot.owner.id}> :warning:\nImage missing for biome of **planet __{planet}__** {planet.biome} {planet.biome['name'].lower().replace(' ', '_')}.png"
-                                )
                             await self.bot.waste_bin_channel.send(
-                                embeds=embeds,
-                                components=[
-                                    WikiButton(
-                                        link=f"https://helldivers.wiki.gg/wiki/{planet.name.replace(' ', '_')}"
-                                    ),
-                                    HDCButton(
-                                        link=f"https://helldiverscompanion.com/#hellpad/planets/{planet.index}"
-                                    ),
-                                ],
+                                components=containers,
                                 delete_after=0.1,
                             )
                             await sleep(0.2)
                         lang_start_time = datetime.now()
                     except Exception as e:
-                        error_dict[lang.short_code] = e
+                        error_dict[lang.short_code] = f"{planet.name} - {e}"
                         break
 
         if error_dict:
@@ -374,6 +351,319 @@ class AdminCommandsCog(commands.Cog):
                 return
 
         await inter.channel.send("Test run without errors!")
+
+    @wait_for_startup()
+    @commands.is_owner()
+    @commands.slash_command(
+        guild_ids=SUPPORT_SERVER_ID,
+        description="Test v2 components",
+        default_member_permissions=Permissions(administrator=True),
+    )
+    async def test_v2(
+        self,
+        inter: AppCmdInter,
+        feature: str = commands.Param(
+            choices=["campaign_changes", "region_changes", "dss_changes"]
+        ),
+        public: str = commands.Param(choices=["Yes", "No"], default="No"),
+    ):
+        await inter.response.defer(ephemeral=public != "Yes")
+        self.bot.logger.critical(
+            msg=f"{self.qualified_name} | /{inter.application_command.name} | used by <@{inter.author.id}> | @{inter.author.global_name}"
+        )
+        if inter.guild:
+            guild = GWWGuilds.get_specific_guild(id=inter.guild_id)
+            if not guild:
+                self.bot.logger.error(
+                    msg=f"Guild {inter.guild_id} - {inter.guild.name} - had the bot installed but wasn't found in the DB"
+                )
+                guild = GWWGuilds.add(inter.guild_id, "en", [])
+        else:
+            guild = GWWGuild.default()
+        guild_language = self.bot.json_dict["languages"][guild.language]
+        match feature:
+            case "campaign_changes":
+                campaign_changes_container = CampaignChangesContainer(
+                    json=CampaignChangesJson(
+                        lang_code_long=guild_language["code_long"],
+                        container=guild_language["containers"][
+                            "CampaignChangesContainer"
+                        ],
+                        special_units=guild_language["special_units"],
+                        factions=guild_language["factions"],
+                    )
+                )
+
+                # test cases
+                campaigns_to_skip = []
+
+                # new liberation campaign
+                if lib_camp_list := [
+                    c for c in self.bot.data.campaigns if not c.planet.event
+                ]:
+                    lib_camp = sorted(
+                        lib_camp_list,
+                        key=lambda x: x.planet.stats.player_count,
+                        reverse=True,
+                    )[0]
+                    campaigns_to_skip.append(lib_camp)
+                    print("lib camp is", lib_camp.planet.name)
+                    campaign_changes_container.add_new_campaign(
+                        campaign=lib_camp, gambit_planets=self.bot.data.gambit_planets
+                    )
+
+                # new defence campaign
+                if def_camp_list := [
+                    c
+                    for c in self.bot.data.campaigns
+                    if c.planet.event
+                    if c not in campaigns_to_skip
+                ]:
+                    def_camp = sorted(
+                        def_camp_list,
+                        key=lambda x: x.planet.stats.player_count,
+                        reverse=True,
+                    )[0]
+                    campaigns_to_skip.append(def_camp)
+                    print("def camp is", def_camp.planet.name)
+                    campaign_changes_container.add_new_campaign(
+                        campaign=def_camp, gambit_planets=self.bot.data.gambit_planets
+                    )
+
+                # gambit campaign
+                if self.bot.data.gambit_planets:
+                    if gambit_tuple := self.bot.data.gambit_planets.popitem():
+                        defence_campaign = sorted(
+                            [
+                                c
+                                for c in self.bot.data.campaigns
+                                if c.planet.index == gambit_tuple[0]
+                            ],
+                            key=lambda x: x.planet.stats.player_count,
+                            reverse=True,
+                        )[0]
+                        print("gambit def camp is", defence_campaign.planet.name)
+                    campaign_changes_container.add_new_campaign(
+                        campaign=defence_campaign,
+                        gambit_planets=self.bot.data.gambit_planets,
+                    )
+
+                # regions
+                if region_campaigns_list := [
+                    c
+                    for c in self.bot.data.campaigns
+                    if c.planet.regions and c not in campaigns_to_skip
+                ]:
+                    region_campaign = sorted(
+                        region_campaigns_list,
+                        key=lambda x: x.planet.stats.player_count,
+                        reverse=True,
+                    )[0]
+                    campaigns_to_skip.append(region_campaign)
+                    print("region campaign is", region_campaign.planet.name)
+                    campaign_changes_container.add_new_campaign(
+                        campaign=region_campaign,
+                        gambit_planets=self.bot.data.gambit_planets,
+                    )
+
+                # special units
+                if special_units_campaign_list := [
+                    c
+                    for c in self.bot.data.campaigns
+                    if SpecialUnits.get_from_effects_list(c.planet.active_effects)
+                    and c not in campaigns_to_skip
+                ]:
+                    special_units_campaign = sorted(
+                        special_units_campaign_list,
+                        key=lambda x: x.planet.stats.player_count,
+                        reverse=True,
+                    )[0]
+                    campaigns_to_skip.append(special_units_campaign)
+                    print(
+                        "special units campaign is",
+                        special_units_campaign.planet.name,
+                    )
+                    campaign_changes_container.add_new_campaign(
+                        campaign=special_units_campaign,
+                        gambit_planets=self.bot.data.gambit_planets,
+                    )
+
+                # poi's
+                if poi_campaign_list := [
+                    c
+                    for c in self.bot.data.campaigns
+                    if 71 in [ae.id for ae in c.planet.active_effects]
+                ]:
+                    poi_campaign = sorted(
+                        poi_campaign_list,
+                        key=lambda x: x.planet.stats.player_count,
+                        reverse=True,
+                    )[0]
+                    print(
+                        "poi campaign is",
+                        poi_campaign.planet.name,
+                    )
+                    campaign_changes_container.add_new_campaign(
+                        campaign=poi_campaign,
+                        gambit_planets=self.bot.data.gambit_planets,
+                    )
+
+                # lib victory
+                if lib_victory_planet_list := [
+                    p
+                    for p in self.bot.data.planets.values()
+                    if p.faction.full_name == "Humans"
+                ]:
+                    victory_planet = sorted(
+                        lib_victory_planet_list,
+                        key=lambda x: x.stats.player_count,
+                        reverse=True,
+                    )[0]
+                    print("lib victory lib planet is", victory_planet.name)
+                    campaign_changes_container.add_liberation_victory(
+                        planet=victory_planet,
+                        taken_from=choice(["Terminids", "Automaton", "Illuminate"]),
+                    )
+
+                # def victory
+                if def_victory_planet_list := [
+                    p
+                    for p in self.bot.data.planets.values()
+                    if p.faction.full_name == "Humans"
+                ]:
+                    victory_planet = sorted(
+                        def_victory_planet_list,
+                        key=lambda x: len(x.active_effects) + len(x.regions),
+                        reverse=True,
+                    )[0]
+                    print("def victory planet is", victory_planet.name)
+                    campaign_changes_container.add_defence_victory(
+                        planet=victory_planet,
+                        defended_against=choice(
+                            ["Terminids", "Automaton", "Illuminate"]
+                        ),
+                        hours_remaining=choice([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),
+                    )
+
+                await inter.send(
+                    components=campaign_changes_container,
+                    ephemeral=public != "Yes",
+                )
+                return
+            case "region_changes":
+                region_changes_container = RegionChangesContainer(
+                    container_json=RegionChangesJson(
+                        lang_code_long=self.bot.json_dict["languages"][guild.language][
+                            "code_long"
+                        ],
+                        container=self.bot.json_dict["languages"][guild.language][
+                            "containers"
+                        ]["RegionChangesContainer"],
+                        special_units=self.bot.json_dict["languages"][guild.language][
+                            "special_units"
+                        ],
+                        factions=self.bot.json_dict["languages"][guild.language][
+                            "factions"
+                        ],
+                    )
+                )
+
+                # test cases
+
+                # new region
+                if region_list := [
+                    p for p in self.bot.data.planets.values() if p.regions
+                ]:
+                    region_planet = sorted(
+                        region_list,
+                        key=lambda x: x.stats.player_count,
+                        reverse=True,
+                    )[0]
+                    region = sorted(
+                        region_planet.regions.values(),
+                        key=lambda x: x.players,
+                        reverse=True,
+                    )[0]
+                    print("new region is", region.name)
+                    region_changes_container.add_new_region(
+                        planet=region_planet, region=region
+                    )
+
+                # region won
+                if region_list := [
+                    p for p in self.bot.data.planets.values() if p.regions
+                ]:
+                    region_planet = sorted(
+                        region_list,
+                        key=lambda x: x.stats.player_count,
+                        reverse=True,
+                    )[0]
+                    region = sorted(
+                        region_planet.regions.values(),
+                        key=lambda x: x.players,
+                        reverse=True,
+                    )[0]
+                    print("region won is", region.name)
+                    region_changes_container.add_region_victory(
+                        planet=region_planet, region=region
+                    )
+
+                await inter.send(components=region_changes_container)
+            case "dss_changes":
+                dss_changes_container = DSSChangesContainer(
+                    json=DSSChangesJson(
+                        lang_code_long=guild_language["code_long"],
+                        container=guild_language["containers"]["DSSChangesContainer"],
+                        special_units=guild_language["special_units"],
+                    )
+                )
+
+                # test cases
+                # dss moved
+                dss_changes_container.dss_moved(
+                    before_planet=self.bot.data.dss.planet,
+                    after_planet=sorted(
+                        [p for p in self.bot.data.planets.values()],
+                        key=lambda x: x.stats.player_count,
+                        reverse=True,
+                    )[0],
+                )
+
+                # ta changes
+                for ta in self.bot.data.dss.tactical_actions:
+                    dss_changes_container.ta_status_changed(tactical_action=ta)
+
+                await inter.send(components=dss_changes_container)
+
+    @wait_for_startup()
+    @commands.is_owner()
+    @commands.slash_command(
+        guild_ids=SUPPORT_SERVER_ID,
+        description="Test v2 components",
+        default_member_permissions=Permissions(administrator=True),
+    )
+    async def get_fake_guilds(
+        self,
+        inter: AppCmdInter,
+        public: str = commands.Param(choices=["Yes", "No"], default="No"),
+    ):
+        await inter.response.defer(ephemeral=public != "Yes")
+        self.bot.logger.critical(
+            msg=f"{self.qualified_name} | /{inter.application_command.name} | used by <@{inter.author.id}> | @{inter.author.global_name}"
+        )
+        gww_guiilds = GWWGuilds(fetch_all=True)
+        possible_fake_guilds = []
+        for gww_guild in gww_guiilds:
+            if gww_guild.features == []:
+                discord_guild = self.bot.get_guild(
+                    gww_guild.guild_id
+                ) or await self.bot.fetch_guild(gww_guild.guild_id)
+                if (
+                    len(discord_guild.channels) == 3
+                    and discord_guild.approximate_member_count < 100
+                ):
+                    possible_fake_guilds.append(discord_guild)
+        await inter.send(f"Possible fake guilds: {len(possible_fake_guilds)}")
 
 
 def setup(bot: GalacticWideWebBot):

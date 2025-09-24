@@ -11,10 +11,9 @@ from disnake import (
 )
 from disnake.ext import commands
 from main import GalacticWideWebBot
+from utils.containers import PlanetContainers
 from utils.checks import wait_for_startup
 from utils.dbv2 import GWWGuild, GWWGuilds
-from utils.embeds import PlanetEmbeds
-from utils.interactables import HDCButton, WikiButton
 from utils.maps import Maps
 
 
@@ -27,7 +26,11 @@ class PlanetCog(commands.Cog):
             return []
         return [
             p.name
-            for p in inter.bot.data.planets.values()
+            for p in sorted(
+                inter.bot.data.planets.values(),
+                key=lambda x: x.stats.player_count,
+                reverse=True,
+            )
             if user_input.lower() in p.name.lower()
         ][:25]
 
@@ -85,26 +88,13 @@ class PlanetCog(commands.Cog):
         else:
             guild = GWWGuild.default()
         guild_language = self.bot.json_dict["languages"][guild.language]
-        planet_name = [
-            planet_names
-            for planet_names in self.bot.json_dict["planets"].values()
-            if planet_names["name"].lower() == planet.lower()
-        ][0]["names"][guild_language["code_long"]]
-        planet_changes = self.bot.data.liberation_changes.get_entry(planet_data.index)
-        embeds = PlanetEmbeds(
-            planet_name=planet_name,
+        components = PlanetContainers(
             planet=planet_data,
-            language_json=guild_language,
-            liberation_change=planet_changes,
-            region_changes=self.bot.data.region_changes,
-            total_players=self.bot.data.total_players,
+            containers_json=guild_language["containers"]["PlanetContainers"],
+            faction_json=guild_language["factions"],
         )
 
-        if not embeds[0].image_set:
-            await self.bot.moderator_channel.send(
-                f"# <@{self.bot.owner.id}> :warning:\nImage missing for biome of **planet __{planet}__** {planet_data.biome} {planet_data.biome['name'].lower().replace(' ', '_')}.png"
-            )
-        if with_map == "Yes":
+        if with_map == "Yes" and False:  # TODO
             fifteen_minutes_ago = datetime.now() - timedelta(minutes=15)
             latest_map = self.bot.maps.latest_maps.get(guild.language)
             if not latest_map or (
@@ -150,16 +140,8 @@ class PlanetCog(commands.Cog):
             embed.set_image(file=File(self.bot.maps.FileLocations.arrow_map))
             embeds.append(embed)
         await inter.send(
-            embeds=embeds,
+            components=components,
             ephemeral=public != "Yes",
-            components=[
-                WikiButton(
-                    link=f"https://helldivers.wiki.gg/wiki/{planet.replace(' ', '_')}"
-                ),
-                HDCButton(
-                    link=f"https://helldiverscompanion.com/#hellpad/planets/{planet_data.index}"
-                ),
-            ],
         )
 
 

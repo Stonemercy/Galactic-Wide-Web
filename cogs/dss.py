@@ -6,7 +6,7 @@ from disnake import (
     NotFound,
 )
 from disnake.ext import commands
-from main import GalacticWideWebBot
+from utils.bot import GalacticWideWebBot
 from utils.checks import wait_for_startup
 from utils.dbv2 import GWWGuild, GWWGuilds
 from utils.wiki import Wiki
@@ -22,8 +22,8 @@ class DSSCog(commands.Cog):
         install_types=ApplicationInstallTypes.all(),
         contexts=InteractionContextTypes.all(),
         extras={
-            "long_description": "Goes directly to the DSS tab of the wiki, instead of using the menu.",
-            "example_usage": "**`/dss`** returns the wiki open to the DSS tab.",
+            "long_description": "Directly opens the DSS tab of the Wiki, instead of using the menu.",
+            "example_usage": "**`/dss`** opens the Wiki to the DSS tab.",
         },
     )
     async def dss(self, inter: AppCmdInter):
@@ -49,10 +49,8 @@ class DSSCog(commands.Cog):
             guild = GWWGuild.default()
         guild_language = self.bot.json_dict["languages"][guild.language]
         embed = Wiki.Embeds.DSSEmbed(
-            dss_data=self.bot.data.dss,
             language_json=guild_language,
-            localized_planet_names=self.bot.data.json_dict["planets"],
-            ta_changes=self.bot.data.tactical_action_changes,
+            dss_data=self.bot.data.dss,
         )
         components = Wiki.Buttons.dss_action_rows(language_json=guild_language)
         await inter.send(embed=embed, components=components)

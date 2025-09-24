@@ -8,3 +8,12 @@ class APIChanges:
     statistic: str
     before: int | list | Any
     after: int | list | Any
+
+
+@dataclass
+class APIChangesV2:
+    old_object: Any
+    new_object: Any
+    property: str
+    stat_name: str
+    stat_source: str

@@ -2,8 +2,7 @@ from disnake import AppCmdInter, ApplicationInstallTypes, InteractionContextType
 from disnake.ext import commands
 from main import GalacticWideWebBot
 from utils.checks import is_whitelisted, wait_for_startup
-from utils.embeds import GalacticWarEffectEmbed
-from utils.embeds.global_events_embed import GlobalEventsEmbed
+from utils.containers import GlobalEventsContainer, GWEContainer
 
 
 class BackendCommandsCog(commands.Cog):
@@ -25,6 +24,15 @@ class BackendCommandsCog(commands.Cog):
             :25
         ]
 
+    async def planet_autocomp(inter: AppCmdInter, user_input: str):
+        if not inter.bot.data.loaded:
+            return []
+        return [
+            f"{p.index}-{p.name}"
+            for p in inter.bot.data.planets.values()
+            if user_input.lower() in f"{p.index}-{p.name}".lower()
+        ][:25]
+
     @wait_for_startup()
     @is_whitelisted()
     @commands.slash_command(
@@ -40,6 +48,11 @@ class BackendCommandsCog(commands.Cog):
             description="The ID you want to lookup",
             default=0,
         ),
+        on_planet: str = commands.Param(
+            autocomplete=planet_autocomp,
+            description="The planet you want to lookup",
+            default="",
+        ),
         public: str = commands.Param(
             choices=["Yes", "No"],
             default="No",
@@ -51,11 +64,19 @@ class BackendCommandsCog(commands.Cog):
             msg=f"{self.qualified_name} | /{inter.application_command.name} <{id = }> <{type = }> <{public = }> | used by <@{inter.author.id}> | @{inter.author.global_name}"
         )
         gwe_list = None
-        id = int(id.split("-")[0])
-        if id != 0:
-            gwe_list = [g for g in self.bot.data.galactic_war_effects if g.id == id]
+        if id:
+            id = int(id.split("-")[0])
+            if id != 0:
+                gwe_list = [g for g in self.bot.data.galactic_war_effects if g.id == id]
+        elif on_planet:
+            gwe_list = [
+                g
+                for g in self.bot.data.planets[
+                    int(on_planet.split("-")[0])
+                ].active_effects
+            ]
         if gwe_list:
-            embeds = []
+            components = []
             for gwe in gwe_list:
                 planets_with_gwe = [
                     p
@@ -72,26 +93,29 @@ class BackendCommandsCog(commands.Cog):
                     and global_events_list[0].planet_indices == []
                 ):
                     planets_with_gwe = "ALL"
-                embed = GalacticWarEffectEmbed(
+                container = GWEContainer(
                     gwe=gwe,
                     planets_with_gwe=planets_with_gwe,
                 )
-                embeds.append(embed)
-            await inter.send(embeds=embeds[:5], ephemeral=public != "Yes")
+                components.append(container)
+            await inter.send(components=components[:5], ephemeral=public != "Yes")
         else:
             await inter.send(
                 "Couldn't find that effect, sorry", ephemeral=public != "Yes"
             )
 
     async def title_autocomp(inter: AppCmdInter, user_input: str):
-        return [
-            ge
-            for ge in [
-                f"{i.id}-{i.title}{[j.id for j in i.effects]}"
-                for i in inter.bot.data.global_events["en"]
-            ]
-            if user_input.lower() in ge.split("-")[1].lower()
-        ][:25]
+        if inter.bot.data.loaded:
+            return [
+                ge
+                for ge in [
+                    f"{i.id}-{i.title}{[j.id for j in i.effects]}"
+                    for i in inter.bot.data.global_events["en"]
+                ]
+                if user_input.lower() in ge.split("-")[1].lower()
+            ][:25]
+        else:
+            return []
 
     @wait_for_startup()
     @is_whitelisted()
@@ -121,15 +145,19 @@ class BackendCommandsCog(commands.Cog):
             ge for ge in self.bot.data.global_events["en"] if ge.id == int(ge_id)
         ]
         if ge_list:
-            embeds = []
+            components = []
             for ge in ge_list:
-                embed = GlobalEventsEmbed(
-                    language_json=self.bot.json_dict["languages"]["en"],
-                    planet_names_json=self.bot.json_dict["planets"],
+                container = GlobalEventsContainer(
+                    long_lang_code=self.bot.json_dict["languages"]["en"]["code_long"],
+                    container_json=self.bot.json_dict["languages"]["en"]["containers"][
+                        "GlobalEventsContainer"
+                    ],
                     global_event=ge,
+                    planets=self.bot.data.planets,
+                    with_expiry_time=True,
                 )
-                embeds.append(embed)
-            await inter.send(embeds=embeds[:5], ephemeral=public != "Yes")
+                components.append(container)
+            await inter.send(components=components, ephemeral=public != "Yes")
         else:
             await inter.send(
                 "Couldn't find that effect, sorry", ephemeral=public != "Yes"

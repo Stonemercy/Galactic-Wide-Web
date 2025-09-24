@@ -114,9 +114,27 @@ json_dict = {
     },
 }
 
-custom_colours = {
+CUSTOM_COLOURS = {
     "MO": (255, 220, 0),
     "DSS": (214, 232, 248),
+}
+
+ATTACK_EMBED_ICONS = {
+    "illuminate": "https://media.discordapp.net/attachments/1212735927223590974/1414959912269643847/illuminate.png?ex=68c1779b&is=68c0261b&hm=f7f450e22f313d28b50f03c5aa9ee5c21ded41f79f5a528ec4f819f5283c479c&=&format=webp&quality=lossless",
+    "automaton": "https://media.discordapp.net/attachments/1212735927223590974/1414959911728709632/automaton.png?ex=68c1779b&is=68c0261b&hm=b5a82963ba2a5010f9a8e1b1f5ea0ab15f3ca29ace1dda6922053105b122fadf&=&format=webp&quality=lossless",
+    "terminids": "https://media.discordapp.net/attachments/1212735927223590974/1414959912815169636/terminids.png?ex=68c1779b&is=68c0261b&hm=3c1ad5eea04d6ca74c0a99d70244780662fa37f5e25866d4039edc921e442b0b&=&format=webp&quality=lossless",
+}
+
+DEFENCE_EMBED_ICONS = {
+    "illuminate": "https://media.discordapp.net/attachments/1212735927223590974/1415077451565891705/illuminate.png?ex=68c1e513&is=68c09393&hm=baa0da180398b0273df5e807e89e48270bd635fa9d5b0bcd29135ce4d98d1e11&=&format=webp&quality=lossless",
+    "automaton": "https://media.discordapp.net/attachments/1212735927223590974/1415077450488086588/automaton.png?ex=68c1e513&is=68c09393&hm=48a1b17fe45a3946bf8341619b52eb2c8872a682198f1ac727791a175ff7ad79&=&format=webp&quality=lossless",
+    "terminids": "https://media.discordapp.net/attachments/1212735927223590974/1415077452513939657/terminids.png?ex=68c1e513&is=68c09393&hm=c9589861ef0fd2364083746746d767974150190220a50da44b156e1d85eb9880&=&format=webp&quality=lossless",
+}
+
+VICTORY_ICONS = {
+    "illuminate": "https://media.discordapp.net/attachments/1212735927223590974/1417225835894673408/vic_illuminate.png?ex=68c9b5ea&is=68c8646a&hm=4bbada8b099921db08a9548845dccdc9cadf9b8586a0f5b9a953aaed1d27c8fa&=&format=webp&quality=lossless",
+    "automaton": "https://media.discordapp.net/attachments/1212735927223590974/1417225835399741621/vic_automaton.png?ex=68c9b5e9&is=68c86469&hm=0d4d869869fdb5d92077b94f58dbdb9d5f3e74ee0c7af39ee9e763d0d5cfde8a&=&format=webp&quality=lossless",
+    "terminids": "https://media.discordapp.net/attachments/1212735927223590974/1417225836368498688/vic_teriminds.png?ex=68c9b5ea&is=68c8646a&hm=d4a95583a298f8b6d3d9dbf465fad301837a91b4446e9740800325173cb145f4&=&format=webp&quality=lossless",
 }
 
 emotes_list = [

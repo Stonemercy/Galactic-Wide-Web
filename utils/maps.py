@@ -12,7 +12,7 @@ from cv2 import (
     resize,
     split,
 )
-from data.lists import custom_colours
+from data.lists import CUSTOM_COLOURS
 from dataclasses import dataclass
 from datetime import datetime
 from numpy import uint8, zeros
@@ -74,9 +74,9 @@ class Maps:
         sectors = {}
         for planet in planets.values():
             if planet.sector not in sectors:
-                sectors[planet.sector] = [planet.current_owner.full_name]
+                sectors[planet.sector] = [planet.faction.full_name]
             else:
-                sectors[planet.sector].append(planet.current_owner.full_name)
+                sectors[planet.sector].append(planet.faction.full_name)
         sectors = {s: l for s, l in sectors.items() if set(l) != set(["Humans"])}
         sector_percentages = {
             sector: 1.5
@@ -164,7 +164,7 @@ class Maps:
                         self._draw_ellipse(
                             image=background,
                             coords=planets[task.planet_index].map_waypoints,
-                            fill_colour=custom_colours["MO"],
+                            fill_colour=CUSTOM_COLOURS["MO"],
                             radius=12,
                         )
                     elif task.type == 12 and (
@@ -179,7 +179,7 @@ class Maps:
                                 self._draw_ellipse(
                                     image=background,
                                     coords=planet.map_waypoints,
-                                    fill_colour=custom_colours["MO"],
+                                    fill_colour=CUSTOM_COLOURS["MO"],
                                     radius=12,
                                 )
                     elif task.type == 2:
@@ -196,26 +196,26 @@ class Maps:
                                 self._draw_ellipse(
                                     image=background,
                                     coords=planet.map_waypoints,
-                                    fill_colour=custom_colours["MO"],
+                                    fill_colour=CUSTOM_COLOURS["MO"],
                                     radius=12,
                                 )
                         elif task.planet_index:
                             self._draw_ellipse(
                                 image=background,
                                 coords=planets[task.planet_index].map_waypoints,
-                                fill_colour=custom_colours["MO"],
+                                fill_colour=CUSTOM_COLOURS["MO"],
                                 radius=12,
                             )
                         elif task.faction:
                             for planet in [
                                 c.planet
                                 for c in campaigns
-                                if c.planet.current_owner == task.faction
+                                if c.planet.faction == task.faction
                             ]:
                                 self._draw_ellipse(
                                     image=background,
                                     coords=planet.map_waypoints,
-                                    fill_colour=custom_colours["MO"],
+                                    fill_colour=CUSTOM_COLOURS["MO"],
                                     radius=12,
                                 )
                     elif task.type == 3:
@@ -226,7 +226,7 @@ class Maps:
                                 self._draw_ellipse(
                                     image=background,
                                     coords=campaign.planet.map_waypoints,
-                                    fill_colour=custom_colours["MO"],
+                                    fill_colour=CUSTOM_COLOURS["MO"],
                                     radius=12,
                                 )
         imwrite(Maps.FileLocations.assignment_map, background)
@@ -239,7 +239,7 @@ class Maps:
                 self._draw_ellipse(
                     image=background,
                     coords=planet.map_waypoints,
-                    fill_colour=custom_colours["DSS"],
+                    fill_colour=CUSTOM_COLOURS["DSS"],
                     radius=12,
                 )
             if index == 64:
@@ -270,11 +270,9 @@ class Maps:
                 continue
             else:
                 colour = (
-                    planet.current_owner.colour
+                    planet.faction.colour
                     if index in active_planets
-                    else tuple(
-                        int(colour / 1.5) for colour in planet.current_owner.colour
-                    )
+                    else tuple(int(colour / 1.5) for colour in planet.faction.colour)
                 )
                 colour = (*colour[::-1], 255)
                 circle(

@@ -6,6 +6,7 @@ from utils.bot import GalacticWideWebBot
 from utils.mixins import EmbedReprMixin
 
 
+# DOESNT NEED LOCALIZATION
 class BotInfoEmbeds(list[Embed]):
     def __init__(self, bot: GalacticWideWebBot):
         self.append(self.HeaderEmbed(bot=bot))

@@ -1,20 +1,15 @@
 from asyncio import sleep
 from datetime import datetime, time, timedelta
-from disnake import (
-    ButtonStyle,
-    Colour,
-    Embed,
-    Guild,
-    MessageInteraction,
-    NotFound,
-)
+from disnake import ButtonStyle, Colour, Embed, Guild, MessageInteraction, NotFound, ui
 from disnake.ext import commands, tasks
 from disnake.ui import Button
-from main import GalacticWideWebBot
+from utils.bot import GalacticWideWebBot
+from utils.containers import (
+    BotDashboardContainer as BotDashboardContainer,
+    GuildContainer,
+)
 from utils.dataclasses import Languages
 from utils.dbv2 import BotDashboard, Feature, GWWGuilds, GWWGuild
-from utils.embeds import BotDashboardEmbed, GuildEmbed
-from utils.interactables import AppDirectoryButton, GitHubButton, KoFiButton
 
 
 class GuildManagementCog(commands.Cog):
@@ -47,8 +42,8 @@ class GuildManagementCog(commands.Cog):
             guild_in_db = GWWGuilds.add(
                 guild_id=guild.id, language=language.short_code, feature_keys=[]
             )
-        embed = GuildEmbed(guild=guild, db_guild=guild_in_db, joined=True)
-        await self.bot.moderator_channel.send(embed=embed)
+        container = GuildContainer(guild=guild, db_guild=guild_in_db, joined=True)
+        await self.bot.moderator_channel.send(components=container)
 
     @commands.Cog.listener()
     async def on_guild_remove(self, guild: Guild):
@@ -58,9 +53,9 @@ class GuildManagementCog(commands.Cog):
                 f"Guild **{guild.name}** just removed the bot but was not in the DB"
             )
         else:
-            embed = GuildEmbed(guild=guild, db_guild=guild_in_db, removed=True)
+            container = GuildContainer(guild=guild, db_guild=guild_in_db, removed=True)
             guild_in_db.delete()
-            await self.bot.moderator_channel.send(embed=embed)
+            await self.bot.moderator_channel.send(components=container)
 
     @tasks.loop(minutes=1)
     async def bot_dashboard(self):
@@ -79,7 +74,7 @@ class GuildManagementCog(commands.Cog):
             except NotFound:
                 self.bot.bot_dashboard_message = (
                     await self.bot.bot_dashboard_channel.send(
-                        "Placeholder, please ignore."
+                        components=[ui.TextDisplay("Placeholder please ignore")]
                     )
                 )
                 bot_dashboard.message_id = self.bot.bot_dashboard_message.id
@@ -88,26 +83,10 @@ class GuildManagementCog(commands.Cog):
         if now.minute == 0 or now - timedelta(minutes=2) < self.bot.startup_time:
             app_info = await self.bot.application_info()
             self.user_installs = app_info.approximate_user_install_count
-        dashboard_embed = BotDashboardEmbed(
+        dashboard = BotDashboardContainer(
             bot=self.bot, user_installs=self.user_installs
         )
-        try:
-            await self.bot.bot_dashboard_message.edit(
-                content="",
-                embed=dashboard_embed,
-                components=[
-                    AppDirectoryButton(),
-                    KoFiButton(),
-                    GitHubButton(),
-                ],
-            ),
-        except Exception as e:
-            await self.bot.moderator_channel.send(
-                content=f"<@{self.bot.owner.id}>\n```py\n{e}\n```\n`bot_dashboard function in guild_management.py`"
-            )
-            self.bot.logger.error(
-                msg=f"{self.qualified_name} | bot_dashboard | {e} | {self.bot.bot_dashboard_message}"
-            )
+        await self.bot.bot_dashboard_message.edit(components=[dashboard])
 
     @bot_dashboard.before_loop
     async def before_bot_dashboard(self):

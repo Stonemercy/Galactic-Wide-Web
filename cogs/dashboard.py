@@ -1,6 +1,6 @@
 from datetime import datetime, time
 from disnake.ext import commands, tasks
-from main import GalacticWideWebBot
+from utils.bot import GalacticWideWebBot
 from utils.dbv2 import GWWGuilds
 from utils.embeds import Dashboard
 

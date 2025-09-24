@@ -1,7 +1,7 @@
 from datetime import timedelta
 from disnake import AppCmdInter
 from disnake.ext import commands
-from main import GalacticWideWebBot
+from utils.bot import GalacticWideWebBot
 from sys import exc_info
 from traceback import format_exception
 
@@ -10,6 +10,7 @@ class ErrorHandlerCog(commands.Cog):
     def __init__(self, bot: GalacticWideWebBot):
         self.bot = bot
 
+    # this is a mess
     @commands.Cog.listener()
     async def on_slash_command_error(
         self, inter: AppCmdInter, error: commands.CommandError

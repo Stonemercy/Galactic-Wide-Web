@@ -8,7 +8,7 @@ from disnake import (
     NotFound,
 )
 from disnake.ext import commands
-from main import GalacticWideWebBot
+from utils.bot import GalacticWideWebBot
 from utils.checks import wait_for_startup
 from utils.dbv2 import GWWGuild, GWWGuilds
 from utils.embeds import CommunityServersEmbed
@@ -19,6 +19,7 @@ class CommunityServersCog(commands.Cog):
     def __init__(self, bot: GalacticWideWebBot):
         self.bot = bot
 
+    # need to localize
     @wait_for_startup()
     @commands.slash_command(
         description="Get all community servers and their invite links",
@@ -52,7 +53,6 @@ class CommunityServersCog(commands.Cog):
             guild = GWWGuild.default()
         embed = CommunityServersEmbed(
             guilds=self.communities_with_links,
-            language_json=self.bot.json_dict["languages"][guild.language],
             new_index=16,
         )
         components = [
@@ -97,7 +97,6 @@ class CommunityServersCog(commands.Cog):
                 new_index = max(16, index - 16)
                 embed = CommunityServersEmbed(
                     guilds=self.communities_with_links,
-                    language_json=self.bot.json_dict["languages"][guild.language],
                     new_index=new_index,
                 )
                 components = [
@@ -120,7 +119,6 @@ class CommunityServersCog(commands.Cog):
                 new_index = min(len(self.communities_with_links), index + 16)
                 embed = CommunityServersEmbed(
                     guilds=self.communities_with_links,
-                    language_json=self.bot.json_dict["languages"][guild.language],
                     new_index=new_index,
                 )
                 components = [

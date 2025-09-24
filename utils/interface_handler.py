@@ -1,5 +1,5 @@
 from asyncio import sleep
-from disnake import Embed, Forbidden, NotFound, PartialMessage, TextChannel
+from disnake import Embed, Forbidden, NotFound, PartialMessage, TextChannel, ui
 from disnake.ext.commands import AutoShardedInteractionBot
 from utils.dbv2 import Feature, GWWGuilds, GWWGuild as GWWGuild
 from utils.interactables import WikiButton
@@ -154,13 +154,42 @@ class InterfaceHandler:
             guild.update_features()
             guild.save_changes()
             return self.bot.logger.error(
-                f"send_embed | {feature_type} | {e} | reset in DB | {channel.guild.id = }"
+                f"send_embed {feature_type} | {e} | reset in DB | {channel.guild.id = }"
             )
         except Exception as e:
-            return self.bot.logger.error(f"send_embed | {e} | {channel.guild.id = }")
+            return self.bot.logger.error(
+                f"send_embed {feature_type} | {e} | {channel.guild.id = }"
+            )
+
+    async def send_component(
+        self,
+        feature_type: str,
+        channel: TextChannel,
+        container: ui.Container,
+    ):
+        try:
+            await channel.send(components=container)
+        except (NotFound, Forbidden) as e:
+            feature_list: BaseFeatureInteractionHandler = getattr(self, feature_type)
+            if channel in feature_list:
+                feature_list.remove(channel)
+            guild: GWWGuild = GWWGuilds.get_specific_guild(channel.guild.id)
+            guild.features = [f for f in guild.features if f.name != feature_type]
+            guild.update_features()
+            guild.save_changes()
+            return self.bot.logger.error(
+                f"send_component {feature_type} | {e} | reset in DB | {channel.guild.id = }"
+            )
+        except Exception as e:
+            return self.bot.logger.error(
+                f"send_component {feature_type} | {e} | {channel.guild.id = }"
+            )
 
     async def send_feature(
-        self, feature_type: str, content: dict, announcement_type: str = None
+        self,
+        feature_type: str,
+        content: dict[str, Embed | ui.Container],
+        announcement_type: str = None,
     ):
         self.busy = True
         list_to_use: BaseFeatureInteractionHandler = getattr(self, feature_type)
@@ -197,20 +226,52 @@ class InterfaceHandler:
                             self.edit_map(message, content[guild.language])
                         )
                         await sleep(self.wait_time)
-            case _:
-                if announcement_type == "MO":
-                    components = [
-                        WikiButton(
-                            link=f"https://helldivers.wiki.gg/wiki/Major_Orders#Recent"
+            case (
+                "war_announcements"
+                | "dss_announcements"
+                | "detailed_dispatches"
+                | "region_announcements"
+            ):
+                for channel in list_to_use.copy():
+                    guild = GWWGuilds.get_specific_guild(channel.guild.id)
+                    if not guild:
+                        list_to_use.remove(channel)
+                        self.bot.logger.error(
+                            f"send_feature {feature_type} {announcement_type} | guild not found in DB | {channel.guild.id = }"
                         )
-                    ]
+                        continue
+                    else:
+                        if announcement_type == "MO":
+                            components = [
+                                WikiButton(
+                                    link=f"https://helldivers.wiki.gg/wiki/Major_Orders#Recent"
+                                )
+                            ]
+                            self.bot.loop.create_task(
+                                self.send_embeds(
+                                    feature_type,
+                                    channel,
+                                    content[guild.language],
+                                    components,
+                                )
+                            )
+                        else:
+                            self.bot.loop.create_task(
+                                self.send_component(
+                                    feature_type=feature_type,
+                                    channel=channel,
+                                    container=content[guild.language],
+                                )
+                            )
+                        await sleep(self.wait_time)
+            case _:
                 for channel in list_to_use.copy():
                     channel: TextChannel
                     guild = GWWGuilds.get_specific_guild(channel.guild.id)
                     if not guild:
                         list_to_use.remove(channel)
                         self.bot.logger.error(
-                            f"send_feature | guild not found in DB | {channel.guild.id = }"
+                            f"send_feature {feature_type} {announcement_type} | guild not found in DB | {channel.guild.id = }"
                         )
                         continue
                     else:

@@ -1,5 +1,7 @@
 from dataclasses import dataclass
 
+from utils.emojis import Emojis
+
 
 @dataclass
 class Faction:
@@ -8,6 +10,10 @@ class Faction:
     singular: str
     plural: str
     colour: tuple
+
+    @property
+    def emoji(self):
+        return getattr(Emojis.Factions, self.full_name.lower())
 
 
 class Factions:

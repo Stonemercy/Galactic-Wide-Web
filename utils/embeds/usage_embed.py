@@ -3,6 +3,7 @@ from disnake import Colour, Embed
 from utils.mixins import EmbedReprMixin
 
 
+# DOESNT NEED LOCALIZATION
 class UsageEmbed(Embed, EmbedReprMixin):
     def __init__(self, command_usage: dict, guilds_joined: int):
         super().__init__(title="Daily Usage", colour=Colour.dark_theme())

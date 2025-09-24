@@ -50,3 +50,27 @@ class GWEReprMixin:
             + f"\n>"
             + f"\nEMPTY ATTRIBUTES: {empty_slots}"
         )
+
+    def pretty_print(self):
+        base_str = (
+            f"**{self.id}**:"
+            f"\n    Effect Name: **{self.planet_effect['name']}**"
+            f"\n    {self.effect_description['simplified_name']}"
+        )
+        if self.planet_effect["description_long"]:
+            base_str += f"\n    Effect Description: **{self.planet_effect['description_long']}**"
+        if self.planet_effect["description_short"]:
+            base_str += f"\n    Effect Description: **{self.planet_effect['description_short']}**"
+        if self.faction:
+            base_str += f"\n    Faction: **{self.faction.full_name}**"
+        if self.found_enemy:
+            base_str += f"\n    Enemy Found: **{self.found_enemy}**"
+        if self.found_stratagem:
+            base_str += f"\n    Stratagem Found: **{self.found_stratagem}**"
+        if self.found_booster:
+            base_str += f"\n    Booster Found: **{self.found_booster['name']}**"
+        if self.count:
+            base_str += f"\n    Count: **{self.count:+}**"
+        if self.percent:
+            base_str += f"\n    Percent: **{self.percent:+}%**"
+        return base_str

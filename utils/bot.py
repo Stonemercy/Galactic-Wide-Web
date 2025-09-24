@@ -30,7 +30,7 @@ class GalacticWideWebBot(commands.AutoShardedInteractionBot):
         )
         self.logger.addHandler(hdlr=handler)
         self.startup_time = datetime.now()
-        self.ready_time = self.startup_time + timedelta(seconds=30)
+        self.ready_time = self.startup_time + timedelta(seconds=45)
         self.interface_handler = InterfaceHandler(bot=self)
         self.json_dict = json_dict.copy()
         self.load_json()

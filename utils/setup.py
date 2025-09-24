@@ -6,98 +6,31 @@ from utils.emojis import Emojis
 
 class Setup:
     class Dashboard:
-        class DashboardButton(Button):
-            def __init__(self, language_json: dict, selected: bool = False):
-                super().__init__(
-                    style=ButtonStyle.gray,
-                    label=language_json["setup"]["buttons"]["dashboard"],
-                    custom_id="dashboard_button",
-                )
-                if selected:
-                    self.emoji = Emojis.Icons.victory
-                    self.style = ButtonStyle.blurple
-                    self.disabled = True
-
         class SetDashboardButton(Button):
-            def __init__(self, language_json: dict):
+            def __init__(self, container_json: dict):
                 super().__init__(
                     style=ButtonStyle.green,
-                    label=language_json["setup"]["buttons"]["set_dashboard"],
+                    label=container_json["set_feature"].format(
+                        feature=container_json["dashboard_title"]
+                    ),
                     custom_id="set_dashboard_button",
                 )
 
-        class DashboardChannelSelect(ChannelSelect):
-            def __init__(self, language_json: dict):
-                super().__init__(
-                    custom_id="dashboard_channel_select",
-                    placeholder=language_json["setup"]["buttons"][
-                        "dashboard_channel_select"
-                    ],
-                    channel_types=[
-                        ChannelType.text,
-                        ChannelType.news,
-                        ChannelType.public_thread,
-                    ],
-                )
-
         class ClearDashboardButton(Button):
-            def __init__(self, language_json: dict):
+            def __init__(self, container_json: dict):
                 super().__init__(
                     style=ButtonStyle.red,
-                    label=language_json["setup"]["buttons"]["clear_dashboard"],
+                    label=container_json["clear_feature"].format(
+                        feature=container_json["dashboard_title"]
+                    ),
                     custom_id="clear_dashboard_button",
                 )
 
-    class Features:
-        class FeaturesButton(Button):
-            def __init__(self, language_json: dict, selected: bool = False):
+        class DashboardChannelSelect(ChannelSelect):
+            def __init__(self, container_json: dict):
                 super().__init__(
-                    style=ButtonStyle.gray,
-                    label=language_json["setup"]["buttons"]["features"],
-                    custom_id="features_button",
-                )
-                if selected:
-                    self.emoji = Emojis.Icons.victory
-                    self.style = ButtonStyle.blurple
-                    self.disabled = True
-
-        class FeatureButton(Button):
-            def __init__(
-                self, feature_type: str, language_json: dict, selected: bool = False
-            ):
-                super().__init__(
-                    style=ButtonStyle.gray,
-                    label=language_json["setup"]["buttons"][feature_type],
-                    custom_id=f"{feature_type}_features_button",
-                )
-                if selected:
-                    self.emoji = Emojis.Icons.victory
-                    self.style = ButtonStyle.blurple
-                    self.disabled = True
-
-        class SetFeatureButton(Button):
-            def __init__(self, feature_type: str, language_json: dict):
-                super().__init__(
-                    style=ButtonStyle.green,
-                    label=language_json["setup"]["buttons"]["set_feature"],
-                    custom_id="set_features_button-" + feature_type,
-                )
-
-        class ClearFeatureButton(Button):
-            def __init__(self, feature_type: str, language_json: dict):
-                super().__init__(
-                    style=ButtonStyle.red,
-                    label=language_json["setup"]["buttons"]["clear_feature"],
-                    custom_id="clear_features_button-" + feature_type,
-                )
-
-        class FeatureChannelSelect(ChannelSelect):
-            def __init__(self, feature_type: str, language_json: dict):
-                super().__init__(
-                    custom_id="feature_channel_select-" + feature_type,
-                    placeholder=language_json["setup"]["buttons"][
-                        "feature_channel_select"
-                    ],
+                    custom_id="dashboard_channel_select",
+                    placeholder=container_json["dashboard_channel_select"],
                     channel_types=[
                         ChannelType.text,
                         ChannelType.news,
@@ -106,31 +39,31 @@ class Setup:
                 )
 
     class Map:
-        class MapButton(Button):
-            def __init__(self, language_json: dict, selected: bool = False):
-                super().__init__(
-                    style=ButtonStyle.gray,
-                    label=language_json["setup"]["buttons"]["map"],
-                    custom_id="map_button",
-                )
-                if selected:
-                    self.emoji = Emojis.Icons.victory
-                    self.style = ButtonStyle.blurple
-                    self.disabled = True
-
         class SetMapButton(Button):
-            def __init__(self, language_json: dict):
+            def __init__(self, container_json: dict):
                 super().__init__(
                     style=ButtonStyle.green,
-                    label=language_json["setup"]["buttons"]["set_map"],
+                    label=container_json["set_feature"].format(
+                        feature=container_json["map_title"]
+                    ),
                     custom_id="set_map_button",
                 )
 
+        class ClearMapButton(Button):
+            def __init__(self, container_json: dict):
+                super().__init__(
+                    style=ButtonStyle.red,
+                    label=container_json["clear_feature"].format(
+                        feature=container_json["map_title"]
+                    ),
+                    custom_id="clear_map_button",
+                )
+
         class MapChannelSelect(ChannelSelect):
-            def __init__(self, language_json: dict):
+            def __init__(self, container_json: dict):
                 super().__init__(
                     custom_id="map_channel_select",
-                    placeholder=language_json["setup"]["buttons"]["map_channel_select"],
+                    placeholder=container_json["map_channel_select"],
                     channel_types=[
                         ChannelType.text,
                         ChannelType.news,
@@ -138,32 +71,54 @@ class Setup:
                     ],
                 )
 
-        class ClearMapButton(Button):
-            def __init__(self, language_json: dict):
+    class Features:
+        class SetFeatureButton(Button):
+            def __init__(self, feature_type: str, container_json: dict):
+                super().__init__(
+                    style=ButtonStyle.green,
+                    label=container_json["set_feature"].format(
+                        feature=container_json[f"{feature_type}_title"]
+                    ),
+                    custom_id="set_features_button-" + feature_type,
+                )
+
+        class ClearFeatureButton(Button):
+            def __init__(self, feature_type: str, container_json: dict):
                 super().__init__(
                     style=ButtonStyle.red,
-                    label=language_json["setup"]["buttons"]["clear_map"],
-                    custom_id="clear_map_button",
+                    label=container_json["clear_feature"].format(
+                        feature=container_json[f"{feature_type}_title"]
+                    ),
+                    custom_id="clear_features_button-" + feature_type,
+                )
+
+        class FeatureChannelSelect(ChannelSelect):
+            def __init__(self, feature_type: str, container_json: dict):
+                super().__init__(
+                    custom_id="feature_channel_select-" + feature_type,
+                    placeholder=container_json["feature_channel_select"],
+                    channel_types=[
+                        ChannelType.text,
+                        ChannelType.news,
+                        ChannelType.public_thread,
+                    ],
                 )
 
     class Language:
         class LanguageButton(Button):
-            def __init__(self, language_json: dict, selected: bool = False):
+            def __init__(self, container_json: dict, language_code: str):
                 super().__init__(
                     style=ButtonStyle.gray,
-                    label=language_json["setup"]["buttons"]["language"],
+                    label=container_json["language_button"],
                     custom_id="language_button",
+                    emoji=getattr(Emojis.Flags, language_code),
                 )
-                if selected:
-                    self.emoji = Emojis.Icons.victory
-                    self.style = ButtonStyle.blurple
-                    self.disabled = True
 
         class LanguageSelect(StringSelect):
-            def __init__(self, language_json: dict):
+            def __init__(self, container_json: dict):
                 super().__init__(
                     custom_id="language_select",
-                    placeholder=language_json["setup"]["buttons"]["language_select"],
+                    placeholder=container_json["language_select"],
                     options=[
                         SelectOption(
                             label=f"{lang.short_code}",

@@ -1,6 +1,6 @@
 from datetime import datetime
 from data.lists import (
-    custom_colours,
+    CUSTOM_COLOURS,
     emotes_list,
     player_cards_list,
     stratagem_permit_list,
@@ -14,7 +14,14 @@ from utils.dataclasses import Factions, WarbondImages
 from utils.emojis import Emojis
 from utils.functions import health_bar
 from utils.mixins import EmbedReprMixin, ReprMixin
-from utils.trackers import BaseTracker
+from utils.trackers import BaseTrackerEntry
+
+STATUSES = {
+    0: "inactive",
+    1: "preparing",
+    2: "active",
+    3: "on_cooldown",
+}
 
 
 class Wiki:
@@ -530,7 +537,7 @@ class Wiki:
             def __init__(self, language_json: dict):
                 super().__init__(
                     title=language_json["title"],
-                    colour=Colour.from_rgb(*custom_colours["MO"]),
+                    colour=Colour.from_rgb(*CUSTOM_COLOURS["MO"]),
                 )
                 self.add_field(
                     Emojis.DSS.icon + language_json["dss_name"],
@@ -558,12 +565,10 @@ class Wiki:
                 self,
                 language_json: dict,
                 dss_data: DSS,
-                localized_planet_names: dict,
-                ta_changes: BaseTracker,
             ):
                 super().__init__(
                     title=language_json["wiki"]["embeds"]["DSSEmbed"]["title"],
-                    colour=Colour.from_rgb(r=38, g=156, b=182),
+                    colour=Colour.from_rgb(*CUSTOM_COLOURS["DSS"]),
                 )
                 if dss_data.flags == 2:
                     self.add_field("The DSS is currently unavailable.", "")
@@ -572,11 +577,9 @@ class Wiki:
                 self.description = language_json["wiki"]["embeds"]["DSSEmbed"][
                     "stationed_at"
                 ].format(
-                    planet=localized_planet_names[str(dss_data.planet.index)]["names"][
-                        language_json["code_long"]
-                    ],
+                    planet=dss_data.planet.loc_names[language_json["code_long"]],
                     faction_emoji=getattr(
-                        Emojis.Factions, dss_data.planet.current_owner.full_name.lower()
+                        Emojis.Factions, dss_data.planet.faction.full_name.lower()
                     ),
                 )
                 self.description += language_json["wiki"]["embeds"]["DSSEmbed"][
@@ -591,35 +594,12 @@ class Wiki:
                 )
                 for tactical_action in dss_data.tactical_actions:
                     tactical_action: DSS.TacticalAction
-                    status = {
-                        0: "inactive",
-                        1: "preparing",
-                        2: "active",
-                        3: "on_cooldown",
-                    }[tactical_action.status]
+                    status = STATUSES[tactical_action.status]
                     if status == "preparing":
                         cost = ""
                         for ta_cost in tactical_action.cost:
-                            submittable_formatted = language_json["wiki"]["embeds"][
-                                "DSSEmbed"
-                            ]["max_submitable"].format(
-                                emoji=getattr(
-                                    Emojis.Items,
-                                    ta_cost.item.replace(" ", "_").lower(),
-                                ),
-                                number=f"{ta_cost.max_per_seconds[0]:,}",
-                                item=language_json["wiki"]["embeds"]["DSSEmbed"][
-                                    "item_pluralized"
-                                ].format(
-                                    item=language_json["currencies"].get(
-                                        ta_cost.item,
-                                        language_json["currencies"]["Unknown Item"],
-                                    )
-                                ),
-                                hours=f"{ta_cost.max_per_seconds[1]/3600:.0f}",
-                            )
-                            ta_cost_change = ta_changes.get_entry(
-                                (tactical_action.id, ta_cost.item)
+                            ta_cost_change: BaseTrackerEntry = (
+                                tactical_action.cost_changes[ta_cost.item]
                             )
                             change_text = ""
                             if (
@@ -630,7 +610,7 @@ class Wiki:
                                     f"{ta_cost_change.change_rate_per_hour:+.2%}/hr"
                                 )
                                 change_text = f"\n`{change:^25}`"
-                                change_text += f"\n-# {language_json['dashboard']['DSSEmbed']['active']} <t:{int(datetime.now().timestamp() + ta_cost_change.seconds_until_complete)}:R>"
+                                change_text += f"\n-# {language_json['embeds']['Dashboard']['DSSEmbed']['active']} <t:{int(datetime.now().timestamp() + ta_cost_change.seconds_until_complete)}:R>"
                                 ta_cost_health_bar = health_bar(
                                     ta_cost.progress,
                                     "MO" if ta_cost.progress != 1 else "Humans",
@@ -643,15 +623,14 @@ class Wiki:
                                     "MO" if ta_cost.progress != 1 else "Humans",
                                 )
                             cost = (
-                                f"{submittable_formatted}\n"
                                 f"{ta_cost_health_bar}\n"
                                 f"`{ta_cost.progress:^25.2%}`"
                                 f"{change_text}"
                             )
                     elif status == "active":
-                        cost = f"{language_json['wiki']['embeds']['DSSEmbed']['ends']} <t:{int(tactical_action.status_end_datetime.timestamp())}:R>"
+                        cost = f"{language_json['wiki']['embeds']['DSSEmbed']['on_cooldown']} <t:{int(tactical_action.status_end_datetime.timestamp())}:R>"
                     elif status == "on_cooldown":
-                        cost = f"{language_json['wiki']['embeds']['DSSEmbed']['off_cooldown'].capitalize()} <t:{int(tactical_action.status_end_datetime.timestamp())}:R>"
+                        cost = f"{language_json['wiki']['embeds']['DSSEmbed']['preparing'].capitalize()} <t:{int(tactical_action.status_end_datetime.timestamp())}:R>"
                     else:
                         continue
                     localized_ta = language_json["wiki"]["embeds"]["DSSEmbed"][
