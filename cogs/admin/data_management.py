@@ -90,6 +90,28 @@ class DataManagementCog(commands.Cog):
     async def check_changes(self):
         total_changes: list[APIChangesV2] = []
         if self.bot.previous_data:
+            if (
+                self.bot.previous_data.global_resources
+                != self.bot.data.global_resources
+            ):
+                APIChangesV2(
+                    old_object=self.bot.previous_data.global_resources,
+                    new_object=self.bot.data.global_resources,
+                    property="",
+                    stat_name="",
+                    stat_source="Global Resources",
+                )
+            if (
+                self.bot.previous_data.galactic_war_effects
+                != self.bot.data.galactic_war_effects
+            ):
+                APIChangesV2(
+                    old_object=self.bot.previous_data.galactic_war_effects,
+                    new_object=self.bot.data.galactic_war_effects,
+                    property="",
+                    stat_name="",
+                    stat_source="Galactic War Effects",
+                )
             for old_planet, new_planet in zip(
                 self.bot.previous_data.planets.values(), self.bot.data.planets.values()
             ):

@@ -12,9 +12,34 @@ class APIChangesContainer(ui.Container, ReprMixin):
         self.container_components: list = []
 
         for api_change in api_changes:
-            old_stat = getattr(api_change.old_object, api_change.property)
-            new_stat = getattr(api_change.new_object, api_change.property)
+            if api_change.stat_source not in [
+                "Global Resource",
+                "Galactic War Effects",
+            ]:
+                old_stat = getattr(api_change.old_object, api_change.property)
+                new_stat = getattr(api_change.new_object, api_change.property)
             match api_change.stat_source:
+                case "Global Resources":
+                    self.container_components.append(
+                        ui.TextDisplay(
+                            f"## CHANGES TO GLOBAL RESOURCES\nBefore:\n{api_change.old_object}\n\nAfter:\n{api_change.new_object}"
+                        )
+                    )
+                case "Galactic War Effects":
+                    if effects_removed := [
+                        gwe for gwe in old_stat if gwe not in new_stat
+                    ]:
+                        content = "### Galactic Effect Removed ❌"
+                        for wp in waypoints_removed:
+                            content += f"\n -# - **{wp.pretty_print()}**"
+                    if effects_added := [
+                        gwe for gwe in new_stat if gwe not in old_stat
+                    ]:
+                        content = "### Galactic Effect Added :white_check_mark:"
+                        for wp in waypoints_added:
+                            content += f"\n -# - **{wp.pretty_print()}**"
+                    if effects_removed or effects_added:
+                        self.container_components.append(ui.TextDisplay(content))
                 case "Planet":
                     self.container_components.append(
                         ui.Section(

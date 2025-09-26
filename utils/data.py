@@ -431,11 +431,10 @@ class Data(ReprMixin):
                     )
                     self.global_events: dict[str, list[GlobalEvent]]
 
-            self.global_resources: GlobalResources = GlobalResources(
-                raw_global_resources_data=self.__data__["status"]["en"][
-                    "globalResources"
-                ]
-            )
+            self.global_resources: list[GlobalResource] = [
+                GlobalResource(raw_global_resources_data=gr)
+                for gr in self.__data__["status"]["en"]["globalResources"]
+            ]
 
             self.planets[64].position = {
                 "x": self.__data__["status"]["en"]["planetStatus"][64]["position"]["x"],
