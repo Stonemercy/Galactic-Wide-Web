@@ -963,19 +963,6 @@ class GlobalResource(ReprMixin):
         self.perc: float = self.current_value / self.max_value
 
 
-class GlobalResources(list[GlobalResource]):
-    def __init__(self, raw_global_resources_data: list[dict]) -> None:
-        """An organised list of Global Resources."""
-        for raw_global_resource_data in raw_global_resources_data:
-            self.append(
-                GlobalResource(raw_global_resource_data=raw_global_resource_data)
-            )
-
-    def get_by_id(self, id: int):
-        if gr_list := [gr for gr in self if gr.id == id]:
-            return gr_list[0]
-
-
 class Planet(ReprMixin):
     def __init__(self, raw_planet_data: dict, planet_names) -> None:
         """Organised data for a specific planet"""
