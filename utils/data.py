@@ -238,8 +238,6 @@ class Data(ReprMixin):
         self.update_region_changes()
         if self.assignments:
             self.update_major_order_rates()
-        if self.global_resources:
-            self.update_global_resource_rates()
         if self.dss:
             self.update_tactical_action_rates()
         self.fetched_at = datetime.now()
