@@ -1255,8 +1255,27 @@ class Dashboard:
                         campaign.planet.tracker
                         and campaign.planet.tracker.change_rate_per_hour > 0
                     ):
-                        field_value += f"\nVictory **<t:{int(campaign.planet.tracker.complete_time.timestamp())}:R>**"
-
+                        region_victory = False
+                        for region in campaign.planet.regions.values():
+                            if (
+                                region.tracker
+                                and region.tracker.change_rate_per_hour > 0
+                                and region.tracker.complete_time
+                                < campaign.planet.tracker.complete_time
+                                and campaign.planet.tracker.percentage_at(
+                                    region.tracker.complete_time
+                                )
+                                >= 1
+                                - (
+                                    (region.max_health * 1.5)
+                                    / campaign.planet.max_health
+                                )
+                            ):
+                                field_value += f"\nVictory **<t:{int(region.tracker.complete_time.timestamp())}:R>**\n> -# thanks to **{region.name}** {region.emoji} liberation"
+                                region_victory = True
+                                break
+                        if not region_victory:
+                            field_value += f"\nVictory **<t:{int(campaign.planet.tracker.complete_time.timestamp())}:R>**"
                     field_value += "\nPlanet liberation:"
                     if compact_level < 1:
                         field_value += f"\n{campaign.planet.health_bar}"
