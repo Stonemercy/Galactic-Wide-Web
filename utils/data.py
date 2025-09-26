@@ -436,9 +436,17 @@ class Data(ReprMixin):
                 for gr in self.__data__["status"]["en"]["globalResources"]
             ]
 
-            self.planets[64].position = {
+            self.planets[64].position = {  # meridia
                 "x": self.__data__["status"]["en"]["planetStatus"][64]["position"]["x"],
                 "y": self.__data__["status"]["en"]["planetStatus"][64]["position"]["y"],
+            }
+            self.planets[260].position = {  # cyberstan
+                "x": self.__data__["status"]["en"]["planetStatus"][260]["position"][
+                    "x"
+                ],
+                "y": self.__data__["status"]["en"]["planetStatus"][260]["position"][
+                    "y"
+                ],
             }
 
             for planet_effect in self.__data__["status"]["en"]["planetActiveEffects"]:
