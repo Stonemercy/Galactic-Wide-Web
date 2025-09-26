@@ -388,7 +388,9 @@ class WarUpdatesCog(commands.Cog):
                     planet = self.bot.data.planets[region.planet_index]
                     if region.owner.full_name != old_region.owner:
                         # if owner has changed
-                        if region.owner.full_name == "Humans":
+                        if region.owner.full_name == "Humans" and (
+                            planet.faction.full_name != "Humans" or planet.event
+                        ):
                             # attack campaign win
                             for container in components.values():
                                 container.add_region_victory(
