@@ -300,7 +300,7 @@ class Dashboard:
                             self.add_type_13(
                                 task=task,
                                 language_json=language_json,
-                                planet=planets[task.planet_index],
+                                planets=planets,
                             )
                         case 15:
                             self.add_type_15(
@@ -780,9 +780,10 @@ class Dashboard:
             self,
             task: Assignment.Task,
             language_json: dict,
-            planet: Planet,
+            planets: Planets,
         ):
             """Hold {planet} when the order expires"""
+            planet = planets[task.planet_index]
             field_name = language_json["embeds"]["Dashboard"]["MajorOrderEmbed"][
                 "tasks"
             ]["type13"].format(
@@ -818,6 +819,35 @@ class Dashboard:
                 if planet.stats.player_count > 500:
                     formatted_heroes = f"{planet.stats.player_count:,}"
                     field_value += f"\n{language_json['embeds']['Dashboard']['heroes'].format(heroes=formatted_heroes)}"
+                else:
+                    for waypoint in planet.waypoints:
+                        way_planet = planets[waypoint]
+                        if (
+                            way_planet.tracker
+                            and way_planet.tracker.change_rate_per_hour > 0
+                        ):
+                            region_victory = False
+                            for way_region in way_planet.regions.values():
+                                if (
+                                    way_region.tracker
+                                    and way_region.tracker.change_rate_per_hour > 0
+                                    and way_region.tracker.complete_time
+                                    < way_planet.tracker.complete_time
+                                    and way_planet.tracker.percentage_at(
+                                        way_region.tracker.complete_time
+                                    )
+                                    >= 1
+                                    - (
+                                        (way_region.max_health * 1.5)
+                                        / way_planet.max_health
+                                    )
+                                ):
+                                    field_value += f"\nUnlocked **<t:{int(way_region.tracker.complete_time.timestamp())}:R>**\n> -# thanks to **{way_region.name}** {way_region.emoji} liberation on **{way_planet.name}** {way_planet.faction.emoji}"
+                                    region_victory = True
+                                    break
+                            if not region_victory:
+                                field_value += f"\nUnlocked **<t:{int(way_planet.tracker.complete_time.timestamp())}:R>**\n> -# thanks to **{way_planet.name}** {way_planet.faction.emoji} liberation"
+                            break
                 if planet.event:
                     field_value += f"\n{language_json['ends']} <t:{int(planet.event.end_time_datetime.timestamp())}:R>"
                     field_value += f"\n{language_json['embeds']['Dashboard']['DefenceEmbed']['level']} **{planet.event.level}**"
@@ -844,7 +874,7 @@ class Dashboard:
                         if planet.tracker.change_rate_per_hour > 0:
                             field_value += f"\n{language_json['embeds']['Dashboard']['outlook']}: **{language_json['victory']}** <t:{int(planet.tracker.complete_time.timestamp())}:R>"
                         field_value += (
-                            f"\n{language_json['embeds']['Dashboard']['progress']}:\n"
+                            f"\n{language_json['embeds']['Dashboard']['progress']}:"
                         )
                         if self.compact_level < 1:
                             field_value += f"\n{planet.health_bar}"
