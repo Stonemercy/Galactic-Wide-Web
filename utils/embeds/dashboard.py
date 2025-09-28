@@ -693,7 +693,7 @@ class Dashboard:
                     field_value += f"\n`{(1-planet.event.progress):^25,.2%}`"
                 else:
                     if planet.tracker and planet.tracker.change_rate_per_hour > 0:
-                        field_value += f"\n{language_json['embeds']['Dashboard']['outlook']}: **{language_json['victory']}** <t:{int(planet.tracker.complete_time)}:R>"
+                        field_value += f"\n{language_json['embeds']['Dashboard']['outlook']}: **{language_json['victory']}** <t:{int(planet.tracker.complete_time.timestamp())}:R>"
                     field_value += (
                         f"\n{language_json['embeds']['Dashboard']['progress']}:"
                     )
