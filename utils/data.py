@@ -1017,7 +1017,7 @@ class Planet(ReprMixin):
 
     @property
     def health_bar(self):
-        progress = self.health_perc if not self.event else self.event.progress
+        progress = (1 - self.health_perc) if not self.event else self.event.progress
         faction = self.faction if not self.event else self.event.faction
         if self.tracker and self.tracker.change_rate_per_hour != 0:
             return health_bar(
