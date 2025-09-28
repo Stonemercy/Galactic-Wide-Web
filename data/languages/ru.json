@@ -1,493 +1,493 @@
 {
-    "code": "en",
-    "code_long": "en-GB",
+    "code": "ru",
+    "code_long": "ru-RU",
     "containers": {
         "CampaignChangesContainer": {
-            "title": "GALACTIC WAR UPDATES",
-            "victories": "VICTORIES",
-            "losses": "LOSSES",
-            "new_campaigns": "NEW CAMPAIGNS",
-            "gambit": "Gambit",
-            "liberated": "**{planet_name}** has been liberated from the **{faction_name}**",
-            "defended": "**{planet_name}** has been successfully defended against the **{faction_name}**",
-            "ahead_of_schedule": ", **{hours_remaining} hour(s)** ahead of schedule!",
-            "defend": "### DEFEND **{planet_name}** {emojis}",
-            "invasion_level": "\n> Invasion Level **{level}{emoji}**",
-            "ends": "\n> -# Ends <t:{timestamp}:R>",
-            "liberate": "### LIBERATE **{planet_name}** {emojis}",
-            "resistance": "\n > Resistance: **{regen}/hr**",
-            "planet_lost": "**{planet_name}** has been lost to the **{faction_name}** {emojis}"
+            "title": "ОБНОВЛЕНИЯ ГАЛАКТИЧЕСКОЙ ВОЙНЫ",
+            "victories": "ПОБЕДЫ",
+            "losses": "ПОРАЖЕНИЯ",
+            "new_campaigns": "НОВЫЕ КАМПАНИИ",
+            "gambit": "Гамбит",
+            "liberated": "Планета **{planet_name}** была освобождена от **{faction_name}**",
+            "defended": "Планета **{planet_name}** была успешно защищена от **{faction_name}**",
+            "ahead_of_schedule": ", на **{hours_remaining}ч** раньше срока!",
+            "defend": "### ЗАЩИТИТЕ ПЛАНЕТУ **{planet_name}** {emojis}",
+            "invasion_level": "\n> Уровень вторжения **{level}{emoji}**",
+            "ends": "\n> -# Заканчивается <t:{timestamp}:R>",
+            "liberate": "### ОСВОБОДИТЕ ПЛАНЕТУ **{planet_name}** {emojis}",
+            "resistance": "\n > Сопротивление: **{regen}/ч**",
+            "planet_lost": "Планета **{planet_name}** перешла под контроль **{faction_name}** {emojis}"
         },
         "DispatchContainer": {
-            "dispatch": "Dispatch",
-            "with_time": "\n\n-# Sent <t:{timestamp}:R>"
+            "dispatch": "Рапорт",
+            "with_time": "\n\n-# Отправлено <t:{timestamp}:R>"
         },
         "DSSChangesContainer": {
-            "title": "DSS UPDATES",
-            "gambit": "Gambit",
-            "has_moved": "\nThe DSS has moved from **{planet_name1}** to **{planet_name2}** {emojis}",
-            "ta_status_change": "\n**{ta_name}** is now **{status}**",
-            "preparing": "preparing",
-            "active": "active",
-            "inactive": "inactive",
-            "on_cooldown": "on cooldown",
+            "title": "ОБНОВЛЕНИЯ ДКС",
+            "gambit": "Гамбит",
+            "has_moved": "\nДКС переместилась с **{planet_name1}** на **{planet_name2}** {emojis}",
+            "ta_status_change": "\n**{ta_name}** теперь **{status}**",
+            "preparing": "готовится к использованию",
+            "active": "активно",
+            "inactive": "неактивно",
+            "on_cooldown": "на перезарядке",
             "tactical_actions": {
                 "EAGLE STORM": {
-                    "name": "EAGLE STORM",
-                    "description": "-# Deploys periodic **Eagle Airstrikes** during missions.\n-# Halts enemy progress in **Defence Campaigns**."
+                    "name": "БУРЯ ОРЛА",
+                    "description": "-# Периодически выполняет стратагему **Орёл: бреющий полёт** во время заданий.\n-# Замедляет прогресс врага в **оборонительных кампаниях**."
                 },
                 "ORBITAL BLOCKADE": {
-                    "name": "ORBITAL BLOCKADE",
-                    "description": "-# **Defence Campaigns** cannot originate from this planet.\n-# The **HELLPOD SPACE OPTIMISATION** Booster is automatically active for all missions."
+                    "name": "ОРБИТАЛЬНАЯ БЛОКАДА",
+                    "description": "-# **Оборонительные кампании** не могут начинаться с этой планеты.\n-# Усилитель **ОПТИМИЗАЦИЯ МЕСТА В АДСКОЙ КАПСУЛЕ** автоматически активируется для всех заданий."
                 },
                 "HEAVY ORDNANCE DISTRIBUTION": {
-                    "name": "HEAVY ORDNANCE DISTRIBUTION",
-                    "description": "-# Gives access to the **Orbital 380mm HE Barrage** stratagem during missions.\n-# Accelerates progress in **Liberation Campaigns**."
+                    "name": "РАСПРЕДЕЛЕНИЕ СНАРЯДОВ ДЛЯ ТЯЖЁЛОЙ АРТИЛЛЕРИИ",
+                    "description": "-# Открывает доступ к стратагеме **Орбитальный залп 380-мм ОФ** во время заданий.\n-# Ускоряет прогресс в **освободительных кампаниях**."
                 },
                 "EAGLE BLOCKADE": {
-                    "name": "EAGLE BLOCKADE",
-                    "description": "-# Deploys periodic **Eagle Strafing Runs** during missions.\n-# The **HELLPOD SPACE OPTIMIZATION** Booster is automatically active for all missions."
+                    "name": "БЛОКАДА ОРЛА",
+                    "description": "-# Периодически выполняет стратагему **Орёл: бреющий полёт** во время заданий.\n-# Усилитель **ОПТИМИЗАЦИЯ МЕСТА В АДСКОЙ КАПСУЛЕ** автоматически активируется для всех заданий."
                 }
             }
         },
         "GlobalEventsContainer": {
-            "all_planets": "all planets",
-            "unknown_effect": "UNKNOWN EFFECT",
-            "active_on_planets": "\n-# Now active on the following planet(s):\n- {planets}",
-            "enemy_identified": "Enemy identified",
-            "strat_identified": "Stratagem identified",
-            "booster_identified": "Booster identified",
-            "expires": "Expires",
-            "global_event": "Global Event"
+            "all_planets": "все планеты",
+            "unknown_effect": "НЕИЗВЕСТНЫЙ ЭФФЕКТ",
+            "active_on_planets": "\n-# Теперь активно на следующей(их) планете(ах):\n- {planets}",
+            "enemy_identified": "Обнаружен враг",
+            "strat_identified": "Обнаружена стратагема",
+            "booster_identified": "Обнаружено усиление",
+            "expires": "Истекает",
+            "global_event": "Глобальное событие"
         },
         "PlanetContainers": {
             "PlanetContainer": {
                 "planet_info": {
-                    "sector": "Sector",
-                    "owner": "Owner",
-                    "hazards": "Hazard(s)",
-                    "biome": "Biome",
-                    "heroes": "Heroes",
-                    "liberated": "Liberated"
+                    "sector": "Сектор",
+                    "owner": "Владелец",
+                    "hazards": "Опасность(и)",
+                    "biome": "Биом",
+                    "heroes": "Десантники",
+                    "liberated": "Освобождено"
                 },
                 "mission_stats": {
-                    "title": "📊 Mission Stats",
-                    "missions_won": "Missions won",
-                    "missions_lost": "Missions lost",
-                    "missions_winrate": "Mission winrate",
-                    "missions_time_spent": "Time spent on missions",
-                    "years": "years"
+                    "title": "📊 Статистика миссий",
+                    "missions_won": "Выполненные миссии",
+                    "missions_lost": "Проваленные миссии",
+                    "missions_winrate": "Доля выполненных миссий",
+                    "missions_time_spent": "Время, потраченное на миссии",
+                    "years": "годы"
                 },
                 "hero_stats": {
-                    "title": "📈 Hero stats",
-                    "active_heroes": "Active heroes",
-                    "heroes_lost": "Heroes lost",
-                    "accidentals": "Accidentals",
-                    "shots_fired": "Shots fired",
-                    "shots_hit": "Shots hit",
-                    "accuracy": "Accuracy"
+                    "title": "📈 Статистика десантников",
+                    "active_heroes": "Активных десантников",
+                    "heroes_lost": "Погибших десантников",
+                    "accidentals": "Несчастные случаи",
+                    "shots_fired": "Сделано выстрелов",
+                    "shots_hit": "Попаданий",
+                    "accuracy": "Точность"
                 },
                 "misc_stats": {
-                    "killed": "killed"
+                    "killed": "убито"
                 }
             },
             "RegionContainer": {
-                "heroes": "Heroes",
-                "boost_when_liberated": "Boost when liberated",
-                "liberated": "Liberated",
-                "liberation": "Liberation",
-                "defence_duration": "Defence Duration",
-                "unlocked_when": "\nUnlocks when **{stat_to_use}** reaches **{av_factor}**"
+                "heroes": "Десантники",
+                "boost_when_liberated": "Бонус при освобождении",
+                "liberated": "Освобождено",
+                "liberation": "Освобождение",
+                "defence_duration": "Длительность обороны",
+                "unlocked_when": "\nОткрывается, когда **{stat_to_use}** достигнет **{av_factor}**"
             }
         },
         "RegionChangesContainer": {
-            "title": "REGION UPDATES",
-            "victories": "VICTORIES",
-            "new_regions": "NEW REGIONS AVAILABLE",
-            "region_victory": "\n### {region_name} on {planet_name} has been liberated from the {faction_name}",
-            "new_region": "### **{region_name}** is now available on **{planet_name}**",
-            "resistance": "\n > Resistance: **{regen}/hr**"
+            "title": "ОБНОВЛЕНИЯ РЕГИОНОВ",
+            "victories": "ПОБЕДЫ",
+            "new_regions": "ДОСТУПНЫ НОВЫЕ РЕГИОНЫ",
+            "region_victory": "\n### Регион {region_name} на планете {planet_name} был освобожден от {faction_name}",
+            "new_region": "### Регион **{region_name}** теперь доступен на планете **{planet_name}**",
+            "resistance": "\n > Сопротивление: **{regen}/ч**"
         },
         "SetupContainer": {
-            "title": "Setup",
-            "shard_info": "Your server is on Shard #**{shard_id}** - **{latency}ms**",
-            "not_set": "Not set",
-            "channel": "Channel",
-            "message": "Message",
-            "dashboard_title": "Dashboard",
-            "dashboard_desc": "-# A dashboard with general war information that updates every 15 minutes\n",
-            "dashboard_channel_select": "Select the channel for the dashboard",
-            "map_title": "Map",
-            "map_desc": "-# A galactic map that updates every hour at **##:05** (e.g. 09:05)\n",
-            "map_channel_select": "Select the channel for the map",
-            "war_announcements_title": "War Announcements",
-            "war_announcements_desc": "-# General announcements regarding the war (e.g. New MO's, Planets lost/won, general dispatches etc)\n",
-            "dss_announcements_title": "DSS Announcements",
-            "dss_announcements_desc": "-# Announcements regarding the DSS (e.g. DSS moves or the status of Tactical Actions changes)\n",
-            "region_announcements_title": "Region Announcements",
-            "region_announcements_desc": "-# Announcements regarding planetary regions (e.g. new regions have appeared or regions have been won etc.)\n",
-            "patch_notes_title": "Patch notes",
-            "patch_notes_desc": "-# Provides links to Steam announcements for the game\n",
-            "major_order_updates_title": "Major Order updates",
-            "major_order_updates_desc": "-# Provides updates for active major orders at <t:1737786000:t> and <t:1737829200:t>\n",
-            "detailed_dispatches_title": "Detailed Dispatches",
-            "detailed_dispatches_desc": "-# Provides the larger dispatches from Super Earth High Command\n",
-            "feature_channel_select": "Select the channel for this feature",
-            "language_button": "Language",
-            "language": "{flag_emoji} Language",
-            "language_select": "Select the language you want",
-            "set_feature": "Set {feature}",
-            "clear_feature": "Clear {feature}"
+            "title": "Установка",
+            "shard_info": "Ваш сервер находится на Shard #**{shard_id}** - **{latency}мс**",
+            "not_set": "Не установлено",
+            "channel": "Канал",
+            "message": "Сообщение",
+            "dashboard_title": "Мониторинг",
+            "dashboard_desc": "-# Мониторинг основной информации галактической войны, который обновляется каждые 15 минут\n",
+            "dashboard_channel_select": "Выберите канал для мониторинга",
+            "map_title": "Карта",
+            "map_desc": "-# Галактическая карта, которая обновляется каждый час в **##:05** (например, в 09:05)\n",
+            "map_channel_select": "Выберите канал для карты",
+            "war_announcements_title": "Новости галактической войны",
+            "war_announcements_desc": "-# Общие уведомления о галактической войне (новые ГП, победы/поражения, подробные рапорты и т.д.)\n",
+            "dss_announcements_title": "Новости ДКС",
+            "dss_announcements_desc": "-# Новости, касающиеся ДКС (перемещения ДКС или статус изменений тактических действий)\n",
+            "region_announcements_title": "Новости регионов",
+            "region_announcements_desc": "-# Новости, касающиеся планетарных регионов (появление новых регионов, их освобождение/потеря и т.д.)\n",
+            "patch_notes_title": "Патчноуты",
+            "patch_notes_desc": "-# Публикует ссылки на новости игры в Steam\n",
+            "major_order_updates_title": "Обновления главного приказа",
+            "major_order_updates_desc": "-# Публикует обновления главных приказов в <t:1737786000:t> и <t:1737829200:t>\n",
+            "detailed_dispatches_title": "Подробные рапорты",
+            "detailed_dispatches_desc": "-# Содержит более подробные сообщения от Верховного Командования Супер-Земли\n",
+            "feature_channel_select": "Выберите канал для этой функции",
+            "language_button": "Язык",
+            "language": "{flag_emoji} Язык",
+            "language_select": "Выберите язык, который вам нужен",
+            "set_feature": "Установить {feature}",
+            "clear_feature": "Очистить {feature}"
         }
     },
     "embeds": {
         "Dashboard": {
-            "heroes": "Heroes: **{heroes}**",
-            "outlook": "Outlook",
-            "progress": "Current progress",
-            "shrunk_temporarily": "Character count exceeded 6000; dashboard shrunk temporarily",
+            "heroes": "Десантники: **{heroes}**",
+            "outlook": "Перспектива",
+            "progress": "Текущий прогресс",
+            "shrunk_temporarily": "Количество символов превысило 6000; панель временно уменьшилась",
             "MajorOrderEmbed": {
-                "mo_missing": "Awaiting Major Order",
-                "assignment": "Assignment #{id}",
-                "MO_unavailable": "Stand by for further orders from Super Earth High Command",
-                "feature": "Feature",
-                "rewards": "Rewards",
-                "reward_pluralized": "{reward}s",
-                "ahead_of_schedule": "\n-# **{hours}h {minutes}m** ahead of schedule",
-                "behind_schedule": "\n-# **{hours}h {minutes}m** behind schedule",
+                "mo_missing": "Ожидание Главного Приказаr",
+                "assignment": "Задание #{id}",
+                "MO_unavailable": "Ждите дальнейших распоряжений Верховного командования Супер-Земли",
+                "feature": "Объект интереса",
+                "rewards": "Награда",
+                "reward_pluralized": "{reward}",
+                "ahead_of_schedule": "\n-# на **{hours}ч {minutes}м** раньше срока",
+                "behind_schedule": "\n-# на **{hours}ч {minutes}м** позже срока",
                 "tasks": {
-                    "typeNew": "{alert_emoji} UNRECOGNIZED TASK",
-                    "type2": "{status_emoji} **Successfully extract with {amount} {item}**",
-                    "type2_planet": " **on {planet}**",
-                    "type2_sector": " **in the __{sector}__ SECTOR**",
-                    "type2_faction": " **from any {faction} controlled planet**",
-                    "type3": "{status_emoji} **Kill {amount} {target}**",
-                    "type3_item": " **using the __{item_to_use}__**",
-                    "type3_planet": " **on {planet}**",
-                    "type7": "{status_emoji}  **Extract from a successful Mission against {faction} {amount} times**",
-                    "type9": "{status_emoji} **Complete an Operation{against_faction}{on_difficulty} {amount} times**",
-                    "type9_against_faction": " **against {faction}**",
-                    "type9_on_difficulty": " **on {difficulty} or higher**",
-                    "type11": "{status_emoji} **Liberate {planet}**",
-                    "type12": "{status_emoji} **Defend{planet} against {amount} attacks**",
-                    "type12_planet": " **{planet}**",
-                    "type12_faction": " **from the {faction}**",
-                    "type13": "{status_emoji} **Hold {planet} when the order expires**",
-                    "type15": "{status_emoji} **Liberate more planets than are lost during the order duration**"
+                    "typeNew": "{alert_emoji} НЕ УДАЕТСЯ РАСПОЗНАТЬ ЗАДАНИЕ",
+                    "type2": "{status_emoji} **Успешно эвакуироваться с {amount} {item}**",
+                    "type2_planet": " **на планете {planet}**",
+                    "type2_sector": " **в СЕКТОРЕ __{sector}__**",
+                    "type2_faction": " **с любой планеты, подконтрольной расе {faction}**",
+                    "type3": "{status_emoji} **Убейте {amount} {target}**",
+                    "type3_item": " **с использованием __{item_to_use}__**",
+                    "type3_planet": " **на планете {planet}**",
+                    "type7": "{status_emoji}  **Эвакуируйтесь, успешно выполнив задание против {faction} {amount} раз(а)**",
+                    "type9": "{status_emoji} **Выполните операцию{against_faction}{on_difficulty} {amount} раз(а)**",
+                    "type9_against_faction": " **против {faction}**",
+                    "type9_on_difficulty": " **на сложности {difficulty} или выше**",
+                    "type11": "{status_emoji} **Освбодите {planet}**",
+                    "type12": "{status_emoji} **Отразите атаку{planet} {amount} раз(а)**",
+                    "type12_planet": " на планету **{planet}**",
+                    "type12_faction": " **от {faction}**",
+                    "type13": "{status_emoji} **Удерживайте планету {planet} до истечения приказа**",
+                    "type15": "{status_emoji} **Освободите больше планет, чем было потеряно за время действия приказа**"
                 }
             },
             "DSSEmbed": {
-                "stationed_at": "Stationed at **{planet}** {faction_emoji}\n",
-                "next_move": "Scheduled to move {timestamp}",
-                "status": "Status",
-                "preparing": "Preparing",
-                "active": "Active",
-                "on_cooldown": "On cooldown",
-                "off_cooldown": "Off cooldown",
-                "inactive": "Inactive",
+                "stationed_at": "Располагается на планете **{planet}** {faction_emoji}\n",
+                "next_move": "Следующее перемещение через {timestamp}",
+                "status": "Статус",
+                "preparing": "Готовится к использованию",
+                "active": "Активно",
+                "on_cooldown": "На перезарядке",
+                "off_cooldown": "Перезаряжено",
+                "inactive": "Недоступно",
                 "tactical_actions": {
                     "EAGLE STORM": {
-                        "name": "EAGLE STORM",
-                        "description": "-# Deploys periodic **Eagle Airstrikes** during missions.\n-# Halts enemy progress in **Defence Campaigns**."
+                        "name": "БУРЯ ОРЛА",
+                        "description": "-# Периодически выполняет стратагему **Орёл: бреющий полёт** во время заданий.\n-# Замедляет прогресс врага в **оборонительных кампаниях**."
                     },
                     "ORBITAL BLOCKADE": {
-                        "name": "ORBITAL BLOCKADE",
-                        "description": "-# **Defence Campaigns** cannot originate from this planet.\n-# The **HELLPOD SPACE OPTIMISATION** Booster is automatically active for all missions."
+                        "name": "ОРБИТАЛЬНАЯ БЛОКАДА",
+                        "description": "-# **Оборонительные кампании** не могут начинаться с этой планеты.\n-# Усилитель **ОПТИМИЗАЦИЯ МЕСТА В АДСКОЙ КАПСУЛЕ** автоматически активируется для всех заданий."
                     },
                     "HEAVY ORDNANCE DISTRIBUTION": {
-                        "name": "HEAVY ORDNANCE DISTRIBUTION",
-                        "description": "-# Gives access to the **Orbital 380mm HE Barrage** stratagem during missions.\n-# Accelerates progress in **Liberation Campaigns**."
+                        "name": "РАСПРЕДЕЛЕНИЕ СНАРЯДОВ ДЛЯ ТЯЖЁЛОЙ АРТИЛЛЕРИИ",
+                        "description": "-# Открывает доступ к стратагеме **Орбитальный залп 380-мм ОФ** во время заданий.\n-# Ускоряет прогресс в **освободительных кампаниях**."
                     },
                     "EAGLE BLOCKADE": {
-                        "name": "EAGLE BLOCKADE",
-                        "description": "-# Deploys periodic **Eagle Strafing Runs** during missions.\n-# The **HELLPOD SPACE OPTIMIZATION** Booster is automatically active for all missions."
+                        "name": "БЛОКАДА ОРЛА",
+                        "description": "-# Периодически выполняет стратагему **Орёл: бреющий полёт** во время заданий.\n-# Усилитель **ОПТИМИЗАЦИЯ МЕСТА В АДСКОЙ КАПСУЛЕ** автоматически активируется для всех заданий."
                     }
                 }
             },
             "DefenceEmbed": {
-                "title": "Defending",
-                "no_threats": "There are currently no threats to our Freedom",
-                "for_now": "For now...",
-                "time_unavailable": "Unavailable",
-                "event_health": "Planet Liberation",
-                "level": "Invasion Level",
-                "defence_held_by_dss": "\n> -# DEFENCE HELD BY DSS",
-                "feature": "Feature",
-                "thanks_to_gambit": "thanks to **{planet}** liberation",
-                "gambit_available": ":chess_pawn: Can be ended by liberating **{planet}**",
-                "gathering_data": "*Gathering Data*",
-                "impossible": "**IMPOSSIBLE**"
+                "title": "Оборона",
+                "no_threats": "В настоящее время нашей свободе ничего не угрожает",
+                "for_now": "Пока что...",
+                "time_unavailable": "Недоступно",
+                "event_health": "Освобождение планеты",
+                "level": "Уровень вторжения",
+                "defence_held_by_dss": "\n> -# ОБОРОНА ВЕДЕТСЯ ДКС",
+                "feature": "Объект интереса",
+                "thanks_to_gambit": "благодаря освобождению планеты **{planet}**",
+                "gambit_available": ":chess_pawn: Может быть окончена освобождением планеты **{planet}**",
+                "gathering_data": "*Получение данных*",
+                "impossible": "**НЕВОЗМОЖНО**"
             },
             "AttackEmbed": {
-                "title": "Attacking {faction}",
-                "planet_health": "Planet liberation",
-                "low_impact": "Low impact/population planets",
-                "feature": "\nFeature: {feature}"
+                "title": "Фронт {faction}",
+                "planet_health": "Освобождение планеты",
+                "low_impact": "Планеты с малой скоростью особождения",
+                "feature": "\nОбъект интереса: {feature}"
             },
             "FooterEmbed": {
-                "other_updated": "Updated on",
-                "total_players": "Total players",
-                "liberty_day": "The GWW wishes you a happy Liberty Day",
-                "malevelon_creek_day": "The GWW wishes you a happy Malevelon Creek Memorial Day",
-                "festival_of_reckoning": "The GWW wishes you a happy Festival of Reckoning",
-                "new_year": "The GWW wishes you a happy New Year"
+                "other_updated": "Обновлено",
+                "total_players": "Общее количество игроков",
+                "liberty_day": "GWW поздравляет вас с днем свободы",
+                "malevelon_creek_day": "GWW поздравляет вас с Днем памяти Малевелон-Крик",
+                "festival_of_reckoning": "GWW поздравляет вас с счастливым праздником расплаты",
+                "new_year": "GWW поздравляет вас с наступающим Новым годом"
             }
         }
     },
-    "ends": "Ends",
-    "message": "Message #{message_id}",
-    "victory": "Victory",
-    "defeat": "Defeat",
-    "complete": "Complete",
-    "failure": "Failure",
+    "ends": "Заканчивается",
+    "message": "Сообщение #{message_id}",
+    "victory": "Победа",
+    "defeat": "Поражение",
+    "complete": "Успех",
+    "failure": "Провал",
     "dss": {
-        "title": "Democracy Space Station",
-        "preparing": "preparing",
-        "active": "active",
-        "inactive": "inactive",
-        "on_cooldown": "on cooldown",
+        "title": "Демократическая Космическая Станция",
+        "preparing": "готовится к использованию",
+        "active": "активно",
+        "inactive": "неактивно",
+        "on_cooldown": "на перезарядке",
         "tactical_actions": {
             "EAGLE STORM": {
-                "name": "EAGLE STORM",
-                "description": "-# Deploys periodic **Eagle Airstrikes** during missions.\n-# Halts enemy progress in **Defence Campaigns**."
+                "name": "БУРЯ ОРЛА",
+                "description": "-# Периодически выполняет стратагему **Орёл: бреющий полёт** во время заданий.\n-# Замедляет прогресс врага в **оборонительных кампаниях**."
             },
             "ORBITAL BLOCKADE": {
-                "name": "ORBITAL BLOCKADE",
-                "description": "-# **Defence Campaigns** cannot originate from this planet.\n-# The **HELLPOD SPACE OPTIMISATION** Booster is automatically active for all missions."
+                "name": "ОРБИТАЛЬНАЯ БЛОКАДА",
+                "description": "-# **Оборонительные кампании** не могут начинаться с этой планеты.\n-# Усилитель **ОПТИМИЗАЦИЯ МЕСТА В АДСКОЙ КАПСУЛЕ** автоматически активируется для всех заданий."
             },
             "HEAVY ORDNANCE DISTRIBUTION": {
-                "name": "HEAVY ORDNANCE DISTRIBUTION",
-                "description": "-# Gives access to the **Orbital 380mm HE Barrage** stratagem during missions.\n-# Accelerates progress in **Liberation Campaigns**."
+                "name": "РАСПРЕДЕЛЕНИЕ СНАРЯДОВ ДЛЯ ТЯЖЁЛОЙ АРТИЛЛЕРИИ",
+                "description": "-# Открывает доступ к стратагеме **Орбитальный залп 380-мм ОФ** во время заданий.\n-# Ускоряет прогресс в **освободительных кампаниях**."
             },
             "EAGLE BLOCKADE": {
-                "name": "EAGLE BLOCKADE",
-                "description": "-# Deploys periodic **Eagle Strafing Runs** during missions.\n-# The **HELLPOD SPACE OPTIMIZATION** Booster is automatically active for all missions."
+                "name": "БЛОКАДА ОРЛА",
+                "description": "-# Периодически выполняет стратагему **Орёл: бреющий полёт** во время заданий.\n-# Усилитель **ОПТИМИЗАЦИЯ МЕСТА В АДСКОЙ КАПСУЛЕ** автоматически активируется для всех заданий."
             }
         }
     },
     "setup": {
-        "cant_find_channel": "I can't find that channel at all. Please make sure I have `View Channel` permissions",
-        "missing_perm": "Missing permission to send to that channel.\nPlease provide the following permissions and try again:{permissions}"
+        "cant_find_channel": "Никак не могу найти этот канал. Убедитесь, что у меня есть возможность `Просмотр канала`",
+        "missing_perm": "У меня нет необходимого разрешения, чтобы сделать это.\nПожалуйста, предоставьте следующие разрешения и попробуйте еще раз:{permissions}"
     },
     "factions": {
-        "1": "Humans",
-        "2": "Terminids",
-        "3": "Automatons",
-        "4": "Illuminate",
-        "Humans": "Humans",
-        "Terminids": "Terminids",
-        "Automaton": "Automaton",
-        "Illuminate": "Illuminate"
+        "1": "Людей",
+        "2": "Терминидов",
+        "3": "Автоматонов",
+        "4": "Иллюминатов",
+        "Humans": "Людей",
+        "Terminids": "Терминидов",
+        "Automaton": "Автоматонов",
+        "Illuminate": "Иллюминатов"
     },
     "difficulty": {
-        "1": "Trivial",
-        "2": "Easy ",
-        "3": "Medium",
-        "4": "Challenging",
-        "5": "Hard",
-        "6": "Extreme",
-        "7": "Suicide Mission",
-        "8": "Impossible",
-        "9": "Helldive",
-        "10": "Super Helldive"
+        "1": "Простейшая",
+        "2": "Лёгкая",
+        "3": "Средняя",
+        "4": "Непростая",
+        "5": "Высокая",
+        "6": "Экстрим",
+        "7": "Самоубийство",
+        "8": "Невозможная",
+        "9": "Прямо в ад",
+        "10": "Мега-ад"
     },
     "wiki": {
         "buttons": {
             "WikiGGButton": {
-                "label": "Helldivers Wiki"
+                "label": "Helldivers Вики"
             },
             "MainMenuButton": {
-                "label": "Main Menu"
+                "label": "Главное меню"
             },
             "DSSButton": {
-                "label": "DSS"
+                "label": "ДКС"
             },
             "EnemiesHomeButton": {
-                "label": "Enemies"
+                "label": "Враги"
             },
             "WarbondButton": {
-                "label": "Warbonds"
+                "label": "Боевые заслуги"
             },
             "EquipmentHomeButton": {
-                "label": "Equipment"
+                "label": "Снаряжение"
             },
             "WarbondPreviousPageButton": {
-                "label": "Previous Page"
+                "label": "Предыдущая страница"
             },
             "WarbondNextPageButton": {
-                "label": "Next Page"
+                "label": "Следующая страница"
             },
             "WeaponsHomeButton": {
-                "label": "Weapons"
+                "label": "Оружие"
             },
             "PrimaryWeaponsButton": {
-                "label": "Primary"
+                "label": "Основное"
             },
             "SecondaryWeaponsButton": {
-                "label": "Secondary"
+                "label": "Дополнительное"
             },
             "GrenadesButton": {
-                "label": "Grenades"
+                "label": "Гранаты"
             },
             "BoostersButton": {
-                "label": "Boosters"
+                "label": "Усилители"
             },
             "StratagemsButton": {
-                "label": "Stratagems"
+                "label": "Стратагемы"
             }
         },
         "embeds": {
             "WikiHomeEmbed": {
-                "title": "Welcome to the GWW Wiki",
-                "dss_name": "Democracy Space Station",
-                "dss_value": "Learn more about the DSS, with links to the Helldivers Companion and the Helldivers Wiki.",
-                "enemies_name": "Enemies",
-                "enemies_value": "Discover details about the enemies of Democracy:\n-# - Automaton\n-# - Illuminate\n-# - Terminids",
-                "warbonds_name": "Warbonds",
-                "warbonds_value": "Explore information about all currently available Warbonds.",
-                "equipment_name": "Equipment",
-                "equipment_value": "Find details on:\n-# - Weapons\n-# - Boosters\n-# - Stratagems"
+                "title": "Добро пожаловать на GWW Вики",
+                "dss_name": "Демократическая космическая станция",
+                "dss_value": "Узнайте больше о ДКС по ссылке на Helldivers Companion и the Helldivers Wiki.",
+                "enemies_name": "Враги",
+                "enemies_value": "Узнайте больше о врагах демократии:\n-# - Автоматоны\n-# - Иллюминаты\n-# - Терминиды",
+                "warbonds_name": "Боевые заслуги",
+                "warbonds_value": "Узнайте больше о доступных на данный момент боевых заслугах.",
+                "equipment_name": "Снаряжение",
+                "equipment_value": "Узнайте больше о:\n-# - Оружиях\n-# - Усилителях\n-# - Стратагемах"
             },
             "DSSEmbed": {
-                "title": "Democracy Space Station",
-                "stationed_at": "Stationed at **{planet}** {faction_emoji}\n",
-                "next_move": "Moving {timestamp}",
-                "item_pluralized": "{item}s",
-                "ends": "Ends",
-                "preparing": "Preparing",
-                "active": "active",
-                "inactive": "Inactive",
-                "on_cooldown": "on cooldown",
-                "off_cooldown": "off cooldown",
-                "status": "Status",
+                "title": "Демократическая Космическая Станция",
+                "stationed_at": "Располагается на планете **{planet}** {faction_emoji}\n",
+                "next_move": "Следующее перемещение через {timestamp}",
+                "item_pluralized": "{item}",
+                "ends": "Заканчивается",
+                "preparing": "готовится к использованию",
+                "active": "активно",
+                "inactive": "неактивно",
+                "on_cooldown": "на перезарядке",
+                "off_cooldown": "перезаряжено",
+                "status": "Статус",
                 "tactical_actions": {
                     "EAGLE STORM": {
-                        "name": "EAGLE STORM",
-                        "description": "-# Deploys periodic **Eagle Airstrikes** during missions.\n-# Halts enemy progress in **Defence Campaigns**."
+                        "name": "БУРЯ ОРЛА",
+                        "description": "-# Периодически выполняет стратагему **Орёл: бреющий полёт** во время заданий.\n-# Замедляет прогресс врага в **оборонительных кампаниях**."
                     },
                     "ORBITAL BLOCKADE": {
-                        "name": "ORBITAL BLOCKADE",
-                        "description": "-# **Defence Campaigns** cannot originate from this planet.\n-# The **HELLPOD SPACE OPTIMISATION** Booster is automatically active for all missions."
+                        "name": "ОРБИТАЛЬНАЯ БЛОКАДА",
+                        "description": "-# **Оборонительные кампании** не могут начинаться с этой планеты.\n-# Усилитель **ОПТИМИЗАЦИЯ МЕСТА В АДСКОЙ КАПСУЛЕ** автоматически активируется для всех заданий."
                     },
                     "HEAVY ORDNANCE DISTRIBUTION": {
-                        "name": "HEAVY ORDNANCE DISTRIBUTION",
-                        "description": "-# Gives access to the **Orbital 380mm HE Barrage** stratagem during missions.\n-# Accelerates progress in **Liberation Campaigns**."
+                        "name": "РАСПРЕДЕЛЕНИЕ СНАРЯДОВ ДЛЯ ТЯЖЁЛОЙ АРТИЛЛЕРИИ",
+                        "description": "-# Открывает доступ к стратагеме **Орбитальный залп 380-мм ОФ** во время заданий.\n-# Ускоряет прогресс в **освободительных кампаниях**."
                     },
                     "EAGLE BLOCKADE": {
-                        "name": "EAGLE BLOCKADE",
-                        "description": "-# Deploys periodic **Eagle Strafing Runs** during missions.\n-# The **HELLPOD SPACE OPTIMIZATION** Booster is automatically active for all missions."
+                        "name": "БЛОКАДА ОРЛА",
+                        "description": "-# Периодически выполняет стратагему **Орёл: бреющий полёт** во время заданий.\n-# Усилитель **ОПТИМИЗАЦИЯ МЕСТА В АДСКОЙ КАПСУЛЕ** автоматически активируется для всех заданий."
                     }
                 }
             },
             "EnemyHomeEmbed": {
-                "title": "Select the faction you are looking for"
+                "title": "Выберите фракцию, которую вы ищете"
             },
             "EnemyPageEmbed": {
-                "introduced": "Introduced",
-                "difficulty": "Difficulty",
-                "tactics": "Tactics",
-                "weak_spots": "Weak spots",
-                "variations": "Variations"
+                "introduced": "Представлены",
+                "difficulty": "Сложность",
+                "tactics": "Тактики",
+                "weak_spots": "Слабые места",
+                "variations": "Вариации"
             },
             "WarbondEmbed": {
-                "page": "Page",
-                "cost_to_unlock": "Cost to unlock warbond",
-                "medals_to_unlock": "Medals to unlock page",
-                "type": "Type",
-                "armor": "Armor",
-                "primary": "Primary",
-                "secondary": "Secondary",
-                "grenade": "Grenade",
-                "emote": "Emote",
-                "victory_pose": "Victory pose",
-                "player_card": "Player card",
-                "booster": "Booster",
-                "title": "Title",
-                "stratagem_permit": "Stratagem permit",
-                "slot": "Slot",
-                "armor_rating": "Armor rating",
-                "speed": "Speed",
-                "stamina_regen": "Stamina regen",
-                "passive": "Passive",
-                "medal_cost": "Medal cost",
-                "weapon_type": "Weapon type",
-                "damage": "Damage",
-                "capacity": "Capacity",
-                "recoil": "Recoil",
-                "fire_rate": "Fire rate",
-                "penetration": "Penetration",
-                "radius": "Radius",
-                "fuse_time": "Fuse time"
+                "page": "Страница",
+                "cost_to_unlock": "Стоит для открытия заслуги",
+                "medals_to_unlock": "Медалей, чтобы открыть страницу",
+                "type": "Тип",
+                "armor": "Броня",
+                "primary": "Основное",
+                "secondary": "Дополнительное",
+                "grenade": "Граната",
+                "emote": "Эмоция",
+                "victory_pose": "Победная поза",
+                "player_card": "Карточка игрока",
+                "booster": "Усилитель",
+                "title": "Титул",
+                "stratagem_permit": "Разрешение на использование стартагемы",
+                "slot": "Слот",
+                "armor_rating": "Рейтинг брони",
+                "speed": "Скорость",
+                "stamina_regen": "Восстановление выносливости",
+                "passive": "Пассивная способность",
+                "medal_cost": "Стоимость в медалях",
+                "weapon_type": "Тип оружия",
+                "damage": "Урон",
+                "capacity": "Вместимость",
+                "recoil": "Отдача",
+                "fire_rate": "Огнестрельность",
+                "penetration": "Пробивная способность",
+                "radius": "Радиус",
+                "fuse_time": "Время активации"
             },
             "EquipmentHomeEmbed": {
-                "title": "Select the equipment type you want to explore",
-                "weapons_name": "Weapons",
-                "weapons_value": "Includes information on:\n-# - Primary Weapons\n-# - Secondary Weapons\n-# - Grenades",
-                "boosters_name": "Boosters",
-                "boosters_value": "Details on all available boosters.",
-                "stratagems_name": "Stratagems",
-                "stratagems_value": "Information on all available stratagems."
+                "title": "Выберите тип снаряжения, который вам необходим",
+                "weapons_name": "Оружия",
+                "weapons_value": "Включает информацию о:\n-# - Основных орудиях\n-# - Дополнительных орудиях\n-# - Гранатах",
+                "boosters_name": "Усилители",
+                "boosters_value": "Информация о усилителях.",
+                "stratagems_name": "Стратагемы",
+                "stratagems_value": "Информация о всех доступных стартагемах."
             },
             "WeaponsHomeEmbed": {
-                "title": "Select the weapon type you want to explore",
-                "primary_weapons_name": "Primary Weapons",
-                "primary_weapons_value": "Details on all available primary weapons.",
-                "secondary_weapons_name": "Secondary Weapons",
-                "secondary_weapons_value": "Details on all available secondary weapons.",
-                "grenades_name": "Grenades",
-                "grenades_value": "Information on all available grenades."
+                "title": "Выберите тип орудия, который вам необходим",
+                "primary_weapons_name": "Основные орудия",
+                "primary_weapons_value": "Информация о всех основных орудиях.",
+                "secondary_weapons_name": "Дополнительные орудия",
+                "secondary_weapons_value": "Информация о всех дополнительных орудиях.",
+                "grenades_name": "Гранаты",
+                "grenades_value": "Информация о всех доступных гранатах."
             },
             "PrimaryWeaponsEmbed": {
-                "constant_fire": "{number} seconds of constant fire",
-                "information_title": "Information",
-                "type": "Type: **`{type}`**\n",
-                "damage": "Damage: **`{damage}`**\n",
-                "fire_rate": "Fire rate: **`{fire_rate}rpm`**\n",
-                "dps": "DPS: **`{dps}/s`**\n",
-                "capacity": "Capacity: **`{capacity}`**\n",
-                "fire_modes": "Fire modes:{fire_modes}\n",
-                "features": "Features:{features}"
+                "constant_fire": "{number} секунд беспрерывного огня",
+                "information_title": "Информация",
+                "type": "Тип: **`{type}`**\n",
+                "damage": "Урон: **`{damage}`**\n",
+                "fire_rate": "Скорострельность: **`{fire_rate}rpm`**\n",
+                "dps": "Урон в секунду: **`{dps}/s`**\n",
+                "capacity": "Вместимость: **`{capacity}`**\n",
+                "fire_modes": "Режим стрельбы:{fire_modes}\n",
+                "features": "Особенности:{features}"
             },
             "SecondaryWeaponsEmbed": {
-                "constant_fire": "{number} seconds of constant fire",
-                "information_title": "Information",
-                "damage": "Damage: **`{damage}`**\n",
-                "fire_rate": "Fire rate: **`{fire_rate}rpm`**\n",
-                "dps": "DPS: **`{dps}/s`**\n",
-                "capacity": "Capacity: **`{capacity}`**\n",
-                "fire_modes": "Fire modes:{fire_modes}\n",
-                "features": "Features:{features}"
+                "constant_fire": "{number} секунд беспрерывного огня",
+                "information_title": "Информация",
+                "damage": "Урон: **`{damage}`**\n",
+                "fire_rate": "Скорострельность: **`{fire_rate}rpm`**\n",
+                "dps": "Урон в секунду: **`{dps}/s`**\n",
+                "capacity": "Вместимость: **`{capacity}`**\n",
+                "fire_modes": "Режим стрельбы:{fire_modes}\n",
+                "features": "Особенности:{features}"
             },
             "GrenadesEmbed": {
-                "information_title": "Information",
-                "damage": "Damage: **`{damage}`**\n",
-                "fuse_time": "Fuse time: **`{fuse_time} seconds`**\n",
-                "penetration": "Penetration: **`{penetration}`**\n",
-                "radius": "Radius: **`{radius}`**"
+                "information_title": "Информация",
+                "damage": "Урон: **`{damage}`**\n",
+                "fuse_time": "Время активации: **`{fuse_time} seconds`**\n",
+                "penetration": "Пробивная способность: **`{penetration}`**\n",
+                "radius": "Радиус: **`{radius}`**"
             },
             "StratagemsEmbed": {
-                "key_input": "Key input",
-                "uses": "Uses",
-                "cooldown": "Cooldown"
+                "key_input": "Комбинация",
+                "uses": "Количество использований",
+                "cooldown": "Перезарядка"
             }
         }
     },
     "currencies": {
-        "Unknown Item": "Unknown Item",
-        "Medal": "Medal",
-        "Requisition Slip": "Requisition Slip",
-        "Common Sample": "Common Sample",
-        "Rare Sample": "Rare Sample",
-        "Super Sample": "Super Sample"
+        "Unknown Item": "Неизвестный предмет",
+        "Medal": "Медаль заслуги",
+        "Requisition Slip": "Реквизиция",
+        "Common Sample": "Обычный образец",
+        "Rare Sample": "Редкий образец",
+        "Super Sample": "Суперобразец"
     },
     "special_units": {
-        "THE JET BRIGADE": "THE JET BRIGADE",
-        "PREDATOR STRAIN": "PREDATOR STRAIN",
-        "GLOOM BURSTER STRAIN": "GLOOM BURSTER STRAIN",
-        "INCINERATION CORPS": "INCINERATION CORPS",
-        "THE GREAT HOST": "THE GREAT HOST",
-        "RUPTURE STRAIN": "RUPTURE STRAIN",
-        "DRAGONROACHES": "DRAGONROACHES",
-        "HIVE LORDS": "HIVE LORDS"
+        "THE JET BRIGADE": "РЕАКТИВНАЯ БРИГАДА",
+        "PREDATOR STRAIN": "ШТАММ ХИЩНИК",
+        "GLOOM BURSTER STRAIN": "ШТАММ СПОРОВИКОВ",
+        "INCINERATION CORPS": "ИСПЕПЕЛЯЮЩИЙ ОТРЯД",
+        "THE GREAT HOST": "ВЕЛИКОЕ ВОЙСКО",
+        "RUPTURE STRAIN": "ПРОРЫВНОЙ ШТАММ",
+        "DRAGONROACHES": "ДРАКОРАКАНЫ",
+        "HIVE LORDS": "ВЛАСТЕЛИНЫ УЛЬЯ"
     }
 }
