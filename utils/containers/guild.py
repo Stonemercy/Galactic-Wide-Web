@@ -38,7 +38,7 @@ class GuildContainer(ui.Container, ReprMixin):
         components = []
         colour = Colour.dark_theme()
         title_component = ui.Section(
-            ui.TextDisplay("# Guild"), accessory=ui.Thumbnail(guild.icon.url)
+            ui.TextDisplay(f"# Guild"), accessory=ui.Thumbnail(guild.icon.url)
         )
 
         if joined:
@@ -47,6 +47,7 @@ class GuildContainer(ui.Container, ReprMixin):
         elif removed:
             title_component.children[0].content += " Left"
             colour = Colour.brand_red()
+        title_component.children[0].content += f"\n# {guild.name}"
 
         title_component.children[0].content += f"\n-# Guild ID: {guild.id}"
         title_component.children[0].content += f"\n-# 👑 Owner <@{guild.owner_id}>"
