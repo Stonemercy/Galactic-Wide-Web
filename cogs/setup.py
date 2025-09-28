@@ -145,6 +145,12 @@ class SetupCog(commands.Cog):
         container = ui.Container.from_component(inter.message.components[0])
         if "dashboard" in inter.component.custom_id:
             if inter.component.custom_id == "set_dashboard_button":
+                container = SetupContainer(
+                    guild=guild,
+                    container_json=guild_language["containers"]["SetupContainer"],
+                    language_code=guild.language,
+                    shard_info=self.bot.shards[inter.guild.shard_id],
+                )
                 container.children.insert(
                     3,
                     ui.ActionRow(
@@ -184,6 +190,12 @@ class SetupCog(commands.Cog):
                 return
         elif "map" in inter.component.custom_id:
             if inter.component.custom_id == "set_map_button":
+                container = SetupContainer(
+                    guild=guild,
+                    container_json=guild_language["containers"]["SetupContainer"],
+                    language_code=guild.language,
+                    shard_info=self.bot.shards[inter.guild.shard_id],
+                )
                 container.children.insert(
                     5,
                     ui.ActionRow(
@@ -224,6 +236,12 @@ class SetupCog(commands.Cog):
         elif "features_button" in inter.component.custom_id:
             if "set_features_button-" in inter.component.custom_id:
                 feature_type = inter.component.custom_id.split("-")[1]
+                container = SetupContainer(
+                    guild=guild,
+                    container_json=guild_language["containers"]["SetupContainer"],
+                    language_code=guild.language,
+                    shard_info=self.bot.shards[inter.guild.shard_id],
+                )
                 container.children.insert(
                     FEATURE_INDEXES[feature_type],
                     ui.ActionRow(
@@ -258,6 +276,12 @@ class SetupCog(commands.Cog):
                 return
         elif "language" in inter.component.custom_id:
             if inter.component.custom_id == "language_button":
+                container = SetupContainer(
+                    guild=guild,
+                    container_json=guild_language["containers"]["SetupContainer"],
+                    language_code=guild.language,
+                    shard_info=self.bot.shards[inter.guild.shard_id],
+                )
                 container.children.insert(
                     len(container.children),
                     ui.ActionRow(
