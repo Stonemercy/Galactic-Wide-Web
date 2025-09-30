@@ -38,7 +38,12 @@ class GuildContainer(ui.Container, ReprMixin):
         components = []
         colour = Colour.dark_theme()
         title_component = ui.Section(
-            ui.TextDisplay(f"# Guild"), accessory=ui.Thumbnail(guild.icon.url)
+            ui.TextDisplay(f"# Guild"),
+            accessory=ui.Thumbnail(
+                guild.icon.url
+                if guild.icon
+                else "https://cdn.discordapp.com/attachments/1212735927223590974/1422512588973015081/0xa92d559bf3ae174.png?ex=68dcf196&is=68dba016&hm=6d361df60c5c8b49467f549fa599f018039887cb355f329f1575ba701bcd7d60&"
+            ),
         )
 
         if joined:
