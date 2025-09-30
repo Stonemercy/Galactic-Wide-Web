@@ -340,14 +340,11 @@ class Dashboard:
                 if (
                     assignment.flags == 1
                     and (
-                        (winning_all_tasks != [] and all(winning_all_tasks))
-                        and (
-                            len(
-                                [True for t in assignment.tasks if t.progress_perc == 1]
-                                + winning_all_tasks
-                            )
-                            == len(assignment.tasks)
+                        len(
+                            [True for t in assignment.tasks if t.progress_perc == 1]
+                            + winning_all_tasks
                         )
+                        == len(assignment.tasks)
                     )
                 ) or (
                     assignment.flags in [2, 3]
