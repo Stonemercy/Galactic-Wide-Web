@@ -135,5 +135,9 @@ class DSSChangesContainer(ui.Container, ReprMixin):
             section.children[
                 0
             ].content += f"\n{self.json.container['tactical_actions'][tactical_action.name]['description']}"
+        elif tactical_action.status == 3:
+            section.children[
+                0
+            ].content += f"\n-# {self.json.container['prep_starts']} **<t:{int(tactical_action.status_end_datetime.timestamp())}:R>**"
         self.sections.append(ui.Separator())
         self.sections.append(section)
