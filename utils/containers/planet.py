@@ -1,7 +1,7 @@
 from datetime import datetime
 from disnake import Colour, ui
 from utils.data import Planet
-from utils.dataclasses import Factions
+from utils.dataclasses import Factions, PlanetFeatures, SpecialUnits
 from utils.emojis import Emojis
 from utils.functions import short_format
 from utils.interactables import HDCButton, WikiButton
@@ -100,6 +100,19 @@ class PlanetContainers(list[ui.Container]):
                     )
                 )
             )
+
+            effects_text = f"Features:"
+            for pf in PlanetFeatures.get_from_effects_list(planet.active_effects):
+                effects_text += f"\n-# {pf[1]} {pf[0]}"
+            if effects_text != "Features:":
+                self.components.append(ui.TextDisplay(effects_text))
+
+            su_text = f"Special Units:"
+            for su in SpecialUnits.get_from_effects_list(planet.active_effects):
+                su_text += f"\n-# {su[1]} {su[0]}"
+            if su_text != "Special Units:":
+                self.components.append(ui.TextDisplay(su_text))
+
             self.components.append(
                 ui.TextDisplay(
                     f"**{planet.stats.player_count:,}** {component_json['heroes']}"

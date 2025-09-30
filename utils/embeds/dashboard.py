@@ -15,7 +15,7 @@ from utils.data import (
     Planet,
     Planets,
 )
-from utils.dataclasses import AssignmentImages, Factions, SpecialUnits, PlanetEffects
+from utils.dataclasses import AssignmentImages, Factions, SpecialUnits, PlanetFeatures
 from utils.emojis import Emojis
 from utils.functions import health_bar, short_format
 from utils.mixins import EmbedReprMixin
@@ -794,22 +794,10 @@ class Dashboard:
             )
             field_value = ""
             if task.progress_perc != 1 or planet.event:
-                for ae in planet.active_effects:
-                    if ae.effect_type == 71:
-                        planet_effects = PlanetEffects.get_from_effects_list([ae])
-                        if planet_effects:
-                            planet_effect = list(planet_effects)[0]
-                            field_value += (
-                                f"\n> -# {planet_effect[1]} **{planet_effect[0]}**"
-                            )
-                            if ae.planet_effect["description_long"]:
-                                field_value += (
-                                    f"\n> -# {ae.planet_effect['description_long']}"
-                                )
-                            if ae.planet_effect["description_short"]:
-                                field_value += (
-                                    f"\n> -# {ae.planet_effect['description_short']}"
-                                )
+                for planet_feature in PlanetFeatures.get_from_effects_list(
+                    (ae for ae in planet.active_effects if ae.effect_type == 71)
+                ):
+                    field_value += f"\n> -# {planet_feature[1]} {planet_feature[0]}"
                 for special_unit in SpecialUnits.get_from_effects_list(
                     active_effects=planet.active_effects
                 ):
@@ -1080,9 +1068,11 @@ class Dashboard:
                     f"\n-# {su[1]} {self.language_json['special_units'][su[0]]}"
                 )
 
-            for effect in PlanetEffects.get_from_effects_list(planet.active_effects):
-                field_value += f"\n-# {effect[0]} {effect[1]}"
-
+            for planet_feature in PlanetFeatures.get_from_effects_list(
+                (ae for ae in planet.active_effects if ae.effect_type == 71)
+            ):
+                field_value += f"\n> -# {planet_feature[1]} {planet_feature[0]}"
+            
             field_value += (
                 f"\nEnds **<t:{int(planet.event.end_time_datetime.timestamp())}:R>**"
             )
@@ -1244,11 +1234,11 @@ class Dashboard:
                             f"\n-# {su[1]} {language_json['special_units'][su[0]]}"
                         )
 
-                    for effect in PlanetEffects.get_from_effects_list(
+                    for feature in PlanetFeatures.get_from_effects_list(
                         campaign.planet.active_effects
                     ):
-                        field_value += f"\n-# {effect[0]} {effect[1]}"
-
+                        field_value += f"\n-# {feature[1]} {feature[0]}"
+                    
                     if (
                         campaign.planet.tracker
                         and campaign.planet.tracker.change_rate_per_hour > 0

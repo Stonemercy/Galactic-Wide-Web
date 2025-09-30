@@ -1,6 +1,6 @@
 from data.lists import CUSTOM_COLOURS
 from disnake import Colour, ui
-from utils.dataclasses import DSSChangesJson, DSSImages, SpecialUnits, PlanetEffects
+from utils.dataclasses import DSSChangesJson, DSSImages, SpecialUnits, PlanetFeatures
 from utils.data import DSS, GalacticWarEffect, Planet
 from utils.emojis import Emojis
 from utils.interactables import HDCButton
@@ -45,22 +45,10 @@ class DSSChangesContainer(ui.Container, ReprMixin):
     def _add_features(
         self, text_display: ui.TextDisplay, active_effects: set[GalacticWarEffect]
     ):
-        for ae in active_effects:
-            if ae.effect_type == 71:
-                planet_effects = PlanetEffects.get_from_effects_list([ae])
-                if planet_effects:
-                    planet_effect = list(planet_effects)[0]
-                    text_display.content += (
-                        f"\n> -# {planet_effect[1]} {planet_effect[0]}"
-                    )
-                    if ae.planet_effect["description_long"]:
-                        text_display.content += (
-                            f"\n> -# {ae.planet_effect['description_long']}"
-                        )
-                    if ae.planet_effect["description_short"]:
-                        text_display.content += (
-                            f"\n> -# {ae.planet_effect['description_short']}"
-                        )
+        for planet_feature in PlanetFeatures.get_from_effects_list(
+            (ae for ae in active_effects if ae.effect_type == 71)
+        ):
+            text_display.content += f"\n> -# {planet_feature[1]} {planet_feature[0]}"
 
     def _add_gambit(
         self,

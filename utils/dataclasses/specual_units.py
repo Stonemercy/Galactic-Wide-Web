@@ -18,7 +18,8 @@ class SpecialUnits:
     @classmethod
     def get_from_effects_list(cls, active_effects: set) -> set | set[tuple[str, str]]:
         special_units = set()
-        for unit_info, required_codes in cls.unit_codes_map.items():
-            if required_codes.issubset(set([ae.id for ae in active_effects])):
-                special_units.add(unit_info)
+        for ae in active_effects:
+            su_list = [k for k, v in cls.unit_codes_map.items() if ae.id in v]
+            if su_list:
+                special_units.add(su_list[0])
         return special_units

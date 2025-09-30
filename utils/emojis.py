@@ -171,10 +171,20 @@ class Emojis:
         hive_lords = "<:s:1412402306334457916>"
 
     @dataclass
-    class PlanetEffects:
+    class PlanetFeatures:
         black_hole = "<:s:1417101106055479327>"
         cfcsas = "<:s:1417097098901327882>"
         hive_world = "<:s:1417088669478813788>"
+        centre_of_science = "<:s:1422643050685141053>"
+        xenoentomology_centre = "<:s:1422643050685141053>"
+        factory_hub = "<:s:1422646158987362355>"
+        fractured_planet = "<:s:1422646803681247333>"
+        deep_mantle_forge_complex = "<:s:1422648073133359195>"
+        helldiver_training_facilities = "<:s:1422657339902656542>"
+        new_hope_city = "<:s:1422657922642743486>"
+        new_aspiration_city = "<:s:1422657920771817613>"
+        new_yearning_city = "<:s:1422657931186540545>"
+        ulgramafic_mine = "<:s:1422659152349495316>"
 
     @dataclass
     class Flags:
