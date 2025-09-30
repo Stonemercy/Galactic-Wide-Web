@@ -127,7 +127,7 @@ class APIChangesContainer(ui.Container, ReprMixin):
                 case "Region":
                     self.container_components.append(
                         ui.TextDisplay(
-                            f"## Update for {api_change.new_object.type} {api_change.new_object.name} on {api_change.new_object.planet.name}"
+                            f"## Update for {api_change.new_object.type} {api_change.new_object.name} on {api_change.new_object.planet.name}{api_change.new_object.planet.faction.emoji}{api_change.new_object.planet.exclamations}"
                         )
                     )
                     match api_change.property:
