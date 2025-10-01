@@ -13,7 +13,7 @@ class RegionChangesContainer(ui.Container, ReprMixin):
         self.colour = Colour.dark_theme()
         self.title = [
             ui.TextDisplay(
-                f"{Emojis.Decoration.left_banner} {self.container_json.container['title']} {Emojis.Decoration.right_banner}",
+                f"# {Emojis.Decoration.left_banner} {self.container_json.container['title']} {Emojis.Decoration.right_banner}",
             )
         ]
         self.victories = [
@@ -64,7 +64,10 @@ class RegionChangesContainer(ui.Container, ReprMixin):
             if len(container_info["list"]) - 1 > longest_length:
                 longest_length = len(container_info["list"]) - 1
                 colour = container_info["colour"]
-        super().__init__(*self.non_empty_components, accent_colour=colour)
+        super().__init__(
+            *(self.title + self.non_empty_components),
+            accent_colour=colour,
+        )
 
     def update_containers(func):
         def wrapper(self, *args, **kwargs):
@@ -74,7 +77,7 @@ class RegionChangesContainer(ui.Container, ReprMixin):
         return wrapper
 
     @property
-    def non_empty_components(self):
+    def non_empty_components(self) -> list:
         results = []
         for list_ in [self.victories, self.new_regions]:
             if len(list_) > 1:
