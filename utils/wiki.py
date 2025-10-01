@@ -1110,11 +1110,6 @@ class Wiki:
                     colour=Colour.brand_green(),
                     description=stratagem_json["description"],
                 )
-                if stratagem_json["description_long"]:
-                    fmtd_desc = stratagem_json["description_long"].replace(
-                        "\n", "\n-# "
-                    )
-                    self.description += f"\n-# {fmtd_desc}"
                 self.add_field(
                     language_json["key_input"],
                     "".join(

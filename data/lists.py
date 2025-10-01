@@ -347,7 +347,7 @@ stratagem_id_dict = {
     1982351727: "Eagle 500kg Bomb",
     961518079: "LAS-98 Laser Cannon",
     1159284196: "GL-21 Grenade Launcher",
-    2138935687: "ARC-3 Arc Thrower",
+    2138935687: "Arc-3 Arc Thrower",
     1597673685: "LAS-99 Quasar Cannon",
     934703916: "MG-43 Machine Gun",
     1978117092: "M-105 Stalwart",

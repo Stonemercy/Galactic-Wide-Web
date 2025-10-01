@@ -1,70 +1,87 @@
 {
 	"684729784": {
 		"name": "Stamina Enhancement",
-		"description": "Increases all Helldivers' stamina capacity and recovery."
+		"description": "Increases all Helldivers' stamina capacity and recovery.",
+		"image_link": "https://helldivers.wiki.gg/images/Stamina_Enhancement_Booster_Icon.svg?d76555"
 	},
 	"876985512": {
 		"name": "Localisation Confusion",
-		"description": "Increases the time between enemy encounters."
+		"description": "Increases the time between enemy encounters.",
+		"image_link": "https://helldivers.wiki.gg/images/Localization_Confusion_Booster_Icon.svg?95b1f1"
 	},
 	"1110686504": {
 		"name": "Vitality Enhancement",
-		"description": "Allows all Helldivers to resist injury."
+		"description": "Allows all Helldivers to resist injury.",
+		"image_link": "https://helldivers.wiki.gg/images/Vitality_Enhancement_Booster_Icon.svg?873a4b"
 	},
 	"1908198785": {
 		"name": "Hellpod Space Optimisation",
-		"description": "Helldivers come out of the Hellpod fully stocked on Ammo, Grenades, and Stims."
+		"description": "Helldivers come out of the Hellpod fully stocked on Ammo, Grenades, and Stims.",
+		"image_link": "https://helldivers.wiki.gg/images/Hellpod_Space_Optimization_Booster_Icon.svg?aa4762"
 	},
 	"2776452811": {
 		"name": "Muscle Enhancement",
-		"description": "Allows Helldivers to traverse difficult terrain with ease."
+		"description": "Allows Helldivers to traverse difficult terrain with ease.",
+		"image_link": "https://helldivers.wiki.gg/images/Muscle_Enhancement_Booster_Icon.svg?f1d14b"
 	},
 	"4066886572": {
 		"name": "Increased Reinforcement Budget",
-		"description": "Increases the number of available reinforcements."
+		"description": "Increases the number of available reinforcements.",
+		"image_link": "https://helldivers.wiki.gg/images/Increased_Reinforcement_Budget_Booster_Icon.svg?7f04a9"
 	},
 	"4136928865": {
 		"name": "UAV Recon Booster",
-		"description": "Increases all Helldivers' effective radar range."
+		"description": "Increases all Helldivers' effective radar range.",
+		"image_link": "https://helldivers.wiki.gg/images/UAV_Recon_Booster_Booster_Icon.svg?3e5a87"
 	},
 	"4273318008": {
 		"name": "Flexible Reinforcement Budget",
-		"description": "Reduces time until new reinforcements are granted once they've been depleted."
+		"description": "Reduces time until new reinforcements are granted once they've been depleted.",
+		"image_link": "https://helldivers.wiki.gg/images/Flexible_Reinforcement_Budget_Booster_Icon.svg?1d940b"
 	},
 	"3504405746": {
 		"name": "Expert Extraction Pilot",
-		"description": "Lowers the time it takes for the extraction shuttle to reach the extraction beacon."
+		"description": "Lowers the time it takes for the extraction shuttle to reach the extraction beacon.",
+		"image_link": "https://helldivers.wiki.gg/images/Expert_Extraction_Pilot_Booster_Icon.svg?e0a588"
 	},
 	"2709264466": {
 		"name": "Motivational Shocks",
-		"description": "Allows all Helldivers to recover faster after being slowed by an attack, such as acid. Does not mitigate 'area effects,' such as EMS Strikes."
+		"description": "Allows all Helldivers to recover faster after being slowed by an attack, such as acid. Does not mitigate 'area effects,' such as EMS Strikes.",
+		"image_link": "https://helldivers.wiki.gg/images/Motivational_Shocks_Booster_Icon.svg?b83499"
 	},
 	"3912131454": {
 		"name": "Experimental Infusion",
-		"description": "Temp Desc: Stims boost movement speed and reduced incoming damage for short period"
+		"description": "In addition to restoring health, stims temporarily increase movement speed and damage reduction.",
+		"image_link": "https://helldivers.wiki.gg/images/Experimental_Infusion_Booster_Icon.svg?3bb23a"
 	},
 	"3102833400": {
 		"name": "Firebomb Hellpods",
-		"description": "Lines all Hellpods with volatile incendiaries that detonate upon impact, igniting any units in vicinity of the drop site."
+		"description": "Lines all Hellpods with volatile incendiaries that detonate upon impact, igniting any units in vicinity of the drop site.",
+		"image_link": "https://helldivers.wiki.gg/images/Firebomb_Hellpods_Booster_Icon.svg?b0cb2a"
 	},
 	"2239116615": {
 		"name": "Dead Sprint",
-		"description": "Allows Helldivers to keep sprinting even when they are out of stamina, draining their health instead."
+		"description": "Allows Helldivers to keep sprinting even when they are out of stamina, draining their health instead.",
+		"image_link": "https://helldivers.wiki.gg/images/Dead_Sprint_Booster_Icon.svg?ad8a2b"
 	},
 	"908": {
 		"name": "Armed Resupply Pods",
-		"description": "Mounts a modified AR-23 Liberator to all resupply pods, allowing them to double as automatic turrets."
+		"description": "Mounts a modified AR-23 Liberator to all resupply pods, allowing them to double as automatic turrets.",
+		"image_link": "https://helldivers.wiki.gg/images/Armed_Resupply_Pods_Booster_Icon.svg"
 	},
 	"1112": {
 		"name": "Sample Extricator",
-		"description": "Large enemies now have a chance of dropping Samples on death. Capped at 10 drops per mission."
+		"description": "Large enemies now have a chance of dropping Samples on death. Capped at 10 drops per mission.",
+		"image_link": "https://helldivers.wiki.gg/images/Sample_Extricator_Booster_Icon.svg?13722c"
 	},
 	"1214": {
 		"name": "Sample Scanner",
-		"description": "Gives Helldivers a 15% chance to retrieve twice the samples on sample pickup."
+		"description": "Gives Helldivers a 15% chance to retrieve twice the samples on sample pickup.",
+		"image_link": "https://helldivers.wiki.gg/images/Sample_Scanner_Booster_Icon.svg?894450"
 	},
 	"1308": {
 		"name": "Stun Pods",
-		"description": "Exposes Hellpod wiring upon surface contact, stunning any units in the vicinity of the drop site."
+		"description": "Exposes Hellpod wiring upon surface contact, stunning any units in the vicinity of the drop site.",
+		"image_link": "https://helldivers.wiki.gg/images/thumb/Stun_Pods_Booster_Icon.png/138px-Stun_Pods_Booster_Icon.png?4d3461"
 	}
 }

@@ -2,6 +2,7 @@
 	"2811723672": {
 		"name": "P-2 Peacemaker",
 		"description": "The SEAF standard pistol - offering a high fire rate, generous capacity, and fast reloading.",
+		"image_link": "https://helldivers.wiki.gg/images/P-2_Peacemaker_Secondary_Render.png?b67dc2",
 		"damage": 85,
 		"capacity": 15,
 		"recoil": 23,
@@ -19,6 +20,7 @@
 	"3981773112": {
 		"name": "P-19 Redeemer",
 		"description": "A fully-automatic pistol with an extremely high fire rate, allowing for efficient crowd control.",
+		"image_link": "https://helldivers.wiki.gg/images/P-19_Redeemer_Secondary_Render.png?d28531",
 		"damage": 60,
 		"capacity": 31,
 		"recoil": 15,
@@ -37,6 +39,7 @@
 	"1374036584": {
 		"name": "P-4 Senator",
 		"description": "A high-damage revolver, which can be reloaded with single rounds. A heavy-hitting and reliable sidearm.",
+		"image_link": "https://helldivers.wiki.gg/images/P-4_Senator_Secondary_Render.png?136db0",
 		"damage": 200,
 		"capacity": 6,
 		"recoil": 43,
@@ -55,6 +58,7 @@
 	"2501707184": {
 		"name": "LAS-7 Dagger",
 		"description": "A laser pistol that fires a continuous beam. Does not require ammo but can overheat and need to change batteries.",
+		"image_link": "https://helldivers.wiki.gg/images/LAS-7_Dagger_Secondary_Render.png?a67fd9",
 		"damage": 250,
 		"capacity": 6.67,
 		"recoil": 0,
@@ -72,6 +76,7 @@
 	"2797735596": {
 		"name": "GP-31 Grenade Pistol",
 		"description": "A pistol that fires grenades. Must be reloaded between shots.",
+		"image_link": "https://helldivers.wiki.gg/images/GP-31_Grenade_Pistol_Secondary_Render.png?c711e1",
 		"damage": 650,
 		"capacity": 1,
 		"recoil": 43,
@@ -87,6 +92,7 @@
 	"1938200223": {
 		"name": "P-113 Verdict",
 		"description": "The gas-operated, semiautomatic P-113 chambers the 14mm 'Rapid Deliberation,' the largest centerfire cartridge of any magazine-fed pistol.",
+		"image_link": "https://helldivers.wiki.gg/images/P-113_Verdict_Secondary_Render.png?ebbbca",
 		"damage": 125,
 		"capacity": 10,
 		"recoil": 40,
@@ -104,6 +110,7 @@
 	"2264358800": {
 		"name": "SG-22 Bushwhacker",
 		"description": "A triple-barreled, break-action, sawed-off shotgun. Switch firing modes to fire all three barrels at once.",
+		"image_link": "https://helldivers.wiki.gg/images/SG-22_Bushwhacker_Secondary_Render.png?99969a",
 		"damage": 405,
 		"capacity": 3,
 		"recoil": 170,
@@ -122,6 +129,7 @@
 	"2340232366": {
 		"name": "P-72 Crisper",
 		"description": "A compact handgun-style flamethrower, able to project a jet of fire over short distances.",
+		"image_link": "https://helldivers.wiki.gg/images/P-72_Crisper_Secondary_Render.png?736c59",
 		"damage": 150,
 		"capacity": 30,
 		"recoil": 3,
@@ -138,6 +146,7 @@
 	"1084288106": {
 		"name": "P-11 Stim Pistol",
 		"description": "Fires a ballistic dart at near-supersonic speeds, allowing the user to stim allies from a distance. Might sting.",
+		"image_link": "https://helldivers.wiki.gg/images/P-11_Stim_Pistol_Secondary_Render.png?8cd908",
 		"damage": 0,
 		"capacity": 6,
 		"recoil": 23,
@@ -156,6 +165,7 @@
 	"1902682578": {
 		"name": "PLAS-15 Loyalist",
 		"description": "A plasma pistol that charges each shot until the trigger is released. Plasma projectiles explode on impact.",
+		"image_link": "https://helldivers.wiki.gg/images/PLAS-15_Loyalist_Secondary_Render.png?942cbc",
 		"damage": 375,
 		"capacity": 7,
 		"recoil": 8,
@@ -173,6 +183,7 @@
 	"905": {
 		"name": "CQC-19 Stun Lance",
 		"description": "A melee weapon tipped with electrified prongs that temporarily stun targets. Can be wielded one-handed.",
+		"image_link": "https://helldivers.wiki.gg/images/CQC-19_Stun_Lance_Secondary_Render.png?9a9709",
 		"damage": 110,
 		"capacity": 0,
 		"recoil": 8,
@@ -188,6 +199,7 @@
 	"1007": {
 		"name": "GP-31 Ultimatum",
 		"description": "A pistol front-loaded with a single, powerful explosive. The weight of the projectile limits the weapon's range.",
+		"image_link": "https://helldivers.wiki.gg/images/GP-20_Ultimatum_Secondary_Render.png?d8a892",
 		"damage": 3000,
 		"capacity": 1,
 		"recoil": 43,
@@ -203,6 +215,7 @@
 	"1110": {
 		"name": "LAS-58 Talon",
 		"description": "An accurate, hard-hitting laser revolver with bespoke break action for heat sink swaps.",
+		"image_link": "https://helldivers.wiki.gg/images/LAS-58_Talon_Secondary_Render.png?ba0c65",
 		"damage": 200,
 		"capacity": 7,
 		"recoil": 2,
@@ -221,6 +234,7 @@
 	"1207": {
 		"name": "CQC-2 Sabre",
 		"description": "A one-handed ceremonial sword suitable for use in parades, sabrage, and combat.",
+		"image_link": "https://helldivers.wiki.gg/images/CQC-2_Saber_Secondary_Render.png?b21f05",
 		"damage": 110,
 		"capacity": 0,
 		"recoil": 6,
@@ -236,6 +250,7 @@
 	"1516": {
 		"name": "M6C/SOCOM Pistol",
 		"description": "A pistol with a built-in laser sight, suppressor, and flashlight. Produced by Martian Armory.",
+		"image_link": "https://helldivers.wiki.gg/images/M6C_SOCOM_Pistol_Secondary_Render.png?288093",
 		"damage": 100,
 		"capacity": 12,
 		"recoil": 20,

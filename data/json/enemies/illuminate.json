@@ -23,7 +23,7 @@
     "Elevated Overseer": {
         "start": 3,
         "desc": "The Elevated Overseer is a flying infantry Illuminate equipped with a rapid firing energy weapon and grenades.",
-        "tactics": "These enemies can be tricky to hit, due to their speed and size.\nThe **ARC-12 Blitzer** and **ARC-3 Arc Thrower** are extremely good at stopping them from moving, if not outright killing them.\nThe **AX/AR-23 \"Guard Dog\"** can be quite useful to shield you from this airborne unit.\nThe **SG-20 Halt** can leave them stunned mid-air, allowing a Helldiver to one-shot them with the **P-4 Senator** or the **APW-1 Anti-Materiel Rifle** by shooting at their head.\nShooting their jetpacks will detonate it, killing the enemy.",
+        "tactics": "These enemies can be tricky to hit, due to their speed and size.\nThe **ARC-12 Blitzer** and **Arc-3 Arc Thrower** are extremely good at stopping them from moving, if not outright killing them.\nThe **AX/AR-23 \"Guard Dog\"** can be quite useful to shield you from this airborne unit.\nThe **SG-20 Halt** can leave them stunned mid-air, allowing a Helldiver to one-shot them with the **P-4 Senator** or the **APW-1 Anti-Materiel Rifle** by shooting at their head.\nShooting their jetpacks will detonate it, killing the enemy.",
         "weak spots": "Jetpack",
         "variations": null
     },

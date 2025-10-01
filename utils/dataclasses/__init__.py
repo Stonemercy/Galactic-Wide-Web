@@ -6,6 +6,7 @@ from .dss_images import DSSImages
 from .factions import Factions
 from .languages import Languages
 from .planet_features import PlanetFeatures
+from .randomiser_data import RandomiserData
 from .region_changes_json import RegionChangesJson
 from .specual_units import SpecialUnits
 from .warbond_images import WarbondImages
@@ -19,6 +20,7 @@ __all__ = [
     "Factions",
     "Languages",
     "PlanetFeatures",
+    "RandomiserData",
     "RegionChangesJson",
     "SpecialUnits",
     "WarbondImages",

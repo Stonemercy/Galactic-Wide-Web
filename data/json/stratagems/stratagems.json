@@ -3,7 +3,7 @@
         "MG-43 Machine Gun": {
             "id": 934703916,
             "description": "A machine gun designed for stationary use. Trades higher power for increased recoil and reduced accuracy.",
-            "description_long": "",
+            "image_link": "https://helldivers.wiki.gg/images/Machine_Gun_Stratagem_Icon.png?3dfe18",
             "button_combination": [
                 "down",
                 "left",
@@ -26,7 +26,7 @@
         "AC-8 Autocannon": {
             "id": 841182351,
             "description": "A fully-automatic cannon effective against light vehicle armor. Includes support backpack required for reloading.",
-            "description_long": "A fully automatic 20mm cannon fed from a hopper containing up to two clips of 5 shots each at a time. Extremely flexible battlefield role due to the amount of variable ammunition available. The standard round is an Armor Piercing High Explosive Tracer great against heavy infantry and light vehicles. But other ammunition offers everything from anti-air capabilities to anti-tank.",
+            "image_link": "https://helldivers.wiki.gg/images/Autocannon_Stratagem_Icon.png?fcd624",
             "button_combination": [
                 "down",
                 "left",
@@ -54,7 +54,7 @@
         "RS-422 Railgun": {
             "id": 295440526,
             "description": "An experimental weapon which prioritizes armor penetration. Must be charged between shots - so choose targets carefully.",
-            "description_long": "",
+            "image_link": "https://helldivers.wiki.gg/images/Railgun_Stratagem_Icon.png?91c54b",
             "button_combination": [
                 "down",
                 "right",
@@ -79,7 +79,7 @@
         "GR-8 Recoilless Rifle": {
             "id": 1594211884,
             "description": "A recoilless rifle effective against vehicle armor. Includes support backpack required for reloading.",
-            "description_long": "Used as the Super Earth Armed Forces standard answer to armored opposition, the recoilless rifle offers great anti armor capabilities in a very portable package. The weapon system requires support ammunition carried in a separate backpack and is best operated as a two man team with the loader carrying ammunition. The weapon can be reloaded by the weapon operator in a pinch should he have ammunition available.",
+            "image_link": "https://helldivers.wiki.gg/images/Recoilless_Rifle_Stratagem_Icon.png?44fee2",
             "button_combination": [
                 "down",
                 "left",
@@ -103,7 +103,7 @@
         "APW-1 Anti-Materiel Rifle": {
             "id": 376960160,
             "description": "A high-caliber sniper rifle effective over long distances against light vehicle armor. This rifle must be aimed downscope.",
-            "description_long": "A high caliber sniper rifle capable of killing most infantry and other light targets with a single well placed shot. Even capable of disabling lighter vehicles by shooting out the engine, tires, or tracks.",
+            "image_link": "https://helldivers.wiki.gg/images/Anti-Materiel_Rifle_Stratagem_Icon.png?fcf5b1",
             "button_combination": [
                 "down",
                 "left",
@@ -127,7 +127,7 @@
         "EAT-17 Expendable Anti-Tank": {
             "id": 1207425221,
             "description": "A single-use weapon specialized for damaging vehicle armor. Discarded after every use.",
-            "description_long": "The Expendable Anti-Tank is a one shot support weapon specialized at taking out armored targets. Though you can carry only one, they are cheap and easy to deploy and can serve as a great on demand anti-armor weapon should you encounter unexpected enemy armor.",
+            "image_link": "https://helldivers.wiki.gg/images/Expendable_Anti-Tank_Stratagem_Icon.png?2634c5",
             "button_combination": [
                 "down",
                 "down",
@@ -152,7 +152,7 @@
         "MLS-4X Commando": {
             "id": 3212037062,
             "description": "An expendable missile launcher equipped with four laser-guided missiles.",
-            "description_long": "",
+            "image_link": "https://helldivers.wiki.gg/images/thumb/Commando_Stratagem_Icon.png/300px-Commando_Stratagem_Icon.png?30c1d0",
             "button_combination": [
                 "down",
                 "left",
@@ -177,7 +177,7 @@
         "FLAM-40 Flamethrower": {
             "id": 1944161163,
             "description": "An incendiary weapon for close range. Will ignite targets, terrain, and any flammable teammates.",
-            "description_long": "",
+            "image_link": "https://helldivers.wiki.gg/images/Flamethrower_Stratagem_Icon.png?f36171",
             "button_combination": [
                 "down",
                 "left",
@@ -201,7 +201,7 @@
         "MG-206 Heavy Machine Gun": {
             "id": 4038802832,
             "description": "A very powerful but difficult-to-wield machine gun with intense recoil.",
-            "description_long": "",
+            "image_link": "https://helldivers.wiki.gg/images/Heavy_Machine_Gun_Stratagem_Icon.png?910281",
             "button_combination": [
                 "down",
                 "left",
@@ -225,7 +225,7 @@
         "M-105 Stalwart": {
             "id": 1978117092,
             "description": "A compact, low caliber machine gun. Trades power for ease of use, with faster reloading than heavier machine guns.",
-            "description_long": "",
+            "image_link": "https://helldivers.wiki.gg/images/Stalwart_Stratagem_Icon.png?b35d66",
             "button_combination": [
                 "down",
                 "left",
@@ -246,7 +246,7 @@
         "RL-77 Airburst Rocket Launcher": {
             "id": 3201417018,
             "description": "Fires a rocket that detonates within proximity of a target, and deploys a cluster of explosive bomblets.",
-            "description_long": "",
+            "image_link": "https://helldivers.wiki.gg/images/RL-77_Airburst_Rocket_Launcher_Stratagem_Icon.png?ccc753",
             "button_combination": [
                 "down",
                 "up",
@@ -271,7 +271,7 @@
         "FAF-14 Spear": {
             "id": 202236804,
             "description": "An anti-tank homing missile which must lock onto its target before launch. Effective against large and armored enemies.",
-            "description_long": "",
+            "image_link": "https://helldivers.wiki.gg/images/Spear_Stratagem_Icon.png?a47c14",
             "button_combination": [
                 "down",
                 "down",
@@ -295,7 +295,7 @@
         "StA-X3 W.A.S.P. Launcher": {
             "id": "UNKNOWN",
             "description": "A versatile missile launcher loaded with seven lock-on homing missiles. These can either be fired from the launcher directly or as an airburst. Includes support backpack required for reloading.\nProduced by St\u00e5l Arms.",
-            "description_long": "",
+            "image_link": "https://helldivers.wiki.gg/images/StA-X3_W.A.S.P._Launcher_Stratagem_Icon.png?c5c842",
             "button_combination": [
                 "down",
                 "down",
@@ -321,7 +321,7 @@
         "Orbital Gatling Barrage": {
             "id": 1078307866,
             "description": "A barrage of high explosive rounds, fired from the Destroyer's high speed rotary autocannons.",
-            "description_long": " The best minds of Super Earth have over the years realized that rotary weapon systems shoot, a lot. They have since conceived of an orbital version of the rotary weapons commonly mounted on Helldiver vehicles and Hellpod stratagems.",
+            "image_link": "https://helldivers.wiki.gg/images/Orbital_Gatling_Barrage_Stratagem_Icon.png?17a44b",
             "button_combination": [
                 "right",
                 "down",
@@ -344,7 +344,7 @@
         "Orbital Airburst Strike": {
             "id": 2831720448,
             "description": "A projectile which explodes while airborne, creating a deadly rain of shrapnel. Not effective against heavy armor.",
-            "description_long": "The AIRBURST STRIKE is a single larger specialized projectile fired from the Helldiver Destroyer's 408mm cannons. The shot is programmed to explode above the ground and separate into multiple flechettes, each with their own explosive warhead. Extremely effective against unarmored infantry, the fact that it's a single round allows for fairly frequent firing.",
+            "image_link": "https://helldivers.wiki.gg/images/Orbital_Airburst_Strike_Stratagem_Icon.png?d48d6a",
             "button_combination": [
                 "right",
                 "right",
@@ -366,7 +366,7 @@
         "Orbital 120mm HE Barrage": {
             "id": 2928105092,
             "description": "A precision artillery salvo over a small area, perfect for taking out concentrated enemy units.",
-            "description_long": " A precision artillery barrage fired from the 84mm Atlas Gatling cannon of a Helldiver Destroyer in low orbit. Handy for when you have to level smaller areas of the battlefield or take out enemy concentrations. The shells themselves are capable of destroying armored targets, but requires a direct hit to do any significant amount of damage making it unreliable as an anti-tank option.",
+            "image_link": "https://helldivers.wiki.gg/images/Orbital_120mm_HE_Barrage_Stratagem_Icon.png?e120a8",
             "button_combination": [
                 "right",
                 "right",
@@ -391,7 +391,7 @@
         "Orbital Napalm Barrage": {
             "id": 691091357,
             "description": "Launches a prolonged barrage of napalm shells over a wide area, setting a swath of land ablaze in mere moments.",
-            "description_long": "",
+            "image_link": "https://helldivers.wiki.gg/images/thumb/Orbital_Napalm_Barrage_Stratagem_Icon.png/300px-Orbital_Napalm_Barrage_Stratagem_Icon.png?e6fc05",
             "button_combination": [
                 "right",
                 "right",
@@ -417,7 +417,7 @@
         "Orbital 380mm HE Barrage": {
             "id": 4158531749,
             "description": "A prolonged barrage, wreaking extended destruction over a large area. Communication with teammates is advised.",
-            "description_long": " A blanket artillery barrage fired by the 408mm cannons of the Helldiver Destroyer in low orbit. The barrage carries on for a significant amount of time and will obliterate most things in the targeted area. Extreme caution is advised when using this stratagem near strategic objectives and friendly lines as it can wander slightly. ",
+            "image_link": "https://helldivers.wiki.gg/images/Orbital_380mm_HE_Barrage_Stratagem_Icon.png?7ed57e",
             "button_combination": [
                 "right",
                 "down",
@@ -442,7 +442,7 @@
         "Orbital Walking Barrage": {
             "id": 808823003,
             "description": "A linear artillery barrage which moves at intervals, driving the enemy out from cover while allowing an advance.",
-            "description_long": " A linear artillery barrage fired by the 408mm cannons of the Helldiver Destroyer in low orbit. The barrage continues down a line up to approximately 50 meters, obliterating most things in its way. Extreme caution is advised when using this stratagem in the way of strategic objectives and friendly lines.",
+            "image_link": "https://helldivers.wiki.gg/images/Orbital_Walking_Barrage_Stratagem_Icon.png?c596dd",
             "button_combination": [
                 "right",
                 "down",
@@ -466,7 +466,7 @@
         "Orbital Laser": {
             "id": 1520012896,
             "description": "The Destroyer's laser cannon will sweep over the designated area, vaporizing all targets within the effective radius.",
-            "description_long": " The O-X32 is an experimental anti ship laser used for pinpoint strikes against enemy weak points. The laser is so energy dense that it has no issue cutting through the atmosphere of most planets and has found great use as a support weapon against ground targets. The laser generates an extreme amount of heat and the process of cooling the heat exchangers down takes a substantial amount of time.",
+            "image_link": "https://helldivers.wiki.gg/images/Orbital_Laser_Stratagem_Icon.png?4dbbd2",
             "button_combination": [
                 "right",
                 "down",
@@ -490,7 +490,7 @@
         "Orbital Railcannon Strike": {
             "id": 201738752,
             "description": "A high-velocity railcannon round fired at the largest target in close proximity to the beacon. Targeting is automatic.",
-            "description_long": "",
+            "image_link": "https://helldivers.wiki.gg/images/Orbital_Railcannon_Strike_Stratagem_Icon.png?e99667",
             "button_combination": [
                 "right",
                 "up",
@@ -517,7 +517,7 @@
         "Lift-850 Jump Pack": {
             "id": "UNKNOWN",
             "description": "Enables the user to jump higher than 'gravity' and 'safety' would normally allow. Must be charged before use.",
-            "description_long": "",
+            "image_link": "https://helldivers.wiki.gg/images/Jump_Pack_Stratagem_Icon.png?b2b166",
             "button_combination": [
                 "down",
                 "up",
@@ -537,7 +537,7 @@
         "Eagle Strafing Run": {
             "id": 2025422424,
             "description": "A strafing run of the battlefield to clear small targets, delivered almost instantly.",
-            "description_long": " The F-89 EAGLE is a jet fighter capable of carrying large amounts of ordnance as well as both atmospheric and limited spaceflight. The F-89 comes equipped with a 23mm cannon that can be used for strafing runs against ground targets. \nOnce the Eagle is assigned to follow you into combat you can choose additional payloads for it to carry. The EAGLE is capable of delivering its ordnance with very low time intervals, but has limited carrying capacity and needs to be sent back to be rearmed should it run out. \nThe eagle is also susceptible to enemy anti-air weaponry and caution is advised when calling in strikes near enemy AA.",
+            "image_link": "https://helldivers.wiki.gg/images/Eagle_Strafing_Run_Stratagem_Icon.png?e6ad30",
             "button_combination": [
                 "up",
                 "right",
@@ -558,7 +558,7 @@
         "Eagle 500kg Bomb": {
             "id": 1982351727,
             "description": "A large bomb obliterating almost any target close to impact. Make sure to clear the area.",
-            "description_long": " The DMB-500 is a evolution on the classic bombs of human history. The approach of not having any guidance system in the bomb has allowed for packing it with unprecedented amounts of conventional explosives, making for a very large explosion and resulting crater. While the bomb is not specifically designed to take out armored targets, the explosion is massive enough that a close hit will kill almost anything, armored or not. The drawback is that the Eagle pilot has to take more care when delivering the payload to make sure that the target is hit, this increases the response time of the bomb in comparison to other Eagle payloads. ",
+            "image_link": "https://helldivers.wiki.gg/images/Eagle_500kg_Bomb_Stratagem_Icon.png?ff6faf",
             "button_combination": [
                 "up",
                 "right",
@@ -582,7 +582,7 @@
         "Eagle 110mm Rocket Pods": {
             "id": "UNKNOWN",
             "description": "A barrage of rocket pods, which the Eagle pilot will release on the largest target near the stratagem beacon.",
-            "description_long": " A pod of 110mm DRAGON rockets used to strike at armored targets. Your Eagle pilot will try to pick the best target available based on proximity to your beacon and armor level. The rockets have no guidance and will not always hit the target but this is usually compensated by firing a substantial amount of rockets. The amount of rockets means there might be significant collateral damage in proximity to the target.",
+            "image_link": "https://helldivers.wiki.gg/images/Eagle_110mm_Rocket_Pods_Stratagem_Icon.png?f9934d",
             "button_combination": [
                 "up",
                 "right",
@@ -605,7 +605,7 @@
         "Eagle Airstrike": {
             "id": 700547364,
             "description": "A barrage of bombs creating a non-targeted carpet of explosions.",
-            "description_long": " A rack of semi-guided 100-kg bombs, intended to be dropped on a area target in a high speed flyby. The bomb pattern produces a carpet of explosions killing most infantry, but has a harder time affecting armored targets unless they are directly hit by one of the bombs. A great option for creating pause in an enemy advance or taking out larger concentrations of infantry.",
+            "image_link": "https://helldivers.wiki.gg/images/Eagle_Airstrike_Stratagem_Icon.png?685944",
             "button_combination": [
                 "up",
                 "right",
@@ -627,7 +627,7 @@
         "Eagle Napalm Airstrike": {
             "id": 1427614189,
             "description": "A barrage of napalm bombs, creating a wall of fire which will stop the enemy in their tracks.",
-            "description_long": " The Napalm airstrike drops a row of bombs containing an extremely flammable liquid with a fairly long burn time, effectively creating a wall of fire. Great for stopping the enemy in their tracks as a universal rule for all life in the galaxy seems to be to avoid fire. The fire doesn't burn hot enough to do any significant damage to heavily armored targets.",
+            "image_link": "https://helldivers.wiki.gg/images/Eagle_Napalm_Airstrike_Stratagem_Icon.png?ab5aa8",
             "button_combination": [
                 "up",
                 "right",
@@ -649,7 +649,7 @@
         "Eagle Cluster Bomb": {
             "id": 1220665708,
             "description": "",
-            "description_long": "",
+            "image_link": "https://helldivers.wiki.gg/images/Eagle_Cluster_Bomb_Stratagem_Icon.png?4c4860",
             "button_combination": [
                 "up",
                 "right",
@@ -670,7 +670,7 @@
         "Eagle Smoke Strike": {
             "id": 1062482104,
             "description": "A barrage of smoke grenades, creating a thick smoke screen to block enemies' line of sight.",
-            "description_long": "",
+            "image_link": "https://helldivers.wiki.gg/images/Eagle_Smoke_Strike_Stratagem_Icon.png?1cd323",
             "button_combination": [
                 "up",
                 "right",
@@ -692,7 +692,7 @@
         "M-102 Fast Recon Vehicle": {
             "id": "UNKNOWN",
             "description": "A lightly-armored reconnaissance vehicle mounted with a heavy machinegun. ",
-            "description_long": "",
+            "image_link": "https://helldivers.wiki.gg/images/M-102_Fast_Recon_Vehicle_Stratagem_Icon.png?8b716f",
             "button_combination": [
                 "left",
                 "down",
@@ -716,7 +716,7 @@
         "E/GL-21 Grenadier Battlement": {
             "id": 1736727415,
             "description": "A stationary ballistic cover with a mounted grenade launcher. Can protect multiple Helldivers from small arms fire.",
-            "description_long": "",
+            "image_link": "https://helldivers.wiki.gg/images/GL-21_Grenadier_Battlement_Stratagem_Icon.png?2f3a2d",
             "button_combination": [
                 "down",
                 "right",
@@ -736,7 +736,7 @@
         "E/MG-101 HMG Emplacement": {
             "id": 3827587060,
             "description": "A manned gun emplacement offering superior firepower against lightly armored targets. Slow to turn, so place it wisely.",
-            "description_long": " The E/HMG-23 HEAVY MACHINEGUN is a turret requiring a crew of 1, armed with two highly destructive 12.5mm machineguns. The emplacement is extremely good at handling large amounts of medium armored enemies. Caution should be used when manning the E/HMG-23 as crew members are exposed to enemy fire while crewing the weapon.",
+            "image_link": "https://helldivers.wiki.gg/images/HMG_Emplacement_Stratagem_Icon.png?5f9e66",
             "button_combination": [
                 "down",
                 "up",
@@ -759,7 +759,7 @@
         "Orbital Precision Strike": {
             "id": 2391781446,
             "description": "A single precision shot from the Destroyer's 'ATLAS' cannon.",
-            "description_long": " Super Earth issued a contract for creation of a new main armament for the Super Destroyers of the HELLDIVERS. The contract was won by MORGUNSON who developed the LIBERTY CANNON able to deliver precise shots from relatively long distances delivering various kinds of ammunition.",
+            "image_link": "https://helldivers.wiki.gg/images/Orbital_Precision_Strike_Stratagem_Icon.png?561f51",
             "button_combination": [
                 "right",
                 "right",
@@ -781,7 +781,7 @@
         "Orbital Gas Strike": {
             "id": 1134323464,
             "description": "A projectile which releases a cloud of caustic gas, blinding and slowing most enemies.",
-            "description_long": "",
+            "image_link": "https://helldivers.wiki.gg/images/Orbital_Gas_Strike_Stratagem_Icon.png?5d9ba4",
             "button_combination": [
                 "right",
                 "right",
@@ -804,7 +804,7 @@
         "Orbital Smoke Strike": {
             "id": 1363304012,
             "description": "Creates a large, thick smoke screen to block targets' line of sight.",
-            "description_long": "",
+            "image_link": "https://helldivers.wiki.gg/images/Orbital_Smoke_Strike_Stratagem_Icon.png?a063f8",
             "button_combination": [
                 "right",
                 "right",
@@ -826,7 +826,7 @@
         "Orbital EMS Strike": {
             "id": 3551336597,
             "description": "A \"compliance weapon\" to modify enemy behavior. The projectile temporarily stuns all targets within the strike radius.",
-            "description_long": " The orbital stun is a special shot fired from the Helldiver Destroyers 408mm cannons containing multiple devices that with sound, light, and electromagnetic pulses disorient and disables a wide variety of targets temporarily. While the Helldivers are trained to withstand this effect it can still severely lower your combat efficiency should you be hit, though that is preferable to death.",
+            "image_link": "https://helldivers.wiki.gg/images/Orbital_EMS_Strike_Stratagem_Icon.png?77534f",
             "button_combination": [
                 "right",
                 "right",
@@ -850,7 +850,7 @@
         "B-1 Supply Pack": {
             "id": 336620886,
             "description": "Supply boxes containing ammunition, with a backpack that allows the user to distribute boxes to fellow Helldivers.",
-            "description_long": "",
+            "image_link": "https://helldivers.wiki.gg/images/Supply_Pack_Stratagem_Icon.png?90980d",
             "button_combination": [
                 "down",
                 "left",
@@ -871,7 +871,7 @@
         "SH-20 Ballistic Shield Backpack": {
             "id": 2369837022,
             "description": "A backpack which can be wielded as a one-handed ballistic shield, protecting against small arms fire.",
-            "description_long": "",
+            "image_link": "https://helldivers.wiki.gg/images/Ballistic_Shield_Backpack_Stratagem_Icon.png?ace094",
             "button_combination": [
                 "down",
                 "left",
@@ -892,7 +892,7 @@
         "SH-32 Shield Generator Pack": {
             "id": 485637029,
             "description": "A stationary energy shield which provides cover against projectiles. Has a limited lifetime once deployed.",
-            "description_long": "",
+            "image_link": "https://helldivers.wiki.gg/images/Shield_Generator_Pack_Stratagem_Icon.png?d35b0f",
             "button_combination": [
                 "down",
                 "down",
@@ -913,7 +913,7 @@
         "AX/LAS-5 \"Guard Dog\" Rover": {
             "id": 4277455125,
             "description": "An autonomous drone equipped with a laser rifle, providing 360\u00b0 cover. Returns to backpack to cool down.",
-            "description_long": "[TEXT NOT YET WRITTETN]",
+            "image_link": "https://helldivers.wiki.gg/images/Guard_Dog_Rover_Stratagem_Icon.png?7ad22e",
             "button_combination": [
                 "down",
                 "up",
@@ -936,7 +936,7 @@
         "MD-6 Anti-Personnel Minefield": {
             "id": 3039399791,
             "description": "Deploys a defensive anti-personnel minefield, to halt enemy advance.",
-            "description_long": "",
+            "image_link": "https://helldivers.wiki.gg/images/Anti-Personnel_Minefield_Stratagem_Icon.png?6887f0",
             "button_combination": [
                 "down",
                 "left",
@@ -955,7 +955,7 @@
         "MD-14 Incendiary Mines": {
             "id": "UNKNOWN",
             "description": "Deploys a defensive incendiary minefield, which will set both terrain and targets alight when triggered.",
-            "description_long": "",
+            "image_link": "https://helldivers.wiki.gg/images/Incendiary_Mines_Stratagem_Icon.png?b0bff9",
             "button_combination": [
                 "down",
                 "left",
@@ -974,7 +974,7 @@
         "MD-17 Anti-Tank Mines": {
             "id": 783152568,
             "description": "Scatters powerful anti-tank mines that deal heavy, armor-penetrating damage. Minefield is less densely packed relative to smaller mines.",
-            "description_long": "",
+            "image_link": "https://helldivers.wiki.gg/images/MD-17_Anti-Tank_Mines_Stratagem_Icon.png?589106",
             "button_combination": [
                 "down",
                 "left",
@@ -996,7 +996,7 @@
         "MD-8 Gas Mines": {
             "id": 3564779466,
             "description": "Deploys mines that release gas on activation, temporarily blinding and slowing most enemies.",
-            "description_long": "",
+            "image_link": "https://helldivers.wiki.gg/images/Gas_Minefield_Stratagem_Icon.png?3b8000",
             "button_combination": [
                 "down",
                 "left",
@@ -1015,7 +1015,7 @@
         "Arc-3 Arc Thrower": {
             "id": "UNKNOWN",
             "description": "Projects an arc of lightning at close range. Charges up to project bolts, and may discharge through multiple targets.",
-            "description_long": "",
+            "image_link": "https://helldivers.wiki.gg/images/Arc_Thrower_Stratagem_Icon.png?63ff8b",
             "button_combination": [
                 "down",
                 "right",
@@ -1041,7 +1041,7 @@
         "GL-21 Grenade Launcher": {
             "id": 1159284196,
             "description": "A grenade launcher effective against armored infantry. Not intended for use against vehicle armor or fortified buildings.",
-            "description_long": "A fully automatic grenade launcher capable of extreme Anti-Personnel destruction. The grenades have an arming time to prevent explosions that might occur close to the user, this will cause the grenades to ricochet so use caution when firing at close range.",
+            "image_link": "https://helldivers.wiki.gg/images/Grenade_Launcher_Stratagem_Icon.png?b2eee9",
             "button_combination": [
                 "down",
                 "left",
@@ -1064,7 +1064,7 @@
         "LAS-98 Laser Cannon": {
             "id": 961518079,
             "description": "A laser weapon firing a continuous beam. Doesn't require ammunition, but will need heat sink replaced if it overheats.",
-            "description_long": "",
+            "image_link": "https://helldivers.wiki.gg/images/Laser_Cannon_Stratagem_Icon.png?95398f",
             "button_combination": [
                 "down",
                 "left",
@@ -1090,7 +1090,7 @@
         "LAS-99 Quasar Cannon": {
             "id": 1597673685,
             "description": "Charges up to fire a powerful, explosive energy burst. Has a long cooldown period after firing.",
-            "description_long": "",
+            "image_link": "https://helldivers.wiki.gg/images/Quasar_Cannon_Stratagem_Icon.png?3e527d",
             "button_combination": [
                 "down",
                 "down",
@@ -1117,7 +1117,7 @@
         "AX/AR-23 \"Guard Dog\"": {
             "id": 3791047893,
             "description": "An autonomous drone equipped with a Liberator assault rifle, providing 360\u00b0 cover. Returns to backpack to rearm.",
-            "description_long": "",
+            "image_link": "https://helldivers.wiki.gg/images/Guard_Dog_Stratagem_Icon.png?61d1b4",
             "button_combination": [
                 "down",
                 "up",
@@ -1140,7 +1140,7 @@
         "EXO-45 Patriot Exosuit": {
             "id": 3857719901,
             "description": "A heavily-armored walking exosuit equipped with a rocket launcher and a heavy machine gun.",
-            "description_long": "",
+            "image_link": "https://helldivers.wiki.gg/images/EXO-45_Patriot_Exosuit_Stratagem_Icon.png?64a72f",
             "button_combination": [
                 "left",
                 "down",
@@ -1164,7 +1164,7 @@
         "A/MLS-4X Rocket Sentry": {
             "id": 3467463065,
             "description": "A powerful automated turret, effective against armored targets. The turret will primarily aim at larger enemies.",
-            "description_long": " The A/MLS-4X ROCKET SENTRY is a valuable tool for the Helldivers as it provides autonomous anti tank capability. The Turret fires salvos of rockets and tries to asses the damage before firing again to save ammunition. Take care not to stand behind the turret due to the exhaust produced when it fires.",
+            "image_link": "https://helldivers.wiki.gg/images/Rocket_Sentry_Stratagem_Icon.png?f65e40",
             "button_combination": [
                 "down",
                 "up",
@@ -1188,7 +1188,7 @@
         "A/MG-43 Machine Gun Sentry": {
             "id": 1228689284,
             "description": "An agile automated machine gun turret. Will fire at targets even if Helldivers will be caught in the crossfire.",
-            "description_long": "",
+            "image_link": "https://helldivers.wiki.gg/images/Machine_Gun_Sentry_Stratagem_Icon.png?3998e1",
             "button_combination": [
                 "down",
                 "up",
@@ -1211,7 +1211,7 @@
         "A/G-16 Gatling Sentry": {
             "id": 2446402932,
             "description": "An automated turret with an extremely high rate of fire. Caution: does not check if friendly units are in line of fire.",
-            "description_long": " The A/MG-11 GATLING SENTRY is a beloved staple of the Helldivers, capable of shredding light targets en masse. Like all automated sentries it can distinguish between friend and foe and will target only enemies, but it has no safety mechanism that will prevent it from firing if a friendly is in the way of its target. It is highly recommended to stay behind the turret, though that might be difficult as it has a 360 degree field of fire.",
+            "image_link": "https://helldivers.wiki.gg/images/Gatling_Sentry_Stratagem_Icon.png?b959a4",
             "button_combination": [
                 "down",
                 "up",
@@ -1232,7 +1232,7 @@
         "A/M-12 Mortar Sentry": {
             "id": 461790327,
             "description": "A turret firing powerful shells in a high arc. Effective at long ranges, and able to strike at targets behind cover.",
-            "description_long": " A continuation of the early A|GL-8 grenade launcher turret, this model packs a hefty punch and has variable fire distance. The turret fires in a high arch raining shots down from above, negating cover and other things in the way. The turret normally requires line of sight to its target to do the firing but this can be removed with some clever engineering.",
+            "image_link": "https://helldivers.wiki.gg/images/Mortar_Sentry_Stratagem_Icon.png?1252af",
             "button_combination": [
                 "down",
                 "up",
@@ -1256,7 +1256,7 @@
         "A/M-23 EMS Mortar Sentry": {
             "id": 3157053145,
             "description": "A turret firing static field generators that slow the advance of enemies.",
-            "description_long": "",
+            "image_link": "https://helldivers.wiki.gg/images/AM-23_EMS_Mortar_Sentry_Stratagem_Icon.png?f0de8a",
             "button_combination": [
                 "down",
                 "up",
@@ -1279,7 +1279,7 @@
         "A/AC-8 Autocannon Sentry": {
             "id": 2616066963,
             "description": "An automated cannon turret firing anti-tank ammunition over long ranges. Sacrifices agility for range and power.",
-            "description_long": "The A/AC-41 is a 40mm automatic cannon firing explosive anti-tank ammunition. The Turret is effective over long ranges and against armored targets, but has limitations when it comes to the turn speed as the servos required for the heavier than normal weight of the gun are slower. It is therefore recommended to place the turret a respectable distance from the enemy and in a position that has good fields of fire.",
+            "image_link": "https://helldivers.wiki.gg/images/Autocannon_Sentry_Stratagem_Icon.png?bae013",
             "button_combination": [
                 "down",
                 "up",
@@ -1304,7 +1304,7 @@
         "EXO-49 Emancipator Exosuit": {
             "id": 754365924,
             "description": "A heavily-armored walking exosuit equipped with dual autocannons.",
-            "description_long": "",
+            "image_link": "https://helldivers.wiki.gg/images/EXO-49_Emancipator_Exosuit_Stratagem_Icon.png?6f2e3c",
             "button_combination": [
                 "left",
                 "down",
@@ -1328,7 +1328,7 @@
         "SH-51 Directional Shield": {
             "id": 1382612374,
             "description": "A one-handed device that deploys a wide energy barrier in front of the user. The barrier is semipermeable and blocks high-speed projectiles from the outside only, leaving the user free to shoot through it.",
-            "description_long": "",
+            "image_link": "https://helldivers.wiki.gg/images/SH-51_Directional_Shield_Stratagem_Icon.png?4e63ec",
             "button_combination": [
                 "down",
                 "up",
@@ -1349,7 +1349,7 @@
         "AX/TX-13 \"Guard Dog\" Dog Breath": {
             "id": 3484474549,
             "description": "A drone that defends its user by firing caustic gas at nearby enemies, blinding and slowing them temporarily. Returns to backpack to refill.",
-            "description_long": "",
+            "image_link": "https://helldivers.wiki.gg/images/Guard_Dog_Dog_Breath_Stratagem_Icon.png?9e6385",
             "button_combination": [
                 "down",
                 "up",
@@ -1372,7 +1372,7 @@
         "B-100 Portable Hellbomb": {
             "id": "UNKNOWN",
             "description": "A backpack-mounted Hellbomb that can be armed by the wearer or an ally, starting a countdown. Users are recommended to remove the backpack before the countdown reaches zero.",
-            "description_long": "",
+            "image_link": "https://helldivers.wiki.gg/images/Portable_Hellbomb_Stratagem_Icon.png?2242ef",
             "button_combination": [
                 "down",
                 "right",
@@ -1392,7 +1392,7 @@
         "LIFT-182 Warp Pack": {
             "id": 3123380863,
             "description": "A Dark Fluid-powered backpack that generates a portable micro-wormhole. This safe and well-understood technology allows the wearer to warp short distances. Warning: do not use while pack is overloaded.",
-            "description_long": "",
+            "image_link": "https://helldivers.wiki.gg/images/LIFT-182_Warp_Pack_Stratagem_Icon.png?ea0112",
             "button_combination": [
                 "down",
                 "left",
@@ -1413,7 +1413,7 @@
         "AX/ARC-3 \"Guard Dog\" K-9": {
             "id": "UNKNOWN",
             "description": "A humane, autonomous drone equipped with a modified Arc Thrower. Capable of projecting arcs of lightning through multiple targets. Does not need to recharge between shots.",
-            "description_long": "",
+            "image_link": "https://helldivers.wiki.gg/images/AX_ARC-3_%22Guard_Dog%22_K-9_Stratagem_Icon.png?8ac008",
             "button_combination": [
                 "down",
                 "up",
@@ -1436,7 +1436,7 @@
         "E/AT-12 Anti-Tank Emplacement": {
             "id": 3106925116,
             "description": "A powerful manned gun emplacement, capable of taking out armored targets at long ranges.",
-            "description_long": "",
+            "image_link": "https://helldivers.wiki.gg/images/E_AT-12_Anti-Tank_Emplacement_Stratagem_Icon.png?a4b2b7",
             "button_combination": [
                 "down",
                 "up",
@@ -1459,7 +1459,7 @@
         "TX-41 Sterelizer": {
             "id": "UNKNOWN",
             "description": "Atomizes caustic chemicals into a fine mist that liquifies sensitive electronics and tissues. Blinds and slows most enemies.",
-            "description_long": "",
+            "image_link": "https://helldivers.wiki.gg/images/Sterilizer_Stratagem_Icon.png?5f6a3c",
             "button_combination": [
                 "down",
                 "left",
@@ -1483,7 +1483,7 @@
         "GL-52 De-Escalator": {
             "id": 3560739565,
             "description": "A humane grenade launcher firing high-powered arc grenades.",
-            "description_long": "",
+            "image_link": "https://helldivers.wiki.gg/images/GL-52_De-Escalator_Stratagem_Icon.png?2fe4cc",
             "button_combination": [
                 "down",
                 "right",
@@ -1506,7 +1506,7 @@
         "S-11 Speargun": {
             "id": "UNKNOWN",
             "description": "A speargun firing heavy-duty projectiles. These projectiles release a cloud of gas on impact, and must be carefully loaded one at a time.",
-            "description_long": "",
+            "image_link": "https://helldivers.wiki.gg/images/S-11_Speargun_Stratagem_Icon.png?57a8ba",
             "button_combination": [
                 "down",
                 "right",
@@ -1531,7 +1531,7 @@
         "EAT-700 Expendable Napalm": {
             "id": "UNKNOWN",
             "description": "A single-use weapon that fires a missile containing napalm cluster bombs that release upon impact.",
-            "description_long": "",
+            "image_link": "https://helldivers.wiki.gg/images/EAT-700_Expendable_Napalm_Stratagem_Icon.png?81854c",
             "button_combination": [
                 "down",
                 "down",
@@ -1556,7 +1556,7 @@
         "MS-11 Solo Silo": {
             "id": "UNKNOWN",
             "description": "A silo that fits one single, powerful missile. Comes with a handheld targeting remote.",
-            "description_long": "",
+            "image_link": "https://helldivers.wiki.gg/images/MS-11_Stratagem_Icon.png?944c5f",
             "button_combination": [
                 "down",
                 "up",
@@ -1579,7 +1579,7 @@
         "CQC-1 One True Flag": {
             "id": 1326547218,
             "description": "The eternal colors of Super Earth can never be tainted. Only quenched, by the blood of its enemies.",
-            "description_long": "",
+            "image_link": "https://helldivers.wiki.gg/images/CQC-1_One_True_Flag_Stratagem_Icon.png?3cf8b5",
             "button_combination": [
                 "down",
                 "left",
@@ -1602,7 +1602,7 @@
         "PLAS-45 Epoch": {
             "id": 2961443701,
             "description": "A powerful plasma weapon that fires one blast at a time, each blast exploding on impact. Must be charged to fire. Warning: do not overcharge.",
-            "description_long": "",
+            "image_link": "https://helldivers.wiki.gg/images/PLAS-45_Epoch_Stratagem_Icon.png?691ee9",
             "button_combination": [
                 "down",
                 "left",
@@ -1627,7 +1627,7 @@
         "A/FLAM-40 Flame Sentry": {
             "id": 669794144,
             "description": "An automated flamethrower turret. Warning: fuel canister prone to explosion when ruptured.",
-            "description_long": "",
+            "image_link": "https://helldivers.wiki.gg/images/A_FLAM-40_Flame_Sentry_Stratagem_Icon.png?57c6a5",
             "button_combination": [
                 "down",
                 "up",
@@ -1652,7 +1652,7 @@
         "A/LAS-98 Laser Sentry": {
             "id": 914471076,
             "description": "A turret firing powerful and precise laser beams. Warning: overloading heat sink may cause adverse effects.",
-            "description_long": "",
+            "image_link": "https://helldivers.wiki.gg/images/A_LAS-98_Laser_Sentry_Stratagem_Icon.png?ff8aaa",
             "button_combination": [
                 "down",
                 "up",
@@ -1679,7 +1679,7 @@
         "Resupply": {
             "id": "UNKNOWN",
             "description": "A Hellpod containing four supply packs, to replenish personal ammunition and stims in the field.",
-            "description_long": "",
+            "image_link": "",
             "button_combination": [
                 "down",
                 "down",
@@ -1698,7 +1698,7 @@
         "Eagle Rearm": {
             "id": "UNKNOWN",
             "description": "Order the Eagle Fighter to return to the ship, where it can restock its armaments.",
-            "description_long": "",
+            "image_link": "",
             "button_combination": [
                 "up",
                 "up",
@@ -1718,7 +1718,7 @@
         "SoS Beacon": {
             "id": "UNKNOWN",
             "description": "",
-            "description_long": "",
+            "image_link": "",
             "button_combination": [
                 "left",
                 "up",
@@ -1739,7 +1739,7 @@
         "Reinforce": {
             "id": "UNKNOWN",
             "description": "A replacement for a fallen comrade.",
-            "description_long": "",
+            "image_link": "",
             "button_combination": [
                 "up",
                 "down",
@@ -1761,7 +1761,7 @@
         "SSSD Delivery": {
             "id": "UNKNOWN",
             "description": "A Hellpod containing a Super Solid State Drive, the peak of secure data storage. Used by Helldivers for everything from transfer of patriotic data to the sabotage of enemy mainframes.",
-            "description_long": "",
+            "image_link": "",
             "button_combination": [
                 "down",
                 "down",
@@ -1781,7 +1781,7 @@
         "Hellbomb": {
             "id": "UNKNOWN",
             "description": "The Hellbomb is a tactical nuke powerful enough to destroy any perceivable target in its blast zone. For safety and budgetary reasons, it has to be armed manually once deployed.",
-            "description_long": "",
+            "image_link": "",
             "button_combination": [
                 "down",
                 "up",
@@ -1804,7 +1804,7 @@
         "Super Earth Flag": {
             "id": "UNKNOWN",
             "description": "The main ingredient in Super Earth liberation.",
-            "description_long": "",
+            "image_link": "",
             "button_combination": [
                 "down",
                 "up",
@@ -1823,7 +1823,7 @@
         "Prospecting Drill": {
             "id": "UNKNOWN",
             "description": "An advanced, mostly self-operating prospecting drill fitted into a Hellpod. Handles soil sample extraction, analysis and data upload with minimal necessary input from an operator.",
-            "description_long": "",
+            "image_link": "",
             "button_combination": [
                 "down",
                 "down",
@@ -1844,7 +1844,7 @@
         "Seismic Probe": {
             "id": "UNKNOWN",
             "description": "A Seismic Probe fitted into a Hellpod. Is preprogrammed so that only the simplest calibration and execution secuence is needed once deployed to the surface.",
-            "description_long": "",
+            "image_link": "",
             "button_combination": [
                 "up",
                 "up",
@@ -1865,7 +1865,7 @@
         "Orbital Illumination Flare": {
             "id": "UNKNOWN",
             "description": "A flare that illuminates the battlefield.",
-            "description_long": "An illumination flare is fired from your ship in orbit to light up the battlefield. It will start burning and give roughly 100 seconds of magnesium fueled light. Highly recommended on night missions.",
+            "image_link": "",
             "button_combination": [
                 "right",
                 "right",
@@ -1884,7 +1884,7 @@
         "Upload Data": {
             "id": "UNKNOWN",
             "description": "",
-            "description_long": "",
+            "image_link": "",
             "button_combination": [
                 "left",
                 "right",
@@ -1904,7 +1904,7 @@
         "SEAF Artillery": {
             "id": "UNKNOWN",
             "description": "",
-            "description_long": "",
+            "image_link": "",
             "button_combination": [
                 "right",
                 "up",
