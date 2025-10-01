@@ -13,7 +13,11 @@ class HelpContainer(ui.Container, ReprMixin):
     ):
         components = []
         if commands:
-            for global_command in sorted(commands, key=lambda cmd: cmd.name):
+            for global_command in sorted(
+                (cmd for cmd in commands if cmd.name not in ("global_event", "gwe")),
+                key=lambda cmd: cmd.name,
+            ):
+
                 options = "*Options:*\n" if global_command.options != [] else ""
                 for option in global_command.options:
                     if option.type == OptionType.sub_command:
