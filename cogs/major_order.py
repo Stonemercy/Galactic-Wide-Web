@@ -219,7 +219,7 @@ class MajorOrderCog(commands.Cog):
         else:
             guild = GWWGuild.default()
         guild_language = self.bot.json_dict["languages"][guild.language]
-        if self.bot.data.assignments:
+        if self.bot.data.assignments["en"]:
             embeds = []
             for assignment in self.bot.data.assignments[guild.language]:
                 embed = Dashboard.MajorOrderEmbed(
