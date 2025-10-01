@@ -56,7 +56,7 @@ class DataManagementCog(commands.Cog):
         await self.bot.wait_until_ready()
 
     @tasks.loop(
-        time=[time(hour=j, minute=i, second=0) for j in range(24) for i in range(59)]
+        time=[time(hour=j, minute=i, second=45) for j in range(24) for i in range(59)]
     )
     async def pull_from_api(self):
         if self.bot.data.fetching:
