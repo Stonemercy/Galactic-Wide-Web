@@ -147,10 +147,8 @@ class RandomiserCog(commands.Cog):
                     ]
                 )
             if stratagem[0] in BACKPACKS:
-                print(stratagem[0], "is a backpack")
                 backpack_strat = True
             if stratagem[0] in SUPPORT_WEAPONS:
-                print(stratagem[0], "is a support weapon")
                 support_weapon_strat = True
             stratagems_list.append(stratagem)
         primary_weapon = choice(
@@ -241,10 +239,8 @@ class RandomiserCog(commands.Cog):
                     ]
                 )
             if stratagem[0] in BACKPACKS:
-                print(stratagem[0], "is a backpack")
                 backpack_strat = True
             if stratagem[0] in SUPPORT_WEAPONS:
-                print(stratagem[0], "is a support weapon")
                 support_weapon_strat = True
             stratagems_list.append(stratagem)
         primary_weapon = choice(
