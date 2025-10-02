@@ -8,6 +8,7 @@ from .guild import GuildContainer
 from .galactic_war_effect import GWEContainer
 from .help import HelpContainer
 from .planet import PlanetContainers
+from .randomiser import RandomiserContainer
 from .region_changes import RegionChangesContainer
 from .setup import SetupContainer
 
@@ -22,6 +23,7 @@ __all__ = [
     "GWEContainer",
     "HelpContainer",
     "PlanetContainers",
+    "RandomiserContainer",
     "RegionChangesContainer",
     "SetupContainer",
 ]
