@@ -660,8 +660,7 @@ class AdminCommandsCog(commands.Cog):
                 ) or await self.bot.fetch_guild(gww_guild.guild_id)
                 if (
                     len(discord_guild.channels) == 3
-                    and discord_guild.approximate_member_count
-                    and discord_guild.approximate_member_count < 100
+                    and discord_guild.member_count < 100
                 ):
                     possible_fake_guilds.append(discord_guild)
         await inter.send(f"Possible fake guilds: {len(possible_fake_guilds)}")
