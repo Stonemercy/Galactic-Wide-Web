@@ -44,6 +44,7 @@ class ErrorHandlerCog(commands.Cog):
                 await inter.send(
                     content="There was an unexpected error. Please try again.",
                     ephemeral=True,
+                    delete_after=30,
                 )
                 await self.bot.moderator_channel.send(
                     content=f"{self.bot.owner.mention}```py\n{''.join(format_exception(type(error), value=error, tb=error.__traceback__))[-1900:]}\n```"
