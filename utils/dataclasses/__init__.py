@@ -25,6 +25,3 @@ __all__ = [
     "SpecialUnits",
     "WarbondImages",
 ]
-
-__version__ = "1.0.0"
-__author__ = "Stonemercy"
