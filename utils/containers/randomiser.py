@@ -6,7 +6,7 @@ from utils.mixins import ReprMixin
 
 
 class RandomiserContainer(ui.Container, ReprMixin):
-    def __init__(self, randomiser_data: RandomiserData):
+    def __init__(self, randomiser_data: RandomiserData, limited: bool):
         """List-like class that organises the data provided into embeds"""
         self.randomiser_data = randomiser_data
         self.components = []
@@ -20,7 +20,7 @@ class RandomiserContainer(ui.Container, ReprMixin):
                 ui.Button(
                     style=ButtonStyle.danger,
                     label="Re-roll",
-                    custom_id="re_roll_randomiser",
+                    custom_id=f"re_roll_randomiser{'_limited' if limited else ''}",
                 )
             )
         )

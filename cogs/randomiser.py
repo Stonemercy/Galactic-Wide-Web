@@ -96,12 +96,18 @@ class RandomiserCog(commands.Cog):
     async def randomiser(
         self,
         inter: AppCmdInter,
+        allow_silly_builds: str = commands.Param(
+            choices=["Yes", "No"],
+            default="No",
+            description="Allows builds that have 0 or multiple support weapons and/or backpacks",
+        ),
         public: str = commands.Param(
             choices=["Yes", "No"],
             default="No",
             description="Do you want other people to see the response to this command?",
         ),
     ):
+        allow_silly_builds = allow_silly_builds != "Yes"
         try:
             await inter.response.defer(ephemeral=public != "Yes")
         except (NotFound, InteractionTimedOut):
@@ -136,8 +142,16 @@ class RandomiserCog(commands.Cog):
             while (
                 (stratagem[0] in STRATAGEMS_TO_IGNORE)
                 or (stratagem in stratagems_list)
-                or (stratagem[0] in BACKPACKS and backpack_strat)
-                or (stratagem[0] in SUPPORT_WEAPONS and support_weapon_strat)
+                or (
+                    stratagem[0] in BACKPACKS
+                    and backpack_strat
+                    and not allow_silly_builds
+                )
+                or (
+                    stratagem[0] in SUPPORT_WEAPONS
+                    and support_weapon_strat
+                    and not allow_silly_builds
+                )
             ):
                 stratagem = choice(
                     [
@@ -183,7 +197,9 @@ class RandomiserCog(commands.Cog):
             where_to_spawn=where_to_spawn,
             json_dict=self.bot.json_dict,
         )
-        component = RandomiserContainer(randomiser_data=randomiser_data)
+        component = RandomiserContainer(
+            randomiser_data=randomiser_data, limited=allow_silly_builds
+        )
         await inter.send(
             components=component,
             ephemeral=public != "Yes",
@@ -204,7 +220,10 @@ class RandomiserCog(commands.Cog):
 
     @commands.Cog.listener("on_button_click")
     async def re_roll_listener(self, inter: MessageInteraction):
-        if inter.component.custom_id != "re_roll_randomiser":
+        if (
+            "re_roll_randomiser" not in inter.component.custom_id
+            or inter.author != inter.message.interaction_metadata.user
+        ):
             return
         try:
             await inter.response.defer()
@@ -214,6 +233,7 @@ class RandomiserCog(commands.Cog):
                 delete_after=5,
             )
             return
+        limited = True if "_limited" in inter.component.custom_id else False
         stratagems_list = []
         backpack_strat = False
         support_weapon_strat = False
@@ -228,8 +248,10 @@ class RandomiserCog(commands.Cog):
             while (
                 (stratagem[0] in STRATAGEMS_TO_IGNORE)
                 or (stratagem in stratagems_list)
-                or (stratagem[0] in BACKPACKS and backpack_strat)
-                or (stratagem[0] in SUPPORT_WEAPONS and support_weapon_strat)
+                or (stratagem[0] in BACKPACKS and backpack_strat and limited)
+                or (
+                    stratagem[0] in SUPPORT_WEAPONS and support_weapon_strat and limited
+                )
             ):
                 stratagem = choice(
                     [
@@ -275,7 +297,9 @@ class RandomiserCog(commands.Cog):
             where_to_spawn=where_to_spawn,
             json_dict=self.bot.json_dict,
         )
-        component = RandomiserContainer(randomiser_data=randomiser_data)
+        component = RandomiserContainer(
+            randomiser_data=randomiser_data, limited=limited
+        )
         await inter.edit_original_response(
             components=component,
         )
