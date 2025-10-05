@@ -2,6 +2,7 @@ from data.lists import (
     ATTACK_EMBED_ICONS,
     DEFENCE_EMBED_ICONS,
     VICTORY_ICONS,
+    LOSS_ICONS,
     CUSTOM_COLOURS,
 )
 from disnake import Colour, ui
