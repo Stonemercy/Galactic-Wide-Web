@@ -3,7 +3,7 @@ from disnake import Activity, ActivityType
 from disnake.ext import commands, tasks
 from main import GalacticWideWebBot
 from utils.containers import APIChangesContainer
-from utils.dataclasses.api_changes import APIChangesV2
+from utils.dataclasses import APIChanges
 
 
 PLANET_STATS_TO_CHECK = {
@@ -92,29 +92,33 @@ class DataManagementCog(commands.Cog):
         time=[time(hour=j, minute=i, second=15) for j in range(24) for i in range(59)]
     )
     async def check_changes(self):
-        total_changes: list[APIChangesV2] = []
+        total_changes: list[APIChanges] = []
         if self.bot.previous_data:
             if (
                 self.bot.previous_data.global_resources
                 != self.bot.data.global_resources
             ):
-                APIChangesV2(
-                    old_object=self.bot.previous_data.global_resources,
-                    new_object=self.bot.data.global_resources,
-                    property="",
-                    stat_name="",
-                    stat_source="Global Resources",
+                total_changes.append(
+                    APIChanges(
+                        old_object=self.bot.previous_data.global_resources,
+                        new_object=self.bot.data.global_resources,
+                        property="",
+                        stat_name="",
+                        stat_source="Global Resources",
+                    )
                 )
             if (
                 self.bot.previous_data.galactic_war_effects
                 != self.bot.data.galactic_war_effects
             ):
-                APIChangesV2(
-                    old_object=self.bot.previous_data.galactic_war_effects,
-                    new_object=self.bot.data.galactic_war_effects,
-                    property="",
-                    stat_name="",
-                    stat_source="Galactic War Effects",
+                total_changes.append(
+                    APIChanges(
+                        old_object=self.bot.previous_data.galactic_war_effects,
+                        new_object=self.bot.data.galactic_war_effects,
+                        property="",
+                        stat_name="",
+                        stat_source="Galactic War Effects",
+                    )
                 )
             for old_planet, new_planet in zip(
                 self.bot.previous_data.planets.values(), self.bot.data.planets.values()
@@ -124,7 +128,7 @@ class DataManagementCog(commands.Cog):
                     new_attr = getattr(new_planet, property)
                     if new_attr != old_attr:
                         total_changes.append(
-                            APIChangesV2(
+                            APIChanges(
                                 old_object=old_planet,
                                 new_object=new_planet,
                                 property=property,
@@ -141,7 +145,7 @@ class DataManagementCog(commands.Cog):
                                 old_region, property
                             ):
                                 total_changes.append(
-                                    APIChangesV2(
+                                    APIChanges(
                                         old_object=old_region,
                                         new_object=new_region,
                                         property=property,

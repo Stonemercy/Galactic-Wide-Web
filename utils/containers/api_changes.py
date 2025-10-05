@@ -1,6 +1,5 @@
 from disnake import ui
-from utils.data import Planet
-from utils.dataclasses.api_changes import APIChangesV2
+from utils.dataclasses import APIChanges
 from utils.emojis import Emojis
 from utils.interactables import HDCButton
 from utils.mixins import ReprMixin
@@ -8,7 +7,7 @@ from utils.mixins import ReprMixin
 
 # DOESNT NEED LOCALIZATION
 class APIChangesContainer(ui.Container, ReprMixin):
-    def __init__(self, api_changes: list[APIChangesV2]) -> None:
+    def __init__(self, api_changes: list[APIChanges]) -> None:
         self.container_components: list = []
 
         for api_change in api_changes:
@@ -26,18 +25,23 @@ class APIChangesContainer(ui.Container, ReprMixin):
                         )
                     )
                 case "Galactic War Effects":
+                    content = ""
                     if effects_removed := [
-                        gwe for gwe in old_stat if gwe not in new_stat
+                        gwe
+                        for gwe in api_change.old_object
+                        if gwe not in api_change.new_object
                     ]:
-                        content = "### Galactic Effect Removed ❌"
-                        for wp in waypoints_removed:
-                            content += f"\n -# - **{wp.pretty_print()}**"
+                        content += "\n### Galactic Effects Removed ❌"
+                        for gwe in effects_removed:
+                            content += f"\n {gwe.pretty_print()}"
                     if effects_added := [
-                        gwe for gwe in new_stat if gwe not in old_stat
+                        gwe
+                        for gwe in api_change.new_object
+                        if gwe not in api_change.old_object
                     ]:
-                        content = "### Galactic Effect Added :white_check_mark:"
-                        for wp in waypoints_added:
-                            content += f"\n -# - **{wp.pretty_print()}**"
+                        content += "\n### Galactic Effects Added :white_check_mark:"
+                        for gwe in effects_added:
+                            content += f"\n {gwe.pretty_print()}"
                     if effects_removed or effects_added:
                         self.container_components.append(ui.TextDisplay(content))
                 case "Planet":

@@ -4,14 +4,6 @@ from typing import Any
 
 @dataclass
 class APIChanges:
-    planet: Any
-    statistic: str
-    before: int | list | Any
-    after: int | list | Any
-
-
-@dataclass
-class APIChangesV2:
     old_object: Any
     new_object: Any
     property: str
