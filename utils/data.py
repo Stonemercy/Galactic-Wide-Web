@@ -236,7 +236,7 @@ class Data(ReprMixin):
         self.format_data()
         self.update_liberation_rates()
         self.update_region_changes()
-        if self.assignments:
+        if self.assignments["en"]:
             self.update_major_order_rates()
         if self.dss:
             self.update_tactical_action_rates()
