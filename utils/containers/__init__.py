@@ -11,6 +11,7 @@ from .planet import PlanetContainers
 from .randomiser import RandomiserContainer
 from .region_changes import RegionChangesContainer
 from .setup import SetupContainer
+from .usage_report import UsageContainer
 
 __all__ = [
     "APIChangesContainer",
@@ -26,4 +27,5 @@ __all__ = [
     "RandomiserContainer",
     "RegionChangesContainer",
     "SetupContainer",
+    "UsageContainer",
 ]
