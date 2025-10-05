@@ -59,7 +59,9 @@ class DataManagementCog(commands.Cog):
         time=[time(hour=j, minute=i, second=45) for j in range(24) for i in range(59)]
     )
     async def pull_from_api(self):
+        print("pull_from_api loop starting")
         if self.bot.data.fetching:
+            print("bot is already fetching, returning")
             return
         if self.bot.data.loaded:
             first_load = False
@@ -82,6 +84,7 @@ class DataManagementCog(commands.Cog):
 
     @pull_from_api.before_loop
     async def before_pull_from_api(self):
+        print("pull_from_loop about to start")
         await self.bot.wait_until_ready()
 
     @tasks.loop(
