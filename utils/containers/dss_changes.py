@@ -3,11 +3,18 @@ from disnake import Colour, ui
 from utils.dataclasses import DSSChangesJson, DSSImages, SpecialUnits, PlanetFeatures
 from utils.data import DSS, GalacticWarEffect, Planet
 from utils.emojis import Emojis
+from utils.functions import short_format
 from utils.interactables import HDCButton
 from utils.mixins import ReprMixin
 
 
 STATUSES = {0: "inactive", 1: "preparing", 2: "active", 3: "on_cooldown"}
+
+AMOUNT_PER_COST = {
+    "Requisition Slip": 50_000,
+    "Common Sample": 75,
+    "Rare Sample": 50,
+}
 
 
 class DSSChangesContainer(ui.Container, ReprMixin):
@@ -117,12 +124,15 @@ class DSSChangesContainer(ui.Container, ReprMixin):
             ),
         )
         if tactical_action.status == 1:
-            pass
-            # section.children[0].content += f"\n" ADD REQUIREMENTS ONCE CONFIRMED
+            for cost in tactical_action.cost:
+                section.children[
+                    0
+                ].content += f"\n-# Requires **{short_format(cost.target * AMOUNT_PER_COST[cost.item])}** {cost.item} to activate"
         elif tactical_action.status == 2:
-            section.children[
-                0
-            ].content += f"\n{self.json.container['tactical_actions'][tactical_action.name]['description']}"
+            section.children[0].content += (
+                f"\n{self.json.container['tactical_actions'][tactical_action.name]['description']}"
+                + f"\nExpires <t:{int(tactical_action.status_end_datetime.timestamp())}:R>"
+            )
         elif tactical_action.status == 3:
             section.children[
                 0
