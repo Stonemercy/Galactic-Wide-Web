@@ -18,7 +18,7 @@ class GalacticWideWebBot(commands.AutoShardedInteractionBot):
             intents=Intents.default(),
             activity=Activity(name="for dissidents", type=ActivityType.watching),
         )
-        self.MODE = GWWBotModes.DEBUG
+        self.MODE = GWWBotModes.LIVE
         self.config = Config
         self.logger = GWWLogger()
         self.startup_time = datetime.now()
@@ -79,8 +79,4 @@ class GalacticWideWebBot(commands.AutoShardedInteractionBot):
             if self.MODE != GWWBotModes.DEBUG
             else self.config.BETA_BOT_TOKEN
         )
-        if token_to_use != self.config.BETA_BOT_TOKEN:
-            print("Bot not in debug mode")
-            return
-        else:
-            self.run(token_to_use)
+        self.run(token_to_use)
