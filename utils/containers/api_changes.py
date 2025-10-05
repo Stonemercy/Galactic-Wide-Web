@@ -12,7 +12,7 @@ class APIChangesContainer(ui.Container, ReprMixin):
 
         for api_change in api_changes:
             if api_change.stat_source not in [
-                "Global Resource",
+                "Global Resources",
                 "Galactic War Effects",
             ]:
                 old_stat = getattr(api_change.old_object, api_change.property)
@@ -21,7 +21,7 @@ class APIChangesContainer(ui.Container, ReprMixin):
                 case "Global Resources":
                     self.container_components.append(
                         ui.TextDisplay(
-                            f"## CHANGES TO GLOBAL RESOURCES\nBefore:\n{api_change.old_object}\n\nAfter:\n{api_change.new_object}"
+                            f"## CHANGES TO GLOBAL RESOURCES\nBefore:\n```py\n{api_change.old_object}```\n\nAfter:\n```py\n{api_change.new_object}```"
                         )
                     )
                 case "Galactic War Effects":

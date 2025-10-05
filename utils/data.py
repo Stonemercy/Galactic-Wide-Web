@@ -986,6 +986,8 @@ class GlobalEvent(ReprMixin):
 
 
 class GlobalResource(ReprMixin):
+    __slots__ = ("id", "current_value", "max_value", "perc")
+
     def __init__(self, raw_global_resource_data: dict) -> None:
         """Organised data of a global resource"""
         self.id: int = raw_global_resource_data["id32"]
