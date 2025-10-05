@@ -9,7 +9,7 @@ from disnake import (
 from disnake.ext import commands, tasks
 from main import GalacticWideWebBot
 from utils.checks import wait_for_startup
-from utils.data import GlobalEvent
+from utils.containers import MOUnavailableContainer
 from utils.dataclasses import Languages
 from utils.dbv2 import GWWGuild, GWWGuilds, WarInfo
 from utils.embeds import Dashboard
@@ -243,23 +243,20 @@ class MajorOrderCog(commands.Cog):
                         briefing = briefings_list[0]
                         embed.add_briefing(briefing)
                 embeds.append(embed)
+            await inter.send(
+                embeds=embeds,
+                components=[
+                    WikiButton(
+                        link=f"https://helldivers.wiki.gg/wiki/Major_Orders#Recent"
+                    )
+                ],
+                ephemeral=public != "Yes",
+            )
         else:
-            embeds = [
-                Dashboard.MajorOrderEmbed(
-                    assignment=None,
-                    planets=None,
-                    gambit_planets=self.bot.data.gambit_planets,
-                    language_json=guild_language,
-                    json_dict=None,
-                )
-            ]
-        await inter.send(
-            embeds=embeds,
-            components=[
-                WikiButton(link=f"https://helldivers.wiki.gg/wiki/Major_Orders#Recent")
-            ],
-            ephemeral=public != "Yes",
-        )
+            await inter.send(
+                components=[MOUnavailableContainer()],
+                ephemeral=public != "Yes",
+            )
 
 
 def setup(bot: GalacticWideWebBot):

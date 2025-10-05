@@ -7,6 +7,7 @@ from .global_events import GlobalEventsContainer
 from .guild import GuildContainer
 from .galactic_war_effect import GWEContainer
 from .help import HelpContainer
+from .mo_unavilable import MOUnavailableContainer
 from .planet import PlanetContainers
 from .randomiser import RandomiserContainer
 from .region_changes import RegionChangesContainer
@@ -23,6 +24,7 @@ __all__ = [
     "GuildContainer",
     "GWEContainer",
     "HelpContainer",
+    "MOUnavailableContainer",
     "PlanetContainers",
     "RandomiserContainer",
     "RegionChangesContainer",
