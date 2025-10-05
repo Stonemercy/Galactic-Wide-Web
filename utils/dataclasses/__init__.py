@@ -4,7 +4,7 @@ from .calculated_end_time import CalculatedEndTime
 from .campaign_changes_json import CampaignChangesJson
 from .dss_changes_json import DSSChangesJson
 from .dss_images import DSSImages
-from .factions import Factions
+from .factions import Faction, Factions
 from .languages import Languages
 from .planet_features import PlanetFeatures
 from .randomiser_data import RandomiserData
@@ -15,9 +15,11 @@ from .warbond_images import WarbondImages
 __all__ = [
     "APIChanges",
     "AssignmentImages",
+    "CalculatedEndTime",
     "CampaignChangesJson",
     "DSSChangesJson",
     "DSSImages",
+    "Faction",
     "Factions",
     "Languages",
     "PlanetFeatures",
