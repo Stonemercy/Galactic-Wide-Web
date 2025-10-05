@@ -18,9 +18,9 @@ class GalacticWideWebBot(commands.AutoShardedInteractionBot):
             intents=Intents.default(),
             activity=Activity(name="for dissidents", type=ActivityType.watching),
         )
+        self.MODE = "DEBUG"
         self.config = Config
         self.logger = GWWLogger()
-        self.config = Config
         self.startup_time = datetime.now()
         self.ready_time = self.startup_time + timedelta(seconds=45)
         self.interface_handler = InterfaceHandler(bot=self)
@@ -33,6 +33,8 @@ class GalacticWideWebBot(commands.AutoShardedInteractionBot):
         self.bot_dashboard_message: Message | None = None
         self.maps = Maps()
         self.loops: list[tasks.Loop] = []
+        self.load_extensions("cogs/admin")
+        self.load_extensions("cogs")
 
     @property
     def time_until_ready(self) -> int:
@@ -67,7 +69,17 @@ class GalacticWideWebBot(commands.AutoShardedInteractionBot):
             if self.owners:
                 self.owner = list(self.owners)[0]
             elif self.owner_ids:
-                self.owner = self.get_user(
-                    list(self.owner_ids)[0]
-                ) or await self.fetch_user(list(self.owner_ids)[0])
+                owner_id = list(self.owner_ids)[0]
+                self.owner = self.get_user(owner_id) or await self.fetch_user(owner_id)
             retries += 1
+
+    def super_start(self) -> None:
+        token_to_use = (
+            self.config.BOT_TOKEN
+            if self.MODE != "DEBUG"
+            else self.config.BETA_BOT_TOKEN
+        )
+        if token_to_use != self.config.BETA_BOT_TOKEN:
+            print("Bot not in debug mode")
+            return
+        self.run(token_to_use)
