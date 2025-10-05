@@ -546,6 +546,22 @@ class AdminCommandsCog(commands.Cog):
                         hours_remaining=choice([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),
                     )
 
+                # def loss
+                if unowned_planets_list := [
+                    p
+                    for p in self.bot.data.planets.values()
+                    if p.faction.full_name != "Humans"
+                ]:
+                    unowned_planet = sorted(
+                        unowned_planets_list,
+                        key=lambda x: len(x.active_effects) + len(x.regions),
+                        reverse=True,
+                    )[0]
+                    print("loss planet is", unowned_planet.name)
+                    campaign_changes_container.add_planet_lost(
+                        planet=unowned_planet,
+                    )
+
                 await inter.send(
                     components=campaign_changes_container,
                     ephemeral=public != "Yes",
