@@ -31,7 +31,6 @@ class BotDashboardContainer(ui.Container, ReprMixin):
         newest_server = servers_by_age[-1]
         community_servers = len([g for g in bot.guilds if "COMMUNITY" in g.features])
         member_count = sum(guild.member_count for guild in bot.guilds)
-        total_channels = sum(len(g.channels) for g in bot.guilds)
         text_channels = sum(len(g.text_channels) for g in bot.guilds)
         voice_channels = sum(len(g.voice_channels) for g in bot.guilds)
         total_emojis = sum(len(g.emojis) for g in bot.guilds)
@@ -44,7 +43,7 @@ class BotDashboardContainer(ui.Container, ReprMixin):
                         f"\n-# ├ Oldest Server: Created **<t:{int(oldest_server.created_at.timestamp())}:R>**"
                         f"\n-# └ Community Servers: **{community_servers:,}**"
                         f"\nMembers of Democracy: **{member_count:,}**"
-                        f"\nTotal Channels: **{total_channels:,}**"
+                        f"\nTotal Channels"
                         f"\n-# ├ Text: **{text_channels:,}**"
                         f"\n-# └ Voice: **{voice_channels:,}**"
                         f"\nEmojis: **{total_emojis:,}**"
