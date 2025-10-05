@@ -94,13 +94,9 @@ class InterfaceHandler:
         }
 
     async def populate_lists(self):
-        number_of_guilds = len(self.all_guilds)
-        for feature_type, feature_list in self.lists.items():
+        for feature_list in self.lists.values():
             feature_list.clear()
             await feature_list.populate()
-            self.bot.logger.info(
-                f"{len(feature_list)} {feature_type.replace('_', ' ')} {'messages' if feature_type in ('dashboards', 'maps') else 'channels'} ({(len(feature_list) / number_of_guilds):.1%})"
-            )
         self.loaded = True
         self.bot.logger.info("InterfaceHandler has been populated")
 
