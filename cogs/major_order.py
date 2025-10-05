@@ -1,4 +1,5 @@
 from datetime import datetime, time
+from typing import TYPE_CHECKING
 from disnake import (
     AppCmdInter,
     ApplicationInstallTypes,
@@ -14,6 +15,9 @@ from utils.dataclasses import Languages
 from utils.dbv2 import GWWGuild, GWWGuilds, WarInfo
 from utils.embeds import Dashboard
 from utils.interactables import WikiButton
+
+if TYPE_CHECKING:
+    from utils.data import GlobalEvent
 
 
 class MajorOrderCog(commands.Cog):

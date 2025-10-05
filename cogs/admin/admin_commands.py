@@ -2,7 +2,6 @@ from asyncio import sleep
 from datetime import datetime
 from disnake import (
     AppCmdInter,
-    Guild,
     HTTPException,
     InteractionTimedOut,
     MessageInteraction,
@@ -133,7 +132,7 @@ class AdminCommandsCog(commands.Cog):
         )
         match event:
             case "guild_join" | "guild_remove":
-                fake_guild: Guild = choice(self.bot.guilds)
+                fake_guild = choice(self.bot.guilds)
                 self.bot.dispatch(event_name=event, guild=fake_guild)
                 await inter.send(
                     content=f"Faked {event} for {fake_guild.name}",

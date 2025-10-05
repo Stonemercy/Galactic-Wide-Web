@@ -1,15 +1,15 @@
 from asyncio import sleep
 from datetime import datetime, time, timedelta
+from typing import TYPE_CHECKING
 from disnake import ButtonStyle, Colour, Embed, Guild, MessageInteraction, NotFound, ui
 from disnake.ext import commands, tasks
-from disnake.ui import Button
 from utils.bot import GalacticWideWebBot
-from utils.containers import (
-    BotDashboardContainer as BotDashboardContainer,
-    GuildContainer,
-)
+from utils.containers import BotDashboardContainer, GuildContainer
 from utils.dataclasses import Languages
-from utils.dbv2 import BotDashboard, Feature, GWWGuilds, GWWGuild
+from utils.dbv2 import BotDashboard, GWWGuilds
+
+if TYPE_CHECKING:
+    from utils.dbv2 import Feature, GWWGuild
 
 
 class GuildManagementCog(commands.Cog):
@@ -160,7 +160,7 @@ class GuildManagementCog(commands.Cog):
                 await self.bot.channels.moderator_channel.send(
                     embed=embed,
                     components=[
-                        Button(
+                        ui.Button(
                             label="Remove",
                             style=ButtonStyle.danger,
                             custom_id="guild_remove",
