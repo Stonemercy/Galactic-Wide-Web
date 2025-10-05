@@ -45,7 +45,7 @@ class TranslationsCog(commands.Cog):
             )
             return
         self.bot.logger.info(
-            msg=f"{self.qualified_name} | /{inter.application_command.name} | used by <@{inter.author.id}> | @{inter.author.global_name}"
+            f"{self.qualified_name} | /{inter.application_command.name} | used by <@{inter.author.id}> | @{inter.author.global_name}"
         )
         if language_to_check == "ALL":
             embeds = []

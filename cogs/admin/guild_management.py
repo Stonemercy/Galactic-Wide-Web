@@ -109,7 +109,7 @@ class GuildManagementCog(commands.Cog):
                 ]
                 if not dashboard:
                     self.bot.logger.info(
-                        msg=f"{self.qualified_name} | dashboard_checking | No dashboard feature found for {guild.guild_id}"
+                        f"{self.qualified_name} | dashboard_checking | No dashboard feature found for {guild.guild_id}"
                     )
                     return
                 else:
@@ -130,7 +130,7 @@ class GuildManagementCog(commands.Cog):
                         await sleep(delay=15 * 60)
             except Exception as e:
                 self.bot.logger.error(
-                    msg=f"{self.qualified_name} | dashboard_checking | {e}"
+                    f"{self.qualified_name} | dashboard_checking | {e}"
                 )
 
     @dashboard_checking.before_loop
@@ -182,7 +182,7 @@ class GuildManagementCog(commands.Cog):
             for guild in gww_guilds_to_remove:
                 guild.delete()
                 self.bot.logger.info(
-                    msg=f"{self.qualified_name} | ban_listener | removed {guild.guild_id} from the DB"
+                    f"{self.qualified_name} | ban_listener | removed {guild.guild_id} from the DB"
                 )
                 await inter.send(
                     content=f"Deleted guild `{guild.guild_id}` from the DB"

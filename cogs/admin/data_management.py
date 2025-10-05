@@ -78,7 +78,7 @@ class DataManagementCog(commands.Cog):
             else:
                 change = f"Took {(now - self.bot.ready_time).total_seconds():.2f} seconds longer than the given 45"
             self.bot.logger.info(
-                msg=f"Startup complete in {(now - self.bot.startup_time).total_seconds():.2f} seconds - {change}"
+                f"Startup complete in {(now - self.bot.startup_time).total_seconds():.2f} seconds - {change}"
             )
             self.bot.ready_time = now
 

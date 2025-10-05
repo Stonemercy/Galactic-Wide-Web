@@ -21,17 +21,8 @@ class GalacticWideWebBot(commands.AutoShardedInteractionBot):
             intents=Intents.default(),
             activity=Activity(name="for dissidents", type=ActivityType.watching),
         )
-        self.logger = getLogger()
-        self.logger.setLevel(level=INFO)
-        self.logger.handlers.clear()
-        handler = StreamHandler()
-        handler.setFormatter(
-            fmt=Formatter(
-                "%(asctime)s - %(levelname)s - %(name)s - %(message)s",
-                datefmt="%d/%m/%y - %H:%M:%S",
-            )
-        )
-        self.logger.addHandler(hdlr=handler)
+        self.logger = GWWLogger()
+        self.config = Config
         self.startup_time = datetime.now()
         self.ready_time = self.startup_time + timedelta(seconds=45)
         self.interface_handler = InterfaceHandler(bot=self)

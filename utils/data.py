@@ -115,7 +115,7 @@ class Data(ReprMixin):
                 async with session.get(url=f"{api_to_use}") as r:
                     if r.status != 200:
                         api_to_use = backup_api
-                        logger.critical(msg="API/USING BACKUP")
+                        logger.critical("API/USING BACKUP")
                         await moderator_channel.send(content=f"API/USING BACKUP\n{r}")
             except ClientSSLError as e:
                 raise e
@@ -140,7 +140,7 @@ class Data(ReprMixin):
                         self.__data__["dispatches"][lang.short_code] = json
                         print("[D✔️]", end="")
                     elif r.status != 500:
-                        logger.error(msg=f"API/DISPATCHES, {r.status}")
+                        logger.error(f"API/DISPATCHES, {r.status}")
                         await moderator_channel.send(content=f"API/DISPATCHES\n{r}")
                         print(f"[D❌[{r.status}]]", end="")
 
@@ -151,7 +151,7 @@ class Data(ReprMixin):
                         self.__data__["assignments"][lang.short_code] = json
                         print("[A✔️]", end="")
                     else:
-                        logger.error(msg=f"API/ASSIGNMENTS, {r.status}")
+                        logger.error(f"API/ASSIGNMENTS, {r.status}")
                         await moderator_channel.send(content=f"API/ASSIGNMENTS\n{r}")
                         print(f"[A❌[{r.status}]]", end="")
 
@@ -164,7 +164,7 @@ class Data(ReprMixin):
                         self.__data__["status"][lang.short_code] = json
                         print("[S✔️]")
                     else:
-                        logger.error(msg=f"API/STATUS, {r.status}")
+                        logger.error(f"API/STATUS, {r.status}")
                         await moderator_channel.send(content=f"API/ASSIGNMENTS\n{r}")
                         print(f"[S❌[{r.status}]]")
 
@@ -190,13 +190,13 @@ class Data(ReprMixin):
                                 names_present = tactical_actions[0].get("name", None)
                                 if not names_present:
                                     logger.error(
-                                        msg=f"API/DSS, Tactical Action has no name"
+                                        f"API/DSS, Tactical Action has no name"
                                     )
                                     continue
                             self.__data__[endpoint] = data
                             print("[DSS✔️]", end="")
                         else:
-                            logger.error(msg=f"API/DSS, {r.status}")
+                            logger.error(f"API/DSS, {r.status}")
                             print(f"[DSS❌[{r.status}]]", end="")
                     continue
                 elif endpoint == "warinfo":
@@ -207,7 +207,7 @@ class Data(ReprMixin):
                             self.__data__[endpoint] = await r.json()
                             print("[war_info✔️]", end="")
                         else:
-                            logger.error(msg=f"API/WARINFO, {r.status}")
+                            logger.error(f"API/WARINFO, {r.status}")
                             print(f"[war_info❌[{r.status}]]", end="")
                     continue
                 elif endpoint == "galactic_war_effects":
@@ -218,7 +218,7 @@ class Data(ReprMixin):
                             self.__data__[endpoint] = await r.json()
                             print("[gwe's✔️]", end="")
                         else:
-                            logger.error(msg=f"API/GALACTICWAREFFECTS, {r.status}")
+                            logger.error(f"API/GALACTICWAREFFECTS, {r.status}")
                             print(f"[gwe's❌[{r.status}]]", end="")
                     continue
                 elif endpoint == "steam_playercount":
@@ -231,7 +231,7 @@ class Data(ReprMixin):
                             self.steam_playercount = data["response"]["player_count"]
                             print("[player_count✔️]", end="")
                         else:
-                            logger.error(msg=f"API/STEAM_PLAYERCOUNT, {r.status}")
+                            logger.error(f"API/STEAM_PLAYERCOUNT, {r.status}")
                             print(f"[player_count❌[{r.status}]]", end="")
                     continue
                 try:
@@ -241,13 +241,13 @@ class Data(ReprMixin):
                             self.__data__[endpoint] = json
                             print(f"[{endpoint}✔️]", end="")
                         else:
-                            logger.error(msg=f"API/{endpoint.upper()}, {r.status}")
+                            logger.error(f"API/{endpoint.upper()}, {r.status}")
                             await moderator_channel.send(
                                 content=f"API/{endpoint.upper()}\n{r}"
                             )
                             print(f"[{endpoint}❌[{r.status}]]", end="")
                 except Exception as e:
-                    logger.error(msg=f"API/{endpoint.upper()}, {e}")
+                    logger.error(f"API/{endpoint.upper()}, {e}")
                     await moderator_channel.send(content=f"API/{endpoint.upper()}\n{r}")
                 if api_to_use == backup_api:
                     await sleep(2)

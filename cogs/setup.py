@@ -102,7 +102,7 @@ class SetupCog(commands.Cog):
         guild = GWWGuilds.get_specific_guild(id=inter.guild_id)
         if not guild:
             self.bot.logger.error(
-                msg=f"Guild {inter.guild_id} - {inter.guild.name} - had the bot installed but wasn't found in the DB"
+                f"Guild {inter.guild_id} - {inter.guild.name} - had the bot installed but wasn't found in the DB"
             )
             guild: GWWGuild = GWWGuilds.add(inter.guild_id, "en", [])
         await inter.send(

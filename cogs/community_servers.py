@@ -40,13 +40,13 @@ class CommunityServersCog(commands.Cog):
             )
             return
         self.bot.logger.info(
-            msg=f"{self.qualified_name} | /{inter.application_command.name}"
+            f"{self.qualified_name} | /{inter.application_command.name}"
         )
         if inter.guild:
             guild = GWWGuilds.get_specific_guild(id=inter.guild_id)
             if not guild:
                 self.bot.logger.error(
-                    msg=f"Guild {inter.guild_id} - {inter.guild.name} - had the bot installed but wasn't found in the DB"
+                    f"Guild {inter.guild_id} - {inter.guild.name} - had the bot installed but wasn't found in the DB"
                 )
                 guild = GWWGuilds.add(inter.guild_id, "en", [])
         else:
@@ -85,7 +85,7 @@ class CommunityServersCog(commands.Cog):
             guild = GWWGuilds.get_specific_guild(id=inter.guild_id)
             if not guild:
                 self.bot.logger.error(
-                    msg=f"Guild {inter.guild_id} - {inter.guild.name} - had the bot installed but wasn't found in the DB"
+                    f"Guild {inter.guild_id} - {inter.guild.name} - had the bot installed but wasn't found in the DB"
                 )
                 guild = GWWGuilds.add(inter.guild_id, "en", [])
         else:

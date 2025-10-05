@@ -60,7 +60,7 @@ class AdminCommandsCog(commands.Cog):
     ):
         await inter.response.defer(ephemeral=True)
         self.bot.logger.critical(
-            msg=f"{self.qualified_name} | /{inter.application_command.name} <{feature = }> | used by <@{inter.author.id}> | @{inter.author.global_name}"
+            f"{self.qualified_name} | /{inter.application_command.name} <{feature = }> | used by <@{inter.author.id}> | @{inter.author.global_name}"
         )
         match feature:
             case "Dashboard":
@@ -97,7 +97,7 @@ class AdminCommandsCog(commands.Cog):
     ):
         await inter.response.defer(ephemeral=True)
         self.bot.logger.critical(
-            msg=f"{self.qualified_name} | /{inter.application_command.name} <{file_name = }> | used by <@{inter.author.id}> | @{inter.author.global_name}"
+            f"{self.qualified_name} | /{inter.application_command.name} <{file_name = }> | used by <@{inter.author.id}> | @{inter.author.global_name}"
         )
         for path in [f"cogs.{file_name}", f"cogs.admin.{file_name}"]:
             try:
@@ -132,7 +132,7 @@ class AdminCommandsCog(commands.Cog):
     ):
         await inter.response.defer(ephemeral=True)
         self.bot.logger.critical(
-            msg=f"{self.qualified_name} | /{inter.application_command.name} | used by <@{inter.author.id}> | @{inter.author.global_name}"
+            f"{self.qualified_name} | /{inter.application_command.name} | used by <@{inter.author.id}> | @{inter.author.global_name}"
         )
         match event:
             case "guild_join" | "guild_remove":
@@ -158,7 +158,7 @@ class AdminCommandsCog(commands.Cog):
     ):
         await inter.response.defer(ephemeral=True)
         self.bot.logger.critical(
-            msg=f"{self.qualified_name} | /{inter.application_command.name} <{id_to_check = }> | used by <@{inter.author.id}> | @{inter.author.global_name}"
+            f"{self.qualified_name} | /{inter.application_command.name} <{id_to_check = }> | used by <@{inter.author.id}> | @{inter.author.global_name}"
         )
         all_guilds = GWWGuilds(fetch_all=True)
         filtered_guild_list = [
@@ -258,7 +258,7 @@ class AdminCommandsCog(commands.Cog):
     ):
         await inter.response.defer(ephemeral=True)
         self.bot.logger.critical(
-            msg=f"{self.qualified_name} | /{inter.application_command.name} | used by <@{inter.author.id}> | @{inter.author.global_name}"
+            f"{self.qualified_name} | /{inter.application_command.name} | used by <@{inter.author.id}> | @{inter.author.global_name}"
         )
         embeds = BotInfoEmbeds(bot=self.bot)
         await inter.send(embeds=embeds, ephemeral=True)
@@ -277,7 +277,7 @@ class AdminCommandsCog(commands.Cog):
     ):
         await inter.response.defer(ephemeral=True)
         self.bot.logger.critical(
-            msg=f"{self.qualified_name} | /{inter.application_command.name} <{feature = }> | used by <@{inter.author.id}> | @{inter.author.global_name}"
+            f"{self.qualified_name} | /{inter.application_command.name} <{feature = }> | used by <@{inter.author.id}> | @{inter.author.global_name}"
         )
         error_dict = {}
         match feature:
@@ -370,13 +370,13 @@ class AdminCommandsCog(commands.Cog):
     ):
         await inter.response.defer(ephemeral=public != "Yes")
         self.bot.logger.critical(
-            msg=f"{self.qualified_name} | /{inter.application_command.name} | used by <@{inter.author.id}> | @{inter.author.global_name}"
+            f"{self.qualified_name} | /{inter.application_command.name} | used by <@{inter.author.id}> | @{inter.author.global_name}"
         )
         if inter.guild:
             guild = GWWGuilds.get_specific_guild(id=inter.guild_id)
             if not guild:
                 self.bot.logger.error(
-                    msg=f"Guild {inter.guild_id} - {inter.guild.name} - had the bot installed but wasn't found in the DB"
+                    f"Guild {inter.guild_id} - {inter.guild.name} - had the bot installed but wasn't found in the DB"
                 )
                 guild = GWWGuilds.add(inter.guild_id, "en", [])
         else:
@@ -666,7 +666,7 @@ class AdminCommandsCog(commands.Cog):
     ):
         await inter.response.defer(ephemeral=public != "Yes")
         self.bot.logger.critical(
-            msg=f"{self.qualified_name} | /{inter.application_command.name} | used by <@{inter.author.id}> | @{inter.author.global_name}"
+            f"{self.qualified_name} | /{inter.application_command.name} | used by <@{inter.author.id}> | @{inter.author.global_name}"
         )
         gww_guiilds = GWWGuilds(fetch_all=True)
         possible_fake_guilds = []

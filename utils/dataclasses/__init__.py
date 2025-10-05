@@ -2,6 +2,7 @@ from .api_changes import APIChanges
 from .assignment_images import AssignmentImages
 from .calculated_end_time import CalculatedEndTime
 from .campaign_changes_json import CampaignChangesJson
+from .config import Config
 from .dss_changes_json import DSSChangesJson
 from .dss_images import DSSImages
 from .factions import Faction, Factions
@@ -17,6 +18,7 @@ __all__ = [
     "AssignmentImages",
     "CalculatedEndTime",
     "CampaignChangesJson",
+    "Config",
     "DSSChangesJson",
     "DSSImages",
     "Faction",
