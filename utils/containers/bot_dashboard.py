@@ -26,14 +26,29 @@ class BotDashboardContainer(ui.Container, ReprMixin):
 
         self.components.append(ui.Separator())
 
-        member_count = sum([guild.member_count for guild in bot.guilds])
+        servers_by_age = sorted([g for g in bot.guilds], key=lambda x: x.created_at)
+        oldest_server = servers_by_age[0]
+        newest_server = servers_by_age[-1]
+        community_servers = len([g for g in bot.guilds if "COMMUNITY" in g.features])
+        member_count = sum(guild.member_count for guild in bot.guilds)
+        total_channels = sum(len(g.channels) for g in bot.guilds)
+        text_channels = sum(len(g.text_channels) for g in bot.guilds)
+        voice_channels = sum(len(g.voice_channels) for g in bot.guilds)
+        total_emojis = sum(len(g.emojis) for g in bot.guilds)
         self.components.append(
             ui.Section(
                 ui.TextDisplay(
                     (
-                        f"Currently in **{len(bot.guilds)}** discord servers"
-                        f"\n**{member_count:,}** Members of Democracy"
-                        f"\n**{user_installs}** Approx. user installs"
+                        f"Servers: **{len(bot.guilds):,}**"
+                        f"\n-# ├ Newest Server: Created **<t:{int(newest_server.created_at.timestamp())}:R>**"
+                        f"\n-# ├ Oldest Server: Created **<t:{int(oldest_server.created_at.timestamp())}:R>**"
+                        f"\n-# └ Community Servers: **{community_servers:,}**"
+                        f"\nMembers of Democracy: **{member_count:,}**"
+                        f"\nTotal Channels: **{total_channels:,}**"
+                        f"\n-# ├ Text: **{text_channels:,}**"
+                        f"\n-# └ Voice: **{voice_channels:,}**"
+                        f"\nEmojis: **{total_emojis:,}**"
+                        f"\nUser installs: **{user_installs:,}**"
                     )
                 ),
                 accessory=HDCButton(),
