@@ -2,7 +2,7 @@ from datetime import datetime
 from disnake import Colour, OptionType, ui
 from math import inf
 from os import getpid
-from psutil import Process, cpu_percent
+from psutil import Process, cpu_percent, net_io_counters
 from utils.bot import GalacticWideWebBot
 from utils.interactables.HDC_button import HDCButton
 from utils.interactables.github_button import GitHubButton
@@ -62,9 +62,19 @@ class BotDashboardContainer(ui.Container, ReprMixin):
         self.components.append(
             ui.Section(
                 ui.TextDisplay(
-                    f"### Hardware Info\n-# **CPU**: {cpu_percent()}%\n-# **RAM**: {memory_used:.2f}MB\n-# **Last restart**: <t:{int(bot.startup_time.timestamp())}:R>\n-# **Latency**: {int(latency * 1000)}ms"
+                    f"### :desktop: Hardware Info\n-# **CPU**: {cpu_percent()}%\n-# **RAM**: {memory_used:.2f}MB\n-# **Last restart**: <t:{int(bot.startup_time.timestamp())}:R>\n-# **Latency**: {int(latency * 1000)}ms"
                 ),
                 accessory=KoFiButton(),
+            )
+        )
+
+        net_io = net_io_counters()
+        bytes_sent_gb = net_io.bytes_sent / (1024**3)
+        bytes_recv_gb = net_io.bytes_recv / (1024**3)
+
+        self.components.append(
+            ui.TextDisplay(
+                f"### :satellite: Network Info\n-# **Sent**: {bytes_sent_gb:.2f}GB\n-# **Received:** {bytes_recv_gb:.2f}GB"
             )
         )
 
@@ -78,7 +88,8 @@ class BotDashboardContainer(ui.Container, ReprMixin):
         )
         self.components.append(
             ui.Section(
-                ui.TextDisplay(f"### Shards\n{shardinfo}"), accessory=GitHubButton()
+                ui.TextDisplay(f"### :jigsaw: Shards\n{shardinfo}"),
+                accessory=GitHubButton(),
             )
         )
         loop_errors = ""
