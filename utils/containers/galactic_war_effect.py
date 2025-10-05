@@ -47,7 +47,7 @@ class GWEContainer(ui.Container, ReprMixin):
             active_planets = "-# None"
         components.append(ui.TextDisplay(f"Active on\n{active_planets}"))
         components.append(ui.Separator())
-        components.append(ui.TextDisplay(f"```py\n{gwe.__repr__()}```"))
+        components.append(ui.TextDisplay(f"```py\n{gwe}```"))
 
         super().__init__(
             *components,
