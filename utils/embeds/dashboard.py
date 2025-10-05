@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime
 from data.lists import (
     CUSTOM_COLOURS,
     stratagem_id_dict,
@@ -17,7 +17,7 @@ from utils.data import (
 )
 from utils.dataclasses import AssignmentImages, Factions, SpecialUnits, PlanetFeatures
 from utils.emojis import Emojis
-from utils.functions import health_bar, short_format
+from utils.functions import get_end_time, health_bar, short_format
 from utils.mixins import EmbedReprMixin
 from utils.trackers import BaseTrackerEntry
 
@@ -41,26 +41,18 @@ class Dashboard:
         self.embeds: list[Embed] = []
 
         # Major Order embeds
-        if data.assignments:
+        if data.assignments[language_code]:
             for assignment in data.assignments[language_code]:
                 self.embeds.append(
                     self.MajorOrderEmbed(
                         assignment=assignment,
                         planets=data.planets,
+                        gambit_planets=data.gambit_planets,
                         language_json=language_json,
                         json_dict=json_dict,
                         compact_level=compact_level,
                     )
                 )
-        else:
-            self.embeds.append(
-                self.MajorOrderEmbed(
-                    assignment=None,
-                    planets=None,
-                    language_json=language_json,
-                    json_dict=None,
-                )
-            )
 
         # DSS Eembed
         if data.dss and data.dss.flags not in (0, 2):
@@ -175,10 +167,11 @@ class Dashboard:
     class MajorOrderEmbed(Embed, EmbedReprMixin):
         def __init__(
             self,
-            assignment: Assignment | None,
-            planets: Planets | None,
+            assignment: Assignment,
+            planets: Planets,
+            gambit_planets: dict[int, Planet] | dict,
             language_json: dict,
-            json_dict: dict | None,
+            json_dict: dict,
             compact_level: int = 0,
         ):
             self.compact_level = compact_level
@@ -187,219 +180,211 @@ class Dashboard:
             super().__init__(
                 colour=Colour.from_rgb(*CUSTOM_COLOURS["MO"]),
             )
-            if not self.assignment:
-                self.title = language_json["embeds"]["Dashboard"]["MajorOrderEmbed"][
-                    "mo_missing"
-                ]
-                self.add_field(
-                    name="",
-                    value=language_json["embeds"]["Dashboard"]["MajorOrderEmbed"][
-                        "MO_unavailable"
-                    ],
-                )
-                self.set_thumbnail(
-                    url="https://cdn.discordapp.com/attachments/1212735927223590974/1403681687111471144/icon.png?ex=68986ff1&is=68971e71&hm=64cf789e34c6480613f7710fbdfc24072fe3ff8daa7741b276a12f7e467b3ca4&"
-                )
-            else:
-                self.title = assignment.title
-                self.total_players = sum(
-                    [p.stats.player_count for p in planets.values()]
-                )
-                task_numbers = [task.type for task in assignment.tasks]
-                task_for_image = max(set(task_numbers), key=task_numbers.count)
-                self.set_thumbnail(url=AssignmentImages.get(task_for_image))
-                if self.compact_level < 2:
-                    self.add_description(
-                        assignment=assignment, language_json=language_json
-                    )
-                self.completion_timestamps.clear()
-                for task in assignment.tasks:
-                    lib_changes = None
-                    if task.type in [11, 13]:
-                        lib_changes = planets[task.planet_index].tracker
-                    if task.tracker and task.tracker.change_rate_per_hour != 0:
-                        self.completion_timestamps.append(
-                            task.tracker.complete_time.timestamp()
-                        )
-                    elif task.type == 11:
-                        if lib_changes and lib_changes.change_rate_per_hour > 0:
-                            self.completion_timestamps.append(
-                                lib_changes.complete_time.timestamp()
-                            )
-                    elif task.type == 13:
-                        planet = planets[task.planet_index]
-                        if lib_changes and lib_changes.change_rate_per_hour > 0:
-                            if planet.event:
-                                if (
-                                    planet.event.end_time_datetime
-                                    > assignment.ends_at_datetime
-                                ):
-                                    pass
-                                elif (
-                                    planet.event.end_time_datetime
-                                    > lib_changes.complete_time
-                                ):
-                                    self.completion_timestamps.append(
-                                        lib_changes.complete_time.timestamp()
-                                    )
-                                else:
-                                    # set to end time to indicate failure
-                                    self.completion_timestamps.append(
-                                        assignment.ends_at_datetime.timestamp()
-                                    )
-                            else:
-                                self.completion_timestamps.append(
-                                    lib_changes.complete_time.timestamp()
-                                )
-                    match task.type:
-                        case 2:
-                            planet = sector_name = None
-                            if task.planet_index:
-                                planet: Planet = planets.get(task.planet_index)
-                            elif task.sector_index:
-                                sector_name: str = json_dict["sectors"][
-                                    str(task.sector_index)
-                                ]
-                            self.add_type_2(
-                                task=task,
-                                language_json=language_json,
-                                item_names_json=json_dict["items"]["item_names"],
-                                planet=planet,
-                                sector_name=sector_name,
-                            )
-                        case 3:
-                            self.add_type_3(
-                                planets=planets,
-                                task=task,
-                                language_json=language_json,
-                                enemy_dict=json_dict["enemies"]["enemy_ids"],
-                            )
-                        case 7:
-                            self.add_type_7(
-                                task=task,
-                                language_json=language_json,
-                            )
-                        case 9:
-                            self.add_type_9(
-                                task=task,
-                                language_json=language_json,
-                            )
-                        case 11:
-                            self.add_type_11(
-                                language_json=language_json,
-                                planet=planets[task.planet_index],
-                                task=task,
-                            )
-                        case 12:
-                            self.add_type_12(
-                                task=task,
-                                language_json=language_json,
-                                planet=planets.get(task.planet_index),
-                            )
-                        case 13:
-                            self.add_type_13(
-                                task=task,
-                                language_json=language_json,
-                                planets=planets,
-                            )
-                        case 15:
-                            self.add_type_15(
-                                task=task,
-                                language_json=language_json,
-                            )
-                        case _:
-                            self.add_field(
-                                name=language_json["embeds"]["Dashboard"][
-                                    "MajorOrderEmbed"
-                                ]["tasks"]["typeNew"].format(
-                                    alert_emoji=Emojis.Decoration.alert_icon
-                                ),
-                                value=(
-                                    f"-# ||{task}||\n"
-                                    f"{'|'.join(str(f'{k}:{v}') for k, v in task.values_dict.items())}"
-                                ),
-                                inline=False,
-                            )
-                    if (
-                        assignment.flags in [2, 3]
-                        and len(assignment.tasks) > 1
-                        and task != assignment.tasks[-1]
-                    ):
-                        self.add_field("or", "", inline=False)
 
-                self.add_rewards(
-                    rewards=assignment.rewards,
-                    language_json=language_json,
-                    reward_names=json_dict["items"]["reward_types"],
-                )
-                outlook_text = ""
-                winning_all_tasks = [
-                    ts < assignment.ends_at_datetime.timestamp()
-                    for ts in self.completion_timestamps
-                ]
+            self.title = assignment.title
+            self.total_players = sum([p.stats.player_count for p in planets.values()])
+            task_numbers = [task.type for task in assignment.tasks]
+            task_for_image = max(set(task_numbers), key=task_numbers.count)
+            self.set_thumbnail(url=AssignmentImages.get(task_for_image))
+            if self.compact_level < 2:
+                self.add_description(assignment=assignment, language_json=language_json)
+            self.completion_timestamps.clear()
+            for task in assignment.tasks:
+                if task.type in [11, 13]:
+                    planet = planets[task.planet_index]
+                    end_time_info = get_end_time(
+                        source_planet=planet, gambit_planets=gambit_planets
+                    )
+                if task.tracker and task.tracker.change_rate_per_hour != 0:
+                    self.completion_timestamps.append(
+                        task.tracker.complete_time.timestamp()
+                    )
+                elif task.type == 11:
+                    if end_time_info.end_time:
+                        self.completion_timestamps.append(
+                            end_time_info.end_time.timestamp()
+                        )
+                elif task.type == 13:
+                    if end_time_info.end_time:
+                        if planet.event:
+                            if (
+                                planet.event.end_time_datetime
+                                > assignment.ends_at_datetime
+                            ):
+                                pass
+                            elif (
+                                end_time_info.end_time < planet.event.end_time_datetime
+                            ):
+                                self.completion_timestamps.append(
+                                    end_time_info.end_time.timestamp()
+                                )
+                            else:
+                                # set to end time to indicate failure
+                                self.completion_timestamps.append(
+                                    assignment.ends_at_datetime.timestamp()
+                                )
+                        else:
+                            self.completion_timestamps.append(
+                                end_time_info.end_time.timestamp()
+                            )
+                match task.type:
+                    case 2:
+                        """Successfully extract with {amount} {item}[ on {planet}][ in the __{sector}__ SECTOR][ from any {faction} controlled planet]"""
+                        planet = sector_name = None
+                        if task.planet_index:
+                            planet: Planet = planets.get(task.planet_index)
+                        elif task.sector_index:
+                            sector_name: str = json_dict["sectors"][
+                                str(task.sector_index)
+                            ]
+                        self.add_type_2(
+                            task=task,
+                            language_json=language_json,
+                            item_names_json=json_dict["items"]["item_names"],
+                            planet=planet,
+                            sector_name=sector_name,
+                        )
+                    case 3:
+                        """Kill {amount} {enemy_type}[ using the __{item_to_use}__][ on {planet}]"""
+                        self.add_type_3(
+                            planets=planets,
+                            task=task,
+                            language_json=language_json,
+                            enemy_dict=json_dict["enemies"]["enemy_ids"],
+                        )
+                    case 7:
+                        """Extract from a successful Mission against {faction} {number} times"""
+                        self.add_type_7(
+                            task=task,
+                            language_json=language_json,
+                        )
+                    case 9:
+                        """Complete an Operation[ against {faction}][ on {difficulty} or higher] {amount} times"""
+                        self.add_type_9(
+                            task=task,
+                            language_json=language_json,
+                        )
+                    case 11:
+                        """Liberate a planet"""
+                        self.add_type_11(
+                            language_json=language_json,
+                            task=task,
+                            planets=planets,
+                            gambit_planets=gambit_planets,
+                        )
+                    case 12:
+                        """Defend[ {planet}] against {amount} attacks[ from the {faction}]"""
+                        self.add_type_12(
+                            task=task,
+                            language_json=language_json,
+                            planet=planets.get(task.planet_index),
+                        )
+                    case 13:
+                        """Hold {planet} when the order expires"""
+                        self.add_type_13(
+                            task=task,
+                            language_json=language_json,
+                            planets=planets,
+                        )
+                    case 15:
+                        """Liberate more planets than are lost during the order duration"""
+                        self.add_type_15(
+                            task=task,
+                            language_json=language_json,
+                        )
+                    case _:
+                        self.add_field(
+                            name=language_json["embeds"]["Dashboard"][
+                                "MajorOrderEmbed"
+                            ]["tasks"]["typeNew"].format(
+                                alert_emoji=Emojis.Decoration.alert_icon
+                            ),
+                            value=(
+                                f"-# ||{task}||\n"
+                                f"{'|'.join(str(f'{k}:{v}') for k, v in task.values_dict.items())}"
+                            ),
+                            inline=False,
+                        )
                 if (
-                    assignment.flags == 1
-                    and (
-                        len(
-                            [True for t in assignment.tasks if t.progress_perc == 1]
-                            + winning_all_tasks
-                        )
-                        == len(assignment.tasks)
-                    )
-                ) or (
                     assignment.flags in [2, 3]
-                    and (
-                        any([t.progress_perc == 1 for t in assignment.tasks])
-                        or any(winning_all_tasks)
-                    )
+                    and len(assignment.tasks) > 1
+                    and task != assignment.tasks[-1]
                 ):
-                    outlook_text = language_json["complete"]
-                    if {13, 15} & set([t.type for t in assignment.tasks]):
-                        outlook_text += (
-                            f" <t:{int(assignment.ends_at_datetime.timestamp())}:R>"
-                        )
-                    else:
-                        oldest_time: datetime = sorted(
-                            self.completion_timestamps, reverse=True
-                        )[0]
-                        outlook_text += f" <t:{int(oldest_time)}:R>"
-                        time_diff = (
-                            assignment.ends_at_datetime.timestamp() - oldest_time
-                        )
-                        hours = f"{time_diff // 3600:.0f}"
-                        minutes = f"{(time_diff % 3600) // 60:.0f}"
+                    self.add_field("or", "", inline=False)
+
+            self.add_rewards(
+                rewards=assignment.rewards,
+                language_json=language_json,
+                reward_names=json_dict["items"]["reward_types"],
+            )
+            outlook_text = ""
+            winning_all_tasks = [
+                ts < assignment.ends_at_datetime.timestamp()
+                for ts in self.completion_timestamps
+            ]
+            if (
+                assignment.flags == 1
+                and (
+                    len(
+                        [True for t in assignment.tasks if t.progress_perc == 1]
+                        + winning_all_tasks
+                    )
+                    == len(assignment.tasks)
+                )
+            ) or (
+                assignment.flags in [2, 3]
+                and (
+                    any([t.progress_perc == 1 for t in assignment.tasks])
+                    or any(winning_all_tasks)
+                )
+            ):
+                outlook_text = language_json["complete"]
+                if {13, 15} & set([t.type for t in assignment.tasks]):
+                    outlook_text += (
+                        f" <t:{int(assignment.ends_at_datetime.timestamp())}:R>"
+                    )
+                else:
+                    oldest_time: datetime = sorted(
+                        self.completion_timestamps, reverse=True
+                    )[0]
+                    outlook_text += f" <t:{int(oldest_time)}:R>"
+                    time_diff = assignment.ends_at_datetime.timestamp() - oldest_time
+                    hours = f"{time_diff // 3600:.0f}"
+                    minutes = f"{(time_diff % 3600) // 60:.0f}"
+                    outlook_text += language_json["embeds"]["Dashboard"][
+                        "MajorOrderEmbed"
+                    ]["ahead_of_schedule"].format(hours=hours, minutes=minutes)
+            else:
+                if self.completion_timestamps != [] and len(
+                    self.completion_timestamps
+                ) >= (
+                    len([True for t in assignment.tasks if t.progress_perc != 1])
+                    if assignment.flags not in [2, 3]
+                    else 1
+                ):
+                    oldest_time: datetime = sorted(
+                        self.completion_timestamps, reverse=True
+                    )[0]
+                    outlook_text += f"{language_json['failure']} <t:{int(assignment.ends_at_datetime.timestamp())}:R>"
+                    time_diff = oldest_time - assignment.ends_at_datetime.timestamp()
+                    hours = f"{time_diff // 3600:.0f}"
+                    minutes = f"{(time_diff % 3600) // 60:.0f}"
+                    if 0 < time_diff // 3600 < 250:
                         outlook_text += language_json["embeds"]["Dashboard"][
                             "MajorOrderEmbed"
-                        ]["ahead_of_schedule"].format(hours=hours, minutes=minutes)
-                else:
-                    if self.completion_timestamps != [] and len(
-                        self.completion_timestamps
-                    ) == len([True for t in assignment.tasks if t.progress_perc != 1]):
-                        oldest_time: datetime = sorted(
-                            self.completion_timestamps, reverse=True
-                        )[0]
-                        outlook_text += f"{language_json['failure']} <t:{int(assignment.ends_at_datetime.timestamp())}:R>"
-                        time_diff = (
-                            oldest_time - assignment.ends_at_datetime.timestamp()
-                        )
-                        hours = f"{time_diff // 3600:.0f}"
-                        minutes = f"{(time_diff % 3600) // 60:.0f}"
-                        if 0 < time_diff // 3600 < 250:
-                            outlook_text += language_json["embeds"]["Dashboard"][
-                                "MajorOrderEmbed"
-                            ]["behind_schedule"].format(hours=hours, minutes=minutes)
+                        ]["behind_schedule"].format(hours=hours, minutes=minutes)
 
+            self.add_field(
+                "",
+                f"-# {language_json['ends']} <t:{int(assignment.ends_at_datetime.timestamp())}:R>",
+                inline=False,
+            )
+            if outlook_text != "":
                 self.add_field(
-                    "",
-                    f"-# {language_json['ends']} <t:{int(assignment.ends_at_datetime.timestamp())}:R>",
+                    language_json["embeds"]["Dashboard"]["outlook"],
+                    f"{outlook_text}",
                     inline=False,
                 )
-                if outlook_text != "":
-                    self.add_field(
-                        language_json["embeds"]["Dashboard"]["outlook"],
-                        f"{outlook_text}",
-                        inline=False,
-                    )
 
         def add_type_2(
             self,
@@ -649,9 +634,11 @@ class Dashboard:
             self,
             language_json: dict,
             task: Assignment.Task,
-            planet: Planet,
+            planets: Planets,
+            gambit_planets: dict[int, Planet],
         ):
             """Liberate a planet"""
+            planet = planets[task.planet_index]
             field_name = language_json["embeds"]["Dashboard"]["MajorOrderEmbed"][
                 "tasks"
             ]["type11"].format(
@@ -666,41 +653,47 @@ class Dashboard:
             if task.progress_perc != 1 and planet.stats.player_count > (
                 self.total_players * 0.05
             ):
-                field_value += language_json["embeds"]["Dashboard"]["heroes"].format(
-                    heroes=f"{planet.stats.player_count:,}"
-                )
-                # if planet.feature: TODO
-                #     field_value += f"\n{language_json['embeds']['Dashboard']['MajorOrderEmbed']['feature']}: **{planet.feature}**"
+                for su in SpecialUnits.get_from_effects_list(planet.active_effects):
+                    field_value += f"\n-# {su[1]} {su[0]}"
+                for feature in PlanetFeatures.get_from_effects_list(
+                    planet.active_effects
+                ):
+                    field_value += f"\n-# {feature[1]} {feature[0]}"
+                field_value += f"\n{language_json['embeds']['Dashboard']['heroes'].format(heroes=f'{planet.stats.player_count:,}')}"
                 if planet.event:
-                    winning = False
-                    if planet.tracker and planet.tracker.change_rate_per_hour > 0:
-                        winning = (
-                            planet.tracker.complete_time
-                            < planet.event.end_time_datetime
-                        )
                     field_value += f"{language_json['ends']} <t:{planet.event.end_time_datetime.timestamp():.0f}:R>"
-                    if winning:
-                        field_value += f"\n{language_json['embeds']['Dashboard']['outlook']}: **{language_json['victory']}** <t:{int(planet.tracker.complete_time.timestamp())}:R>"
-                    else:
-                        field_value += f"\n{language_json['embeds']['Dashboard']['outlook']}: **{language_json['defeat']}**"
-                    field_value += (
-                        f"\n{language_json['embeds']['Dashboard']['progress']}:"
-                    )
+                    end_time_info = get_end_time(planet, gambit_planets)
+                    if end_time_info.end_time:
+                        if end_time_info.end_time < planet.event.end_time_datetime:
+                            field_value += f"\n**{language_json['victory']}** <t:{int(planet.tracker.complete_time.timestamp())}:R>"
+                        else:
+                            field_value += f"\n**{language_json['defeat']}**"
                     if self.compact_level < 1:
                         field_value += f"\n{planet.health_bar}"
                     field_value += f"\n`{(1-planet.event.progress):^25,.2%}`"
                 else:
-                    if planet.tracker and planet.tracker.change_rate_per_hour > 0:
-                        field_value += f"\n{language_json['embeds']['Dashboard']['outlook']}: **{language_json['victory']}** <t:{int(planet.tracker.complete_time.timestamp())}:R>"
-                    field_value += (
-                        f"\n{language_json['embeds']['Dashboard']['progress']}:"
-                    )
+                    end_time_info = get_end_time(planet)
+                    if end_time_info.end_time:
+                        if end_time_info.regions:
+                            regions_list = f"\n-# ".join(
+                                [f" {r.emoji} {r.name}" for r in end_time_info.regions]
+                            )
+                            field_value += f"\n**{language_json['victory']}** <t:{int(end_time_info.end_time.timestamp())}:R>\nIf the following regions are liberated:\n-# {regions_list}"
+                        elif end_time_info.source_planet:
+                            field_value += f"\n**{language_json['victory']}** <t:{int(end_time_info.end_time.timestamp())}:R>"
                     if self.compact_level < 1:
                         field_value += f"\n{planet.health_bar}"
                     field_value += f"\n`{(1-planet.health_perc):^25,.2%}`"
                 if planet.tracker and planet.tracker.change_rate_per_hour > 0:
                     change = f"{planet.tracker.change_rate_per_hour:+.2%}/hour"
                     field_value += f"\n`{change:^25}`"
+            elif planet.stats.player_count < (self.total_players * 0.05):
+                for waypoint in planet.waypoints:
+                    way_planet = planets[waypoint]
+                    if way_planet.stats.player_count > (self.total_players * 0.05):
+                        way_planet_end_info = get_end_time(way_planet, gambit_planets)
+                        if way_planet_end_info.end_time:
+                            field_value += f"\n-# Available <t:{int(way_planet_end_info.end_time.timestamp())}:R> thanks to {way_planet.name} liberation"
 
             self.add_field(
                 name=field_name,
@@ -779,6 +772,7 @@ class Dashboard:
             task: Assignment.Task,
             language_json: dict,
             planets: Planets,
+            gambit_planets: dict[int, Planet],
         ):
             """Hold {planet} when the order expires"""
             planet = planets[task.planet_index]
@@ -795,7 +789,7 @@ class Dashboard:
             field_value = ""
             if task.progress_perc != 1 or planet.event:
                 for planet_feature in PlanetFeatures.get_from_effects_list(
-                    (ae for ae in planet.active_effects if ae.effect_type == 71)
+                    planet.active_effects
                 ):
                     field_value += f"\n> -# {planet_feature[1]} {planet_feature[0]}"
                 for special_unit in SpecialUnits.get_from_effects_list(
@@ -808,31 +802,11 @@ class Dashboard:
                 else:
                     for waypoint in planet.waypoints:
                         way_planet = planets[waypoint]
-                        if (
-                            way_planet.tracker
-                            and way_planet.tracker.change_rate_per_hour > 0
-                        ):
-                            region_victory = False
-                            for way_region in way_planet.regions.values():
-                                if (
-                                    way_region.tracker
-                                    and way_region.tracker.change_rate_per_hour > 0
-                                    and way_region.tracker.complete_time
-                                    < way_planet.tracker.complete_time
-                                    and way_planet.tracker.percentage_at(
-                                        way_region.tracker.complete_time
-                                    )
-                                    >= 1
-                                    - (
-                                        (way_region.max_health * 1.5)
-                                        / way_planet.max_health
-                                    )
-                                ):
-                                    field_value += f"\nUnlocked **<t:{int(way_region.tracker.complete_time.timestamp())}:R>**\n> -# thanks to **{way_region.name}** {way_region.emoji} liberation on **{way_planet.name}** {way_planet.faction.emoji}"
-                                    region_victory = True
-                                    break
-                            if not region_victory:
-                                field_value += f"\nUnlocked **<t:{int(way_planet.tracker.complete_time.timestamp())}:R>**\n> -# thanks to **{way_planet.name}** {way_planet.faction.emoji} liberation"
+                        calc_end_time = get_end_time(
+                            way_planet, gambit_planets=gambit_planets
+                        )
+                        if calc_end_time.end_time:
+                            field_value += f"\nUnlocked **<t:{int(way_planet.tracker.complete_time.timestamp())}:R>**\n> -# thanks to **{way_planet.name}** liberation"
                             break
                 if planet.event:
                     field_value += f"\n{language_json['ends']} <t:{int(planet.event.end_time_datetime.timestamp())}:R>"
@@ -1072,65 +1046,38 @@ class Dashboard:
                 (ae for ae in planet.active_effects if ae.effect_type == 71)
             ):
                 field_value += f"\n> -# {planet_feature[1]} {planet_feature[0]}"
-            
-            field_value += (
-                f"\nEnds **<t:{int(planet.event.end_time_datetime.timestamp())}:R>**"
-            )
-            field_value += f"\nInvasion Level **{planet.event.level}**{planet.event.level_exclamation}"
-
-            winning = False
 
             end_time = planet.event.end_time_datetime
-            if planet.dss_in_orbit:
-                if self.eagle_storm and self.eagle_storm.status == 2:
-                    end_time += timedelta(
-                        seconds=(
-                            self.eagle_storm.status_end_datetime - self.now
-                        ).total_seconds()
-                    )
-                    field_value += f"\n> DEFENCE HELD BY DSS"
-
             if (
-                planet.tracker.change_rate_per_hour != 0
-                and planet.tracker.complete_time < end_time
+                planet.dss_in_orbit
+                and self.eagle_storm
+                and self.eagle_storm.status == 2
             ):
-                winning = True
-                field_value += f"\nVictory **<t:{int(planet.tracker.complete_time.timestamp())}:R>**"
+                field_value += f"\n> DEFENCE HELD BY DSS"
 
-            if not winning and planet.index in self.gambit_planets:
-                gambit_planet = self.gambit_planets[planet.index]
-                if (
-                    gambit_planet.tracker.change_rate_per_hour != 0
-                    and gambit_planet.tracker.complete_time < end_time
-                ):
-                    winning = True
-                    field_value += f"\n> Ends **<t:{int(gambit_planet.tracker.complete_time.timestamp())}:R>** thanks to **{gambit_planet.loc_names[self.language_json['code_long']]}** liberation"
-                else:
-                    field_value += f"\n> Can be ended by liberating **{self.gambit_planets[planet.index].loc_names[self.language_json['code_long']]}**"
+            field_value += f"\nEnds **<t:{int(end_time.timestamp())}:R>**"
+            field_value += f"\nInvasion Level **{planet.event.level}**{planet.event.level_exclamation}"
 
-            if not winning:
-                for region in planet.regions.values():
-                    if not region.is_available:
-                        continue
-                    if (
-                        region.tracker.change_rate_per_hour != 0
-                        and region.tracker.complete_time < end_time
-                        and planet.tracker.percentage_at(region.tracker.complete_time)
-                        >= 1 - ((region.max_health * 1.5) / planet.max_health)
-                        and region.tracker.complete_time < planet.tracker.complete_time
-                    ):
-                        winning = True
-                        field_value += f"\n> Ends **<t:{int(region.tracker.complete_time.timestamp())}:R>** thanks to **{region.name}** liberation"
-
-            if not winning:
-                field_value += f"\n**Losing**"
+            calculated_end_time = get_end_time(planet, self.gambit_planets)
+            if calculated_end_time.end_time < planet.event.end_time_datetime:
+                field_value += f"\nVictory "
+                if calculated_end_time.source_planet:
+                    field_value += (
+                        f"**<t:{int(calculated_end_time.end_time.timestamp())}:R>**"
+                    )
+                elif calculated_end_time.gambit_planet:
+                    field_value += f"**<t:{int(calculated_end_time.end_time.timestamp())}:R>** thanks to **{calculated_end_time.gambit_planet.name}** liberation"
+                elif calculated_end_time.region:
+                    field_value += f"**<t:{int(calculated_end_time.end_time.timestamp())}:R>** thanks to {calculated_end_time.region.emoji}**{calculated_end_time.region.name}** liberation"
+            elif planet.tracker and planet.tracker.change_rate_per_hour > 0:
+                field_value += f"**Losing**"
 
             field_value += f"\nHeroes: **{planet.stats.player_count:,}**"
             field_value += f"\nDefence progress:"
             if self.compact_level < 1:
                 field_value += f"\n{planet.health_bar}"
             field_value += f"\n`{planet.event.progress:^25.2%}`"
-            if planet.tracker:
+            if planet.tracker and planet.tracker.change_rate_per_hour > 0:
                 change = f"{planet.tracker.change_rate_per_hour:+.2%}/hr"
                 field_value += f"\n`{change:^25}`"
 
@@ -1238,33 +1185,16 @@ class Dashboard:
                         campaign.planet.active_effects
                     ):
                         field_value += f"\n-# {feature[1]} {feature[0]}"
-                    
-                    if (
-                        campaign.planet.tracker
-                        and campaign.planet.tracker.change_rate_per_hour > 0
-                    ):
-                        region_victory = False
-                        for region in campaign.planet.regions.values():
-                            if (
-                                region.tracker
-                                and region.tracker.change_rate_per_hour > 0
-                                and region.tracker.complete_time
-                                < campaign.planet.tracker.complete_time
-                                and campaign.planet.tracker.percentage_at(
-                                    region.tracker.complete_time
-                                )
-                                >= 1
-                                - (
-                                    (region.max_health * 1.5)
-                                    / campaign.planet.max_health
-                                )
-                            ):
-                                field_value += f"\nVictory **<t:{int(region.tracker.complete_time.timestamp())}:R>**\n> -# thanks to **{region.name}** {region.emoji} liberation"
-                                region_victory = True
-                                break
-                        if not region_victory:
+
+                    calc_end_time = get_end_time(campaign.planet)
+                    if calc_end_time.end_time:
+                        if calc_end_time.regions:
+                            regions_list = f"\n-# ".join(
+                                [f" {r.emoji} {r.name}" for r in calc_end_time.regions]
+                            )
+                            field_value += f"\nVictory **<t:{int(calc_end_time.end_time.timestamp())}:R>**\n-# If the following regions get liberated:\n-# {regions_list}"
+                        elif calc_end_time.source_planet:
                             field_value += f"\nVictory **<t:{int(campaign.planet.tracker.complete_time.timestamp())}:R>**"
-                    field_value += "\nPlanet liberation:"
                     if compact_level < 1:
                         field_value += f"\n{campaign.planet.health_bar}"
                     field_value += f"\n`{(1 - (campaign.planet.health_perc)):^25.2%}`"  # 1 - {health} because we need it to reach 0

@@ -92,6 +92,7 @@ class PlanetCog(commands.Cog):
             planet=planet_data,
             containers_json=guild_language["containers"]["PlanetContainers"],
             faction_json=guild_language["factions"],
+            gambit_planets=self.bot.data.gambit_planets,
         )
 
         if with_map == "Yes" and False:  # TODO

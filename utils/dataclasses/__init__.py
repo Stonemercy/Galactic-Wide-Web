@@ -1,5 +1,6 @@
 from .api_changes import APIChanges
 from .assignment_images import AssignmentImages
+from .calculated_end_time import CalculatedEndTime
 from .campaign_changes_json import CampaignChangesJson
 from .dss_changes_json import DSSChangesJson
 from .dss_images import DSSImages

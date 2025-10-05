@@ -270,6 +270,15 @@ class Data(ReprMixin):
                 planet=dss_planet,
                 war_start_timestamp=self.war_start_timestamp,
             )
+            if eagle_storm := self.dss.get_ta_by_name("EAGLE STORM"):
+                if eagle_storm.status == 2:
+                    if dss_planet.event:
+                        dss_planet.eagle_storm_active = True
+                        dss_planet.event.end_time_datetime += timedelta(
+                            seconds=(
+                                eagle_storm.status_end_datetime - datetime.now()
+                            ).total_seconds()
+                        )
 
         if self.planets:
             self.planet_events: list[Planet] = sorted(
@@ -993,6 +1002,7 @@ class Planet(ReprMixin):
             raw_stats_data=raw_planet_data["statistics"]
         )
         self.dss_in_orbit: bool = False
+        self.eagle_storm_active = False
         self.in_assignment: bool = False
         self.active_effects: set[GalacticWarEffect] | set = set()
         self.attack_targets: list[int] | list = []
@@ -1135,6 +1145,11 @@ class Planet(ReprMixin):
         def health_bar(self) -> str:
             """Returns the health bar for the region"""
             return health_bar(perc=self.perc, faction=self.owner.full_name)
+
+        @property
+        def planet_damage_perc(self) -> float:
+            """Returns how much percentage points it does the the planet upon liberation"""
+            return (self.max_health * 1.5) / self.planet.max_health
 
         def update_from_status_data(self, raw_planet_region_data: dict):
             self.owner: Faction | None = Factions.get_from_identifier(

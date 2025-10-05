@@ -3,18 +3,25 @@ from disnake import Colour, ui
 from utils.data import Planet
 from utils.dataclasses import Factions, PlanetFeatures, SpecialUnits
 from utils.emojis import Emojis
-from utils.functions import short_format
+from utils.functions import get_end_time, short_format
 from utils.interactables import HDCButton, WikiButton
 from utils.mixins import ReprMixin
 
 
 class PlanetContainers(list[ui.Container]):
-    def __init__(self, planet: Planet, containers_json: dict, faction_json: dict):
+    def __init__(
+        self,
+        planet: Planet,
+        containers_json: dict,
+        faction_json: dict,
+        gambit_planets: dict[int, Planet],
+    ):
         self.append(
             self.PlanetContainer(
                 planet=planet,
                 container_json=containers_json["PlanetContainer"],
                 faction_json=faction_json,
+                gambit_planets=gambit_planets,
             )
         )
         if planet.regions:
@@ -37,12 +44,19 @@ class PlanetContainers(list[ui.Container]):
         )
 
     class PlanetContainer(ui.Container, ReprMixin):
-        def __init__(self, planet: Planet, container_json: dict, faction_json: dict):
+        def __init__(
+            self,
+            planet: Planet,
+            container_json: dict,
+            faction_json: dict,
+            gambit_planets: dict[int, Planet],
+        ):
             self.components = []
             self.add_planet_info(
                 planet=planet,
                 component_json=container_json["planet_info"],
                 factions_json=faction_json,
+                gambit_planets=gambit_planets,
             )
             self.add_mission_stats(
                 planet=planet, component_json=container_json["mission_stats"]
@@ -67,7 +81,11 @@ class PlanetContainers(list[ui.Container]):
             )
 
         def add_planet_info(
-            self, planet: Planet, component_json: dict, factions_json: dict
+            self,
+            planet: Planet,
+            component_json: dict,
+            factions_json: dict,
+            gambit_planets,
         ):
             self.components.extend(
                 [
@@ -88,50 +106,56 @@ class PlanetContainers(list[ui.Container]):
                 ]
             )
 
-            hazards_text = f"\n🌪️ {component_json['hazards']}:"
+            hazards_text = (
+                f"\n## 🌪️ {component_json['hazards']}:" if planet.hazards else ""
+            )
             for hazard in planet.hazards:
                 hazards_text += f"\n- {getattr(Emojis.Weather, hazard['name'].replace(' ', '_').lower(), '')} **{hazard['name']}**\n  - -# {hazard['description']}"
-
             self.components.append(
                 ui.TextDisplay(
                     (
-                        f"🏔️ {component_json['biome']}:\n-# **{planet.biome['name']}**\n - -# {planet.biome['description']}"
+                        f"## 🏔️ {component_json['biome']}:\n- **{planet.biome['name']}**\n  - -# {planet.biome['description']}"
                         f"{hazards_text}"
                     )
                 )
             )
 
-            effects_text = f"Features:"
+            effects_text = f"### Features:"
             for pf in PlanetFeatures.get_from_effects_list(planet.active_effects):
                 effects_text += f"\n-# {pf[1]} {pf[0]}"
-            if effects_text != "Features:":
+            if effects_text != "### Features:":
                 self.components.append(ui.TextDisplay(effects_text))
 
-            su_text = f"Special Units:"
+            su_text = f"### Special Units:"
             for su in SpecialUnits.get_from_effects_list(planet.active_effects):
                 su_text += f"\n-# {su[1]} {su[0]}"
-            if su_text != "Special Units:":
+            if su_text != "### Special Units:":
                 self.components.append(ui.TextDisplay(su_text))
 
-            self.components.append(
-                ui.TextDisplay(
-                    f"**{planet.stats.player_count:,}** {component_json['heroes']}"
-                )
+            liberation_text = (
+                f"### {component_json['heroes']}: **{planet.stats.player_count:,}**"
+                f"\n{planet.health_bar}"
+                f"\n`{1 - planet.health_perc if not planet.event else planet.event.progress:^25.2%}`"
             )
-
-            health_text = (
-                f"{planet.health_bar}"
-                f"\n`{planet.health_perc if not planet.event else planet.event.progress:^25.2%}`"
-            )
-            if planet.tracker and planet.tracker.change_rate_per_hour > 0:
+            if planet.tracker and planet.tracker.change_rate_per_hour != 0:
                 change = f"{planet.tracker.change_rate_per_hour:+.2%}/hr"
-                health_text += (
-                    f"\n`{change:^25}`"
-                    f"\n-# {component_json['liberated']} **<t:{int(planet.tracker.complete_time.timestamp())}:R>**"
-                )
+                liberation_text += f"\n`{change:^25}`"
+
+            end_time_info = get_end_time(planet, gambit_planets)
+            if end_time_info.end_time:
+                if end_time_info.source_planet:
+                    liberation_text += f"\n-# {component_json['liberated']} **<t:{int(planet.tracker.complete_time.timestamp())}:R>**"
+                elif end_time_info.gambit_planet:
+                    liberation_text += f"\n-# {component_json['liberated']} **<t:{int(end_time_info.gambit_planet.tracker.complete_time.timestamp())}:R>** thanks to {end_time_info.gambit_planet.name} liberation"
+                elif end_time_info.regions:
+                    regions_list = f"\n-# ".join(
+                        [f" {r.emoji} {r.name}" for r in end_time_info.regions]
+                    )
+                    liberation_text += f"\n**{component_json['liberated']}** <t:{int(end_time_info.end_time.timestamp())}:R>\nIf the following regions are liberated:\n-# {regions_list}"
+
             self.components.extend(
                 [
-                    ui.TextDisplay(health_text),
+                    ui.TextDisplay(liberation_text),
                     ui.Separator(),
                 ]
             )

@@ -77,6 +77,7 @@ class MajorOrderCog(commands.Cog):
                         Dashboard.MajorOrderEmbed(
                             assignment=self.bot.data.assignments[lang][index],
                             planets=self.bot.data.planets,
+                            gambit_planets=self.bot.data.gambit_planets,
                             language_json=self.bot.json_dict["languages"][lang],
                             json_dict=self.bot.json_dict,
                         )
@@ -154,6 +155,7 @@ class MajorOrderCog(commands.Cog):
                 Dashboard.MajorOrderEmbed(
                     assignment=major_order,
                     planets=self.bot.data.planets,
+                    gambit_planets=self.bot.data.gambit_planets,
                     language_json=self.bot.json_dict["languages"][lang],
                     json_dict=self.bot.json_dict,
                 )
@@ -225,6 +227,7 @@ class MajorOrderCog(commands.Cog):
                 embed = Dashboard.MajorOrderEmbed(
                     assignment=assignment,
                     planets=self.bot.data.planets,
+                    gambit_planets=self.bot.data.gambit_planets,
                     language_json=guild_language,
                     json_dict=self.bot.json_dict,
                 )
@@ -245,6 +248,7 @@ class MajorOrderCog(commands.Cog):
                 Dashboard.MajorOrderEmbed(
                     assignment=None,
                     planets=None,
+                    gambit_planets=self.bot.data.gambit_planets,
                     language_json=guild_language,
                     json_dict=None,
                 )

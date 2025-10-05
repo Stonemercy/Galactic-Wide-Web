@@ -331,6 +331,7 @@ class AdminCommandsCog(commands.Cog):
                                     "PlanetContainers"
                                 ],
                                 faction_json=lang_json["factions"],
+                                gambit_planets=self.bot.data.gambit_planets,
                             )
 
                             await self.bot.waste_bin_channel.send(
