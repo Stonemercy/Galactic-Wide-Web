@@ -46,11 +46,11 @@ class ErrorHandlerCog(commands.Cog):
                     ephemeral=True,
                     delete_after=30,
                 )
-                await self.bot.moderator_channel.send(
+                await self.bot.channels.moderator_channel.send(
                     content=f"{self.bot.owner.mention}```py\n{''.join(format_exception(type(error), value=error, tb=error.__traceback__))[-1900:]}\n```"
                 )
             except Exception as e:
-                await self.bot.moderator_channel.send(
+                await self.bot.channels.moderator_channel.send(
                     content=f"{self.bot.owner.mention}\n```\n{error}```\n```\n{e}```"
                 )
                 raise error
@@ -58,7 +58,7 @@ class ErrorHandlerCog(commands.Cog):
     @commands.Cog.listener()
     async def on_error(self, event_method: str, *args, **kwargs):
         exc_type, exc_value, exc_traceback = exc_info()
-        await self.bot.moderator_channel.send(
+        await self.bot.channels.moderator_channel.send(
             content=f"{self.bot.owner.mention}\nUnhandled Event Error\n```py\n{''.join(format_exception(exc_type, exc_value, exc_traceback))}```",
             event=event_method,
         )

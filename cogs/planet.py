@@ -126,7 +126,7 @@ class PlanetCog(commands.Cog):
                     dss=self.bot.data.dss,
                     planet_names_json=self.bot.json_dict["planets"],
                 )
-                message = await self.bot.waste_bin_channel.send(
+                message = await self.bot.channels.waste_bin_channel.send(
                     file=File(
                         fp=self.bot.maps.FileLocations.localized_map_path(
                             language_json["code"]
@@ -138,7 +138,7 @@ class PlanetCog(commands.Cog):
                 )
                 latest_map = self.bot.maps.latest_maps[language_json["code"]]
             self.bot.maps.draw_arrow(language_code=guild.language, planet=planet_data)
-            arrow_map_message = await self.bot.waste_bin_channel.send(
+            arrow_map_message = await self.bot.channels.waste_bin_channel.send(
                 file=File(fp=self.bot.maps.FileLocations.arrow_map)
             )
             components.insert(

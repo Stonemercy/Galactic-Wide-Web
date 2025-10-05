@@ -34,7 +34,7 @@ class GuildManagementCog(commands.Cog):
     async def on_guild_join(self, guild: Guild):
         guild_in_db = GWWGuilds.get_specific_guild(id=guild.id)
         if guild_in_db:
-            await self.bot.moderator_channel.send(
+            await self.bot.channels.moderator_channel.send(
                 f"Guild **{guild.name}** just added the bot but was already in the DB"
             )
         else:
@@ -43,19 +43,19 @@ class GuildManagementCog(commands.Cog):
                 guild_id=guild.id, language=language.short_code, feature_keys=[]
             )
         container = GuildContainer(guild=guild, db_guild=guild_in_db, joined=True)
-        await self.bot.moderator_channel.send(components=container)
+        await self.bot.channels.moderator_channel.send(components=container)
 
     @commands.Cog.listener()
     async def on_guild_remove(self, guild: Guild):
         guild_in_db: GWWGuild | None = GWWGuilds.get_specific_guild(id=guild.id)
         if not guild_in_db:
-            await self.bot.moderator_channel.send(
+            await self.bot.channels.moderator_channel.send(
                 f"Guild **{guild.name}** just removed the bot but was not in the DB"
             )
         else:
             container = GuildContainer(guild=guild, db_guild=guild_in_db, removed=True)
             guild_in_db.delete()
-            await self.bot.moderator_channel.send(components=container)
+            await self.bot.channels.moderator_channel.send(components=container)
 
     @tasks.loop(minutes=1)
     async def bot_dashboard(self):
@@ -124,7 +124,7 @@ class GuildManagementCog(commands.Cog):
                     if updated_time < (
                         now - timedelta(minutes=16)
                     ) and self.bot.startup_time < (now - timedelta(minutes=16)):
-                        await self.bot.moderator_channel.send(
+                        await self.bot.channels.moderator_channel.send(
                             content=f"<@{self.bot.owner.id}> {message.jump_url} was last edited <t:{int(message.edited_at.timestamp())}:R> :warning:"
                         )
                         await sleep(delay=15 * 60)
@@ -157,7 +157,7 @@ class GuildManagementCog(commands.Cog):
                     ),
                     inline=False,
                 )
-                await self.bot.moderator_channel.send(
+                await self.bot.channels.moderator_channel.send(
                     embed=embed,
                     components=[
                         Button(

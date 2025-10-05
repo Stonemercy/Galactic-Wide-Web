@@ -69,7 +69,8 @@ class DataManagementCog(commands.Cog):
         else:
             first_load = True
         await self.bot.data.pull_from_api(
-            logger=self.bot.logger, moderator_channel=self.bot.moderator_channel
+            logger=self.bot.logger,
+            moderator_channel=self.bot.channels.moderator_channel,
         )
         if first_load:
             now = datetime.now()
@@ -154,7 +155,9 @@ class DataManagementCog(commands.Cog):
             ]
             for chunk in chunked_changes:
                 components = [APIChangesContainer(api_changes=chunk)]
-                msg = await self.bot.api_changes_channel.send(components=components)
+                msg = await self.bot.channels.api_changes_channel.send(
+                    components=components
+                )
                 await msg.publish()
 
     @check_changes.before_loop

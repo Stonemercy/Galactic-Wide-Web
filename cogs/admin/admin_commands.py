@@ -11,7 +11,6 @@ from disnake import (
 )
 from disnake.ext import commands
 from main import GalacticWideWebBot
-from os import getenv
 from random import choice
 from utils.checks import wait_for_startup
 from utils.containers import (
@@ -27,13 +26,11 @@ from utils.dataclasses import (
     DSSChangesJson,
     RegionChangesJson,
     SpecialUnits,
+    Config,
 )
 from utils.dbv2 import GWWGuild, GWWGuilds
 from utils.embeds import BotInfoEmbeds, Dashboard
 from utils.interactables import ConfirmButton
-
-
-SUPPORT_SERVER_ID = [int(getenv("SUPPORT_SERVER"))]
 
 
 class AdminCommandsCog(commands.Cog):
@@ -43,7 +40,7 @@ class AdminCommandsCog(commands.Cog):
     @wait_for_startup()
     @commands.is_owner()
     @commands.slash_command(
-        guild_ids=SUPPORT_SERVER_ID,
+        guild_ids=[Config.SUPPORT_SERVER_ID],
         description="Forces the choice to update ASAP",
         default_member_permissions=Permissions(administrator=True),
     )
@@ -84,7 +81,7 @@ class AdminCommandsCog(commands.Cog):
     @wait_for_startup()
     @commands.is_owner()
     @commands.slash_command(
-        guild_ids=SUPPORT_SERVER_ID,
+        guild_ids=[Config.SUPPORT_SERVER_ID],
         description="Reload an extension",
         default_member_permissions=Permissions(administrator=True),
     )
@@ -121,7 +118,7 @@ class AdminCommandsCog(commands.Cog):
     @wait_for_startup()
     @commands.is_owner()
     @commands.slash_command(
-        guild_ids=SUPPORT_SERVER_ID,
+        guild_ids=[Config.SUPPORT_SERVER_ID],
         description="Fake an event for the bot",
         default_member_permissions=Permissions(administrator=True),
     )
@@ -149,7 +146,7 @@ class AdminCommandsCog(commands.Cog):
     @wait_for_startup()
     @commands.is_owner()
     @commands.slash_command(
-        guild_ids=SUPPORT_SERVER_ID,
+        guild_ids=[Config.SUPPORT_SERVER_ID],
         description="Reset a guild in the DB",
         default_member_permissions=Permissions(administrator=True),
     )
@@ -248,7 +245,7 @@ class AdminCommandsCog(commands.Cog):
     @wait_for_startup()
     @commands.is_owner()
     @commands.slash_command(
-        guild_ids=SUPPORT_SERVER_ID,
+        guild_ids=[Config.SUPPORT_SERVER_ID],
         description="Get info from the bot",
         default_member_permissions=Permissions(administrator=True),
     )
@@ -266,7 +263,7 @@ class AdminCommandsCog(commands.Cog):
     @wait_for_startup()
     @commands.is_owner()
     @commands.slash_command(
-        guild_ids=SUPPORT_SERVER_ID,
+        guild_ids=[Config.SUPPORT_SERVER_ID],
         description="Test a feature",
         default_member_permissions=Permissions(administrator=True),
     )
@@ -334,7 +331,7 @@ class AdminCommandsCog(commands.Cog):
                                 gambit_planets=self.bot.data.gambit_planets,
                             )
 
-                            await self.bot.waste_bin_channel.send(
+                            await self.bot.channels.waste_bin_channel.send(
                                 components=containers,
                                 delete_after=0.1,
                             )
@@ -356,7 +353,7 @@ class AdminCommandsCog(commands.Cog):
     @wait_for_startup()
     @commands.is_owner()
     @commands.slash_command(
-        guild_ids=SUPPORT_SERVER_ID,
+        guild_ids=[Config.SUPPORT_SERVER_ID],
         description="Test v2 components",
         default_member_permissions=Permissions(administrator=True),
     )
@@ -655,7 +652,7 @@ class AdminCommandsCog(commands.Cog):
     @wait_for_startup()
     @commands.is_owner()
     @commands.slash_command(
-        guild_ids=SUPPORT_SERVER_ID,
+        guild_ids=[Config.SUPPORT_SERVER_ID],
         description="Test v2 components",
         default_member_permissions=Permissions(administrator=True),
     )

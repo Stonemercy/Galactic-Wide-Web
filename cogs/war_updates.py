@@ -3,7 +3,6 @@ from datetime import datetime
 from disnake import File
 from disnake.ext import commands, tasks
 from main import GalacticWideWebBot
-from os import getenv
 from utils.containers import (
     DSSChangesContainer,
     RegionChangesContainer,
@@ -12,8 +11,6 @@ from utils.containers import (
 from utils.dataclasses import CampaignChangesJson, DSSChangesJson, RegionChangesJson
 from utils.dbv2 import DSSInfo, GWWGuilds, PlanetRegions, WarCampaigns
 from utils.maps import Maps
-
-SUPPORT_SERVER = [int(getenv("SUPPORT_SERVER"))]
 
 
 class WarUpdatesCog(commands.Cog):
@@ -204,7 +201,7 @@ class WarUpdatesCog(commands.Cog):
                     dss=self.bot.data.dss,
                     planet_names_json=self.bot.json_dict["planets"],
                 )
-                message = await self.bot.waste_bin_channel.send(
+                message = await self.bot.channels.waste_bin_channel.send(
                     file=File(
                         fp=self.bot.maps.FileLocations.localized_map_path(lang["code"])
                     )
@@ -318,7 +315,7 @@ class WarUpdatesCog(commands.Cog):
                         dss=self.bot.data.dss,
                         planet_names_json=self.bot.json_dict["planets"],
                     )
-                    message = await self.bot.waste_bin_channel.send(
+                    message = await self.bot.channels.waste_bin_channel.send(
                         file=File(
                             fp=self.bot.maps.FileLocations.localized_map_path(lang)
                         )

@@ -5,17 +5,14 @@ from data.lists import stratagem_id_dict
 from datetime import datetime, timedelta
 from disnake import TextChannel
 from logging import Logger
-from os import getenv
 from typing import ItemsView, ValuesView
-from utils.dataclasses import Factions, SpecialUnits, Languages
+from utils.dataclasses import Factions, SpecialUnits, Languages, Config
 from utils.dataclasses.factions import Faction
 from utils.emojis import Emojis
 from utils.functions import dispatch_format, health_bar
 from utils.mixins import GWEReprMixin, ReprMixin
 from utils.trackers import BaseTracker, BaseTrackerEntry
 
-api = getenv(key="API")
-backup_api = getenv(key="BU_API")
 
 REGION_TYPES = {
     5: "Super City ",  # guess
@@ -103,7 +100,7 @@ class Data(ReprMixin):
             f"pull_from_api function started at {datetime.now().strftime('%H:%M:%S')}"
         )
         self.fetching = True
-        api_to_use = api
+        api_to_use = Config.API_BASE
         async with ClientSession(
             headers={
                 "Accept-Language": "en-GB",
@@ -114,7 +111,7 @@ class Data(ReprMixin):
             try:
                 async with session.get(url=f"{api_to_use}") as r:
                     if r.status != 200:
-                        api_to_use = backup_api
+                        api_to_use = Config.BACKUP_API_BASE
                         logger.critical("API/USING BACKUP")
                         await moderator_channel.send(content=f"API/USING BACKUP\n{r}")
             except ClientSSLError as e:
@@ -249,7 +246,7 @@ class Data(ReprMixin):
                 except Exception as e:
                     logger.error(f"API/{endpoint.upper()}, {e}")
                     await moderator_channel.send(content=f"API/{endpoint.upper()}\n{r}")
-                if api_to_use == backup_api:
+                if api_to_use == Config.BACKUP_API_BASE:
                     await sleep(2)
 
         self.format_data()

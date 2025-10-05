@@ -1,23 +1,18 @@
 from dataclasses import dataclass
 from typing import Self
-from dotenv import load_dotenv
-from os import getenv
 from psycopg2 import connect
 from psycopg2.extras import Json, DictCursor
 from utils.mixins import ReprMixin
-from utils.dataclasses import Languages
-
-load_dotenv(dotenv_path=".env")
-HOSTNAME = getenv(key="DB_HOSTNAME")
-DATABASE = getenv(key="DBV2_NAME")
-USERNAME = getenv(key="DB_USERNAME")
-PWD = getenv(key="DB_PWD")
-PORT_ID = getenv(key="DB_PORT_ID")
+from utils.dataclasses import Languages, Config
 
 
 def connection():
     return connect(
-        host=HOSTNAME, dbname=DATABASE, user=USERNAME, password=PWD, port=PORT_ID
+        host=Config.DB_HOSTNAME,
+        dbname=Config.DATABASE,
+        user=Config.DB_USERNAME,
+        password=Config.DB_PWD,
+        port=Config.DB_PORT_ID,
     )
 
 

@@ -1,5 +1,6 @@
 from .api_changes import APIChanges
 from .assignment_images import AssignmentImages
+from .bot_channels import BotChannels
 from .calculated_end_time import CalculatedEndTime
 from .campaign_changes_json import CampaignChangesJson
 from .config import Config
@@ -16,6 +17,7 @@ from .warbond_images import WarbondImages
 __all__ = [
     "APIChanges",
     "AssignmentImages",
+    "BotChannels",
     "CalculatedEndTime",
     "CampaignChangesJson",
     "Config",

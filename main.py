@@ -1,4 +1,3 @@
-from os import getenv
 from utils.bot import GalacticWideWebBot
 
 bot = GalacticWideWebBot()

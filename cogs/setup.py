@@ -451,7 +451,7 @@ class SetupCog(commands.Cog):
                         ],
                         planet_names_json=self.bot.json_dict["planets"],
                     )
-                    message = await self.bot.waste_bin_channel.send(
+                    message = await self.bot.channels.waste_bin_channel.send(
                         file=File(
                             fp=self.bot.maps.FileLocations.localized_map_path(
                                 guild_language["code"]

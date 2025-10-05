@@ -40,7 +40,7 @@ class DispatchesCog(commands.Cog):
             return
         current_war_info = WarInfo()
         if not current_war_info.dispatch_id:
-            await self.bot.moderator_channel.send(
+            await self.bot.channels.moderator_channel.send(
                 "# No dispatch ID found in the database. Please check the war info table."
             )
             return

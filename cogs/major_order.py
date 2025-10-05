@@ -47,7 +47,7 @@ class MajorOrderCog(commands.Cog):
             return
         current_war_info = WarInfo()
         if current_war_info.major_order_ids == None:
-            await self.bot.moderator_channel.send(
+            await self.bot.channels.moderator_channel.send(
                 "# No major order IDs found in the database. Please check the war info table."
             )
             return

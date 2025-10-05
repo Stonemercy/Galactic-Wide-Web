@@ -3,15 +3,12 @@ from datetime import datetime, timedelta
 from disnake import Activity, ActivityType, Intents, Message, TextChannel
 from disnake.ext import commands, tasks
 from json import load
-from logging import INFO, Formatter, getLogger, StreamHandler
-from os import getenv, listdir
+from os import listdir
 from utils.data import Data
+from utils.dataclasses import BotChannels, Config
 from utils.interface_handler import InterfaceHandler
+from utils.logger import GWWLogger
 from utils.maps import Maps
-
-MODERATOR_CHANNEL_ID = int(getenv(key="MODERATION_CHANNEL"))
-WASTE_BIN_CHANNEL_ID = int(getenv(key="WASTE_BIN_CHANNEL"))
-API_CHANGES_CHANNEL_ID = int(getenv(key="API_CHANGES_CHANNEL"))
 
 
 class GalacticWideWebBot(commands.AutoShardedInteractionBot):
@@ -21,6 +18,7 @@ class GalacticWideWebBot(commands.AutoShardedInteractionBot):
             intents=Intents.default(),
             activity=Activity(name="for dissidents", type=ActivityType.watching),
         )
+        self.config = Config
         self.logger = GWWLogger()
         self.config = Config
         self.startup_time = datetime.now()
@@ -30,10 +28,7 @@ class GalacticWideWebBot(commands.AutoShardedInteractionBot):
         self.load_json()
         self.data = Data(json_dict=self.json_dict)
         self.previous_data: Data | None = None
-        self.command_usage: dict = {}
-        self.moderator_channel: TextChannel | None = None
-        self.waste_bin_channel: TextChannel | None = None
-        self.api_changes_channel: TextChannel | None = None
+        self.channels = BotChannels()
         self.bot_dashboard_channel: TextChannel | None = None
         self.bot_dashboard_message: Message | None = None
         self.maps = Maps()
@@ -44,9 +39,9 @@ class GalacticWideWebBot(commands.AutoShardedInteractionBot):
         return int((self.ready_time - datetime.now()).total_seconds())
 
     async def on_ready(self) -> None:
-        await self.get_channels()
+        await self.channels.get_channels(self, self.config)
         self.logger.info(
-            msg=f"Loaded {len(self.cogs)}/{len([f for f in listdir('cogs') if f.endswith('.py')]) + len([f for f in listdir('cogs/admin') if f.endswith('.py')])} cogs successfully"
+            f"Loaded {len(self.cogs)}/{len([f for f in listdir('cogs') if f.endswith('.py')]) + len([f for f in listdir('cogs/admin') if f.endswith('.py')])} cogs successfully"
         )
         await self.get_owner()
 
@@ -64,22 +59,6 @@ class GalacticWideWebBot(commands.AutoShardedInteractionBot):
             else:
                 with open(file=values["path"], encoding="UTF-8") as json_file:
                     self.json_dict[key] = load(json_file)
-
-    async def get_channels(self) -> None:
-        """Fetches the specific channels needed for the bots functions"""
-        channel_dict = {
-            "moderator_channel": MODERATOR_CHANNEL_ID,
-            "waste_bin_channel": WASTE_BIN_CHANNEL_ID,
-            "api_changes_channel": API_CHANGES_CHANNEL_ID,
-        }
-        for attr, channel_id in channel_dict.items():
-            while not getattr(self, attr):
-                setattr(
-                    self,
-                    attr,
-                    self.get_channel(channel_id)
-                    or await self.fetch_channel(channel_id),
-                )
 
     async def get_owner(self) -> None:
         max_retries = 10

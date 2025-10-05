@@ -39,7 +39,7 @@ class MapCog(commands.Cog):
         ):
             return
         try:
-            await self.bot.waste_bin_channel.purge(
+            await self.bot.channels.waste_bin_channel.purge(
                 before=maps_start - timedelta(hours=2)
             )
         except:
@@ -80,7 +80,7 @@ class MapCog(commands.Cog):
                     dss=self.bot.data.dss,
                     planet_names_json=self.bot.json_dict["planets"],
                 )
-                message = await self.bot.waste_bin_channel.send(
+                message = await self.bot.channels.waste_bin_channel.send(
                     file=File(
                         fp=self.bot.maps.FileLocations.localized_map_path(language_code)
                     )
@@ -170,7 +170,7 @@ class MapCog(commands.Cog):
                 planet_names_json=self.bot.json_dict["planets"],
             )
             try:
-                message = await self.bot.waste_bin_channel.send(
+                message = await self.bot.channels.waste_bin_channel.send(
                     file=File(
                         fp=self.bot.maps.FileLocations.localized_map_path(
                             language_json["code"]
@@ -182,7 +182,7 @@ class MapCog(commands.Cog):
                 )
                 latest_map = self.bot.maps.latest_maps[language_json["code"]]
             except HTTPException as e:
-                await self.bot.moderator_channel.send(
+                await self.bot.channels.moderator_channel.send(
                     (
                         f"Error with Maps command\n"
                         f"Language: **{language_json['code']}**\n"

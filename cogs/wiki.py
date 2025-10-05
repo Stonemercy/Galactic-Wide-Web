@@ -267,7 +267,7 @@ class WikiCog(commands.Cog):
                 weapon_info=first_weapon,
             )
             if not embed.image_set:
-                await self.bot.moderator_channel.send(
+                await self.bot.channels.moderator_channel.send(
                     f"# <@{self.bot.owner.id}> :warning:\nImage missing for **weapon primary __{first_weapon[0]}__** {first_weapon[0].replace(' ', '-').replace('&', 'n')}.png"
                 )
             components = Wiki.Buttons.primary_weapon_rows(
@@ -288,7 +288,7 @@ class WikiCog(commands.Cog):
                 weapon_info=first_weapon,
             )
             if not embed.image_set:
-                await self.bot.moderator_channel.send(
+                await self.bot.channels.moderator_channel.send(
                     f"# <@{self.bot.owner.id}> :warning:\nImage missing for **weapon secondary __{first_weapon[0]}__** {first_weapon[0].replace(' ', '-').replace('/', '-')}.png"
                 )
             components = Wiki.Buttons.secondary_weapon_rows(
@@ -309,7 +309,7 @@ class WikiCog(commands.Cog):
                 grenade_info=first_grenade,
             )
             if not embed.image_set:
-                await self.bot.moderator_channel.send(
+                await self.bot.channels.moderator_channel.send(
                     f"# <@{self.bot.owner.id}> :warning:\nImage missing for **weapon grenades __{first_grenade[0]}__** {first_grenade[0].replace(' ', '-')}.png"
                 )
             components = Wiki.Buttons.grenades_rows(
@@ -327,7 +327,7 @@ class WikiCog(commands.Cog):
             first_booster: tuple[str, dict] = list(boosters.items())[0]
             embed = Wiki.Embeds.BoostersEmbed(booster_info=first_booster)
             if not embed.image_set:
-                await self.bot.moderator_channel.send(
+                await self.bot.channels.moderator_channel.send(
                     f" <@{self.bot.owner.id}> :warning:\nImage missing for **booster __{first_booster[0]}__** {first_booster[0].replace(' ', '_')}.png"
                 )
             components = Wiki.Buttons.boosters_rows(
@@ -355,7 +355,7 @@ class WikiCog(commands.Cog):
                     .replace(" ", "_")
                     .replace('"', "")
                 )
-                await self.bot.moderator_channel.send(
+                await self.bot.channels.moderator_channel.send(
                     f"# <@{self.bot.owner.id}> :warning:\nImage missing for **stratagem `{stratagem_info[0]}     -     {strat_name}.png`**"
                 )
             components = Wiki.Buttons.stratagems_rows(
@@ -488,7 +488,7 @@ class WikiCog(commands.Cog):
                 weapon_info=weapon_info,
             )
             if not embed.image_set:
-                await self.bot.moderator_channel.send(
+                await self.bot.channels.moderator_channel.send(
                     f"# <@{self.bot.owner.id}> :warning:\nImage missing for **weapon primary __{weapon_info[0]}__** {weapon_info[0].replace(' ', '-').replace('&', 'n')}.png"
                 )
             components = Wiki.Buttons.primary_weapon_rows(
@@ -523,7 +523,7 @@ class WikiCog(commands.Cog):
                 weapon_info=weapon_info,
             )
             if not embed.image_set:
-                await self.bot.moderator_channel.send(
+                await self.bot.channels.moderator_channel.send(
                     f"# <@{self.bot.owner.id}> :warning:\nImage missing for **weapon secondary __{weapon_info[0]}__** {weapon_info[0].replace(' ', '-').replace('/', '-')}.png"
                 )
             components = Wiki.Buttons.secondary_weapon_rows(
@@ -554,7 +554,7 @@ class WikiCog(commands.Cog):
                 grenade_info=grenade_info,
             )
             if not embed.image_set:
-                await self.bot.moderator_channel.send(
+                await self.bot.channels.moderator_channel.send(
                     f" <@{self.bot.owner.id}> :warning:\nImage missing for **weapon grenade __{grenade_name}__** {grenade_name.replace(' ', '-')}.png"
                 )
             components = Wiki.Buttons.grenades_rows(
@@ -576,7 +576,7 @@ class WikiCog(commands.Cog):
             booster_info = (booster_name, booster_json)
             embed = Wiki.Embeds.BoostersEmbed(booster_info=booster_info)
             if not embed.image_set:
-                await self.bot.moderator_channel.send(
+                await self.bot.channels.moderator_channel.send(
                     f" <@{self.bot.owner.id}> :warning:\nImage missing for **booster __{booster_info[0]}__** {booster_info[0].replace(' ', '_')}.png"
                 )
             components = Wiki.Buttons.boosters_rows(
@@ -611,7 +611,7 @@ class WikiCog(commands.Cog):
                     .replace(" ", "_")
                     .replace('"', "")
                 )
-                await self.bot.moderator_channel.send(
+                await self.bot.channels.moderator_channel.send(
                     f"# <@{self.bot.owner.id}> :warning:\nImage missing for **stratagem `{stratagem_info[0]}     -     {strat_name}.png`**"
                 )
             components = Wiki.Buttons.stratagems_rows(

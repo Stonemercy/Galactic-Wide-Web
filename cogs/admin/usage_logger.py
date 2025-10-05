@@ -55,7 +55,7 @@ class UsageLoggerCog(commands.Cog):
         if dict_empty(self.usage_dict):
             return
         container = UsageContainer(self.usage_dict, self.guilds_joined)
-        await self.bot.moderator_channel.send(components=container)
+        await self.bot.channels.moderator_channel.send(components=container)
         for _dict in self.usage_dict.values():
             _dict.clear()
         self.guilds_joined = 0
