@@ -973,6 +973,18 @@ class GlobalResource(ReprMixin):
 
 
 class Planet(ReprMixin):
+    __slots__ = (
+        "index",
+        "name",
+        "sector",
+        "health_perc",
+        "faction",
+        "regen_perc_per_hour",
+        "event",
+        "dss_in_orbit",
+        "in_assignment",
+    )
+
     def __init__(self, raw_planet_data: dict, planet_names) -> None:
         """Organised data for a specific planet"""
         self.index: int = raw_planet_data["index"]
@@ -1097,6 +1109,18 @@ class Planet(ReprMixin):
             return self.id == value.id
 
     class Region(ReprMixin):
+        __slots__ = (
+            "planet_index",
+            "index",
+            "name",
+            "description",
+            "owner",
+            "availability_factor",
+            "is_available",
+            "players",
+            "type",
+        )
+
         def __init__(
             self,
             planet_regions_json_dict: dict,
