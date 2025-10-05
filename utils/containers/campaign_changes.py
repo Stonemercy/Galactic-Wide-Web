@@ -58,13 +58,12 @@ class CampaignChangesContainer(ui.Container, ReprMixin):
     def _add_special_units(
         self, text_display: ui.TextDisplay, active_effects: set[GalacticWarEffect]
     ):
-        if special_units := SpecialUnits.get_from_effects_list(
+        for su_name, su_emoji in SpecialUnits.get_from_effects_list(
             active_effects=active_effects
         ):
-            for su_name, su_emoji in special_units:
-                text_display.content += (
-                    f"\n> -# {su_emoji} **{self.json.special_units[su_name]}**"
-                )
+            text_display.content += (
+                f"\n> -# {su_emoji} **{self.json.special_units[su_name]}**"
+            )
 
     def _add_regions(self, text_display: ui.TextDisplay, regions: list[Planet.Region]):
         for region in regions:
@@ -75,12 +74,10 @@ class CampaignChangesContainer(ui.Container, ReprMixin):
     def _add_features(
         self, text_display: ui.TextDisplay, active_effects: set[GalacticWarEffect]
     ):
-        for planet_feature in PlanetFeatures.get_from_effects_list(
+        for feature_name, feature_emoji in PlanetFeatures.get_from_effects_list(
             (ae for ae in active_effects if ae.effect_type == 71)
         ):
-            text_display.content += (
-                f"\n> -# {planet_feature[1]} **{planet_feature[0]}**"
-            )
+            text_display.content += f"\n> -# {feature_emoji} **{feature_name}**"
 
     def _add_gambit(
         self,
@@ -157,7 +154,7 @@ class CampaignChangesContainer(ui.Container, ReprMixin):
             section.children[0].content += self.json.container[
                 "ahead_of_schedule"
             ].format(
-                hours_remaining=f"{hours_remaining:.2f}",
+                hours_remaining=f"{hours_remaining:.0f}",
             )
         self._add_features(
             text_display=section.children[0],
