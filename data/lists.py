@@ -137,6 +137,12 @@ VICTORY_ICONS = {
     "terminids": "https://media.discordapp.net/attachments/1212735927223590974/1417225836368498688/vic_teriminds.png?ex=68c9b5ea&is=68c8646a&hm=d4a95583a298f8b6d3d9dbf465fad301837a91b4446e9740800325173cb145f4&=&format=webp&quality=lossless",
 }
 
+LOSS_ICONS = {
+    "illuminate": "https://media.discordapp.net/attachments/1212735927223590974/1424326308787392633/loss_illuminate.png?ex=68e38abe&is=68e2393e&hm=f388e59a228d25f08b251c262fd8ada7ecd37f639ec546b527ff4cb5542cd06f&=&format=webp&quality=lossless",
+    "automaton": "https://media.discordapp.net/attachments/1212735927223590974/1424326308506107965/loss_automaton.png?ex=68e38abe&is=68e2393e&hm=2e7a9842c392a90a75e890489e0cd4c6315b3a61c44505eaa7510483f91de8d0&=&format=webp&quality=lossless",
+    "terminids": "https://media.discordapp.net/attachments/1212735927223590974/1424326308191670355/loss_terminids.png?ex=68e38abe&is=68e2393e&hm=2b0ed2f554d3aef7761b947312fd59d59a4b7e9c18e636bf9d07385de1b02f8b&=&format=webp&quality=lossless",
+}
+
 emotes_list = [
     "Casual Salute",
     "High-Five",
