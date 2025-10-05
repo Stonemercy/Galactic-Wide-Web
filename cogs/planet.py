@@ -3,11 +3,12 @@ from disnake import (
     AppCmdInter,
     ApplicationInstallTypes,
     Colour,
-    Embed,
     File,
     InteractionContextTypes,
     InteractionTimedOut,
+    MediaGalleryItem,
     NotFound,
+    ui,
 )
 from disnake.ext import commands
 from main import GalacticWideWebBot
@@ -95,7 +96,7 @@ class PlanetCog(commands.Cog):
             gambit_planets=self.bot.data.gambit_planets,
         )
 
-        if with_map == "Yes" and False:  # TODO
+        if with_map == "Yes":
             fifteen_minutes_ago = datetime.now() - timedelta(minutes=15)
             latest_map = self.bot.maps.latest_maps.get(guild.language)
             if not latest_map or (
@@ -137,9 +138,18 @@ class PlanetCog(commands.Cog):
                 )
                 latest_map = self.bot.maps.latest_maps[language_json["code"]]
             self.bot.maps.draw_arrow(language_code=guild.language, planet=planet_data)
-            embed = Embed(colour=Colour.dark_embed())
-            embed.set_image(file=File(self.bot.maps.FileLocations.arrow_map))
-            embeds.append(embed)
+            arrow_map_message = await self.bot.waste_bin_channel.send(
+                file=File(fp=self.bot.maps.FileLocations.arrow_map)
+            )
+            components.insert(
+                -1,
+                ui.Container(
+                    ui.MediaGallery(
+                        MediaGalleryItem(arrow_map_message.attachments[0].url)
+                    ),
+                    accent_colour=Colour.dark_embed(),
+                ),
+            )
         await inter.send(
             components=components,
             ephemeral=public != "Yes",
