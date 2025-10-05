@@ -8,6 +8,7 @@ from .dss_changes_json import DSSChangesJson
 from .dss_images import DSSImages
 from .factions import Faction, Factions
 from .languages import Languages
+from .modes import GWWBotModes
 from .planet_features import PlanetFeatures
 from .randomiser_data import RandomiserData
 from .region_changes_json import RegionChangesJson
@@ -25,6 +26,7 @@ __all__ = [
     "DSSImages",
     "Faction",
     "Factions",
+    "GWWBotModes",
     "Languages",
     "PlanetFeatures",
     "RandomiserData",

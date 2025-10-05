@@ -5,7 +5,7 @@ from disnake.ext import commands, tasks
 from json import load
 from os import listdir
 from utils.data import Data
-from utils.dataclasses import BotChannels, Config
+from utils.dataclasses import BotChannels, Config, GWWBotModes
 from utils.interface_handler import InterfaceHandler
 from utils.logger import GWWLogger
 from utils.maps import Maps
@@ -18,7 +18,7 @@ class GalacticWideWebBot(commands.AutoShardedInteractionBot):
             intents=Intents.default(),
             activity=Activity(name="for dissidents", type=ActivityType.watching),
         )
-        self.MODE = "DEBUG"
+        self.MODE = GWWBotModes.DEBUG
         self.config = Config
         self.logger = GWWLogger()
         self.startup_time = datetime.now()
@@ -76,10 +76,11 @@ class GalacticWideWebBot(commands.AutoShardedInteractionBot):
     def super_start(self) -> None:
         token_to_use = (
             self.config.BOT_TOKEN
-            if self.MODE != "DEBUG"
+            if self.MODE != GWWBotModes.DEBUG
             else self.config.BETA_BOT_TOKEN
         )
         if token_to_use != self.config.BETA_BOT_TOKEN:
             print("Bot not in debug mode")
             return
-        self.run(token_to_use)
+        else:
+            self.run(token_to_use)
