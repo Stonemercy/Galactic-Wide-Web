@@ -10,7 +10,7 @@ from typing import ItemsView, ValuesView
 from utils.dataclasses import Factions, SpecialUnits, Languages
 from utils.dataclasses.factions import Faction
 from utils.emojis import Emojis
-from utils.functions import dispatch_format, health_bar, loading_bar
+from utils.functions import dispatch_format, health_bar
 from utils.mixins import GWEReprMixin, ReprMixin
 from utils.trackers import BaseTracker, BaseTrackerEntry
 
@@ -102,9 +102,6 @@ class Data(ReprMixin):
         print(
             f"pull_from_api function started at {datetime.now().strftime('%H:%M:%S')}"
         )
-        if self.fetching:
-            print("Fetching already, returning")
-            return
         self.fetching = True
         api_to_use = api
         async with ClientSession(
@@ -125,15 +122,8 @@ class Data(ReprMixin):
             self.__data__ = self.default_data_dict.copy()
 
         # localized endpoints
-        total_steps = len(Languages.all) * 3
-        currentstep = 0
-        loading_bar(
-            iteration=currentstep,
-            total=total_steps,
-            prefix="Localized Endpoints fetched:",
-            suffix=f"{currentstep}/{total_steps}",
-        )
         for lang in Languages.all:
+            print(f"{lang.long_code} ", end="")
             async with ClientSession(
                 headers={
                     "Accept-Language": lang.long_code,
@@ -148,32 +138,22 @@ class Data(ReprMixin):
                     if r.status == 200:
                         json = await r.json()
                         self.__data__["dispatches"][lang.short_code] = json
-                        currentstep += 1
-                        loading_bar(
-                            iteration=currentstep,
-                            total=total_steps,
-                            prefix="Localized Endpoints fetched:",
-                            suffix=f"{currentstep}/{total_steps}",
-                        )
+                        print("[D✔️]", end="")
                     elif r.status != 500:
                         logger.error(msg=f"API/DISPATCHES, {r.status}")
                         await moderator_channel.send(content=f"API/DISPATCHES\n{r}")
+                        print(f"[D❌[{r.status}]]", end="")
 
                 # major orders
                 async with session.get(url=f"{api_to_use}/api/v1/assignments") as r:
                     if r.status == 200:
                         json = await r.json()
                         self.__data__["assignments"][lang.short_code] = json
-                        currentstep += 1
-                        loading_bar(
-                            iteration=currentstep,
-                            total=total_steps,
-                            prefix="Localized Endpoints fetched:",
-                            suffix=f"{currentstep}/{total_steps}",
-                        )
+                        print("[A✔️]", end="")
                     else:
                         logger.error(msg=f"API/ASSIGNMENTS, {r.status}")
                         await moderator_channel.send(content=f"API/ASSIGNMENTS\n{r}")
+                        print(f"[A❌[{r.status}]]", end="")
 
                 # status
                 async with session.get(
@@ -182,25 +162,12 @@ class Data(ReprMixin):
                     if r.status == 200:
                         json = await r.json()
                         self.__data__["status"][lang.short_code] = json
-                        currentstep += 1
-                        loading_bar(
-                            iteration=currentstep,
-                            total=total_steps,
-                            prefix="Localized Endpoints fetched:",
-                            suffix=f"{currentstep}/{total_steps}",
-                        )
+                        print("[S✔️]")
                     else:
                         logger.error(msg=f"API/STATUS, {r.status}")
                         await moderator_channel.send(content=f"API/ASSIGNMENTS\n{r}")
+                        print(f"[S❌[{r.status}]]")
 
-        total_steps = 7
-        currentstep = 0
-        loading_bar(
-            iteration=currentstep,
-            total=total_steps,
-            prefix="Non-Localized Endpoints fetched:",
-            suffix=f"{currentstep}/{total_steps}",
-        )
         # non-localized endpoints
         async with ClientSession(
             headers={
@@ -227,15 +194,10 @@ class Data(ReprMixin):
                                     )
                                     continue
                             self.__data__[endpoint] = data
-                            currentstep += 1
-                            loading_bar(
-                                iteration=currentstep,
-                                total=total_steps,
-                                prefix="Non-Localized Endpoints fetched:",
-                                suffix=f"{currentstep}/{total_steps}",
-                            )
+                            print("[DSS✔️]", end="")
                         else:
                             logger.error(msg=f"API/DSS, {r.status}")
+                            print(f"[DSS❌[{r.status}]]", end="")
                     continue
                 elif endpoint == "warinfo":
                     async with session.get(
@@ -243,15 +205,10 @@ class Data(ReprMixin):
                     ) as r:
                         if r.status == 200:
                             self.__data__[endpoint] = await r.json()
-                            currentstep += 1
-                            loading_bar(
-                                iteration=currentstep,
-                                total=total_steps,
-                                prefix="Non-Localized Endpoints fetched:",
-                                suffix=f"{currentstep}/{total_steps}",
-                            )
+                            print("[war_info✔️]", end="")
                         else:
                             logger.error(msg=f"API/WARINFO, {r.status}")
+                            print(f"[war_info❌[{r.status}]]", end="")
                     continue
                 elif endpoint == "galactic_war_effects":
                     async with session.get(
@@ -259,15 +216,10 @@ class Data(ReprMixin):
                     ) as r:
                         if r.status == 200:
                             self.__data__[endpoint] = await r.json()
-                            currentstep += 1
-                            loading_bar(
-                                iteration=currentstep,
-                                total=total_steps,
-                                prefix="Non-Localized Endpoints fetched:",
-                                suffix=f"{currentstep}/{total_steps}",
-                            )
+                            print("[gwe's✔️]", end="")
                         else:
                             logger.error(msg=f"API/GALACTICWAREFFECTS, {r.status}")
+                            print(f"[gwe's❌[{r.status}]]", end="")
                     continue
                 elif endpoint == "steam_playercount":
                     async with session.get(
@@ -277,32 +229,23 @@ class Data(ReprMixin):
                         if r.status == 200:
                             data = await r.json()
                             self.steam_playercount = data["response"]["player_count"]
-                            currentstep += 1
-                            loading_bar(
-                                iteration=currentstep,
-                                total=total_steps,
-                                prefix="Non-Localized Endpoints fetched:",
-                                suffix=f"{currentstep}/{total_steps}",
-                            )
+                            print("[player_count✔️]", end="")
                         else:
                             logger.error(msg=f"API/STEAM_PLAYERCOUNT, {r.status}")
+                            print(f"[player_count❌[{r.status}]]", end="")
                     continue
                 try:
                     async with session.get(url=f"{api_to_use}/api/v1/{endpoint}") as r:
                         if r.status == 200:
                             json = await r.json()
                             self.__data__[endpoint] = json
-                            currentstep += 1
-                            loading_bar(
-                                iteration=currentstep,
-                                total=total_steps,
-                                prefix="Non-Localized Endpoints fetched:",
-                            )
+                            print(f"[{endpoint}✔️]", end="")
                         else:
                             logger.error(msg=f"API/{endpoint.upper()}, {r.status}")
                             await moderator_channel.send(
                                 content=f"API/{endpoint.upper()}\n{r}"
                             )
+                            print(f"[{endpoint}❌[{r.status}]]", end="")
                 except Exception as e:
                     logger.error(msg=f"API/{endpoint.upper()}, {e}")
                     await moderator_channel.send(content=f"API/{endpoint.upper()}\n{r}")
@@ -310,56 +253,15 @@ class Data(ReprMixin):
                     await sleep(2)
 
         self.format_data()
-        print("Data formatted")
-        total_steps = 2
-        if self.assignments["en"]:
-            total_steps += 1
-        if self.dss:
-            total_steps += 1
-        currentstep = 0
-        loading_bar(
-            iteration=currentstep,
-            total=total_steps,
-            prefix="Changes updated:",
-            suffix=f"{currentstep}/{total_steps}",
-        )
         self.update_liberation_rates()
-        currentstep += 1
-        loading_bar(
-            iteration=currentstep,
-            total=total_steps,
-            prefix="Changes updated:",
-            suffix=f"{currentstep}/{total_steps}",
-        )
         self.update_region_changes()
-        currentstep += 1
-        loading_bar(
-            iteration=currentstep,
-            total=total_steps,
-            prefix="Changes updated:",
-            suffix=f"{currentstep}/{total_steps}",
-        )
         if self.assignments["en"]:
             self.update_major_order_rates()
-            currentstep += 1
-        loading_bar(
-            iteration=currentstep,
-            total=total_steps,
-            prefix="Changes updated:",
-            suffix=f"{currentstep}/{total_steps}",
-        )
         if self.dss:
             self.update_tactical_action_rates()
-            currentstep += 1
-        loading_bar(
-            iteration=currentstep,
-            total=total_steps,
-            prefix="Changes updated:",
-            suffix=f"{currentstep}/{total_steps}",
-        )
 
         self.fetched_at = datetime.now()
-        print(f"self.fetched_at = {self.fetched_at.strftime('%H:%M:%S')}")
+        print(f"\nself.fetched_at = {self.fetched_at.strftime('%H:%M:%S')}")
         if not self.loaded:
             print("FIRST LOAD, UPDATING SELF.LOADED")
             self.loaded = True
