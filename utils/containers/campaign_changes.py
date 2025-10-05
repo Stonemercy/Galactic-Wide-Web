@@ -23,29 +23,21 @@ class CampaignChangesContainer(ui.Container, ReprMixin):
             )
         ]
         self.victories = [
-            ui.Section(
-                ui.TextDisplay(
-                    f"## {self.json.container['victories']} {Emojis.Icons.victory}"
-                ),
-                accessory=HDCButton(),
+            ui.TextDisplay(
+                f"## {self.json.container['victories']} {Emojis.Icons.victory}"
             )
         ]
         self.losses = [
-            ui.Section(
-                ui.TextDisplay(
-                    f"## {self.json.container['losses']} {Emojis.Decoration.alert_icon}"
-                ),
-                accessory=HDCButton(),
-            )
+            ui.TextDisplay(
+                f"## {self.json.container['losses']} {Emojis.Decoration.alert_icon}"
+            ),
         ]
         self.new_campaigns = [
-            ui.Section(
-                ui.TextDisplay(
-                    f"## {self.json.container['new_campaigns']} {Emojis.Icons.new_icon}"
-                ),
-                accessory=HDCButton(),
+            ui.TextDisplay(
+                f"## {self.json.container['new_campaigns']} {Emojis.Icons.new_icon}"
             )
         ]
+        self.planet_buttons = []
         self.container_colours = [
             {"list": self.victories, "colour": Colour.brand_green()},
             {"list": self.losses, "colour": Colour.brand_red()},
@@ -94,7 +86,22 @@ class CampaignChangesContainer(ui.Container, ReprMixin):
             if len(container_info["list"]) - 1 > longest_length:
                 longest_length = len(container_info["list"]) - 1
                 colour = container_info["colour"]
-        super().__init__(*self.non_empty_components, accent_colour=colour)
+        planet_button_chunks = [
+            self.planet_buttons[i : i + 4]
+            for i in range(0, len(self.planet_buttons), 4)
+        ]
+        super().__init__(
+            *(
+                self.title
+                + self.non_empty_components
+                + (
+                    [ui.ActionRow(*chunk) for chunk in planet_button_chunks]
+                    if self.planet_buttons
+                    else []
+                )
+            ),
+            accent_colour=colour,
+        )
 
     def update_containers(func):
         def wrapper(self, *args, **kwargs):
@@ -137,6 +144,13 @@ class CampaignChangesContainer(ui.Container, ReprMixin):
         self.victories.append(ui.Separator())
         self.victories.append(section)
 
+        self.planet_buttons.append(
+            HDCButton(
+                label=planet.loc_names[self.json.lang_code_long],
+                link=f"https://helldiverscompanion.com/#hellpad/planets/{planet.index}",
+            )
+        )
+
     @update_containers
     def add_defence_victory(
         self, planet: Planet, defended_against: str, hours_remaining: int
@@ -166,6 +180,13 @@ class CampaignChangesContainer(ui.Container, ReprMixin):
         )
         self.victories.append(ui.Separator())
         self.victories.append(section)
+
+        self.planet_buttons.append(
+            HDCButton(
+                label=planet.loc_names[self.json.lang_code_long],
+                link=f"https://helldiverscompanion.com/#hellpad/planets/{planet.index}",
+            )
+        )
 
     @update_containers
     def add_new_campaign(self, campaign: Campaign, gambit_planets: dict[int, Planet]):
@@ -214,6 +235,13 @@ class CampaignChangesContainer(ui.Container, ReprMixin):
             # last step
             self.new_campaigns.append(ui.Separator())
             self.new_campaigns.append(section)
+
+            self.planet_buttons.append(
+                HDCButton(
+                    label=campaign.planet.loc_names[self.json.lang_code_long],
+                    link=f"https://helldiverscompanion.com/#hellpad/planets/{campaign.planet.index}",
+                )
+            )
         else:
             section = ui.Section(
                 ui.TextDisplay(
@@ -251,6 +279,13 @@ class CampaignChangesContainer(ui.Container, ReprMixin):
             self.new_campaigns.append(ui.Separator())
             self.new_campaigns.append(section)
 
+            self.planet_buttons.append(
+                HDCButton(
+                    label=campaign.planet.loc_names[self.json.lang_code_long],
+                    link=f"https://helldiverscompanion.com/#hellpad/planets/{campaign.planet.index}",
+                )
+            )
+
     @update_containers
     def add_planet_lost(self, planet: Planet):
         section = ui.Section(
@@ -273,3 +308,10 @@ class CampaignChangesContainer(ui.Container, ReprMixin):
         )
         self.losses.append(ui.Separator())
         self.losses.append(section)
+
+        self.planet_buttons.append(
+            HDCButton(
+                label=planet.loc_names[self.json.lang_code_long],
+                link=f"https://helldiverscompanion.com/#hellpad/planets/{planet.index}",
+            )
+        )
