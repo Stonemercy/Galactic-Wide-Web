@@ -26,7 +26,10 @@ class GalacticWideWebBot(commands.AutoShardedInteractionBot):
         self.logger.handlers.clear()
         handler = StreamHandler()
         handler.setFormatter(
-            fmt=Formatter("%(asctime)s - %(levelname)s - %(name)s - %(message)s")
+            fmt=Formatter(
+                "%(asctime)s - %(levelname)s - %(name)s - %(message)s",
+                datefmt="%d/%m/%y - %H:%M:%S",
+            )
         )
         self.logger.addHandler(hdlr=handler)
         self.startup_time = datetime.now()
