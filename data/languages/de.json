@@ -105,8 +105,8 @@
             "title": "REGION UPDATES",
             "victories": "VICTORIES",
             "new_regions": "NEW REGIONS AVAILABLE",
-            "region_victory": "\n### {region_name} on {planet_name} has been liberated from the {faction_name}",
-            "new_region": "### **{region_name}** is now available on **{planet_name}**",
+            "region_victory": "\n### {region_emoji} {region_name} on {planet_name} has been liberated from the {faction_name}",
+            "new_region": "### {region_emoji} {region_name} is now available on {planet_name}",
             "resistance": "\n > Resistance: **{regen}/hr**"
         },
         "SetupContainer": {

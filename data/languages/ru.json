@@ -105,8 +105,8 @@
             "title": "ОБНОВЛЕНИЯ РЕГИОНОВ",
             "victories": "ПОБЕДЫ",
             "new_regions": "ДОСТУПНЫ НОВЫЕ РЕГИОНЫ",
-            "region_victory": "\n### Регион {region_name} на планете {planet_name} был освобожден от {faction_name}",
-            "new_region": "### Регион **{region_name}** теперь доступен на планете **{planet_name}**",
+            "region_victory": "\n### Регион {region_emoji} {region_name} на планете {planet_name} был освобожден от {faction_name}",
+            "new_region": "### Регион {region_emoji} {region_name} теперь доступен на планете {planet_name}",
             "resistance": "\n > Сопротивление: **{regen}/ч**"
         },
         "SetupContainer": {

@@ -17,21 +17,16 @@ class RegionChangesContainer(ui.Container, ReprMixin):
             )
         ]
         self.victories = [
-            ui.Section(
-                ui.TextDisplay(
-                    f"## {self.container_json.container['victories']} {Emojis.Icons.victory}"
-                ),
-                accessory=HDCButton(),
+            ui.TextDisplay(
+                f"## {self.container_json.container['victories']} {Emojis.Icons.victory}"
             )
         ]
         self.new_regions = [
-            ui.Section(
-                ui.TextDisplay(
-                    f"## {self.container_json.container['new_regions']} {Emojis.Icons.new_icon}"
-                ),
-                accessory=HDCButton(),
+            ui.TextDisplay(
+                f"## {self.container_json.container['new_regions']} {Emojis.Icons.new_icon}"
             )
         ]
+        self.planet_buttons = []
         self.container_colours = [
             {"list": self.victories, "colour": Colour.brand_green()},
             {
@@ -64,8 +59,20 @@ class RegionChangesContainer(ui.Container, ReprMixin):
             if len(container_info["list"]) - 1 > longest_length:
                 longest_length = len(container_info["list"]) - 1
                 colour = container_info["colour"]
+        planet_button_chunks = [
+            self.planet_buttons[i : i + 4]
+            for i in range(0, len(self.planet_buttons), 4)
+        ]
         super().__init__(
-            *(self.title + self.non_empty_components),
+            *(
+                self.title
+                + self.non_empty_components
+                + (
+                    [ui.ActionRow(*chunk) for chunk in planet_button_chunks]
+                    if self.planet_buttons
+                    else []
+                )
+            ),
             accent_colour=colour,
         )
 
@@ -89,17 +96,20 @@ class RegionChangesContainer(ui.Container, ReprMixin):
         return self.victories + self.new_regions
 
     @update_containers
-    def add_region_victory(self, planet: Planet, region: Planet.Region):
+    def add_region_victory(self, region: Planet.Region):
         section = ui.Section(
             ui.TextDisplay(
                 self.container_json.container["region_victory"].format(
+                    region_emoji=region.emoji,
                     region_name=region.name,
-                    planet_name=planet.loc_names[self.container_json.lang_code_long],
+                    planet_name=region.planet.loc_names[
+                        self.container_json.lang_code_long
+                    ],
                     faction_name=self.container_json.factions[
                         (
-                            planet.faction.full_name
-                            if not planet.event
-                            else planet.event.faction.full_name
+                            region.planet.faction.full_name
+                            if not region.planet.event
+                            else region.planet.event.faction.full_name
                         )
                     ],
                 )
@@ -107,31 +117,40 @@ class RegionChangesContainer(ui.Container, ReprMixin):
             accessory=ui.Thumbnail(
                 VICTORY_ICONS[
                     (
-                        planet.faction.full_name.lower()
-                        if not planet.event
-                        else planet.event.faction.full_name.lower()
+                        region.planet.faction.full_name.lower()
+                        if not region.planet.event
+                        else region.planet.event.faction.full_name.lower()
                     )
                 ]
             ),
         )
         self._add_features(
-            text_display=section.children[0], active_effects=planet.active_effects
+            text_display=section.children[0],
+            active_effects=region.planet.active_effects,
         )
         self._add_special_units(
             text_display=section.children[0],
-            active_effects=planet.active_effects,
+            active_effects=region.planet.active_effects,
         )
         self.victories.append(ui.Separator())
         self.victories.append(section)
 
+        self.planet_buttons.append(
+            HDCButton(
+                label=region.planet.loc_names[self.container_json.lang_code_long],
+                link=f"https://helldiverscompanion.com/#hellpad/planets/{region.planet.index}",
+            )
+        )
+
     @update_containers
-    def add_new_region(self, planet: Planet, region: Planet.Region):
+    def add_new_region(self, region: Planet.Region):
         section = ui.Section(
             ui.TextDisplay(
                 (
                     self.container_json.container["new_region"].format(
+                        region_emoji=region.emoji,
                         region_name=region.name,
-                        planet_name=planet.loc_names[
+                        planet_name=region.planet.loc_names[
                             self.container_json.lang_code_long
                         ],
                     )
@@ -143,9 +162,9 @@ class RegionChangesContainer(ui.Container, ReprMixin):
             accessory=ui.Thumbnail(
                 ATTACK_EMBED_ICONS[
                     (
-                        planet.faction.full_name.lower()
-                        if not planet.event
-                        else planet.event.faction.full_name.lower()
+                        region.planet.faction.full_name.lower()
+                        if not region.planet.event
+                        else region.planet.event.faction.full_name.lower()
                     )
                 ]
             ),
@@ -154,12 +173,19 @@ class RegionChangesContainer(ui.Container, ReprMixin):
             section.children[0].content += f"\n-# {region.description}"
         self._add_features(
             text_display=section.children[0],
-            active_effects=planet.active_effects,
+            active_effects=region.planet.active_effects,
         )
         self._add_special_units(
             text_display=section.children[0],
-            active_effects=planet.active_effects,
+            active_effects=region.planet.active_effects,
         )
 
         self.new_regions.append(ui.Separator())
         self.new_regions.append(section)
+
+        self.planet_buttons.append(
+            HDCButton(
+                label=region.planet.loc_names[self.container_json.lang_code_long],
+                link=f"https://helldiverscompanion.com/#hellpad/planets/{region.planet.index}",
+            )
+        )

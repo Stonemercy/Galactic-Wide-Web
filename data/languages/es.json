@@ -105,8 +105,8 @@
             "title": "ACTUALIZACIONES DE REGIÓN",
             "victories": "VICTORIAS",
             "new_regions": "NUEVAS REGIONES DISPONIBLES",
-            "region_victory": "\n### {region_name} en {planet_name} ha sido liberado de {faction_name}",
-            "new_region": "### **{region_name}** está ahora disponible en **{planet_name}**",
+            "region_victory": "\n### {region_emoji} {region_name} en {planet_name} ha sido liberado de {faction_name}",
+            "new_region": "### {region_emoji} {region_name} está ahora disponible en {planet_name}",
             "resistance": "\n > Resistencia: **{regen}/hr**"
         },
         "SetupContainer": {

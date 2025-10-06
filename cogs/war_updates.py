@@ -382,16 +382,15 @@ class WarUpdatesCog(commands.Cog):
                 if region_list:
                     # if region is still in API
                     region = region_list[0]
-                    planet = self.bot.data.planets[region.planet_index]
                     if region.owner.full_name != old_region.owner:
                         # if owner has changed
                         if region.owner.full_name == "Humans" and (
-                            planet.faction.full_name != "Humans" or planet.event
+                            region.planet.faction.full_name != "Humans"
+                            or region.planet.event
                         ):
                             # attack campaign win
                             for container in components.values():
                                 container.add_region_victory(
-                                    planet=planet,
                                     region=region,
                                 )
                     self.bot.data.region_changes.remove_entry(old_region.settings_hash)
@@ -408,10 +407,8 @@ class WarUpdatesCog(commands.Cog):
                     and region.is_available
                 ):
                     # if region is brand new
-                    planet = self.bot.data.planets[region.planet_index]
                     for container in components.values():
                         container.add_new_region(
-                            planet=planet,
                             region=region,
                         )
                     old_region_data.add(
