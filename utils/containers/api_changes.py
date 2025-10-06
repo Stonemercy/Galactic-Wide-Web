@@ -127,11 +127,10 @@ class APIChangesContainer(ui.Container, ReprMixin):
                                             f"### Effect __added__ :white_check_mark:\n{gwe.pretty_print()}"
                                         )
                                     )
-
                 case "Region":
                     self.container_components.append(
                         ui.TextDisplay(
-                            f"## Update for {api_change.new_object.type} {api_change.new_object.name} on {api_change.new_object.planet.name}{api_change.new_object.planet.faction.emoji}{api_change.new_object.planet.exclamations}"
+                            f"## Update for {api_change.new_object.emoji} {api_change.new_object.type} {api_change.new_object.name} on {api_change.new_object.planet.name}{api_change.new_object.planet.faction.emoji}{api_change.new_object.planet.exclamations}"
                         )
                     )
                     match api_change.property:
