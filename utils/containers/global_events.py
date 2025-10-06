@@ -15,17 +15,18 @@ class GlobalEventsContainer(ui.Container, ReprMixin):
     ):
         components = []
         text_display = ui.TextDisplay(
-            f"# {global_event.title if global_event.title else 'No title found'}"
+            f"# {global_event.title if global_event.title else 'New Global Event'}"
         )
         if global_event.flag == 0:
-            specific_planets = "\n-# " + "\n- ".join(
-                [
-                    planets[index].loc_names[long_lang_code]
-                    for index in global_event.planet_indices
-                ]
-            )
-            if not specific_planets:
+            if not global_event.planet_indices:
                 specific_planets = container_json["all_planets"]
+            else:
+                specific_planets = "\n-# " + "\n- ".join(
+                    [
+                        planets[index].loc_names[long_lang_code]
+                        for index in global_event.planet_indices
+                    ]
+                )
             for effect in global_event.effects:
                 if "UNKNOWN" in effect.planet_effect["name"]:
                     text_display.content += f"\nUNKNOWN effect (ID {effect.id})\n{effect.effect_description['simplified_name']}{container_json['active_on_planets'].format(planets=specific_planets)}"
@@ -36,16 +37,22 @@ class GlobalEventsContainer(ui.Container, ReprMixin):
                     if effect.found_booster:
                         text_display.content += f"\n{container_json['booster_identified']}: {effect.found_stratagem}"
                 else:
-                    text_display.content += effect.planet_effect["name"]
+                    text_display.content += f"\n{effect.planet_effect['name']}"
                     if effect.planet_effect["description_long"]:
                         text_display.content += (
                             f"\n-# {effect.planet_effect['description_long']}"
                         )
                     if effect.planet_effect["description_short"]:
+                        if effect.effect_type == 32:
+                            effect.planet_effect["description_short"] = (
+                                effect.planet_effect["description_short"].replace(
+                                    "#V_ONE", effect.found_stratagem
+                                )
+                            )
                         text_display.content += (
-                            f"\n-# {effect.planet_effect['description_long']}"
+                            f"\n-# {effect.planet_effect['description_short']}"
                         )
-                    text_display.content += f"\n-#{container_json['active_on_planets'].format(planets=specific_planets)}"
+                    text_display.content += f"{container_json['active_on_planets'].format(planets=specific_planets)}"
         else:
             for chunk in global_event.split_message:
                 text_display.content += f"\n{chunk}"

@@ -840,15 +840,15 @@ class GalacticWarEffect(GWEReprMixin):
     def __init__(self, gwa: dict, json_dict: dict) -> None:
         """Organised data for a galactic war effect"""
         self.id: int = gwa["id"]
-        self.gameplay_effect_id32 = gwa["gameplayEffectId32"]
-        self.effect_type = gwa["effectType"]
-        self.flags = gwa["flags"]
-        self.name_hash = gwa["nameHash"]
-        self.fluff_description_hash = gwa["descriptionFluffHash"]
-        self.long_description_hash = gwa["descriptionGamePlayLongHash"]
-        self.short_description_hash = gwa["descriptionGamePlayShortHash"]
-        self.values_dict = dict(zip(gwa["valueTypes"], gwa["values"]))
-        self.effect_description = json_dict["galactic_war_effects"].get(
+        self.gameplay_effect_id32: int = gwa["gameplayEffectId32"]
+        self.effect_type: int = gwa["effectType"]
+        self.flags: int = gwa["flags"]
+        self.name_hash: int = gwa["nameHash"]
+        self.fluff_description_hash: int = gwa["descriptionFluffHash"]
+        self.long_description_hash: int = gwa["descriptionGamePlayLongHash"]
+        self.short_description_hash: int = gwa["descriptionGamePlayShortHash"]
+        self.values_dict: dict = dict(zip(gwa["valueTypes"], gwa["values"]))
+        self.effect_description: dict = json_dict["galactic_war_effects"].get(
             str(gwa["effectType"]),
             {"name": "UNKNOWN", "simplified_name": "", "description": ""},
         )
