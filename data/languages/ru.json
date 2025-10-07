@@ -169,7 +169,7 @@
                     "type9": "{status_emoji} **Выполните операцию{against_faction}{on_difficulty} {amount} раз(а)**",
                     "type9_against_faction": " **против {faction}**",
                     "type9_on_difficulty": " **на сложности {difficulty} или выше**",
-                    "type11": "{status_emoji} **Освбодите {planet}**",
+                    "type11": "{status_emoji} **Освободите {planet}**",
                     "type12": "{status_emoji} **Отразите атаку{planet} {amount} раз(а)**",
                     "type12_planet": " на планету **{planet}**",
                     "type12_faction": " **от {faction}**",
