@@ -155,7 +155,7 @@ class DataManagementCog(commands.Cog):
                                 )
         if total_changes:
             chunked_changes = [
-                total_changes[i : i + 10] for i in range(0, len(total_changes), 10)
+                total_changes[i : i + 5] for i in range(0, len(total_changes), 5)
             ]
             for chunk in chunked_changes:
                 components = [APIChangesContainer(api_changes=chunk)]
