@@ -662,11 +662,11 @@ class Dashboard:
                     field_value += f"\n-# {feature[1]} {feature[0]}"
                 field_value += f"\n{language_json['embeds']['Dashboard']['heroes'].format(heroes=f'{planet.stats.player_count:,}')}"
                 if planet.event:
-                    field_value += f"{language_json['ends']} <t:{planet.event.end_time_datetime.timestamp():.0f}:R>"
+                    field_value += f"{language_json['ends']} **<t:{planet.event.end_time_datetime.timestamp():.0f}:R>**"
                     end_time_info = get_end_time(planet, gambit_planets)
                     if end_time_info.end_time:
                         if end_time_info.end_time < planet.event.end_time_datetime:
-                            field_value += f"\n**{language_json['victory']}** <t:{int(planet.tracker.complete_time.timestamp())}:R>"
+                            field_value += f"\n{language_json['victory']} **<t:{int(planet.tracker.complete_time.timestamp())}:R>**"
                         else:
                             field_value += f"\n**{language_json['defeat']}**"
                     if self.compact_level < 1:
@@ -679,9 +679,9 @@ class Dashboard:
                             regions_list = f"\n-# ".join(
                                 [f" {r.emoji} {r.name}" for r in end_time_info.regions]
                             )
-                            field_value += f"\n**{language_json['victory']}** <t:{int(end_time_info.end_time.timestamp())}:R>\nIf the following regions are liberated:\n-# {regions_list}"
+                            field_value += f"\n{language_json['victory']} **<t:{int(end_time_info.end_time.timestamp())}:R>**\n-# If the following regions are liberated:\n-# {regions_list}"
                         elif end_time_info.source_planet:
-                            field_value += f"\n**{language_json['victory']}** <t:{int(end_time_info.end_time.timestamp())}:R>"
+                            field_value += f"\n{language_json['victory']} **<t:{int(end_time_info.end_time.timestamp())}:R>**"
                     if self.compact_level < 1:
                         field_value += f"\n{planet.health_bar}"
                     field_value += f"\n`{(1-planet.health_perc):^25,.2%}`"
@@ -694,7 +694,7 @@ class Dashboard:
                     if way_planet.stats.player_count > (self.total_players * 0.05):
                         way_planet_end_info = get_end_time(way_planet, gambit_planets)
                         if way_planet_end_info.end_time:
-                            field_value += f"\n-# Available <t:{int(way_planet_end_info.end_time.timestamp())}:R> thanks to {way_planet.name} liberation"
+                            field_value += f"\n-# Available **<t:{int(way_planet_end_info.end_time.timestamp())}:R>** thanks to {way_planet.name} liberation"
 
             self.add_field(
                 name=field_name,
