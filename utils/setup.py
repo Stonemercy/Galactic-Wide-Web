@@ -111,7 +111,7 @@ class Setup:
                     style=ButtonStyle.gray,
                     label=container_json["language_button"],
                     custom_id="language_button",
-                    emoji=getattr(Emojis.Flags, language_code),
+                    emoji=getattr(Emojis.Flags, language_code.replace("-", "_")),
                 )
 
         class LanguageSelect(StringSelect):
