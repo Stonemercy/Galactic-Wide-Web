@@ -285,6 +285,7 @@ class Dashboard:
                             task=task,
                             language_json=language_json,
                             planets=planets,
+                            gambit_planets=gambit_planets,
                         )
                     case 15:
                         """Liberate more planets than are lost during the order duration"""
