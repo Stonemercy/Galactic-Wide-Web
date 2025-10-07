@@ -1,144 +1,143 @@
 {
-    "code": "en",
-    "code_long": "en-GB",
+    "code": "pt-br",
+    "code_long": "pt-br",
     "containers": {
         "CampaignChangesContainer": {
-            "title": "GALACTIC WAR UPDATES",
-            "victories": "VICTORIES",
-            "losses": "LOSSES",
-            "new_campaigns": "NEW CAMPAIGNS",
-            "gambit": "Gambit",
-            "liberated": "**{planet_name}** has been liberated from the **{faction_name}**",
-            "defended": "**{planet_name}** has been successfully defended against the **{faction_name}**",
-            "ahead_of_schedule": ", **{hours_remaining} hour(s)** ahead of schedule!",
-            "defend": "### DEFEND **{planet_name}** {emojis}",
-            "invasion_level": "\n> Invasion Level **{level}{emoji}**",
-            "ends": "\n> -# Ends <t:{timestamp}:R>",
-            "liberate": "### LIBERATE **{planet_name}** {emojis}",
-            "resistance": "\n > Resistance: **{regen}/hr**",
-            "planet_lost": "**{planet_name}** has been lost to the **{faction_name}** {emojis}"
+            "title": "ATUALIZAÇÕES DA GUERRA GALÁCTICA",
+            "victories": "VITÓRIAS",
+            "losses": "DERROTAS",
+            "new_campaigns": "NOVAS CAMPANHAS",
+            "gambit": "Gambito",
+            "liberated": "**{planet_name}** foi liberado dos  **{faction_name}**",
+            "defended": "**{planet_name}** foi defendido com sucesso dos **{faction_name}**",
+            "ahead_of_schedule": "Adiantado em **{hours_remaining} hour(s)**",
+            "defend": "### DEFENDER **{planet_name}** {emojis}",
+            "invasion_level": "> Invasão de Nívell **{level}{emoji}**",
+            "ends": "> -# Acaba em <t:{timestamp}:R>",
+            "liberate": "### LIBERAR **{planet_name}** {emojis}",
+            "resistance": "> Resistência: **{regen}/hr**",
+            "planet_lost": "**{planet_name}** foi perdido para os **{faction_name}** {emojis}"
         },
         "DispatchContainer": {
-            "dispatch": "Dispatch",
-            "with_time": "\n\n-# Sent <t:{timestamp}:R>"
+            "dispatch": "Despacho",
+            "with_time": "-# Enviado em<t:{timestamp}:R>"
         },
         "DSSChangesContainer": {
-            "title": "DSS UPDATES",
-            "gambit": "Gambit",
-            "has_moved": "\nThe DSS has moved from **{planet_name1}** to **{planet_name2}** {emojis}",
-            "ta_status_change": "\n**{ta_name}** is now **{status}**",
-            "preparing": "preparing",
-            "active": "active",
-            "inactive": "inactive",
-            "on_cooldown": "on cooldown",
-            "prep_starts": "Preparing starts",
+            "title": "ATUALIZAÇÕES DA EED",
+            "gambit": "Gambito",
+            "has_moved": "A EED se moveu de **{planet_name1}** para **{planet_name2}** {emojis}",
+            "ta_status_change": "**{ta_name}** está **{status}**",
+            "preparing": "preparando",
+            "active": "ativo(a)",
+            "inactive": "desativado(a)",
+            "on_cooldown": "recarregando",
             "tactical_actions": {
                 "EAGLE STORM": {
-                    "name": "EAGLE STORM",
-                    "description": "-# Deploys periodic **Eagle Airstrikes** during missions.\n-# Halts enemy progress in **Defence Campaigns**."
+                    "name": "ÁGUIA TEMPESTIVA",
+                    "description": "-# Envia **Ataques Aéreos via Águia** periódicos durante as missões\n-# Impede o progresso inimigo em **Campanhas de Defesa**"
                 },
                 "ORBITAL BLOCKADE": {
-                    "name": "ORBITAL BLOCKADE",
-                    "description": "-# **Defence Campaigns** cannot originate from this planet.\n-# The **HELLPOD SPACE OPTIMISATION** Booster is automatically active for all missions."
+                    "name": "BLOQUEIO ORBITAL",
+                    "description": "-# **Campanhas de Defesa** não podem iniciar neste planeta\n-# O reforçador **OTIMIZAÇÃO ESPACIAL DE HELLPOD** fica ativado em todas as missões"
                 },
                 "HEAVY ORDNANCE DISTRIBUTION": {
-                    "name": "HEAVY ORDNANCE DISTRIBUTION",
-                    "description": "-# Gives access to the **Orbital 380mm HE Barrage** stratagem during missions.\n-# Accelerates progress in **Liberation Campaigns**."
+                    "name": "DISTRIBUIÇÃO DE ARTILHARIA PESADA",
+                    "description": "-# **Concede acesso à **Barragem Orbital DT de 380MM** durante missões\n-# Acelera o progresso em **Campanhas de Libertação**"
                 },
                 "EAGLE BLOCKADE": {
-                    "name": "EAGLE BLOCKADE",
-                    "description": "-# Deploys periodic **Eagle Strafing Runs** during missions.\n-# The **HELLPOD SPACE OPTIMIZATION** Booster is automatically active for all missions."
+                    "name": "BLOQUEIO DE ÁGUIA",
+                    "description": "-# Envia **Ataques Aéreos via Águia** periódicos durante as missões\n-#  O reforçador **OTIMIZAÇÃO ESPACIAL DE HELLPOD** fica ativado em todas as missões"
                 }
             }
         },
         "GlobalEventsContainer": {
-            "all_planets": "all planets",
-            "unknown_effect": "UNKNOWN EFFECT",
-            "active_on_planets": "\n-# Now active on the following planet(s):\n- {planets}",
-            "enemy_identified": "Enemy identified",
-            "strat_identified": "Stratagem identified",
-            "booster_identified": "Booster identified",
-            "expires": "Expires",
-            "global_event": "Global Event"
+            "all_planets": "todos os planetas",
+            "unknown_effect": "EFEITO DESCONHECIDO",
+            "active_on_planets": "-# Ativo nos seguintes planetas:\n- {planets}",
+            "enemy_identified": "Inimigo identificado",
+            "strat_identified": "Estratégia identificada",
+            "booster_identified": "Reforçador identificado",
+            "expires": "Expira em:",
+            "global_event": "Evento Global"
         },
         "PlanetContainers": {
             "PlanetContainer": {
                 "planet_info": {
-                    "sector": "Sector",
-                    "owner": "Owner",
-                    "hazards": "Hazard(s)",
-                    "biome": "Biome",
-                    "heroes": "Heroes",
-                    "liberated": "Liberated"
+                    "sector": "Setor",
+                    "owner": "Dano",
+                    "hazards": "Perigo(s)",
+                    "biome": "Bioma",
+                    "heroes": "Heróis",
+                    "liberated": "Liberado"
                 },
                 "mission_stats": {
-                    "title": "📊 Mission Stats",
-                    "missions_won": "Missions won",
-                    "missions_lost": "Missions lost",
-                    "missions_winrate": "Mission winrate",
-                    "missions_time_spent": "Time spent on missions",
-                    "years": "years"
+                    "title": "📊 Dados de Missões",
+                    "missions_won": "Missões ganhas",
+                    "missions_lost": "Missões perdidas",
+                    "missions_winrate": "Taxa de vitória de Missões",
+                    "missions_time_spent": "Tempo gasto em Missões",
+                    "years": "anos"
                 },
                 "hero_stats": {
-                    "title": "📈 Hero stats",
-                    "active_heroes": "Active heroes",
-                    "heroes_lost": "Heroes lost",
-                    "accidentals": "Accidentals",
-                    "shots_fired": "Shots fired",
-                    "shots_hit": "Shots hit",
-                    "accuracy": "Accuracy"
+                    "title": "📈 Dados de Heróis",
+                    "active_heroes": "Heróis ativos",
+                    "heroes_lost": "Heróis perdidos",
+                    "accidentals": "Accidentais",
+                    "shots_fired": "Tiros disparados",
+                    "shots_hit": "Acertos",
+                    "accuracy": "Precisão"
                 },
                 "misc_stats": {
-                    "killed": "killed"
+                    "killed": "mortos"
                 }
             },
             "RegionContainer": {
-                "heroes": "Heroes",
-                "boost_when_liberated": "Boost when liberated",
-                "liberated": "Liberated",
-                "liberation": "Liberation",
-                "defence_duration": "Defence Duration",
-                "unlocked_when": "\nUnlocks when **{stat_to_use}** reaches **{av_factor}**"
+                "heroes": "Heróis",
+                "boost_when_liberated": "Impulso quando liberada",
+                "liberated": "Liberado(a)",
+                "liberation": "Liberação",
+                "defence_duration": "Duração da Defesa",
+                "unlocked_when": "Desbloqueia quando **{stat_to_use}** alcançar **{av_factor}**"
             }
         },
         "RegionChangesContainer": {
-            "title": "REGION UPDATES",
-            "victories": "VICTORIES",
-            "new_regions": "NEW REGIONS AVAILABLE",
-            "region_victory": "\n### {region_emoji} {region_name} on {planet_name} has been liberated from the {faction_name}",
-            "new_region": "### {region_emoji} {region_name} is now available on {planet_name}",
-            "resistance": "\n > Resistance: **{regen}/hr**"
+            "title": "ATUALIZAÇÕES DE REGIÃO",
+            "victories": "VITÓRIAS",
+            "new_regions": "NOVAS REGIÕES DISPONÍVEIS",
+            "region_victory": "### {region_name} em {planet_name} foi liberada {faction_name}",
+            "new_region": "### **{region_name}** agora está disponível em **{planet_name}**",
+            "resistance": "> Resistência: **{regen}/hr**"
         },
         "SetupContainer": {
-            "title": "Setup",
-            "shard_info": "Your server is on Shard #**{shard_id}** - **{latency}ms**",
-            "not_set": "Not set",
-            "channel": "Channel",
-            "message": "Message",
+            "title": "Base",
+            "shard_info": "Seu servidor está no Shard#**{shard_id}** - **{latency}ms**",
+            "not_set": "Não definido",
+            "channel": "Canal",
+            "message": "Mensagem",
             "dashboard_title": "Dashboard",
-            "dashboard_desc": "-# A dashboard with general war information that updates every 15 minutes\n",
-            "dashboard_channel_select": "Select the channel for the dashboard",
-            "map_title": "Map",
-            "map_desc": "-# A galactic map that updates every hour at **##:05** (e.g. 09:05)\n",
-            "map_channel_select": "Select the channel for the map",
-            "war_announcements_title": "War Announcements",
-            "war_announcements_desc": "-# General announcements regarding the war (e.g. New MO's, Planets lost/won, general dispatches etc)\n",
-            "dss_announcements_title": "DSS Announcements",
-            "dss_announcements_desc": "-# Announcements regarding the DSS (e.g. DSS moves or the status of Tactical Actions changes)\n",
-            "region_announcements_title": "Region Announcements",
-            "region_announcements_desc": "-# Announcements regarding planetary regions (e.g. new regions have appeared or regions have been won etc.)\n",
-            "patch_notes_title": "Patch notes",
-            "patch_notes_desc": "-# Provides links to Steam announcements for the game\n",
-            "major_order_updates_title": "Major Order updates",
-            "major_order_updates_desc": "-# Provides updates for active major orders at <t:1737786000:t> and <t:1737829200:t>\n",
-            "detailed_dispatches_title": "Detailed Dispatches",
-            "detailed_dispatches_desc": "-# Provides the larger dispatches from Super Earth High Command\n",
-            "feature_channel_select": "Select the channel for this feature",
-            "language_button": "Language",
-            "language": "{flag_emoji} Language",
-            "language_select": "Select the language you want",
-            "set_feature": "Set {feature}",
-            "clear_feature": "Clear {feature}"
+            "dashboard_desc": "-# Um painel com informações gerais da guerra que atualiza a cada 15 minutos",
+            "dashboard_channel_select": "Selecione o canal para o painel",
+            "map_title": "Mapa",
+            "map_desc": "-# A galactic map that updates every hour at **##:05** (e.g. 09:05)",
+            "map_channel_select": "Selecione o canal para o mapa",
+            "war_announcements_title": "Anúncios da Guerra",
+            "war_announcements_desc": "-# Anúncios gerais sobre a Guerra (ex: Novas MOs, Planetas perdidos/vencidos, despachos gerais etc)",
+            "dss_announcements_title": "Anúncios da EED",
+            "dss_announcements_desc": "-# Anúncios sobre a EED (ex: Movimentação da EED ou a situação de mudanças nas Ações Táticas)",
+            "region_announcements_title": "Anúncios de Regiões",
+            "region_announcements_desc": "-# Anúncios sobre Regiões Planetárias(ex: novas regiões apareceram ou foram ganhas, etc)",
+            "patch_notes_title": "Notas de Atualização",
+            "patch_notes_desc": "-# Providencia links para anúncios sobre o jogo na Steam",
+            "major_order_updates_title": "Atualizações da Ordem Imperativa",
+            "major_order_updates_desc": "-# Providencia atualizações para as Ordens Imperativas ativas as <t:1737786000:t> e as <t:1737829200:t>",
+            "detailed_dispatches_title": "Despachos Detalhados",
+            "detailed_dispatches_desc": "-# Providencia os despachos maiores do Alto Comando da Super Terra",
+            "feature_channel_select": "Selecione o canal para esse recurso",
+            "language_button": "Língua",
+            "language": "Língua {flag_emoji}",
+            "language_select": "Selecione a língua desejada",
+            "set_feature": "Definir {feature}",
+            "clear_feature": "Limpar {feature}"
         }
     },
     "embeds": {
