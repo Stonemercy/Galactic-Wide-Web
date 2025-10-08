@@ -1060,7 +1060,10 @@ class Dashboard:
             field_value += f"\nInvasion Level **{planet.event.level}**{planet.event.level_exclamation}"
 
             calculated_end_time = get_end_time(planet, self.gambit_planets)
-            if calculated_end_time.end_time < planet.event.end_time_datetime:
+            if (
+                calculated_end_time.end_time
+                and calculated_end_time.end_time < planet.event.end_time_datetime
+            ):
                 field_value += f"\nVictory "
                 if calculated_end_time.source_planet:
                     field_value += (
@@ -1071,7 +1074,7 @@ class Dashboard:
                 elif calculated_end_time.region:
                     field_value += f"**<t:{int(calculated_end_time.end_time.timestamp())}:R>** thanks to {calculated_end_time.region.emoji}**{calculated_end_time.region.name}** liberation"
             elif planet.tracker and planet.tracker.change_rate_per_hour > 0:
-                field_value += f"**Losing**"
+                field_value += f"\n**Losing**"
 
             field_value += f"\nHeroes: **{planet.stats.player_count:,}**"
             field_value += f"\nDefence progress:"

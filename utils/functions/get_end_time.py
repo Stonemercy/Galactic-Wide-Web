@@ -23,21 +23,19 @@ def get_end_time(source_planet, gambit_planets: dict[int] = {}) -> CalculatedEnd
                 results.gambit_planet = gambit_planet
                 results.end_time = end_time_info.end_time
 
-        if (
-            non_liberated_regions := sorted(
-                [
-                    r
-                    for r in source_planet.regions.values()
-                    if r.owner.full_name != "Humans"
-                ],
-                key=lambda x: x.availability_factor,
-            )
-            and not results.end_time
-        ):
+        non_lib_regions = sorted(
+            [
+                r
+                for r in source_planet.regions.values()
+                if r.owner.full_name != "Humans"
+            ],
+            key=lambda x: x.availability_factor,
+        )
+        if non_lib_regions and not results.end_time:
             results.regions = []
             region_rates = [
                 r.tracker.change_rate_per_hour / r.size
-                for r in non_liberated_regions
+                for r in non_lib_regions
                 if r.tracker and r.tracker.change_rate_per_hour > 0
             ]
             average_region_rate = (
