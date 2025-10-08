@@ -15,7 +15,6 @@ from utils.trackers import BaseTracker, BaseTrackerEntry
 
 
 REGION_TYPES = {
-    5: "Super City ",  # guess
     4: "Mega City",
     3: "City",
     2: "Town",
