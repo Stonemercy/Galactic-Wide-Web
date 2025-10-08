@@ -325,7 +325,8 @@ stratagem_id_dict = {
     3123380863: "LIFT-182 Warp Pack",
     3111134131: "MD-I4 Incendiary Mines",
     783152568: "MD-17 Anti-Tank Mines",
-    3564779466: "MD-8 Gas Mines",
+    3564779466: "StA-X3 W.A.S.P. Launcher",
+    1326547218: "MD-8 Gas Mines",
     3039399791: "MD-6 Anti-Personnel Minefield",
     1228689284: "A/MG-43 Machine Gun Sentry",
     2446402932: "A/G-16 Gatling Sentry",
@@ -368,7 +369,7 @@ stratagem_id_dict = {
     202236804: "FAF-14 Spear",
     295440526: "RS-422 Railgun",
     1725541340: "TX-41 Sterilizer",
-    1326547218: "CQC-1 One True Flag",
+    1247082912: "CQC-1 One True Flag",
     3560739565: "GL-52 De-Escalator",
     2961443701: "PLAS-45 Epoch",
 }
