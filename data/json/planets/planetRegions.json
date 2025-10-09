@@ -1,1354 +1,4813 @@
 {
     "176090569": {
         "name": "ABUNDANCE",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0414\u041e\u0421\u0422\u0410\u0422\u041e\u041a",
+            "de-DE": "ABUNDANCE",
+            "es-ES": "ABUNDANCIA",
+            "fr-FR": "ABONDANCE",
+            "it-IT": "ABBONDANZA",
+            "pt-BR": "ABUND\u00c2NCIA",
+            "en-GB": "ABUNDANCE"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "622301006": {
         "name": "ABUNDANCE BLUFF",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0423\u0422\u0415\u0421 \u0418\u0417\u041e\u0411\u0418\u041b\u0418\u042f",
+            "de-DE": "ABUNDANCE BLUFF",
+            "es-ES": "FALSA ABUNDANCIA",
+            "fr-FR": "PIC D'ABONDANCE",
+            "it-IT": "BLUFF DELL'ABBONDANZA",
+            "pt-BR": "RIBANCEIRA DA ABUND\u00c2NCIA",
+            "en-GB": "ABUNDANCE BLUFF"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "3205582835": {
         "name": "ACCOUNTANT GRAEBER",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0421\u0427\u0415\u0422\u041e\u0412\u041e\u0414 \u0413\u0420\u042d\u0411\u0415\u0420",
+            "de-DE": "BUCHHALTER GRAEBER",
+            "es-ES": "CONTABLE GRAEBER",
+            "fr-FR": "MA\u00ceTRE\u00a0GRAEBER",
+            "it-IT": "MOVIDA",
+            "pt-BR": "CONTADOR GRAEBER",
+            "en-GB": "ACCOUNTANT GRAEBER"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "3179108272": {
         "name": "ADAM PARK",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041f\u0410\u0420\u041a \u0410\u0414\u0410\u041c\u0410",
+            "de-DE": "ADAM PARK",
+            "es-ES": "PARQUE AD\u00c1N",
+            "fr-FR": "PARC\u00a0ADAM",
+            "it-IT": "ADAM PARK",
+            "pt-BR": "PARQUE ADAM",
+            "en-GB": "ADAM PARK"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "3958784315": {
         "name": "ADMINISTRATIVE CENTER 02",
-        "description": "Each form and application that passes through the hallowed halls of AdminCen is emblazoned with the Stamp of Ages, and should be given a place of honor in the home."
+        "names": {
+            "ru-RU": "\u0410\u0414\u041c\u0418\u041d\u0418\u0421\u0422\u0420\u0410\u0422\u0418\u0412\u041d\u042b\u0419 \u0426\u0415\u041d\u0422\u0420 \u211602",
+            "de-DE": "ADMINISTRATIONSZENTRUM 02",
+            "es-ES": "CENTRO ADMINISTRATIVO 02",
+            "fr-FR": "CENTRE ADMINISTRATIF\u00a002",
+            "it-IT": "CENTRO AMMINISTRATIVO 02",
+            "pt-BR": "CENTRO ADMINISTRATIVO 02",
+            "en-GB": "ADMINISTRATIVE CENTER 02"
+        },
+        "description": "Each form and application that passes through the hallowed halls of AdminCen is emblazoned with the Stamp of Ages, and should be given a place of honor in the home.",
+        "descriptions": {
+            "ru-RU": "\u041a\u0430\u0436\u0434\u044b\u0439 \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442 \u0438 \u0437\u0430\u044f\u0432\u043b\u0435\u043d\u0438\u0435, \u043a\u043e\u0442\u043e\u0440\u044b\u0435 \u043f\u0440\u043e\u0445\u043e\u0434\u044f\u0442 \u0447\u0435\u0440\u0435\u0437 \u0441\u0432\u044f\u0449\u0435\u043d\u043d\u044b\u0435 \u0437\u0430\u043b\u044b \u0410\u0434\u043c\u0438\u043d\u0446\u0435\u043d\u0442\u0440\u0430, \u0443\u043a\u0440\u0430\u0448\u0430\u044e\u0442\u0441\u044f \u041f\u0435\u0447\u0430\u0442\u044c\u044e \u044d\u043f\u043e\u0445 \u0438 \u043f\u043e\u043b\u0443\u0447\u0430\u044e\u0442 \u043f\u043e\u0447\u0435\u0442\u043d\u043e\u0435 \u043c\u0435\u0441\u0442\u043e \u0432 \u0434\u043e\u043c\u0435.",
+            "de-DE": "Alle Formulare und Antr\u00e4ge, die die heiligen Hallen des AdminZentrums durchlaufen, werden mit dem Siegel der Zeitalter geschm\u00fcckt und sollten zu Hause einen Ehrenplatz erhalten.",
+            "es-ES": "Todo informe y toda solicitud que pasa por los sagrados pasillos de CenAdmin recibe el sello de las eras y debe ocupar un sitio de honor en el lugar.",
+            "fr-FR": "Chaque demande et chaque formulaire qui passent par les bureaux sacr\u00e9s du centre administratif sont marqu\u00e9s du Sceau \u00e9ternel, et m\u00e9ritent une place d'honneur dans tous les foyers.",
+            "it-IT": "Ogni documento ufficiale che passa attraverso le sacre sale del Centro \u00e8 decorato con il Bollo delle Ere, e dovrebbe avere un posto d'onore in ogni casa.",
+            "pt-BR": "Todos os formul\u00e1rios e solicita\u00e7\u00f5es que passam pelos corredores sagrados do CenAdm s\u00e3o carimbados com o Selo das Eras e devem ser colocados em um lugar de honra em casa.",
+            "en-GB": "Each form and application that passes through the hallowed halls of AdminCen is emblazoned with the Stamp of Ages, and should be given a place of honor in the home."
+        }
     },
     "786867005": {
         "name": "ADNAN",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0410\u0414\u041d\u0410\u041d",
+            "de-DE": "ADNAN",
+            "es-ES": "ADNAN",
+            "fr-FR": "ADNAN",
+            "it-IT": "ADNAN",
+            "pt-BR": "ADNAN",
+            "en-GB": "ADNAN"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "3342871593": {
         "name": "ADVENTURE",
+        "names": {
+            "ru-RU": "\u041f\u0420\u0418\u041a\u041b\u042e\u0427\u0415\u041d\u0418\u0415",
+            "de-DE": "ADVENTURE",
+            "es-ES": "AVENTURA",
+            "fr-FR": "AVENTURE",
+            "it-IT": "AVVENTURA",
+            "pt-BR": "AVENTURA",
+            "en-GB": "ADVENTURE"
+        },
         "description": ""
     },
     "3175334400": {
         "name": "AGARTHA",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0410\u0413\u0410\u0420\u0422\u0418",
+            "de-DE": "AGARTHA",
+            "es-ES": "AGARTHA",
+            "fr-FR": "AGARTHA",
+            "it-IT": "AGARTHA",
+            "pt-BR": "AGARTA",
+            "en-GB": "AGARTHA"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "860486103": {
         "name": "ALIGNMENT",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0410\u041b\u042c\u042f\u041d\u0421",
+            "de-DE": "ALIGNMENT",
+            "es-ES": "ALINEACI\u00d3N",
+            "fr-FR": "ALIGNEMENT",
+            "it-IT": "ZELO",
+            "pt-BR": "CONSON\u00c2NCIA",
+            "en-GB": "ALIGNMENT"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "3964263469": {
         "name": "ALTONBURG",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0410\u041b\u0422\u041e\u041d\u0411\u0423\u0420\u0413",
+            "de-DE": "ALTONBURG",
+            "es-ES": "ALTONBURGO",
+            "fr-FR": "ALTONBOURG",
+            "it-IT": "ALTONBURG",
+            "pt-BR": "ALTONBURGO",
+            "en-GB": "ALTONBURG"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "2300653457": {
         "name": "ANDROS DELTA",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0410\u041d\u0414\u0420\u041e\u0421 \u0414\u0415\u041b\u042c\u0422\u0410",
+            "de-DE": "ANDROS DELTA",
+            "es-ES": "ANDROS DELTA",
+            "fr-FR": "ANDROS\u00a0DELTA",
+            "it-IT": "ANDROS DELTA",
+            "pt-BR": "ANDROS DELTA",
+            "en-GB": "ANDROS DELTA"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "137264955": {
         "name": "ANDROS GAMMA",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0410\u041d\u0414\u0420\u041e\u0421 \u0413\u0410\u041c\u041c\u0410",
+            "de-DE": "ANDROS GAMMA",
+            "es-ES": "ANDROS GAMMA",
+            "fr-FR": "ANDROS\u00a0GAMMA",
+            "it-IT": "ANDROS GAMMA",
+            "pt-BR": "ANDROS GAMA",
+            "en-GB": "ANDROS GAMMA"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "763067932": {
         "name": "ANNE'S VIGIL",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041f\u041e\u0421\u0422 \u0410\u041d\u041d\u0418",
+            "de-DE": "ANNE\u2018S VIGIL",
+            "es-ES": "LA VIGILIA DE ANNE",
+            "fr-FR": "VEILLE D'ANNE",
+            "it-IT": "VEGLIA DI ANNE",
+            "pt-BR": "VIG\u00cdLIA DE ANNE",
+            "en-GB": "ANNE'S VIGIL"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "3116199682": {
         "name": "ANNWN",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0410\u041d\u041d\u0423\u041d",
+            "de-DE": "ANNWN",
+            "es-ES": "ANNWN",
+            "fr-FR": "ANNWN",
+            "it-IT": "ANNWN",
+            "pt-BR": "ANNWN",
+            "en-GB": "ANNWN"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1428185423": {
         "name": "ANTBOOT",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0416\u0423\u041a\u041e\u0414\u0410\u0412",
+            "de-DE": "ANTBOOT",
+            "es-ES": "PISORMIGA",
+            "fr-FR": "PIED-DE-FOURMI",
+            "it-IT": "DISINFESTIA",
+            "pt-BR": "ESMAGA-INSETOS",
+            "en-GB": "ANTBOOT"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1872830438": {
         "name": "APPROVAL CITY",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0413\u041e\u0420\u041e\u0414 \u041e\u0414\u041e\u0411\u0420\u0415\u041d\u0418\u042f",
+            "de-DE": "GENEHMIGUNG STADT",
+            "es-ES": "CIUDAD APROBACI\u00d3N",
+            "fr-FR": "FORT APPROBATION",
+            "it-IT": "APPROVAZIONE",
+            "pt-BR": "CIDADE DE APROVA\u00c7\u00c3O",
+            "en-GB": "APPROVAL CITY"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "3309151713": {
         "name": "BARRACKSBURG",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041a\u0410\u0417\u0410\u0420\u041c\u041e\u0413\u0420\u0410\u0414",
+            "de-DE": "BARRACKSBURG",
+            "es-ES": "VILLA CUARTEL",
+            "fr-FR": "CASERNESBOURG",
+            "it-IT": "CASERMIA",
+            "pt-BR": "QUARTELBURGO",
+            "en-GB": "BARRACKSBURG"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1322103873": {
         "name": "BARREN WARD",
-        "description": ""
+        "names": {
+            "de-DE": "BARREN WARD",
+            "es-ES": "ERIAL \u00c1RIDO",
+            "fr-FR": "ST\u00c9RILA",
+            "it-IT": "DESOLAZIONE",
+            "pt-BR": "ESTERIL",
+            "ru-RU": "\u041f\u0423\u0421\u0422\u042b\u041d\u041d\u042b\u0419 \u041e\u041a\u0420\u0423\u0413",
+            "en-GB": "BARREN WARD"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1762725992": {
         "name": "BASE CAMP 8",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0411\u0410\u0417\u041e\u0412\u042b\u0419 \u041b\u0410\u0413\u0415\u0420\u042c 8",
+            "de-DE": "BASISLAGER 8",
+            "es-ES": "CAMPAMENTO BASE 8",
+            "fr-FR": "CAMP DE BASE\u00a08",
+            "it-IT": "CAMPO BASE 8",
+            "pt-BR": "ACAMPAMENTO BASE 8",
+            "en-GB": "BASE CAMP 8"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "2033316867": {
         "name": "BATU BELIG",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0411\u0410\u0422\u0423 \u0411\u0415\u041b\u0418\u0413",
+            "de-DE": "BATU BELIG",
+            "es-ES": "BATU BELIG",
+            "fr-FR": "BATU BELIG",
+            "it-IT": "BATU BELIG",
+            "pt-BR": "BATU BELIG",
+            "en-GB": "BATU BELIG"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1201038992": {
         "name": "BEACHVIEW",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0412\u0418\u0414-\u041d\u0410-\u041f\u041b\u042f\u0416",
+            "de-DE": "BEACHVIEW",
+            "es-ES": "VISTAPLAYA",
+            "fr-FR": "C\u00d4TE D'OCRE",
+            "it-IT": "BELLARIVA",
+            "pt-BR": "VISTA PRAIANA",
+            "en-GB": "BEACHVIEW"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "521646997": {
         "name": "BEEFBURG",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0411\u0418\u0424\u0411\u0423\u0420\u0413",
+            "de-DE": "BEEFBURG",
+            "es-ES": "CIUDAD CARN\u00cdVORA",
+            "fr-FR": "B\u0152UFBOURG",
+            "it-IT": "BEEFBURG",
+            "pt-BR": "BIFEBURGO",
+            "en-GB": "BEEFBURG"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1365889454": {
         "name": "BENEVOLENCE",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0412\u0415\u041b\u0418\u041a\u041e\u0414\u0423\u0428\u0418\u0415",
+            "de-DE": "BENEVOLENCE",
+            "es-ES": "BENEVOLENCIA",
+            "fr-FR": "BIENVEILLANCE",
+            "it-IT": "BENEVOLENZA",
+            "pt-BR": "BENEVOL\u00caNCIA",
+            "en-GB": "BENEVOLENCE"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "468034602": {
         "name": "BIRCHVILLE",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0411\u0415\u0420\u0415\u0417\u041e\u0413\u0420\u0410\u0414",
+            "de-DE": "BIRCHVILLE",
+            "es-ES": "VILLABEDUL",
+            "fr-FR": "BOURG-BOULEAU",
+            "it-IT": "BETULLIA",
+            "pt-BR": "VILA B\u00c9TULA",
+            "en-GB": "BIRCHVILLE"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "2591044773": {
         "name": "BIRTH",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0420\u041e\u0416\u0414\u0415\u041d\u0418\u0415",
+            "de-DE": "BIRTH",
+            "es-ES": "NACIMIENTO",
+            "fr-FR": "BERCEAU",
+            "it-IT": "RINASCITA",
+            "pt-BR": "NASCIMENTO",
+            "en-GB": "BIRTH"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "873382628": {
         "name": "BLACKVEIN MINES",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0427\u0415\u0420\u041d\u041e\u0420\u0423\u0414\u041d\u042b\u0415 \u0428\u0410\u0425\u0422\u042b",
+            "de-DE": "BLACKVEIN-MINEN",
+            "es-ES": "MINAS VETANEGRA",
+            "fr-FR": "NOIREVEINES",
+            "it-IT": "MINIERE DELLA VENA NERA",
+            "pt-BR": "MINAS VEIOSCURO",
+            "en-GB": "BLACKVEIN MINES"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "484247622": {
         "name": "BLESTRAIL",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0411\u041b\u0410\u0413\u041e\u0422\u0420\u041e\u041f",
+            "de-DE": "BLESTRAIL",
+            "es-ES": "SACROSENDERO",
+            "fr-FR": "B\u00c9NI-CIT\u00c9",
+            "it-IT": "VIASANTA",
+            "pt-BR": "PASSOBOM",
+            "en-GB": "BLESTRAIL"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "452138560": {
         "name": "BLIGHTSMURK",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0421\u041a\u0412\u0415\u0420\u041d\u0410",
+            "de-DE": "BLIGHTSMURK",
+            "es-ES": "RUINENEBRA",
+            "fr-FR": "SOMBREFL\u00c9AU",
+            "it-IT": "LAZZARO",
+            "pt-BR": "PESTIL\u00c2NDIA",
+            "en-GB": "BLIGHTSMURK"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1690681912": {
         "name": "BOPSFIELD",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0411\u041e\u041f\u0421\u0424\u0418\u041b\u0414",
+            "de-DE": "BOPSFIELD",
+            "es-ES": "CAMPOSPOP",
+            "fr-FR": "CHAMPS-DE-BOP",
+            "it-IT": "CAMPO DI FIORI",
+            "pt-BR": "CAMPOS BL\u00cdPTICOS",
+            "en-GB": "BOPSFIELD"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1108939907": {
         "name": "BRAVERY",
-        "description": ""
+        "names": {
+            "de-DE": "BRAVERY",
+            "es-ES": "VALENT\u00cdA",
+            "fr-FR": "COURAGE",
+            "it-IT": "CORAGGIO",
+            "pt-BR": "BRAVURA",
+            "ru-RU": "\u041e\u0422\u0412\u0410\u0413\u0410",
+            "en-GB": "BRAVERY"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1415969325": {
         "name": "BRAWFERMLAND",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0411\u0420\u0410\u0424\u0415\u0420\u041c\u041b\u0410\u041d\u0414",
+            "de-DE": "BRAWFERMLAND",
+            "es-ES": "BRAWFERMLAND",
+            "fr-FR": "BRAWFERMLAND",
+            "it-IT": "BRAWFERMLAND",
+            "pt-BR": "TERRA DE FERTILAVOURA",
+            "en-GB": "BRAWFERMLAND"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "2193235528": {
         "name": "BRIGHT WING",
-        "description": ""
+        "names": {
+            "ru-RU": "\u042f\u0420\u041a\u041e\u0415 \u041a\u0420\u042b\u041b\u041e",
+            "de-DE": "BRIGHT WING",
+            "es-ES": "ALA BRILLANTE",
+            "fr-FR": "AILEVIVE",
+            "it-IT": "ALA LUMINOSA",
+            "pt-BR": "ASA CLARA",
+            "en-GB": "BRIGHT WING"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "481340922": {
         "name": "BRNO",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0411\u0420\u041d\u041e",
+            "de-DE": "BRNO",
+            "es-ES": "BRNO",
+            "fr-FR": "BRNO",
+            "it-IT": "BRNO",
+            "pt-BR": "BRNO",
+            "en-GB": "BRNO"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "521454425": {
         "name": "BROKER'S WEALTH",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0411\u041e\u0413\u0410\u0422\u0421\u0422\u0412\u041e \u0411\u0420\u041e\u041a\u0415\u0420\u0410",
+            "de-DE": "BROKER\u2018S WEALTH",
+            "es-ES": "LA RIQUEZA DEL COMERCIANTE",
+            "fr-FR": "N\u00c9GOCE PARADISE",
+            "it-IT": "PATRIMONIO",
+            "pt-BR": "FORTUNA DO AGENTE",
+            "en-GB": "BROKER'S WEALTH"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1000010048": {
         "name": "BUCU'S REST",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041f\u041e\u041a\u041e\u0419 \u0411\u0423\u041a\u0423",
+            "de-DE": "BUCU\u2018S REST",
+            "es-ES": "EL DESCANSO DE BUCU",
+            "fr-FR": "R\u00c9PIT DE BACU",
+            "it-IT": "BUCU'S REST",
+            "pt-BR": "REPOUSO DE BUCU",
+            "en-GB": "BUCU'S REST"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1050611219": {
         "name": "BUJU",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0411\u0423\u0414\u0416\u0423",
+            "de-DE": "BUJU",
+            "es-ES": "BUJU",
+            "fr-FR": "BUJU",
+            "it-IT": "BUJU",
+            "pt-BR": "BUJU",
+            "en-GB": "BUJU"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "3950276676": {
         "name": "CAMP LEIGHTON",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041a\u042d\u041c\u041f-\u041b\u0415\u0419\u0422\u041e\u041d",
+            "de-DE": "CAMP LEIGHTON",
+            "es-ES": "CAMPAMENTO LEIGHTON",
+            "fr-FR": "CAMP\u00a0LEIGHTON",
+            "it-IT": "CAMPO LEIGHTON",
+            "pt-BR": "CAMPO LEIGHTON",
+            "en-GB": "CAMP LEIGHTON"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "3263074211": {
         "name": "CARBONDALE",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0423\u0413\u041b\u0415\u0414\u0418\u041d\u0421\u041a",
+            "de-DE": "CARBONDALE",
+            "es-ES": "VALLE CARBONO",
+            "fr-FR": "CARBONDALE",
+            "it-IT": "CARBONIA",
+            "pt-BR": "CARBOVALE",
+            "en-GB": "CARBONDALE"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "2368444431": {
         "name": "CELEBRATION",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041f\u0420\u0410\u0417\u0414\u041d\u0418\u041a",
+            "de-DE": "CELEBRATION",
+            "es-ES": "CELEBRACI\u00d3N",
+            "fr-FR": "C\u00c9L\u00c9BRATION",
+            "it-IT": "TRIONFANTE",
+            "pt-BR": "CELEBRA\u00c7\u00c3O",
+            "en-GB": "CELEBRATION"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "3625692119": {
         "name": "CHAIRMAN OKOTE",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041f\u0420\u0415\u0414\u0421\u0415\u0414\u0410\u0422\u0415\u041b\u042c \u041e\u041a\u041e\u0422\u0415",
+            "de-DE": "VORSITZENDER OKOTE",
+            "es-ES": "PRESIDENTE OKOTE",
+            "fr-FR": "PR\u00c9SIDENT\u00a0OKOTE",
+            "it-IT": "DIRETTORE OKOTE",
+            "pt-BR": "L\u00cdDER OKOTE",
+            "en-GB": "CHAIRMAN OKOTE"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "867139136": {
         "name": "CHAIRMAN OYESLLO",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041f\u0420\u0415\u0414\u0421\u0415\u0414\u0410\u0422\u0415\u041b\u042c \u041e\u0419\u0415\u0421\u041b\u041e",
+            "de-DE": "VORSITZENDER OYESLLO",
+            "es-ES": "PRESIDENTE OYESLLO",
+            "fr-FR": "PR\u00c9SIDENT\u00a0OYESLLO",
+            "it-IT": "DIRETTORE OYESLLO",
+            "pt-BR": "L\u00cdDER OYESLLO",
+            "en-GB": "CHAIRMAN OYESLLO"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "3924472281": {
         "name": "CHATOYANT",
-        "description": ""
+        "names": {
+            "de-DE": "CHATOYANT",
+            "es-ES": "CHATOYANT",
+            "fr-FR": "CHATOYANT",
+            "it-IT": "PIETRA IRIDESCENTE",
+            "pt-BR": "CHATOYANT",
+            "ru-RU": "\u0411\u041b\u0415\u0421\u041a",
+            "en-GB": "CHATOYANT"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "4151302370": {
         "name": "CLE ELUM REDIVIVA",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041a\u041b\u0415-\u042d\u041b\u0423\u041c \u0420\u0415\u0414\u0418\u0412\u0418\u0412\u0410",
+            "de-DE": "CLE ELUM REDIVIVA",
+            "es-ES": "CLE ELUM REDIVIVA",
+            "fr-FR": "CLE ELUM REDIVIVA",
+            "it-IT": "CLE ELUM REDIVIVA",
+            "pt-BR": "CLE ELUM REDIVIVA",
+            "en-GB": "CLE ELUM REDIVIVA"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "2519594311": {
         "name": "CLOCKSTOP",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0425\u0420\u041e\u041d\u041e\u0421\u0422\u041e\u041f",
+            "de-DE": "CLOCKSTOP",
+            "es-ES": "CRONOPARA",
+            "fr-FR": "HORLOVILLE",
+            "it-IT": "TEMPOFERMO",
+            "pt-BR": "HORAPANEMA",
+            "en-GB": "CLOCKSTOP"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "3039275068": {
         "name": "COMMUNEFALLS",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0412\u041e\u0414\u041e\u041f\u0410\u0414\u042b \u041a\u041e\u041c\u041c\u0423\u041d\u042b",
+            "de-DE": "COMMUNEFALLS",
+            "es-ES": "CATARATAS DE LA COMUNA",
+            "fr-FR": "CHUTES DE L'UNIT\u00c9",
+            "it-IT": "DISFATTA DELLA COMUNE",
+            "pt-BR": "QUEDAS COMUNAIS",
+            "en-GB": "COMMUNEFALLS"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "3185820932": {
         "name": "CONSENSUS",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041a\u041e\u041d\u0421\u0415\u041d\u0421\u0423\u0421",
+            "de-DE": "CONSENSUS",
+            "es-ES": "CONSENSO",
+            "fr-FR": "CONSENSUS",
+            "it-IT": "CONSENSO",
+            "pt-BR": "CONSENSO",
+            "en-GB": "CONSENSUS"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "2143424881": {
         "name": "CONVENIENCE",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0423\u0414\u041e\u0411\u0421\u0422\u0412\u041e",
+            "de-DE": "CONVENIENCE",
+            "es-ES": "CONVENIENCIA",
+            "fr-FR": "CONVENANCE",
+            "it-IT": "COMODIT\u00c0",
+            "pt-BR": "CONVENI\u00caNCIA",
+            "en-GB": "CONVENIENCE"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "3283689576": {
         "name": "CORNUCOPOLIS",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041a\u041e\u0420\u041d\u0423\u041a\u041e\u041f\u041e\u041b\u0418\u0421",
+            "de-DE": "CORNUCOPOLIS",
+            "es-ES": "CORNUC\u00d3POLIS",
+            "fr-FR": "CORNUCOPOLIS",
+            "it-IT": "ABBONDANZA",
+            "pt-BR": "CORNUC\u00d3POLIS",
+            "en-GB": "CORNUCOPOLIS"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "3385219022": {
         "name": "COUNCILLOR RORA",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0421\u041e\u0412\u0415\u0422\u041d\u0418\u041a \u0420\u041e\u0420\u0410",
+            "de-DE": "RATSMITGLIED RORA",
+            "es-ES": "CONSEJERO RORA",
+            "fr-FR": "CONSEILLER\u00a0RORA",
+            "it-IT": "CONSIGLIERE RORA",
+            "pt-BR": "CONSELHEIRO RORA",
+            "en-GB": "COUNCILLOR RORA"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1915702028": {
         "name": "COZY FLATS",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0423\u042e\u0422\u041d\u042b\u0415 \u0420\u0410\u0412\u041d\u0418\u041d\u042b",
+            "de-DE": "COZY FLATS",
+            "es-ES": "LLANURAS ACOGEDORAS",
+            "fr-FR": "APPARTEMENTS CONFORTABLES",
+            "it-IT": "BELLECASE",
+            "pt-BR": "BONS LARES",
+            "en-GB": "COZY FLATS"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "4028778105": {
         "name": "CRYSTAL SLOPES",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0425\u0420\u0423\u0421\u0422\u0410\u041b\u042c\u041d\u042b\u0415 \u0421\u041a\u041b\u041e\u041d\u042b",
+            "de-DE": "KRISTALLH\u00c4NGE",
+            "es-ES": "PENDIENTES CRISTALINAS",
+            "fr-FR": "CRYSTALIS",
+            "it-IT": "PENDII CRISTALLINI",
+            "pt-BR": "ENCOSTAS DE CRISTAL",
+            "en-GB": "CRYSTAL SLOPES"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "559843220": {
         "name": "CURRENCY",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0412\u0410\u041b\u042e\u0422\u0410",
+            "de-DE": "CURRENCY",
+            "es-ES": "MONEDA",
+            "fr-FR": "MONNAIE",
+            "it-IT": "MONETA",
+            "pt-BR": "MOEDA",
+            "en-GB": "CURRENCY"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "2712707536": {
         "name": "DARKWELL",
-        "description": ""
+        "names": {
+            "de-DE": "DARKWELL",
+            "es-ES": "POZOSCURO",
+            "fr-FR": "SOMBREPUITS",
+            "it-IT": "POZZONERO",
+            "pt-BR": "PO\u00c7ONEGRO",
+            "ru-RU": "\u041c\u0420\u0410\u041a\u041e\u0413\u0420\u0410\u0414",
+            "en-GB": "DARKWELL"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "2146650468": {
         "name": "DARROWSHOME",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0414\u041e\u041c \u0414\u042d\u0420\u0420\u041e\u0423\u0417\u0410",
+            "de-DE": "DARROWSHOME",
+            "es-ES": "CASA DARROW",
+            "fr-FR": "DARROWHEIM",
+            "it-IT": "QUERCIOLA",
+            "pt-BR": "DARROWTABA",
+            "en-GB": "DARROWSHOME"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "2418052824": {
         "name": "DEBTOR'S DOWNS",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0425\u041e\u041b\u041c\u042b \u0414\u041e\u041b\u0416\u041d\u0418\u041a\u041e\u0412",
+            "de-DE": "DEBTOR\u2018S DOWNS",
+            "es-ES": "MALAS DEUDAS",
+            "fr-FR": "DETTES-EN-BAS",
+            "it-IT": "DECLIVIO DEI DEBITORI",
+            "pt-BR": "DECLIVE DO DEVEDOR",
+            "en-GB": "DEBTOR'S DOWNS"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "2719536576": {
         "name": "DEEPWELL",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0413\u041b\u0423\u0411\u041e\u041a\u041e\u041b\u041e\u0414\u0415\u0426",
+            "de-DE": "DEEPWELL",
+            "es-ES": "POZO PROFUNDO",
+            "fr-FR": "PUITS INFINI",
+            "it-IT": "POZZO PROFONDO",
+            "pt-BR": "PO\u00c7O PROFUNDO",
+            "en-GB": "DEEPWELL"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "324613052": {
         "name": "DEMOCRACY ALWAYS",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0414\u0415\u041c\u041e\u041a\u0420\u0410\u0422\u0418\u042f \u041d\u0410\u0412\u0421\u0415\u0413\u0414\u0410",
+            "de-DE": "DEMOKRATIE IMMER",
+            "es-ES": "DEMOCRACIA SIEMPRE",
+            "fr-FR": "PERMA DEMOCRATIA",
+            "it-IT": "DEMOCRAZIA PER SEMPRE",
+            "pt-BR": "DEMOCRACIA SEMPRE",
+            "en-GB": "DEMOCRACY ALWAYS"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1838126407": {
         "name": "DEMOCRACY'S LANDING",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0413\u0410\u0412\u0410\u041d\u042c \u0414\u0415\u041c\u041e\u041a\u0420\u0410\u0422\u0418\u0418",
+            "de-DE": "DEMOCRACY\u2018S LANDING",
+            "es-ES": "DESEMBARCO DE LA DEMOCRACIA",
+            "fr-FR": "D\u00c9MOCRATIS",
+            "it-IT": "APPRODO DELLA DEMOCRAZIA",
+            "pt-BR": "POUSO DEMOCR\u00c1TICO",
+            "en-GB": "DEMOCRACY'S LANDING"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1447385649": {
         "name": "DIGITI",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0414\u0418\u0414\u0416\u0418\u0422\u0418",
+            "de-DE": "DIGITI",
+            "es-ES": "DIGITI",
+            "fr-FR": "DIGITI",
+            "it-IT": "DIGITI",
+            "pt-BR": "DIGITI",
+            "en-GB": "DIGITI"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1668618298": {
         "name": "DIPLOMACY",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0414\u0418\u041f\u041b\u041e\u041c\u0410\u0422\u0418\u042f",
+            "de-DE": "DIPLOMACY",
+            "es-ES": "DIPLOMACIA",
+            "fr-FR": "DIPLOMATIE",
+            "it-IT": "DIPLOMAZIA",
+            "pt-BR": "DIPLOMACIA",
+            "en-GB": "DIPLOMACY"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "2187047436": {
         "name": "DISCOVERY GLEN",
-        "description": ""
+        "names": {
+            "ru-RU": "DISCOVERY GLEN",
+            "de-DE": "DISCOVERY GLEN",
+            "es-ES": "VALLE DEL DESCUBRIMIENTO",
+            "fr-FR": "VAL-D\u00c9COUVERTE",
+            "it-IT": "VALLE DELLE SCOPERTE",
+            "pt-BR": "VALE DO DESCOBRIMENTO",
+            "en-GB": "DISCOVERY GLEN"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "2185475541": {
         "name": "DIVER'S GLORY",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0427\u0415\u0421\u0422\u042c \u0414\u0415\u0421\u0410\u041d\u0422\u0410",
+            "de-DE": "DIVER\u2018S GLORY",
+            "es-ES": "GLORIA DEL SOLDADO",
+            "fr-FR": "GLOIRE DES DIVERS",
+            "it-IT": "GLORIA DELL'HELLDIVER",
+            "pt-BR": "MERGULHO GLORIOSO",
+            "en-GB": "DIVER'S GLORY"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "4162876257": {
         "name": "DIVER'S REST",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041f\u041e\u041a\u041e\u0419 \u0414\u0415\u0421\u0410\u041d\u0422\u0410",
+            "de-DE": "DIVER\u2018S REST",
+            "es-ES": "EL DESCANSO DEL SOLDADO",
+            "fr-FR": "R\u00c9PIT DES DIVERS",
+            "it-IT": "RIPOSO DEL SOLDATO",
+            "pt-BR": "REPOUSO DE HELLDIVER",
+            "en-GB": "DIVER'S REST"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "3644870667": {
         "name": "DOGTOWN",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0414\u041e\u0413\u0422\u0410\u0423\u041d",
+            "de-DE": "DOGTOWN",
+            "es-ES": "VILLAPERRO",
+            "fr-FR": "CERB\u00c9RUS",
+            "it-IT": "CAGNOPOLI",
+            "pt-BR": "CANIL\u00c2NDIA",
+            "en-GB": "DOGTOWN"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1543050297": {
         "name": "DOSTOINSTVO",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0414\u041e\u0421\u0422\u041e\u0418\u041d\u0421\u0422\u0412\u041e",
+            "de-DE": "DOSTOINSTVO",
+            "es-ES": "DOSTOINSTVO",
+            "fr-FR": "DOSTOINSTVO",
+            "it-IT": "DOSTOINSTVO",
+            "pt-BR": "DOSTOINSTVO",
+            "en-GB": "DOSTOINSTVO"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1725242014": {
         "name": "DOWNPOUR",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041b\u0418\u0412\u0415\u041d\u042c",
+            "de-DE": "DOWNPOUR",
+            "es-ES": "CHAPARR\u00d3N",
+            "fr-FR": "D\u00c9LUGE",
+            "it-IT": "NUBIFRAGIO",
+            "pt-BR": "AGUACEIRO",
+            "en-GB": "DOWNPOUR"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "2563609963": {
         "name": "DRYWELL",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0421\u0423\u0425\u0410\u042f \u0428\u0410\u0425\u0422\u0410",
+            "de-DE": "DRYWELL",
+            "es-ES": "POZO SECO",
+            "fr-FR": "PUITS-SEC",
+            "it-IT": "POZZOSECCO",
+            "pt-BR": "PO\u00c7O SECO",
+            "en-GB": "DRYWELL"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1161514581": {
         "name": "DYER STREETS",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0426\u0412\u0415\u0422\u041d\u042b\u0415 \u0423\u041b\u0418\u0426\u042b",
+            "de-DE": "DYER STREETS",
+            "es-ES": "CALLES TINTAS",
+            "fr-FR": "TEINTURE-EN-PAV\u00c9",
+            "it-IT": "VIE DEI TINTORI",
+            "pt-BR": "PARQUE DAS TINTAS",
+            "en-GB": "DYER STREETS"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "2939223654": {
         "name": "DYN ALPHA 534-2",
-        "description": ""
+        "names": {
+            "ru-RU": "DYN-\u0410\u041b\u042c\u0424\u0410 534-2",
+            "de-DE": "DYN ALPHA 534-2",
+            "es-ES": "DYN ALFA 534-2",
+            "fr-FR": "DYN ALPHA\u00a0534-2",
+            "it-IT": "DUNE ALFA 534-2",
+            "pt-BR": "DYN ALFA 534-2",
+            "en-GB": "DYN ALPHA 534-2"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "2391484056": {
         "name": "EAGLE'S LIKENESS",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041f\u041e\u0414\u041e\u0411\u0418\u0415 \u041e\u0420\u041b\u0410",
+            "de-DE": "EAGLE\u2018S LIKENESS",
+            "es-ES": "SEMBLANZA DEL \u00c1GUILA",
+            "fr-FR": "AIGLEVILLIERS",
+            "it-IT": "AQUILONIA",
+            "pt-BR": "\u00c1GUIA MIRIM",
+            "en-GB": "EAGLE'S LIKENESS"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "4132827034": {
         "name": "EAGLECRY",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041a\u0420\u0418\u041a \u041e\u0420\u041b\u0410",
+            "de-DE": "EAGLECRY",
+            "es-ES": "GRAZN\u00c1GUILA",
+            "fr-FR": "SERRES-ET-LAMENTATIONS",
+            "it-IT": "GRIDO DELL'AQUILA",
+            "pt-BR": "PIO\u00c1GUIA",
+            "en-GB": "EAGLECRY"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "2903117961": {
         "name": "EAGLEMOUNT",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041e\u0420\u041b\u0418\u041d\u0410\u042f \u0413\u041e\u0420\u0410",
+            "de-DE": "EAGLEMOUNT",
+            "es-ES": "MONTE \u00c1GUILA",
+            "fr-FR": "MONT AQUILA",
+            "it-IT": "DORSO D'AQUILA",
+            "pt-BR": "MONTE \u00c1GUIA",
+            "en-GB": "EAGLEMOUNT"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "4196558004": {
         "name": "EAGLEOPOLIS",
-        "description": "This Great Heart of Commerce is renowned galaxy-wide for its Grand Shopping Malls and Splendorous Entertainment Centers."
+        "names": {
+            "ru-RU": "\u041e\u0420\u041b\u041e\u041f\u041e\u041b\u0418\u0421",
+            "de-DE": "EAGLEOPOLIS",
+            "es-ES": "AGUIL\u00d3POLIS",
+            "fr-FR": "AIGLOPOLIS",
+            "it-IT": "AQUILOPOLI",
+            "pt-BR": "AQUIL\u00d3POLIS",
+            "en-GB": "EAGLEOPOLIS"
+        },
+        "description": "This Great Heart of Commerce is renowned galaxy-wide for its Grand Shopping Malls and Splendorous Entertainment Centers.",
+        "descriptions": {
+            "ru-RU": "\u042d\u0442\u043e \u0441\u0435\u0440\u0434\u0446\u0435 \u0442\u043e\u0440\u0433\u043e\u0432\u043b\u0438 \u0438\u0437\u0432\u0435\u0441\u0442\u043d\u043e \u0432\u0441\u0435\u0439 \u0433\u0430\u043b\u0430\u043a\u0442\u0438\u043a\u0435 \u0441\u0432\u043e\u0438\u043c\u0438 \u043e\u0433\u0440\u043e\u043c\u043d\u044b\u043c\u0438 \u0442\u043e\u0440\u0433\u043e\u0432\u044b\u043c\u0438 \u043a\u043e\u043c\u043f\u043b\u0435\u043a\u0441\u0430\u043c\u0438 \u0438 \u0432\u0435\u043b\u0438\u0447\u0435\u0441\u0442\u0432\u0435\u043d\u043d\u044b\u043c\u0438 \u0440\u0430\u0437\u0432\u043b\u0435\u043a\u0430\u0442\u0435\u043b\u044c\u043d\u044b\u043c\u0438 \u0446\u0435\u043d\u0442\u0440\u0430\u043c\u0438.",
+            "de-DE": "Dieser gro\u00dfe Handelsknotenpunkt ist in der ganzen Galaxie f\u00fcr seine riesigen Einkaufszentren und prunkvollen Unterhaltungseinrichtungen bekannt.",
+            "es-ES": "Este gran centro de comercio es famoso en toda la galaxia por sus grandes centros comerciales y sus esplendorosos centros de ocio.",
+            "fr-FR": "Le Grand c\u0153ur du commerce est r\u00e9put\u00e9 dans toute la galaxie pour ses centres commerciaux gigantesques et ses magnifiques complexes de loisirs.",
+            "it-IT": "Questo grande Cuore del Commercio \u00e8 noto in tutta la galassia per i suoi grandi Centri Commerciali e gli splendidi Centri di Intrattenimento.",
+            "pt-BR": "Este Grande Centro Comercial \u00e9 famoso em toda a Gal\u00e1xia por seus Megashoppings e Centros de Entretenimento Esplendorosos.",
+            "en-GB": "This Great Heart of Commerce is renowned galaxy-wide for its Grand Shopping Malls and Splendorous Entertainment Centers."
+        }
     },
     "3320001654": {
         "name": "EAGLESTAR ETERNAL",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0412\u0415\u0427\u041d\u041e\u0421\u0422\u042c \u041e\u0420\u041b\u0418\u041d\u041e\u0419 \u0417\u0412\u0415\u0417\u0414\u042b",
+            "de-DE": "EAGLESTAR ETERNAL",
+            "es-ES": "\u00c1GUILA ESTELAR ETERNA",
+            "fr-FR": "STELLAIGLE",
+            "it-IT": "AQUILA ETERNA",
+            "pt-BR": "ESTREL\u00c1GUIA ETERNA",
+            "en-GB": "EAGLESTAR ETERNAL"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1168572634": {
         "name": "EAST EMBANKMENT",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0412\u041e\u0421\u0422\u041e\u0427\u041d\u0410\u042f \u0414\u0410\u041c\u0411\u0410",
+            "de-DE": "EAST EMBANKMENT",
+            "es-ES": "DIQUE ORIENTAL",
+            "fr-FR": "BERGE ORIENTALE",
+            "it-IT": "ARGINE ORIENTALE",
+            "pt-BR": "DIQUE LESTE",
+            "en-GB": "EAST EMBANKMENT"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1479079406": {
         "name": "EAST REST",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0418\u0421\u0422-\u0420\u0415\u0421\u0422",
+            "de-DE": "EAST REST",
+            "es-ES": "REPOSO ORIENTAL",
+            "fr-FR": "REPOS D'ORIENT",
+            "it-IT": "RIFUGIO EST",
+            "pt-BR": "REPOUSO LESTE",
+            "en-GB": "EAST REST"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1761215575": {
         "name": "EASTCLEFT",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0412\u041e\u0421\u0422\u041e\u0427\u041d\u0410\u042f \u0422\u0415\u0421\u041d\u0418\u041d\u0410",
+            "de-DE": "EASTCLEFT",
+            "es-ES": "GRIETA ESTE",
+            "fr-FR": "FISSURE D'ORIENT",
+            "it-IT": "FENDITURA EST",
+            "pt-BR": "FENDALESTE",
+            "en-GB": "EASTCLEFT"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1451291824": {
         "name": "EDWARD'S GRAVE",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041c\u041e\u0413\u0418\u041b\u0410 \u042d\u0414\u0412\u0410\u0420\u0414\u0410",
+            "de-DE": "EDWARD\u2018S GRAB",
+            "es-ES": "TUMBA DE EDWARD",
+            "fr-FR": "EDWARDOMORTIS",
+            "it-IT": "TOMBA DI EDWARD",
+            "pt-BR": "T\u00daMULO DE EDWARD",
+            "en-GB": "EDWARD'S GRAVE"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "741084747": {
         "name": "EIGHTRINGS",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0412\u041e\u0421\u0415\u041c\u042c \u041a\u041e\u041b\u0415\u0426",
+            "de-DE": "EIGHTRINGS",
+            "es-ES": "OCTOANILLOS",
+            "fr-FR": "HUIT-ANNEAUX",
+            "it-IT": "OTTOANELLI",
+            "pt-BR": "OITAN\u00c9IS",
+            "en-GB": "EIGHTRINGS"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "130236915": {
         "name": "EPH",
-        "description": ""
+        "names": {
+            "ru-RU": "\u042d\u0424",
+            "de-DE": "EPH",
+            "es-ES": "EUF",
+            "fr-FR": "EPH",
+            "it-IT": "EFFE",
+            "pt-BR": "EPH",
+            "en-GB": "EPH"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "550918906": {
         "name": "EQUALITY-ON-SEA",
-        "description": "Named for the historic conference where Humanity was found to be the most Equal species in the Galaxy."
+        "names": {
+            "ru-RU": "\u0420\u0410\u0412\u0415\u041d\u0421\u0422\u0412\u041e-\u041d\u0410-\u041c\u041e\u0420\u0415",
+            "de-DE": "EQUALITY-ON-SEA",
+            "es-ES": "IGUALDAD DEL MAR",
+            "fr-FR": "\u00c9GALIT\u00c9-SUR-MER",
+            "it-IT": "UGUAGLIANZA SUL MARE",
+            "pt-BR": "IGUALINA",
+            "en-GB": "EQUALITY-ON-SEA"
+        },
+        "description": "Named for the historic conference where Humanity was found to be the most Equal species in the Galaxy.",
+        "descriptions": {
+            "ru-RU": "\u0413\u043e\u0440\u043e\u0434 \u043f\u043e\u043b\u0443\u0447\u0438\u043b \u0438\u043c\u044f \u0432 \u0447\u0435\u0441\u0442\u044c \u0438\u0441\u0442\u043e\u0440\u0438\u0447\u0435\u0441\u043a\u043e\u0439 \u043a\u043e\u043d\u0444\u0435\u0440\u0435\u043d\u0446\u0438\u0438, \u043d\u0430 \u043a\u043e\u0442\u043e\u0440\u043e\u0439 \u0447\u0435\u043b\u043e\u0432\u0435\u0447\u0435\u0441\u0442\u0432\u043e \u0431\u044b\u043b\u043e \u043d\u0430\u0437\u0432\u0430\u043d\u043e \u043d\u0430\u0438\u0440\u0430\u0432\u043d\u0435\u0439\u0448\u0438\u043c \u0436\u0438\u0432\u044b\u043c \u0432\u0438\u0434\u043e\u043c \u0432 \u0433\u0430\u043b\u0430\u043a\u0442\u0438\u043a\u0435.",
+            "de-DE": "Benannt nach der historischen Konferenz, auf der die Menschheit zur gleichberechtigtsten Spezies der Galaxie erkl\u00e4rt wurde.",
+            "es-ES": "Llamada as\u00ed por la hist\u00f3rica conferencia en la cual se descubri\u00f3 que la humanidad era la especie m\u00e1s igualitaria de la galaxia.",
+            "fr-FR": "Son nom est inspir\u00e9 de la conf\u00e9rence historique durant laquelle l'humanit\u00e9 a d\u00e9couvert qu'elle \u00e9tait l'esp\u00e8ce la plus \u00e9gale de la galaxie.",
+            "it-IT": "Questa citt\u00e0 deve il suo nome alla storica conferenza nella quale l'Umanit\u00e0 venne dichiarata la specie pi\u00f9 Egualitaria della galassia.",
+            "pt-BR": "Seu nome vem da confer\u00eancia hist\u00f3rica que concluiu que a Humanidade era a esp\u00e9cie mais igualit\u00e1ria da Gal\u00e1xia.",
+            "en-GB": "Named for the historic conference where Humanity was found to be the most Equal species in the Galaxy."
+        }
     },
     "855833074": {
         "name": "ERIDANI",
-        "description": ""
+        "names": {
+            "ru-RU": "\u042d\u0420\u0418\u0414\u0410\u041d",
+            "de-DE": "ERIDANI",
+            "es-ES": "ERIDANI",
+            "fr-FR": "ERIDANI",
+            "it-IT": "ERIDANI",
+            "pt-BR": "ERIDANI",
+            "en-GB": "ERIDANI"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "3067104866": {
         "name": "ERSATZ",
-        "description": ""
+        "names": {
+            "ru-RU": "\u042d\u0420\u0417\u0410\u0426",
+            "de-DE": "ERSATZ",
+            "es-ES": "ERSATZ",
+            "fr-FR": "ERSATZ",
+            "it-IT": "ERSATZ",
+            "pt-BR": "ERSATZ",
+            "en-GB": "ERSATZ"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "3775882537": {
         "name": "ESCAPADE",
-        "description": ""
+        "names": {
+            "ru-RU": "\u042d\u0421\u041a\u0410\u041f\u0410\u0414\u0410",
+            "de-DE": "ESCAPADE",
+            "es-ES": "ESCAPADA",
+            "fr-FR": "ESCAPADE",
+            "it-IT": "FUGA ROMANTICA",
+            "pt-BR": "ESCAPADA",
+            "en-GB": "ESCAPADE"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1273177678": {
         "name": "EXALT",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0412\u041e\u0421\u0425\u0412\u0410\u041b\u0415\u041d\u0418\u0415",
+            "de-DE": "EXALT",
+            "es-ES": "EXALTACI\u00d3N",
+            "fr-FR": "EXALTIS",
+            "it-IT": "EXULTA",
+            "pt-BR": "EXALTA\u00c7\u00c3O",
+            "en-GB": "EXALT"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1514913854": {
         "name": "EXCITEMENT",
-        "description": ""
+        "names": {
+            "de-DE": "EXCITEMENT",
+            "es-ES": "EMOCI\u00d3N",
+            "fr-FR": "EXALTATION",
+            "it-IT": "ENTUSIASMO",
+            "pt-BR": "ENTUSIASMO",
+            "ru-RU": "\u041e\u0416\u0418\u0412\u041b\u0415\u041d\u0418\u0415",
+            "en-GB": "EXCITEMENT"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "4269009782": {
         "name": "EXO CITY",
-        "description": ""
+        "names": {
+            "ru-RU": "\u042d\u041a\u0417\u041e-\u0421\u0418\u0422\u0418",
+            "de-DE": "EXO CITY",
+            "es-ES": "EXOCIUDAD",
+            "fr-FR": "EXOVILLE",
+            "it-IT": "ESO CITY",
+            "pt-BR": "EXOL\u00c2NDIA",
+            "en-GB": "EXO CITY"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "3342476592": {
         "name": "FAMEWOLF PEAK",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041f\u0418\u041a \u041e\u0413\u041d\u0415\u041d\u041d\u041e\u0413\u041e \u0412\u041e\u041b\u041a\u0410",
+            "de-DE": "FAMEWOLF SPITZE",
+            "es-ES": "PICO DEL LOBO C\u00c9LEBRE",
+            "fr-FR": "PIC FENRIS",
+            "it-IT": "PICCO DEL LUPO FAMELOCO",
+            "pt-BR": "PICO FAMOLOBO",
+            "en-GB": "FAMEWOLF PEAK"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "2650088088": {
         "name": "FAMILY GROVE",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0421\u0415\u041c\u0415\u0419\u041d\u0410\u042f \u0420\u041e\u0429\u0410",
+            "de-DE": "FAMILY GROVE",
+            "es-ES": "ARBOLEDA DE LA FAMILIA",
+            "fr-FR": "BOSQUET FAMILIAL",
+            "it-IT": "BOSCO DI FAMIGLIA",
+            "pt-BR": "ARVOREDO FAMILIAR",
+            "en-GB": "FAMILY GROVE"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "16522331": {
         "name": "FARMHANDSTOWN",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0424\u0415\u0420\u041c\u041e\u0413\u0420\u0410\u0414",
+            "de-DE": "FARMHANDSTOWN",
+            "es-ES": "MOZOCIUDAD",
+            "fr-FR": "BEAUPAYS",
+            "it-IT": "BORGO DEI BRACCIANTI",
+            "pt-BR": "FAZENDA LABUTANTE",
+            "en-GB": "FARMHANDSTOWN"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "281317935": {
         "name": "FEARLESS HOLLOW",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0411\u0415\u0421\u0421\u0422\u0420\u0410\u0428\u041d\u0410\u042f \u041b\u041e\u0429\u0418\u041d\u0410",
+            "de-DE": "FEARLESS HOLLOW",
+            "es-ES": "HUECO INTR\u00c9PIDO",
+            "fr-FR": "VAL SANS-PEUR",
+            "it-IT": "RADURA DEGLI IMPAVIDI",
+            "pt-BR": "VALE DESTEMIDO",
+            "en-GB": "FEARLESS HOLLOW"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "4127238767": {
         "name": "FILIBUSTER",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0424\u0418\u041b\u0418\u0411\u0423\u0421\u0422\u042c\u0415\u0420",
+            "de-DE": "FILIBUSTER",
+            "es-ES": "OBSTRUCCI\u00d3N",
+            "fr-FR": "OBSTRUCTION-EN-PARLEMENT",
+            "it-IT": "FILIPPICA",
+            "pt-BR": "OBSTRURANA",
+            "en-GB": "FILIBUSTER"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "2895050350": {
         "name": "FIREFLY MEADOWS",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0421\u0412\u0415\u0422\u041b\u042f\u0427\u041a\u041e\u0412\u042b\u0415 \u041b\u0423\u0413\u0410",
+            "de-DE": "FIREFLY MEADOWS",
+            "es-ES": "CAMPOS LUCI\u00c9RNAGA",
+            "fr-FR": "PR\u00c9-AUX-LUCIOLES",
+            "it-IT": "CAMPI DI LUCCIOLE",
+            "pt-BR": "PRADARIA DOS VAGA-LUMES",
+            "en-GB": "FIREFLY MEADOWS"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "4192092503": {
         "name": "FODDER GORGE",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0423\u0429\u0415\u041b\u042c\u0415 \u0424\u0423\u0420\u0410\u0416\u0410",
+            "de-DE": "FODDER GORGE",
+            "es-ES": "CA\u00d1\u00d3N PASTO",
+            "fr-FR": "GORGE DES VERMINES",
+            "it-IT": "GOLA DEL FORAGGIO",
+            "pt-BR": "DESFILADEIROS BANAIS",
+            "en-GB": "FODDER GORGE"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "167295516": {
         "name": "FORT BOUNTY",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0424\u041e\u0420\u0422-\u0411\u0410\u0423\u041d\u0422\u0418",
+            "de-DE": "FORT BOUNTY",
+            "es-ES": "FUERTE BOT\u00cdN",
+            "fr-FR": "FORT PRIME",
+            "it-IT": "FORTE GRAZIA",
+            "pt-BR": "FORTE DA RECOMPENSA",
+            "en-GB": "FORT BOUNTY"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "3188612954": {
         "name": "FORT SANGUINE",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0424\u041e\u0420\u0422-\u0421\u0410\u041d\u0413\u0412\u0418\u041d",
+            "de-DE": "FORT SANGUINE",
+            "es-ES": "FUERTE ENTUSIASTA",
+            "fr-FR": "FORT SANGUINAIRE",
+            "it-IT": "FORTE SANGUINO",
+            "pt-BR": "FORTE SANGU\u00cdNEO",
+            "en-GB": "FORT SANGUINE"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "316170794": {
         "name": "FORTITUDE",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0421\u0422\u041e\u0419\u041a\u041e\u0421\u0422\u042c",
+            "de-DE": "FORTITUDE",
+            "es-ES": "FORTALEZA",
+            "fr-FR": "VAILLANCE",
+            "it-IT": "FORZA D'ANIMO",
+            "pt-BR": "FORTITUDE",
+            "en-GB": "FORTITUDE"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "579852265": {
         "name": "FOUNDRY",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041b\u0418\u0422\u0415\u0419\u041d\u0410\u042f",
+            "de-DE": "FOUNDRY",
+            "es-ES": "FUNDICI\u00d3N",
+            "fr-FR": "LAFORGE",
+            "it-IT": "FONDERIA",
+            "pt-BR": "FUNDI\u00c7\u00c3O",
+            "en-GB": "FOUNDRY"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "3895412065": {
         "name": "FOUR CROWNS",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0427\u0415\u0422\u042b\u0420\u0415 \u041a\u041e\u0420\u041e\u041d\u042b",
+            "de-DE": "FOUR CROWNS",
+            "es-ES": "CUATRO CORONAS",
+            "fr-FR": "QUADRICOURONNE",
+            "it-IT": "QUATTRO CORONE",
+            "pt-BR": "QUATRO COROAS",
+            "en-GB": "FOUR CROWNS"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1603459330": {
         "name": "FREE APARTMENTS",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0411\u0415\u0421\u041f\u041b\u0410\u0422\u041d\u042b\u0415 \u041a\u0412\u0410\u0420\u0422\u0418\u0420\u042b",
+            "de-DE": "FREE APARTMENTS",
+            "es-ES": "APARTAMENTOS LIBRES",
+            "fr-FR": "LIBRELOGIS",
+            "it-IT": "APPARTAMENTI LIBERI",
+            "pt-BR": "LARES LIVRES",
+            "en-GB": "FREE APARTMENTS"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "476417027": {
         "name": "FREE TRADE",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0421\u0412\u041e\u0411\u041e\u0414\u041d\u0410\u042f \u0422\u041e\u0420\u0413\u041e\u0412\u041b\u042f",
+            "de-DE": "FREE TRADE",
+            "es-ES": "COMERCIO LIBRE",
+            "fr-FR": "LIBREVILLE",
+            "it-IT": "LIBERO SCAMBIO",
+            "pt-BR": "LIVRE COM\u00c9RCIO",
+            "en-GB": "FREE TRADE"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1954581243": {
         "name": "FREECREST",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0424\u0420\u0418\u041a\u0420\u0415\u0421\u0422",
+            "de-DE": "FREECREST",
+            "es-ES": "CRESTALIBRE",
+            "fr-FR": "CR\u00caTELIBRE",
+            "it-IT": "CRESTA LIBERA",
+            "pt-BR": "LIVRECRISTA",
+            "en-GB": "FREECREST"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "2936987719": {
         "name": "FREEDOM ETERNAL",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0412\u0415\u0427\u041d\u0410\u042f \u0421\u0412\u041e\u0411\u041e\u0414\u0410",
+            "de-DE": "FREEDOM ETERNAL",
+            "es-ES": "LIBERTAD ETERNA",
+            "fr-FR": "LIBERT\u00c9 \u00c9TERNELLE",
+            "it-IT": "ETERNA LIBERT\u00c0",
+            "pt-BR": "LIBERDADE ETERNA",
+            "en-GB": "FREEDOM ETERNAL"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "3921926208": {
         "name": "FREEDOM'S TORCH",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0424\u0410\u041a\u0415\u041b \u0421\u0412\u041e\u0411\u041e\u0414\u042b",
+            "de-DE": "FREEDOM\u2018S TORCH",
+            "es-ES": "ANTORCHA DE LA LIBERTAD",
+            "fr-FR": "FLAMBEAU DE LA LIBERT\u00c9",
+            "it-IT": "TORCIA DELLA LIBERT\u00c0",
+            "pt-BR": "TOCHA DA LIBERDADE",
+            "en-GB": "FREEDOM'S TORCH"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "3455957267": {
         "name": "FRESH ORCHARDS",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041c\u041e\u041b\u041e\u0414\u042b\u0415 \u0421\u0410\u0414\u042b",
+            "de-DE": "FRESH ORCHARDS",
+            "es-ES": "VERGELES LOZANOS",
+            "fr-FR": "VERGERS-SOUS-BOIS",
+            "it-IT": "FRUTTETI NUOVI",
+            "pt-BR": "POMARES FRESCOS",
+            "en-GB": "FRESH ORCHARDS"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "3034375188": {
         "name": "FROSTOWN",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041c\u041e\u0420\u041e\u0417\u041e\u0413\u0420\u0410\u0414",
+            "de-DE": "FROSTOWN",
+            "es-ES": "CIUDAD ESCARCHA",
+            "fr-FR": "VILLEGIVRE",
+            "it-IT": "VILLAGHIACCIO",
+            "pt-BR": "GEL\u00d3POLIS",
+            "en-GB": "FROSTOWN"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "4014866766": {
         "name": "FUTURE PRIDE",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0413\u041e\u0420\u0414\u041e\u0421\u0422\u042c \u0411\u0423\u0414\u0423\u0429\u0415\u0413\u041e",
+            "de-DE": "FUTURE PRIDE",
+            "es-ES": "ORGULLO FUTURO",
+            "fr-FR": "AVENIR",
+            "it-IT": "ORGOGLIO FUTURO",
+            "pt-BR": "ORGULHO FUTURO",
+            "en-GB": "FUTURE PRIDE"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "4275209727": {
         "name": "FUTURIA",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0424\u0423\u0422\u0423\u0420\u0418\u042f",
+            "de-DE": "FUTURIA",
+            "es-ES": "FUTURIA",
+            "fr-FR": "FUTURIA",
+            "it-IT": "FUTURIA",
+            "pt-BR": "FUT\u00daRIA",
+            "en-GB": "FUTURIA"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "12564835": {
         "name": "GARAGE DUNE",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0413\u0410\u0420\u0410\u0416-\u0412-\u0414\u042e\u041d\u0410\u0425",
+            "de-DE": "GARAGE DUNE",
+            "es-ES": "DUNA GARAJE",
+            "fr-FR": "DUNEA\u00a0GARAGIS",
+            "it-IT": "RIMESSA DELLE SABBIE",
+            "pt-BR": "DUNA DAS GARAGENS",
+            "en-GB": "GARAGE DUNE"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "518148662": {
         "name": "GENE",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0413\u0415\u041d",
+            "de-DE": "GENE",
+            "es-ES": "GEN",
+            "fr-FR": "G\u00c8NE",
+            "it-IT": "GENE",
+            "pt-BR": "GENE",
+            "en-GB": "GENE"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "3184875338": {
         "name": "GENERATORSVILLE",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0413\u0415\u041d\u0415\u0420\u0410\u0422\u041e\u0420\u0412\u0418\u041b\u041b\u042c",
+            "de-DE": "GENERATORSVILLE",
+            "es-ES": "VILLA GENERADORES",
+            "fr-FR": "G\u00c9N\u00c9RATORVILLE",
+            "it-IT": "IDRONIA",
+            "pt-BR": "VILAR DOS GERADORES",
+            "en-GB": "GENERATORSVILLE"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "647996051": {
         "name": "GIRD",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041d\u0410\u0421\u041c\u0415\u0428\u041a\u0410",
+            "de-DE": "GIRD",
+            "es-ES": "PREPARACI\u00d3N",
+            "fr-FR": "GIRD",
+            "it-IT": "BEFFA",
+            "pt-BR": "ATADA",
+            "en-GB": "GIRD"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1061744043": {
         "name": "GIRI",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0413\u0418\u0420\u0418",
+            "de-DE": "GIRI",
+            "es-ES": "GIRI",
+            "fr-FR": "GIRI",
+            "it-IT": "GIRI",
+            "pt-BR": "GIRI",
+            "en-GB": "GIRI"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "2130828005": {
         "name": "GLOBULUS",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0413\u041b\u041e\u0411\u0423\u041b\u0423\u0421",
+            "de-DE": "GLOBULUS",
+            "es-ES": "GLOBULUS",
+            "fr-FR": "GLOBULUS",
+            "it-IT": "GLOBULUS",
+            "pt-BR": "GLOBULUS",
+            "en-GB": "GLOBULUS"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1123715107": {
         "name": "GOTHENBURG III",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0413\u0415\u0422\u0415\u0411\u041e\u0420\u0413 III",
+            "de-DE": "GOTHENBURG III",
+            "es-ES": "GOTHENBURG III",
+            "fr-FR": "G\u00d6TEBORG III",
+            "it-IT": "GOTHENBURG III",
+            "pt-BR": "GOTEMBURGO III",
+            "en-GB": "GOTHENBURG III"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "2180989349": {
         "name": "GRACIOUS LIBERTY",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041f\u0420\u0415\u041a\u0420\u0410\u0421\u041d\u0410\u042f \u0421\u0412\u041e\u0411\u041e\u0414\u0410",
+            "de-DE": "GRACIOUS LIBERTY",
+            "es-ES": "LIBERTAD ELEGANTE",
+            "fr-FR": "GRACIEUSE\u00a0LIBERT\u00c9",
+            "it-IT": "LIBERT\u00c0 CLEMENTE",
+            "pt-BR": "BELIBERDADE",
+            "en-GB": "GRACIOUS LIBERTY"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1897395642": {
         "name": "GRAFSART",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0413\u0420\u0410\u0424\u0421\u0415\u0420\u0414",
+            "de-DE": "GRAFSART",
+            "es-ES": "GRAFARTERA",
+            "fr-FR": "C\u0152UR-EN-GRAF",
+            "it-IT": "CUORE DI GRAF",
+            "pt-BR": "CARDIOGRAF",
+            "en-GB": "GRAFSART"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "3851016682": {
         "name": "GRAFSEAD",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0413\u0420\u0410\u0424\u0413\u041e\u041b",
+            "de-DE": "GRAFSEAD",
+            "es-ES": "GRAFABEZA",
+            "fr-FR": "T\u00caTE-EN-GRAF",
+            "it-IT": "TESTA DI GRAF",
+            "pt-BR": "NEUROGRAF",
+            "en-GB": "GRAFSEAD"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "3626214155": {
         "name": "GRAFSWALLIT",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0413\u0420\u0410\u0424\u0411\u0423\u041c",
+            "de-DE": "GRAFSWALLIT",
+            "es-ES": "GRAFSWALLIT",
+            "fr-FR": "PORTE-EN-GRAF",
+            "it-IT": "TASCHE DI GRAF",
+            "pt-BR": "ECONOGRAF",
+            "en-GB": "GRAFSWALLIT"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "3585703392": {
         "name": "GRAPESHOT",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041a\u0410\u0420\u0422\u0415\u0427\u042c",
+            "de-DE": "GRAPESHOT",
+            "es-ES": "METRALLA",
+            "fr-FR": "MITRAILLE",
+            "it-IT": "MITRAGLIA",
+            "pt-BR": "TIRUVA",
+            "en-GB": "GRAPESHOT"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1613437962": {
         "name": "GRAVITAS",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0413\u0420\u0410\u0412\u0418\u0422\u0410\u0421",
+            "de-DE": "GRAVITAS",
+            "es-ES": "GRAVITAS",
+            "fr-FR": "GRAVITAS",
+            "it-IT": "GRAVITAS",
+            "pt-BR": "GRAVITAS",
+            "en-GB": "GRAVITAS"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "2689075072": {
         "name": "GREATER ATLANTEAN POWER PLANT",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0411\u041e\u041b\u042c\u0428\u0410\u042f \u0410\u0422\u041b\u0410\u041d\u0422\u0418\u0427\u0415\u0421\u041a\u0410\u042f \u042d\u041b\u0415\u041a\u0422\u0420\u041e\u0421\u0422\u0410\u041d\u0426\u0418\u042f",
+            "de-DE": "GRO\u00dfES ATLANTISCHES KRAFTWERK",
+            "es-ES": "PLANTA DE ENERG\u00cdA ATLANTE MAYOR",
+            "fr-FR": "CENTRALE D'ATLANTIS",
+            "it-IT": "GRANDE CENTRALE ATLANTEA",
+            "pt-BR": "USINA EL\u00c9TRICA ATL\u00c2NTICA SUPERIOR",
+            "en-GB": "GREATER ATLANTEAN POWER PLANT"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "997505218": {
         "name": "GREATER INVESTMENT",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0411\u041e\u041b\u042c\u0428\u041e\u0415 \u0412\u041b\u041e\u0416\u0415\u041d\u0418\u0415",
+            "de-DE": "GREATER INVESTMENT",
+            "es-ES": "GRAN INVERSI\u00d3N",
+            "fr-FR": "BEL-INVESTISSEMENT",
+            "it-IT": "GRANDI PROFITTI",
+            "pt-BR": "GR\u00c3O-INVESTIMENTO",
+            "en-GB": "GREATER INVESTMENT"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "755864726": {
         "name": "GREATER STOROUSE",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0412\u0415\u041b\u0418\u041a\u0418\u0419 \u0421\u041a\u041b\u0410\u0414",
+            "de-DE": "GREATER STOROUSE",
+            "es-ES": "GRAN ALMACCEN",
+            "fr-FR": "GRAND\u00a0STORE",
+            "it-IT": "MAGAZZINO GRANDE",
+            "pt-BR": "GRANDE ARMAZENAL",
+            "en-GB": "GREATER STOROUSE"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1312916665": {
         "name": "GREATWOOD MILLS",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041c\u0415\u041b\u042c\u041d\u0418\u0426\u042b \u0413\u0420\u0415\u0419\u0422\u0412\u0423\u0414\u0410",
+            "de-DE": "GREATWOOD MILLS",
+            "es-ES": "MOLINOS GREATWOOD",
+            "fr-FR": "GRAND-BOIS",
+            "it-IT": "FORESTA DEI MULINI",
+            "pt-BR": "MOINHOS GUA\u00c7UBIR\u00c1",
+            "en-GB": "GREATWOOD MILLS"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "873089075": {
         "name": "GROWL",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0420\u0415\u0412",
+            "de-DE": "GROWL",
+            "es-ES": "GRU\u00d1IDO",
+            "fr-FR": "GR\u00d6GN",
+            "it-IT": "RINGHIO",
+            "pt-BR": "RUGIDO",
+            "en-GB": "GROWL"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "2751322458": {
         "name": "GUNPOWDER MEADOWS",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041f\u041e\u0420\u041e\u0425\u041e\u0412\u042b\u0415 \u041b\u0423\u0413\u0410",
+            "de-DE": "GUNPOWDER MEADOWS",
+            "es-ES": "CAMPOS DE P\u00d3LVORA",
+            "fr-FR": "PR\u00c9-\u00c0-POUDRE",
+            "it-IT": "PRATI POLVERIERA",
+            "pt-BR": "PRADOS POLVOROSOS",
+            "en-GB": "GUNPOWDER MEADOWS"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "3910908375": {
         "name": "GYEONGSEONG",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041a\u0415\u041d\u0421\u041e\u041d",
+            "de-DE": "GYEONGSEONG",
+            "es-ES": "GYEONGSEONG",
+            "fr-FR": "GYEONGSEONG",
+            "it-IT": "GYEONGSEONG",
+            "pt-BR": "GYEONGSEONG",
+            "en-GB": "GYEONGSEONG"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "2007842501": {
         "name": "HABITAT RED-2",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0425\u0410\u0411\u0418\u0422\u0410\u0422 \u0420\u0415\u0414-2",
+            "de-DE": "HABITAT RED-2",
+            "es-ES": "H\u00c1BITAT RED-2",
+            "fr-FR": "HABITAT\u00a0ROUGE-2",
+            "it-IT": "HABITAT ROSSO-2",
+            "pt-BR": "HABITAT VERMELHO-2",
+            "en-GB": "HABITAT RED-2"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "4179557814": {
         "name": "HAERSTVIK",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0425\u042d\u0421\u0422\u0412\u0418\u041a",
+            "de-DE": "HAERSTVIK",
+            "es-ES": "HAERSTVIK",
+            "fr-FR": "HAERSTVIK",
+            "it-IT": "HAERSTVIK",
+            "pt-BR": "HAERSTVIK",
+            "en-GB": "HAERSTVIK"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "2190098981": {
         "name": "HAKU CITY",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0425\u0410\u041a\u0423-\u0421\u0418\u0422\u0418",
+            "de-DE": "HAKU CITY",
+            "es-ES": "CIUDAD HAKU",
+            "fr-FR": "HAKUVILLE",
+            "it-IT": "HAKU CITY",
+            "pt-BR": "CIDADE HAKU",
+            "en-GB": "HAKU CITY"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "2024755529": {
         "name": "HANDAKAS",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0425\u0410\u041d\u0414\u0410\u041a\u0410\u0421",
+            "de-DE": "HANDAKAS",
+            "es-ES": "HANDAKAS",
+            "fr-FR": "HANDAKAS",
+            "it-IT": "HANDAKAS",
+            "pt-BR": "HANDAKAS",
+            "en-GB": "HANDAKAS"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1143862620": {
         "name": "HANGAR 6",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0410\u041d\u0413\u0410\u0420-6",
+            "de-DE": "HANGAR 6",
+            "es-ES": "HANGAR 6",
+            "fr-FR": "HANGAR\u00a06",
+            "it-IT": "HANGAR 6",
+            "pt-BR": "HANGAR 6",
+            "en-GB": "HANGAR 6"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "2298034348": {
         "name": "HARDY",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0425\u0410\u0420\u0414\u0418",
+            "de-DE": "HARDY",
+            "es-ES": "ENTEREZA",
+            "fr-FR": "RUSTIK",
+            "it-IT": "AUDAX",
+            "pt-BR": "FOR\u00c7AT\u00c3",
+            "en-GB": "HARDY"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "2004207949": {
         "name": "HAVEN",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0420\u0410\u0419",
+            "de-DE": "HAVEN",
+            "es-ES": "COBIJO",
+            "fr-FR": "HAVRE",
+            "it-IT": "RIFUGIO",
+            "pt-BR": "REF\u00daGIO",
+            "en-GB": "HAVEN"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "3291554432": {
         "name": "HEART FLATS",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0420\u0410\u0412\u041d\u0418\u041d\u042b \u0421\u0415\u0420\u0414\u0426\u0410",
+            "de-DE": "HEART FLATS",
+            "es-ES": "PAROCARDIO",
+            "fr-FR": "C\u0152UR-LOGIS",
+            "it-IT": "LINEA PIATTA",
+            "pt-BR": "PARADA DO CORA\u00c7\u00c3O",
+            "en-GB": "HEART FLATS"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "3612551140": {
         "name": "HEATHERFIELD",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0412\u0415\u0420\u0415\u0421\u041a\u041e\u0412\u041e\u0415 \u041f\u041e\u041b\u0415",
+            "de-DE": "HEATHERFIELD",
+            "es-ES": "CAMPO DE BREZO",
+            "fr-FR": "TERRE-DE-BRUY\u00c8RE",
+            "it-IT": "CAMPI D'ERICA",
+            "pt-BR": "CAMPO DAS URZES",
+            "en-GB": "HEATHERFIELD"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "3066706899": {
         "name": "HILDOARA CENTRAL",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0425\u0418\u0414\u041e\u0410\u0420\u0410-\u0421\u0415\u041d\u0422\u0420\u0410\u041b",
+            "de-DE": "HILDOARA CENTRAL",
+            "es-ES": "HILDOARA CENTRAL",
+            "fr-FR": "HILDOARA CENTRALE",
+            "it-IT": "HILDOARA CENTRALE",
+            "pt-BR": "HILDOARA CENTRAL",
+            "en-GB": "HILDOARA CENTRAL"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "4121418923": {
         "name": "HILJAISUUS",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0425\u0418\u041b\u042c\u042f\u0421\u0423\u0421",
+            "de-DE": "HILJAISUUS",
+            "es-ES": "HILJAISUUS",
+            "fr-FR": "HILJAISUUS",
+            "it-IT": "HILJAISUUS",
+            "pt-BR": "HILJAISUUS",
+            "en-GB": "HILJAISUUS"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "2472296828": {
         "name": "HOLL",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0414\u042b\u0420\u0410",
+            "de-DE": "HOLL",
+            "es-ES": "CAC",
+            "fr-FR": "HOLL",
+            "it-IT": "Q-LONIA",
+            "pt-BR": "R\u00cdVEL",
+            "en-GB": "HOLL"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1062239247": {
         "name": "HOMESTEAD HILL",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0425\u041e\u0423\u041c\u0421\u0422\u0415\u0414-\u0425\u0418\u041b\u041b",
+            "de-DE": "HOMESTEAD HILL",
+            "es-ES": "COLINA DE LA HACIENDA",
+            "fr-FR": "COLLIVILLE",
+            "it-IT": "POGGIO DEI PODERI",
+            "pt-BR": "VALE HABITADO",
+            "en-GB": "HOMESTEAD HILL"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "4059243365": {
         "name": "HOPESHIRE",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041d\u0410\u0414\u0415\u0416\u0414\u0418\u041d\u0421\u041a",
+            "de-DE": "HOPESHIRE",
+            "es-ES": "COMARCA ESPERANZA",
+            "fr-FR": "BOURG ESPOIR",
+            "it-IT": "CONTEA SPERANZA",
+            "pt-BR": "ESPER\u00c2NCIA",
+            "en-GB": "HOPESHIRE"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "539875676": {
         "name": "HOT GATES",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041f\u042b\u041b\u041a\u0418\u0415 \u0412\u0420\u0410\u0422\u0410",
+            "de-DE": "HEISSE TORE",
+            "es-ES": "PORTALES CONCURRIDOS",
+            "fr-FR": "PORTES ARDENTES",
+            "it-IT": "PORTE ROVENTI",
+            "pt-BR": "PORT\u00d5ES ARDENTES",
+            "en-GB": "HOT GATES"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "2126832849": {
         "name": "HUMAN WILL",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0412\u041e\u041b\u042f \u041d\u0410\u0420\u041e\u0414\u0410",
+            "de-DE": "HUMAN WILL",
+            "es-ES": "VOLUNTAD HUMANA",
+            "fr-FR": "VOLONT\u00c9",
+            "it-IT": "VOLONT\u00c0 UMANA",
+            "pt-BR": "VONTADE HUMANA",
+            "en-GB": "HUMAN WILL"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "3021776166": {
         "name": "HUMANITY",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0427\u0415\u041b\u041e\u0412\u0415\u0427\u0415\u0421\u0422\u0412\u041e",
+            "de-DE": "HUMANITY",
+            "es-ES": "HUMANIDAD",
+            "fr-FR": "HUMANIT\u00c9",
+            "it-IT": "UMANIT\u00c0",
+            "pt-BR": "HUMANIDADE",
+            "en-GB": "HUMANITY"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "2544875580": {
         "name": "HUNTER'S BLUFF",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0423\u0422\u0415\u0421 \u041e\u0425\u041e\u0422\u041d\u0418\u041a\u0410",
+            "de-DE": "HUNTER\u2018S BLUFF",
+            "es-ES": "ARTIMA\u00d1A DEL CAZADOR",
+            "fr-FR": "PROMONTOIRE DU CHASSEUR",
+            "it-IT": "TRUFFA DEI CACCIATORI",
+            "pt-BR": "RIBANCEIRA DO CA\u00c7ADOR",
+            "en-GB": "HUNTER'S BLUFF"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1688960258": {
         "name": "ICE BEND",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041b\u0415\u0414\u042f\u041d\u0410\u042f \u0418\u0417\u041b\u0423\u0427\u0418\u041d\u0410",
+            "de-DE": "ICE BEND",
+            "es-ES": "MEANDRO DE HIELO",
+            "fr-FR": "PLILEFROID",
+            "it-IT": "CURVA GHIACCIATA",
+            "pt-BR": "DOBRAGELO",
+            "en-GB": "ICE BEND"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "4101984974": {
         "name": "INDEPENDENCE",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041d\u0415\u0417\u0410\u0412\u0418\u0421\u0418\u041c\u041e\u0421\u0422\u042c",
+            "de-DE": "INDEPENDENCE",
+            "es-ES": "INDEPENDENCIA",
+            "fr-FR": "IND\u00c9PENDANCE",
+            "it-IT": "INDIPENDENZA",
+            "pt-BR": "INDEPEND\u00caNCIA",
+            "en-GB": "INDEPENDENCE"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1013683905": {
         "name": "INTEREST",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0418\u041d\u0422\u0415\u0420\u0415\u0421",
+            "de-DE": "INTEREST",
+            "es-ES": "INTER\u00c9S",
+            "fr-FR": "REFL-XION",
+            "it-IT": "INTERESSE",
+            "pt-BR": "JUROS",
+            "en-GB": "INTEREST"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "2581434266": {
         "name": "INTREPIDNESS",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041e\u0422\u0412\u0410\u0413\u0410",
+            "de-DE": "INTREPIDNESS",
+            "es-ES": "INTREPIDEZ",
+            "fr-FR": "INTR\u00c9PIDE",
+            "it-IT": "INTREPIDA",
+            "pt-BR": "INTREPID\u00c9SIA",
+            "en-GB": "INTREPIDNESS"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "2741839635": {
         "name": "INVESTMENT",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0412\u041b\u041e\u0416\u0415\u041d\u0418\u0415",
+            "de-DE": "INVESTMENT",
+            "es-ES": "INVERSI\u00d3N",
+            "fr-FR": "INVESTISSEMENT",
+            "it-IT": "INVESTIMENTO",
+            "pt-BR": "INVESTIMENTO",
+            "en-GB": "INVESTMENT"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "2853318855": {
         "name": "ISEGORIA",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0418\u0421\u0415\u0413\u041e\u0420\u0418\u042f",
+            "de-DE": "ISEGORIA",
+            "es-ES": "ISEGORIA",
+            "fr-FR": "ISEGORIA",
+            "it-IT": "ISEGORIA",
+            "pt-BR": "ISEGORIA",
+            "en-GB": "ISEGORIA"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "400630653": {
         "name": "KALASATAMA",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041a\u0410\u041b\u0410\u0421\u0410\u0422\u0410\u041c\u0410",
+            "de-DE": "KALASATAMA",
+            "es-ES": "KALASATAMA",
+            "fr-FR": "KALASATAMA",
+            "it-IT": "KALASATAMA",
+            "pt-BR": "KALASATAMA",
+            "en-GB": "KALASATAMA"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1599927394": {
         "name": "KALASATAMA PORT",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041f\u041e\u0420\u0422 \u041a\u0410\u041b\u0410\u0421\u0410\u0422\u0410\u041c\u0410",
+            "de-DE": "KALASATAMA PORT",
+            "es-ES": "PUERTO KALASATAMA",
+            "fr-FR": "PORT-KALASATAMA",
+            "it-IT": "PORTO KALASATAMA",
+            "pt-BR": "PORTO KALASATAMA",
+            "en-GB": "KALASATAMA PORT"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1023474728": {
         "name": "KESUMA",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041a\u0415\u0421\u0423\u041c\u0410",
+            "de-DE": "KESUMA",
+            "es-ES": "KESUMA",
+            "fr-FR": "KESUMA",
+            "it-IT": "KESUMA",
+            "pt-BR": "KESUMA",
+            "en-GB": "KESUMA"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "3911522018": {
         "name": "KILLJOY TOWN",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041a\u0418\u041b\u041b\u0414\u0416\u041e\u0419 \u0422\u0410\u0423\u041d",
+            "de-DE": "KILLJOY TOWN",
+            "es-ES": "CIUDAD AGUAFIESTAS",
+            "fr-FR": "PADUMOUR",
+            "it-IT": "KILLJOY",
+            "pt-BR": "VILA BAIXO ASTRAL",
+            "en-GB": "KILLJOY TOWN"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "4204734822": {
         "name": "KINABATANGAN",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041a\u0418\u041d\u0410\u0411\u0410\u0422\u0410\u041d\u0413\u0410\u041d",
+            "de-DE": "KINABATANGAN",
+            "es-ES": "KINABATANGAN",
+            "fr-FR": "KINABATANGAN",
+            "it-IT": "KINABATANGAN",
+            "pt-BR": "KINABATANGAN",
+            "en-GB": "KINABATANGAN"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1329166626": {
         "name": "KNIGHT'S HONOR",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0420\u042b\u0426\u0410\u0420\u0421\u041a\u0410\u042f \u0427\u0415\u0421\u0422\u042c",
+            "de-DE": "KNIGHT\u2018S HONOR",
+            "es-ES": "HONOR DE CABALLERO",
+            "fr-FR": "HONNEUR DU CHEVALIER",
+            "it-IT": "ONORE DEI CAVALIERI",
+            "pt-BR": "HONRA DE CAVALEIRO",
+            "en-GB": "KNIGHT'S HONOR"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "2332413862": {
         "name": "KODIAK FALLS",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0412\u041e\u0414\u041e\u041f\u0410\u0414\u042b \u041a\u0410\u0414\u042c\u042f\u041a",
+            "de-DE": "KODIAK FALLS",
+            "es-ES": "CASCADAS KODIAK",
+            "fr-FR": "KODIAK FALLS",
+            "it-IT": "CASCATE DI KODIAK",
+            "pt-BR": "QUEDAS KODIAK",
+            "en-GB": "KODIAK FALLS"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1178227778": {
         "name": "KURRI KURRI",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041a\u0423\u0420\u0420\u0418-\u041a\u0423\u0420\u0420\u0418",
+            "de-DE": "KURRI KURRI",
+            "es-ES": "KURRI KURRI",
+            "fr-FR": "KURRI KURRI",
+            "it-IT": "KURRI KURRI",
+            "pt-BR": "KURRI KURRI",
+            "en-GB": "KURRI KURRI"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "2519745557": {
         "name": "LACED STRAIT",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0410\u0416\u0423\u0420\u041d\u042b\u0419 \u041f\u0420\u041e\u041b\u0418\u0412",
+            "de-DE": "LACED STRAIT",
+            "es-ES": "ESTRECHO SOBRIO",
+            "fr-FR": "D\u00c9TROIT SINUEUX",
+            "it-IT": "SOBRIET\u00c0",
+            "pt-BR": "ESTREITO BATIZADO",
+            "en-GB": "LACED STRAIT"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "649934138": {
         "name": "LAELIA",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041b\u0415\u041b\u0418\u042f",
+            "de-DE": "LAELIA",
+            "es-ES": "LAELIA",
+            "fr-FR": "LAELIA",
+            "it-IT": "LAELIA",
+            "pt-BR": "L\u00c9LIA",
+            "en-GB": "LAELIA"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1791361107": {
         "name": "LAGERL\u00d6F CITY",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041b\u0410\u0413\u0415\u0420\u041b\u0415\u0424-\u0421\u0418\u0422\u0418",
+            "de-DE": "LAGERL\u00d6F CITY",
+            "es-ES": "CIUDAD LAGERL\u00d6F",
+            "fr-FR": "LAGERL\u00d6F",
+            "it-IT": "LAGERL\u00d6F",
+            "pt-BR": "LAGERL\u00d6FTINA",
+            "en-GB": "LAGERL\u00d6F CITY"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1842220312": {
         "name": "LASTOME",
-        "description": ""
+        "names": {
+            "de-DE": "LASTOME",
+            "es-ES": "\u00daLTIMOGAR",
+            "fr-FR": "FINALOGIS",
+            "it-IT": "ULTIMA CASA",
+            "pt-BR": "ULTIMOCA",
+            "ru-RU": "\u041f\u041e\u0421\u041b\u0415\u0414\u041d\u0418\u0419 \u041f\u0420\u0418\u042e\u0422",
+            "en-GB": "LASTOME"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1028801816": {
         "name": "LEMURIA RISING",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0412\u041e\u0417\u0420\u041e\u0416\u0414\u0415\u041d\u0418\u0415 \u041b\u0415\u041c\u0423\u0420\u0418\u0418",
+            "de-DE": "ERHEBUNG VON LEMURIA",
+            "es-ES": "REVUELTA DE LEMURIA",
+            "fr-FR": "\u00c9VEIL DE L\u00c9MURIA",
+            "it-IT": "LEMURIA NASCENTE",
+            "pt-BR": "APOGEU DE LEM\u00daRIA",
+            "en-GB": "LEMURIA RISING"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "967684667": {
         "name": "LIBER-TEA TOWNSHIP",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041f\u041e\u0421\u0415\u041b\u041e\u041a \u0421\u0412\u041e\u0411\u041e\u0414\u042b",
+            "de-DE": "LIBER-TEA TOWNSHIP",
+            "es-ES": "MUNICIPIO DE LIBERTAZA",
+            "fr-FR": "LIBER-TH\u00c9",
+            "it-IT": "BORGO LIBER-T\u00c8",
+            "pt-BR": "FAZENDA LIBERDADE",
+            "en-GB": "LIBER-TEA TOWNSHIP"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1501066740": {
         "name": "LIFEBLOOD",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0425\u041b\u0415\u0411 \u041d\u0410\u0421\u0423\u0429\u041d\u042b\u0419",
+            "de-DE": "LIFEBLOOD",
+            "es-ES": "SANGRITAL",
+            "fr-FR": "SANG-DE-VIE",
+            "it-IT": "SANGUE VITALE",
+            "pt-BR": "SANGUEVITAL",
+            "en-GB": "LIFEBLOOD"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "3885625492": {
         "name": "LIFESWORTH",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0426\u0415\u041d\u0410 \u0416\u0418\u0417\u041d\u0418",
+            "de-DE": "LIFESWORTH",
+            "es-ES": "VALEVIDA",
+            "fr-FR": "BELLEVIE",
+            "it-IT": "LIFESWORTH",
+            "pt-BR": "VALEVIDA",
+            "en-GB": "LIFESWORTH"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "311758306": {
         "name": "LIGHT-OF-LIBERTY",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0421\u0412\u0415\u0422 \u0421\u0412\u041e\u0411\u041e\u0414\u042b",
+            "de-DE": "LICHT DER FREIHEIT",
+            "es-ES": "LUZ DE LIBERTAD",
+            "fr-FR": "LUX LIBERTAS",
+            "it-IT": "LUCE DELLA LIBERT\u00c0",
+            "pt-BR": "LUZ DA LIBERDADE",
+            "en-GB": "LIGHT-OF-LIBERTY"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1032709433": {
         "name": "LIL'OME",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041c\u0410\u041b\u042b\u0419 \u0414\u041e\u041c",
+            "de-DE": "LIL\u2018OME",
+            "es-ES": "PEQUE\u00d1O OME",
+            "fr-FR": "LIL'OME",
+            "it-IT": "CASINA",
+            "pt-BR": "LIL'OME",
+            "en-GB": "LIL'OME"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1161134727": {
         "name": "LLANFAIRPWLLGWYNGYLLGOGERYCHWYRNDROBWLLLLANTYSILIOGOGOGOCH II",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041b\u041b\u0410\u041d\u0412\u0410\u0419\u0420\u041f\u0423\u041b\u041b\u0413\u0423\u0418\u041d\u0413\u0418\u041b\u041b\u0413\u041e\u0413\u0415\u0420\u0418\u0425\u0423\u0418\u0420\u041d\u0414\u0420\u041e\u0411\u0423\u041b\u041b\u041b\u041b\u0410\u041d\u0422\u0418\u0421\u0418\u041b\u0418\u041e\u0413\u041e\u0413\u041e\u0413\u041e\u0425 II",
+            "de-DE": "LLANFAIRPWLLGWYNGYLLGOGERYCHWYRNDROBWLLLLANTYSILIOGOGOGOCH II",
+            "es-ES": "LLANFAIRPWLLGWYNGYLLGOGERYCHWYRNDROBWLLLLANTYSILIOGOGOGOCH II",
+            "fr-FR": "LLANFAIRPWLLGWYNGYLLGOGERYCHWYRNDROBWLLLLANTYSILIOGOGOGOCH\u00a0II",
+            "it-IT": "LLANFAIRPWLLGWYNGYLLGOGERYCHWYRNDROBWLLLLANTYSILIOGOGOGOCH II",
+            "pt-BR": "LLANFAIRPWLLGWYNGYLLGOGERYCHWYRNDROBWLLLLANTYSILIOGOGOGOCH II",
+            "en-GB": "LLANFAIRPWLLGWYNGYLLGOGERYCHWYRNDROBWLLLLANTYSILIOGOGOGOCH II"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "2185109890": {
         "name": "LOGISTICS HUB 188-B",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041b\u041e\u0413\u0418\u0421\u0422\u0418\u0427\u0415\u0421\u041a\u0418\u0419 \u0426\u0415\u041d\u0422\u0420 188-B",
+            "de-DE": "LOGISTIKZENTRUM 188-B",
+            "es-ES": "CENTRO DE LOG\u00cdSTICA 188-B",
+            "fr-FR": "CENTRE LOGISTIQUE\u00a0188-B",
+            "it-IT": "POLO LOGISTICO 188-B",
+            "pt-BR": "CENTRO LOG\u00cdSTICO 188-B",
+            "en-GB": "LOGISTICS HUB 188-B"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "2659108161": {
         "name": "LOGISTICS HUB 232-B",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041b\u041e\u0413\u0418\u0421\u0422\u0418\u0427\u0415\u0421\u041a\u0418\u0419 \u0426\u0415\u041d\u0422\u0420 232-B",
+            "de-DE": "LOGISTIKZENTRUM 232-B",
+            "es-ES": "CENTRO DE LOG\u00cdSTICA 232-B",
+            "fr-FR": "CENTRE LOGISTIQUE\u00a0232-B",
+            "it-IT": "POLO LOGISTICO 232-B",
+            "pt-BR": "CENTRO LOG\u00cdSTICO 232-B",
+            "en-GB": "LOGISTICS HUB 232-B"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "2057457464": {
         "name": "LOKAHEIM",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041b\u041e\u041a\u0418\u0425\u0415\u0419\u041c",
+            "de-DE": "LOKAHEIM",
+            "es-ES": "LOKAHEIM",
+            "fr-FR": "LOKAHEIM",
+            "it-IT": "LOKAHEIM",
+            "pt-BR": "LOKIHEIM",
+            "en-GB": "LOKAHEIM"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "2285651547": {
         "name": "LOOKOUT",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0427\u0410\u0421\u041e\u0412\u041e\u0419",
+            "de-DE": "LOOKOUT",
+            "es-ES": "MIRADOR",
+            "fr-FR": "LE GUET",
+            "it-IT": "BELVEDERE",
+            "pt-BR": "MIRANTE",
+            "en-GB": "LOOKOUT"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1063822606": {
         "name": "LUSCIOUS LIBERTY",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0421\u041e\u0411\u041b\u0410\u0417\u041d\u0418\u0422\u0415\u041b\u042c\u041d\u0410\u042f \u0421\u0412\u041e\u0411\u041e\u0414\u0410",
+            "de-DE": "LUSCIOUS LIBERTY",
+            "es-ES": "LIBERTAD EXQUISITA",
+            "fr-FR": "BELLE\u00a0LIBERT\u00c9",
+            "it-IT": "LIBERT\u00c0 RIGOGLIOSA",
+            "pt-BR": "LIBERABA",
+            "en-GB": "LUSCIOUS LIBERTY"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "2849889311": {
         "name": "LUXE POINT",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0427\u0418\u0421\u0422\u042b\u0419 \u041b\u042e\u041a\u0421",
+            "de-DE": "LUXE POINT",
+            "es-ES": "PUNTO LUJO",
+            "fr-FR": "SURLUX",
+            "it-IT": "PUNTA DELUXE",
+            "pt-BR": "PONTA LUXE",
+            "en-GB": "LUXE POINT"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "3212629027": {
         "name": "MAGNITUDE",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0413\u0420\u041e\u041c\u0410\u0414\u0410",
+            "de-DE": "MAGNITUDE",
+            "es-ES": "MAGNITUD",
+            "fr-FR": "MAGNITUDE",
+            "it-IT": "MAGNITUDO",
+            "pt-BR": "MAGNITUDE",
+            "en-GB": "MAGNITUDE"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "3028191212": {
         "name": "MAJOSYRI",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041c\u0410\u0419\u041e\u0421\u0418\u0420\u0418",
+            "de-DE": "MAJOSYRI",
+            "es-ES": "MAJOSYRI",
+            "fr-FR": "MAJOSYRI",
+            "it-IT": "MAJOSYRI",
+            "pt-BR": "MAJOSYRI",
+            "en-GB": "MAJOSYRI"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "2507971325": {
         "name": "MALLSTRIP NODES",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0422\u041e\u0420\u0413\u041e\u0412\u042b\u0415 \u0420\u0423\u0418\u041d\u042b",
+            "de-DE": "MALLSTRIP NODES",
+            "es-ES": "NODOS COMERCIALES",
+            "fr-FR": "NODULES DE COMMERCES",
+            "it-IT": "SALDI",
+            "pt-BR": "NODOS COMERCIAIS",
+            "en-GB": "MALLSTRIP NODES"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "4038285524": {
         "name": "MALMBERGET",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041c\u0410\u041b\u042c\u041c\u0411\u0415\u0420\u0413\u0415\u0422",
+            "de-DE": "MALMBERGET",
+            "es-ES": "MALMBERGET",
+            "fr-FR": "MALMBERGET",
+            "it-IT": "MALMBERGET",
+            "pt-BR": "MALMBERGET",
+            "en-GB": "MALMBERGET"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "3109135198": {
         "name": "MEMORIALS",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041c\u0415\u041c\u041e\u0420\u0418\u0410\u041b",
+            "de-DE": "MEMORIALS",
+            "es-ES": "MONUMENTOS",
+            "fr-FR": "IN MEMORIAM",
+            "it-IT": "MEMORIALI",
+            "pt-BR": "MEMORIAIS",
+            "en-GB": "MEMORIALS"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "2832454199": {
         "name": "MESSAGER'S MESA",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041f\u041b\u0410\u0422\u041e \u041f\u041e\u0421\u041b\u0410\u041d\u041d\u0418\u041a\u0410",
+            "de-DE": "MESSAGER\u2018S MESA",
+            "es-ES": "MESETA DEL MENSAJERO",
+            "fr-FR": "M\u00c9SA DU MESSAGER",
+            "it-IT": "MESA DEL MESSAGGERO",
+            "pt-BR": "PLANALTO DO MENSAGEIRO",
+            "en-GB": "MESSAGER'S MESA"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "4039645448": {
         "name": "MINE 902",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0428\u0410\u0425\u0422\u0410 \u2116902",
+            "de-DE": "MINE 902",
+            "es-ES": "MINA 902",
+            "fr-FR": "MINE\u00a0902",
+            "it-IT": "MINIERA 902",
+            "pt-BR": "MINA 902",
+            "en-GB": "MINE 902"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1289084629": {
         "name": "MINERAL REFINEMENT WORKS",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041e\u0427\u0418\u0429\u0415\u041d\u0418\u0415 \u041c\u0418\u041d\u0415\u0420\u0410\u041b\u041e\u0412",
+            "de-DE": "MINERALVEREDELUNGSWERKE",
+            "es-ES": "PLANTA DE REFINADO DE MINERALES",
+            "fr-FR": "CENTRE DE RAFFINEMENT DES MINERAIS",
+            "it-IT": "RAFFINERIE",
+            "pt-BR": "REFINOS MINERAIS",
+            "en-GB": "MINERAL REFINEMENT WORKS"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1068853940": {
         "name": "MINERAL'S END",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0413\u0420\u0410\u041d\u0418\u0426\u0410 \u041c\u0418\u041d\u0415\u0420\u0410\u041b\u041e\u0412",
+            "de-DE": "MINERAL\u2018S END",
+            "es-ES": "FIN DEL MINERAL",
+            "fr-FR": "SANS-MINERAIS",
+            "it-IT": "CAVA DEI RAGNI",
+            "pt-BR": "ITACABA",
+            "en-GB": "MINERAL'S END"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "4264188855": {
         "name": "MIRAGE",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041c\u0418\u0420\u0410\u0416",
+            "de-DE": "MIRAGE",
+            "es-ES": "ESPEJISMO",
+            "fr-FR": "MIRAGE",
+            "it-IT": "MIRAGGIO",
+            "pt-BR": "MIRAGEM",
+            "en-GB": "MIRAGE"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "3493472115": {
         "name": "MOBERG'S DREAM",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041c\u0415\u0427\u0422\u0410 \u041c\u041e\u0411\u0415\u0420\u0413\u0410",
+            "de-DE": "MOBERG\u2018S DREAM",
+            "es-ES": "SUE\u00d1O DE MOBERG",
+            "fr-FR": "MOBERG-SUR-SONGE",
+            "it-IT": "SOGNO DI MOBERG",
+            "pt-BR": "SONHO DE MOBERG",
+            "en-GB": "MOBERG'S DREAM"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "974467043": {
         "name": "MOGO PLAINS",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0420\u0410\u0412\u041d\u0418\u041d\u042b \u041c\u041e\u0413\u041e",
+            "de-DE": "MOGO PLAINS",
+            "es-ES": "LLANURAS DE MOGO",
+            "fr-FR": "PLAINES DE MOGO",
+            "it-IT": "PIANE DI MOGO",
+            "pt-BR": "PRADOS DE MOGO",
+            "en-GB": "MOGO PLAINS"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "3373033616": {
         "name": "MORSKIE OKO",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041c\u041e\u0420\u0421\u041aI\u0415 \u041e\u041a\u041e",
+            "de-DE": "MORSKIE OKO",
+            "es-ES": "MORSKIE OKO",
+            "fr-FR": "MORSKIE OKO",
+            "it-IT": "MORSKIE OKO",
+            "pt-BR": "MORSKIE OKO",
+            "en-GB": "MORSKIE OKO"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1820689153": {
         "name": "MT MONUMENT",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041c\u0410\u0423\u041d\u0422-\u041c\u041e\u041d\u0423\u041c\u0415\u041d\u0422",
+            "de-DE": "MT. MONUMENT",
+            "es-ES": "MONTE MONUMENTO",
+            "fr-FR": "MONT\u00a0MONUMENT",
+            "it-IT": "MONTE MONUMENTO",
+            "pt-BR": "MONTE MONUMENTO",
+            "en-GB": "MT MONUMENT"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "991650372": {
         "name": "MUNITION CITY",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041e\u0420\u0423\u0416\u0415\u0419\u041d\u041e\u0415",
+            "de-DE": "MUNITION STADT",
+            "es-ES": "CIUDAD MUNICI\u00d3N",
+            "fr-FR": "MUNITIOPOLIS",
+            "it-IT": "POLVERIERA",
+            "pt-BR": "CIDADE DE MUNI\u00c7\u00d5ES",
+            "en-GB": "MUNITION CITY"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1759245992": {
         "name": "NEKK POND",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041f\u0420\u0423\u0414 \u041d\u0415\u041a\u041a\u0418",
+            "de-DE": "NEKK POND",
+            "es-ES": "ESTANQUE NEKK",
+            "fr-FR": "NEKK-SUR-MARE",
+            "it-IT": "STAGNO DEL NEKK",
+            "pt-BR": "LAGOA NEKK",
+            "en-GB": "NEKK POND"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "832046850": {
         "name": "NEW ABERDEEN",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041d\u041e\u0412\u042b\u0419 \u0410\u0411\u0415\u0420\u0414\u0418\u041d",
+            "de-DE": "NEW ABERDEEN",
+            "es-ES": "NUEVO ABERDEEN",
+            "fr-FR": "N\u00c9O-ABERDEEN",
+            "it-IT": "NEW ABERDEEN",
+            "pt-BR": "NOVA ABERDEEN",
+            "en-GB": "NEW ABERDEEN"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "491224618": {
         "name": "NEW ALEXANDRIA",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041d\u041e\u0412\u0410\u042f \u0410\u041b\u0415\u041a\u0421\u0410\u041d\u0414\u0420\u0418\u042f",
+            "de-DE": "NEU-ALEXANDRIA",
+            "es-ES": "NUEVA ALEJANDR\u00cdA",
+            "fr-FR": "N\u00c9O-ALEXANDRIE",
+            "it-IT": "NUOVA ALESSANDRIA",
+            "pt-BR": "NOVA ALEXANDRIA",
+            "en-GB": "NEW ALEXANDRIA"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1193052974": {
         "name": "NEW ASPIRATION CITY",
-        "description": "One of 3 Maximum Security Cities. Impregnable to Tyranny; the future of the Federation."
+        "names": {
+            "ru-RU": "\u041d\u041e\u0412\u041e\u0415 \u0421\u0422\u0420\u0415\u041c\u041b\u0415\u041d\u0418\u0415",
+            "de-DE": "NEW ASPIRATION CITY",
+            "es-ES": "CIUDAD NUEVA ASPIRACI\u00d3N",
+            "fr-FR": "VILLENEUVE-ASPIRATION",
+            "it-IT": "NUOVA CITT\u00c0 DELL'ASPIRAZIONE",
+            "pt-BR": "CIDADE DE NOVO ANSEIO",
+            "en-GB": "NEW ASPIRATION CITY"
+        },
+        "description": "One of 3 Maximum Security Cities. Impregnable to Tyranny; the future of the Federation.",
+        "descriptions": {
+            "ru-RU": "\u041e\u0434\u0438\u043d \u0438\u0437 3 \u0433\u043e\u0440\u043e\u0434\u043e\u0432 \u043c\u0430\u043a\u0441\u0438\u043c\u0430\u043b\u044c\u043d\u043e\u0439 \u0437\u0430\u0449\u0438\u0449\u0435\u043d\u043d\u043e\u0441\u0442\u0438. \u041e\u043d\u0438 \u043d\u0435\u043f\u0440\u043e\u043d\u0438\u0446\u0430\u0435\u043c\u044b \u0434\u043b\u044f \u0422\u0438\u0440\u0430\u043d\u0438\u0438 \u0438 \u0441\u0442\u0430\u043d\u0443\u0442 \u0431\u0443\u0434\u0443\u0449\u0438\u043c \u0424\u0435\u0434\u0435\u0440\u0430\u0446\u0438\u0438.",
+            "de-DE": "Eine von drei Hochsicherheitsst\u00e4dten. Ein Fels in der Brandung der Tyrannei; die Zukunft der F\u00f6deration.",
+            "es-ES": "Una de tres ciudades de seguridad m\u00e1xima. Impenetrables para la tiran\u00eda. El futuro de la Federaci\u00f3n.",
+            "fr-FR": "Une des trois villes \u00e0 haute s\u00e9curit\u00e9. Imprenable par la tyrannie, le futur de la f\u00e9d\u00e9ration.",
+            "it-IT": "Una delle tre citt\u00e0 di massima sicurezza. Impenetrabile alla Tirannia; \u00e8 il futuro della Federazione.",
+            "pt-BR": "Uma das 3 cidades de seguran\u00e7a m\u00e1xima. Impenetr\u00e1vel \u00e0 tirania, o futuro da Federa\u00e7\u00e3o.",
+            "en-GB": "One of 3 Maximum Security Cities. Impregnable to Tyranny; the future of the Federation."
+        }
     },
     "3455315905": {
         "name": "NEW COB",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041d\u042c\u042e-\u041a\u041e\u0411",
+            "de-DE": "NEW COB",
+            "es-ES": "NUEVA COB",
+            "fr-FR": "NOUV\u00c9PI",
+            "it-IT": "NEW COB",
+            "pt-BR": "NEO C. O. B.",
+            "en-GB": "NEW COB"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "905823730": {
         "name": "NEW DA NANG",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041d\u041e\u0412\u042b\u0419 \u0414\u0410\u041d\u0410\u041d\u0413",
+            "de-DE": "NEW DA NANG",
+            "es-ES": "NUEVO DA NANG",
+            "fr-FR": "N\u00c9O-DA NANG",
+            "it-IT": "DA NANG NUOVA",
+            "pt-BR": "NOVA DA NANG",
+            "en-GB": "NEW DA NANG"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1121037205": {
         "name": "NEW EAGLE",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041d\u041e\u0412\u042b\u0419 \u041e\u0420\u0415\u041b",
+            "de-DE": "NEUER ADLER",
+            "es-ES": "NUEVO \u00c1GUILA",
+            "fr-FR": "N\u00c9O-AIGLOPOLIS",
+            "it-IT": "AQUILA NOVA",
+            "pt-BR": "NOV\u00c1QUILA",
+            "en-GB": "NEW EAGLE"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1058460461": {
         "name": "NEW HEARTH CITY",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041d\u041e\u0412\u042b\u0419 \u0425\u0410\u0420\u0422-\u0421\u0418\u0422\u0418",
+            "de-DE": "NEW HEARTH CITY",
+            "es-ES": "CIUDAD NUEVO HOGAR",
+            "fr-FR": "JEUNEVILLE",
+            "it-IT": "FOCOLARE NUOVO",
+            "pt-BR": "NOVA QUER\u00caNCIA",
+            "en-GB": "NEW HEARTH CITY"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1239520232": {
         "name": "NEW HOPE CITY",
-        "description": "The flagship Maximum Security City. Impregnable to Tyranny; the future of the Federation."
+        "names": {
+            "ru-RU": "\u041d\u041e\u0412\u0410\u042f \u041d\u0410\u0414\u0415\u0416\u0414\u0410",
+            "de-DE": "NEW HOPE CITY",
+            "es-ES": "CIUDAD NUEVA ESPERANZA",
+            "fr-FR": "VILLENEUVE-ESPOIR",
+            "it-IT": "NUOVA CITT\u00c0 DELLA SPERANZA",
+            "pt-BR": "CIDADE DE NOVA ESPERAN\u00c7A",
+            "en-GB": "NEW HOPE CITY"
+        },
+        "description": "The flagship Maximum Security City. Impregnable to Tyranny; the future of the Federation.",
+        "descriptions": {
+            "ru-RU": "\u0424\u043b\u0430\u0433\u043c\u0430\u043d\u0441\u043a\u0438\u0439 \u0433\u043e\u0440\u043e\u0434 \u043c\u0430\u043a\u0441\u0438\u043c\u0430\u043b\u044c\u043d\u043e\u0439 \u0437\u0430\u0449\u0438\u0449\u0435\u043d\u043d\u043e\u0441\u0442\u0438. \u041e\u043d\u0438 \u043d\u0435\u043f\u0440\u043e\u043d\u0438\u0446\u0430\u0435\u043c\u044b \u0434\u043b\u044f \u0422\u0438\u0440\u0430\u043d\u0438\u0438 \u0438 \u0441\u0442\u0430\u043d\u0443\u0442 \u0431\u0443\u0434\u0443\u0449\u0438\u043c \u0424\u0435\u0434\u0435\u0440\u0430\u0446\u0438\u0438.",
+            "de-DE": "Die Flaggschiff-Hochsicherheitsstadt. Ein Fels in der Brandung der Tyrannei; die Zukunft der F\u00f6deration.",
+            "es-ES": "El buque insignia de las ciudades de seguridad m\u00e1xima. Impenetrable para la tiran\u00eda. El futuro de la Federaci\u00f3n.",
+            "fr-FR": "La ville phare de la haute s\u00e9curit\u00e9. Imprenable par la tyrannie, le futur de la f\u00e9d\u00e9ration.",
+            "it-IT": "La citt\u00e0 di massima sicurezza principale. Impenetrabile alla Tirannia; \u00e8 il futuro della Federazione.",
+            "pt-BR": "O carro-chefe em cidades de seguran\u00e7a m\u00e1xima. Impenetr\u00e1vel \u00e0 tirania, o futuro da Federa\u00e7\u00e3o.",
+            "en-GB": "The flagship Maximum Security City. Impregnable to Tyranny; the future of the Federation."
+        }
     },
     "770916674": {
         "name": "NEW KATHMANDU",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041d\u041e\u0412\u042b\u0419 \u041a\u0410\u0422\u041c\u0410\u041d\u0414\u0423",
+            "de-DE": "NEW KATHMANDU",
+            "es-ES": "NUEVO KATMAND\u00da",
+            "fr-FR": "N\u00c9O-KATMANDOU",
+            "it-IT": "NUOVA KATHMANDU",
+            "pt-BR": "NOVO CATMANDU",
+            "en-GB": "NEW KATHMANDU"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1578230839": {
         "name": "NEW NEWTONVILLE",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041d\u041e\u0412\u042b\u0419 \u041d\u042c\u042e\u0422\u041e\u041d\u0412\u0418\u041b\u041b\u042c",
+            "de-DE": "NEW NEWTONVILLE",
+            "es-ES": "NUEVO NEWTONVILLE",
+            "fr-FR": "N\u00c9O-NEWTONVILLE",
+            "it-IT": "NUOVA VILLANOVA",
+            "pt-BR": "NOVA NEWTONVILLE",
+            "en-GB": "NEW NEWTONVILLE"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1946203146": {
         "name": "NEW PARADISE",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041d\u042c\u042e-\u041f\u0410\u0420\u0410\u0414\u0418\u0417",
+            "de-DE": "NEW PARADISE",
+            "es-ES": "NUEVO PARA\u00cdSO",
+            "fr-FR": "NOUVEAU-PARADIS",
+            "it-IT": "NUOVO PARADISO",
+            "pt-BR": "NOVO PARA\u00cdSO",
+            "en-GB": "NEW PARADISE"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "2095568588": {
         "name": "NEW PENG",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041d\u042c\u042e-\u041f\u0415\u041d\u0413",
+            "de-DE": "NEW PENG",
+            "es-ES": "NUEVO PENG",
+            "fr-FR": "N\u00c9O-PENG",
+            "it-IT": "NEW PENG",
+            "pt-BR": "NOVA PENG",
+            "en-GB": "NEW PENG"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "2258293610": {
         "name": "NEW STOROUSE",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041d\u041e\u0412\u042b\u0419 \u0421\u041a\u041b\u0410\u0414",
+            "de-DE": "NEW STOROUSE",
+            "es-ES": "NUEVO ALMACCEN",
+            "fr-FR": "N\u00c9O-STORE",
+            "it-IT": "MAGAZZINO NUOVO",
+            "pt-BR": "NOVO ARMAZENAL",
+            "en-GB": "NEW STOROUSE"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "2919580452": {
         "name": "NEW TOKYO",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041d\u042c\u042e-\u0422\u041e\u041a\u0418\u041e",
+            "de-DE": "NEW TOKYO",
+            "es-ES": "NUEVO TOKIO",
+            "fr-FR": "N\u00c9O-TOKYO",
+            "it-IT": "NEO TOKYO",
+            "pt-BR": "NEOT\u00d3QUIO",
+            "en-GB": "NEW TOKYO"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1623710024": {
         "name": "NEW VICTORY",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041d\u041e\u0412\u0410\u042f \u041f\u041e\u0411\u0415\u0414\u0410",
+            "de-DE": "NEW VICTORY",
+            "es-ES": "NUEVA VICTORIA",
+            "fr-FR": "N\u00c9O-VICTOIRE",
+            "it-IT": "NUOVA VITTORIA",
+            "pt-BR": "NOVA VIT\u00d3RIA",
+            "en-GB": "NEW VICTORY"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "27836851": {
         "name": "NEW YEARNING CITY",
-        "description": "One of 3 Maximum Security Cities. Impregnable to Tyranny; the future of the Federation."
+        "names": {
+            "ru-RU": "\u041d\u041e\u0412\u042b\u0419 \u041f\u041e\u0420\u042b\u0412",
+            "de-DE": "NEW YEARNING CITY",
+            "es-ES": "CIUDAD NUEVO ANHELO",
+            "fr-FR": "VILLENEUVE-D\u00c9SIR",
+            "it-IT": "NUOVO ANELITO",
+            "pt-BR": "CIDADE DE NOVO DESEJO",
+            "en-GB": "NEW YEARNING CITY"
+        },
+        "description": "One of 3 Maximum Security Cities. Impregnable to Tyranny; the future of the Federation.",
+        "descriptions": {
+            "ru-RU": "\u041e\u0434\u0438\u043d \u0438\u0437 3 \u0433\u043e\u0440\u043e\u0434\u043e\u0432 \u043c\u0430\u043a\u0441\u0438\u043c\u0430\u043b\u044c\u043d\u043e\u0439 \u0437\u0430\u0449\u0438\u0449\u0435\u043d\u043d\u043e\u0441\u0442\u0438. \u041e\u043d\u0438 \u043d\u0435\u043f\u0440\u043e\u043d\u0438\u0446\u0430\u0435\u043c\u044b \u0434\u043b\u044f \u0422\u0438\u0440\u0430\u043d\u0438\u0438 \u0438 \u0441\u0442\u0430\u043d\u0443\u0442 \u0431\u0443\u0434\u0443\u0449\u0438\u043c \u0424\u0435\u0434\u0435\u0440\u0430\u0446\u0438\u0438.",
+            "de-DE": "Eine von drei Hochsicherheitsst\u00e4dten. Ein Fels in der Brandung der Tyrannei; die Zukunft der F\u00f6deration.",
+            "es-ES": "Una de tres ciudades de seguridad m\u00e1xima. Impenetrables para la tiran\u00eda. El futuro de la Federaci\u00f3n.",
+            "fr-FR": "Une des trois villes \u00e0 haute s\u00e9curit\u00e9. Imprenable par la tyrannie, le futur de la f\u00e9d\u00e9ration.",
+            "it-IT": "Una delle tre citt\u00e0 di massima sicurezza. Impenetrabile alla Tirannia; \u00e8 il futuro della Federazione.",
+            "pt-BR": "Uma das 3 cidades de seguran\u00e7a m\u00e1xima. Impenetr\u00e1vel \u00e0 tirania, o futuro da Federa\u00e7\u00e3o.",
+            "en-GB": "One of 3 Maximum Security Cities. Impregnable to Tyranny; the future of the Federation."
+        }
     },
     "1344426011": {
         "name": "NO COMPOUND",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0411\u0415\u0417 \u041a\u041e\u041c\u041f\u041b\u0415\u041a\u0421\u041e\u0412",
+            "de-DE": "NO COMPOUND",
+            "es-ES": "NUNCOMPLEJO",
+            "fr-FR": "SANS-UN-CAMP",
+            "it-IT": "NON\u00c8UNABASESEGRETA",
+            "pt-BR": "ANARMAZENADO",
+            "en-GB": "NO COMPOUND"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "3687523144": {
         "name": "NON-PARTISAN",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041d\u0415\u0419\u0422\u0420\u0410\u041b\u0418\u0422\u0415\u0422",
+            "de-DE": "NON-PARTISAN",
+            "es-ES": "IMPARCIAL",
+            "fr-FR": "SANS-ADEPTE",
+            "it-IT": "EQUIDISTANZA",
+            "pt-BR": "APARTID\u00c1RIA",
+            "en-GB": "NON-PARTISAN"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1468847276": {
         "name": "NUOVA ROMA",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041d\u041e\u0412\u042b\u0419 \u0420\u0418\u041c",
+            "de-DE": "NUOVA ROMA",
+            "es-ES": "NUOVA ROMA",
+            "fr-FR": "NUOVA ROMA",
+            "it-IT": "NUOVA ROMA",
+            "pt-BR": "NUOVA ROMA",
+            "en-GB": "NUOVA ROMA"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "4187567384": {
         "name": "NYA SKELLEFTEA",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041d\u0415\u041e \u0428\u0415\u041b\u041b\u0415\u0424\u0422\u0415\u041e",
+            "de-DE": "NYA SKELLEFTEA",
+            "es-ES": "NYA SKELLEFTEA",
+            "fr-FR": "NYA SKELLEFTEA",
+            "it-IT": "NYA SKELLEFTEA",
+            "pt-BR": "NYA SKELLEFTEA",
+            "en-GB": "NYA SKELLEFTEA"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "3363260441": {
         "name": "OBEDIENCE",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041f\u041e\u041a\u041e\u0420\u041d\u041e\u0421\u0422\u042c",
+            "de-DE": "OBEDIENCE",
+            "es-ES": "OBEDIENCIA",
+            "fr-FR": "OB\u00c9ISSANCE",
+            "it-IT": "OBBEDIENZA",
+            "pt-BR": "OBEDI\u00caNCIA",
+            "en-GB": "OBEDIENCE"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1653634596": {
         "name": "OBSERVATORY 6",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041e\u0411\u0421\u0415\u0420\u0412\u0410\u0422\u041e\u0420\u0418\u042f \u21166",
+            "de-DE": "OBSERVATORIUM 6",
+            "es-ES": "OBSERVATORIO 6",
+            "fr-FR": "OBSERVATOIRE\u00a06",
+            "it-IT": "OSSERVATORIO 6",
+            "pt-BR": "OBSERVAT\u00d3RIO 6",
+            "en-GB": "OBSERVATORY 6"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "2762012044": {
         "name": "OL' OLDHAM",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0421\u0422\u0410\u0420\u042b\u0419 \u041e\u041b\u0414\u0425\u042d\u041c",
+            "de-DE": "OL\u2018 OLDHAM",
+            "es-ES": "VIEJO OLDHAM",
+            "fr-FR": "OLDHAM-LA-VIEILLE",
+            "it-IT": "VECCHIO BORGOANTICO",
+            "pt-BR": "VELHA VILA VELHA",
+            "en-GB": "OL' OLDHAM"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1978368732": {
         "name": "OLD BRANCH",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0421\u0422\u0410\u0420\u042b\u0419 \u0424\u0418\u041b\u0418\u0410\u041b",
+            "de-DE": "ALTER ZWEIG",
+            "es-ES": "VIEJA DELEGACI\u00d3N",
+            "fr-FR": "ARBREVIEUX",
+            "it-IT": "RAMO VECCHIO",
+            "pt-BR": "RAMO VELHO",
+            "en-GB": "OLD BRANCH"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "523284406": {
         "name": "OLD CHEMLAND",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0421\u0422\u0410\u0420\u042b\u0419 \u0425\u0418\u041c\u041b\u0415\u041d\u0414",
+            "de-DE": "ALTES CHEMLAND",
+            "es-ES": "VIEJ QUIMIA",
+            "fr-FR": "CHIMIVILLE",
+            "it-IT": "CHIMI-CO VECCHIA",
+            "pt-BR": "VELHA QUIMICOL\u00c2NDIA",
+            "en-GB": "OLD CHEMLAND"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "2232171610": {
         "name": "OLD CONUNDRUM",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0421\u0422\u0410\u0420\u042b\u0419 \u041f\u0410\u0420\u0410\u0414\u041e\u041a\u0421",
+            "de-DE": "OLD CONUNDRUM",
+            "es-ES": "ANTIGUO ENIGMA",
+            "fr-FR": "CASSE-T\u00caTE",
+            "it-IT": "VECCHIA DIATRIBA",
+            "pt-BR": "DISC\u00d3RDIA VELHA",
+            "en-GB": "OLD CONUNDRUM"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "2253802431": {
         "name": "OLD DOVE",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0421\u0422\u0410\u0420\u042b\u0419 \u0413\u041e\u041b\u0423\u0411\u042c",
+            "de-DE": "ALTE TAUBE",
+            "es-ES": "VIEJA PALOMA",
+            "fr-FR": "BLANCHE-COLOMBE",
+            "it-IT": "VECCHIA COLOMBA",
+            "pt-BR": "POMBA VELHA",
+            "en-GB": "OLD DOVE"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1136017261": {
         "name": "OLD HEARTH CITY",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0421\u0422\u0410\u0420\u042b\u0419 \u0425\u0410\u0420\u0422-\u0421\u0418\u0422\u0418",
+            "de-DE": "OLD HEARTH CITY",
+            "es-ES": "CIUDAD VIEJO HOGAR",
+            "fr-FR": "VIEILLEVILLE",
+            "it-IT": "FOCOLARE VECCHIO",
+            "pt-BR": "QUER\u00caNCIA-A-VELHA",
+            "en-GB": "OLD HEARTH CITY"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "581000702": {
         "name": "OLD INTERNMENTS",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0421\u0422\u0410\u0420\u0410\u042f \u0413\u0420\u041e\u0411\u041d\u0418\u0426\u0410",
+            "de-DE": "OLD INTERNMENTS",
+            "es-ES": "ANTIGUOS CAMPOS DE RECLUSI\u00d3N",
+            "fr-FR": "D\u00c9TENTION",
+            "it-IT": "VECCHIE PRIGIONI",
+            "pt-BR": "VELHOS CONFINAMENTOS",
+            "en-GB": "OLD INTERNMENTS"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "2509774688": {
         "name": "OLUFSEN'S FOOTPRINT",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0421\u041b\u0415\u0414 \u041e\u041b\u0423\u0424\u0421\u0415\u041d\u0410",
+            "de-DE": "OLUFSEN\u2018S FOOTPRINT",
+            "es-ES": "HUELLA DE OLUFSEN",
+            "fr-FR": "PAS D'OLUFSEN",
+            "it-IT": "ORMA DI OLUFSEN",
+            "pt-BR": "PASSO DE OLUFSEN",
+            "en-GB": "OLUFSEN'S FOOTPRINT"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "3491570579": {
         "name": "ON-EARSAHOU",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0425\u041e\u0420\u0422\u041e\u0421\u041b\u041e\u0428",
+            "de-DE": "ON-EARSAHOU",
+            "es-ES": "ON-OYAQUI\u00c9N",
+            "fr-FR": "ONIRASHOU",
+            "it-IT": "ON-EARSAHOU",
+            "pt-BR": "PEQUENO HORTON",
+            "en-GB": "ON-EARSAHOU"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "4253491601": {
         "name": "ONSEN",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041e\u041d\u0421\u042d\u041d",
+            "de-DE": "ONSEN",
+            "es-ES": "ONSEN",
+            "fr-FR": "ONSEN",
+            "it-IT": "ONSEN",
+            "pt-BR": "ONSEN",
+            "en-GB": "ONSEN"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1701644792": {
         "name": "ORBSHAM",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0421\u0424\u0415\u0420\u041e\u0413\u0420\u0410\u0414",
+            "de-DE": "ORBSHAM",
+            "es-ES": "ORBENGA\u00d1O",
+            "fr-FR": "ORBSHAM",
+            "it-IT": "ORBIUM",
+            "pt-BR": "ORBESH\u00c2NIA",
+            "en-GB": "ORBSHAM"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "540250241": {
         "name": "ORESINK",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041e\u0420\u0421\u0418\u041d\u041a",
+            "de-DE": "ORESINK",
+            "es-ES": "FOSA MINERAL",
+            "fr-FR": "PUITS-DE-MINERAIS",
+            "it-IT": "ORESINK",
+            "pt-BR": "PO\u00c7O DOS MIN\u00c9RIOS",
+            "en-GB": "ORESINK"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "2557369266": {
         "name": "OTARU'S PLEDGE",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041a\u041b\u042f\u0422\u0412\u0410 \u041e\u0422\u0410\u0420\u0423",
+            "de-DE": "OTARU\u2018S VERSPRECHEN",
+            "es-ES": "PROMESA DE OTARU",
+            "fr-FR": "PROMESSE D'OTARU",
+            "it-IT": "OTARU PROMESSA",
+            "pt-BR": "JURA DE OTARU",
+            "en-GB": "OTARU'S PLEDGE"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "2491531357": {
         "name": "PADOSAN",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041f\u0410\u0414\u041e\u0421\u0410\u041d",
+            "de-DE": "PADOSAN",
+            "es-ES": "PADOSAN",
+            "fr-FR": "PADOSAN",
+            "it-IT": "PADOSAN",
+            "pt-BR": "PADOSAN",
+            "en-GB": "PADOSAN"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1199071894": {
         "name": "PARRHESIA",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041f\u0410\u0420\u0420\u0415\u0421\u0418\u042f",
+            "de-DE": "PARRHESIA",
+            "es-ES": "PARRHESIA",
+            "fr-FR": "PARRHESIA",
+            "it-IT": "PARRHESIA",
+            "pt-BR": "PARR\u00c9SIA",
+            "en-GB": "PARRHESIA"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "3862302711": {
         "name": "PEASE",
-        "description": ""
+        "names": {
+            "de-DE": "PEASE",
+            "es-ES": "PACILIDAD",
+            "fr-FR": "QUI\u00c9TUDE",
+            "it-IT": "PEASE",
+            "pt-BR": "PAS",
+            "ru-RU": "\u041f\u0410\u041a\u0421\u0418\u0423\u041c",
+            "en-GB": "PEASE"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "3042839498": {
         "name": "PEDIS",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041f\u0415\u0414\u0418\u0421",
+            "de-DE": "PEDIS",
+            "es-ES": "PEDIS",
+            "fr-FR": "PEDIS",
+            "it-IT": "PEDIS",
+            "pt-BR": "PEDIS",
+            "en-GB": "PEDIS"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "314025568": {
         "name": "PENSCEWT",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041c\u0418\u041b\u0410\u0428\u041a\u0410 \u041f\u0415\u041d\u041d\u0418",
+            "de-DE": "PENSCEWT",
+            "es-ES": "PENSCEWT",
+            "fr-FR": "PENNY-JOLIE",
+            "it-IT": "PENNY",
+            "pt-BR": "PENELINDA",
+            "en-GB": "PENSCEWT"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "706797536": {
         "name": "PEOPLE'S HAND",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0420\u0423\u041a\u0410 \u041d\u0410\u0420\u041e\u0414\u0410",
+            "de-DE": "PEOPLE\u2018S HAND",
+            "es-ES": "MANO DEL PUEBLO",
+            "fr-FR": "MAIN DU PEUPLE",
+            "it-IT": "MANO DEL POPOLO",
+            "pt-BR": "M\u00c3OS DO POVO",
+            "en-GB": "PEOPLE'S HAND"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "3090254958": {
         "name": "PERIWINKLE MILLS",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041c\u0415\u041b\u042c\u041d\u0418\u0426\u042b \u041f\u0415\u0420\u0418\u0412\u0418\u041d\u041a\u041b\u042f",
+            "de-DE": "PERIWINKLE M\u00dcHLE",
+            "es-ES": "MOLINOS DE VINCAPERVINCA",
+            "fr-FR": "BIG ORNO",
+            "it-IT": "FRANTOI DI PERIWINKLE",
+            "pt-BR": "PERVINCAL",
+            "en-GB": "PERIWINKLE MILLS"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "2876102528": {
         "name": "PERMACURIS",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0424\u0410\u0420\u041c\u0410\u0414\u0410\u0420\u0418\u0421",
+            "de-DE": "PERMACURIS",
+            "es-ES": "PERMACURIS",
+            "fr-FR": "PERMACURIS",
+            "it-IT": "PERMACURIS",
+            "pt-BR": "PERMACURABA",
+            "en-GB": "PERMACURIS"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "3130397378": {
         "name": "PERSEVERANCE",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0423\u041f\u041e\u0420\u0421\u0422\u0412\u041e",
+            "de-DE": "PERSEVERANCE",
+            "es-ES": "PERSEVERANCIA",
+            "fr-FR": "PERS\u00c9V\u00c9RANCE",
+            "it-IT": "PERSEVERANZA",
+            "pt-BR": "PERSEVERAN\u00c7A",
+            "en-GB": "PERSEVERANCE"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1101206164": {
         "name": "PERSISTENCE",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041d\u0410\u0421\u0422\u041e\u0419\u0427\u0418\u0412\u041e\u0421\u0422\u042c",
+            "de-DE": "PERSISTENCE",
+            "es-ES": "PERSISTENCIA",
+            "fr-FR": "PERSISTANCE",
+            "it-IT": "INDOMITA",
+            "pt-BR": "PERSIST\u00caNCIA",
+            "en-GB": "PERSISTENCE"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1676064266": {
         "name": "PHAM'S SITE",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041f\u041b\u041e\u0429\u0410\u0414\u041a\u0410 \u0424\u0410\u041c",
+            "de-DE": "PHAM\u2018S SITE",
+            "es-ES": "PUNTO DE PHAM",
+            "fr-FR": "SITE DE PHAM",
+            "it-IT": "PHAM",
+            "pt-BR": "PONTO DE PHAM",
+            "en-GB": "PHAM'S SITE"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "3849073717": {
         "name": "PILOT'S BERTH",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041f\u0420\u0418\u042e\u0422 \u041f\u0418\u041b\u041e\u0422\u0410",
+            "de-DE": "PILOT\u2018S BERTH",
+            "es-ES": "ATRACADERO DEL PILOTO",
+            "fr-FR": "BON-PORT",
+            "it-IT": "ORMEGGIO DEL PILOTA",
+            "pt-BR": "ANCORADOURO DO PILOTO",
+            "en-GB": "PILOT'S BERTH"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "2345167795": {
         "name": "PINESWOLD",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0421\u041e\u0421\u041d\u041e\u0412\u041e\u0415 \u041f\u0410\u0421\u0422\u0411\u0418\u0429\u0415",
+            "de-DE": "PINESWOLD",
+            "es-ES": "FOLDEPINO",
+            "fr-FR": "BOIS-LES-PINS",
+            "it-IT": "FRASCHE",
+            "pt-BR": "DESCAMPADO DOS PINHEIROS",
+            "en-GB": "PINESWOLD"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "3634134154": {
         "name": "PIONEER'S DREAM",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041c\u0415\u0427\u0422\u0410 \u041f\u0415\u0420\u0412\u041e\u041f\u0420\u041e\u0425\u041e\u0414\u0426\u0410",
+            "de-DE": "PIONIERS TRAUM",
+            "es-ES": "SUE\u00d1O DEL PIONERO",
+            "fr-FR": "COLONIE DE R\u00caVE",
+            "it-IT": "SOGNO DEL PIONIERE",
+            "pt-BR": "SONHO DO PIONEIRO",
+            "en-GB": "PIONEER'S DREAM"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "3710473299": {
         "name": "PIT 8",
-        "description": ""
+        "names": {
+            "ru-RU": "\u042f\u041c\u0410 \u21168",
+            "de-DE": "PIT 8",
+            "es-ES": "HOYO 8",
+            "fr-FR": "FOSSE\u00a08",
+            "it-IT": "POZZO 8",
+            "pt-BR": "FOSSO 8",
+            "en-GB": "PIT 8"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "2098963156": {
         "name": "PLETHORA",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0418\u0417\u041e\u0411\u0418\u041b\u0418\u0415",
+            "de-DE": "PLETHORA",
+            "es-ES": "PL\u00c9TORA",
+            "fr-FR": "PL\u00c9THORE",
+            "it-IT": "PLETORA",
+            "pt-BR": "PLETORA",
+            "en-GB": "PLETHORA"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "3147829923": {
         "name": "PO'S RAVENNA",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0412\u041e\u0420\u041e\u041d\u041d \u041f\u041e",
+            "de-DE": "PO\u2018S RAVENNA",
+            "es-ES": "RAVENNA DEL PO",
+            "fr-FR": "POCORBO",
+            "it-IT": "RAVENNA",
+            "pt-BR": "CORVAL\u00c2NIA",
+            "en-GB": "PO'S RAVENNA"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "502504685": {
         "name": "PORT MERCY",
-        "description": "Since sheltering millions of loyal refugees in the Last Great War, Port Mercy has been a safe haven for any class-A citizen in need."
+        "names": {
+            "ru-RU": "\u041f\u041e\u0420\u0422 \u041c\u0418\u041b\u041e\u0421\u0415\u0420\u0414\u0418\u042f",
+            "de-DE": "PORT MERCY",
+            "es-ES": "PUERTO MISERICORDIA",
+            "fr-FR": "PORT-SALVATEUR",
+            "it-IT": "PORTO MISERICORDIA",
+            "pt-BR": "PORTO DA MISERIC\u00d3RDIA",
+            "en-GB": "PORT MERCY"
+        },
+        "description": "Since sheltering millions of loyal refugees in the Last Great War, Port Mercy has been a safe haven for any class-A citizen in need.",
+        "descriptions": {
+            "ru-RU": "\u0421 \u0442\u0435\u0445 \u043f\u043e\u0440 \u043a\u0430\u043a \u041f\u043e\u0440\u0442 \u043c\u0438\u043b\u043e\u0441\u0435\u0440\u0434\u0438\u044f \u0443\u043a\u0440\u044b\u043b \u043c\u0438\u043b\u043b\u0438\u043e\u043d\u044b \u0431\u043b\u0430\u0433\u043e\u043d\u0430\u0434\u0435\u0436\u043d\u044b\u0445 \u0431\u0435\u0436\u0435\u043d\u0446\u0435\u0432 \u0432\u043e \u0432\u0440\u0435\u043c\u044f \u041f\u043e\u0441\u043b\u0435\u0434\u043d\u0435\u0439 \u0412\u0435\u043b\u0438\u043a\u043e\u0439 \u0432\u043e\u0439\u043d\u044b, \u043e\u043d \u0441\u0442\u0430\u043b \u0443\u0431\u0435\u0436\u0438\u0449\u0435\u043c \u0434\u043b\u044f \u0432\u0441\u0435\u0445 \u0433\u0440\u0430\u0436\u0434\u0430\u043d \u043a\u043b\u0430\u0441\u0441\u0430 \u0410, \u043d\u0443\u0436\u0434\u0430\u044e\u0449\u0438\u0445\u0441\u044f \u0432 \u043f\u043e\u043c\u043e\u0449\u0438.",
+            "de-DE": "Seitdem dort im Letzten Gro\u00dfen Krieg Millionen treuer Gefl\u00fcchteter Zuflucht fanden, ist Port Mercy ein sicherer Hafen f\u00fcr alle Klasse-A-B\u00fcrger in Not.",
+            "es-ES": "Desde que acogi\u00f3 a millones de leales refugiados en la \u00faltima gran guerra, Puerto Misericordia se ha convertido en un lugar seguro para cualquier ciudadano de clase A en apuros.",
+            "fr-FR": "Apr\u00e8s avoir accueilli des millions de r\u00e9fugi\u00e9s loyaux lors de la derni\u00e8re Grande Guerre, Port-Salvateur est devenu un v\u00e9ritable refuge pour les citoyens de classe\u00a0A dans le besoin.",
+            "it-IT": "Dopo aver dato rifugio a milioni di profughi durante l'Ultima Grande Guerra, Porto Misericordia \u00e8 considerato un luogo sicuro per tutti i cittadini di classe A che hanno bisogno d'aiuto.",
+            "pt-BR": "Ap\u00f3s abrigar milh\u00f5es de refugiados leais na \u00daltima Grande Guerra, Porto da Miseric\u00f3rdia se tornou um verdadeiro porto seguro para todos os cidad\u00e3os de classe A necessitados.",
+            "en-GB": "Since sheltering millions of loyal refugees in the Last Great War, Port Mercy has been a safe haven for any class-A citizen in need."
+        }
     },
     "1097134956": {
         "name": "PORTE LIBERT\u00c9",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041f\u041e\u0420\u0422 \u0421\u0412\u041e\u0411\u041e\u0414\u0410",
+            "de-DE": "PORTE LIBERT\u00c9",
+            "es-ES": "PORTE LIBERT\u00c9",
+            "fr-FR": "PORTE LIBERT\u00c9",
+            "it-IT": "PORTE LIBERT\u00c9",
+            "pt-BR": "PORTE LIBERT\u00c9",
+            "en-GB": "PORTE LIBERT\u00c9"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "511490869": {
         "name": "PORUGU",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041f\u041e\u0420\u0423\u0413\u0423",
+            "de-DE": "PORUGU",
+            "es-ES": "PORUGU",
+            "fr-FR": "PORUGU",
+            "it-IT": "PORUGU",
+            "pt-BR": "PORUGU",
+            "en-GB": "PORUGU"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "2617273113": {
         "name": "PRAVOGRAD",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041f\u0420\u0410\u0412\u041e\u0413\u0420\u0410\u0414",
+            "de-DE": "PRAVOGRAD",
+            "es-ES": "PRAVOGRADO",
+            "fr-FR": "PRAVOGRAD",
+            "it-IT": "PRAVOGRAD",
+            "pt-BR": "PRAVOGRADO",
+            "en-GB": "PRAVOGRAD"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "807761309": {
         "name": "PROGRESS",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041f\u0420\u041e\u0413\u0420\u0415\u0421\u0421",
+            "de-DE": "PROGRESS",
+            "es-ES": "PROGRESO",
+            "fr-FR": "PROGR\u00c8S",
+            "it-IT": "PROGRESSO",
+            "pt-BR": "PROGRESSO",
+            "en-GB": "PROGRESS"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "718092071": {
         "name": "PROMINENCE",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0412\u0415\u0420\u0428\u0418\u041d\u0410",
+            "de-DE": "PROMINENCE",
+            "es-ES": "RELEVANCIA",
+            "fr-FR": "PRESTIGE",
+            "it-IT": "RILEVANZA",
+            "pt-BR": "PROEMIN\u00caNCIA",
+            "en-GB": "PROMINENCE"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "248027603": {
         "name": "PROSPERITY",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041f\u0420\u041e\u0426\u0412\u0415\u0422\u0410\u041d\u0418\u0415",
+            "de-DE": "PROSPERITY",
+            "es-ES": "PROSPERIDAD",
+            "fr-FR": "PROSP\u00c9RIT\u00c9",
+            "it-IT": "PROSPERIT\u00c0",
+            "pt-BR": "PROSPERIDADE",
+            "en-GB": "PROSPERITY"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1750980320": {
         "name": "PROSPERITY CITY",
-        "description": "Home to the Democratic Council, our proud Capital is a beacon of Progress, Productivity, and Patriotism."
+        "names": {
+            "ru-RU": "\u0413\u041e\u0420\u041e\u0414 \u041f\u0420\u041e\u0426\u0412\u0415\u0422\u0410\u041d\u0418\u042f",
+            "de-DE": "PROSPERITY CITY",
+            "es-ES": "CIUDAD PROSPERIDAD",
+            "fr-FR": "PROSP\u00c9RIVILLE",
+            "it-IT": "CORNUCOPIA",
+            "pt-BR": "PROSPER\u00d3POLIS",
+            "en-GB": "PROSPERITY CITY"
+        },
+        "description": "Home to the Democratic Council, our proud Capital is a beacon of Progress, Productivity, and Patriotism.",
+        "descriptions": {
+            "ru-RU": "\u0411\u0443\u0434\u0443\u0447\u0438 \u043c\u0435\u0441\u0442\u043e\u043c \u0437\u0430\u0441\u0435\u0434\u0430\u043d\u0438\u0439 \u0414\u0435\u043c\u043e\u043a\u0440\u0430\u0442\u0438\u0447\u0435\u0441\u043a\u043e\u0433\u043e \u0441\u043e\u0432\u0435\u0442\u0430, \u043d\u0430\u0448\u0430 \u0433\u043e\u0440\u0434\u0430\u044f \u0441\u0442\u043e\u043b\u0438\u0446\u0430 \u044f\u0432\u043b\u044f\u0435\u0442\u0441\u044f \u043c\u0430\u044f\u043a\u043e\u043c \u043f\u0440\u043e\u0433\u0440\u0435\u0441\u0441\u0430, \u043f\u0440\u043e\u0434\u0443\u043a\u0442\u0438\u0432\u043d\u043e\u0441\u0442\u0438 \u0438 \u043f\u0430\u0442\u0440\u0438\u043e\u0442\u0438\u0437\u043c\u0430.",
+            "de-DE": "Unsere stolze Hauptstadt ist der Sitz des Democratic Councils und ein Leuchtfeuer des Fortschritts, der Produktivit\u00e4t und des Patriotismus.",
+            "es-ES": "Nuestra orgullosa capital, sede del Consejo Democr\u00e1tico, es un eje del progreso, la productividad y el patriotismo.",
+            "fr-FR": "Foyer du Conseil d\u00e9mocratique, notre fi\u00e8re capitale est un havre de progr\u00e8s, de productivit\u00e9 et de patriotisme.",
+            "it-IT": "La nostra orgogliosa Capitale, sede del Consiglio Democratico, \u00e8 un faro di Progresso, Produttivit\u00e0 e Patriottismo.",
+            "pt-BR": "Sede do Conselho Democr\u00e1tico, nossa bela capital \u00e9 s\u00edmbolo de Progresso, Produtividade e Patriotismo.",
+            "en-GB": "Home to the Democratic Council, our proud Capital is a beacon of Progress, Productivity, and Patriotism."
+        }
     },
     "189783404": {
         "name": "PSEUDOTOPIA",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041f\u0421\u0415\u0412\u0414\u041e\u0422\u041e\u041f\u0418\u042f",
+            "de-DE": "PSEUDOTOPIA",
+            "es-ES": "PSEUDOTOP\u00cdA",
+            "fr-FR": "PSEUDOTOPIE",
+            "it-IT": "PSEUDOTOPIA",
+            "pt-BR": "PSEUDOTOPIA",
+            "en-GB": "PSEUDOTOPIA"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "3841350324": {
         "name": "QUASAR",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041a\u0412\u0410\u0417\u0410\u0420",
+            "de-DE": "QUASAR",
+            "es-ES": "QUASAR",
+            "fr-FR": "QUASAR",
+            "it-IT": "QUASAR",
+            "pt-BR": "QUASAR",
+            "en-GB": "QUASAR"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "2541809256": {
         "name": "QUASAR",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041a\u0412\u0410\u0417\u0410\u0420",
+            "de-DE": "QUASAR",
+            "es-ES": "QUASAR",
+            "fr-FR": "QUASAR",
+            "it-IT": "QUASAR",
+            "pt-BR": "QUASAR",
+            "en-GB": "QUASAR"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "2069832250": {
         "name": "QUELLED DISSENT",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041f\u041e\u0414\u0410\u0412\u041b\u0415\u041d\u041d\u041e\u0415 \u0418\u041d\u0410\u041a\u041e\u041c\u042b\u0421\u041b\u0418\u0415",
+            "de-DE": "QUELLED DISSENT",
+            "es-ES": "DISIDENCIA APACIGUADA",
+            "fr-FR": "DISSIDENCE R\u00c9PRIM\u00c9E",
+            "it-IT": "DISSENSO SEDATO",
+            "pt-BR": "SUMIDOURO DISSIDENTE",
+            "en-GB": "QUELLED DISSENT"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "2252336577": {
         "name": "QUENCH",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0423\u0413\u0410\u0421\u0410\u041d\u0418\u0415",
+            "de-DE": "QUENCH",
+            "es-ES": "SACIEDAD",
+            "fr-FR": "GOUTTE",
+            "it-IT": "PLACIDIA",
+            "pt-BR": "SACI\u00c1RIA",
+            "en-GB": "QUENCH"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "3161124521": {
         "name": "QZ-4",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0418\u0417-4",
+            "de-DE": "QZ-4",
+            "es-ES": "ZC-4",
+            "fr-FR": "QZ-4",
+            "it-IT": "QUARANTENA-4",
+            "pt-BR": "ZQ-4",
+            "en-GB": "QZ-4"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1713282699": {
         "name": "REBELSGRAVE",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041c\u041e\u0413\u0418\u041b\u0410 \u041f\u041e\u0412\u0421\u0422\u0410\u041d\u0426\u0415\u0412",
+            "de-DE": "REBELSGRAVE",
+            "es-ES": "TUMBA DE LOS REBELDES",
+            "fr-FR": "REBELHEIM",
+            "it-IT": "TOMBA DEL RIBELLE",
+            "pt-BR": "JAZIGO DOS REBELDES",
+            "en-GB": "REBELSGRAVE"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "119875523": {
         "name": "RECON HEIGHTS",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0412\u0415\u0420\u0428\u0418\u041d\u042b \u0420\u0410\u0417\u0412\u0415\u0414\u041a\u0418",
+            "de-DE": "RECON HEIGHTS",
+            "es-ES": "CIMAS DE RECONOCIMIENTO",
+            "fr-FR": "PICS DE RECO",
+            "it-IT": "ALTURE PANORAMICHE",
+            "pt-BR": "RECONHE\u00c7ABIRA",
+            "en-GB": "RECON HEIGHTS"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "786534585": {
         "name": "REDFIELD",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0420\u0415\u0414\u0424\u0418\u041b\u0414",
+            "de-DE": "REDFIELD",
+            "es-ES": "CAMPOTINTO",
+            "fr-FR": "REDFIELD",
+            "it-IT": "CAMPOROSSO",
+            "pt-BR": "CAMPO ESCARLATE",
+            "en-GB": "REDFIELD"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "438247765": {
         "name": "REFORMED-BY-TRUTH",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0420\u0415\u0424\u041e\u0420\u041c\u0418\u0420\u041e\u0412\u0410\u041d-\u041f\u0420\u0410\u0412\u0414\u041e\u0419",
+            "de-DE": "REFORMED-BY-TRUTH",
+            "es-ES": "VERDAD RENOVADORA",
+            "fr-FR": "V\u00c9RIT\u00c9 LA R\u00c9FORM\u00c9E",
+            "it-IT": "VERIT\u00c0 RIFORMATA",
+            "pt-BR": "REVERDADE",
+            "en-GB": "REFORMED-BY-TRUTH"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1874705974": {
         "name": "REGISTER",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0420\u0415\u0413\u0418\u0421\u0422\u0420\u0410\u0426\u0418\u042f",
+            "de-DE": "REGISTER",
+            "es-ES": "REGISTRAR",
+            "fr-FR": "REGISTRE",
+            "it-IT": "LIBERE ELEZIONI",
+            "pt-BR": "REGISTRO",
+            "en-GB": "REGISTER"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1199462527": {
         "name": "REMEMBRANCE",
-        "description": "Risen from the ashes of an ancient city, Rememberance is a monument to the Perseverance of Humankind."
+        "names": {
+            "ru-RU": "\u0412\u041e\u0421\u041f\u041e\u041c\u0418\u041d\u0410\u041d\u0418\u0415",
+            "de-DE": "REMEMBRANCE",
+            "es-ES": "REMEMBRANZA",
+            "fr-FR": "M\u00c9MORIS",
+            "it-IT": "RIMEMBRANZA",
+            "pt-BR": "LEMBRAN\u00c7A",
+            "en-GB": "REMEMBRANCE"
+        },
+        "description": "Risen from the ashes of an ancient city, Rememberance is a monument to the Perseverance of Humankind.",
+        "descriptions": {
+            "ru-RU": "\u041f\u043e\u0434\u043d\u044f\u0432\u0448\u0438\u0439\u0441\u044f \u0438\u0437 \u0440\u0443\u0438\u043d \u0434\u0440\u0435\u0432\u043d\u0435\u0433\u043e \u0433\u043e\u0440\u043e\u0434\u0430, \u0412\u043e\u0441\u043f\u043e\u043c\u0438\u043d\u0430\u043d\u0438\u0435 \u2014 \u044d\u0442\u043e \u043f\u0430\u043c\u044f\u0442\u043d\u0438\u043a \u0443\u043f\u043e\u0440\u0441\u0442\u0432\u0443 \u0447\u0435\u043b\u043e\u0432\u0435\u0447\u0435\u0441\u0442\u0432\u0430.",
+            "de-DE": "Remembrance wurde aus der Asche einer uralten Stadt geboren und ist ein Denkmal f\u00fcr die Beharrlichkeit der Menschheit.",
+            "es-ES": "Surgida de las cenizas de una antigua ciudad, Remembranza es un testimonio de la perseverancia de la humanidad.",
+            "fr-FR": "\u00c9rig\u00e9e sur les cendres d'une cit\u00e9 antique, M\u00e9moris constitue un v\u00e9ritable symbole de la pers\u00e9v\u00e9rance des humains.",
+            "it-IT": "Sorta dalle ceneri di un'antica citt\u00e0, Rimembranza \u00e8 un monumento vivente alla Perseveranza umana.",
+            "pt-BR": "Constru\u00edda sobre as cinzas de uma cidade antiga, Lembran\u00e7a \u00e9 um patrim\u00f4nio da Perseveran\u00e7a da Humanidade.",
+            "en-GB": "Risen from the ashes of an ancient city, Rememberance is a monument to the Perseverance of Humankind."
+        }
     },
     "829716394": {
         "name": "REQUIEM",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0420\u0415\u041a\u0412\u0418\u0415\u041c",
+            "de-DE": "REQUIEM",
+            "es-ES": "R\u00c9QUIEM",
+            "fr-FR": "REQUIEM",
+            "it-IT": "REQUIEM",
+            "pt-BR": "R\u00c9QUIEM",
+            "en-GB": "REQUIEM"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "2788606019": {
         "name": "RESILIENCE",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0412\u042b\u041d\u041e\u0421\u041b\u0418\u0412\u041e\u0421\u0422\u042c",
+            "de-DE": "RESILIENCE",
+            "es-ES": "RESILIENCIA",
+            "fr-FR": "R\u00c9SILIENCE",
+            "it-IT": "RESILIENZA",
+            "pt-BR": "RESIST\u00caNCIA",
+            "en-GB": "RESILIENCE"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "3194418120": {
         "name": "RESOLVE",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0420\u0415\u0428\u0418\u041c\u041e\u0421\u0422\u042c",
+            "de-DE": "RESOLVE",
+            "es-ES": "DETERMINACI\u00d3N",
+            "fr-FR": "R\u00c9SOLUTION",
+            "it-IT": "RISOLUTEZZA",
+            "pt-BR": "DETERMINA\u00c7\u00c3O",
+            "en-GB": "RESOLVE"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "3263317504": {
         "name": "RESPITE",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041e\u0422\u0414\u042b\u0425",
+            "de-DE": "RESPITE",
+            "es-ES": "ALIVIO",
+            "fr-FR": "R\u00c9PIT",
+            "it-IT": "SOLLIEVO",
+            "pt-BR": "POUSO TRANQUILO",
+            "en-GB": "RESPITE"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "3839797397": {
         "name": "REWA",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041f\u041e\u0422\u041e\u041a",
+            "de-DE": "REWA",
+            "es-ES": "RIWO",
+            "fr-FR": "REWA",
+            "it-IT": "REWA",
+            "pt-BR": "REWA",
+            "en-GB": "REWA"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "3553590218": {
         "name": "RINKTOWN",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0425\u041e\u041a\u0422\u0410\u0423\u041d",
+            "de-DE": "RINKTOWN",
+            "es-ES": "CIUDAD RECREATIVA",
+            "fr-FR": "GIVREVILLIERS",
+            "it-IT": "PALEO",
+            "pt-BR": "RINQUEL\u00c2NDIA",
+            "en-GB": "RINKTOWN"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "3677320822": {
         "name": "RIZIO'S VISION",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0412\u0417\u0413\u041b\u042f\u0414 \u0420\u0418\u0421\u0418\u041e",
+            "de-DE": "RIZIO\u2018S VISION",
+            "es-ES": "VISI\u00d3N DE RIZIO",
+            "fr-FR": "VISION DE RIZIO",
+            "it-IT": "VISIONE DI RIZIO",
+            "pt-BR": "VISTA DE RIZIO",
+            "en-GB": "RIZIO'S VISION"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "2006541056": {
         "name": "SAORSA GLEN",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0414\u041e\u041b\u0418\u041d\u0410 \u0421\u0410\u041e\u0420\u0421\u0410",
+            "de-DE": "SAORSA GLEN",
+            "es-ES": "SAORSA GLEN",
+            "fr-FR": "SAORSA GLEN",
+            "it-IT": "SAORSA GLEN",
+            "pt-BR": "VALE DE SAORSA",
+            "en-GB": "SAORSA GLEN"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "2409136536": {
         "name": "SAPPHIRE LAKE",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0421\u0410\u041f\u0424\u0418\u0420\u041e\u0412\u041e\u0415 \u041e\u0417\u0415\u0420\u041e",
+            "de-DE": "SAPHIRSEE",
+            "es-ES": "LAGO ZAFIRO",
+            "fr-FR": "LAC SAPHIR",
+            "it-IT": "LAGO ZAFFIRO",
+            "pt-BR": "LAGO SAFIRA",
+            "en-GB": "SAPPHIRE LAKE"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "3878380748": {
         "name": "SAPPORO",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0421\u0410\u041f\u041f\u041e\u0420\u041e",
+            "de-DE": "SAPPORO",
+            "es-ES": "SAPPORO",
+            "fr-FR": "SAPPORO",
+            "it-IT": "SAPPORO",
+            "pt-BR": "SAPPORO",
+            "en-GB": "SAPPORO"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1654362284": {
         "name": "SARAH SWIFT DAM",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041f\u041b\u041e\u0422\u0418\u041d\u0410 \u0421\u0410\u0420\u042b \u0421\u0412\u0418\u0424\u0422",
+            "de-DE": "SARAH-SWIFT-DAMM",
+            "es-ES": "PRESA SARAH SWIFT",
+            "fr-FR": "BARRAGE DE SARAH",
+            "it-IT": "DIGA DI SARAH",
+            "pt-BR": "REPRESA VELOZ DE SARA",
+            "en-GB": "SARAH SWIFT DAM"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1562611653": {
         "name": "SCALD",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0421\u041a\u0410\u041b\u042c\u0414",
+            "de-DE": "SCALD",
+            "es-ES": "QUEMADURA",
+            "fr-FR": "SCALD",
+            "it-IT": "CANICOLA",
+            "pt-BR": "ESCALDADURA",
+            "en-GB": "SCALD"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1954453569": {
         "name": "SCARLET HAVEN",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0410\u041b\u0410\u042f \u0413\u0410\u0412\u0410\u041d\u042c",
+            "de-DE": "SCARLET HAVEN",
+            "es-ES": "COBIJO ESCARLATA",
+            "fr-FR": "HAVRE \u00c9CARLATE",
+            "it-IT": "RIFUGIO SCARLATTO",
+            "pt-BR": "REF\u00daGIO ESCARLATE",
+            "en-GB": "SCARLET HAVEN"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "4221006651": {
         "name": "SCHOLAR'S MOOR",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0422\u041e\u0420\u0424\u042f\u041d\u0418\u041a \u0423\u0427\u0415\u041d\u041e\u0413\u041e",
+            "de-DE": "SCHOLAR\u2018S MOOR",
+            "es-ES": "P\u00c1RAMO DEL ERUDITO",
+            "fr-FR": "LANDE DES \u00c9RUDITS",
+            "it-IT": "ATTRACCO DELLO STUDIOSO",
+            "pt-BR": "CAIS DO ERUDITO",
+            "en-GB": "SCHOLAR'S MOOR"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "3164536732": {
         "name": "SEASSEFYRE",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0417\u0410\u041a\u0410\u0422 \u0415\u0420\u0415\u0421\u0418",
+            "de-DE": "SEASSEFYRE",
+            "es-ES": "ALTOLFUEGO",
+            "fr-FR": "CESSEULFEU",
+            "it-IT": "SEASSEFYRE",
+            "pt-BR": "CESFOGO",
+            "en-GB": "SEASSEFYRE"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "3513777986": {
         "name": "SEORAKSAN",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0421\u0415\u041e\u0420\u0410\u041a\u0421\u0410\u041d",
+            "de-DE": "SEORAKSAN",
+            "es-ES": "SEORAKSAN",
+            "fr-FR": "SEORAKSAN",
+            "it-IT": "SEORAKSAN",
+            "pt-BR": "SEORAKSAN",
+            "en-GB": "SEORAKSAN"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "3036848565": {
         "name": "SEQUIM",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0421\u0415\u041a\u0412\u0418\u041c",
+            "de-DE": "SEQUIM",
+            "es-ES": "SEQUIM",
+            "fr-FR": "SEQUIM",
+            "it-IT": "SEQUIM",
+            "pt-BR": "SEQUIM",
+            "en-GB": "SEQUIM"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "660742724": {
         "name": "SERENITY SUMMIT",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041f\u0418\u041a \u0411\u0415\u0417\u041c\u042f\u0422\u0415\u0416\u041d\u041e\u0421\u0422\u0418",
+            "de-DE": "GLEICHMUTSGIPFEL",
+            "es-ES": "CUMBRE SERENIDAD",
+            "fr-FR": "S\u00c9R\u00c9NIT\u00c9",
+            "it-IT": "PICCO SERENIT\u00c0",
+            "pt-BR": "PICO DA SERENIDADE",
+            "en-GB": "SERENITY SUMMIT"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "451637988": {
         "name": "SERVITUDE",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0421\u0415\u0420\u0412\u0418\u0422\u0423\u0422",
+            "de-DE": "SERVITUDE",
+            "es-ES": "SERVIDUMBRE",
+            "fr-FR": "SERVITUDE",
+            "it-IT": "SERVIT\u00d9",
+            "pt-BR": "SERVID\u00c3O",
+            "en-GB": "SERVITUDE"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "4065420956": {
         "name": "SETTLEMENT 7",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041f\u041e\u0421\u0415\u041b\u0415\u041d\u0418\u0415 \u21167",
+            "de-DE": "SIEDLUNG 7",
+            "es-ES": "ASENTAMIENTO 7",
+            "fr-FR": "COLONIE\u00a07",
+            "it-IT": "INSEDIAMENTO 7",
+            "pt-BR": "ASSENTAMENTO 7",
+            "en-GB": "SETTLEMENT 7"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "321980142": {
         "name": "SETTLER'S HONOR",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0427\u0415\u0421\u0422\u042c \u041f\u041e\u0421\u0415\u041b\u0415\u041d\u0426\u0410",
+            "de-DE": "SETTLER\u2018S HONOR",
+            "es-ES": "HONOR DEL COLONO",
+            "fr-FR": "HONNEUR DU COLON",
+            "it-IT": "ONORE DEI COLONI",
+            "pt-BR": "HONRA DO COLONO",
+            "en-GB": "SETTLER'S HONOR"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1039071856": {
         "name": "SEVENSEAL",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0421\u0415\u0414\u042c\u041c\u0410\u042f \u041f\u0415\u0427\u0410\u0422\u042c",
+            "de-DE": "SEVENSEAL",
+            "es-ES": "SEPTISELLO",
+            "fr-FR": "SEPT-SCEAUX",
+            "it-IT": "SETTESIGILLI",
+            "pt-BR": "SETESSELOS",
+            "en-GB": "SEVENSEAL"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "2106184075": {
         "name": "SHADY OAKS",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0422\u0415\u041d\u0418\u0421\u0422\u042b\u0415 \u0414\u0423\u0411\u042b",
+            "de-DE": "SHADY OAKS",
+            "es-ES": "ROBLES SOMBR\u00cdOS",
+            "fr-FR": "OMBRECH\u00caNE",
+            "it-IT": "QUERCE OMBROSE",
+            "pt-BR": "SOMBRA DOS CARVALHOS",
+            "en-GB": "SHADY OAKS"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "3006088005": {
         "name": "SHED",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0410\u041c\u0411\u0410\u0420",
+            "de-DE": "SHED",
+            "es-ES": "CASETA",
+            "fr-FR": "ABRI",
+            "it-IT": "RIMESSA",
+            "pt-BR": "GALP\u00c3O",
+            "en-GB": "SHED"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "2293980636": {
         "name": "SHELTER",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0423\u041a\u0420\u042b\u0422\u0418\u0415",
+            "de-DE": "SHELTER",
+            "es-ES": "REFUGIO",
+            "fr-FR": "REFUGE",
+            "it-IT": "RIPARO",
+            "pt-BR": "ABRIGO",
+            "en-GB": "SHELTER"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "297388908": {
         "name": "SHOTGUN SUMMIT",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0421\u0422\u0412\u041e\u041b\u041e\u0412\u0410\u042f \u0412\u0415\u0420\u0428\u0418\u041d\u0410",
+            "de-DE": "SHOTGUN SUMMIT",
+            "es-ES": "CIMA DE LA ESCOPETA",
+            "fr-FR": "PIC-\u00c0-POMPE",
+            "it-IT": "SUMMIT ARMATO",
+            "pt-BR": "CUME DA ESPINGARDA",
+            "en-GB": "SHOTGUN SUMMIT"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "586167831": {
         "name": "SILO A",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0428\u0410\u0425\u0422\u0410 A",
+            "de-DE": "SILO A",
+            "es-ES": "DEP\u00d3SITO A",
+            "fr-FR": "SILO\u00a0A",
+            "it-IT": "SILO A",
+            "pt-BR": "SILO A",
+            "en-GB": "SILO A"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "697775752": {
         "name": "SKAR'S GARDENS",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0421\u041a\u0410\u0420\u0421\u0413\u0410\u0420\u0414\u0415\u041d",
+            "de-DE": "SKAR\u2018S GARDENS",
+            "es-ES": "JARDINES DE SKAR",
+            "fr-FR": "JARDINS DE SKAR",
+            "it-IT": "GIARDINI DI SKAR",
+            "pt-BR": "JARDIM SKAR",
+            "en-GB": "SKAR'S GARDENS"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "3607786620": {
         "name": "SLAYER CITY",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0413\u041e\u0420\u041e\u0414 \u0418\u0421\u0422\u0420\u0415\u0411\u0418\u0422\u0415\u041b\u0415\u0419",
+            "de-DE": "SLAYER CITY",
+            "es-ES": "CIUDAD ASESINA",
+            "fr-FR": "CARNAGEVILLIERS",
+            "it-IT": "SLAYER CITY",
+            "pt-BR": "MASSACRAL\u00c2NDIA",
+            "en-GB": "SLAYER CITY"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "3421372928": {
         "name": "SONGGUO CUN",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0421\u0423\u041d\u0413\u041e \u0427\u0423\u041d",
+            "de-DE": "SONGGUO CUN",
+            "es-ES": "SONGGUO CUN",
+            "fr-FR": "SONGGUO CUN",
+            "it-IT": "SONGGUO CUN",
+            "pt-BR": "SONGGUO CUN",
+            "en-GB": "SONGGUO CUN"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "945140203": {
         "name": "STACY",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0421\u0422\u0415\u0419\u0421\u0418",
+            "de-DE": "STACY",
+            "es-ES": "STACY",
+            "fr-FR": "STACY",
+            "it-IT": "STACY",
+            "pt-BR": "STACY",
+            "en-GB": "STACY"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "2775422932": {
         "name": "STARPASS",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0417\u0412\u0415\u0417\u0414\u041d\u042b\u0419 \u041f\u0420\u041e\u0425\u041e\u0414",
+            "de-DE": "STARPASS",
+            "es-ES": "PASAJE ESTELAR",
+            "fr-FR": "STELLARION",
+            "it-IT": "PASSO STELLA",
+            "pt-BR": "PASSO ESTELAR",
+            "en-GB": "STARPASS"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1999301409": {
         "name": "STEEL RESOLVE",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0421\u0422\u0410\u041b\u042c\u041d\u0410\u042f \u0420\u0415\u0428\u0418\u041c\u041e\u0421\u0422\u042c",
+            "de-DE": "STEEL RESOLVE",
+            "es-ES": "DETERMINACI\u00d3N F\u00c9RREA",
+            "fr-FR": "FOIDACIER",
+            "it-IT": "RISOLUTEZZA D'ACCIAIO",
+            "pt-BR": "DETERMINA\u00c7\u00c3O DE A\u00c7O",
+            "en-GB": "STEEL RESOLVE"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "2547946895": {
         "name": "STRENGTH",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0421\u0418\u041b\u0410",
+            "de-DE": "STRENGTH",
+            "es-ES": "FUERZA",
+            "fr-FR": "FORTITUDE",
+            "it-IT": "FORZA",
+            "pt-BR": "FOR\u00c7OSA",
+            "en-GB": "STRENGTH"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1119186435": {
         "name": "STRONGFORT",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0421\u0422\u0420\u041e\u041d\u0413\u0424\u041e\u0420\u0422",
+            "de-DE": "STRONGFORT",
+            "es-ES": "FUERTERRECIO",
+            "fr-FR": "FORT\u00a0LEFORT",
+            "it-IT": "STRONGFORT",
+            "pt-BR": "FORTE-FORTE",
+            "en-GB": "STRONGFORT"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "3272102382": {
         "name": "SUPERIORITY",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041f\u0420\u0415\u0412\u041e\u0421\u0425\u041e\u0414\u0421\u0422\u0412\u041e",
+            "de-DE": "SUPERIORITY",
+            "es-ES": "SUPERIORIDAD",
+            "fr-FR": "SUP\u00c9RIORIT\u00c9",
+            "it-IT": "SUPERIORIT\u00c0",
+            "pt-BR": "SUPERIORIDADE",
+            "en-GB": "SUPERIORITY"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "4051063223": {
         "name": "SYCAMORE GARDENS",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041f\u041b\u0410\u0422\u0410\u041d\u041e\u0412\u042b\u0415 \u0421\u0410\u0414\u042b",
+            "de-DE": "AHORNG\u00c4RTEN",
+            "es-ES": "JARDINES DE SIC\u00d3MOROS",
+            "fr-FR": "SYCOMORIA",
+            "it-IT": "GIARDINI DI SICOMORO",
+            "pt-BR": "JARDINS DOS SIC\u00d4MOROS",
+            "en-GB": "SYCAMORE GARDENS"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "3858818769": {
         "name": "SYZYGY",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0421\u0418\u0417\u0418\u0413\u0418",
+            "de-DE": "SYZYGY",
+            "es-ES": "SYZYGY",
+            "fr-FR": "SYZYGY",
+            "it-IT": "SYZYGY",
+            "pt-BR": "SYZYGY",
+            "en-GB": "SYZYGY"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "334066640": {
         "name": "THE VILLAS",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0412\u0418\u041b\u041b\u042b",
+            "de-DE": "DIE VILLAS",
+            "es-ES": "LAS VILLAS",
+            "fr-FR": "VILLAS",
+            "it-IT": "VILLE",
+            "pt-BR": "AS MANS\u00d5ES",
+            "en-GB": "THE VILLAS"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "2634421583": {
         "name": "TIMELY",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0421\u041e\u0412\u0420\u0415\u041c\u0415\u041d\u041d\u041e\u0421\u0422\u042c",
+            "de-DE": "TIMELY",
+            "es-ES": "OPORTUNA",
+            "fr-FR": "TEMPORIS",
+            "it-IT": "PUNTUALE",
+            "pt-BR": "OPORTUNA",
+            "en-GB": "TIMELY"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "3368734830": {
         "name": "TOIL",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0422\u042f\u0416\u0415\u041b\u042b\u0419 \u0422\u0420\u0423\u0414",
+            "de-DE": "TOIL",
+            "es-ES": "ESFUERZO",
+            "fr-FR": "LABEUR",
+            "it-IT": "STACANOV",
+            "pt-BR": "LABORANA",
+            "en-GB": "TOIL"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "2184145680": {
         "name": "TOPSOIL",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0427\u0415\u0420\u041d\u041e\u0417\u0415\u041c",
+            "de-DE": "TOPSOIL",
+            "es-ES": "MANTILLO",
+            "fr-FR": "FERTILIS",
+            "it-IT": "TERRA FERTILE",
+            "pt-BR": "SOLOS FERTIL\u00cdSSIMOS",
+            "en-GB": "TOPSOIL"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "3106360883": {
         "name": "TRAITOR'S END",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0422\u0423\u041f\u0418\u041a \u041f\u0420\u0415\u0414\u0410\u0422\u0415\u041b\u042f",
+            "de-DE": "TRAITOR\u2018S END",
+            "es-ES": "FINAL DEL TRAIDOR",
+            "fr-FR": "CONFINS DU TRA\u00ceTRE",
+            "it-IT": "FINE DEI TRADITORI",
+            "pt-BR": "RU\u00cdNA DO TRAIDOR",
+            "en-GB": "TRAITOR'S END"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "799267053": {
         "name": "TVENNE BOTTOMS",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0413\u041b\u0423\u0411\u0418\u041d\u042b \u0422\u0412\u0415\u041d\u041d\u0415",
+            "de-DE": "TVENNE BOTTOMS",
+            "es-ES": "BAJOS DE TVENNE",
+            "fr-FR": "TVENNE-EN-BAS",
+            "it-IT": "BASSOPIANO TVENNE",
+            "pt-BR": "CAFUND\u00d3 DE TVENNE",
+            "en-GB": "TVENNE BOTTOMS"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "472831334": {
         "name": "UNANIMITY",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0415\u0414\u0418\u041d\u041e\u0414\u0423\u0428\u0418\u0415",
+            "de-DE": "UNANIMITY",
+            "es-ES": "UNANIMIDAD",
+            "fr-FR": "UNANIMIT\u00c9",
+            "it-IT": "UNANIMIT\u00c0",
+            "pt-BR": "UNANIMIDADE",
+            "en-GB": "UNANIMITY"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1702672301": {
         "name": "UNDERVATTEN",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0410\u041d\u0414\u0415\u0420\u0412\u0410\u0422\u0422\u0415\u041d",
+            "de-DE": "UNDERVATTEN",
+            "es-ES": "UNDERVATTEN",
+            "fr-FR": "UNDERVATTEN",
+            "it-IT": "UNDERVATTEN",
+            "pt-BR": "SUBVATTEN",
+            "en-GB": "UNDERVATTEN"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "2696938432": {
         "name": "UNGU",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0423\u041d\u0413\u0423",
+            "de-DE": "UNGU",
+            "es-ES": "UNGU",
+            "fr-FR": "UNGU",
+            "it-IT": "UNGU",
+            "pt-BR": "UNGU",
+            "en-GB": "UNGU"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "874781515": {
         "name": "UNISON",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0423\u041d\u0418\u0421\u041e\u041d",
+            "de-DE": "UNISON",
+            "es-ES": "UN\u00cdSONO",
+            "fr-FR": "UNISSON",
+            "it-IT": "CONCORDIA",
+            "pt-BR": "UN\u00cdSSONA",
+            "en-GB": "UNISON"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "2231267715": {
         "name": "VANQUISHMENT",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041f\u0420\u0415\u041e\u0414\u041e\u041b\u0415\u041d\u0418\u0415",
+            "de-DE": "VANQUISHMENT",
+            "es-ES": "ANIQUILACI\u00d3N",
+            "fr-FR": "VAINGNAC",
+            "it-IT": "APOTEOSI",
+            "pt-BR": "CONQUISTA DA VIT\u00d3RIA",
+            "en-GB": "VANQUISHMENT"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "4237135854": {
         "name": "VAULT CITY",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0410\u0420\u041a\u0410\u041d-\u0413\u0420\u0410\u0414",
+            "de-DE": "VAULT CITY",
+            "es-ES": "CIUDAD ACORAZADA",
+            "fr-FR": "BELABRI",
+            "it-IT": "CITT\u00c0 BLINDATA",
+            "pt-BR": "CIDADE-FORTE",
+            "en-GB": "VAULT CITY"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1854961214": {
         "name": "VENERATION",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041f\u041e\u0427\u0418\u0422\u0410\u041d\u0418\u0415",
+            "de-DE": "VENERATION",
+            "es-ES": "VENERACI\u00d3N",
+            "fr-FR": "V\u00c9N\u00c9RATION",
+            "it-IT": "VENERAZIONE",
+            "pt-BR": "VENERA\u00c7\u00c3O",
+            "en-GB": "VENERATION"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "2727770200": {
         "name": "VERVE",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0412\u041e\u041e\u0414\u0423\u0428\u0415\u0412\u041b\u0415\u041d\u0418\u0415",
+            "de-DE": "VERVE",
+            "es-ES": "\u00cdMPETU",
+            "fr-FR": "VERVE",
+            "it-IT": "VERVE",
+            "pt-BR": "VERVE",
+            "en-GB": "VERVE"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1633627715": {
         "name": "VIBRANCY",
-        "description": ""
+        "names": {
+            "ru-RU": "\u042f\u0420\u041a\u041e\u0421\u0422\u042c",
+            "de-DE": "VIBRANCY",
+            "es-ES": "INTENSIDAD",
+            "fr-FR": "BRILLANCE",
+            "it-IT": "ESUBERANZA",
+            "pt-BR": "ESPLENDORA",
+            "en-GB": "VIBRANCY"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1411801971": {
         "name": "VICTORY",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041f\u041e\u0411\u0415\u0414\u0410",
+            "de-DE": "VICTORY",
+            "es-ES": "VICTORIA",
+            "fr-FR": "VICTOIRE",
+            "it-IT": "VITTORIA",
+            "pt-BR": "VIT\u00d3RIA",
+            "en-GB": "VICTORY"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "3550784979": {
         "name": "VILHELMINA DOROTHEA FREDRIKA",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0412\u0418\u041b\u042c\u0413\u0415\u041b\u042c\u041c\u0418\u041d\u0410 \u0414\u041e\u0420\u041e\u0422\u0415\u042f \u0424\u0420\u0415\u0414\u0415\u0420\u0418\u041a\u0410",
+            "de-DE": "VILHELMINA DOROTHEA FREDRIKA",
+            "es-ES": "VILHELMINA DOROTHEA FREDRIKA",
+            "fr-FR": "VILHELMINA DOROTHEA FREDRIKA",
+            "it-IT": "VILHELMINA DOROTHEA FREDRIKA",
+            "pt-BR": "VILHELMINA DOROTHEA FREDRIKA",
+            "en-GB": "VILHELMINA DOROTHEA FREDRIKA"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "3054618608": {
         "name": "VOTER'S FALLOW",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041f\u041e\u0414\u041b\u041e\u0413 \u0418\u0417\u0411\u0418\u0420\u0410\u0422\u0415\u041b\u042f",
+            "de-DE": "VOTER\u2018S FALLOW",
+            "es-ES": "BALD\u00cdO DEL VOTANTE",
+            "fr-FR": "VOTEBOURG",
+            "it-IT": "MAGGESE DELL'ELETTORE",
+            "pt-BR": "AGRESTE DO ELEITOR",
+            "en-GB": "VOTER'S FALLOW"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "3568007842": {
         "name": "VOTING DISTRICT F-012357",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0418\u0417\u0411\u0418\u0420\u0410\u0422\u0415\u041b\u042c\u041d\u042b\u0419 \u041e\u041a\u0420\u0423\u0413 \u0424-012357",
+            "de-DE": "WAHLBEZIRK F-012357",
+            "es-ES": "DISTRITO DE VOTACI\u00d3N F-012357",
+            "fr-FR": "CENTRE DE VOTE F-012357",
+            "it-IT": "DISTRETTO ELETTORALE F-012357",
+            "pt-BR": "DISTRITO ELEITORAL F-012357",
+            "en-GB": "VOTING DISTRICT F-012357"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "3900513024": {
         "name": "V\u00c1HTJER",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0415\u041b\u041b\u0418\u0412\u0410\u0420\u0415",
+            "de-DE": "V\u00c1HTJER",
+            "es-ES": "V\u00c1HTJER",
+            "fr-FR": "V\u00c1HTJER",
+            "it-IT": "V\u00c1HTJER",
+            "pt-BR": "V\u00c1HTJER",
+            "en-GB": "V\u00c1HTJER"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "983151377": {
         "name": "WALKAWAY",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041b\u0415\u0413\u041a\u0410\u042f \u041f\u041e\u0411\u0415\u0414\u0410",
+            "de-DE": "WALKAWAY",
+            "es-ES": "ABANDONO",
+            "fr-FR": "BARTOIDELAS",
+            "it-IT": "PASSEGGIATA",
+            "pt-BR": "PASSOFORA",
+            "en-GB": "WALKAWAY"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "4099883014": {
         "name": "WALNUT ACRES",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041e\u0420\u0415\u0425\u041e\u0412\u0410\u042f \u0414\u041e\u041b\u0418\u041d\u0410",
+            "de-DE": "WALNUT ACRES",
+            "es-ES": "CAMPOS DE NOGALES",
+            "fr-FR": "FORT\u00a0NOYER",
+            "it-IT": "NOCETO",
+            "pt-BR": "ACRES DE NOGUEIRAS",
+            "en-GB": "WALNUT ACRES"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1523836342": {
         "name": "WASTEMOUNT",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0412\u0415\u0419\u0421\u0422\u041c\u0410\u0423\u041d\u0422",
+            "de-DE": "WASTEMOUNT",
+            "es-ES": "VERTEDERO",
+            "fr-FR": "MONT\u00a0D\u00c9CHET",
+            "it-IT": "DISCARICA",
+            "pt-BR": "MONTEPODRE",
+            "en-GB": "WASTEMOUNT"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1447639542": {
         "name": "WEST BROKER",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0412\u0415\u0421\u0422-\u0411\u0420\u041e\u041a\u0415\u0420",
+            "de-DE": "WEST BROKER",
+            "es-ES": "CORREDOR DEL OESTE",
+            "fr-FR": "N\u00c9GOCE",
+            "it-IT": "WEST BROKER",
+            "pt-BR": "CORRETOR OCIDENTAL",
+            "en-GB": "WEST BROKER"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1002278606": {
         "name": "WEST MANAGEMENT",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0417\u0410\u041f\u0410\u0414\u041d\u041e\u0415 \u0423\u041f\u0420\u0410\u0412\u041b\u0415\u041d\u0418\u0415",
+            "de-DE": "WEST MANAGEMENT",
+            "es-ES": "ADMINISTRACI\u00d3N OCCIDENTAL",
+            "fr-FR": "OCCIBOURG",
+            "it-IT": "DIREZIONE OVEST",
+            "pt-BR": "INTEND\u00caNCIA OCIDENTAL",
+            "en-GB": "WEST MANAGEMENT"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "480136851": {
         "name": "WORKHOUSE 239-C",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041c\u0410\u041d\u0423\u0424\u0410\u041a\u0422\u0423\u0420\u0410 239-C",
+            "de-DE": "ZUCHTHAUS 239-C",
+            "es-ES": "ASILO 239-C",
+            "fr-FR": "MANUFACTURE\u00a0239-C",
+            "it-IT": "OSPIZIO 239-C",
+            "pt-BR": "ASILO 239-C",
+            "en-GB": "WORKHOUSE 239-C"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "3540948886": {
         "name": "XIAMEN ANEW",
-        "description": ""
+        "names": {
+            "ru-RU": "\u041d\u041e\u0412\u042b\u0419 \u0421\u042f\u041c\u042b\u041d\u042c",
+            "de-DE": "XIAMEN ANEW",
+            "es-ES": "NUEVO XIAMEN",
+            "fr-FR": "NOUVELLE XIAMEN",
+            "it-IT": "NUOVA XIAMEN",
+            "pt-BR": "RETORNO DE XIAMEN",
+            "en-GB": "XIAMEN ANEW"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "4087006817": {
         "name": "XIN FUZHOU",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0421\u0418\u041d\u042c \u0424\u0423\u0427\u0416\u041e\u0423",
+            "de-DE": "XIN FUZHOU",
+            "es-ES": "XIN FUZHOU",
+            "fr-FR": "XIN FUZHOU",
+            "it-IT": "XIN FUZHOU",
+            "pt-BR": "XIN FUZHOU",
+            "en-GB": "XIN FUZHOU"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "2592017616": {
         "name": "XIRAN'S CLAIM",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0422\u0420\u0415\u0411\u041e\u0412\u0410\u041d\u0418\u0415 \u0421\u0418\u0416\u0410\u041d\u042c",
+            "de-DE": "XIRAN\u2018S CLAIM",
+            "es-ES": "DECLARACI\u00d3N DE XIRAN",
+            "fr-FR": "FOI DE XIRAM",
+            "it-IT": "TERRA DI XIRAN",
+            "pt-BR": "PETI\u00c7\u00c3O DE XIRAN",
+            "en-GB": "XIRAN'S CLAIM"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "2140217517": {
         "name": "YATAKHANE 263",
-        "description": ""
+        "names": {
+            "ru-RU": "\u042f\u0422\u0410\u041a\u0410\u041d\u0415 \u2116263",
+            "de-DE": "YATAKHANE 263",
+            "es-ES": "YATAKHANE 263",
+            "fr-FR": "YATAKHANE\u00a0263",
+            "it-IT": "YATAKHANE 263",
+            "pt-BR": "YATAKHANE 263",
+            "en-GB": "YATAKHANE 263"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "1017291850": {
         "name": "YDINKESKUSTA",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0418\u0414\u0418\u041d\u041a\u0415\u0421\u041a\u0423\u0421\u0422\u0410",
+            "de-DE": "YDINKESKUSTA",
+            "es-ES": "YDINKESKUSTA",
+            "fr-FR": "YDINKESKUSTA",
+            "it-IT": "YDINKESKUSTA",
+            "pt-BR": "YDINKESKUSTA",
+            "en-GB": "YDINKESKUSTA"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "391918492": {
         "name": "YORK SUPREME",
-        "description": "Following the Great York Conundrum, one City rose above the rest, pledging to hold its Hand over all other Yorks, so that no more blood be spilt between them."
+        "names": {
+            "ru-RU": "\u0412\u0415\u0420\u0425\u041e\u0412\u041d\u042b\u0419 \u0419\u041e\u0420\u041a",
+            "de-DE": "YORK SUPREME",
+            "es-ES": "YORK SUPREMO",
+            "fr-FR": "YORK SUPR\u00caME",
+            "it-IT": "YORK SUPREMA",
+            "pt-BR": "YORK SUPREMA",
+            "en-GB": "YORK SUPREME"
+        },
+        "description": "Following the Great York Conundrum, one City rose above the rest, pledging to hold its Hand over all other Yorks, so that no more blood be spilt between them.",
+        "descriptions": {
+            "ru-RU": "\u041f\u043e\u0441\u043b\u0435 \u0412\u0435\u043b\u0438\u043a\u043e\u0433\u043e \u043a\u0440\u0438\u0437\u0438\u0441\u0430 \u0419\u043e\u0440\u043a\u043e\u0432 \u043e\u0434\u0438\u043d \u0433\u043e\u0440\u043e\u0434 \u0432\u043e\u0437\u0432\u044b\u0441\u0438\u043b\u0441\u044f \u043d\u0430\u0434 \u043e\u0441\u0442\u0430\u043b\u044c\u043d\u044b\u043c\u0438, \u043f\u043e\u043a\u043b\u044f\u0432\u0448\u0438\u0441\u044c \u043f\u043e\u043c\u043e\u0433\u0430\u0442\u044c \u0432\u0441\u0435\u043c \u043e\u0441\u0442\u0430\u043b\u044c\u043d\u044b\u043c \u0419\u043e\u0440\u043a\u0430\u043c, \u0434\u0430\u0431\u044b \u043d\u0435 \u043f\u0440\u043e\u043b\u0438\u0432\u0430\u043b\u0430\u0441\u044c \u0431\u043e\u043b\u044c\u0448\u0435 \u043a\u0440\u043e\u0432\u044c \u0432 \u0431\u043e\u0440\u044c\u0431\u0435 \u043c\u0435\u0436\u0434\u0443 \u043d\u0438\u043c\u0438.",
+            "de-DE": "Nach dem Gro\u00dfen York-Dilemma erhob sich eine Stadt \u00fcber die \u00fcbrigen und schwor, ihre Hand \u00fcber alle anderen Yorks zu halten, damit zwischen ihnen kein Blut mehr vergossen w\u00fcrde.",
+            "es-ES": "Tras el Dilema de Gran York, una ciudad se alz\u00f3 sobre el resto, comprometi\u00e9ndose a extender su mano sobre el resto de Yorks para evitar que siguiera derram\u00e1ndose sangre.",
+            "fr-FR": "Face au casse-t\u00eate des York, une ville s'est \u00e9lev\u00e9e au-dessus de la m\u00eal\u00e9e et a unifi\u00e9 tous ses homonymes pour que le sang cesse d'\u00eatre vers\u00e9.",
+            "it-IT": "In seguito alla Grande Diatriba di York, una citt\u00e0 si erse al di sopra delle altre, impegnandosi a usare la sua mano autoritaria sopra tutte le altre York, cos\u00ec che non fosse pi\u00f9 versato sangue tra di esse.",
+            "pt-BR": "Ap\u00f3s a Grande Disc\u00f3rdia Iorquina, uma cidade prevaleceu e comprometeu-se a se impor sobre as demais para dar fim ao derramamento de sangue entre elas.",
+            "en-GB": "Following the Great York Conundrum, one City rose above the rest, pledging to hold its Hand over all other Yorks, so that no more blood be spilt between them."
+        }
     },
     "3647907388": {
         "name": "ZENITH",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0417\u0415\u041d\u0418\u0422",
+            "de-DE": "ZENITH",
+            "es-ES": "ZENIT",
+            "fr-FR": "Z\u00c9NITH",
+            "it-IT": "ZENITH",
+            "pt-BR": "Z\u00caNITE",
+            "en-GB": "ZENITH"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "3510978126": {
         "name": "ZONE 3",
-        "description": ""
+        "names": {
+            "ru-RU": "\u0417\u041e\u041d\u0410 \u21163",
+            "de-DE": "ZONE 3",
+            "es-ES": "ZONA 3",
+            "fr-FR": "ZONE\u00a03",
+            "it-IT": "ZONA 3",
+            "pt-BR": "ZONA 3",
+            "en-GB": "ZONE 3"
+        },
+        "description": "",
+        "descriptions": {}
     },
     "687069999": {
         "name": "\u00d6DESH\u00d6GRE",
-        "description": ""
+        "names": {
+            "ru-RU": "\u042d\u0414\u0415\u0421\u0425\u0415\u0413",
+            "de-DE": "\u00d6DESH\u00d6GRE",
+            "es-ES": "\u00d6DESH\u00d6GRE",
+            "fr-FR": "\u00d6DESH\u00d6GRE",
+            "it-IT": "\u00d6DESH\u00d6GRE",
+            "pt-BR": "\u00d6DESH\u00d6GRE",
+            "en-GB": "\u00d6DESH\u00d6GRE"
+        },
+        "description": "",
+        "descriptions": {}
     }
 }

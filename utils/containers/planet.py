@@ -12,6 +12,7 @@ class PlanetContainers(list[ui.Container]):
     def __init__(
         self,
         planet: Planet,
+        lang_code: str,
         containers_json: dict,
         faction_json: dict,
         gambit_planets: dict[int, Planet],
@@ -27,7 +28,9 @@ class PlanetContainers(list[ui.Container]):
         if planet.regions:
             self.append(
                 self.RegionContainer(
-                    planet=planet, container_json=containers_json["RegionContainer"]
+                    planet=planet,
+                    lang_code=lang_code,
+                    container_json=containers_json["RegionContainer"],
                 )
             )
         self.append(
@@ -203,14 +206,16 @@ class PlanetContainers(list[ui.Container]):
                 )
 
     class RegionContainer(ui.Container, ReprMixin):
-        def __init__(self, planet: Planet, container_json: dict):
+        def __init__(self, planet: Planet, lang_code: str, container_json: dict):
             self.components = []
             now_seconds = int(datetime.now().timestamp())
             for region in planet.regions.values():
-                text_display = ui.TextDisplay(f"{region.owner.emoji} **{region.name}**")
-                text_display.content += f"\n{getattr(getattr(Emojis.RegionIcons, region.owner.full_name), f'_{region.size}')} {region.type}"
+                text_display = ui.TextDisplay(
+                    f"{region.owner.emoji} **{region.names[lang_code]}**"
+                )
+                text_display.content += f"\n{region.emoji} {region.type}"
                 if region.description:
-                    text_display.content += f"\n-# {region.description}"
+                    text_display.content += f"\n-# {region.descriptions[lang_code]}"
                 if region.is_available:
                     text_display.content += f"\n-# {container_json['heroes']}: **{region.players}** ({region.players / planet.stats.player_count:.2%})"
                     health_to_get_from = (

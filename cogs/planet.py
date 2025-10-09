@@ -91,6 +91,7 @@ class PlanetCog(commands.Cog):
         guild_language = self.bot.json_dict["languages"][guild.language]
         components = PlanetContainers(
             planet=planet_data,
+            lang_code=guild_language["code_long"],
             containers_json=guild_language["containers"]["PlanetContainers"],
             faction_json=guild_language["factions"],
             gambit_planets=self.bot.data.gambit_planets,

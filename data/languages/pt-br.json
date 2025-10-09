@@ -156,6 +156,8 @@
                 "reward_pluralized": "{reward}s",
                 "ahead_of_schedule": "\n-# Adiantado em **{hours}h {minutes}m** ",
                 "behind_schedule": "\n-# Atrasado em **{hours}h {minutes}m**",
+                "if_regions": "-# If the following regions are liberated",
+                "avail_thanks_to_wp": "\n-# Available **<t:{timestamp}:R>** thanks to {planet_name} liberation",
                 "tasks": {
                     "typeNew": "{alert_emoji} OBJETIVO DESCONHECIDO",
                     "type2": "{status_emoji} **Extraia com sucesso com {amount} {item}**",
@@ -213,15 +215,23 @@
                 "event_health": "Liberação de Planetas",
                 "level": "Invasão de Nível",
                 "defence_held_by_dss": "\n> -# DEFESA SEGURADA PELA EED",
+                "ends": "Ends",
+                "invasion_level": "Invasion Level",
                 "feature": "Recurso",
+                "victory": "Victory",
+                "loss": "Losing",
                 "thanks_to_gambit": "graças á liberação de **{planet}**",
+                "if_region_lib": "\n-# If the following regions get liberated:\n-# {regions_list}",
                 "gambit_available": ":chess_pawn: Pode ser finalizada liberando **{planet}**",
-                "gathering_data": "*Coletando informação*",
-                "impossible": "**IMPOSSÍVEL**"
+                "heroes": "Heroes",
+                "available": "available"
             },
             "AttackEmbed": {
                 "title": "Atacando {faction}",
+                "heroes": "Heroes",
                 "planet_health": "Liberação de Planetas",
+                "victory": "Victory",
+                "if_regions": "If the following regions are liberated",
                 "low_impact": "Impacto baixo/Planetas populacionais",
                 "feature": "\nRecurso: {feature}"
             },
@@ -241,6 +251,12 @@
     "defeat": "Derrota",
     "complete": "Completo",
     "failure": "Falha",
+    "regions": {
+        "Mega City": "Mega City",
+        "City": "City",
+        "Town": "Town",
+        "Settlement": "Settlement"
+    },
     "dss": {
         "title": "Estação Espacial Democracia",
         "preparing": "preparando",

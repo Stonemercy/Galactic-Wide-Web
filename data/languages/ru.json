@@ -156,6 +156,8 @@
                 "reward_pluralized": "{reward}",
                 "ahead_of_schedule": "\n-# на **{hours}ч {minutes}м** раньше срока",
                 "behind_schedule": "\n-# на **{hours}ч {minutes}м** позже срока",
+                "if_regions": "-# Если будут освобождены следующие регионы",
+                "avail_thanks_to_wp": "\n-# Доступно **<t:{timestamp}:R>** благодаря освобождению {planet_name}",
                 "tasks": {
                     "typeNew": "{alert_emoji} НЕ УДАЕТСЯ РАСПОЗНАТЬ ЗАДАНИЕ",
                     "type2": "{status_emoji} **Успешно эвакуироваться с {amount} {item}**",
@@ -213,15 +215,23 @@
                 "event_health": "Освобождение планеты",
                 "level": "Уровень вторжения",
                 "defence_held_by_dss": "\n> -# ОБОРОНА ВЕДЕТСЯ ДКС",
+                "ends": "Заканчивается",
+                "invasion_level": "Уровень вторжения",
                 "feature": "Объект интереса",
+                "victory": "Победа",
+                "loss": "Проигрыш",
                 "thanks_to_gambit": "благодаря освобождению планеты **{planet}**",
+                "if_region_lib": "\n-# Если будут освобождены следующие регионы:\n-# {regions_list}",
                 "gambit_available": ":chess_pawn: Может быть окончена освобождением планеты **{planet}**",
-                "gathering_data": "*Получение данных*",
-                "impossible": "**НЕВОЗМОЖНО**"
+                "heroes": "Десантники",
+                "available": "доступный"
             },
             "AttackEmbed": {
                 "title": "Фронт {faction}",
+                "heroes": "Десантники",
                 "planet_health": "Освобождение планеты",
+                "victory": "Победа",
+                "if_regions": "Если будут освобождены следующие регионы",
                 "low_impact": "Планеты с малой скоростью особождения",
                 "feature": "\nОбъект интереса: {feature}"
             },
@@ -241,6 +251,12 @@
     "defeat": "Поражение",
     "complete": "Успех",
     "failure": "Провал",
+    "regions": {
+        "Mega City": "Мегаполис",
+        "City": "Город",
+        "Town": "Поселок",
+        "Settlement": "Деревня"
+    },
     "dss": {
         "title": "Демократическая Космическая Станция",
         "preparing": "готовится к использованию",

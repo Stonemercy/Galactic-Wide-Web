@@ -59,9 +59,7 @@ class CampaignChangesContainer(ui.Container, ReprMixin):
 
     def _add_regions(self, text_display: ui.TextDisplay, regions: list[Planet.Region]):
         for region in regions:
-            text_display.content += (
-                f"\n> -# {region.emoji} {region.type} **{region.name}**"
-            )
+            text_display.content += f"\n> -# {region.emoji} {region.type} **{region.names[self.json.lang_code_long]}**"
 
     def _add_features(
         self, text_display: ui.TextDisplay, active_effects: set[GalacticWarEffect]

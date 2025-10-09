@@ -677,16 +677,19 @@ class Dashboard:
                     if end_time_info.end_time:
                         if end_time_info.regions:
                             regions_list = f"\n-# ".join(
-                                [f" {r.emoji} {r.name}" for r in end_time_info.regions]
+                                [
+                                    f" {r.emoji} {r.names[language_json['code_long']]}"
+                                    for r in end_time_info.regions
+                                ]
                             )
-                            field_value += f"\n{language_json['victory']} **<t:{int(end_time_info.end_time.timestamp())}:R>**\n-# If the following regions are liberated:\n-# {regions_list}"
+                            field_value += f"\n{language_json['victory']} **<t:{int(end_time_info.end_time.timestamp())}:R>**\n{language_json['embeds']['Dashboard']['MajorOrderEmbed']['if_regions']}:\n-# {regions_list}"
                         elif end_time_info.source_planet:
                             field_value += f"\n{language_json['victory']} **<t:{int(end_time_info.end_time.timestamp())}:R>**"
                     if self.compact_level < 1:
                         field_value += f"\n{planet.health_bar}"
                     field_value += f"\n`{(1-planet.health_perc):^25,.2%}`"
                 if planet.tracker and planet.tracker.change_rate_per_hour > 0:
-                    change = f"{planet.tracker.change_rate_per_hour:+.2%}/hour"
+                    change = f"{planet.tracker.change_rate_per_hour:+.2%}/hr"
                     field_value += f"\n`{change:^25}`"
             elif planet.stats.player_count < (self.total_players * 0.05):
                 for waypoint in planet.waypoints:
@@ -694,7 +697,14 @@ class Dashboard:
                     if way_planet.stats.player_count > (self.total_players * 0.05):
                         way_planet_end_info = get_end_time(way_planet, gambit_planets)
                         if way_planet_end_info.end_time:
-                            field_value += f"\n-# Available **<t:{int(way_planet_end_info.end_time.timestamp())}:R>** thanks to {way_planet.name} liberation"
+                            field_value += language_json["embeds"]["Dashboard"][
+                                "MajorOrderEmbed"
+                            ]["avail_thanks_to_wp"].format(
+                                timestamp=int(way_planet_end_info.end_time.timestamp()),
+                                planet_name=way_planet.loc_names[
+                                    language_json["code_long"]
+                                ],
+                            )
 
             self.add_field(
                 name=field_name,
@@ -807,28 +817,35 @@ class Dashboard:
                             way_planet, gambit_planets=gambit_planets
                         )
                         if calc_end_time.end_time:
-                            field_value += f"\nUnlocked **<t:{int(way_planet.tracker.complete_time.timestamp())}:R>**\n> -# thanks to **{way_planet.name}** liberation"
+                            field_value += language_json["embeds"]["Dashboard"][
+                                "MajorOrderEmbed"
+                            ]["avail_thanks_to_wp"].format(
+                                timestamp=int(
+                                    way_planet.tracker.complete_time.timestamp()
+                                ),
+                                planet_name=way_planet.loc_names[
+                                    language_json["code_long"]
+                                ],
+                            )
                             break
                 if planet.event:
                     field_value += f"\n{language_json['ends']} <t:{int(planet.event.end_time_datetime.timestamp())}:R>"
                     field_value += f"\n{language_json['embeds']['Dashboard']['DefenceEmbed']['level']} **{planet.event.level}**"
-                    if planet.tracker and planet.tracker.change_rate_per_hour != 0:
+                    calc_end_time = get_end_time(planet, gambit_planets)
+                    if calc_end_time.end_time:
                         winning = (
-                            planet.tracker.complete_time
-                            < planet.event.end_time_datetime
+                            calc_end_time.end_time < planet.event.end_time_datetime
                         )
                         if winning:
-                            field_value += f"\n{language_json['embeds']['Dashboard']['outlook']}: **{language_json['victory']}** <t:{int(planet.tracker.complete_time.timestamp())}:R>"
+                            if calc_end_time.source_planet:
+                                field_value += f"\n{language_json['embeds']['Dashboard']['outlook']}: **{language_json['victory']}** <t:{int(planet.tracker.complete_time.timestamp())}:R>"
                         else:
                             field_value += f"\n{language_json['embeds']['Dashboard']['outlook']}: **{language_json['defeat']}**"
-                    field_value += (
-                        f"\n{language_json['embeds']['Dashboard']['progress']}:"
-                    )
                     if self.compact_level < 1:
                         field_value += f"\n{planet.health_bar} 🛡️"
                     field_value += f"\n`{planet.event.progress:^25,.2%}`"
                     if planet.tracker and planet.tracker.change_rate_per_hour != 0:
-                        change = f"{planet.tracker.change_rate_per_hour:+.2%}/hour"
+                        change = f"{planet.tracker.change_rate_per_hour:+.2%}/hr"
                         field_value += f"\n`{change:^25}`"
                 else:
                     if planet.tracker and planet.tracker.change_rate_per_hour != 0:
@@ -840,7 +857,7 @@ class Dashboard:
                         if self.compact_level < 1:
                             field_value += f"\n{planet.health_bar}"
                         if planet.tracker and planet.tracker.change_rate_per_hour != 0:
-                            change = f"{planet.tracker.change_rate_per_hour:+.2%}/hour"
+                            change = f"{planet.tracker.change_rate_per_hour:+.2%}/hr"
                             field_value += f"\n`{1 - (planet.health_perc):^25,.2%}`"
                             field_value += f"\n`{change:^25}`"
             self.add_field(
@@ -1060,30 +1077,36 @@ class Dashboard:
                 and self.eagle_storm
                 and self.eagle_storm.status == 2
             ):
-                field_value += f"\n> DEFENCE HELD BY DSS"
+                field_value += self.language_json["embeds"]["Dashboard"][
+                    "DefenceEmbed"
+                ]["defence_held_by_dss"]
 
-            field_value += f"\nEnds **<t:{int(end_time.timestamp())}:R>**"
-            field_value += f"\nInvasion Level **{planet.event.level}**{planet.event.level_exclamation}"
+            field_value += f"\n{self.language_json['embeds']['Dashboard']['DefenceEmbed']['ends']} **<t:{int(end_time.timestamp())}:R>**"
+            field_value += f"\n{self.language_json['embeds']['Dashboard']['DefenceEmbed']['invasion_level']} **{planet.event.level}**{planet.event.level_exclamation}"
 
             calculated_end_time = get_end_time(planet, self.gambit_planets)
             if (
                 calculated_end_time.end_time
                 and calculated_end_time.end_time < planet.event.end_time_datetime
             ):
-                field_value += f"\nVictory "
+                field_value += f"\n{self.language_json['embeds']['Dashboard']['DefenceEmbed']['victory']} "
                 if calculated_end_time.source_planet:
                     field_value += (
                         f"**<t:{int(calculated_end_time.end_time.timestamp())}:R>**"
                     )
                 elif calculated_end_time.gambit_planet:
-                    field_value += f"**<t:{int(calculated_end_time.end_time.timestamp())}:R>** thanks to **{calculated_end_time.gambit_planet.name}** liberation"
-                elif calculated_end_time.region:
-                    field_value += f"**<t:{int(calculated_end_time.end_time.timestamp())}:R>** thanks to {calculated_end_time.region.emoji}**{calculated_end_time.region.name}** liberation"
+                    field_value += f"**<t:{int(calculated_end_time.end_time.timestamp())}:R>** {self.language_json['embeds']['Dashboard']['DefenceEmbed']['thanks_to_gambit'].format(planet=calculated_end_time.gambit_planet.names[self.language_json['code_long']])}"
+                elif calculated_end_time.regions:
+                    regions_list = f"\n-# ".join(
+                        [f" {r.emoji} {r.name}" for r in calculated_end_time.regions]
+                    )
+                    field_value += self.language_json["embeds"]["Dashboard"][
+                        "DefenceEmbed"
+                    ]["if_region_lib"].format(regions_list=regions_list)
             elif planet.tracker and planet.tracker.change_rate_per_hour > 0:
-                field_value += f"\n**Losing**"
+                field_value += f"\n**{self.language_json['embeds']['Dashboard']['DefenceEmbed']['loss']}**"
 
-            field_value += f"\nHeroes: **{planet.stats.player_count:,}**"
-            field_value += f"\nDefence progress:"
+            field_value += f"\n{self.language_json['embeds']['Dashboard']['DefenceEmbed']['heroes']}: **{planet.stats.player_count:,}**"
             if self.compact_level < 1:
                 field_value += f"\n{planet.health_bar}"
             field_value += f"\n`{planet.event.progress:^25.2%}`"
@@ -1093,7 +1116,7 @@ class Dashboard:
 
             for region in planet.regions.values():
                 if region.is_available:
-                    field_value += f"\n-# ↳ {region.emoji} {region.type} **{region.name}** - {region.perc:.0%}"
+                    field_value += f"\n-# ↳ {region.emoji} {self.language_json['regions'][region.type]} **{region.names[self.language_json['code_long']]}** - {region.perc:.0%}"
                     if (
                         self.compact_level < 2
                         and region.tracker
@@ -1133,7 +1156,7 @@ class Dashboard:
                             and planet.tracker.change_rate_per_hour != 0
                             and region_avail_datetime < planet.tracker.complete_time
                         ):
-                            field_value += f"\n-# ↳ {region.emoji} {region.type} **{region.name}** - available <t:{int(region_avail_datetime.timestamp())}:R>"
+                            field_value += f"\n-# ↳ {region.emoji} {self.language_json['regions'][region.type]} **{region.names[self.language_json['code_long']]}** - {self.language_json['embeds']['Dashboard']['DefenceEmbed']['available']} <t:{int(region_avail_datetime.timestamp())}:R>"
                         break
 
             self.add_field(field_name, field_value, inline=False)
@@ -1200,11 +1223,14 @@ class Dashboard:
                     if calc_end_time.end_time:
                         if calc_end_time.regions:
                             regions_list = f"\n-# ".join(
-                                [f" {r.emoji} {r.name}" for r in calc_end_time.regions]
+                                [
+                                    f" {r.emoji} {r.names[language_json['code_long']]}"
+                                    for r in calc_end_time.regions
+                                ]
                             )
-                            field_value += f"\nVictory **<t:{int(calc_end_time.end_time.timestamp())}:R>**\n-# If the following regions get liberated:\n-# {regions_list}"
+                            field_value += f"\n{language_json['embeds']['Dashboard']['AttackEmbed']['victory']} **<t:{int(calc_end_time.end_time.timestamp())}:R>**\n-# {language_json['embeds']['Dashboard']['AttackEmbed']['if_regions']}:\n-# {regions_list}"
                         elif calc_end_time.source_planet:
-                            field_value += f"\nVictory **<t:{int(campaign.planet.tracker.complete_time.timestamp())}:R>**"
+                            field_value += f"\n{language_json['embeds']['Dashboard']['AttackEmbed']['victory']} **<t:{int(campaign.planet.tracker.complete_time.timestamp())}:R>**"
                     if compact_level < 1:
                         field_value += f"\n{campaign.planet.health_bar}"
                     field_value += f"\n`{(1 - (campaign.planet.health_perc)):^25.2%}`"  # 1 - {health} because we need it to reach 0
@@ -1220,7 +1246,7 @@ class Dashboard:
                     for region in [
                         r for r in campaign.planet.regions.values() if r.is_available
                     ]:
-                        field_value += f"\n-# ↳ {region.emoji} {region.type} **{region.name}** {region.perc:.2%}"
+                        field_value += f"\n-# ↳ {region.emoji} {language_json['regions'][region.type]} **{region.names[language_json['code_long']]}** {region.perc:.2%}"
                         if region.tracker and region.tracker.change_rate_per_hour != 0:
                             field_value += (
                                 f" | {region.tracker.change_rate_per_hour:+.2%}/hr"
@@ -1249,7 +1275,7 @@ class Dashboard:
                                 region.is_available
                                 and region.players > total_players * 0.001
                             ):
-                                skipped_planets_text += f"-# ↳ {getattr(getattr(Emojis.RegionIcons, region.owner.full_name), f'_{region.size}')} {region.type} **{region.name}** - {region.perc:.2%}\n"
+                                skipped_planets_text += f"-# ↳ {region.emoji} {language_json['regions'][region.type]} **{region.names[language_json['code_long']]}** - {region.perc:.2%}\n"
                 if skipped_planets_text != "":
                     self.add_field(
                         f"{language_json['embeds']['Dashboard']['AttackEmbed']['low_impact']}",
