@@ -639,11 +639,11 @@ class Wiki:
                         tactical_action.name,
                         {
                             "name": tactical_action.name,
-                            "description": tactical_action.description + " [LOC]",
+                            "description": tactical_action.description,
                         },
                     )
                     self.add_field(
-                        f"{getattr(Emojis.DSS, tactical_action.name.replace(' ', '_').lower())} {localized_ta['name']}",
+                        f"{tactical_action.emoji} {localized_ta['name']}",
                         (
                             f"{language_json['wiki']['embeds']['DSSEmbed']['status']}: **{language_json['wiki']['embeds']['DSSEmbed'][status].capitalize()}**"
                             f"\n{localized_ta['description']}"

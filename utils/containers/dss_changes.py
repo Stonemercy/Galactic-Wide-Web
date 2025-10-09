@@ -110,9 +110,9 @@ class DSSChangesContainer(ui.Container, ReprMixin):
         section = ui.Section(
             ui.TextDisplay(
                 self.json.container["ta_status_change"].format(
-                    ta_name=self.json.container["tactical_actions"][
-                        tactical_action.name
-                    ]["name"],
+                    ta_name=self.json.container["tactical_actions"]
+                    .get(tactical_action.name, {})
+                    .get("name", tactical_action.name),
                     status=self.json.container[STATUSES[tactical_action.status]],
                 )
             ),
@@ -121,6 +121,8 @@ class DSSChangesContainer(ui.Container, ReprMixin):
                     ta_name=tactical_action.name,
                     status=STATUSES.get(tactical_action.status),
                 )
+                if tactical_action.name.count("_") == 0
+                else "https://cdn.discordapp.com/attachments/1212735927223590974/1422512588973015081/0xa92d559bf3ae174.png?ex=68dcf196&is=68dba016&hm=6d361df60c5c8b49467f549fa599f018039887cb355f329f1575ba701bcd7d60&"
             ),
         )
         if tactical_action.status == 1:
@@ -130,7 +132,7 @@ class DSSChangesContainer(ui.Container, ReprMixin):
                 ].content += f"\n-# Requires **{short_format(cost.target * AMOUNT_PER_COST[cost.item])}** {cost.item} to activate"
         elif tactical_action.status == 2:
             section.children[0].content += (
-                f"\n{self.json.container['tactical_actions'][tactical_action.name]['description']}"
+                f"\n{self.json.container['tactical_actions'].get(tactical_action.name, {}).get('description', tactical_action.description)}"
                 + f"\nExpires <t:{int(tactical_action.status_end_datetime.timestamp())}:R>"
             )
         elif tactical_action.status == 3:

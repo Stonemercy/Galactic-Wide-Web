@@ -951,8 +951,14 @@ class Dashboard:
                 "next_move"
             ].format(timestamp=f"<t:{move_time}:R>")
 
+            ta_jsons = language_json["embeds"]["Dashboard"]["DSSEmbed"][
+                "tactical_actions"
+            ]
             for tactical_action in dss.tactical_actions:
-                field_name = f"{tactical_action.emoji} {language_json['embeds']['Dashboard']['DSSEmbed']['tactical_actions'][tactical_action.name.upper()]['name']}"
+                if tactical_action.name.upper() in ta_jsons:
+                    field_name = f"{tactical_action.emoji} {ta_jsons[tactical_action.name.upper()]['name']}"
+                else:
+                    field_name = tactical_action.name.upper()
                 status = STATUS_DICT[tactical_action.status]
                 field_value = f"{language_json['embeds']['Dashboard']['DSSEmbed']['status']}: **{language_json['embeds']['Dashboard']['DSSEmbed'][status]}**"
                 match status:
@@ -976,10 +982,10 @@ class Dashboard:
                                 field_value += f"\n`{ta_cost.progress:^25.2%}`"
                     case "active":
                         field_value += f"\n{language_json['ends']} <t:{int(tactical_action.status_end_datetime.timestamp())}:R>"
-                        desc_fmtd = tactical_action.strategic_description.replace(
-                            ". ", ".\n-# "
-                        )
-                        field_value += f"\n-# {desc_fmtd}"
+                        if tactical_action.name.upper() in ta_jsons:
+                            field_value += f'\n{language_json["embeds"]["Dashboard"]["DSSEmbed"]["tactical_actions"][tactical_action.name.upper()]["description"]}'
+                        else:
+                            field_value += f"\n{tactical_action.description}"
                     case "on_cooldown":
                         field_value += f"\n-# {language_json['embeds']['Dashboard']['DSSEmbed']['off_cooldown']} <t:{int(tactical_action.status_end_datetime.timestamp())}:R>"
                     case _:

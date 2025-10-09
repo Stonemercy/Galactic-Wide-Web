@@ -1334,7 +1334,7 @@ class DSS(ReprMixin):
                 for cost in tactical_action_raw_data["cost"]
             ]
             self.cost_changes: dict[BaseTrackerEntry] = {}
-            self.emoji = getattr(Emojis.DSS, self.name.lower().replace(" ", "_"))
+            self.emoji = getattr(Emojis.DSS, self.name.lower().replace(" ", "_"), "")
 
         class Cost(ReprMixin):
             def __init__(self, cost) -> None:
