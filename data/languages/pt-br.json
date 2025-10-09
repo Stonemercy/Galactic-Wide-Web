@@ -20,7 +20,7 @@
         },
         "DispatchContainer": {
             "dispatch": "Despacho",
-            "with_time": "\n\n-# Enviado em <t:{timestamp}:R>"
+            "with_time": "\n\n-# Enviado em<t:{timestamp}:R>"
         },
         "DSSChangesContainer": {
             "title": "ATUALIZAÇÕES DA EED",
@@ -31,6 +31,7 @@
             "active": "ativo(a)",
             "inactive": "desativado(a)",
             "on_cooldown": "recarregando",
+            "prep_starts": "Preparing starts",
             "tactical_actions": {
                 "EAGLE STORM": {
                     "name": "ÁGUIA TEMPESTIVA",
@@ -97,7 +98,7 @@
                 "liberated": "Liberado(a)",
                 "liberation": "Liberação",
                 "defence_duration": "Duração da Defesa",
-                "unlocked_when": "Desbloqueia quando **{stat_to_use}** alcançar **{av_factor}**"
+                "unlocked_when": "\nDesbloqueia quando **{stat_to_use}** alcançar **{av_factor}**"
             }
         },
         "RegionChangesContainer": {
@@ -142,352 +143,352 @@
     },
     "embeds": {
         "Dashboard": {
-            "heroes": "Heroes: **{heroes}**",
-            "outlook": "Outlook",
-            "progress": "Current progress",
-            "shrunk_temporarily": "Character count exceeded 6000; dashboard shrunk temporarily",
+            "heroes": "Heróis: **{heroes}**",
+            "outlook": "Visão geral",
+            "progress": "Progresso atual",
+            "shrunk_temporarily": "Quantidade de caracteres excedeu 6000; painel encolhido temporariamente",
             "MajorOrderEmbed": {
-                "mo_missing": "Awaiting Major Order",
-                "assignment": "Assignment #{id}",
-                "MO_unavailable": "Stand by for further orders from Super Earth High Command",
-                "feature": "Feature",
-                "rewards": "Rewards",
+                "mo_missing": "Aguardando Ordem Imperativa",
+                "assignment": "Tarefa #{id}",
+                "MO_unavailable": "Aguarde mais ordens do Alto Comando da Super Terra",
+                "feature": "Recurso",
+                "rewards": "Recompensas",
                 "reward_pluralized": "{reward}s",
-                "ahead_of_schedule": "\n-# **{hours}h {minutes}m** ahead of schedule",
-                "behind_schedule": "\n-# **{hours}h {minutes}m** behind schedule",
+                "ahead_of_schedule": "\n-# Adiantado em **{hours}h {minutes}m** ",
+                "behind_schedule": "\n-# Atrasado em **{hours}h {minutes}m**",
                 "tasks": {
-                    "typeNew": "{alert_emoji} UNRECOGNIZED TASK",
-                    "type2": "{status_emoji} **Successfully extract with {amount} {item}**",
-                    "type2_planet": " **on {planet}**",
-                    "type2_sector": " **in the __{sector}__ SECTOR**",
-                    "type2_faction": " **from any {faction} controlled planet**",
-                    "type3": "{status_emoji} **Kill {amount} {target}**",
-                    "type3_item": " **using the __{item_to_use}__**",
-                    "type3_planet": " **on {planet}**",
-                    "type7": "{status_emoji}  **Extract from a successful Mission against {faction} {amount} times**",
-                    "type9": "{status_emoji} **Complete an Operation{against_faction}{on_difficulty} {amount} times**",
-                    "type9_against_faction": " **against {faction}**",
-                    "type9_on_difficulty": " **on {difficulty} or higher**",
-                    "type11": "{status_emoji} **Liberate {planet}**",
-                    "type12": "{status_emoji} **Defend{planet} against {amount} attacks**",
+                    "typeNew": "{alert_emoji} OBJETIVO DESCONHECIDO",
+                    "type2": "{status_emoji} **Extraia com sucesso com {amount} {item}**",
+                    "type2_planet": " **em {planet}**",
+                    "type2_sector": " **no SETOR __{sector}__**",
+                    "type2_faction": " **de qualquer planeta controlado pelos {faction}**",
+                    "type3": "{status_emoji} **Mate {amount} {target}**",
+                    "type3_item": " **usando __{item_to_use}__**",
+                    "type3_planet": " **em {planet}**",
+                    "type7": "{status_emoji}  **Extraia de uma Missão Concluída contra os{faction} {amount} vezes**",
+                    "type9": "{status_emoji} **Complete uma Operacão {against_faction}{on_difficulty} {amount} vezes**",
+                    "type9_against_faction": " **contra os {faction}**",
+                    "type9_on_difficulty": " **em {difficulty} or maior**",
+                    "type11": "{status_emoji} **Libere {planet}**",
+                    "type12": "{status_emoji} **Defenda {planet} de {amount} ataques**",
                     "type12_planet": " **{planet}**",
-                    "type12_faction": " **from the {faction}**",
-                    "type13": "{status_emoji} **Hold {planet} when the order expires**",
-                    "type15": "{status_emoji} **Liberate more planets than are lost during the order duration**"
+                    "type12_faction": " **dos {faction}**",
+                    "type13": "{status_emoji} **Mantenha {planet} quando a Ordem expirar**",
+                    "type15": "{status_emoji} **Libere mais planetas do que são perdidos quando a Ordem expirar**"
                 }
             },
             "DSSEmbed": {
-                "stationed_at": "Stationed at **{planet}** {faction_emoji}\n",
-                "next_move": "Scheduled to move {timestamp}",
-                "status": "Status",
-                "preparing": "Preparing",
-                "active": "Active",
-                "on_cooldown": "On cooldown",
-                "off_cooldown": "Off cooldown",
-                "inactive": "Inactive",
+                "stationed_at": "Estacionada em **{planet}** {faction_emoji}\n",
+                "next_move": "Se movendo {timestamp}",
+                "status": "Situação da Ação",
+                "preparing": "Preparando",
+                "active": "Ativo(a)",
+                "on_cooldown": "Recarregando",
+                "off_cooldown": "terminou de recarregar",
+                "inactive": "Desativado(a)",
                 "tactical_actions": {
                     "EAGLE STORM": {
-                        "name": "EAGLE STORM",
-                        "description": "-# Deploys periodic **Eagle Airstrikes** during missions.\n-# Halts enemy progress in **Defence Campaigns**."
+                        "name": "ÁGUIA TEMPESTIVA",
+                        "description": "-# Envia **Ataques Aéreos via Águia** periódicos durante as missões.\n-# Restringe o progresso dos inimigos em **Campanhas Defensivas**."
                     },
                     "ORBITAL BLOCKADE": {
-                        "name": "ORBITAL BLOCKADE",
-                        "description": "-# **Defence Campaigns** cannot originate from this planet.\n-# The **HELLPOD SPACE OPTIMISATION** Booster is automatically active for all missions."
+                        "name": "BLOQUEIO ORBITAL",
+                        "description": "-# **Campanhas Defensivas** não podem se originar deste planeta.\n-# O reforçador **Otimização Espacial de Hellpod** fica ativo automaticamente durante as missões."
                     },
                     "HEAVY ORDNANCE DISTRIBUTION": {
-                        "name": "HEAVY ORDNANCE DISTRIBUTION",
-                        "description": "-# Gives access to the **Orbital 380mm HE Barrage** stratagem during missions.\n-# Accelerates progress in **Liberation Campaigns**."
+                        "name": "DISTRIBUIÇÃO DE ARTILHARIA PESADA",
+                        "description": "-# Dá acesso à **Barragem Orbital DT de 380MM** durante missões.\n-# Acelera o progresso das **Campanhas de Libertação**."
                     },
                     "EAGLE BLOCKADE": {
-                        "name": "EAGLE BLOCKADE",
-                        "description": "-# Deploys periodic **Eagle Strafing Runs** during missions.\n-# The **HELLPOD SPACE OPTIMIZATION** Booster is automatically active for all missions."
+                        "name": "BLOQUEIO DE ÁGUIA",
+                        "description": "-# Envia **Ataques Aéreos via Águia** periódicos durante as missões.\n-# O reforçador **Otimização Espacial de Hellpod** fica ativo automaticamente durante as missões."
                     }
                 }
             },
             "DefenceEmbed": {
-                "title": "Defending",
-                "no_threats": "There are currently no threats to our Freedom",
-                "for_now": "For now...",
-                "time_unavailable": "Unavailable",
-                "event_health": "Planet Liberation",
-                "level": "Invasion Level",
-                "defence_held_by_dss": "\n> -# DEFENCE HELD BY DSS",
-                "feature": "Feature",
-                "thanks_to_gambit": "thanks to **{planet}** liberation",
-                "gambit_available": ":chess_pawn: Can be ended by liberating **{planet}**",
-                "gathering_data": "*Gathering Data*",
-                "impossible": "**IMPOSSIBLE**"
+                "title": "Defendendo",
+                "no_threats": "No momento não há ameaças a nossa Liberdade",
+                "for_now": "Por enquanto...",
+                "time_unavailable": "Indisponível",
+                "event_health": "Liberação de Planetas",
+                "level": "Invasão de Nível",
+                "defence_held_by_dss": "\n> -# DEFESA SEGURADA PELA EED",
+                "feature": "Recurso",
+                "thanks_to_gambit": "graças á liberação de **{planet}**",
+                "gambit_available": ":chess_pawn: Pode ser finalizada liberando **{planet}**",
+                "gathering_data": "*Coletando informação*",
+                "impossible": "**IMPOSSÍVEL**"
             },
             "AttackEmbed": {
-                "title": "Attacking {faction}",
-                "planet_health": "Planet liberation",
-                "low_impact": "Low impact/population planets",
-                "feature": "\nFeature: {feature}"
+                "title": "Atacando {faction}",
+                "planet_health": "Liberação de Planetas",
+                "low_impact": "Impacto baixo/Planetas populacionais",
+                "feature": "\nRecurso: {feature}"
             },
             "FooterEmbed": {
-                "other_updated": "Updated on",
-                "total_players": "Total players",
-                "liberty_day": "The GWW wishes you a happy Liberty Day",
-                "malevelon_creek_day": "The GWW wishes you a happy Malevelon Creek Memorial Day",
-                "festival_of_reckoning": "The GWW wishes you a happy Festival of Reckoning",
-                "new_year": "The GWW wishes you a happy New Year"
+                "other_updated": "Atualizado em",
+                "total_players": "Total de jogadores",
+                "liberty_day": "A RG te deseja um feliz Dia da Liberdade",
+                "malevelon_creek_day": "A RG te deseja um feliz Dia do Memorial de Malevelon Creek",
+                "festival_of_reckoning": "A RG te deseja um feliz Dia do Festival da Desforra",
+                "new_year": "A RG te deseja um feliz Ano Novo"
             }
         }
     },
-    "ends": "Ends",
-    "message": "Message #{message_id}",
-    "victory": "Victory",
-    "defeat": "Defeat",
-    "complete": "Complete",
-    "failure": "Failure",
+    "ends": "Acaba",
+    "message": "Mensagem #{message_id}",
+    "victory": "Vitória",
+    "defeat": "Derrota",
+    "complete": "Completo",
+    "failure": "Falha",
     "dss": {
-        "title": "Democracy Space Station",
-        "preparing": "preparing",
-        "active": "active",
-        "inactive": "inactive",
-        "on_cooldown": "on cooldown",
+        "title": "Estação Espacial Democracia",
+        "preparing": "preparando",
+        "active": "ativo(a)",
+        "inactive": "desativado(a)",
+        "on_cooldown": "recarregando",
         "tactical_actions": {
             "EAGLE STORM": {
-                "name": "EAGLE STORM",
-                "description": "-# Deploys periodic **Eagle Airstrikes** during missions.\n-# Halts enemy progress in **Defence Campaigns**."
+                "name": "ÁGUIA TEMPESTIVA",
+                "description": "-# Envia **Ataques Aéreos via Águia** periódicos durante as missões.\n-# Restringe o progresso dos inimigos em **Campanhas Defensivas**."
             },
             "ORBITAL BLOCKADE": {
-                "name": "ORBITAL BLOCKADE",
-                "description": "-# **Defence Campaigns** cannot originate from this planet.\n-# The **HELLPOD SPACE OPTIMISATION** Booster is automatically active for all missions."
+                "name": "BLOQUEIO ORBITAL",
+                "description": "-# **Campanhas Defensivas** não podem se originar deste planeta.\n-# O reforçador **Otimização Espacial de Hellpod** fica ativo automaticamente durante as missões."
             },
-            "HEAVY ORDNANCE DISTRIBUTION": {
+            "DISTRIBUIÇÃO DE ARTILHARIA PESADA": {
                 "name": "HEAVY ORDNANCE DISTRIBUTION",
-                "description": "-# Gives access to the **Orbital 380mm HE Barrage** stratagem during missions.\n-# Accelerates progress in **Liberation Campaigns**."
+                "description": "-# Dá acesso à **Barragem Orbital DT de 380MM** durante missões.\n-# Acelera o progresso das **Campanhas de Libertação**."
             },
-            "EAGLE BLOCKADE": {
+            "BLOQUEIO DE ÁGUIA": {
                 "name": "EAGLE BLOCKADE",
-                "description": "-# Deploys periodic **Eagle Strafing Runs** during missions.\n-# The **HELLPOD SPACE OPTIMIZATION** Booster is automatically active for all missions."
+                "description": "-# Envia **Ataques Aéreos via Águia** periódicos durante as missões.\n-# O reforçador **Otimização Espacial de Hellpod** fica ativo automaticamente durante as missões."
             }
         }
     },
     "setup": {
-        "cant_find_channel": "I can't find that channel at all. Please make sure I have `View Channel` permissions",
-        "missing_perm": "Missing permission to send to that channel.\nPlease provide the following permissions and try again:{permissions}"
+        "cant_find_channel": "Eu não consigo encontrar este canal. Por favor garanta que eu tenha as permissões de `Vizualisar Canal`",
+        "missing_perm": "Necessário permissão para enviar para este canal.\nPor favor conceda as seguintes permissões e tente novamente:{permissions}"
     },
     "factions": {
-        "1": "Humans",
-        "2": "Terminids",
-        "3": "Automatons",
-        "4": "Illuminate",
-        "Humans": "Humans",
-        "Terminids": "Terminids",
-        "Automaton": "Automaton",
-        "Illuminate": "Illuminate"
+        "1": "Humanos",
+        "2": "Terminídios",
+        "3": "Autômatos",
+        "4": "Iluminados",
+        "Humans": "Humanos",
+        "Terminids": "Terminídios",
+        "Automaton": "Autômatos",
+        "Illuminate": "Iluminados"
     },
     "difficulty": {
-        "1": "Trivial",
-        "2": "Easy ",
-        "3": "Medium",
-        "4": "Challenging",
-        "5": "Hard",
-        "6": "Extreme",
-        "7": "Suicide Mission",
-        "8": "Impossible",
-        "9": "Helldive",
-        "10": "Super Helldive"
+        "1": "Trivial.",
+        "2": "Fácil ",
+        "3": "Médio",
+        "4": "Desafiador",
+        "5": "Difícil",
+        "6": "Extremo",
+        "7": "Missão Suícida",
+        "8": "Impossível",
+        "9": "Hell-dive",
+        "10": "Super Hell-dive"
     },
     "wiki": {
         "buttons": {
             "WikiGGButton": {
-                "label": "Helldivers Wiki"
+                "label": "Wiki de Helldivers"
             },
             "MainMenuButton": {
-                "label": "Main Menu"
+                "label": "Menu Principal"
             },
             "DSSButton": {
-                "label": "DSS"
+                "label": "EED"
             },
             "EnemiesHomeButton": {
-                "label": "Enemies"
+                "label": "Inimigos"
             },
             "WarbondButton": {
-                "label": "Warbonds"
+                "label": "Bônus de Guerra"
             },
             "EquipmentHomeButton": {
-                "label": "Equipment"
+                "label": "Equipamento"
             },
             "WarbondPreviousPageButton": {
-                "label": "Previous Page"
+                "label": "Página Anterior"
             },
             "WarbondNextPageButton": {
-                "label": "Next Page"
+                "label": "Próxima Página"
             },
             "WeaponsHomeButton": {
-                "label": "Weapons"
+                "label": "Armas"
             },
             "PrimaryWeaponsButton": {
-                "label": "Primary"
+                "label": "Primária"
             },
             "SecondaryWeaponsButton": {
-                "label": "Secondary"
+                "label": "Secundária"
             },
             "GrenadesButton": {
-                "label": "Grenades"
+                "label": "Granadas"
             },
             "BoostersButton": {
-                "label": "Boosters"
+                "label": "Reforçadores"
             },
             "StratagemsButton": {
-                "label": "Stratagems"
+                "label": "Estratégias"
             }
         },
         "embeds": {
             "WikiHomeEmbed": {
-                "title": "Welcome to the GWW Wiki",
-                "dss_name": "Democracy Space Station",
-                "dss_value": "Learn more about the DSS, with links to the Helldivers Companion and the Helldivers Wiki.",
-                "enemies_name": "Enemies",
-                "enemies_value": "Discover details about the enemies of Democracy:\n-# - Automaton\n-# - Illuminate\n-# - Terminids",
-                "warbonds_name": "Warbonds",
-                "warbonds_value": "Explore information about all currently available Warbonds.",
-                "equipment_name": "Equipment",
-                "equipment_value": "Find details on:\n-# - Weapons\n-# - Boosters\n-# - Stratagems"
+                "title": "Bem-vindo(a) á Wiki da RG",
+                "dss_name": "Estação Espacial Democracia",
+                "dss_value": "Descubra mais sobre a EED, com links para o Helldivers Companion e a Helldivers Wiki.",
+                "enemies_name": "Inimigos",
+                "enemies_value": "Descubra detalhes sobre os inimigos da Democracia:\n-# - Autômatos\n-# - Illuminate\n-# - Terminídios",
+                "warbonds_name": "Bônus de Guerra",
+                "warbonds_value": "Explore informação sobre os Bônus de Guerra disponíveis atualmente.",
+                "equipment_name": "Equipamento",
+                "equipment_value": "Encontre detalhes sobre:\n-# - Armas\n-# - Reforçadores\n-# - Estratégias"
             },
             "DSSEmbed": {
-                "title": "Democracy Space Station",
-                "stationed_at": "Stationed at **{planet}** {faction_emoji}\n",
-                "next_move": "Moving {timestamp}",
+                "title": "Estação Espacial Democracia",
+                "stationed_at": "Estacionada em **{planet}** {faction_emoji}\n",
+                "next_move": "Se movendo {timestamp}",
                 "item_pluralized": "{item}s",
-                "ends": "Ends",
-                "preparing": "Preparing",
-                "active": "active",
-                "inactive": "Inactive",
-                "on_cooldown": "on cooldown",
-                "off_cooldown": "off cooldown",
-                "status": "Status",
+                "ends": "Finaliza",
+                "preparing": "Preparando",
+                "active": "Ativo(a",
+                "inactive": "Desativado(a",
+                "on_cooldown": "recarregando",
+                "off_cooldown": "disponível novamente",
+                "status": "Situação da Ação",
                 "tactical_actions": {
                     "EAGLE STORM": {
-                        "name": "EAGLE STORM",
-                        "description": "-# Deploys periodic **Eagle Airstrikes** during missions.\n-# Halts enemy progress in **Defence Campaigns**."
+                        "name": "ÁGUIA TEMPESTIVA",
+                        "description": "-# Envia **Ataques Aéreos via Águia** periódicos durante as missões.\n-# Restringe o progresso dos inimigos em **Campanhas Defensivas**."
                     },
                     "ORBITAL BLOCKADE": {
-                        "name": "ORBITAL BLOCKADE",
-                        "description": "-# **Defence Campaigns** cannot originate from this planet.\n-# The **HELLPOD SPACE OPTIMISATION** Booster is automatically active for all missions."
+                        "name": "BLOQUEIO ORBITAL",
+                        "description": "-# **Campanhas Defensivas** não podem se originar deste planeta.\n-# O reforçador **Otimização Espacial de Hellpod** fica ativo automaticamente durante as missões."
                     },
                     "HEAVY ORDNANCE DISTRIBUTION": {
-                        "name": "HEAVY ORDNANCE DISTRIBUTION",
-                        "description": "-# Gives access to the **Orbital 380mm HE Barrage** stratagem during missions.\n-# Accelerates progress in **Liberation Campaigns**."
+                        "name": "DISTRIBUIÇÃO DE ARTILHARIA PESADA",
+                        "description": "-# Dá acesso à **Barragem Orbital DT de 380MM** durante missões.\n-# Acelera o progresso das **Campanhas de Libertação**."
                     },
-                    "EAGLE BLOCKADE": {
+                    "BLOQUEIO DE ÁGUIA": {
                         "name": "EAGLE BLOCKADE",
-                        "description": "-# Deploys periodic **Eagle Strafing Runs** during missions.\n-# The **HELLPOD SPACE OPTIMIZATION** Booster is automatically active for all missions."
+                        "description": "-# Envia **Ataques Aéreos via Águia** periódicos durante as missões.\n-# O reforçador **Otimização Espacial de Hellpod** fica ativo automaticamente durante as missões."
                     }
                 }
             },
             "EnemyHomeEmbed": {
-                "title": "Select the faction you are looking for"
+                "title": "Selecione a facção que está procurando"
             },
             "EnemyPageEmbed": {
-                "introduced": "Introduced",
-                "difficulty": "Difficulty",
-                "tactics": "Tactics",
-                "weak_spots": "Weak spots",
-                "variations": "Variations"
+                "introduced": "Introduzido",
+                "difficulty": "Dificuldade",
+                "tactics": "Táticas",
+                "weak_spots": "Pontos fracos",
+                "variations": "Variantes"
             },
             "WarbondEmbed": {
-                "page": "Page",
-                "cost_to_unlock": "Cost to unlock warbond",
-                "medals_to_unlock": "Medals to unlock page",
-                "type": "Type",
-                "armor": "Armor",
-                "primary": "Primary",
-                "secondary": "Secondary",
-                "grenade": "Grenade",
-                "emote": "Emote",
-                "victory_pose": "Victory pose",
-                "player_card": "Player card",
-                "booster": "Booster",
-                "title": "Title",
-                "stratagem_permit": "Stratagem permit",
-                "slot": "Slot",
-                "armor_rating": "Armor rating",
-                "speed": "Speed",
-                "stamina_regen": "Stamina regen",
-                "passive": "Passive",
-                "medal_cost": "Medal cost",
-                "weapon_type": "Weapon type",
-                "damage": "Damage",
-                "capacity": "Capacity",
-                "recoil": "Recoil",
-                "fire_rate": "Fire rate",
-                "penetration": "Penetration",
-                "radius": "Radius",
-                "fuse_time": "Fuse time"
+                "page": "Página",
+                "cost_to_unlock": "Custo para desbloquear Bônus de Guerra",
+                "medals_to_unlock": "Medalhas para desbloquear página",
+                "type": "Tipo",
+                "armor": "Armadura",
+                "primary": "Primária",
+                "secondary": "Secundária",
+                "grenade": "Granada",
+                "emote": "Gesto",
+                "victory_pose": "Pose de Vitória",
+                "player_card": "Cartão de Jogador",
+                "booster": "Reforçador",
+                "title": "Titúlo",
+                "stratagem_permit": "Permissão de Estratégia",
+                "slot": "Colocação",
+                "armor_rating": "Classif. de Armadura",
+                "speed": "Velocidade",
+                "stamina_regen": "Regen. de Estamina",
+                "passive": "Passiva",
+                "medal_cost": "Custo de Medalhas",
+                "weapon_type": "Tipo de Arma",
+                "damage": "Dano",
+                "capacity": "Capacidade",
+                "recoil": "Recuo",
+                "fire_rate": "Taxa de Disparos",
+                "penetration": "Penetração",
+                "radius": "Raio",
+                "fuse_time": "Tempo do fusível"
             },
             "EquipmentHomeEmbed": {
-                "title": "Select the equipment type you want to explore",
-                "weapons_name": "Weapons",
-                "weapons_value": "Includes information on:\n-# - Primary Weapons\n-# - Secondary Weapons\n-# - Grenades",
-                "boosters_name": "Boosters",
-                "boosters_value": "Details on all available boosters.",
-                "stratagems_name": "Stratagems",
-                "stratagems_value": "Information on all available stratagems."
+                "title": "Selecione o tipo de equipamento type que deseja explorar",
+                "weapons_name": "Armas",
+                "weapons_value": "Contém informação sobre:\n-# - Armas Primárias\n-# - Armas Secundárias\n-# - Granadas",
+                "boosters_name": "Reforçadores",
+                "boosters_value": "Detalhes sobre os reforçadores disponíveis.",
+                "stratagems_name": "Estratégias",
+                "stratagems_value": "Informação sobre as estratégias disponíveis."
             },
             "WeaponsHomeEmbed": {
-                "title": "Select the weapon type you want to explore",
-                "primary_weapons_name": "Primary Weapons",
-                "primary_weapons_value": "Details on all available primary weapons.",
-                "secondary_weapons_name": "Secondary Weapons",
-                "secondary_weapons_value": "Details on all available secondary weapons.",
-                "grenades_name": "Grenades",
-                "grenades_value": "Information on all available grenades."
+                "title": "Selecione o tipo de arma que deseja explorar",
+                "primary_weapons_name": "Armas Primárias",
+                "primary_weapons_value": "Detalhes sobre as armas primárias disponíveis.",
+                "secondary_weapons_name": "Armas Secundárias",
+                "secondary_weapons_value": "Detalhes sobre as armas secundárias disponíveis.",
+                "grenades_name": "Granadas",
+                "grenades_value": "Informação sobre as granadas disponíveis."
             },
             "PrimaryWeaponsEmbed": {
-                "constant_fire": "{number} seconds of constant fire",
-                "information_title": "Information",
-                "type": "Type: **`{type}`**\n",
-                "damage": "Damage: **`{damage}`**\n",
-                "fire_rate": "Fire rate: **`{fire_rate}rpm`**\n",
-                "dps": "DPS: **`{dps}/s`**\n",
-                "capacity": "Capacity: **`{capacity}`**\n",
-                "fire_modes": "Fire modes:{fire_modes}\n",
-                "features": "Features:{features}"
+                "constant_fire": "{number} segundos de disparo constante",
+                "information_title": "Informação",
+                "type": "Tipo: **`{type}`**\n",
+                "damage": "Dano: **`{damage}`**\n",
+                "fire_rate": "Taxa de Disparo: **`{fire_rate}rpm`**\n",
+                "dps": "DP/S: **`{dps}/s`**\n",
+                "capacity": "Capacidade: **`{capacity}`**\n",
+                "fire_modes": "Modos de disparo:{fire_modes}\n",
+                "features": "Recursos:{features}"
             },
             "SecondaryWeaponsEmbed": {
-                "constant_fire": "{number} seconds of constant fire",
-                "information_title": "Information",
-                "damage": "Damage: **`{damage}`**\n",
-                "fire_rate": "Fire rate: **`{fire_rate}rpm`**\n",
-                "dps": "DPS: **`{dps}/s`**\n",
-                "capacity": "Capacity: **`{capacity}`**\n",
-                "fire_modes": "Fire modes:{fire_modes}\n",
-                "features": "Features:{features}"
+                "constant_fire": "{number} segundos de disparo constante",
+                "information_title": "Informação",
+                "damage": "Dano: **`{damage}`**\n",
+                "fire_rate": "Taxa de Disparo: **`{fire_rate}rpm`**\n",
+                "dps": "DP/S: **`{dps}/s`**\n",
+                "capacity": "Capacidade: **`{capacity}`**\n",
+                "fire_modes": "Modos de disparo:{fire_modes}\n",
+                "features": "Recursos:{features}"
             },
             "GrenadesEmbed": {
                 "information_title": "Information",
-                "damage": "Damage: **`{damage}`**\n",
-                "fuse_time": "Fuse time: **`{fuse_time} seconds`**\n",
-                "penetration": "Penetration: **`{penetration}`**\n",
-                "radius": "Radius: **`{radius}`**"
+                "damage": "Dano: **`{damage}`**\n",
+                "fuse_time": "Tempo de fusível: **`{fuse_time} seconds`**\n",
+                "penetration": "Penetração: **`{penetration}`**\n",
+                "radius": "Raio: **`{radius}`**"
             },
             "StratagemsEmbed": {
-                "key_input": "Key input",
-                "uses": "Uses",
-                "cooldown": "Cooldown"
+                "key_input": "Comandos chave",
+                "uses": "Usos",
+                "cooldown": "Recarga"
             }
         }
     },
     "currencies": {
-        "Unknown Item": "Unknown Item",
-        "Medal": "Medal",
-        "Requisition Slip": "Requisition Slip",
-        "Common Sample": "Common Sample",
-        "Rare Sample": "Rare Sample",
-        "Super Sample": "Super Sample"
+        "Unknown Item": "Item desconhecido",
+        "Medal": "Medalha",
+        "Requisition Slip": "Fichas de Requisição",
+        "Common Sample": "Amostras Comun",
+        "Rare Sample": "Amostras Rara",
+        "Super Sample": "Super Amostra"
     },
     "special_units": {
-        "THE JET BRIGADE": "THE JET BRIGADE",
-        "PREDATOR STRAIN": "PREDATOR STRAIN",
-        "GLOOM BURSTER STRAIN": "GLOOM BURSTER STRAIN",
-        "INCINERATION CORPS": "INCINERATION CORPS",
-        "THE GREAT HOST": "THE GREAT HOST",
-        "RUPTURE STRAIN": "RUPTURE STRAIN",
-        "DRAGONROACHES": "DRAGONROACHES",
-        "HIVE LORDS": "HIVE LORDS"
+        "THE JET BRIGADE": "BRIGADA A JATO",
+        "PREDATOR STRAIN": "CEPA PREDADORA",
+        "GLOOM BURSTER STRAIN": "CEPA ESPORÍFERA",
+        "INCINERATION CORPS": "UNIDADES DE INCINERAÇÃO",
+        "THE GREAT HOST": "A GRÃ-FROTA",
+        "RUPTURE STRAIN": "CEPA ROMPEDORA",
+        "DRAGONROACHES": "DRACOBARATAS",
+        "HIVE LORDS": "SENHORES DOS NINHOS"
     }
 }
