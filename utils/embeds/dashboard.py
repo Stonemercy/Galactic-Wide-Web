@@ -1205,7 +1205,7 @@ class Dashboard:
                     continue
                 else:
                     field_name += f"{campaign.faction.emoji} - **{campaign.planet.loc_names[language_json['code_long']]}** {campaign.planet.exclamations}"
-                    field_value += f"Heroes: **{campaign.planet.stats.player_count:,}**"
+                    field_value += f"{language_json['embeds']['Dashboard']['AttackEmbed']['heroes']}: **{campaign.planet.stats.player_count:,}**"
 
                     for su in SpecialUnits.get_from_effects_list(
                         campaign.planet.active_effects
