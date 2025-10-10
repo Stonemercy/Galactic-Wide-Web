@@ -372,4 +372,7 @@ stratagem_id_dict = {
     1247082912: "CQC-1 One True Flag",
     3560739565: "GL-52 De-Escalator",
     2961443701: "PLAS-45 Epoch",
+    4030799106: "S-11 Speargun",
+    4189624954: "EAT-700 Expendable Napalm",
+    906184838: "MS-11 Solo Silo",
 }
