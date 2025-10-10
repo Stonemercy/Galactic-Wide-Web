@@ -115,7 +115,7 @@
             "not_set": "Não definido",
             "channel": "Canal",
             "message": "Mensagem",
-            "dashboard_title": "Dashboard",
+            "dashboard_title": "Painel",
             "dashboard_desc": "-# Um painel com informações gerais da guerra que atualiza a cada 15 minutos\n",
             "dashboard_channel_select": "Selecione o canal para o painel",
             "map_title": "Mapa",
