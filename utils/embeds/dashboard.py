@@ -1156,9 +1156,8 @@ class Dashboard:
                             )
                         )
                         if (
-                            planet.tracker
-                            and planet.tracker.change_rate_per_hour != 0
-                            and region_avail_datetime < planet.tracker.complete_time
+                            calculated_end_time.end_time
+                            and region_avail_datetime < calculated_end_time.end_time
                         ):
                             field_value += f"\n-# ↳ {region.emoji} {self.language_json['regions'][region.type]} **{region.names[self.language_json['code_long']]}** - {self.language_json['embeds']['Dashboard']['DefenceEmbed']['available']} <t:{int(region_avail_datetime.timestamp())}:R>"
                         break
