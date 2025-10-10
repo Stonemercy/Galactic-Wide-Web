@@ -1089,7 +1089,9 @@ class Dashboard:
             calculated_end_time = get_end_time(planet, self.gambit_planets)
             if (
                 calculated_end_time.end_time
-                and calculated_end_time.end_time < planet.event.end_time_datetime
+                and self.now
+                < calculated_end_time.end_time
+                < planet.event.end_time_datetime
             ):
                 field_value += f"\n{self.language_json['embeds']['Dashboard']['DefenceEmbed']['victory']} "
                 if calculated_end_time.source_planet:
