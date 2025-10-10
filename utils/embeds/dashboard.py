@@ -691,7 +691,9 @@ class Dashboard:
                 if planet.tracker and planet.tracker.change_rate_per_hour > 0:
                     change = f"{planet.tracker.change_rate_per_hour:+.2%}/hr"
                     field_value += f"\n`{change:^25}`"
-            elif planet.stats.player_count < (self.total_players * 0.05):
+            elif task.progress_perc != 1 and planet.stats.player_count < (
+                self.total_players * 0.05
+            ):
                 for waypoint in planet.waypoints:
                     way_planet = planets[waypoint]
                     if way_planet.stats.player_count > (self.total_players * 0.05):
