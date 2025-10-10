@@ -1,5 +1,5 @@
 from asyncio import sleep
-from datetime import datetime
+from re import search
 from disnake import (
     AppCmdInter,
     HTTPException,
@@ -7,6 +7,7 @@ from disnake import (
     MessageInteraction,
     NotFound,
     Permissions,
+    ui,
 )
 from disnake.ext import commands
 from main import GalacticWideWebBot
@@ -195,17 +196,20 @@ class AdminCommandsCog(commands.Cog):
                 delete_after=5,
             )
             return
-        guild_id = int(inter.message.embeds[0].fields[0].value[3:])
+        guild_id = inter.message.components[0].children[0].children[0].content
+        guild_id = search(r"Guild ID:\s*(\d+)", guild_id).group(1)
         discord_guild = self.bot.get_guild(guild_id) or await self.bot.fetch_guild(
             guild_id
         )
         if inter.component.custom_id == "leave_guild_button":
             await inter.edit_original_response(
-                components=[ConfirmButton("leave", discord_guild)]
+                components=[ui.components_from_message(inter.message)[0]]
+                + [ui.ActionRow(ConfirmButton("leave", discord_guild))]
             )
         elif inter.component.custom_id == "reset_guild_button":
             await inter.edit_original_response(
-                components=[ConfirmButton("reset", discord_guild)]
+                components=[ui.components_from_message(inter.message)[0]]
+                + [ui.ActionRow(ConfirmButton("reset", discord_guild))]
             )
         elif "confirm_button" in inter.component.custom_id:
             split_button_id = inter.component.custom_id.split("_")
@@ -236,9 +240,10 @@ class AdminCommandsCog(commands.Cog):
                             f"There was an error:\n```py\n{e}\n```", ephemeral=True
                         )
                         return
-                    await inter.send(
-                        content=f"Successfully reset **{discord_guild.name}**'s settings",
-                        ephemeral=True,
+                    await inter.edit_original_response(
+                        components=GuildContainer(
+                            guild=discord_guild, db_guild=db_guild, fetching=True
+                        )
                     )
 
     @wait_for_startup()
