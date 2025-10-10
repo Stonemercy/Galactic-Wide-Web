@@ -293,7 +293,7 @@
             ]
         },
         "StA-X3 W.A.S.P. Launcher": {
-            "id": "UNKNOWN",
+            "id": 3564779466,
             "description": "A versatile missile launcher loaded with seven lock-on homing missiles. These can either be fired from the launcher directly or as an airburst. Includes support backpack required for reloading.\nProduced by St\u00e5l Arms.",
             "image_link": "https://helldivers.wiki.gg/images/StA-X3_W.A.S.P._Launcher_Stratagem_Icon.png?c5c842",
             "button_combination": [
@@ -994,7 +994,7 @@
             ]
         },
         "MD-8 Gas Mines": {
-            "id": 3564779466,
+            "id": 1326547218,
             "description": "Deploys mines that release gas on activation, temporarily blinding and slowing most enemies.",
             "image_link": "https://helldivers.wiki.gg/images/Gas_Minefield_Stratagem_Icon.png?3b8000",
             "button_combination": [
@@ -1013,7 +1013,7 @@
             "tags": []
         },
         "Arc-3 Arc Thrower": {
-            "id": "UNKNOWN",
+            "id": 2138935687,
             "description": "Projects an arc of lightning at close range. Charges up to project bolts, and may discharge through multiple targets.",
             "image_link": "https://helldivers.wiki.gg/images/Arc_Thrower_Stratagem_Icon.png?63ff8b",
             "button_combination": [
@@ -1504,7 +1504,7 @@
             ]
         },
         "S-11 Speargun": {
-            "id": "UNKNOWN",
+            "id": 4030799106,
             "description": "A speargun firing heavy-duty projectiles. These projectiles release a cloud of gas on impact, and must be carefully loaded one at a time.",
             "image_link": "https://helldivers.wiki.gg/images/S-11_Speargun_Stratagem_Icon.png?57a8ba",
             "button_combination": [
@@ -1529,7 +1529,7 @@
             ]
         },
         "EAT-700 Expendable Napalm": {
-            "id": "UNKNOWN",
+            "id": 4189624954,
             "description": "A single-use weapon that fires a missile containing napalm cluster bombs that release upon impact.",
             "image_link": "https://helldivers.wiki.gg/images/EAT-700_Expendable_Napalm_Stratagem_Icon.png?81854c",
             "button_combination": [
@@ -1554,7 +1554,7 @@
             ]
         },
         "MS-11 Solo Silo": {
-            "id": "UNKNOWN",
+            "id": 906184838,
             "description": "A silo that fits one single, powerful missile. Comes with a handheld targeting remote.",
             "image_link": "https://helldivers.wiki.gg/images/MS-11_Stratagem_Icon.png?944c5f",
             "button_combination": [
@@ -1577,7 +1577,7 @@
             ]
         },
         "CQC-1 One True Flag": {
-            "id": 1326547218,
+            "id": 1247082912,
             "description": "The eternal colors of Super Earth can never be tainted. Only quenched, by the blood of its enemies.",
             "image_link": "https://helldivers.wiki.gg/images/CQC-1_One_True_Flag_Stratagem_Icon.png?3cf8b5",
             "button_combination": [
