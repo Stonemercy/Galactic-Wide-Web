@@ -1095,7 +1095,7 @@ class Dashboard:
                         f"**<t:{int(calculated_end_time.end_time.timestamp())}:R>**"
                     )
                 elif calculated_end_time.gambit_planet:
-                    field_value += f"**<t:{int(calculated_end_time.end_time.timestamp())}:R>** {self.language_json['embeds']['Dashboard']['DefenceEmbed']['thanks_to_gambit'].format(planet=calculated_end_time.gambit_planet.names[self.language_json['code_long']])}"
+                    field_value += f"**<t:{int(calculated_end_time.end_time.timestamp())}:R>** {self.language_json['embeds']['Dashboard']['DefenceEmbed']['thanks_to_gambit'].format(planet=calculated_end_time.gambit_planet.loc_names[self.language_json['code_long']])}"
                 elif calculated_end_time.regions:
                     regions_list = f"\n-# ".join(
                         [f" {r.emoji} {r.name}" for r in calculated_end_time.regions]
