@@ -31,7 +31,7 @@
             "active": "ativo(a)",
             "inactive": "desativado(a)",
             "on_cooldown": "recarregando",
-            "prep_starts": "Preparing starts",
+            "prep_starts": "Preparação começa",
             "tactical_actions": {
                 "EAGLE STORM": {
                     "name": "ÁGUIA TEMPESTIVA",
@@ -156,8 +156,8 @@
                 "reward_pluralized": "{reward}s",
                 "ahead_of_schedule": "\n-# Adiantado em **{hours}h {minutes}m** ",
                 "behind_schedule": "\n-# Atrasado em **{hours}h {minutes}m**",
-                "if_regions": "-# If the following regions are liberated",
-                "avail_thanks_to_wp": "\n-# Available **<t:{timestamp}:R>** thanks to {planet_name} liberation",
+                "if_regions": "-# Se as seguintes regiões forem liberadas",
+                "avail_thanks_to_wp": "\n-# Disponível em **<t:{timestamp}:R>** graças a liberação de {planet_name}",
                 "tasks": {
                     "typeNew": "{alert_emoji} OBJETIVO DESCONHECIDO",
                     "type2": "{status_emoji} **Extraia com sucesso com {amount} {item}**",
@@ -170,7 +170,7 @@
                     "type7": "{status_emoji}  **Extraia de uma Missão Concluída contra os{faction} {amount} vezes**",
                     "type9": "{status_emoji} **Complete uma Operacão {against_faction}{on_difficulty} {amount} vezes**",
                     "type9_against_faction": " **contra os {faction}**",
-                    "type9_on_difficulty": " **em {difficulty} or maior**",
+                    "type9_on_difficulty": " **em {difficulty} ou maior**",
                     "type11": "{status_emoji} **Libere {planet}**",
                     "type12": "{status_emoji} **Defenda {planet} de {amount} ataques**",
                     "type12_planet": " **{planet}**",
@@ -186,7 +186,7 @@
                 "preparing": "Preparando",
                 "active": "Ativo(a)",
                 "on_cooldown": "Recarregando",
-                "off_cooldown": "terminou de recarregar",
+                "off_cooldown": "Disponível novamente",
                 "inactive": "Desativado(a)",
                 "tactical_actions": {
                     "EAGLE STORM": {
@@ -215,23 +215,23 @@
                 "event_health": "Liberação de Planetas",
                 "level": "Invasão de Nível",
                 "defence_held_by_dss": "\n> -# DEFESA SEGURADA PELA EED",
-                "ends": "Ends",
-                "invasion_level": "Invasion Level",
+                "ends": "Acaba",
+                "invasion_level": "Invasão de Nível",
                 "feature": "Recurso",
-                "victory": "Victory",
-                "loss": "Losing",
-                "thanks_to_gambit": "graças á liberação de **{planet}**",
-                "if_region_lib": "\n-# If the following regions get liberated:\n-# {regions_list}",
+                "victory": "Vitória",
+                "loss": "Perdendo",
+                "thanks_to_gambit": "graças à liberação de **{planet}**",
+                "if_region_lib": "\n-# Se as seguintes regiões forem liberadas:\n-# {regions_list}",
                 "gambit_available": ":chess_pawn: Pode ser finalizada liberando **{planet}**",
-                "heroes": "Heroes",
-                "available": "available"
+                "heroes": "Heróis",
+                "available": "disponível"
             },
             "AttackEmbed": {
                 "title": "Atacando {faction}",
-                "heroes": "Heroes",
+                "heroes": "Heróis",
                 "planet_health": "Liberação de Planetas",
-                "victory": "Victory",
-                "if_regions": "If the following regions are liberated",
+                "victory": "Vitória",
+                "if_regions": "Se as seguintes regiões forem liberadas",
                 "low_impact": "Impacto baixo/Planetas populacionais",
                 "feature": "\nRecurso: {feature}"
             },
@@ -252,10 +252,10 @@
     "complete": "Completo",
     "failure": "Falha",
     "regions": {
-        "Mega City": "Mega City",
-        "City": "City",
-        "Town": "Town",
-        "Settlement": "Settlement"
+        "Mega City": "Mega Cidade",
+        "City": "Cidade",
+        "Town": "Município",
+        "Settlement": "Bairro"
     },
     "dss": {
         "title": "Estação Espacial Democracia",
@@ -273,11 +273,11 @@
                 "description": "-# **Campanhas Defensivas** não podem se originar deste planeta.\n-# O reforçador **Otimização Espacial de Hellpod** fica ativo automaticamente durante as missões."
             },
             "DISTRIBUIÇÃO DE ARTILHARIA PESADA": {
-                "name": "HEAVY ORDNANCE DISTRIBUTION",
+                "name": "DISTRIBUIÇÃO DE ARTILHARIA PESADA",
                 "description": "-# Dá acesso à **Barragem Orbital DT de 380MM** durante missões.\n-# Acelera o progresso das **Campanhas de Libertação**."
             },
             "BLOQUEIO DE ÁGUIA": {
-                "name": "EAGLE BLOCKADE",
+                "name": "BLOQUEIO DE ÁGUIA",
                 "description": "-# Envia **Ataques Aéreos via Águia** periódicos durante as missões.\n-# O reforçador **Otimização Espacial de Hellpod** fica ativo automaticamente durante as missões."
             }
         }
@@ -372,7 +372,7 @@
                 "item_pluralized": "{item}s",
                 "ends": "Finaliza",
                 "preparing": "Preparando",
-                "active": "Ativo(a",
+                "active": "Ativo(a)",
                 "inactive": "Desativado(a",
                 "on_cooldown": "recarregando",
                 "off_cooldown": "disponível novamente",
@@ -391,7 +391,7 @@
                         "description": "-# Dá acesso à **Barragem Orbital DT de 380MM** durante missões.\n-# Acelera o progresso das **Campanhas de Libertação**."
                     },
                     "BLOQUEIO DE ÁGUIA": {
-                        "name": "EAGLE BLOCKADE",
+                        "name": "BLOQUEIO DE ÁGUIA",
                         "description": "-# Envia **Ataques Aéreos via Águia** periódicos durante as missões.\n-# O reforçador **Otimização Espacial de Hellpod** fica ativo automaticamente durante as missões."
                     }
                 }
@@ -476,7 +476,7 @@
                 "features": "Recursos:{features}"
             },
             "GrenadesEmbed": {
-                "information_title": "Information",
+                "information_title": "Informação",
                 "damage": "Dano: **`{damage}`**\n",
                 "fuse_time": "Tempo de fusível: **`{fuse_time} seconds`**\n",
                 "penetration": "Penetração: **`{penetration}`**\n",
