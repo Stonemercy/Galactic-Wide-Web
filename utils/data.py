@@ -1,4 +1,4 @@
-from aiohttp import ClientSession, ClientSSLError
+from aiohttp import ClientSession, ClientSSLError, ClientTimeout
 from asyncio import sleep
 from copy import deepcopy
 from data.lists import stratagem_id_dict
@@ -30,6 +30,8 @@ DEF_LEVEL_EXC = {
     100: " :skull:",
     250: " :skull_crossbones:",
 }
+
+TIMEOUT = ClientTimeout(total=30)
 
 
 class Data(ReprMixin):
@@ -125,44 +127,52 @@ class Data(ReprMixin):
                     "Accept-Language": lang.long_code,
                     "X-Super-Client": "Galactic Wide Web",
                     "X-Super-Contact": "Stonemercy",
-                }
+                },
+                timeout=TIMEOUT,
             ) as session:
-                # dispatches
-                async with session.get(
-                    url=f"https://api.live.prod.thehelldiversgame.com/api/NewsFeed/801?maxEntries=1024"
-                ) as r:
-                    if r.status == 200:
-                        json = await r.json()
-                        self.__data__["dispatches"][lang.short_code] = json
-                        print("[D✔️]", end="")
-                    elif r.status != 500:
-                        logger.error(f"API/DISPATCHES, {r.status}")
-                        await moderator_channel.send(content=f"API/DISPATCHES\n{r}")
-                        print(f"[D❌[{r.status}]]", end="")
+                try:
+                    # dispatches
+                    async with session.get(
+                        url=f"https://api.live.prod.thehelldiversgame.com/api/NewsFeed/801?maxEntries=1024"
+                    ) as r:
+                        if r.status == 200:
+                            json = await r.json()
+                            self.__data__["dispatches"][lang.short_code] = json
+                            print("[D✔️]", end="")
+                        elif r.status != 500:
+                            logger.error(f"API/DISPATCHES, {r.status}")
+                            await moderator_channel.send(content=f"API/DISPATCHES\n{r}")
+                            print(f"[D❌[{r.status}]]", end="")
 
-                # major orders
-                async with session.get(url=f"{api_to_use}/api/v1/assignments") as r:
-                    if r.status == 200:
-                        json = await r.json()
-                        self.__data__["assignments"][lang.short_code] = json
-                        print("[A✔️]", end="")
-                    else:
-                        logger.error(f"API/ASSIGNMENTS, {r.status}")
-                        await moderator_channel.send(content=f"API/ASSIGNMENTS\n{r}")
-                        print(f"[A❌[{r.status}]]", end="")
+                    # major orders
+                    async with session.get(url=f"{api_to_use}/api/v1/assignments") as r:
+                        if r.status == 200:
+                            json = await r.json()
+                            self.__data__["assignments"][lang.short_code] = json
+                            print("[A✔️]", end="")
+                        else:
+                            logger.error(f"API/ASSIGNMENTS, {r.status}")
+                            await moderator_channel.send(
+                                content=f"API/ASSIGNMENTS\n{r}"
+                            )
+                            print(f"[A❌[{r.status}]]", end="")
 
-                # status
-                async with session.get(
-                    url="https://api.live.prod.thehelldiversgame.com/api/WarSeason/801/Status"
-                ) as r:
-                    if r.status == 200:
-                        json = await r.json()
-                        self.__data__["status"][lang.short_code] = json
-                        print("[S✔️]")
-                    else:
-                        logger.error(f"API/STATUS, {r.status}")
-                        await moderator_channel.send(content=f"API/ASSIGNMENTS\n{r}")
-                        print(f"[S❌[{r.status}]]")
+                    # status
+                    async with session.get(
+                        url="https://api.live.prod.thehelldiversgame.com/api/WarSeason/801/Status"
+                    ) as r:
+                        if r.status == 200:
+                            json = await r.json()
+                            self.__data__["status"][lang.short_code] = json
+                            print("[S✔️]")
+                        else:
+                            logger.error(f"API/STATUS, {r.status}")
+                            await moderator_channel.send(
+                                content=f"API/ASSIGNMENTS\n{r}"
+                            )
+                            print(f"[S❌[{r.status}]]")
+                except TimeoutError as e:
+                    print(f"[TIMEOUT {e}]")
 
         # non-localized endpoints
         async with ClientSession(
