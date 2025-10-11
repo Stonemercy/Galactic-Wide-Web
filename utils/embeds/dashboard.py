@@ -328,7 +328,7 @@ class Dashboard:
                 and (
                     len(
                         [True for t in assignment.tasks if t.progress_perc == 1]
-                        + winning_all_tasks
+                        + [b for b in winning_all_tasks if b]
                     )
                     == len(assignment.tasks)
                 )
