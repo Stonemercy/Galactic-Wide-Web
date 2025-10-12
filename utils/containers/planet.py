@@ -72,6 +72,7 @@ class PlanetContainers(list[ui.Container]):
                 component_json=container_json["misc_stats"],
                 faction_json=faction_json,
             )
+            self.components.append(ui.TextDisplay(f"\n\n-# {planet.index}"))
             super().__init__(
                 *self.components,
                 accent_colour=Colour.from_rgb(
