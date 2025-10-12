@@ -85,7 +85,6 @@ class DataManagementCog(commands.Cog):
 
     @pull_from_api.before_loop
     async def before_pull_from_api(self):
-        print("pull_from_loop about to start")
         await self.bot.wait_until_ready()
 
     @tasks.loop(
