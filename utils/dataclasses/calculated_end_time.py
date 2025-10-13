@@ -9,3 +9,9 @@ class CalculatedEndTime:
     gambit_planet: Any | None = None
     regions: list | None = None
     end_time: datetime | None = None
+
+    def clear(self):
+        self.source_planet = None
+        self.gambit_planet = None
+        self.regions = None
+        self.end_time = None

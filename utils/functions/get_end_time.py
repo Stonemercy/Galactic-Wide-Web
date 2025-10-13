@@ -12,14 +12,16 @@ def get_end_time(source_planet, gambit_planets: dict[int] = {}) -> CalculatedEnd
         if source_planet.tracker.complete_time < source_planet.event.end_time_datetime:
             results.source_planet = source_planet
             results.end_time = source_planet.tracker.complete_time
-
-        if source_planet.index in gambit_planets and not results.end_time:
+        if source_planet.index in gambit_planets:
             gambit_planet = gambit_planets[source_planet.index]
             end_time_info = get_end_time(gambit_planet)
             if (
                 end_time_info.end_time
                 and end_time_info.end_time < source_planet.event.end_time_datetime
+            ) or (
+                results.end_time != None and end_time_info.end_time < results.end_time
             ):
+                results.clear()
                 results.gambit_planet = gambit_planet
                 results.end_time = end_time_info.end_time
 
@@ -31,8 +33,8 @@ def get_end_time(source_planet, gambit_planets: dict[int] = {}) -> CalculatedEnd
             ],
             key=lambda x: x.availability_factor,
         )
-        if non_lib_regions and not results.end_time:
-            results.regions = []
+        if non_lib_regions:
+            regions = []
             region_rates = [
                 r.tracker.change_rate_per_hour / r.size
                 for r in non_lib_regions
@@ -43,7 +45,7 @@ def get_end_time(source_planet, gambit_planets: dict[int] = {}) -> CalculatedEnd
             )
             current_perc = source_planet.event.progress
             hours_from_now = 0
-            if average_region_rate != 0:
+            if average_region_rate > 0:
                 for index, region in enumerate(non_lib_regions):
                     est_lib_time = (
                         ((1 - region.perc) / (average_region_rate * region.size))
@@ -59,7 +61,7 @@ def get_end_time(source_planet, gambit_planets: dict[int] = {}) -> CalculatedEnd
                             planet_health_at_region_lib + region.planet_damage_perc
                         )
                         hours_from_now += est_lib_time
-                        results.regions.append(region)
+                        regions.append(region)
                     else:
                         # if planet is liberated before region
                         if region != non_lib_regions[-1]:
@@ -81,7 +83,11 @@ def get_end_time(source_planet, gambit_planets: dict[int] = {}) -> CalculatedEnd
                         if region == non_lib_regions[0]:
                             results.source_planet = source_planet
 
-                results.end_time = datetime.now() + timedelta(hours=hours_from_now)
+                end_time = datetime.now() + timedelta(hours=hours_from_now)
+                if results.end_time and end_time < results.end_time:
+                    results.clear()
+                    results.end_time = end_time
+                    results.regions = regions
             else:
                 results.source_planet = source_planet
                 results.end_time = source_planet.tracker.complete_time
@@ -95,7 +101,7 @@ def get_end_time(source_planet, gambit_planets: dict[int] = {}) -> CalculatedEnd
             key=lambda x: x.availability_factor,
         )
         if non_lib_regions:
-            results.regions = []
+            regions = []
             region_rates = [
                 r.tracker.change_rate_per_hour / r.size
                 for r in non_lib_regions
@@ -106,7 +112,7 @@ def get_end_time(source_planet, gambit_planets: dict[int] = {}) -> CalculatedEnd
             )
             current_perc = 1 - source_planet.health_perc
             hours_from_now = 0
-            if average_region_rate != 0:
+            if average_region_rate > 0:
                 for index, region in enumerate(non_lib_regions):
                     est_lib_time = (
                         ((1 - region.perc) / (average_region_rate * region.size))
@@ -122,7 +128,7 @@ def get_end_time(source_planet, gambit_planets: dict[int] = {}) -> CalculatedEnd
                             planet_health_at_region_lib + region.planet_damage_perc
                         )
                         hours_from_now += est_lib_time
-                        results.regions.append(region)
+                        regions.append(region)
                     else:
                         # if planet is liberated before region
                         if region != non_lib_regions[-1]:
@@ -143,11 +149,9 @@ def get_end_time(source_planet, gambit_planets: dict[int] = {}) -> CalculatedEnd
                         )
                         if region == non_lib_regions[0]:
                             results.source_planet = source_planet
-
-                results.end_time = datetime.now() + timedelta(hours=hours_from_now)
-            else:
-                results.source_planet = source_planet
-                results.end_time = source_planet.tracker.complete_time
+                end_time = datetime.now() + timedelta(hours=hours_from_now)
+                results.regions = regions
+                results.end_time = end_time
         else:
             if source_planet.tracker.change_rate_per_hour > 0:
                 results.source_planet = source_planet
