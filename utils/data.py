@@ -678,7 +678,7 @@ class Assignment(ReprMixin):
             "enemy_id",
             "item_id",
             "objective",
-            "value8",
+            "min_players",
             "value10",
             "difficulty",
             "planet_index",
@@ -694,18 +694,17 @@ class Assignment(ReprMixin):
             self.values_dict = dict(zip(task["valueTypes"], task["values"]))
             self.faction = self.target = self.enemy_id = self.item_id = (
                 self.objective
-            ) = self.value8 = self.difficulty = self.value10 = self.planet_index = (
-                self.sector_index
-            ) = None
+            ) = self.min_players = self.difficulty = self.value10 = (
+                self.planet_index
+            ) = self.sector_index = None
             self.tracker: BaseTrackerEntry | None = None
 
             if faction := self.values_dict.get(1):
                 self.faction: Faction | None = Factions.get_from_identifier(
                     number=faction
                 )
-            if value2 := self.values_dict.get(2):
-                self.value2 = value2
-                print(f"VALUE2 USED: {self.type, self.value2 = }")
+            if personal := self.values_dict.get(2):
+                self.personal = personal
             if target := self.values_dict.get(3):
                 self.target: int | float = target
             if enemy_id := self.values_dict.get(4):
@@ -714,15 +713,14 @@ class Assignment(ReprMixin):
                 self.item_id = self.values_dict.get(5)
             if objective := self.values_dict.get(7):
                 self.objective = objective
-                print(f"OBJECTIVE USED: {self.type, self.objective = }")
-            if value8 := self.values_dict.get(8):
-                self.value8 = value8
-                print(f"VALUE8 USED: {self.type, self.value8 = }")
+                print(f"VALUETYPE 7 - OBJECTIVE: {self.objective}")
+            if min_players := self.values_dict.get(8):
+                self.min_players: int = min_players
             if difficulty := self.values_dict.get(9):
                 self.difficulty = difficulty
             if value10 := self.values_dict.get(10):
                 self.value10 = value10
-                print(f"VALUE10 USED: {self.type, self.value10 = }")
+                print(f"VALUETYPE 10 - UNKNOWN: {self.value10}")
             if location_type := self.values_dict.get(11):
                 if location_type == 1:
                     self.planet_index: int = self.values_dict.get(12)
