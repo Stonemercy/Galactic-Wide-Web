@@ -26,7 +26,7 @@ class PlanetCog(commands.Cog):
         if not inter.bot.data.loaded:
             return []
         return [
-            p.name
+            f"{p.index}-{p.name}"
             for p in sorted(
                 inter.bot.data.planets.values(),
                 key=lambda x: x.stats.player_count,
@@ -73,7 +73,7 @@ class PlanetCog(commands.Cog):
         self.bot.logger.info(
             f"{self.qualified_name} | /{inter.application_command.name} <{planet = }> <{with_map = }> <{public = }>"
         )
-        planet_data = self.bot.data.planets.get_by_name(planet)
+        planet_data = self.bot.data.planets.get(int(planet.split("-")[0]))
         if not planet_data:
             return await inter.send(
                 "That planet is unavailable. Please select another planet from the list.",
