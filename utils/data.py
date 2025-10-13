@@ -1240,7 +1240,7 @@ class Planet(ReprMixin):
             self.player_count = raw_stats_data["playerCount"]
 
 
-class Planets(dict):
+class Planets(dict[int, Planet]):
     def __init__(self, raw_planets_data: list[dict], planet_names_json: dict) -> None:
         """A dict in the format of `{int: Planet}` containing all of the current planets"""
         for raw_planet_data in raw_planets_data:
@@ -1248,22 +1248,6 @@ class Planets(dict):
                 raw_planet_data=raw_planet_data,
                 planet_names=planet_names_json[str(raw_planet_data["index"])]["names"],
             )
-
-    def get_by_name(self, name: str) -> Planet | None:
-        planet_list = [
-            planet for planet in self.values() if planet.name.upper() == name.upper()
-        ]
-        return None if not planet_list else planet_list[0]
-
-    # For typehinting #
-    def items(self) -> ItemsView[int, Planet]:
-        return super().items()
-
-    def values(self) -> ValuesView[Planet]:
-        return super().values()
-
-    def __getitem__(self, key) -> Planet:
-        return super().__getitem__(key)
 
 
 class Campaign(ReprMixin):
