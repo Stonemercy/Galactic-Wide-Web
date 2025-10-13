@@ -775,13 +775,10 @@ class Dashboard:
 
         def _add_outlook_text(self) -> None:
             outlook_text = ""
-            print(f"{self.assignment.ends_at_datetime = }")
-            print([datetime.fromtimestamp(ts) for ts in self.completion_timestamps])
             winning_all_tasks = [
                 ts < self.assignment.ends_at_datetime.timestamp()
                 for ts in self.completion_timestamps
             ]
-            print("Tasks to be completed:", len(self.assignment.tasks))
             type_13_tasks = [t for t in self.assignment.tasks if t.type == 13]
             complete_type_13s = [
                 True
@@ -796,10 +793,6 @@ class Dashboard:
                 ]
                 + [b for b in winning_all_tasks if b]
                 + complete_type_13s
-            )
-            print(
-                "Tasks due to be complete:",
-                len(complete_tasks),
             )
             if (
                 self.assignment.flags == 1
@@ -828,18 +821,15 @@ class Dashboard:
                     ]["ahead_of_schedule"].format(hours=hours, minutes=minutes)
             else:
                 outlook_text += f"{self.language_json['failure']} <t:{int(self.assignment.ends_at_datetime.timestamp())}:R>"
-                print(self.assignment.ends_at_datetime.timestamp())
                 if self.completion_timestamps != []:
                     oldest_timestamp: int = sorted(
                         self.completion_timestamps, reverse=True
                     )[0]
-                    print(oldest_timestamp)
                     time_diff = (
                         oldest_timestamp - self.assignment.ends_at_datetime.timestamp()
                     )
                     hours = f"{time_diff // 3600:.0f}"
                     minutes = f"{(time_diff % 3600) // 60:.0f}"
-                    print(f"{hours}h {minutes}m behind schedule")
                     if 0 < time_diff // 3600 < 250:
                         outlook_text += self.language_json["embeds"]["Dashboard"][
                             "MajorOrderEmbed"
