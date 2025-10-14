@@ -139,7 +139,7 @@ class Data(ReprMixin):
                             json = await r.json()
                             self.__data__["dispatches"][lang.short_code] = json
                             print("[D✔️]", end="")
-                        elif r.status != 500:
+                        else:
                             logger.error(f"API/DISPATCHES, {r.status}")
                             await moderator_channel.send(content=f"API/DISPATCHES\n{r}")
                             print(f"[D❌[{r.status}]]", end="")
@@ -1205,7 +1205,11 @@ class Planet(ReprMixin):
         @property
         def planet_damage_perc(self) -> float:
             """Returns how much percentage points it does the the planet upon liberation"""
-            return (self.max_health * 1.5) / self.planet.max_health
+            return (self.max_health * 1.5) / (
+                self.planet.max_health
+                if not self.planet.event
+                else self.planet.event.max_health
+            )
 
         def update_from_status_data(self, raw_planet_region_data: dict):
             self.owner: Faction | None = Factions.get_from_identifier(
