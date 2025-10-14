@@ -52,6 +52,7 @@ class WarUpdatesCog(commands.Cog):
                         "special_units"
                     ],
                     factions=self.bot.json_dict["languages"][lang]["factions"],
+                    regions=self.bot.json_dict["languages"][lang]["regions"],
                 )
             )
             for lang in unique_langs

@@ -7,3 +7,4 @@ class CampaignChangesJson:
     container: dict
     special_units: dict
     factions: dict
+    regions: dict

@@ -393,6 +393,7 @@ class AdminCommandsCog(commands.Cog):
                         ],
                         special_units=guild_language["special_units"],
                         factions=guild_language["factions"],
+                        regions=guild_language["regions"],
                     )
                 )
 
