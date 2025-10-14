@@ -377,6 +377,8 @@ class Maps:
             (coords[0] - int(overlay.shape[0] / 2)) + x_offset,
             (coords[1] - int(overlay.shape[1] / 2)) + y_offset,
         )
+        x = max(x, 57)
+        y = max(y, 57)
         b, g, r, a = split(overlay)
         overlay_rgb = merge((b, g, r))
         mask = a.astype(float) / 255.0
