@@ -60,6 +60,7 @@ class Dashboard:
                 self.DSSEmbed(
                     dss=data.dss,
                     language_json=language_json,
+                    gambit_planets=data.gambit_planets,
                 )
             )
 
@@ -888,7 +889,12 @@ class Dashboard:
                 self.insert_field_at(index, "", chunk, inline=False)
 
     class DSSEmbed(Embed, EmbedReprMixin):
-        def __init__(self, dss: DSS | None, language_json: dict):
+        def __init__(
+            self,
+            dss: DSS | None,
+            language_json: dict,
+            gambit_planets: dict[int, Planet],
+        ):
             super().__init__(
                 title=language_json["dss"]["title"],
                 colour=Colour.from_rgb(*CUSTOM_COLOURS["DSS"]),
@@ -896,34 +902,20 @@ class Dashboard:
             self.set_thumbnail(
                 url="https://media.discordapp.net/attachments/1212735927223590974/1413612410819969114/0xfbbeedfa99b09fec.png?ex=68bc90a6&is=68bb3f26&hm=cd8bf236a355bbed28f4847d3d62b5908d050a7eeb7396bb9a891e108acc0241&=&format=webp&quality=lossless"
             )
-            emojis = dss.planet.faction.emoji
-            for special_unit in SpecialUnits.get_from_effects_list(
-                active_effects=dss.planet.active_effects
-            ):
-                emojis += special_unit[1]
             self.description = language_json["embeds"]["Dashboard"]["DSSEmbed"][
                 "stationed_at"
             ].format(
                 planet=dss.planet.loc_names[language_json["code_long"]],
-                faction_emoji=emojis,
+                faction_emoji=dss.planet.exclamations,
             )
             move_time = int(dss.move_timer_datetime.timestamp())
-            if dss.planet.event:
-                if dss.planet.tracker and dss.planet.tracker.change_rate_per_hour > 0:
-                    if (
-                        dss.planet.tracker.complete_time
-                        < dss.planet.event.end_time_datetime
-                    ):
-                        if (
-                            int(dss.planet.tracker.complete_time.timestamp())
-                            < move_time
-                        ):
-                            move_time = int(
-                                dss.planet.tracker.complete_time.timestamp()
-                            )
-            elif dss.planet.tracker and dss.planet.tracker.change_rate_per_hour > 0:
-                if int(dss.planet.tracker.complete_time.timestamp()) < move_time:
-                    move_time = int(dss.planet.tracker.complete_time.timestamp())
+            end_time_info = get_end_time(dss.planet, gambit_planets)
+            if (
+                end_time_info.end_time
+                and int(end_time_info.end_time.timestamp()) < move_time
+            ):
+                move_time = int(end_time_info.end_time.timestamp())
+
             self.description += language_json["embeds"]["Dashboard"]["DSSEmbed"][
                 "next_move"
             ].format(timestamp=f"<t:{move_time}:R>")
@@ -1054,13 +1046,9 @@ class Dashboard:
                 < calculated_end_time.end_time
                 < planet.event.end_time_datetime
             ):
-                field_value += f"\n{self.language_json['embeds']['Dashboard']['DefenceEmbed']['victory']} "
-                if calculated_end_time.source_planet:
-                    field_value += (
-                        f"**<t:{int(calculated_end_time.end_time.timestamp())}:R>**"
-                    )
-                elif calculated_end_time.gambit_planet:
-                    field_value += f"**<t:{int(calculated_end_time.end_time.timestamp())}:R>** {self.language_json['embeds']['Dashboard']['DefenceEmbed']['thanks_to_gambit'].format(planet=calculated_end_time.gambit_planet.loc_names[self.language_json['code_long']])}"
+                field_value += f"\n{self.language_json['embeds']['Dashboard']['DefenceEmbed']['victory']} **<t:{int(calculated_end_time.end_time.timestamp())}:R>**"
+                if calculated_end_time.gambit_planet:
+                    field_value += f" {self.language_json['embeds']['Dashboard']['DefenceEmbed']['thanks_to_gambit'].format(planet=calculated_end_time.gambit_planet.loc_names[self.language_json['code_long']])}"
                 elif calculated_end_time.regions:
                     regions_list = f"\n-# ".join(
                         [f" {r.emoji} {r.name}" for r in calculated_end_time.regions]
