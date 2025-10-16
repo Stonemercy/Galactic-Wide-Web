@@ -303,7 +303,7 @@ class CampaignChangesContainer(ui.Container, ReprMixin):
                 self.json.container["planet_lost"].format(
                     planet_name=planet.loc_names[self.json.lang_code_long],
                     emojis=planet.exclamations,
-                    faction_name=planet.faction.full_name,
+                    faction_name=self.json.factions[planet.faction.full_name],
                 )
             ),
             accessory=ui.Thumbnail(LOSS_ICONS[planet.faction.full_name.lower()]),
