@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 from data.lists import (
     CUSTOM_COLOURS,
     stratagem_id_dict,
