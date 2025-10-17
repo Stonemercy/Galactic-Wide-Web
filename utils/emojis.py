@@ -110,8 +110,8 @@ class Emojis:
 
     @dataclass
     class Decoration:
-        left_banner = "<:s:1272562768897376328>"
-        right_banner = "<:s:1272562767597015151>"
+        left_banner = "<:s:1428663318461026456>"
+        right_banner = "<:s:1428663327336300654>"
         alert_icon = "<a:s:1362562770586828880>"
 
     @dataclass
