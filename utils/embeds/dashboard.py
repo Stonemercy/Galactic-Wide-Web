@@ -644,9 +644,7 @@ class Dashboard:
                             field_value += self.language_json["embeds"]["Dashboard"][
                                 "MajorOrderEmbed"
                             ]["avail_thanks_to_wp"].format(
-                                timestamp=int(
-                                    way_planet.tracker.complete_time.timestamp()
-                                ),
+                                timestamp=int(calc_end_time.end_time.timestamp()),
                                 planet_name=way_planet.loc_names[
                                     self.language_json["code_long"]
                                 ],
