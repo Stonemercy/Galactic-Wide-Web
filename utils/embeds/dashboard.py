@@ -1169,6 +1169,8 @@ class Dashboard:
                         campaign.planet.active_effects
                     ):
                         field_value += f"\n-# {feature[1]} {feature[0]}"
+                    if campaign.planet.regen_perc_per_hour < 0.001:
+                        field_value += f"\n-# :warning: {campaign.planet.regen_perc_per_hour:+.2%}/hr :warning:"
 
                     calc_end_time = get_end_time(campaign.planet)
                     if calc_end_time.end_time:
