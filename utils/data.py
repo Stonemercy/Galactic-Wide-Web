@@ -1,5 +1,5 @@
 from aiohttp import ClientSession, ClientSSLError, ClientTimeout
-from asyncio import sleep
+from asyncio import sleep, TimeoutError
 from copy import deepcopy
 from data.lists import stratagem_id_dict
 from datetime import datetime, timedelta
