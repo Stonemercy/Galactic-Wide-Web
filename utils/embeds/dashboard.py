@@ -774,6 +774,8 @@ class Dashboard:
 
         def _add_outlook_text(self) -> None:
             outlook_text = ""
+            if datetime.now() < self.assignment.ends_at_datetime - timedelta(days=2):
+                return outlook_text
             winning_all_tasks = [
                 ts < self.assignment.ends_at_datetime.timestamp()
                 for ts in self.completion_timestamps
