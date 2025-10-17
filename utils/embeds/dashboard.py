@@ -1026,7 +1026,6 @@ class Dashboard:
             ):
                 field_value += f"\n> -# {planet_feature[1]} {planet_feature[0]}"
 
-            end_time = planet.event.end_time_datetime
             if (
                 planet.dss_in_orbit
                 and self.eagle_storm
@@ -1036,7 +1035,7 @@ class Dashboard:
                     "DefenceEmbed"
                 ]["defence_held_by_dss"]
 
-            field_value += f"\n{self.language_json['embeds']['Dashboard']['DefenceEmbed']['ends']} **<t:{int(end_time.timestamp())}:R>**"
+            field_value += f"\n{self.language_json['embeds']['Dashboard']['DefenceEmbed']['ends']} **<t:{int(planet.event.end_time_datetime.timestamp())}:R>**"
             field_value += f"\n{self.language_json['embeds']['Dashboard']['DefenceEmbed']['invasion_level']} **{planet.event.level}**{planet.event.level_exclamation}"
 
             calculated_end_time = get_end_time(planet, self.gambit_planets)
