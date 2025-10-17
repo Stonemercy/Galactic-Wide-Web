@@ -9,21 +9,27 @@ def get_end_time(source_planet, gambit_planets: dict[int] = {}) -> CalculatedEnd
         return results
 
     if source_planet.event:
+        # Regular defence win
         if source_planet.tracker.complete_time < source_planet.event.end_time_datetime:
             results.source_planet = source_planet
             results.end_time = source_planet.tracker.complete_time
+
+        # Gambit win
         if source_planet.index in gambit_planets:
             gambit_planet = gambit_planets[source_planet.index]
-            end_time_info = get_end_time(gambit_planet)
-            if (
-                end_time_info.end_time
-                and end_time_info.end_time < source_planet.event.end_time_datetime
-            ) or (
-                results.end_time != None and end_time_info.end_time < results.end_time
-            ):
-                results.clear()
-                results.gambit_planet = gambit_planet
-                results.end_time = end_time_info.end_time
+            way_planet_end_time_info = get_end_time(gambit_planet)
+            if way_planet_end_time_info.end_time:
+                if (
+                    not results.end_time
+                    and way_planet_end_time_info.end_time
+                    < source_planet.event.end_time_datetime
+                ) or (
+                    results.end_time
+                    and way_planet_end_time_info.end_time < results.end_time
+                ):
+                    results.clear()
+                    results.gambit_planet = gambit_planet
+                    results.end_time = way_planet_end_time_info.end_time
 
         non_lib_regions = sorted(
             [
@@ -36,58 +42,87 @@ def get_end_time(source_planet, gambit_planets: dict[int] = {}) -> CalculatedEnd
         if non_lib_regions:
             regions = []
             region_rates = [
-                r.tracker.change_rate_per_hour / r.size
+                r.tracker.change_rate_per_hour * r.max_health
                 for r in non_lib_regions
                 if r.tracker and r.tracker.change_rate_per_hour > 0
             ]
-            average_region_rate = (
-                (sum(region_rates) / len(region_rates)) if region_rates != [] else 0
+            average_hp_per_hour = (
+                sum(region_rates) / len(region_rates) if region_rates else 0
             )
             current_perc = source_planet.event.progress
             hours_from_now = 0
-            if average_region_rate > 0:
+            if average_hp_per_hour > 0:
                 for index, region in enumerate(non_lib_regions):
+                    est_rate_pct = (
+                        (average_hp_per_hour / region.max_health)
+                        if not (
+                            region.tracker and region.tracker.change_rate_per_hour > 0
+                        )
+                        else region.tracker.change_rate_per_hour
+                    )
                     est_lib_time = (
-                        ((1 - region.perc) / (average_region_rate * region.size))
+                        ((1 - region.perc) / est_rate_pct)
                         if region.is_available
-                        else (1 / (average_region_rate * region.size))
+                        else (1 / est_rate_pct)
                     )
                     planet_health_at_region_lib = current_perc + (
                         source_planet.tracker.change_rate_per_hour * est_lib_time
                     )
-                    if planet_health_at_region_lib < 1:
+                    if planet_health_at_region_lib > 1:
+                        # if planet is liberated before region
+                        time_until_lib = (
+                            1 - current_perc
+                        ) / source_planet.tracker.change_rate_per_hour
+                        hours_from_now += time_until_lib
+                        current_perc = 1
+                        break
+                    elif planet_health_at_region_lib + region.planet_damage_perc > 1:
+                        # if region lib would cap planet
+                        current_perc = (
+                            planet_health_at_region_lib + region.planet_damage_perc
+                        )
+                        hours_from_now += est_lib_time
+                        regions.append(region)
+                        break
+                    else:
                         # if region is liberated before planet
                         current_perc = (
                             planet_health_at_region_lib + region.planet_damage_perc
                         )
                         hours_from_now += est_lib_time
                         regions.append(region)
-                    else:
-                        # if planet is liberated before region
                         if region != non_lib_regions[-1]:
-                            next_region_availability = non_lib_regions[
-                                index + 1
-                            ].availability_factor
-                            next_stage_hours = (
-                                next_region_availability - current_perc
-                            ) / source_planet.tracker.change_rate_per_hour
-                        else:
-                            next_stage_hours = (
-                                1 - current_perc
-                            ) / source_planet.tracker.change_rate_per_hour
-                        hours_from_now += next_stage_hours
-                        current_perc = 1
-                        results.end_time = datetime.now() + timedelta(
-                            hours=hours_from_now
-                        )
-                        if region == non_lib_regions[0]:
-                            results.source_planet = source_planet
+                            next_region = non_lib_regions[index + 1]
+                            next_avail = next_region.availability_factor
+                            event_duration = (
+                                source_planet.event.end_time_datetime
+                                - source_planet.event.start_time_datetime
+                            ).total_seconds()
+                            elapsed_time = (
+                                (datetime.now() + timedelta(hours=hours_from_now))
+                                - source_planet.event.start_time_datetime
+                            ).total_seconds()
+                            target_duration = event_duration * next_avail
+                            time_until_in_sec = target_duration - elapsed_time
+                            clamped_hours_until = max(0, time_until_in_sec / 3600)
+                            hours_from_now += clamped_hours_until
+                            current_perc += (
+                                clamped_hours_until
+                            ) * source_planet.tracker.change_rate_per_hour
 
+                if current_perc < 1:
+                    hours_from_now += (
+                        1 - current_perc
+                    ) / source_planet.tracker.change_rate_per_hour
                 end_time = datetime.now() + timedelta(hours=hours_from_now)
                 if results.end_time and end_time < results.end_time:
                     results.clear()
                     results.end_time = end_time
                     results.regions = regions
+                elif not results.end_time:
+                    results.end_time = end_time
+                    results.regions = regions
+
             else:
                 results.source_planet = source_planet
                 results.end_time = source_planet.tracker.complete_time
@@ -103,52 +138,60 @@ def get_end_time(source_planet, gambit_planets: dict[int] = {}) -> CalculatedEnd
         if non_lib_regions:
             regions = []
             region_rates = [
-                r.tracker.change_rate_per_hour / r.size
+                r.tracker.change_rate_per_hour * r.max_health
                 for r in non_lib_regions
                 if r.tracker and r.tracker.change_rate_per_hour > 0
             ]
-            average_region_rate = (
-                (sum(region_rates) / len(region_rates)) if region_rates != [] else 0
+            average_hp_per_hour = (
+                sum(region_rates) / len(region_rates) if region_rates else 0
             )
             current_perc = 1 - source_planet.health_perc
             hours_from_now = 0
-            if average_region_rate > 0:
+            if average_hp_per_hour > 0:
                 for index, region in enumerate(non_lib_regions):
+                    est_rate_pct = (
+                        average_hp_per_hour / region.max_health
+                        if not (
+                            region.tracker and region.tracker.change_rate_per_hour > 0
+                        )
+                        else region.tracker.change_rate_per_hour
+                    )
                     est_lib_time = (
-                        ((1 - region.perc) / (average_region_rate * region.size))
+                        ((1 - region.perc) / est_rate_pct)
                         if region.is_available
-                        else (1 / (average_region_rate * region.size))
+                        else (1 / est_rate_pct)
                     )
                     planet_health_at_region_lib = current_perc + (
                         source_planet.tracker.change_rate_per_hour * est_lib_time
                     )
-                    if planet_health_at_region_lib < 1:
+                    if planet_health_at_region_lib > 1:
+                        # if planet is liberated before region
+                        time_until_lib = (
+                            1 - current_perc
+                        ) / source_planet.tracker.change_rate_per_hour
+                        hours_from_now += time_until_lib
+                        current_perc = 1
+                        break
+                    elif planet_health_at_region_lib + region.planet_damage_perc > 1:
+                        # if region lib would cap planet
+                        current_perc = (
+                            planet_health_at_region_lib + region.planet_damage_perc
+                        )
+                        hours_from_now += est_lib_time
+                        regions.append(region)
+                        break
+                    else:
                         # if region is liberated before planet
                         current_perc = (
                             planet_health_at_region_lib + region.planet_damage_perc
                         )
                         hours_from_now += est_lib_time
                         regions.append(region)
-                    else:
-                        # if planet is liberated before region
-                        if region != non_lib_regions[-1]:
-                            next_region_availability = non_lib_regions[
-                                index + 1
-                            ].availability_factor
-                            next_stage_hours = (
-                                next_region_availability - current_perc
-                            ) / source_planet.tracker.change_rate_per_hour
-                        else:
-                            next_stage_hours = (
-                                1 - current_perc
-                            ) / source_planet.tracker.change_rate_per_hour
-                        hours_from_now += next_stage_hours
-                        current_perc = 1
-                        results.end_time = datetime.now() + timedelta(
-                            hours=hours_from_now
-                        )
-                        if region == non_lib_regions[0]:
-                            results.source_planet = source_planet
+
+                if current_perc < 1:
+                    hours_from_now += (
+                        1 - current_perc
+                    ) / source_planet.tracker.change_rate_per_hour
                 end_time = datetime.now() + timedelta(hours=hours_from_now)
                 results.regions = regions
                 results.end_time = end_time
