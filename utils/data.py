@@ -5,8 +5,7 @@ from data.lists import stratagem_id_dict
 from datetime import datetime, timedelta
 from disnake import TextChannel
 from logging import Logger
-from typing import ItemsView, ValuesView
-from utils.dataclasses import Factions, SpecialUnits, Languages, Config
+from utils.dataclasses import Factions, SpecialUnits, Languages, Config, PlanetFeatures
 from utils.dataclasses.factions import Faction
 from utils.emojis import Emojis
 from utils.functions import dispatch_format, health_bar
@@ -1102,6 +1101,10 @@ class Planet(ReprMixin):
             active_effects=self.active_effects
         ):
             result += special_unit[1]
+        for feature in PlanetFeatures.get_from_effects_list(
+            active_effects=self.active_effects
+        ):
+            result += feature[1]
         return result
 
     class Event(ReprMixin):
