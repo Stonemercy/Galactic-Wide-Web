@@ -32,6 +32,7 @@
             "inactive": "desativado(a)",
             "on_cooldown": "recarregando",
             "prep_starts": "Preparação começa",
+            "expires": "Expira",
             "tactical_actions": {
                 "EAGLE STORM": {
                     "name": "ÁGUIA TEMPESTIVA",

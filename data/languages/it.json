@@ -32,6 +32,7 @@
             "inactive": "inactive",
             "on_cooldown": "on cooldown",
             "prep_starts": "Preparing starts",
+            "expires": "Expires",
             "tactical_actions": {
                 "EAGLE STORM": {
                     "name": "EAGLE STORM",

@@ -131,7 +131,7 @@ class DSSChangesContainer(ui.Container, ReprMixin):
         elif tactical_action.status == 2:
             section.children[0].content += (
                 f"\n{self.json.container['tactical_actions'].get(tactical_action.name, {}).get('description', tactical_action.description)}"
-                + f"\nExpires <t:{int(tactical_action.status_end_datetime.timestamp())}:R>"
+                + f"\n{self.json.container['expires']} <t:{int(tactical_action.status_end_datetime.timestamp())}:R>"
             )
         elif tactical_action.status == 3:
             section.children[

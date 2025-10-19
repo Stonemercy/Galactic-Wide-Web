@@ -31,7 +31,7 @@
             "active": "активно",
             "inactive": "неактивно",
             "on_cooldown": "на перезарядке",
-            "prep_starts": "Preparing starts",
+            "expires": "Истекает",
             "tactical_actions": {
                 "EAGLE STORM": {
                     "name": "БУРЯ ОРЛА",
