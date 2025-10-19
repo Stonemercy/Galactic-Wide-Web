@@ -31,6 +31,7 @@
             "active": "активно",
             "inactive": "неактивно",
             "on_cooldown": "на перезарядке",
+            "prep_starts": "Сбор средств начнется",
             "expires": "Истекает",
             "tactical_actions": {
                 "EAGLE STORM": {
@@ -181,7 +182,7 @@
             },
             "DSSEmbed": {
                 "stationed_at": "Располагается на планете **{planet}** {faction_emoji}\n",
-                "next_move": "Следующее перемещение через {timestamp}",
+                "next_move": "Следующее перемещение {timestamp}",
                 "status": "Статус",
                 "preparing": "Готовится к использованию",
                 "active": "Активно",
@@ -368,7 +369,7 @@
             "DSSEmbed": {
                 "title": "Демократическая Космическая Станция",
                 "stationed_at": "Располагается на планете **{planet}** {faction_emoji}\n",
-                "next_move": "Следующее перемещение через {timestamp}",
+                "next_move": "Следующее перемещение {timestamp}",
                 "item_pluralized": "{item}",
                 "ends": "Заканчивается",
                 "preparing": "готовится к использованию",
