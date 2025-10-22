@@ -73,7 +73,15 @@ class PlanetCog(commands.Cog):
         self.bot.logger.info(
             f"{self.qualified_name} | /{inter.application_command.name} <{planet = }> <{with_map = }> <{public = }>"
         )
-        planet_data = self.bot.data.planets.get(int(planet.split("-")[0]))
+        planet_data = None
+        if "-" not in planet:
+            planet_data_list = [
+                p for p in self.bot.data.planets.values() if p.name.lower() == planet
+            ]
+            if planet_data_list:
+                planet_data = planet_data_list[0]
+        else:
+            planet_data = self.bot.data.planets.get(int(planet.split("-")[0]))
         if not planet_data:
             return await inter.send(
                 "That planet is unavailable. Please select another planet from the list.",
