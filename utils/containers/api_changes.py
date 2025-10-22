@@ -1,4 +1,5 @@
 from disnake import ui
+from utils.data import Planets
 from utils.dataclasses import APIChanges
 from utils.emojis import Emojis
 from utils.interactables import HDCButton
@@ -7,7 +8,7 @@ from utils.mixins import ReprMixin
 
 # DOESNT NEED LOCALIZATION
 class APIChangesContainer(ui.Container, ReprMixin):
-    def __init__(self, api_changes: list[APIChanges]) -> None:
+    def __init__(self, api_changes: list[APIChanges], planets: Planets) -> None:
         self.container_components: list = []
 
         for api_change in api_changes:
@@ -69,13 +70,13 @@ class APIChangesContainer(ui.Container, ReprMixin):
                             ]:
                                 content = "### Waypoiint(s) Removed ❌"
                                 for wp in waypoints_removed:
-                                    content += f"\n -# - **{wp}**"
+                                    content += f"\n-# - **{planets[wp].name}**"
                             if waypoints_added := [
                                 wp for wp in old_stat if wp not in new_stat
                             ]:
                                 content = "### Waypoiint(s) Added :white_check_mark:"
                                 for wp in waypoints_added:
-                                    content += f"\n -# - **{wp}**"
+                                    content += f"\n-# - **{planets[wp].name}**"
                             if waypoints_added or waypoints_removed:
                                 self.container_components.append(
                                     ui.TextDisplay(content)

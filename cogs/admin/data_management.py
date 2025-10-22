@@ -157,8 +157,12 @@ class DataManagementCog(commands.Cog):
                 total_changes[i : i + 5] for i in range(0, len(total_changes), 5)
             ]
             for chunk in chunked_changes:
-                components = [APIChangesContainer(api_changes=chunk)]
-                msg = await self.bot.channels.api_changes_channel.send(
+                components = [
+                    APIChangesContainer(
+                        api_changes=chunk, planets=self.bot.data.planets
+                    )
+                ]
+                msg = await self.bot.channels.moderator_channel.send(
                     components=components
                 )
                 await msg.publish()
