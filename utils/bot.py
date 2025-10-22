@@ -24,11 +24,15 @@ class GalacticWideWebBot(commands.AutoShardedInteractionBot):
         self.startup_time = datetime.now()
         self.ready_time = self.startup_time + timedelta(seconds=45)
         self.interface_handler = InterfaceHandler(bot=self)
+        self.channels = BotChannels()
         self.json_dict = json_dict.copy()
         self.load_json()
-        self.data = Data(json_dict=self.json_dict)
+        self.data = Data(
+            json_dict=self.json_dict,
+            logger=self.logger,
+            moderator_channel=self.channels.moderator_channel,
+        )
         self.previous_data: Data | None = None
-        self.channels = BotChannels()
         self.bot_dashboard_channel: TextChannel | None = None
         self.bot_dashboard_message: Message | None = None
         self.maps = Maps()

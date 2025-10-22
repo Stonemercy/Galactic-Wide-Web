@@ -1,17 +1,17 @@
 from aiohttp import ClientSession, ClientSSLError, ClientTimeout
-from asyncio import sleep, TimeoutError
+from asyncio import sleep, TimeoutError, wait_for
 from copy import deepcopy
 from data.lists import stratagem_id_dict
 from datetime import datetime, timedelta
 from disnake import TextChannel
-from logging import Logger
 from utils.dataclasses import Factions, SpecialUnits, Languages, Config, PlanetFeatures
 from utils.dataclasses.factions import Faction
+from utils.dbv2 import GWWGuilds
 from utils.emojis import Emojis
 from utils.functions import dispatch_format, health_bar
+from utils.logger import GWWLogger
 from utils.mixins import GWEReprMixin, ReprMixin
 from utils.trackers import BaseTracker, BaseTrackerEntry
-
 
 REGION_TYPES = {
     4: "Mega City",
@@ -30,12 +30,12 @@ DEF_LEVEL_EXC = {
     250: " :skull_crossbones:",
 }
 
-TIMEOUT = ClientTimeout(total=30)
+TIMEOUT = ClientTimeout(total=15)
 
 
 class Data(ReprMixin):
     __slots__ = (
-        "__data__",
+        "_data",
         "json_dict",
         "fetched_at",
         "assignments",
@@ -56,9 +56,13 @@ class Data(ReprMixin):
         "galactic_war_effects",
     )
 
-    def __init__(self, json_dict: dict) -> None:
+    def __init__(
+        self, json_dict: dict, logger: GWWLogger, moderator_channel: TextChannel
+    ) -> None:
         """The object to retrieve and organise all 3rd-party data used by the bot"""
         self.json_dict = json_dict
+        self.logger = logger
+        self.moderator_channel = moderator_channel
         self.default_data_dict: dict[str,] = {
             "assignments": {},
             "campaigns": None,
@@ -71,7 +75,7 @@ class Data(ReprMixin):
             "steam_playercount": None,
             "galactic_war_effects": None,
         }
-        self.__data__: dict[str,] = self.default_data_dict.copy()
+        self._data: dict[str,] = self.default_data_dict.copy()
         self.loaded: bool = False
         self.liberation_changes: BaseTracker = BaseTracker()
         self.global_resource_changes: BaseTracker = BaseTracker()
@@ -91,170 +95,163 @@ class Data(ReprMixin):
         self.galactic_war_effects: list[GalacticWarEffect] | list = []
         self.global_events: dict[str, list] = {}
 
-    async def pull_from_api(
-        self, logger: Logger, moderator_channel: TextChannel
-    ) -> None:
+    async def get_api_to_use(self, session: ClientSession):
+        try:
+            async with session.get(url=f"{self.api_to_use}") as r:
+                if r.status != 200:
+                    self.api_to_use = Config.BACKUP_API_BASE
+                    self.logger.critical("API/USING BACKUP")
+                    await self.moderator_channel.send(content=f"API/USING BACKUP\n{r}")
+        except ClientSSLError as e:
+            raise e
+
+    async def get_endpoint(
+        self,
+        endpoint_type: str,
+        url: str,
+        session: ClientSession,
+        lang: str = None,
+        params: dict = None,
+    ):
+        async with session.get(url=url, params=params) as r:
+            if r.status == 200:
+                json = await r.json()
+                if lang:
+                    self._data[endpoint_type][lang] = json
+                else:
+                    self._data[endpoint_type] = json
+                print(f"[{endpoint_type.upper()[:2]}✔️ ]", end="")
+            else:
+                if self.moderator_channel:
+                    await self.moderator_channel.send(
+                        content=f"API/{endpoint_type.upper()}\n{r}"
+                    )
+                print(f"[{endpoint_type.upper()[:2]}❌ [{r.status}]]", end="")
+
+    async def pull_from_api(self) -> None:
         """Pulls the data from each endpoint"""
         print("=" * 50)
         print(
             f"pull_from_api function started at {datetime.now().strftime('%H:%M:%S')}"
         )
         self.fetching = True
-        api_to_use = Config.API_BASE
+        self.api_to_use = Config.API_BASE
         async with ClientSession(
             headers={
                 "Accept-Language": "en-GB",
                 "X-Super-Client": "Galactic Wide Web",
                 "X-Super-Contact": "Stonemercy",
-            }
+            },
+            timeout=TIMEOUT,
         ) as session:
-            try:
-                async with session.get(url=f"{api_to_use}") as r:
-                    if r.status != 200:
-                        api_to_use = Config.BACKUP_API_BASE
-                        logger.critical("API/USING BACKUP")
-                        await moderator_channel.send(content=f"API/USING BACKUP\n{r}")
-            except ClientSSLError as e:
-                raise e
-            self.__data__ = self.default_data_dict.copy()
+            await self.get_api_to_use(session=session)
+            self._data = self.default_data_dict.copy()
 
-        # localized endpoints
-        for lang in Languages.all:
-            print(f"{lang.long_code} ", end="")
-            async with ClientSession(
-                headers={
-                    "Accept-Language": lang.long_code,
-                    "X-Super-Client": "Galactic Wide Web",
-                    "X-Super-Contact": "Stonemercy",
-                },
-                timeout=TIMEOUT,
-            ) as session:
+            print("[Session✔️ ]\nLoc", end="")
+
+            unique_languages = GWWGuilds.unique_languages()
+            in_use_languages = [
+                l for l in Languages.all if l.short_code in unique_languages
+            ]
+            for lang in in_use_languages:
+                session.headers["Accept-Language"] = lang.long_code
+                print(f"\n{lang.long_code}:", end="")
                 try:
                     # dispatches
-                    async with session.get(
-                        url=f"https://api.live.prod.thehelldiversgame.com/api/NewsFeed/801?maxEntries=1024"
-                    ) as r:
-                        if r.status == 200:
-                            json = await r.json()
-                            self.__data__["dispatches"][lang.short_code] = json
-                            print("[D✔️]", end="")
-                        else:
-                            logger.error(f"API/DISPATCHES, {r.status}")
-                            await moderator_channel.send(content=f"API/DISPATCHES\n{r}")
-                            print(f"[D❌[{r.status}]]", end="")
+                    await wait_for(
+                        self.get_endpoint(
+                            endpoint_type="dispatches",
+                            url="https://api.live.prod.thehelldiversgame.com/api/NewsFeed/801?maxEntries=1024",
+                            session=session,
+                            lang=lang.short_code,
+                        ),
+                        timeout=15,
+                    )
 
                     # major orders
-                    async with session.get(url=f"{api_to_use}/api/v1/assignments") as r:
-                        if r.status == 200:
-                            json = await r.json()
-                            self.__data__["assignments"][lang.short_code] = json
-                            print("[A✔️]", end="")
-                        else:
-                            logger.error(f"API/ASSIGNMENTS, {r.status}")
-                            await moderator_channel.send(
-                                content=f"API/ASSIGNMENTS\n{r}"
-                            )
-                            print(f"[A❌[{r.status}]]", end="")
+                    await wait_for(
+                        self.get_endpoint(
+                            endpoint_type="assignments",
+                            url=f"{self.api_to_use}/api/v1/assignments",
+                            session=session,
+                            lang=lang.short_code,
+                        ),
+                        timeout=15,
+                    )
 
                     # status
-                    async with session.get(
-                        url="https://api.live.prod.thehelldiversgame.com/api/WarSeason/801/Status"
-                    ) as r:
-                        if r.status == 200:
-                            json = await r.json()
-                            self.__data__["status"][lang.short_code] = json
-                            print("[S✔️]")
-                        else:
-                            logger.error(f"API/STATUS, {r.status}")
-                            await moderator_channel.send(
-                                content=f"API/ASSIGNMENTS\n{r}"
-                            )
-                            print(f"[S❌[{r.status}]]")
-                except TimeoutError as e:
-                    print(f"[TIMEOUT {e}]")
+                    await wait_for(
+                        self.get_endpoint(
+                            endpoint_type="status",
+                            url="https://api.live.prod.thehelldiversgame.com/api/WarSeason/801/Status",
+                            session=session,
+                            lang=lang.short_code,
+                        ),
+                        timeout=15,
+                    )
+                except (TimeoutError, Exception) as e:
+                    print(f"[ERROR {e}]")
 
-        # non-localized endpoints
-        async with ClientSession(
-            headers={
-                "Accept-Language": "en-GB",
-                "X-Super-Client": "Galactic Wide Web",
-                "X-Super-Contact": "Stonemercy",
-            }
-        ) as session:
-            for endpoint in list(self.__data__.keys()):
-                if endpoint in ("dispatches", "assignments", "status"):
+            # non-localized endpoints
+            print("\nNon-loc")
+            session.headers["Accept-Language"] = "en-GB"
+            for endpoint in list(self._data.keys()):
+                if endpoint in (
+                    "dispatches",
+                    "assignments",
+                    "status",
+                ):
                     continue
-                elif endpoint == "dss":
-                    async with session.get(
-                        url="https://api.live.prod.thehelldiversgame.com/api/SpaceStation/801/749875195"
-                    ) as r:
-                        if r.status == 200:
-                            data = await r.json()
-                            tactical_actions = data.get("tacticalActions", None)
-                            if tactical_actions:
-                                names_present = tactical_actions[0].get("name", None)
-                                if not names_present:
-                                    logger.error(
-                                        f"API/DSS, Tactical Action has no name"
-                                    )
-                                    continue
-                            self.__data__[endpoint] = data
-                            print("[DSS✔️]", end="")
-                        else:
-                            logger.error(f"API/DSS, {r.status}")
-                            print(f"[DSS❌[{r.status}]]", end="")
-                    continue
-                elif endpoint == "warinfo":
-                    async with session.get(
-                        url="https://api.live.prod.thehelldiversgame.com/api/WarSeason/801/WarInfo"
-                    ) as r:
-                        if r.status == 200:
-                            self.__data__[endpoint] = await r.json()
-                            print("[war_info✔️]", end="")
-                        else:
-                            logger.error(f"API/WARINFO, {r.status}")
-                            print(f"[war_info❌[{r.status}]]", end="")
-                    continue
-                elif endpoint == "galactic_war_effects":
-                    async with session.get(
-                        url="https://api.live.prod.thehelldiversgame.com/api/WarSeason/GalacticWarEffects"
-                    ) as r:
-                        if r.status == 200:
-                            self.__data__[endpoint] = await r.json()
-                            print("[gwe's✔️]", end="")
-                        else:
-                            logger.error(f"API/GALACTICWAREFFECTS, {r.status}")
-                            print(f"[gwe's❌[{r.status}]]", end="")
-                    continue
-                elif endpoint == "steam_playercount":
-                    async with session.get(
-                        url="https://api.steampowered.com/ISteamUserStats/GetNumberOfCurrentPlayers/v1/",
-                        params={"appid": 553850},
-                    ) as r:
-                        if r.status == 200:
-                            data = await r.json()
-                            self.steam_playercount = data["response"]["player_count"]
-                            print("[player_count✔️]", end="")
-                        else:
-                            logger.error(f"API/STEAM_PLAYERCOUNT, {r.status}")
-                            print(f"[player_count❌[{r.status}]]", end="")
-                    continue
-                try:
-                    async with session.get(url=f"{api_to_use}/api/v1/{endpoint}") as r:
-                        if r.status == 200:
-                            json = await r.json()
-                            self.__data__[endpoint] = json
-                            print(f"[{endpoint}✔️]", end="")
-                        else:
-                            logger.error(f"API/{endpoint.upper()}, {r.status}")
-                            await moderator_channel.send(
-                                content=f"API/{endpoint.upper()}\n{r}"
-                            )
-                            print(f"[{endpoint}❌[{r.status}]]", end="")
-                except Exception as e:
-                    logger.error(f"API/{endpoint.upper()}, {e}")
-                    await moderator_channel.send(content=f"API/{endpoint.upper()}\n{r}")
-                if api_to_use == Config.BACKUP_API_BASE:
+                match endpoint:
+                    case "dss":
+                        await wait_for(
+                            self.get_endpoint(
+                                endpoint_type=endpoint,
+                                url="https://api.live.prod.thehelldiversgame.com/api/SpaceStation/801/749875195",
+                                session=session,
+                            ),
+                            timeout=15,
+                        )
+                    case "warinfo":
+                        await wait_for(
+                            self.get_endpoint(
+                                endpoint_type=endpoint,
+                                url="https://api.live.prod.thehelldiversgame.com/api/WarSeason/801/WarInfo",
+                                session=session,
+                            ),
+                            timeout=15,
+                        )
+                    case "galactic_war_effects":
+                        await wait_for(
+                            self.get_endpoint(
+                                endpoint_type=endpoint,
+                                url="https://api.live.prod.thehelldiversgame.com/api/WarSeason/GalacticWarEffects",
+                                session=session,
+                            ),
+                            timeout=15,
+                        )
+                    case "steam_playercount":
+                        await wait_for(
+                            self.get_endpoint(
+                                endpoint_type=endpoint,
+                                url="https://api.steampowered.com/ISteamUserStats/GetNumberOfCurrentPlayers/v1/",
+                                session=session,
+                                params={"appid": 553850},
+                            ),
+                            timeout=15,
+                        )
+                    case _:
+                        await wait_for(
+                            self.get_endpoint(
+                                endpoint_type=endpoint,
+                                url=f"{self.api_to_use}/api/v1/{endpoint}",
+                                session=session,
+                            ),
+                            timeout=15,
+                        )
+
+                if self.api_to_use == Config.BACKUP_API_BASE:
+                    # for HD2 community API rate limit
                     await sleep(2)
 
         self.format_data()
@@ -276,27 +273,32 @@ class Data(ReprMixin):
         print("=" * 50)
 
     def format_data(self) -> None:
-        """Formats the data in `this_object.__data__` and sets the properties of `this_object`"""
-        if self.__data__["status"]["en"]:
+        """Formats the data in `this_object._data` and sets the properties of `this_object`"""
+        if self._data["steam_playercount"]:
+            self.steam_playercount: int = self._data["steam_playercount"]["response"][
+                "player_count"
+            ]
+
+        if self._data["status"]["en"]:
             self.war_start_timestamp: int = (
-                int(datetime.now().timestamp()) - self.__data__["status"]["en"]["time"]
+                int(datetime.now().timestamp()) - self._data["status"]["en"]["time"]
             )
 
-        if self.__data__["planets"]:
+        if self._data["planets"]:
             self.planets: Planets = Planets(
-                raw_planets_data=self.__data__["planets"],
+                raw_planets_data=self._data["planets"],
                 planet_names_json=self.json_dict["planets"],
             )
             self.total_players: int = sum(
                 [planet.stats.player_count for planet in self.planets.values()]
             )
 
-        if self.__data__["dss"]:
-            dss_planet: Planet = self.planets[self.__data__["dss"]["planetIndex"]]
-            if self.__data__["dss"]["flags"] == 1:
+        if self._data["dss"]:
+            dss_planet: Planet = self.planets[self._data["dss"]["planetIndex"]]
+            if self._data["dss"]["flags"] == 1:
                 dss_planet.dss_in_orbit = True
             self.dss: DSS = DSS(
-                raw_dss_data=self.__data__["dss"],
+                raw_dss_data=self._data["dss"],
                 planet=dss_planet,
                 war_start_timestamp=self.war_start_timestamp,
             )
@@ -317,8 +319,8 @@ class Data(ReprMixin):
                 reverse=True,
             )
 
-        if self.__data__["assignments"]:
-            for lang, assignments_list in self.__data__["assignments"].items():
+        if self._data["assignments"]:
+            for lang, assignments_list in self._data["assignments"].items():
                 self.assignments[lang] = sorted(
                     [
                         Assignment(raw_assignment_data=assignment)
@@ -410,7 +412,7 @@ class Data(ReprMixin):
         else:
             self.assignments = {}
 
-        if self.__data__["campaigns"] not in ([], None):
+        if self._data["campaigns"] not in ([], None):
             self.campaigns: list[Campaign] = sorted(
                 [
                     Campaign(
@@ -419,14 +421,14 @@ class Data(ReprMixin):
                             raw_campaign_data["planet"]["index"]
                         ],
                     )
-                    for raw_campaign_data in self.__data__["campaigns"]
+                    for raw_campaign_data in self._data["campaigns"]
                 ],
                 key=lambda item: item.planet.stats.player_count,
                 reverse=True,
             )
 
-        if self.__data__["dispatches"]:
-            for lang, dispatches in self.__data__["dispatches"].items():
+        if self._data["dispatches"]:
+            for lang, dispatches in self._data["dispatches"].items():
                 self.dispatches[lang] = [
                     Dispatch(
                         raw_dispatch_data=data,
@@ -436,28 +438,28 @@ class Data(ReprMixin):
                 ]
                 self.dispatches: dict[str, list[Dispatch]]
 
-        if self.__data__["steam"]:
+        if self._data["steam"]:
             self.steam: list[Steam] = [
                 Steam(raw_steam_data=raw_steam_data)
-                for raw_steam_data in self.__data__["steam"]
+                for raw_steam_data in self._data["steam"]
             ]
 
-        if self.__data__["galactic_war_effects"]:
+        if self._data["galactic_war_effects"]:
             self.galactic_war_effects: list[GalacticWarEffect] = sorted(
                 [
                     GalacticWarEffect(gwa=gwa, json_dict=self.json_dict)
-                    for gwa in self.__data__["galactic_war_effects"]
+                    for gwa in self._data["galactic_war_effects"]
                 ],
                 key=lambda x: x.id,
                 reverse=True,
             )
 
-        if self.__data__["status"]:
-            self.galactic_impact_mod: float = self.__data__["status"]["en"][
+        if self._data["status"]:
+            self.galactic_impact_mod: float = self._data["status"]["en"][
                 "impactMultiplier"
             ]
             self.global_events.clear()
-            for lang, status in self.__data__["status"].items():
+            for lang, status in self._data["status"].items():
                 if lang not in self.global_events:
                     self.global_events[lang] = []
                 for raw_global_event_data in status["globalEvents"]:
@@ -472,23 +474,19 @@ class Data(ReprMixin):
 
             self.global_resources: list[GlobalResource] = [
                 GlobalResource(raw_global_resources_data=gr)
-                for gr in self.__data__["status"]["en"]["globalResources"]
+                for gr in self._data["status"]["en"]["globalResources"]
             ]
 
             self.planets[64].position = {  # meridia
-                "x": self.__data__["status"]["en"]["planetStatus"][64]["position"]["x"],
-                "y": self.__data__["status"]["en"]["planetStatus"][64]["position"]["y"],
+                "x": self._data["status"]["en"]["planetStatus"][64]["position"]["x"],
+                "y": self._data["status"]["en"]["planetStatus"][64]["position"]["y"],
             }
             self.planets[260].position = {  # cyberstan
-                "x": self.__data__["status"]["en"]["planetStatus"][260]["position"][
-                    "x"
-                ],
-                "y": self.__data__["status"]["en"]["planetStatus"][260]["position"][
-                    "y"
-                ],
+                "x": self._data["status"]["en"]["planetStatus"][260]["position"]["x"],
+                "y": self._data["status"]["en"]["planetStatus"][260]["position"]["y"],
             }
 
-            for planet_effect in self.__data__["status"]["en"]["planetActiveEffects"]:
+            for planet_effect in self._data["status"]["en"]["planetActiveEffects"]:
                 planet = self.planets[planet_effect["index"]]
                 gwe = [
                     g
@@ -511,7 +509,7 @@ class Data(ReprMixin):
                         self.planets[planet_index].active_effects, key=lambda x: x.id
                     )
 
-            for planet_attack in self.__data__["status"]["en"]["planetAttacks"]:
+            for planet_attack in self._data["status"]["en"]["planetAttacks"]:
                 source_planet = self.planets[planet_attack["source"]]
                 target_planet = self.planets[planet_attack["target"]]
                 source_planet.attack_targets.append(target_planet.index)
@@ -534,13 +532,13 @@ class Data(ReprMixin):
                     ):
                         self.gambit_planets[defending_index] = campaign.planet
 
-        if self.__data__["warinfo"]:
-            if not self.__data__["warinfo"].get("planetRegions") or not self.__data__[
+        if self._data["warinfo"]:
+            if not self._data["warinfo"].get("planetRegions") or not self._data[
                 "status"
             ]["en"].get("planetRegions"):
                 pass
             else:
-                for region in self.__data__["warinfo"]["planetRegions"]:
+                for region in self._data["warinfo"]["planetRegions"]:
                     self.planets[region["planetIndex"]].regions[
                         region["regionIndex"]
                     ] = Planet.Region(
@@ -552,7 +550,7 @@ class Data(ReprMixin):
                         region["regionIndex"]
                     ].planet = self.planets[region["planetIndex"]]
 
-                for region in self.__data__["status"]["en"]["planetRegions"]:
+                for region in self._data["status"]["en"]["planetRegions"]:
                     if region["planetIndex"] not in self.planets:
                         continue
                     else:

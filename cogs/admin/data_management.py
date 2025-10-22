@@ -68,10 +68,7 @@ class DataManagementCog(commands.Cog):
             self.bot.previous_data = self.bot.data.copy()
         else:
             first_load = True
-        await self.bot.data.pull_from_api(
-            logger=self.bot.logger,
-            moderator_channel=self.bot.channels.moderator_channel,
-        )
+        await self.bot.data.pull_from_api()
         if first_load:
             now = datetime.now()
             if now < self.bot.ready_time:
