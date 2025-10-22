@@ -33,18 +33,6 @@ class PlanetContainers(list[ui.Container]):
                     container_json=containers_json["RegionContainer"],
                 )
             )
-        self.append(
-            ui.ActionRow(
-                *[
-                    WikiButton(
-                        link="https://helldivers.wiki.gg/wiki/Planets_and_Sectors#Planet_List"
-                    ),
-                    HDCButton(
-                        link=f"https://helldiverscompanion.com/#hellpad/planets/{planet.index}"
-                    ),
-                ]
-            )
-        )
 
     class PlanetContainer(ui.Container, ReprMixin):
         def __init__(
@@ -72,7 +60,14 @@ class PlanetContainers(list[ui.Container]):
                 component_json=container_json["misc_stats"],
                 faction_json=faction_json,
             )
-            self.components.append(ui.TextDisplay(f"\n\n-# {planet.index}"))
+            self.components.append(
+                ui.Section(
+                    ui.TextDisplay(f"\n\n-# {planet.index}"),
+                    accessory=HDCButton(
+                        link=f"https://helldiverscompanion.com/#hellpad/planets/{planet.index}"
+                    ),
+                )
+            )
             super().__init__(
                 *self.components,
                 accent_colour=Colour.from_rgb(
