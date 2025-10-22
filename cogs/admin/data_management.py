@@ -162,7 +162,7 @@ class DataManagementCog(commands.Cog):
                         api_changes=chunk, planets=self.bot.data.planets
                     )
                 ]
-                msg = await self.bot.channels.moderator_channel.send(
+                msg = await self.bot.channels.api_changes_channel.send(
                     components=components
                 )
                 await msg.publish()
