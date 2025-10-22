@@ -1212,14 +1212,30 @@ class Dashboard:
                         )
                         field_value += f"\n`{change:^25}`"
 
-                    for region in [
+                    available_regions = [
                         r for r in campaign.planet.regions.values() if r.is_available
-                    ]:
-                        field_value += f"\n-# ↳ {region.emoji} {language_json['regions'][region.type]} **{region.names[language_json['code_long']]}** {region.perc:.2%}"
-                        if region.tracker and region.tracker.change_rate_per_hour != 0:
-                            field_value += (
-                                f" | {region.tracker.change_rate_per_hour:+.2%}/hr"
-                            )
+                    ]
+                    if available_regions:
+                        for region in available_regions:
+                            field_value += f"\n-# ↳ {region.emoji} {language_json['regions'][region.type]} **{region.names[language_json['code_long']]}** {region.perc:.2%}"
+                            if (
+                                region.tracker
+                                and region.tracker.change_rate_per_hour != 0
+                            ):
+                                field_value += (
+                                    f" | {region.tracker.change_rate_per_hour:+.2%}/hr"
+                                )
+                    elif campaign.planet.regions:
+                        for region in sorted(
+                            [
+                                r
+                                for r in campaign.planet.regions.values()
+                                if r.owner != Factions.humans
+                            ],
+                            key=lambda x: x.availability_factor,
+                        ):
+                            field_value += f"\n-# ↳ {region.emoji} {language_json['regions'][region.type]} **{region.names[language_json['code_long']]}** available at **{region.availability_factor:.2%}**"
+                            break
 
                     self.add_field(
                         field_name,
