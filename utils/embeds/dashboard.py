@@ -91,6 +91,7 @@ class Dashboard:
                 faction="Illuminate",
                 total_players=data.total_players,
                 gambit_planets=data.gambit_planets,
+                planets=data.planets,
                 compact_level=compact_level,
             )
         )
@@ -106,6 +107,7 @@ class Dashboard:
                 faction="Automaton",
                 total_players=data.total_players,
                 gambit_planets=data.gambit_planets,
+                planets=data.planets,
                 compact_level=compact_level,
             )
         )
@@ -121,6 +123,7 @@ class Dashboard:
                 faction="Terminids",
                 total_players=data.total_players,
                 gambit_planets=data.gambit_planets,
+                planets=data.planets,
                 compact_level=compact_level,
             )
         )
@@ -1057,6 +1060,9 @@ class Dashboard:
                     ]["if_region_lib"].format(regions_list=regions_list)
             elif planet.tracker and planet.tracker.change_rate_per_hour > 0:
                 field_value += f"\n**{self.language_json['embeds']['Dashboard']['DefenceEmbed']['loss']}**"
+                if planet.index in self.gambit_planets and planet.event.progress < 0.5:
+                    gambit_planet = self.gambit_planets[planet.index]
+                    field_value += f"\n-# :chess_pawn: {gambit_planet.loc_names[self.language_json['code_long']]} GAMBIT"
 
             field_value += f"\n{self.language_json['embeds']['Dashboard']['DefenceEmbed']['heroes']}: **{planet.stats.player_count:,}**"
             if self.compact_level < 1:
@@ -1129,6 +1135,7 @@ class Dashboard:
             faction: str,
             total_players: int,
             gambit_planets: dict[int, Planet],
+            planets: Planets,
             compact_level: int = 0,
         ):
             super().__init__(
@@ -1184,6 +1191,15 @@ class Dashboard:
                             field_value += f"\n{language_json['embeds']['Dashboard']['AttackEmbed']['victory']} **<t:{int(calc_end_time.end_time.timestamp())}:R>**\n-# {language_json['embeds']['Dashboard']['AttackEmbed']['if_regions']}:\n-# {regions_list}"
                         elif calc_end_time.source_planet:
                             field_value += f"\n{language_json['embeds']['Dashboard']['AttackEmbed']['victory']} **<t:{int(campaign.planet.tracker.complete_time.timestamp())}:R>**"
+                    if campaign.planet.index in [
+                        p.index for p in gambit_planets.values()
+                    ]:
+                        gambit_planet = planets[
+                            {v.index: k for k, v in gambit_planets.items()}[
+                                campaign.planet.index
+                            ]
+                        ]
+                        field_value += f"\n-# :chess_pawn: GAMBIT FOR {gambit_planet.loc_names[language_json['code_long']]}"
                     if compact_level < 1:
                         field_value += f"\n{campaign.planet.health_bar}"
                     field_value += f"\n`{(1 - (campaign.planet.health_perc)):^25.2%}`"  # 1 - {health} because we need it to reach 0

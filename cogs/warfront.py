@@ -97,6 +97,7 @@ class WarfrontCog(commands.Cog):
             language_json=guild_language,
             faction=faction,
             total_players=self.bot.data.total_players,
+            planets=self.bot.data.planets,
             gambit_planets=gambit_planets,
         )
         all_planets_embed = WarfrontAllPlanetsEmbed(
