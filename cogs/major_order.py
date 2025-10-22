@@ -55,11 +55,14 @@ class MajorOrderCog(commands.Cog):
                 "# No major order IDs found in the database. Please check the war info table."
             )
             return
+        unique_langs = GWWGuilds.unique_languages()
         for index, major_order in enumerate(self.bot.data.assignments["en"]):
             if major_order.id not in current_war_info.major_order_ids:
                 mo_briefing_dict = {
                     lang.short_code: ge
-                    for lang in Languages.all
+                    for lang in [
+                        l for l in Languages.all if l.short_code in unique_langs
+                    ]
                     for ge in self.bot.data.global_events[lang.short_code]
                     if ge.assignment_id == major_order.id
                     and "" not in (ge.title, ge.message)
@@ -75,7 +78,7 @@ class MajorOrderCog(commands.Cog):
                         )
                         return
                 self.mo_briefing_check_dict.pop(major_order.id, None)
-                unique_langs = GWWGuilds().unique_languages
+                unique_langs = GWWGuilds.unique_languages()
                 embeds = {
                     lang: [
                         Dashboard.MajorOrderEmbed(
@@ -153,7 +156,7 @@ class MajorOrderCog(commands.Cog):
             or not self.bot.data.assignments["en"]
         ):
             return
-        unique_langs = GWWGuilds().unique_languages
+        unique_langs = GWWGuilds.unique_languages()
         embeds = {
             lang: [
                 Dashboard.MajorOrderEmbed(

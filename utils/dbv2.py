@@ -327,8 +327,8 @@ class GWWGuilds(list[GWWGuild], ReprMixin):
                             record_dict = dict(record)
                             self.append(GWWGuild(record_dict))
 
-    @property
-    def unique_languages(self) -> list[str]:
+    @staticmethod
+    def unique_languages() -> list[str]:
         with connection() as conn:
             with conn.cursor() as curs:
                 curs.execute("SELECT DISTINCT language FROM discord.guilds")

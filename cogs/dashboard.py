@@ -32,7 +32,7 @@ class DashboardCog(commands.Cog):
             or dashboards_start < self.bot.ready_time
         ):
             return
-        unique_langs = GWWGuilds().unique_languages
+        unique_langs = GWWGuilds.unique_languages()
         dashboards = {
             lang: Dashboard(
                 data=self.bot.data,

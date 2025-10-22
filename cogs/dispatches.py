@@ -50,7 +50,7 @@ class DispatchesCog(commands.Cog):
                     current_war_info.dispatch_id = dispatch.id
                     current_war_info.save_changes()
                     continue
-                unique_langs = GWWGuilds().unique_languages
+                unique_langs = GWWGuilds.unique_languages()
                 containers = {
                     lang: [
                         DispatchContainer(

@@ -40,7 +40,7 @@ class WarUpdatesCog(commands.Cog):
         ):
             return
         old_campaigns = WarCampaigns()
-        unique_langs = GWWGuilds().unique_languages
+        unique_langs = GWWGuilds.unique_languages()
         components = {
             lang: CampaignChangesContainer(
                 CampaignChangesJson(
@@ -228,7 +228,7 @@ class WarUpdatesCog(commands.Cog):
             return
 
         dss_updates = False
-        unique_langs = GWWGuilds().unique_languages
+        unique_langs = GWWGuilds.unique_languages()
         if self.bot.data.dss != None:
             # DSS updates
             containers = {
@@ -342,7 +342,7 @@ class WarUpdatesCog(commands.Cog):
         ):
             return
         region_updates = False
-        unique_langs = GWWGuilds().unique_languages
+        unique_langs = GWWGuilds.unique_languages()
         regions = [
             r for p in self.bot.data.planets.values() for r in p.regions.values()
         ]

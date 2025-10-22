@@ -44,7 +44,7 @@ class MapCog(commands.Cog):
             )
         except:
             pass
-        unique_langs = GWWGuilds().unique_languages
+        unique_langs = GWWGuilds.unique_languages()
         map_embeds = {lang: Embed(colour=Colour.dark_embed()) for lang in unique_langs}
         fifteen_minutes_ago = datetime.now() - timedelta(minutes=15)
         need_to_update_maps = not all(

@@ -46,7 +46,7 @@ class GlobalEventsCog(commands.Cog):
                     current_war_info.global_event_id = global_event.id
                     current_war_info.save_changes()
                     continue
-                unique_langs = GWWGuilds().unique_languages
+                unique_langs = GWWGuilds.unique_languages()
                 containers = {
                     lang: [
                         GlobalEventsContainer(

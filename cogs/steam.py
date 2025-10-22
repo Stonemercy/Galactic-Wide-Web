@@ -34,7 +34,7 @@ class SteamCog(commands.Cog):
             return
         current_war_info = WarInfo()
         if current_war_info.patch_notes_id != self.bot.data.steam[0].id:
-            unique_langs = GWWGuilds().unique_languages
+            unique_langs = GWWGuilds.unique_languages()
             embeds = {
                 lang: [
                     SteamEmbed(
