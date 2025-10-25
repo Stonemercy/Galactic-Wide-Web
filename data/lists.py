@@ -376,3 +376,7 @@ stratagem_id_dict = {
     4189624954: "EAT-700 Expendable Napalm",
     906184838: "MS-11 Solo Silo",
 }
+
+weapon_id_dict = {
+    4161086429: "Constitution",
+}

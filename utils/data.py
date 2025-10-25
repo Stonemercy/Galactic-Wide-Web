@@ -645,7 +645,7 @@ class Assignment(ReprMixin):
             raw_assignment_data["briefing"]
             if raw_assignment_data["briefing"] not in ([], None)
             else ""
-        )
+        ).replace("\n", "\n-# ")
         self.description: str = (
             raw_assignment_data["description"]
             if raw_assignment_data["description"]
@@ -751,7 +751,7 @@ class Assignment(ReprMixin):
                     """Kill {amount} {enemy_type}[ using the __{item_to_use}__][ on {planet}]"""
                     return health_bar(
                         self.progress_perc,
-                        self.faction,
+                        self.faction or "MO",
                         anim=anim,
                         increasing=increasing,
                     )

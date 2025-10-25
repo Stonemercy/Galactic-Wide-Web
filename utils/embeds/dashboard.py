@@ -2,6 +2,7 @@ from datetime import datetime, timedelta
 from data.lists import (
     CUSTOM_COLOURS,
     stratagem_id_dict,
+    weapon_id_dict,
     ATTACK_EMBED_ICONS,
     DEFENCE_EMBED_ICONS,
 )
@@ -319,8 +320,10 @@ class Dashboard:
                     )
                     + "s"
                 )
-            else:
+            elif task.faction:
                 enemy_type = task.faction.plural.title()
+            else:
+                enemy_type = "Enemies"
             field_name += self.language_json["embeds"]["Dashboard"]["MajorOrderEmbed"][
                 "tasks"
             ]["type3"].format(
@@ -333,13 +336,15 @@ class Dashboard:
                 target=enemy_type,
             )
             if task.item_id:
+                if stratagem := stratagem_id_dict.get(task.item_id, None):
+                    item_to_use = stratagem
+                elif weapon := weapon_id_dict.get(task.item_id, None):
+                    item_to_use = weapon
+                else:
+                    item_to_use = f"a specific item (TBC)"
                 field_name += self.language_json["embeds"]["Dashboard"][
                     "MajorOrderEmbed"
-                ]["tasks"]["type3_item"].format(
-                    item_to_use=stratagem_id_dict.get(
-                        task.item_id, f"||UNKNOWN [{task.item_id}]||"
-                    )
-                )
+                ]["tasks"]["type3_item"].format(item_to_use=item_to_use)
             if task.planet_index:
                 field_name += self.language_json["embeds"]["Dashboard"][
                     "MajorOrderEmbed"
