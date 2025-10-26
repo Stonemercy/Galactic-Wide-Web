@@ -518,14 +518,12 @@ class Data(ReprMixin):
             for campaign in [
                 c
                 for c in self.campaigns
-                if c.planet.faction.full_name != "Humans"
-                or len(c.planet.defending_from) != 0
-                or 1190 not in [ae.id for ae in c.planet.active_effects]
+                if c.planet.faction != Factions.humans and c.planet.attack_targets
             ]:
                 for defending_index in campaign.planet.attack_targets:
                     defending_planet = self.planets[defending_index]
                     if (
-                        len(defending_planet.defending_from) == 1
+                        len(defending_planet.attack_targets) < 2
                         and defending_planet.event
                         and campaign.planet.regen_perc_per_hour <= 0.03
                     ):
