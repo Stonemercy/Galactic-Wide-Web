@@ -144,10 +144,9 @@ class Data(ReprMixin):
             },
             timeout=TIMEOUT,
         ) as session:
+            print("[Session✔️ ]\nLoc", end="")
             await self.get_api_to_use(session=session)
             self._data = self.default_data_dict.copy()
-
-            print("[Session✔️ ]\nLoc", end="")
 
             unique_languages = GWWGuilds.unique_languages()
             in_use_languages = [
