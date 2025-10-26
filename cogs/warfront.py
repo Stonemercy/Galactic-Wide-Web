@@ -61,22 +61,6 @@ class WarfrontCog(commands.Cog):
         else:
             guild = GWWGuild.default()
         guild_language = self.bot.json_dict["languages"][guild.language]
-        gambit_planets = {}
-        for campaign in self.bot.data.campaigns:
-            if (
-                campaign.planet.faction.full_name == "Humans"
-                or len(campaign.planet.defending_from) == 0
-                or 1190 in [ae.id for ae in campaign.planet.active_effects]
-            ):
-                continue
-            else:
-                for defending_index in campaign.planet.attack_targets:
-                    defending_planet = self.bot.data.planets[defending_index]
-                    if (
-                        len(defending_planet.defending_from) < 2
-                        and defending_planet.event
-                    ):
-                        gambit_planets[defending_index] = campaign.planet
         defence_embed = Dashboard.DefenceEmbed(
             planet_events=[
                 planet
@@ -86,7 +70,7 @@ class WarfrontCog(commands.Cog):
             language_json=guild_language,
             total_players=self.bot.data.total_players,
             eagle_storm=self.bot.data.dss.get_ta_by_name("EAGLE STORM"),
-            gambit_planets=gambit_planets,
+            gambit_planets=self.bot.data.gambit_planets,
         )
         attack_embed = Dashboard.AttackEmbed(
             campaigns=[
@@ -98,7 +82,7 @@ class WarfrontCog(commands.Cog):
             faction=faction,
             total_players=self.bot.data.total_players,
             planets=self.bot.data.planets,
-            gambit_planets=gambit_planets,
+            gambit_planets=self.bot.data.gambit_planets,
         )
         all_planets_embed = WarfrontAllPlanetsEmbed(
             planets=self.bot.data.planets, faction=faction
