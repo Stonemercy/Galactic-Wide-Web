@@ -21,10 +21,7 @@ class BaseTrackerEntry(ReprMixin):
         if len(self.changes_list) == 0:
             self.changes_list.extend([delta] * self.max_entries)
         else:
-            if delta > 0.1:
-                self.changes_list.extend([delta / 30] * 15)
-            else:
-                self.changes_list.append(delta)
+            self.changes_list.append(delta)
         self.value: int | float = new_value
 
     @property
