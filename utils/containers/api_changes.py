@@ -65,16 +65,13 @@ class APIChangesContainer(ui.Container, ReprMixin):
                                 )
                             )
                         case "waypoints":
-                            if waypoints_removed := [
-                                wp for wp in old_stat if wp not in new_stat
-                            ]:
-                                content = "### Waypoiint(s) Removed ❌"
+                            content = ""
+                            if waypoints_removed := list(set(old_stat) - set(new_stat)):
+                                content += "\n### Waypoiint(s) Removed ❌"
                                 for wp in waypoints_removed:
                                     content += f"\n-# - **{planets[wp].name}**"
-                            if waypoints_added := [
-                                wp for wp in old_stat if wp not in new_stat
-                            ]:
-                                content = "### Waypoiint(s) Added :white_check_mark:"
+                            if waypoints_added := list(set(new_stat) - set(old_stat)):
+                                content += "\n### Waypoiint(s) Added :white_check_mark:"
                                 for wp in waypoints_added:
                                     content += f"\n-# - **{planets[wp].name}**"
                             if waypoints_added or waypoints_removed:

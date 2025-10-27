@@ -85,7 +85,7 @@ class DataManagementCog(commands.Cog):
         await self.bot.wait_until_ready()
 
     @tasks.loop(
-        time=[time(hour=j, minute=i, second=15) for j in range(24) for i in range(59)]
+        time=[time(hour=j, minute=i, second=15) for j in range(24) for i in range(60)]
     )
     async def check_changes(self):
         total_changes: list[APIChanges] = []
@@ -103,6 +103,7 @@ class DataManagementCog(commands.Cog):
                         stat_source="Global Resources",
                     )
                 )
+
             if (
                 self.bot.previous_data.galactic_war_effects
                 != self.bot.data.galactic_war_effects
@@ -116,6 +117,7 @@ class DataManagementCog(commands.Cog):
                         stat_source="Galactic War Effects",
                     )
                 )
+
             for old_planet, new_planet in zip(
                 self.bot.previous_data.planets.values(), self.bot.data.planets.values()
             ):
