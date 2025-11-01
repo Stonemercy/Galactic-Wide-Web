@@ -638,10 +638,14 @@ class Assignment(ReprMixin):
         self.id: int = raw_assignment_data["id"]
         self.title: str = raw_assignment_data["title"]
         self.briefing: str = (
-            raw_assignment_data["briefing"]
-            if raw_assignment_data["briefing"] not in ([], None)
-            else ""
-        ).replace("\n", "\n-# ")
+            (
+                raw_assignment_data["briefing"]
+                if raw_assignment_data["briefing"] not in ([], None)
+                else ""
+            )
+            .strip("\n")
+            .replace("\n", "\n-# ")
+        )
         self.description: str = (
             raw_assignment_data["description"]
             if raw_assignment_data["description"]
