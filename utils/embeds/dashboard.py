@@ -806,10 +806,10 @@ class Dashboard:
                 + complete_type_13s
             )
             if (
-                self.assignment.flags == 1
+                self.assignment.flags in (0, 1)
                 and (len(complete_tasks) == len(self.assignment.tasks))
             ) or (
-                self.assignment.flags in [2, 3]
+                self.assignment.flags in (2, 3)
                 and (any(complete_tasks) or any(winning_all_tasks))
             ):
                 outlook_text = self.language_json["complete"]
