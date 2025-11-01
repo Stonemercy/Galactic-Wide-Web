@@ -593,15 +593,18 @@ class Data(ReprMixin):
         """Update the changes in Major Order tasks"""
         if self.assignments:
             for assignment in self.assignments["en"]:
-                for index, task in enumerate(assignment.tasks, start=1):
+                for task_index, task in enumerate(assignment.tasks, start=1):
                     if task.type in [12, 15]:
                         continue
                     self.major_order_changes.add_entry(
-                        key=(assignment.id, index), value=task.progress_perc
+                        key=(assignment.id, task_index), value=task.progress_perc
                     )
-                    task.tracker = self.major_order_changes.get_entry(
-                        key=(assignment.id, index)
-                    )
+            for assignments in self.assignments.values():
+                for assignment in assignments:
+                    for task_index, task in enumerate(assignment.tasks, start=1):
+                        task.tracker = self.major_order_changes.get_entry(
+                            key=(assignment.id, task_index)
+                        )
 
     def update_region_changes(self) -> None:
         """Update the liberation changes in the tracker for each active region"""
