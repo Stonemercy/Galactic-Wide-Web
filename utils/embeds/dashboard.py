@@ -368,7 +368,7 @@ class Dashboard:
                         < self.assignment.ends_at_datetime
                     )
                     outlook_text = (
-                        self.language_json["completes"]
+                        self.language_json["complete"]
                         if winning
                         else self.language_json["failure"]
                     )
