@@ -504,8 +504,11 @@ class Data(ReprMixin):
                             if gwe.id in [j.id for j in ge.effects]
                         ]
                     )
-                    self.planets[planet_index].active_effects = sorted(
-                        self.planets[planet_index].active_effects, key=lambda x: x.id
+                    self.planets[planet_index].active_effects = set(
+                        sorted(
+                            self.planets[planet_index].active_effects,
+                            key=lambda x: x.id,
+                        )
                     )
 
             for planet_attack in self._data["status"]["en"]["planetAttacks"]:
