@@ -207,7 +207,7 @@ class PlanetContainers(list[ui.Container]):
             now_seconds = int(datetime.now().timestamp())
             for region in planet.regions.values():
                 text_display = ui.TextDisplay(
-                    f"{region.owner.emoji} **{region.names[lang_code]}**"
+                    f"{region.owner.emoji} **{region.names.get(lang_code, region.name)}**"
                 )
                 text_display.content += f"\n{region.emoji} {region.type}"
                 if region.description:
