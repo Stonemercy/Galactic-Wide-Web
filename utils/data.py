@@ -1167,17 +1167,15 @@ class Planet(ReprMixin):
         ):
             self.settings_hash: int = raw_planet_region_data["settingsHash"]
             json_entry: dict = planet_regions_json_dict.get(str(self.settings_hash), {})
-            if not json_entry:
-                print(f"MISSING JSON ENTRY FOR {self.settings_hash}")
             self.planet_index: int = raw_planet_region_data["planetIndex"]
             self.planet: Planet | None = None
             self.index: int = raw_planet_region_data["regionIndex"]
             self.name: str = json_entry.get("name", "COLONY")
-            if self.name == "COLONY":
-                print(f"MISSING NAME FOR {self.settings_hash}")
-            self.names: dict[str, str] = json_entry.get("names")
+            self.names: dict[str, str] = json_entry.get("names", {})
             self.description: str | None = json_entry.get("description")
-            self.descriptions: dict[str, str] | None = json_entry.get("descriptions")
+            self.descriptions: dict[str, str] | None = json_entry.get(
+                "descriptions", {}
+            )
             self.owner: Faction = planet_owner
             self.health: int = raw_planet_region_data["maxHealth"]
             self.max_health: int = raw_planet_region_data["maxHealth"]
