@@ -113,20 +113,25 @@ class Data(ReprMixin):
         lang: str = None,
         params: dict = None,
     ):
-        async with session.get(url=url, params=params) as r:
-            if r.status == 200:
-                json = await r.json()
-                if lang:
-                    self._data[endpoint_type][lang] = json
+        try:
+            async with session.get(url=url, params=params) as r:
+                print(f"[{endpoint_type.upper()[:2]}-{r.status}", end="")
+                if r.status == 200:
+                    json = await r.json()
+                    if lang:
+                        self._data[endpoint_type][lang] = json
+                    else:
+                        self._data[endpoint_type] = json
+                    print(f"✔️]", end="")
                 else:
-                    self._data[endpoint_type] = json
-                print(f"[{endpoint_type.upper()[:2]}✔️ ]", end="")
-            else:
-                if self.moderator_channel:
-                    await self.moderator_channel.send(
-                        content=f"API/{endpoint_type.upper()}\n{r}"
-                    )
-                print(f"[{endpoint_type.upper()[:2]}❌ [{r.status}]]", end="")
+                    if self.moderator_channel:
+                        await self.moderator_channel.send(
+                            content=f"API/{endpoint_type.upper()}\n{r}"
+                        )
+                    print(f"❌[{r.status}]]", end="")
+        except Exception as e:
+            await self.moderator_channel.send(e)
+            raise e
 
     async def pull_from_api(self) -> None:
         """Pulls the data from each endpoint"""
@@ -144,7 +149,7 @@ class Data(ReprMixin):
             },
             timeout=TIMEOUT,
         ) as session:
-            print("[Session✔️ ]\nLoc", end="")
+            print("[Session✔️]\nLoc", end="")
             await self.get_api_to_use(session=session)
             self._data = self.default_data_dict.copy()
 
