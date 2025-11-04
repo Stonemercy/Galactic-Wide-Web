@@ -35,6 +35,9 @@ class PlanetFeatures:
         ): {1292},
         ("HIVE WORLD", Emojis.PlanetFeatures.hive_world): {1311},
         ("ULGRAMAFIC MINE", Emojis.PlanetFeatures.ulgramafic_mine): {1324},
+        ("E-711 Extraction Facility", Emojis.PlanetFeatures.e711_extraction_facility): {
+            1333
+        },
     }
 
     @classmethod
