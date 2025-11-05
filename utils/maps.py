@@ -71,24 +71,29 @@ class Maps:
         )
 
     def update_sectors(self, planets: Planets) -> None:
-        sectors = {}
+        sectors: dict[str, list[str]] = {}
         for planet in planets.values():
+            faction_name = (
+                planet.faction.full_name
+                if not planet.event
+                else planet.event.faction.full_name
+            )
             if planet.sector not in sectors:
-                sectors[planet.sector] = [planet.faction.full_name]
+                sectors[planet.sector] = [faction_name]
             else:
-                sectors[planet.sector].append(planet.faction.full_name)
-        sectors = {s: l for s, l in sectors.items() if set(l) != set(["Humans"])}
+                sectors[planet.sector].append(faction_name)
+        enemy_sectors = {s: l for s, l in sectors.items() if set(l) != set(["Humans"])}
         sector_percentages = {
             sector: 1.5
             - (factions.count(max(factions, key=factions.count)) / len(factions))
-            for sector, factions in sectors.items()
+            for sector, factions in enemy_sectors.items()
         }
         sector_factions = {
             s: max([i for i in f if i != "Humans"], key=f.count)
-            for s, f in sectors.items()
+            for s, f in enemy_sectors.items()
         }
         sector_coords = {}
-        for sector in sectors:
+        for sector in enemy_sectors:
             sector_coords[sector] = [p for p in planets.values() if p.sector == sector][
                 0
             ].map_waypoints
