@@ -407,6 +407,7 @@ class WarUpdatesCog(commands.Cog):
                 if (
                     region.settings_hash not in old_region_hashes
                     and region.is_available
+                    and region.owner.full_name != "Humans"
                 ):
                     # if region is brand new
                     for container in components.values():
