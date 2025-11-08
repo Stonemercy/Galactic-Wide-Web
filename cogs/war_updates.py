@@ -343,12 +343,12 @@ class WarUpdatesCog(commands.Cog):
             return
         region_updates = False
         unique_langs = GWWGuilds.unique_languages()
-        regions = [
+        all_regions = [
             r for p in self.bot.data.planets.values() for r in p.regions.values()
         ]
         old_region_data = PlanetRegions()
         if not old_region_data:
-            for region in regions:
+            for region in all_regions:
                 if region.is_available:
                     old_region_data.add(
                         region.settings_hash,
@@ -373,13 +373,15 @@ class WarUpdatesCog(commands.Cog):
             for lang in unique_langs
         }
 
-        new_region_hashes = [r.settings_hash for r in regions if r.is_available]
+        active_region_hashes = [r.settings_hash for r in all_regions if r.is_available]
         for old_region in old_region_data:
             # loop through old regions
-            if old_region.settings_hash not in new_region_hashes:
+            if old_region.settings_hash not in active_region_hashes:
                 # if region has become unavailable
                 region_list = [
-                    r for r in regions if r.settings_hash == old_region.settings_hash
+                    r
+                    for r in all_regions
+                    if r.settings_hash == old_region.settings_hash
                 ]
                 if region_list:
                     # if region is still in API
@@ -395,15 +397,15 @@ class WarUpdatesCog(commands.Cog):
                                 container.add_region_victory(
                                     region=region,
                                 )
+                            region_updates = True
                     self.bot.data.region_changes.remove_entry(old_region.settings_hash)
                     old_region.delete()
-                    region_updates = True
 
-        if regions:
+        if all_regions:
             # region updates
             old_region_hashes = [r.settings_hash for r in old_region_data]
-            for region in regions:
-                # loop through new campaigns
+            for region in all_regions:
+                # loop through new regions
                 if (
                     region.settings_hash not in old_region_hashes
                     and region.is_available
