@@ -1,5 +1,5 @@
 from datetime import datetime, time
-from disnake import Activity, ActivityType
+from disnake import Activity, ActivityType, Status
 from disnake.ext import commands, tasks
 from main import GalacticWideWebBot
 from utils.containers import APIChangesContainer
@@ -45,10 +45,8 @@ class DataManagementCog(commands.Cog):
         await self.bot.interface_handler.populate_lists()
         await self.pull_from_api()
         await self.bot.change_presence(
-            activity=Activity(
-                name="democracy spread",
-                type=ActivityType.watching,
-            )
+            activity=Activity(name="/setup - /help", type=ActivityType.listening),
+            status=Status.online,
         )
 
     @startup.before_loop

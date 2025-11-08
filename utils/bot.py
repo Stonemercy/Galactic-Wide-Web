@@ -1,6 +1,6 @@
 from data.lists import json_dict
 from datetime import datetime, timedelta
-from disnake import Activity, ActivityType, Intents, Message, TextChannel
+from disnake import Intents, Message, Status, TextChannel
 from disnake.ext import commands, tasks
 from json import load
 from os import listdir
@@ -14,10 +14,7 @@ from utils.maps import Maps
 class GalacticWideWebBot(commands.AutoShardedInteractionBot):
     def __init__(self) -> None:
         """The main Galactic Wide Web bot class"""
-        super().__init__(
-            intents=Intents.default(),
-            activity=Activity(name="for dissidents", type=ActivityType.watching),
-        )
+        super().__init__(intents=Intents.default(), status=Status.idle)
         self.MODE = GWWBotModes.LIVE
         self.config = Config
         self.logger = GWWLogger()
