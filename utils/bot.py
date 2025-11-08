@@ -27,7 +27,6 @@ class GalacticWideWebBot(commands.AutoShardedInteractionBot):
         self.data = Data(
             json_dict=self.json_dict,
             logger=self.logger,
-            moderator_channel=self.channels.moderator_channel,
         )
         self.previous_data: Data | None = None
         self.bot_dashboard_channel: TextChannel | None = None

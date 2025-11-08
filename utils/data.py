@@ -3,7 +3,6 @@ from asyncio import sleep, TimeoutError, wait_for
 from copy import deepcopy
 from data.lists import stratagem_id_dict
 from datetime import datetime, timedelta
-from disnake import TextChannel
 from utils.dataclasses import Factions, SpecialUnits, Languages, Config, PlanetFeatures
 from utils.dataclasses.factions import Faction
 from utils.dbv2 import GWWGuilds
@@ -56,13 +55,10 @@ class Data(ReprMixin):
         "galactic_war_effects",
     )
 
-    def __init__(
-        self, json_dict: dict, logger: GWWLogger, moderator_channel: TextChannel
-    ) -> None:
+    def __init__(self, json_dict: dict, logger: GWWLogger) -> None:
         """The object to retrieve and organise all 3rd-party data used by the bot"""
         self.json_dict = json_dict
         self.logger = logger
-        self.moderator_channel = moderator_channel
         self.default_data_dict: dict[str,] = {
             "assignments": {},
             "campaigns": None,
@@ -101,7 +97,6 @@ class Data(ReprMixin):
                 if r.status != 200:
                     self.api_to_use = Config.BACKUP_API_BASE
                     self.logger.critical("API/USING BACKUP")
-                    await self.moderator_channel.send(content=f"API/USING BACKUP\n{r}")
         except ClientSSLError as e:
             raise e
 
@@ -115,22 +110,20 @@ class Data(ReprMixin):
     ):
         try:
             async with session.get(url=url, params=params) as r:
-                print(f"[{endpoint_type.upper()[:2]}-{r.status}", end="")
+                print(
+                    f"[{''.join([s for s in endpoint_type.title() if s.isupper()])}-",
+                    end="",
+                )
                 if r.status == 200:
                     json = await r.json()
                     if lang:
                         self._data[endpoint_type][lang] = json
                     else:
                         self._data[endpoint_type] = json
-                    print(f"✔️]", end="")
+                    print(f"\033[32m{r.status}\033[0m]", end="")
                 else:
-                    if self.moderator_channel:
-                        await self.moderator_channel.send(
-                            content=f"API/{endpoint_type.upper()}\n{r}"
-                        )
-                    print(f"❌[{r.status}]]", end="")
+                    print(f"\033[31mERR[{r.status}]\033[0m]", end="")
         except Exception as e:
-            await self.moderator_channel.send(e)
             raise e
 
     async def pull_from_api(self) -> None:
