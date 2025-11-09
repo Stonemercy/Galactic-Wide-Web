@@ -9,7 +9,7 @@ from disnake.ext import commands
 from utils.bot import GalacticWideWebBot
 from utils.checks import wait_for_startup
 from utils.dbv2 import GWWGuild, GWWGuilds
-from utils.wiki import Wiki
+from utils.embeds import DSSEmbed
 
 
 class DSSCog(commands.Cog):
@@ -48,12 +48,11 @@ class DSSCog(commands.Cog):
         else:
             guild = GWWGuild.default()
         guild_language = self.bot.json_dict["languages"][guild.language]
-        embed = Wiki.Embeds.DSSEmbed(
+        embed = DSSEmbed(
             language_json=guild_language,
             dss_data=self.bot.data.dss,
         )
-        components = Wiki.Buttons.dss_action_rows(language_json=guild_language)
-        await inter.send(embed=embed, components=components)
+        await inter.send(embed=embed)
 
 
 def setup(bot: GalacticWideWebBot):

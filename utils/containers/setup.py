@@ -295,7 +295,6 @@ class SetupContainer(ui.Container, ReprMixin):
         self.components.extend([ddispatches_section, ui.Separator()])
 
         # language
-
         self.components.append(
             ui.Section(
                 ui.TextDisplay(

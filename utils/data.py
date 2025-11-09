@@ -914,7 +914,7 @@ class GalacticWarEffect(GWEReprMixin):
             self.item_tag = item_tag
         if hash_id := self.values_dict.get(13):
             self.hash_id = hash_id
-            if enemy := json_dict["enemies"]["enemy_ids"].get(str(self.hash_id), None):
+            if enemy := json_dict["enemy_ids"].get(str(self.hash_id), None):
                 self.found_enemy: str = enemy
         if planet_body_type := self.values_dict.get(14):
             # BlackHole = 1, UNKNOWN = 2
@@ -925,9 +925,7 @@ class GalacticWarEffect(GWEReprMixin):
         if resource_hash := self.values_dict.get(16):
             # murmur2 resource hash
             self.resource_hash = resource_hash
-            if enemy := json_dict["enemies"]["enemy_ids"].get(
-                str(self.resource_hash), None
-            ):
+            if enemy := json_dict["enemy_ids"].get(str(self.resource_hash), None):
                 self.found_enemy = enemy
 
     def __hash__(self):

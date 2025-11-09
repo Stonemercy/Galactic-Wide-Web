@@ -9,104 +9,18 @@ json_dict = {
         "es": {"path": "data/languages/es.json", "value": None},
     },
     "stratagems": {"path": "data/json/stratagems/stratagems.json", "value": None},
-    "warbonds": {
-        "index": {"path": "data/json/warbonds.json", "value": None},
-        "helldivers_mobilize": {
-            "path": "data/json/warbonds/helldivers_mobilize.json",
-            "value": None,
-        },
-        "steeled_veterans": {
-            "path": "data/json/warbonds/steeled_veterans.json",
-            "value": None,
-        },
-        "cutting_edge": {"path": "data/json/warbonds/cutting_edge.json", "value": None},
-        "democratic_detonation": {
-            "path": "data/json/warbonds/democratic_detonation.json",
-            "value": None,
-        },
-        "polar_patriots": {
-            "path": "data/json/warbonds/polar_patriots.json",
-            "value": None,
-        },
-        "viper_commandos": {
-            "path": "data/json/warbonds/viper_commandos.json",
-            "value": None,
-        },
-        "freedoms_flame": {
-            "path": "data/json/warbonds/freedoms_flame.json",
-            "value": None,
-        },
-        "chemical_agents": {
-            "path": "data/json/warbonds/chemical_agents.json",
-            "value": None,
-        },
-        "truth_enforcers": {
-            "path": "data/json/warbonds/truth_enforcers.json",
-            "value": None,
-        },
-        "urban_legends": {
-            "path": "data/json/warbonds/urban_legends.json",
-            "value": None,
-        },
-        "servants_of_freedom": {
-            "path": "data/json/warbonds/servants_of_freedom.json",
-            "value": None,
-        },
-        "borderline_justice": {
-            "path": "data/json/warbonds/borderline_justice.json",
-            "value": None,
-        },
-        "masters_of_ceremony": {
-            "path": "data/json/warbonds/masters_of_ceremony.json",
-            "value": None,
-        },
-        "force_of_law": {
-            "path": "data/json/warbonds/force_of_law.json",
-            "value": None,
-        },
-        "control_group": {
-            "path": "data/json/warbonds/control_group.json",
-            "value": None,
-        },
-        "halo_3_odst": {
-            "path": "data/json/warbonds/halo_3_odst.json",
-            "value": None,
-        },
-        "dust_devils": {
-            "path": "data/json/warbonds/dust_devils.json",
-            "value": None,
-        },
-    },
     "planets": {"path": "data/json/planets/planets.json", "value": None},
     "planetRegions": {"path": "data/json/planets/planetRegions.json", "value": None},
     "sectors": {"path": "data/json/planets/sectors.json", "value": None},
     "items": {
         "item_names": {"path": "data/json/items/item_names.json", "value": None},
-        "armor": {"path": "data/json/items/armor.json", "value": None},
-        "primary_weapons": {
-            "path": "data/json/items/weapons/primary.json",
-            "value": None,
-        },
-        "secondary_weapons": {
-            "path": "data/json/items/weapons/secondary.json",
-            "value": None,
-        },
-        "grenades": {"path": "data/json/items/weapons/grenades.json", "value": None},
         "boosters": {"path": "data/json/items/boosters.json", "value": None},
         "reward_types": {
             "path": "data/json/assignments/reward/type.json",
             "value": None,
         },
     },
-    "enemies": {
-        "enemy_ids": {"path": "data/json/enemies/enemy_ids.json", "value": None},
-        "automaton": {"path": "data/json/enemies/automaton.json", "value": None},
-        "illuminate": {
-            "path": "data/json/enemies/illuminate.json",
-            "value": None,
-        },
-        "terminids": {"path": "data/json/enemies/terminids.json", "value": None},
-    },
+    "enemy_ids": {"path": "data/json/enemies/enemy_ids.json", "value": None},
     "planet_effects": {"path": "data/json/effects/planetEffects.json", "value": None},
     "galactic_war_effects": {
         "path": "data/json/effects/galactic_war_effects/effect_types.json",

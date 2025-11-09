@@ -86,10 +86,6 @@ Want to try out the GWW on your server? [Invite Link](https://discord.com/oauth2
 ![warfront](resources/readme/warfront.png)
 <p align="right"><a href="#top">Back to Top ↑</a></p>
 
-`/wiki`
-
-![wiki](resources/readme/wiki.png)
-<p align="right"><a href="#top">Back to Top ↑</a></p>
 
 ## Support
 Available here: [Discord Support Server](https://discord.gg/Z8Ae5H5DjZ)

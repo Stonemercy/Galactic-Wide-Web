@@ -402,12 +402,16 @@ class Maps:
         dss: DSS,
         planet_names_json: dict,
     ):
-        frac_planet_icon = imread("resources/fractured_planet.png", IMREAD_UNCHANGED)
+        frac_planet_icon = imread(
+            "resources/map_icons/fractured_planet.png", IMREAD_UNCHANGED
+        )
         path = Maps.FileLocations.localized_map_path(language_code=lang)
         background = imread(path, IMREAD_UNCHANGED)
         for planet in planets.values():
             if planet.index == 0:
-                se_icon = imread("resources/super_earth.png", IMREAD_UNCHANGED)
+                se_icon = imread(
+                    "resources/map_icons/super_earth.png", IMREAD_UNCHANGED
+                )
                 self.paste_image(background, se_icon, planet.map_waypoints)
             elif [ae for ae in planet.active_effects if ae.id in (1241, 1252)] != []:
                 self.paste_image(
@@ -422,7 +426,7 @@ class Maps:
                 x_offset = 0
                 for su in SpecialUnits.get_from_effects_list(planet.active_effects):
                     su_icon = imread(
-                        f"resources/Map Icons/{su[0].title()} bordered.png",
+                        f"resources/map_icons/{su[0].lower().replace(' ', '_')}_bordered.png",
                         IMREAD_UNCHANGED,
                     )
                     su_icon = resize(
@@ -438,7 +442,7 @@ class Maps:
                     )
                     x_offset += su_icon.shape[0]
             if dss and planet.dss_in_orbit:
-                dss_icon = imread("resources/Map Icons/dss_glow.png", IMREAD_UNCHANGED)
+                dss_icon = imread("resources/map_icons/dss_glow.png", IMREAD_UNCHANGED)
                 verti_diff = 65
                 loc_name = planet_names_json[str(planet.index)]["names"][long_code]
                 if loc_name.count(" ") > 0:

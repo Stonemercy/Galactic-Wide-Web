@@ -1,149 +1,18 @@
-*.env
-.venv/
-*.log
+# Files
+## Individual
+.env
+planetRegionsBACKUP.json
+stratagems_backup.json
+
+## Of a type
 *.code-workspace
+
+# Folders
+## Individual
 .vscode/
-resources/*.webp
-resources/Emojis
-resources/dss.jpg
-resources/!old_Emojis
-resources/warbonds
-resources/currencies
-resources/difficulty_icons
-resources/DSS
-resources/weather_icons
-resources/maps
-resources/icon.png
-resources/attack_embed_icons
-resources/defence_embed_icons
-data/json_creation_scripts
-
-# JSON
-data/json/.github
-data/json/.editorconfig
-data/json/.gitignore
-data/json/items/armor/README.md
-data/json/items/weapons/README.md
-data/json/LICENSE
-data/json/README.md
-data/json/Writerside/*
-
-### Python ###
-# Byte-compiled / optimized / DLL files
 __pycache__/
-*.py[cod]
-*$py.class
-
-# C extensions
-*.so
-
-# Distribution / packaging
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-pip-wheel-metadata/
-share/python-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-MANIFEST
-
-# PyInstaller
-#  Usually these files are written by a python script from a template
-#  before PyInstaller builds the exe, so as to inject date/other infos into it.
-*.manifest
-*.spec
-
-# Installer logs
-pip-log.txt
-pip-delete-this-directory.txt
-
-# Unit test / coverage reports
-htmlcov/
-.tox/
-.nox/
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*.cover
-.hypothesis/
-.pytest_cache/
-
-# Translations
-*.mo
-*.pot
-
-# Scrapy stuff:
-.scrapy
-
-# Sphinx documentation
-docs/_build/
-
-# PyBuilder
-target/
-
-# pyenv
-.python-version
-
-# pipenv
-#   According to pypa/pipenv#598, it is recommended to include Pipfile.lock in version control.
-#   However, in case of collaboration, if having platform-specific dependencies or dependencies
-#   having no cross-platform support, pipenv may install dependencies that don't work, or not
-#   install all needed dependencies.
-#Pipfile.lock
-
-# celery beat schedule file
-celerybeat-schedule
-
-# SageMath parsed files
-*.sage.py
-
-# Spyder project settings
-.spyderproject
-.spyproject
-
-# Rope project settings
-.ropeproject
-
-# Mr Developer
-.mr.developer.cfg
-.project
-.pydevproject
-
-# mkdocs documentation
-/site
-
-# mypy
-.mypy_cache/
-.dmypy.json
-dmypy.json
-
-# Pyre type checker
-.pyre/
-
-### VisualStudioCode ###
-.vscode/*
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-
-### VisualStudioCode Patch ###
-# Ignore all local history of files
-.history
-
-# End of https://www.gitignore.io/api/python,visualstudiocode
-
-# jetbrains
-.idea/
+json_creation_scripts/
+resources/changes_campaign/
+resources/changes_dss/
+resources/emojis/
+resources/planet_effect_icons/

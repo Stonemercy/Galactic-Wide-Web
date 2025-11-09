@@ -315,7 +315,7 @@ class Dashboard:
             field_name = ""
             if task.enemy_id:
                 enemy_type = (
-                    self.json_dict["enemies"]["enemy_ids"].get(
+                    self.json_dict["enemy_ids"].get(
                         str(task.enemy_id), f"||UNKNOWN [{task.enemy_id}]||"
                     )
                     + "s"
