@@ -41,7 +41,7 @@ class GalacticWideWebBot(commands.AutoShardedInteractionBot):
         return int((self.ready_time - datetime.now()).total_seconds())
 
     async def on_ready(self) -> None:
-        await self.channels.get_channels(self, self.config)
+        await self.channels.get_channels(self)
         self.logger.info(
             f"Loaded {len(self.cogs)}/{len([f for f in listdir('cogs') if f.endswith('.py')]) + len([f for f in listdir('cogs/admin') if f.endswith('.py')])} cogs successfully"
         )
@@ -75,8 +75,8 @@ class GalacticWideWebBot(commands.AutoShardedInteractionBot):
 
     def super_start(self) -> None:
         token_to_use = (
-            self.config.BOT_TOKEN
+            Config.BOT_TOKEN
             if self.MODE != GWWBotModes.DEBUG
-            else self.config.BETA_BOT_TOKEN
+            else Config.BETA_BOT_TOKEN
         )
         self.run(token_to_use)
