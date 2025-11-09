@@ -368,7 +368,8 @@ class SetupCog(commands.Cog):
                     )
                 try:
                     message = await dashboard_channel.send(
-                        embeds=dashboard.embeds, file=File("resources/banner.png")
+                        embeds=dashboard.embeds,
+                        file=File("resources/dashboard/banner.png"),
                     )
                 except Exception as e:
                     self.bot.logger.error(f"SetupCog | dashboard setup | {e}")
