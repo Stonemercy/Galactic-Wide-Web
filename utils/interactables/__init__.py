@@ -24,6 +24,3 @@ __all__ = [
     "SupportServerButton",
     "WikiButton",
 ]
-
-__version__ = "1.0.0"
-__author__ = "Stonemercy"

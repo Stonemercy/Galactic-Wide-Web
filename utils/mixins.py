@@ -27,7 +27,7 @@ class EmbedReprMixin:
 
 
 class GWEReprMixin:
-    """Class to clearly represent data.GalacticWarEffect objects"""
+    """Class to clearly represent Data.GalacticWarEffect objects"""
 
     def __repr__(object):
         if object.__dict__:

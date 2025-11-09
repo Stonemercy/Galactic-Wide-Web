@@ -5,27 +5,7 @@ from dataclasses import dataclass
 class Emojis:
 
     @dataclass
-    class Wiki:
-        main_menu = "<:s:1354916944142274620>"
-        primary = "<:s:1354951675567145130>"
-        secondary = "<:s:1354955761758765126>"
-        grenade = "<:s:1354955442652188692>"
-        booster = "<:s:1354953966261244126>"
-        stratagem = "<:s:1354953975123935424>"
-        equipment = "<:s:1354957720658120814>"
-        weapons = "<:s:1354956549012979865>"
-        warbond = "<:s:1354958322293411942>"
-        enemies = "<:s:1354958906576732221>"
-
-    @dataclass
-    class Armour:
-        head = "<:s:1247853903509327942>"
-        body = "<:s:1247853233330847754>"
-        cloak = "<:s:1247852505547935794>"
-
-    @dataclass
     class Items:
-        super_credits = "<:s:1233145615031074946>"
         medal = "<:s:1226254158278037504>"
         common_sample = "<:s:1306611420510687334>"
         rare_sample = "<:s:1306611408406052874>"
@@ -120,20 +100,6 @@ class Emojis:
         down = "<:s:1277557875849302107>"
         left = "<:s:1277557877787066389>"
         right = "<:s:1277557872246652928>"
-
-    @dataclass
-    class Difficulty:
-        difficulty1 = "<:s:1297107859766640661>"
-        difficulty2 = "<:s:1297107895254519842>"
-        difficulty3 = "<:s:1297108514057097261>"
-        difficulty4 = "<:s:1297108398663532554>"
-        difficulty5 = "<:s:1297108434323247218>"
-        difficulty6 = "<:s:1297108419290857512>"
-        difficulty7 = "<:s:1297108547515191306>"
-        difficulty8 = "<:s:1297108475196997663>"
-        difficulty9 = "<:s:1297108452124131348>"
-        difficulty10 = "<:s:1219238179551318067>"
-        difficultyunknown = "?"
 
     @dataclass
     class DSS:

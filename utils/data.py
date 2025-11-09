@@ -1044,7 +1044,7 @@ class Planet(ReprMixin):
             raw_stats_data=raw_planet_data["statistics"]
         )
         self.dss_in_orbit: bool = False
-        self.eagle_storm_active = False
+        self.eagle_storm_active: bool = False
         self.in_assignment: bool = False
         self.active_effects: set[GalacticWarEffect] | set = set()
         self.attack_targets: list[int] | list = []
