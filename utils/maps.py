@@ -48,7 +48,7 @@ class Maps:
         arrow_map: str = "resources/maps/arrow_map.webp"
 
         def localized_map_path(language_code: str) -> str:
-            return f"resources/maps/{language_code}.webp"
+            return f"resources/maps/localized/{language_code}.webp"
 
     def update_base_map(
         self,
@@ -345,7 +345,7 @@ class Maps:
                 active_planets=active_planets,
                 planet_names_json=planet_names_json,
             )
-            background.save(fp=f"resources/maps/{language_code_short}.webp")
+            background.save(fp=f"resources/maps/localized/{language_code_short}.webp")
 
     def _write_names(
         self,
