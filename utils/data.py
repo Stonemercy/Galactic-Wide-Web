@@ -154,11 +154,42 @@ class Data(ReprMixin):
                 session.headers["Accept-Language"] = lang.long_code
                 print(f"\n{lang.long_code}:", end="")
                 try:
+                    # status
+                    await wait_for(
+                        self.get_endpoint(
+                            endpoint_type="status",
+                            url="https://api.live.prod.thehelldiversgame.com/api/WarSeason/801/Status",
+                            session=session,
+                            lang=lang.short_code,
+                        ),
+                        timeout=15,
+                    )
+
+                    # variable is either
+                    # wartime (if available) - 2 weeks
+                    # or
+                    # estimated wartime - 2 weeks
+                    time_for_dispatches = int(
+                        (
+                            self._data.get("status", {})
+                            .get("en", {})
+                            .get(
+                                "time",
+                                (
+                                    datetime.now()
+                                    - datetime(
+                                        year=2024, month=2, day=14, hour=15, minute=11
+                                    )
+                                ).total_seconds(),
+                            )
+                        )
+                        - timedelta(weeks=2).total_seconds()
+                    )
                     # dispatches
                     await wait_for(
                         self.get_endpoint(
                             endpoint_type="dispatches",
-                            url="https://api.live.prod.thehelldiversgame.com/api/NewsFeed/801?maxEntries=1024",
+                            url=f"https://api.live.prod.thehelldiversgame.com/api/NewsFeed/801?fromTimestamp={time_for_dispatches}",
                             session=session,
                             lang=lang.short_code,
                         ),
@@ -170,17 +201,6 @@ class Data(ReprMixin):
                         self.get_endpoint(
                             endpoint_type="assignments",
                             url=f"{self.api_to_use}/api/v1/assignments",
-                            session=session,
-                            lang=lang.short_code,
-                        ),
-                        timeout=15,
-                    )
-
-                    # status
-                    await wait_for(
-                        self.get_endpoint(
-                            endpoint_type="status",
-                            url="https://api.live.prod.thehelldiversgame.com/api/WarSeason/801/Status",
                             session=session,
                             lang=lang.short_code,
                         ),
