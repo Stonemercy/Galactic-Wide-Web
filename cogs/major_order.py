@@ -95,23 +95,7 @@ class MajorOrderCog(commands.Cog):
                     briefing: GlobalEvent = mo_briefing_dict.get(lang, None)
                     if briefing:
                         for embed in embed_list:
-                            field_value = ""
-                            extra_fields = 1
-                            for chunk in briefing.split_message[1:]:
-                                if len(field_value) + len(chunk) > 1024:
-                                    embed.insert_field_at(
-                                        extra_fields, "", field_value, inline=False
-                                    )
-                                    extra_fields += 1
-                                    field_value = ""
-                                else:
-                                    field_value += f"{chunk}"
-                            embed.insert_field_at(
-                                0,
-                                briefing.title,
-                                briefing.split_message[0],
-                                inline=False,
-                            )
+                            embed.add_briefing(briefing=briefing)
                 current_war_info.major_order_ids.append(major_order.id)
                 current_war_info.save_changes()
                 await self.bot.interface_handler.send_feature(
