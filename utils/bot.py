@@ -16,7 +16,6 @@ class GalacticWideWebBot(commands.AutoShardedInteractionBot):
         """The main Galactic Wide Web bot class"""
         super().__init__(intents=Intents.default(), status=Status.idle)
         self.MODE = GWWBotModes.LIVE
-        self.config = Config
         self.logger = GWWLogger()
         self.startup_time = datetime.now()
         self.ready_time = self.startup_time + timedelta(seconds=45)
