@@ -29,7 +29,7 @@ DIM_FACTION_COLOURS: dict[str, tuple[int, int, int]] = {
 
 class Maps:
     def __init__(self):
-        self.latest_maps: dict[str, Maps.LatestMap] | dict = {}
+        self.latest_maps: dict[str, Maps.LatestMap] = {}
         self.TEXT_SIZE = 25
 
     @dataclass
@@ -158,7 +158,7 @@ class Maps:
         self,
         assignments: list[Assignment],
         planets: Planets,
-        campaigns: list[Campaign] | list,
+        campaigns: list[Campaign],
         sector_names: dict,
     ) -> None:
         background = imread(Maps.FileLocations.waypoints_map, IMREAD_UNCHANGED)
