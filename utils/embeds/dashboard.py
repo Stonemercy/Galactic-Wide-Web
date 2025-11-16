@@ -40,6 +40,7 @@ class Dashboard:
     ):
         language_json = json_dict["languages"][language_code]
         self.embeds: list[Embed] = []
+        self.compact_level = compact_level
 
         # Major Order embeds
         if assignments := data.assignments.get(language_code):
@@ -174,7 +175,7 @@ class Dashboard:
             self,
             assignment: Assignment,
             planets: Planets,
-            gambit_planets: dict[int, Planet] | dict,
+            gambit_planets: dict[int, Planet],
             language_json: dict,
             json_dict: dict,
             compact_level: int = 0,
@@ -314,12 +315,10 @@ class Dashboard:
             """Kill {amount} {enemy_type}[ using the __{item_to_use}__][ on {planet}]"""
             field_name = ""
             if task.enemy_id:
-                enemy_type = (
-                    self.json_dict["enemy_ids"].get(
-                        str(task.enemy_id), f"||UNKNOWN [{task.enemy_id}]||"
-                    )
-                    + "s"
+                enemy: str = self.json_dict["enemy_ids"].get(
+                    str(task.enemy_id), f"||UNKNOWN [{task.enemy_id}]||"
                 )
+                enemy_type = enemy + "s" if not enemy.endswith("s") else enemy
             elif task.faction:
                 enemy_type = task.faction.plural.title()
             else:
@@ -634,7 +633,7 @@ class Dashboard:
                 for planet_feature in PlanetFeatures.get_from_effects_list(
                     planet.active_effects
                 ):
-                    field_value += f"\n> -# {planet_feature[1]} {planet_feature[0]}"
+                    field_value += f"\n-# {planet_feature[1]} {planet_feature[0]}"
                 for special_unit in SpecialUnits.get_from_effects_list(
                     active_effects=planet.active_effects
                 ):
@@ -1034,7 +1033,7 @@ class Dashboard:
             for planet_feature in PlanetFeatures.get_from_effects_list(
                 (ae for ae in planet.active_effects if ae.effect_type == 71)
             ):
-                field_value += f"\n> -# {planet_feature[1]} {planet_feature[0]}"
+                field_value += f"\n-# {planet_feature[1]} {planet_feature[0]}"
 
             if (
                 planet.dss_in_orbit
