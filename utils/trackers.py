@@ -60,7 +60,7 @@ class BaseTrackerEntry(ReprMixin):
 
 class BaseTracker(ReprMixin):
     def __init__(self) -> None:
-        self._raw_dict: dict | dict[Any, BaseTrackerEntry] = {}
+        self._raw_dict: dict[Any, BaseTrackerEntry] = {}
 
     def add_entry(self, key, value) -> None:
         if key not in self._raw_dict:
