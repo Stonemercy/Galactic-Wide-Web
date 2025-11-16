@@ -3,19 +3,19 @@ from disnake import (
     ApplicationInstallTypes,
     Embed,
     File,
+    HTTPException,
     InteractionContextTypes,
-    InteractionTimedOut,
-    NotFound,
 )
 from disnake.ext import commands
 from main import GalacticWideWebBot
 from utils.checks import wait_for_startup
+from utils.dataclasses import Languages
 from utils.functions import compare_translations, split_long_string
 from utils.interactables import SupportServerButton
 
 
 class TranslationsCog(commands.Cog):
-    def __init__(self, bot: GalacticWideWebBot):
+    def __init__(self, bot: GalacticWideWebBot) -> None:
         self.bot = bot
 
     @wait_for_startup()
@@ -32,20 +32,20 @@ class TranslationsCog(commands.Cog):
         self,
         inter: AppCmdInter,
         language_to_check: str = commands.Param(
-            choices=["de", "es", "fr", "it", "pt-br", "ru", "ALL"],
+            choices=[l.short_code for l in Languages.all] + ["ALL"],
             description="The language you want to check the missing translations for.",
         ),
-    ):
+    ) -> None:
         try:
             await inter.response.defer(ephemeral=True)
-        except (NotFound, InteractionTimedOut):
+        except HTTPException:
             await inter.channel.send(
                 "There was an error with that command, please try again.",
                 delete_after=5,
             )
             return
         self.bot.logger.info(
-            f"{self.qualified_name} | /{inter.application_command.name} | used by <@{inter.author.id}> | @{inter.author.global_name}"
+            f"{self.qualified_name} | /{inter.application_command.name} | <{language_to_check = }>"
         )
         if language_to_check == "ALL":
             embeds = []
@@ -118,5 +118,5 @@ class TranslationsCog(commands.Cog):
                 )
 
 
-def setup(bot: GalacticWideWebBot):
+def setup(bot: GalacticWideWebBot) -> None:
     bot.add_cog(TranslationsCog(bot))
