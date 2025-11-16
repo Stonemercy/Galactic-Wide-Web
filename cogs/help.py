@@ -1,9 +1,8 @@
 from disnake import (
     AppCmdInter,
     ApplicationInstallTypes,
+    HTTPException,
     InteractionContextTypes,
-    InteractionTimedOut,
-    NotFound,
 )
 from disnake.ext import commands
 from main import GalacticWideWebBot
@@ -12,20 +11,19 @@ from utils.checks import wait_for_startup
 
 
 class HelpCog(commands.Cog):
-    def __init__(self, bot: GalacticWideWebBot):
+    def __init__(self, bot: GalacticWideWebBot) -> None:
         self.bot = bot
 
-    async def help_autocomp(inter: AppCmdInter, user_input: str):
+    async def help_autocomp(inter: AppCmdInter, user_input: str) -> list[str]:
         if not inter.bot.global_slash_commands:
             return []
-        commands_list = sorted(
+        commands_list = ["all"] + sorted(
             [
                 i.name
                 for i in inter.bot.global_slash_commands
                 if i.name not in ["gwe", "global_event"]
             ]
         )
-        commands_list.insert(0, "all")
         return [
             command
             for command in commands_list
@@ -54,17 +52,17 @@ class HelpCog(commands.Cog):
             default="No",
             description="Do you want other people to see the response to this command?",
         ),
-    ):
+    ) -> None:
         try:
             await inter.response.defer(ephemeral=public != "Yes")
-        except (NotFound, InteractionTimedOut):
+        except HTTPException:
             await inter.channel.send(
                 "There was an error with that command, please try again.",
                 delete_after=5,
             )
             return
         self.bot.logger.info(
-            f"{self.qualified_name} | /{inter.application_command.name} <{command = }>"
+            f"{self.qualified_name} | /{inter.application_command.name} <{command = }> <{public = }>"
         )
         slash_commands = None
         slash_command = None
@@ -80,20 +78,21 @@ class HelpCog(commands.Cog):
                     if command.contexts and command.contexts.private_channel
                 ]
             )
+
         if not slash_command and not slash_commands:
-            return await inter.send(
+            await inter.send(
                 "That command was not found, please select from the list.",
                 ephemeral=True,
             )
-        await inter.send(
-            components=HelpContainer(
-                commands=slash_commands,
-                command=slash_command,
-            ),
-            ephemeral=public != "Yes",
-        )
-        return
+        else:
+            await inter.send(
+                components=HelpContainer(
+                    commands=slash_commands,
+                    command=slash_command,
+                ),
+                ephemeral=public != "Yes",
+            )
 
 
-def setup(bot: GalacticWideWebBot):
+def setup(bot: GalacticWideWebBot) -> None:
     bot.add_cog(HelpCog(bot))
