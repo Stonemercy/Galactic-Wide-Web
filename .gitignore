@@ -3,9 +3,11 @@
 .env
 planetRegionsBACKUP.json
 stratagems_backup.json
+resources/maps/*_map.webp
 
 ## Of a type
 *.code-workspace
+resources/maps/localized/*.webp
 
 # Folders
 ## Individual
