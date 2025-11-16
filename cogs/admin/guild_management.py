@@ -1,11 +1,19 @@
-from asyncio import sleep
 from datetime import datetime, time, timedelta
 from typing import TYPE_CHECKING
-from disnake import ButtonStyle, Colour, Embed, Guild, MessageInteraction, NotFound, ui
+from disnake import (
+    ButtonStyle,
+    Colour,
+    Embed,
+    Guild,
+    HTTPException,
+    MessageInteraction,
+    NotFound,
+    ui,
+)
 from disnake.ext import commands, tasks
 from utils.bot import GalacticWideWebBot
 from utils.containers import BotDashboardContainer, GuildContainer
-from utils.dataclasses import Languages
+from utils.dataclasses import Config, Languages
 from utils.dbv2 import BotDashboard, GWWGuilds
 
 if TYPE_CHECKING:
@@ -13,26 +21,28 @@ if TYPE_CHECKING:
 
 
 class GuildManagementCog(commands.Cog):
-    def __init__(self, bot: GalacticWideWebBot):
+    def __init__(self, bot: GalacticWideWebBot) -> None:
         self.bot = bot
         self.loops = (self.bot_dashboard, self.dashboard_checking, self.guild_checking)
-        for loop in self.loops:
-            if not loop.is_running():
-                loop.start()
-                self.bot.loops.append(loop)
         self.guilds_to_remove = []
         self.user_installs = 0
         self.bot_dashboard_db = BotDashboard()
 
-    def cog_unload(self):
+    def cog_load(self) -> None:
+        for loop in self.loops:
+            if not loop.is_running():
+                loop.start()
+                self.bot.loops.append(loop)
+
+    def cog_unload(self) -> None:
         for loop in self.loops:
             if loop.is_running():
                 loop.stop()
                 self.bot.loops.remove(loop)
 
     @commands.Cog.listener()
-    async def on_guild_join(self, guild: Guild):
-        guild_in_db = GWWGuilds.get_specific_guild(id=guild.id)
+    async def on_guild_join(self, guild: Guild) -> None:
+        guild_in_db: GWWGuild | None = GWWGuilds.get_specific_guild(id=guild.id)
         if guild_in_db:
             await self.bot.channels.moderator_channel.send(
                 f"Guild **{guild.name}** just added the bot but was already in the DB"
@@ -46,7 +56,7 @@ class GuildManagementCog(commands.Cog):
         await self.bot.channels.moderator_channel.send(components=container)
 
     @commands.Cog.listener()
-    async def on_guild_remove(self, guild: Guild):
+    async def on_guild_remove(self, guild: Guild) -> None:
         guild_in_db: GWWGuild | None = GWWGuilds.get_specific_guild(id=guild.id)
         if not guild_in_db:
             await self.bot.channels.moderator_channel.send(
@@ -58,7 +68,7 @@ class GuildManagementCog(commands.Cog):
             await self.bot.channels.moderator_channel.send(components=container)
 
     @tasks.loop(minutes=1)
-    async def bot_dashboard(self):
+    async def bot_dashboard(self) -> None:
         bot_dashboard = self.bot_dashboard_db
         if not self.bot.bot_dashboard_channel:
             self.bot.bot_dashboard_channel = self.bot.get_channel(
@@ -79,6 +89,8 @@ class GuildManagementCog(commands.Cog):
                 )
                 bot_dashboard.message_id = self.bot.bot_dashboard_message.id
                 bot_dashboard.save_changes()
+            except HTTPException:
+                return
         now = datetime.now()
         if now.minute == 0 or now - timedelta(minutes=2) < self.bot.startup_time:
             app_info = await self.bot.application_info()
@@ -86,10 +98,10 @@ class GuildManagementCog(commands.Cog):
         dashboard = BotDashboardContainer(
             bot=self.bot, user_installs=self.user_installs
         )
-        await self.bot.bot_dashboard_message.edit(components=[dashboard])
+        await self.bot.bot_dashboard_message.edit(components=dashboard)
 
     @bot_dashboard.before_loop
-    async def before_bot_dashboard(self):
+    async def before_bot_dashboard(self) -> None:
         await self.bot.wait_until_ready()
 
     @tasks.loop(
@@ -99,53 +111,53 @@ class GuildManagementCog(commands.Cog):
             for j in range(2, 62, 15)
         ]
     )
-    async def dashboard_checking(self):
+    async def dashboard_checking(self) -> None:
         now = datetime.now()
-        guild: GWWGuild | None = GWWGuilds.get_specific_guild(id=1212722266392109088)
+        guild: GWWGuild | None = GWWGuilds.get_specific_guild(
+            id=Config.SUPPORT_SERVER_ID
+        )
         if guild:
             try:
-                dashboard: list[Feature] = [
+                dashboard_list: list[Feature] = [
                     f for f in guild.features if f.name == "dashboards"
                 ]
-                if not dashboard:
+                if dashboard_list == []:
                     self.bot.logger.info(
-                        f"{self.qualified_name} | dashboard_checking | No dashboard feature found for {guild.guild_id}"
+                        f"{self.qualified_name} | dashboard_checking | No dashboard feature found for {guild.guild_id} (support server)"
                     )
                     return
                 else:
-                    dashboard: Feature = dashboard[0]
+                    dashboard: Feature = dashboard_list[0]
                     channel = self.bot.get_channel(
                         dashboard.channel_id
                     ) or await self.bot.fetch_channel(dashboard.channel_id)
                     message = await channel.fetch_message(dashboard.message_id)
-                    updated_time = message.edited_at.replace(tzinfo=None) + timedelta(
-                        hours=1
-                    )
-                    if updated_time < (
-                        now - timedelta(minutes=16)
-                    ) and self.bot.startup_time < (now - timedelta(minutes=16)):
+                    cutoff = now - timedelta(minutes=17)
+                    if (
+                        message.edited_at.replace(tzinfo=None) < cutoff
+                        and self.bot.startup_time < cutoff
+                    ):
                         await self.bot.channels.moderator_channel.send(
                             content=f"<@{self.bot.owner.id}> {message.jump_url} was last edited <t:{int(message.edited_at.timestamp())}:R> :warning:"
                         )
-                        await sleep(delay=15 * 60)
             except Exception as e:
                 self.bot.logger.error(
                     f"{self.qualified_name} | dashboard_checking | {e}"
                 )
 
     @dashboard_checking.before_loop
-    async def before_dashboard_check(self):
+    async def before_dashboard_check(self) -> None:
         await self.bot.wait_until_ready()
 
-    @tasks.loop(time=[time(hour=23, minute=0, second=0, microsecond=0)])
-    async def guild_checking(self):
-        guilds = GWWGuilds(fetch_all=True)
-        if guilds:
-            dguild_ids = [dguild.id for dguild in self.bot.guilds]
-            for guild in guilds:
-                if guild.guild_id not in dguild_ids:
-                    self.guilds_to_remove.append(guild.guild_id)
-            if self.guilds_to_remove:
+    @tasks.loop(time=[time(hour=23, minute=0)])
+    async def guild_checking(self) -> None:
+        dbguilds = GWWGuilds(fetch_all=True)
+        if dbguilds:
+            disc_guild_ids = [dguild.id for dguild in self.bot.guilds]
+            for dbguild in dbguilds:
+                if dbguild.guild_id not in disc_guild_ids:
+                    self.guilds_to_remove.append(dbguild.guild_id)
+            if self.guilds_to_remove != []:
                 embed = Embed(
                     title="Guilds in DB that don't have the bot installed",
                     colour=Colour.brand_red(),
@@ -167,13 +179,17 @@ class GuildManagementCog(commands.Cog):
                         )
                     ],
                 )
+        else:
+            await self.bot.channels.moderator_channel.send(
+                f":alert: {self.bot.owner.mention} :alert:\nDB_GUILDS in `guild_checking` was empty"
+            )
 
     @guild_checking.before_loop
-    async def before_guild_check(self):
+    async def before_guild_check(self) -> None:
         await self.bot.wait_until_ready()
 
     @commands.Cog.listener("on_button_click")
-    async def ban_listener(self, inter: MessageInteraction):
+    async def ban_listener(self, inter: MessageInteraction) -> None:
         if inter.component.custom_id == "guild_remove":
             gww_guilds_to_remove: list[GWWGuild] = [
                 GWWGuilds.get_specific_guild(id=guild_id)
@@ -188,11 +204,11 @@ class GuildManagementCog(commands.Cog):
                     content=f"Deleted guild `{guild.guild_id}` from the DB"
                 )
             embed: Embed = inter.message.embeds[0].add_field(
-                name="", value="# GUILDS DELETED", inline=False
+                name="", value="# GUILDS DELETED FROM DB", inline=False
             )
             await inter.message.edit(components=None, embed=embed)
             self.guilds_to_remove.clear()
 
 
-def setup(bot: GalacticWideWebBot):
-    bot.add_cog(cog=GuildManagementCog(bot))
+def setup(bot: GalacticWideWebBot) -> None:
+    bot.add_cog(GuildManagementCog(bot))
