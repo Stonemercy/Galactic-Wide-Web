@@ -6,16 +6,19 @@ from utils.embeds import Dashboard
 
 
 class DashboardCog(commands.Cog):
-    def __init__(self, bot: GalacticWideWebBot):
+    def __init__(self, bot: GalacticWideWebBot) -> None:
         self.bot = bot
+
+    def cog_load(self) -> None:
         if not self.dashboard_poster.is_running():
             self.dashboard_poster.start()
             self.bot.loops.append(self.dashboard_poster)
 
-    def cog_unload(self):
+    def cog_unload(self) -> None:
         if self.dashboard_poster.is_running():
             self.dashboard_poster.stop()
-            self.bot.loops.remove(self.dashboard_poster)
+            if self.dashboard_poster in self.bot.loops:
+                self.bot.loops.remove(self.dashboard_poster)
 
     @tasks.loop(
         time=[
@@ -24,7 +27,7 @@ class DashboardCog(commands.Cog):
             for j in range(0, 60, 15)
         ]
     )
-    async def dashboard_poster(self):
+    async def dashboard_poster(self) -> None:
         dashboards_start = datetime.now()
         if (
             not self.bot.interface_handler.loaded
@@ -58,9 +61,9 @@ class DashboardCog(commands.Cog):
         )
 
     @dashboard_poster.before_loop
-    async def before_dashboard_poster(self):
+    async def before_dashboard_poster(self) -> None:
         await self.bot.wait_until_ready()
 
 
-def setup(bot: GalacticWideWebBot):
+def setup(bot: GalacticWideWebBot) -> None:
     bot.add_cog(DashboardCog(bot))
