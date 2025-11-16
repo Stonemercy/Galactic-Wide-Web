@@ -5,8 +5,9 @@ from disnake import (
     Colour,
     Embed,
     File,
+    Forbidden,
+    HTTPException,
     InteractionContextTypes,
-    InteractionTimedOut,
     MessageInteraction,
     NotFound,
     Permissions,
@@ -42,7 +43,7 @@ FEATURE_INDEXES = {
 
 
 class SetupCog(commands.Cog):
-    def __init__(self, bot: GalacticWideWebBot):
+    def __init__(self, bot: GalacticWideWebBot) -> None:
         self.bot = bot
         self.dashboard_perms_needed = Permissions(
             view_channel=True,
@@ -63,14 +64,16 @@ class SetupCog(commands.Cog):
             embed_links=True,
         )
 
-    def reset_row(self, action_row: ActionRow):
+    def reset_row(self, action_row: ActionRow) -> None:
         for button in action_row.children:
             if button.disabled:
                 button.disabled = False
                 button.emoji = None
                 button.style = ButtonStyle.gray
 
-    def clear_extra_buttons(self, action_rows: list[ActionRow], from_row: int = 1):
+    def clear_extra_buttons(
+        self, action_rows: list[ActionRow], from_row: int = 1
+    ) -> None:
         for action_row in action_rows[from_row:]:
             action_rows.remove(action_row)
 
@@ -84,13 +87,10 @@ class SetupCog(commands.Cog):
             "example_usage": "**`/setup`** brings up a message with buttons you can use to change the bot's settings.",
         },
     )
-    async def setup(
-        self,
-        inter: AppCmdInter,
-    ):
+    async def setup(self, inter: AppCmdInter) -> None:
         try:
             await inter.response.defer(ephemeral=True)
-        except (NotFound, InteractionTimedOut):
+        except HTTPException:
             await inter.channel.send(
                 "There was an error with that command, please try again.",
                 delete_after=5,
@@ -117,7 +117,7 @@ class SetupCog(commands.Cog):
         )
 
     @commands.Cog.listener("on_button_click")
-    async def on_button_clicks(self, inter: MessageInteraction):
+    async def on_button_clicks(self, inter: MessageInteraction) -> None:
         allowed_ids = {
             "set_dashboard_button",
             "clear_dashboard_button",
@@ -134,7 +134,7 @@ class SetupCog(commands.Cog):
             return
         try:
             await inter.response.defer()
-        except (NotFound, InteractionTimedOut):
+        except HTTPException:
             await inter.channel.send(
                 "There was an error with this interaction, please try again.",
                 delete_after=5,
@@ -301,7 +301,7 @@ class SetupCog(commands.Cog):
                 return
 
     @commands.Cog.listener("on_dropdown")
-    async def on_dropdowns(self, inter: MessageInteraction):
+    async def on_dropdowns(self, inter: MessageInteraction) -> None:
         allowed_ids = {
             "dashboard_channel_select",
             "map_channel_select",
@@ -314,7 +314,7 @@ class SetupCog(commands.Cog):
             return
         try:
             await inter.response.defer()
-        except (NotFound, InteractionTimedOut):
+        except HTTPException:
             await inter.channel.send(
                 "There was an error with that dropdown, please try again.",
                 delete_after=5,
@@ -327,7 +327,7 @@ class SetupCog(commands.Cog):
                 dashboard_channel = self.bot.get_channel(
                     inter.values[0]
                 ) or await self.bot.fetch_channel(inter.values[0])
-            except:  # TODO EXPAND THIS TO INCLUDE NOTFOUND AND FORBIDDEN
+            except (NotFound, Forbidden):
                 await inter.send(
                     guild_language["setup"]["missing_perm"],
                     ephemeral=True,
@@ -380,7 +380,10 @@ class SetupCog(commands.Cog):
                     return
                 guild.features.append(
                     Feature(
-                        "dashboards", guild.guild_id, dashboard_channel.id, message.id
+                        name="dashboards",
+                        guild_id=guild.guild_id,
+                        channel_id=dashboard_channel.id,
+                        message_id=message.id,
                     )
                 )
                 guild.update_features()
@@ -482,7 +485,12 @@ class SetupCog(commands.Cog):
                     )
                     await generating_message.delete()
                 guild.features.append(
-                    Feature("maps", guild.guild_id, map_channel.id, message.id)
+                    Feature(
+                        name="maps",
+                        guild_id=guild.guild_id,
+                        channel_id=map_channel.id,
+                        message_id=message.id,
+                    )
                 )
                 guild.update_features()
                 guild.save_changes()
@@ -526,7 +534,13 @@ class SetupCog(commands.Cog):
                 )
                 return
             else:
-                guild.features.append(Feature(feature_type, guild.guild_id, channel.id))
+                guild.features.append(
+                    Feature(
+                        name=feature_type,
+                        guild_id=guild.guild_id,
+                        channel_id=channel.id,
+                    )
+                )
                 guild.update_features()
                 guild.save_changes()
                 list_to_update: list = getattr(self.bot.interface_handler, feature_type)
@@ -555,5 +569,5 @@ class SetupCog(commands.Cog):
             )
 
 
-def setup(bot: GalacticWideWebBot):
+def setup(bot: GalacticWideWebBot) -> None:
     bot.add_cog(SetupCog(bot))
