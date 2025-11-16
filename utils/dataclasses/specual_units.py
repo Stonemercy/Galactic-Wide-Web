@@ -16,7 +16,7 @@ class SpecialUnits:
     }
 
     @classmethod
-    def get_from_effects_list(cls, active_effects: set) -> set | set[tuple[str, str]]:
+    def get_from_effects_list(cls, active_effects: set) -> set[tuple[str, str]]:
         special_units = set()
         for ae in active_effects:
             su_list = [k for k, v in cls.unit_codes_map.items() if ae.id in v]
