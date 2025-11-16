@@ -2,10 +2,9 @@ from datetime import datetime
 from disnake import (
     AppCmdInter,
     ApplicationInstallTypes,
+    HTTPException,
     InteractionContextTypes,
-    InteractionTimedOut,
     MessageInteraction,
-    NotFound,
 )
 from disnake.ext import commands, tasks
 from utils.bot import GalacticWideWebBot
@@ -18,18 +17,23 @@ from utils.interactables import DispatchStringSelect
 class DispatchesCog(commands.Cog):
     def __init__(self, bot: GalacticWideWebBot):
         self.bot = bot
+        self.current_war_info = None
+
+    def cog_load(self) -> None:
+        if not self.current_war_info:
+            self.current_war_info = WarInfo()
         if not self.dispatch_check.is_running():
             self.dispatch_check.start()
             self.bot.loops.append(self.dispatch_check)
 
-    def cog_unload(self):
+    def cog_unload(self) -> None:
         if self.dispatch_check.is_running():
             self.dispatch_check.stop()
             if self.dispatch_check in self.bot.loops:
                 self.bot.loops.remove(self.dispatch_check)
 
     @tasks.loop(minutes=1)
-    async def dispatch_check(self):
+    async def dispatch_check(self) -> None:
         dispatch_start = datetime.now()
         if (
             not self.bot.interface_handler.loaded
@@ -38,17 +42,16 @@ class DispatchesCog(commands.Cog):
             or self.bot.interface_handler.busy
         ):
             return
-        current_war_info = WarInfo()
-        if not current_war_info.dispatch_id:
+        if not self.current_war_info.dispatch_id:
             await self.bot.channels.moderator_channel.send(
                 "# No dispatch ID found in the database. Please check the war info table."
             )
             return
-        for index, dispatch in enumerate(self.bot.data.dispatches["en"][-10:], -10):
-            if current_war_info.dispatch_id < dispatch.id:
+        for index, dispatch in enumerate(self.bot.data.dispatches["en"]):
+            if self.current_war_info.dispatch_id < dispatch.id:
                 if len(dispatch.full_message) < 5 or "#planet" in dispatch.full_message:
-                    current_war_info.dispatch_id = dispatch.id
-                    current_war_info.save_changes()
+                    self.current_war_info.dispatch_id = dispatch.id
+                    self.current_war_info.save_changes()
                     continue
                 unique_langs = GWWGuilds.unique_languages()
                 containers = {
@@ -63,20 +66,22 @@ class DispatchesCog(commands.Cog):
                     for lang in unique_langs
                 }
                 await self.bot.interface_handler.send_feature(
-                    "war_announcements", containers, "dispatch"
+                    feature_type="war_announcements",
+                    content=containers,
+                    announcement_type="dispatch",
                 )
-                current_war_info.dispatch_id = dispatch.id
-                current_war_info.save_changes()
+                self.current_war_info.dispatch_id = dispatch.id
+                self.current_war_info.save_changes()
                 self.bot.logger.info(
                     f"Sent dispatch out to {len(self.bot.interface_handler.war_announcements)} channels in {(datetime.now() - dispatch_start).total_seconds():.2f}s"
                 )
                 return
 
     @dispatch_check.before_loop
-    async def before_dispatch_check(self):
+    async def before_dispatch_check(self) -> None:
         await self.bot.wait_until_ready()
 
-    async def dispatch_autocomp(inter: AppCmdInter, user_input: str):
+    async def dispatch_autocomp(inter: AppCmdInter, user_input: str) -> list[str]:
         if not inter.bot.data.loaded:
             return []
         dispatch_list = sorted(
@@ -110,10 +115,10 @@ class DispatchesCog(commands.Cog):
             default="No",
             description="Do you want other people to see the response to this command?",
         ),
-    ):
+    ) -> None:
         try:
             await inter.response.defer(ephemeral=public != "Yes")
-        except (NotFound, InteractionTimedOut):
+        except HTTPException:
             await inter.channel.send(
                 "There was an error with that command, please try again.",
                 delete_after=5,
@@ -133,10 +138,15 @@ class DispatchesCog(commands.Cog):
             guild = GWWGuild.default()
         dispatch = None
         if specific:
+            try:
+                disp_id = int(specific.split("-")[0])
+            except ValueError:
+                await inter.send(
+                    f"The ID you supplied (`{specific}`) is in the incorrect format. Please choose a dispatch from the list."
+                )
+                return
             specific_dispatch_list = [
-                d
-                for d in self.bot.data.dispatches[guild.language]
-                if d.id == int(specific.split("-")[0])
+                d for d in self.bot.data.dispatches[guild.language] if d.id == disp_id
             ]
             if specific_dispatch_list != []:
                 dispatch = specific_dispatch_list[0]
@@ -160,8 +170,11 @@ class DispatchesCog(commands.Cog):
         )
 
     @commands.Cog.listener("on_dropdown")
-    async def dispatches_listener(self, inter: MessageInteraction):
-        if inter.component.custom_id != "dispatch":
+    async def dispatches_listener(self, inter: MessageInteraction) -> None:
+        if (
+            inter.component.custom_id != "dispatch"
+            or inter.author != inter.message.interaction_metadata.user
+        ):
             return
         if inter.guild:
             guild = GWWGuilds.get_specific_guild(id=inter.guild_id)
@@ -192,5 +205,5 @@ class DispatchesCog(commands.Cog):
         )
 
 
-def setup(bot: GalacticWideWebBot):
+def setup(bot: GalacticWideWebBot) -> None:
     bot.add_cog(DispatchesCog(bot))

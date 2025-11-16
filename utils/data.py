@@ -183,7 +183,7 @@ class Data(ReprMixin):
                                 ).total_seconds(),
                             )
                         )
-                        - timedelta(weeks=2).total_seconds()
+                        - timedelta(weeks=1).total_seconds()
                     )
                     # dispatches
                     await wait_for(
