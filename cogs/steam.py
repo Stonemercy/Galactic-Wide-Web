@@ -2,10 +2,9 @@ from datetime import datetime
 from disnake import (
     AppCmdInter,
     ApplicationInstallTypes,
+    HTTPException,
     InteractionContextTypes,
-    InteractionTimedOut,
     MessageInteraction,
-    NotFound,
 )
 from disnake.ext import commands, tasks
 from main import GalacticWideWebBot
@@ -16,14 +15,23 @@ from utils.interactables import SteamStringSelect
 
 
 class SteamCog(commands.Cog):
-    def __init__(self, bot: GalacticWideWebBot):
+    def __init__(self, bot: GalacticWideWebBot) -> None:
         self.bot = bot
+        self.current_war_info = WarInfo()
+
+    def cog_load(self) -> None:
         if not self.steam_check.is_running():
             self.steam_check.start()
             self.bot.loops.append(self.steam_check)
 
+    def cog_unload(self) -> None:
+        if self.steam_check.is_running():
+            self.steam_check.stop()
+            if self.steam_check in self.bot.loops:
+                self.bot.loops.remove(self.steam_check)
+
     @tasks.loop(minutes=1)
-    async def steam_check(self):
+    async def steam_check(self) -> None:
         patch_notes_start = datetime.now()
         if (
             not self.bot.interface_handler.loaded
@@ -32,8 +40,7 @@ class SteamCog(commands.Cog):
             or self.bot.interface_handler.busy
         ):
             return
-        current_war_info = WarInfo()
-        if current_war_info.patch_notes_id != self.bot.data.steam[0].id:
+        if self.current_war_info.patch_notes_id != self.bot.data.steam[0].id:
             unique_langs = GWWGuilds.unique_languages()
             embeds = {
                 lang: [
@@ -44,14 +51,14 @@ class SteamCog(commands.Cog):
                 for lang in unique_langs
             }
             await self.bot.interface_handler.send_feature("patch_notes", embeds)
-            current_war_info.patch_notes_id = self.bot.data.steam[0].id
-            current_war_info.save_changes()
+            self.current_war_info.patch_notes_id = self.bot.data.steam[0].id
+            self.current_war_info.save_changes()
             self.bot.logger.info(
                 f"Sent patch announcements out to {len(self.bot.interface_handler.patch_notes)} channels in {(datetime.now() - patch_notes_start).total_seconds():.2f}s"
             )
 
     @steam_check.before_loop
-    async def before_steam_check(self):
+    async def before_steam_check(self) -> None:
         await self.bot.wait_until_ready()
 
     @wait_for_startup()
@@ -72,17 +79,17 @@ class SteamCog(commands.Cog):
             default="No",
             description="Do you want other people to see the response to this command?",
         ),
-    ):
+    ) -> None:
         try:
             await inter.response.defer(ephemeral=public != "Yes")
-        except (NotFound, InteractionTimedOut):
+        except HTTPException:
             await inter.channel.send(
                 "There was an error with that command, please try again.",
                 delete_after=5,
             )
             return
         self.bot.logger.info(
-            f"{self.qualified_name} | /{inter.application_command.name}"
+            f"{self.qualified_name} | /{inter.application_command.name} <{public = }>"
         )
         if inter.guild:
             guild = GWWGuilds.get_specific_guild(id=inter.guild_id)
@@ -104,7 +111,10 @@ class SteamCog(commands.Cog):
 
     @commands.Cog.listener("on_dropdown")
     async def steam_notes_listener(self, inter: MessageInteraction):
-        if inter.component.custom_id != "steam":
+        if (
+            inter.component.custom_id != "steam"
+            or inter.author != inter.message.interaction_metadata.user
+        ):
             return
         steam_data = [
             steam for steam in self.bot.data.steam if steam.title == inter.values[0]
@@ -119,11 +129,11 @@ class SteamCog(commands.Cog):
         else:
             guild = GWWGuild.default()
         embed = SteamEmbed(
-            steam_data,
-            self.bot.json_dict["languages"][guild.language],
+            steam=steam_data,
+            language_json=self.bot.json_dict["languages"][guild.language],
         )
         await inter.response.edit_message(embed=embed)
 
 
-def setup(bot: GalacticWideWebBot):
+def setup(bot: GalacticWideWebBot) -> None:
     bot.add_cog(SteamCog(bot))
