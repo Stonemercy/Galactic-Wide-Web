@@ -25,10 +25,9 @@ class BotDashboard(ReprMixin):
         with connection() as conn:
             with conn.cursor() as curs:
                 curs.execute(query=f"SELECT * FROM bot.dashboard LIMIT 1")
-                record = curs.fetchone()
+                record: tuple[int, int] = curs.fetchone()
                 if record:
-                    self.channel_id: int = record[0]
-                    self.message_id: int = record[1]
+                    self.channel_id, self.message_id = record
 
     def save_changes(self):
         with connection() as conn:
@@ -50,12 +49,14 @@ class WarInfo(ReprMixin):
         with connection() as conn:
             with conn.cursor() as curs:
                 curs.execute(query=f"SELECT * FROM war.info LIMIT 1")
-                record = curs.fetchone()
+                record: tuple[int, int, list[int], int] = curs.fetchone()
                 if record:
-                    self.dispatch_id: int = record[0]
-                    self.global_event_id: int = record[1]
-                    self.major_order_ids: list[int] = record[2]
-                    self.patch_notes_id: int = record[3]
+                    (
+                        self.dispatch_id,
+                        self.global_event_id,
+                        self.major_order_ids,
+                        self.patch_notes_id,
+                    ) = record
 
     def save_changes(self) -> None:
         with connection() as conn:
