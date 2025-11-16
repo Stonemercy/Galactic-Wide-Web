@@ -2,9 +2,8 @@ from disnake import (
     AppCmdInter,
     ApplicationInstallTypes,
     Embed,
+    HTTPException,
     InteractionContextTypes,
-    InteractionTimedOut,
-    NotFound,
 )
 from disnake.ext import commands
 from main import GalacticWideWebBot
@@ -14,7 +13,7 @@ from utils.embeds import WarfrontAllPlanetsEmbed, Dashboard
 
 
 class WarfrontCog(commands.Cog):
-    def __init__(self, bot: GalacticWideWebBot):
+    def __init__(self, bot: GalacticWideWebBot) -> None:
         self.bot = bot
 
     @wait_for_startup()
@@ -39,10 +38,10 @@ class WarfrontCog(commands.Cog):
             default="No",
             description="If you want the response to be seen by others in the server.",
         ),
-    ):
+    ) -> None:
         try:
             await inter.response.defer(ephemeral=public != "Yes")
-        except (NotFound, InteractionTimedOut):
+        except HTTPException:
             await inter.channel.send(
                 "There was an error with that command, please try again.",
                 delete_after=5,
@@ -96,5 +95,5 @@ class WarfrontCog(commands.Cog):
         await inter.send(embeds=embeds)
 
 
-def setup(bot: GalacticWideWebBot):
+def setup(bot: GalacticWideWebBot) -> None:
     bot.add_cog(WarfrontCog(bot))
