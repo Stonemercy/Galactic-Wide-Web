@@ -37,7 +37,7 @@ class CampaignChangesContainer(ui.Container, ReprMixin):
                 f"## {self.json.container['new_campaigns']} {Emojis.Icons.new_icon}"
             )
         ]
-        self.planet_buttons: list[ui.Button] | list = []
+        self.planet_buttons: list[ui.Button] = []
         self.container_colours = [
             {"list": self.victories, "colour": Colour.brand_green()},
             {"list": self.losses, "colour": Colour.brand_red()},
@@ -54,20 +54,20 @@ class CampaignChangesContainer(ui.Container, ReprMixin):
             active_effects=active_effects
         ):
             text_display.content += (
-                f"\n> -# {su_emoji} **{self.json.special_units[su_name]}**"
+                f"\n-# {su_emoji} **{self.json.special_units[su_name]}**"
             )
 
     def _add_regions(self, text_display: ui.TextDisplay, regions: list[Planet.Region]):
         for region in regions:
-            text_display.content += f"\n> -# {region.emoji} {self.json.regions[region.type]} **{region.names[self.json.lang_code_long]}**"
+            text_display.content += f"\n-# {region.emoji} {self.json.regions[region.type]} **{region.names[self.json.lang_code_long]}**"
 
     def _add_features(
         self, text_display: ui.TextDisplay, active_effects: set[GalacticWarEffect]
     ):
         for feature_name, feature_emoji in PlanetFeatures.get_from_effects_list(
-            (ae for ae in active_effects if ae.effect_type == 71)
+            active_effects
         ):
-            text_display.content += f"\n> -# {feature_emoji} **{feature_name}**"
+            text_display.content += f"\n-# {feature_emoji} **{feature_name}**"
 
     def _add_gambit(
         self,
@@ -75,7 +75,7 @@ class CampaignChangesContainer(ui.Container, ReprMixin):
         gambit_planet=Planet,
     ):
         if gambit_planet.regen_perc_per_hour < 0.03:
-            text_display.content += f"\n> -# :chess_pawn: {self.json.container['gambit']}: **{gambit_planet.loc_names[self.json.lang_code_long]}**"
+            text_display.content += f"\n-# :chess_pawn: {self.json.container['gambit']}: **{gambit_planet.loc_names[self.json.lang_code_long]}**"
 
     def _update_containers(self):
         colour = Colour.dark_theme()
@@ -218,6 +218,10 @@ class CampaignChangesContainer(ui.Container, ReprMixin):
                 accessory=ui.Thumbnail(
                     DEFENCE_EMBED_ICONS[campaign.faction.full_name.lower()]
                 ),
+            )
+            self._add_features(
+                text_display=section.children[0],
+                active_effects=campaign.planet.active_effects,
             )
 
             self._add_special_units(
