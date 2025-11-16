@@ -88,7 +88,7 @@ class Data(ReprMixin):
         self.steam_playercount = 0
         self.gambit_planets: dict[int, Planet] = {}
         self.galactic_impact_mod: float = 0.0
-        self.galactic_war_effects: list[GalacticWarEffect] | list = []
+        self.galactic_war_effects: list[GalacticWarEffect] = []
         self.global_events: dict[str, list] = {}
 
     async def get_api_to_use(self, session: ClientSession):
@@ -142,7 +142,7 @@ class Data(ReprMixin):
             },
             timeout=TIMEOUT,
         ) as session:
-            print("[Session✔️]\nLoc", end="")
+            print(f"[\033[32mSession\033[0m]\nLoc", end="")
             await self.get_api_to_use(session=session)
             self._data = self.default_data_dict.copy()
 
@@ -208,6 +208,9 @@ class Data(ReprMixin):
                     )
                 except (TimeoutError, Exception) as e:
                     print(f"[ERROR {e}]")
+                if self.api_to_use == Config.BACKUP_API_BASE:
+                    # for HD2 community API rate limit
+                    await sleep(2)
 
             # non-localized endpoints
             print("\nNon-loc")
@@ -816,6 +819,8 @@ class Assignment(ReprMixin):
 
 
 class Dispatch(ReprMixin):
+    __slots__ = ("id", "published_at", "full_message")
+
     def __init__(self, raw_dispatch_data: dict, war_start_timestamp: int) -> None:
         """Organised data of a dispatch"""
         self.id: int = raw_dispatch_data["id"]
@@ -985,10 +990,10 @@ class GlobalEvent(ReprMixin):
         )
         self.flag: int = raw_global_event_data["flag"]
         self.assignment_id: int = raw_global_event_data["assignmentId32"]
-        self.effects: list[GalacticWarEffect] | list = [
+        self.effects: list[GalacticWarEffect] = [
             gwe for gwe in gwe_list if gwe.id in raw_global_event_data["effectIds"]
         ]
-        self.planet_indices: list[int] | list = raw_global_event_data["planetIndices"]
+        self.planet_indices: list[int] = raw_global_event_data["planetIndices"]
         self.expire_time: int = raw_global_event_data["expireTime"] + war_time
 
     @property
@@ -1066,10 +1071,10 @@ class Planet(ReprMixin):
         self.dss_in_orbit: bool = False
         self.eagle_storm_active: bool = False
         self.in_assignment: bool = False
-        self.active_effects: set[GalacticWarEffect] | set = set()
-        self.attack_targets: list[int] | list = []
-        self.defending_from: list[int] | list = []
-        self.regions: dict[int, Planet.Region] | dict = {}
+        self.active_effects: set[GalacticWarEffect] = set()
+        self.attack_targets: list[int] = []
+        self.defending_from: list[int] = []
+        self.regions: dict[int, Planet.Region] = {}
         self.tracker: None | BaseTrackerEntry = None
 
         # BIOME/SECTOR/HAZARDS OVERWRITE #
@@ -1128,6 +1133,19 @@ class Planet(ReprMixin):
         return result
 
     class Event(ReprMixin):
+        __slots__ = (
+            "id",
+            "type",
+            "faction",
+            "health",
+            "max_health",
+            "progress",
+            "start_time_datetime",
+            "end_time_datetime",
+            "level",
+            "potential_buildup",
+        )
+
         def __init__(self, raw_event_data) -> None:
             """Organised data for a planet's event (defence campaign)"""
             self.id: int = raw_event_data["id"]
@@ -1147,7 +1165,6 @@ class Planet(ReprMixin):
             ).replace(tzinfo=None)
             self.progress: float = 1 - (self.health / self.max_health)
             """A float from 0-1"""
-            self.required_players: int = 0
             self.level: int = int(self.max_health / 50000)
             self.level_exclamation: str = DEF_LEVEL_EXC[
                 [key for key in DEF_LEVEL_EXC.keys() if key <= self.level][-1]
