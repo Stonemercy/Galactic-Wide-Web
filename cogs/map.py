@@ -7,7 +7,6 @@ from disnake import (
     File,
     HTTPException,
     InteractionContextTypes,
-    InteractionTimedOut,
     NotFound,
 )
 from disnake.ext import commands, tasks
@@ -20,17 +19,20 @@ from utils.maps import Maps
 class MapCog(commands.Cog):
     def __init__(self, bot: GalacticWideWebBot):
         self.bot = bot
+
+    def cog_load(self) -> None:
         if not self.map_poster.is_running():
             self.map_poster.start()
             self.bot.loops.append(self.map_poster)
 
-    def cog_unload(self):
+    def cog_unload(self) -> None:
         if self.map_poster.is_running():
             self.map_poster.stop()
-            self.bot.loops.remove(self.map_poster)
+            if self.map_poster in self.bot.loops:
+                self.bot.loops.remove(self.map_poster)
 
     @tasks.loop(time=[time(hour=hour, minute=5, second=0) for hour in range(24)])
-    async def map_poster(self):
+    async def map_poster(self) -> None:
         maps_start = datetime.now()
         if (
             not self.bot.interface_handler.loaded
@@ -98,7 +100,7 @@ class MapCog(commands.Cog):
         )
 
     @map_poster.before_loop
-    async def before_map_poster(self):
+    async def before_map_poster(self) -> None:
         await self.bot.wait_until_ready()
 
     @wait_for_startup()
@@ -119,13 +121,13 @@ class MapCog(commands.Cog):
             default="No",
             description="Do you want other people to see the response to this command?",
         ),
-    ):
+    ) -> None:
         self.bot.logger.info(
             f"{self.qualified_name} | /{inter.application_command.name} <{public = }>"
         )
         try:
             await inter.response.defer(ephemeral=public != "Yes")
-        except (NotFound, InteractionTimedOut):
+        except HTTPException:
             await inter.channel.send(
                 "There was an error with that command, please try again.",
                 delete_after=5,
@@ -202,5 +204,5 @@ class MapCog(commands.Cog):
             return
 
 
-def setup(bot: GalacticWideWebBot):
+def setup(bot: GalacticWideWebBot) -> None:
     bot.add_cog(MapCog(bot))
