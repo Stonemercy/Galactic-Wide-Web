@@ -17,7 +17,7 @@ class CommunityServersEmbed(Embed, EmbedReprMixin):
                 self.add_field(
                     name=f"{index}. {guild.name}",
                     value=(
-                        f"Members: **{guild.member_count}**"
+                        f"Members: **{guild.member_count:,}**"
                         f"\nInvite: [Link](<https://discord.com/invite/{guild.vanity_url_code}>)"
                         f"\nLocale: **{guild.preferred_locale}**"
                         f"\nCreated: <t:{int(guild.created_at.timestamp())}:R>"
