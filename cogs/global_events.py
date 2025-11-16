@@ -6,20 +6,23 @@ from utils.dbv2 import GWWGuilds, WarInfo
 
 
 class GlobalEventsCog(commands.Cog):
-    def __init__(self, bot: GalacticWideWebBot):
+    def __init__(self, bot: GalacticWideWebBot) -> None:
         self.bot = bot
+        self.current_war_info = WarInfo()
+
+    def cog_load(self) -> None:
         if not self.global_event_check.is_running():
             self.global_event_check.start()
             self.bot.loops.append(self.global_event_check)
 
-    def cog_unload(self):
+    def cog_unload(self) -> None:
         if self.global_event_check.is_running():
             self.global_event_check.stop()
             if self.global_event_check in self.bot.loops:
                 self.bot.loops.remove(self.global_event_check)
 
     @tasks.loop(minutes=1)
-    async def global_event_check(self):
+    async def global_event_check(self) -> None:
         ge_start = datetime.now()
         if (
             not self.bot.interface_handler.loaded
@@ -29,9 +32,8 @@ class GlobalEventsCog(commands.Cog):
             or not self.bot.data.global_events["en"]
         ):
             return
-        current_war_info = WarInfo()
         for index, global_event in enumerate(self.bot.data.global_events["en"]):
-            if global_event.id > current_war_info.global_event_id:
+            if global_event.id > self.current_war_info.global_event_id:
                 if (
                     global_event.assignment_id != 0
                     or all(
@@ -41,10 +43,10 @@ class GlobalEventsCog(commands.Cog):
                             not global_event.effects,
                         ]
                     )
-                    or global_event.title.upper() == "BRIEFING"
+                    or "BRIEFING" in global_event.title.upper()
                 ):
-                    current_war_info.global_event_id = global_event.id
-                    current_war_info.save_changes()
+                    self.current_war_info.global_event_id = global_event.id
+                    self.current_war_info.save_changes()
                     continue
                 unique_langs = GWWGuilds.unique_languages()
                 containers = {
@@ -62,20 +64,20 @@ class GlobalEventsCog(commands.Cog):
                     ]
                     for lang in unique_langs
                 }
-                current_war_info.global_event_id = global_event.id
-                current_war_info.save_changes()
                 await self.bot.interface_handler.send_feature(
                     feature_type="detailed_dispatches", content=containers
                 )
+                self.current_war_info.global_event_id = global_event.id
+                self.current_war_info.save_changes()
                 self.bot.logger.info(
                     f"Sent Global Event out to {len(self.bot.interface_handler.detailed_dispatches)} channels in {(datetime.now() - ge_start).total_seconds():.2f}s"
                 )
                 break
 
     @global_event_check.before_loop
-    async def before_ge_check(self):
+    async def before_ge_check(self) -> None:
         await self.bot.wait_until_ready()
 
 
-def setup(bot: GalacticWideWebBot):
+def setup(bot: GalacticWideWebBot) -> None:
     bot.add_cog(GlobalEventsCog(bot))
