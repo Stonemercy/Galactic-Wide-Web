@@ -23,25 +23,29 @@ REGION_STATS_TO_CHECK = {
     "Is available": "is_available",
 }
 
+FETCH_SKIP_LIMIT = 0
+
 
 class DataManagementCog(commands.Cog):
-    def __init__(self, bot: GalacticWideWebBot):
+    def __init__(self, bot: GalacticWideWebBot) -> None:
         self.bot = bot
         self.loops = (self.startup, self.pull_from_api, self.check_changes)
+        self.fetch_skips = 0
+
+    def cog_load(self) -> None:
         for loop in self.loops:
             if not loop.is_running():
                 loop.start()
                 self.bot.loops.append(loop)
-        self.mentioned_new_effects = set()
 
-    def cog_unload(self):
+    def cog_unload(self) -> None:
         for loop in self.loops:
             if loop.is_running():
                 loop.stop()
                 self.bot.loops.remove(loop)
 
     @tasks.loop(count=1)
-    async def startup(self):
+    async def startup(self) -> None:
         await self.bot.interface_handler.populate_lists()
         await self.pull_from_api()
         await self.bot.change_presence(
@@ -50,17 +54,20 @@ class DataManagementCog(commands.Cog):
         )
 
     @startup.before_loop
-    async def before_startup(self):
+    async def before_startup(self) -> None:
         await self.bot.wait_until_ready()
 
     @tasks.loop(
         time=[time(hour=j, minute=i, second=45) for j in range(24) for i in range(60)]
     )
-    async def pull_from_api(self):
+    async def pull_from_api(self) -> None:
         print("pull_from_api loop starting")
-        if self.bot.data.fetching:
-            print("bot is already fetching, returning")
+        if self.bot.data.fetching and self.fetch_skips < FETCH_SKIP_LIMIT:
+            self.fetch_skips += 1
+            print(f"Bot is already fetching. Skipped {self.fetch_skips} times so far")
             return
+        if self.fetch_skips > 0:
+            self.fetch_skips = 0
         if self.bot.data.loaded:
             first_load = False
             self.bot.previous_data = self.bot.data.copy()
@@ -79,13 +86,13 @@ class DataManagementCog(commands.Cog):
             self.bot.ready_time = now
 
     @pull_from_api.before_loop
-    async def before_pull_from_api(self):
+    async def before_pull_from_api(self) -> None:
         await self.bot.wait_until_ready()
 
     @tasks.loop(
         time=[time(hour=j, minute=i, second=15) for j in range(24) for i in range(60)]
     )
-    async def check_changes(self):
+    async def check_changes(self) -> None:
         total_changes: list[APIChanges] = []
         if self.bot.previous_data:
             if (
@@ -149,7 +156,7 @@ class DataManagementCog(commands.Cog):
                                         stat_source="Region",
                                     )
                                 )
-        if total_changes:
+        if total_changes != []:
             chunked_changes = [
                 total_changes[i : i + 5] for i in range(0, len(total_changes), 5)
             ]
@@ -170,4 +177,4 @@ class DataManagementCog(commands.Cog):
 
 
 def setup(bot: GalacticWideWebBot):
-    bot.add_cog(cog=DataManagementCog(bot))
+    bot.add_cog(DataManagementCog(bot))
