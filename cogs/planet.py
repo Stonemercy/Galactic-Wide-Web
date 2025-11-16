@@ -4,10 +4,9 @@ from disnake import (
     ApplicationInstallTypes,
     Colour,
     File,
+    HTTPException,
     InteractionContextTypes,
-    InteractionTimedOut,
     MediaGalleryItem,
-    NotFound,
     ui,
 )
 from disnake.ext import commands
@@ -22,7 +21,7 @@ class PlanetCog(commands.Cog):
     def __init__(self, bot: GalacticWideWebBot):
         self.bot = bot
 
-    async def planet_autocomp(inter: AppCmdInter, user_input: str):
+    async def planet_autocomp(inter: AppCmdInter, user_input: str) -> list[str]:
         if not inter.bot.data.loaded:
             return []
         return [
@@ -61,10 +60,10 @@ class PlanetCog(commands.Cog):
             default="No",
             description="Do you want other people to see the response to this command?",
         ),
-    ):
+    ) -> None:
         try:
             await inter.response.defer(ephemeral=public != "Yes")
-        except (NotFound, InteractionTimedOut):
+        except HTTPException:
             await inter.channel.send(
                 "There was an error with that command, please try again.",
                 delete_after=5,
@@ -81,7 +80,14 @@ class PlanetCog(commands.Cog):
             if planet_data_list:
                 planet_data = planet_data_list[0]
         else:
-            planet_data = self.bot.data.planets.get(int(planet.split("-")[0]))
+            try:
+                index = int(planet.split("-")[0])
+            except ValueError:
+                await inter.send(
+                    f"The planet you supplied (`{planet}`) is in the incorrect format. Please choose a planet from the list."
+                )
+                return
+            planet_data = self.bot.data.planets.get(index)
         if not planet_data:
             return await inter.send(
                 "That planet is unavailable. Please select another planet from the list.",
@@ -150,8 +156,7 @@ class PlanetCog(commands.Cog):
             arrow_map_message = await self.bot.channels.waste_bin_channel.send(
                 file=File(fp=self.bot.maps.FileLocations.arrow_map)
             )
-            components.insert(
-                -1,
+            components.append(
                 ui.Container(
                     ui.MediaGallery(
                         MediaGalleryItem(arrow_map_message.attachments[0].url)
@@ -165,5 +170,5 @@ class PlanetCog(commands.Cog):
         )
 
 
-def setup(bot: GalacticWideWebBot):
+def setup(bot: GalacticWideWebBot) -> None:
     bot.add_cog(PlanetCog(bot))
