@@ -26,7 +26,7 @@ class RegionChangesContainer(ui.Container, ReprMixin):
                 f"## {self.container_json.container['new_regions']} {Emojis.Icons.new_icon}"
             )
         ]
-        self.planet_buttons: list[ui.Button] | list = []
+        self.planet_buttons: list[ui.Button] = []
         self.container_colours = [
             {"list": self.victories, "colour": Colour.brand_green()},
             {
