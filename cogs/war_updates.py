@@ -14,22 +14,31 @@ from utils.maps import Maps
 
 
 class WarUpdatesCog(commands.Cog):
-    def __init__(self, bot: GalacticWideWebBot):
+    def __init__(self, bot: GalacticWideWebBot) -> None:
         self.bot = bot
         self.loops = (self.campaign_check, self.dss_check, self.region_check)
+        self.old_campaigns = None
+        self.last_dss_info = None
+        self.old_region_data = None
+
+    def cog_load(self) -> None:
+        self.old_campaigns = WarCampaigns()
+        self.last_dss_info = DSSInfo()
+        self.old_region_data = PlanetRegions()
         for loop in self.loops:
             if not loop.is_running():
                 loop.start()
                 self.bot.loops.append(loop)
 
-    def cog_unload(self):
+    def cog_unload(self) -> None:
         for loop in self.loops:
             if loop.is_running():
                 loop.stop()
-                self.bot.loops.remove(loop)
+                if loop in self.bot.loops:
+                    self.bot.loops.remove(loop)
 
     @tasks.loop(minutes=1)
-    async def campaign_check(self):
+    async def campaign_check(self) -> None:
         update_start = datetime.now()
         if (
             not self.bot.interface_handler.loaded
@@ -39,7 +48,6 @@ class WarUpdatesCog(commands.Cog):
             or self.bot.interface_handler.busy
         ):
             return
-        old_campaigns = WarCampaigns()
         unique_langs = GWWGuilds.unique_languages()
         components = {
             lang: CampaignChangesContainer(
@@ -59,9 +67,9 @@ class WarUpdatesCog(commands.Cog):
         }
         new_updates = False
         need_to_update_sectors = False
-        if not old_campaigns:
+        if not self.old_campaigns:
             for new_campaign in self.bot.data.campaigns:
-                old_campaigns.add(
+                self.old_campaigns.add(
                     campaign_id=new_campaign.id,
                     planet_index=new_campaign.planet.index,
                     planet_owner=new_campaign.planet.faction.full_name,
@@ -80,7 +88,7 @@ class WarUpdatesCog(commands.Cog):
             return
 
         new_campaign_ids = [c.id for c in self.bot.data.campaigns]
-        for old_campaign in old_campaigns:
+        for old_campaign in self.old_campaigns:
             # loop through old campaigns
             if old_campaign.campaign_id not in new_campaign_ids:
                 # if campaign has ended
@@ -119,7 +127,9 @@ class WarUpdatesCog(commands.Cog):
                 old_campaign.delete()
                 need_to_update_sectors = True
 
-        old_campaign_ids = [old_campaign.campaign_id for old_campaign in old_campaigns]
+        old_campaign_ids = [
+            old_campaign.campaign_id for old_campaign in self.old_campaigns
+        ]
         for new_campaign in self.bot.data.campaigns:
             # loop through new campaigns
             if new_campaign.id not in old_campaign_ids:
@@ -131,17 +141,12 @@ class WarUpdatesCog(commands.Cog):
                 ):
                     # if campaign is an illuminate invasion but doesnt have the buildup data
                     continue
-                time_remaining = (
-                    None
-                    if not new_campaign.planet.event
-                    else f"<t:{new_campaign.planet.event.end_time_datetime.timestamp():.0f}:R>"
-                )
                 for container in components.values():
                     container.add_new_campaign(
                         campaign=new_campaign,
                         gambit_planets=self.bot.data.gambit_planets,
                     )
-                old_campaigns.add(
+                self.old_campaigns.add(
                     campaign_id=new_campaign.id,
                     planet_index=new_campaign.planet.index,
                     planet_owner=new_campaign.planet.faction.full_name,
@@ -212,11 +217,11 @@ class WarUpdatesCog(commands.Cog):
                 )
 
     @campaign_check.before_loop
-    async def before_campaign_check(self):
+    async def before_campaign_check(self) -> None:
         await self.bot.wait_until_ready()
 
     @tasks.loop(minutes=1)
-    async def dss_check(self):
+    async def dss_check(self) -> None:
         update_start = datetime.now()
         if (
             not self.bot.interface_handler.loaded
@@ -226,7 +231,6 @@ class WarUpdatesCog(commands.Cog):
             or self.bot.interface_handler.busy
         ):
             return
-
         dss_updates = False
         unique_langs = GWWGuilds.unique_languages()
         if self.bot.data.dss != None:
@@ -248,37 +252,38 @@ class WarUpdatesCog(commands.Cog):
                 )
                 for lang in unique_langs
             }
-            last_dss_info = DSSInfo()
 
             if (
-                last_dss_info.planet_index == None
-                or not last_dss_info.tactical_action_statuses
+                self.last_dss_info.planet_index == None
+                or not self.last_dss_info.tactical_action_statuses
             ):
-                last_dss_info.planet_index = self.bot.data.dss.planet.index
-                last_dss_info.tactical_action_statuses = {
+                self.last_dss_info.planet_index = self.bot.data.dss.planet.index
+                self.last_dss_info.tactical_action_statuses = {
                     ta.id: ta.status for ta in self.bot.data.dss.tactical_actions
                 }
-                last_dss_info.save_changes()
+                self.last_dss_info.save_changes()
                 return
             dss_has_moved = False
-            if last_dss_info.planet_index != self.bot.data.dss.planet.index:
+            if self.last_dss_info.planet_index != self.bot.data.dss.planet.index:
                 # if DSS has moved
                 for container in containers.values():
                     container.dss_moved(
-                        before_planet=self.bot.data.planets[last_dss_info.planet_index],
+                        before_planet=self.bot.data.planets[
+                            self.last_dss_info.planet_index
+                        ],
                         after_planet=self.bot.data.dss.planet,
                     )
-                last_dss_info.planet_index = self.bot.data.dss.planet.index
-                last_dss_info.save_changes()
+                self.last_dss_info.planet_index = self.bot.data.dss.planet.index
+                self.last_dss_info.save_changes()
                 dss_updates = True
                 dss_has_moved = True
             for ta in self.bot.data.dss.tactical_actions:
-                old_status = last_dss_info.tactical_action_statuses.get(ta.id)
+                old_status = self.last_dss_info.tactical_action_statuses.get(ta.id)
                 if old_status == None or old_status != ta.status:
                     for container in containers.values():
                         container.ta_status_changed(tactical_action=ta)
-                        last_dss_info.tactical_action_statuses[ta.id] = ta.status
-                        last_dss_info.save_changes()
+                        self.last_dss_info.tactical_action_statuses[ta.id] = ta.status
+                        self.last_dss_info.save_changes()
                     dss_updates = True
 
         if dss_updates:
@@ -327,11 +332,11 @@ class WarUpdatesCog(commands.Cog):
                     )
 
     @dss_check.before_loop
-    async def before_dss_check(self):
+    async def before_dss_check(self) -> None:
         await self.bot.wait_until_ready()
 
     @tasks.loop(minutes=1)
-    async def region_check(self):
+    async def region_check(self) -> None:
         update_start = datetime.now()
         if (
             not self.bot.interface_handler.loaded
@@ -346,11 +351,10 @@ class WarUpdatesCog(commands.Cog):
         all_regions = [
             r for p in self.bot.data.planets.values() for r in p.regions.values()
         ]
-        old_region_data = PlanetRegions()
-        if not old_region_data:
+        if not self.old_region_data:
             for region in all_regions:
                 if region.is_available:
-                    old_region_data.add(
+                    self.old_region_data.add(
                         region.settings_hash,
                         region.owner.full_name,
                         region.planet_index,
@@ -374,7 +378,7 @@ class WarUpdatesCog(commands.Cog):
         }
 
         active_region_hashes = [r.settings_hash for r in all_regions if r.is_available]
-        for old_region in old_region_data:
+        for old_region in self.old_region_data:
             # loop through old regions
             if old_region.settings_hash not in active_region_hashes:
                 # if region has become unavailable
@@ -403,7 +407,7 @@ class WarUpdatesCog(commands.Cog):
 
         if all_regions:
             # region updates
-            old_region_hashes = [r.settings_hash for r in old_region_data]
+            old_region_hashes = [r.settings_hash for r in self.old_region_data]
             for region in all_regions:
                 # loop through new regions
                 if (
@@ -416,7 +420,7 @@ class WarUpdatesCog(commands.Cog):
                         container.add_new_region(
                             region=region,
                         )
-                    old_region_data.add(
+                    self.old_region_data.add(
                         region.settings_hash,
                         region.owner.full_name,
                         region.planet_index,
@@ -432,9 +436,9 @@ class WarUpdatesCog(commands.Cog):
                 )
 
     @region_check.before_loop
-    async def before_region_check(self):
+    async def before_region_check(self) -> None:
         await self.bot.wait_until_ready()
 
 
-def setup(bot: GalacticWideWebBot):
+def setup(bot: GalacticWideWebBot) -> None:
     bot.add_cog(WarUpdatesCog(bot))
