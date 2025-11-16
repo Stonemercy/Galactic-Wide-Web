@@ -1,9 +1,8 @@
 from disnake import (
     AppCmdInter,
     ApplicationInstallTypes,
+    HTTPException,
     InteractionContextTypes,
-    InteractionTimedOut,
-    NotFound,
 )
 from disnake.ext import commands
 from utils.bot import GalacticWideWebBot
@@ -13,7 +12,7 @@ from utils.embeds import DSSEmbed
 
 
 class DSSCog(commands.Cog):
-    def __init__(self, bot: GalacticWideWebBot):
+    def __init__(self, bot: GalacticWideWebBot) -> None:
         self.bot = bot
 
     @wait_for_startup()
@@ -26,10 +25,10 @@ class DSSCog(commands.Cog):
             "example_usage": "**`/dss`** opens the Wiki to the DSS tab.",
         },
     )
-    async def dss(self, inter: AppCmdInter):
+    async def dss(self, inter: AppCmdInter) -> None:
         try:
             await inter.response.defer(ephemeral=True)
-        except (NotFound, InteractionTimedOut):
+        except HTTPException:
             await inter.channel.send(
                 "There was an error with that command, please try again.",
                 delete_after=5,
@@ -55,5 +54,5 @@ class DSSCog(commands.Cog):
         await inter.send(embed=embed)
 
 
-def setup(bot: GalacticWideWebBot):
+def setup(bot: GalacticWideWebBot) -> None:
     bot.add_cog(DSSCog(bot))
