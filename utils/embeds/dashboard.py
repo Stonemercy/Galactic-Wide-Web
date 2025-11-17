@@ -1251,7 +1251,7 @@ class Dashboard:
 
             if skipped_campaigns != []:
                 skipped_planets_text = ""
-                for campaign in skipped_campaigns:
+                for campaign in skipped_campaigns[:10]:
                     exclamation = campaign.planet.exclamations
                     if campaign.planet.regen_perc_per_hour < 0.001:
                         exclamation += f":warning: {campaign.planet.regen_perc_per_hour:+.2%}/hr :warning:"
@@ -1267,6 +1267,11 @@ class Dashboard:
                                 and region.players > total_players * 0.001
                             ):
                                 skipped_planets_text += f"-# ↳ {region.emoji} {language_json['regions'][region.type]} **{region.names[language_json['code_long']]}** - {region.perc:.2%}\n"
+                if len(skipped_campaigns) > 10:
+                    other_count = sum(
+                        [c.planet.stats.player_count for c in skipped_campaigns[10:]]
+                    )
+                    skipped_planets_text += f"-# Other Planets: {other_count:,}"
                 if skipped_planets_text != "":
                     self.add_field(
                         f"{language_json['embeds']['Dashboard']['AttackEmbed']['low_impact']}",
