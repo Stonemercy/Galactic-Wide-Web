@@ -22,9 +22,12 @@ class WarUpdatesCog(commands.Cog):
         self.old_region_data = None
 
     def cog_load(self) -> None:
-        self.old_campaigns = WarCampaigns()
-        self.last_dss_info = DSSInfo()
-        self.old_region_data = PlanetRegions()
+        if not self.old_campaigns:
+            self.old_campaigns = WarCampaigns()
+        if not self.last_dss_info:
+            self.last_dss_info = DSSInfo()
+        if not self.old_region_data:
+            self.old_region_data = PlanetRegions()
         for loop in self.loops:
             if not loop.is_running():
                 loop.start()
@@ -88,7 +91,7 @@ class WarUpdatesCog(commands.Cog):
             return
 
         new_campaign_ids = [c.id for c in self.bot.data.campaigns]
-        for old_campaign in self.old_campaigns:
+        for old_campaign in self.old_campaigns.copy():
             # loop through old campaigns
             if old_campaign.campaign_id not in new_campaign_ids:
                 # if campaign has ended
@@ -125,6 +128,7 @@ class WarUpdatesCog(commands.Cog):
                     new_updates = True
                 self.bot.data.liberation_changes.remove_entry(key=planet.index)
                 old_campaign.delete()
+                self.old_campaigns.remove(old_campaign)
                 need_to_update_sectors = True
 
         old_campaign_ids = [
@@ -378,7 +382,7 @@ class WarUpdatesCog(commands.Cog):
         }
 
         active_region_hashes = [r.settings_hash for r in all_regions if r.is_available]
-        for old_region in self.old_region_data:
+        for old_region in self.old_region_data.copy():
             # loop through old regions
             if old_region.settings_hash not in active_region_hashes:
                 # if region has become unavailable
@@ -404,6 +408,7 @@ class WarUpdatesCog(commands.Cog):
                             region_updates = True
                     self.bot.data.region_changes.remove_entry(old_region.settings_hash)
                     old_region.delete()
+                    self.old_region_data.remove(old_region)
 
         if all_regions:
             # region updates
