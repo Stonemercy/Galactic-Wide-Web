@@ -25,9 +25,11 @@ class MajorOrderCog(commands.Cog):
         self.last_mo_update: None | datetime = None
         self.mo_briefing_check_dict = {}
         self.loops = (self.major_order_check, self.major_order_updates)
-        self.current_war_info = WarInfo()
+        self.current_war_info = None
 
     def cog_load(self) -> None:
+        if not self.current_war_info:
+            self.current_war_info = WarInfo()
         for loop in self.loops:
             if not loop.is_running():
                 loop.start()
