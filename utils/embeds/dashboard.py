@@ -1260,7 +1260,7 @@ class Dashboard:
                     ]:
                         exclamation += ":chess_pawn:"
                     skipped_planets_text += f"-# {campaign.planet.loc_names[language_json['code_long']]} - **{campaign.planet.stats.player_count:,}** {exclamation}\n"
-                    if compact_level < 2:
+                    if compact_level < 2 and len(skipped_campaigns) < 10:
                         for region in campaign.planet.regions.values():
                             if (
                                 region.is_available
