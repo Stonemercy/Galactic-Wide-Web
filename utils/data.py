@@ -1341,6 +1341,7 @@ class DSS(ReprMixin):
             )
             for tactical_action_raw_data in raw_dss_data["tacticalActions"]
         ]
+        self.votes: None | DSS.Votes = None
 
     def get_ta_by_name(self, name: str):
         if name in [ta.name for ta in self.tactical_actions]:
@@ -1386,3 +1387,12 @@ class DSS(ReprMixin):
                     cost["maxDonationAmount"],
                     cost["maxDonationPeriodSeconds"],
                 )
+
+    class Votes(ReprMixin):
+        def __init__(self, planets: Planets, raw_votes_data: dict):
+            self.total_votes: int = sum([o["count"] for o in raw_votes_data["options"]])
+            self.available_planets: list[tuple[Planet, int]] = []
+            for option in raw_votes_data["options"]:
+                planet = planets[option["metaId"]]
+                self.available_planets.append((planet, option["count"]))
+

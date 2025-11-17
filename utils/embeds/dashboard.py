@@ -918,16 +918,33 @@ class Dashboard:
                 faction_emoji=dss.planet.exclamations,
             )
             move_time = int(dss.move_timer_datetime.timestamp())
+            because_of_planet = False
             end_time_info = get_end_time(dss.planet, gambit_planets)
             if (
                 end_time_info.end_time
                 and int(end_time_info.end_time.timestamp()) < move_time
             ):
                 move_time = int(end_time_info.end_time.timestamp())
+                because_of_planet = True
 
-            self.description += language_json["embeds"]["Dashboard"]["DSSEmbed"][
-                "next_move"
-            ].format(timestamp=f"<t:{move_time}:R>")
+            if dss.votes:
+                sorted_planets: list[tuple[Planet, int]] = sorted(
+                    dss.votes.available_planets,
+                    key=lambda x: x[1],
+                    reverse=True,
+                )
+                next_planet = sorted_planets[0]
+                if because_of_planet and dss.planet == next_planet[0]:
+                    next_planet = sorted_planets[1]
+                percent = next_planet[1] / dss.votes.total_votes
+                if next_planet[0] == dss.planet:
+                    self.description += f"-# Scheduled to stay on {dss.planet.loc_names[language_json['code_long']]} <t:{move_time}:R> ({percent:.0%})"
+                else:
+                    self.description += f"-# Scheduled to move to {next_planet[0].loc_names[language_json['code_long']]} <t:{move_time}:R> ({percent:.0%})"
+            else:
+                self.description += language_json["embeds"]["Dashboard"]["DSSEmbed"][
+                    "next_move"
+                ].format(timestamp=f"<t:{move_time}:R>")
 
             time_until_move = move_time - int(datetime.now().timestamp())
             if time_until_move < 1800:
