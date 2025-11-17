@@ -8,9 +8,11 @@ from utils.dbv2 import GWWGuilds, WarInfo
 class GlobalEventsCog(commands.Cog):
     def __init__(self, bot: GalacticWideWebBot) -> None:
         self.bot = bot
-        self.current_war_info = WarInfo()
+        self.current_war_info = None
 
     def cog_load(self) -> None:
+        if not self.current_war_info:
+            self.current_war_info = WarInfo()
         if not self.global_event_check.is_running():
             self.global_event_check.start()
             self.bot.loops.append(self.global_event_check)
