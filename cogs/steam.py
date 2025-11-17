@@ -17,9 +17,11 @@ from utils.interactables import SteamStringSelect
 class SteamCog(commands.Cog):
     def __init__(self, bot: GalacticWideWebBot) -> None:
         self.bot = bot
-        self.current_war_info = WarInfo()
+        self.current_war_info = None
 
     def cog_load(self) -> None:
+        if not self.current_war_info:
+            self.current_war_info = WarInfo()
         if not self.steam_check.is_running():
             self.steam_check.start()
             self.bot.loops.append(self.steam_check)
