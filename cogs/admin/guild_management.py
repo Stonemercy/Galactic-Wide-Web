@@ -26,9 +26,11 @@ class GuildManagementCog(commands.Cog):
         self.loops = (self.bot_dashboard, self.dashboard_checking, self.guild_checking)
         self.guilds_to_remove = []
         self.user_installs = 0
-        self.bot_dashboard_db = BotDashboard()
+        self.bot_dashboard_db = None
 
     def cog_load(self) -> None:
+        if not self.bot_dashboard_db:
+            self.bot_dashboard_db = BotDashboard()
         for loop in self.loops:
             if not loop.is_running():
                 loop.start()
