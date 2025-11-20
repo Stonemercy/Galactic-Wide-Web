@@ -20,8 +20,6 @@ class DispatchesCog(commands.Cog):
         self.current_war_info = None
 
     def cog_load(self) -> None:
-        if not self.current_war_info:
-            self.current_war_info = WarInfo()
         if not self.dispatch_check.is_running():
             self.dispatch_check.start()
             self.bot.loops.append(self.dispatch_check)
@@ -42,6 +40,8 @@ class DispatchesCog(commands.Cog):
             or self.bot.interface_handler.busy
         ):
             return
+        if not self.current_war_info:
+            self.current_war_info = WarInfo()
         if not self.current_war_info.dispatch_id:
             await self.bot.channels.moderator_channel.send(
                 "# No dispatch ID found in the database. Please check the war info table."

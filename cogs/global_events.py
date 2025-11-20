@@ -11,8 +11,6 @@ class GlobalEventsCog(commands.Cog):
         self.current_war_info = None
 
     def cog_load(self) -> None:
-        if not self.current_war_info:
-            self.current_war_info = WarInfo()
         if not self.global_event_check.is_running():
             self.global_event_check.start()
             self.bot.loops.append(self.global_event_check)
@@ -34,6 +32,8 @@ class GlobalEventsCog(commands.Cog):
             or not self.bot.data.global_events["en"]
         ):
             return
+        if not self.current_war_info:
+            self.current_war_info = WarInfo()
         for index, global_event in enumerate(self.bot.data.global_events["en"]):
             if global_event.id > self.current_war_info.global_event_id:
                 if (

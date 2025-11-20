@@ -28,8 +28,6 @@ class MajorOrderCog(commands.Cog):
         self.current_war_info = None
 
     def cog_load(self) -> None:
-        if not self.current_war_info:
-            self.current_war_info = WarInfo()
         for loop in self.loops:
             if not loop.is_running():
                 loop.start()
@@ -53,6 +51,8 @@ class MajorOrderCog(commands.Cog):
             or not self.bot.data.assignments["en"]
         ):
             return
+        if not self.current_war_info:
+            self.current_war_info = WarInfo()
         if self.current_war_info.major_order_ids == None:
             await self.bot.channels.moderator_channel.send(
                 "# Major Order entry has not been initialized with an empty array. Please check the war info table."

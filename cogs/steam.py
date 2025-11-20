@@ -20,8 +20,6 @@ class SteamCog(commands.Cog):
         self.current_war_info = None
 
     def cog_load(self) -> None:
-        if not self.current_war_info:
-            self.current_war_info = WarInfo()
         if not self.steam_check.is_running():
             self.steam_check.start()
             self.bot.loops.append(self.steam_check)
@@ -42,6 +40,8 @@ class SteamCog(commands.Cog):
             or self.bot.interface_handler.busy
         ):
             return
+        if not self.current_war_info:
+            self.current_war_info = WarInfo()
         if self.current_war_info.patch_notes_id != self.bot.data.steam[0].id:
             unique_langs = GWWGuilds.unique_languages()
             embeds = {

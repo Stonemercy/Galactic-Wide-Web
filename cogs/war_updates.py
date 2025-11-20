@@ -22,12 +22,6 @@ class WarUpdatesCog(commands.Cog):
         self.old_region_data = None
 
     def cog_load(self) -> None:
-        if not self.old_campaigns:
-            self.old_campaigns = WarCampaigns()
-        if not self.last_dss_info:
-            self.last_dss_info = DSSInfo()
-        if not self.old_region_data:
-            self.old_region_data = PlanetRegions()
         for loop in self.loops:
             if not loop.is_running():
                 loop.start()
@@ -70,6 +64,8 @@ class WarUpdatesCog(commands.Cog):
         }
         new_updates = False
         need_to_update_sectors = False
+        if self.old_campaigns == None:
+            self.old_campaigns = WarCampaigns()
         if not self.old_campaigns:
             for new_campaign in self.bot.data.campaigns:
                 self.old_campaigns.add(
@@ -256,6 +252,8 @@ class WarUpdatesCog(commands.Cog):
                 )
                 for lang in unique_langs
             }
+            if not self.last_dss_info:
+                self.last_dss_info = DSSInfo()
 
             if (
                 self.last_dss_info.planet_index == None
@@ -355,6 +353,8 @@ class WarUpdatesCog(commands.Cog):
         all_regions = [
             r for p in self.bot.data.planets.values() for r in p.regions.values()
         ]
+        if self.old_region_data == None:
+            self.old_region_data = PlanetRegions()
         if not self.old_region_data:
             for region in all_regions:
                 if region.is_available:
