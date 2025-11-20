@@ -13,7 +13,7 @@
             "ahead_of_schedule": ", на **{hours_remaining}ч** раньше срока!",
             "defend": "### ЗАЩИТИТЕ ПЛАНЕТУ **{planet_name}** {emojis}",
             "invasion_level": "\n> Уровень вторжения **{level}{emoji}**",
-            "ends": "\n> -# Заканчивается <t:{timestamp}:R>",
+            "ends": "\n-# Заканчивается <t:{timestamp}:R>",
             "liberate": "### ОСВОБОДИТЕ ПЛАНЕТУ **{planet_name}** {emojis}",
             "resistance": "\n > Сопротивление: **{regen}/ч**",
             "planet_lost": "Планета **{planet_name}** перешла под контроль **{faction_name}** {emojis}"
@@ -215,7 +215,7 @@
                 "time_unavailable": "Недоступно",
                 "event_health": "Освобождение планеты",
                 "level": "Уровень вторжения",
-                "defence_held_by_dss": "\n> -# ОБОРОНА ВЕДЕТСЯ ДКС",
+                "defence_held_by_dss": "\n-# ОБОРОНА ВЕДЕТСЯ ДКС",
                 "ends": "Заканчивается",
                 "invasion_level": "Уровень вторжения",
                 "feature": "Объект интереса",

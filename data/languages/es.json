@@ -13,7 +13,7 @@
             "ahead_of_schedule": ", **{hours_remaining} hora(s)** antes de tiempo!",
             "defend": "### DEFIENDE **{planet_name}** {emojis}",
             "invasion_level": "\n> Nivel de invasion **{level}{emoji}**",
-            "ends": "\n> -# termina en <t:{timestamp}:R>",
+            "ends": "\n-# termina en <t:{timestamp}:R>",
             "liberate": "### LIBERA **{planet_name}** {emojis}",
             "resistance": "\n > Resistencia: **{regen}/hr**",
             "planet_lost": "**{planet_name}** ha sido perdido a **{faction_name}** {emojis}"
@@ -215,7 +215,7 @@
                 "time_unavailable": "No disponible",
                 "event_health": "Liberación del Planeta",
                 "level": "Nivel de Invasión",
-                "defence_held_by_dss": "\n> -# DEFENSA MANTENIDA POR EED",
+                "defence_held_by_dss": "\n-# DEFENSA MANTENIDA POR EED",
                 "ends": "Termina",
                 "invasion_level": "Nivel de Invasión",
                 "feature": "Característica",
