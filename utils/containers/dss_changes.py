@@ -40,12 +40,12 @@ class DSSChangesContainer(ui.Container, ReprMixin):
         ):
             for su_name, su_emoji in special_units:
                 text_display.content += (
-                    f"\n> -# {su_emoji} **{self.json.special_units[su_name]}**"
+                    f"\n-# {su_emoji} **{self.json.special_units[su_name]}**"
                 )
 
     def _add_regions(self, text_display: ui.TextDisplay, regions: list[Planet.Region]):
         for region in sorted(regions, key=lambda x: x.availability_factor):
-            text_display.content += f"\n> -# {region.emoji} {self.json.regions[region.type]} **{region.names[self.json.lang_code_long]}**"
+            text_display.content += f"\n-# {region.emoji} {self.json.regions[region.type]} **{region.names[self.json.lang_code_long]}**"
 
     def _add_features(
         self, text_display: ui.TextDisplay, active_effects: set[GalacticWarEffect]
@@ -53,7 +53,7 @@ class DSSChangesContainer(ui.Container, ReprMixin):
         for planet_feature in PlanetFeatures.get_from_effects_list(
             (ae for ae in active_effects if ae.effect_type == 71)
         ):
-            text_display.content += f"\n> -# {planet_feature[1]} {planet_feature[0]}"
+            text_display.content += f"\n-# {planet_feature[1]} {planet_feature[0]}"
 
     def _add_gambit(
         self,
@@ -61,7 +61,7 @@ class DSSChangesContainer(ui.Container, ReprMixin):
         gambit_planet=Planet,
     ):
         if gambit_planet.regen_perc_per_hour < 0.03:
-            text_display.content += f"\n> -# {self.json.container['gambit']}: {gambit_planet.loc_names[self.json.lang_code_long]}"
+            text_display.content += f"\n-# {self.json.container['gambit']}: {gambit_planet.loc_names[self.json.lang_code_long]}"
 
     def _update_containers(self):
         super().__init__(*(self.title + self.sections), accent_colour=self.colour)
