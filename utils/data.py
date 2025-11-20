@@ -355,7 +355,9 @@ class Data(ReprMixin):
                     match task.type:
                         case 2:
                             """Successfully extract with {amount} {item}[ on {planet}][ in the __{sector}__ SECTOR][ from any {faction} controlled planet]"""
-                            if task.sector_index:
+                            if task.planet_index:
+                                self.planets[task.planet_index].in_assignment = True
+                            elif task.sector_index:
                                 sector_name: str = self.json_dict["sectors"][
                                     str(task.sector_index)
                                 ]
@@ -366,9 +368,9 @@ class Data(ReprMixin):
                                 ]
                                 for planet in planets_in_assignment:
                                     planet.in_assignment = True
-                            elif task.planet_index:
-                                self.planets[task.planet_index].in_assignment = True
                             elif task.faction:
+                                if task.progress_perc == 1:
+                                    continue
                                 for planet in [
                                     p
                                     for p in self.planets.values()
