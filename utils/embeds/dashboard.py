@@ -285,8 +285,8 @@ class Dashboard:
                 )
 
             field_value = ""
-            field_value += f"{self.language_json['embeds']['Dashboard']['progress']}: **{task.progress:,.0f}**"
             if task.progress_perc != 1:
+                field_value += f"{self.language_json['embeds']['Dashboard']['progress']}: **{task.progress:,.0f}**"
                 if self.compact_level < 1:
                     field_value += f"\n{task.health_bar}"
                 field_value += f"\n`{(task.progress_perc):^25,.2%}`"
@@ -572,6 +572,8 @@ class Dashboard:
                 planet=planet_text,
                 amount=task.target,
             )
+            if planet_text == "":
+                field_name += " on any planet"
             if task.faction:
                 field_name += self.language_json["embeds"]["Dashboard"][
                     "MajorOrderEmbed"
@@ -580,7 +582,7 @@ class Dashboard:
                 )
             field_value = ""
             if task.progress_perc != 1:
-                if planet:
+                if task.planet_index and planet:
                     # if planet.feature: TODO
                     #     field_value += f"{language_json['embeds']['Dashboard']['MajorOrderEmbed']['feature']}: **{planet.feature}**"
                     field_value += f"\n{self.language_json['embeds']['Dashboard']['heroes'].format(heroes=planet.stats.player_count)}"
