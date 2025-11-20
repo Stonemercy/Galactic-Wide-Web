@@ -42,7 +42,9 @@ class RegionChangesContainer(ui.Container, ReprMixin):
             active_effects=active_effects
         ):
             for su_name, su_emoji in special_units:
-                text_display.content += f"\n> -# {su_emoji} **{self.container_json.special_units[su_name]}**"
+                text_display.content += (
+                    f"\n-# {su_emoji} **{self.container_json.special_units[su_name]}**"
+                )
 
     def _add_features(
         self, text_display: ui.TextDisplay, active_effects: set[GalacticWarEffect]
@@ -50,7 +52,7 @@ class RegionChangesContainer(ui.Container, ReprMixin):
         for planet_feature in PlanetFeatures.get_from_effects_list(
             (ae for ae in active_effects if ae.effect_type == 71)
         ):
-            text_display.content += f"\n> -# {planet_feature[1]} {planet_feature[0]}"
+            text_display.content += f"\n-# {planet_feature[1]} {planet_feature[0]}"
 
     def _update_containers(self):
         colour = Colour.dark_theme()
