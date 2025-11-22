@@ -12,10 +12,10 @@
             "defended": "Планета **{planet_name}** была успешно защищена от **{faction_name}**",
             "ahead_of_schedule": ", на **{hours_remaining}ч** раньше срока!",
             "defend": "### ЗАЩИТИТЕ ПЛАНЕТУ **{planet_name}** {emojis}",
-            "invasion_level": "\n> Уровень вторжения **{level}{emoji}**",
+            "invasion_level": "\n-# Уровень вторжения **{level}{emoji}**",
             "ends": "\n-# Заканчивается <t:{timestamp}:R>",
             "liberate": "### ОСВОБОДИТЕ ПЛАНЕТУ **{planet_name}** {emojis}",
-            "resistance": "\n > Сопротивление: **{regen}/ч**",
+            "resistance": "\n-# Сопротивление: **{regen}/ч**",
             "planet_lost": "Планета **{planet_name}** перешла под контроль **{faction_name}** {emojis}"
         },
         "DispatchContainer": {
@@ -108,7 +108,7 @@
             "new_regions": "ДОСТУПНЫ НОВЫЕ РЕГИОНЫ",
             "region_victory": "\n### Регион {region_emoji} {region_name} на планете {planet_name} был освобожден от {faction_name}",
             "new_region": "### Регион {region_emoji} {region_name} теперь доступен на планете {planet_name}",
-            "resistance": "\n > Сопротивление: **{regen}/ч**"
+            "resistance": "\n-# Сопротивление: **{regen}/ч**"
         },
         "SetupContainer": {
             "title": "Установка",

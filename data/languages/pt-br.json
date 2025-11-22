@@ -12,10 +12,10 @@
             "defended": "**{planet_name}** foi defendido com sucesso dos **{faction_name}**",
             "ahead_of_schedule": "Adiantado em **{hours_remaining} hour(s)**",
             "defend": "### DEFENDER **{planet_name}** {emojis}",
-            "invasion_level": "\n> Invasão de Nível **{level}{emoji}**",
+            "invasion_level": "\n-# Invasão de Nível **{level}{emoji}**",
             "ends": "\n-# Acaba em <t:{timestamp}:R>",
             "liberate": "### LIBERAR **{planet_name}** {emojis}",
-            "resistance": "\n> Resistência: **{regen}/hr**",
+            "resistance": "\n-# Resistência: **{regen}/hr**",
             "planet_lost": "**{planet_name}** foi perdido para os **{faction_name}** {emojis}"
         },
         "DispatchContainer": {
@@ -108,7 +108,7 @@
             "new_regions": "NOVAS REGIÕES DISPONÍVEIS",
             "region_victory": "\n### {region_name} em {planet_name} foi liberada {faction_name}",
             "new_region": "### **{region_name}** agora está disponível em **{planet_name}**",
-            "resistance": "\n> Resistência: **{regen}/hr**"
+            "resistance": "\n-# Resistência: **{regen}/hr**"
         },
         "SetupContainer": {
             "title": "Base",
