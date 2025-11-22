@@ -423,6 +423,10 @@ class WarUpdatesCog(commands.Cog):
                     region.settings_hash not in old_region_hashes
                     and region.is_available
                     and region.owner.full_name != "Humans"
+                    and (
+                        region.planet.faction.full_name != "Humans"
+                        and not region.planet.event
+                    )
                 ):
                     # if region is brand new
                     for container in components.values():
