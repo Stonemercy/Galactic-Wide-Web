@@ -417,3 +417,11 @@ class PlanetRegions(list[PlanetRegion], ReprMixin):
 
                 conn.commit()
         self.append(PlanetRegion(settings_hash, owner, planet_index))
+
+
+class Databases:
+    def __init__(self) -> None:
+        self.war_info = WarInfo()
+        self.war_campaigns = WarCampaigns()
+        self.dss_info = DSSInfo()
+        self.planet_regions = PlanetRegions()

@@ -11,7 +11,7 @@ from typing import TYPE_CHECKING
 from utils.checks import wait_for_startup
 from utils.containers import MOUnavailableContainer
 from utils.dataclasses import Languages
-from utils.dbv2 import GWWGuild, GWWGuilds, WarInfo
+from utils.dbv2 import GWWGuild, GWWGuilds
 from utils.embeds import Dashboard
 from utils.interactables import WikiButton
 
@@ -25,7 +25,6 @@ class MajorOrderCog(commands.Cog):
         self.last_mo_update: None | datetime = None
         self.mo_briefing_check_dict = {}
         self.loops = (self.major_order_check, self.major_order_updates)
-        self.current_war_info = None
 
     def cog_load(self) -> None:
         for loop in self.loops:
@@ -51,16 +50,14 @@ class MajorOrderCog(commands.Cog):
             or not self.bot.data.assignments["en"]
         ):
             return
-        if not self.current_war_info:
-            self.current_war_info = WarInfo()
-        if self.current_war_info.major_order_ids == None:
+        if self.bot.databases.war_info.major_order_ids == None:
             await self.bot.channels.moderator_channel.send(
                 "# Major Order entry has not been initialized with an empty array. Please check the war info table."
             )
             return
         unique_langs = GWWGuilds.unique_languages()
         for index, major_order in enumerate(self.bot.data.assignments["en"]):
-            if major_order.id not in self.current_war_info.major_order_ids:
+            if major_order.id not in self.bot.databases.war_info.major_order_ids:
                 mo_briefing_dict = {
                     lang.short_code: ge
                     for lang in [
@@ -99,8 +96,8 @@ class MajorOrderCog(commands.Cog):
                     if briefing:
                         for embed in embed_list:
                             embed.add_briefing(briefing=briefing)
-                self.current_war_info.major_order_ids.append(major_order.id)
-                self.current_war_info.save_changes()
+                self.bot.databases.war_info.major_order_ids.append(major_order.id)
+                self.bot.databases.war_info.save_changes()
                 await self.bot.interface_handler.send_feature(
                     feature_type="war_announcements",
                     content=embeds,
@@ -112,10 +109,10 @@ class MajorOrderCog(commands.Cog):
 
         # check for old MO IDs that are no longer active
         current_mo_ids = [mo.id for mo in self.bot.data.assignments["en"]]
-        for active_id in self.current_war_info.major_order_ids.copy():
+        for active_id in self.bot.databases.war_info.major_order_ids.copy():
             if active_id not in current_mo_ids:
-                self.current_war_info.major_order_ids.remove(active_id)
-                self.current_war_info.save_changes()
+                self.bot.databases.war_info.major_order_ids.remove(active_id)
+                self.bot.databases.war_info.save_changes()
 
     @major_order_check.before_loop
     async def before_mo_check(self) -> None:

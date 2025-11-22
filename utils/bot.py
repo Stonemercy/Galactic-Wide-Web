@@ -6,6 +6,7 @@ from json import load
 from os import listdir
 from utils.data import Data
 from utils.dataclasses import BotChannels, Config, GWWBotModes
+from utils.dbv2 import Databases
 from utils.interface_handler import InterfaceHandler
 from utils.logger import GWWLogger
 from utils.maps import Maps
@@ -45,6 +46,7 @@ class GalacticWideWebBot(commands.AutoShardedInteractionBot):
             f"Loaded {len(self.cogs)}/{len([f for f in listdir('cogs') if f.endswith('.py')]) + len([f for f in listdir('cogs/admin') if f.endswith('.py')])} cogs successfully"
         )
         await self.get_owner()
+        self.databases = Databases()
 
     def load_json(self) -> None:
         for key, values in self.json_dict.copy().items():

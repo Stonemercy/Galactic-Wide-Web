@@ -10,14 +10,13 @@ from disnake.ext import commands, tasks
 from utils.bot import GalacticWideWebBot
 from utils.containers import DispatchContainer
 from utils.checks import wait_for_startup
-from utils.dbv2 import GWWGuild, GWWGuilds, WarInfo
+from utils.dbv2 import GWWGuild, GWWGuilds
 from utils.interactables import DispatchStringSelect
 
 
 class DispatchesCog(commands.Cog):
     def __init__(self, bot: GalacticWideWebBot):
         self.bot = bot
-        self.current_war_info = None
 
     def cog_load(self) -> None:
         if not self.dispatch_check.is_running():
@@ -40,18 +39,16 @@ class DispatchesCog(commands.Cog):
             or self.bot.interface_handler.busy
         ):
             return
-        if not self.current_war_info:
-            self.current_war_info = WarInfo()
-        if not self.current_war_info.dispatch_id:
+        if not self.bot.databases.war_info.dispatch_id:
             await self.bot.channels.moderator_channel.send(
                 "# No dispatch ID found in the database. Please check the war info table."
             )
             return
         for index, dispatch in enumerate(self.bot.data.dispatches["en"]):
-            if self.current_war_info.dispatch_id < dispatch.id:
+            if self.bot.databases.war_info.dispatch_id < dispatch.id:
                 if len(dispatch.full_message) < 5 or "#planet" in dispatch.full_message:
-                    self.current_war_info.dispatch_id = dispatch.id
-                    self.current_war_info.save_changes()
+                    self.bot.databases.war_info.dispatch_id = dispatch.id
+                    self.bot.databases.war_info.save_changes()
                     continue
                 unique_langs = GWWGuilds.unique_languages()
                 containers = {
@@ -70,8 +67,8 @@ class DispatchesCog(commands.Cog):
                     content=containers,
                     announcement_type="dispatch",
                 )
-                self.current_war_info.dispatch_id = dispatch.id
-                self.current_war_info.save_changes()
+                self.bot.databases.war_info.dispatch_id = dispatch.id
+                self.bot.databases.war_info.save_changes()
                 self.bot.logger.info(
                     f"Sent dispatch out to {len(self.bot.interface_handler.war_announcements)} channels in {(datetime.now() - dispatch_start).total_seconds():.2f}s"
                 )

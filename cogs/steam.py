@@ -9,7 +9,7 @@ from disnake import (
 from disnake.ext import commands, tasks
 from main import GalacticWideWebBot
 from utils.checks import wait_for_startup
-from utils.dbv2 import GWWGuild, GWWGuilds, WarInfo
+from utils.dbv2 import GWWGuild, GWWGuilds
 from utils.embeds import SteamEmbed
 from utils.interactables import SteamStringSelect
 
@@ -17,7 +17,6 @@ from utils.interactables import SteamStringSelect
 class SteamCog(commands.Cog):
     def __init__(self, bot: GalacticWideWebBot) -> None:
         self.bot = bot
-        self.current_war_info = None
 
     def cog_load(self) -> None:
         if not self.steam_check.is_running():
@@ -40,9 +39,7 @@ class SteamCog(commands.Cog):
             or self.bot.interface_handler.busy
         ):
             return
-        if not self.current_war_info:
-            self.current_war_info = WarInfo()
-        if self.current_war_info.patch_notes_id != self.bot.data.steam[0].id:
+        if self.bot.databases.war_info.patch_notes_id != self.bot.data.steam[0].id:
             unique_langs = GWWGuilds.unique_languages()
             embeds = {
                 lang: [
@@ -53,8 +50,8 @@ class SteamCog(commands.Cog):
                 for lang in unique_langs
             }
             await self.bot.interface_handler.send_feature("patch_notes", embeds)
-            self.current_war_info.patch_notes_id = self.bot.data.steam[0].id
-            self.current_war_info.save_changes()
+            self.bot.databases.war_info.patch_notes_id = self.bot.data.steam[0].id
+            self.bot.databases.war_info.save_changes()
             self.bot.logger.info(
                 f"Sent patch announcements out to {len(self.bot.interface_handler.patch_notes)} channels in {(datetime.now() - patch_notes_start).total_seconds():.2f}s"
             )

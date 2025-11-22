@@ -2,13 +2,12 @@ from datetime import datetime
 from disnake.ext import commands, tasks
 from main import GalacticWideWebBot
 from utils.containers import GlobalEventsContainer
-from utils.dbv2 import GWWGuilds, WarInfo
+from utils.dbv2 import GWWGuilds
 
 
 class GlobalEventsCog(commands.Cog):
     def __init__(self, bot: GalacticWideWebBot) -> None:
         self.bot = bot
-        self.current_war_info = None
 
     def cog_load(self) -> None:
         if not self.global_event_check.is_running():
@@ -32,10 +31,8 @@ class GlobalEventsCog(commands.Cog):
             or not self.bot.data.global_events["en"]
         ):
             return
-        if not self.current_war_info:
-            self.current_war_info = WarInfo()
         for index, global_event in enumerate(self.bot.data.global_events["en"]):
-            if global_event.id > self.current_war_info.global_event_id:
+            if global_event.id > self.bot.databases.war_info.global_event_id:
                 if (
                     global_event.assignment_id != 0
                     or all(
@@ -47,8 +44,8 @@ class GlobalEventsCog(commands.Cog):
                     )
                     or "BRIEFING" in global_event.title.upper()
                 ):
-                    self.current_war_info.global_event_id = global_event.id
-                    self.current_war_info.save_changes()
+                    self.bot.databases.war_info.global_event_id = global_event.id
+                    self.bot.databases.war_info.save_changes()
                     continue
                 unique_langs = GWWGuilds.unique_languages()
                 containers = {
@@ -69,8 +66,8 @@ class GlobalEventsCog(commands.Cog):
                 await self.bot.interface_handler.send_feature(
                     feature_type="detailed_dispatches", content=containers
                 )
-                self.current_war_info.global_event_id = global_event.id
-                self.current_war_info.save_changes()
+                self.bot.databases.war_info.global_event_id = global_event.id
+                self.bot.databases.war_info.save_changes()
                 self.bot.logger.info(
                     f"Sent Global Event out to {len(self.bot.interface_handler.detailed_dispatches)} channels in {(datetime.now() - ge_start).total_seconds():.2f}s"
                 )
