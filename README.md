@@ -15,7 +15,7 @@
   <img alt="Code Size" src="https://img.shields.io/github/languages/code-size/Stonemercy/Galactic-Wide-Web?style=for-the-badge">
   <img alt="Code Format" src="https://img.shields.io/badge/code%20style-black-000000.svg?style=for-the-badge">
   <br>
-  <a href="https://ko-fi.com/Z8Z6WR2CS">
+  <a href="https://ko-fi.com/R6R51OSRX8">
     <img src="https://ko-fi.com/img/githubbutton_sm.svg">
   </a>
 </p>
