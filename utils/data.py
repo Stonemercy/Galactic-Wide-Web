@@ -416,7 +416,8 @@ class Data(ReprMixin):
                                 for index in [
                                     planet.index
                                     for planet in self.planet_events
-                                    if planet.event.faction == task.faction
+                                    if (planet.event.faction == task.faction)
+                                    or not task.faction
                                 ]:
                                     self.planets[index].in_assignment = True
                         case 11 | 13:

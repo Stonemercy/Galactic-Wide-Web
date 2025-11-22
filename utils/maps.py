@@ -180,7 +180,7 @@ class Maps:
                         if task.progress_perc == 1:
                             continue
                         for planet in planet_events:
-                            if planet.event.faction == task.faction:
+                            if planet.event.faction == task.faction or not task.faction:
                                 self._draw_ellipse(
                                     image=background,
                                     coords=planet.map_waypoints,
