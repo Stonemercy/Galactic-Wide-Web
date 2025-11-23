@@ -704,9 +704,10 @@ class Assignment(ReprMixin):
             "target",
             "enemy_id",
             "item_id",
+            "item_type",
             "objective",
             "min_players",
-            "value10",
+            "mission_type",
             "difficulty",
             "planet_index",
             "sector_index",
@@ -720,10 +721,10 @@ class Assignment(ReprMixin):
             self.progress: int | float = current_progress
             self.values_dict = dict(zip(task["valueTypes"], task["values"]))
             self.faction = self.target = self.enemy_id = self.item_id = (
-                self.objective
-            ) = self.min_players = self.difficulty = self.value10 = (
-                self.planet_index
-            ) = self.sector_index = None
+                self.item_type
+            ) = self.objective = self.min_players = self.difficulty = (
+                self.mission_type
+            ) = self.planet_index = self.sector_index = None
             self.tracker: BaseTrackerEntry | None = None
 
             if faction := self.values_dict.get(1):
@@ -736,18 +737,18 @@ class Assignment(ReprMixin):
                 self.target: int | float = target
             if enemy_id := self.values_dict.get(4):
                 self.enemy_id: int = enemy_id
-            if self.values_dict.get(6):
-                self.item_id = self.values_dict.get(5)
+            if item_id := self.values_dict.get(5):
+                self.item_id = item_id
+            if item_type := self.values_dict.get(6):
+                self.item_type = item_type
             if objective := self.values_dict.get(7):
                 self.objective = objective
-                print(f"VALUETYPE 7 - OBJECTIVE: {self.objective}")
             if min_players := self.values_dict.get(8):
                 self.min_players: int = min_players
             if difficulty := self.values_dict.get(9):
                 self.difficulty = difficulty
-            if value10 := self.values_dict.get(10):
-                self.value10 = value10
-                print(f"VALUETYPE 10 - UNKNOWN: {self.value10}")
+            if mission_type := self.values_dict.get(10):
+                self.mission_type = mission_type
             if location_type := self.values_dict.get(11):
                 if location_type == 1:
                     self.planet_index: int = self.values_dict.get(12)
