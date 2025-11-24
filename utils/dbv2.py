@@ -407,16 +407,19 @@ class PlanetRegions(list[PlanetRegion], ReprMixin):
                     for record in records:
                         self.append(PlanetRegion(*record))
 
-    def add(self, settings_hash: int, owner: str, planet_index: int) -> None:
+    def add(self, region) -> None:
         with connection() as conn:
             with conn.cursor() as curs:
                 curs.execute(
                     query=f"INSERT INTO war.regions (settings_hash, owner, planet_index) VALUES (%s, %s, %s)",
-                    vars=(settings_hash, owner, planet_index),
+                    vars=(
+                        region.settings_hash,
+                        region.owner.full_name,
+                        region.planet_index,
+                    ),
                 )
-
                 conn.commit()
-        self.append(PlanetRegion(settings_hash, owner, planet_index))
+        self.append(region)
 
 
 class Databases:

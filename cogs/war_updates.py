@@ -360,11 +360,7 @@ class WarUpdatesCog(commands.Cog):
         if not self.bot.databases.planet_regions:
             for region in all_regions:
                 if region.is_available:
-                    self.bot.databases.planet_regions.add(
-                        region.settings_hash,
-                        region.owner.full_name,
-                        region.planet_index,
-                    )
+                    self.bot.databases.planet_regions.add(region)
             return
 
         components = {
@@ -398,16 +394,20 @@ class WarUpdatesCog(commands.Cog):
                     region = region_list[0]
                     if region.owner.full_name != old_region.owner:
                         # if owner has changed
-                        if region.owner.full_name == "Humans" and (
-                            region.planet.faction.full_name != "Humans"
-                            or region.planet.event
-                        ):
-                            # attack campaign win
-                            for container in components.values():
-                                container.add_region_victory(
-                                    region=region,
-                                )
-                            region_updates = True
+                        if region.owner.full_name == "Humans":
+                            if (
+                                not region.planet.event
+                                and region.planet.faction.full_name == "Humans"
+                            ):
+                                # if campaign has been won
+                                pass
+                            else:
+                                # region win
+                                for container in components.values():
+                                    container.add_region_victory(
+                                        region=region,
+                                    )
+                                region_updates = True
                     self.bot.data.region_changes.remove_entry(old_region.settings_hash)
                     old_region.delete()
                     self.bot.databases.planet_regions.remove(old_region)
@@ -423,21 +423,18 @@ class WarUpdatesCog(commands.Cog):
                     region.settings_hash not in old_region_hashes
                     and region.is_available
                     and region.owner.full_name != "Humans"
-                    and (
-                        region.planet.faction.full_name != "Humans"
-                        and not region.planet.event
-                    )
                 ):
+                    if (
+                        not region.planet.event
+                        and region.planet.faction.full_name == "Humans"
+                    ):
+                        continue
                     # if region is brand new
                     for container in components.values():
                         container.add_new_region(
                             region=region,
                         )
-                    self.bot.databases.planet_regions.add(
-                        region.settings_hash,
-                        region.owner.full_name,
-                        region.planet_index,
-                    )
+                    self.bot.databases.planet_regions.add(region)
                     region_updates = True
 
             if region_updates:
