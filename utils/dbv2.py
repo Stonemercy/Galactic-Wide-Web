@@ -388,14 +388,6 @@ class PlanetRegion(ReprMixin):
     owner: str
     planet_index: int
 
-    def delete(self):
-        with connection() as conn:
-            with conn.cursor() as curs:
-                curs.execute(
-                    query=f"DELETE FROM war.regions WHERE settings_hash = {self.settings_hash}"
-                )
-                conn.commit()
-
 
 class PlanetRegions(list[PlanetRegion], ReprMixin):
     def __init__(self):
@@ -420,6 +412,16 @@ class PlanetRegions(list[PlanetRegion], ReprMixin):
                 )
                 conn.commit()
         self.append(region)
+
+    def delete(self, region):
+        with connection() as conn:
+            with conn.cursor() as curs:
+                curs.execute(
+                    query=f"DELETE FROM war.regions WHERE settings_hash = {region.settings_hash}"
+                )
+                conn.commit()
+            if region in self:
+                self.remove(region)
 
 
 class Databases:

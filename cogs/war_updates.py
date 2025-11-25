@@ -409,8 +409,7 @@ class WarUpdatesCog(commands.Cog):
                                     )
                                 region_updates = True
                     self.bot.data.region_changes.remove_entry(old_region.settings_hash)
-                    old_region.delete()
-                    self.bot.databases.planet_regions.remove(old_region)
+                    self.bot.databases.planet_regions.delete(old_region)
 
         if all_regions:
             # region updates
