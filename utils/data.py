@@ -207,7 +207,7 @@ class Data(ReprMixin):
                         timeout=15,
                     )
                 except (TimeoutError, Exception) as e:
-                    print(f"[ERROR {e}]")
+                    print(f"[\033[31mERROR\033[0m {e}]", end="")
                 if self.api_to_use == Config.BACKUP_API_BASE:
                     # for HD2 community API rate limit
                     await sleep(2)
