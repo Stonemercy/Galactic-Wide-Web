@@ -8,10 +8,11 @@ class HDCButton(Button):
         self,
         label: str = "Helldivers Companion",
         link: str = "https://helldiverscompanion.com/",
+        emoji: str = Emojis.Icons.hdc,
     ):
         super().__init__(
             style=ButtonStyle.link,
             label=label,
             url=link,
-            emoji=Emojis.Icons.hdc,
+            emoji=emoji,
         )

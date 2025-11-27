@@ -76,6 +76,16 @@ class CampaignChangesContainer(ui.Container, ReprMixin):
     ):
         if gambit_planet.regen_perc_per_hour < 0.03:
             text_display.content += f"\n-# :chess_pawn: {self.json.container['gambit']}: **{gambit_planet.loc_names[self.json.lang_code_long]}**"
+            if gambit_planet.loc_names[self.json.lang_code_long] not in [
+                b.label for b in self.planet_buttons
+            ]:
+                self.planet_buttons.append(
+                    HDCButton(
+                        label=gambit_planet.loc_names[self.json.lang_code_long],
+                        link=f"https://helldiverscompanion.com/#hellpad/planets/{gambit_planet.index}",
+                        emoji="♟️",
+                    )
+                )
 
     def _update_containers(self):
         colour = Colour.dark_theme()
