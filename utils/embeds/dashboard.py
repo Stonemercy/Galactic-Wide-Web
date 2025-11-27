@@ -1246,12 +1246,12 @@ class Dashboard:
             self.total_players = total_players
             self.compact_level = compact_level
             self.now = datetime.now()
-            total_players_doing_defence = (
-                sum(planet.stats.player_count for planet in planet_events)
-                / total_players
-            )
+            if total_players != 0:
+                total_players_doing_defence = f" ({(sum(planet.stats.player_count for planet in planet_events)/total_players):.2%})"
+            else:
+                total_players_doing_defence = ""
             super().__init__(
-                title=f"{language_json['embeds']['Dashboard']['DefenceEmbed']['title']} ({total_players_doing_defence:.2%})",
+                title=f"{language_json['embeds']['Dashboard']['DefenceEmbed']['title']}{total_players_doing_defence}",
                 colour=Colour.blue(),
             )
             if planet_events:
