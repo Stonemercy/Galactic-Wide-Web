@@ -833,6 +833,7 @@ class Dashboard:
                 if task.planet_index:
                     planet = self.planets[task.planet_index]
                     if not planet.defending_from:
+                        waypoint_timestamps = {}
                         for waypoint in planet.waypoints:
                             way_planet = self.planets[waypoint]
                             if way_planet.defending_from:
@@ -841,8 +842,22 @@ class Dashboard:
                                     gambit_planets=self.gambit_planets,
                                 )
                                 if end_time_info.end_time:
-                                    field_value += f"Available <t:{int(end_time_info.end_time.timestamp())}:R> thanks to {way_planet.loc_names[self.language_json['code_long']]} liberation"
-                                    break
+                                    waypoint_timestamps[
+                                        way_planet.loc_names[
+                                            self.language_json["code_long"]
+                                        ]
+                                    ] = int(end_time_info.end_time.timestamp())
+
+                        if waypoint_timestamps != {}:
+                            earliest_timestamp = ()
+                            for planet, timestamp in waypoint_timestamps.items():
+                                if (
+                                    not earliest_timestamp
+                                    or timestamp < earliest_timestamp[1]
+                                ):
+                                    earliest_timestamp = (planet, timestamp)
+                            field_value += f"-# Available <t:{earliest_timestamp[1]}:R> thanks to **{earliest_timestamp[0]}** liberation\n"
+
                     field_value += (
                         f"{planet.health_bar}" f"\n`{1 - planet.health_perc:^25,.2%}`"
                     )
