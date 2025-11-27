@@ -95,7 +95,7 @@ class MajorOrderCog(commands.Cog):
                     briefing: GlobalEvent = mo_briefing_dict.get(lang, None)
                     if briefing:
                         for embed in embed_list:
-                            embed.add_briefing(briefing=briefing)
+                            embed._add_briefing(briefing=briefing)
                 self.bot.databases.war_info.major_order_ids.append(major_order.id)
                 self.bot.databases.war_info.save_changes()
                 await self.bot.interface_handler.send_feature(
@@ -230,7 +230,7 @@ class MajorOrderCog(commands.Cog):
                     ]
                     if briefings_list != []:
                         briefing = briefings_list[0]
-                        embed.add_briefing(briefing)
+                        embed._add_briefing(briefing)
                 embeds.append(embed)
 
             await inter.send(

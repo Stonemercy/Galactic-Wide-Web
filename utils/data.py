@@ -802,24 +802,17 @@ class Assignment(ReprMixin):
                         anim=anim,
                         increasing=increasing,
                     )
-                case 11:
-                    """Liberate a planet"""
-                    return
                 case 12:
                     """Defend[ {planet}] against {amount} attacks[ from the {faction}]"""
                     return health_bar(self.progress_perc, "MO")
-                case 13:
-                    """Hold {planet} when the order expires"""
-                    return
                 case 15:
                     """Liberate more planets than are lost during the order duration"""
                     percent = {i: (i + 10) / 20 for i in range(-10, 12, 2)}[
                         [key for key in range(-10, 12, 2) if key <= self.progress][-1]
                     ]
-                    return health_bar(
-                        percent,
-                        Factions.humans if self.progress > 0 else Factions.automaton,
-                    )
+                    return health_bar(perc=percent, faction=Factions.automaton)
+                case _:
+                    return
 
 
 class Dispatch(ReprMixin):
