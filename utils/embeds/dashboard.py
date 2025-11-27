@@ -18,7 +18,7 @@ from utils.data import (
 from utils.dataclasses import AssignmentImages, Factions, SpecialUnits, PlanetFeatures
 from utils.dataclasses.factions import Faction
 from utils.emojis import Emojis
-from utils.functions import get_end_time, health_bar
+from utils.functions import get_end_time, health_bar, short_format
 from utils.mixins import EmbedReprMixin
 from utils.trackers import BaseTrackerEntry
 
@@ -294,7 +294,7 @@ class Dashboard:
                                     )
                             elif task.sector_index:
                                 sector: str = self.json_dict["sectors"][
-                                    task.sector_index
+                                    str(task.sector_index)
                                 ]
                                 sector_timestamps = []
                                 for planet in [
@@ -354,7 +354,7 @@ class Dashboard:
                                         )
                             elif task.sector_index:
                                 sector: str = self.json_dict["sectors"][
-                                    task.sector_index
+                                    str(task.sector_index)
                                 ]
                                 sector_timestamps = []
                                 for planet in [
@@ -386,7 +386,7 @@ class Dashboard:
                 "{emoji}",
                 (
                     Emojis.Icons.mo_task_complete
-                    if task.progress_perc == 1
+                    if task.progress_perc > 1
                     else Emojis.Icons.mo_task_incomplete
                 ),
             )
@@ -530,33 +530,48 @@ class Dashboard:
             tasks_json: dict[str, str] = self.language_json["embeds"]["Dashboard"][
                 "MajorOrderEmbed"
             ]["tasks"]
-            text: str = tasks_json["type1"]
-            text = self._add_progress_emoji(text=text, task=task)
-            text = self._add_location_info(text=text, task=task)
-
+            field_name: str = tasks_json["type1"]
+            field_name = self._add_progress_emoji(text=field_name, task=task)
+            field_name = self._add_location_info(text=field_name, task=task)
             if task.target:
                 if task.target > 1:
                     times = tasks_json["times"]
-                    text = text.replace("{count_pre}", " **")
-                    text = text.replace("{count}", f"{task.target:,}")
-                    text = text.replace("{count_post}", f"** {times}")
+                    field_name = field_name.replace("{count_pre}", " **")
+                    field_name = field_name.replace("{count}", f"{task.target:,}")
+                    field_name = field_name.replace("{count_post}", f"** {times}")
                 else:
-                    text = text.replace("{count_pre}{count}{count_post}", "")
+                    field_name = field_name.replace(
+                        "{count_pre}{count}{count_post}", ""
+                    )
+            field_name = self._add_multiplayer_info(text=field_name, task=task)
+            field_name = self._add_difficulty_info(text=field_name, task=task)
+            field_name = self._remove_empty_tags(text=field_name)
 
-            text = self._add_multiplayer_info(text=text, task=task)
-            text = self._add_difficulty_info(text=text, task=task)
-            text = self._remove_empty_tags(text=text)
-            self.add_field(text, "", inline=False)
+            field_value = ""
+            if task.progress_perc < 1:
+                if task.target > 1:
+                    progress = ""
+                    if task.tracker and task.tracker.change_rate_per_hour > 0.1:
+                        progress = f"`+{task.tracker.change_rate_per_hour:^25,.1%}/hr`"
+                    field_value += (
+                        f"-# Progress: **{short_format(task.progress)}/{short_format(task.target)}**"
+                        f"\n{task.health_bar}"
+                        f"\n`{task.progress_perc:^25,.1%}`"
+                        f"{progress}"
+                    )
+                else:
+                    field_value += f"-# Progress: **{task.progress}/{task.target}**"
+
+            self.add_field(field_name, field_value, inline=False)
 
         def _add_type_2(self, task: Assignment.Task) -> None:
             """Type 2: Extract with specific items"""
             tasks_json = self.language_json["embeds"]["Dashboard"]["MajorOrderEmbed"][
                 "tasks"
             ]
-            text: str = tasks_json["type2"]
-            text = self._add_progress_emoji(text=text, task=task)
-            text = text.replace("{count}", f"{task.target:,}")
-
+            field_name: str = tasks_json["type2"]
+            field_name = self._add_progress_emoji(text=field_name, task=task)
+            field_name = field_name.replace("{count}", f"{task.target:,}")
             match task.item_type:
                 case 1:
                     item_name: str = self.json_dict["items"]["item_names"].get(
@@ -565,38 +580,52 @@ class Dashboard:
                     emoji = getattr(
                         Emojis.Items, item_name.lower().replace(" ", "_"), ""
                     )
-                    text = text.replace("{item_pre}", "**")
-                    text = text.replace("{item}", f"{emoji} {item_name}")
-                    text = text.replace("{item_post}", "**")
+                    field_name = field_name.replace("{item_pre}", "**")
+                    field_name = field_name.replace("{item}", f"{emoji} {item_name}")
+                    field_name = field_name.replace("{item_post}", "**")
                 case 3:
                     item_name = (
                         tasks_json["type2_sample"]
                         if task.target == 1
                         else tasks_json["type2_samples"]
                     )
-                    text = text.replace("{item}", item_name)
+                    field_name = field_name.replace("{item}", item_name)
                 case 4:
-                    text = text.replace("{item}", "Secret Item")
+                    field_name = field_name.replace("{item}", "Secret Item")
+            field_name = self._add_location_info(text=field_name, task=task)
+            field_name = self._add_multiplayer_info(text=field_name, task=task)
+            field_name = self._add_difficulty_info(text=field_name, task=task)
+            field_name = self._remove_empty_tags(text=field_name)
 
-            text = self._add_location_info(text=text, task=task)
-            text = self._add_multiplayer_info(text=text, task=task)
-            text = self._add_difficulty_info(text=text, task=task)
-            text = self._remove_empty_tags(text=text)
-            self.add_field(text, "", inline=False)
+            field_value = ""
+            if task.progress_perc < 1:
+                if task.target > 1:
+                    progress = ""
+                    if task.tracker and task.tracker.change_rate_per_hour > 0.1:
+                        progress = f"`+{task.tracker.change_rate_per_hour:^25,.1%}/hr`"
+                    field_value += (
+                        f"-# Progress: **{short_format(task.progress)}/{short_format(task.target)}**"
+                        f"\n{task.health_bar}"
+                        f"\n`{task.progress_perc:^25,.1%}`"
+                        f"{progress}"
+                    )
+                else:
+                    field_value += f"-# Progress: **{task.progress}/{task.target}**"
+
+            self.add_field(field_name, field_value, inline=False)
 
         def _add_type_3(self, task: Assignment.Task) -> None:
             """Type 3: Kill specific enemies"""
             tasks_json = self.language_json["embeds"]["Dashboard"]["MajorOrderEmbed"][
                 "tasks"
             ]
-            text: str = tasks_json["type3"]
-            text = self._add_progress_emoji(text=text, task=task)
-            text = text.replace("{count}", f"{task.target:,}")
+            field_name: str = tasks_json["type3"]
+            field_name = self._add_progress_emoji(text=field_name, task=task)
+            field_name = field_name.replace("{count}", f"{task.target:,}")
             enemy = self.json_dict["enemy_ids"].get(
                 str(task.enemy_id), "UNKNOWN ENEMIES"
             )
-            text = text.replace("{enemy}", enemy)
-
+            field_name = field_name.replace("{enemy}", enemy)
             if task.item_id:
                 strat_list = [
                     name
@@ -606,16 +635,30 @@ class Dashboard:
                 ]
                 if strat_list:
                     using_the = tasks_json["type3_using_the"]
-                    text = text.replace("{item_pre}", f" {using_the} **")
-                    text = text.replace("{item}", strat_list[0])
-                    text = text.replace("{item_post}", "**")
+                    field_name = field_name.replace("{item_pre}", f" {using_the} **")
+                    field_name = field_name.replace("{item}", strat_list[0])
+                    field_name = field_name.replace("{item_post}", "**")
+            field_name = self._add_location_info_enemies(text=field_name, task=task)
+            field_name = self._add_multiplayer_info(text=field_name, task=task)
+            field_name = self._add_difficulty_info(text=field_name, task=task)
+            field_name = self._remove_empty_tags(text=field_name)
 
-            text = self._add_location_info_enemies(text=text, task=task)
-            text = self._add_multiplayer_info(text=text, task=task)
-            text = self._add_difficulty_info(text=text, task=task)
-            text = self._remove_empty_tags(text=text)
+            field_value = ""
+            if task.progress_perc < 1:
+                if task.target > 1:
+                    progress = ""
+                    if task.tracker and task.tracker.change_rate_per_hour > 0.1:
+                        progress = f"`+{task.tracker.change_rate_per_hour:^25,.1%}/hr`"
+                    field_value += (
+                        f"-# Progress: **{short_format(task.progress)}/{short_format(task.target)}**"
+                        f"\n{task.health_bar}"
+                        f"\n`{task.progress_perc:^25,.1%}`"
+                        f"{progress}"
+                    )
+                else:
+                    field_value += f"-# Progress: **{task.progress}/{task.target}**"
 
-            self.add_field(text, "", inline=False)
+            self.add_field(field_name, field_value, inline=False)
 
         def _add_type_4(self, task: Assignment.Task) -> None:
             """Type 4: Complete objectives"""
@@ -623,85 +666,116 @@ class Dashboard:
                 "tasks"
             ]
             if task.objective:
-                text: str = tasks_json["type4"]
+                field_name: str = tasks_json["type4"]
                 objective = self.json_dict.get("objectives", {}).get(
                     str(task.objective), "UNKNOWN"
                 )
-                text = text.replace("{obj}", objective)
+                field_name = field_name.replace("{obj}", objective)
                 if task.target > 1:
                     times = tasks_json["times"]
-                    text = text.replace("{COUNT_PRE}", " **")
-                    text = text.replace("{COUNT}", f"{task.target:,}")
-                    text = text.replace("{COUNT_POST}", f"** {times}")
+                    field_name = field_name.replace("{COUNT_PRE}", " **")
+                    field_name = field_name.replace("{COUNT}", f"{task.target:,}")
+                    field_name = field_name.replace("{COUNT_POST}", f"** {times}")
             else:
                 # idk how they are going to put this through atm
                 objective_verb = choice(["activate", "destroy", "primary", "secondary"])
                 match objective_verb:
                     case "activate":
-                        text = "{emoji} Activate **{count} {obj}**{race_pre}{race}{race_post}{multi}."
+                        field_name = "{emoji} Activate **{count} {obj}**{race_pre}{race}{race_post}{multi}."
                         obj_name = (
                             "Secret Objective"
                             if task.target == 1
                             else "Secret Objectives"
                         )
                     case "destroy":
-                        text = "{emoji} Destroy **{count} {obj}**{race_pre}{race}{race_post}{multi}."
+                        field_name = "{emoji} Destroy **{count} {obj}**{race_pre}{race}{race_post}{multi}."
                         obj_name = (
                             "Secret Objective"
                             if task.target == 1
                             else "Secret Objectives"
                         )
                     case _:
-                        text = "{emoji} Complete **{count}{type} {obj}**{race_pre}{race}{race_post}{multi}."
+                        field_name = "{emoji} Complete **{count}{type} {obj}**{race_pre}{race}{race_post}{multi}."
                         obj_name = (
                             "Secret Objective"
                             if task.target == 1
                             else "Secret Objectives"
                         )
                         if objective_verb == "primary":
-                            text = text.replace("{type}", " Primary")
+                            field_name = field_name.replace("{type}", " Primary")
                         elif objective_verb == "secondary":
-                            text = text.replace("{type}", " Secondary")
-                text = text.replace("{obj}", obj_name)
-                text = text.replace("{count}", f"{task.target:,}")
+                            field_name = field_name.replace("{type}", " Secondary")
+                field_name = field_name.replace("{obj}", obj_name)
+                field_name = field_name.replace("{count}", f"{task.target:,}")
+            field_name = self._add_progress_emoji(text=field_name, task=task)
+            field_name = self._add_race_planet_info(text=field_name, task=task)
+            field_name = self._add_multiplayer_info(text=field_name, task=task)
+            field_name = self._add_difficulty_info(text=field_name, task=task)
+            field_name = self._remove_empty_tags(text=field_name)
 
-            text = self._add_progress_emoji(text=text, task=task)
-            text = self._add_race_planet_info(text=text, task=task)
-            text = self._add_multiplayer_info(text=text, task=task)
-            text = self._add_difficulty_info(text=text, task=task)
-            text = self._remove_empty_tags(text=text)
-            self.add_field(text, "", inline=False)
+            field_value = ""
+            if task.progress_perc < 1:
+                if task.target > 1:
+                    progress = ""
+                    if task.tracker and task.tracker.change_rate_per_hour > 0.1:
+                        progress = f"`+{task.tracker.change_rate_per_hour:^25,.1%}/hr`"
+                    field_value += (
+                        f"-# Progress: **{short_format(task.progress)}/{short_format(task.target)}**"
+                        f"\n{task.health_bar}"
+                        f"\n`{task.progress_perc:^25,.1%}`"
+                        f"{progress}"
+                    )
+                else:
+                    field_value += f"-# Progress: **{task.progress}/{task.target}**"
+
+            self.add_field(field_name, field_value, inline=False)
 
         def _add_type_5(self, task: Assignment.Task) -> None:
             """Type 5: Play missions"""
             tasks_json = self.language_json["embeds"]["Dashboard"]["MajorOrderEmbed"][
                 "tasks"
             ]
-            text: str = tasks_json["type5"]
-            text = self._add_progress_emoji(text=text, task=task)
-            text = text.replace("{count}", f"{task.target:,}")
+            field_name: str = tasks_json["type5"]
+            field_name = self._add_progress_emoji(text=field_name, task=task)
+            field_name = field_name.replace("{count}", f"{task.target:,}")
             mission_word = (
                 tasks_json["mission"] if task.target == 1 else tasks_json["missions"]
             )
-            text = text.replace("{obj}", mission_word)
-            text = self._add_race_planet_info(text=text, task=task)
-            text = self._add_multiplayer_info(text=text, task=task)
-            text = self._add_difficulty_info(text=text, task=task)
-            text = self._remove_empty_tags(text=text)
-            self.add_field(text, "", inline=False)
+            field_name = field_name.replace("{obj}", mission_word)
+            field_name = self._add_race_planet_info(text=field_name, task=task)
+            field_name = self._add_multiplayer_info(text=field_name, task=task)
+            field_name = self._add_difficulty_info(text=field_name, task=task)
+            field_name = self._remove_empty_tags(text=field_name)
+
+            field_value = ""
+            if task.progress_perc < 1:
+                if task.target > 1:
+                    progress = ""
+                    if task.tracker and task.tracker.change_rate_per_hour > 0.1:
+                        progress = f"`+{task.tracker.change_rate_per_hour:^25,.1%}/hr`"
+                    field_value += (
+                        f"-# Progress: **{short_format(task.progress)}/{short_format(task.target)}**"
+                        f"\n{task.health_bar}"
+                        f"\n`{task.progress_perc:^25,.1%}`"
+                        f"{progress}"
+                    )
+                else:
+                    field_value += f"-# Progress: **{task.progress}/{task.target}**"
+
+            self.add_field(field_name, field_value, inline=False)
 
         def _add_type_6(self, task: Assignment.Task) -> None:
             """Type 6: Use specific stratagem"""
             tasks_json = self.language_json["embeds"]["Dashboard"]["MajorOrderEmbed"][
                 "tasks"
             ]
-            text: str = tasks_json["type6"]
-            text = self._add_progress_emoji(text=text, task=task)
+            field_name: str = tasks_json["type6"]
+            field_name = self._add_progress_emoji(text=field_name, task=task)
             if task.target > 1:
                 times = tasks_json["times"]
-                text = text.replace("{count_pre}", " **")
-                text = text.replace("{count}", f"{task.target:,}")
-                text = text.replace("{count_post}", f"** {times}")
+                field_name = field_name.replace("{count_pre}", " **")
+                field_name = field_name.replace("{count}", f"{task.target:,}")
+                field_name = field_name.replace("{count_post}", f"** {times}")
             if task.item_id:
                 strat_list = [
                     name
@@ -710,106 +784,161 @@ class Dashboard:
                     if strat_info["id"] == task.item_id
                 ]
                 if strat_list:
-                    text = text.replace("{item}", strat_list[0])
+                    field_name = field_name.replace("{item}", strat_list[0])
             if task.faction:
                 against = tasks_json["against"]
                 race_name = self._get_faction_name(task.faction, plural=True)
-                text = text.replace("{race_pre}", f" {against} **")
-                text = text.replace("{race}", race_name)
-                text = text.replace("{race_post}", "**")
-            text = self._add_multiplayer_info(text=text, task=task)
-            text = self._add_difficulty_info(text=text, task=task)
-            text = self._remove_empty_tags(text=text)
-            self.add_field(text, "", inline=False)
+                field_name = field_name.replace("{race_pre}", f" {against} **")
+                field_name = field_name.replace("{race}", race_name)
+                field_name = field_name.replace("{race_post}", "**")
+            field_name = self._add_multiplayer_info(text=field_name, task=task)
+            field_name = self._add_difficulty_info(text=field_name, task=task)
+            field_name = self._remove_empty_tags(text=field_name)
+
+            field_value = ""
+            if task.progress_perc < 1:
+                if task.target > 1:
+                    progress = ""
+                    if task.tracker and task.tracker.change_rate_per_hour > 0.1:
+                        progress = f"`+{task.tracker.change_rate_per_hour:^25,.1%}/hr`"
+                    field_value += (
+                        f"-# Progress: **{short_format(task.progress)}/{short_format(task.target)}**"
+                        f"\n{task.health_bar}"
+                        f"\n`{task.progress_perc:^25,.1%}`"
+                        f"{progress}"
+                    )
+                else:
+                    field_value += f"-# Progress: **{task.progress}/{task.target}**"
+            self.add_field(field_name, field_value, inline=False)
 
         def _add_type_7(self, task: Assignment.Task) -> None:
             """Type 7: Extract from successful mission"""
             tasks_json = self.language_json["embeds"]["Dashboard"]["MajorOrderEmbed"][
                 "tasks"
             ]
-
             if task.faction or task.planet_index:
-                text = tasks_json["type7_f_p"]
+                field_name = tasks_json["type7_f_p"]
             else:
-                text = tasks_json["type7_r"]
-            text = self._add_progress_emoji(text=text, task=task)
-
+                field_name = tasks_json["type7_r"]
+            field_name = self._add_progress_emoji(text=field_name, task=task)
             if task.mission_type == 2:
-                text = text.replace("{mtype}", "Opportunity Mission")
+                field_name = field_name.replace("{mtype}", "Opportunity Mission")
             elif task.mission_type == 3:
-                text = text.replace("{mtype}", "Community-Target Mission")
+                field_name = field_name.replace("{mtype}", "Community-Target Mission")
             else:
-                text = text.replace("{mtype}", tasks_json["mission"])
-
+                field_name = field_name.replace("{mtype}", tasks_json["mission"])
             if task.faction:
                 against = tasks_json["against"]
                 race_name = self._get_faction_name(task.faction, plural=True)
-                text = text.replace("{race_pre}", f" {against} **")
-                text = text.replace("{race}", race_name)
-                text = text.replace("{race_post}", "**")
-
+                field_name = field_name.replace("{race_pre}", f" {against} **")
+                field_name = field_name.replace("{race}", race_name)
+                field_name = field_name.replace("{race_post}", "**")
             if task.target > 1:
                 times = tasks_json["times"]
-                text = text.replace("{count_pre}", " **")
-                text = text.replace("{count}", f"{task.target:,}")
-                text = text.replace("{count_post}", f"** {times}")
+                field_name = field_name.replace("{count_pre}", " **")
+                field_name = field_name.replace("{count}", f"{task.target:,}")
+                field_name = field_name.replace("{count_post}", f"** {times}")
+            field_name = self._add_location_info_enemies(text=field_name, task=task)
+            field_name = self._add_multiplayer_info(text=field_name, task=task)
+            field_name = self._add_difficulty_info(text=field_name, task=task)
+            field_name = self._remove_empty_tags(text=field_name)
 
-            text = self._add_location_info_enemies(text=text, task=task)
-            text = self._add_multiplayer_info(text=text, task=task)
-            text = self._add_difficulty_info(text=text, task=task)
-            text = self._remove_empty_tags(text=text)
+            field_value = ""
+            if task.progress_perc < 1:
+                if task.target > 1:
+                    progress = ""
+                    if task.tracker and task.tracker.change_rate_per_hour > 0.1:
+                        progress = f"`+{task.tracker.change_rate_per_hour:^25,.1%}/hr`"
+                    field_value += (
+                        f"-# Progress: **{short_format(task.progress)}/{short_format(task.target)}**"
+                        f"\n{task.health_bar}"
+                        f"\n`{task.progress_perc:^25,.1%}`"
+                        f"{progress}"
+                    )
+                else:
+                    field_value += f"-# Progress: **{task.progress}/{task.target}**"
 
-            self.add_field(text, "", inline=False)
+            self.add_field(field_name, field_value, inline=False)
 
         def _add_type_9(self, task: Assignment.Task) -> None:
             """Type 9: Complete operations"""
             tasks_json = self.language_json["embeds"]["Dashboard"]["MajorOrderEmbed"][
                 "tasks"
             ]
-
             if task.faction or task.planet_index:
-                text = tasks_json["type9_f_p"]
+                field_name = tasks_json["type9_f_p"]
             else:
-                text = tasks_json["type9_r"]
-            text = self._add_progress_emoji(text=text, task=task)
-
+                field_name = tasks_json["type9_r"]
+            field_name = self._add_progress_emoji(text=field_name, task=task)
             if task.faction:
                 against = tasks_json["against"]
                 race_name = self._get_faction_name(task.faction, plural=True)
-                text = text.replace("{race_pre}", f" {against} **")
-                text = text.replace("{race}", race_name)
-                text = text.replace("{race_post}", "**")
-
+                field_name = field_name.replace("{race_pre}", f" {against} **")
+                field_name = field_name.replace("{race}", race_name)
+                field_name = field_name.replace("{race_post}", "**")
             if task.target > 1:
                 times = tasks_json["times"]
-                text = text.replace("{count_pre}", " **")
-                text = text.replace("{count}", f"{task.target:,}")
-                text = text.replace("{count_post}", f"** {times}")
+                field_name = field_name.replace("{count_pre}", " **")
+                field_name = field_name.replace("{count}", f"{task.target:,}")
+                field_name = field_name.replace("{count_post}", f"** {times}")
+            field_name = self._add_location_info_enemies(text=field_name, task=task)
+            field_name = self._add_multiplayer_info(text=field_name, task=task)
+            field_name = self._add_difficulty_info(text=field_name, task=task)
+            field_name = self._remove_empty_tags(text=field_name)
 
-            text = self._add_location_info_enemies(text=text, task=task)
-            text = self._add_multiplayer_info(text=text, task=task)
-            text = self._add_difficulty_info(text=text, task=task)
-            text = self._remove_empty_tags(text=text)
+            field_value = ""
+            if task.progress_perc < 1:
+                if task.target > 1:
+                    progress = ""
+                    if task.tracker and task.tracker.change_rate_per_hour > 0.1:
+                        progress = f"`+{task.tracker.change_rate_per_hour:^25,.1%}/hr`"
+                    field_value += (
+                        f"-# Progress: **{short_format(task.progress)}/{short_format(task.target)}**"
+                        f"\n{task.health_bar}"
+                        f"\n`{task.progress_perc:^25,.1%}`"
+                        f"{progress}"
+                    )
+                else:
+                    field_value += f"-# Progress: **{task.progress}/{task.target}**"
 
-            self.add_field(text, "", inline=False)
+            self.add_field(field_name, field_value, inline=False)
 
         def _add_type_10(self, task: Assignment.Task) -> None:
             """Type 10: Donate items"""
             tasks_json = self.language_json["embeds"]["Dashboard"]["MajorOrderEmbed"][
                 "tasks"
             ]
-            text = tasks_json["type10"]
-            text = self._add_progress_emoji(text=text, task=task)
-            text = text.replace("{count}", f"{task.target:,}")
-
+            field_name = tasks_json["type10"]
+            field_name = self._add_progress_emoji(text=field_name, task=task)
+            field_name = field_name.replace("{count}", f"{task.target:,}")
             if task.item_id:
                 # unsure how they get the items for this
-                item_name, item_type = ("ITEM", "ITEM TYPE")
-                text = text.replace("{item}", item_name)
-                text = text.replace("{item_type}", item_type)
+                item_name, item_type = ("item_name", "item_type")
+                item_name = self.json_dict["items"]["item_names"].get(
+                    str(task.item_id), {"name": "item_name"}
+                )[
+                    "name"
+                ]  # temp patch
+                field_name = field_name.replace("{item}", item_name)
+                field_name = field_name.replace("{item_type}", item_type)
+            field_name = self._remove_empty_tags(text=field_name)
 
-            text = self._remove_empty_tags(text=text)
-            self.add_field(text, "", inline=False)
+            field_value = ""
+            if task.progress_perc < 1:
+                if task.target > 1:
+                    progress = ""
+                    if task.tracker and task.tracker.change_rate_per_hour > 0.1:
+                        progress = f"`+{task.tracker.change_rate_per_hour:^25,.1%}/hr`"
+                    field_value += (
+                        f"-# Progress: **{short_format(task.progress)}/{short_format(task.target)}**"
+                        f"\n{task.health_bar}"
+                        f"\n`{task.progress_perc:^25,.1%}`"
+                        f"{progress}"
+                    )
+                else:
+                    field_value += f"-# Progress: **{task.progress}/{task.target}**"
+
+            self.add_field(field_name, field_value, inline=False)
 
         def _add_type_11(self, task: Assignment.Task) -> None:
             """Type 11: Liberate planet or sector"""
@@ -827,6 +956,7 @@ class Dashboard:
                 location_name = self.json_dict["sectors"].get(str(task.sector_index))
             else:
                 location_name = "Unknown Location"
+            field_name = field_name.replace("{location}", location_name)
 
             field_value = ""
             if task.progress_perc != 1:
@@ -847,17 +977,15 @@ class Dashboard:
                                             self.language_json["code_long"]
                                         ]
                                     ] = int(end_time_info.end_time.timestamp())
-
                         if waypoint_timestamps != {}:
                             earliest_timestamp = ()
-                            for planet, timestamp in waypoint_timestamps.items():
+                            for planet_, timestamp in waypoint_timestamps.items():
                                 if (
                                     not earliest_timestamp
                                     or timestamp < earliest_timestamp[1]
                                 ):
-                                    earliest_timestamp = (planet, timestamp)
+                                    earliest_timestamp = (planet_, timestamp)
                             field_value += f"-# Available <t:{earliest_timestamp[1]}:R> thanks to **{earliest_timestamp[0]}** liberation\n"
-
                     field_value += (
                         f"{planet.health_bar}" f"\n`{1 - planet.health_perc:^25,.2%}`"
                     )
@@ -880,7 +1008,6 @@ class Dashboard:
                         f"\n`{perc_owned:^25,.2%}`"
                     )
 
-            field_name = field_name.replace("{location}", location_name)
             self.add_field(field_name, field_value, inline=False)
 
         def _add_type_12(self, task: Assignment.Task) -> None:
@@ -966,7 +1093,7 @@ class Dashboard:
                     )
                 elif task.target > 1 and task.sector_index:
                     field_value += (
-                        f"Current progress: {task.progress}/{task.target}"
+                        f"Progress: **{task.progress}/{task.target}**"
                         f"\n{task.health_bar}"
                         f"\n`{task.progress_perc:^25,.2%}`"
                     )
@@ -985,40 +1112,49 @@ class Dashboard:
             tasks_json = self.language_json["embeds"]["Dashboard"]["MajorOrderEmbed"][
                 "tasks"
             ]
-
             if task.faction:
-                text = tasks_json["type14_f"]
+                field_name = tasks_json["type14_f"]
             else:
-                text = tasks_json["type14_r"]
-
-            text = self._add_progress_emoji(text=text, task=task)
-
+                field_name = tasks_json["type14_r"]
+            field_name = self._add_progress_emoji(text=field_name, task=task)
             if task.faction:
                 race_name = self._get_faction_name(task.faction, plural=True)
-                text = text.replace("{race}", race_name)
+                field_name = field_name.replace("{race}", race_name)
+            field_name = field_name.replace("{count}", f"{task.target:,}")
 
-            text = text.replace("{count}", f"{task.target:,}")
-            self.add_field(text, "", inline=False)
+            field_value = ""
+            if task.progress_perc < 1:
+                if task.target > 1:
+                    progress = ""
+                    if task.tracker and task.tracker.change_rate_per_hour > 0.1:
+                        progress = f"`+{task.tracker.change_rate_per_hour:^25,.1%}/hr`"
+                    field_value += (
+                        f"-# Progress: **{short_format(task.progress)}/{short_format(task.target)}**"
+                        f"\n{task.health_bar}"
+                        f"\n`{task.progress_perc:^25,.1%}`"
+                        f"{progress}"
+                    )
+                else:
+                    field_value += f"-# Progress: **{task.progress}/{task.target}**"
+
+            self.add_field(field_name, field_value, inline=False)
 
         def _add_type_15(self, task: Assignment.Task) -> None:
             """Type 15: Net liberation (liberate more than lost)"""
             tasks_json = self.language_json["embeds"]["Dashboard"]["MajorOrderEmbed"][
                 "tasks"
             ]
-            field_value = ""
-
             if task.faction:
                 field_name = tasks_json["type15_f"]
             else:
                 field_name = tasks_json["type15_r"]
-
             field_name = self._add_progress_emoji(text=field_name, task=task)
-
             if task.faction:
                 race_name = self._get_faction_name(task.faction, plural=True)
                 field_name = field_name.replace("{race}", race_name)
 
-            if task.progress_perc != 1:
+            field_value = ""
+            if task.progress_perc < 1:
                 if self.compact_level < 1:
                     field_value += f"\n{task.health_bar}"
                 field_value += f"\n`{task.progress_perc:^25,}`\n"
