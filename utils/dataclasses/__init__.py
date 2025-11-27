@@ -22,6 +22,7 @@ __all__ = [
     "CalculatedEndTime",
     "CampaignChangesJson",
     "Config",
+    "Databases",
     "DSSChangesJson",
     "DSSImages",
     "Faction",
