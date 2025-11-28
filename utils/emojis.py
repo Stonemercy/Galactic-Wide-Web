@@ -72,7 +72,7 @@ class Emojis:
         illuminate = "<:s:1374793643583602909>"
         mo = "<:s:1374793627213234206>"
         empty = "<:s:1374794686836899900>"
-        green = "<:s:1443925292493045812>"
+        green = "<:s:1443959878816108695>"
 
     @dataclass
     class FactionColoursAnim:
