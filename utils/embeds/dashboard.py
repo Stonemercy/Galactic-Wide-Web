@@ -1157,7 +1157,22 @@ class Dashboard:
             if task.progress_perc < 1:
                 if self.compact_level < 1:
                     field_value += f"\n{task.health_bar}"
-                field_value += f"\n`{task.progress_perc:^25,}`\n"
+                percent = {i: (i + 5) / 10 for i in range(-5, 6)}[
+                    [
+                        key
+                        for key in range(-5, 6)
+                        if key <= min(max(-5, task.progress), 5)
+                    ][-1]
+                ]
+                progress = f"{task.progress:+}"
+                left_buffer = " " * min(int(percent * 25), (25 - len(progress) - 1))
+                right_buffer = " " * (25 - len(left_buffer) - len(progress) - 1)
+                arrow = "↑"
+                if task.progress > 4:
+                    pointer_text = f"{progress}{arrow}"
+                else:
+                    pointer_text = f"{arrow}{progress}"
+                field_value += f"\n`{left_buffer}{pointer_text}{right_buffer}`"
 
             self.add_field(field_name, field_value, inline=False)
 

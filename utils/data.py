@@ -732,23 +732,23 @@ class Assignment(ReprMixin):
                     number=faction
                 )
             if personal := self.values_dict.get(2):
-                self.personal = personal
+                self.personal: int = personal
             if target := self.values_dict.get(3):
                 self.target: int | float = target
             if enemy_id := self.values_dict.get(4):
                 self.enemy_id: int = enemy_id
             if item_id := self.values_dict.get(5):
-                self.item_id = item_id
+                self.item_id: int = item_id
             if item_type := self.values_dict.get(6):
-                self.item_type = item_type
+                self.item_type: int = item_type
             if objective := self.values_dict.get(7):
                 self.objective = objective
             if min_players := self.values_dict.get(8):
                 self.min_players: int = min_players
             if difficulty := self.values_dict.get(9):
-                self.difficulty = difficulty
+                self.difficulty: int = difficulty
             if mission_type := self.values_dict.get(10):
-                self.mission_type = mission_type
+                self.mission_type: int = mission_type
             if location_type := self.values_dict.get(11):
                 if location_type == 1:
                     self.planet_index: int = self.values_dict.get(12)
@@ -770,47 +770,26 @@ class Assignment(ReprMixin):
                 increasing = self.tracker.change_rate_per_hour > 0
 
             match self.type:
-                case 2:
-                    """Successfully extract with {amount} {item}[ on {planet}][ in the __{sector}__ SECTOR][ from any {faction} controlled planet]"""
+                case 1 | 2 | 4 | 5 | 10 | 13 | 14:
                     return health_bar(
-                        self.progress_perc,
-                        Factions.humans,
+                        perc=self.progress_perc,
+                        faction=Factions.humans,
                         anim=anim,
                         increasing=increasing,
                     )
-                case 3:
-                    """Kill {amount} {enemy_type}[ using the __{item_to_use}__][ on {planet}]"""
+                case 3 | 6 | 7 | 9 | 12:
                     return health_bar(
-                        self.progress_perc,
-                        self.faction or "MO",
+                        perc=self.progress_perc,
+                        faction=self.faction or "MO",
                         anim=anim,
                         increasing=increasing,
                     )
-                case 7:
-                    """Extract from a successful Mission against {faction} {number} times"""
-                    return health_bar(
-                        self.progress_perc,
-                        Factions.humans,
-                        anim=anim,
-                        increasing=increasing,
-                    )
-                case 9:
-                    """Complete an Operation[ against {faction}][ on {difficulty} or higher] {amount} times"""
-                    return health_bar(
-                        self.progress_perc,
-                        Factions.humans,
-                        anim=anim,
-                        increasing=increasing,
-                    )
-                case 12:
-                    """Defend[ {planet}] against {amount} attacks[ from the {faction}]"""
-                    return health_bar(self.progress_perc, "MO")
                 case 15:
-                    """Liberate more planets than are lost during the order duration"""
-                    percent = {i: (i + 10) / 20 for i in range(-10, 12, 2)}[
-                        [key for key in range(-10, 12, 2) if key <= self.progress][-1]
-                    ]
-                    return health_bar(perc=percent, faction=Factions.automaton)
+                    return health_bar(
+                        perc=0.5,
+                        faction=(Factions.automaton),
+                        empty_colour="green",
+                    )
                 case _:
                     return
 
