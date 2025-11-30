@@ -992,7 +992,7 @@ class Dashboard:
                                 planet_name=earliest_timestamp[0],
                             )
                     field_value += (
-                        f"{planet.health_bar}" f"\n`{1 - planet.health_perc:^25,.1%}`"
+                        f"\n{planet.health_bar}" f"\n`{1 - planet.health_perc:^25,.1%}`"
                     )
                 elif task.sector_index:
                     planets_in_sector = [
