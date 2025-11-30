@@ -2,13 +2,13 @@
 
 <p align="center">
 	<a href="https://discord.gg/Z8Ae5H5DjZ">
-		<img alt="Servers" src="https://img.shields.io/badge/servers-3900+-brightgreen?style=for-the-badge">
+		<img alt="Servers" src="https://img.shields.io/badge/servers-3950+-brightgreen?style=for-the-badge">
 	</a>
   <a href="https://discord.gg/Z8Ae5H5Dj">
-		<img alt="User Installs" src="https://img.shields.io/badge/user installs-650+-brightgreen?style=for-the-badge">
+		<img alt="User Installs" src="https://img.shields.io/badge/user installs-700+-brightgreen?style=for-the-badge">
 	</a>
 	<a href="https://discord.gg/Z8Ae5H5Dj">
-		<img alt="Visible Users" src="https://img.shields.io/badge/visible users-425,000+-brightgreen?style=for-the-badge">
+		<img alt="Visible Users" src="https://img.shields.io/badge/visible users-450,000+-brightgreen?style=for-the-badge">
 	</a>
   <br>
 	<img alt="Commits made" src="https://img.shields.io/github/last-commit/Stonemercy/Galactic-Wide-Web?style=for-the-badge">
@@ -21,13 +21,13 @@
 </p>
 
 <p>
-  Galactic Wide Web is a Discord bot focused on providing real-time information and interactive tools for Helldivers 2. It pulls live data from the official Helldivers 2 API and combines it with curated information from the open-source <a href alt="Helldivers 2 Json Repo" src="https://github.com/helldivers-2/json">helldivers-2/json</a> repository to give users up-to-date game insights. Its core feature is an updating dashboard that refreshes every 15 minutes, offering a strategic overview of the current state of the galactic war.
+  Galactic Wide Web is a Discord bot focused on providing real-time information and interactive tools for Helldivers 2. It pulls live data from both the official Helldivers 2 API and <a href alt="Helldivers 2 API Repo" src="https://github.com/helldivers-2/api">Community API</a>, and combines it with curated information from the open-source <a href alt="Helldivers 2 Json Repo" src="https://github.com/helldivers-2/json">helldivers-2/json</a> repo to give users up-to-date game insights. Its core feature is an updating dashboard that refreshes every 15 minutes, offering a strategic overview of the current state of the galactic war.
 
-  The bot includes a robust in-Discord wiki with slash commands, interactive buttons, dropdowns, and embedded content to guide users through factions, enemies, warbonds, equipment, and more. All interactions take place in text channels.
+  The bot includes slash commands, interactive buttons, dropdowns, and embedded content to guide users through factions, enemies, warbonds, equipment, and more. All interactions take place in text channels.
 
-  Highly configurable, Galactic Wide Web lets server administrators choose which channels are used for dashboards and announcements. Optional push notifications can be toggled for key updates like Major Orders (MOs), Steam patch notes, and detailed dispatches. The bot supports multilingual output, currently offering English, French, German, Italian, Portuguese (BR), Russian, and Spanish—with more languages welcome via contributions.
+  Highly configurable, Galactic Wide Web lets server administrators (or those with Manage Server permissions) choose which channels are used for dashboards and announcements. Optional push notifications can be toggled for key updates like Major Orders (MOs), Steam patch notes, planetary region changes and detailed dispatches. The bot supports multilingual output, currently offering English, French, German, Italian, Portuguese (BR), Russian, and Spanish—with more languages welcome via contributions.
 
-  Built using Disnake, it stores settings in PostgreSQL and uses Pillow to generate maps.
+  Built using Disnake, it stores settings in PostgreSQL and uses Pillow and opencv to generate maps.
 </p>
 
 ## Quick Navigation
