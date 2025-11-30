@@ -1159,9 +1159,8 @@ class Dashboard:
                 field_name = field_name.replace("{race}", race_name)
 
             field_value = ""
-            if task.progress_perc < 1:
-                if self.compact_level < 1:
-                    field_value += f"\n{task.health_bar}"
+            if self.compact_level < 1:
+                field_value += f"\n{task.health_bar}"
                 percent = {i: (i + 5) / 10 for i in range(-5, 6)}[
                     [
                         key
