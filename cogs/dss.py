@@ -17,7 +17,7 @@ class DSSCog(commands.Cog):
 
     @wait_for_startup()
     @commands.slash_command(
-        description="Go directly to the DSS tab of the wiki",
+        description="Show info on the Democracy Space Station",
         install_types=ApplicationInstallTypes.all(),
         contexts=InteractionContextTypes.all(),
         extras={
