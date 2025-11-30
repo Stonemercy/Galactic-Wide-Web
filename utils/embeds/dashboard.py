@@ -386,7 +386,7 @@ class Dashboard:
                 "{emoji}",
                 (
                     Emojis.Icons.mo_task_complete
-                    if task.progress_perc > 1
+                    if task.progress_perc >= 1
                     else Emojis.Icons.mo_task_incomplete
                 ),
             )
