@@ -158,7 +158,7 @@
                 "ahead_of_schedule": "\n-# на **{hours}ч {minutes}м** раньше срока",
                 "behind_schedule": "\n-# на **{hours}ч {minutes}м** позже срока",
                 "if_regions": "-# Если будут освобождены следующие регионы",
-                "avail_thanks_to_wp": "\n-# Доступно **<t:{timestamp}:R>** благодаря освобождению {planet_name}",
+                "avail_thanks_to_wp": "\n-# Доступно **<t:{timestamp}:R>** благодаря освобождению **{planet_name}**",
                 "tasks": {
                     "times": "раз(а)",
                     "against": "против",

@@ -158,7 +158,7 @@
                 "ahead_of_schedule": "\n-# **{hours}h {minutes}m** ahead of schedule",
                 "behind_schedule": "\n-# **{hours}h {minutes}m** behind schedule",
                 "if_regions": "-# If the following regions are liberated",
-                "avail_thanks_to_wp": "\n-# Available **<t:{timestamp}:R>** thanks to {planet_name} liberation",
+                "avail_thanks_to_wp": "\n-# Available **<t:{timestamp}:R>** thanks to **{planet_name}** liberation",
                 "tasks": {
                     "times": "times",
                     "against": "against",

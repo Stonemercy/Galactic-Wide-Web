@@ -985,7 +985,12 @@ class Dashboard:
                                     or timestamp < earliest_timestamp[1]
                                 ):
                                     earliest_timestamp = (planet_, timestamp)
-                            field_value += f"-# Available <t:{earliest_timestamp[1]}:R> thanks to **{earliest_timestamp[0]}** liberation\n"
+                            field_value += self.language_json["embeds"]["Dashboard"][
+                                "MajorOrderEmbed"
+                            ]["avail_thanks_to_wp"].format(
+                                timestamp=earliest_timestamp[1],
+                                planet_name=earliest_timestamp[0],
+                            )
                     field_value += (
                         f"{planet.health_bar}" f"\n`{1 - planet.health_perc:^25,.1%}`"
                     )
