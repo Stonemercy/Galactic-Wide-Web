@@ -995,11 +995,13 @@ class Dashboard:
                         f"\n{planet.health_bar}" f"\n`{1 - planet.health_perc:^25,.1%}`"
                     )
                 elif task.sector_index:
+                    sector_name: str = self.json_dict["sectors"].get(
+                        str(task.sector_index), "Unknown"
+                    )
                     planets_in_sector = [
                         p
                         for p in self.planets.values()
-                        if p.sector.lower()
-                        == self.json_dict["sectors"].get(str(task.sector_index)).lower()
+                        if p.sector.lower() == sector_name.lower()
                     ]
                     perc_owned = len(planets_in_sector) / len(
                         [
