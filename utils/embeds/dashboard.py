@@ -1206,7 +1206,7 @@ class Dashboard:
                 # and we are not within 2 days of assignment end
                 return outlook_text
 
-            winning_all_tasks = [
+            winning_all_unfinished_tasks = [
                 ts < self.assignment.ends_at_datetime.timestamp()
                 for ts in self.completion_timestamps
             ]
@@ -1238,9 +1238,9 @@ class Dashboard:
                 [
                     True
                     for t in self.assignment.tasks
-                    if t.progress_perc == 1 and t.type != 13
+                    if t.progress_perc >= 1 and t.type != 13
                 ]
-                + [b for b in winning_all_tasks if b]
+                + [b for b in winning_all_unfinished_tasks if b]
                 + complete_type_13s
             )
             if (
@@ -1248,7 +1248,7 @@ class Dashboard:
                 and (len(complete_tasks) == len(self.assignment.tasks))
             ) or (
                 self.assignment.flags in (2, 3)
-                and (any(complete_tasks) or any(winning_all_tasks))
+                and (any(complete_tasks) or any(winning_all_unfinished_tasks))
             ):
                 outlook_text = self.language_json["complete"]
                 if {13, 15} & set([t.type for t in self.assignment.tasks]):
