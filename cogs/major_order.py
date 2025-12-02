@@ -72,7 +72,7 @@ class MajorOrderCog(commands.Cog):
                         self.mo_briefing_check_dict[major_order.id] += 1
                     else:
                         self.mo_briefing_check_dict[major_order.id] = 1
-                    if self.mo_briefing_check_dict[major_order.id] < 15:
+                    if self.mo_briefing_check_dict[major_order.id] < 5:
                         self.bot.logger.info(
                             f"MO briefing not available for assignment #{major_order.id} - Check #{self.mo_briefing_check_dict[major_order.id]}"
                         )
