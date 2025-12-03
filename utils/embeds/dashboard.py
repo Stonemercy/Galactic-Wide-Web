@@ -1213,6 +1213,29 @@ class Dashboard:
                 for ts in self.completion_timestamps
             ]
             type_13_tasks = [t for t in self.assignment.tasks if t.type == 13]
+
+            complete_type_15s = []
+            for task in (t for t in self.assignment.tasks if t.type == 15):
+                progress = int(task.progress)
+                for pe in (p for p in self.planets.values() if p.event):
+                    end_time_info = get_end_time(pe, self.gambit_planets)
+                    if end_time_info.end_time:
+                        if end_time_info.end_time > self.assignment.ends_at_datetime:
+                            progress -= 1
+                        else:
+                            progress += 1
+                    else:
+                        progress -= 1
+                for pc in (p for p in self.planets.values() if not p.defending_from):
+                    end_time_info = get_end_time(pc, self.gambit_planets)
+                    if (
+                        end_time_info.end_time
+                        and end_time_info.end_time < self.assignment.ends_at_datetime
+                    ):
+                        progress += 1
+                if progress >= task.target:
+                    complete_type_15s.append(True)
+
             complete_type_13s = []
             for task in type_13_tasks:
                 if task.planet_index:
@@ -1236,14 +1259,16 @@ class Dashboard:
                         if task.target == 1
                         else len([t for t in sector_wins if t]) > task.target
                     )
+
             complete_tasks = (
                 [
                     True
                     for t in self.assignment.tasks
-                    if t.progress_perc >= 1 and t.type != 13
+                    if t.progress_perc >= 1 and t.type not in [13, 15]
                 ]
                 + [b for b in winning_all_unfinished_tasks if b]
                 + complete_type_13s
+                + complete_type_15s
             )
             if (
                 self.assignment.flags in (0, 1)
