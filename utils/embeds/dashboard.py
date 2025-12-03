@@ -143,8 +143,8 @@ class Dashboard:
             else:
                 # add blank line (max size, dont change)
                 embed.set_image("https://i.imgur.com/cThNy4f.png")
-        embeds_to_skip = (self.DSSEmbed,)
 
+        embeds_to_skip = (self.DSSEmbed,)
         if self.character_count() > 5900 or compact_level > 0:
             self.embeds = [
                 embed
