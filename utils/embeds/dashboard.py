@@ -20,7 +20,6 @@ from utils.dataclasses.factions import Faction
 from utils.emojis import Emojis
 from utils.functions import get_end_time, health_bar, short_format
 from utils.mixins import EmbedReprMixin
-from utils.trackers import BaseTrackerEntry
 
 STATUS_DICT = {
     0: "inactive",
@@ -42,7 +41,7 @@ class Dashboard:
         self.embeds: list[Embed] = []
         self.compact_level = compact_level
 
-        # Major Order embeds
+        # Major Order Embeds
         if assignments := data.assignments.get(language_code):
             for assignment in assignments:
                 self.embeds.append(
@@ -56,7 +55,7 @@ class Dashboard:
                     )
                 )
 
-        # DSS Eembed
+        # DSS Embed
         if data.dss and data.dss.flags not in (0, 2):
             self.embeds.append(
                 self.DSSEmbed(
@@ -66,7 +65,7 @@ class Dashboard:
                 )
             )
 
-        # Defence embed
+        # Defence Embed
         if data.planet_events:
             eagle_storm = data.dss.get_ta_by_name("EAGLE STORM") if data.dss else None
             self.embeds.append(
@@ -80,7 +79,7 @@ class Dashboard:
                 )
             )
 
-        # Attack embeds
+        # Attack Embeds
         self.embeds.append(
             self.AttackEmbed(
                 campaigns=[
