@@ -1369,9 +1369,7 @@ class Dashboard:
                 match status:
                     case "preparing":
                         for ta_cost in tactical_action.cost:
-                            cost_change: BaseTrackerEntry = (
-                                tactical_action.cost_changes[ta_cost.item]
-                            )
+                            cost_change = tactical_action.cost_changes.get(ta_cost.item)
                             if (
                                 cost_change
                                 and cost_change.change_rate_per_hour != 0

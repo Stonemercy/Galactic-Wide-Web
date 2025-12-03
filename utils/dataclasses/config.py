@@ -1,3 +1,4 @@
+from json import loads
 from os import getenv
 
 
@@ -16,3 +17,6 @@ class Config:
     DB_USERNAME: str = getenv("DB_USERNAME")
     DB_PWD: str = getenv("DB_PWD")
     DB_PORT_ID: str = getenv("DB_PORT_ID")
+
+    AUTHED_API_HEADERS: dict[str, str] = loads(getenv("AUTHED_API_HEADERS"))
+    AUTHED_API_URL: str = getenv("AUTHED_API_URL")

@@ -66,6 +66,7 @@ class Data(ReprMixin):
             "planets": None,
             "steam": None,
             "dss": None,
+            "dss_votes": None,
             "status": {},
             "warinfo": None,
             "steam_playercount": None,
@@ -83,6 +84,7 @@ class Data(ReprMixin):
         self.assignments = {}
         self.dispatches: dict = {}
         self.dss = None
+        self.dss_votes = None
         self.planets = None
         self.global_resources = None
         self.steam_playercount = 0
@@ -220,6 +222,7 @@ class Data(ReprMixin):
                     "dispatches",
                     "assignments",
                     "status",
+                    "dss_votes",
                 ):
                     continue
                 match endpoint:
@@ -273,6 +276,21 @@ class Data(ReprMixin):
                 if self.api_to_use == Config.BACKUP_API_BASE:
                     # for HD2 community API rate limit
                     await sleep(2)
+
+            # authed endpoints
+            session.headers.update(Config.AUTHED_API_HEADERS)
+            current_election_id = self._data.get("dss", {}).get(
+                "currentElectionId", None
+            )
+            if current_election_id:
+                await wait_for(
+                    self.get_endpoint(
+                        endpoint_type="dss_votes",
+                        url=f"{Config.AUTHED_API_URL}/election",
+                        session=session,
+                    ),
+                    timeout=15,
+                )
 
         self.format_data()
         self.update_liberation_rates()
@@ -331,6 +349,10 @@ class Data(ReprMixin):
                                 eagle_storm.status_end_datetime - datetime.now()
                             ).total_seconds()
                         )
+            if self._data["dss_votes"]:
+                self.dss.votes = DSS.Votes(
+                    planets=self.planets, raw_votes_data=self._data["dss_votes"]
+                )
 
         if self.planets:
             self.planet_events: list[Planet] = sorted(
@@ -1347,7 +1369,7 @@ class DSS(ReprMixin):
                 DSS.TacticalAction.Cost(cost=cost)
                 for cost in tactical_action_raw_data["cost"]
             ]
-            self.cost_changes: dict[BaseTrackerEntry] = {}
+            self.cost_changes: dict[str, BaseTrackerEntry] = {}
             self.emoji = getattr(Emojis.DSS, self.name.lower().replace(" ", "_"), "")
 
         class Cost(ReprMixin):
