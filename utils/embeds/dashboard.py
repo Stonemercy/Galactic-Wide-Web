@@ -1206,7 +1206,7 @@ class Dashboard:
             ) and any(t.type in (13, 15) for t in self.assignment.tasks):
                 # return empty if assignments that last the full assignment duration are present
                 # and we are not within 2 days of assignment end
-                return outlook_text
+                return
 
             winning_all_unfinished_tasks = [
                 ts < self.assignment.ends_at_datetime.timestamp()
