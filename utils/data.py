@@ -959,8 +959,10 @@ class GlobalEvent(ReprMixin):
     ) -> None:
         """Organised data of a global event"""
         self.id: int = raw_global_event_data["eventId"]
-        self.title: str = dispatch_format(raw_global_event_data["title"])
-        self.message: str = dispatch_format(text=raw_global_event_data["message"])
+        self.title: str = dispatch_format(raw_global_event_data.get("title", ""))
+        self.message: str = dispatch_format(
+            text=raw_global_event_data.get("message", "")
+        )
         self.faction: Faction = Factions.get_from_identifier(
             number=raw_global_event_data["race"]
         )
@@ -1069,7 +1071,7 @@ class Planet(ReprMixin):
             self.hazards = []
 
     @property
-    def health_bar(self):
+    def health_bar(self) -> str:
         progress = (1 - self.health_perc) if not self.event else self.event.progress
         faction = self.faction if not self.event else self.event.faction
         if self.tracker and self.tracker.change_rate_per_hour != 0:
