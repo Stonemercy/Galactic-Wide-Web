@@ -532,7 +532,9 @@ class Data(ReprMixin):
             }
 
             for planet_effect in self._data["status"]["en"]["planetActiveEffects"]:
-                planet = self.planets[planet_effect["index"]]
+                planet = self.planets.get(planet_effect["index"])
+                if not planet:
+                    continue
                 gwe = [
                     g
                     for g in self.galactic_war_effects
