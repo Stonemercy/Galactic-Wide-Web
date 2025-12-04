@@ -38,6 +38,10 @@ class PlanetFeatures:
         ("E-711 Extraction Facility", Emojis.PlanetFeatures.e711_extraction_facility): {
             1333
         },
+        (
+            "Centre for the Confinement of Dissidence (CECOD)",
+            Emojis.PlanetFeatures.cecod,
+        ): {1342},
     }
 
     @classmethod
