@@ -21,11 +21,11 @@ class GlobalEventsContainer(ui.Container, ReprMixin):
             if not global_event.planet_indices:
                 specific_planets = container_json["all_planets"]
             else:
+                spec_planets_list = [
+                    planets.get(index) for index in global_event.planet_indices
+                ]
                 specific_planets = "\n-# " + "\n- ".join(
-                    [
-                        planets[index].loc_names[long_lang_code]
-                        for index in global_event.planet_indices
-                    ]
+                    [p.name for p in spec_planets_list if p]
                 )
             for effect in global_event.effects:
                 if "UNKNOWN" in effect.planet_effect["name"]:
