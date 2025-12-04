@@ -1179,6 +1179,28 @@ class Dashboard:
                     pointer_text = f"{arrow}{progress}"
                 field_value += f"\n`{left_buffer}{pointer_text}{right_buffer}`"
 
+                for planet in (
+                    p for p in self.planets.values() if p.stats.player_count > 200
+                ):
+                    end_time_info = get_end_time(planet, self.gambit_planets)
+                    if end_time_info.end_time:
+                        if (
+                            not planet.event
+                            and end_time_info.end_time
+                            < self.assignment.ends_at_datetime
+                        ):
+                            field_value += f"\n-# **+1** from **{planet.name}** liberation <t:{int(end_time_info.end_time.timestamp())}:R>"
+                        elif planet.event:
+                            if (
+                                planet.event.end_time_datetime
+                                > self.assignment.ends_at_datetime
+                            ):
+                                continue
+                            elif (
+                                end_time_info.end_time > planet.event.end_time_datetime
+                            ):
+                                field_value += f"\n-# **-1** from **{planet.name}** loss <t:{int(planet.event.end_time_datetime.timestamp())}:R>"
+
             self.add_field(field_name, field_value, inline=False)
 
         def _add_rewards(self) -> None:
