@@ -282,7 +282,9 @@ class Dashboard:
                     match task.type:
                         case 11:
                             if task.planet_index:
-                                planet = self.planets[task.planet_index]
+                                planet = self.planets.get(task.planet_index)
+                                if not planet:
+                                    continue
                                 end_time_info = get_end_time(
                                     source_planet=planet,
                                     gambit_planets=self.gambit_planets,
@@ -338,7 +340,9 @@ class Dashboard:
                                         )
                         case 13:
                             if task.planet_index:
-                                planet = self.planets[task.planet_index]
+                                planet = self.planets.get(task.planet_index)
+                                if not planet:
+                                    continue
                                 if planet.event and (
                                     planet.event.end_time_datetime
                                     < self.assignment.ends_at_datetime
@@ -411,12 +415,15 @@ class Dashboard:
             ]
 
             if task.planet_index:
-                planet = self.planets[task.planet_index]
+                planet = self.planets.get(task.planet_index)
                 from_the_planet = tasks_json["loc_from_planet"]
                 text = text.replace("{ext_pre}", f" {from_the_planet} **")
-                text = text.replace(
-                    "{ext}", planet.loc_names[self.language_json["code_long"]]
-                )
+                if planet:
+                    text = text.replace(
+                        "{ext}", planet.loc_names[self.language_json["code_long"]]
+                    )
+                else:
+                    text = text.replace("{ext}", "UNKNOWN PLANET")
                 text = text.replace("{ext_post}", "**")
             elif task.sector_index:
                 in_the = tasks_json["loc_in_the"]
@@ -440,12 +447,15 @@ class Dashboard:
             ]
 
             if task.planet_index:
-                planet = self.planets[task.planet_index]
+                planet = self.planets.get(task.planet_index)
                 on_the_planet = tasks_json["loc_on_planet"]
                 text = text.replace("{ext_pre}", f" {on_the_planet} **")
-                text = text.replace(
-                    "{ext}", planet.loc_names[self.language_json["code_long"]]
-                )
+                if planet:
+                    text = text.replace(
+                        "{ext}", planet.loc_names[self.language_json["code_long"]]
+                    )
+                else:
+                    text = text.replace("{ext}", "UNKNOWN PLANET")
                 text = text.replace("{ext_post}", "**")
             elif task.sector_index:
                 in_the = tasks_json["loc_in_the"]
@@ -498,11 +508,14 @@ class Dashboard:
             ]
             if task.planet_index:
                 on_the_planet = tasks_json["on_the_planet"]
-                planet_name = self.planets[task.planet_index].loc_names[
-                    self.language_json["code_long"]
-                ]
+                planet = self.planets.get(task.planet_index)
                 text = text.replace("{race_pre}", f" {on_the_planet} **")
-                text = text.replace("{race}", planet_name)
+                if planet:
+                    text = text.replace(
+                        "{race}", planet.loc_names[self.language_json["code_long"]]
+                    )
+                else:
+                    text = text.replace("{race}", "UNKNOWN PLANET")
                 text = text.replace("{race_post}", "**")
             else:
                 on_a_planet_controlled_by_the = tasks_json["on_faction_planet"]
@@ -948,9 +961,11 @@ class Dashboard:
             field_name = self._add_progress_emoji(text=field_name, task=task)
 
             if task.planet_index:
-                location_name = self.planets[task.planet_index].loc_names[
-                    self.language_json["code_long"]
-                ]
+                planet = self.planets.get(task.planet_index)
+                if not planet:
+                    location_name = "Unknown Location"
+                else:
+                    location_name = planet.loc_names[self.language_json["code_long"]]
             elif task.sector_index:
                 location_name = self.json_dict["sectors"].get(str(task.sector_index))
             else:
@@ -960,39 +975,42 @@ class Dashboard:
             field_value = ""
             if task.progress_perc != 1:
                 if task.planet_index:
-                    planet = self.planets[task.planet_index]
-                    if not planet.defending_from:
-                        waypoint_timestamps = {}
-                        for waypoint in planet.waypoints:
-                            way_planet = self.planets[waypoint]
-                            if way_planet.defending_from:
-                                end_time_info = get_end_time(
-                                    source_planet=way_planet,
-                                    gambit_planets=self.gambit_planets,
+                    planet = self.planets.get(task.planet_index)
+                    if planet:
+                        if not planet.defending_from:
+                            waypoint_timestamps = {}
+                            for waypoint in planet.waypoints:
+                                way_planet = self.planets.get(waypoint)
+                                if way_planet:
+                                    if way_planet.defending_from:
+                                        end_time_info = get_end_time(
+                                            source_planet=way_planet,
+                                            gambit_planets=self.gambit_planets,
+                                        )
+                                        if end_time_info.end_time:
+                                            waypoint_timestamps[
+                                                way_planet.loc_names[
+                                                    self.language_json["code_long"]
+                                                ]
+                                            ] = int(end_time_info.end_time.timestamp())
+                            if waypoint_timestamps != {}:
+                                earliest_timestamp = ()
+                                for planet_, timestamp in waypoint_timestamps.items():
+                                    if (
+                                        not earliest_timestamp
+                                        or timestamp < earliest_timestamp[1]
+                                    ):
+                                        earliest_timestamp = (planet_, timestamp)
+                                field_value += self.language_json["embeds"][
+                                    "Dashboard"
+                                ]["MajorOrderEmbed"]["avail_thanks_to_wp"].format(
+                                    timestamp=earliest_timestamp[1],
+                                    planet_name=earliest_timestamp[0],
                                 )
-                                if end_time_info.end_time:
-                                    waypoint_timestamps[
-                                        way_planet.loc_names[
-                                            self.language_json["code_long"]
-                                        ]
-                                    ] = int(end_time_info.end_time.timestamp())
-                        if waypoint_timestamps != {}:
-                            earliest_timestamp = ()
-                            for planet_, timestamp in waypoint_timestamps.items():
-                                if (
-                                    not earliest_timestamp
-                                    or timestamp < earliest_timestamp[1]
-                                ):
-                                    earliest_timestamp = (planet_, timestamp)
-                            field_value += self.language_json["embeds"]["Dashboard"][
-                                "MajorOrderEmbed"
-                            ]["avail_thanks_to_wp"].format(
-                                timestamp=earliest_timestamp[1],
-                                planet_name=earliest_timestamp[0],
-                            )
-                    field_value += (
-                        f"\n{planet.health_bar}" f"\n`{1 - planet.health_perc:^25,.1%}`"
-                    )
+                        field_value += (
+                            f"\n{planet.health_bar}"
+                            f"\n`{1 - planet.health_perc:^25,.1%}`"
+                        )
                 elif task.sector_index:
                     sector_name: str = self.json_dict["sectors"].get(
                         str(task.sector_index), "Unknown"
@@ -1037,10 +1055,13 @@ class Dashboard:
                     field_name = field_name.replace("{race}", race_name)
                 else:
                     field_name: str = tasks_json["type12_p_r"]
-                planet_name = self.planets[task.planet_index].loc_names[
-                    self.language_json["code_long"]
-                ]
-                field_name = field_name.replace("{planet}", planet_name)
+                planet = self.planets.get(task.planet_index)
+                if planet:
+                    field_name = field_name.replace(
+                        "{planet}", planet.loc_names[self.language_json["code_long"]]
+                    )
+                else:
+                    field_name = field_name.replace("{planet}", "UNKNOWN PLANET")
             else:
                 if task.faction:
                     field_name: str = tasks_json["type12_r_f"]
@@ -1074,9 +1095,13 @@ class Dashboard:
                 field_name = field_name.replace("{count}", f"{task.target:,}")
             if task.target == 1:
                 if task.planet_index:
-                    location_name = self.planets[task.planet_index].loc_names[
-                        self.language_json["code_long"]
-                    ]
+                    planet = self.planets.get(task.planet_index)
+                    if planet:
+                        location_name = planet.loc_names[
+                            self.language_json["code_long"]
+                        ]
+                    else:
+                        location_name = "UNKNOWN PLANET"
                 elif task.sector_index:
                     location_name = self.json_dict["sectors"].get(
                         str(task.sector_index), "UNKNOWN"
@@ -1093,10 +1118,11 @@ class Dashboard:
             field_value = ""
             if task.progress_perc != 1:
                 if task.planet_index:
-                    planet = self.planets[task.planet_index]
-                    field_value += (
-                        f"{planet.health_bar}" f"\n`{planet.health_perc:^25,.2%}`"
-                    )
+                    planet = self.planets.get(task.planet_index)
+                    if planet:
+                        field_value += (
+                            f"{planet.health_bar}" f"\n`{planet.health_perc:^25,.2%}`"
+                        )
                 elif task.target > 1 and task.sector_index:
                     field_value += (
                         f"Progress: **{task.progress}/{task.target}**"
@@ -1104,12 +1130,13 @@ class Dashboard:
                         f"\n`{task.progress_perc:^25,.2%}`"
                     )
             elif task.planet_index:
-                planet = self.planets[task.planet_index]
-                if planet.event:
-                    field_value += (
-                        f"{planet.health_bar}:shield:"
-                        f"\n`{planet.event.progress:^25,.2%}`"
-                    )
+                planet = self.planets.get(task.planet_index)
+                if planet:
+                    if planet.event:
+                        field_value += (
+                            f"{planet.health_bar}:shield:"
+                            f"\n`{planet.event.progress:^25,.2%}`"
+                        )
 
             self.add_field(field_name, field_value, inline=False)
 
@@ -1265,9 +1292,10 @@ class Dashboard:
             complete_type_13s = []
             for task in type_13_tasks:
                 if task.planet_index:
-                    planet = self.planets[task.planet_index]
-                    if planet.faction.full_name == "Humans" and not planet.event:
-                        complete_type_13s.append(True)
+                    planet = self.planets.get(task.planet_index)
+                    if planet:
+                        if planet.faction.full_name == "Humans" and not planet.event:
+                            complete_type_13s.append(True)
                 elif task.sector_index:
                     sector = self.json_dict["sectors"][task.sector_index]
                     sector_wins = []
@@ -1673,12 +1701,13 @@ class Dashboard:
                     if campaign.planet.index in [
                         p.index for p in gambit_planets.values()
                     ]:
-                        gambit_planet = planets[
+                        gambit_planet = planets.get(
                             {v.index: k for k, v in gambit_planets.items()}[
                                 campaign.planet.index
                             ]
-                        ]
-                        field_value += f"\n-# :chess_pawn: GAMBIT FOR {gambit_planet.loc_names[language_json['code_long']]}"
+                        )
+                        if gambit_planet:
+                            field_value += f"\n-# :chess_pawn: GAMBIT FOR {gambit_planet.loc_names[language_json['code_long']]}"
                     if compact_level < 1:
                         field_value += f"\n{campaign.planet.health_bar}"
                     field_value += f"\n`{(1 - (campaign.planet.health_perc)):^25.2%}`"  # 1 - {health} because we need it to reach 0

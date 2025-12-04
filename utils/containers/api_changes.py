@@ -69,11 +69,19 @@ class APIChangesContainer(ui.Container, ReprMixin):
                             if waypoints_removed := list(set(old_stat) - set(new_stat)):
                                 content += "\n### Waypoint(s) Removed ❌"
                                 for wp in waypoints_removed:
-                                    content += f"\n-# - **{planets[wp].name}**"
+                                    planet = planets.get(wp)
+                                    if planet:
+                                        content += f"\n-# - **{planet.name}**"
+                                    else:
+                                        content += f"\n-# - **UNKNOWN PLANET**"
                             if waypoints_added := list(set(new_stat) - set(old_stat)):
                                 content += "\n### Waypoint(s) Added :white_check_mark:"
                                 for wp in waypoints_added:
-                                    content += f"\n-# - **{planets[wp].name}**"
+                                    planet = planets.get(wp)
+                                    if planet:
+                                        content += f"\n-# - **{planet.name}**"
+                                    else:
+                                        content += f"\n-# - **UNKNOWN PLANET**"
                             if waypoints_added or waypoints_removed:
                                 self.container_components.append(
                                     ui.TextDisplay(content)

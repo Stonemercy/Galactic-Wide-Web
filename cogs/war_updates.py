@@ -86,13 +86,17 @@ class WarUpdatesCog(commands.Cog):
             # loop through old campaigns
             if old_campaign.campaign_id not in new_campaign_ids:
                 # if campaign has ended
-                planet = self.bot.data.planets[old_campaign.planet_index]
+                planet = self.bot.data.planets.get(old_campaign.planet_index)
+                if not planet:
+                    continue
                 if planet.faction.full_name == old_campaign.planet_owner == "Humans":
                     # if campaign was defence and we won
-                    previous_data_planet = self.bot.previous_data.planets[
+                    previous_data_planet = self.bot.previous_data.planets.get(
                         old_campaign.planet_index
-                    ]
+                    )
                     hours_remaining = 0.0
+                    if not previous_data_planet:
+                        continue
                     if previous_data_planet.event:
                         hours_remaining = (
                             previous_data_planet.event.end_time_datetime - update_start
@@ -267,10 +271,13 @@ class WarUpdatesCog(commands.Cog):
             ):
                 # if DSS has moved
                 for container in containers.values():
+                    before_planet = self.bot.data.planets.get(
+                        self.bot.databases.dss_info.planet_index
+                    )
+                    if not before_planet:
+                        return
                     container.dss_moved(
-                        before_planet=self.bot.data.planets[
-                            self.bot.databases.dss_info.planet_index
-                        ],
+                        before_planet=before_planet,
                         after_planet=self.bot.data.dss.planet,
                     )
                 self.bot.databases.dss_info.planet_index = (

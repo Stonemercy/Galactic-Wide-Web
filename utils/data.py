@@ -98,7 +98,7 @@ class Data(ReprMixin):
             async with session.get(url=f"{self.api_to_use}") as r:
                 if r.status != 200:
                     self.api_to_use = Config.BACKUP_API_BASE
-                    self.logger.critical("API/USING BACKUP")
+                    print("\033[31mUSING BACKUP API\033[0m")
         except ClientSSLError as e:
             raise e
 
@@ -332,27 +332,28 @@ class Data(ReprMixin):
             )
 
         if self._data["dss"]:
-            dss_planet: Planet = self.planets[self._data["dss"]["planetIndex"]]
-            if self._data["dss"]["flags"] == 1:
-                dss_planet.dss_in_orbit = True
-            self.dss: DSS = DSS(
-                raw_dss_data=self._data["dss"],
-                planet=dss_planet,
-                war_start_timestamp=self.war_start_timestamp,
-            )
-            if eagle_storm := self.dss.get_ta_by_name("EAGLE STORM"):
-                if eagle_storm.status == 2:
-                    if dss_planet.event:
-                        dss_planet.eagle_storm_active = True
-                        dss_planet.event.end_time_datetime += timedelta(
-                            seconds=(
-                                eagle_storm.status_end_datetime - datetime.now()
-                            ).total_seconds()
-                        )
-            if self._data["dss_votes"]:
-                self.dss.votes = DSS.Votes(
-                    planets=self.planets, raw_votes_data=self._data["dss_votes"]
+            dss_planet = self.planets.get(self._data["dss"]["planetIndex"])
+            if dss_planet:
+                if self._data["dss"]["flags"] == 1:
+                    dss_planet.dss_in_orbit = True
+                self.dss: DSS = DSS(
+                    raw_dss_data=self._data["dss"],
+                    planet=dss_planet,
+                    war_start_timestamp=self.war_start_timestamp,
                 )
+                if eagle_storm := self.dss.get_ta_by_name("EAGLE STORM"):
+                    if eagle_storm.status == 2:
+                        if dss_planet.event:
+                            dss_planet.eagle_storm_active = True
+                            dss_planet.event.end_time_datetime += timedelta(
+                                seconds=(
+                                    eagle_storm.status_end_datetime - datetime.now()
+                                ).total_seconds()
+                            )
+                if self._data["dss_votes"]:
+                    self.dss.votes = DSS.Votes(
+                        planets=self.planets, raw_votes_data=self._data["dss_votes"]
+                    )
 
         if self.planets:
             self.planet_events: list[Planet] = sorted(
@@ -378,7 +379,9 @@ class Data(ReprMixin):
                         case 2:
                             """Successfully extract with {amount} {item}[ on {planet}][ in the __{sector}__ SECTOR][ from any {faction} controlled planet]"""
                             if task.planet_index:
-                                self.planets[task.planet_index].in_assignment = True
+                                planet = self.planets.get(task.planet_index)
+                                if planet:
+                                    planet.in_assignment = True
                             elif task.sector_index:
                                 sector_name: str = self.json_dict["sectors"][
                                     str(task.sector_index)
@@ -402,7 +405,9 @@ class Data(ReprMixin):
                         case 3:
                             """Kill {amount} {enemy_type}[ using the __{item_to_use}__][ on {planet}]"""
                             if task.planet_index:
-                                self.planets[task.planet_index].in_assignment = True
+                                planet = self.planets.get(task.planet_index)
+                                if planet:
+                                    planet.in_assignment = True
                             else:
                                 for index in [
                                     planet.index
@@ -413,7 +418,9 @@ class Data(ReprMixin):
                                         and planet.event.faction == task.faction
                                     )
                                 ]:
-                                    self.planets[index].in_assignment = True
+                                    planet = self.planets.get(index)
+                                    if planet:
+                                        planet.in_assignment = True
                         case 7 | 9:
                             """
                             Extract from a successful Mission against {faction} {number} times
@@ -433,27 +440,38 @@ class Data(ReprMixin):
                             """Defend[ {planet}] against {amount} attacks[ from the {faction}]"""
                             if self.planet_events:
                                 if task.planet_index:
-                                    self.planets[task.planet_index].in_assignment = True
-                                    continue
-                                for index in [
-                                    planet.index
-                                    for planet in self.planet_events
-                                    if (planet.event.faction == task.faction)
-                                    or not task.faction
-                                ]:
-                                    self.planets[index].in_assignment = True
+                                    planet = self.planets.get(task.planet_index)
+                                    if planet:
+                                        planet.in_assignment = True
+                                else:
+                                    for index in [
+                                        planet.index
+                                        for planet in self.planet_events
+                                        if (planet.event.faction == task.faction)
+                                        or not task.faction
+                                    ]:
+                                        planet = self.planets.get(index)
+                                        if planet:
+                                            planet.in_assignment = True
                         case 11 | 13:
                             """
                             Liberate a planet
                             |
                             Hold {planet} when the order expires"""
-                            if (
-                                self.planets[task.planet_index].event
-                                and self.planets[task.planet_index].event.type == 2
-                            ):
-                                continue
-                            else:
-                                self.planets[task.planet_index].in_assignment = True
+                            if task.planet_index:
+                                planet = self.planets.get(task.planet_index)
+                                if (
+                                    not planet
+                                    or planet.event
+                                    and planet.event.type == 2
+                                ):
+                                    continue
+                                else:
+                                    planet.in_assignment = True
+                        case 15:
+                            """Net Liberation"""
+                            for p in self.planet_events:
+                                p.in_assignment = True
         else:
             self.assignments = {}
 
@@ -462,9 +480,9 @@ class Data(ReprMixin):
                 [
                     Campaign(
                         raw_campaign_data=raw_campaign_data,
-                        campaign_planet=self.planets[
+                        campaign_planet=self.planets.get(
                             raw_campaign_data["planet"]["index"]
-                        ],
+                        ),
                     )
                     for raw_campaign_data in self._data["campaigns"]
                 ],
@@ -522,14 +540,26 @@ class Data(ReprMixin):
                 for gr in self._data["status"]["en"]["globalResources"]
             ]
 
-            self.planets[64].position = {  # meridia
-                "x": self._data["status"]["en"]["planetStatus"][64]["position"]["x"],
-                "y": self._data["status"]["en"]["planetStatus"][64]["position"]["y"],
-            }
-            self.planets[260].position = {  # cyberstan
-                "x": self._data["status"]["en"]["planetStatus"][260]["position"]["x"],
-                "y": self._data["status"]["en"]["planetStatus"][260]["position"]["y"],
-            }
+            meridia = self.planets.get(64)
+            if meridia:
+                meridia.position = {  # meridia
+                    "x": self._data["status"]["en"]["planetStatus"][64]["position"][
+                        "x"
+                    ],
+                    "y": self._data["status"]["en"]["planetStatus"][64]["position"][
+                        "y"
+                    ],
+                }
+            cyberstan = self.planets.get(260)
+            if cyberstan:
+                cyberstan.position = {  # cyberstan
+                    "x": self._data["status"]["en"]["planetStatus"][260]["position"][
+                        "x"
+                    ],
+                    "y": self._data["status"]["en"]["planetStatus"][260]["position"][
+                        "y"
+                    ],
+                }
 
             for planet_effect in self._data["status"]["en"]["planetActiveEffects"]:
                 planet = self.planets.get(planet_effect["index"])
@@ -545,25 +575,26 @@ class Data(ReprMixin):
                     planet.active_effects.add(gwe)
             for ge in self.global_events["en"]:
                 for planet_index in ge.planet_indices:
-                    self.planets[planet_index].active_effects |= set(
-                        [
-                            gwe
-                            for gwe in self.galactic_war_effects
-                            if gwe.id in [j.id for j in ge.effects]
-                        ]
-                    )
-                    self.planets[planet_index].active_effects = set(
-                        sorted(
-                            self.planets[planet_index].active_effects,
-                            key=lambda x: x.id,
+                    planet = self.planets.get(planet_index)
+                    if planet:
+                        planet.active_effects |= set(
+                            [
+                                gwe
+                                for gwe in self.galactic_war_effects
+                                if gwe.id in [j.id for j in ge.effects]
+                            ]
                         )
-                    )
+                        planet.active_effects = set(
+                            sorted(planet.active_effects, key=lambda x: x.id)
+                        )
 
             for planet_attack in self._data["status"]["en"]["planetAttacks"]:
-                source_planet = self.planets[planet_attack["source"]]
-                target_planet = self.planets[planet_attack["target"]]
-                source_planet.attack_targets.append(target_planet.index)
-                target_planet.defending_from.append(source_planet.index)
+                source_planet = self.planets.get(planet_attack["source"])
+                target_planet = self.planets.get(planet_attack["target"])
+                if source_planet:
+                    source_planet.attack_targets.append(target_planet.index)
+                if target_planet:
+                    target_planet.defending_from.append(source_planet.index)
 
             self.gambit_planets.clear()
             for campaign in [
@@ -572,8 +603,8 @@ class Data(ReprMixin):
                 if c.planet.faction != Factions.humans and c.planet.attack_targets
             ]:
                 for defending_index in campaign.planet.attack_targets:
-                    defending_planet = self.planets[defending_index]
-                    if (
+                    defending_planet = self.planets.get(defending_index)
+                    if defending_planet and (
                         len(defending_planet.attack_targets) < 2
                         and defending_planet.event
                         and campaign.planet.regen_perc_per_hour <= 0.03
@@ -587,24 +618,19 @@ class Data(ReprMixin):
                 pass
             else:
                 for region in self._data["warinfo"]["planetRegions"]:
-                    self.planets[region["planetIndex"]].regions[
-                        region["regionIndex"]
-                    ] = Planet.Region(
-                        planet_regions_json_dict=self.json_dict["planetRegions"],
-                        raw_planet_region_data=region,
-                        planet_owner=self.planets[region["planetIndex"]].faction,
-                    )
-                    self.planets[region["planetIndex"]].regions[
-                        region["regionIndex"]
-                    ].planet = self.planets[region["planetIndex"]]
+                    planet = self.planets.get(region["planetIndex"])
+                    if planet:
+                        planet.regions[region["regionIndex"]] = Planet.Region(
+                            planet_regions_json_dict=self.json_dict["planetRegions"],
+                            raw_planet_region_data=region,
+                            planet_owner=planet.faction,
+                        )
+                        planet.regions[region["regionIndex"]].planet = planet
 
                 for region in self._data["status"]["en"]["planetRegions"]:
-                    if region["planetIndex"] not in self.planets:
-                        continue
-                    else:
-                        planet_region = self.planets[region["planetIndex"]].regions.get(
-                            region["regionIndex"], None
-                        )
+                    planet = self.planets.get(region["planetIndex"])
+                    if planet:
+                        planet_region = planet.regions.get(region["regionIndex"])
                         if planet_region:
                             planet_region.update_from_status_data(
                                 raw_planet_region_data=region
@@ -1297,10 +1323,10 @@ class Planets(dict[int, Planet]):
 class Campaign(ReprMixin):
     __slots__ = ("id", "planet", "type", "count", "progress", "faction")
 
-    def __init__(self, raw_campaign_data: dict, campaign_planet: Planet) -> None:
+    def __init__(self, raw_campaign_data: dict, campaign_planet: Planet | None) -> None:
         """Organised data for a campaign"""
         self.id: int = raw_campaign_data["id"]
-        self.planet: Planet = campaign_planet
+        self.planet: Planet | None = campaign_planet
         self.type: int = raw_campaign_data["type"]
         self.count: int = raw_campaign_data["count"]
         self.progress: float = (
@@ -1395,6 +1421,7 @@ class DSS(ReprMixin):
             self.total_votes: int = sum([o["count"] for o in raw_votes_data["options"]])
             self.available_planets: list[tuple[Planet, int]] = []
             for option in raw_votes_data["options"]:
-                planet = planets[option["metaId"]]
-                self.available_planets.append((planet, option["count"]))
+                planet = planets.get(option["metaId"])
+                if planet:
+                    self.available_planets.append((planet, option["count"]))
 
