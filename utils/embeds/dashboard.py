@@ -1238,22 +1238,27 @@ class Dashboard:
             complete_type_15s = []
             for task in (t for t in self.assignment.tasks if t.type == 15):
                 progress = int(task.progress)
-                for pe in (p for p in self.planets.values() if p.event):
-                    end_time_info = get_end_time(pe, self.gambit_planets)
+                for planet in (
+                    p for p in self.planets.values() if p.stats.player_count > 200
+                ):
+                    end_time_info = get_end_time(planet, self.gambit_planets)
                     if end_time_info.end_time:
-                        if end_time_info.end_time > self.assignment.ends_at_datetime:
-                            progress -= 1
-                        else:
+                        if (
+                            not planet.event
+                            and end_time_info.end_time
+                            < self.assignment.ends_at_datetime
+                        ):
                             progress += 1
-                    else:
-                        progress -= 1
-                for pc in (p for p in self.planets.values() if not p.defending_from):
-                    end_time_info = get_end_time(pc, self.gambit_planets)
-                    if (
-                        end_time_info.end_time
-                        and end_time_info.end_time < self.assignment.ends_at_datetime
-                    ):
-                        progress += 1
+                        elif planet.event:
+                            if (
+                                planet.event.end_time_datetime
+                                > self.assignment.ends_at_datetime
+                            ):
+                                continue
+                            elif (
+                                end_time_info.end_time > planet.event.end_time_datetime
+                            ):
+                                progress -= 1
                 if progress >= task.target:
                     complete_type_15s.append(True)
 
@@ -1391,9 +1396,9 @@ class Dashboard:
                     next_planet = sorted_planets[1]
                 percent = next_planet[1] / dss.votes.total_votes
                 if next_planet[0] == dss.planet:
-                    self.description += f"-# Scheduled to stay on {dss.planet.loc_names[language_json['code_long']]} <t:{move_time}:R> ({percent:.0%})"
+                    self.description += f"-# Scheduled to stay on **{dss.planet.loc_names[language_json['code_long']]}** <t:{move_time}:R> ({percent:.0%})"
                 else:
-                    self.description += f"-# Scheduled to move to {next_planet[0].loc_names[language_json['code_long']]} <t:{move_time}:R> ({percent:.0%})"
+                    self.description += f"-# Scheduled to move to **{next_planet[0].loc_names[language_json['code_long']]}** <t:{move_time}:R> ({percent:.0%})"
             else:
                 self.description += language_json["embeds"]["Dashboard"]["DSSEmbed"][
                     "next_move"
