@@ -157,6 +157,11 @@ class DataManagementCog(commands.Cog):
                                     )
                                 )
         if total_changes != []:
+            if len(total_changes) > 20:
+                await self.bot.channels.moderator_channel.send(
+                    f"TOTAL API CHANGES LENGTH = {len(total_changes)}"
+                )
+                return
             chunked_changes = [
                 total_changes[i : i + 5] for i in range(0, len(total_changes), 5)
             ]
