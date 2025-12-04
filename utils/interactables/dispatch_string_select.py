@@ -1,6 +1,6 @@
 from disnake import SelectOption
 from disnake.ui import StringSelect
-from utils.data import Dispatch
+from utils.api_wrapper.models import Dispatch
 
 
 class DispatchStringSelect(StringSelect):

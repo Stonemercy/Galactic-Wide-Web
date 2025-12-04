@@ -58,9 +58,9 @@ class MapCog(commands.Cog):
         )
         if need_to_update_maps:
             self.bot.maps.update_base_map(
-                planets=self.bot.data.planets,
-                assignments=self.bot.data.assignments["en"],
-                campaigns=self.bot.data.campaigns,
+                planets=self.bot.data.formatted_data.planets,
+                assignments=self.bot.data.formatted_data.assignments["en"],
+                campaigns=self.bot.data.formatted_data.campaigns,
                 sector_names=self.bot.json_dict["sectors"],
             )
             for language_code, embed in map_embeds.items():
@@ -68,18 +68,21 @@ class MapCog(commands.Cog):
                 self.bot.maps.localize_map(
                     language_code_short=language_code,
                     language_code_long=language_json["code_long"],
-                    planets=self.bot.data.planets,
+                    planets=self.bot.data.formatted_data.planets,
                     active_planets=[
-                        campaign.planet.index for campaign in self.bot.data.campaigns
+                        campaign.planet.index
+                        for campaign in self.bot.data.formatted_data.campaigns
                     ],
                     planet_names_json=self.bot.json_dict["planets"],
                 )
                 self.bot.maps.add_icons(
                     lang=language_code,
                     long_code=language_json["code_long"],
-                    planets=self.bot.data.planets,
-                    active_planets=[c.planet.index for c in self.bot.data.campaigns],
-                    dss=self.bot.data.dss,
+                    planets=self.bot.data.formatted_data.planets,
+                    active_planets=[
+                        c.planet.index for c in self.bot.data.formatted_data.campaigns
+                    ],
+                    dss=self.bot.data.formatted_data.dss,
                     planet_names_json=self.bot.json_dict["planets"],
                 )
                 message = await self.bot.channels.waste_bin_channel.send(
@@ -148,27 +151,30 @@ class MapCog(commands.Cog):
             latest_map and latest_map.updated_at < fifteen_minutes_ago
         ):
             self.bot.maps.update_base_map(
-                planets=self.bot.data.planets,
-                assignments=self.bot.data.assignments["en"],
-                campaigns=self.bot.data.campaigns,
+                planets=self.bot.data.formatted_data.planets,
+                assignments=self.bot.data.formatted_data.assignments["en"],
+                campaigns=self.bot.data.formatted_data.campaigns,
                 sector_names=self.bot.json_dict["sectors"],
             )
             language_json = self.bot.json_dict["languages"][guild.language]
             self.bot.maps.localize_map(
                 language_code_short=language_json["code"],
                 language_code_long=language_json["code_long"],
-                planets=self.bot.data.planets,
+                planets=self.bot.data.formatted_data.planets,
                 active_planets=[
-                    campaign.planet.index for campaign in self.bot.data.campaigns
+                    campaign.planet.index
+                    for campaign in self.bot.data.formatted_data.campaigns
                 ],
                 planet_names_json=self.bot.json_dict["planets"],
             )
             self.bot.maps.add_icons(
                 lang=language_json["code"],
                 long_code=language_json["code_long"],
-                planets=self.bot.data.planets,
-                active_planets=[c.planet.index for c in self.bot.data.campaigns],
-                dss=self.bot.data.dss,
+                planets=self.bot.data.formatted_data.planets,
+                active_planets=[
+                    c.planet.index for c in self.bot.data.formatted_data.campaigns
+                ],
+                dss=self.bot.data.formatted_data.dss,
                 planet_names_json=self.bot.json_dict["planets"],
             )
             try:

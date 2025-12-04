@@ -4,12 +4,12 @@ from disnake import Intents, Message, Status, TextChannel
 from disnake.ext import commands, tasks
 from json import load
 from os import listdir
-from utils.data import Data
 from utils.dataclasses import BotChannels, Config, GWWBotModes
 from utils.dbv2 import Databases
 from utils.interface_handler import InterfaceHandler
 from utils.logger import GWWLogger
 from utils.maps import Maps
+from utils.api_wrapper.services.data_service import DataService
 
 
 class GalacticWideWebBot(commands.AutoShardedInteractionBot):
@@ -24,11 +24,10 @@ class GalacticWideWebBot(commands.AutoShardedInteractionBot):
         self.channels = BotChannels()
         self.json_dict = json_dict.copy()
         self.load_json()
-        self.data = Data(
+        self.data = DataService(
             json_dict=self.json_dict,
             logger=self.logger,
         )
-        self.previous_data: Data | None = None
         self.bot_dashboard_channel: TextChannel | None = None
         self.bot_dashboard_message: Message | None = None
         self.maps = Maps()

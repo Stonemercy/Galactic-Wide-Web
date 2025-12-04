@@ -1,6 +1,6 @@
 from data.lists import ATTACK_EMBED_ICONS, VICTORY_ICONS, CUSTOM_COLOURS
 from disnake import Colour, ui
-from utils.data import GalacticWarEffect, Planet
+from utils.api_wrapper.models import GalacticWarEffect, Planet
 from utils.dataclasses import PlanetFeatures, RegionChangesJson, SpecialUnits
 from utils.emojis import Emojis
 from utils.interactables import HDCButton

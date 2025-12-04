@@ -63,28 +63,28 @@ class WarfrontCog(commands.Cog):
         defence_embed = Dashboard.DefenceEmbed(
             planet_events=[
                 planet
-                for planet in self.bot.data.planet_events
+                for planet in self.bot.data.formatted_data.planet_events
                 if planet.event.faction.full_name == faction
             ],
             language_json=guild_language,
-            total_players=self.bot.data.total_players,
-            eagle_storm=self.bot.data.dss.get_ta_by_name("EAGLE STORM"),
-            gambit_planets=self.bot.data.gambit_planets,
+            total_players=self.bot.data.formatted_data.total_players,
+            eagle_storm=self.bot.data.formatted_data.dss.get_ta_by_name("EAGLE STORM"),
+            gambit_planets=self.bot.data.formatted_data.gambit_planets,
         )
         attack_embed = Dashboard.AttackEmbed(
             campaigns=[
                 campaign
-                for campaign in self.bot.data.campaigns
+                for campaign in self.bot.data.formatted_data.campaigns
                 if campaign.faction.full_name == faction and not campaign.planet.event
             ],
             language_json=guild_language,
             faction=faction,
-            total_players=self.bot.data.total_players,
-            planets=self.bot.data.planets,
-            gambit_planets=self.bot.data.gambit_planets,
+            total_players=self.bot.data.formatted_data.total_players,
+            planets=self.bot.data.formatted_data.planets,
+            gambit_planets=self.bot.data.formatted_data.gambit_planets,
         )
         all_planets_embed = WarfrontAllPlanetsEmbed(
-            planets=self.bot.data.planets, faction=faction
+            planets=self.bot.data.formatted_data.planets, faction=faction
         )
         embeds: list[Embed] = [defence_embed, attack_embed, all_planets_embed]
         for embed in embeds.copy():

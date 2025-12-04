@@ -17,7 +17,7 @@ from dataclasses import dataclass
 from datetime import datetime
 from numpy import uint8, zeros
 from PIL import Image, ImageDraw, ImageFont
-from utils.data import Assignment, Campaign, DSS, Planet, Planets
+from utils.api_wrapper.models import Assignment, Campaign, DSS, Planet
 from utils.dataclasses import Factions, SpecialUnits
 from utils.mixins import ReprMixin
 
@@ -52,7 +52,7 @@ class Maps:
 
     def update_base_map(
         self,
-        planets: Planets,
+        planets: list[Planet],
         assignments: list[Assignment],
         campaigns: list[Campaign],
         sector_names: dict,
@@ -70,7 +70,7 @@ class Maps:
             active_planets=[campaign.planet.index for campaign in campaigns],
         )
 
-    def update_sectors(self, planets: Planets) -> None:
+    def update_sectors(self, planets: list[Planet]) -> None:
         sectors: dict[str, list[str]] = {}
         for planet in planets.values():
             faction_name = (
@@ -137,18 +137,20 @@ class Maps:
             background = background_rgb
         imwrite(Maps.FileLocations.sector_map, background)
 
-    def update_waypoint_lines(self, planets: Planets) -> None:
+    def update_waypoint_lines(self, planets: dict[int, Planet]) -> None:
         background = imread(Maps.FileLocations.sector_map, IMREAD_UNCHANGED)
         for planet in planets.values():
             for waypoint in planet.waypoints:
                 try:
-                    line(
-                        img=background,
-                        pt1=planet.map_waypoints,
-                        pt2=planets[waypoint].map_waypoints,
-                        color=(255, 255, 255, 255),
-                        thickness=2,
-                    )
+                    way_planet = planets.get(waypoint)
+                    if way_planet:
+                        line(
+                            img=background,
+                            pt1=planet.map_waypoints,
+                            pt2=way_planet.map_waypoints,
+                            color=(255, 255, 255, 255),
+                            thickness=2,
+                        )
                 except KeyError:
                     continue
 
@@ -157,7 +159,7 @@ class Maps:
     def update_assignment_tasks(
         self,
         assignments: list[Assignment],
-        planets: Planets,
+        planets: dict[int, Planet],
         campaigns: list[Campaign],
         sector_names: dict,
     ) -> None:
@@ -166,12 +168,15 @@ class Maps:
             for assignment in assignments:
                 for task in assignment.tasks:
                     if task.type in (11, 13):
-                        self._draw_ellipse(
-                            image=background,
-                            coords=planets[task.planet_index].map_waypoints,
-                            fill_colour=CUSTOM_COLOURS["MO"],
-                            radius=12,
-                        )
+                        if task.planet_index:
+                            planet = planets.get(task.planet_index)
+                            if planet:
+                                self._draw_ellipse(
+                                    image=background,
+                                    coords=planet.map_waypoints,
+                                    fill_colour=CUSTOM_COLOURS["MO"],
+                                    radius=12,
+                                )
                     elif task.type == 12 and (
                         planet_events := [
                             planet for planet in planets.values() if planet.event
@@ -205,12 +210,14 @@ class Maps:
                                     radius=12,
                                 )
                         elif task.planet_index:
-                            self._draw_ellipse(
-                                image=background,
-                                coords=planets[task.planet_index].map_waypoints,
-                                fill_colour=CUSTOM_COLOURS["MO"],
-                                radius=12,
-                            )
+                            planet = planets.get(task.planet_index)
+                            if planet:
+                                self._draw_ellipse(
+                                    image=background,
+                                    coords=planet.map_waypoints,
+                                    fill_colour=CUSTOM_COLOURS["MO"],
+                                    radius=12,
+                                )
                         elif task.faction:
                             for planet in [
                                 c.planet
@@ -236,7 +243,9 @@ class Maps:
                                 )
         imwrite(Maps.FileLocations.assignment_map, background)
 
-    def update_planets(self, planets: Planets, active_planets: list[int]) -> None:
+    def update_planets(
+        self, planets: dict[int, Planet], active_planets: list[int]
+    ) -> None:
         background = imread(Maps.FileLocations.assignment_map, IMREAD_UNCHANGED)
         PLANET_RADIUS = 8
         for index, planet in planets.items():
@@ -333,7 +342,7 @@ class Maps:
         self,
         language_code_short: str,
         language_code_long: str,
-        planets: Planets,
+        planets: dict[int, Planet],
         active_planets: list[int],
         planet_names_json: dict,
     ) -> None:
@@ -351,7 +360,7 @@ class Maps:
         self,
         background: Image.Image,
         language_code: str,
-        planets: Planets,
+        planets: dict[int, Planet],
         active_planets: list[int],
         planet_names_json: dict,
     ) -> None:
@@ -397,7 +406,7 @@ class Maps:
         self,
         lang: str,
         long_code: str,
-        planets: Planets,
+        planets: dict[int, Planet],
         active_planets: list[int],
         dss: DSS,
         planet_names_json: dict,

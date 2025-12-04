@@ -1,10 +1,10 @@
 from disnake import SelectOption
 from disnake.ui import StringSelect
-from utils.data import Steam
+from utils.api_wrapper.models import SteamNews
 
 
 class SteamStringSelect(StringSelect):
-    def __init__(self, steam_posts: list[Steam]):
+    def __init__(self, steam_posts: list[SteamNews]):
         super().__init__(
             placeholder="Choose Steam Post",
             min_values=1,

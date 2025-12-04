@@ -2,7 +2,7 @@ from datetime import datetime
 from disnake.ext import commands, tasks
 from main import GalacticWideWebBot
 from utils.containers import GlobalEventsContainer
-from utils.dbv2 import GWWGuilds
+from utils.api_wrapper.models import GlobalEvent, Planet
 
 
 class GlobalEventsCog(commands.Cog):
@@ -28,10 +28,12 @@ class GlobalEventsCog(commands.Cog):
             or ge_start < self.bot.ready_time
             or not self.bot.data.loaded
             or self.bot.interface_handler.busy
-            or not self.bot.data.global_events["en"]
+            or not self.bot.data.formatted_data.global_events["en"]
         ):
             return
-        for index, global_event in enumerate(self.bot.data.global_events["en"]):
+        for index, global_event in enumerate(
+            self.bot.data.formatted_data.global_events["en"]
+        ):
             if global_event.id > self.bot.databases.war_info.global_event_id:
                 if (
                     global_event.assignment_id != 0
@@ -57,8 +59,10 @@ class GlobalEventsCog(commands.Cog):
                             container_json=self.bot.json_dict["languages"][lang][
                                 "containers"
                             ]["GlobalEventsContainer"],
-                            global_event=self.bot.data.global_events[lang][index],
-                            planets=self.bot.data.planets,
+                            global_event=self.bot.data.formatted_data.global_events[
+                                lang
+                            ][index],
+                            planets=self.bot.data.formatted_data.planets,
                         )
                     ]
                     for lang in unique_langs

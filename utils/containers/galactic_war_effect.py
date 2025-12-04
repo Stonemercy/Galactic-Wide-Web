@@ -1,5 +1,5 @@
 from disnake import Colour, ui
-from utils.data import GalacticWarEffect, Planet
+from utils.api_wrapper.models import GalacticWarEffect, Planet
 from utils.mixins import ReprMixin
 
 

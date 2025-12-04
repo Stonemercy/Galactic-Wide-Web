@@ -6,15 +6,8 @@ from data.lists import (
     DEFENCE_EMBED_ICONS,
 )
 from disnake import Colour, Embed
-from utils.data import (
-    Assignment,
-    Campaign,
-    Data,
-    DSS,
-    GlobalEvent,
-    Planet,
-    Planets,
-)
+from utils.api_wrapper.models import Assignment, Campaign, DSS, GlobalEvent, Planet
+from utils.api_wrapper.formatters.data_formatter import FormattedData
 from utils.dataclasses import AssignmentImages, Factions, SpecialUnits, PlanetFeatures
 from utils.dataclasses.factions import Faction
 from utils.emojis import Emojis
@@ -32,7 +25,7 @@ STATUS_DICT = {
 class Dashboard:
     def __init__(
         self,
-        data: Data,
+        data: FormattedData,
         language_code: str,
         json_dict: dict,
         compact_level: int = 0,
@@ -132,8 +125,8 @@ class Dashboard:
             self.FooterEmbed(
                 language_json=language_json,
                 total_players=data.total_players,
-                steam_players=data.steam_playercount,
-                data_time=data.fetched_at,
+                steam_players=data.steam_player_count,
+                data_time=data.formatted_at,
             )
         )
 
@@ -173,7 +166,7 @@ class Dashboard:
         def __init__(
             self,
             assignment: Assignment,
-            planets: Planets,
+            planets: dict[int, Planet],
             gambit_planets: dict[int, Planet],
             language_json: dict,
             json_dict: dict,
@@ -965,7 +958,9 @@ class Dashboard:
                 if not planet:
                     location_name = "Unknown Location"
                 else:
-                    location_name = planet.loc_names[self.language_json["code_long"]]
+                    location_name = planet.loc_names.get(
+                        self.language_json["code_long"], "UNKNOWN PLANET"
+                    )
             elif task.sector_index:
                 location_name = self.json_dict["sectors"].get(str(task.sector_index))
             else:
@@ -1400,7 +1395,9 @@ class Dashboard:
             self.description = language_json["embeds"]["Dashboard"]["DSSEmbed"][
                 "stationed_at"
             ].format(
-                planet=dss.planet.loc_names[language_json["code_long"]],
+                planet=dss.planet.loc_names.get(
+                    language_json["code_long"], dss.planet.name
+                ),
                 faction_emoji=dss.planet.exclamations,
             )
             move_time = int(dss.move_timer_datetime.timestamp())
@@ -1424,9 +1421,9 @@ class Dashboard:
                     next_planet = sorted_planets[1]
                 percent = next_planet[1] / dss.votes.total_votes
                 if next_planet[0] == dss.planet:
-                    self.description += f"-# Scheduled to stay on **{dss.planet.loc_names[language_json['code_long']]}** <t:{move_time}:R> ({percent:.0%})"
+                    self.description += f"-# Scheduled to stay on **{dss.planet.loc_names.get(language_json['code_long'], dss.planet.name)}** <t:{move_time}:R> ({percent:.0%})"
                 else:
-                    self.description += f"-# Scheduled to move to **{next_planet[0].loc_names[language_json['code_long']]}** <t:{move_time}:R> ({percent:.0%})"
+                    self.description += f"-# Scheduled to move to **{next_planet[0].loc_names.get(language_json['code_long'], next_planet[0].name)}** <t:{move_time}:R> ({percent:.0%})"
             else:
                 self.description += language_json["embeds"]["Dashboard"]["DSSEmbed"][
                     "next_move"
@@ -1642,7 +1639,7 @@ class Dashboard:
             faction: str,
             total_players: int,
             gambit_planets: dict[int, Planet],
-            planets: Planets,
+            planets: dict[int, Planet],
             compact_level: int = 0,
         ):
             super().__init__(
@@ -1669,7 +1666,7 @@ class Dashboard:
                     skipped_campaigns.append(campaign)
                     continue
                 else:
-                    field_name += f"{campaign.faction.emoji} - **{campaign.planet.loc_names[language_json['code_long']]}** {campaign.planet.exclamations}"
+                    field_name += f"{campaign.faction.emoji} - **{campaign.planet.loc_names.get(language_json['code_long'], campaign.planet.name)}** {campaign.planet.exclamations}"
                     field_value += f"{language_json['embeds']['Dashboard']['AttackEmbed']['heroes']}: **{campaign.planet.stats.player_count:,}**"
 
                     for su in SpecialUnits.get_from_effects_list(
@@ -1707,7 +1704,7 @@ class Dashboard:
                             ]
                         )
                         if gambit_planet:
-                            field_value += f"\n-# :chess_pawn: GAMBIT FOR {gambit_planet.loc_names[language_json['code_long']]}"
+                            field_value += f"\n-# :chess_pawn: GAMBIT FOR {gambit_planet.loc_names.get(language_json['code_long'], gambit_planet.name)}"
                     if compact_level < 1:
                         field_value += f"\n{campaign.planet.health_bar}"
                     field_value += f"\n`{(1 - (campaign.planet.health_perc)):^25.2%}`"  # 1 - {health} because we need it to reach 0
@@ -1761,7 +1758,7 @@ class Dashboard:
                         planet.index for planet in gambit_planets.values()
                     ]:
                         exclamation += ":chess_pawn:"
-                    skipped_planets_text += f"-# {campaign.planet.loc_names[language_json['code_long']]} - **{campaign.planet.stats.player_count:,}** {exclamation}\n"
+                    skipped_planets_text += f"-# {campaign.planet.loc_names.get(language_json['code_long'], campaign.planet.name)} - **{campaign.planet.stats.player_count:,}** {exclamation}\n"
                     if compact_level < 2 and len(skipped_campaigns) < 10:
                         for region in campaign.planet.regions.values():
                             if (

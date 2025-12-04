@@ -44,7 +44,7 @@ class DispatchesCog(commands.Cog):
                 "# No dispatch ID found in the database. Please check the war info table."
             )
             return
-        for index, dispatch in enumerate(self.bot.data.dispatches["en"]):
+        for index, dispatch in enumerate(self.bot.data.formatted_data.dispatches["en"]):
             if self.bot.databases.war_info.dispatch_id < dispatch.id:
                 if len(dispatch.full_message) < 5 or "#planet" in dispatch.full_message:
                     self.bot.databases.war_info.dispatch_id = dispatch.id
@@ -57,7 +57,9 @@ class DispatchesCog(commands.Cog):
                             dispatch_json=self.bot.json_dict["languages"][lang][
                                 "containers"
                             ]["DispatchContainer"],
-                            dispatch=self.bot.data.dispatches[lang][index],
+                            dispatch=self.bot.data.formatted_data.dispatches[lang][
+                                index
+                            ],
                         )
                     ]
                     for lang in unique_langs
@@ -82,7 +84,10 @@ class DispatchesCog(commands.Cog):
         if not inter.bot.data.loaded:
             return []
         dispatch_list = sorted(
-            [f"{i.id}-{i.title}"[:90] for i in inter.bot.data.dispatches["en"]],
+            [
+                f"{i.id}-{i.title}"[:90]
+                for i in inter.bot.data.formatted_data.dispatches["en"]
+            ],
             reverse=True,
         )
         return [d for d in dispatch_list if str(user_input).lower() in str(d).lower()][
@@ -143,12 +148,14 @@ class DispatchesCog(commands.Cog):
                 )
                 return
             specific_dispatch_list = [
-                d for d in self.bot.data.dispatches[guild.language] if d.id == disp_id
+                d
+                for d in self.bot.data.formatted_data.dispatches[guild.language]
+                if d.id == disp_id
             ]
             if specific_dispatch_list != []:
                 dispatch = specific_dispatch_list[0]
         else:
-            dispatch = self.bot.data.dispatches[guild.language][-1]
+            dispatch = self.bot.data.formatted_data.dispatches[guild.language][-1]
         if not dispatch:
             await inter.send("I couldn't find that dispatch, sorry.", ephemeral=True)
             return
@@ -161,7 +168,9 @@ class DispatchesCog(commands.Cog):
                     dispatch=dispatch,
                     with_time=True,
                 ),
-                DispatchStringSelect(self.bot.data.dispatches[guild.language]),
+                DispatchStringSelect(
+                    self.bot.data.formatted_data.dispatches[guild.language]
+                ),
             ],
             ephemeral=public != "Yes",
         )
@@ -184,7 +193,7 @@ class DispatchesCog(commands.Cog):
             guild = GWWGuild.default()
         dispatch = [
             d
-            for d in self.bot.data.dispatches[guild.language]
+            for d in self.bot.data.formatted_data.dispatches[guild.language]
             if d.id == int(inter.values[0].split("-")[0])
         ][0]
         container = DispatchContainer(
@@ -197,7 +206,9 @@ class DispatchesCog(commands.Cog):
         await inter.response.edit_message(
             components=[
                 container,
-                DispatchStringSelect(self.bot.data.dispatches[guild.language]),
+                DispatchStringSelect(
+                    self.bot.data.formatted_data.dispatches[guild.language]
+                ),
             ]
         )
 

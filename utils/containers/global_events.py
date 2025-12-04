@@ -1,6 +1,6 @@
 from data.lists import CUSTOM_COLOURS
 from disnake import Colour, ui
-from utils.data import GlobalEvent, Planets
+from utils.api_wrapper.models import GlobalEvent, Planet
 from utils.mixins import ReprMixin
 
 
@@ -10,7 +10,7 @@ class GlobalEventsContainer(ui.Container, ReprMixin):
         long_lang_code: str,
         container_json: dict,
         global_event: GlobalEvent,
-        planets: Planets,
+        planets: dict[int, Planet],
         with_expiry_time: bool = False,
     ):
         components = []

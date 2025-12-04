@@ -1,7 +1,7 @@
 from data.lists import CUSTOM_COLOURS
 from disnake import Colour, ui
 from utils.dataclasses import DSSChangesJson, DSSImages, SpecialUnits, PlanetFeatures
-from utils.data import DSS, GalacticWarEffect, Planet
+from utils.api_wrapper.models import DSS, GalacticWarEffect, Planet
 from utils.emojis import Emojis
 from utils.functions import short_format
 from utils.interactables import HDCButton

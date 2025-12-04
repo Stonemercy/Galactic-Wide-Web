@@ -49,7 +49,7 @@ class DSSCog(commands.Cog):
         guild_language = self.bot.json_dict["languages"][guild.language]
         embed = DSSEmbed(
             language_json=guild_language,
-            dss_data=self.bot.data.dss,
+            dss_data=self.bot.data.formatted_data.dss,
         )
         await inter.send(embed=embed)
 

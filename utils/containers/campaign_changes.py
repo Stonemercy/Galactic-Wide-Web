@@ -7,7 +7,7 @@ from data.lists import (
 )
 from disnake import Colour, ui
 from utils.dataclasses import CampaignChangesJson, PlanetFeatures, SpecialUnits
-from utils.data import Campaign, GalacticWarEffect, Planet
+from utils.api_wrapper.models import Campaign, GalacticWarEffect, Planet
 from utils.emojis import Emojis
 from utils.interactables import HDCButton
 from utils.mixins import ReprMixin
@@ -59,7 +59,7 @@ class CampaignChangesContainer(ui.Container, ReprMixin):
 
     def _add_regions(self, text_display: ui.TextDisplay, regions: list[Planet.Region]):
         for region in regions:
-            text_display.content += f"\n-# {region.emoji} {self.json.regions[region.type]} **{region.names[self.json.lang_code_long]}**"
+            text_display.content += f"\n-# {region.emoji} {self.json.regions[str(region.type.value)]} **{region.names[self.json.lang_code_long]}**"
 
     def _add_features(
         self, text_display: ui.TextDisplay, active_effects: set[GalacticWarEffect]

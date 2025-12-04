@@ -37,7 +37,7 @@ class WarUpdatesCog(commands.Cog):
         if (
             not self.bot.interface_handler.loaded
             or not self.bot.data.loaded
-            or not self.bot.previous_data
+            or not self.bot.data.previous_data
             or update_start < self.bot.ready_time
             or self.bot.interface_handler.busy
         ):
@@ -62,7 +62,7 @@ class WarUpdatesCog(commands.Cog):
         new_updates = False
         need_to_update_sectors = False
         if not self.bot.databases.war_campaigns:
-            for new_campaign in self.bot.data.campaigns:
+            for new_campaign in self.bot.data.formatted_data.campaigns:
                 self.bot.databases.war_campaigns.add(
                     campaign_id=new_campaign.id,
                     planet_index=new_campaign.planet.index,
@@ -81,17 +81,19 @@ class WarUpdatesCog(commands.Cog):
                 )
             return
 
-        new_campaign_ids = [c.id for c in self.bot.data.campaigns]
+        new_campaign_ids = [c.id for c in self.bot.data.formatted_data.campaigns]
         for old_campaign in self.bot.databases.war_campaigns.copy():
             # loop through old campaigns
             if old_campaign.campaign_id not in new_campaign_ids:
                 # if campaign has ended
-                planet = self.bot.data.planets.get(old_campaign.planet_index)
+                planet = self.bot.data.formatted_data.planets.get(
+                    old_campaign.planet_index
+                )
                 if not planet:
                     continue
                 if planet.faction.full_name == old_campaign.planet_owner == "Humans":
                     # if campaign was defence and we won
-                    previous_data_planet = self.bot.previous_data.planets.get(
+                    previous_data_planet = self.bot.data.previous_data.planets.get(
                         old_campaign.planet_index
                     )
                     hours_remaining = 0.0
@@ -121,7 +123,9 @@ class WarUpdatesCog(commands.Cog):
                                 planet=planet, taken_from=old_campaign.planet_owner
                             )
                     new_updates = True
-                self.bot.data.liberation_changes.remove_entry(key=planet.index)
+                self.bot.data.tracking_service.liberation_changes.remove_entry(
+                    key=planet.index
+                )
                 old_campaign.delete()
                 self.bot.databases.war_campaigns.remove(old_campaign)
                 need_to_update_sectors = True
@@ -130,7 +134,7 @@ class WarUpdatesCog(commands.Cog):
             old_campaign.campaign_id
             for old_campaign in self.bot.databases.war_campaigns
         ]
-        for new_campaign in self.bot.data.campaigns:
+        for new_campaign in self.bot.data.formatted_data.campaigns:
             # loop through new campaigns
             if new_campaign.id not in old_campaign_ids:
                 # if campaign is brand new
@@ -144,7 +148,7 @@ class WarUpdatesCog(commands.Cog):
                 for container in components.values():
                     container.add_new_campaign(
                         campaign=new_campaign,
-                        gambit_planets=self.bot.data.gambit_planets,
+                        gambit_planets=self.bot.data.formatted_data.gambit_planets,
                     )
                 self.bot.databases.war_campaigns.add(
                     campaign_id=new_campaign.id,
@@ -174,37 +178,44 @@ class WarUpdatesCog(commands.Cog):
             )
             if need_to_update_sectors:
                 await to_thread(
-                    self.bot.maps.update_sectors, planets=self.bot.data.planets
+                    self.bot.maps.update_sectors,
+                    planets=self.bot.data.formatted_data.planets,
                 )
-                self.bot.maps.update_waypoint_lines(planets=self.bot.data.planets)
+                self.bot.maps.update_waypoint_lines(
+                    planets=self.bot.data.formatted_data.planets
+                )
             self.bot.maps.update_assignment_tasks(
-                assignments=self.bot.data.assignments["en"],
-                planets=self.bot.data.planets,
-                campaigns=self.bot.data.campaigns,
+                assignments=self.bot.data.formatted_data.assignments["en"],
+                planets=self.bot.data.formatted_data.planets,
+                campaigns=self.bot.data.formatted_data.campaigns,
                 sector_names=self.bot.json_dict["sectors"],
             )
             self.bot.maps.update_planets(
-                planets=self.bot.data.planets,
+                planets=self.bot.data.formatted_data.planets,
                 active_planets=[
-                    campaign.planet.index for campaign in self.bot.data.campaigns
+                    campaign.planet.index
+                    for campaign in self.bot.data.formatted_data.campaigns
                 ],
             )
             for lang in self.bot.json_dict["languages"].values():
                 self.bot.maps.localize_map(
                     language_code_short=lang["code"],
                     language_code_long=lang["code_long"],
-                    planets=self.bot.data.planets,
+                    planets=self.bot.data.formatted_data.planets,
                     active_planets=[
-                        campaign.planet.index for campaign in self.bot.data.campaigns
+                        campaign.planet.index
+                        for campaign in self.bot.data.formatted_data.campaigns
                     ],
                     planet_names_json=self.bot.json_dict["planets"],
                 )
                 self.bot.maps.add_icons(
                     lang=lang["code"],
                     long_code=lang["code_long"],
-                    planets=self.bot.data.planets,
-                    active_planets=[c.planet.index for c in self.bot.data.campaigns],
-                    dss=self.bot.data.dss,
+                    planets=self.bot.data.formatted_data.planets,
+                    active_planets=[
+                        c.planet.index for c in self.bot.data.formatted_data.campaigns
+                    ],
+                    dss=self.bot.data.formatted_data.dss,
                     planet_names_json=self.bot.json_dict["planets"],
                 )
                 message = await self.bot.channels.waste_bin_channel.send(
@@ -226,14 +237,14 @@ class WarUpdatesCog(commands.Cog):
         if (
             not self.bot.interface_handler.loaded
             or not self.bot.data.loaded
-            or not self.bot.previous_data
+            or not self.bot.data.previous_data
             or update_start < self.bot.ready_time
             or self.bot.interface_handler.busy
         ):
             return
         dss_updates = False
         unique_langs = GWWGuilds.unique_languages()
-        if self.bot.data.dss != None:
+        if self.bot.data.formatted_data.dss != None:
             # DSS updates
             containers = {
                 lang: DSSChangesContainer(
@@ -257,36 +268,37 @@ class WarUpdatesCog(commands.Cog):
                 or not self.bot.databases.dss_info.tactical_action_statuses
             ):
                 self.bot.databases.dss_info.planet_index = (
-                    self.bot.data.dss.planet.index
+                    self.bot.data.formatted_data.dss.planet.index
                 )
                 self.bot.databases.dss_info.tactical_action_statuses = {
-                    ta.id: ta.status for ta in self.bot.data.dss.tactical_actions
+                    ta.id: ta.status
+                    for ta in self.bot.data.formatted_data.dss.tactical_actions
                 }
                 self.bot.databases.dss_info.save_changes()
                 return
             dss_has_moved = False
             if (
                 self.bot.databases.dss_info.planet_index
-                != self.bot.data.dss.planet.index
+                != self.bot.data.formatted_data.dss.planet.index
             ):
                 # if DSS has moved
                 for container in containers.values():
-                    before_planet = self.bot.data.planets.get(
+                    before_planet = self.bot.data.formatted_data.planets.get(
                         self.bot.databases.dss_info.planet_index
                     )
                     if not before_planet:
                         return
                     container.dss_moved(
                         before_planet=before_planet,
-                        after_planet=self.bot.data.dss.planet,
+                        after_planet=self.bot.data.formatted_data.dss.planet,
                     )
                 self.bot.databases.dss_info.planet_index = (
-                    self.bot.data.dss.planet.index
+                    self.bot.data.formatted_data.dss.planet.index
                 )
                 self.bot.databases.dss_info.save_changes()
                 dss_updates = True
                 dss_has_moved = True
-            for ta in self.bot.data.dss.tactical_actions:
+            for ta in self.bot.data.formatted_data.dss.tactical_actions:
                 old_status = self.bot.databases.dss_info.tactical_action_statuses.get(
                     ta.id
                 )
@@ -308,9 +320,10 @@ class WarUpdatesCog(commands.Cog):
             )
             if dss_has_moved:
                 self.bot.maps.update_planets(
-                    planets=self.bot.data.planets,
+                    planets=self.bot.data.formatted_data.planets,
                     active_planets=[
-                        campaign.planet.index for campaign in self.bot.data.campaigns
+                        campaign.planet.index
+                        for campaign in self.bot.data.formatted_data.campaigns
                     ],
                 )
                 for lang in unique_langs:
@@ -318,21 +331,22 @@ class WarUpdatesCog(commands.Cog):
                     self.bot.maps.localize_map(
                         language_code_short=lang,
                         language_code_long=lang_json["code_long"],
-                        planets=self.bot.data.planets,
+                        planets=self.bot.data.formatted_data.planets,
                         active_planets=[
                             campaign.planet.index
-                            for campaign in self.bot.data.campaigns
+                            for campaign in self.bot.data.formatted_data.campaigns
                         ],
                         planet_names_json=self.bot.json_dict["planets"],
                     )
                     self.bot.maps.add_icons(
                         lang=lang,
                         long_code=lang_json["code_long"],
-                        planets=self.bot.data.planets,
+                        planets=self.bot.data.formatted_data.planets,
                         active_planets=[
-                            c.planet.index for c in self.bot.data.campaigns
+                            c.planet.index
+                            for c in self.bot.data.formatted_data.campaigns
                         ],
-                        dss=self.bot.data.dss,
+                        dss=self.bot.data.formatted_data.dss,
                         planet_names_json=self.bot.json_dict["planets"],
                     )
                     message = await self.bot.channels.waste_bin_channel.send(
@@ -354,7 +368,7 @@ class WarUpdatesCog(commands.Cog):
         if (
             not self.bot.interface_handler.loaded
             or not self.bot.data.loaded
-            or not self.bot.previous_data
+            or not self.bot.data.previous_data
             or update_start < self.bot.ready_time
             or self.bot.interface_handler.busy
         ):
@@ -362,7 +376,9 @@ class WarUpdatesCog(commands.Cog):
         region_updates = False
         unique_langs = GWWGuilds.unique_languages()
         all_regions = [
-            r for p in self.bot.data.planets.values() for r in p.regions.values()
+            r
+            for p in self.bot.data.formatted_data.planets.values()
+            for r in p.regions.values()
         ]
         if not self.bot.databases.planet_regions:
             for region in all_regions:
@@ -415,7 +431,9 @@ class WarUpdatesCog(commands.Cog):
                                         region=region,
                                     )
                                 region_updates = True
-                    self.bot.data.region_changes.remove_entry(old_region.settings_hash)
+                    self.bot.data.tracking_service.region_changes.remove_entry(
+                        old_region.settings_hash
+                    )
                     self.bot.databases.planet_regions.delete(old_region)
 
         if all_regions:

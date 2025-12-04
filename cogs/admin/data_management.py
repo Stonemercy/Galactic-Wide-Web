@@ -23,7 +23,7 @@ REGION_STATS_TO_CHECK = {
     "Is available": "is_available",
 }
 
-FETCH_SKIP_LIMIT = 0
+FETCH_SKIP_LIMIT = 5
 
 
 class DataManagementCog(commands.Cog):
@@ -61,19 +61,20 @@ class DataManagementCog(commands.Cog):
         time=[time(hour=j, minute=i, second=45) for j in range(24) for i in range(60)]
     )
     async def pull_from_api(self) -> None:
-        print("pull_from_api loop starting")
         if self.bot.data.fetching and self.fetch_skips < FETCH_SKIP_LIMIT:
             self.fetch_skips += 1
-            print(f"Bot is already fetching. Skipped {self.fetch_skips} times so far")
+            self.bot.logger.warning(
+                f"Bot is already fetching. Skipped {self.fetch_skips} times so far"
+            )
             return
         if self.fetch_skips > 0:
             self.fetch_skips = 0
         if self.bot.data.loaded:
             first_load = False
-            self.bot.previous_data = self.bot.data.copy()
         else:
             first_load = True
         await self.bot.data.pull_from_api()
+        self.bot.data.format_data()
         if first_load:
             now = datetime.now()
             if now < self.bot.ready_time:
@@ -94,15 +95,15 @@ class DataManagementCog(commands.Cog):
     )
     async def check_changes(self) -> None:
         total_changes: list[APIChanges] = []
-        if self.bot.previous_data:
+        if self.bot.data.previous_data:
             if (
-                self.bot.previous_data.global_resources
-                != self.bot.data.global_resources
+                self.bot.data.previous_data.global_resources
+                != self.bot.data.formatted_data.global_resources
             ):
                 total_changes.append(
                     APIChanges(
-                        old_object=self.bot.previous_data.global_resources,
-                        new_object=self.bot.data.global_resources,
+                        old_object=self.bot.data.previous_data.global_resources,
+                        new_object=self.bot.data.formatted_data.global_resources,
                         property="",
                         stat_name="",
                         stat_source="Global Resources",
@@ -110,13 +111,13 @@ class DataManagementCog(commands.Cog):
                 )
 
             if (
-                self.bot.previous_data.galactic_war_effects
-                != self.bot.data.galactic_war_effects
+                self.bot.data.previous_data.war_effects
+                != self.bot.data.formatted_data.war_effects
             ):
                 total_changes.append(
                     APIChanges(
-                        old_object=self.bot.previous_data.galactic_war_effects,
-                        new_object=self.bot.data.galactic_war_effects,
+                        old_object=self.bot.data.previous_data.war_effects,
+                        new_object=self.bot.data.formatted_data.war_effects,
                         property="",
                         stat_name="",
                         stat_source="Galactic War Effects",
@@ -124,7 +125,8 @@ class DataManagementCog(commands.Cog):
                 )
 
             for old_planet, new_planet in zip(
-                self.bot.previous_data.planets.values(), self.bot.data.planets.values()
+                self.bot.data.previous_data.planets.values(),
+                self.bot.data.formatted_data.planets.values(),
             ):
                 for stat_name, property in PLANET_STATS_TO_CHECK.items():
                     old_attr = getattr(old_planet, property)
@@ -168,7 +170,7 @@ class DataManagementCog(commands.Cog):
             for chunk in chunked_changes:
                 components = [
                     APIChangesContainer(
-                        api_changes=chunk, planets=self.bot.data.planets
+                        api_changes=chunk, planets=self.bot.data.formatted_data.planets
                     )
                 ]
                 msg = await self.bot.channels.api_changes_channel.send(

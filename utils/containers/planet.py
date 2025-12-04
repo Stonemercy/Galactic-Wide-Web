@@ -1,8 +1,7 @@
 from datetime import datetime
 from disnake import Colour, ui
-from utils.data import Planet
+from utils.api_wrapper.models import Planet
 from utils.dataclasses import Factions, PlanetFeatures, SpecialUnits
-from utils.emojis import Emojis
 from utils.functions import get_end_time, short_format
 from utils.interactables import HDCButton, WikiButton
 from utils.mixins import ReprMixin
@@ -86,38 +85,25 @@ class PlanetContainers(list[ui.Container]):
             factions_json: dict,
             gambit_planets,
         ):
-            self.components.extend(
-                [
-                    ui.Section(
-                        ui.TextDisplay(
-                            (
-                                f"# {planet.faction.emoji} {planet.name} {planet.exclamations}"
-                                f"\n{component_json['sector']}: **{planet.sector}**"
-                                f"\n{component_json['owner']}: **{factions_json[planet.faction.full_name]}**{planet.faction.emoji}"
-                            )
+            if planet.faction:
+                self.components.extend(
+                    [
+                        ui.Section(
+                            ui.TextDisplay(
+                                (
+                                    f"# {planet.faction.emoji} {planet.name} {planet.exclamations}"
+                                    f"\n{component_json['sector']}: **{planet.sector}**"
+                                    f"\n{component_json['owner']}: **{factions_json[planet.faction.full_name]}**{planet.faction.emoji}"
+                                )
+                            ),
+                            accessory=WikiButton(
+                                label=f"HD Wiki - {planet.sector}",
+                                link=f"https://helldivers.wiki.gg/wiki/",  # {planet.sector.replace(' ', '_')}_Sector",
+                            ),
                         ),
-                        accessory=WikiButton(
-                            label=f"HD Wiki - {planet.sector}",
-                            link=f"https://helldivers.wiki.gg/wiki/{planet.sector.replace(' ', '_')}_Sector",
-                        ),
-                    ),
-                    ui.Separator(),
-                ]
-            )
-
-            hazards_text = (
-                f"\n## 🌪️ {component_json['hazards']}:" if planet.hazards else ""
-            )
-            for hazard in planet.hazards:
-                hazards_text += f"\n- {getattr(Emojis.Weather, hazard['name'].replace(' ', '_').lower(), '')} **{hazard['name']}**\n  - -# {hazard['description']}"
-            self.components.append(
-                ui.TextDisplay(
-                    (
-                        f"## 🏔️ {component_json['biome']}:\n- **{planet.biome['name']}**\n  - -# {planet.biome['description']}"
-                        f"{hazards_text}"
-                    )
+                        ui.Separator(),
+                    ]
                 )
-            )
 
             effects_text = f"### Features:"
             for pf in PlanetFeatures.get_from_effects_list(planet.active_effects):

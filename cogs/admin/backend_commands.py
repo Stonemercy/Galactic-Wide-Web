@@ -15,7 +15,7 @@ class BackendCommandsCog(commands.Cog):
         id_list = sorted(
             [
                 f"{i.id}-{i.effect_description['name']}"
-                for i in inter.bot.data.galactic_war_effects
+                for i in inter.bot.data.formatted_data.war_effects
             ],
             key=lambda x: int(x.split("-")[0]),
             reverse=True,
@@ -29,7 +29,7 @@ class BackendCommandsCog(commands.Cog):
             return []
         return [
             f"{p.index}-{p.name}"
-            for p in inter.bot.data.planets.values()
+            for p in inter.bot.data.formatted_data.planets.values()
             if user_input.lower() in f"{p.index}-{p.name}".lower()
         ][:25]
 
@@ -72,7 +72,9 @@ class BackendCommandsCog(commands.Cog):
                     f"The id you supplied (`{id}`) is in the incorrect format. Please choose an ID from the list or type in the ID on its own."
                 )
                 return
-            gwe_list = [g for g in self.bot.data.galactic_war_effects if g.id == id]
+            gwe_list = [
+                g for g in self.bot.data.formatted_data.war_effects if g.id == id
+            ]
         elif on_planet != "":
             try:
                 planet_index = int(on_planet.split("-")[0])
@@ -81,7 +83,7 @@ class BackendCommandsCog(commands.Cog):
                     f"The planet you supplied (`{on_planet}`) is in the incorrect format. Please choose a planet from the list or type in the planet on its own."
                 )
                 return
-            planet = self.bot.data.planets.get(planet_index)
+            planet = self.bot.data.formatted_data.planets.get(planet_index)
             if not planet:
                 await inter.send(
                     f"`{planet_index}` isn't a valid planet index :thinking:"
@@ -99,7 +101,7 @@ class BackendCommandsCog(commands.Cog):
             for gwe in gwe_list:
                 global_events_list = [
                     i
-                    for i in self.bot.data.global_events["en"]
+                    for i in self.bot.data.formatted_data.global_events["en"]
                     if gwe.id in (j.id for j in i.effects)
                 ]
                 if (
@@ -110,7 +112,7 @@ class BackendCommandsCog(commands.Cog):
                 else:
                     planets_with_gwe = [
                         p
-                        for p in self.bot.data.planets.values()
+                        for p in self.bot.data.formatted_data.planets.values()
                         if gwe.id in (effect.id for effect in p.active_effects)
                     ]
                 container = GWEContainer(
@@ -130,7 +132,7 @@ class BackendCommandsCog(commands.Cog):
                 ge
                 for ge in [
                     f"{i.id}-{i.title}{[j.id for j in i.effects]}"
-                    for i in inter.bot.data.global_events["en"]
+                    for i in inter.bot.data.formatted_data.global_events["en"]
                 ]
                 if user_input.lower() in ge.split("-")[1].lower()
             ][:25]
@@ -167,7 +169,11 @@ class BackendCommandsCog(commands.Cog):
                 f"The title you submitted (`{title}`) is not in the correct format. Please choose one from the list provided."
             )
             return
-        ge_list = [ge for ge in self.bot.data.global_events["en"] if ge.id == ge_id]
+        ge_list = [
+            ge
+            for ge in self.bot.data.formatted_data.global_events["en"]
+            if ge.id == ge_id
+        ]
         if ge_list != []:
             components = []
             for ge in ge_list:
@@ -177,7 +183,7 @@ class BackendCommandsCog(commands.Cog):
                         "GlobalEventsContainer"
                     ],
                     global_event=ge,
-                    planets=self.bot.data.planets,
+                    planets=self.bot.data.formatted_data.planets,
                     with_expiry_time=True,
                 )
                 components.append(container)

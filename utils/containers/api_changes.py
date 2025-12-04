@@ -1,5 +1,5 @@
 from disnake import ui
-from utils.data import Planets
+from utils.api_wrapper.models import Planet
 from utils.dataclasses import APIChanges
 from utils.emojis import Emojis
 from utils.interactables import HDCButton
@@ -8,7 +8,9 @@ from utils.mixins import ReprMixin
 
 # DOESNT NEED LOCALIZATION
 class APIChangesContainer(ui.Container, ReprMixin):
-    def __init__(self, api_changes: list[APIChanges], planets: Planets) -> None:
+    def __init__(
+        self, api_changes: list[APIChanges], planets: dict[int, Planet]
+    ) -> None:
         self.container_components: list = []
 
         for api_change in api_changes:

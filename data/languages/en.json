@@ -279,10 +279,10 @@
     "complete": "Complete",
     "failure": "Failure",
     "regions": {
-        "Mega City": "Mega City",
-        "City": "City",
-        "Town": "Town",
-        "Settlement": "Settlement"
+        "4": "Mega City",
+        "3": "City",
+        "2": "Town",
+        "1": "Settlement"
     },
     "dss": {
         "title": "Democracy Space Station",

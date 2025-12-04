@@ -279,10 +279,10 @@
     "complete": "Completado",
     "failure": "Fallo",
     "regions": {
-        "Mega City": "Mega Ciudad",
-        "City": "Ciudad",
-        "Town": "Pueblo",
-        "Settlement": "Asentamiento"
+        "4": "Mega Ciudad",
+        "3": "Ciudad",
+        "2": "Pueblo",
+        "1": "Asentamiento"
     },
     "dss": {
         "title": "Estación Espacial de la Democracia",

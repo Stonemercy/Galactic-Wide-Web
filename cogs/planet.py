@@ -27,7 +27,7 @@ class PlanetCog(commands.Cog):
         return [
             f"{p.index}-{p.name}"
             for p in sorted(
-                inter.bot.data.planets.values(),
+                inter.bot.data.formatted_data.planets.values(),
                 key=lambda x: x.stats.player_count,
                 reverse=True,
             )
@@ -75,7 +75,9 @@ class PlanetCog(commands.Cog):
         planet_data = None
         if "-" not in planet:
             planet_data_list = [
-                p for p in self.bot.data.planets.values() if p.name.lower() == planet
+                p
+                for p in self.bot.data.formatted_data.planets.values()
+                if p.name.lower() == planet
             ]
             if planet_data_list:
                 planet_data = planet_data_list[0]
@@ -87,7 +89,7 @@ class PlanetCog(commands.Cog):
                     f"The planet you supplied (`{planet}`) is in the incorrect format. Please choose a planet from the list."
                 )
                 return
-            planet_data = self.bot.data.planets.get(index)
+            planet_data = self.bot.data.formatted_data.planets.get(index)
         if not planet_data:
             return await inter.send(
                 "That planet is unavailable. Please select another planet from the list.",
@@ -108,7 +110,7 @@ class PlanetCog(commands.Cog):
             lang_code=guild_language["code_long"],
             containers_json=guild_language["containers"]["PlanetContainers"],
             faction_json=guild_language["factions"],
-            gambit_planets=self.bot.data.gambit_planets,
+            gambit_planets=self.bot.data.formatted_data.gambit_planets,
         )
 
         if with_map == "Yes":
@@ -118,27 +120,30 @@ class PlanetCog(commands.Cog):
                 latest_map and latest_map.updated_at < fifteen_minutes_ago
             ):
                 self.bot.maps.update_base_map(
-                    planets=self.bot.data.planets,
-                    assignments=self.bot.data.assignments["en"],
-                    campaigns=self.bot.data.campaigns,
+                    planets=self.bot.data.formatted_data.planets,
+                    assignments=self.bot.data.formatted_data.assignments["en"],
+                    campaigns=self.bot.data.formatted_data.campaigns,
                     sector_names=self.bot.json_dict["sectors"],
                 )
                 language_json = self.bot.json_dict["languages"][guild.language]
                 self.bot.maps.localize_map(
                     language_code_short=language_json["code"],
                     language_code_long=language_json["code_long"],
-                    planets=self.bot.data.planets,
+                    planets=self.bot.data.formatted_data.planets,
                     active_planets=[
-                        campaign.planet.index for campaign in self.bot.data.campaigns
+                        campaign.planet.index
+                        for campaign in self.bot.data.formatted_data.campaigns
                     ],
                     planet_names_json=self.bot.json_dict["planets"],
                 )
                 self.bot.maps.add_icons(
                     lang=guild.language,
                     long_code=language_json["code_long"],
-                    planets=self.bot.data.planets,
-                    active_planets=[c.planet.index for c in self.bot.data.campaigns],
-                    dss=self.bot.data.dss,
+                    planets=self.bot.data.formatted_data.planets,
+                    active_planets=[
+                        c.planet.index for c in self.bot.data.formatted_data.campaigns
+                    ],
+                    dss=self.bot.data.formatted_data.dss,
                     planet_names_json=self.bot.json_dict["planets"],
                 )
                 message = await self.bot.channels.waste_bin_channel.send(

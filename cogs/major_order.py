@@ -16,7 +16,7 @@ from utils.embeds import Dashboard
 from utils.interactables import WikiButton
 
 if TYPE_CHECKING:
-    from utils.data import GlobalEvent
+    from utils.api_wrapper.models import GlobalEvent
 
 
 class MajorOrderCog(commands.Cog):
@@ -47,7 +47,7 @@ class MajorOrderCog(commands.Cog):
             or mo_check_start < self.bot.ready_time
             or not self.bot.data.loaded
             or self.bot.interface_handler.busy
-            or not self.bot.data.assignments["en"]
+            or not self.bot.data.formatted_data.assignments["en"]
         ):
             return
         if self.bot.databases.war_info.major_order_ids == None:
@@ -56,14 +56,18 @@ class MajorOrderCog(commands.Cog):
             )
             return
         unique_langs = GWWGuilds.unique_languages()
-        for index, major_order in enumerate(self.bot.data.assignments["en"]):
+        for index, major_order in enumerate(
+            self.bot.data.formatted_data.assignments["en"]
+        ):
             if major_order.id not in self.bot.databases.war_info.major_order_ids:
                 mo_briefing_dict = {
                     lang.short_code: ge
                     for lang in [
                         l for l in Languages.all if l.short_code in unique_langs
                     ]
-                    for ge in self.bot.data.global_events[lang.short_code]
+                    for ge in self.bot.data.formatted_data.global_events[
+                        lang.short_code
+                    ]
                     if ge.assignment_id == major_order.id
                     and "" not in (ge.title, ge.message)
                 }
@@ -82,9 +86,11 @@ class MajorOrderCog(commands.Cog):
                 embeds = {
                     lang: [
                         Dashboard.MajorOrderEmbed(
-                            assignment=self.bot.data.assignments[lang][index],
-                            planets=self.bot.data.planets,
-                            gambit_planets=self.bot.data.gambit_planets,
+                            assignment=self.bot.data.formatted_data.assignments[lang][
+                                index
+                            ],
+                            planets=self.bot.data.formatted_data.planets,
+                            gambit_planets=self.bot.data.formatted_data.gambit_planets,
                             language_json=self.bot.json_dict["languages"][lang],
                             json_dict=self.bot.json_dict,
                         )
@@ -108,7 +114,9 @@ class MajorOrderCog(commands.Cog):
                 )
 
         # check for old MO IDs that are no longer active
-        current_mo_ids = [mo.id for mo in self.bot.data.assignments["en"]]
+        current_mo_ids = [
+            mo.id for mo in self.bot.data.formatted_data.assignments["en"]
+        ]
         for active_id in self.bot.databases.war_info.major_order_ids.copy():
             if active_id not in current_mo_ids:
                 self.bot.databases.war_info.major_order_ids.remove(active_id)
@@ -135,7 +143,7 @@ class MajorOrderCog(commands.Cog):
             not self.bot.interface_handler.loaded
             or mo_updates_start < self.bot.ready_time
             or not self.bot.data.loaded
-            or not self.bot.data.assignments["en"]
+            or not self.bot.data.formatted_data.assignments["en"]
         ):
             return
         unique_langs = GWWGuilds.unique_languages()
@@ -143,12 +151,12 @@ class MajorOrderCog(commands.Cog):
             lang: [
                 Dashboard.MajorOrderEmbed(
                     assignment=major_order,
-                    planets=self.bot.data.planets,
-                    gambit_planets=self.bot.data.gambit_planets,
+                    planets=self.bot.data.formatted_data.planets,
+                    gambit_planets=self.bot.data.formatted_data.gambit_planets,
                     language_json=self.bot.json_dict["languages"][lang],
                     json_dict=self.bot.json_dict,
                 )
-                for major_order in self.bot.data.assignments[lang]
+                for major_order in self.bot.data.formatted_data.assignments[lang]
             ]
             for lang in unique_langs
         }
@@ -210,20 +218,22 @@ class MajorOrderCog(commands.Cog):
         else:
             guild = GWWGuild.default()
         guild_language = self.bot.json_dict["languages"][guild.language]
-        if self.bot.data.assignments["en"]:
+        if self.bot.data.formatted_data.assignments["en"]:
             embeds = []
-            for assignment in self.bot.data.assignments[guild.language]:
+            for assignment in self.bot.data.formatted_data.assignments[guild.language]:
                 embed = Dashboard.MajorOrderEmbed(
                     assignment=assignment,
-                    planets=self.bot.data.planets,
-                    gambit_planets=self.bot.data.gambit_planets,
+                    planets=self.bot.data.formatted_data.planets,
+                    gambit_planets=self.bot.data.formatted_data.gambit_planets,
                     language_json=guild_language,
                     json_dict=self.bot.json_dict,
                 )
                 if with_announcement == "Yes":
                     briefings_list: list[GlobalEvent] = [
                         ge
-                        for ge in self.bot.data.global_events[guild.language]
+                        for ge in self.bot.data.formatted_data.global_events[
+                            guild.language
+                        ]
                         if ge.assignment_id == assignment.id
                         and ge.title != ""
                         and ge.message != ""

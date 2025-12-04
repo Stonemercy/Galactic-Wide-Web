@@ -7707,5 +7707,179 @@
 		"weather_effects": [
 			"extreme_cold"
 		]
+	},
+	"261": {
+		"name": "FURY",
+		"sector": "Xzar",
+		"biome": "arctic_glacier_coldrocky",
+		"environmentals": [
+			"none"
+		],
+		"names": {
+			"en-US": "FURY",
+			"en-GB": "FURY",
+			"pt-BR": "FURY",
+			"de-DE": "FURY",
+			"es-ES": "FURY",
+			"fr-FR": "FURY",
+			"it-IT": "FURY",
+			"ja-JP": "FURY",
+			"ko-KO": "FURY",
+			"ms-MY": "FURY",
+			"pl-PL": "FURY",
+			"pt-PT": "FURY",
+			"ru-RU": "FURY",
+			"zh-Hans": "FURY",
+			"zh-Hant": "FURY"
+		},
+		"type": "arctic",
+		"weather_effects": [
+			"extreme_cold"
+		]
+	},
+	"262": {
+		"name": "K",
+		"sector": "Trigon",
+		"biome": "arctic_glacier_coldrocky",
+		"environmentals": [
+			"none"
+		],
+		"names": {
+			"en-US": "K",
+			"en-GB": "K",
+			"pt-BR": "K",
+			"de-DE": "K",
+			"es-ES": "K",
+			"fr-FR": "K",
+			"it-IT": "K",
+			"ja-JP": "K",
+			"ko-KO": "K",
+			"ms-MY": "K",
+			"pl-PL": "K",
+			"pt-PT": "K",
+			"ru-RU": "K",
+			"zh-Hans": "K",
+			"zh-Hant": "K"
+		},
+		"type": "arctic",
+		"weather_effects": [
+			"extreme_cold"
+		]
+	},
+	"263": {
+		"name": "CURSA",
+		"sector": "Unknown",
+		"biome": "arctic_glacier_coldrocky",
+		"environmentals": [
+			"none"
+		],
+		"names": {
+			"en-US": "CURSA",
+			"en-GB": "CURSA",
+			"pt-BR": "CURSA",
+			"de-DE": "CURSA",
+			"es-ES": "CURSA",
+			"fr-FR": "CURSA",
+			"it-IT": "CURSA",
+			"ja-JP": "CURSA",
+			"ko-KO": "CURSA",
+			"ms-MY": "CURSA",
+			"pl-PL": "CURSA",
+			"pt-PT": "CURSA",
+			"ru-RU": "CURSA",
+			"zh-Hans": "CURSA",
+			"zh-Hant": "CURSA"
+		},
+		"type": "arctic",
+		"weather_effects": [
+			"extreme_cold"
+		]
+	},
+	"264": {
+		"name": "KARON BAY",
+		"sector": "Unknown",
+		"biome": "arctic_glacier_coldrocky",
+		"environmentals": [
+			"none"
+		],
+		"names": {
+			"en-US": "KARON BAY",
+			"en-GB": "KARON BAY",
+			"pt-BR": "KARON BAY",
+			"de-DE": "KARON BAY",
+			"es-ES": "KARON BAY",
+			"fr-FR": "KARON BAY",
+			"it-IT": "KARON BAY",
+			"ja-JP": "KARON BAY",
+			"ko-KO": "KARON BAY",
+			"ms-MY": "KARON BAY",
+			"pl-PL": "KARON BAY",
+			"pt-PT": "KARON BAY",
+			"ru-RU": "KARON BAY",
+			"zh-Hans": "KARON BAY",
+			"zh-Hant": "KARON BAY"
+		},
+		"type": "arctic",
+		"weather_effects": [
+			"extreme_cold"
+		]
+	},
+	"265": {
+		"name": "OROTH",
+		"sector": "Unknown",
+		"biome": "arctic_glacier_coldrocky",
+		"environmentals": [
+			"none"
+		],
+		"names": {
+			"en-US": "OROTH",
+			"en-GB": "OROTH",
+			"pt-BR": "OROTH",
+			"de-DE": "OROTH",
+			"es-ES": "OROTH",
+			"fr-FR": "OROTH",
+			"it-IT": "OROTH",
+			"ja-JP": "OROTH",
+			"ko-KO": "OROTH",
+			"ms-MY": "OROTH",
+			"pl-PL": "OROTH",
+			"pt-PT": "OROTH",
+			"ru-RU": "OROTH",
+			"zh-Hans": "OROTH",
+			"zh-Hant": "OROTH"
+		},
+		"type": "arctic",
+		"weather_effects": [
+			"extreme_cold"
+		]
+	},
+	"266": {
+		"name": "MOX",
+		"sector": "Trigon",
+		"biome": "arctic_glacier_coldrocky",
+		"environmentals": [
+			"none"
+		],
+		"names": {
+			"en-US": "MOX",
+			"en-GB": "MOX",
+			"pt-BR": "MOX",
+			"de-DE": "MOX",
+			"es-ES": "MOX",
+			"fr-FR": "MOX",
+			"it-IT": "MOX",
+			"ja-JP": "MOX",
+			"ko-KO": "MOX",
+			"ms-MY": "MOX",
+			"pl-PL": "MOX",
+			"pt-PT": "MOX",
+			"ru-RU": "MOX",
+			"zh-Hans": "MOX",
+			"zh-Hant": "MOX"
+		},
+		"type": "arctic",
+		"weather_effects": [
+			"extreme_cold"
+		]
 	}
 }

@@ -1,6 +1,6 @@
 from data.lists import CUSTOM_COLOURS
 from disnake import Colour, ui
-from utils.data import Dispatch
+from utils.api_wrapper.models import Dispatch
 from utils.mixins import ReprMixin
 
 

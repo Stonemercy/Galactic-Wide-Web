@@ -38,7 +38,7 @@ class DashboardCog(commands.Cog):
         unique_langs = GWWGuilds.unique_languages()
         dashboards = {
             lang: Dashboard(
-                data=self.bot.data,
+                data=self.bot.data.formatted_data,
                 language_code=lang,
                 json_dict=self.bot.json_dict,
             )
@@ -49,7 +49,7 @@ class DashboardCog(commands.Cog):
             while dashboard.character_count() > 6000 and compact_level < 2:
                 compact_level += 1
                 dashboards[lang] = Dashboard(
-                    data=self.bot.data,
+                    data=self.bot.data.formatted_data,
                     language_code=lang,
                     json_dict=self.bot.json_dict,
                     compact_level=compact_level,

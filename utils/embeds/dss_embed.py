@@ -1,7 +1,7 @@
 from data.lists import CUSTOM_COLOURS
 from datetime import datetime
 from disnake import Colour, Embed
-from utils.data import DSS
+from utils.api_wrapper.models import DSS
 from utils.emojis import Emojis
 from utils.functions import health_bar
 from utils.mixins import EmbedReprMixin

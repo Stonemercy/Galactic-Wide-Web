@@ -39,18 +39,24 @@ class SteamCog(commands.Cog):
             or self.bot.interface_handler.busy
         ):
             return
-        if self.bot.databases.war_info.patch_notes_id != self.bot.data.steam[0].id:
+        if (
+            self.bot.databases.war_info.patch_notes_id
+            != self.bot.data.formatted_data.steam_news[0].id
+        ):
             unique_langs = GWWGuilds.unique_languages()
             embeds = {
                 lang: [
                     SteamEmbed(
-                        self.bot.data.steam[0], self.bot.json_dict["languages"][lang]
+                        self.bot.data.formatted_data.steam_news[0],
+                        self.bot.json_dict["languages"][lang],
                     )
                 ]
                 for lang in unique_langs
             }
             await self.bot.interface_handler.send_feature("patch_notes", embeds)
-            self.bot.databases.war_info.patch_notes_id = self.bot.data.steam[0].id
+            self.bot.databases.war_info.patch_notes_id = (
+                self.bot.data.formatted_data.steam_news[0].id
+            )
             self.bot.databases.war_info.save_changes()
             self.bot.logger.info(
                 f"Sent patch announcements out to {len(self.bot.interface_handler.patch_notes)} channels in {(datetime.now() - patch_notes_start).total_seconds():.2f}s"
@@ -101,10 +107,10 @@ class SteamCog(commands.Cog):
             guild = GWWGuild.default()
         await inter.send(
             embed=SteamEmbed(
-                steam=self.bot.data.steam[0],
+                steam=self.bot.data.formatted_data.steam_news[0],
                 language_json=self.bot.json_dict["languages"][guild.language],
             ),
-            components=[SteamStringSelect(self.bot.data.steam)],
+            components=[SteamStringSelect(self.bot.data.formatted_data.steam_news)],
             ephemeral=public != "Yes",
         )
 
@@ -116,7 +122,9 @@ class SteamCog(commands.Cog):
         ):
             return
         steam_data = [
-            steam for steam in self.bot.data.steam if steam.title == inter.values[0]
+            steam
+            for steam in self.bot.data.formatted_data.steam_news
+            if steam.title == inter.values[0]
         ][0]
         if inter.guild:
             guild = GWWGuilds.get_specific_guild(id=inter.guild_id)

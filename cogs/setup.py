@@ -353,7 +353,7 @@ class SetupCog(commands.Cog):
                 return
             else:
                 dashboard = Dashboard(
-                    data=self.bot.data,
+                    data=self.bot.data.formatted_data,
                     language_code=guild.language,
                     json_dict=self.bot.json_dict,
                 )
@@ -361,7 +361,7 @@ class SetupCog(commands.Cog):
                 while dashboard.character_count() > 6000 and compact_level < 2:
                     compact_level += 1
                     dashboard = Dashboard(
-                        data=self.bot.data,
+                        data=self.bot.data.formatted_data,
                         language_code=guild.language,
                         json_dict=self.bot.json_dict,
                         compact_level=compact_level,
@@ -440,18 +440,18 @@ class SetupCog(commands.Cog):
                         "Generating map, please wait..."
                     )
                     self.bot.maps.update_base_map(
-                        planets=self.bot.data.planets,
-                        assignments=self.bot.data.assignments["en"],
-                        campaigns=self.bot.data.campaigns,
+                        planets=self.bot.data.formatted_data.planets,
+                        assignments=self.bot.data.formatted_data.assignments["en"],
+                        campaigns=self.bot.data.formatted_data.campaigns,
                         sector_names=self.bot.json_dict["sectors"],
                     )
                     self.bot.maps.localize_map(
                         language_code_short=guild_language["code"],
                         language_code_long=guild_language["code_long"],
-                        planets=self.bot.data.planets,
+                        planets=self.bot.data.formatted_data.planets,
                         active_planets=[
                             campaign.planet.index
-                            for campaign in self.bot.data.campaigns
+                            for campaign in self.bot.data.formatted_data.campaigns
                         ],
                         planet_names_json=self.bot.json_dict["planets"],
                     )
@@ -468,11 +468,12 @@ class SetupCog(commands.Cog):
                     self.bot.maps.add_icons(
                         lang=guild_language["code"],
                         long_code=guild_language["code_long"],
-                        planets=self.bot.data.planets,
+                        planets=self.bot.data.formatted_data.planets,
                         active_planets=[
-                            c.planet.index for c in self.bot.data.campaigns
+                            c.planet.index
+                            for c in self.bot.data.formatted_data.campaigns
                         ],
-                        dss=self.bot.data.dss,
+                        dss=self.bot.data.formatted_data.dss,
                         planet_names_json=self.bot.json_dict["planets"],
                     )
                     latest_map = self.bot.maps.latest_maps[guild_language["code"]]
