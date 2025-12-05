@@ -256,6 +256,11 @@ class FormattedData:
                 key=lambda planet: planet.stats.player_count,
                 reverse=True,
             )
+            if context.war_stats:
+                for pstat in context.war_stats["planets_stats"]:
+                    planet = self.planets.get(pstat["planetIndex"])
+                    if planet:
+                        planet.stats.update(raw_stats_info=pstat)
 
         if context.personal_order:
             self.personal_order: PersonalOrder = PersonalOrder(

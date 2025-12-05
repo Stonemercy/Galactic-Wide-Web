@@ -249,16 +249,32 @@ class Planet(ReprMixin):
         def __init__(self) -> None:
             self.missions_won: int = 0
             self.missions_lost: int = 0
-            self.mission_success_rate: int = 0
             self.mission_time: int = 0
             self.terminid_kills: int = 0
             self.automaton_kills: int = 0
             self.illuminate_kills: int = 0
             self.bullets_fired: int = 0
             self.bullets_hit: int = 0
-            self.accuracy: int = 0
             self.time_played: int = 0
             self.deaths: int = 0
             self.revives: int = 0
             self.friendlies: int = 0
             self.player_count: int = 0
+            self.mission_success_rate: int = 0
+            self.accuracy: int = 0
+
+        def update(self, raw_stats_info: dict[str, int]) -> None:
+            self.missions_won = raw_stats_info["missionsWon"]
+            self.missions_lost = raw_stats_info["missionsLost"]
+            self.mission_time = raw_stats_info["missionTime"]
+            self.terminid_kills = raw_stats_info["bugKills"]
+            self.automaton_kills = raw_stats_info["automatonKills"]
+            self.illuminate_kills = raw_stats_info["illuminateKills"]
+            self.bullets_fired = raw_stats_info["bulletsFired"]
+            self.bullets_hit = raw_stats_info["bulletsHit"]
+            self.time_played = raw_stats_info["timePlayed"]
+            self.deaths = raw_stats_info["deaths"]
+            self.revives = raw_stats_info["revives"]
+            self.friendlies = raw_stats_info["friendlies"]
+            self.mission_success_rate = raw_stats_info["missionSuccessRate"]
+            self.accuracy = raw_stats_info["accurracy"]  # misspelled lol
