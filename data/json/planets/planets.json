@@ -7768,7 +7768,7 @@
 	},
 	"263": {
 		"name": "CURSA",
-		"sector": "Unknown",
+		"sector": "Hydra",
 		"biome": "arctic_glacier_coldrocky",
 		"environmentals": [
 			"none"
@@ -7797,7 +7797,7 @@
 	},
 	"264": {
 		"name": "KARON BAY",
-		"sector": "Unknown",
+		"sector": "Lacaille",
 		"biome": "arctic_glacier_coldrocky",
 		"environmentals": [
 			"none"
@@ -7826,7 +7826,7 @@
 	},
 	"265": {
 		"name": "OROTH",
-		"sector": "Unknown",
+		"sector": "Valdis",
 		"biome": "arctic_glacier_coldrocky",
 		"environmentals": [
 			"none"
