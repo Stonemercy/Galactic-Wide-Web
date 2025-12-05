@@ -33,7 +33,7 @@ class Assignment(ReprMixin):
                 )
             )
         self.rewards: list[dict] = raw_assignment_data["setting"]["rewards"]
-        self.ends_at_datetime: str = datetime.now() + timedelta(
+        self.ends_at_datetime: datetime = datetime.now() + timedelta(
             seconds=raw_assignment_data["expiresIn"]
         )
         self.flags: int = raw_assignment_data["setting"]["flags"]

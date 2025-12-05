@@ -57,7 +57,7 @@ class Planet(ReprMixin):
         self.position = raw_planet_status["position"]
 
     @property
-    def faction(self) -> str:
+    def faction(self) -> Faction:
         return Factions.get_from_identifier(number=self.owner)
 
     @property
