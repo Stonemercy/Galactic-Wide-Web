@@ -1247,7 +1247,7 @@ class Dashboard:
             if datetime.now() < self.assignment.ends_at_datetime - timedelta(
                 days=2
             ) and any(t.type in (13, 15) for t in self.assignment.tasks):
-                # return empty if assignments that last the full assignment duration are present
+                # return if assignments that last the full assignment duration are present
                 # and we are not within 2 days of assignment end
                 return
 
@@ -1578,7 +1578,7 @@ class Dashboard:
 
             for region in planet.regions.values():
                 if region.is_available:
-                    field_value += f"\n-# ↳ {region.emoji} {self.language_json['regions'][region.type]} **{region.names[self.language_json['code_long']]}** - {region.perc:.0%}"
+                    field_value += f"\n-# ↳ {region.emoji} {self.language_json['regions'][str(region.type.value)]} **{region.names[self.language_json['code_long']]}** - {region.perc:.0%}"
                     if (
                         self.compact_level < 2
                         and region.tracker
@@ -1617,7 +1617,7 @@ class Dashboard:
                             calculated_end_time.end_time
                             and region_avail_datetime < calculated_end_time.end_time
                         ):
-                            field_value += f"\n-# ↳ {region.emoji} {self.language_json['regions'][region.type]} **{region.names[self.language_json['code_long']]}** - {self.language_json['embeds']['Dashboard']['DefenceEmbed']['available']} <t:{int(region_avail_datetime.timestamp())}:R>"
+                            field_value += f"\n-# ↳ {region.emoji} {self.language_json['regions'][str(region.type.value)]} **{region.names[self.language_json['code_long']]}** - {self.language_json['embeds']['Dashboard']['DefenceEmbed']['available']} <t:{int(region_avail_datetime.timestamp())}:R>"
                         break
 
             self.add_field(field_name, field_value, inline=False)
@@ -1722,7 +1722,7 @@ class Dashboard:
                     ]
                     if available_regions:
                         for region in available_regions:
-                            field_value += f"\n-# ↳ {region.emoji} {language_json['regions'][region.type]} **{region.names[language_json['code_long']]}** {region.perc:.2%}"
+                            field_value += f"\n-# ↳ {region.emoji} {language_json['regions'][str(region.type.value)]} **{region.names[language_json['code_long']]}** {region.perc:.2%}"
                             if (
                                 region.tracker
                                 and region.tracker.change_rate_per_hour != 0
@@ -1739,7 +1739,7 @@ class Dashboard:
                             ],
                             key=lambda x: x.availability_factor,
                         ):
-                            field_value += f"\n-# ↳ {region.emoji} {language_json['regions'][region.type]} **{region.names[language_json['code_long']]}** available at **{region.availability_factor:.2%}**"
+                            field_value += f"\n-# ↳ {region.emoji} {language_json['regions'][str(region.type.value)]} **{region.names[language_json['code_long']]}** available at **{region.availability_factor:.2%}**"
                             break
 
                     self.add_field(
@@ -1765,7 +1765,7 @@ class Dashboard:
                                 region.is_available
                                 and region.players > total_players * 0.001
                             ):
-                                skipped_planets_text += f"-# ↳ {region.emoji} {language_json['regions'][region.type]} **{region.names[language_json['code_long']]}** - {region.perc:.2%}\n"
+                                skipped_planets_text += f"-# ↳ {region.emoji} {language_json['regions'][str(region.type.value)]} **{region.names[language_json['code_long']]}** - {region.perc:.2%}\n"
                 if len(skipped_campaigns) > 10:
                     other_count = sum(
                         [c.planet.stats.player_count for c in skipped_campaigns[10:]]
