@@ -102,15 +102,6 @@ class FormattedData:
                             number=homeworld["race"]
                         )
 
-            for region in context.war_info["planetRegions"]:
-                planet = self.planets.get(region["planetIndex"])
-                if planet:
-                    planet.regions[region["regionIndex"]] = Planet.Region(
-                        planet_regions_json_dict=context.json_dict["planetRegions"],
-                        raw_planet_region_data=region,
-                        planet_owner=planet.faction,
-                    )
-
         if context.war_effects:
             for war_effect in context.war_effects:
                 self.war_effects[war_effect["id"]] = GalacticWarEffect(
@@ -170,6 +161,17 @@ class FormattedData:
                 effect = self.war_effects.get(active_effect["galacticEffectId"])
                 if planet and effect:
                     planet.active_effects.add(effect)
+
+            if context.war_info:
+                for region in context.war_info["planetRegions"]:
+                    planet = self.planets.get(region["planetIndex"])
+                    if planet:
+                        planet.regions[region["regionIndex"]] = Planet.Region(
+                            planet_regions_json_dict=context.json_dict["planetRegions"],
+                            raw_planet_region_data=region,
+                            planet_owner=planet.faction,
+                        )
+                        planet.regions[region["regionIndex"]].planet = planet
 
             for region_status in context.war_status["en"]["planetRegions"]:
                 planet = self.planets.get(region_status["planetIndex"])
