@@ -443,7 +443,6 @@ class SetupCog(commands.Cog):
                         planets=self.bot.data.formatted_data.planets,
                         assignments=self.bot.data.formatted_data.assignments["en"],
                         campaigns=self.bot.data.formatted_data.campaigns,
-                        sector_names=self.bot.json_dict["sectors"],
                     )
                     self.bot.maps.localize_map(
                         language_code_short=guild_language["code"],

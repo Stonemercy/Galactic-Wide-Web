@@ -55,16 +55,10 @@ class Maps:
         planets: list[Planet],
         assignments: list[Assignment],
         campaigns: list[Campaign],
-        sector_names: dict,
     ) -> None:
         self.update_sectors(planets=planets)
         self.update_waypoint_lines(planets=planets)
-        self.update_assignment_tasks(
-            assignments=assignments,
-            planets=planets,
-            campaigns=campaigns,
-            sector_names=sector_names,
-        )
+        self.update_assignment_tasks(assignments=assignments, planets=planets)
         self.update_planets(
             planets=planets,
             active_planets=[campaign.planet.index for campaign in campaigns],
@@ -157,90 +151,18 @@ class Maps:
         imwrite(Maps.FileLocations.waypoints_map, background)
 
     def update_assignment_tasks(
-        self,
-        assignments: list[Assignment],
-        planets: dict[int, Planet],
-        campaigns: list[Campaign],
-        sector_names: dict,
+        self, assignments: list[Assignment], planets: dict[int, Planet]
     ) -> None:
         background = imread(Maps.FileLocations.waypoints_map, IMREAD_UNCHANGED)
         if assignments:
-            for assignment in assignments:
-                for task in assignment.tasks:
-                    if task.type in (11, 13):
-                        if task.planet_index:
-                            planet = planets.get(task.planet_index)
-                            if planet:
-                                self._draw_ellipse(
-                                    image=background,
-                                    coords=planet.map_waypoints,
-                                    fill_colour=CUSTOM_COLOURS["MO"],
-                                    radius=12,
-                                )
-                    elif task.type == 12 and (
-                        planet_events := [
-                            planet for planet in planets.values() if planet.event
-                        ]
-                    ):
-                        if task.progress_perc == 1:
-                            continue
-                        for planet in planet_events:
-                            if planet.event.faction == task.faction or not task.faction:
-                                self._draw_ellipse(
-                                    image=background,
-                                    coords=planet.map_waypoints,
-                                    fill_colour=CUSTOM_COLOURS["MO"],
-                                    radius=12,
-                                )
-                    elif task.type == 2:
-                        if task.progress_perc == 1:
-                            continue
-                        if task.sector_index:
-                            sector_name: str = sector_names[task.sector_index]
-                            planets_in_sector = [
-                                p
-                                for p in planets.values()
-                                if p.sector.lower() == sector_name.lower()
-                            ]
-                            for planet in planets_in_sector:
-                                self._draw_ellipse(
-                                    image=background,
-                                    coords=planet.map_waypoints,
-                                    fill_colour=CUSTOM_COLOURS["MO"],
-                                    radius=12,
-                                )
-                        elif task.planet_index:
-                            planet = planets.get(task.planet_index)
-                            if planet:
-                                self._draw_ellipse(
-                                    image=background,
-                                    coords=planet.map_waypoints,
-                                    fill_colour=CUSTOM_COLOURS["MO"],
-                                    radius=12,
-                                )
-                        elif task.faction:
-                            for planet in [
-                                c.planet
-                                for c in campaigns
-                                if c.planet.faction == task.faction
-                            ]:
-                                self._draw_ellipse(
-                                    image=background,
-                                    coords=planet.map_waypoints,
-                                    fill_colour=CUSTOM_COLOURS["MO"],
-                                    radius=12,
-                                )
-                    elif task.type == 3:
-                        if task.progress_perc == 1:
-                            continue
-                        for campaign in campaigns:
-                            if campaign.faction == task.faction:
-                                self._draw_ellipse(
-                                    image=background,
-                                    coords=campaign.planet.map_waypoints,
-                                    fill_colour=CUSTOM_COLOURS["MO"],
-                                    radius=12,
-                                )
+            for planet in (p for p in planets.values() if p.in_assignment):
+                self._draw_ellipse(
+                    image=background,
+                    coords=planet.map_waypoints,
+                    fill_colour=CUSTOM_COLOURS["MO"],
+                    radius=12,
+                )
+
         imwrite(Maps.FileLocations.assignment_map, background)
 
     def update_planets(

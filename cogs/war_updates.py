@@ -187,8 +187,6 @@ class WarUpdatesCog(commands.Cog):
             self.bot.maps.update_assignment_tasks(
                 assignments=self.bot.data.formatted_data.assignments["en"],
                 planets=self.bot.data.formatted_data.planets,
-                campaigns=self.bot.data.formatted_data.campaigns,
-                sector_names=self.bot.json_dict["sectors"],
             )
             self.bot.maps.update_planets(
                 planets=self.bot.data.formatted_data.planets,

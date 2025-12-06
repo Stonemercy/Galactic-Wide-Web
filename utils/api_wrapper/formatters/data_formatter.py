@@ -223,7 +223,95 @@ class FormattedData:
                     key=lambda x: x.ends_at_datetime,
                     reverse=True,
                 )
-            # TODO add in_assignment to planets
+
+            for assignment in self.assignments["en"]:
+                for task in assignment.tasks:
+                    if task.progress_perc >= 1:
+                        continue
+                    match task.type:
+                        case 1 | 2 | 3 | 4 | 5 | 6 | 7 | 9 | 11:
+                            if task.planet_index:
+                                planet = self.planets.get(task.planet_index)
+                                if planet:
+                                    planet.in_assignment = True
+                            elif task.sector_index:
+                                for planet in (
+                                    p
+                                    for p in self.planets.values()
+                                    if p.sector == task.sector_index
+                                ):
+                                    planet.in_assignment = True
+                            elif task.faction:
+                                for planet in (
+                                    p
+                                    for p in self.planets.values()
+                                    if p.faction == task.faction
+                                ):
+                                    planet.in_assignment = True
+                        case 10:
+                            pass
+                        case 12:
+                            if task.sector_index:
+                                if task.faction:
+                                    for planet_event in (
+                                        pe
+                                        for pe in self.planet_events
+                                        if pe.sector == task.sector_index
+                                        and pe.event.faction == task.faction
+                                    ):
+                                        planet_event.in_assignment = True
+                                else:
+                                    for planet_event in (
+                                        pe
+                                        for pe in self.planet_events
+                                        if pe.sector == task.sector_index
+                                    ):
+                                        planet_event.in_assignment = True
+                            elif task.planet_index:
+                                planet = self.planets.get(task.planet_index)
+                                if planet:
+                                    if planet.event:
+                                        if task.faction:
+                                            if planet.event.faction == task.faction:
+                                                planet.in_assignment = True
+                                        else:
+                                            if planet.event:
+                                                planet.in_assignment = True
+                            elif task.faction:
+                                for planet_event in (
+                                    pe
+                                    for pe in self.planet_events
+                                    if pe.event.faction == task.faction
+                                ):
+                                    planet_event.in_assignment = True
+                            else:
+                                for planet_event in self.planet_events:
+                                    planet_event.in_assignment = True
+                        case 13:
+                            if task.sector_index:
+                                for planet in (
+                                    p
+                                    for p in self.planets.values()
+                                    if p.sector == task.sector_index
+                                ):
+                                    planet.in_assignment = True
+                            elif task.planet_index:
+                                planet = self.planets.get(task.planet_index)
+                                if planet:
+                                    planet.in_assignment = True
+                        case 14 | 15:
+                            if task.faction:
+                                for campaign in (
+                                    c
+                                    for c in self.campaigns
+                                    if c.faction == task.faction
+                                ):
+                                    campaign.planet.in_assignment = True
+                            else:
+                                for campaign in self.campaigns:
+                                    campaign.planet.in_assignment = True
+                        case _:
+                            pass
 
         if context.dss:
             dss_planet = self.planets.get(context.dss["planetIndex"])
