@@ -195,7 +195,7 @@ class PlanetContainers(list[ui.Container]):
                 text_display = ui.TextDisplay(
                     f"{region.owner.emoji} **{region.names.get(lang_code, region.name)}**"
                 )
-                text_display.content += f"\n{region.emoji} {region.type}"
+                text_display.content += f"\n{region.emoji} {region.type.name.title()}"
                 if region.description:
                     text_display.content += f"\n-# {region.descriptions[lang_code]}"
                 if region.is_available:
