@@ -124,22 +124,22 @@ class Planet(ReprMixin):
             "potential_buildup",
         )
 
-        def __init__(self, raw_event_data) -> None:
+        def __init__(self, raw_event_data: dict, war_start_timestamp: int) -> None:
             """Organised data for a planet's event (defence campaign)"""
             self.id: int = raw_event_data["id"]
             self.type: int = raw_event_data["eventType"]
             self.faction: Faction | None = Factions.get_from_identifier(
-                name=raw_event_data["faction"]
+                number=raw_event_data["race"]
             )
             self.health: int = raw_event_data["health"]
             self.max_health: int = raw_event_data["maxHealth"]
             self.start_time: str = raw_event_data["startTime"]
             self.end_time: str = raw_event_data["endTime"]
-            self.start_time_datetime: datetime = datetime.fromisoformat(
-                self.start_time
+            self.start_time_datetime: datetime = datetime.fromtimestamp(
+                self.start_time + war_start_timestamp
             ).replace(tzinfo=None)
-            self.end_time_datetime: datetime = datetime.fromisoformat(
-                self.end_time
+            self.end_time_datetime: datetime = datetime.fromtimestamp(
+                self.end_time + war_start_timestamp
             ).replace(tzinfo=None)
             self.progress: float = 1 - (self.health / self.max_health)
             """A float from 0-1"""
