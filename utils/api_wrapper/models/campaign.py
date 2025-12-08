@@ -1,5 +1,6 @@
 from ...mixins import ReprMixin
 from ...dataclasses import Faction
+from .planet import Planet
 
 
 class Campaign(ReprMixin):
@@ -8,7 +9,7 @@ class Campaign(ReprMixin):
     def __init__(self, raw_campaign_data: dict, campaign_planet) -> None:
         """Organised data for a campaign"""
         self.id: int = raw_campaign_data["id"]
-        self.planet = campaign_planet
+        self.planet: Planet = campaign_planet
         self.type: int = raw_campaign_data["type"]
         self.count: int = raw_campaign_data["count"]
         self.progress: float = (
