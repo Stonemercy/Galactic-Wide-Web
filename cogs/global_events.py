@@ -1,8 +1,7 @@
 from datetime import datetime
 from disnake.ext import commands, tasks
 from main import GalacticWideWebBot
-from utils.containers import GlobalEventsContainer
-from utils.api_wrapper.models import GlobalEvent, Planet
+from utils.dbv2 import GWWGuild, GWWGuilds
 
 
 class GlobalEventsCog(commands.Cog):
