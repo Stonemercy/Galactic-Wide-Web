@@ -15,7 +15,7 @@ class BaseAPIClient(ABC):
         self,
         base_url: str,
         logger: GWWLogger,
-        timeout: int = 15,
+        timeout: int = 5,
         headers: Optional[dict] = None,
     ):
         """
@@ -51,7 +51,7 @@ class BaseAPIClient(ABC):
         endpoint: str,
         params: Optional[dict] = None,
         headers: Optional[dict] = None,
-        retries: int = 3,
+        retries: int = 2,
     ) -> Optional[dict | list]:
         """
         Make a GET request to the API
@@ -94,7 +94,7 @@ class BaseAPIClient(ABC):
                 raise
             except Exception as e:
                 self.logger.error(
-                    f"[{self.__class__.__name__}] Error fetching {endpoint}: {e}"
+                    f"[{self.__class__.__name__}] Error fetching {endpoint}: {type(e)} {e}"
                 )
 
                 # Don't retry on last attempt
