@@ -682,17 +682,17 @@
     "1313": {
         "name": "MODERATE GLOOM BLANKET",
         "description_long": "",
-        "description_short": "The Gloom covers this planet completely, obstructing a variety of logistical operations.\nExtraction times are increased by 30 seconds and Eagle Re-arm time is increased by 20%."
+        "description_short": "The Gloom covers this planet completely, obstructing a variety of logistical operations.\nExtraction times are increased by 30 seconds and Eagle Rearm time is increased by 20%."
     },
     "1315": {
         "name": "HEAVY GLOOM SHROUD",
         "description_long": "",
-        "description_short": "This planet is completely engulfed by the Gloom, severely impeding logistical support.\nExtraction times are increased by 40 seconds, Eagle Re-arm time is increased by 30% and Ammo from pickups is reduced by 50%."
+        "description_short": "This planet is completely engulfed by the Gloom, severely impeding logistical support.\nExtraction times are increased by 40 seconds, Eagle Rearm time is increased by 30% and Ammo from pickups is reduced by 50%."
     },
     "1318": {
         "name": "GLOOM SOURCE",
         "description_long": "",
-        "description_short": "This planet continually produces a thick atmospheric Gloom cover, rendering logistical support extremely challenging.\nTotal Reinforcements are reduced by 20%, Eagle Re-arm time is increased by 30% and Ammo from pickups is reduced by 50%."
+        "description_short": "This planet continually produces a thick atmospheric Gloom cover, rendering logistical support extremely challenging.\nTotal Reinforcements are reduced by 20%, Eagle Rearm time is increased by 30% and Ammo from pickups is reduced by 50%."
     },
     "1324": {
         "name": "ULGRAMAFIC MINE",
