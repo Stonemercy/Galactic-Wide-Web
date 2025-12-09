@@ -122,7 +122,7 @@ class GlobalEventCommandContainer(ui.Container):
                 text = text.replace("{enemy}", effect.found_enemy.upper())
 
             if effect.found_stratagem:
-                text = text.replace("{stratagem}", effect.found_stratagem.upper())
+                text = text.replace("{stratagem}", effect.found_stratagem[0].upper())
 
             for stratagem in STRATAGEM_IMAGE_LINKS.keys():
                 if stratagem.lower() in text.lower():

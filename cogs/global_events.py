@@ -141,7 +141,8 @@ class GlobalEventsCog(commands.Cog):
             )
             containers.append(container)
         if not containers:
-            containers.append(Embed(title="No Global Events active"))
+            await inter.send("No global events active")
+            return
         await inter.send(
             components=containers,
             ephemeral=public != "Yes",
