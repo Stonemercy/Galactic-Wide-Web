@@ -59,6 +59,9 @@ class DataService(ReprMixin):
                 for l in Languages.all
                 if l.short_code in unique_languages or True  # ALL FOR DEBUGGING
             ]
+            self._raw_war_status.clear()
+            self._raw_news_feed.clear()
+            self._raw_assignments.clear()
             for lang in in_use_languages:
                 # war status
                 raw_war_status = await client.get_war_status(
