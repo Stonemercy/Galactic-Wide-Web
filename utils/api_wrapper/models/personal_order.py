@@ -17,18 +17,10 @@ class PersonalOrder(ReprMixin):
 
     def __init__(self, personal_order: dict, json_dict: dict):
         self.id: int = personal_order["id32"]
-        # self.expiration_secs_from_now: int = personal_order["expiresIn"]
-        # self.expiration_datetime: datetime = datetime.now() + timedelta(
-        #     seconds=self.expiration_secs_from_now,
-        # )
-        # temp expiration setting until source is more accurate
-        now = datetime.now()
-        if 0 <= now.hour < 9:
-            self.expiration_datetime = now.replace(hour=9, minute=0)
-        else:
-            self.expiration_datetime = (now + timedelta(days=1)).replace(
-                hour=9, minute=0
-            )
+        self.expiration_secs_from_now: int = personal_order["expiresIn"]
+        self.expiration_datetime: datetime = datetime.now() + timedelta(
+            seconds=self.expiration_secs_from_now,
+        )
         self.title: str = personal_order["setting"]["overrideTitle"]
         self.brief: str = personal_order["setting"]["overrideBrief"]
         self.description: str = personal_order["setting"]["taskDescription"]
