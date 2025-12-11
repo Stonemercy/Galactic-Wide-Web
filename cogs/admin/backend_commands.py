@@ -15,7 +15,7 @@ class BackendCommandsCog(commands.Cog):
         id_list = sorted(
             [
                 f"{i.id}-{i.effect_description['name']}"
-                for i in inter.bot.data.formatted_data.war_effects
+                for i in inter.bot.data.formatted_data.war_effects.values()
             ],
             key=lambda x: int(x.split("-")[0]),
             reverse=True,
@@ -29,7 +29,11 @@ class BackendCommandsCog(commands.Cog):
             return []
         return [
             f"{p.index}-{p.name}"
-            for p in inter.bot.data.formatted_data.planets.values()
+            for p in sorted(
+                inter.bot.data.formatted_data.planets.values(),
+                key=lambda x: len(x.active_effects),
+                reverse=True,
+            )
             if user_input.lower() in f"{p.index}-{p.name}".lower()
         ][:25]
 
@@ -73,7 +77,9 @@ class BackendCommandsCog(commands.Cog):
                 )
                 return
             gwe_list = [
-                g for g in self.bot.data.formatted_data.war_effects if g.id == id
+                g
+                for g in self.bot.data.formatted_data.war_effects.values()
+                if g.id == id
             ]
         elif on_planet != "":
             try:
@@ -118,9 +124,10 @@ class BackendCommandsCog(commands.Cog):
                 container = GWEContainer(
                     gwe=gwe,
                     planets_with_gwe=planets_with_gwe,
+                    with_pretty_print=len(gwe_list) <= 4,
                 )
                 components.append(container)
-            await inter.send(components=components[:5], ephemeral=public != "Yes")
+            await inter.send(components=components, ephemeral=public != "Yes")
         else:
             await inter.send(
                 "Couldn't find that effect, sorry :pensive:", ephemeral=public != "Yes"

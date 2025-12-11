@@ -9,20 +9,20 @@ class GWEContainer(ui.Container, ReprMixin):
         self,
         gwe: GalacticWarEffect,
         planets_with_gwe: list[Planet] | str,
+        with_pretty_print: bool = True,
     ):
         components = []
         self.attachments = []
         components.append(
             ui.TextDisplay(f"{gwe.id} - {gwe.effect_description['simplified_name']}")
         )
-        components.append(ui.TextDisplay(f"-# {gwe.effect_description['description']}"))
 
         if gwe.found_enemy:
             components.append(ui.TextDisplay(f"ENEMY DETECTED - **{gwe.found_enemy}**"))
 
         if gwe.found_stratagem:
             components.append(
-                ui.TextDisplay(f"STRATAGEM DETECTED - **{gwe.found_stratagem}**")
+                ui.TextDisplay(f"STRATAGEM DETECTED - **{gwe.found_stratagem[0]}**")
             )
 
         if gwe.found_booster:
@@ -46,8 +46,9 @@ class GWEContainer(ui.Container, ReprMixin):
         else:
             active_planets = "-# None"
         components.append(ui.TextDisplay(f"Active on\n{active_planets}"))
-        components.append(ui.Separator())
-        components.append(ui.TextDisplay(f"```py\n{gwe}```"))
+        if with_pretty_print:
+            components.append(ui.Separator())
+            components.append(ui.TextDisplay(f"```py\n{gwe}```"))
 
         super().__init__(
             *components,
