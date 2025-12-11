@@ -33,9 +33,9 @@ class GlobalEventsContainer(ui.Container, ReprMixin):
                     if effect.found_enemy:
                         text_display.content += f"\n{container_json['enemy_identified']}: {effect.found_enemy}"
                     if effect.found_stratagem:
-                        text_display.content += f"\n{container_json['strat_identified']}: {effect.found_stratagem}"
+                        text_display.content += f"\n{container_json['strat_identified']}: {effect.found_stratagem[0]}"
                     if effect.found_booster:
-                        text_display.content += f"\n{container_json['booster_identified']}: {effect.found_stratagem}"
+                        text_display.content += f"\n{container_json['booster_identified']}: {effect.found_booster['name']}"
                 else:
                     text_display.content += f"\n{effect.planet_effect['name']}"
                     if effect.planet_effect["description_long"]:
@@ -46,7 +46,7 @@ class GlobalEventsContainer(ui.Container, ReprMixin):
                         if effect.effect_type == 32:
                             effect.planet_effect["description_short"] = (
                                 effect.planet_effect["description_short"].replace(
-                                    "#V_ONE", effect.found_stratagem
+                                    "#V_ONE", effect.found_stratagem[0]
                                 )
                             )
                         text_display.content += (
