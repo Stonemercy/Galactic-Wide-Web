@@ -1116,7 +1116,7 @@ class Dashboard:
                     planet = self.planets.get(task.planet_index)
                     if planet:
                         field_value += (
-                            f"{planet.health_bar}" f"\n`{planet.health_perc:^25,.2%}`"
+                            planet.health_bar + f"\n`{1 - planet.health_perc:^25,.2%}`"
                         )
                 elif task.target > 1 and task.sector_index:
                     field_value += (
