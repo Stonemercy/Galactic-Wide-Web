@@ -226,7 +226,7 @@ class CampaignChangesContainer(ui.Container, ReprMixin):
                     )
                 ),
                 accessory=ui.Thumbnail(
-                    DEFENCE_EMBED_ICONS[campaign.faction.full_name.lower()]
+                    DEFENCE_EMBED_ICONS[campaign.planet.event.faction.full_name.lower()]
                 ),
             )
             self._add_features(
