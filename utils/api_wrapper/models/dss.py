@@ -2,13 +2,14 @@ from ...mixins import ReprMixin
 from ...functions import dispatch_format
 from ...trackers import BaseTrackerEntry
 from ...emojis import Emojis
+from .planet import Planet
 from datetime import datetime
 
 
 class DSS(ReprMixin):
     def __init__(self, raw_dss_data: dict, planet, war_start_timestamp: int) -> None:
         """Organised data for the DSS"""
-        self.planet = planet
+        self.planet: Planet = planet
         self.flags: int = raw_dss_data["flags"]
         self.move_timer_timestamp: int = raw_dss_data["currentElectionEndWarTime"]
         self.move_timer_datetime: datetime = datetime.fromtimestamp(
