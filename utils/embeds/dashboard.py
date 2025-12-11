@@ -1346,7 +1346,9 @@ class Dashboard:
                     ]["ahead_of_schedule"].format(hours=hours, minutes=minutes)
             else:
                 outlook_text += f"{self.language_json['failure']} <t:{int(self.assignment.ends_at_datetime.timestamp())}:R>"
-                if self.completion_timestamps != []:
+                if self.completion_timestamps != [] and len(
+                    self.completion_timestamps
+                ) == len([t.progress_perc < 1 for t in self.assignment.tasks]):
                     oldest_timestamp: int = sorted(
                         self.completion_timestamps, reverse=True
                     )[0]
