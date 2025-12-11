@@ -40,7 +40,7 @@ class HelldiversClient(BaseAPIClient):
         """Get DSS tactical actions and status"""
         return await self.get(endpoint=f"SpaceStation/{war_id}/{station_id}")
 
-    async def get_war_id(self) -> int:
+    async def get_war_id(self) -> dict[str, int]:
         """Get the current war ID"""
         return await self.get(endpoint="WarSeason/current/WarID")
 
