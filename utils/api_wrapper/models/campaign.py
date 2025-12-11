@@ -18,5 +18,7 @@ class Campaign(ReprMixin):
             else self.planet.event.progress
         )
         self.faction: Faction = (
-            self.planet.event.faction if self.planet.event else self.planet.faction
+            self.planet.event.faction
+            if self.planet.event != None
+            else self.planet.faction
         )
