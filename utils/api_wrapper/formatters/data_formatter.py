@@ -127,6 +127,13 @@ class FormattedData:
                 if defending_planet:
                     defending_planet.defending_from.append(planet_attack["source"])
 
+            for planet_event in context.war_status["en"]["planetEvents"]:
+                planet = self.planets.get(planet_event["planetIndex"])
+                planet.event = Planet.Event(
+                    raw_event_data=planet_event,
+                    war_start_timestamp=self.war_start_timestamp,
+                )
+
             for campaign in context.war_status["en"]["campaigns"]:
                 c_planet = self.planets.get(campaign["planetIndex"])
                 if c_planet:
@@ -142,23 +149,18 @@ class FormattedData:
                 for campaign in [
                     c
                     for c in self.campaigns
-                    if c.planet.faction != Factions.humans and c.planet.attack_targets
+                    if c.planet.faction != Factions.humans
+                    and c.planet.defending_from
+                    and 1190 not in (gwe.id for gwe in c.planet.active_effects)
                 ]:
                     for defending_index in campaign.planet.attack_targets:
                         defending_planet = self.planets.get(defending_index)
                         if defending_planet and (
-                            len(defending_planet.attack_targets) < 2
+                            len(defending_planet.defending_from) < 2
                             and defending_planet.event
                             and campaign.planet.regen_perc_per_hour <= 0.03
                         ):
                             self.gambit_planets[defending_index] = campaign.planet
-
-            for planet_event in context.war_status["en"]["planetEvents"]:
-                planet = self.planets.get(planet_event["planetIndex"])
-                planet.event = Planet.Event(
-                    raw_event_data=planet_event,
-                    war_start_timestamp=self.war_start_timestamp,
-                )
 
             for active_effect in context.war_status["en"]["planetActiveEffects"]:
                 planet = self.planets.get(active_effect["index"])
