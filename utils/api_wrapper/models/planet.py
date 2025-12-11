@@ -134,7 +134,7 @@ class Planet(ReprMixin):
             self.health: int = raw_event_data["health"]
             self.max_health: int = raw_event_data["maxHealth"]
             self.start_time: str = raw_event_data["startTime"]
-            self.end_time: str = raw_event_data["endTime"]
+            self.end_time: str = raw_event_data["expireTime"]
             self.start_time_datetime: datetime = datetime.fromtimestamp(
                 self.start_time + war_start_timestamp
             ).replace(tzinfo=None)
