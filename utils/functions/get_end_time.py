@@ -1,8 +1,12 @@
 from datetime import datetime, timedelta
 from utils.dataclasses import CalculatedEndTime
+from ..api_wrapper.models.planet import Planet
 
 
-def get_end_time(source_planet, gambit_planets: dict[int] = None) -> CalculatedEndTime:
+def get_end_time(
+    source_planet: Planet,
+    gambit_planets: dict[int, Planet] = None,
+) -> CalculatedEndTime:
     results = CalculatedEndTime()
     if not gambit_planets:
         gambit_planets = {}
@@ -19,19 +23,19 @@ def get_end_time(source_planet, gambit_planets: dict[int] = None) -> CalculatedE
         # Gambit win
         if source_planet.index in gambit_planets:
             gambit_planet = gambit_planets[source_planet.index]
-            way_planet_end_time_info = get_end_time(gambit_planet)
-            if way_planet_end_time_info.end_time:
+            gambit_planet_end_time_info = get_end_time(gambit_planet)
+            if gambit_planet_end_time_info.end_time:
                 if (
                     not results.end_time
-                    and way_planet_end_time_info.end_time
+                    and gambit_planet_end_time_info.end_time
                     < source_planet.event.end_time_datetime
                 ) or (
                     results.end_time
-                    and way_planet_end_time_info.end_time < results.end_time
+                    and gambit_planet_end_time_info.end_time < results.end_time
                 ):
                     results.clear()
                     results.gambit_planet = gambit_planet
-                    results.end_time = way_planet_end_time_info.end_time
+                    results.end_time = gambit_planet_end_time_info.end_time
 
         non_lib_regions = sorted(
             [
@@ -124,8 +128,7 @@ def get_end_time(source_planet, gambit_planets: dict[int] = None) -> CalculatedE
                 elif not results.end_time:
                     results.end_time = end_time
                     results.regions = regions
-
-            else:
+            elif not results.end_time:
                 results.source_planet = source_planet
                 results.end_time = source_planet.tracker.complete_time
     else:

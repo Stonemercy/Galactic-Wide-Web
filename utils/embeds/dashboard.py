@@ -1548,11 +1548,8 @@ class Dashboard:
             field_value += f"\n{self.language_json['embeds']['Dashboard']['DefenceEmbed']['invasion_level']} **{planet.event.level}**{planet.event.level_exclamation}"
 
             calculated_end_time = get_end_time(planet, self.gambit_planets)
-            if (
-                calculated_end_time.end_time
-                and self.now
-                < calculated_end_time.end_time
-                < planet.event.end_time_datetime
+            if calculated_end_time.end_time and (
+                self.now < calculated_end_time.end_time < planet.event.end_time_datetime
             ):
                 field_value += f"\n{self.language_json['embeds']['Dashboard']['DefenceEmbed']['victory']} **<t:{int(calculated_end_time.end_time.timestamp())}:R>**"
                 if calculated_end_time.gambit_planet:
