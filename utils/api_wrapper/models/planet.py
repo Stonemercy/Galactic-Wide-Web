@@ -4,7 +4,7 @@ from ...dataclasses import Faction, Factions, PlanetFeatures, SpecialUnits
 from ...emojis import Emojis
 from .galactic_war import GalacticWarEffect
 from ...trackers import BaseTrackerEntry
-from ...functions import health_bar
+from ...functions.health_bar import health_bar
 from ..utils.constants import DEFENCE_LEVEL_EXCLAMATION_DICT, RegionType
 
 

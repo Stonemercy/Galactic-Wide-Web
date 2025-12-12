@@ -146,19 +146,20 @@ class FormattedData:
                     key=lambda i: i.planet.stats.player_count,
                     reverse=True,
                 )
+                self.gambit_planets = {}
                 for campaign in [
                     c
                     for c in self.campaigns
                     if c.planet.faction != Factions.humans
                     and c.planet.defending_from
                     and 1190 not in (gwe.id for gwe in c.planet.active_effects)
+                    and c.planet.regen_perc_per_hour <= 0.03
                 ]:
                     for defending_index in campaign.planet.attack_targets:
                         defending_planet = self.planets.get(defending_index)
                         if defending_planet and (
                             len(defending_planet.defending_from) < 2
                             and defending_planet.event
-                            and campaign.planet.regen_perc_per_hour <= 0.03
                         ):
                             self.gambit_planets[defending_index] = campaign.planet
 
