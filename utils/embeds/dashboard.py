@@ -1291,6 +1291,16 @@ class Dashboard:
                     if planet:
                         if planet.faction.full_name == "Humans" and not planet.event:
                             complete_type_13s.append(True)
+                        elif planet.faction.full_name != "Humans":
+                            end_time_info = get_end_time(
+                                source_planet=planet, gambit_planets=self.gambit_planets
+                            )
+                            if (
+                                end_time_info.end_time
+                                and end_time_info.end_time
+                                < self.assignment.ends_at_datetime
+                            ):
+                                complete_type_13s.append(True)
                 elif task.sector_index:
                     sector = self.json_dict["sectors"][task.sector_index]
                     sector_wins = []
