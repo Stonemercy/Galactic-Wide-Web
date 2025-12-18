@@ -267,7 +267,7 @@ class Dashboard:
         def _collect_completion_timestamps(self) -> None:
             """Fills `self.completion_timestamps` with estimated timestamps for each task (if possible)"""
             for task in self.assignment.tasks:
-                if task.tracker and task.tracker.change_rate_per_hour != 0:
+                if task.tracker and task.tracker.change_rate_per_hour > 0:
                     self.completion_timestamps.append(
                         task.tracker.complete_time.timestamp()
                     )
