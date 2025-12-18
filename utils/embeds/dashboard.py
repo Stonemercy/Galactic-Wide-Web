@@ -178,7 +178,7 @@ class Dashboard:
             self.language_json = language_json
             self.json_dict = json_dict
             self.compact_level = compact_level
-            self.completion_timestamps = []
+            self.completion_timestamps: list[int] = []
             self.task_tags = [
                 "{ext_pre}",
                 "{ext}",
