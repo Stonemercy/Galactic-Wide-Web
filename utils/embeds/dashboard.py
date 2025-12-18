@@ -1259,7 +1259,6 @@ class Dashboard:
                 ts < self.assignment.ends_at_datetime.timestamp()
                 for ts in self.completion_timestamps
             ]
-            type_13_tasks = [t for t in self.assignment.tasks if t.type == 13]
 
             complete_type_15s = []
             for task in (t for t in self.assignment.tasks if t.type == 15):
@@ -1289,7 +1288,7 @@ class Dashboard:
                     complete_type_15s.append(True)
 
             complete_type_13s = []
-            for task in type_13_tasks:
+            for task in (t for t in self.assignment.tasks if t.type == 13):
                 if task.planet_index:
                     planet = self.planets.get(task.planet_index)
                     if planet:
