@@ -204,7 +204,7 @@ class FormattedData:
                     GlobalResource(raw_global_resource_data=global_resource)
                 )
 
-        if context.news_feed["en"]:
+        if context.news_feed.get("en"):
             for lang, dispatches in context.news_feed.items():
                 self.dispatches[lang] = [
                     Dispatch(
@@ -220,7 +220,7 @@ class FormattedData:
                 for steam_news in context.steam_news
             ]
 
-        if context.assignments["en"]:
+        if context.assignments.get("en"):
             for lang, assignments in context.assignments.items():
                 self.assignments[lang] = sorted(
                     [
@@ -231,6 +231,7 @@ class FormattedData:
                     reverse=True,
                 )
 
+            # in_assignment
             for assignment in self.assignments["en"]:
                 for task in assignment.tasks:
                     if task.progress_perc >= 1:
@@ -313,9 +314,6 @@ class FormattedData:
                                     for c in self.campaigns
                                     if c.faction == task.faction
                                 ):
-                                    campaign.planet.in_assignment = True
-                            else:
-                                for campaign in self.campaigns:
                                     campaign.planet.in_assignment = True
                         case _:
                             pass
