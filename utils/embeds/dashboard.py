@@ -1332,25 +1332,25 @@ class Dashboard:
                 + complete_type_13s
                 + complete_type_15s
             )
+
+            # this shit needs cleaned up
             if (
                 self.assignment.flags in (0, 1)
                 and (len(complete_tasks) == len(self.assignment.tasks))
-            ) or (
-                self.assignment.flags in (2, 3)
-                and (any(complete_tasks) or any(winning_all_unfinished_tasks))
-            ):
+            ) or (self.assignment.flags in (2, 3) and any(complete_tasks)):
                 outlook_text = self.language_json["complete"]
                 if {13, 15} & set([t.type for t in self.assignment.tasks]):
                     outlook_text += (
                         f" <t:{int(self.assignment.ends_at_datetime.timestamp())}:R>"
                     )
                 else:
-                    oldest_time: datetime = sorted(
-                        self.completion_timestamps, reverse=True
+                    time_to_use: datetime = sorted(
+                        self.completion_timestamps,
+                        reverse=False if self.assignment.flags in (2, 3) else True,
                     )[0]
-                    outlook_text += f" <t:{int(oldest_time)}:R>"
+                    outlook_text += f" <t:{int(time_to_use)}:R>"
                     time_diff = (
-                        self.assignment.ends_at_datetime.timestamp() - oldest_time
+                        self.assignment.ends_at_datetime.timestamp() - time_to_use
                     )
                     hours = f"{time_diff // 3600:.0f}"
                     minutes = f"{(time_diff % 3600) // 60:.0f}"
