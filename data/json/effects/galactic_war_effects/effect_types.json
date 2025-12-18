@@ -253,5 +253,10 @@
         "name": "game_OperationModToggle",
         "simplified_name": "Operation modifier toggle",
         "format_desc": "game_operation_modifier_toggle"
+    },
+    "94": {
+        "name": "game_ModifierEffect",
+        "simplified_name": "Modifier Effect",
+        "format_desc": "Collection of game-client value overrides, enabled by id32"
     }
 }
