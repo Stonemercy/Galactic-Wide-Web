@@ -470,7 +470,7 @@ class Dashboard:
             in_multiplayer = self.language_json["embeds"]["Dashboard"][
                 "MajorOrderEmbed"
             ]["tasks"]["in_mp"]
-            if task.min_players:
+            if task.min_players > 1:
                 text = text.replace("{multi}", in_multiplayer)
             return text
 
@@ -627,9 +627,12 @@ class Dashboard:
             field_name: str = tasks_json["type3"]
             field_name = self._add_progress_emoji(text=field_name, task=task)
             field_name = field_name.replace("{count}", f"{task.target:,}")
-            enemy = self.json_dict["enemy_ids"].get(
-                str(task.enemy_id), "UNKNOWN ENEMIES"
-            )
+            if task.enemy_id:
+                enemy = self.json_dict["enemy_ids"].get(
+                    str(task.enemy_id), "UNKNOWN ENEMIES"
+                )
+            elif task.faction:
+                enemy = self.language_json["factions"][task.faction.full_name]
             field_name = field_name.replace("{enemy}", enemy)
             if task.item_id:
                 strat_list = [
