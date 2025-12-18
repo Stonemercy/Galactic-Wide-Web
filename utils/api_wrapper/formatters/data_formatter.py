@@ -81,7 +81,7 @@ class FormattedData:
         if context.steam_player_count:
             self.steam_player_count: int = context.steam_player_count
 
-        if context.war_status["en"]:
+        if context.war_status.get("en"):
             self.war_start_timestamp: int = (
                 int(datetime.now().timestamp()) - context.war_status["en"]["time"]
             )
@@ -108,7 +108,7 @@ class FormattedData:
                     gwa=war_effect, json_dict=context.json_dict
                 )
 
-        if context.war_status["en"]:
+        if context.war_status.get("en"):
             self.galactic_impact_mod = context.war_status["en"]["impactMultiplier"]
             for planet_status in context.war_status["en"]["planetStatus"]:
                 planet = self.planets.get(planet_status["index"])
