@@ -1490,24 +1490,16 @@ class Dashboard:
             self.set_thumbnail(
                 url="https://media.discordapp.net/attachments/1212735927223590974/1413612410819969114/0xfbbeedfa99b09fec.png?ex=68bc90a6&is=68bb3f26&hm=cd8bf236a355bbed28f4847d3d62b5908d050a7eeb7396bb9a891e108acc0241&=&format=webp&quality=lossless"
             )
-            self.description = language_json["embeds"]["Dashboard"]["DSSEmbed"][
-                "stationed_at"
-            ].format(
-                planet=dss.planet.loc_names.get(
-                    language_json["code_long"], dss.planet.name
-                ),
-                faction_emoji=dss.planet.exclamations,
-            )
-            move_time = int(dss.move_timer_datetime.timestamp())
+            move_datetime = dss.move_timer_datetime
             because_of_planet = False
             end_time_info = get_end_time(dss.planet, gambit_planets)
-            if (
-                end_time_info.end_time
-                and int(end_time_info.end_time.timestamp()) < move_time
-            ):
-                move_time = int(end_time_info.end_time.timestamp())
+            if end_time_info.end_time and end_time_info.end_time < move_datetime:
+                move_datetime = end_time_info.end_time
                 because_of_planet = True
-
+            self.description = (
+                f"-# Station moves **<t:{int(move_datetime.timestamp())}:R>**"
+                f"\n-# Current Location: {dss.planet.faction.emoji} **{dss.planet.loc_names.get(language_json['code_long'], dss.planet.name)}**"
+            )
             if dss.votes:
                 sorted_planets: list[tuple[Planet, int]] = sorted(
                     dss.votes.available_planets,
@@ -1517,18 +1509,9 @@ class Dashboard:
                 next_planet = sorted_planets[0]
                 if because_of_planet and dss.planet == next_planet[0]:
                     next_planet = sorted_planets[1]
-                percent = next_planet[1] / dss.votes.total_votes
-                if next_planet[0] == dss.planet:
-                    self.description += f"-# Scheduled to stay on **{dss.planet.loc_names.get(language_json['code_long'], dss.planet.name)}** <t:{move_time}:R> ({percent:.0%})"
-                else:
-                    self.description += f"-# Scheduled to move to **{next_planet[0].loc_names.get(language_json['code_long'], next_planet[0].name)}** <t:{move_time}:R> ({percent:.0%})"
-            else:
-                self.description += language_json["embeds"]["Dashboard"]["DSSEmbed"][
-                    "next_move"
-                ].format(timestamp=f"<t:{move_time}:R>")
+                self.description += f"\n-# Next Location (Current Majority Vote): {dss.planet.faction.emoji} **{next_planet[0].loc_names.get(language_json['code_long'], next_planet[0].name)}**"
 
-            time_until_move = move_time - int(datetime.now().timestamp())
-            if time_until_move < 1800:
+            if move_datetime < datetime.now() + timedelta(minutes=15):
                 self.description += f"\n-# {Emojis.Decoration.alert_icon} MOVING SOON - REMEMBER TO VOTE {Emojis.Decoration.alert_icon}"
             ta_jsons = language_json["embeds"]["Dashboard"]["DSSEmbed"][
                 "tactical_actions"
@@ -1558,7 +1541,7 @@ class Dashboard:
                                 field_value += f"\n{health_bar(perc=ta_cost.progress, faction='MO')}"
                                 field_value += f"\n`{ta_cost.progress:^25.2%}`"
                     case "active":
-                        field_value += f"\n{language_json['ends']} <t:{int(tactical_action.status_end_datetime.timestamp())}:R>"
+                        field_value += f" :green_circle:\n{language_json['ends']} <t:{int(tactical_action.status_end_datetime.timestamp())}:R>"
                         if tactical_action.name.upper() in ta_jsons:
                             field_value += f'\n{language_json["embeds"]["Dashboard"]["DSSEmbed"]["tactical_actions"][tactical_action.name.upper()]["description"]}'
                         else:
