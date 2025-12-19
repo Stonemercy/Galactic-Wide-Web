@@ -229,13 +229,6 @@ class Dashboard:
                 handler = task_handlers.get(task.type, self._add_type_UNK)
                 handler(task=task)
 
-                if (
-                    self.assignment.flags in (2, 3)
-                    and len(self.assignment.tasks) > 1
-                    and task != self.assignment.tasks[-1]
-                ):
-                    self.add_field("or", "", inline=False)
-
             self._add_rewards()
 
             self.add_field(
@@ -520,6 +513,10 @@ class Dashboard:
                 text = text.replace("{race_post}", "**")
             return text
 
+        def _add_option_number(self, text: str, task_index: int):
+            text = f"Option {task_index + 1}\n" + text
+            return text
+
         def _add_type_UNK(self, task: Assignment.Task) -> None:
             """Type UNK: UNKNOWN"""
             tasks_json: dict[str, str] = self.language_json["embeds"]["Dashboard"][
@@ -566,6 +563,12 @@ class Dashboard:
                     )
                 else:
                     field_value += f"-# Progress: **{task.progress}/{task.target}**"
+
+            if self.assignment.flags in (2, 3):
+                task_index = self.assignment.tasks.index(task)
+                field_name = self._add_option_number(
+                    text=field_name, task_index=task_index
+                )
 
             self.add_field(field_name, field_value, inline=False)
 
@@ -617,6 +620,12 @@ class Dashboard:
                 else:
                     field_value += f"-# Progress: **{task.progress}/{task.target}**"
 
+            if self.assignment.flags in (2, 3):
+                task_index = self.assignment.tasks.index(task)
+                field_name = self._add_option_number(
+                    text=field_name, task_index=task_index
+                )
+
             self.add_field(field_name, field_value, inline=False)
 
         def _add_type_3(self, task: Assignment.Task) -> None:
@@ -666,6 +675,12 @@ class Dashboard:
                     )
                 else:
                     field_value += f"-# Progress: **{task.progress}/{task.target}**"
+
+            if self.assignment.flags in (2, 3):
+                task_index = self.assignment.tasks.index(task)
+                field_name = self._add_option_number(
+                    text=field_name, task_index=task_index
+                )
 
             self.add_field(field_name, field_value, inline=False)
 
@@ -737,6 +752,12 @@ class Dashboard:
                 else:
                     field_value += f"-# Progress: **{task.progress}/{task.target}**"
 
+            if self.assignment.flags in (2, 3):
+                task_index = self.assignment.tasks.index(task)
+                field_name = self._add_option_number(
+                    text=field_name, task_index=task_index
+                )
+
             self.add_field(field_name, field_value, inline=False)
 
         def _add_type_5(self, task: Assignment.Task) -> None:
@@ -770,6 +791,12 @@ class Dashboard:
                     )
                 else:
                     field_value += f"-# Progress: **{task.progress}/{task.target}**"
+
+            if self.assignment.flags in (2, 3):
+                task_index = self.assignment.tasks.index(task)
+                field_name = self._add_option_number(
+                    text=field_name, task_index=task_index
+                )
 
             self.add_field(field_name, field_value, inline=False)
 
@@ -818,6 +845,13 @@ class Dashboard:
                     )
                 else:
                     field_value += f"-# Progress: **{task.progress}/{task.target}**"
+
+            if self.assignment.flags in (2, 3):
+                task_index = self.assignment.tasks.index(task)
+                field_name = self._add_option_number(
+                    text=field_name, task_index=task_index
+                )
+
             self.add_field(field_name, field_value, inline=False)
 
         def _add_type_7(self, task: Assignment.Task) -> None:
@@ -867,6 +901,12 @@ class Dashboard:
                 else:
                     field_value += f"-# Progress: **{task.progress}/{task.target}**"
 
+            if self.assignment.flags in (2, 3):
+                task_index = self.assignment.tasks.index(task)
+                field_name = self._add_option_number(
+                    text=field_name, task_index=task_index
+                )
+
             self.add_field(field_name, field_value, inline=False)
 
         def _add_type_9(self, task: Assignment.Task) -> None:
@@ -910,6 +950,12 @@ class Dashboard:
                 else:
                     field_value += f"-# Progress: **{task.progress}/{task.target}**"
 
+            if self.assignment.flags in (2, 3):
+                task_index = self.assignment.tasks.index(task)
+                field_name = self._add_option_number(
+                    text=field_name, task_index=task_index
+                )
+
             self.add_field(field_name, field_value, inline=False)
 
         def _add_type_10(self, task: Assignment.Task) -> None:
@@ -946,6 +992,12 @@ class Dashboard:
                     )
                 else:
                     field_value += f"-# Progress: **{task.progress}/{task.target}**"
+
+            if self.assignment.flags in (2, 3):
+                task_index = self.assignment.tasks.index(task)
+                field_name = self._add_option_number(
+                    text=field_name, task_index=task_index
+                )
 
             self.add_field(field_name, field_value, inline=False)
 
@@ -1031,6 +1083,12 @@ class Dashboard:
                         f"\n`{perc_owned:^25,.2%}`"
                     )
 
+            if self.assignment.flags in (2, 3):
+                task_index = self.assignment.tasks.index(task)
+                field_name = self._add_option_number(
+                    text=field_name, task_index=task_index
+                )
+
             self.add_field(field_name, field_value, inline=False)
 
         def _add_type_12(self, task: Assignment.Task) -> None:
@@ -1076,6 +1134,13 @@ class Dashboard:
                 f"\n{task.health_bar}"
                 f"\n`{task.progress_perc:^25.1%}`"
             )
+
+            if self.assignment.flags in (2, 3):
+                task_index = self.assignment.tasks.index(task)
+                field_name = self._add_option_number(
+                    text=field_name, task_index=task_index
+                )
+
             self.add_field(field_name, field_value, inline=False)
 
         def _add_type_13(self, task: Assignment.Task) -> None:
@@ -1137,6 +1202,12 @@ class Dashboard:
                             f"\n`{planet.event.progress:^25,.2%}`"
                         )
 
+            if self.assignment.flags in (2, 3):
+                task_index = self.assignment.tasks.index(task)
+                field_name = self._add_option_number(
+                    text=field_name, task_index=task_index
+                )
+
             self.add_field(field_name, field_value, inline=False)
 
         def _add_type_14(self, task: Assignment.Task) -> None:
@@ -1168,6 +1239,12 @@ class Dashboard:
                     )
                 else:
                     field_value += f"-# Progress: **{task.progress}/{task.target}**"
+
+            if self.assignment.flags in (2, 3):
+                task_index = self.assignment.tasks.index(task)
+                field_name = self._add_option_number(
+                    text=field_name, task_index=task_index
+                )
 
             self.add_field(field_name, field_value, inline=False)
 
@@ -1226,6 +1303,12 @@ class Dashboard:
                                 end_time_info.end_time > planet.event.end_time_datetime
                             ):
                                 field_value += f"\n-# **-1** from **{planet.name}** loss <t:{int(planet.event.end_time_datetime.timestamp())}:R>"
+
+            if self.assignment.flags in (2, 3):
+                task_index = self.assignment.tasks.index(task)
+                field_name = self._add_option_number(
+                    text=field_name, task_index=task_index
+                )
 
             self.add_field(field_name, field_value, inline=False)
 
