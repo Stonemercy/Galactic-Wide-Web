@@ -31,16 +31,16 @@ class APIChangesContainer(ui.Container, ReprMixin):
                     content = ""
                     if effects_removed := [
                         gwe
-                        for gwe in api_change.old_object
-                        if gwe not in api_change.new_object
+                        for id, gwe in api_change.old_object.items()
+                        if id not in api_change.new_object
                     ]:
                         content += "\n### Galactic Effects Removed ❌"
                         for gwe in effects_removed:
                             content += f"\n {gwe.pretty_print()}"
                     if effects_added := [
                         gwe
-                        for gwe in api_change.new_object
-                        if gwe not in api_change.old_object
+                        for id, gwe in api_change.new_object.items()
+                        if id not in api_change.old_object
                     ]:
                         content += "\n### Galactic Effects Added :white_check_mark:"
                         for gwe in effects_added:
