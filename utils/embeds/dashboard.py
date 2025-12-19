@@ -1801,8 +1801,12 @@ class Dashboard:
                         if gambit_planet:
                             field_value += f"\n-# :chess_pawn: GAMBIT FOR {gambit_planet.loc_names.get(language_json['code_long'], gambit_planet.name)}"
                     if compact_level < 1:
-                        field_value += f"\n{campaign.planet.health_bar}"
-                    field_value += f"\n`{(1 - (campaign.planet.health_perc)):^25.2%}`"  # 1 - {health} because we need it to reach 0
+                        if campaign.type == 1:
+                            field_value += f"\n**`{'RECON CAMPAIGN':^25}`**"
+                        else:
+                            field_value += f"\n{campaign.planet.health_bar}"
+                    if campaign.type != 1:
+                        field_value += f"\n`{(1 - (campaign.planet.health_perc)):^25.2%}`"  # 1 - {health} because we need it to reach 0
                     if (
                         campaign.planet.tracker
                         and campaign.planet.tracker.change_rate_per_hour != 0
