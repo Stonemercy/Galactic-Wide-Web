@@ -363,7 +363,7 @@ class FormattedData:
                 and 8 not in (task["type"] for task in po["setting"]["tasks"])
             ][0]
             self.personal_order: PersonalOrder = PersonalOrder(
-                personal_order=context.personal_order[1], json_dict=context.json_dict
+                personal_order=correct_po, json_dict=context.json_dict
             )
 
         self.formatted_at = datetime.now()
