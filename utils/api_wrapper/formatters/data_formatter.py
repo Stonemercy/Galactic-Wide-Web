@@ -356,6 +356,12 @@ class FormattedData:
                         planet.stats.update(raw_stats_info=pstat)
 
         if context.personal_order:
+            correct_po = [
+                po
+                for po in context.personal_order
+                if po["setting"]["rewards"] != []
+                and 8 not in (task["type"] for task in po["setting"]["tasks"])
+            ][0]
             self.personal_order: PersonalOrder = PersonalOrder(
                 personal_order=context.personal_order[1], json_dict=context.json_dict
             )
