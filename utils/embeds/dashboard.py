@@ -667,6 +667,7 @@ class Dashboard:
                     if task.tracker and task.tracker.change_rate_per_hour > 0:
                         progress = f"{task.tracker.change_rate_per_hour:+,.1%}/hr"
                         progress = f"\n`{progress:^25}`"
+                        progress += f"\n-# Complete <t:{int(task.tracker.complete_time.timestamp())}:R>"
                     field_value += (
                         f"-# Progress: **{short_format(task.progress)}/{short_format(task.target)}**"
                         f"\n{task.health_bar}"
@@ -1329,11 +1330,11 @@ class Dashboard:
                 )
 
         def _add_outlook_text(self) -> None:
-            outlook_text = ""
 
-            if datetime.now() < self.assignment.ends_at_datetime - timedelta(
-                days=2
-            ) and any(t.type in (13, 15) for t in self.assignment.tasks):
+            if (
+                datetime.now() < self.assignment.ends_at_datetime - timedelta(days=2)
+                and {13, 15} & self.assignment.unique_task_types
+            ):
                 # return if assignments that last the full assignment duration are present
                 # and we are not within 2 days of assignment end
                 return
@@ -1416,47 +1417,78 @@ class Dashboard:
                 + complete_type_15s
             )
 
-            # this shit needs cleaned up
-            if (
-                self.assignment.flags in (0, 1)
-                and (len(complete_tasks) == len(self.assignment.tasks))
-            ) or (self.assignment.flags in (2, 3) and any(complete_tasks)):
-                outlook_text = self.language_json["complete"]
-                if {13, 15} & set([t.type for t in self.assignment.tasks]):
-                    outlook_text += (
-                        f" <t:{int(self.assignment.ends_at_datetime.timestamp())}:R>"
-                    )
-                else:
-                    time_to_use: datetime = sorted(
-                        self.completion_timestamps,
-                        reverse=False if self.assignment.flags in (2, 3) else True,
-                    )[0]
-                    outlook_text += f" <t:{int(time_to_use)}:R>"
-                    time_diff = (
-                        self.assignment.ends_at_datetime.timestamp() - time_to_use
-                    )
-                    hours = f"{time_diff // 3600:.0f}"
-                    minutes = f"{(time_diff % 3600) // 60:.0f}"
-                    outlook_text += self.language_json["embeds"]["Dashboard"][
-                        "MajorOrderEmbed"
-                    ]["ahead_of_schedule"].format(hours=hours, minutes=minutes)
-            else:
-                outlook_text += f"{self.language_json['failure']} <t:{int(self.assignment.ends_at_datetime.timestamp())}:R>"
-                if self.completion_timestamps != [] and len(
-                    self.completion_timestamps
-                ) == len([t.progress_perc < 1 for t in self.assignment.tasks]):
-                    oldest_timestamp: int = sorted(
-                        self.completion_timestamps, reverse=True
-                    )[0]
-                    time_diff = (
-                        oldest_timestamp - self.assignment.ends_at_datetime.timestamp()
-                    )
-                    hours = f"{time_diff // 3600:.0f}"
-                    minutes = f"{(time_diff % 3600) // 60:.0f}"
-                    if 0 < time_diff // 3600 < 250:
+            outlook_text = ""
+            match self.assignment.flags:
+                case 0 | 1:  # complete all tasks
+                    if len(complete_tasks) == len(self.assignment.tasks):
+                        outlook_text = self.language_json["complete"]
+                        if {13, 15} & self.assignment.unique_task_types:
+                            outlook_text += f" <t:{int(self.assignment.ends_at_datetime.timestamp())}:R>"
+                        else:
+                            time_to_use: datetime = sorted(
+                                self.completion_timestamps, reverse=True
+                            )[0]
+                            outlook_text += f" <t:{int(time_to_use)}:R>"
+                            time_diff = (
+                                self.assignment.ends_at_datetime.timestamp()
+                                - time_to_use
+                            )
+                            hours = f"{time_diff // 3600:.0f}"
+                            minutes = f"{(time_diff % 3600) // 60:.0f}"
+                            outlook_text += self.language_json["embeds"]["Dashboard"][
+                                "MajorOrderEmbed"
+                            ]["ahead_of_schedule"].format(hours=hours, minutes=minutes)
+                    else:
+                        outlook_text += f"{self.language_json['failure']} <t:{int(self.assignment.ends_at_datetime.timestamp())}:R>"
+                        if self.completion_timestamps != [] and len(
+                            self.completion_timestamps
+                        ) == len([t.progress_perc < 1 for t in self.assignment.tasks]):
+                            oldest_timestamp: int = sorted(
+                                self.completion_timestamps, reverse=True
+                            )[0]
+                            time_diff = (
+                                oldest_timestamp
+                                - self.assignment.ends_at_datetime.timestamp()
+                            )
+                            hours = f"{time_diff // 3600:.0f}"
+                            minutes = f"{(time_diff % 3600) // 60:.0f}"
+                            if 0 < time_diff // 3600 < 250:
+                                outlook_text += self.language_json["embeds"][
+                                    "Dashboard"
+                                ]["MajorOrderEmbed"]["behind_schedule"].format(
+                                    hours=hours, minutes=minutes
+                                )
+                case 2 | 3:  # complete any task
+                    if any(complete_tasks):
+                        outlook_text = self.language_json["complete"]
+                        time_to_use: datetime = sorted(self.completion_timestamps)[0]
+                        outlook_text += f" <t:{int(time_to_use)}:R>"
+                        time_diff = (
+                            self.assignment.ends_at_datetime.timestamp() - time_to_use
+                        )
+                        hours = f"{time_diff // 3600:.0f}"
+                        minutes = f"{(time_diff % 3600) // 60:.0f}"
                         outlook_text += self.language_json["embeds"]["Dashboard"][
                             "MajorOrderEmbed"
-                        ]["behind_schedule"].format(hours=hours, minutes=minutes)
+                        ]["ahead_of_schedule"].format(hours=hours, minutes=minutes)
+                    else:
+                        outlook_text += f"{self.language_json['failure']} <t:{int(self.assignment.ends_at_datetime.timestamp())}:R>"
+                        if self.completion_timestamps != []:
+                            newest_timestamp: int = sorted(self.completion_timestamps)[
+                                0
+                            ]
+                            time_diff = (
+                                newest_timestamp
+                                - self.assignment.ends_at_datetime.timestamp()
+                            )
+                            hours = f"{time_diff // 3600:.0f}"
+                            minutes = f"{(time_diff % 3600) // 60:.0f}"
+                            if 0 < time_diff // 3600 < 250:
+                                outlook_text += self.language_json["embeds"][
+                                    "Dashboard"
+                                ]["MajorOrderEmbed"]["behind_schedule"].format(
+                                    hours=hours, minutes=minutes
+                                )
 
             if outlook_text != "":
                 self.add_field(
