@@ -38,6 +38,10 @@ class Assignment(ReprMixin):
         )
         self.flags: int = raw_assignment_data["setting"]["flags"]
 
+    @property
+    def unique_task_types(self) -> set[int]:
+        return {t.type for t in self.tasks}
+
     class Task(ReprMixin):
         """Organised data of an Assignment Task"""
 
