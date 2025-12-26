@@ -37,6 +37,7 @@ class SteamCog(commands.Cog):
             or patch_notes_start < self.bot.ready_time
             or not self.bot.data.loaded
             or self.bot.interface_handler.busy
+            or not self.bot.data.formatted_data.steam_news
         ):
             return
         if (
