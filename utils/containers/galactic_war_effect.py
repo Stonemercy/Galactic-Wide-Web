@@ -22,7 +22,7 @@ class GWEContainer(ui.Container, ReprMixin):
 
         if gwe.found_stratagem:
             components.append(
-                ui.TextDisplay(f"STRATAGEM DETECTED - **{gwe.found_stratagem[0]}**")
+                ui.TextDisplay(f"STRATAGEM DETECTED - **{gwe.found_stratagem}**")
             )
 
         if gwe.found_booster:

@@ -33,7 +33,7 @@ class GlobalEventsContainer(ui.Container, ReprMixin):
                     if effect.found_enemy:
                         text_display.content += f"\n{container_json['enemy_identified']}: {effect.found_enemy}"
                     if effect.found_stratagem:
-                        text_display.content += f"\n{container_json['strat_identified']}: {effect.found_stratagem[0]}"
+                        text_display.content += f"\n{container_json['strat_identified']}: {effect.found_stratagem}"
                     if effect.found_booster:
                         text_display.content += f"\n{container_json['booster_identified']}: {effect.found_booster['name']}"
                 else:
@@ -44,11 +44,12 @@ class GlobalEventsContainer(ui.Container, ReprMixin):
                         )
                     if effect.planet_effect["description_short"]:
                         if effect.effect_type == 32:
-                            effect.planet_effect["description_short"] = (
-                                effect.planet_effect["description_short"].replace(
-                                    "#V_ONE", effect.found_stratagem[0]
+                            if effect.found_stratagem:
+                                effect.planet_effect["description_short"] = (
+                                    effect.planet_effect["description_short"].replace(
+                                        "#V_ONE", effect.found_stratagem
+                                    )
                                 )
-                            )
                         text_display.content += (
                             f"\n-# {effect.planet_effect['description_short']}"
                         )
@@ -122,7 +123,7 @@ class GlobalEventCommandContainer(ui.Container):
                 text = text.replace("{enemy}", effect.found_enemy.upper())
 
             if effect.found_stratagem:
-                text = text.replace("{stratagem}", effect.found_stratagem[0].upper())
+                text = text.replace("{stratagem}", effect.found_stratagem.upper())
 
             for stratagem in STRATAGEM_IMAGE_LINKS.keys():
                 if stratagem.lower() in text.lower():
