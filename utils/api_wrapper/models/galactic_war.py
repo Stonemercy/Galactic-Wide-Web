@@ -1,6 +1,7 @@
 from ...mixins import GWEReprMixin, ReprMixin
 from ...dataclasses import Faction, Factions
 from ...functions import dispatch_format
+from data.lists import stratagem_id_dict
 
 
 class GlobalResource(ReprMixin):
@@ -86,17 +87,10 @@ class GalacticWarEffect(GWEReprMixin):
             self.faction: Faction | None = Factions.get_from_identifier(number=faction)
         if mix_id := self.values_dict.get(4):
             self.mix_id: int = mix_id
-            for wing_stratagems in json_dict["stratagems"].values():
-                for wing_strat_name, wing_strat_stats in wing_stratagems.items():
-                    if wing_strat_stats["id"] == self.mix_id:
-                        self.found_stratagem: tuple[str, dict] = (
-                            wing_strat_name,
-                            wing_strat_stats,
-                        )
-                        break
-            if not self.found_stratagem:
-                if booster := json_dict["items"]["boosters"].get(str(self.mix_id), {}):
-                    self.found_booster: dict = booster
+            if stratagem := stratagem_id_dict.get(self.mix_id):
+                self.found_stratagem: str = stratagem
+            elif booster := json_dict["items"]["boosters"].get(str(self.mix_id), {}):
+                self.found_booster: dict = booster
         if value5 := self.values_dict.get(5):
             self.value5 = value5
             print(f"VALUE5 USED: {self.id} {self.value5 = }")
