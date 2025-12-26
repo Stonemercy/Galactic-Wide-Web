@@ -1686,7 +1686,9 @@ class Dashboard:
                 change = f"{planet.tracker.change_rate_per_hour:+.2%}/hr"
                 field_value += f"\n`{change:^25}`"
 
-            for region in planet.regions.values():
+            for region in sorted(
+                planet.regions.values(), key=lambda x: x.availability_factor
+            ):
                 if region.is_available:
                     field_value += f"\n-# ↳ {region.emoji} {self.language_json['regions'][str(region.type.value)]} **{region.names[self.language_json['code_long']]}** - {region.perc:.0%}"
                     if (
