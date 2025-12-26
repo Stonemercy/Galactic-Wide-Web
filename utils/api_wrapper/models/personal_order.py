@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+from data.lists import stratagem_id_dict
 from ...mixins import ReprMixin
 from ...dataclasses import Faction, Factions
 
@@ -72,19 +73,12 @@ class PersonalOrder(ReprMixin):
                 self.found_enemy = json_dict["enemy_ids"].get(str(self.enemy_id), None)
             if self.values_dict.get(6):
                 self.mix_id = self.values_dict.get(5)
-                for wing_stratagems in json_dict["stratagems"].values():
-                    for wing_strat_name, wing_strat_stats in wing_stratagems.items():
-                        if wing_strat_stats["id"] == self.mix_id:
-                            self.found_stratagem: tuple[str, dict] = (
-                                wing_strat_name,
-                                wing_strat_stats,
-                            )
-                            break
-                if not self.found_stratagem:
-                    if booster := json_dict["items"]["boosters"].get(
-                        str(self.mix_id), {}
-                    ):
-                        self.found_booster: dict = booster
+                if stratagem := stratagem_id_dict.get(self.mix_id):
+                    self.found_stratagem: str = stratagem
+                elif booster := json_dict["items"]["boosters"].get(
+                    str(self.mix_id), {}
+                ):
+                    self.found_booster: dict = booster
             if objective := self.values_dict.get(7):
                 self.objective = objective
             if value8 := self.values_dict.get(8):
