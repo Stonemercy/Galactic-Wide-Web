@@ -10,7 +10,11 @@ class DispatchContainer(ui.Container, ReprMixin):
     ):
         components = []
         title, description = dispatch.title, dispatch.description
-        text_display = ui.TextDisplay(f"# {title}\n{description}")
+        text_display = ui.TextDisplay("")
+        if title:
+            text_display.content += f"# {title}"
+        if description:
+            text_display.content += f"\n{description}"
         components.append(text_display)
 
         extra_text_display = ui.TextDisplay("")

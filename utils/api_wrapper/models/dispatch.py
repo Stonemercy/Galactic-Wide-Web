@@ -15,8 +15,13 @@ class Dispatch(ReprMixin):
         self.full_message: str = dispatch_format(
             text=raw_dispatch_data.get("message", "")
         )
+        self.title: str = ""
+        self.description: str = ""
+
         split_lines = self.full_message.splitlines(True)
-        if split_lines:
+        if len(split_lines) == 1:
+            self.description = split_lines[0]
+        elif split_lines != []:
             self.title = split_lines[0].replace("*", "")
             self.description = "".join(split_lines[1:]).strip()
         else:

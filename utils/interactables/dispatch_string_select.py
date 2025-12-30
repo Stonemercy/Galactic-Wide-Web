@@ -10,7 +10,9 @@ class DispatchStringSelect(StringSelect):
             min_values=1,
             max_values=1,
             options=[
-                SelectOption(label=f"{dispatch.id}-{dispatch.title[:90]}")
+                SelectOption(
+                    label=f"{dispatch.id}-{dispatch.title[:90] if dispatch.title else dispatch.description[:90]}"
+                )
                 for dispatch in sorted(
                     dispatches[-25:], key=lambda x: x.id, reverse=True
                 )
