@@ -667,7 +667,11 @@ class Dashboard:
                     if task.tracker and task.tracker.change_rate_per_hour > 0:
                         progress = f"{task.tracker.change_rate_per_hour:+,.1%}/hr"
                         progress = f"\n`{progress:^25}`"
-                        progress += f"\n-# Complete <t:{int(task.tracker.complete_time.timestamp())}:R>"
+                        if task.tracker.complete_time < max(
+                            self.assignment.ends_at_datetime,
+                            datetime.now() + timedelta(weeks=2),
+                        ):
+                            progress += f"\n-# Complete <t:{int(task.tracker.complete_time.timestamp())}:R>"
                     field_value += (
                         f"-# Progress: **{short_format(task.progress)}/{short_format(task.target)}**"
                         f"\n{task.health_bar}"
