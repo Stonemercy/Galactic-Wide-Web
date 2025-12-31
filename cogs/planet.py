@@ -121,7 +121,7 @@ class PlanetCog(commands.Cog):
             ):
                 self.bot.maps.update_base_map(
                     planets=self.bot.data.formatted_data.planets,
-                    assignments=self.bot.data.formatted_data.assignments["en"],
+                    assignments=self.bot.data.formatted_data.assignments.get("en", []),
                     campaigns=self.bot.data.formatted_data.campaigns,
                 )
                 language_json = self.bot.json_dict["languages"][guild.language]

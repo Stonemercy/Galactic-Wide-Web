@@ -47,7 +47,7 @@ class MajorOrderCog(commands.Cog):
             or mo_check_start < self.bot.ready_time
             or not self.bot.data.loaded
             or self.bot.interface_handler.busy
-            or not self.bot.data.formatted_data.assignments["en"]
+            or not self.bot.data.formatted_data.assignments.get("en")
         ):
             return
         if self.bot.databases.war_info.major_order_ids == None:
@@ -143,7 +143,7 @@ class MajorOrderCog(commands.Cog):
             not self.bot.interface_handler.loaded
             or mo_updates_start < self.bot.ready_time
             or not self.bot.data.loaded
-            or not self.bot.data.formatted_data.assignments["en"]
+            or not self.bot.data.formatted_data.assignments.get("en")
         ):
             return
         unique_langs = GWWGuilds.unique_languages()
@@ -218,7 +218,7 @@ class MajorOrderCog(commands.Cog):
         else:
             guild = GWWGuild.default()
         guild_language = self.bot.json_dict["languages"][guild.language]
-        if self.bot.data.formatted_data.assignments["en"]:
+        if self.bot.data.formatted_data.assignments.get("en"):
             embeds = []
             for assignment in self.bot.data.formatted_data.assignments[guild.language]:
                 embed = Dashboard.MajorOrderEmbed(

@@ -211,7 +211,7 @@ class DataService(ReprMixin):
                         key=region.settings_hash
                     )
         # major order rates
-        if self.formatted_data.assignments["en"]:
+        if self.formatted_data.assignments.get("en"):
             for assignment in self.formatted_data.assignments["en"]:
                 for task_index, task in enumerate(assignment.tasks, start=1):
                     if task.type in [11, 12, 13, 14, 15]:
