@@ -1255,6 +1255,7 @@ class Dashboard:
 
         def _add_type_15(self, task: Assignment.Task) -> None:
             """Type 15: Net liberation (liberate more than lost)"""
+            # TASK TITLE
             tasks_json = self.language_json["embeds"]["Dashboard"]["MajorOrderEmbed"][
                 "tasks"
             ]
@@ -1266,7 +1267,13 @@ class Dashboard:
             if task.faction:
                 race_name = self._get_faction_name(task.faction, plural=True)
                 field_name = field_name.replace("{race}", race_name)
+            if self.assignment.flags in (2, 3):
+                task_index = self.assignment.tasks.index(task)
+                field_name = self._add_option_number(
+                    text=field_name, task_index=task_index
+                )
 
+            # TASK INFO
             field_value = ""
             if self.compact_level < 1:
                 field_value += f"\n{task.health_bar}"
@@ -1286,34 +1293,31 @@ class Dashboard:
                 else:
                     pointer_text = f"{arrow}{progress}"
                 field_value += f"\n`{left_buffer}{pointer_text}{right_buffer}`"
-
                 for planet in (
                     p for p in self.planets.values() if p.stats.player_count > 200
                 ):
+                    if task.faction:
+                        if (planet.event and planet.event.faction != task.faction) or (
+                            not planet.event and planet.faction != task.faction
+                        ):
+                            continue
                     end_time_info = get_end_time(planet, self.gambit_planets)
                     if end_time_info.end_time:
-                        if (
-                            not planet.event
-                            and end_time_info.end_time
-                            < self.assignment.ends_at_datetime
-                        ):
-                            field_value += f"\n-# **+1** from **{planet.name}** liberation <t:{int(end_time_info.end_time.timestamp())}:R>"
-                        elif planet.event:
+                        if planet.event:
                             if (
-                                planet.event.end_time_datetime
-                                > self.assignment.ends_at_datetime
-                            ):
-                                continue
-                            elif (
-                                end_time_info.end_time > planet.event.end_time_datetime
+                                planet.event.end_time_datetime < end_time_info.end_time
+                                and planet.event.end_time_datetime
+                                < self.assignment.ends_at_datetime
                             ):
                                 field_value += f"\n-# **-1** from **{planet.name}** loss <t:{int(planet.event.end_time_datetime.timestamp())}:R>"
-
-            if self.assignment.flags in (2, 3):
-                task_index = self.assignment.tasks.index(task)
-                field_name = self._add_option_number(
-                    text=field_name, task_index=task_index
-                )
+                        else:
+                            if (
+                                end_time_info.end_time
+                                < self.assignment.ends_at_datetime
+                            ):
+                                field_value += f"\n-# **+1** from **{planet.name}** liberation <t:{int(end_time_info.end_time.timestamp())}:R>"
+                    elif planet.event:
+                        field_value += f"\n-# **-1** from **{planet.name}** loss <t:{int(planet.event.end_time_datetime.timestamp())}:R>"
 
             self.add_field(field_name, field_value, inline=False)
 
