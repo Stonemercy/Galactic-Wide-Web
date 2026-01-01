@@ -59,7 +59,7 @@ class MapCog(commands.Cog):
         if need_to_update_maps:
             self.bot.maps.update_base_map(
                 planets=self.bot.data.formatted_data.planets,
-                assignments=self.bot.data.formatted_data.assignments.get(["en"], []),
+                assignments=self.bot.data.formatted_data.assignments.get("en", []),
                 campaigns=self.bot.data.formatted_data.campaigns,
             )
             for language_code, embed in map_embeds.items():
