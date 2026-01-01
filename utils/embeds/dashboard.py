@@ -1549,7 +1549,7 @@ class Dashboard:
                 next_planet = sorted_planets[0]
                 if because_of_planet and dss.planet == next_planet[0]:
                     next_planet = sorted_planets[1]
-                self.description += f"\n-# Next Location (Current Majority Vote): {dss.planet.faction.emoji} **{next_planet[0].loc_names.get(language_json['code_long'], next_planet[0].name)}**"
+                self.description += f"\n-# Next Location (Current Majority Vote): {next_planet[0].faction.emoji} **{next_planet[0].loc_names.get(language_json['code_long'], next_planet[0].name)}**"
 
             if move_datetime < datetime.now() + timedelta(minutes=15):
                 self.description += f"\n-# {Emojis.Decoration.alert_icon} MOVING SOON - REMEMBER TO VOTE {Emojis.Decoration.alert_icon}"
