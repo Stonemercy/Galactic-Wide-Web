@@ -395,13 +395,8 @@ class Dashboard:
             self, faction: Faction, plural: bool = False, uppercase: bool = False
         ) -> str:
             """Get localized and pluralized (if requested) faction name"""
-            names = {
-                Factions.humans.number: "Super Earth",
-                Factions.terminids.number: "Terminids" if plural else "Terminid",
-                Factions.automaton.number: "Automatons" if plural else "Automaton",
-                Factions.illuminate.number: "Illuminate",
-            }
-            name = names.get(faction.number, "Unknown Faction")
+            names: dict = self.language_json["factions"]
+            name = names.get(faction.full_name, "Unknown Faction")
             if uppercase:
                 name = f"THE {name.upper()}"
             return name
