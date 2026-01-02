@@ -6,7 +6,14 @@ from data.lists import (
     DEFENCE_EMBED_ICONS,
 )
 from disnake import Colour, Embed
-from utils.api_wrapper.models import Assignment, Campaign, DSS, GlobalEvent, Planet
+from utils.api_wrapper.models import (
+    Assignment,
+    Campaign,
+    DSS,
+    GlobalEvent,
+    GlobalResource,
+    Planet,
+)
 from utils.api_wrapper.formatters.data_formatter import FormattedData
 from utils.dataclasses import AssignmentImages, Factions, SpecialUnits, PlanetFeatures
 from utils.dataclasses.factions import Faction
@@ -57,6 +64,10 @@ class Dashboard:
                     gambit_planets=data.gambit_planets,
                 )
             )
+
+        # Global Resources
+        for gr in data.global_resources:
+            self.embeds.append(self.GlobalResourceEmbed(global_resource=gr))
 
         # Defence Embed
         if data.planet_events:
@@ -1596,6 +1607,26 @@ class Dashboard:
                     value=field_value,
                     inline=False,
                 )
+
+    class GlobalResourceEmbed(Embed, EmbedReprMixin):
+        def __init__(self, global_resource: GlobalResource):
+            super().__init__(title=global_resource.name)
+            match global_resource.id:
+                case 1754540810:
+                    self.color = Colour.yellow()
+                    field_value = health_bar(
+                        perc=global_resource.perc,
+                        faction="MO",
+                        anim=global_resource.tracker.change_rate_per_hour != 0,
+                        increasing=global_resource.tracker.change_rate_per_hour > 0,
+                    )
+                    field_value += f"\n`{f'{global_resource.perc:.2%}':^25}`"
+                    if (
+                        global_resource.tracker
+                        and global_resource.tracker.change_rate_per_hour != 0
+                    ):
+                        field_value += f"\n`{f'{global_resource.tracker.change_rate_per_hour:+.2%}':^25}`"
+                    self.add_field("", field_value)
 
     class DefenceEmbed(Embed, EmbedReprMixin):
         def __init__(
