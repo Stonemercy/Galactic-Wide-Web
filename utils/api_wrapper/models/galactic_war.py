@@ -1,7 +1,12 @@
 from ...mixins import GWEReprMixin, ReprMixin
 from ...dataclasses import Faction, Factions
 from ...functions import dispatch_format
+from ..services.tracking_service import TrackerEntry
 from data.lists import stratagem_id_dict
+
+KNOWN_GLOBAL_RESOURCES = {
+    1754540810: "ACQUIRED E-711",
+}
 
 
 class GlobalResource(ReprMixin):
@@ -13,6 +18,16 @@ class GlobalResource(ReprMixin):
         self.current_value: int = raw_global_resource_data["currentValue"]
         self.max_value: int = raw_global_resource_data["maxValue"]
         self.perc: float = self.current_value / self.max_value
+        self.name = KNOWN_GLOBAL_RESOURCES.get(self.id, "UNKNOWN RESOURCE")
+        self.tracker: TrackerEntry | None = None
+
+    def __hash__(self):
+        return hash(self.id)
+
+    def __eq__(self, value):
+        if not isinstance(value, type(self)):
+            return False
+        return self.id == value.id
 
 
 class GalacticWarEffect(GWEReprMixin):

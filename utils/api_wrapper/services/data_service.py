@@ -239,3 +239,13 @@ class DataService(ReprMixin):
                             key=(ta.id, cost.item)
                         )
                     )
+
+        # global resource rates
+        if self.formatted_data.global_resources:
+            for gr in self.formatted_data.global_resources:
+                self.tracking_service.global_resource_changes.add_entry(
+                    key=gr.id, value=gr.perc
+                )
+                gr.tracker = self.tracking_service.global_resource_changes.get_entry(
+                    key=gr.id
+                )

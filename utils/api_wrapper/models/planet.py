@@ -154,7 +154,7 @@ class Planet(ReprMixin):
             self.potential_buildup: int = 0
 
         def __hash__(self):
-            return hash((self.id))
+            return hash(self.id)
 
         def __eq__(self, value):
             if not isinstance(value, type(self)):
