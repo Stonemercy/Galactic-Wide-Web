@@ -897,12 +897,26 @@ class Dashboard:
             field_name = self._add_difficulty_info(text=field_name, task=task)
             field_name = self._remove_empty_tags(text=field_name)
 
+            if self.assignment.flags in (2, 3):
+                task_index = self.assignment.tasks.index(task)
+                field_name = self._add_option_number(
+                    text=field_name, task_index=task_index
+                )
+
             field_value = ""
             if task.progress_perc < 1:
                 if task.target > 1:
                     progress = ""
-                    if task.tracker and task.tracker.change_rate_per_hour > 0.1:
-                        progress = f"`+{task.tracker.change_rate_per_hour:^25,.1%}/hr`"
+                    if task.tracker and task.tracker.change_rate_per_hour > 0.001:
+                        progress = (
+                            f"\n`{f'{task.tracker.change_rate_per_hour:+.1%}/hr':^25}`"
+                        )
+                        if task.tracker.complete_time < max(
+                            self.assignment.ends_at_datetime,
+                            datetime.now() + timedelta(weeks=2),
+                        ):
+                            progress += f"\n-# Complete <t:{int(task.tracker.complete_time.timestamp())}:R>"
+
                     field_value += (
                         f"-# Progress: **{short_format(task.progress)}/{short_format(task.target)}**"
                         f"\n{task.health_bar}"
@@ -911,12 +925,6 @@ class Dashboard:
                     )
                 else:
                     field_value += f"-# Progress: **{task.progress}/{task.target}**"
-
-            if self.assignment.flags in (2, 3):
-                task_index = self.assignment.tasks.index(task)
-                field_name = self._add_option_number(
-                    text=field_name, task_index=task_index
-                )
 
             self.add_field(field_name, field_value, inline=False)
 
