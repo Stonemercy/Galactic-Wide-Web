@@ -50,6 +50,7 @@ class DSSCog(commands.Cog):
         embed = DSSEmbed(
             language_json=guild_language,
             dss_data=self.bot.data.formatted_data.dss,
+            next_vote_campaigns=self.bot.data.formatted_data.campaigns[:8],
         )
         await inter.send(embed=embed)
 

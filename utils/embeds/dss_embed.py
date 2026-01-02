@@ -1,7 +1,7 @@
 from data.lists import CUSTOM_COLOURS
 from datetime import datetime
 from disnake import Colour, Embed
-from utils.api_wrapper.models import DSS
+from utils.api_wrapper.models import DSS, Campaign
 from utils.emojis import Emojis
 from utils.functions import health_bar
 from utils.mixins import EmbedReprMixin
@@ -20,6 +20,7 @@ class DSSEmbed(Embed, EmbedReprMixin):
         self,
         language_json: dict,
         dss_data: DSS,
+        next_vote_campaigns: list[Campaign],
     ):
         super().__init__(
             title=language_json["wiki"]["embeds"]["DSSEmbed"]["title"],
@@ -111,3 +112,10 @@ class DSSEmbed(Embed, EmbedReprMixin):
             ):
                 votes_text += f"\n-# #{index} - {planet_votes_dict[0].faction.emoji} {planet_votes_dict[0].loc_names[language_json['code_long']]} - ({(planet_votes_dict[1]/dss_data.votes.total_votes):.0%})"
             self.add_field("", votes_text, inline=False)
+
+            predicted_field_value = ""
+            for i, c in enumerate(next_vote_campaigns, start=1):
+                predicted_field_value += f"\n-# #{i} - {c.faction.emoji} {c.planet.loc_names[language_json['code_long']]} - {c.planet.stats.player_count:,} Heroes"
+            self.add_field(
+                "Predicted next voting period", predicted_field_value, inline=False
+            )
