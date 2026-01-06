@@ -1628,7 +1628,7 @@ class Dashboard:
                         global_resource.tracker
                         and global_resource.tracker.change_rate_per_hour != 0
                     ):
-                        field_value += f"\n`{f'{global_resource.tracker.change_rate_per_hour:+.2%}':^25}`"
+                        field_value += f"\n`{f'{global_resource.tracker.change_rate_per_hour:+.2%}/hr':^25}`"
                     self.add_field("", field_value)
 
     class DefenceEmbed(Embed, EmbedReprMixin):
