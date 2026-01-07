@@ -23,24 +23,22 @@ class DSSEmbed(Embed, EmbedReprMixin):
         next_vote_campaigns: list[Campaign],
     ):
         super().__init__(
-            title=language_json["wiki"]["embeds"]["DSSEmbed"]["title"],
+            title=language_json["embeds"]["DSSEmbed"]["title"],
             colour=Colour.from_rgb(*CUSTOM_COLOURS["DSS"]),
         )
         if dss_data.flags == 2:
             self.add_field("The DSS is currently unavailable.", "")
             self.colour = Colour.brand_red()
             return
-        self.description = language_json["wiki"]["embeds"]["DSSEmbed"][
-            "stationed_at"
-        ].format(
+        self.description = language_json["embeds"]["DSSEmbed"]["stationed_at"].format(
             planet=dss_data.planet.loc_names[language_json["code_long"]],
             faction_emoji=getattr(
                 Emojis.Factions, dss_data.planet.faction.full_name.lower()
             ),
         )
-        self.description += language_json["wiki"]["embeds"]["DSSEmbed"][
-            "next_move"
-        ].format(timestamp=f"<t:{int(dss_data.move_timer_datetime.timestamp())}:R>")
+        self.description += language_json["embeds"]["DSSEmbed"]["next_move"].format(
+            timestamp=f"<t:{int(dss_data.move_timer_datetime.timestamp())}:R>"
+        )
         self.set_thumbnail(
             "https://media.discordapp.net/attachments/1212735927223590974/1413612410819969114/0xfbbeedfa99b09fec.png?ex=68bc90a6&is=68bb3f26&hm=cd8bf236a355bbed28f4847d3d62b5908d050a7eeb7396bb9a891e108acc0241&=&format=webp&quality=lossless"
         ).set_image(
@@ -77,14 +75,12 @@ class DSSEmbed(Embed, EmbedReprMixin):
                         f"{change_text}"
                     )
             elif status == "active":
-                cost = f"{language_json['wiki']['embeds']['DSSEmbed']['on_cooldown'].capitalize()} <t:{int(tactical_action.status_end_datetime.timestamp())}:R>"
+                cost = f"{language_json['embeds']['DSSEmbed']['on_cooldown'].capitalize()} <t:{int(tactical_action.status_end_datetime.timestamp())}:R>"
             elif status == "on_cooldown":
-                cost = f"{language_json['wiki']['embeds']['DSSEmbed']['preparing'].capitalize()} <t:{int(tactical_action.status_end_datetime.timestamp())}:R>"
+                cost = f"{language_json['embeds']['DSSEmbed']['preparing'].capitalize()} <t:{int(tactical_action.status_end_datetime.timestamp())}:R>"
             else:
                 continue
-            localized_ta = language_json["wiki"]["embeds"]["DSSEmbed"][
-                "tactical_actions"
-            ].get(
+            localized_ta = language_json["embeds"]["DSSEmbed"]["tactical_actions"].get(
                 tactical_action.name,
                 {
                     "name": tactical_action.name,
@@ -94,7 +90,7 @@ class DSSEmbed(Embed, EmbedReprMixin):
             self.add_field(
                 f"{tactical_action.emoji} {localized_ta['name']}",
                 (
-                    f"{language_json['wiki']['embeds']['DSSEmbed']['status']}: **{language_json['wiki']['embeds']['DSSEmbed'][status].capitalize()}**"
+                    f"{language_json['embeds']['DSSEmbed']['status']}: **{language_json['embeds']['DSSEmbed'][status].capitalize()}**"
                     f"\n{localized_ta['description']}"
                     f"\n{cost}\n\u200b\n"
                 ),

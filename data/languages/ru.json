@@ -271,6 +271,37 @@
                 "festival_of_reckoning": "GWW поздравляет вас с счастливым праздником расплаты",
                 "new_year": "GWW поздравляет вас с наступающим Новым годом"
             }
+        },
+        "DSSEmbed": {
+            "title": "Демократическая Космическая Станция",
+            "stationed_at": "Располагается на планете **{planet}** {faction_emoji}\n",
+            "next_move": "Следующее перемещение {timestamp}",
+            "item_pluralized": "{item}",
+            "ends": "Заканчивается",
+            "preparing": "готовится к использованию",
+            "active": "активно",
+            "inactive": "неактивно",
+            "on_cooldown": "на перезарядке",
+            "off_cooldown": "перезаряжено",
+            "status": "Статус",
+            "tactical_actions": {
+                "EAGLE STORM": {
+                    "name": "БУРЯ ОРЛА",
+                    "description": "-# Периодически выполняет стратагему **Орёл: бреющий полёт** во время заданий.\n-# Замедляет прогресс врага в **оборонительных кампаниях**."
+                },
+                "ORBITAL BLOCKADE": {
+                    "name": "ОРБИТАЛЬНАЯ БЛОКАДА",
+                    "description": "-# **Оборонительные кампании** не могут начинаться с этой планеты.\n-# Усилитель **ОПТИМИЗАЦИЯ МЕСТА В АДСКОЙ КАПСУЛЕ** автоматически активируется для всех заданий."
+                },
+                "HEAVY ORDNANCE DISTRIBUTION": {
+                    "name": "РАСПРЕДЕЛЕНИЕ СНАРЯДОВ ДЛЯ ТЯЖЁЛОЙ АРТИЛЛЕРИИ",
+                    "description": "-# Открывает доступ к стратагеме **Орбитальный залп 380-мм ОФ** во время заданий.\n-# Ускоряет прогресс в **освободительных кампаниях**."
+                },
+                "EAGLE BLOCKADE": {
+                    "name": "БЛОКАДА ОРЛА",
+                    "description": "-# Периодически выполняет стратагему **Орёл: бреющий полёт** во время заданий.\n-# Усилитель **ОПТИМИЗАЦИЯ МЕСТА В АДСКОЙ КАПСУЛЕ** автоматически активируется для всех заданий."
+                }
+            }
         }
     },
     "ends": "Заканчивается",
@@ -335,187 +366,6 @@
         "8": "Невозможная",
         "9": "Прямо в ад",
         "10": "Мега-ад"
-    },
-    "wiki": {
-        "buttons": {
-            "WikiGGButton": {
-                "label": "Helldivers Вики"
-            },
-            "MainMenuButton": {
-                "label": "Главное меню"
-            },
-            "DSSButton": {
-                "label": "ДКС"
-            },
-            "EnemiesHomeButton": {
-                "label": "Враги"
-            },
-            "WarbondButton": {
-                "label": "Боевые заслуги"
-            },
-            "EquipmentHomeButton": {
-                "label": "Снаряжение"
-            },
-            "WarbondPreviousPageButton": {
-                "label": "Предыдущая страница"
-            },
-            "WarbondNextPageButton": {
-                "label": "Следующая страница"
-            },
-            "WeaponsHomeButton": {
-                "label": "Оружие"
-            },
-            "PrimaryWeaponsButton": {
-                "label": "Основное"
-            },
-            "SecondaryWeaponsButton": {
-                "label": "Дополнительное"
-            },
-            "GrenadesButton": {
-                "label": "Гранаты"
-            },
-            "BoostersButton": {
-                "label": "Усилители"
-            },
-            "StratagemsButton": {
-                "label": "Стратагемы"
-            }
-        },
-        "embeds": {
-            "WikiHomeEmbed": {
-                "title": "Добро пожаловать на GWW Вики",
-                "dss_name": "Демократическая космическая станция",
-                "dss_value": "Узнайте больше о ДКС по ссылке на Helldivers Companion и the Helldivers Wiki.",
-                "enemies_name": "Враги",
-                "enemies_value": "Узнайте больше о врагах демократии:\n-# - Автоматоны\n-# - Иллюминаты\n-# - Терминиды",
-                "warbonds_name": "Боевые заслуги",
-                "warbonds_value": "Узнайте больше о доступных на данный момент боевых заслугах.",
-                "equipment_name": "Снаряжение",
-                "equipment_value": "Узнайте больше о:\n-# - Оружиях\n-# - Усилителях\n-# - Стратагемах"
-            },
-            "DSSEmbed": {
-                "title": "Демократическая Космическая Станция",
-                "stationed_at": "Располагается на планете **{planet}** {faction_emoji}\n",
-                "next_move": "Следующее перемещение {timestamp}",
-                "item_pluralized": "{item}",
-                "ends": "Заканчивается",
-                "preparing": "готовится к использованию",
-                "active": "активно",
-                "inactive": "неактивно",
-                "on_cooldown": "на перезарядке",
-                "off_cooldown": "перезаряжено",
-                "status": "Статус",
-                "tactical_actions": {
-                    "EAGLE STORM": {
-                        "name": "БУРЯ ОРЛА",
-                        "description": "-# Периодически выполняет стратагему **Орёл: бреющий полёт** во время заданий.\n-# Замедляет прогресс врага в **оборонительных кампаниях**."
-                    },
-                    "ORBITAL BLOCKADE": {
-                        "name": "ОРБИТАЛЬНАЯ БЛОКАДА",
-                        "description": "-# **Оборонительные кампании** не могут начинаться с этой планеты.\n-# Усилитель **ОПТИМИЗАЦИЯ МЕСТА В АДСКОЙ КАПСУЛЕ** автоматически активируется для всех заданий."
-                    },
-                    "HEAVY ORDNANCE DISTRIBUTION": {
-                        "name": "РАСПРЕДЕЛЕНИЕ СНАРЯДОВ ДЛЯ ТЯЖЁЛОЙ АРТИЛЛЕРИИ",
-                        "description": "-# Открывает доступ к стратагеме **Орбитальный залп 380-мм ОФ** во время заданий.\n-# Ускоряет прогресс в **освободительных кампаниях**."
-                    },
-                    "EAGLE BLOCKADE": {
-                        "name": "БЛОКАДА ОРЛА",
-                        "description": "-# Периодически выполняет стратагему **Орёл: бреющий полёт** во время заданий.\n-# Усилитель **ОПТИМИЗАЦИЯ МЕСТА В АДСКОЙ КАПСУЛЕ** автоматически активируется для всех заданий."
-                    }
-                }
-            },
-            "EnemyHomeEmbed": {
-                "title": "Выберите фракцию, которую вы ищете"
-            },
-            "EnemyPageEmbed": {
-                "introduced": "Представлены",
-                "difficulty": "Сложность",
-                "tactics": "Тактики",
-                "weak_spots": "Слабые места",
-                "variations": "Вариации"
-            },
-            "WarbondEmbed": {
-                "page": "Страница",
-                "cost_to_unlock": "Стоит для открытия заслуги",
-                "medals_to_unlock": "Медалей, чтобы открыть страницу",
-                "type": "Тип",
-                "armor": "Броня",
-                "primary": "Основное",
-                "secondary": "Дополнительное",
-                "grenade": "Граната",
-                "emote": "Эмоция",
-                "victory_pose": "Победная поза",
-                "player_card": "Карточка игрока",
-                "booster": "Усилитель",
-                "title": "Титул",
-                "stratagem_permit": "Разрешение на использование стартагемы",
-                "slot": "Слот",
-                "armor_rating": "Рейтинг брони",
-                "speed": "Скорость",
-                "stamina_regen": "Восстановление выносливости",
-                "passive": "Пассивная способность",
-                "medal_cost": "Стоимость в медалях",
-                "weapon_type": "Тип оружия",
-                "damage": "Урон",
-                "capacity": "Вместимость",
-                "recoil": "Отдача",
-                "fire_rate": "Огнестрельность",
-                "penetration": "Пробивная способность",
-                "radius": "Радиус",
-                "fuse_time": "Время активации"
-            },
-            "EquipmentHomeEmbed": {
-                "title": "Выберите тип снаряжения, который вам необходим",
-                "weapons_name": "Оружия",
-                "weapons_value": "Включает информацию о:\n-# - Основных орудиях\n-# - Дополнительных орудиях\n-# - Гранатах",
-                "boosters_name": "Усилители",
-                "boosters_value": "Информация о усилителях.",
-                "stratagems_name": "Стратагемы",
-                "stratagems_value": "Информация о всех доступных стартагемах."
-            },
-            "WeaponsHomeEmbed": {
-                "title": "Выберите тип орудия, который вам необходим",
-                "primary_weapons_name": "Основные орудия",
-                "primary_weapons_value": "Информация о всех основных орудиях.",
-                "secondary_weapons_name": "Дополнительные орудия",
-                "secondary_weapons_value": "Информация о всех дополнительных орудиях.",
-                "grenades_name": "Гранаты",
-                "grenades_value": "Информация о всех доступных гранатах."
-            },
-            "PrimaryWeaponsEmbed": {
-                "constant_fire": "{number} секунд беспрерывного огня",
-                "information_title": "Информация",
-                "type": "Тип: **`{type}`**\n",
-                "damage": "Урон: **`{damage}`**\n",
-                "fire_rate": "Скорострельность: **`{fire_rate}rpm`**\n",
-                "dps": "Урон в секунду: **`{dps}/s`**\n",
-                "capacity": "Вместимость: **`{capacity}`**\n",
-                "fire_modes": "Режим стрельбы:{fire_modes}\n",
-                "features": "Особенности:{features}"
-            },
-            "SecondaryWeaponsEmbed": {
-                "constant_fire": "{number} секунд беспрерывного огня",
-                "information_title": "Информация",
-                "damage": "Урон: **`{damage}`**\n",
-                "fire_rate": "Скорострельность: **`{fire_rate}rpm`**\n",
-                "dps": "Урон в секунду: **`{dps}/s`**\n",
-                "capacity": "Вместимость: **`{capacity}`**\n",
-                "fire_modes": "Режим стрельбы:{fire_modes}\n",
-                "features": "Особенности:{features}"
-            },
-            "GrenadesEmbed": {
-                "information_title": "Информация",
-                "damage": "Урон: **`{damage}`**\n",
-                "fuse_time": "Время активации: **`{fuse_time} seconds`**\n",
-                "penetration": "Пробивная способность: **`{penetration}`**\n",
-                "radius": "Радиус: **`{radius}`**"
-            },
-            "StratagemsEmbed": {
-                "key_input": "Комбинация",
-                "uses": "Количество использований",
-                "cooldown": "Перезарядка"
-            }
-        }
     },
     "currencies": {
         "Unknown Item": "Неизвестный предмет",

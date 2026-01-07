@@ -271,6 +271,37 @@
                 "festival_of_reckoning": "La GWW te desea un feliz Festival del Ajuste de Cuentas",
                 "new_year": "La GWW te desea un feliz Año Nuevo"
             }
+        },
+        "DSSEmbed": {
+            "title": "Estación Espacial de la Democracia",
+            "stationed_at": "Estacionado en **{planet}** {faction_emoji}\n",
+            "next_move": "Moviéndose {timestamp}",
+            "item_pluralized": "{item}s",
+            "ends": "Termina",
+            "preparing": "Preparando",
+            "active": "activo",
+            "inactive": "Inactivo",
+            "on_cooldown": "en recarga",
+            "off_cooldown": "fuera de recarga",
+            "status": "Estado",
+            "tactical_actions": {
+                "EAGLE STORM": {
+                    "name": "TORMENTA DE ÁGUILA",
+                    "description": "-# Despliega **Ataques Aéreos de Águila** periódicos durante las misiones.\n-# Detiene el progreso enemigo en **Campañas de Defensa**."
+                },
+                "ORBITAL BLOCKADE": {
+                    "name": "BLOQUEO ORBITAL",
+                    "description": "-# **Las Campañas de Defensa** no pueden originarse desde este planeta.\n-# El Potenciador de **OPTIMIZACIÓN DEL ESPACIO DE LA CÁPSULA HELL** está automáticamente activo para todas las misiones."
+                },
+                "HEAVY ORDNANCE DISTRIBUTION": {
+                    "name": "DISTRIBUCIÓN DE ARTILLERÍA PESADA",
+                    "description": "-# Da acceso a la estratagema de **Bombardeo HE Orbital de 380mm** durante las misiones.\n-# Acelera el progreso en **Campañas de Liberación**."
+                },
+                "EAGLE BLOCKADE": {
+                    "name": "BLOQUEO DE ÁGUILA",
+                    "description": "-# Despliega **Pasadas de Ataque de Águila** periódicas durante las misiones.\n-# El Potenciador de **OPTIMIZACIÓN DEL ESPACIO DE LA CÁPSULA HELL** está automáticamente activo para todas las misiones."
+                }
+            }
         }
     },
     "ends": "Termina",
@@ -335,187 +366,6 @@
         "8": "Imposible",
         "9": "Buceo Infernal",
         "10": "Súper Buceo Infernal"
-    },
-    "wiki": {
-        "buttons": {
-            "WikiGGButton": {
-                "label": "Wiki Helldivers"
-            },
-            "MainMenuButton": {
-                "label": "Menú Principal"
-            },
-            "DSSButton": {
-                "label": "EED"
-            },
-            "EnemiesHomeButton": {
-                "label": "Enemigos"
-            },
-            "WarbondButton": {
-                "label": "Bonos de Guerra"
-            },
-            "EquipmentHomeButton": {
-                "label": "Equipamiento"
-            },
-            "WarbondPreviousPageButton": {
-                "label": "Página Anterior"
-            },
-            "WarbondNextPageButton": {
-                "label": "Página Siguiente"
-            },
-            "WeaponsHomeButton": {
-                "label": "Armas"
-            },
-            "PrimaryWeaponsButton": {
-                "label": "Principal"
-            },
-            "SecondaryWeaponsButton": {
-                "label": "Secundaria"
-            },
-            "GrenadesButton": {
-                "label": "Granadas"
-            },
-            "BoostersButton": {
-                "label": "Potenciadores"
-            },
-            "StratagemsButton": {
-                "label": "Estratagemas"
-            }
-        },
-        "embeds": {
-            "WikiHomeEmbed": {
-                "title": "Bienvenido a la Wiki de GWW",
-                "dss_name": "Estación Espacial de la Democracia",
-                "dss_value": "Aprende más sobre la EED, con enlaces al Compañero Helldivers y la Wiki Helldivers.",
-                "enemies_name": "Enemigos",
-                "enemies_value": "Descubre detalles sobre los enemigos de la Democracia:\n-# - Autómatas\n-# - Iluminados\n-# - Termínidos",
-                "warbonds_name": "Bonos de Guerra",
-                "warbonds_value": "Explora información sobre todos los Bonos de Guerra actualmente disponibles.",
-                "equipment_name": "Equipamiento",
-                "equipment_value": "Encuentra detalles sobre:\n-# - Armas\n-# - Potenciadores\n-# - Estratagemas"
-            },
-            "DSSEmbed": {
-                "title": "Estación Espacial de la Democracia",
-                "stationed_at": "Estacionado en **{planet}** {faction_emoji}\n",
-                "next_move": "Moviéndose {timestamp}",
-                "item_pluralized": "{item}s",
-                "ends": "Termina",
-                "preparing": "Preparando",
-                "active": "activo",
-                "inactive": "Inactivo",
-                "on_cooldown": "en recarga",
-                "off_cooldown": "fuera de recarga",
-                "status": "Estado",
-                "tactical_actions": {
-                    "EAGLE STORM": {
-                        "name": "TORMENTA DE ÁGUILA",
-                        "description": "-# Despliega **Ataques Aéreos de Águila** periódicos durante las misiones.\n-# Detiene el progreso enemigo en **Campañas de Defensa**."
-                    },
-                    "ORBITAL BLOCKADE": {
-                        "name": "BLOQUEO ORBITAL",
-                        "description": "-# **Las Campañas de Defensa** no pueden originarse desde este planeta.\n-# El Potenciador de **OPTIMIZACIÓN DEL ESPACIO DE LA CÁPSULA HELL** está automáticamente activo para todas las misiones."
-                    },
-                    "HEAVY ORDNANCE DISTRIBUTION": {
-                        "name": "DISTRIBUCIÓN DE ARTILLERÍA PESADA",
-                        "description": "-# Da acceso a la estratagema de **Bombardeo HE Orbital de 380mm** durante las misiones.\n-# Acelera el progreso en **Campañas de Liberación**."
-                    },
-                    "EAGLE BLOCKADE": {
-                        "name": "BLOQUEO DE ÁGUILA",
-                        "description": "-# Despliega **Pasadas de Ataque de Águila** periódicas durante las misiones.\n-# El Potenciador de **OPTIMIZACIÓN DEL ESPACIO DE LA CÁPSULA HELL** está automáticamente activo para todas las misiones."
-                    }
-                }
-            },
-            "EnemyHomeEmbed": {
-                "title": "Selecciona la facción que estás buscando"
-            },
-            "EnemyPageEmbed": {
-                "introduced": "Introducido",
-                "difficulty": "Dificultad",
-                "tactics": "Tácticas",
-                "weak_spots": "Puntos débiles",
-                "variations": "Variaciones"
-            },
-            "WarbondEmbed": {
-                "page": "Página",
-                "cost_to_unlock": "Coste para desbloquear el bono de guerra",
-                "medals_to_unlock": "Medallas para desbloquear la página",
-                "type": "Tipo",
-                "armor": "Armadura",
-                "primary": "Principal",
-                "secondary": "Secundaria",
-                "grenade": "Granada",
-                "emote": "Gesto",
-                "victory_pose": "Pose de victoria",
-                "player_card": "Tarjeta de jugador",
-                "booster": "Potenciador",
-                "title": "Título",
-                "stratagem_permit": "Permiso de estratagema",
-                "slot": "Ranura",
-                "armor_rating": "Clasificación de armadura",
-                "speed": "Velocidad",
-                "stamina_regen": "Regeneración de resistencia",
-                "passive": "Pasiva",
-                "medal_cost": "Coste en medallas",
-                "weapon_type": "Tipo de arma",
-                "damage": "Daño",
-                "capacity": "Capacidad",
-                "recoil": "Retroceso",
-                "fire_rate": "Cadencia de fuego",
-                "penetration": "Penetración",
-                "radius": "Radio",
-                "fuse_time": "Tiempo de detonación"
-            },
-            "EquipmentHomeEmbed": {
-                "title": "Selecciona el tipo de equipamiento que quieres explorar",
-                "weapons_name": "Armas",
-                "weapons_value": "Incluye información sobre:\n-# - Armas Principales\n-# - Armas Secundarias\n-# - Granadas",
-                "boosters_name": "Potenciadores",
-                "boosters_value": "Detalles sobre todos los potenciadores disponibles.",
-                "stratagems_name": "Estratagemas",
-                "stratagems_value": "Información sobre todas las estratagemas disponibles."
-            },
-            "WeaponsHomeEmbed": {
-                "title": "Selecciona el tipo de arma que quieres explorar",
-                "primary_weapons_name": "Armas Principales",
-                "primary_weapons_value": "Detalles sobre todas las armas principales disponibles.",
-                "secondary_weapons_name": "Armas Secundarias",
-                "secondary_weapons_value": "Detalles sobre todas las armas secundarias disponibles.",
-                "grenades_name": "Granadas",
-                "grenades_value": "Información sobre todas las granadas disponibles."
-            },
-            "PrimaryWeaponsEmbed": {
-                "constant_fire": "{number} segundos de fuego constante",
-                "information_title": "Información",
-                "type": "Tipo: **`{type}`**\n",
-                "damage": "Daño: **`{damage}`**\n",
-                "fire_rate": "Cadencia de fuego: **`{fire_rate}rpm`**\n",
-                "dps": "DPS: **`{dps}/s`**\n",
-                "capacity": "Capacidad: **`{capacity}`**\n",
-                "fire_modes": "Modos de disparo:{fire_modes}\n",
-                "features": "Características:{features}"
-            },
-            "SecondaryWeaponsEmbed": {
-                "constant_fire": "{number} segundos de fuego constante",
-                "information_title": "Información",
-                "damage": "Daño: **`{damage}`**\n",
-                "fire_rate": "Cadencia de fuego: **`{fire_rate}rpm`**\n",
-                "dps": "DPS: **`{dps}/s`**\n",
-                "capacity": "Capacidad: **`{capacity}`**\n",
-                "fire_modes": "Modos de disparo:{fire_modes}\n",
-                "features": "Características:{features}"
-            },
-            "GrenadesEmbed": {
-                "information_title": "Información",
-                "damage": "Daño: **`{damage}`**\n",
-                "fuse_time": "Tiempo de detonación: **`{fuse_time} segundos`**\n",
-                "penetration": "Penetración: **`{penetration}`**\n",
-                "radius": "Radio: **`{radius}`**"
-            },
-            "StratagemsEmbed": {
-                "key_input": "Entrada de clave",
-                "uses": "Usos",
-                "cooldown": "Tiempo de recarga"
-            }
-        }
     },
     "currencies": {
         "Unknown Item": "Artículo Desconocido",
