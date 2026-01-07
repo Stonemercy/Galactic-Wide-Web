@@ -1613,23 +1613,20 @@ class Dashboard:
 
     class GlobalResourceEmbed(Embed, EmbedReprMixin):
         def __init__(self, global_resource: GlobalResource):
-            super().__init__(title=global_resource.name)
-            match global_resource.id:
-                case 1754540810:
-                    self.color = Colour.yellow()
-                    field_value = health_bar(
-                        perc=global_resource.perc,
-                        faction="MO",
-                        anim=global_resource.tracker.change_rate_per_hour != 0,
-                        increasing=global_resource.tracker.change_rate_per_hour > 0,
-                    )
-                    field_value += f"\n`{f'{global_resource.perc:.2%}':^25}`"
-                    if (
-                        global_resource.tracker
-                        and global_resource.tracker.change_rate_per_hour != 0
-                    ):
-                        field_value += f"\n`{f'{global_resource.tracker.change_rate_per_hour:+.2%}/hr':^25}`"
-                    self.add_field("", field_value)
+            super().__init__(
+                title=global_resource.name or "Unknown Resource",
+                description=global_resource.description,
+                colour=global_resource.embed_colour,
+            )
+
+            field_value = global_resource.get_health_bar
+            field_value += f"\n`{f'{global_resource.perc:.2%}':^25}`"
+            if (
+                global_resource.tracker
+                and global_resource.tracker.change_rate_per_hour != 0
+            ):
+                field_value += f"\n`{f'{global_resource.tracker.change_rate_per_hour:+.2%}/hr':^25}`"
+            self.add_field("", field_value)
 
     class DefenceEmbed(Embed, EmbedReprMixin):
         def __init__(

@@ -1,16 +1,23 @@
+from disnake import Colour
 from ...mixins import GWEReprMixin, ReprMixin
 from ...dataclasses import Faction, Factions
 from ...functions import dispatch_format
+from ...functions.health_bar import health_bar
 from ..services.tracking_service import TrackerEntry
 from data.lists import stratagem_id_dict
 
-KNOWN_GLOBAL_RESOURCES = {
-    1754540810: "ACQUIRED E-711",
-}
-
 
 class GlobalResource(ReprMixin):
-    __slots__ = ("id", "current_value", "max_value", "perc")
+    __slots__ = (
+        "id",
+        "current_value",
+        "max_value",
+        "perc",
+        "tracker",
+        "name",
+        "description",
+        "embed_colour",
+    )
 
     def __init__(self, raw_global_resource_data: dict) -> None:
         """Organised data of a global resource"""
@@ -18,8 +25,11 @@ class GlobalResource(ReprMixin):
         self.current_value: int = raw_global_resource_data["currentValue"]
         self.max_value: int = raw_global_resource_data["maxValue"]
         self.perc: float = self.current_value / self.max_value
-        self.name = KNOWN_GLOBAL_RESOURCES.get(self.id, "UNKNOWN RESOURCE")
         self.tracker: TrackerEntry | None = None
+        self.name: str = ""
+        self.description: str = ""
+        self.embed_colour: Colour = Colour.dark_embed()
+        self.health_bar_colour: Faction | str = Factions.humans
 
     def __hash__(self):
         return hash(self.id)
@@ -28,6 +38,45 @@ class GlobalResource(ReprMixin):
         if not isinstance(value, type(self)):
             return False
         return self.id == value.id
+
+    @property
+    def get_health_bar(self):
+        return health_bar(
+            perc=self.perc,
+            faction=self.health_bar_colour,
+            anim=(
+                True
+                if self.tracker and self.tracker.change_rate_per_hour != 0
+                else False
+            ),
+            increasing=(
+                True
+                if self.tracker and self.tracker.change_rate_per_hour > 0
+                else False
+            ),
+        )
+
+    @staticmethod
+    def from_id(raw_gr_data: dict):
+        return GLOBAL_RESOURCES_DICT.get(raw_gr_data["id32"], GlobalResource)(
+            raw_global_resource_data=raw_gr_data
+        )
+
+
+class AcquiredE711(GlobalResource):
+    def __init__(self, raw_global_resource_data):
+        super().__init__(raw_global_resource_data=raw_global_resource_data)
+        self.name = "ACQUIRED E-711"
+        self.description = (
+            "E-711 is being used to synthesize Dark Fluid to fire the Star of Peace"
+        )
+        self.embed_colour = Colour.yellow()
+        self.health_bar_colour = "MO"
+
+
+GLOBAL_RESOURCES_DICT = {
+    1754540810: AcquiredE711,
+}
 
 
 class GalacticWarEffect(GWEReprMixin):

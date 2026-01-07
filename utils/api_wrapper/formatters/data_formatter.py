@@ -201,7 +201,7 @@ class FormattedData:
 
             for global_resource in context.war_status["en"]["globalResources"]:
                 self.global_resources.append(
-                    GlobalResource(raw_global_resource_data=global_resource)
+                    GlobalResource.from_id(raw_gr_data=global_resource)
                 )
 
         if context.news_feed.get("en"):
