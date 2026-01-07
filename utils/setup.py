@@ -5,73 +5,79 @@ from utils.emojis import Emojis
 
 
 class Setup:
-    class Dashboard:
-        class SetDashboardButton(Button):
-            def __init__(self, container_json: dict):
+    class HomeButton(Button):
+        def __init__(self):
+            super().__init__(
+                style=ButtonStyle.green,
+                label="Home",
+                emoji="🏠",
+                custom_id="setup_home_button",
+            )
+
+    class Dashboards:
+        class DashboardsButton(Button):
+            def __init__(self):
                 super().__init__(
-                    style=ButtonStyle.green,
-                    label=container_json["set_feature"].format(
-                        feature=container_json["dashboard_title"]
-                    ),
-                    custom_id="set_dashboard_button",
+                    style=ButtonStyle.gray,
+                    label="Dashboards",
+                    custom_id="dashboards_button",
                 )
 
-        class ClearDashboardButton(Button):
-            def __init__(self, container_json: dict):
-                super().__init__(
-                    style=ButtonStyle.red,
-                    label=container_json["clear_feature"].format(
-                        feature=container_json["dashboard_title"]
-                    ),
-                    custom_id="clear_dashboard_button",
-                )
+        class Dashboard:
+            class ClearDashboardButton(Button):
+                def __init__(self, container_json: dict):
+                    super().__init__(
+                        style=ButtonStyle.red,
+                        label=container_json["clear_feature"].format(
+                            feature=container_json["dashboard_title"]
+                        ),
+                        custom_id="clear_dashboard_button",
+                    )
 
-        class DashboardChannelSelect(ChannelSelect):
-            def __init__(self, container_json: dict):
-                super().__init__(
-                    custom_id="dashboard_channel_select",
-                    placeholder=container_json["dashboard_channel_select"],
-                    channel_types=[
-                        ChannelType.text,
-                        ChannelType.news,
-                        ChannelType.public_thread,
-                    ],
-                )
+            class DashboardChannelSelect(ChannelSelect):
+                def __init__(self, container_json: dict):
+                    super().__init__(
+                        custom_id="dashboard_channel_select",
+                        placeholder=container_json["dashboard_channel_select"],
+                        channel_types=[
+                            ChannelType.text,
+                            ChannelType.news,
+                            ChannelType.public_thread,
+                        ],
+                    )
 
-    class Map:
-        class SetMapButton(Button):
-            def __init__(self, container_json: dict):
-                super().__init__(
-                    style=ButtonStyle.green,
-                    label=container_json["set_feature"].format(
-                        feature=container_json["map_title"]
-                    ),
-                    custom_id="set_map_button",
-                )
+        class Map:
+            class ClearMapButton(Button):
+                def __init__(self, container_json: dict):
+                    super().__init__(
+                        style=ButtonStyle.red,
+                        label=container_json["clear_feature"].format(
+                            feature=container_json["map_title"]
+                        ),
+                        custom_id="clear_map_button",
+                    )
 
-        class ClearMapButton(Button):
-            def __init__(self, container_json: dict):
-                super().__init__(
-                    style=ButtonStyle.red,
-                    label=container_json["clear_feature"].format(
-                        feature=container_json["map_title"]
-                    ),
-                    custom_id="clear_map_button",
-                )
-
-        class MapChannelSelect(ChannelSelect):
-            def __init__(self, container_json: dict):
-                super().__init__(
-                    custom_id="map_channel_select",
-                    placeholder=container_json["map_channel_select"],
-                    channel_types=[
-                        ChannelType.text,
-                        ChannelType.news,
-                        ChannelType.public_thread,
-                    ],
-                )
+            class MapChannelSelect(ChannelSelect):
+                def __init__(self, container_json: dict):
+                    super().__init__(
+                        custom_id="map_channel_select",
+                        placeholder=container_json["map_channel_select"],
+                        channel_types=[
+                            ChannelType.text,
+                            ChannelType.news,
+                            ChannelType.public_thread,
+                        ],
+                    )
 
     class Features:
+        class FeaturesButton(Button):
+            def __init__(self):
+                super().__init__(
+                    style=ButtonStyle.gray,
+                    label="Features",
+                    custom_id="features_button",
+                )
+
         class SetFeatureButton(Button):
             def __init__(self, feature_type: str, container_json: dict):
                 super().__init__(

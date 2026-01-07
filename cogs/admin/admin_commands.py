@@ -36,7 +36,9 @@ class AdminCommandsCog(commands.Cog):
     async def force_update_feature(
         self,
         inter: AppCmdInter,
-        feature: str = commands.Param(choices=["Dashboard", "Map", "MO Update"]),
+        feature: str = commands.Param(
+            choices=["Dashboard", "Map", "MO Update", "PO Update"]
+        ),
     ) -> None:
         await inter.response.defer(ephemeral=True)
         self.bot.logger.critical(
@@ -49,6 +51,8 @@ class AdminCommandsCog(commands.Cog):
                 await self.bot.get_cog(name="MapCog").map_poster()
             case "MO Update":
                 await self.bot.get_cog(name="MajorOrderCog").major_order_updates()
+            case "PO Update":
+                await self.bot.get_cog(name="PersonalOrderCog").personal_order_updates()
         await inter.send(content="Completed", ephemeral=True)
 
     def extension_names_autocomp(inter: AppCmdInter, user_input: str) -> list[str]:

@@ -310,6 +310,7 @@ class GWWGuilds(list[GWWGuild], ReprMixin):
                             "ra.channel_id AS region_announcements__channel_id, "
                             "pn.channel_id AS patch_notes__channel_id, "
                             "mo.channel_id AS major_order_updates__channel_id, "
+                            "po.channel_id AS personal_order_updates__channel_id, "
                             "dd.channel_id AS detailed_dispatches__channel_id "
                             "FROM discord.guilds g "
                             "LEFT JOIN feature.dashboards d ON g.guild_id = d.guild_id "
@@ -319,6 +320,7 @@ class GWWGuilds(list[GWWGuild], ReprMixin):
                             "LEFT JOIN feature.region_announcements ra ON g.guild_id = ra.guild_id "
                             "LEFT JOIN feature.patch_notes pn ON g.guild_id = pn.guild_id "
                             "LEFT JOIN feature.major_order_updates mo ON g.guild_id = mo.guild_id "
+                            "LEFT JOIN feature.personal_order_updates po ON g.guild_id = po.guild_id "
                             "LEFT JOIN feature.detailed_dispatches dd ON g.guild_id = dd.guild_id"
                         )
                     )
@@ -350,6 +352,7 @@ class GWWGuilds(list[GWWGuild], ReprMixin):
                         "ra.channel_id AS region_announcements__channel_id, "
                         "pn.channel_id AS patch_notes__channel_id, "
                         "mo.channel_id AS major_order_updates__channel_id, "
+                        "po.channel_id AS personal_order_updates__channel_id, "
                         "dd.channel_id AS detailed_dispatches__channel_id "
                         "FROM discord.guilds g "
                         "LEFT JOIN feature.dashboards d ON g.guild_id = d.guild_id "
@@ -359,6 +362,7 @@ class GWWGuilds(list[GWWGuild], ReprMixin):
                         "LEFT JOIN feature.region_announcements ra ON g.guild_id = ra.guild_id "
                         "LEFT JOIN feature.patch_notes pn ON g.guild_id = pn.guild_id "
                         "LEFT JOIN feature.major_order_updates mo ON g.guild_id = mo.guild_id "
+                        "LEFT JOIN feature.personal_order_updates po ON g.guild_id = po.guild_id "
                         f"LEFT JOIN feature.detailed_dispatches dd ON g.guild_id = dd.guild_id WHERE g.guild_id = {id}"
                     )
                 )

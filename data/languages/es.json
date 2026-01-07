@@ -111,7 +111,6 @@
             "resistance": "\n-# Resistencia: **{regen}/hr**"
         },
         "SetupContainer": {
-            "title": "Setup",
             "shard_info": "Tu servidor está en el Fragmento #**{shard_id}** - **{latency}ms**",
             "not_set": "No seleccionado",
             "channel": "Canal",
@@ -132,6 +131,8 @@
             "patch_notes_desc": "-# Proporciona enlaces a los anuncios de Steam del juego\n",
             "major_order_updates_title": "Actualizaciones de la Orden Mayor",
             "major_order_updates_desc": "-# Proporciona actualizaciones de las Ordenes Mayores activas a las <t:1737786000:t> and <t:1737829200:t>\n",
+            "personal_order_updates_title": "Personal Order updates",
+            "personal_order_updates_desc": "-# Provides updates for active personal orders at <t:1762594200:t>\n",
             "detailed_dispatches_title": "Despacho detallado",
             "detailed_dispatches_desc": "-# Provee los grandes informes de el Alto Mando de Super Tierra\n",
             "feature_channel_select": "Elige el canal para esta característica",

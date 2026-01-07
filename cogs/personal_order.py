@@ -1,18 +1,73 @@
+from datetime import datetime, time
 from disnake import (
     AppCmdInter,
     ApplicationInstallTypes,
     HTTPException,
     InteractionContextTypes,
 )
-from disnake.ext import commands
+from disnake.ext import commands, tasks
 from utils.bot import GalacticWideWebBot
 from utils.checks import wait_for_startup
+from utils.dbv2 import GWWGuilds
 from utils.embeds.personal_order_embed import PersonalOrderCommandEmbed
 
 
 class PersonalOrderCog(commands.Cog):
     def __init__(self, bot: GalacticWideWebBot) -> None:
         self.bot = bot
+        self.last_po_update: None | datetime = None
+
+    def cog_load(self) -> None:
+        if not self.personal_order_updates.is_running():
+            self.personal_order_updates.start()
+            self.bot.loops.append(self.personal_order_updates)
+
+    def cog_unload(self) -> None:
+        if self.personal_order_updates.is_running():
+            self.personal_order_updates.stop()
+            if self.personal_order_updates in self.bot.loops:
+                self.bot.loops.remove(self.personal_order_updates)
+
+    @tasks.loop(time=[time(hour=9, minute=30)])
+    async def personal_order_updates(self):
+        po_updates_start = datetime.now()
+        self.bot.logger.info(f"PO loop starting at {po_updates_start}")
+        if (
+            self.last_po_update
+            and (po_updates_start - self.last_po_update).total_seconds() < 600
+        ):
+            self.bot.logger.info(f"Skipping duplicate PO loop execution")
+            return
+        self.last_mo_update = po_updates_start
+        if (
+            not self.bot.interface_handler.loaded
+            or po_updates_start < self.bot.ready_time
+            or not self.bot.data.loaded
+            or not self.bot.data.formatted_data.personal_order
+        ):
+            return
+        unique_langs = GWWGuilds.unique_languages()
+        embeds = {
+            lang: [
+                PersonalOrderCommandEmbed(
+                    personal_order=self.bot.data.formatted_data.personal_order,
+                    json_dict=self.bot.json_dict,
+                )
+            ]
+            for lang in unique_langs
+        }
+        await self.bot.interface_handler.send_feature(
+            feature_type="personal_order_updates",
+            content=embeds,
+            announcement_type="PO",
+        )
+        self.bot.logger.info(
+            f"Sent PO announcements out to {len(self.bot.interface_handler.personal_order_updates)} channels in {(datetime.now() - po_updates_start).total_seconds():.2f}s"
+        )
+
+    @personal_order_updates.before_loop
+    async def before_po_updates(self) -> None:
+        await self.bot.wait_until_ready()
 
     @wait_for_startup()
     @commands.slash_command(

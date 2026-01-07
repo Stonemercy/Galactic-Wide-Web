@@ -1,7 +1,6 @@
 from datetime import datetime, timedelta
 from disnake import (
     AppCmdInter,
-    ButtonStyle,
     Colour,
     Embed,
     File,
@@ -14,7 +13,6 @@ from disnake import (
     ui,
 )
 from disnake.ext import commands
-from disnake.ui import ActionRow
 from main import GalacticWideWebBot
 from utils.containers import SetupContainer
 from utils.checks import wait_for_startup
@@ -23,22 +21,28 @@ from utils.embeds import Dashboard
 from utils.maps import Maps
 from utils.setup import Setup
 
-CURRENT_FEATURES = [
-    "war_announcements",
-    "dss_announcements",
-    "region_announcements",
-    "patch_notes",
-    "major_order_updates",
-    "detailed_dispatches",
-]
-
 FEATURE_INDEXES = {
-    "war_announcements": 7,
-    "dss_announcements": 9,
-    "region_announcements": 11,
-    "patch_notes": 13,
-    "major_order_updates": 15,
+    "war_announcements": 5,
+    "dss_announcements": 7,
+    "region_announcements": 9,
+    "patch_notes": 11,
+    "major_order_updates": 13,
+    "personal_order_updates": 15,
     "detailed_dispatches": 17,
+}
+
+ALLOWED_BUTTONS = {
+    "setup_home_button",
+    "dashboards_button",
+    "clear_dashboard_button",
+    "clear_map_button",
+    "features_button",
+    "language_button",
+}
+ALLOWED_DROPDOWNS = {
+    "dashboard_channel_select",
+    "map_channel_select",
+    "language_select",
 }
 
 
@@ -63,19 +67,6 @@ class SetupCog(commands.Cog):
             attach_files=True,
             embed_links=True,
         )
-
-    def reset_row(self, action_row: ActionRow) -> None:
-        for button in action_row.children:
-            if button.disabled:
-                button.disabled = False
-                button.emoji = None
-                button.style = ButtonStyle.gray
-
-    def clear_extra_buttons(
-        self, action_rows: list[ActionRow], from_row: int = 1
-    ) -> None:
-        for action_row in action_rows[from_row:]:
-            action_rows.remove(action_row)
 
     @wait_for_startup()
     @commands.slash_command(
@@ -118,18 +109,10 @@ class SetupCog(commands.Cog):
 
     @commands.Cog.listener("on_button_click")
     async def on_button_clicks(self, inter: MessageInteraction) -> None:
-        allowed_ids = {
-            "set_dashboard_button",
-            "clear_dashboard_button",
-            "set_map_button",
-            "clear_map_button",
-            "language_button",
-        }
         if (
-            inter.component.custom_id not in allowed_ids
-            and "set_feature_button-" not in inter.component.custom_id
-            and "clear_feature_button-" not in inter.component.custom_id
-            and "features_button" not in inter.component.custom_id
+            inter.component.custom_id not in ALLOWED_BUTTONS
+            and "set_features_button-" not in inter.component.custom_id
+            and "clear_features_button-" not in inter.component.custom_id
         ):
             return
         try:
@@ -143,26 +126,24 @@ class SetupCog(commands.Cog):
         guild: GWWGuild = GWWGuilds.get_specific_guild(inter.guild_id)
         guild_language = self.bot.json_dict["languages"][guild.language]
         container = ui.Container.from_component(inter.message.components[0])
-        if "dashboard" in inter.component.custom_id:
-            if inter.component.custom_id == "set_dashboard_button":
+        if inter.component.custom_id == "setup_home_button":
+            container = SetupContainer(
+                guild=guild,
+                container_json=guild_language["containers"]["SetupContainer"],
+                language_code=guild.language,
+                shard_info=self.bot.shards[inter.guild.shard_id],
+            )
+            await inter.edit_original_response(components=container)
+        elif "dashboard" in inter.component.custom_id:
+            if inter.component.custom_id == "dashboards_button":
                 container = SetupContainer(
                     guild=guild,
                     container_json=guild_language["containers"]["SetupContainer"],
                     language_code=guild.language,
                     shard_info=self.bot.shards[inter.guild.shard_id],
-                )
-                container.children.insert(
-                    3,
-                    ui.ActionRow(
-                        Setup.Dashboard.DashboardChannelSelect(
-                            container_json=guild_language["containers"][
-                                "SetupContainer"
-                            ]
-                        )
-                    ),
+                    active_category="dashboards",
                 )
                 await inter.edit_original_response(components=container)
-                return
             elif inter.component.custom_id == "clear_dashboard_button":
                 try:
                     message = [
@@ -185,30 +166,11 @@ class SetupCog(commands.Cog):
                         ]["SetupContainer"],
                         language_code=guild.language,
                         shard_info=self.bot.shards[inter.guild.shard_id],
+                        active_category="dashboards",
                     )
                 )
-                return
         elif "map" in inter.component.custom_id:
-            if inter.component.custom_id == "set_map_button":
-                container = SetupContainer(
-                    guild=guild,
-                    container_json=guild_language["containers"]["SetupContainer"],
-                    language_code=guild.language,
-                    shard_info=self.bot.shards[inter.guild.shard_id],
-                )
-                container.children.insert(
-                    5,
-                    ui.ActionRow(
-                        Setup.Map.MapChannelSelect(
-                            container_json=guild_language["containers"][
-                                "SetupContainer"
-                            ]
-                        )
-                    ),
-                )
-                await inter.edit_original_response(components=container)
-                return
-            elif inter.component.custom_id == "clear_map_button":
+            if inter.component.custom_id == "clear_map_button":
                 try:
                     message = [
                         m
@@ -230,17 +192,30 @@ class SetupCog(commands.Cog):
                         ]["SetupContainer"],
                         language_code=guild.language,
                         shard_info=self.bot.shards[inter.guild.shard_id],
+                        active_category="dashboards",
                     )
                 )
-                return
         elif "features_button" in inter.component.custom_id:
-            if "set_features_button-" in inter.component.custom_id:
+            if inter.component.custom_id == "features_button":
+                await inter.edit_original_response(
+                    components=SetupContainer(
+                        guild=guild,
+                        container_json=self.bot.json_dict["languages"][guild.language][
+                            "containers"
+                        ]["SetupContainer"],
+                        language_code=guild.language,
+                        shard_info=self.bot.shards[inter.guild.shard_id],
+                        active_category="features",
+                    )
+                )
+            elif "set_features_button-" in inter.component.custom_id:
                 feature_type = inter.component.custom_id.split("-")[1]
                 container = SetupContainer(
                     guild=guild,
                     container_json=guild_language["containers"]["SetupContainer"],
                     language_code=guild.language,
                     shard_info=self.bot.shards[inter.guild.shard_id],
+                    active_category="features",
                 )
                 container.children.insert(
                     FEATURE_INDEXES[feature_type],
@@ -254,7 +229,6 @@ class SetupCog(commands.Cog):
                     ),
                 )
                 await inter.edit_original_response(components=container)
-                return
             elif "clear_features_button-" in inter.component.custom_id:
                 feature_type = inter.component.custom_id.split("-")[1]
                 guild.features = [f for f in guild.features if f.name != feature_type]
@@ -271,9 +245,9 @@ class SetupCog(commands.Cog):
                         ]["SetupContainer"],
                         language_code=guild.language,
                         shard_info=self.bot.shards[inter.guild.shard_id],
+                        active_category="features",
                     ),
                 )
-                return
         elif "language" in inter.component.custom_id:
             if inter.component.custom_id == "language_button":
                 container = SetupContainer(
@@ -298,17 +272,11 @@ class SetupCog(commands.Cog):
                     )
                 except Exception as e:
                     self.bot.logger.error(f"ERROR SetupCog | {e}")
-                return
 
     @commands.Cog.listener("on_dropdown")
     async def on_dropdowns(self, inter: MessageInteraction) -> None:
-        allowed_ids = {
-            "dashboard_channel_select",
-            "map_channel_select",
-            "language_select",
-        }
         if (
-            inter.component.custom_id not in allowed_ids
+            inter.component.custom_id not in ALLOWED_DROPDOWNS
             and "feature_channel_select-" not in inter.component.custom_id
         ):
             return
@@ -395,6 +363,7 @@ class SetupCog(commands.Cog):
                         container_json=guild_language["containers"]["SetupContainer"],
                         language_code=guild.language,
                         shard_info=self.bot.shards[inter.guild.shard_id],
+                        active_category="dashboards",
                     ),
                 )
         elif inter.component.custom_id == "map_channel_select":
@@ -503,6 +472,7 @@ class SetupCog(commands.Cog):
                         container_json=guild_language["containers"]["SetupContainer"],
                         language_code=guild.language,
                         shard_info=self.bot.shards[inter.guild.shard_id],
+                        active_category="dashboards",
                     )
                 )
         elif "feature_channel_select-" in inter.component.custom_id:
@@ -553,6 +523,7 @@ class SetupCog(commands.Cog):
                         container_json=guild_language["containers"]["SetupContainer"],
                         language_code=guild.language,
                         shard_info=self.bot.shards[inter.guild.shard_id],
+                        active_category="features",
                     )
                 )
         elif inter.component.custom_id == "language_select":

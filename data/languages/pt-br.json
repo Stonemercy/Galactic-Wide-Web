@@ -111,7 +111,6 @@
             "resistance": "\n-# Resistência: **{regen}/hr**"
         },
         "SetupContainer": {
-            "title": "Base",
             "shard_info": "Seu servidor está no Shard#**{shard_id}** - **{latency}ms**",
             "not_set": "Não definido",
             "channel": "Canal",
@@ -132,6 +131,8 @@
             "patch_notes_desc": "-# Providencia links para anúncios sobre o jogo na Steam\n",
             "major_order_updates_title": "Atualizações da Ordem Imperativa",
             "major_order_updates_desc": "-# Providencia atualizações para as Ordens Imperativas ativas as <t:1737786000:t> e as <t:1737829200:t>\n",
+            "personal_order_updates_title": "Personal Order updates",
+            "personal_order_updates_desc": "-# Provides updates for active personal orders at <t:1762594200:t>\n",
             "detailed_dispatches_title": "Despachos Detalhados",
             "detailed_dispatches_desc": "-# Providencia os despachos maiores do Alto Comando da Super Terra\n",
             "feature_channel_select": "Selecione o canal para esse recurso",
