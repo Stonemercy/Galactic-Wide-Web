@@ -7709,7 +7709,7 @@
 		]
 	},
 	"261": {
-		"name": "FURY",
+		"name": "Fury",
 		"sector": "Xzar",
 		"biome": "magma_base",
 		"environmentals": [
@@ -7767,7 +7767,7 @@
 		]
 	},
 	"263": {
-		"name": "CURSA",
+		"name": "Cursa",
 		"sector": "Hydra",
 		"biome": "magma_base",
 		"environmentals": [
@@ -7796,7 +7796,7 @@
 		]
 	},
 	"264": {
-		"name": "KARON BAY",
+		"name": "Karon Bay",
 		"sector": "Lacaille",
 		"biome": "magma_base",
 		"environmentals": [
@@ -7825,7 +7825,7 @@
 		]
 	},
 	"265": {
-		"name": "OROTH",
+		"name": "Oroth",
 		"sector": "Valdis",
 		"biome": "magma_base",
 		"environmentals": [
@@ -7854,7 +7854,7 @@
 		]
 	},
 	"266": {
-		"name": "MOX",
+		"name": "Mox",
 		"sector": "Trigon",
 		"biome": "magma_base",
 		"environmentals": [
