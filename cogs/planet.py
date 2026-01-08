@@ -31,7 +31,7 @@ class PlanetCog(commands.Cog):
                 key=lambda x: x.stats.player_count,
                 reverse=True,
             )
-            if user_input.lower() in p.name.lower()
+            if user_input.lower() in p.name.lower() or user_input in str(p.index)
         ][:25]
 
     @wait_for_startup()
