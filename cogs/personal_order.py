@@ -38,7 +38,7 @@ class PersonalOrderCog(commands.Cog):
         ):
             self.bot.logger.info(f"Skipping duplicate PO loop execution")
             return
-        self.last_mo_update = po_updates_start
+        self.last_po_update = po_updates_start
         if (
             not self.bot.interface_handler.loaded
             or po_updates_start < self.bot.ready_time
