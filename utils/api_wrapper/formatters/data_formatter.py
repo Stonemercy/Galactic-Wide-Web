@@ -224,7 +224,10 @@ class FormattedData:
             for lang, assignments in context.assignments.items():
                 self.assignments[lang] = sorted(
                     [
-                        Assignment(raw_assignment_data=assignment_data)
+                        Assignment(
+                            raw_assignment_data=assignment_data,
+                            war_start_timestamp=self.war_start_timestamp,
+                        )
                         for assignment_data in assignments
                     ],
                     key=lambda x: x.ends_at_datetime,

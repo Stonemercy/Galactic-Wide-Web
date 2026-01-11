@@ -6,7 +6,7 @@ from ...functions import health_bar
 
 
 class Assignment(ReprMixin):
-    def __init__(self, raw_assignment_data: dict) -> None:
+    def __init__(self, raw_assignment_data: dict, war_start_timestamp: int) -> None:
         """Organised data of an Assignment or Major Order"""
         self.id: int = raw_assignment_data["id32"]
         self.title: str = raw_assignment_data["setting"]["overrideTitle"]
@@ -33,6 +33,9 @@ class Assignment(ReprMixin):
                 )
             )
         self.rewards: list[dict] = raw_assignment_data["setting"]["rewards"]
+        self.starts_at_datetime: datetime = datetime.fromtimestamp(
+            raw_assignment_data["startTime"] + war_start_timestamp
+        )
         self.ends_at_datetime: datetime = datetime.now() + timedelta(
             seconds=raw_assignment_data["expiresIn"]
         )

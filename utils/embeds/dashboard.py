@@ -247,7 +247,8 @@ class Dashboard:
                 value=f"-# <t:{int(self.assignment.ends_at_datetime.timestamp())}:R>",
             )
 
-            self._add_outlook_text()
+            if self.assignment.starts_at_datetime < datetime.now() - timedelta(hours=1):
+                self._add_outlook_text()
 
         def _set_thumbnail(self) -> None:
             """Sets the thumbnail based on the Assignment's task types"""
