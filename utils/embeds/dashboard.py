@@ -84,54 +84,28 @@ class Dashboard:
             )
 
         # Attack Embeds
-        self.embeds.append(
-            self.AttackEmbed(
-                campaigns=[
-                    campaign
-                    for campaign in data.campaigns
-                    if campaign.faction == Factions.illuminate
-                    and not campaign.planet.event
-                ],
-                language_json=language_json,
-                faction="Illuminate",
-                total_players=data.total_players,
-                gambit_planets=data.gambit_planets,
-                planets=data.planets,
-                compact_level=compact_level,
-            )
+        faction_campaigns = [
+            (f, [c for c in data.campaigns if c.faction.full_name == f])
+            for f in ["Illuminate", "Terminids", "Automaton"]
+        ]
+        sorted_campaigns = sorted(
+            faction_campaigns,
+            key=lambda x: sum([c.planet.stats.player_count for c in x[1]]),
+            reverse=True,
         )
-        self.embeds.append(
-            self.AttackEmbed(
-                campaigns=[
-                    campaign
-                    for campaign in data.campaigns
-                    if campaign.faction == Factions.automaton
-                    and not campaign.planet.event
-                ],
-                language_json=language_json,
-                faction="Automaton",
-                total_players=data.total_players,
-                gambit_planets=data.gambit_planets,
-                planets=data.planets,
-                compact_level=compact_level,
+        for faction, campaigns in sorted_campaigns:
+            self.embeds.append(
+                self.AttackEmbed(
+                    campaigns=campaigns,
+                    language_json=language_json,
+                    faction=faction,
+                    total_players=data.total_players,
+                    gambit_planets=data.gambit_planets,
+                    planets=data.planets,
+                    compact_level=compact_level,
+                )
             )
-        )
-        self.embeds.append(
-            self.AttackEmbed(
-                campaigns=[
-                    campaign
-                    for campaign in data.campaigns
-                    if campaign.faction == Factions.terminids
-                    and not campaign.planet.event
-                ],
-                language_json=language_json,
-                faction="Terminids",
-                total_players=data.total_players,
-                gambit_planets=data.gambit_planets,
-                planets=data.planets,
-                compact_level=compact_level,
-            )
-        )
+
         self.embeds.append(
             self.FooterEmbed(
                 language_json=language_json,
