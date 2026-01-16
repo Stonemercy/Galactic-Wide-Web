@@ -357,6 +357,11 @@ class Dashboard:
                                     )
 
         def _add_progress_emoji(self, text: str, task: Assignment.Task):
+            if task.type == 13 and task.progress_perc != 1:
+                if task.planet_index:
+                    planet = self.planets.get(task.planet_index)
+                    if planet and planet.faction == Factions.humans:
+                        return text.replace("{emoji}", Emojis.Icons.mo_task_complete)
             return text.replace(
                 "{emoji}",
                 (
@@ -1177,7 +1182,7 @@ class Dashboard:
             if task.progress_perc != 1:
                 if task.planet_index:
                     planet = self.planets.get(task.planet_index)
-                    if planet:
+                    if planet and planet.faction != Factions.humans:
                         field_value += (
                             planet.health_bar + f"\n`{1 - planet.health_perc:^25,.2%}`"
                         )
