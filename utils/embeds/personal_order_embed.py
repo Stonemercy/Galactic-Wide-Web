@@ -9,7 +9,7 @@ from utils.mixins import EmbedReprMixin
 class PersonalOrderCommandEmbed(Embed, EmbedReprMixin):
     def __init__(self, personal_order: PersonalOrder, json_dict: dict):
         super().__init__(
-            description=f"Personal order ends <t:{int(personal_order.expiration_datetime.timestamp())}:R>",
+            title="PERSONAL ORDER",
             colour=Colour.from_rgb(*CUSTOM_COLOURS["MO"]),
         )
 
@@ -78,8 +78,8 @@ class PersonalOrderCommandEmbed(Embed, EmbedReprMixin):
                 )
 
         for reward in personal_order.rewards:
-            self.add_field(
-                "Reward",
-                f"{reward.amount} Medals {Emojis.Items.medal}",
-                inline=False,
-            )
+            self.add_field("Reward", f"{reward.amount} Medals {Emojis.Items.medal}")
+
+        self.add_field(
+            "Ends", f"<t:{int(personal_order.expiration_datetime.timestamp())}:R>"
+        )
