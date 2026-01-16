@@ -72,7 +72,7 @@ class DSS(ReprMixin):
     class Votes(ReprMixin):
         def __init__(self, planets: dict[int, Planet], raw_votes_data: dict):
             self.total_votes: int = sum([o["count"] for o in raw_votes_data["options"]])
-            self.available_planets: list[tuple] = []
+            self.available_planets: list[tuple[Planet, int]] = []
             for option in raw_votes_data["options"]:
                 planet = planets.get(option["metaId"])
                 if planet:
