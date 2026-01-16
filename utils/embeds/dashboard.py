@@ -1586,6 +1586,28 @@ class Dashboard:
                     inline=False,
                 )
 
+            if (
+                all([ta.status == 0 for ta in dss.tactical_actions])
+                and dss.planet.index == 0
+            ):
+                self.add_field(
+                    f"{Emojis.Decoration.alert_icon} VOTING MODE ENABLED {Emojis.Decoration.alert_icon}",
+                    "Select the destination for this Democratic process",
+                    inline=False,
+                )
+                if dss.votes:
+                    field_value = ""
+                    for index, (planet, votes) in enumerate(
+                        sorted(
+                            dss.votes.available_planets,
+                            key=lambda x: x[1],
+                            reverse=True,
+                        ),
+                        start=1,
+                    ):
+                        field_value += f"\n-# #{index} - {planet.faction.emoji} {planet.loc_names[language_json['code_long']]} - {votes/dss.votes.total_votes:.1%}"
+                    self.add_field("Votes", field_value)
+
     class GlobalResourceEmbed(Embed, EmbedReprMixin):
         def __init__(self, global_resource: GlobalResource):
             super().__init__(
