@@ -25,7 +25,7 @@ class DSSImages:
         try:
             ta_obj = getattr(DSSImages, ta_name, None)
             if ta_obj is None:
-                return None
-            return getattr(ta_obj, status, None)
+                return DSSImages.UNKNOWN
+            return getattr(ta_obj, status)
         except AttributeError:
             return DSSImages.UNKNOWN
