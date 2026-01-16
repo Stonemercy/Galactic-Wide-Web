@@ -25,9 +25,17 @@ class DSSCog(commands.Cog):
             "example_usage": "**`/dss`** opens the Wiki to the DSS tab.",
         },
     )
-    async def dss(self, inter: AppCmdInter) -> None:
+    async def dss(
+        self,
+        inter: AppCmdInter,
+        public: str = commands.Param(
+            choices=["Yes", "No"],
+            default="No",
+            description="Do you want other people to see the response to this command?",
+        ),
+    ) -> None:
         try:
-            await inter.response.defer(ephemeral=True)
+            await inter.response.defer(ephemeral=public != "Yes")
         except HTTPException:
             await inter.channel.send(
                 "There was an error with that command, please try again.",
@@ -52,7 +60,7 @@ class DSSCog(commands.Cog):
             dss_data=self.bot.data.formatted_data.dss,
             next_vote_campaigns=self.bot.data.formatted_data.campaigns[:8],
         )
-        await inter.send(embed=embed)
+        await inter.send(embed=embed, ephemeral=public != "Yes")
 
 
 def setup(bot: GalacticWideWebBot) -> None:
