@@ -1463,16 +1463,22 @@ class Dashboard:
                 case 2 | 3:  # complete any task
                     if any(complete_tasks):
                         outlook_text = self.language_json["complete"]
-                        time_to_use: datetime = sorted(self.completion_timestamps)[0]
-                        outlook_text += f" <t:{int(time_to_use)}:R>"
-                        time_diff = (
-                            self.assignment.ends_at_datetime.timestamp() - time_to_use
-                        )
-                        hours = f"{time_diff // 3600:.0f}"
-                        minutes = f"{(time_diff % 3600) // 60:.0f}"
-                        outlook_text += self.language_json["embeds"]["Dashboard"][
-                            "MajorOrderEmbed"
-                        ]["ahead_of_schedule"].format(hours=hours, minutes=minutes)
+                        if {13, 15} & self.assignment.unique_task_types:
+                            outlook_text += f" <t:{int(self.assignment.ends_at_datetime.timestamp())}:R>"
+                        else:
+                            time_to_use: datetime = sorted(self.completion_timestamps)[
+                                0
+                            ]
+                            outlook_text += f" <t:{int(time_to_use)}:R>"
+                            time_diff = (
+                                self.assignment.ends_at_datetime.timestamp()
+                                - time_to_use
+                            )
+                            hours = f"{time_diff // 3600:.0f}"
+                            minutes = f"{(time_diff % 3600) // 60:.0f}"
+                            outlook_text += self.language_json["embeds"]["Dashboard"][
+                                "MajorOrderEmbed"
+                            ]["ahead_of_schedule"].format(hours=hours, minutes=minutes)
                     else:
                         outlook_text += f"{self.language_json['failure']} <t:{int(self.assignment.ends_at_datetime.timestamp())}:R>"
                         if self.completion_timestamps != []:
