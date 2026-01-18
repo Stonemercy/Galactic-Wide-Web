@@ -85,7 +85,14 @@ class Dashboard:
 
         # Attack Embeds
         faction_campaigns = [
-            (f, [c for c in data.campaigns if c.faction.full_name == f])
+            (
+                f,
+                [
+                    c
+                    for c in data.campaigns
+                    if c.faction.full_name == f and not c.planet.event
+                ],
+            )
             for f in ["Illuminate", "Terminids", "Automaton"]
         ]
         sorted_campaigns = sorted(
