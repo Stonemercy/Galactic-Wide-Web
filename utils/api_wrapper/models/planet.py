@@ -194,6 +194,7 @@ class Planet(ReprMixin):
             self.owner: Faction = planet_owner
             self.health: int = raw_planet_region_data["maxHealth"]
             self.max_health: int = raw_planet_region_data["maxHealth"]
+            self.damage_multiplier: float = raw_planet_region_data["damageMultiplier"]
             self.regen_per_sec: int = 0
             self.availability_factor: float = 0.0
             self.is_available: bool = False
@@ -225,7 +226,7 @@ class Planet(ReprMixin):
         @property
         def planet_damage_perc(self) -> float:
             """Returns how much percentage points it does the the planet upon liberation"""
-            return (self.max_health * 1.5) / (
+            return (self.max_health * self.damage_multiplier) / (
                 self.planet.max_health
                 if not self.planet.event
                 else self.planet.event.max_health

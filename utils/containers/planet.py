@@ -205,7 +205,7 @@ class PlanetContainers(list[ui.Container]):
                         if not planet.event
                         else planet.event.max_health
                     )
-                    text_display.content += f"\n{container_json['boost_when_liberated']}: **{(region.max_health * 1.5) / health_to_get_from:.2%}**"
+                    text_display.content += f"\n{container_json['boost_when_liberated']}: **{(region.max_health * region.damage_multiplier) / health_to_get_from:.2%}**"
                     if (
                         region.tracker
                         and region.tracker.change_rate_per_hour > 0
@@ -222,7 +222,8 @@ class PlanetContainers(list[ui.Container]):
                             region.tracker.complete_time
                         )
                         percent_total = percent_at + (
-                            (region.max_health * 1.5) / health_to_get_from
+                            (region.max_health * region.damage_multiplier)
+                            / health_to_get_from
                         )
                         text_display.content += f"\n-# *from **{percent_at:.2%}** to **{percent_total:.2%}** at time of liberation!*"
                     text_display.content += f"\n{region.health_bar}"
