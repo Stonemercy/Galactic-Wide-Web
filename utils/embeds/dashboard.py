@@ -456,7 +456,7 @@ class Dashboard:
             in_multiplayer = self.language_json["embeds"]["Dashboard"][
                 "MajorOrderEmbed"
             ]["tasks"]["in_mp"]
-            if task.min_players > 1:
+            if task.min_players and task.min_players > 1:
                 text = text.replace("{multi}", in_multiplayer)
             return text
 
