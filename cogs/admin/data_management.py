@@ -21,6 +21,7 @@ REGION_STATS_TO_CHECK = {
     "Max Health": "max_health",
     "Region Regen": "regen_perc_per_hour",
     "Is available": "is_available",
+    "Damage Multiplier": "damage_multiplier",
 }
 
 FETCH_SKIP_LIMIT = 5

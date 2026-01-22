@@ -173,5 +173,11 @@ class APIChangesContainer(ui.Container, ReprMixin):
                                         f"Region is **no longer available** ❌"
                                     )
                                 )
+                        case "damage_multiplier":
+                            self.container_components.append(
+                                ui.TextDisplay(
+                                    f"Region's damage multiplier has changed from:\n**{old_stat:.1}x** {Emojis.Stratagems.right} **{new_stat:.1}x**"
+                                )
+                            )
             self.container_components.append(ui.Separator())
         super().__init__(*self.container_components)
