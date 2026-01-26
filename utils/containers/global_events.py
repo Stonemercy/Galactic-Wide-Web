@@ -15,7 +15,7 @@ class GlobalEventsContainer(ui.Container, ReprMixin):
     ):
         components = []
         text_display = ui.TextDisplay(
-            f"# {global_event.title if global_event.title else 'New Global Event'}"
+            f"# {global_event.title if global_event.title else container_json['new_event']}"
         )
         if global_event.flag == 0:
             if not global_event.planet_indices:

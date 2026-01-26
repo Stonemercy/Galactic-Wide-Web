@@ -378,14 +378,13 @@ class Dashboard:
                 ),
             )
 
-        def _get_faction_name(
-            self, faction: Faction, plural: bool = False, uppercase: bool = False
-        ) -> str:
+        def _get_faction_name(self, faction: Faction, plural: bool = False) -> str:
             """Get localized and pluralized (if requested) faction name"""
             names: dict = self.language_json["factions"]
-            name = names.get(faction.full_name, "Unknown Faction")
-            if uppercase:
-                name = f"THE {name.upper()}"
+            name_to_get = (
+                faction.full_name if not plural else faction.full_name + "_plural"
+            )
+            name = names.get(name_to_get, "Unknown Faction")
             return name
 
         def _add_location_info(self, text: str, task: Assignment.Task) -> None:
@@ -427,8 +426,8 @@ class Dashboard:
 
             if task.planet_index:
                 planet = self.planets.get(task.planet_index)
-                on_the_planet = tasks_json["loc_on_planet"]
-                text = text.replace("{ext_pre}", f" {on_the_planet} **")
+                on = tasks_json["loc_on_planet"]
+                text = text.replace("{ext_pre}", f" {on} **")
                 if planet:
                     text = text.replace(
                         "{ext}", planet.loc_names[self.language_json["code_long"]]
@@ -486,9 +485,9 @@ class Dashboard:
                 "tasks"
             ]
             if task.planet_index:
-                on_the_planet = tasks_json["on_the_planet"]
+                on = tasks_json["on_the_planet"]
                 planet = self.planets.get(task.planet_index)
-                text = text.replace("{race_pre}", f" {on_the_planet} **")
+                text = text.replace("{race_pre}", f" {on} **")
                 if planet:
                     text = text.replace(
                         "{race}", planet.loc_names[self.language_json["code_long"]]
@@ -507,7 +506,10 @@ class Dashboard:
             return text
 
         def _add_option_number(self, text: str, task_index: int):
-            text = f"Option {task_index + 1}\n" + text
+            text = (
+                f"{self.language_json['embeds']['Dashboard']['MajorOrderEmbed']['tasks']['option']} {task_index + 1}\n"
+                + text
+            )
             return text
 
         def _add_type_UNK(self, task: Assignment.Task) -> None:
@@ -549,13 +551,13 @@ class Dashboard:
                     if task.tracker and task.tracker.change_rate_per_hour > 0.1:
                         progress = f"`+{task.tracker.change_rate_per_hour:^25,.1%}/hr`"
                     field_value += (
-                        f"-# Progress: **{short_format(task.progress)}/{short_format(task.target)}**"
+                        f"-# {self.language_json['embeds']['Dashboard']['MajorOrderEmbed']['progress']}: **{short_format(task.progress)}/{short_format(task.target)}**"
                         f"\n{task.health_bar}"
                         f"\n`{task.progress_perc:^25,.1%}`"
                         f"{progress}"
                     )
                 else:
-                    field_value += f"-# Progress: **{task.progress}/{task.target}**"
+                    field_value += f"-# {self.language_json['embeds']['Dashboard']['MajorOrderEmbed']['progress']}: **{task.progress}/{task.target}**"
 
             if self.assignment.flags in (2, 3):
                 task_index = self.assignment.tasks.index(task)
@@ -605,13 +607,13 @@ class Dashboard:
                     if task.tracker and task.tracker.change_rate_per_hour > 0.1:
                         progress = f"`+{task.tracker.change_rate_per_hour:^25,.1%}/hr`"
                     field_value += (
-                        f"-# Progress: **{short_format(task.progress)}/{short_format(task.target)}**"
+                        f"-# {self.language_json['embeds']['Dashboard']['MajorOrderEmbed']['progress']}: **{short_format(task.progress)}/{short_format(task.target)}**"
                         f"\n{task.health_bar}"
                         f"\n`{task.progress_perc:^25,.1%}`"
                         f"{progress}"
                     )
                 else:
-                    field_value += f"-# Progress: **{task.progress}/{task.target}**"
+                    field_value += f"-# {self.language_json['embeds']['Dashboard']['MajorOrderEmbed']['progress']}: **{task.progress}/{task.target}**"
 
             if self.assignment.flags in (2, 3):
                 task_index = self.assignment.tasks.index(task)
@@ -664,15 +666,15 @@ class Dashboard:
                             self.assignment.ends_at_datetime,
                             datetime.now() + timedelta(weeks=2),
                         ):
-                            progress += f"\n-# Complete <t:{int(task.tracker.complete_time.timestamp())}:R>"
+                            progress += f"\n-# {self.language_json['embeds']['Dashboard']['MajorOrderEmbed']['complete']} <t:{int(task.tracker.complete_time.timestamp())}:R>"
                     field_value += (
-                        f"-# Progress: **{short_format(task.progress)}/{short_format(task.target)}**"
+                        f"-# {self.language_json['embeds']['Dashboard']['MajorOrderEmbed']['progress']}: **{short_format(task.progress)}/{short_format(task.target)}**"
                         f"\n{task.health_bar}"
                         f"\n`{task.progress_perc:^25,.1%}`"
                         f"{progress}"
                     )
                 else:
-                    field_value += f"-# Progress: **{task.progress}/{task.target}**"
+                    field_value += f"-# {self.language_json['embeds']['Dashboard']['MajorOrderEmbed']['progress']}: **{task.progress}/{task.target}**"
 
             if self.assignment.flags in (2, 3):
                 task_index = self.assignment.tasks.index(task)
@@ -742,13 +744,13 @@ class Dashboard:
                     if task.tracker and task.tracker.change_rate_per_hour > 0.1:
                         progress = f"`+{task.tracker.change_rate_per_hour:^25,.1%}/hr`"
                     field_value += (
-                        f"-# Progress: **{short_format(task.progress)}/{short_format(task.target)}**"
+                        f"-# {self.language_json['embeds']['Dashboard']['MajorOrderEmbed']['progress']}: **{short_format(task.progress)}/{short_format(task.target)}**"
                         f"\n{task.health_bar}"
                         f"\n`{task.progress_perc:^25,.1%}`"
                         f"{progress}"
                     )
                 else:
-                    field_value += f"-# Progress: **{task.progress}/{task.target}**"
+                    field_value += f"-# {self.language_json['embeds']['Dashboard']['MajorOrderEmbed']['progress']}: **{task.progress}/{task.target}**"
 
             if self.assignment.flags in (2, 3):
                 task_index = self.assignment.tasks.index(task)
@@ -782,13 +784,13 @@ class Dashboard:
                     if task.tracker and task.tracker.change_rate_per_hour > 0.1:
                         progress = f"`+{task.tracker.change_rate_per_hour:^25,.1%}/hr`"
                     field_value += (
-                        f"-# Progress: **{short_format(task.progress)}/{short_format(task.target)}**"
+                        f"-# {self.language_json['embeds']['Dashboard']['MajorOrderEmbed']['progress']}: **{short_format(task.progress)}/{short_format(task.target)}**"
                         f"\n{task.health_bar}"
                         f"\n`{task.progress_perc:^25,.1%}`"
                         f"{progress}"
                     )
                 else:
-                    field_value += f"-# Progress: **{task.progress}/{task.target}**"
+                    field_value += f"-# {self.language_json['embeds']['Dashboard']['MajorOrderEmbed']['progress']}: **{task.progress}/{task.target}**"
 
             if self.assignment.flags in (2, 3):
                 task_index = self.assignment.tasks.index(task)
@@ -836,13 +838,13 @@ class Dashboard:
                     if task.tracker and task.tracker.change_rate_per_hour > 0.1:
                         progress = f"`+{task.tracker.change_rate_per_hour:^25,.1%}/hr`"
                     field_value += (
-                        f"-# Progress: **{short_format(task.progress)}/{short_format(task.target)}**"
+                        f"-# {self.language_json['embeds']['Dashboard']['MajorOrderEmbed']['progress']}: **{short_format(task.progress)}/{short_format(task.target)}**"
                         f"\n{task.health_bar}"
                         f"\n`{task.progress_perc:^25,.1%}`"
                         f"{progress}"
                     )
                 else:
-                    field_value += f"-# Progress: **{task.progress}/{task.target}**"
+                    field_value += f"-# {self.language_json['embeds']['Dashboard']['MajorOrderEmbed']['progress']}: **{task.progress}/{task.target}**"
 
             if self.assignment.flags in (2, 3):
                 task_index = self.assignment.tasks.index(task)
@@ -902,16 +904,16 @@ class Dashboard:
                             self.assignment.ends_at_datetime,
                             datetime.now() + timedelta(weeks=2),
                         ):
-                            progress += f"\n-# Complete <t:{int(task.tracker.complete_time.timestamp())}:R>"
+                            progress += f"\n-# {self.language_json['embeds']['Dashboard']['MajorOrderEmbed']['complete']} <t:{int(task.tracker.complete_time.timestamp())}:R>"
 
                     field_value += (
-                        f"-# Progress: **{short_format(task.progress)}/{short_format(task.target)}**"
+                        f"-# {self.language_json['embeds']['Dashboard']['MajorOrderEmbed']['progress']}: **{short_format(task.progress)}/{short_format(task.target)}**"
                         f"\n{task.health_bar}"
                         f"\n`{task.progress_perc:^25,.1%}`"
                         f"{progress}"
                     )
                 else:
-                    field_value += f"-# Progress: **{task.progress}/{task.target}**"
+                    field_value += f"-# {self.language_json['embeds']['Dashboard']['MajorOrderEmbed']['progress']}: **{task.progress}/{task.target}**"
 
             self.add_field(field_name, field_value, inline=False)
 
@@ -950,13 +952,13 @@ class Dashboard:
                             f"\n`{f'{task.tracker.change_rate_per_hour:+.1%}/hr':^25}`"
                         )
                     field_value += (
-                        f"-# Progress: **{short_format(task.progress)}/{short_format(task.target)}**"
+                        f"-# {self.language_json['embeds']['Dashboard']['MajorOrderEmbed']['progress']}: **{short_format(task.progress)}/{short_format(task.target)}**"
                         f"\n{task.health_bar}"
                         f"\n`{task.progress_perc:^25,.1%}`"
                         f"{progress}"
                     )
                 else:
-                    field_value += f"-# Progress: **{task.progress}/{task.target}**"
+                    field_value += f"-# {self.language_json['embeds']['Dashboard']['MajorOrderEmbed']['progress']}: **{task.progress}/{task.target}**"
 
             if self.assignment.flags in (2, 3):
                 task_index = self.assignment.tasks.index(task)
@@ -993,13 +995,13 @@ class Dashboard:
                     if task.tracker and task.tracker.change_rate_per_hour > 0.1:
                         progress = f"`+{task.tracker.change_rate_per_hour:^25,.1%}/hr`"
                     field_value += (
-                        f"-# Progress: **{short_format(task.progress)}/{short_format(task.target)}**"
+                        f"-# {self.language_json['embeds']['Dashboard']['MajorOrderEmbed']['progress']}: **{short_format(task.progress)}/{short_format(task.target)}**"
                         f"\n{task.health_bar}"
                         f"\n`{task.progress_perc:^25,.1%}`"
                         f"{progress}"
                     )
                 else:
-                    field_value += f"-# Progress: **{task.progress}/{task.target}**"
+                    field_value += f"-# {self.language_json['embeds']['Dashboard']['MajorOrderEmbed']['progress']}: **{task.progress}/{task.target}**"
 
             if self.assignment.flags in (2, 3):
                 task_index = self.assignment.tasks.index(task)
@@ -1138,7 +1140,7 @@ class Dashboard:
             field_name = self._add_progress_emoji(text=field_name, task=task)
 
             field_value = (
-                f"-# Progress: **{task.progress}/{task.target:,}**"
+                f"-# {self.language_json['embeds']['Dashboard']['MajorOrderEmbed']['progress']}: **{task.progress}/{task.target:,}**"
                 f"\n{task.health_bar}"
                 f"\n`{task.progress_perc:^25.1%}`"
             )
@@ -1197,7 +1199,7 @@ class Dashboard:
                         )
                 elif task.target > 1 and task.sector_index:
                     field_value += (
-                        f"Progress: **{task.progress}/{task.target}**"
+                        f"{self.language_json['embeds']['Dashboard']['MajorOrderEmbed']['progress']}: **{task.progress}/{task.target}**"
                         f"\n{task.health_bar}"
                         f"\n`{task.progress_perc:^25,.2%}`"
                     )
@@ -1240,13 +1242,13 @@ class Dashboard:
                     if task.tracker and task.tracker.change_rate_per_hour > 0.1:
                         progress = f"`+{task.tracker.change_rate_per_hour:^25,.1%}/hr`"
                     field_value += (
-                        f"-# Progress: **{short_format(task.progress)}/{short_format(task.target)}**"
+                        f"-# {self.language_json['embeds']['Dashboard']['MajorOrderEmbed']['progress']}: **{short_format(task.progress)}/{short_format(task.target)}**"
                         f"\n{task.health_bar}"
                         f"\n`{task.progress_perc:^25,.1%}`"
                         f"{progress}"
                     )
                 else:
-                    field_value += f"-# Progress: **{task.progress}/{task.target}**"
+                    field_value += f"-# {self.language_json['embeds']['Dashboard']['MajorOrderEmbed']['progress']}: **{task.progress}/{task.target}**"
 
             if self.assignment.flags in (2, 3):
                 task_index = self.assignment.tasks.index(task)
@@ -1312,15 +1314,36 @@ class Dashboard:
                                 and planet.event.end_time_datetime
                                 < self.assignment.ends_at_datetime
                             ):
-                                field_value += f"\n-# **-1** from **{planet.name}** loss <t:{int(planet.event.end_time_datetime.timestamp())}:R>"
+                                field_value += self.language_json["embeds"][
+                                    "Dashboard"
+                                ]["MajorOrderEmbed"]["tasks"][
+                                    "type15_from_loss"
+                                ].format(
+                                    planet=planet.loc_names[
+                                        self.language_json["code_long"]
+                                    ],
+                                    timestamp=f"<t:{int(planet.event.end_time_datetime.timestamp())}:R>",
+                                )
                         else:
                             if (
                                 end_time_info.end_time
                                 < self.assignment.ends_at_datetime
                             ):
-                                field_value += f"\n-# **+1** from **{planet.name}** liberation <t:{int(end_time_info.end_time.timestamp())}:R>"
+                                field_value += self.language_json["embeds"][
+                                    "Dashboard"
+                                ]["MajorOrderEmbed"]["tasks"]["type15_from_lib"].format(
+                                    planet=planet.loc_names[
+                                        self.language_json["code_long"]
+                                    ],
+                                    timestamp=f"<t:{int(end_time_info.end_time.timestamp())}:R>",
+                                )
                     elif planet.event:
-                        field_value += f"\n-# **-1** from **{planet.name}** loss <t:{int(planet.event.end_time_datetime.timestamp())}:R>"
+                        field_value += self.language_json["embeds"]["Dashboard"][
+                            "MajorOrderEmbed"
+                        ]["tasks"]["type15_from_loss"].format(
+                            planet=planet.loc_names[self.language_json["code_long"]],
+                            timestamp=f"<t:{int(planet.event.end_time_datetime.timestamp())}:R>",
+                        )
 
             self.add_field(field_name, field_value, inline=False)
 
@@ -1331,7 +1354,12 @@ class Dashboard:
                     str(reward["type"]), "Unknown Item"
                 )
                 localized_name = self.language_json["currencies"].get(reward_name)
-                rewards_text += f"{reward['amount']:,} **{self.language_json['embeds']['Dashboard']['MajorOrderEmbed']['reward_pluralized'].format(reward=localized_name)}** {getattr(Emojis.Items, reward_name.replace(' ', '_').lower(), '')}\n"
+                rewards_text += f"{reward['amount']:,} "
+                if reward["amount"] > 1:
+                    rewards_text += f"**{self.language_json['embeds']['Dashboard']['MajorOrderEmbed']['reward_pluralized'].format(reward=localized_name)}** "
+                else:
+                    rewards_text += f"**{localized_name}**"
+                rewards_text += f"{getattr(Emojis.Items, reward_name.replace(' ', '_').lower(), '')}\n"
             if rewards_text != "":
                 self.add_field(
                     self.language_json["embeds"]["Dashboard"]["MajorOrderEmbed"][
@@ -1533,7 +1561,7 @@ class Dashboard:
             gambit_planets: dict[int, Planet],
         ):
             super().__init__(
-                title=language_json["dss"]["title"],
+                title=language_json["embeds"]["Dashboard"]["DSSEmbed"]["title"],
                 colour=Colour.from_rgb(*CUSTOM_COLOURS["DSS"]),
             )
             self.set_thumbnail(
@@ -1546,8 +1574,8 @@ class Dashboard:
                 move_datetime = end_time_info.end_time
                 because_of_planet = True
             self.description = (
-                f"-# Station moves **<t:{int(move_datetime.timestamp())}:R>**"
-                f"\n-# Current Location: {dss.planet.faction.emoji} **{dss.planet.loc_names.get(language_json['code_long'], dss.planet.name)}**"
+                f"-# {language_json['embeds']['Dashboard']['DSSEmbed']['station_moves']} **<t:{int(move_datetime.timestamp())}:R>**"
+                f"\n-# {language_json['embeds']['Dashboard']['DSSEmbed']['current_location']}: {dss.planet.faction.emoji} **{dss.planet.loc_names.get(language_json['code_long'], dss.planet.name)}**"
             )
             if dss.votes:
                 sorted_planets: list[tuple[Planet, int]] = sorted(
@@ -1558,10 +1586,10 @@ class Dashboard:
                 next_planet = sorted_planets[0]
                 if because_of_planet and dss.planet == next_planet[0]:
                     next_planet = sorted_planets[1]
-                self.description += f"\n-# Next Location (Current Majority Vote): {next_planet[0].faction.emoji} **{next_planet[0].loc_names.get(language_json['code_long'], next_planet[0].name)}**"
+                self.description += f"\n-# {language_json['embeds']['Dashboard']['DSSEmbed']['next_location']}: {next_planet[0].faction.emoji} **{next_planet[0].loc_names.get(language_json['code_long'], next_planet[0].name)}**"
 
             if move_datetime < datetime.now() + timedelta(minutes=15):
-                self.description += f"\n-# {Emojis.Decoration.alert_icon} MOVING SOON - REMEMBER TO VOTE {Emojis.Decoration.alert_icon}"
+                self.description += f"\n-# {Emojis.Decoration.alert_icon} {language_json['embeds']['Dashboard']['DSSEmbed']['vote_reminder']} {Emojis.Decoration.alert_icon}"
             ta_jsons = language_json["embeds"]["Dashboard"]["DSSEmbed"][
                 "tactical_actions"
             ]
@@ -1611,8 +1639,8 @@ class Dashboard:
                 and dss.planet.index == 0
             ):
                 self.add_field(
-                    f"{Emojis.Decoration.alert_icon} VOTING MODE ENABLED {Emojis.Decoration.alert_icon}",
-                    "Select the destination for this Democratic process",
+                    f"{Emojis.Decoration.alert_icon} {language_json['embeds']['Dashboard']['DSSEmbed']['voting_mode']} {Emojis.Decoration.alert_icon}",
+                    language_json["embeds"]["Dashboard"]["DSSEmbed"]["select"],
                     inline=False,
                 )
                 if dss.votes:
@@ -1626,7 +1654,10 @@ class Dashboard:
                         start=1,
                     ):
                         field_value += f"\n-# #{index} - {planet.faction.emoji} {planet.loc_names[language_json['code_long']]} - {votes/dss.votes.total_votes:.1%}"
-                    self.add_field("Votes", field_value)
+                    self.add_field(
+                        language_json["embeds"]["Dashboard"]["DSSEmbed"]["votes"],
+                        field_value,
+                    )
 
     class GlobalResourceEmbed(Embed, EmbedReprMixin):
         def __init__(self, global_resource: GlobalResource):
@@ -1711,7 +1742,7 @@ class Dashboard:
                     "DefenceEmbed"
                 ]["defence_held_by_dss"]
 
-            field_value += f"\n{self.language_json['embeds']['Dashboard']['DefenceEmbed']['ends']} **<t:{int(planet.event.end_time_datetime.timestamp())}:R>**"
+            field_value += f"\n{self.language_json['ends']} **<t:{int(planet.event.end_time_datetime.timestamp())}:R>**"
             field_value += f"\n{self.language_json['embeds']['Dashboard']['DefenceEmbed']['invasion_level']} **{planet.event.level}**{planet.event.level_exclamation}"
 
             calculated_end_time = get_end_time(planet, self.gambit_planets)
@@ -1732,7 +1763,7 @@ class Dashboard:
                 field_value += f"\n**{self.language_json['embeds']['Dashboard']['DefenceEmbed']['loss']}**"
                 if planet.index in self.gambit_planets and planet.event.progress < 0.5:
                     gambit_planet = self.gambit_planets[planet.index]
-                    field_value += f"\n-# :chess_pawn: {gambit_planet.loc_names[self.language_json['code_long']]} GAMBIT"
+                    field_value += f"\n-# :chess_pawn: {gambit_planet.loc_names[self.language_json['code_long']]} {self.language_json['embeds']['Dashboard']['DefenceEmbed']['gambit']}"
 
             field_value += f"\n{self.language_json['embeds']['Dashboard']['DefenceEmbed']['heroes']}: **{planet.stats.player_count:,}**"
             if self.compact_level < 1:
@@ -1874,10 +1905,10 @@ class Dashboard:
                             ]
                         )
                         if gambit_planet:
-                            field_value += f"\n-# :chess_pawn: GAMBIT FOR {gambit_planet.loc_names.get(language_json['code_long'], gambit_planet.name)}"
+                            field_value += f"\n-# :chess_pawn: {language_json['embeds']['Dashboard']['AttackEmbed']['gambit_for']} {gambit_planet.loc_names.get(language_json['code_long'], gambit_planet.name)}"
                     if compact_level < 1:
                         if campaign.type == 1:
-                            field_value += f"\n**`{'RECON CAMPAIGN':^25}`**"
+                            field_value += f"\n**`{language_json['embeds']['Dashboard']['AttackEmbed']['recon_campaign']:^25}`**"
                         else:
                             field_value += f"\n{campaign.planet.health_bar}"
                     if campaign.type != 1:
@@ -1918,7 +1949,7 @@ class Dashboard:
                                 and not region.is_available
                             ):
                                 break
-                            field_value += f"\n-# ↳ {region.emoji} {language_json['regions'][str(region.type.value)]} **{region.names[language_json['code_long']]}** available at **{region.availability_factor:.2%}**"
+                            field_value += f"\n-# ↳ {region.emoji} {language_json['regions'][str(region.type.value)]} **{region.names[language_json['code_long']]}** {language_json['embeds']['Dashboard']['AttackEmbed']['reg_avail_at']} **{region.availability_factor:.2%}**"
                             break
 
                     self.add_field(

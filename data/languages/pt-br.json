@@ -53,6 +53,7 @@
             }
         },
         "GlobalEventsContainer": {
+            "new_event": "New Global Event",
             "all_planets": "todos os planetas",
             "unknown_effect": "EFEITO DESCONHECIDO",
             "active_on_planets": "\n-# Ativo nos seguintes planetas:\n- {planets}",
@@ -145,28 +146,24 @@
     },
     "embeds": {
         "Dashboard": {
-            "heroes": "Heróis: **{heroes}**",
             "outlook": "Visão geral",
-            "progress": "Progresso atual",
-            "shrunk_temporarily": "Quantidade de caracteres excedeu 6000; painel encolhido temporariamente",
             "MajorOrderEmbed": {
-                "mo_missing": "Aguardando Ordem Imperativa",
                 "assignment": "Tarefa #{id}",
-                "MO_unavailable": "Aguarde mais ordens do Alto Comando da Super Terra",
-                "feature": "Recurso",
                 "rewards": "Recompensas",
                 "reward_pluralized": "{reward}s",
                 "ahead_of_schedule": "\n-# Adiantado em **{hours}h {minutes}m** ",
                 "behind_schedule": "\n-# Atrasado em **{hours}h {minutes}m**",
-                "if_regions": "-# Se as seguintes regiões forem liberadas",
                 "avail_thanks_to_wp": "\n-# Disponível **<t:{timestamp}:R>** graças a liberação de **{planet_name}**",
+                "progress": "Progress",
+                "complete": "Complete",
                 "tasks": {
+                    "option": "Option",
                     "times": "times",
                     "against": "against",
                     "mission": "Mission",
                     "missions": "Missions",
                     "loc_from_planet": "from the planet",
-                    "loc_on_planet": "on the planet",
+                    "loc_on_planet": "on",
                     "loc_in_the": "in the",
                     "loc_sector": "sector",
                     "loc_from_any": "from any",
@@ -175,7 +172,7 @@
                     "in_mp": " in **multiplayer**",
                     "diff_on": "on",
                     "diff_or_higher": "or higher",
-                    "on_the_planet": "on the planet",
+                    "on_the_planet": "on",
                     "on_faction_planet": "on a planet controlled by the",
                     "typeUNK": "{emoji} UNKNOWN TASK",
                     "type1": "{emoji} Successfully extract{ext_pre}{ext}{ext_post}{count_pre}{count}{count_post}{diff_pre}{diff}{diff_post}{multi}.",
@@ -204,12 +201,20 @@
                     "type14_f": "{emoji} Liberate **{count}** planets from **{race}**",
                     "type14_r": "{emoji} Liberate **{count}** planets",
                     "type15_f": "{emoji} Liberate more planets than are lost to **{race}** during the order duration",
-                    "type15_r": "{emoji} Liberate more planets than are lost during the order duration"
+                    "type15_r": "{emoji} Liberate more planets than are lost during the order duration",
+                    "type15_from_loss": "\n-# **-#** from **{planet}** loss {timestamp}",
+                    "type15_from_lib": "\n-# **-#** from **{planet}** liberation {timestamp}"
                 }
             },
             "DSSEmbed": {
-                "stationed_at": "Estacionada em **{planet}** {faction_emoji}\n",
-                "next_move": "Se movendo {timestamp}",
+                "title": "Democracy Space Station",
+                "station_moves": "Station moves",
+                "current_location": "Current Location",
+                "next_location": "Next Location (Current Majority Vote)",
+                "vote_reminder": "MOVING SOON - REMEMBER TO VOTE",
+                "voting_mode": "VOTING MODE ENABLED",
+                "select": "Select the destination for this democractic process",
+                "votes": "Votes",
                 "status": "Status da Ação",
                 "preparing": "Preparando",
                 "active": "Ativo(a)",
@@ -237,31 +242,25 @@
             },
             "DefenceEmbed": {
                 "title": "Defendendo",
-                "no_threats": "No momento não há ameaças a nossa Liberdade",
-                "for_now": "Por enquanto...",
-                "time_unavailable": "Indisponível",
-                "event_health": "Liberação de Planetas",
-                "level": "Invasão de Nível",
                 "defence_held_by_dss": "\n-# DEFESA MANTIDA PELA EED",
-                "ends": "Acaba",
                 "invasion_level": "Invasão de Nível",
-                "feature": "Recurso",
                 "victory": "Vitória",
                 "loss": "Perdendo",
                 "thanks_to_gambit": "graças à liberação de **{planet}**",
                 "if_region_lib": "\n-# Se as seguintes regiões forem liberadas:\n-# {regions_list}",
-                "gambit_available": ":chess_pawn: Pode ser finalizada liberando **{planet}**",
+                "gambit": "GAMBIT",
                 "heroes": "Heróis",
                 "available": "disponível"
             },
             "AttackEmbed": {
                 "title": "Atacando {faction}",
                 "heroes": "Heróis",
-                "planet_health": "Liberação de Planetas",
                 "victory": "Vitória",
+                "gambit_for": "GAMBIT FOR",
+                "recon_campaign": "RECON CAMPAIGN",
+                "reg_avail_at": "available at",
                 "if_regions": "Se as seguintes regiões forem liberadas",
-                "low_impact": "Impacto baixo/Planetas populacionais",
-                "feature": "\nRecurso: {feature}"
+                "low_impact": "Impacto baixo/Planetas populacionais"
             },
             "FooterEmbed": {
                 "other_updated": "Atualizado em",
@@ -276,8 +275,6 @@
             "title": "Estação Espacial Democracia",
             "stationed_at": "Estacionada em **{planet}** {faction_emoji}\n",
             "next_move": "Se movendo {timestamp}",
-            "item_pluralized": "{item}s",
-            "ends": "Finaliza",
             "preparing": "Preparando",
             "active": "Ativo(a)",
             "inactive": "Desativado(a)",
@@ -306,8 +303,6 @@
     },
     "ends": "Acaba",
     "message": "Mensagem #{message_id}",
-    "victory": "Vitória",
-    "defeat": "Derrota",
     "complete": "Completo",
     "failure": "Falha",
     "regions": {
@@ -315,31 +310,6 @@
         "3": "Cidade",
         "2": "Município",
         "1": "Bairro"
-    },
-    "dss": {
-        "title": "Estação Espacial Democracia",
-        "preparing": "preparando",
-        "active": "ativo(a)",
-        "inactive": "desativado(a)",
-        "on_cooldown": "recarregando",
-        "tactical_actions": {
-            "EAGLE STORM": {
-                "name": "ÁGUIA TEMPESTIVA",
-                "description": "-# Envia **Ataques Aéreos via Águia** periódicos durante as missões.\n-# Restringe o progresso dos inimigos em **Campanhas Defensivas**."
-            },
-            "ORBITAL BLOCKADE": {
-                "name": "BLOQUEIO ORBITAL",
-                "description": "-# **Campanhas Defensivas** não podem se originar deste planeta.\n-# O reforçador **Otimização Espacial de Hellpod** fica ativo automaticamente durante as missões."
-            },
-            "HEAVY ORDNANCE DISTRIBUTION": {
-                "name": "DISTRIBUIÇÃO DE ARTILHARIA PESADA",
-                "description": "-# Dá acesso à **Barragem Orbital DT de 380MM** durante missões.\n-# Acelera o progresso das **Campanhas de Libertação**."
-            },
-            "EAGLE BLOCKADE": {
-                "name": "BLOQUEIO DE ÁGUIA",
-                "description": "-# Envia **Ataques Aéreos via Águia** periódicos durante as missões.\n-# O reforçador **Otimização Espacial de Hellpod** fica ativo automaticamente durante as missões."
-            }
-        }
     },
     "setup": {
         "cant_find_channel": "Eu não consigo encontrar este canal. Por favor garanta que eu tenha as permissões de `Vizualisar Canal`",
@@ -353,7 +323,10 @@
         "Humans": "Humanos",
         "Terminids": "Terminídios",
         "Automaton": "Autômatos",
-        "Illuminate": "Iluminados"
+        "Illuminate": "Iluminados",
+        "Terminids_plural": "Terminids",
+        "Automaton_plural": "Automaton",
+        "Illuminate_plural": "Illuminate"
     },
     "difficulty": {
         "1": "Trivial.",
