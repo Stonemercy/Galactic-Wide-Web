@@ -25,8 +25,8 @@ class GlobalEventsCog(commands.Cog):
     def cog_unload(self) -> None:
         if self.global_event_check.is_running():
             self.global_event_check.stop()
-            if self.global_event_check in self.bot.loops:
-                self.bot.loops.remove(self.global_event_check)
+        if self.global_event_check in self.bot.loops:
+            self.bot.loops.remove(self.global_event_check)
 
     @tasks.loop(minutes=1)
     async def global_event_check(self) -> None:

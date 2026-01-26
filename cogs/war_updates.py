@@ -28,8 +28,8 @@ class WarUpdatesCog(commands.Cog):
         for loop in self.loops:
             if loop.is_running():
                 loop.stop()
-                if loop in self.bot.loops:
-                    self.bot.loops.remove(loop)
+            if loop in self.bot.loops:
+                self.bot.loops.remove(loop)
 
     @tasks.loop(minutes=1)
     async def campaign_check(self) -> None:

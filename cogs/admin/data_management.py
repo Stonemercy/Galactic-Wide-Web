@@ -43,6 +43,7 @@ class DataManagementCog(commands.Cog):
         for loop in self.loops:
             if loop.is_running():
                 loop.stop()
+            if loop in self.bot.loops:
                 self.bot.loops.remove(loop)
 
     @tasks.loop(count=1)

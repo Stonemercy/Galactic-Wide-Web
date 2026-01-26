@@ -26,8 +26,8 @@ class DispatchesCog(commands.Cog):
     def cog_unload(self) -> None:
         if self.dispatch_check.is_running():
             self.dispatch_check.stop()
-            if self.dispatch_check in self.bot.loops:
-                self.bot.loops.remove(self.dispatch_check)
+        if self.dispatch_check in self.bot.loops:
+            self.bot.loops.remove(self.dispatch_check)
 
     @tasks.loop(minutes=1)
     async def dispatch_check(self) -> None:

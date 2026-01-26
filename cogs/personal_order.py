@@ -25,8 +25,8 @@ class PersonalOrderCog(commands.Cog):
     def cog_unload(self) -> None:
         if self.personal_order_updates.is_running():
             self.personal_order_updates.stop()
-            if self.personal_order_updates in self.bot.loops:
-                self.bot.loops.remove(self.personal_order_updates)
+        if self.personal_order_updates in self.bot.loops:
+            self.bot.loops.remove(self.personal_order_updates)
 
     @tasks.loop(time=[time(hour=9, minute=30)])
     async def personal_order_updates(self):
