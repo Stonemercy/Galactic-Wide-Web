@@ -14,7 +14,7 @@ from cv2 import (
 )
 from data.lists import CUSTOM_COLOURS
 from dataclasses import dataclass
-from datetime import datetime
+from datetime import datetime, timedelta
 from numpy import uint8, zeros
 from PIL import Image, ImageDraw, ImageFont
 from utils.api_wrapper.models import Assignment, Campaign, DSS, Planet
@@ -373,11 +373,24 @@ class Maps:
                     )
                     x_offset += su_icon.shape[0]
             if dss and planet.dss_in_orbit:
-                dss_icon = imread("resources/map_icons/dss_glow.png", IMREAD_UNCHANGED)
-                verti_diff = 65
-                loc_name = planet_names_json[str(planet.index)]["names"][long_code]
-                if loc_name.count(" ") > 0:
-                    verti_diff += loc_name.count(" ") * (self.TEXT_SIZE - 5)
+                dss_icon = (
+                    imread("resources/map_icons/dss_glow.png", IMREAD_UNCHANGED)
+                    if dss.flags == 1
+                    and not (
+                        all([ta.status == 0 for ta in dss.tactical_actions])
+                        and dss.move_timer_datetime
+                        > datetime.now() + timedelta(days=30)
+                    )
+                    else imread(
+                        "resources/map_icons/dss_glow_inactive.png", IMREAD_UNCHANGED
+                    )
+                )
+                verti_diff = 20
+                if planet.index in active_planets:
+                    verti_diff += 45
+                    loc_name = planet_names_json[str(planet.index)]["names"][long_code]
+                    if loc_name.count(" ") > 0:
+                        verti_diff += loc_name.count(" ") * (self.TEXT_SIZE - 5)
                 dss_coords = (
                     int(dss.planet.map_waypoints[0]) - 17,
                     int(dss.planet.map_waypoints[1]) - verti_diff,
