@@ -1911,6 +1911,11 @@ class Dashboard:
                             ],
                             key=lambda x: x.availability_factor,
                         ):
+                            if (
+                                region.availability_factor == 0
+                                and not region.is_available
+                            ):
+                                break
                             field_value += f"\n-# ↳ {region.emoji} {language_json['regions'][str(region.type.value)]} **{region.names[language_json['code_long']]}** available at **{region.availability_factor:.2%}**"
                             break
 
