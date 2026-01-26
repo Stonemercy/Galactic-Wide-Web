@@ -99,7 +99,7 @@ class BotDashboardContainer(ui.Container, ReprMixin):
         }
         errors = 0
         for loop in bot.loops:
-            if not loop.next_iteration and not loop.count:
+            if not loop.is_running() and not loop.count:
                 loop_errors += f"{loop.coro.__name__} - **__ERROR__**:warning:\n"
                 errors += 1
         if loop_errors:
