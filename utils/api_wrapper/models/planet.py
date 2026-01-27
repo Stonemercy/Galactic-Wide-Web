@@ -32,6 +32,7 @@ class Planet(ReprMixin):
             "sector", raw_planet_info["sector"]
         )
         self.dss_in_orbit: bool = False
+        self.active_campaign: bool = False
         self.eagle_storm_active: bool = False
         self.in_assignment: bool = False
         self.active_effects: set[GalacticWarEffect] = set()

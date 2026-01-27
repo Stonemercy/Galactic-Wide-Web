@@ -1038,30 +1038,28 @@ class Dashboard:
                 if task.planet_index:
                     planet = self.planets.get(task.planet_index)
                     if planet:
-                        if not planet.defending_from:
-                            waypoint_timestamps = {}
+                        if not planet.active_campaign:
+                            waypoint_timestamps: list[tuple[str, int]] = []
                             for waypoint in planet.waypoints:
                                 way_planet = self.planets.get(waypoint)
-                                if way_planet:
-                                    if way_planet.defending_from:
-                                        end_time_info = get_end_time(
-                                            source_planet=way_planet,
-                                            gambit_planets=self.gambit_planets,
-                                        )
-                                        if end_time_info.end_time:
-                                            waypoint_timestamps[
+                                if way_planet and way_planet.active_campaign:
+                                    end_time_info = get_end_time(
+                                        source_planet=way_planet,
+                                        gambit_planets=self.gambit_planets,
+                                    )
+                                    if end_time_info.end_time:
+                                        waypoint_timestamps.append(
+                                            (
                                                 way_planet.loc_names[
                                                     self.language_json["code_long"]
-                                                ]
-                                            ] = int(end_time_info.end_time.timestamp())
-                            if waypoint_timestamps != {}:
-                                earliest_timestamp = ()
-                                for planet_, timestamp in waypoint_timestamps.items():
-                                    if (
-                                        not earliest_timestamp
-                                        or timestamp < earliest_timestamp[1]
-                                    ):
-                                        earliest_timestamp = (planet_, timestamp)
+                                                ],
+                                                int(end_time_info.end_time.timestamp()),
+                                            )
+                                        )
+                            if waypoint_timestamps != []:
+                                earliest_timestamp = sorted(
+                                    waypoint_timestamps, key=lambda x: x[1]
+                                )[0]
                                 field_value += self.language_json["embeds"][
                                     "Dashboard"
                                 ]["MajorOrderEmbed"]["avail_thanks_to_wp"].format(

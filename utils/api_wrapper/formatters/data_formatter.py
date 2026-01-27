@@ -162,6 +162,8 @@ class FormattedData:
                             and defending_planet.event
                         ):
                             self.gambit_planets[defending_index] = campaign.planet
+                for campaign in self.campaigns:
+                    campaign.planet.active_campaign = True
 
             for active_effect in context.war_status["en"]["planetActiveEffects"]:
                 planet = self.planets.get(active_effect["index"])
