@@ -1,17 +1,8 @@
 from disnake import Colour, ui, ShardInfo
 from utils.dbv2 import GWWGuild
+from utils.emojis import Emojis
 from utils.mixins import ReprMixin
 from utils.setup import Setup
-
-FLAG_DICT = {
-    "en": ":flag_gb:",
-    "fr": ":flag_fr:",
-    "de": ":flag_de:",
-    "it": ":flag_it:",
-    "pt-br": ":flag_br:",
-    "ru": ":flag_ru:",
-    "es": ":flag_es:",
-}
 
 
 class SetupContainer(ui.Container, ReprMixin):
@@ -48,7 +39,10 @@ class SetupContainer(ui.Container, ReprMixin):
                     ui.Section(
                         ui.TextDisplay(
                             container_json["language"].format(
-                                flag_emoji=FLAG_DICT[guild.language]
+                                flag_emoji=getattr(
+                                    Emojis.Flags,
+                                    guild.language.lower().replace("-", "_"),
+                                )
                             )
                             + f"\n**{guild.language_long}**"
                         ),
