@@ -7,6 +7,7 @@ json_dict = {
         "pt-br": {"path": "data/languages/pt-br.json", "value": None},
         "ru": {"path": "data/languages/ru.json", "value": None},
         "es": {"path": "data/languages/es.json", "value": None},
+        "zh-hans": {"path": "data/languages/zh-hans.json", "value": None},
     },
     "planets": {"path": "data/json/planets/planets.json", "value": None},
     "planetRegions": {"path": "data/json/planets/planetRegions.json", "value": None},
