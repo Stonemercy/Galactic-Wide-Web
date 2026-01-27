@@ -7,7 +7,6 @@ from utils.mixins import ReprMixin
 class GlobalEventsContainer(ui.Container, ReprMixin):
     def __init__(
         self,
-        long_lang_code: str,
         container_json: dict,
         global_event: GlobalEvent,
         planets: dict[int, Planet],
