@@ -1871,9 +1871,7 @@ class Dashboard:
                     for su in SpecialUnits.get_from_effects_list(
                         campaign.planet.active_effects
                     ):
-                        field_value += (
-                            f"\n-# {su[1]} {language_json['special_units'][su[0]]}"
-                        )
+                        field_value += f"\n-# {su[1]} {language_json['special_units'].get(su[0], su[0])}"
 
                     for feature in PlanetFeatures.get_from_effects_list(
                         campaign.planet.active_effects
