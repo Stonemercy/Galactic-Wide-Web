@@ -86,9 +86,9 @@ class MajorOrderCog(commands.Cog):
                 embeds = {
                     lang: [
                         Dashboard.MajorOrderEmbed(
-                            assignment=self.bot.data.formatted_data.assignments[lang][
-                                index
-                            ],
+                            assignment=self.bot.data.formatted_data.assignments.get(
+                                lang, self.bot.data.formatted_data.assignments["en"]
+                            )[index],
                             planets=self.bot.data.formatted_data.planets,
                             gambit_planets=self.bot.data.formatted_data.gambit_planets,
                             language_json=self.bot.json_dict["languages"][lang],
