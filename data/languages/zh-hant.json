@@ -1,6 +1,6 @@
 {
-    "code": "zh-hans",
-    "code_long": "zh-Hans",
+    "code": "zh-hant",
+    "code_long": "zh-Hant",
     "containers": {
         "CampaignChangesContainer": {
             "title": "銀河戰爭更新",

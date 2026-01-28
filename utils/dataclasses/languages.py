@@ -17,7 +17,7 @@ class Languages:
     italian: Language = Language("Italiano", "it", "it-IT")
     brazilian_portuguese: Language = Language("Português brasileiro", "pt-br", "pt-BR")
     russian: Language = Language("Pусский", "ru", "ru-RU")
-    chinese: Language = Language("简化字", "zh-hans", "zh-Hans")
+    chinese_trad: Language = Language("漢語", "zh-hant", "zh-Hant")
     all: list[Language] = [
         english,
         french,
@@ -26,7 +26,7 @@ class Languages:
         brazilian_portuguese,
         russian,
         spanish,
-        chinese,
+        chinese_trad,
     ]
 
     @staticmethod
@@ -42,6 +42,6 @@ LOCALES_DICT: dict[Locale, Language] = {
     Locale.ru: Languages.russian,
     Locale.es_ES: Languages.spanish,
     Locale.es_LATAM: Languages.spanish,
-    Locale.zh_CN: Languages.chinese,
-    Locale.zh_TW: Languages.chinese,
+    Locale.zh_CN: Languages.chinese_trad,
+    Locale.zh_TW: Languages.chinese_trad,
 }

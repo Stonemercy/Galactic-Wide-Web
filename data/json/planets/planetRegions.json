@@ -9,7 +9,8 @@
             "it-IT": "ABBONDANZA",
             "pt-BR": "ABUND\u00c2NCIA",
             "ru-RU": "\u0414\u041e\u0421\u0422\u0410\u0422\u041e\u041a",
-            "zh-Hans": "\u4e30\u9976\u5e02"
+            "zh-Hans": "\u4e30\u9976\u5e02",
+            "zh-Hant": "\u8c50\u9952\u4e4b\u5730"
         },
         "description": "",
         "descriptions": {}
@@ -24,7 +25,8 @@
             "it-IT": "BLUFF DELL'ABBONDANZA",
             "pt-BR": "RIBANCEIRA DA ABUND\u00c2NCIA",
             "ru-RU": "\u0423\u0422\u0415\u0421 \u0418\u0417\u041e\u0411\u0418\u041b\u0418\u042f",
-            "zh-Hans": "\u4e30\u7edd\u5d16"
+            "zh-Hans": "\u4e30\u7edd\u5d16",
+            "zh-Hant": "\u8c50\u9952\u4e4b\u5d16"
         },
         "description": "",
         "descriptions": {}
@@ -39,7 +41,8 @@
             "it-IT": "MOVIDA",
             "pt-BR": "CONTADOR GRAEBER",
             "ru-RU": "\u0421\u0427\u0415\u0422\u041e\u0412\u041e\u0414 \u0413\u0420\u042d\u0411\u0415\u0420",
-            "zh-Hans": "\u4f1a\u8ba1\u683c\u96f7\u4f2f"
+            "zh-Hans": "\u4f1a\u8ba1\u683c\u96f7\u4f2f",
+            "zh-Hant": "\u683c\u96f7\u4f2f\u6703\u8a08\u5e2b"
         },
         "description": "",
         "descriptions": {}
@@ -54,7 +57,8 @@
             "it-IT": "ADAM PARK",
             "pt-BR": "PARQUE ADAM",
             "ru-RU": "\u041f\u0410\u0420\u041a \u0410\u0414\u0410\u041c\u0410",
-            "zh-Hans": "\u4e9a\u5f53\u5e15\u514b"
+            "zh-Hans": "\u4e9a\u5f53\u5e15\u514b",
+            "zh-Hant": "\u4e9e\u7576\u516c\u5712"
         },
         "description": "",
         "descriptions": {}
@@ -69,7 +73,8 @@
             "it-IT": "CENTRO AMMINISTRATIVO 02",
             "pt-BR": "CENTRO ADMINISTRATIVO 02",
             "ru-RU": "\u0410\u0414\u041c\u0418\u041d\u0418\u0421\u0422\u0420\u0410\u0422\u0418\u0412\u041d\u042b\u0419 \u0426\u0415\u041d\u0422\u0420 \u211602",
-            "zh-Hans": "\u884c\u653f\u603b\u90fd02"
+            "zh-Hans": "\u884c\u653f\u603b\u90fd02",
+            "zh-Hant": "\u884c\u653f\u4e2d\u5fc302"
         },
         "description": "Each form and application that passes through the hallowed halls of AdminCen is emblazoned with the Stamp of Ages, and should be given a place of honor in the home.",
         "descriptions": {
@@ -80,7 +85,8 @@
             "it-IT": "Ogni documento ufficiale che passa attraverso le sacre sale del Centro \u00e8 decorato con il Bollo delle Ere, e dovrebbe avere un posto d'onore in ogni casa.",
             "pt-BR": "Todos os formul\u00e1rios e solicita\u00e7\u00f5es que passam pelos corredores sagrados do CenAdm s\u00e3o carimbados com o Selo das Eras e devem ser colocados em um lugar de honra em casa.",
             "ru-RU": "\u041a\u0430\u0436\u0434\u044b\u0439 \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442 \u0438 \u0437\u0430\u044f\u0432\u043b\u0435\u043d\u0438\u0435, \u043a\u043e\u0442\u043e\u0440\u044b\u0435 \u043f\u0440\u043e\u0445\u043e\u0434\u044f\u0442 \u0447\u0435\u0440\u0435\u0437 \u0441\u0432\u044f\u0449\u0435\u043d\u043d\u044b\u0435 \u0437\u0430\u043b\u044b \u0410\u0434\u043c\u0438\u043d\u0446\u0435\u043d\u0442\u0440\u0430, \u0443\u043a\u0440\u0430\u0448\u0430\u044e\u0442\u0441\u044f \u041f\u0435\u0447\u0430\u0442\u044c\u044e \u044d\u043f\u043e\u0445 \u0438 \u043f\u043e\u043b\u0443\u0447\u0430\u044e\u0442 \u043f\u043e\u0447\u0435\u0442\u043d\u043e\u0435 \u043c\u0435\u0441\u0442\u043e \u0432 \u0434\u043e\u043c\u0435.",
-            "zh-Hans": "\u884c\u653f\u4e2d\u5fc3\u795e\u5723\u5927\u5385\u7ecf\u624b\u7684\u8868\u683c\u548c\u7533\u8bf7\u5747\u5370\u6709\u201c\u65f6\u4ee3\u5370\u7ae0\u201d\uff0c\u5e94\u5f53\u6446\u653e\u5728\u5bb6\u4e2d\u663e\u8d6b\u4f4d\u7f6e\u3002"
+            "zh-Hans": "\u884c\u653f\u4e2d\u5fc3\u795e\u5723\u5927\u5385\u7ecf\u624b\u7684\u8868\u683c\u548c\u7533\u8bf7\u5747\u5370\u6709\u201c\u65f6\u4ee3\u5370\u7ae0\u201d\uff0c\u5e94\u5f53\u6446\u653e\u5728\u5bb6\u4e2d\u663e\u8d6b\u4f4d\u7f6e\u3002",
+            "zh-Hant": "\u6bcf\u4efd\u901a\u904e\u884c\u653f\u4e2d\u5fc3\u838a\u56b4\u5927\u5ef3\u7684\u8868\u55ae\u548c\u7533\u8acb\uff0c\u90fd\u70d9\u5370\u8457\u6b72\u6708\u7684\u5370\u8a18\uff0c\u61c9\u8a72\u653e\u5728\u5bb6\u4e2d\u8b39\u614e\u73cd\u85cf\u3002"
         }
     },
     "786867005": {
@@ -93,7 +99,8 @@
             "it-IT": "ADNAN",
             "pt-BR": "ADNAN",
             "ru-RU": "\u0410\u0414\u041d\u0410\u041d",
-            "zh-Hans": "\u5b89\u62d3\u5e02"
+            "zh-Hans": "\u5b89\u62d3\u5e02",
+            "zh-Hant": "\u963f\u5fb7\u5357"
         },
         "description": "",
         "descriptions": {}
@@ -108,7 +115,8 @@
             "it-IT": "AVVENTURA",
             "pt-BR": "AVENTURA",
             "ru-RU": "\u041f\u0420\u0418\u041a\u041b\u042e\u0427\u0415\u041d\u0418\u0415",
-            "zh-Hans": "\u63a2\u9669\u5e02"
+            "zh-Hans": "\u63a2\u9669\u5e02",
+            "zh-Hant": "\u5192\u96aa\u4e4b\u5730"
         },
         "description": "",
         "descriptions": {}
@@ -123,7 +131,8 @@
             "it-IT": "AGARTHA",
             "pt-BR": "AGARTA",
             "ru-RU": "\u0410\u0413\u0410\u0420\u0422\u0418",
-            "zh-Hans": "\u96c5\u6208\u6cf0"
+            "zh-Hans": "\u96c5\u6208\u6cf0",
+            "zh-Hant": "\u96c5\u6208\u6cf0"
         },
         "description": "",
         "descriptions": {}
@@ -138,7 +147,8 @@
             "it-IT": "ADESVILLE",
             "pt-BR": "VILADES",
             "ru-RU": "\u042d\u0419\u0414\u0421\u0412\u0418\u041b\u041b\u042c",
-            "zh-Hans": "\u54c8\u5f97\u65af\u7ef4\u5c14"
+            "zh-Hans": "\u54c8\u5f97\u65af\u7ef4\u5c14",
+            "zh-Hant": "\u54c0\u5730\u65af\u6751"
         },
         "description": "",
         "descriptions": {}
@@ -153,7 +163,8 @@
             "it-IT": "ZELO",
             "pt-BR": "CONSON\u00c2NCIA",
             "ru-RU": "\u0410\u041b\u042c\u042f\u041d\u0421",
-            "zh-Hans": "\u540c\u5fc3\u5e02"
+            "zh-Hans": "\u540c\u5fc3\u5e02",
+            "zh-Hant": "\u5411\u5fc3\u4e4b\u5730"
         },
         "description": "",
         "descriptions": {}
@@ -168,7 +179,8 @@
             "it-IT": "ALTONBURG",
             "pt-BR": "ALTONBURGO",
             "ru-RU": "\u0410\u041b\u0422\u041e\u041d\u0411\u0423\u0420\u0413",
-            "zh-Hans": "\u5965\u5c14\u987f\u5821"
+            "zh-Hans": "\u5965\u5c14\u987f\u5821",
+            "zh-Hant": "\u963f\u723e\u9813\u5821"
         },
         "description": "",
         "descriptions": {}
@@ -183,7 +195,8 @@
             "it-IT": "ANDROS DELTA",
             "pt-BR": "ANDROS DELTA",
             "ru-RU": "\u0410\u041d\u0414\u0420\u041e\u0421 \u0414\u0415\u041b\u042c\u0422\u0410",
-            "zh-Hans": "\u5b89\u5fb7\u7f57\u65af\u5fb7\u5c14\u5854"
+            "zh-Hans": "\u5b89\u5fb7\u7f57\u65af\u5fb7\u5c14\u5854",
+            "zh-Hant": "\u5b89\u5fb7\u7f85\u65af\u5fb7\u723e\u5854"
         },
         "description": "",
         "descriptions": {}
@@ -198,7 +211,8 @@
             "it-IT": "ANDROS GAMMA",
             "pt-BR": "ANDROS GAMA",
             "ru-RU": "\u0410\u041d\u0414\u0420\u041e\u0421 \u0413\u0410\u041c\u041c\u0410",
-            "zh-Hans": "\u5b89\u5fb7\u7f57\u65af\u4f3d\u9a6c"
+            "zh-Hans": "\u5b89\u5fb7\u7f57\u65af\u4f3d\u9a6c",
+            "zh-Hant": "\u5b89\u5fb7\u7f85\u65af\u4f3d\u746a"
         },
         "description": "",
         "descriptions": {}
@@ -213,7 +227,8 @@
             "it-IT": "VEGLIA DI ANNE",
             "pt-BR": "VIG\u00cdLIA DE ANNE",
             "ru-RU": "\u041f\u041e\u0421\u0422 \u0410\u041d\u041d\u0418",
-            "zh-Hans": "\u5b89\u59ae\u5b88\u671b\u57ce"
+            "zh-Hans": "\u5b89\u59ae\u5b88\u671b\u57ce",
+            "zh-Hant": "\u5b89\u59ae\u591c\u79b1\u57ce"
         },
         "description": "",
         "descriptions": {}
@@ -228,7 +243,8 @@
             "it-IT": "ANNWN",
             "pt-BR": "ANNWN",
             "ru-RU": "\u0410\u041d\u041d\u0423\u041d",
-            "zh-Hans": "\u5b89\u6e29"
+            "zh-Hans": "\u5b89\u6e29",
+            "zh-Hant": "\u5b89\u6eab"
         },
         "description": "",
         "descriptions": {}
@@ -243,7 +259,8 @@
             "it-IT": "DISINFESTIA",
             "pt-BR": "ESMAGA-INSETOS",
             "ru-RU": "\u0416\u0423\u041a\u041e\u0414\u0410\u0412",
-            "zh-Hans": "\u8e0f\u866b\u5e02"
+            "zh-Hans": "\u8e0f\u866b\u5e02",
+            "zh-Hant": "\u8e0f\u87f2\u5e02"
         },
         "description": "",
         "descriptions": {}
@@ -258,7 +275,8 @@
             "it-IT": "APPROVAZIONE",
             "pt-BR": "CIDADE DE APROVA\u00c7\u00c3O",
             "ru-RU": "\u0413\u041e\u0420\u041e\u0414 \u041e\u0414\u041e\u0411\u0420\u0415\u041d\u0418\u042f",
-            "zh-Hans": "\u51c6\u90fd"
+            "zh-Hans": "\u51c6\u90fd",
+            "zh-Hant": "\u8a8d\u53ef\u57ce"
         },
         "description": "",
         "descriptions": {}
@@ -273,7 +291,8 @@
             "it-IT": "COLLI DI ASPEN",
             "pt-BR": "VALES DE ASPEN",
             "ru-RU": "\u0410\u0421\u041f\u0415\u041d-\u0425\u0418\u041b\u041b\u0417",
-            "zh-Hans": "\u963f\u65af\u5f6d\u5c71"
+            "zh-Hans": "\u963f\u65af\u5f6d\u5c71",
+            "zh-Hant": "\u767d\u694a\u4e4b\u4e18"
         },
         "description": "",
         "descriptions": {}
@@ -288,7 +307,8 @@
             "it-IT": "CASERMIA",
             "pt-BR": "QUARTELBURGO",
             "ru-RU": "\u041a\u0410\u0417\u0410\u0420\u041c\u041e\u0413\u0420\u0410\u0414",
-            "zh-Hans": "\u5175\u8425\u5821"
+            "zh-Hans": "\u5175\u8425\u5821",
+            "zh-Hant": "\u8ecd\u71df\u5821"
         },
         "description": "",
         "descriptions": {}
@@ -303,7 +323,8 @@
             "it-IT": "DESOLAZIONE",
             "pt-BR": "ESTERIL",
             "ru-RU": "\u041f\u0423\u0421\u0422\u042b\u041d\u041d\u042b\u0419 \u041e\u041a\u0420\u0423\u0413",
-            "zh-Hans": "\u4e0d\u6bdb\u6c83\u5fb7"
+            "zh-Hans": "\u4e0d\u6bdb\u6c83\u5fb7",
+            "zh-Hant": "\u8352\u539f\u5340"
         },
         "description": "",
         "descriptions": {}
@@ -318,7 +339,8 @@
             "it-IT": "CAMPO BASE 8",
             "pt-BR": "ACAMPAMENTO BASE 8",
             "ru-RU": "\u0411\u0410\u0417\u041e\u0412\u042b\u0419 \u041b\u0410\u0413\u0415\u0420\u042c 8",
-            "zh-Hans": "8\u53f7\u57fa\u5730"
+            "zh-Hans": "8\u53f7\u57fa\u5730",
+            "zh-Hant": "8\u865f\u71df"
         },
         "description": "",
         "descriptions": {}
@@ -333,7 +355,8 @@
             "it-IT": "BATU BELIG",
             "pt-BR": "BATU BELIG",
             "ru-RU": "\u0411\u0410\u0422\u0423 \u0411\u0415\u041b\u0418\u0413",
-            "zh-Hans": "\u5df4\u56fe\u8d1d\u5229\u683c"
+            "zh-Hans": "\u5df4\u56fe\u8d1d\u5229\u683c",
+            "zh-Hant": "\u5df4\u5716\u8c9d\u5229\u683c"
         },
         "description": "",
         "descriptions": {}
@@ -348,7 +371,8 @@
             "it-IT": "BELLARIVA",
             "pt-BR": "VISTA PRAIANA",
             "ru-RU": "\u0412\u0418\u0414-\u041d\u0410-\u041f\u041b\u042f\u0416",
-            "zh-Hans": "\u78a7\u666f\u6e7e"
+            "zh-Hans": "\u78a7\u666f\u6e7e",
+            "zh-Hant": "\u6ff1\u6d77\u773a\u5cb8"
         },
         "description": "",
         "descriptions": {}
@@ -363,7 +387,8 @@
             "it-IT": "BEEFBURG",
             "pt-BR": "BIFEBURGO",
             "ru-RU": "\u0411\u0418\u0424\u0411\u0423\u0420\u0413",
-            "zh-Hans": "\u6bd4\u592b\u5821"
+            "zh-Hans": "\u6bd4\u592b\u5821",
+            "zh-Hant": "\u725b\u5821"
         },
         "description": "",
         "descriptions": {}
@@ -378,7 +403,8 @@
             "it-IT": "BENEVOLENZA",
             "pt-BR": "BENEVOL\u00caNCIA",
             "ru-RU": "\u0412\u0415\u041b\u0418\u041a\u041e\u0414\u0423\u0428\u0418\u0415",
-            "zh-Hans": "\u4ec1\u57ce"
+            "zh-Hans": "\u4ec1\u57ce",
+            "zh-Hant": "\u4ec1\u6148\u57ce"
         },
         "description": "",
         "descriptions": {}
@@ -393,7 +419,8 @@
             "it-IT": "BETULLIA",
             "pt-BR": "VILA B\u00c9TULA",
             "ru-RU": "\u0411\u0415\u0420\u0415\u0417\u041e\u0413\u0420\u0410\u0414",
-            "zh-Hans": "\u6866\u6728\u7ef4\u5c14"
+            "zh-Hans": "\u6866\u6728\u7ef4\u5c14",
+            "zh-Hant": "\u6a3a\u6728\u6751"
         },
         "description": "",
         "descriptions": {}
@@ -408,7 +435,8 @@
             "it-IT": "RINASCITA",
             "pt-BR": "NASCIMENTO",
             "ru-RU": "\u0420\u041e\u0416\u0414\u0415\u041d\u0418\u0415",
-            "zh-Hans": "\u5723\u751f\u5e02"
+            "zh-Hans": "\u5723\u751f\u5e02",
+            "zh-Hant": "\u8a95\u751f\u4e4b\u5730"
         },
         "description": "",
         "descriptions": {}
@@ -423,7 +451,8 @@
             "it-IT": "MINIERE DELLA VENA NERA",
             "pt-BR": "MINAS VEIOSCURO",
             "ru-RU": "\u0427\u0415\u0420\u041d\u041e\u0420\u0423\u0414\u041d\u042b\u0415 \u0428\u0410\u0425\u0422\u042b",
-            "zh-Hans": "\u9ed1\u8109\u77ff\u4e95"
+            "zh-Hans": "\u9ed1\u8109\u77ff\u4e95",
+            "zh-Hant": "\u9ed1\u8108\u7926"
         },
         "description": "",
         "descriptions": {}
@@ -438,7 +467,8 @@
             "it-IT": "VIASANTA",
             "pt-BR": "PASSOBOM",
             "ru-RU": "\u0411\u041b\u0410\u0413\u041e\u0422\u0420\u041e\u041f",
-            "zh-Hans": "\u5723\u9014\u5e02"
+            "zh-Hans": "\u5723\u9014\u5e02",
+            "zh-Hant": "\u795d\u798f\u4e4b\u5f91"
         },
         "description": "",
         "descriptions": {}
@@ -453,7 +483,8 @@
             "it-IT": "LAZZARO",
             "pt-BR": "PESTIL\u00c2NDIA",
             "ru-RU": "\u0421\u041a\u0412\u0415\u0420\u041d\u0410",
-            "zh-Hans": "\u761f\u8328\u9ed8\u514b"
+            "zh-Hans": "\u761f\u8328\u9ed8\u514b",
+            "zh-Hant": "\u8352\u75ab\u4e4b\u5730"
         },
         "description": "",
         "descriptions": {}
@@ -468,7 +499,8 @@
             "it-IT": "CAMPO DI FIORI",
             "pt-BR": "CAMPOS BL\u00cdPTICOS",
             "ru-RU": "\u0411\u041e\u041f\u0421\u0424\u0418\u041b\u0414",
-            "zh-Hans": "\u6ce2\u666e\u65af\u83f2\u5c14\u5fb7"
+            "zh-Hans": "\u6ce2\u666e\u65af\u83f2\u5c14\u5fb7",
+            "zh-Hant": "\u535a\u666e\u65af\u83f2\u723e\u5fb7"
         },
         "description": "",
         "descriptions": {}
@@ -483,7 +515,8 @@
             "it-IT": "CORAGGIO",
             "pt-BR": "BRAVURA",
             "ru-RU": "\u041e\u0422\u0412\u0410\u0413\u0410",
-            "zh-Hans": "\u52c7\u57ce"
+            "zh-Hans": "\u52c7\u57ce",
+            "zh-Hant": "\u52c7\u6c23\u57ce"
         },
         "description": "",
         "descriptions": {}
@@ -498,7 +531,8 @@
             "it-IT": "BRAWFERMLAND",
             "pt-BR": "TERRA DE FERTILAVOURA",
             "ru-RU": "\u0411\u0420\u0410\u0424\u0415\u0420\u041c\u041b\u0410\u041d\u0414",
-            "zh-Hans": "\u5e03\u52b3\u8d39\u5c14\u5170"
+            "zh-Hans": "\u5e03\u52b3\u8d39\u5c14\u5170",
+            "zh-Hant": "\u5e03\u52de\u5f17\u862d"
         },
         "description": "",
         "descriptions": {}
@@ -513,7 +547,8 @@
             "it-IT": "ALA LUMINOSA",
             "pt-BR": "ASA CLARA",
             "ru-RU": "\u042f\u0420\u041a\u041e\u0415 \u041a\u0420\u042b\u041b\u041e",
-            "zh-Hans": "\u660e\u7ffc\u5e02"
+            "zh-Hans": "\u660e\u7ffc\u5e02",
+            "zh-Hant": "\u5149\u7ffc\u57ce"
         },
         "description": "",
         "descriptions": {}
@@ -528,7 +563,8 @@
             "it-IT": "BRNO",
             "pt-BR": "BRNO",
             "ru-RU": "\u0411\u0420\u041d\u041e",
-            "zh-Hans": "\u5e03\u5c14\u8bfa"
+            "zh-Hans": "\u5e03\u5c14\u8bfa",
+            "zh-Hant": "\u5e03\u723e\u8afe"
         },
         "description": "",
         "descriptions": {}
@@ -543,7 +579,8 @@
             "it-IT": "PATRIMONIO",
             "pt-BR": "FORTUNA DO AGENTE",
             "ru-RU": "\u0411\u041e\u0413\u0410\u0422\u0421\u0422\u0412\u041e \u0411\u0420\u041e\u041a\u0415\u0420\u0410",
-            "zh-Hans": "\u7ecf\u7eaa\u8d22\u5bcc\u5e02"
+            "zh-Hans": "\u7ecf\u7eaa\u8d22\u5bcc\u5e02",
+            "zh-Hant": "\u7d93\u8ca1\u57ce"
         },
         "description": "",
         "descriptions": {}
@@ -558,7 +595,8 @@
             "it-IT": "BUCU'S REST",
             "pt-BR": "REPOUSO DE BUCU",
             "ru-RU": "\u041f\u041e\u041a\u041e\u0419 \u0411\u0423\u041a\u0423",
-            "zh-Hans": "\u5e03\u5e93\u5b89\u606f\u57ce"
+            "zh-Hans": "\u5e03\u5e93\u5b89\u606f\u57ce",
+            "zh-Hant": "\u5e03\u8c37\u5b89\u606f\u5730"
         },
         "description": "",
         "descriptions": {}
@@ -573,7 +611,8 @@
             "it-IT": "BUJU",
             "pt-BR": "BUJU",
             "ru-RU": "\u0411\u0423\u0414\u0416\u0423",
-            "zh-Hans": "\u5e03\u6731"
+            "zh-Hans": "\u5e03\u6731",
+            "zh-Hant": "\u5e03\u6731"
         },
         "description": "",
         "descriptions": {}
@@ -588,7 +627,8 @@
             "it-IT": "CAMPO LEIGHTON",
             "pt-BR": "CAMPO LEIGHTON",
             "ru-RU": "\u041a\u042d\u041c\u041f-\u041b\u0415\u0419\u0422\u041e\u041d",
-            "zh-Hans": "\u83b1\u987f\u8425"
+            "zh-Hans": "\u83b1\u987f\u8425",
+            "zh-Hant": "\u96f7\u9813\u71df"
         },
         "description": "",
         "descriptions": {}
@@ -603,7 +643,8 @@
             "it-IT": "CARBONIA",
             "pt-BR": "CARBOVALE",
             "ru-RU": "\u0423\u0413\u041b\u0415\u0414\u0418\u041d\u0421\u041a",
-            "zh-Hans": "\u5361\u672c\u4ee3\u5c14"
+            "zh-Hans": "\u5361\u672c\u4ee3\u5c14",
+            "zh-Hant": "\u5361\u672c\u6234\u723e"
         },
         "description": "",
         "descriptions": {}
@@ -618,7 +659,8 @@
             "it-IT": "TRIONFANTE",
             "pt-BR": "CELEBRA\u00c7\u00c3O",
             "ru-RU": "\u041f\u0420\u0410\u0417\u0414\u041d\u0418\u041a",
-            "zh-Hans": "\u5e86\u795d\u5e02"
+            "zh-Hans": "\u5e86\u795d\u5e02",
+            "zh-Hant": "\u6176\u5178\u4e4b\u5730"
         },
         "description": "",
         "descriptions": {}
@@ -633,7 +675,8 @@
             "it-IT": "DIRETTORE OKOTE",
             "pt-BR": "L\u00cdDER OKOTE",
             "ru-RU": "\u041f\u0420\u0415\u0414\u0421\u0415\u0414\u0410\u0422\u0415\u041b\u042c \u041e\u041a\u041e\u0422\u0415",
-            "zh-Hans": "\u4e3b\u5e2d\u5965\u79d1\u7279"
+            "zh-Hans": "\u4e3b\u5e2d\u5965\u79d1\u7279",
+            "zh-Hant": "\u5967\u514b\u7279\u4e3b\u5e2d"
         },
         "description": "",
         "descriptions": {}
@@ -648,7 +691,8 @@
             "it-IT": "DIRETTORE OYESLLO",
             "pt-BR": "L\u00cdDER OYESLLO",
             "ru-RU": "\u041f\u0420\u0415\u0414\u0421\u0415\u0414\u0410\u0422\u0415\u041b\u042c \u041e\u0419\u0415\u0421\u041b\u041e",
-            "zh-Hans": "\u4e3b\u5e2d\u5965\u8036\u65af\u6d1b"
+            "zh-Hans": "\u4e3b\u5e2d\u5965\u8036\u65af\u6d1b",
+            "zh-Hant": "\u5967\u8036\u65af\u7f85\u4e3b\u5e2d"
         },
         "description": "",
         "descriptions": {}
@@ -663,7 +707,8 @@
             "it-IT": "PIETRA IRIDESCENTE",
             "pt-BR": "CHATOYANT",
             "ru-RU": "\u0411\u041b\u0415\u0421\u041a",
-            "zh-Hans": "\u5e7b\u5f69\u57ce"
+            "zh-Hans": "\u5e7b\u5f69\u57ce",
+            "zh-Hant": "\u7165\u5f69\u57ce"
         },
         "description": "",
         "descriptions": {}
@@ -678,7 +723,8 @@
             "it-IT": "CLE ELUM REDIVIVA",
             "pt-BR": "CLE ELUM REDIVIVA",
             "ru-RU": "\u041a\u041b\u0415-\u042d\u041b\u0423\u041c \u0420\u0415\u0414\u0418\u0412\u0418\u0412\u0410",
-            "zh-Hans": "\u514b\u5229\u52d2\u59c6\u590d\u5174\u57ce"
+            "zh-Hans": "\u514b\u5229\u52d2\u59c6\u590d\u5174\u57ce",
+            "zh-Hant": "\u65b0\u514b\u5229\u57c3\u52d2\u59c6"
         },
         "description": "",
         "descriptions": {}
@@ -693,7 +739,8 @@
             "it-IT": "TEMPOFERMO",
             "pt-BR": "HORAPANEMA",
             "ru-RU": "\u0425\u0420\u041e\u041d\u041e\u0421\u0422\u041e\u041f",
-            "zh-Hans": "\u949f\u505c\u5e02"
+            "zh-Hans": "\u949f\u505c\u5e02",
+            "zh-Hant": "\u6642\u505c\u9ede"
         },
         "description": "",
         "descriptions": {}
@@ -708,7 +755,8 @@
             "it-IT": "DISFATTA DELLA COMUNE",
             "pt-BR": "QUEDAS COMUNAIS",
             "ru-RU": "\u0412\u041e\u0414\u041e\u041f\u0410\u0414\u042b \u041a\u041e\u041c\u041c\u0423\u041d\u042b",
-            "zh-Hans": "\u516c\u793e\u7011\u5e03"
+            "zh-Hans": "\u516c\u793e\u7011\u5e03",
+            "zh-Hant": "\u5171\u6cbb\u7011\u5e03"
         },
         "description": "",
         "descriptions": {}
@@ -723,7 +771,8 @@
             "it-IT": "CONSENSO",
             "pt-BR": "CONSENSO",
             "ru-RU": "\u041a\u041e\u041d\u0421\u0415\u041d\u0421\u0423\u0421",
-            "zh-Hans": "\u5eb7\u68ee\u745f\u65af"
+            "zh-Hans": "\u5eb7\u68ee\u745f\u65af",
+            "zh-Hant": "\u5eb7\u68ee\u745f\u65af"
         },
         "description": "",
         "descriptions": {}
@@ -738,7 +787,8 @@
             "it-IT": "COMODIT\u00c0",
             "pt-BR": "CONVENI\u00caNCIA",
             "ru-RU": "\u0423\u0414\u041e\u0411\u0421\u0422\u0412\u041e",
-            "zh-Hans": "\u6377\u57ce"
+            "zh-Hans": "\u6377\u57ce",
+            "zh-Hant": "\u4fbf\u6377\u57ce"
         },
         "description": "",
         "descriptions": {}
@@ -753,7 +803,8 @@
             "it-IT": "ABBONDANZA",
             "pt-BR": "CORNUC\u00d3POLIS",
             "ru-RU": "\u041a\u041e\u0420\u041d\u0423\u041a\u041e\u041f\u041e\u041b\u0418\u0421",
-            "zh-Hans": "\u5bcc\u9976\u57ce"
+            "zh-Hans": "\u5bcc\u9976\u57ce",
+            "zh-Hant": "\u5bcc\u9952\u90fd"
         },
         "description": "",
         "descriptions": {}
@@ -768,7 +819,8 @@
             "it-IT": "CONSIGLIERE RORA",
             "pt-BR": "CONSELHEIRO RORA",
             "ru-RU": "\u0421\u041e\u0412\u0415\u0422\u041d\u0418\u041a \u0420\u041e\u0420\u0410",
-            "zh-Hans": "\u8bae\u5458\u7f57\u62c9"
+            "zh-Hans": "\u8bae\u5458\u7f57\u62c9",
+            "zh-Hant": "\u8b70\u54e1\u7f85\u62c9"
         },
         "description": "",
         "descriptions": {}
@@ -783,7 +835,8 @@
             "it-IT": "BELLECASE",
             "pt-BR": "BONS LARES",
             "ru-RU": "\u0423\u042e\u0422\u041d\u042b\u0415 \u0420\u0410\u0412\u041d\u0418\u041d\u042b",
-            "zh-Hans": "\u99a8\u5bd3"
+            "zh-Hans": "\u99a8\u5bd3",
+            "zh-Hant": "\u8212\u9069\u5e73\u539f"
         },
         "description": "",
         "descriptions": {}
@@ -798,7 +851,8 @@
             "it-IT": "PENDII CRISTALLINI",
             "pt-BR": "ENCOSTAS DE CRISTAL",
             "ru-RU": "\u0425\u0420\u0423\u0421\u0422\u0410\u041b\u042c\u041d\u042b\u0415 \u0421\u041a\u041b\u041e\u041d\u042b",
-            "zh-Hans": "\u6c34\u6676\u5761"
+            "zh-Hans": "\u6c34\u6676\u5761",
+            "zh-Hant": "\u6c34\u6676\u5761"
         },
         "description": "",
         "descriptions": {}
@@ -813,7 +867,8 @@
             "it-IT": "MONETA",
             "pt-BR": "MOEDA",
             "ru-RU": "\u0412\u0410\u041b\u042e\u0422\u0410",
-            "zh-Hans": "\u901a\u6c47\u57ce"
+            "zh-Hans": "\u901a\u6c47\u57ce",
+            "zh-Hant": "\u901a\u532f\u5e02"
         },
         "description": "",
         "descriptions": {}
@@ -828,7 +883,8 @@
             "it-IT": "POZZONERO",
             "pt-BR": "PO\u00c7ONEGRO",
             "ru-RU": "\u041c\u0420\u0410\u041a\u041e\u0413\u0420\u0410\u0414",
-            "zh-Hans": "\u6697\u4e95"
+            "zh-Hans": "\u6697\u4e95",
+            "zh-Hant": "\u6697\u4e95"
         },
         "description": "",
         "descriptions": {}
@@ -843,7 +899,8 @@
             "it-IT": "QUERCIOLA",
             "pt-BR": "DARROWTABA",
             "ru-RU": "\u0414\u041e\u041c \u0414\u042d\u0420\u0420\u041e\u0423\u0417\u0410",
-            "zh-Hans": "\u8fbe\u7f57\u6a61"
+            "zh-Hans": "\u8fbe\u7f57\u6a61",
+            "zh-Hant": "\u9054\u7f85\u4e4b\u5bb6"
         },
         "description": "",
         "descriptions": {}
@@ -858,7 +915,8 @@
             "it-IT": "DECLIVIO DEI DEBITORI",
             "pt-BR": "DECLIVE DO DEVEDOR",
             "ru-RU": "\u0425\u041e\u041b\u041c\u042b \u0414\u041e\u041b\u0416\u041d\u0418\u041a\u041e\u0412",
-            "zh-Hans": "\u503a\u4e18"
+            "zh-Hans": "\u503a\u4e18",
+            "zh-Hant": "\u50b5\u52d9\u8c37"
         },
         "description": "",
         "descriptions": {}
@@ -873,7 +931,8 @@
             "it-IT": "POZZO PROFONDO",
             "pt-BR": "PO\u00c7O PROFUNDO",
             "ru-RU": "\u0413\u041b\u0423\u0411\u041e\u041a\u041e\u041b\u041e\u0414\u0415\u0426",
-            "zh-Hans": "\u6df1\u4e95"
+            "zh-Hans": "\u6df1\u4e95",
+            "zh-Hant": "\u6df1\u4e95"
         },
         "description": "",
         "descriptions": {}
@@ -888,7 +947,8 @@
             "it-IT": "DEMOCRAZIA PER SEMPRE",
             "pt-BR": "DEMOCRACIA SEMPRE",
             "ru-RU": "\u0414\u0415\u041c\u041e\u041a\u0420\u0410\u0422\u0418\u042f \u041d\u0410\u0412\u0421\u0415\u0413\u0414\u0410",
-            "zh-Hans": "\u6052\u6c11\u57ce"
+            "zh-Hans": "\u6052\u6c11\u57ce",
+            "zh-Hant": "\u6c38\u6046\u6c11\u4e3b\u57ce"
         },
         "description": "",
         "descriptions": {}
@@ -903,7 +963,8 @@
             "it-IT": "APPRODO DELLA DEMOCRAZIA",
             "pt-BR": "POUSO DEMOCR\u00c1TICO",
             "ru-RU": "\u0413\u0410\u0412\u0410\u041d\u042c \u0414\u0415\u041c\u041e\u041a\u0420\u0410\u0422\u0418\u0418",
-            "zh-Hans": "\u6c11\u4e3b\u6d45\u6ee9"
+            "zh-Hans": "\u6c11\u4e3b\u6d45\u6ee9",
+            "zh-Hant": "\u6c11\u4e3b\u767b\u9678\u5730"
         },
         "description": "",
         "descriptions": {}
@@ -918,7 +979,8 @@
             "it-IT": "DIGITI",
             "pt-BR": "DIGITI",
             "ru-RU": "\u0414\u0418\u0414\u0416\u0418\u0422\u0418",
-            "zh-Hans": "\u8fea\u5409\u8dbe"
+            "zh-Hans": "\u8fea\u5409\u8dbe",
+            "zh-Hant": "\u5e1d\u5409\u8dbe"
         },
         "description": "",
         "descriptions": {}
@@ -933,7 +995,8 @@
             "it-IT": "DIPLOMAZIA",
             "pt-BR": "DIPLOMACIA",
             "ru-RU": "\u0414\u0418\u041f\u041b\u041e\u041c\u0410\u0422\u0418\u042f",
-            "zh-Hans": "\u7eb5\u6a2a\u5e02"
+            "zh-Hans": "\u7eb5\u6a2a\u5e02",
+            "zh-Hant": "\u5916\u4ea4\u9ede"
         },
         "description": "",
         "descriptions": {}
@@ -948,7 +1011,8 @@
             "it-IT": "VALLE DELLE SCOPERTE",
             "pt-BR": "VALE DO DESCOBRIMENTO",
             "ru-RU": "DISCOVERY GLEN",
-            "zh-Hans": "\u63a2\u7d22\u8c37"
+            "zh-Hans": "\u63a2\u7d22\u8c37",
+            "zh-Hant": "\u63a2\u7d22\u8c37"
         },
         "description": "",
         "descriptions": {}
@@ -963,7 +1027,8 @@
             "it-IT": "GLORIA DELL'HELLDIVER",
             "pt-BR": "MERGULHO GLORIOSO",
             "ru-RU": "\u0427\u0415\u0421\u0422\u042c \u0414\u0415\u0421\u0410\u041d\u0422\u0410",
-            "zh-Hans": "\u6f5c\u5175\u8363\u5149\u5e02"
+            "zh-Hans": "\u6f5c\u5175\u8363\u5149\u5e02",
+            "zh-Hant": "\u6230\u5175\u69ae\u5149"
         },
         "description": "",
         "descriptions": {}
@@ -978,7 +1043,8 @@
             "it-IT": "RIPOSO DEL SOLDATO",
             "pt-BR": "REPOUSO DE HELLDIVER",
             "ru-RU": "\u041f\u041e\u041a\u041e\u0419 \u0414\u0415\u0421\u0410\u041d\u0422\u0410",
-            "zh-Hans": "\u6f5c\u5175\u5b89\u606f\u5e02"
+            "zh-Hans": "\u6f5c\u5175\u5b89\u606f\u5e02",
+            "zh-Hant": "\u6230\u5175\u5b89\u606f\u5730"
         },
         "description": "",
         "descriptions": {}
@@ -993,7 +1059,8 @@
             "it-IT": "CAGNOPOLI",
             "pt-BR": "CANIL\u00c2NDIA",
             "ru-RU": "\u0414\u041e\u0413\u0422\u0410\u0423\u041d",
-            "zh-Hans": "\u591a\u683c\u9547"
+            "zh-Hans": "\u591a\u683c\u9547",
+            "zh-Hant": "\u91ce\u72d7\u93ae"
         },
         "description": "",
         "descriptions": {}
@@ -1008,7 +1075,8 @@
             "it-IT": "DOSTOINSTVO",
             "pt-BR": "DOSTOINSTVO",
             "ru-RU": "\u0414\u041e\u0421\u0422\u041e\u0418\u041d\u0421\u0422\u0412\u041e",
-            "zh-Hans": "\u5c0a\u4e25\u5e02"
+            "zh-Hans": "\u5c0a\u4e25\u5e02",
+            "zh-Hant": "\u5c0a\u56b4\u4e4b\u5730"
         },
         "description": "",
         "descriptions": {}
@@ -1023,7 +1091,8 @@
             "it-IT": "NUBIFRAGIO",
             "pt-BR": "AGUACEIRO",
             "ru-RU": "\u041b\u0418\u0412\u0415\u041d\u042c",
-            "zh-Hans": "\u66b4\u96e8\u57ce"
+            "zh-Hans": "\u66b4\u96e8\u57ce",
+            "zh-Hant": "\u66b4\u96e8\u57ce"
         },
         "description": "",
         "descriptions": {}
@@ -1038,7 +1107,8 @@
             "it-IT": "POZZOSECCO",
             "pt-BR": "PO\u00c7O SECO",
             "ru-RU": "\u0421\u0423\u0425\u0410\u042f \u0428\u0410\u0425\u0422\u0410",
-            "zh-Hans": "\u5e72\u4e95\u5e02"
+            "zh-Hans": "\u5e72\u4e95\u5e02",
+            "zh-Hant": "\u4e7e\u4e95\u57ce"
         },
         "description": "",
         "descriptions": {}
@@ -1053,7 +1123,8 @@
             "it-IT": "VIE DEI TINTORI",
             "pt-BR": "PARQUE DAS TINTAS",
             "ru-RU": "\u0426\u0412\u0415\u0422\u041d\u042b\u0415 \u0423\u041b\u0418\u0426\u042b",
-            "zh-Hans": "\u67d3\u5de5\u8857"
+            "zh-Hans": "\u67d3\u5de5\u8857",
+            "zh-Hant": "\u67d3\u5de5\u8857\u5340"
         },
         "description": "",
         "descriptions": {}
@@ -1068,7 +1139,8 @@
             "it-IT": "DUNE ALFA 534-2",
             "pt-BR": "DYN ALFA 534-2",
             "ru-RU": "DYN-\u0410\u041b\u042c\u0424\u0410 534-2",
-            "zh-Hans": "\u6c99\u4e18\u963f\u5c14\u6cd5534-2"
+            "zh-Hans": "\u6c99\u4e18\u963f\u5c14\u6cd5534-2",
+            "zh-Hant": "\u6c99\u4e18\u963f\u723e\u6cd5534-2"
         },
         "description": "",
         "descriptions": {}
@@ -1083,7 +1155,8 @@
             "it-IT": "AQUILONIA",
             "pt-BR": "\u00c1GUIA MIRIM",
             "ru-RU": "\u041f\u041e\u0414\u041e\u0411\u0418\u0415 \u041e\u0420\u041b\u0410",
-            "zh-Hans": "\u9e70\u59ff\u5e02"
+            "zh-Hans": "\u9e70\u59ff\u5e02",
+            "zh-Hant": "\u9df9\u59ff\u5e02"
         },
         "description": "",
         "descriptions": {}
@@ -1098,7 +1171,8 @@
             "it-IT": "GRIDO DELL'AQUILA",
             "pt-BR": "PIO\u00c1GUIA",
             "ru-RU": "\u041a\u0420\u0418\u041a \u041e\u0420\u041b\u0410",
-            "zh-Hans": "\u9e70\u5578\u5e02"
+            "zh-Hans": "\u9e70\u5578\u5e02",
+            "zh-Hant": "\u9df9\u9cf4\u5e02"
         },
         "description": "",
         "descriptions": {}
@@ -1113,7 +1187,8 @@
             "it-IT": "DORSO D'AQUILA",
             "pt-BR": "MONTE \u00c1GUIA",
             "ru-RU": "\u041e\u0420\u041b\u0418\u041d\u0410\u042f \u0413\u041e\u0420\u0410",
-            "zh-Hans": "\u9e70\u5c71"
+            "zh-Hans": "\u9e70\u5c71",
+            "zh-Hant": "\u9df9\u5c71"
         },
         "description": "",
         "descriptions": {}
@@ -1128,7 +1203,8 @@
             "it-IT": "AQUILOPOLI",
             "pt-BR": "AQUIL\u00d3POLIS",
             "ru-RU": "\u041e\u0420\u041b\u041e\u041f\u041e\u041b\u0418\u0421",
-            "zh-Hans": "\u9e70\u90fd"
+            "zh-Hans": "\u9e70\u90fd",
+            "zh-Hant": "\u84bc\u9df9\u4e4b\u90fd"
         },
         "description": "This Great Heart of Commerce is renowned galaxy-wide for its Grand Shopping Malls and Splendorous Entertainment Centers.",
         "descriptions": {
@@ -1139,7 +1215,8 @@
             "it-IT": "Questo grande Cuore del Commercio \u00e8 noto in tutta la galassia per i suoi grandi Centri Commerciali e gli splendidi Centri di Intrattenimento.",
             "pt-BR": "Este Grande Centro Comercial \u00e9 famoso em toda a Gal\u00e1xia por seus Megashoppings e Centros de Entretenimento Esplendorosos.",
             "ru-RU": "\u042d\u0442\u043e \u0441\u0435\u0440\u0434\u0446\u0435 \u0442\u043e\u0440\u0433\u043e\u0432\u043b\u0438 \u0438\u0437\u0432\u0435\u0441\u0442\u043d\u043e \u0432\u0441\u0435\u0439 \u0433\u0430\u043b\u0430\u043a\u0442\u0438\u043a\u0435 \u0441\u0432\u043e\u0438\u043c\u0438 \u043e\u0433\u0440\u043e\u043c\u043d\u044b\u043c\u0438 \u0442\u043e\u0440\u0433\u043e\u0432\u044b\u043c\u0438 \u043a\u043e\u043c\u043f\u043b\u0435\u043a\u0441\u0430\u043c\u0438 \u0438 \u0432\u0435\u043b\u0438\u0447\u0435\u0441\u0442\u0432\u0435\u043d\u043d\u044b\u043c\u0438 \u0440\u0430\u0437\u0432\u043b\u0435\u043a\u0430\u0442\u0435\u043b\u044c\u043d\u044b\u043c\u0438 \u0446\u0435\u043d\u0442\u0440\u0430\u043c\u0438.",
-            "zh-Hans": "\u8fd9\u5ea7\u4f1f\u5927\u5546\u8d38\u4e2d\u67a2\u56e0\u5b8f\u4f1f\u7684\u8d2d\u7269\u5546\u573a\u548c\u7e41\u534e\u7684\u5a31\u4e50\u4e2d\u5fc3\u800c\u95fb\u540d\u6574\u4e2a\u94f6\u6cb3\u7cfb\u3002"
+            "zh-Hans": "\u8fd9\u5ea7\u4f1f\u5927\u5546\u8d38\u4e2d\u67a2\u56e0\u5b8f\u4f1f\u7684\u8d2d\u7269\u5546\u573a\u548c\u7e41\u534e\u7684\u5a31\u4e50\u4e2d\u5fc3\u800c\u95fb\u540d\u6574\u4e2a\u94f6\u6cb3\u7cfb\u3002",
+            "zh-Hant": "\u9019\u5ea7\u57ce\u5e02\u582a\u7a31\u5546\u696d\u4e2d\u5fc3\uff0c\u4ee5\u5b8f\u5049\u7684\u8cfc\u7269\u4e2d\u5fc3\u8207\u83ef\u9e97\u5a1b\u6a02\u8a2d\u65bd\u805e\u540d\u6574\u500b\u9280\u6cb3\u7cfb\u3002"
         }
     },
     "3320001654": {
@@ -1152,7 +1229,8 @@
             "it-IT": "AQUILA ETERNA",
             "pt-BR": "ESTREL\u00c1GUIA ETERNA",
             "ru-RU": "\u0412\u0415\u0427\u041d\u041e\u0421\u0422\u042c \u041e\u0420\u041b\u0418\u041d\u041e\u0419 \u0417\u0412\u0415\u0417\u0414\u042b",
-            "zh-Hans": "\u9e70\u661f\u6052\u5e02"
+            "zh-Hans": "\u9e70\u661f\u6052\u5e02",
+            "zh-Hant": "\u6046\u9df9\u4e4b\u661f"
         },
         "description": "",
         "descriptions": {}
@@ -1167,7 +1245,8 @@
             "it-IT": "ARGINE ORIENTALE",
             "pt-BR": "DIQUE LESTE",
             "ru-RU": "\u0412\u041e\u0421\u0422\u041e\u0427\u041d\u0410\u042f \u0414\u0410\u041c\u0411\u0410",
-            "zh-Hans": "\u4e1c\u5824"
+            "zh-Hans": "\u4e1c\u5824",
+            "zh-Hant": "\u6771\u5824\u5cb8"
         },
         "description": "",
         "descriptions": {}
@@ -1182,7 +1261,8 @@
             "it-IT": "RIFUGIO EST",
             "pt-BR": "REPOUSO LESTE",
             "ru-RU": "\u0418\u0421\u0422-\u0420\u0415\u0421\u0422",
-            "zh-Hans": "\u4e1c\u6816\u5e02"
+            "zh-Hans": "\u4e1c\u6816\u5e02",
+            "zh-Hant": "\u6771\u606f\u5e02"
         },
         "description": "",
         "descriptions": {}
@@ -1197,7 +1277,8 @@
             "it-IT": "FENDITURA EST",
             "pt-BR": "FENDALESTE",
             "ru-RU": "\u0412\u041e\u0421\u0422\u041e\u0427\u041d\u0410\u042f \u0422\u0415\u0421\u041d\u0418\u041d\u0410",
-            "zh-Hans": "\u4e1c\u88c2\u8c37"
+            "zh-Hans": "\u4e1c\u88c2\u8c37",
+            "zh-Hant": "\u6771\u88c2\u57ce"
         },
         "description": "",
         "descriptions": {}
@@ -1212,7 +1293,8 @@
             "it-IT": "TOMBA DI EDWARD",
             "pt-BR": "T\u00daMULO DE EDWARD",
             "ru-RU": "\u041c\u041e\u0413\u0418\u041b\u0410 \u042d\u0414\u0412\u0410\u0420\u0414\u0410",
-            "zh-Hans": "\u7231\u5fb7\u534e\u4e4b\u5893"
+            "zh-Hans": "\u7231\u5fb7\u534e\u4e4b\u5893",
+            "zh-Hant": "\u611b\u5fb7\u83ef\u4e4b\u5893"
         },
         "description": "",
         "descriptions": {}
@@ -1227,7 +1309,8 @@
             "it-IT": "OTTOANELLI",
             "pt-BR": "OITAN\u00c9IS",
             "ru-RU": "\u0412\u041e\u0421\u0415\u041c\u042c \u041a\u041e\u041b\u0415\u0426",
-            "zh-Hans": "\u516b\u73af\u57ce"
+            "zh-Hans": "\u516b\u73af\u57ce",
+            "zh-Hant": "\u516b\u74b0\u57ce"
         },
         "description": "",
         "descriptions": {}
@@ -1242,7 +1325,8 @@
             "it-IT": "EFFE",
             "pt-BR": "EPH",
             "ru-RU": "\u042d\u0424",
-            "zh-Hans": "\u57c3\u592b\u5e02"
+            "zh-Hans": "\u57c3\u592b\u5e02",
+            "zh-Hant": "\u4f0a\u5f17"
         },
         "description": "",
         "descriptions": {}
@@ -1257,7 +1341,8 @@
             "it-IT": "UGUAGLIANZA SUL MARE",
             "pt-BR": "IGUALINA",
             "ru-RU": "\u0420\u0410\u0412\u0415\u041d\u0421\u0422\u0412\u041e-\u041d\u0410-\u041c\u041e\u0420\u0415",
-            "zh-Hans": "\u4ef0\u9f50\u6d5c"
+            "zh-Hans": "\u4ef0\u9f50\u6d5c",
+            "zh-Hant": "\u5e73\u7b49\u6d77"
         },
         "description": "Named for the historic conference where Humanity was found to be the most Equal species in the Galaxy.",
         "descriptions": {
@@ -1268,7 +1353,8 @@
             "it-IT": "Questa citt\u00e0 deve il suo nome alla storica conferenza nella quale l'Umanit\u00e0 venne dichiarata la specie pi\u00f9 Egualitaria della galassia.",
             "pt-BR": "Seu nome vem da confer\u00eancia hist\u00f3rica que concluiu que a Humanidade era a esp\u00e9cie mais igualit\u00e1ria da Gal\u00e1xia.",
             "ru-RU": "\u0413\u043e\u0440\u043e\u0434 \u043f\u043e\u043b\u0443\u0447\u0438\u043b \u0438\u043c\u044f \u0432 \u0447\u0435\u0441\u0442\u044c \u0438\u0441\u0442\u043e\u0440\u0438\u0447\u0435\u0441\u043a\u043e\u0439 \u043a\u043e\u043d\u0444\u0435\u0440\u0435\u043d\u0446\u0438\u0438, \u043d\u0430 \u043a\u043e\u0442\u043e\u0440\u043e\u0439 \u0447\u0435\u043b\u043e\u0432\u0435\u0447\u0435\u0441\u0442\u0432\u043e \u0431\u044b\u043b\u043e \u043d\u0430\u0437\u0432\u0430\u043d\u043e \u043d\u0430\u0438\u0440\u0430\u0432\u043d\u0435\u0439\u0448\u0438\u043c \u0436\u0438\u0432\u044b\u043c \u0432\u0438\u0434\u043e\u043c \u0432 \u0433\u0430\u043b\u0430\u043a\u0442\u0438\u043a\u0435.",
-            "zh-Hans": "\u56e0\u5386\u53f2\u6027\u4f1a\u8bae\u800c\u5f97\u540d\uff0c\u6b64\u4f1a\u8bae\u5c06\u4eba\u7c7b\u8ba4\u5b9a\u4e3a\u94f6\u6cb3\u7cfb\u6700\u5e73\u7b49\u7684\u7269\u79cd\u3002"
+            "zh-Hans": "\u56e0\u5386\u53f2\u6027\u4f1a\u8bae\u800c\u5f97\u540d\uff0c\u6b64\u4f1a\u8bae\u5c06\u4eba\u7c7b\u8ba4\u5b9a\u4e3a\u94f6\u6cb3\u7cfb\u6700\u5e73\u7b49\u7684\u7269\u79cd\u3002",
+            "zh-Hant": "\u4ee5\u4e00\u5834\u6b77\u53f2\u6027\u7684\u6703\u8b70\u547d\u540d\uff0c\u5e2d\u9593\u4eba\u985e\u88ab\u8a8d\u5b9a\u70ba\u9280\u6cb3\u7cfb\u6700\u5e73\u7b49\u7684\u7269\u7a2e\u3002"
         }
     },
     "855833074": {
@@ -1281,7 +1367,8 @@
             "it-IT": "ERIDANI",
             "pt-BR": "ERIDANI",
             "ru-RU": "\u042d\u0420\u0418\u0414\u0410\u041d",
-            "zh-Hans": "\u6ce2\u6c5f\u5ea7"
+            "zh-Hans": "\u6ce2\u6c5f\u5ea7",
+            "zh-Hant": "\u6ce2\u6c5f\u5ea7"
         },
         "description": "",
         "descriptions": {}
@@ -1296,7 +1383,8 @@
             "it-IT": "ERSATZ",
             "pt-BR": "ERSATZ",
             "ru-RU": "\u042d\u0420\u0417\u0410\u0426",
-            "zh-Hans": "\u5384\u8428\u8328"
+            "zh-Hans": "\u5384\u8428\u8328",
+            "zh-Hant": "\u5384\u723e\u85a9\u8332"
         },
         "description": "",
         "descriptions": {}
@@ -1311,7 +1399,8 @@
             "it-IT": "FUGA ROMANTICA",
             "pt-BR": "ESCAPADA",
             "ru-RU": "\u042d\u0421\u041a\u0410\u041f\u0410\u0414\u0410",
-            "zh-Hans": "\u8d8a\u77e9\u5e02"
+            "zh-Hans": "\u8d8a\u77e9\u5e02",
+            "zh-Hant": "\u5947\u9047\u5730"
         },
         "description": "",
         "descriptions": {}
@@ -1326,7 +1415,8 @@
             "it-IT": "EXULTA",
             "pt-BR": "EXALTA\u00c7\u00c3O",
             "ru-RU": "\u0412\u041e\u0421\u0425\u0412\u0410\u041b\u0415\u041d\u0418\u0415",
-            "zh-Hans": "\u9882\u626c\u5e02"
+            "zh-Hans": "\u9882\u626c\u5e02",
+            "zh-Hant": "\u9ad8\u5d07\u5e02"
         },
         "description": "",
         "descriptions": {}
@@ -1341,7 +1431,8 @@
             "it-IT": "ENTUSIASMO",
             "pt-BR": "ENTUSIASMO",
             "ru-RU": "\u041e\u0416\u0418\u0412\u041b\u0415\u041d\u0418\u0415",
-            "zh-Hans": "\u6fc0\u60c5\u5e02"
+            "zh-Hans": "\u6fc0\u60c5\u5e02",
+            "zh-Hant": "\u60c5\u71b1\u4e4b\u5730"
         },
         "description": "",
         "descriptions": {}
@@ -1356,7 +1447,8 @@
             "it-IT": "ESO CITY",
             "pt-BR": "EXOL\u00c2NDIA",
             "ru-RU": "\u042d\u041a\u0417\u041e-\u0421\u0418\u0422\u0418",
-            "zh-Hans": "\u5916\u9aa8\u9abc\u5e02"
+            "zh-Hans": "\u5916\u9aa8\u9abc\u5e02",
+            "zh-Hant": "\u5916\u9aa8\u9abc\u4e4b\u57ce"
         },
         "description": "",
         "descriptions": {}
@@ -1371,7 +1463,8 @@
             "it-IT": "PICCO DEL LUPO FAMELOCO",
             "pt-BR": "PICO FAMOLOBO",
             "ru-RU": "\u041f\u0418\u041a \u041e\u0413\u041d\u0415\u041d\u041d\u041e\u0413\u041e \u0412\u041e\u041b\u041a\u0410",
-            "zh-Hans": "\u76db\u72fc\u5cf0"
+            "zh-Hans": "\u76db\u72fc\u5cf0",
+            "zh-Hant": "\u805e\u72fc\u5cf0"
         },
         "description": "",
         "descriptions": {}
@@ -1386,7 +1479,8 @@
             "it-IT": "BOSCO DI FAMIGLIA",
             "pt-BR": "ARVOREDO FAMILIAR",
             "ru-RU": "\u0421\u0415\u041c\u0415\u0419\u041d\u0410\u042f \u0420\u041e\u0429\u0410",
-            "zh-Hans": "\u5bb6\u6797\u5e02"
+            "zh-Hans": "\u5bb6\u6797\u5e02",
+            "zh-Hant": "\u5bb6\u65cf\u6797\u5730"
         },
         "description": "",
         "descriptions": {}
@@ -1401,7 +1495,8 @@
             "it-IT": "BORGO DEI BRACCIANTI",
             "pt-BR": "FAZENDA LABUTANTE",
             "ru-RU": "\u0424\u0415\u0420\u041c\u041e\u0413\u0420\u0410\u0414",
-            "zh-Hans": "\u519c\u5de5\u9547"
+            "zh-Hans": "\u519c\u5de5\u9547",
+            "zh-Hant": "\u8fb2\u5de5\u5c0f\u93ae"
         },
         "description": "",
         "descriptions": {}
@@ -1416,7 +1511,8 @@
             "it-IT": "RADURA DEGLI IMPAVIDI",
             "pt-BR": "VALE DESTEMIDO",
             "ru-RU": "\u0411\u0415\u0421\u0421\u0422\u0420\u0410\u0428\u041d\u0410\u042f \u041b\u041e\u0429\u0418\u041d\u0410",
-            "zh-Hans": "\u65e0\u754f\u8c37"
+            "zh-Hans": "\u65e0\u754f\u8c37",
+            "zh-Hant": "\u7121\u754f\u8c37"
         },
         "description": "",
         "descriptions": {}
@@ -1431,7 +1527,8 @@
             "it-IT": "FILIPPICA",
             "pt-BR": "OBSTRURANA",
             "ru-RU": "\u0424\u0418\u041b\u0418\u0411\u0423\u0421\u0422\u042c\u0415\u0420",
-            "zh-Hans": "\u5197\u8fa9\u5e02"
+            "zh-Hans": "\u5197\u8fa9\u5e02",
+            "zh-Hant": "\u64fe\u8b70\u4e4b\u5730"
         },
         "description": "",
         "descriptions": {}
@@ -1446,7 +1543,8 @@
             "it-IT": "CAMPI DI LUCCIOLE",
             "pt-BR": "PRADARIA DOS VAGA-LUMES",
             "ru-RU": "\u0421\u0412\u0415\u0422\u041b\u042f\u0427\u041a\u041e\u0412\u042b\u0415 \u041b\u0423\u0413\u0410",
-            "zh-Hans": "\u8424\u706b\u8349\u539f"
+            "zh-Hans": "\u8424\u706b\u8349\u539f",
+            "zh-Hant": "\u87a2\u706b\u87f2\u8349\u539f"
         },
         "description": "",
         "descriptions": {}
@@ -1461,7 +1559,8 @@
             "it-IT": "GOLA DEL FORAGGIO",
             "pt-BR": "DESFILADEIROS BANAIS",
             "ru-RU": "\u0423\u0429\u0415\u041b\u042c\u0415 \u0424\u0423\u0420\u0410\u0416\u0410",
-            "zh-Hans": "\u8349\u6599\u8c37"
+            "zh-Hans": "\u8349\u6599\u8c37",
+            "zh-Hant": "\u98fc\u6599\u5cfd\u8c37"
         },
         "description": "",
         "descriptions": {}
@@ -1476,7 +1575,8 @@
             "it-IT": "FORTE GRAZIA",
             "pt-BR": "FORTE DA RECOMPENSA",
             "ru-RU": "\u0424\u041e\u0420\u0422-\u0411\u0410\u0423\u041d\u0422\u0418",
-            "zh-Hans": "\u90a6\u8482\u5821"
+            "zh-Hans": "\u90a6\u8482\u5821",
+            "zh-Hant": "\u8cde\u91d1\u8981\u585e"
         },
         "description": "",
         "descriptions": {}
@@ -1491,7 +1591,8 @@
             "it-IT": "FORTE SANGUINO",
             "pt-BR": "FORTE SANGU\u00cdNEO",
             "ru-RU": "\u0424\u041e\u0420\u0422-\u0421\u0410\u041d\u0413\u0412\u0418\u041d",
-            "zh-Hans": "\u8840\u8272\u5821"
+            "zh-Hans": "\u8840\u8272\u5821",
+            "zh-Hant": "\u8840\u7d05\u5821"
         },
         "description": "",
         "descriptions": {}
@@ -1506,7 +1607,8 @@
             "it-IT": "FORZA D'ANIMO",
             "pt-BR": "FORTITUDE",
             "ru-RU": "\u0421\u0422\u041e\u0419\u041a\u041e\u0421\u0422\u042c",
-            "zh-Hans": "\u6bc5\u57ce"
+            "zh-Hans": "\u6bc5\u57ce",
+            "zh-Hant": "\u525b\u5f37\u57ce"
         },
         "description": "",
         "descriptions": {}
@@ -1521,7 +1623,8 @@
             "it-IT": "FONDERIA",
             "pt-BR": "FUNDI\u00c7\u00c3O",
             "ru-RU": "\u041b\u0418\u0422\u0415\u0419\u041d\u0410\u042f",
-            "zh-Hans": "\u94f8\u9020\u57ce"
+            "zh-Hans": "\u94f8\u9020\u57ce",
+            "zh-Hant": "\u9444\u9020\u57ce"
         },
         "description": "",
         "descriptions": {}
@@ -1536,7 +1639,8 @@
             "it-IT": "QUATTRO CORONE",
             "pt-BR": "QUATRO COROAS",
             "ru-RU": "\u0427\u0415\u0422\u042b\u0420\u0415 \u041a\u041e\u0420\u041e\u041d\u042b",
-            "zh-Hans": "\u56db\u51a0\u5e02"
+            "zh-Hans": "\u56db\u51a0\u5e02",
+            "zh-Hant": "\u56db\u51a0\u57ce"
         },
         "description": "",
         "descriptions": {}
@@ -1551,7 +1655,8 @@
             "it-IT": "APPARTAMENTI LIBERI",
             "pt-BR": "LARES LIVRES",
             "ru-RU": "\u0411\u0415\u0421\u041f\u041b\u0410\u0422\u041d\u042b\u0415 \u041a\u0412\u0410\u0420\u0422\u0418\u0420\u042b",
-            "zh-Hans": "\u81ea\u7531\u516c\u5bd3"
+            "zh-Hans": "\u81ea\u7531\u516c\u5bd3",
+            "zh-Hant": "\u81ea\u7531\u516c\u5bd3"
         },
         "description": "",
         "descriptions": {}
@@ -1566,7 +1671,8 @@
             "it-IT": "LIBERO SCAMBIO",
             "pt-BR": "LIVRE COM\u00c9RCIO",
             "ru-RU": "\u0421\u0412\u041e\u0411\u041e\u0414\u041d\u0410\u042f \u0422\u041e\u0420\u0413\u041e\u0412\u041b\u042f",
-            "zh-Hans": "\u81ea\u8d38\u533a"
+            "zh-Hans": "\u81ea\u8d38\u533a",
+            "zh-Hant": "\u81ea\u7531\u8cbf\u6613\u5340"
         },
         "description": "",
         "descriptions": {}
@@ -1581,7 +1687,8 @@
             "it-IT": "CRESTA LIBERA",
             "pt-BR": "LIVRECRISTA",
             "ru-RU": "\u0424\u0420\u0418\u041a\u0420\u0415\u0421\u0422",
-            "zh-Hans": "\u81ea\u7531\u5cf0"
+            "zh-Hans": "\u81ea\u7531\u5cf0",
+            "zh-Hant": "\u81ea\u7531\u5dba"
         },
         "description": "",
         "descriptions": {}
@@ -1596,7 +1703,8 @@
             "it-IT": "ETERNA LIBERT\u00c0",
             "pt-BR": "LIBERDADE ETERNA",
             "ru-RU": "\u0412\u0415\u0427\u041d\u0410\u042f \u0421\u0412\u041e\u0411\u041e\u0414\u0410",
-            "zh-Hans": "\u6c38\u6052\u81ea\u7531\u57ce"
+            "zh-Hans": "\u6c38\u6052\u81ea\u7531\u57ce",
+            "zh-Hant": "\u6c38\u6046\u81ea\u7531\u57ce"
         },
         "description": "",
         "descriptions": {}
@@ -1611,7 +1719,8 @@
             "it-IT": "TORCIA DELLA LIBERT\u00c0",
             "pt-BR": "TOCHA DA LIBERDADE",
             "ru-RU": "\u0424\u0410\u041a\u0415\u041b \u0421\u0412\u041e\u0411\u041e\u0414\u042b",
-            "zh-Hans": "\u81ea\u7531\u706b\u70ac\u57ce"
+            "zh-Hans": "\u81ea\u7531\u706b\u70ac\u57ce",
+            "zh-Hant": "\u81ea\u7531\u706b\u70ac\u57ce"
         },
         "description": "",
         "descriptions": {}
@@ -1626,7 +1735,8 @@
             "it-IT": "FRUTTETI NUOVI",
             "pt-BR": "POMARES FRESCOS",
             "ru-RU": "\u041c\u041e\u041b\u041e\u0414\u042b\u0415 \u0421\u0410\u0414\u042b",
-            "zh-Hans": "\u9c9c\u679c\u56ed"
+            "zh-Hans": "\u9c9c\u679c\u56ed",
+            "zh-Hant": "\u65b0\u9bae\u679c\u5712"
         },
         "description": "",
         "descriptions": {}
@@ -1641,7 +1751,8 @@
             "it-IT": "VILLAGHIACCIO",
             "pt-BR": "GEL\u00d3POLIS",
             "ru-RU": "\u041c\u041e\u0420\u041e\u0417\u041e\u0413\u0420\u0410\u0414",
-            "zh-Hans": "\u971c\u9547"
+            "zh-Hans": "\u971c\u9547",
+            "zh-Hant": "\u971c\u93ae"
         },
         "description": "",
         "descriptions": {}
@@ -1656,7 +1767,8 @@
             "it-IT": "ORGOGLIO FUTURO",
             "pt-BR": "ORGULHO FUTURO",
             "ru-RU": "\u0413\u041e\u0420\u0414\u041e\u0421\u0422\u042c \u0411\u0423\u0414\u0423\u0429\u0415\u0413\u041e",
-            "zh-Hans": "\u672a\u6765\u8363\u5149\u5e02"
+            "zh-Hans": "\u672a\u6765\u8363\u5149\u5e02",
+            "zh-Hant": "\u672a\u4f86\u69ae\u8000\u57ce"
         },
         "description": "",
         "descriptions": {}
@@ -1671,7 +1783,8 @@
             "it-IT": "FUTURIA",
             "pt-BR": "FUT\u00daRIA",
             "ru-RU": "\u0424\u0423\u0422\u0423\u0420\u0418\u042f",
-            "zh-Hans": "\u672a\u6765\u57ce"
+            "zh-Hans": "\u672a\u6765\u57ce",
+            "zh-Hant": "\u672a\u4f86\u4e4b\u5730"
         },
         "description": "",
         "descriptions": {}
@@ -1686,7 +1799,8 @@
             "it-IT": "RIMESSA DELLE SABBIE",
             "pt-BR": "DUNA DAS GARAGENS",
             "ru-RU": "\u0413\u0410\u0420\u0410\u0416-\u0412-\u0414\u042e\u041d\u0410\u0425",
-            "zh-Hans": "\u8f66\u5e93\u6c99\u4e18"
+            "zh-Hans": "\u8f66\u5e93\u6c99\u4e18",
+            "zh-Hant": "\u6c99\u4e18\u8eca\u5eab"
         },
         "description": "",
         "descriptions": {}
@@ -1701,7 +1815,8 @@
             "it-IT": "GENE",
             "pt-BR": "GENE",
             "ru-RU": "\u0413\u0415\u041d",
-            "zh-Hans": "\u57fa\u56e0\u5e02"
+            "zh-Hans": "\u57fa\u56e0\u5e02",
+            "zh-Hant": "\u57fa\u56e0\u5e02"
         },
         "description": "",
         "descriptions": {}
@@ -1716,7 +1831,8 @@
             "it-IT": "IDRONIA",
             "pt-BR": "VILAR DOS GERADORES",
             "ru-RU": "\u0413\u0415\u041d\u0415\u0420\u0410\u0422\u041e\u0420\u0412\u0418\u041b\u041b\u042c",
-            "zh-Hans": "\u7535\u673a\u7ef4\u5c14"
+            "zh-Hans": "\u7535\u673a\u7ef4\u5c14",
+            "zh-Hant": "\u96fb\u529b\u4e4b\u57ce"
         },
         "description": "",
         "descriptions": {}
@@ -1731,7 +1847,8 @@
             "it-IT": "BEFFA",
             "pt-BR": "ATADA",
             "ru-RU": "\u041d\u0410\u0421\u041c\u0415\u0428\u041a\u0410",
-            "zh-Hans": "\u6208\u5c14\u5fb7"
+            "zh-Hans": "\u6208\u5c14\u5fb7",
+            "zh-Hant": "\u4f48\u9632\u5340"
         },
         "description": "",
         "descriptions": {}
@@ -1746,7 +1863,8 @@
             "it-IT": "GIRI",
             "pt-BR": "GIRI",
             "ru-RU": "\u0413\u0418\u0420\u0418",
-            "zh-Hans": "\u4e49\u7406\u57ce"
+            "zh-Hans": "\u4e49\u7406\u57ce",
+            "zh-Hant": "\u7fa9\u7406\u57ce"
         },
         "description": "",
         "descriptions": {}
@@ -1761,7 +1879,8 @@
             "it-IT": "GLOBULUS",
             "pt-BR": "GLOBULUS",
             "ru-RU": "\u0413\u041b\u041e\u0411\u0423\u041b\u0423\u0421",
-            "zh-Hans": "\u7403\u5e03\u52d2\u65af"
+            "zh-Hans": "\u7403\u5e03\u52d2\u65af",
+            "zh-Hant": "\u5713\u7403\u57ce"
         },
         "description": "",
         "descriptions": {}
@@ -1776,7 +1895,8 @@
             "it-IT": "GOTHENBURG III",
             "pt-BR": "GOTEMBURGO III",
             "ru-RU": "\u0413\u0415\u0422\u0415\u0411\u041e\u0420\u0413 III",
-            "zh-Hans": "\u54e5\u5fb7\u5821III"
+            "zh-Hans": "\u54e5\u5fb7\u5821III",
+            "zh-Hant": "\u54e5\u7279\u5821III"
         },
         "description": "",
         "descriptions": {}
@@ -1791,7 +1911,8 @@
             "it-IT": "LIBERT\u00c0 CLEMENTE",
             "pt-BR": "BELIBERDADE",
             "ru-RU": "\u041f\u0420\u0415\u041a\u0420\u0410\u0421\u041d\u0410\u042f \u0421\u0412\u041e\u0411\u041e\u0414\u0410",
-            "zh-Hans": "\u4ec1\u6148\u81ea\u7531\u5e02"
+            "zh-Hans": "\u4ec1\u6148\u81ea\u7531\u5e02",
+            "zh-Hant": "\u512a\u96c5\u81ea\u7531\u5730"
         },
         "description": "",
         "descriptions": {}
@@ -1806,7 +1927,8 @@
             "it-IT": "CUORE DI GRAF",
             "pt-BR": "CARDIOGRAF",
             "ru-RU": "\u0413\u0420\u0410\u0424\u0421\u0415\u0420\u0414",
-            "zh-Hans": "\u7235\u5fc3\u5e02"
+            "zh-Hans": "\u7235\u5fc3\u5e02",
+            "zh-Hant": "\u683c\u62c9\u592b\u85a9\u7279"
         },
         "description": "",
         "descriptions": {}
@@ -1821,7 +1943,8 @@
             "it-IT": "TESTA DI GRAF",
             "pt-BR": "NEUROGRAF",
             "ru-RU": "\u0413\u0420\u0410\u0424\u0413\u041e\u041b",
-            "zh-Hans": "\u7235\u9996\u5e02"
+            "zh-Hans": "\u7235\u9996\u5e02",
+            "zh-Hant": "\u683c\u62c9\u592b\u5e0c\u5fb7"
         },
         "description": "",
         "descriptions": {}
@@ -1836,7 +1959,8 @@
             "it-IT": "TASCHE DI GRAF",
             "pt-BR": "ECONOGRAF",
             "ru-RU": "\u0413\u0420\u0410\u0424\u0411\u0423\u041c",
-            "zh-Hans": "\u7235\u56ca\u5e02"
+            "zh-Hans": "\u7235\u56ca\u5e02",
+            "zh-Hant": "\u683c\u62c9\u592b\u65af\u74e6\u5229\u7279"
         },
         "description": "",
         "descriptions": {}
@@ -1851,7 +1975,8 @@
             "it-IT": "MITRAGLIA",
             "pt-BR": "TIRUVA",
             "ru-RU": "\u041a\u0410\u0420\u0422\u0415\u0427\u042c",
-            "zh-Hans": "\u8461\u8404\u5f39\u5e02"
+            "zh-Hans": "\u8461\u8404\u5f39\u5e02",
+            "zh-Hant": "\u8461\u8404\u5f48\u57ce"
         },
         "description": "",
         "descriptions": {}
@@ -1866,7 +1991,8 @@
             "it-IT": "GRAVITAS",
             "pt-BR": "GRAVITAS",
             "ru-RU": "\u0413\u0420\u0410\u0412\u0418\u0422\u0410\u0421",
-            "zh-Hans": "\u5e84\u4e25\u5e02"
+            "zh-Hans": "\u5e84\u4e25\u5e02",
+            "zh-Hant": "\u91cd\u529b\u9ede"
         },
         "description": "",
         "descriptions": {}
@@ -1881,7 +2007,8 @@
             "it-IT": "GRANDE CENTRALE ATLANTEA",
             "pt-BR": "USINA EL\u00c9TRICA ATL\u00c2NTICA SUPERIOR",
             "ru-RU": "\u0411\u041e\u041b\u042c\u0428\u0410\u042f \u0410\u0422\u041b\u0410\u041d\u0422\u0418\u0427\u0415\u0421\u041a\u0410\u042f \u042d\u041b\u0415\u041a\u0422\u0420\u041e\u0421\u0422\u0410\u041d\u0426\u0418\u042f",
-            "zh-Hans": "\u5927\u4e9a\u7279\u5170\u8482\u65af\u7535\u5382"
+            "zh-Hans": "\u5927\u4e9a\u7279\u5170\u8482\u65af\u7535\u5382",
+            "zh-Hant": "\u5927\u4e9e\u7279\u862d\u63d0\u65af\u767c\u96fb\u5ee0"
         },
         "description": "",
         "descriptions": {}
@@ -1896,7 +2023,8 @@
             "it-IT": "GRANDI PROFITTI",
             "pt-BR": "GR\u00c3O-INVESTIMENTO",
             "ru-RU": "\u0411\u041e\u041b\u042c\u0428\u041e\u0415 \u0412\u041b\u041e\u0416\u0415\u041d\u0418\u0415",
-            "zh-Hans": "\u5de8\u8d44\u5e02"
+            "zh-Hans": "\u5de8\u8d44\u5e02",
+            "zh-Hant": "\u5de8\u8cc7\u4e4b\u5730"
         },
         "description": "",
         "descriptions": {}
@@ -1911,7 +2039,8 @@
             "it-IT": "MAGAZZINO GRANDE",
             "pt-BR": "GRANDE ARMAZENAL",
             "ru-RU": "\u0412\u0415\u041b\u0418\u041a\u0418\u0419 \u0421\u041a\u041b\u0410\u0414",
-            "zh-Hans": "\u5927\u50a8\u4ed3"
+            "zh-Hans": "\u5927\u50a8\u4ed3",
+            "zh-Hant": "\u5927\u5009\u5eab"
         },
         "description": "",
         "descriptions": {}
@@ -1926,7 +2055,8 @@
             "it-IT": "FORESTA DEI MULINI",
             "pt-BR": "MOINHOS GUA\u00c7UBIR\u00c1",
             "ru-RU": "\u041c\u0415\u041b\u042c\u041d\u0418\u0426\u042b \u0413\u0420\u0415\u0419\u0422\u0412\u0423\u0414\u0410",
-            "zh-Hans": "\u5de8\u6728\u7c73\u5c14\u65af"
+            "zh-Hans": "\u5de8\u6728\u7c73\u5c14\u65af",
+            "zh-Hant": "\u5de8\u6728\u5de5\u574a"
         },
         "description": "",
         "descriptions": {}
@@ -1941,7 +2071,8 @@
             "it-IT": "RINGHIO",
             "pt-BR": "RUGIDO",
             "ru-RU": "\u0420\u0415\u0412",
-            "zh-Hans": "\u5486\u54ee\u5e02"
+            "zh-Hans": "\u5486\u54ee\u5e02",
+            "zh-Hant": "\u5486\u54ee\u57ce"
         },
         "description": "",
         "descriptions": {}
@@ -1956,7 +2087,8 @@
             "it-IT": "PRATI POLVERIERA",
             "pt-BR": "PRADOS POLVOROSOS",
             "ru-RU": "\u041f\u041e\u0420\u041e\u0425\u041e\u0412\u042b\u0415 \u041b\u0423\u0413\u0410",
-            "zh-Hans": "\u706b\u836f\u8349\u539f"
+            "zh-Hans": "\u706b\u836f\u8349\u539f",
+            "zh-Hant": "\u706b\u85e5\u8349\u5730"
         },
         "description": "",
         "descriptions": {}
@@ -1971,7 +2103,8 @@
             "it-IT": "GYEONGSEONG",
             "pt-BR": "GYEONGSEONG",
             "ru-RU": "\u041a\u0415\u041d\u0421\u041e\u041d",
-            "zh-Hans": "\u4eac\u57ce"
+            "zh-Hans": "\u4eac\u57ce",
+            "zh-Hant": "\u4eac\u57ce"
         },
         "description": "",
         "descriptions": {}
@@ -1986,7 +2119,8 @@
             "it-IT": "HABITAT ROSSO-2",
             "pt-BR": "HABITAT VERMELHO-2",
             "ru-RU": "\u0425\u0410\u0411\u0418\u0422\u0410\u0422 \u0420\u0415\u0414-2",
-            "zh-Hans": "\u6816\u5730\u7ea2-2"
+            "zh-Hans": "\u6816\u5730\u7ea2-2",
+            "zh-Hant": "\u7d052\u68f2\u5730"
         },
         "description": "",
         "descriptions": {}
@@ -2001,7 +2135,8 @@
             "it-IT": "HAERSTVIK",
             "pt-BR": "HAERSTVIK",
             "ru-RU": "\u0425\u042d\u0421\u0422\u0412\u0418\u041a",
-            "zh-Hans": "\u54c8\u5c14\u65af\u7279\u7ef4\u514b"
+            "zh-Hans": "\u54c8\u5c14\u65af\u7279\u7ef4\u514b",
+            "zh-Hant": "\u54c8\u723e\u65af\u7279\u7dad\u514b"
         },
         "description": "",
         "descriptions": {}
@@ -2016,7 +2151,8 @@
             "it-IT": "HAKU CITY",
             "pt-BR": "CIDADE HAKU",
             "ru-RU": "\u0425\u0410\u041a\u0423-\u0421\u0418\u0422\u0418",
-            "zh-Hans": "\u54c8\u5e93\u57ce"
+            "zh-Hans": "\u54c8\u5e93\u57ce",
+            "zh-Hant": "\u54c8\u5eab\u57ce"
         },
         "description": "",
         "descriptions": {}
@@ -2031,7 +2167,8 @@
             "it-IT": "HANDAKAS",
             "pt-BR": "HANDAKAS",
             "ru-RU": "\u0425\u0410\u041d\u0414\u0410\u041a\u0410\u0421",
-            "zh-Hans": "\u6c49\u8fbe\u5361\u65af"
+            "zh-Hans": "\u6c49\u8fbe\u5361\u65af",
+            "zh-Hant": "\u6f22\u9054\u5361\u65af"
         },
         "description": "",
         "descriptions": {}
@@ -2046,7 +2183,8 @@
             "it-IT": "HANGAR 6",
             "pt-BR": "HANGAR 6",
             "ru-RU": "\u0410\u041d\u0413\u0410\u0420-6",
-            "zh-Hans": "6\u53f7\u673a\u5e93"
+            "zh-Hans": "6\u53f7\u673a\u5e93",
+            "zh-Hant": "6\u865f\u6a5f\u5eab"
         },
         "description": "",
         "descriptions": {}
@@ -2061,7 +2199,8 @@
             "it-IT": "AUDAX",
             "pt-BR": "FOR\u00c7AT\u00c3",
             "ru-RU": "\u0425\u0410\u0420\u0414\u0418",
-            "zh-Hans": "\u5f3a\u5065\u5e02"
+            "zh-Hans": "\u5f3a\u5065\u5e02",
+            "zh-Hant": "\u5805\u6bc5\u4e4b\u5730"
         },
         "description": "",
         "descriptions": {}
@@ -2076,7 +2215,8 @@
             "it-IT": "RIFUGIO",
             "pt-BR": "REF\u00daGIO",
             "ru-RU": "\u0420\u0410\u0419",
-            "zh-Hans": "\u9ed1\u6587"
+            "zh-Hans": "\u9ed1\u6587",
+            "zh-Hant": "\u5e73\u548c\u4e4b\u5730"
         },
         "description": "",
         "descriptions": {}
@@ -2091,7 +2231,8 @@
             "it-IT": "LINEA PIATTA",
             "pt-BR": "PARADA DO CORA\u00c7\u00c3O",
             "ru-RU": "\u0420\u0410\u0412\u041d\u0418\u041d\u042b \u0421\u0415\u0420\u0414\u0426\u0410",
-            "zh-Hans": "\u5fc3\u5e73\u5e02"
+            "zh-Hans": "\u5fc3\u5e73\u5e02",
+            "zh-Hant": "\u5fc3\u4e4b\u5e73\u539f"
         },
         "description": "",
         "descriptions": {}
@@ -2106,7 +2247,8 @@
             "it-IT": "CAMPI D'ERICA",
             "pt-BR": "CAMPO DAS URZES",
             "ru-RU": "\u0412\u0415\u0420\u0415\u0421\u041a\u041e\u0412\u041e\u0415 \u041f\u041e\u041b\u0415",
-            "zh-Hans": "\u5e0c\u745f\u83f2\u5c14\u5fb7"
+            "zh-Hans": "\u5e0c\u745f\u83f2\u5c14\u5fb7",
+            "zh-Hant": "\u77f3\u6960\u539f\u91ce"
         },
         "description": "",
         "descriptions": {}
@@ -2121,7 +2263,8 @@
             "it-IT": "HILDOARA CENTRALE",
             "pt-BR": "HILDOARA CENTRAL",
             "ru-RU": "\u0425\u0418\u0414\u041e\u0410\u0420\u0410-\u0421\u0415\u041d\u0422\u0420\u0410\u041b",
-            "zh-Hans": "\u5e0c\u5c14\u591a\u4e9a\u62c9\u4e2d\u533a"
+            "zh-Hans": "\u5e0c\u5c14\u591a\u4e9a\u62c9\u4e2d\u533a",
+            "zh-Hant": "\u5e0c\u723e\u591a\u62c9\u4e2d\u5fc3"
         },
         "description": "",
         "descriptions": {}
@@ -2136,7 +2279,8 @@
             "it-IT": "HILJAISUUS",
             "pt-BR": "HILJAISUUS",
             "ru-RU": "\u0425\u0418\u041b\u042c\u042f\u0421\u0423\u0421",
-            "zh-Hans": "\u5bc2\u57ce"
+            "zh-Hans": "\u5bc2\u57ce",
+            "zh-Hant": "\u9ed8\u8a00\u57ce"
         },
         "description": "",
         "descriptions": {}
@@ -2151,7 +2295,8 @@
             "it-IT": "Q-LONIA",
             "pt-BR": "R\u00cdVEL",
             "ru-RU": "\u0414\u042b\u0420\u0410",
-            "zh-Hans": "\u970d\u51c9\u5730"
+            "zh-Hans": "\u970d\u51c9\u5730",
+            "zh-Hant": "\u7a7a\u6d1e\u57ce"
         },
         "description": "",
         "descriptions": {}
@@ -2166,7 +2311,8 @@
             "it-IT": "POGGIO DEI PODERI",
             "pt-BR": "VALE HABITADO",
             "ru-RU": "\u0425\u041e\u0423\u041c\u0421\u0422\u0415\u0414-\u0425\u0418\u041b\u041b",
-            "zh-Hans": "\u5bb6\u56ed\u5c71"
+            "zh-Hans": "\u5bb6\u56ed\u5c71",
+            "zh-Hant": "\u5bb6\u5712\u5c71\u4e18"
         },
         "description": "",
         "descriptions": {}
@@ -2181,7 +2327,8 @@
             "it-IT": "CONTEA SPERANZA",
             "pt-BR": "ESPER\u00c2NCIA",
             "ru-RU": "\u041d\u0410\u0414\u0415\u0416\u0414\u0418\u041d\u0421\u041a",
-            "zh-Hans": "\u970d\u666e\u90e1"
+            "zh-Hans": "\u970d\u666e\u90e1",
+            "zh-Hant": "\u5e0c\u671b\u90e1"
         },
         "description": "",
         "descriptions": {}
@@ -2196,7 +2343,8 @@
             "it-IT": "PORTE ROVENTI",
             "pt-BR": "PORT\u00d5ES ARDENTES",
             "ru-RU": "\u041f\u042b\u041b\u041a\u0418\u0415 \u0412\u0420\u0410\u0422\u0410",
-            "zh-Hans": "\u7099\u5173"
+            "zh-Hans": "\u7099\u5173",
+            "zh-Hant": "\u708e\u95dc"
         },
         "description": "",
         "descriptions": {}
@@ -2211,7 +2359,8 @@
             "it-IT": "VOLONT\u00c0 UMANA",
             "pt-BR": "VONTADE HUMANA",
             "ru-RU": "\u0412\u041e\u041b\u042f \u041d\u0410\u0420\u041e\u0414\u0410",
-            "zh-Hans": "\u4eba\u7c7b\u610f\u5fd7\u5e02"
+            "zh-Hans": "\u4eba\u7c7b\u610f\u5fd7\u5e02",
+            "zh-Hant": "\u4eba\u985e\u610f\u5fd7"
         },
         "description": "",
         "descriptions": {}
@@ -2226,7 +2375,8 @@
             "it-IT": "UMANIT\u00c0",
             "pt-BR": "HUMANIDADE",
             "ru-RU": "\u0427\u0415\u041b\u041e\u0412\u0415\u0427\u0415\u0421\u0422\u0412\u041e",
-            "zh-Hans": "\u4eba\u9053\u5e02"
+            "zh-Hans": "\u4eba\u9053\u5e02",
+            "zh-Hant": "\u4eba\u9053\u5e02"
         },
         "description": "",
         "descriptions": {}
@@ -2241,7 +2391,8 @@
             "it-IT": "TRUFFA DEI CACCIATORI",
             "pt-BR": "RIBANCEIRA DO CA\u00c7ADOR",
             "ru-RU": "\u0423\u0422\u0415\u0421 \u041e\u0425\u041e\u0422\u041d\u0418\u041a\u0410",
-            "zh-Hans": "\u730e\u4eba\u5d16"
+            "zh-Hans": "\u730e\u4eba\u5d16",
+            "zh-Hant": "\u7375\u4eba\u7d55\u58c1"
         },
         "description": "",
         "descriptions": {}
@@ -2256,7 +2407,8 @@
             "it-IT": "CURVA GHIACCIATA",
             "pt-BR": "DOBRAGELO",
             "ru-RU": "\u041b\u0415\u0414\u042f\u041d\u0410\u042f \u0418\u0417\u041b\u0423\u0427\u0418\u041d\u0410",
-            "zh-Hans": "\u51b0\u672c\u5fb7"
+            "zh-Hans": "\u51b0\u672c\u5fb7",
+            "zh-Hant": "\u51b0\u7d50\u6e2f\u7063"
         },
         "description": "",
         "descriptions": {}
@@ -2271,7 +2423,8 @@
             "it-IT": "INDIPENDENZA",
             "pt-BR": "INDEPEND\u00caNCIA",
             "ru-RU": "\u041d\u0415\u0417\u0410\u0412\u0418\u0421\u0418\u041c\u041e\u0421\u0422\u042c",
-            "zh-Hans": "\u72ec\u7acb\u5e02"
+            "zh-Hans": "\u72ec\u7acb\u5e02",
+            "zh-Hant": "\u7368\u7acb\u5e02"
         },
         "description": "",
         "descriptions": {}
@@ -2286,7 +2439,8 @@
             "it-IT": "INTERESSE",
             "pt-BR": "JUROS",
             "ru-RU": "\u0418\u041d\u0422\u0415\u0420\u0415\u0421",
-            "zh-Hans": "\u5229\u606f\u70b9"
+            "zh-Hans": "\u5229\u606f\u70b9",
+            "zh-Hant": "\u5229\u76ca\u9ede"
         },
         "description": "",
         "descriptions": {}
@@ -2301,7 +2455,8 @@
             "it-IT": "INTREPIDA",
             "pt-BR": "INTREPID\u00c9SIA",
             "ru-RU": "\u041e\u0422\u0412\u0410\u0413\u0410",
-            "zh-Hans": "\u52c7\u9b44\u5e02"
+            "zh-Hans": "\u52c7\u9b44\u5e02",
+            "zh-Hant": "\u7121\u754f\u4e4b\u5730"
         },
         "description": "",
         "descriptions": {}
@@ -2316,7 +2471,8 @@
             "it-IT": "INVESTIMENTO",
             "pt-BR": "INVESTIMENTO",
             "ru-RU": "\u0412\u041b\u041e\u0416\u0415\u041d\u0418\u0415",
-            "zh-Hans": "\u6295\u8d44\u70b9"
+            "zh-Hans": "\u6295\u8d44\u70b9",
+            "zh-Hant": "\u6295\u8cc7\u9ede"
         },
         "description": "",
         "descriptions": {}
@@ -2331,7 +2487,8 @@
             "it-IT": "ISEGORIA",
             "pt-BR": "ISEGORIA",
             "ru-RU": "\u0418\u0421\u0415\u0413\u041e\u0420\u0418\u042f",
-            "zh-Hans": "\u601d\u8a00\u57ce"
+            "zh-Hans": "\u601d\u8a00\u57ce",
+            "zh-Hant": "\u81ea\u8a00\u57ce"
         },
         "description": "",
         "descriptions": {}
@@ -2346,7 +2503,8 @@
             "it-IT": "KALASATAMA",
             "pt-BR": "KALASATAMA",
             "ru-RU": "\u041a\u0410\u041b\u0410\u0421\u0410\u0422\u0410\u041c\u0410",
-            "zh-Hans": "\u6e14\u6e2f"
+            "zh-Hans": "\u6e14\u6e2f",
+            "zh-Hant": "\u5361\u62c9\u85a9\u5854\u99ac"
         },
         "description": "",
         "descriptions": {}
@@ -2361,7 +2519,8 @@
             "it-IT": "PORTO KALASATAMA",
             "pt-BR": "PORTO KALASATAMA",
             "ru-RU": "\u041f\u041e\u0420\u0422 \u041a\u0410\u041b\u0410\u0421\u0410\u0422\u0410\u041c\u0410",
-            "zh-Hans": "\u5361\u62c9\u8428\u5854\u9a6c\u6e2f"
+            "zh-Hans": "\u5361\u62c9\u8428\u5854\u9a6c\u6e2f",
+            "zh-Hant": "\u5361\u62c9\u85a9\u5854\u99ac\u6e2f"
         },
         "description": "",
         "descriptions": {}
@@ -2376,7 +2535,8 @@
             "it-IT": "KESUMA",
             "pt-BR": "KESUMA",
             "ru-RU": "\u041a\u0415\u0421\u0423\u041c\u0410",
-            "zh-Hans": "\u82b1\u90fd"
+            "zh-Hans": "\u82b1\u90fd",
+            "zh-Hant": "\u82b1\u90fd"
         },
         "description": "",
         "descriptions": {}
@@ -2391,7 +2551,8 @@
             "it-IT": "KILLJOY",
             "pt-BR": "VILA BAIXO ASTRAL",
             "ru-RU": "\u041a\u0418\u041b\u041b\u0414\u0416\u041e\u0419 \u0422\u0410\u0423\u041d",
-            "zh-Hans": "\u514b\u4e54\u4f0a\u9547"
+            "zh-Hans": "\u514b\u4e54\u4f0a\u9547",
+            "zh-Hant": "\u6bba\u622e\u5c0f\u93ae"
         },
         "description": "",
         "descriptions": {}
@@ -2406,7 +2567,8 @@
             "it-IT": "KINABATANGAN",
             "pt-BR": "KINABATANGAN",
             "ru-RU": "\u041a\u0418\u041d\u0410\u0411\u0410\u0422\u0410\u041d\u0413\u0410\u041d",
-            "zh-Hans": "\u4eac\u90a3\u5df4\u5f53\u5cb8"
+            "zh-Hans": "\u4eac\u90a3\u5df4\u5f53\u5cb8",
+            "zh-Hant": "\u4eac\u90a3\u5cc7\u7576\u5cb8"
         },
         "description": "",
         "descriptions": {}
@@ -2421,7 +2583,8 @@
             "it-IT": "ONORE DEI CAVALIERI",
             "pt-BR": "HONRA DE CAVALEIRO",
             "ru-RU": "\u0420\u042b\u0426\u0410\u0420\u0421\u041a\u0410\u042f \u0427\u0415\u0421\u0422\u042c",
-            "zh-Hans": "\u9a91\u58eb\u8363\u8a89\u57ce"
+            "zh-Hans": "\u9a91\u58eb\u8363\u8a89\u57ce",
+            "zh-Hant": "\u9a0e\u58eb\u69ae\u8000\u57ce"
         },
         "description": "",
         "descriptions": {}
@@ -2436,7 +2599,8 @@
             "it-IT": "CASCATE DI KODIAK",
             "pt-BR": "QUEDAS KODIAK",
             "ru-RU": "\u0412\u041e\u0414\u041e\u041f\u0410\u0414\u042b \u041a\u0410\u0414\u042c\u042f\u041a",
-            "zh-Hans": "\u79d1\u8fea\u4e9a\u514b\u7011\u5e03"
+            "zh-Hans": "\u79d1\u8fea\u4e9a\u514b\u7011\u5e03",
+            "zh-Hant": "\u79d1\u8fea\u4e9e\u514b\u7011\u5e03"
         },
         "description": "",
         "descriptions": {}
@@ -2451,7 +2615,8 @@
             "it-IT": "KURRI KURRI",
             "pt-BR": "KURRI KURRI",
             "ru-RU": "\u041a\u0423\u0420\u0420\u0418-\u041a\u0423\u0420\u0420\u0418",
-            "zh-Hans": "\u5e93\u91cc\u5e93\u91cc"
+            "zh-Hans": "\u5e93\u91cc\u5e93\u91cc",
+            "zh-Hant": "\u5eab\u91cc\u5eab\u91cc"
         },
         "description": "",
         "descriptions": {}
@@ -2466,7 +2631,8 @@
             "it-IT": "SOBRIET\u00c0",
             "pt-BR": "ESTREITO BATIZADO",
             "ru-RU": "\u0410\u0416\u0423\u0420\u041d\u042b\u0419 \u041f\u0420\u041e\u041b\u0418\u0412",
-            "zh-Hans": "\u83b1\u9192\u6d77\u5ce1"
+            "zh-Hans": "\u83b1\u9192\u6d77\u5ce1",
+            "zh-Hant": "\u7e54\u7d0b\u6d77\u5cfd"
         },
         "description": "",
         "descriptions": {}
@@ -2481,7 +2647,8 @@
             "it-IT": "LAELIA",
             "pt-BR": "L\u00c9LIA",
             "ru-RU": "\u041b\u0415\u041b\u0418\u042f",
-            "zh-Hans": "\u857e\u4e3d\u5170\u57ce"
+            "zh-Hans": "\u857e\u4e3d\u5170\u57ce",
+            "zh-Hant": "\u857e\u9e97\u862d"
         },
         "description": "",
         "descriptions": {}
@@ -2496,7 +2663,8 @@
             "it-IT": "LAGERL\u00d6F",
             "pt-BR": "LAGERL\u00d6FTINA",
             "ru-RU": "\u041b\u0410\u0413\u0415\u0420\u041b\u0415\u0424-\u0421\u0418\u0422\u0418",
-            "zh-Hans": "\u62c9\u683c\u6d1b\u592b\u57ce"
+            "zh-Hans": "\u62c9\u683c\u6d1b\u592b\u57ce",
+            "zh-Hant": "\u62c9\u683c\u6d1b\u592b\u57ce"
         },
         "description": "",
         "descriptions": {}
@@ -2511,7 +2679,8 @@
             "it-IT": "ULTIMA CASA",
             "pt-BR": "ULTIMOCA",
             "ru-RU": "\u041f\u041e\u0421\u041b\u0415\u0414\u041d\u0418\u0419 \u041f\u0420\u0418\u042e\u0422",
-            "zh-Hans": "\u5f52\u5bbf\u5e02"
+            "zh-Hans": "\u5f52\u5bbf\u5e02",
+            "zh-Hant": "\u62c9\u65af\u6258\u59c6"
         },
         "description": "",
         "descriptions": {}
@@ -2526,7 +2695,8 @@
             "it-IT": "LEMURIA NASCENTE",
             "pt-BR": "APOGEU DE LEM\u00daRIA",
             "ru-RU": "\u0412\u041e\u0417\u0420\u041e\u0416\u0414\u0415\u041d\u0418\u0415 \u041b\u0415\u041c\u0423\u0420\u0418\u0418",
-            "zh-Hans": "\u5229\u83ab\u91cc\u4e9a\u5d1b\u8d77\u57ce"
+            "zh-Hans": "\u5229\u83ab\u91cc\u4e9a\u5d1b\u8d77\u57ce",
+            "zh-Hant": "\u65b0\u96f7\u59c6\u5229\u4e9e"
         },
         "description": "",
         "descriptions": {}
@@ -2541,7 +2711,8 @@
             "it-IT": "BORGO LIBER-T\u00c8",
             "pt-BR": "FAZENDA LIBERDADE",
             "ru-RU": "\u041f\u041e\u0421\u0415\u041b\u041e\u041a \u0421\u0412\u041e\u0411\u041e\u0414\u042b",
-            "zh-Hans": "\u89e3\u653e\u8336\u9547"
+            "zh-Hans": "\u89e3\u653e\u8336\u9547",
+            "zh-Hant": "\u81ea\u7531\u8336\u93ae"
         },
         "description": "",
         "descriptions": {}
@@ -2556,7 +2727,8 @@
             "it-IT": "SANGUE VITALE",
             "pt-BR": "SANGUEVITAL",
             "ru-RU": "\u0425\u041b\u0415\u0411 \u041d\u0410\u0421\u0423\u0429\u041d\u042b\u0419",
-            "zh-Hans": "\u547d\u8109\u57ce"
+            "zh-Hans": "\u547d\u8109\u57ce",
+            "zh-Hant": "\u547d\u8108\u57ce"
         },
         "description": "",
         "descriptions": {}
@@ -2571,7 +2743,8 @@
             "it-IT": "LIFESWORTH",
             "pt-BR": "VALEVIDA",
             "ru-RU": "\u0426\u0415\u041d\u0410 \u0416\u0418\u0417\u041d\u0418",
-            "zh-Hans": "\u751f\u4e4b\u610f"
+            "zh-Hans": "\u751f\u4e4b\u610f",
+            "zh-Hant": "\u60dc\u547d\u4e4b\u5730"
         },
         "description": "",
         "descriptions": {}
@@ -2586,7 +2759,8 @@
             "it-IT": "LUCE DELLA LIBERT\u00c0",
             "pt-BR": "LUZ DA LIBERDADE",
             "ru-RU": "\u0421\u0412\u0415\u0422 \u0421\u0412\u041e\u0411\u041e\u0414\u042b",
-            "zh-Hans": "\u8000\u8f89\u81ea\u7531\u57ce"
+            "zh-Hans": "\u8000\u8f89\u81ea\u7531\u57ce",
+            "zh-Hant": "\u8000\u8f1d\u81ea\u7531\u57ce"
         },
         "description": "",
         "descriptions": {}
@@ -2601,7 +2775,8 @@
             "it-IT": "CASINA",
             "pt-BR": "LIL'OME",
             "ru-RU": "\u041c\u0410\u041b\u042b\u0419 \u0414\u041e\u041c",
-            "zh-Hans": "\u4e50\u5c45\u57ce"
+            "zh-Hans": "\u4e50\u5c45\u57ce",
+            "zh-Hant": "\u6a02\u5c45\u57ce"
         },
         "description": "",
         "descriptions": {}
@@ -2616,7 +2791,8 @@
             "it-IT": "LLANFAIRPWLLGWYNGYLLGOGERYCHWYRNDROBWLLLLANTYSILIOGOGOGOCH II",
             "pt-BR": "LLANFAIRPWLLGWYNGYLLGOGERYCHWYRNDROBWLLLLANTYSILIOGOGOGOCH II",
             "ru-RU": "\u041b\u041b\u0410\u041d\u0412\u0410\u0419\u0420\u041f\u0423\u041b\u041b\u0413\u0423\u0418\u041d\u0413\u0418\u041b\u041b\u0413\u041e\u0413\u0415\u0420\u0418\u0425\u0423\u0418\u0420\u041d\u0414\u0420\u041e\u0411\u0423\u041b\u041b\u041b\u041b\u0410\u041d\u0422\u0418\u0421\u0418\u041b\u0418\u041e\u0413\u041e\u0413\u041e\u0413\u041e\u0425 II",
-            "zh-Hans": "LLANFAIRPWLLGWYNGYLLGOGERYCHWYRNDROBWLLLLANTYSILIOGOGOGOCH II"
+            "zh-Hans": "LLANFAIRPWLLGWYNGYLLGOGERYCHWYRNDROBWLLLLANTYSILIOGOGOGOCH II",
+            "zh-Hant": "LLANFAIRPWLLGWYNGYLLGOGERYCHWYRNDROBWLLLLANTYSILIOGOGOGOCH II"
         },
         "description": "",
         "descriptions": {}
@@ -2631,7 +2807,8 @@
             "it-IT": "POLO LOGISTICO 188-B",
             "pt-BR": "CENTRO LOG\u00cdSTICO 188-B",
             "ru-RU": "\u041b\u041e\u0413\u0418\u0421\u0422\u0418\u0427\u0415\u0421\u041a\u0418\u0419 \u0426\u0415\u041d\u0422\u0420 188-B",
-            "zh-Hans": "\u7269\u6d41\u4e2d\u5fc3188-B"
+            "zh-Hans": "\u7269\u6d41\u4e2d\u5fc3188-B",
+            "zh-Hant": "188-B\u7269\u6d41\u4e2d\u5fc3"
         },
         "description": "",
         "descriptions": {}
@@ -2646,7 +2823,8 @@
             "it-IT": "POLO LOGISTICO 232-B",
             "pt-BR": "CENTRO LOG\u00cdSTICO 232-B",
             "ru-RU": "\u041b\u041e\u0413\u0418\u0421\u0422\u0418\u0427\u0415\u0421\u041a\u0418\u0419 \u0426\u0415\u041d\u0422\u0420 232-B",
-            "zh-Hans": "\u7269\u6d41\u4e2d\u5fc3232-B"
+            "zh-Hans": "\u7269\u6d41\u4e2d\u5fc3232-B",
+            "zh-Hant": "232-B\u7269\u6d41\u4e2d\u5fc3"
         },
         "description": "",
         "descriptions": {}
@@ -2661,7 +2839,8 @@
             "it-IT": "LOKAHEIM",
             "pt-BR": "LOKIHEIM",
             "ru-RU": "\u041b\u041e\u041a\u0418\u0425\u0415\u0419\u041c",
-            "zh-Hans": "\u6d1b\u5361\u6d77\u59c6"
+            "zh-Hans": "\u6d1b\u5361\u6d77\u59c6",
+            "zh-Hant": "\u6d1b\u5361\u6d77\u59c6"
         },
         "description": "",
         "descriptions": {}
@@ -2676,7 +2855,8 @@
             "it-IT": "BELVEDERE",
             "pt-BR": "MIRANTE",
             "ru-RU": "\u0427\u0410\u0421\u041e\u0412\u041e\u0419",
-            "zh-Hans": "\u773a\u671b\u53f0"
+            "zh-Hans": "\u773a\u671b\u53f0",
+            "zh-Hant": "\u77ad\u671b\u8655"
         },
         "description": "",
         "descriptions": {}
@@ -2691,7 +2871,8 @@
             "it-IT": "LIBERT\u00c0 RIGOGLIOSA",
             "pt-BR": "LIBERABA",
             "ru-RU": "\u0421\u041e\u0411\u041b\u0410\u0417\u041d\u0418\u0422\u0415\u041b\u042c\u041d\u0410\u042f \u0421\u0412\u041e\u0411\u041e\u0414\u0410",
-            "zh-Hans": "\u7518\u7f8e\u81ea\u7531\u5e02"
+            "zh-Hans": "\u7518\u7f8e\u81ea\u7531\u5e02",
+            "zh-Hant": "\u8525\u9b31\u81ea\u7531\u5730"
         },
         "description": "",
         "descriptions": {}
@@ -2706,7 +2887,8 @@
             "it-IT": "PUNTA DELUXE",
             "pt-BR": "PONTA LUXE",
             "ru-RU": "\u0427\u0418\u0421\u0422\u042b\u0419 \u041b\u042e\u041a\u0421",
-            "zh-Hans": "\u7409\u89d2"
+            "zh-Hans": "\u7409\u89d2",
+            "zh-Hant": "\u83ef\u9e97\u89d2"
         },
         "description": "",
         "descriptions": {}
@@ -2721,7 +2903,8 @@
             "it-IT": "MAGNITUDO",
             "pt-BR": "MAGNITUDE",
             "ru-RU": "\u0413\u0420\u041e\u041c\u0410\u0414\u0410",
-            "zh-Hans": "\u5de8\u91cf\u5e02"
+            "zh-Hans": "\u5de8\u91cf\u5e02",
+            "zh-Hant": "\u58ef\u9e97\u4e4b\u5730"
         },
         "description": "",
         "descriptions": {}
@@ -2736,7 +2919,8 @@
             "it-IT": "MAJOSYRI",
             "pt-BR": "MAJOSYRI",
             "ru-RU": "\u041c\u0410\u0419\u041e\u0421\u0418\u0420\u0418",
-            "zh-Hans": "\u9a6c\u7ea6\u53d9\u91cc"
+            "zh-Hans": "\u9a6c\u7ea6\u53d9\u91cc",
+            "zh-Hant": "\u99ac\u7d04\u897f\u91cc"
         },
         "description": "",
         "descriptions": {}
@@ -2751,7 +2935,8 @@
             "it-IT": "SALDI",
             "pt-BR": "NODOS COMERCIAIS",
             "ru-RU": "\u0422\u041e\u0420\u0413\u041e\u0412\u042b\u0415 \u0420\u0423\u0418\u041d\u042b",
-            "zh-Hans": "\u5546\u5eca\u8282\u70b9"
+            "zh-Hans": "\u5546\u5eca\u8282\u70b9",
+            "zh-Hant": "\u8cfc\u7269\u5927\u9053\u7bc0\u9ede"
         },
         "description": "",
         "descriptions": {}
@@ -2766,7 +2951,8 @@
             "it-IT": "MALMBERGET",
             "pt-BR": "MALMBERGET",
             "ru-RU": "\u041c\u0410\u041b\u042c\u041c\u0411\u0415\u0420\u0413\u0415\u0422",
-            "zh-Hans": "\u9a6c\u5c14\u59c6\u8d1d\u5409\u7279"
+            "zh-Hans": "\u9a6c\u5c14\u59c6\u8d1d\u5409\u7279",
+            "zh-Hant": "\u99ac\u723e\u59c6\u8c9d\u91cc\u8036"
         },
         "description": "",
         "descriptions": {}
@@ -2781,7 +2967,8 @@
             "it-IT": "MEGACORPUS",
             "pt-BR": "MEGACORPUS",
             "ru-RU": "\u041c\u0415\u0413\u0410\u041a\u041e\u0420\u041f\u0423\u0421",
-            "zh-Hans": "\u6885\u52a0\u79d1\u5c14\u666e\u65af"
+            "zh-Hans": "\u6885\u52a0\u79d1\u5c14\u666e\u65af",
+            "zh-Hant": "\u5de8\u9ad4\u57ce"
         },
         "description": "",
         "descriptions": {}
@@ -2796,7 +2983,8 @@
             "it-IT": "MEMORIALI",
             "pt-BR": "MEMORIAIS",
             "ru-RU": "\u041c\u0415\u041c\u041e\u0420\u0418\u0410\u041b",
-            "zh-Hans": "\u7eaa\u5ff5\u5e02"
+            "zh-Hans": "\u7eaa\u5ff5\u5e02",
+            "zh-Hant": "\u7d00\u5ff5\u7891"
         },
         "description": "",
         "descriptions": {}
@@ -2811,7 +2999,8 @@
             "it-IT": "MESA DEL MESSAGGERO",
             "pt-BR": "PLANALTO DO MENSAGEIRO",
             "ru-RU": "\u041f\u041b\u0410\u0422\u041e \u041f\u041e\u0421\u041b\u0410\u041d\u041d\u0418\u041a\u0410",
-            "zh-Hans": "\u4fe1\u4f7f\u53f0\u5730"
+            "zh-Hans": "\u4fe1\u4f7f\u53f0\u5730",
+            "zh-Hant": "\u4fe1\u4f7f\u53f0\u5730"
         },
         "description": "",
         "descriptions": {}
@@ -2826,7 +3015,8 @@
             "it-IT": "MINIERA 902",
             "pt-BR": "MINA 902",
             "ru-RU": "\u0428\u0410\u0425\u0422\u0410 \u2116902",
-            "zh-Hans": "\u77ff\u6d1e902"
+            "zh-Hans": "\u77ff\u6d1e902",
+            "zh-Hant": "902\u865f\u7926\u5751"
         },
         "description": "",
         "descriptions": {}
@@ -2841,7 +3031,8 @@
             "it-IT": "RAFFINERIE",
             "pt-BR": "REFINOS MINERAIS",
             "ru-RU": "\u041e\u0427\u0418\u0429\u0415\u041d\u0418\u0415 \u041c\u0418\u041d\u0415\u0420\u0410\u041b\u041e\u0412",
-            "zh-Hans": "\u77ff\u7269\u7cbe\u70bc\u5382"
+            "zh-Hans": "\u77ff\u7269\u7cbe\u70bc\u5382",
+            "zh-Hant": "\u7926\u7269\u7cbe\u7149\u5ee0"
         },
         "description": "",
         "descriptions": {}
@@ -2856,7 +3047,8 @@
             "it-IT": "CAVA DEI RAGNI",
             "pt-BR": "ITACABA",
             "ru-RU": "\u0413\u0420\u0410\u041d\u0418\u0426\u0410 \u041c\u0418\u041d\u0415\u0420\u0410\u041b\u041e\u0412",
-            "zh-Hans": "\u77ff\u7aed\u5730"
+            "zh-Hans": "\u77ff\u7aed\u5730",
+            "zh-Hant": "\u7926\u76e1\u4e4b\u5730"
         },
         "description": "",
         "descriptions": {}
@@ -2871,7 +3063,8 @@
             "it-IT": "MIRAGGIO",
             "pt-BR": "MIRAGEM",
             "ru-RU": "\u041c\u0418\u0420\u0410\u0416",
-            "zh-Hans": "\u5e7b\u5883\u57ce"
+            "zh-Hans": "\u5e7b\u5883\u57ce",
+            "zh-Hant": "\u5e7b\u5883\u57ce"
         },
         "description": "",
         "descriptions": {}
@@ -2886,7 +3079,8 @@
             "it-IT": "SOGNO DI MOBERG",
             "pt-BR": "SONHO DE MOBERG",
             "ru-RU": "\u041c\u0415\u0427\u0422\u0410 \u041c\u041e\u0411\u0415\u0420\u0413\u0410",
-            "zh-Hans": "\u83ab\u4f2f\u683c\u4e4b\u68a6"
+            "zh-Hans": "\u83ab\u4f2f\u683c\u4e4b\u68a6",
+            "zh-Hant": "\u83ab\u8c9d\u683c\u4e4b\u5922"
         },
         "description": "",
         "descriptions": {}
@@ -2901,7 +3095,8 @@
             "it-IT": "PIANE DI MOGO",
             "pt-BR": "PRADOS DE MOGO",
             "ru-RU": "\u0420\u0410\u0412\u041d\u0418\u041d\u042b \u041c\u041e\u0413\u041e",
-            "zh-Hans": "\u83ab\u6208\u5e73\u539f"
+            "zh-Hans": "\u83ab\u6208\u5e73\u539f",
+            "zh-Hant": "\u83ab\u6208\u5e73\u539f"
         },
         "description": "",
         "descriptions": {}
@@ -2916,7 +3111,8 @@
             "it-IT": "MORSKIE OKO",
             "pt-BR": "MORSKIE OKO",
             "ru-RU": "\u041c\u041e\u0420\u0421\u041aI\u0415 \u041e\u041a\u041e",
-            "zh-Hans": "\u6d77\u6d0b\u4e4b\u7738"
+            "zh-Hans": "\u6d77\u6d0b\u4e4b\u7738",
+            "zh-Hant": "\u6d77\u6d0b\u4e4b\u773c"
         },
         "description": "",
         "descriptions": {}
@@ -2931,7 +3127,8 @@
             "it-IT": "MONTE MONUMENTO",
             "pt-BR": "MONTE MONUMENTO",
             "ru-RU": "\u041c\u0410\u0423\u041d\u0422-\u041c\u041e\u041d\u0423\u041c\u0415\u041d\u0422",
-            "zh-Hans": "\u7eaa\u5ff5\u7891\u5c71"
+            "zh-Hans": "\u7eaa\u5ff5\u7891\u5c71",
+            "zh-Hant": "\u7d00\u5ff5\u5c71"
         },
         "description": "",
         "descriptions": {}
@@ -2946,7 +3143,8 @@
             "it-IT": "POLVERIERA",
             "pt-BR": "CIDADE DE MUNI\u00c7\u00d5ES",
             "ru-RU": "\u041e\u0420\u0423\u0416\u0415\u0419\u041d\u041e\u0415",
-            "zh-Hans": "\u519b\u5de5\u57ce"
+            "zh-Hans": "\u519b\u5de5\u57ce",
+            "zh-Hant": "\u8ecd\u706b\u57ce"
         },
         "description": "",
         "descriptions": {}
@@ -2961,7 +3159,8 @@
             "it-IT": "STAGNO DEL NEKK",
             "pt-BR": "LAGOA NEKK",
             "ru-RU": "\u041f\u0420\u0423\u0414 \u041d\u0415\u041a\u041a\u0418",
-            "zh-Hans": "\u6c34\u5996\u6c60"
+            "zh-Hans": "\u6c34\u5996\u6c60",
+            "zh-Hant": "\u5167\u514b\u5858"
         },
         "description": "",
         "descriptions": {}
@@ -2976,7 +3175,8 @@
             "it-IT": "NEW ABERDEEN",
             "pt-BR": "NOVA ABERDEEN",
             "ru-RU": "\u041d\u041e\u0412\u042b\u0419 \u0410\u0411\u0415\u0420\u0414\u0418\u041d",
-            "zh-Hans": "\u65b0\u963f\u4f2f\u4e01"
+            "zh-Hans": "\u65b0\u963f\u4f2f\u4e01",
+            "zh-Hant": "\u65b0\u4e9e\u4f2f\u4e01"
         },
         "description": "",
         "descriptions": {}
@@ -2991,7 +3191,8 @@
             "it-IT": "NUOVA ALESSANDRIA",
             "pt-BR": "NOVA ALEXANDRIA",
             "ru-RU": "\u041d\u041e\u0412\u0410\u042f \u0410\u041b\u0415\u041a\u0421\u0410\u041d\u0414\u0420\u0418\u042f",
-            "zh-Hans": "\u65b0\u4e9a\u5386\u5c71\u5927\u57ce"
+            "zh-Hans": "\u65b0\u4e9a\u5386\u5c71\u5927\u57ce",
+            "zh-Hant": "\u65b0\u4e9e\u6b77\u73ca\u5353"
         },
         "description": "",
         "descriptions": {}
@@ -3006,7 +3207,8 @@
             "it-IT": "NUOVA CITT\u00c0 DELL'ASPIRAZIONE",
             "pt-BR": "CIDADE DE NOVO ANSEIO",
             "ru-RU": "\u041d\u041e\u0412\u041e\u0415 \u0421\u0422\u0420\u0415\u041c\u041b\u0415\u041d\u0418\u0415",
-            "zh-Hans": "\u5fd7\u5411\u65b0\u57ce"
+            "zh-Hans": "\u5fd7\u5411\u65b0\u57ce",
+            "zh-Hant": "\u62b1\u8ca0\u65b0\u57ce"
         },
         "description": "One of 3 Maximum Security Cities. Impregnable to Tyranny; the future of the Federation.",
         "descriptions": {
@@ -3017,7 +3219,8 @@
             "it-IT": "Una delle tre citt\u00e0 di massima sicurezza. Impenetrabile alla Tirannia; \u00e8 il futuro della Federazione.",
             "pt-BR": "Uma das 3 cidades de seguran\u00e7a m\u00e1xima. Impenetr\u00e1vel \u00e0 tirania, o futuro da Federa\u00e7\u00e3o.",
             "ru-RU": "\u041e\u0434\u0438\u043d \u0438\u0437 3 \u0433\u043e\u0440\u043e\u0434\u043e\u0432 \u043c\u0430\u043a\u0441\u0438\u043c\u0430\u043b\u044c\u043d\u043e\u0439 \u0437\u0430\u0449\u0438\u0449\u0435\u043d\u043d\u043e\u0441\u0442\u0438. \u041e\u043d\u0438 \u043d\u0435\u043f\u0440\u043e\u043d\u0438\u0446\u0430\u0435\u043c\u044b \u0434\u043b\u044f \u0422\u0438\u0440\u0430\u043d\u0438\u0438 \u0438 \u0441\u0442\u0430\u043d\u0443\u0442 \u0431\u0443\u0434\u0443\u0449\u0438\u043c \u0424\u0435\u0434\u0435\u0440\u0430\u0446\u0438\u0438.",
-            "zh-Hans": "\u4e09\u5927\u6700\u9ad8\u5b89\u5168\u7ea7\u522b\u57ce\u5e02\u4e4b\u4e00\u3002\u66b4\u653f\u65e0\u6cd5\u653b\u7834\u4e4b\u57ce\uff0c\u8054\u90a6\u7684\u672a\u6765\u3002"
+            "zh-Hans": "\u4e09\u5927\u6700\u9ad8\u5b89\u5168\u7ea7\u522b\u57ce\u5e02\u4e4b\u4e00\u3002\u66b4\u653f\u65e0\u6cd5\u653b\u7834\u4e4b\u57ce\uff0c\u8054\u90a6\u7684\u672a\u6765\u3002",
+            "zh-Hant": "3\u5ea7\u6700\u9ad8\u5b89\u5168\u7b49\u7d1a\u57ce\u5e02\u4e4b\u4e00\u3002\u66b4\u653f\u7684\u8b77\u5b88\u4e4b\u76fe\uff1b\u806f\u90a6\u672a\u4f86\u7684\u71c8\u5854\u3002"
         }
     },
     "3455315905": {
@@ -3030,7 +3233,8 @@
             "it-IT": "NEW COB",
             "pt-BR": "NEO C. O. B.",
             "ru-RU": "\u041d\u042c\u042e-\u041a\u041e\u0411",
-            "zh-Hans": "\u65b0\u79d1\u5e03"
+            "zh-Hans": "\u65b0\u79d1\u5e03",
+            "zh-Hant": "\u65b0\u79d1\u5e03\u5e02"
         },
         "description": "",
         "descriptions": {}
@@ -3045,7 +3249,8 @@
             "it-IT": "DA NANG NUOVA",
             "pt-BR": "NOVA DA NANG",
             "ru-RU": "\u041d\u041e\u0412\u042b\u0419 \u0414\u0410\u041d\u0410\u041d\u0413",
-            "zh-Hans": "\u65b0\u5c98\u6e2f"
+            "zh-Hans": "\u65b0\u5c98\u6e2f",
+            "zh-Hant": "\u65b0\u5cf4\u6e2f"
         },
         "description": "",
         "descriptions": {}
@@ -3060,7 +3265,8 @@
             "it-IT": "AQUILA NOVA",
             "pt-BR": "NOV\u00c1QUILA",
             "ru-RU": "\u041d\u041e\u0412\u042b\u0419 \u041e\u0420\u0415\u041b",
-            "zh-Hans": "\u65b0\u9e70\u57ce"
+            "zh-Hans": "\u65b0\u9e70\u57ce",
+            "zh-Hant": "\u65b0\u84bc\u9df9\u57ce"
         },
         "description": "",
         "descriptions": {}
@@ -3075,7 +3281,8 @@
             "it-IT": "FOCOLARE NUOVO",
             "pt-BR": "NOVA QUER\u00caNCIA",
             "ru-RU": "\u041d\u041e\u0412\u042b\u0419 \u0425\u0410\u0420\u0422-\u0421\u0418\u0422\u0418",
-            "zh-Hans": "\u65b0\u5bd2\u7089\u5e02"
+            "zh-Hans": "\u65b0\u5bd2\u7089\u5e02",
+            "zh-Hant": "\u65b0\u7210\u57ce"
         },
         "description": "",
         "descriptions": {}
@@ -3090,7 +3297,8 @@
             "it-IT": "NUOVA CITT\u00c0 DELLA SPERANZA",
             "pt-BR": "CIDADE DE NOVA ESPERAN\u00c7A",
             "ru-RU": "\u041d\u041e\u0412\u0410\u042f \u041d\u0410\u0414\u0415\u0416\u0414\u0410",
-            "zh-Hans": "\u5e0c\u671b\u65b0\u57ce"
+            "zh-Hans": "\u5e0c\u671b\u65b0\u57ce",
+            "zh-Hant": "\u5e0c\u671b\u65b0\u57ce"
         },
         "description": "The flagship Maximum Security City. Impregnable to Tyranny; the future of the Federation.",
         "descriptions": {
@@ -3101,7 +3309,8 @@
             "it-IT": "La citt\u00e0 di massima sicurezza principale. Impenetrabile alla Tirannia; \u00e8 il futuro della Federazione.",
             "pt-BR": "O carro-chefe em cidades de seguran\u00e7a m\u00e1xima. Impenetr\u00e1vel \u00e0 tirania, o futuro da Federa\u00e7\u00e3o.",
             "ru-RU": "\u0424\u043b\u0430\u0433\u043c\u0430\u043d\u0441\u043a\u0438\u0439 \u0433\u043e\u0440\u043e\u0434 \u043c\u0430\u043a\u0441\u0438\u043c\u0430\u043b\u044c\u043d\u043e\u0439 \u0437\u0430\u0449\u0438\u0449\u0435\u043d\u043d\u043e\u0441\u0442\u0438. \u041e\u043d\u0438 \u043d\u0435\u043f\u0440\u043e\u043d\u0438\u0446\u0430\u0435\u043c\u044b \u0434\u043b\u044f \u0422\u0438\u0440\u0430\u043d\u0438\u0438 \u0438 \u0441\u0442\u0430\u043d\u0443\u0442 \u0431\u0443\u0434\u0443\u0449\u0438\u043c \u0424\u0435\u0434\u0435\u0440\u0430\u0446\u0438\u0438.",
-            "zh-Hans": "\u6700\u9ad8\u5b89\u5168\u7ea7\u522b\u57ce\u5e02\u4e2d\u7684\u738b\u724c\u3002\u66b4\u653f\u65e0\u6cd5\u653b\u7834\u4e4b\u57ce\uff0c\u8054\u90a6\u7684\u672a\u6765\u3002"
+            "zh-Hans": "\u6700\u9ad8\u5b89\u5168\u7ea7\u522b\u57ce\u5e02\u4e2d\u7684\u738b\u724c\u3002\u66b4\u653f\u65e0\u6cd5\u653b\u7834\u4e4b\u57ce\uff0c\u8054\u90a6\u7684\u672a\u6765\u3002",
+            "zh-Hant": "\u65d7\u8266\u7d1a\u6700\u9ad8\u5b89\u5168\u57ce\u5e02\u3002\u66b4\u653f\u7684\u8b77\u5b88\u4e4b\u76fe\uff1b\u806f\u90a6\u672a\u4f86\u7684\u71c8\u5854\u3002"
         }
     },
     "770916674": {
@@ -3114,7 +3323,8 @@
             "it-IT": "NUOVA KATHMANDU",
             "pt-BR": "NOVO CATMANDU",
             "ru-RU": "\u041d\u041e\u0412\u042b\u0419 \u041a\u0410\u0422\u041c\u0410\u041d\u0414\u0423",
-            "zh-Hans": "\u65b0\u52a0\u5fb7\u6ee1\u90fd"
+            "zh-Hans": "\u65b0\u52a0\u5fb7\u6ee1\u90fd",
+            "zh-Hant": "\u65b0\u52a0\u5fb7\u6eff\u90fd"
         },
         "description": "",
         "descriptions": {}
@@ -3129,7 +3339,8 @@
             "it-IT": "NUOVA VILLANOVA",
             "pt-BR": "NOVA NEWTONVILLE",
             "ru-RU": "\u041d\u041e\u0412\u042b\u0419 \u041d\u042c\u042e\u0422\u041e\u041d\u0412\u0418\u041b\u041b\u042c",
-            "zh-Hans": "\u65b0\u725b\u987f\u7ef4\u5c14"
+            "zh-Hans": "\u65b0\u725b\u987f\u7ef4\u5c14",
+            "zh-Hant": "\u65b0\u725b\u9813\u7dad\u723e"
         },
         "description": "",
         "descriptions": {}
@@ -3144,7 +3355,8 @@
             "it-IT": "NUOVO PARADISO",
             "pt-BR": "NOVO PARA\u00cdSO",
             "ru-RU": "\u041d\u042c\u042e-\u041f\u0410\u0420\u0410\u0414\u0418\u0417",
-            "zh-Hans": "\u65b0\u5929\u5802"
+            "zh-Hans": "\u65b0\u5929\u5802",
+            "zh-Hant": "\u65b0\u6a02\u5712"
         },
         "description": "",
         "descriptions": {}
@@ -3159,7 +3371,8 @@
             "it-IT": "NEW PENG",
             "pt-BR": "NOVA PENG",
             "ru-RU": "\u041d\u042c\u042e-\u041f\u0415\u041d\u0413",
-            "zh-Hans": "\u65b0\u6f02\u5e02"
+            "zh-Hans": "\u65b0\u6f02\u5e02",
+            "zh-Hant": "\u65b0\u9d6c\u93ae"
         },
         "description": "",
         "descriptions": {}
@@ -3174,7 +3387,8 @@
             "it-IT": "MAGAZZINO NUOVO",
             "pt-BR": "NOVO ARMAZENAL",
             "ru-RU": "\u041d\u041e\u0412\u042b\u0419 \u0421\u041a\u041b\u0410\u0414",
-            "zh-Hans": "\u65b0\u50a8\u4ed3"
+            "zh-Hans": "\u65b0\u50a8\u4ed3",
+            "zh-Hant": "\u65b0\u5009\u5eab"
         },
         "description": "",
         "descriptions": {}
@@ -3189,7 +3403,8 @@
             "it-IT": "NEO TOKYO",
             "pt-BR": "NEOT\u00d3QUIO",
             "ru-RU": "\u041d\u042c\u042e-\u0422\u041e\u041a\u0418\u041e",
-            "zh-Hans": "\u65b0\u4e1c\u4eac"
+            "zh-Hans": "\u65b0\u4e1c\u4eac",
+            "zh-Hant": "\u65b0\u6771\u4eac"
         },
         "description": "",
         "descriptions": {}
@@ -3204,7 +3419,8 @@
             "it-IT": "NUOVA VITTORIA",
             "pt-BR": "NOVA VIT\u00d3RIA",
             "ru-RU": "\u041d\u041e\u0412\u0410\u042f \u041f\u041e\u0411\u0415\u0414\u0410",
-            "zh-Hans": "\u65b0\u80dc\u5229\u5e02"
+            "zh-Hans": "\u65b0\u80dc\u5229\u5e02",
+            "zh-Hant": "\u65b0\u52dd\u4e4b\u57ce"
         },
         "description": "",
         "descriptions": {}
@@ -3219,7 +3435,8 @@
             "it-IT": "NUOVO ANELITO",
             "pt-BR": "CIDADE DE NOVO DESEJO",
             "ru-RU": "\u041d\u041e\u0412\u042b\u0419 \u041f\u041e\u0420\u042b\u0412",
-            "zh-Hans": "\u76db\u76fc\u65b0\u57ce"
+            "zh-Hans": "\u76db\u76fc\u65b0\u57ce",
+            "zh-Hant": "\u56ae\u5f80\u65b0\u57ce"
         },
         "description": "One of 3 Maximum Security Cities. Impregnable to Tyranny; the future of the Federation.",
         "descriptions": {
@@ -3230,7 +3447,8 @@
             "it-IT": "Una delle tre citt\u00e0 di massima sicurezza. Impenetrabile alla Tirannia; \u00e8 il futuro della Federazione.",
             "pt-BR": "Uma das 3 cidades de seguran\u00e7a m\u00e1xima. Impenetr\u00e1vel \u00e0 tirania, o futuro da Federa\u00e7\u00e3o.",
             "ru-RU": "\u041e\u0434\u0438\u043d \u0438\u0437 3 \u0433\u043e\u0440\u043e\u0434\u043e\u0432 \u043c\u0430\u043a\u0441\u0438\u043c\u0430\u043b\u044c\u043d\u043e\u0439 \u0437\u0430\u0449\u0438\u0449\u0435\u043d\u043d\u043e\u0441\u0442\u0438. \u041e\u043d\u0438 \u043d\u0435\u043f\u0440\u043e\u043d\u0438\u0446\u0430\u0435\u043c\u044b \u0434\u043b\u044f \u0422\u0438\u0440\u0430\u043d\u0438\u0438 \u0438 \u0441\u0442\u0430\u043d\u0443\u0442 \u0431\u0443\u0434\u0443\u0449\u0438\u043c \u0424\u0435\u0434\u0435\u0440\u0430\u0446\u0438\u0438.",
-            "zh-Hans": "\u4e09\u5927\u6700\u9ad8\u5b89\u5168\u7ea7\u522b\u57ce\u5e02\u4e4b\u4e00\u3002\u66b4\u653f\u65e0\u6cd5\u653b\u7834\u4e4b\u57ce\uff0c\u8054\u90a6\u7684\u672a\u6765\u3002"
+            "zh-Hans": "\u4e09\u5927\u6700\u9ad8\u5b89\u5168\u7ea7\u522b\u57ce\u5e02\u4e4b\u4e00\u3002\u66b4\u653f\u65e0\u6cd5\u653b\u7834\u4e4b\u57ce\uff0c\u8054\u90a6\u7684\u672a\u6765\u3002",
+            "zh-Hant": "3\u5ea7\u6700\u9ad8\u5b89\u5168\u7b49\u7d1a\u57ce\u5e02\u4e4b\u4e00\u3002\u66b4\u653f\u7684\u8b77\u5b88\u4e4b\u76fe\uff1b\u806f\u90a6\u672a\u4f86\u7684\u71c8\u5854\u3002"
         }
     },
     "1344426011": {
@@ -3243,7 +3461,8 @@
             "it-IT": "NON\u00c8UNABASESEGRETA",
             "pt-BR": "ANARMAZENADO",
             "ru-RU": "\u0411\u0415\u0417 \u041a\u041e\u041c\u041f\u041b\u0415\u041a\u0421\u041e\u0412",
-            "zh-Hans": "\u65e0\u5821\u5e02"
+            "zh-Hans": "\u65e0\u5821\u5e02",
+            "zh-Hant": "\u7121\u8907\u5408\u5730"
         },
         "description": "",
         "descriptions": {}
@@ -3258,7 +3477,8 @@
             "it-IT": "EQUIDISTANZA",
             "pt-BR": "APARTID\u00c1RIA",
             "ru-RU": "\u041d\u0415\u0419\u0422\u0420\u0410\u041b\u0418\u0422\u0415\u0422",
-            "zh-Hans": "\u8d85\u515a\u5e02"
+            "zh-Hans": "\u8d85\u515a\u5e02",
+            "zh-Hant": "\u7121\u9ee8\u5e02"
         },
         "description": "",
         "descriptions": {}
@@ -3273,7 +3493,8 @@
             "it-IT": "NUOVA ROMA",
             "pt-BR": "NUOVA ROMA",
             "ru-RU": "\u041d\u041e\u0412\u042b\u0419 \u0420\u0418\u041c",
-            "zh-Hans": "\u65b0\u7f57\u9a6c"
+            "zh-Hans": "\u65b0\u7f57\u9a6c",
+            "zh-Hant": "\u65b0\u7f85\u99ac"
         },
         "description": "",
         "descriptions": {}
@@ -3288,7 +3509,8 @@
             "it-IT": "NYA SKELLEFTEA",
             "pt-BR": "NYA SKELLEFTEA",
             "ru-RU": "\u041d\u0415\u041e \u0428\u0415\u041b\u041b\u0415\u0424\u0422\u0415\u041e",
-            "zh-Hans": "\u65b0\u8c22\u83b1\u592b\u7279\u5965"
+            "zh-Hans": "\u65b0\u8c22\u83b1\u592b\u7279\u5965",
+            "zh-Hant": "\u65b0\u8b1d\u840a\u592b\u7279\u5967"
         },
         "description": "",
         "descriptions": {}
@@ -3303,7 +3525,8 @@
             "it-IT": "OBBEDIENZA",
             "pt-BR": "OBEDI\u00caNCIA",
             "ru-RU": "\u041f\u041e\u041a\u041e\u0420\u041d\u041e\u0421\u0422\u042c",
-            "zh-Hans": "\u670d\u4ece\u5e02"
+            "zh-Hans": "\u670d\u4ece\u5e02",
+            "zh-Hant": "\u670d\u5f9e\u4e4b\u5730"
         },
         "description": "",
         "descriptions": {}
@@ -3318,7 +3541,8 @@
             "it-IT": "OSSERVATORIO 6",
             "pt-BR": "OBSERVAT\u00d3RIO 6",
             "ru-RU": "\u041e\u0411\u0421\u0415\u0420\u0412\u0410\u0422\u041e\u0420\u0418\u042f \u21166",
-            "zh-Hans": "\u76d1\u6d4b\u7ad96"
+            "zh-Hans": "\u76d1\u6d4b\u7ad96",
+            "zh-Hant": "\u7b2c\u516d\u5929\u6587\u53f0"
         },
         "description": "",
         "descriptions": {}
@@ -3333,7 +3557,8 @@
             "it-IT": "VECCHIO BORGOANTICO",
             "pt-BR": "VELHA VILA VELHA",
             "ru-RU": "\u0421\u0422\u0410\u0420\u042b\u0419 \u041e\u041b\u0414\u0425\u042d\u041c",
-            "zh-Hans": "\u8001\u5965\u5c14\u5fb7\u59c6"
+            "zh-Hans": "\u8001\u5965\u5c14\u5fb7\u59c6",
+            "zh-Hant": "\u820a\u5967\u5fb7\u6f22\u59c6"
         },
         "description": "",
         "descriptions": {}
@@ -3348,7 +3573,8 @@
             "it-IT": "RAMO VECCHIO",
             "pt-BR": "RAMO VELHO",
             "ru-RU": "\u0421\u0422\u0410\u0420\u042b\u0419 \u0424\u0418\u041b\u0418\u0410\u041b",
-            "zh-Hans": "\u65e7\u679d\u57ce"
+            "zh-Hans": "\u65e7\u679d\u57ce",
+            "zh-Hant": "\u820a\u679d\u57ce"
         },
         "description": "",
         "descriptions": {}
@@ -3363,7 +3589,8 @@
             "it-IT": "CHIMI-CO VECCHIA",
             "pt-BR": "VELHA QUIMICOL\u00c2NDIA",
             "ru-RU": "\u0421\u0422\u0410\u0420\u042b\u0419 \u0425\u0418\u041c\u041b\u0415\u041d\u0414",
-            "zh-Hans": "\u65e7\u5316\u5de5\u57ce"
+            "zh-Hans": "\u65e7\u5316\u5de5\u57ce",
+            "zh-Hant": "\u820a\u5316\u5de5\u57ce"
         },
         "description": "",
         "descriptions": {}
@@ -3378,7 +3605,8 @@
             "it-IT": "VECCHIA DIATRIBA",
             "pt-BR": "DISC\u00d3RDIA VELHA",
             "ru-RU": "\u0421\u0422\u0410\u0420\u042b\u0419 \u041f\u0410\u0420\u0410\u0414\u041e\u041a\u0421",
-            "zh-Hans": "\u65e7\u8c1c\u5e02"
+            "zh-Hans": "\u65e7\u8c1c\u5e02",
+            "zh-Hant": "\u820a\u96e3\u57ce"
         },
         "description": "",
         "descriptions": {}
@@ -3393,7 +3621,8 @@
             "it-IT": "VECCHIA COLOMBA",
             "pt-BR": "POMBA VELHA",
             "ru-RU": "\u0421\u0422\u0410\u0420\u042b\u0419 \u0413\u041e\u041b\u0423\u0411\u042c",
-            "zh-Hans": "\u8001\u9e3d\u57ce"
+            "zh-Hans": "\u8001\u9e3d\u57ce",
+            "zh-Hant": "\u8001\u9d3f\u57ce"
         },
         "description": "",
         "descriptions": {}
@@ -3408,7 +3637,8 @@
             "it-IT": "FOCOLARE VECCHIO",
             "pt-BR": "QUER\u00caNCIA-A-VELHA",
             "ru-RU": "\u0421\u0422\u0410\u0420\u042b\u0419 \u0425\u0410\u0420\u0422-\u0421\u0418\u0422\u0418",
-            "zh-Hans": "\u65e7\u5bd2\u7089\u5e02"
+            "zh-Hans": "\u65e7\u5bd2\u7089\u5e02",
+            "zh-Hant": "\u820a\u7210\u57ce"
         },
         "description": "",
         "descriptions": {}
@@ -3423,7 +3653,8 @@
             "it-IT": "VECCHIE PRIGIONI",
             "pt-BR": "VELHOS CONFINAMENTOS",
             "ru-RU": "\u0421\u0422\u0410\u0420\u0410\u042f \u0413\u0420\u041e\u0411\u041d\u0418\u0426\u0410",
-            "zh-Hans": "\u65e7\u7981\u6240"
+            "zh-Hans": "\u65e7\u7981\u6240",
+            "zh-Hant": "\u53e4\u8001\u5b89\u846c\u5730"
         },
         "description": "",
         "descriptions": {}
@@ -3438,7 +3669,8 @@
             "it-IT": "ORMA DI OLUFSEN",
             "pt-BR": "PASSO DE OLUFSEN",
             "ru-RU": "\u0421\u041b\u0415\u0414 \u041e\u041b\u0423\u0424\u0421\u0415\u041d\u0410",
-            "zh-Hans": "\u5965\u5362\u592b\u68ee\u8db3\u8ff9"
+            "zh-Hans": "\u5965\u5362\u592b\u68ee\u8db3\u8ff9",
+            "zh-Hant": "\u5967\u9b6f\u592b\u68ee\u8db3\u8de1"
         },
         "description": "",
         "descriptions": {}
@@ -3453,7 +3685,8 @@
             "it-IT": "ON-EARSAHOU",
             "pt-BR": "PEQUENO HORTON",
             "ru-RU": "\u0425\u041e\u0420\u0422\u041e\u0421\u041b\u041e\u0428",
-            "zh-Hans": "\u987f\u542c\u547c"
+            "zh-Hans": "\u987f\u542c\u547c",
+            "zh-Hant": "\u5b89\u96c5\u85a9\u4faf"
         },
         "description": "",
         "descriptions": {}
@@ -3468,7 +3701,8 @@
             "it-IT": "ONSEN",
             "pt-BR": "ONSEN",
             "ru-RU": "\u041e\u041d\u0421\u042d\u041d",
-            "zh-Hans": "\u6e29\u6cc9\u6e7e"
+            "zh-Hans": "\u6e29\u6cc9\u6e7e",
+            "zh-Hant": "\u6eab\u6cc9\u57ce"
         },
         "description": "",
         "descriptions": {}
@@ -3483,7 +3717,8 @@
             "it-IT": "ORBIUM",
             "pt-BR": "ORBESH\u00c2NIA",
             "ru-RU": "\u0421\u0424\u0415\u0420\u041e\u0413\u0420\u0410\u0414",
-            "zh-Hans": "\u7403\u73c0\u6c99\u59c6"
+            "zh-Hans": "\u7403\u73c0\u6c99\u59c6",
+            "zh-Hant": "\u5967\u5e03\u820d\u59c6"
         },
         "description": "",
         "descriptions": {}
@@ -3498,7 +3733,8 @@
             "it-IT": "ORESINK",
             "pt-BR": "PO\u00c7O DOS MIN\u00c9RIOS",
             "ru-RU": "\u041e\u0420\u0421\u0418\u041d\u041a",
-            "zh-Hans": "\u5965\u5c14\u8f9b\u514b"
+            "zh-Hans": "\u5965\u5c14\u8f9b\u514b",
+            "zh-Hant": "\u7926\u6e23\u57ce"
         },
         "description": "",
         "descriptions": {}
@@ -3513,7 +3749,8 @@
             "it-IT": "OTARU PROMESSA",
             "pt-BR": "JURA DE OTARU",
             "ru-RU": "\u041a\u041b\u042f\u0422\u0412\u0410 \u041e\u0422\u0410\u0420\u0423",
-            "zh-Hans": "\u5c0f\u6a3d\u8bfa\u57ce"
+            "zh-Hans": "\u5c0f\u6a3d\u8bfa\u57ce",
+            "zh-Hant": "\u5c0f\u6a3d\u7d04\u5e02"
         },
         "description": "",
         "descriptions": {}
@@ -3528,7 +3765,8 @@
             "it-IT": "PADOSAN",
             "pt-BR": "PADOSAN",
             "ru-RU": "\u041f\u0410\u0414\u041e\u0421\u0410\u041d",
-            "zh-Hans": "\u6bd7\u5370\u5e02"
+            "zh-Hans": "\u6bd7\u5370\u5e02",
+            "zh-Hant": "\u5e15\u591a\u6851"
         },
         "description": "",
         "descriptions": {}
@@ -3543,7 +3781,8 @@
             "it-IT": "PARRHESIA",
             "pt-BR": "PARR\u00c9SIA",
             "ru-RU": "\u041f\u0410\u0420\u0420\u0415\u0421\u0418\u042f",
-            "zh-Hans": "\u76f4\u8a00\u57ce"
+            "zh-Hans": "\u76f4\u8a00\u57ce",
+            "zh-Hant": "\u5766\u8ad6\u57ce"
         },
         "description": "",
         "descriptions": {}
@@ -3558,7 +3797,8 @@
             "it-IT": "PEASE",
             "pt-BR": "PAS",
             "ru-RU": "\u041f\u0410\u041a\u0421\u0418\u0423\u041c",
-            "zh-Hans": "\u5e73\u606f\u5e02"
+            "zh-Hans": "\u5e73\u606f\u5e02",
+            "zh-Hant": "\u76ae\u65af"
         },
         "description": "",
         "descriptions": {}
@@ -3573,7 +3813,8 @@
             "it-IT": "PEDIS",
             "pt-BR": "PEDIS",
             "ru-RU": "\u041f\u0415\u0414\u0418\u0421",
-            "zh-Hans": "\u4f69\u8fea\u8dbe"
+            "zh-Hans": "\u4f69\u8fea\u8dbe",
+            "zh-Hant": "\u4f69\u8fea\u8dbe"
         },
         "description": "",
         "descriptions": {}
@@ -3588,7 +3829,8 @@
             "it-IT": "PENNY",
             "pt-BR": "PENELINDA",
             "ru-RU": "\u041c\u0418\u041b\u0410\u0428\u041a\u0410 \u041f\u0415\u041d\u041d\u0418",
-            "zh-Hans": "\u5f6d\u59ae\u840c"
+            "zh-Hans": "\u5f6d\u59ae\u840c",
+            "zh-Hant": "\u4f69\u65af\u79d1\u7279"
         },
         "description": "",
         "descriptions": {}
@@ -3603,7 +3845,8 @@
             "it-IT": "MANO DEL POPOLO",
             "pt-BR": "M\u00c3OS DO POVO",
             "ru-RU": "\u0420\u0423\u041a\u0410 \u041d\u0410\u0420\u041e\u0414\u0410",
-            "zh-Hans": "\u6c11\u624b\u5e02"
+            "zh-Hans": "\u6c11\u624b\u5e02",
+            "zh-Hant": "\u767e\u59d3\u4e4b\u624b"
         },
         "description": "",
         "descriptions": {}
@@ -3618,7 +3861,8 @@
             "it-IT": "FRANTOI DI PERIWINKLE",
             "pt-BR": "PERVINCAL",
             "ru-RU": "\u041c\u0415\u041b\u042c\u041d\u0418\u0426\u042b \u041f\u0415\u0420\u0418\u0412\u0418\u041d\u041a\u041b\u042f",
-            "zh-Hans": "\u957f\u6625\u82b1\u78e8\u57ce"
+            "zh-Hans": "\u957f\u6625\u82b1\u78e8\u57ce",
+            "zh-Hant": "\u9577\u6625\u82b1\u574a\u57ce"
         },
         "description": "",
         "descriptions": {}
@@ -3633,7 +3877,8 @@
             "it-IT": "PERMACURIS",
             "pt-BR": "PERMACURABA",
             "ru-RU": "\u0424\u0410\u0420\u041c\u0410\u0414\u0410\u0420\u0418\u0421",
-            "zh-Hans": "\u4f69\u739b\u4e18\u62c9\u65af"
+            "zh-Hans": "\u4f69\u739b\u4e18\u62c9\u65af",
+            "zh-Hant": "\u535a\u99ac\u4e18\u62c9\u5e02"
         },
         "description": "",
         "descriptions": {}
@@ -3648,7 +3893,8 @@
             "it-IT": "PERSEVERANZA",
             "pt-BR": "PERSEVERAN\u00c7A",
             "ru-RU": "\u0423\u041f\u041e\u0420\u0421\u0422\u0412\u041e",
-            "zh-Hans": "\u575a\u6bc5\u5e02"
+            "zh-Hans": "\u575a\u6bc5\u5e02",
+            "zh-Hant": "\u5805\u6bc5\u4e4b\u5730"
         },
         "description": "",
         "descriptions": {}
@@ -3663,7 +3909,8 @@
             "it-IT": "INDOMITA",
             "pt-BR": "PERSIST\u00caNCIA",
             "ru-RU": "\u041d\u0410\u0421\u0422\u041e\u0419\u0427\u0418\u0412\u041e\u0421\u0422\u042c",
-            "zh-Hans": "\u575a\u97e7\u5e02"
+            "zh-Hans": "\u575a\u97e7\u5e02",
+            "zh-Hant": "\u6bc5\u529b\u4e4b\u5730"
         },
         "description": "",
         "descriptions": {}
@@ -3678,7 +3925,8 @@
             "it-IT": "PHAM",
             "pt-BR": "PONTO DE PHAM",
             "ru-RU": "\u041f\u041b\u041e\u0429\u0410\u0414\u041a\u0410 \u0424\u0410\u041c",
-            "zh-Hans": "\u8303\u59c6\u9547"
+            "zh-Hans": "\u8303\u59c6\u9547",
+            "zh-Hant": "\u8303\u59c6\u5730"
         },
         "description": "",
         "descriptions": {}
@@ -3693,7 +3941,8 @@
             "it-IT": "ORMEGGIO DEL PILOTA",
             "pt-BR": "ANCORADOURO DO PILOTO",
             "ru-RU": "\u041f\u0420\u0418\u042e\u0422 \u041f\u0418\u041b\u041e\u0422\u0410",
-            "zh-Hans": "\u661f\u9a6d\u6e2f"
+            "zh-Hans": "\u661f\u9a6d\u6e2f",
+            "zh-Hant": "\u98db\u8259\u5e02"
         },
         "description": "",
         "descriptions": {}
@@ -3708,7 +3957,8 @@
             "it-IT": "FRASCHE",
             "pt-BR": "DESCAMPADO DOS PINHEIROS",
             "ru-RU": "\u0421\u041e\u0421\u041d\u041e\u0412\u041e\u0415 \u041f\u0410\u0421\u0422\u0411\u0418\u0429\u0415",
-            "zh-Hans": "\u6d3e\u6069\u65af\u6c83\u5c14\u5fb7"
+            "zh-Hans": "\u6d3e\u6069\u65af\u6c83\u5c14\u5fb7",
+            "zh-Hant": "\u677e\u539f\u93ae"
         },
         "description": "",
         "descriptions": {}
@@ -3723,7 +3973,8 @@
             "it-IT": "SOGNO DEL PIONIERE",
             "pt-BR": "SONHO DO PIONEIRO",
             "ru-RU": "\u041c\u0415\u0427\u0422\u0410 \u041f\u0415\u0420\u0412\u041e\u041f\u0420\u041e\u0425\u041e\u0414\u0426\u0410",
-            "zh-Hans": "\u5148\u9a71\u68a6\u57ce"
+            "zh-Hans": "\u5148\u9a71\u68a6\u57ce",
+            "zh-Hant": "\u5148\u92d2\u5922\u57ce"
         },
         "description": "",
         "descriptions": {}
@@ -3738,7 +3989,8 @@
             "it-IT": "POZZO 8",
             "pt-BR": "FOSSO 8",
             "ru-RU": "\u042f\u041c\u0410 \u21168",
-            "zh-Hans": "8\u53f7\u5751"
+            "zh-Hans": "8\u53f7\u5751",
+            "zh-Hant": "8\u865f\u5751"
         },
         "description": "",
         "descriptions": {}
@@ -3753,7 +4005,8 @@
             "it-IT": "PLETORA",
             "pt-BR": "PLETORA",
             "ru-RU": "\u0418\u0417\u041e\u0411\u0418\u041b\u0418\u0415",
-            "zh-Hans": "\u666e\u96f7\u7d22\u62c9\u5e02"
+            "zh-Hans": "\u666e\u96f7\u7d22\u62c9\u5e02",
+            "zh-Hant": "\u9918\u5269\u5e02"
         },
         "description": "",
         "descriptions": {}
@@ -3768,7 +4021,8 @@
             "it-IT": "RAVENNA",
             "pt-BR": "CORVAL\u00c2NIA",
             "ru-RU": "\u0412\u041e\u0420\u041e\u041d\u041d \u041f\u041e",
-            "zh-Hans": "\u6ce2\u6c0f\u62c9\u6587\u7eb3"
+            "zh-Hans": "\u6ce2\u6c0f\u62c9\u6587\u7eb3",
+            "zh-Hant": "\u6ce2\u4e4b\u62c9\u6587\u7d0d"
         },
         "description": "",
         "descriptions": {}
@@ -3783,7 +4037,8 @@
             "it-IT": "PORTO MISERICORDIA",
             "pt-BR": "PORTO DA MISERIC\u00d3RDIA",
             "ru-RU": "\u041f\u041e\u0420\u0422 \u041c\u0418\u041b\u041e\u0421\u0415\u0420\u0414\u0418\u042f",
-            "zh-Hans": "\u99a8\u5bb6\u6cca"
+            "zh-Hans": "\u99a8\u5bb6\u6cca",
+            "zh-Hant": "\u6148\u60b2\u6e2f"
         },
         "description": "Since sheltering millions of loyal refugees in the Last Great War, Port Mercy has been a safe haven for any class-A citizen in need.",
         "descriptions": {
@@ -3794,7 +4049,8 @@
             "it-IT": "Dopo aver dato rifugio a milioni di profughi durante l'Ultima Grande Guerra, Porto Misericordia \u00e8 considerato un luogo sicuro per tutti i cittadini di classe A che hanno bisogno d'aiuto.",
             "pt-BR": "Ap\u00f3s abrigar milh\u00f5es de refugiados leais na \u00daltima Grande Guerra, Porto da Miseric\u00f3rdia se tornou um verdadeiro porto seguro para todos os cidad\u00e3os de classe A necessitados.",
             "ru-RU": "\u0421 \u0442\u0435\u0445 \u043f\u043e\u0440 \u043a\u0430\u043a \u041f\u043e\u0440\u0442 \u043c\u0438\u043b\u043e\u0441\u0435\u0440\u0434\u0438\u044f \u0443\u043a\u0440\u044b\u043b \u043c\u0438\u043b\u043b\u0438\u043e\u043d\u044b \u0431\u043b\u0430\u0433\u043e\u043d\u0430\u0434\u0435\u0436\u043d\u044b\u0445 \u0431\u0435\u0436\u0435\u043d\u0446\u0435\u0432 \u0432\u043e \u0432\u0440\u0435\u043c\u044f \u041f\u043e\u0441\u043b\u0435\u0434\u043d\u0435\u0439 \u0412\u0435\u043b\u0438\u043a\u043e\u0439 \u0432\u043e\u0439\u043d\u044b, \u043e\u043d \u0441\u0442\u0430\u043b \u0443\u0431\u0435\u0436\u0438\u0449\u0435\u043c \u0434\u043b\u044f \u0432\u0441\u0435\u0445 \u0433\u0440\u0430\u0436\u0434\u0430\u043d \u043a\u043b\u0430\u0441\u0441\u0430 \u0410, \u043d\u0443\u0436\u0434\u0430\u044e\u0449\u0438\u0445\u0441\u044f \u0432 \u043f\u043e\u043c\u043e\u0449\u0438.",
-            "zh-Hans": "\u81ea\u7ec8\u6781\u5927\u6218\u4e2d\u5e87\u62a4\u6570\u767e\u4e07\u5fe0\u8bda\u96be\u6c11\u8d77\uff0c\u4ec1\u6148\u6e2f\u4fbf\u6210\u4e3a\u6240\u6709A\u7ea7\u516c\u6c11\u5371\u96be\u65f6\u7684\u5b89\u5168\u6e2f\u6e7e\u3002"
+            "zh-Hans": "\u81ea\u7ec8\u6781\u5927\u6218\u4e2d\u5e87\u62a4\u6570\u767e\u4e07\u5fe0\u8bda\u96be\u6c11\u8d77\uff0c\u4ec1\u6148\u6e2f\u4fbf\u6210\u4e3a\u6240\u6709A\u7ea7\u516c\u6c11\u5371\u96be\u65f6\u7684\u5b89\u5168\u6e2f\u6e7e\u3002",
+            "zh-Hant": "\u81ea\u5927\u6230\u671f\u9593\u5e87\u8b77\u6578\u767e\u842c\u5fe0\u8aa0\u96e3\u6c11\u4ee5\u4f86\uff0c\u300c\u6148\u60b2\u6e2f\u300d\u4e00\u76f4\u662f\u4e00\u7d1a\u516c\u6c11\u6709\u96e3\u6642\u7684\u5b89\u5168\u907f\u98a8\u6e2f\u3002"
         }
     },
     "1097134956": {
@@ -3807,7 +4063,8 @@
             "it-IT": "PORTE LIBERT\u00c9",
             "pt-BR": "PORTE LIBERT\u00c9",
             "ru-RU": "\u041f\u041e\u0420\u0422 \u0421\u0412\u041e\u0411\u041e\u0414\u0410",
-            "zh-Hans": "\u81ea\u7531\u95e8"
+            "zh-Hans": "\u81ea\u7531\u95e8",
+            "zh-Hant": "\u81ea\u7531\u9580"
         },
         "description": "",
         "descriptions": {}
@@ -3822,7 +4079,8 @@
             "it-IT": "PORUGU",
             "pt-BR": "PORUGU",
             "ru-RU": "\u041f\u041e\u0420\u0423\u0413\u0423",
-            "zh-Hans": "\u6bd7\u5362\u56fa\u5e02"
+            "zh-Hans": "\u6bd7\u5362\u56fa\u5e02",
+            "zh-Hant": "\u6ce2\u9b6f\u53e4"
         },
         "description": "",
         "descriptions": {}
@@ -3837,7 +4095,8 @@
             "it-IT": "PRAVOGRAD",
             "pt-BR": "PRAVOGRADO",
             "ru-RU": "\u041f\u0420\u0410\u0412\u041e\u0413\u0420\u0410\u0414",
-            "zh-Hans": "\u6743\u53f3\u6c83\u683c\u52d2"
+            "zh-Hans": "\u6743\u53f3\u6c83\u683c\u52d2",
+            "zh-Hant": "\u79e9\u5e8f\u4e4b\u57ce"
         },
         "description": "",
         "descriptions": {}
@@ -3852,7 +4111,8 @@
             "it-IT": "PROGRESSO",
             "pt-BR": "PROGRESSO",
             "ru-RU": "\u041f\u0420\u041e\u0413\u0420\u0415\u0421\u0421",
-            "zh-Hans": "\u8fdb\u6b65\u5e02"
+            "zh-Hans": "\u8fdb\u6b65\u5e02",
+            "zh-Hant": "\u9032\u6b65\u57ce"
         },
         "description": "",
         "descriptions": {}
@@ -3867,7 +4127,8 @@
             "it-IT": "RILEVANZA",
             "pt-BR": "PROEMIN\u00caNCIA",
             "ru-RU": "\u0412\u0415\u0420\u0428\u0418\u041d\u0410",
-            "zh-Hans": "\u5ce5\u5d58\u57ce"
+            "zh-Hans": "\u5ce5\u5d58\u57ce",
+            "zh-Hant": "\u5d22\u5db8\u57ce"
         },
         "description": "",
         "descriptions": {}
@@ -3882,7 +4143,8 @@
             "it-IT": "PROSPERIT\u00c0",
             "pt-BR": "PROSPERIDADE",
             "ru-RU": "\u041f\u0420\u041e\u0426\u0412\u0415\u0422\u0410\u041d\u0418\u0415",
-            "zh-Hans": "\u7e41\u8363\u5e02"
+            "zh-Hans": "\u7e41\u8363\u5e02",
+            "zh-Hant": "\u7e41\u76db\u4e4b\u5730"
         },
         "description": "",
         "descriptions": {}
@@ -3897,7 +4159,8 @@
             "it-IT": "CORNUCOPIA",
             "pt-BR": "PROSPER\u00d3POLIS",
             "ru-RU": "\u0413\u041e\u0420\u041e\u0414 \u041f\u0420\u041e\u0426\u0412\u0415\u0422\u0410\u041d\u0418\u042f",
-            "zh-Hans": "\u8363\u90fd"
+            "zh-Hans": "\u8363\u90fd",
+            "zh-Hant": "\u7e41\u69ae\u4e4b\u90fd"
         },
         "description": "Home to the Democratic Council, our proud Capital is a beacon of Progress, Productivity, and Patriotism.",
         "descriptions": {
@@ -3908,7 +4171,8 @@
             "it-IT": "La nostra orgogliosa Capitale, sede del Consiglio Democratico, \u00e8 un faro di Progresso, Produttivit\u00e0 e Patriottismo.",
             "pt-BR": "Sede do Conselho Democr\u00e1tico, nossa bela capital \u00e9 s\u00edmbolo de Progresso, Produtividade e Patriotismo.",
             "ru-RU": "\u0411\u0443\u0434\u0443\u0447\u0438 \u043c\u0435\u0441\u0442\u043e\u043c \u0437\u0430\u0441\u0435\u0434\u0430\u043d\u0438\u0439 \u0414\u0435\u043c\u043e\u043a\u0440\u0430\u0442\u0438\u0447\u0435\u0441\u043a\u043e\u0433\u043e \u0441\u043e\u0432\u0435\u0442\u0430, \u043d\u0430\u0448\u0430 \u0433\u043e\u0440\u0434\u0430\u044f \u0441\u0442\u043e\u043b\u0438\u0446\u0430 \u044f\u0432\u043b\u044f\u0435\u0442\u0441\u044f \u043c\u0430\u044f\u043a\u043e\u043c \u043f\u0440\u043e\u0433\u0440\u0435\u0441\u0441\u0430, \u043f\u0440\u043e\u0434\u0443\u043a\u0442\u0438\u0432\u043d\u043e\u0441\u0442\u0438 \u0438 \u043f\u0430\u0442\u0440\u0438\u043e\u0442\u0438\u0437\u043c\u0430.",
-            "zh-Hans": "\u6211\u4eec\u5f15\u4ee5\u4e3a\u50b2\u7684\u9996\u90fd\u65e2\u662f\u6c11\u4e3b\u59d4\u5458\u4f1a\u7684\u6240\u5728\u5730\uff0c\u4e5f\u662f\u8fdb\u6b65\u3001\u751f\u4ea7\u529b\u548c\u7231\u56fd\u4e3b\u4e49\u7684\u7480\u74a8\u706f\u5854\u3002"
+            "zh-Hans": "\u6211\u4eec\u5f15\u4ee5\u4e3a\u50b2\u7684\u9996\u90fd\u65e2\u662f\u6c11\u4e3b\u59d4\u5458\u4f1a\u7684\u6240\u5728\u5730\uff0c\u4e5f\u662f\u8fdb\u6b65\u3001\u751f\u4ea7\u529b\u548c\u7231\u56fd\u4e3b\u4e49\u7684\u7480\u74a8\u706f\u5854\u3002",
+            "zh-Hant": "\u4f5c\u70ba\u6c11\u4e3b\u8b70\u6703\u7684\u6240\u5728\u5730\uff0c\u6211\u5011\u5f15\u4ee5\u70ba\u50b2\u7684\u9996\u90fd\u662f\u9032\u6b65\u3001\u751f\u7522\u529b\u8207\u611b\u570b\u7cbe\u795e\u7684\u71c8\u5854\u3002"
         }
     },
     "189783404": {
@@ -3921,7 +4185,8 @@
             "it-IT": "PSEUDOTOPIA",
             "pt-BR": "PSEUDOTOPIA",
             "ru-RU": "\u041f\u0421\u0415\u0412\u0414\u041e\u0422\u041e\u041f\u0418\u042f",
-            "zh-Hans": "\u4f2a\u6258\u90a6"
+            "zh-Hans": "\u4f2a\u6258\u90a6",
+            "zh-Hant": "\u507d\u70cf\u6258\u90a6"
         },
         "description": "",
         "descriptions": {}
@@ -3936,7 +4201,8 @@
             "it-IT": "QUASAR",
             "pt-BR": "QUASAR",
             "ru-RU": "\u041a\u0412\u0410\u0417\u0410\u0420",
-            "zh-Hans": "\u9b41\u970e"
+            "zh-Hans": "\u9b41\u970e",
+            "zh-Hant": "\u594e\u85a9"
         },
         "description": "",
         "descriptions": {}
@@ -3951,7 +4217,8 @@
             "it-IT": "QUASAR",
             "pt-BR": "QUASAR",
             "ru-RU": "\u041a\u0412\u0410\u0417\u0410\u0420",
-            "zh-Hans": "\u9b41\u970e"
+            "zh-Hans": "\u9b41\u970e",
+            "zh-Hant": "\u594e\u85a9"
         },
         "description": "",
         "descriptions": {}
@@ -3966,7 +4233,8 @@
             "it-IT": "DISSENSO SEDATO",
             "pt-BR": "SUMIDOURO DISSIDENTE",
             "ru-RU": "\u041f\u041e\u0414\u0410\u0412\u041b\u0415\u041d\u041d\u041e\u0415 \u0418\u041d\u0410\u041a\u041e\u041c\u042b\u0421\u041b\u0418\u0415",
-            "zh-Hans": "\u6221\u5f02\u5e02"
+            "zh-Hans": "\u6221\u5f02\u5e02",
+            "zh-Hant": "\u5e73\u7570\u57ce"
         },
         "description": "",
         "descriptions": {}
@@ -3981,7 +4249,8 @@
             "it-IT": "PLACIDIA",
             "pt-BR": "SACI\u00c1RIA",
             "ru-RU": "\u0423\u0413\u0410\u0421\u0410\u041d\u0418\u0415",
-            "zh-Hans": "\u6dec\u706b\u5e02"
+            "zh-Hans": "\u6dec\u706b\u5e02",
+            "zh-Hant": "\u6dec\u706b\u57ce"
         },
         "description": "",
         "descriptions": {}
@@ -3996,7 +4265,8 @@
             "it-IT": "QUARANTENA-4",
             "pt-BR": "ZQ-4",
             "ru-RU": "\u0418\u0417-4",
-            "zh-Hans": "\u75ab\u533a4"
+            "zh-Hans": "\u75ab\u533a4",
+            "zh-Hant": "QZ-4"
         },
         "description": "",
         "descriptions": {}
@@ -4011,7 +4281,8 @@
             "it-IT": "TOMBA DEL RIBELLE",
             "pt-BR": "JAZIGO DOS REBELDES",
             "ru-RU": "\u041c\u041e\u0413\u0418\u041b\u0410 \u041f\u041e\u0412\u0421\u0422\u0410\u041d\u0426\u0415\u0412",
-            "zh-Hans": "\u53db\u519b\u5893"
+            "zh-Hans": "\u53db\u519b\u5893",
+            "zh-Hant": "\u53db\u5f92\u4e4b\u5893"
         },
         "description": "",
         "descriptions": {}
@@ -4026,7 +4297,8 @@
             "it-IT": "ALTURE PANORAMICHE",
             "pt-BR": "RECONHE\u00c7ABIRA",
             "ru-RU": "\u0412\u0415\u0420\u0428\u0418\u041d\u042b \u0420\u0410\u0417\u0412\u0415\u0414\u041a\u0418",
-            "zh-Hans": "\u4fa6\u5bdf\u9ad8\u5730"
+            "zh-Hans": "\u4fa6\u5bdf\u9ad8\u5730",
+            "zh-Hant": "\u5075\u5bdf\u9ad8\u5730"
         },
         "description": "",
         "descriptions": {}
@@ -4041,7 +4313,8 @@
             "it-IT": "CAMPOROSSO",
             "pt-BR": "CAMPO ESCARLATE",
             "ru-RU": "\u0420\u0415\u0414\u0424\u0418\u041b\u0414",
-            "zh-Hans": "\u96f7\u5fb7\u83f2\u5c14\u5fb7"
+            "zh-Hans": "\u96f7\u5fb7\u83f2\u5c14\u5fb7",
+            "zh-Hant": "\u8d64\u7d05\u7530\u91ce"
         },
         "description": "",
         "descriptions": {}
@@ -4056,7 +4329,8 @@
             "it-IT": "VERIT\u00c0 RIFORMATA",
             "pt-BR": "REVERDADE",
             "ru-RU": "\u0420\u0415\u0424\u041e\u0420\u041c\u0418\u0420\u041e\u0412\u0410\u041d-\u041f\u0420\u0410\u0412\u0414\u041e\u0419",
-            "zh-Hans": "\u771f\u7406\u6539\u9020\u5e02"
+            "zh-Hans": "\u771f\u7406\u6539\u9020\u5e02",
+            "zh-Hant": "\u771f\u7406\u6539\u9020\u5730"
         },
         "description": "",
         "descriptions": {}
@@ -4071,7 +4345,8 @@
             "it-IT": "LIBERE ELEZIONI",
             "pt-BR": "REGISTRO",
             "ru-RU": "\u0420\u0415\u0413\u0418\u0421\u0422\u0420\u0410\u0426\u0418\u042f",
-            "zh-Hans": "\u767b\u8bb0\u5e02"
+            "zh-Hans": "\u767b\u8bb0\u5e02",
+            "zh-Hant": "\u767b\u8a18\u5730"
         },
         "description": "",
         "descriptions": {}
@@ -4086,7 +4361,8 @@
             "it-IT": "RIMEMBRANZA",
             "pt-BR": "LEMBRAN\u00c7A",
             "ru-RU": "\u0412\u041e\u0421\u041f\u041e\u041c\u0418\u041d\u0410\u041d\u0418\u0415",
-            "zh-Hans": "\u7f05\u57ce"
+            "zh-Hans": "\u7f05\u57ce",
+            "zh-Hant": "\u56de\u61b6\u57ce"
         },
         "description": "Risen from the ashes of an ancient city, Rememberance is a monument to the Perseverance of Humankind.",
         "descriptions": {
@@ -4097,7 +4373,8 @@
             "it-IT": "Sorta dalle ceneri di un'antica citt\u00e0, Rimembranza \u00e8 un monumento vivente alla Perseveranza umana.",
             "pt-BR": "Constru\u00edda sobre as cinzas de uma cidade antiga, Lembran\u00e7a \u00e9 um patrim\u00f4nio da Perseveran\u00e7a da Humanidade.",
             "ru-RU": "\u041f\u043e\u0434\u043d\u044f\u0432\u0448\u0438\u0439\u0441\u044f \u0438\u0437 \u0440\u0443\u0438\u043d \u0434\u0440\u0435\u0432\u043d\u0435\u0433\u043e \u0433\u043e\u0440\u043e\u0434\u0430, \u0412\u043e\u0441\u043f\u043e\u043c\u0438\u043d\u0430\u043d\u0438\u0435 \u2014 \u044d\u0442\u043e \u043f\u0430\u043c\u044f\u0442\u043d\u0438\u043a \u0443\u043f\u043e\u0440\u0441\u0442\u0432\u0443 \u0447\u0435\u043b\u043e\u0432\u0435\u0447\u0435\u0441\u0442\u0432\u0430.",
-            "zh-Hans": "\u81ea\u53e4\u57ce\u5e9f\u589f\u4e2d\u6d85\u69c3\u91cd\u751f\uff0c\u7f05\u57ce\u4e43\u4eba\u7c7b\u4e0d\u5c48\u7cbe\u795e\u7684\u4e30\u7891\u3002"
+            "zh-Hans": "\u81ea\u53e4\u57ce\u5e9f\u589f\u4e2d\u6d85\u69c3\u91cd\u751f\uff0c\u7f05\u57ce\u4e43\u4eba\u7c7b\u4e0d\u5c48\u7cbe\u795e\u7684\u4e30\u7891\u3002",
+            "zh-Hant": "\u81ea\u53e4\u57ce\u5ee2\u589f\u4e2d\u91cd\u751f\u7684\u300c\u56de\u61b6\u57ce\u300d\uff0c\u662f\u4eba\u985e\u4e0d\u5c48\u7cbe\u795e\u7684\u7d00\u5ff5\u7891\u3002"
         }
     },
     "829716394": {
@@ -4110,7 +4387,8 @@
             "it-IT": "REQUIEM",
             "pt-BR": "R\u00c9QUIEM",
             "ru-RU": "\u0420\u0415\u041a\u0412\u0418\u0415\u041c",
-            "zh-Hans": "\u5b89\u9b42\u57ce"
+            "zh-Hans": "\u5b89\u9b42\u57ce",
+            "zh-Hant": "\u5b89\u9b42\u57ce"
         },
         "description": "",
         "descriptions": {}
@@ -4125,7 +4403,8 @@
             "it-IT": "RESILIENZA",
             "pt-BR": "RESIST\u00caNCIA",
             "ru-RU": "\u0412\u042b\u041d\u041e\u0421\u041b\u0418\u0412\u041e\u0421\u0422\u042c",
-            "zh-Hans": "\u97e7\u57ce"
+            "zh-Hans": "\u97e7\u57ce",
+            "zh-Hant": "\u5805\u97cc\u57ce"
         },
         "description": "",
         "descriptions": {}
@@ -4140,7 +4419,8 @@
             "it-IT": "RISOLUTEZZA",
             "pt-BR": "DETERMINA\u00c7\u00c3O",
             "ru-RU": "\u0420\u0415\u0428\u0418\u041c\u041e\u0421\u0422\u042c",
-            "zh-Hans": "\u51b3\u5fc3\u5e02"
+            "zh-Hans": "\u51b3\u5fc3\u5e02",
+            "zh-Hant": "\u525b\u6bc5\u5e02"
         },
         "description": "",
         "descriptions": {}
@@ -4155,7 +4435,8 @@
             "it-IT": "SOLLIEVO",
             "pt-BR": "POUSO TRANQUILO",
             "ru-RU": "\u041e\u0422\u0414\u042b\u0425",
-            "zh-Hans": "\u7edf\u606f\u5e02"
+            "zh-Hans": "\u7edf\u606f\u5e02",
+            "zh-Hant": "\u6b47\u606f\u5730"
         },
         "description": "",
         "descriptions": {}
@@ -4170,7 +4451,8 @@
             "it-IT": "REWA",
             "pt-BR": "REWA",
             "ru-RU": "\u041f\u041e\u0422\u041e\u041a",
-            "zh-Hans": "\u6d41\u671b\u5e02"
+            "zh-Hans": "\u6d41\u671b\u5e02",
+            "zh-Hant": "\u6cb3\u671b\u57ce"
         },
         "description": "",
         "descriptions": {}
@@ -4185,7 +4467,8 @@
             "it-IT": "PALEO",
             "pt-BR": "RINQUEL\u00c2NDIA",
             "ru-RU": "\u0425\u041e\u041a\u0422\u0410\u0423\u041d",
-            "zh-Hans": "\u51b0\u573a\u9547"
+            "zh-Hans": "\u51b0\u573a\u9547",
+            "zh-Hant": "\u51b0\u5834\u5c0f\u93ae"
         },
         "description": "",
         "descriptions": {}
@@ -4200,7 +4483,8 @@
             "it-IT": "VISIONE DI RIZIO",
             "pt-BR": "VISTA DE RIZIO",
             "ru-RU": "\u0412\u0417\u0413\u041b\u042f\u0414 \u0420\u0418\u0421\u0418\u041e",
-            "zh-Hans": "\u91cc\u9f50\u5965\u613f\u666f"
+            "zh-Hans": "\u91cc\u9f50\u5965\u613f\u666f",
+            "zh-Hant": "\u745e\u5947\u5967\u4e4b\u671b"
         },
         "description": "",
         "descriptions": {}
@@ -4215,7 +4499,8 @@
             "it-IT": "SAORSA GLEN",
             "pt-BR": "VALE DE SAORSA",
             "ru-RU": "\u0414\u041e\u041b\u0418\u041d\u0410 \u0421\u0410\u041e\u0420\u0421\u0410",
-            "zh-Hans": "\u8428\u5965\u8428\u8c37"
+            "zh-Hans": "\u8428\u5965\u8428\u8c37",
+            "zh-Hant": "\u7d39\u723e\u85a9\u8c37"
         },
         "description": "",
         "descriptions": {}
@@ -4230,7 +4515,8 @@
             "it-IT": "LAGO ZAFFIRO",
             "pt-BR": "LAGO SAFIRA",
             "ru-RU": "\u0421\u0410\u041f\u0424\u0418\u0420\u041e\u0412\u041e\u0415 \u041e\u0417\u0415\u0420\u041e",
-            "zh-Hans": "\u84dd\u77f3\u6e56"
+            "zh-Hans": "\u84dd\u77f3\u6e56",
+            "zh-Hant": "\u85cd\u5bf6\u77f3\u6e56"
         },
         "description": "",
         "descriptions": {}
@@ -4245,7 +4531,8 @@
             "it-IT": "SAPPORO",
             "pt-BR": "SAPPORO",
             "ru-RU": "\u0421\u0410\u041f\u041f\u041e\u0420\u041e",
-            "zh-Hans": "\u672d\u5e4c"
+            "zh-Hans": "\u672d\u5e4c",
+            "zh-Hant": "\u672d\u5e4c"
         },
         "description": "",
         "descriptions": {}
@@ -4260,7 +4547,8 @@
             "it-IT": "DIGA DI SARAH",
             "pt-BR": "REPRESA VELOZ DE SARA",
             "ru-RU": "\u041f\u041b\u041e\u0422\u0418\u041d\u0410 \u0421\u0410\u0420\u042b \u0421\u0412\u0418\u0424\u0422",
-            "zh-Hans": "\u838e\u62c9\u65af\u5a01\u592b\u7279\u5927\u575d"
+            "zh-Hans": "\u838e\u62c9\u65af\u5a01\u592b\u7279\u5927\u575d",
+            "zh-Hant": "\u838e\u62c9\u65af\u5a01\u592b\u7279\u5927\u58e9"
         },
         "description": "",
         "descriptions": {}
@@ -4275,7 +4563,8 @@
             "it-IT": "CANICOLA",
             "pt-BR": "ESCALDADURA",
             "ru-RU": "\u0421\u041a\u0410\u041b\u042c\u0414",
-            "zh-Hans": "\u70e7\u5361\u5c14\u5fb7"
+            "zh-Hans": "\u70e7\u5361\u5c14\u5fb7",
+            "zh-Hant": "\u707c\u71d2\u4e4b\u5730"
         },
         "description": "",
         "descriptions": {}
@@ -4290,7 +4579,8 @@
             "it-IT": "RIFUGIO SCARLATTO",
             "pt-BR": "REF\u00daGIO ESCARLATE",
             "ru-RU": "\u0410\u041b\u0410\u042f \u0413\u0410\u0412\u0410\u041d\u042c",
-            "zh-Hans": "\u7eef\u7ea2\u6e7e"
+            "zh-Hans": "\u7eef\u7ea2\u6e7e",
+            "zh-Hant": "\u7dcb\u7d05\u907f\u98a8\u6e2f"
         },
         "description": "",
         "descriptions": {}
@@ -4305,7 +4595,8 @@
             "it-IT": "ATTRACCO DELLO STUDIOSO",
             "pt-BR": "CAIS DO ERUDITO",
             "ru-RU": "\u0422\u041e\u0420\u0424\u042f\u041d\u0418\u041a \u0423\u0427\u0415\u041d\u041e\u0413\u041e",
-            "zh-Hans": "\u5b66\u8005\u8352\u539f"
+            "zh-Hans": "\u5b66\u8005\u8352\u539f",
+            "zh-Hant": "\u5b78\u8005\u6cbc\u5730"
         },
         "description": "",
         "descriptions": {}
@@ -4320,7 +4611,8 @@
             "it-IT": "SEASSEFYRE",
             "pt-BR": "CESFOGO",
             "ru-RU": "\u0417\u0410\u041a\u0410\u0422 \u0415\u0420\u0415\u0421\u0418",
-            "zh-Hans": "\u606f\u6218\u5e02"
+            "zh-Hans": "\u606f\u6218\u5e02",
+            "zh-Hant": "\u897f\u5e0c\u83f2\u723e"
         },
         "description": "",
         "descriptions": {}
@@ -4335,7 +4627,8 @@
             "it-IT": "PICCHI DEL SENATORE",
             "pt-BR": "PICOS DO SENADOR",
             "ru-RU": "\u0412\u0415\u0420\u0428\u0418\u041d\u042b \u0421\u0415\u041d\u0410\u0422\u041e\u0420\u041e\u0412",
-            "zh-Hans": "\u8bae\u5458\u5cf0"
+            "zh-Hans": "\u8bae\u5458\u5cf0",
+            "zh-Hant": "\u8b70\u54e1\u5cf0"
         },
         "description": "",
         "descriptions": {}
@@ -4350,7 +4643,8 @@
             "it-IT": "SEORAKSAN",
             "pt-BR": "SEORAKSAN",
             "ru-RU": "\u0421\u0415\u041e\u0420\u0410\u041a\u0421\u0410\u041d",
-            "zh-Hans": "\u96ea\u5cb3\u5c71"
+            "zh-Hans": "\u96ea\u5cb3\u5c71",
+            "zh-Hant": "\u96ea\u5dbd\u5c71"
         },
         "description": "",
         "descriptions": {}
@@ -4365,7 +4659,8 @@
             "it-IT": "SEQUIM",
             "pt-BR": "SEQUIM",
             "ru-RU": "\u0421\u0415\u041a\u0412\u0418\u041c",
-            "zh-Hans": "\u730e\u57ce"
+            "zh-Hans": "\u730e\u57ce",
+            "zh-Hant": "\u53f2\u9b41\u6069\u57ce"
         },
         "description": "",
         "descriptions": {}
@@ -4380,7 +4675,8 @@
             "it-IT": "PICCO SERENIT\u00c0",
             "pt-BR": "PICO DA SERENIDADE",
             "ru-RU": "\u041f\u0418\u041a \u0411\u0415\u0417\u041c\u042f\u0422\u0415\u0416\u041d\u041e\u0421\u0422\u0418",
-            "zh-Hans": "\u9759\u5cf0"
+            "zh-Hans": "\u9759\u5cf0",
+            "zh-Hant": "\u5be7\u975c\u5cf0"
         },
         "description": "",
         "descriptions": {}
@@ -4395,7 +4691,8 @@
             "it-IT": "SERVIT\u00d9",
             "pt-BR": "SERVID\u00c3O",
             "ru-RU": "\u0421\u0415\u0420\u0412\u0418\u0422\u0423\u0422",
-            "zh-Hans": "\u5974\u5f79\u5e02"
+            "zh-Hans": "\u5974\u5f79\u5e02",
+            "zh-Hant": "\u5974\u5f79\u5730"
         },
         "description": "",
         "descriptions": {}
@@ -4410,7 +4707,8 @@
             "it-IT": "INSEDIAMENTO 7",
             "pt-BR": "ASSENTAMENTO 7",
             "ru-RU": "\u041f\u041e\u0421\u0415\u041b\u0415\u041d\u0418\u0415 \u21167",
-            "zh-Hans": "7\u53f7\u5b9a\u5c45\u70b9"
+            "zh-Hans": "7\u53f7\u5b9a\u5c45\u70b9",
+            "zh-Hant": "7\u865f\u5b9a\u5c45\u9ede"
         },
         "description": "",
         "descriptions": {}
@@ -4425,7 +4723,8 @@
             "it-IT": "ONORE DEI COLONI",
             "pt-BR": "HONRA DO COLONO",
             "ru-RU": "\u0427\u0415\u0421\u0422\u042c \u041f\u041e\u0421\u0415\u041b\u0415\u041d\u0426\u0410",
-            "zh-Hans": "\u5f00\u62d3\u8005\u8363\u8a89\u5e02"
+            "zh-Hans": "\u5f00\u62d3\u8005\u8363\u8a89\u5e02",
+            "zh-Hant": "\u62d3\u8352\u8005\u69ae\u5730"
         },
         "description": "",
         "descriptions": {}
@@ -4440,7 +4739,8 @@
             "it-IT": "SETTESIGILLI",
             "pt-BR": "SETESSELOS",
             "ru-RU": "\u0421\u0415\u0414\u042c\u041c\u0410\u042f \u041f\u0415\u0427\u0410\u0422\u042c",
-            "zh-Hans": "\u4e03\u5370\u57ce"
+            "zh-Hans": "\u4e03\u5370\u57ce",
+            "zh-Hant": "\u4e03\u5370\u57ce"
         },
         "description": "",
         "descriptions": {}
@@ -4455,7 +4755,8 @@
             "it-IT": "STOIKA",
             "pt-BR": "SEVERINA",
             "ru-RU": "\u0422\u042f\u0416\u0415\u0421\u0422\u042c",
-            "zh-Hans": "\u4e25\u5cfb\u5e02"
+            "zh-Hans": "\u4e25\u5cfb\u5e02",
+            "zh-Hant": "\u56b4\u5cfb\u4e4b\u5730"
         },
         "description": "",
         "descriptions": {}
@@ -4470,7 +4771,8 @@
             "it-IT": "QUERCE OMBROSE",
             "pt-BR": "SOMBRA DOS CARVALHOS",
             "ru-RU": "\u0422\u0415\u041d\u0418\u0421\u0422\u042b\u0415 \u0414\u0423\u0411\u042b",
-            "zh-Hans": "\u836b\u6a61"
+            "zh-Hans": "\u836b\u6a61",
+            "zh-Hant": "\u852d\u6a61"
         },
         "description": "",
         "descriptions": {}
@@ -4485,7 +4787,8 @@
             "it-IT": "RIMESSA",
             "pt-BR": "GALP\u00c3O",
             "ru-RU": "\u0410\u041c\u0411\u0410\u0420",
-            "zh-Hans": "\u56e4\u4ed3"
+            "zh-Hans": "\u56e4\u4ed3",
+            "zh-Hant": "\u5009\u68da"
         },
         "description": "",
         "descriptions": {}
@@ -4500,7 +4803,8 @@
             "it-IT": "RIPARO",
             "pt-BR": "ABRIGO",
             "ru-RU": "\u0423\u041a\u0420\u042b\u0422\u0418\u0415",
-            "zh-Hans": "\u8c22\u5c14\u7279"
+            "zh-Hans": "\u8c22\u5c14\u7279",
+            "zh-Hant": "\u5e87\u8b77\u6240"
         },
         "description": "",
         "descriptions": {}
@@ -4515,7 +4819,8 @@
             "it-IT": "SUMMIT ARMATO",
             "pt-BR": "CUME DA ESPINGARDA",
             "ru-RU": "\u0421\u0422\u0412\u041e\u041b\u041e\u0412\u0410\u042f \u0412\u0415\u0420\u0428\u0418\u041d\u0410",
-            "zh-Hans": "\u9730\u5f39\u67aa\u5cf0"
+            "zh-Hans": "\u9730\u5f39\u67aa\u5cf0",
+            "zh-Hant": "\u9730\u5f48\u5cf0"
         },
         "description": "",
         "descriptions": {}
@@ -4530,7 +4835,8 @@
             "it-IT": "SILO A",
             "pt-BR": "SILO A",
             "ru-RU": "\u0428\u0410\u0425\u0422\u0410 A",
-            "zh-Hans": "A\u8231"
+            "zh-Hans": "A\u8231",
+            "zh-Hant": "A\u865f\u7b52\u5009"
         },
         "description": "",
         "descriptions": {}
@@ -4545,7 +4851,8 @@
             "it-IT": "GIARDINI DI SKAR",
             "pt-BR": "JARDIM SKAR",
             "ru-RU": "\u0421\u041a\u0410\u0420\u0421\u0413\u0410\u0420\u0414\u0415\u041d",
-            "zh-Hans": "\u65af\u5361\u65af\u52a0\u767b\u65af"
+            "zh-Hans": "\u65af\u5361\u65af\u52a0\u767b\u65af",
+            "zh-Hant": "\u65af\u5361\u82b1\u5712"
         },
         "description": "",
         "descriptions": {}
@@ -4560,7 +4867,8 @@
             "it-IT": "SLAYER CITY",
             "pt-BR": "MASSACRAL\u00c2NDIA",
             "ru-RU": "\u0413\u041e\u0420\u041e\u0414 \u0418\u0421\u0422\u0420\u0415\u0411\u0418\u0422\u0415\u041b\u0415\u0419",
-            "zh-Hans": "\u5f11\u4e9a\u57ce"
+            "zh-Hans": "\u5f11\u4e9a\u57ce",
+            "zh-Hant": "\u5c60\u8005\u57ce"
         },
         "description": "",
         "descriptions": {}
@@ -4575,7 +4883,8 @@
             "it-IT": "SONGGUO CUN",
             "pt-BR": "SONGGUO CUN",
             "ru-RU": "\u0421\u0423\u041d\u0413\u041e \u0427\u0423\u041d",
-            "zh-Hans": "\u677e\u679c\u6751"
+            "zh-Hans": "\u677e\u679c\u6751",
+            "zh-Hant": "\u677e\u679c\u6751"
         },
         "description": "",
         "descriptions": {}
@@ -4590,7 +4899,8 @@
             "it-IT": "STACY",
             "pt-BR": "STACY",
             "ru-RU": "\u0421\u0422\u0415\u0419\u0421\u0418",
-            "zh-Hans": "\u65af\u7279\u897f"
+            "zh-Hans": "\u65af\u7279\u897f",
+            "zh-Hant": "\u65af\u6cf0\u897f"
         },
         "description": "",
         "descriptions": {}
@@ -4605,7 +4915,8 @@
             "it-IT": "PASSO STELLA",
             "pt-BR": "PASSO ESTELAR",
             "ru-RU": "\u0417\u0412\u0415\u0417\u0414\u041d\u042b\u0419 \u041f\u0420\u041e\u0425\u041e\u0414",
-            "zh-Hans": "\u661f\u901a\u5e02"
+            "zh-Hans": "\u661f\u901a\u5e02",
+            "zh-Hant": "\u661f\u9014\u95dc\u53e3"
         },
         "description": "",
         "descriptions": {}
@@ -4620,7 +4931,8 @@
             "it-IT": "RISOLUTEZZA D'ACCIAIO",
             "pt-BR": "DETERMINA\u00c7\u00c3O DE A\u00c7O",
             "ru-RU": "\u0421\u0422\u0410\u041b\u042c\u041d\u0410\u042f \u0420\u0415\u0428\u0418\u041c\u041e\u0421\u0422\u042c",
-            "zh-Hans": "\u94a2\u94c1\u610f\u5fd7\u57ce"
+            "zh-Hans": "\u94a2\u94c1\u610f\u5fd7\u57ce",
+            "zh-Hant": "\u9435\u5fd7\u57ce"
         },
         "description": "",
         "descriptions": {}
@@ -4635,7 +4947,8 @@
             "it-IT": "FORZA",
             "pt-BR": "FOR\u00c7OSA",
             "ru-RU": "\u0421\u0418\u041b\u0410",
-            "zh-Hans": "\u529b\u91cf\u5e02"
+            "zh-Hans": "\u529b\u91cf\u5e02",
+            "zh-Hant": "\u529b\u91cf\u4e4b\u5730"
         },
         "description": "",
         "descriptions": {}
@@ -4650,7 +4963,8 @@
             "it-IT": "STRONGFORT",
             "pt-BR": "FORTE-FORTE",
             "ru-RU": "\u0421\u0422\u0420\u041e\u041d\u0413\u0424\u041e\u0420\u0422",
-            "zh-Hans": "\u65af\u7279\u6717\u798f\u7279"
+            "zh-Hans": "\u65af\u7279\u6717\u798f\u7279",
+            "zh-Hant": "\u5805\u5be6\u5821\u58d8"
         },
         "description": "",
         "descriptions": {}
@@ -4665,7 +4979,8 @@
             "it-IT": "SUPERIORIT\u00c0",
             "pt-BR": "SUPERIORIDADE",
             "ru-RU": "\u041f\u0420\u0415\u0412\u041e\u0421\u0425\u041e\u0414\u0421\u0422\u0412\u041e",
-            "zh-Hans": "\u4f18\u8d8a\u5e02"
+            "zh-Hans": "\u4f18\u8d8a\u5e02",
+            "zh-Hant": "\u5353\u8d8a\u57ce"
         },
         "description": "",
         "descriptions": {}
@@ -4680,7 +4995,8 @@
             "it-IT": "GIARDINI DI SICOMORO",
             "pt-BR": "JARDINS DOS SIC\u00d4MOROS",
             "ru-RU": "\u041f\u041b\u0410\u0422\u0410\u041d\u041e\u0412\u042b\u0415 \u0421\u0410\u0414\u042b",
-            "zh-Hans": "\u68a7\u6850\u82d1"
+            "zh-Hans": "\u68a7\u6850\u82d1",
+            "zh-Hant": "\u61f8\u9234\u6728\u82b1\u5712"
         },
         "description": "",
         "descriptions": {}
@@ -4695,7 +5011,8 @@
             "it-IT": "SYZYGY",
             "pt-BR": "SYZYGY",
             "ru-RU": "\u0421\u0418\u0417\u0418\u0413\u0418",
-            "zh-Hans": "\u6714\u671b"
+            "zh-Hans": "\u6714\u671b",
+            "zh-Hant": "\u897f\u6fa4\u5409"
         },
         "description": "",
         "descriptions": {}
@@ -4710,7 +5027,8 @@
             "it-IT": "VILLE",
             "pt-BR": "AS MANS\u00d5ES",
             "ru-RU": "\u0412\u0418\u041b\u041b\u042b",
-            "zh-Hans": "\u522b\u5885\u533a"
+            "zh-Hans": "\u522b\u5885\u533a",
+            "zh-Hant": "\u5225\u5885\u5340"
         },
         "description": "",
         "descriptions": {}
@@ -4725,7 +5043,8 @@
             "it-IT": "PUNTUALE",
             "pt-BR": "OPORTUNA",
             "ru-RU": "\u0421\u041e\u0412\u0420\u0415\u041c\u0415\u041d\u041d\u041e\u0421\u0422\u042c",
-            "zh-Hans": "\u7518\u9716\u57ce"
+            "zh-Hans": "\u7518\u9716\u57ce",
+            "zh-Hant": "\u53ca\u6642\u57ce"
         },
         "description": "",
         "descriptions": {}
@@ -4740,7 +5059,8 @@
             "it-IT": "STACANOV",
             "pt-BR": "LABORANA",
             "ru-RU": "\u0422\u042f\u0416\u0415\u041b\u042b\u0419 \u0422\u0420\u0423\u0414",
-            "zh-Hans": "\u52b3\u4f5c\u5e02"
+            "zh-Hans": "\u52b3\u4f5c\u5e02",
+            "zh-Hant": "\u52de\u82e6\u4e4b\u5730"
         },
         "description": "",
         "descriptions": {}
@@ -4755,7 +5075,8 @@
             "it-IT": "TERRA FERTILE",
             "pt-BR": "SOLOS FERTIL\u00cdSSIMOS",
             "ru-RU": "\u0427\u0415\u0420\u041d\u041e\u0417\u0415\u041c",
-            "zh-Hans": "\u8868\u571f\u5e02"
+            "zh-Hans": "\u8868\u571f\u5e02",
+            "zh-Hant": "\u8868\u571f"
         },
         "description": "",
         "descriptions": {}
@@ -4770,7 +5091,8 @@
             "it-IT": "FINE DEI TRADITORI",
             "pt-BR": "RU\u00cdNA DO TRAIDOR",
             "ru-RU": "\u0422\u0423\u041f\u0418\u041a \u041f\u0420\u0415\u0414\u0410\u0422\u0415\u041b\u042f",
-            "zh-Hans": "\u7ec8\u53db\u57ce"
+            "zh-Hans": "\u7ec8\u53db\u57ce",
+            "zh-Hant": "\u53db\u672b\u4e4b\u5730"
         },
         "description": "",
         "descriptions": {}
@@ -4785,7 +5107,8 @@
             "it-IT": "BASSOPIANO TVENNE",
             "pt-BR": "CAFUND\u00d3 DE TVENNE",
             "ru-RU": "\u0413\u041b\u0423\u0411\u0418\u041d\u042b \u0422\u0412\u0415\u041d\u041d\u0415",
-            "zh-Hans": "\u53cc\u74e3\u8c37"
+            "zh-Hans": "\u53cc\u74e3\u8c37",
+            "zh-Hant": "\u7279\u7dad\u5c3c\u4f4e\u5730"
         },
         "description": "",
         "descriptions": {}
@@ -4800,7 +5123,8 @@
             "it-IT": "UNANIMIT\u00c0",
             "pt-BR": "UNANIMIDADE",
             "ru-RU": "\u0415\u0414\u0418\u041d\u041e\u0414\u0423\u0428\u0418\u0415",
-            "zh-Hans": "\u7edf\u4e00\u5e02"
+            "zh-Hans": "\u7edf\u4e00\u5e02",
+            "zh-Hant": "\u5718\u7d50\u5e02"
         },
         "description": "",
         "descriptions": {}
@@ -4815,7 +5139,8 @@
             "it-IT": "UNDERVATTEN",
             "pt-BR": "SUBVATTEN",
             "ru-RU": "\u0410\u041d\u0414\u0415\u0420\u0412\u0410\u0422\u0422\u0415\u041d",
-            "zh-Hans": "\u6c34\u4e0b\u57ce"
+            "zh-Hans": "\u6c34\u4e0b\u57ce",
+            "zh-Hant": "\u6c89\u6c34\u57ce"
         },
         "description": "",
         "descriptions": {}
@@ -4830,7 +5155,8 @@
             "it-IT": "UNGU",
             "pt-BR": "UNGU",
             "ru-RU": "\u0423\u041d\u0413\u0423",
-            "zh-Hans": "\u7d2b\u90fd"
+            "zh-Hans": "\u7d2b\u90fd",
+            "zh-Hant": "\u7d2b\u90fd"
         },
         "description": "",
         "descriptions": {}
@@ -4845,7 +5171,8 @@
             "it-IT": "CONCORDIA",
             "pt-BR": "UN\u00cdSSONA",
             "ru-RU": "\u0423\u041d\u0418\u0421\u041e\u041d",
-            "zh-Hans": "\u548c\u8c10\u5e02"
+            "zh-Hans": "\u548c\u8c10\u5e02",
+            "zh-Hant": "\u806f\u5408\u5e02"
         },
         "description": "",
         "descriptions": {}
@@ -4860,7 +5187,8 @@
             "it-IT": "APOTEOSI",
             "pt-BR": "CONQUISTA DA VIT\u00d3RIA",
             "ru-RU": "\u041f\u0420\u0415\u041e\u0414\u041e\u041b\u0415\u041d\u0418\u0415",
-            "zh-Hans": "\u5f81\u670d\u5e02"
+            "zh-Hans": "\u5f81\u670d\u5e02",
+            "zh-Hant": "\u5f81\u670d\u4e4b\u5730"
         },
         "description": "",
         "descriptions": {}
@@ -4875,7 +5203,8 @@
             "it-IT": "CITT\u00c0 BLINDATA",
             "pt-BR": "CIDADE-FORTE",
             "ru-RU": "\u0410\u0420\u041a\u0410\u041d-\u0413\u0420\u0410\u0414",
-            "zh-Hans": "\u91d1\u5e93\u5e02"
+            "zh-Hans": "\u91d1\u5e93\u5e02",
+            "zh-Hant": "\u5bf6\u5eab\u57ce"
         },
         "description": "",
         "descriptions": {}
@@ -4890,7 +5219,8 @@
             "it-IT": "VENERAZIONE",
             "pt-BR": "VENERA\u00c7\u00c3O",
             "ru-RU": "\u041f\u041e\u0427\u0418\u0422\u0410\u041d\u0418\u0415",
-            "zh-Hans": "\u656c\u4ef0\u5e02"
+            "zh-Hans": "\u656c\u4ef0\u5e02",
+            "zh-Hant": "\u656c\u4ef0\u4e4b\u5730"
         },
         "description": "",
         "descriptions": {}
@@ -4905,7 +5235,8 @@
             "it-IT": "VERVE",
             "pt-BR": "VERVE",
             "ru-RU": "\u0412\u041e\u041e\u0414\u0423\u0428\u0415\u0412\u041b\u0415\u041d\u0418\u0415",
-            "zh-Hans": "\u7cbe\u529b\u5e02"
+            "zh-Hans": "\u7cbe\u529b\u5e02",
+            "zh-Hant": "\u7cbe\u529b\u57ce"
         },
         "description": "",
         "descriptions": {}
@@ -4920,7 +5251,8 @@
             "it-IT": "ESUBERANZA",
             "pt-BR": "ESPLENDORA",
             "ru-RU": "\u042f\u0420\u041a\u041e\u0421\u0422\u042c",
-            "zh-Hans": "\u6d3b\u529b\u5e02"
+            "zh-Hans": "\u6d3b\u529b\u5e02",
+            "zh-Hant": "\u84ec\u52c3\u4e4b\u5730"
         },
         "description": "",
         "descriptions": {}
@@ -4935,7 +5267,8 @@
             "it-IT": "VITTORIA",
             "pt-BR": "VIT\u00d3RIA",
             "ru-RU": "\u041f\u041e\u0411\u0415\u0414\u0410",
-            "zh-Hans": "\u80dc\u5229\u5e02"
+            "zh-Hans": "\u80dc\u5229\u5e02",
+            "zh-Hant": "\u52dd\u5229\u4e4b\u5730"
         },
         "description": "",
         "descriptions": {}
@@ -4950,7 +5283,8 @@
             "it-IT": "VILHELMINA DOROTHEA FREDRIKA",
             "pt-BR": "VILHELMINA DOROTHEA FREDRIKA",
             "ru-RU": "\u0412\u0418\u041b\u042c\u0413\u0415\u041b\u042c\u041c\u0418\u041d\u0410 \u0414\u041e\u0420\u041e\u0422\u0415\u042f \u0424\u0420\u0415\u0414\u0415\u0420\u0418\u041a\u0410",
-            "zh-Hans": "\u7ef4\u5c14\u8d6b\u5c14\u7c73\u5a1c\u00b7\u591a\u7f57\u831c\u5a05\u00b7\u5f17\u857e\u5fb7\u91cc\u5361"
+            "zh-Hans": "\u7ef4\u5c14\u8d6b\u5c14\u7c73\u5a1c\u00b7\u591a\u7f57\u831c\u5a05\u00b7\u5f17\u857e\u5fb7\u91cc\u5361",
+            "zh-Hant": "\u5a01\u723e\u6d77\u7c73\u5a1c\u00b7\u591a\u863f\u897f\u5a6d\u00b7\u5f17\u96f7\u5fb7\u91cc\u5361"
         },
         "description": "",
         "descriptions": {}
@@ -4965,7 +5299,8 @@
             "it-IT": "MAGGESE DELL'ELETTORE",
             "pt-BR": "AGRESTE DO ELEITOR",
             "ru-RU": "\u041f\u041e\u0414\u041b\u041e\u0413 \u0418\u0417\u0411\u0418\u0420\u0410\u0422\u0415\u041b\u042f",
-            "zh-Hans": "\u9009\u6c11\u8352\u5730"
+            "zh-Hans": "\u9009\u6c11\u8352\u5730",
+            "zh-Hant": "\u9078\u6c11\u4f11\u8015\u5730"
         },
         "description": "",
         "descriptions": {}
@@ -4980,7 +5315,8 @@
             "it-IT": "DISTRETTO ELETTORALE F-012357",
             "pt-BR": "DISTRITO ELEITORAL F-012357",
             "ru-RU": "\u0418\u0417\u0411\u0418\u0420\u0410\u0422\u0415\u041b\u042c\u041d\u042b\u0419 \u041e\u041a\u0420\u0423\u0413 \u0424-012357",
-            "zh-Hans": "F-012357\u9009\u533a"
+            "zh-Hans": "F-012357\u9009\u533a",
+            "zh-Hant": "\u6295\u7968\u5340F-012357"
         },
         "description": "",
         "descriptions": {}
@@ -4995,7 +5331,8 @@
             "it-IT": "V\u00c1HTJER",
             "pt-BR": "V\u00c1HTJER",
             "ru-RU": "\u0415\u041b\u041b\u0418\u0412\u0410\u0420\u0415",
-            "zh-Hans": "\u74e6\u8d6b\u7279\u8036\u5c14"
+            "zh-Hans": "\u74e6\u8d6b\u7279\u8036\u5c14",
+            "zh-Hant": "\u74e6\u8d6b\u5091\u723e"
         },
         "description": "",
         "descriptions": {}
@@ -5010,7 +5347,8 @@
             "it-IT": "PASSEGGIATA",
             "pt-BR": "PASSOFORA",
             "ru-RU": "\u041b\u0415\u0413\u041a\u0410\u042f \u041f\u041e\u0411\u0415\u0414\u0410",
-            "zh-Hans": "\u900d\u9065\u9053"
+            "zh-Hans": "\u900d\u9065\u9053",
+            "zh-Hant": "\u900d\u9059\u4e4b\u5730"
         },
         "description": "",
         "descriptions": {}
@@ -5025,7 +5363,8 @@
             "it-IT": "NOCETO",
             "pt-BR": "ACRES DE NOGUEIRAS",
             "ru-RU": "\u041e\u0420\u0415\u0425\u041e\u0412\u0410\u042f \u0414\u041e\u041b\u0418\u041d\u0410",
-            "zh-Hans": "\u80e1\u6843\u6728\u57c3\u514b\u65af"
+            "zh-Hans": "\u80e1\u6843\u6728\u57c3\u514b\u65af",
+            "zh-Hant": "\u80e1\u6843\u838a\u5712"
         },
         "description": "",
         "descriptions": {}
@@ -5040,7 +5379,8 @@
             "it-IT": "DISCARICA",
             "pt-BR": "MONTEPODRE",
             "ru-RU": "\u0412\u0415\u0419\u0421\u0422\u041c\u0410\u0423\u041d\u0422",
-            "zh-Hans": "\u97e6\u65af\u7279\u8499\u7279"
+            "zh-Hans": "\u97e6\u65af\u7279\u8499\u7279",
+            "zh-Hant": "\u5ee2\u68c4\u9ad8\u5730"
         },
         "description": "",
         "descriptions": {}
@@ -5055,7 +5395,8 @@
             "it-IT": "WEST BROKER",
             "pt-BR": "CORRETOR OCIDENTAL",
             "ru-RU": "\u0412\u0415\u0421\u0422-\u0411\u0420\u041e\u041a\u0415\u0420",
-            "zh-Hans": "\u897f\u8d38\u7ecf\u7eaa\u533a"
+            "zh-Hans": "\u897f\u8d38\u7ecf\u7eaa\u533a",
+            "zh-Hant": "\u897f\u90e8\u4ef2\u4ecb\u5340"
         },
         "description": "",
         "descriptions": {}
@@ -5070,7 +5411,8 @@
             "it-IT": "DIREZIONE OVEST",
             "pt-BR": "INTEND\u00caNCIA OCIDENTAL",
             "ru-RU": "\u0417\u0410\u041f\u0410\u0414\u041d\u041e\u0415 \u0423\u041f\u0420\u0410\u0412\u041b\u0415\u041d\u0418\u0415",
-            "zh-Hans": "\u897f\u6cbb\u5e02"
+            "zh-Hans": "\u897f\u6cbb\u5e02",
+            "zh-Hant": "\u897f\u7ba1\u5e02"
         },
         "description": "",
         "descriptions": {}
@@ -5085,7 +5427,8 @@
             "it-IT": "OSPIZIO 239-C",
             "pt-BR": "ASILO 239-C",
             "ru-RU": "\u041c\u0410\u041d\u0423\u0424\u0410\u041a\u0422\u0423\u0420\u0410 239-C",
-            "zh-Hans": "\u6551\u6d4e\u6240239-C"
+            "zh-Hans": "\u6551\u6d4e\u6240239-C",
+            "zh-Hant": "239-C\u6551\u6fdf\u6240"
         },
         "description": "",
         "descriptions": {}
@@ -5100,7 +5443,8 @@
             "it-IT": "CANTO DI LAVORO",
             "pt-BR": "CAN\u00c7\u00c3O LABORAL",
             "ru-RU": "\u041f\u0415\u0421\u041d\u042c \u0420\u0410\u0411\u041e\u0427\u0418\u0425",
-            "zh-Hans": "\u52b3\u6b4c\u5e02"
+            "zh-Hans": "\u52b3\u6b4c\u5e02",
+            "zh-Hant": "\u5de5\u4eba\u4e4b\u6b4c"
         },
         "description": "",
         "descriptions": {}
@@ -5115,7 +5459,8 @@
             "it-IT": "NUOVA XIAMEN",
             "pt-BR": "RETORNO DE XIAMEN",
             "ru-RU": "\u041d\u041e\u0412\u042b\u0419 \u0421\u042f\u041c\u042b\u041d\u042c",
-            "zh-Hans": "\u5c1a\u53a6\u95e8"
+            "zh-Hans": "\u5c1a\u53a6\u95e8",
+            "zh-Hant": "\u65b0\u5ec8\u9580"
         },
         "description": "",
         "descriptions": {}
@@ -5130,7 +5475,8 @@
             "it-IT": "XIN FUZHOU",
             "pt-BR": "XIN FUZHOU",
             "ru-RU": "\u0421\u0418\u041d\u042c \u0424\u0423\u0427\u0416\u041e\u0423",
-            "zh-Hans": "\u65b0\u798f\u5dde"
+            "zh-Hans": "\u65b0\u798f\u5dde",
+            "zh-Hant": "\u65b0\u798f\u5dde"
         },
         "description": "",
         "descriptions": {}
@@ -5145,7 +5491,8 @@
             "it-IT": "TERRA DI XIRAN",
             "pt-BR": "PETI\u00c7\u00c3O DE XIRAN",
             "ru-RU": "\u0422\u0420\u0415\u0411\u041e\u0412\u0410\u041d\u0418\u0415 \u0421\u0418\u0416\u0410\u041d\u042c",
-            "zh-Hans": "\u5e0c\u5170\u9886\u5730"
+            "zh-Hans": "\u5e0c\u5170\u9886\u5730",
+            "zh-Hant": "\u5e0c\u862d\u4e3b\u6b0a\u5730"
         },
         "description": "",
         "descriptions": {}
@@ -5160,7 +5507,8 @@
             "it-IT": "YATAKHANE 263",
             "pt-BR": "YATAKHANE 263",
             "ru-RU": "\u042f\u0422\u0410\u041a\u0410\u041d\u0415 \u2116263",
-            "zh-Hans": "\u5bbf\u820d263"
+            "zh-Hans": "\u5bbf\u820d263",
+            "zh-Hant": "\u96c5\u5854\u54c8\u5c3c263\u865f"
         },
         "description": "",
         "descriptions": {}
@@ -5175,7 +5523,8 @@
             "it-IT": "YDINKESKUSTA",
             "pt-BR": "YDINKESKUSTA",
             "ru-RU": "\u0418\u0414\u0418\u041d\u041a\u0415\u0421\u041a\u0423\u0421\u0422\u0410",
-            "zh-Hans": "\u4e2d\u5fc3\u57ce"
+            "zh-Hans": "\u4e2d\u5fc3\u57ce",
+            "zh-Hant": "\u4e2d\u5fc3\u57ce"
         },
         "description": "",
         "descriptions": {}
@@ -5190,7 +5539,8 @@
             "it-IT": "YORK SUPREMA",
             "pt-BR": "YORK SUPREMA",
             "ru-RU": "\u0412\u0415\u0420\u0425\u041e\u0412\u041d\u042b\u0419 \u0419\u041e\u0420\u041a",
-            "zh-Hans": "\u68d2\u7ea6\u514b"
+            "zh-Hans": "\u68d2\u7ea6\u514b",
+            "zh-Hant": "\u81f3\u9ad8\u7d04\u514b"
         },
         "description": "Following the Great York Conundrum, one City rose above the rest, pledging to hold its Hand over all other Yorks, so that no more blood be spilt between them.",
         "descriptions": {
@@ -5201,7 +5551,8 @@
             "it-IT": "In seguito alla Grande Diatriba di York, una citt\u00e0 si erse al di sopra delle altre, impegnandosi a usare la sua mano autoritaria sopra tutte le altre York, cos\u00ec che non fosse pi\u00f9 versato sangue tra di esse.",
             "pt-BR": "Ap\u00f3s a Grande Disc\u00f3rdia Iorquina, uma cidade prevaleceu e comprometeu-se a se impor sobre as demais para dar fim ao derramamento de sangue entre elas.",
             "ru-RU": "\u041f\u043e\u0441\u043b\u0435 \u0412\u0435\u043b\u0438\u043a\u043e\u0433\u043e \u043a\u0440\u0438\u0437\u0438\u0441\u0430 \u0419\u043e\u0440\u043a\u043e\u0432 \u043e\u0434\u0438\u043d \u0433\u043e\u0440\u043e\u0434 \u0432\u043e\u0437\u0432\u044b\u0441\u0438\u043b\u0441\u044f \u043d\u0430\u0434 \u043e\u0441\u0442\u0430\u043b\u044c\u043d\u044b\u043c\u0438, \u043f\u043e\u043a\u043b\u044f\u0432\u0448\u0438\u0441\u044c \u043f\u043e\u043c\u043e\u0433\u0430\u0442\u044c \u0432\u0441\u0435\u043c \u043e\u0441\u0442\u0430\u043b\u044c\u043d\u044b\u043c \u0419\u043e\u0440\u043a\u0430\u043c, \u0434\u0430\u0431\u044b \u043d\u0435 \u043f\u0440\u043e\u043b\u0438\u0432\u0430\u043b\u0430\u0441\u044c \u0431\u043e\u043b\u044c\u0448\u0435 \u043a\u0440\u043e\u0432\u044c \u0432 \u0431\u043e\u0440\u044c\u0431\u0435 \u043c\u0435\u0436\u0434\u0443 \u043d\u0438\u043c\u0438.",
-            "zh-Hans": "\u7ea6\u514b\u5927\u7eb7\u4e89\u7ed3\u675f\u540e\uff0c\u4e00\u5ea7\u57ce\u5e02\u529b\u538b\u7fa4\u96c4\uff0c\u8a93\u8981\u7edf\u5fa1\u5176\u4ed6\u7ea6\u514b\u5e02\uff0c\u7ec8\u7ed3\u5f7c\u6b64\u95f4\u7684\u6d41\u8840\u7eb7\u4e89\u3002"
+            "zh-Hans": "\u7ea6\u514b\u5927\u7eb7\u4e89\u7ed3\u675f\u540e\uff0c\u4e00\u5ea7\u57ce\u5e02\u529b\u538b\u7fa4\u96c4\uff0c\u8a93\u8981\u7edf\u5fa1\u5176\u4ed6\u7ea6\u514b\u5e02\uff0c\u7ec8\u7ed3\u5f7c\u6b64\u95f4\u7684\u6d41\u8840\u7eb7\u4e89\u3002",
+            "zh-Hant": "\u7d93\u6b77\u300c\u5927\u7d04\u514b\u56f0\u5c40\u300d\u5f8c\uff0c\u6709\u5ea7\u57ce\u5e02\u5f37\u52e2\u5d1b\u8d77\uff0c\u8a93\u8981\u638c\u63a7\u4e26\u51cc\u99d5\u65bc\u5176\u4ed6\u7d04\u514b\u57ce\u4e4b\u4e0a\uff0c\u907f\u514d\u6d41\u8840\u885d\u7a81\u518d\u5ea6\u767c\u751f\u3002"
         }
     },
     "3647907388": {
@@ -5214,7 +5565,8 @@
             "it-IT": "ZENITH",
             "pt-BR": "Z\u00caNITE",
             "ru-RU": "\u0417\u0415\u041d\u0418\u0422",
-            "zh-Hans": "\u7a79\u9876"
+            "zh-Hans": "\u7a79\u9876",
+            "zh-Hant": "\u5929\u9802"
         },
         "description": "",
         "descriptions": {}
@@ -5229,7 +5581,8 @@
             "it-IT": "ZONA 3",
             "pt-BR": "ZONA 3",
             "ru-RU": "\u0417\u041e\u041d\u0410 \u21163",
-            "zh-Hans": "3\u533a"
+            "zh-Hans": "3\u533a",
+            "zh-Hant": "\u7b2c3\u5340"
         },
         "description": "",
         "descriptions": {}
@@ -5244,7 +5597,8 @@
             "it-IT": "\u00d6DESH\u00d6GRE",
             "pt-BR": "\u00d6DESH\u00d6GRE",
             "ru-RU": "\u042d\u0414\u0415\u0421\u0425\u0415\u0413",
-            "zh-Hans": "\u5384\u5fb7\u65af\u970d\u683c\u96f7"
+            "zh-Hans": "\u5384\u5fb7\u65af\u970d\u683c\u96f7",
+            "zh-Hant": "\u5384\u5fb7\u65af\u8d6b\u683c\u96f7"
         },
         "description": "",
         "descriptions": {}
