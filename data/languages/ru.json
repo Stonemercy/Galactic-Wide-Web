@@ -53,7 +53,7 @@
             }
         },
         "GlobalEventsContainer": {
-            "new_event": "New Global Event",
+            "new_event": "Новое глобальное событие",
             "all_planets": "все планеты",
             "unknown_effect": "НЕИЗВЕСТНЫЙ ЭФФЕКТ",
             "active_on_planets": "\n-# Теперь активно на следующей(их) планете(ах):\n- {planets}",
@@ -154,10 +154,10 @@
                 "ahead_of_schedule": "\n-# на **{hours}ч {minutes}м** раньше срока",
                 "behind_schedule": "\n-# на **{hours}ч {minutes}м** позже срока",
                 "avail_thanks_to_wp": "\n-# Доступно **<t:{timestamp}:R>** благодаря освобождению **{planet_name}**",
-                "progress": "Progress",
-                "complete": "Complete",
+                "progress": "Прогресс",
+                "complete": "Готово",
                 "tasks": {
-                    "option": "Option",
+                    "option": "Опция",
                     "times": "раз(а)",
                     "against": "против",
                     "mission": "миссия",
@@ -202,19 +202,19 @@
                     "type14_r": "{emoji} Освободите **{count}** планет",
                     "type15_f": "{emoji} Освободите больше планет, чем перешло под контроль **{race}** за время действия приказа",
                     "type15_r": "{emoji} Освободите больше планет, чем было потеряно за время действия приказа",
-                    "type15_from_loss": "\n-# **-#** from **{planet}** loss {timestamp}",
-                    "type15_from_lib": "\n-# **-#** from **{planet}** liberation {timestamp}"
+                    "type15_from_loss": "\n-# **-#** из-за потери планеты **{planet}** {timestamp}",
+                    "type15_from_lib": "\n-# **-#** из-за освобождения планеты **{planet}** {timestamp}"
                 }
             },
             "DSSEmbed": {
-                "title": "Democracy Space Station",
-                "station_moves": "Station moves",
-                "current_location": "Current Location",
-                "next_location": "Next Location (Current Majority Vote)",
-                "vote_reminder": "MOVING SOON - REMEMBER TO VOTE",
-                "voting_mode": "VOTING MODE ENABLED",
-                "select": "Select the destination for this democractic process",
-                "votes": "Votes",
+                "title": "Демократическая Космическая Станция",
+                "station_moves": "Станция переместится",
+                "current_location": "Текущее расположение",
+                "next_location": "Следующая локация (большинство голосов)",
+                "vote_reminder": "СКОРО ПЕРЕМЕСТИТСЯ - НЕ ЗАБУДЬТЕ ПРОГОЛОСОВАТЬ",
+                "voting_mode": "РЕЖИМ ГОЛОСОВАНИЯ ВКЛЮЧЁН",
+                "select": "Выберите место назначения для этого демократического процесса",
+                "votes": "Голоса",
                 "status": "Статус",
                 "preparing": "Готовится к использованию",
                 "active": "Активно",
@@ -248,7 +248,7 @@
                 "loss": "Проигрыш",
                 "thanks_to_gambit": "благодаря освобождению планеты **{planet}**",
                 "if_region_lib": "\n-# Если будут освобождены следующие регионы:\n-# {regions_list}",
-                "gambit": "GAMBIT",
+                "gambit": "ГАМБИТ",
                 "heroes": "Десантники",
                 "available": "доступный"
             },
@@ -256,9 +256,9 @@
                 "title": "Фронт {faction}",
                 "heroes": "Десантники",
                 "victory": "Победа",
-                "gambit_for": "GAMBIT FOR",
-                "recon_campaign": "RECON CAMPAIGN",
-                "reg_avail_at": "available at",
+                "gambit_for": "ГАМБИТ ДЛЯ",
+                "recon_campaign": "РАЗВЕДЫВАТЕЛЬНАЯ КАМПАНИЯ",
+                "reg_avail_at": "доступно на",
                 "if_regions": "Если будут освобождены следующие регионы",
                 "low_impact": "Планеты с малой скоростью особождения"
             },
@@ -316,17 +316,17 @@
         "missing_perm": "У меня нет необходимого разрешения, чтобы сделать это.\nПожалуйста, предоставьте следующие разрешения и попробуйте еще раз:{permissions}"
     },
     "factions": {
-        "1": "Людей",
-        "2": "Терминидов",
-        "3": "Автоматонов",
-        "4": "Иллюминатов",
-        "Humans": "Людей",
-        "Terminids": "Терминидов",
-        "Automaton": "Автоматонов",
-        "Illuminate": "Иллюминатов",
-        "Terminids_plural": "Terminids",
-        "Automaton_plural": "Automaton",
-        "Illuminate_plural": "Illuminate"
+        "1": "Люди",
+        "2": "Терминиды",
+        "3": "Автоматоны",
+        "4": "Просветленные",
+        "Humans": "Люди",
+        "Terminids": "Терминиды",
+        "Automaton": "Автоматоны",
+        "Illuminate": "Просветленные",
+        "Terminids_plural": "Терминидов",
+        "Automaton_plural": "Автоматонов",
+        "Illuminate_plural": "Просветленных"
     },
     "difficulty": {
         "1": "Простейшая",
