@@ -42,7 +42,7 @@ class SteamCog(commands.Cog):
             return
         if (
             self.bot.databases.war_info.patch_notes_id
-            != self.bot.data.formatted_data.steam_news[0].id
+            < self.bot.data.formatted_data.steam_news[0].id
         ):
             unique_langs = GWWGuilds.unique_languages()
             embeds = {
