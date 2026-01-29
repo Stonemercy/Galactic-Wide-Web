@@ -1761,7 +1761,7 @@ class Dashboard:
                 field_value += f"\n**{self.language_json['embeds']['Dashboard']['DefenceEmbed']['loss']}**"
                 if planet.index in self.gambit_planets and planet.event.progress < 0.5:
                     gambit_planet = self.gambit_planets[planet.index]
-                    field_value += f"\n-# :chess_pawn: {gambit_planet.loc_names[self.language_json['code_long']]} {self.language_json['embeds']['Dashboard']['DefenceEmbed']['gambit']}"
+                    field_value += f"\n-# :chess_pawn: **{gambit_planet.loc_names[self.language_json['code_long']]}** {self.language_json['embeds']['Dashboard']['DefenceEmbed']['gambit']}"
 
             field_value += f"\n{self.language_json['embeds']['Dashboard']['DefenceEmbed']['heroes']}: **{planet.stats.player_count:,}**"
             if self.compact_level < 1:
