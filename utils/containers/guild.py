@@ -107,23 +107,23 @@ class GuildContainer(ui.Container, ReprMixin):
             components.extend(
                 [ui.TextDisplay(f"## Features:\n{features_text}"), ui.Separator()]
             )
-
-        if db_guild.features != []:
-            db_features_text = ""
-            for feature in db_guild.features:
-                if feature.message_id != None:
-                    feature_link = f"https://discord.com/channels/{feature.guild_id}/{feature.channel_id}/{feature.message_id}"
-                else:
-                    feature_link = f"<#{feature.channel_id}>"
-                db_features_text += f"\n{feature.name} - {feature_link}"
-        else:
-            db_features_text = "-# None"
-        components.extend(
-            [
-                ui.TextDisplay(f"## Bot Features Enabled\n{db_features_text}"),
-                ui.Separator(),
-            ]
-        )
+        if not joined:
+            if db_guild.features != []:
+                db_features_text = ""
+                for feature in db_guild.features:
+                    if feature.message_id != None:
+                        feature_link = f"https://discord.com/channels/{feature.guild_id}/{feature.channel_id}/{feature.message_id}"
+                    else:
+                        feature_link = f"<#{feature.channel_id}>"
+                    db_features_text += f"\n{feature.name} - {feature_link}"
+            else:
+                db_features_text = "-# None"
+            components.extend(
+                [
+                    ui.TextDisplay(f"## Bot Features Enabled\n{db_features_text}"),
+                    ui.Separator(),
+                ]
+            )
         components.extend(
             [
                 ui.TextDisplay(f"###  Shard ID #{guild.shard_id}"),
