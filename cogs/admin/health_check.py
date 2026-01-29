@@ -54,10 +54,16 @@ class HealthCheckCog(commands.Cog):
                 self.bot.logger.error(
                     f"{self.qualified_name} | dashboard_checking | {e}"
                 )
-        if self.bot.data.formatted_data.formatted_at < now - timedelta(minutes=5):
-            await self.bot.channels.moderator_channel.send(
-                content=f"<@{self.bot.owner.id}> Data was last formatted <t:{int(self.bot.data.formatted_data.formatted_at.timestamp())}:R> :warning:"
-            )
+        if self.bot.data.formatted_data:
+            if self.bot.data.formatted_data.formatted_at < now - timedelta(minutes=5):
+                await self.bot.channels.moderator_channel.send(
+                    content=f"<@{self.bot.owner.id}> Data was last formatted <t:{int(self.bot.data.formatted_data.formatted_at.timestamp())}:R> :warning:"
+                )
+        else:
+            if self.bot.ready_time < now:
+                await self.bot.channels.moderator_channel.send(
+                    content=f"<@{self.bot.owner.id}> Data has **not** been formatted yet :warning:"
+                )
 
     @health_check.before_loop
     async def before_dashboard_check(self) -> None:
