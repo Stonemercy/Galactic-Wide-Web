@@ -1,20 +1,11 @@
 from datetime import datetime, time, timedelta
 from typing import TYPE_CHECKING
-from disnake import (
-    ButtonStyle,
-    Colour,
-    Embed,
-    Guild,
-    HTTPException,
-    MessageInteraction,
-    NotFound,
-    ui,
-)
+from disnake import ButtonStyle, Colour, Embed, Guild, MessageInteraction, ui
 from disnake.ext import commands, tasks
 from utils.bot import GalacticWideWebBot
-from utils.containers import BotDashboardContainer, GuildContainer
+from utils.containers import GuildContainer
 from utils.dataclasses import Config, Languages
-from utils.dbv2 import BotDashboard, GWWGuilds
+from utils.dbv2 import GWWGuilds
 
 if TYPE_CHECKING:
     from utils.dbv2 import Feature, GWWGuild
@@ -23,14 +14,11 @@ if TYPE_CHECKING:
 class GuildManagementCog(commands.Cog):
     def __init__(self, bot: GalacticWideWebBot) -> None:
         self.bot = bot
-        self.loops = (self.bot_dashboard, self.dashboard_checking, self.guild_checking)
+        self.loops = (self.dashboard_checking, self.guild_checking)
         self.guilds_to_remove = []
         self.user_installs = 0
-        self.bot_dashboard_db = None
 
     def cog_load(self) -> None:
-        if not self.bot_dashboard_db:
-            self.bot_dashboard_db = BotDashboard()
         for loop in self.loops:
             if not loop.is_running():
                 loop.start()
@@ -69,46 +57,9 @@ class GuildManagementCog(commands.Cog):
             container = GuildContainer(guild=guild, db_guild=guild_in_db, removed=True)
             guild_in_db.delete()
             await self.bot.channels.moderator_channel.send(components=container)
-
-    @tasks.loop(minutes=1)
-    async def bot_dashboard(self) -> None:
-        bot_dashboard = self.bot_dashboard_db
-        if not self.bot.bot_dashboard_channel:
-            self.bot.bot_dashboard_channel = self.bot.get_channel(
-                bot_dashboard.channel_id
-            ) or await self.bot.fetch_channel(bot_dashboard.channel_id)
-        if not self.bot.bot_dashboard_message:
-            try:
-                self.bot.bot_dashboard_message = (
-                    await self.bot.bot_dashboard_channel.fetch_message(
-                        bot_dashboard.message_id
-                    )
-                )
-            except NotFound:
-                self.bot.bot_dashboard_message = (
-                    await self.bot.bot_dashboard_channel.send(
-                        components=[ui.TextDisplay("Placeholder please ignore")]
-                    )
-                )
-                bot_dashboard.message_id = self.bot.bot_dashboard_message.id
-                bot_dashboard.save_changes()
-            except HTTPException:
-                return
-        now = datetime.now()
-        if now.minute == 0 or now - timedelta(minutes=2) < self.bot.startup_time:
-            app_info = await self.bot.application_info()
-            self.user_installs = app_info.approximate_user_install_count
-        dashboard = BotDashboardContainer(
-            bot=self.bot, user_installs=self.user_installs
-        )
-        try:
-            await self.bot.bot_dashboard_message.edit(components=dashboard)
-        except:
-            pass
-
-    @bot_dashboard.before_loop
-    async def before_bot_dashboard(self) -> None:
-        await self.bot.wait_until_ready()
+        for lst in self.bot.interface_handler.lists.values():
+            for c in (c for c in lst.copy() if c.guild.id == guild.id):
+                lst.remove(c)
 
     @tasks.loop(
         time=[
