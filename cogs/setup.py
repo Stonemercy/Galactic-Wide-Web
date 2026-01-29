@@ -297,7 +297,9 @@ class SetupCog(commands.Cog):
                 ) or await self.bot.fetch_channel(inter.values[0])
             except (NotFound, Forbidden):
                 await inter.send(
-                    guild_language["setup"]["missing_perm"],
+                    guild_language["setup"]["missing_perm"].format(
+                        permissions="\n-# `View Channel`"
+                    ),
                     ephemeral=True,
                 )
                 return
@@ -373,7 +375,9 @@ class SetupCog(commands.Cog):
                 ) or await self.bot.fetch_channel(inter.values[0])
             except:
                 await inter.send(
-                    guild_language["setup"]["missing_perm"],
+                    guild_language["setup"]["missing_perm"].format(
+                        permissions="\n-# `View Channel`"
+                    ),
                     ephemeral=True,
                 )
                 return
@@ -405,8 +409,8 @@ class SetupCog(commands.Cog):
                         ),
                     )
                 else:
-                    generating_message = await inter.channel.send(
-                        "Generating map, please wait..."
+                    await inter.edit_original_response(
+                        components=[ui.TextDisplay("Generating map, please wait...")]
                     )
                     self.bot.maps.update_base_map(
                         planets=self.bot.data.formatted_data.planets,
@@ -454,7 +458,6 @@ class SetupCog(commands.Cog):
                             "", f"-# Updated <t:{int(datetime.now().timestamp())}:R>"
                         ),
                     )
-                    await generating_message.delete()
                 guild.features.append(
                     Feature(
                         name="maps",

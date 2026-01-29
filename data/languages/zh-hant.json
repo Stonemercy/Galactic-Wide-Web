@@ -312,7 +312,7 @@
     },
     "setup": {
         "cant_find_channel": "我找不到該頻道。請確定我有 `檢視頻道` 的權限",
-        "missing_perm": "缺少向該頻道傳送訊息的權限\\n請提供以下權限並重試:{permissions}"
+        "missing_perm": "缺少向該頻道傳送訊息的權限\n請提供以下權限並重試:{permissions}"
     },
     "factions": {
         "1": "人類",
