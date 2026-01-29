@@ -119,7 +119,6 @@ class SetupContainer(ui.Container, ReprMixin):
                                     container_json=container_json
                                 )
                             ),
-                            ui.Separator(),
                         ]
                     )
             elif active_category == "features":
