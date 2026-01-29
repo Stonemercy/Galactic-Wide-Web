@@ -1,35 +1,32 @@
-from datetime import datetime, time, timedelta
+from datetime import time
 from typing import TYPE_CHECKING
 from disnake import ButtonStyle, Colour, Embed, Guild, MessageInteraction, ui
 from disnake.ext import commands, tasks
 from utils.bot import GalacticWideWebBot
 from utils.containers import GuildContainer
-from utils.dataclasses import Config, Languages
+from utils.dataclasses import Languages
 from utils.dbv2 import GWWGuilds
 
 if TYPE_CHECKING:
-    from utils.dbv2 import Feature, GWWGuild
+    from utils.dbv2 import GWWGuild
 
 
 class GuildManagementCog(commands.Cog):
     def __init__(self, bot: GalacticWideWebBot) -> None:
         self.bot = bot
-        self.loops = (self.dashboard_checking, self.guild_checking)
         self.guilds_to_remove = []
         self.user_installs = 0
 
     def cog_load(self) -> None:
-        for loop in self.loops:
-            if not loop.is_running():
-                loop.start()
-                self.bot.loops.append(loop)
+        if not self.guild_checking.is_running():
+            self.guild_checking.start()
+            self.bot.loops.append(self.guild_checking)
 
     def cog_unload(self) -> None:
-        for loop in self.loops:
-            if loop.is_running():
-                loop.stop()
-            if loop in self.bot.loops:
-                self.bot.loops.remove(loop)
+        if self.guild_checking.is_running():
+            self.guild_checking.stop()
+        if self.guild_checking in self.bot.loops:
+            self.bot.loops.remove(self.guild_checking)
 
     @commands.Cog.listener()
     async def on_guild_join(self, guild: Guild) -> None:
@@ -60,51 +57,6 @@ class GuildManagementCog(commands.Cog):
         for lst in self.bot.interface_handler.lists.values():
             for c in (c for c in lst.copy() if c.guild.id == guild.id):
                 lst.remove(c)
-
-    @tasks.loop(
-        time=[
-            time(hour=i, minute=j, second=0)
-            for i in range(24)
-            for j in range(2, 62, 15)
-        ]
-    )
-    async def dashboard_checking(self) -> None:
-        now = datetime.now()
-        guild: GWWGuild | None = GWWGuilds.get_specific_guild(
-            id=Config.SUPPORT_SERVER_ID
-        )
-        if guild:
-            try:
-                dashboard_list: list[Feature] = [
-                    f for f in guild.features if f.name == "dashboards"
-                ]
-                if dashboard_list == []:
-                    self.bot.logger.info(
-                        f"{self.qualified_name} | dashboard_checking | No dashboard feature found for {guild.guild_id} (support server)"
-                    )
-                    return
-                else:
-                    dashboard: Feature = dashboard_list[0]
-                    channel = self.bot.get_channel(
-                        dashboard.channel_id
-                    ) or await self.bot.fetch_channel(dashboard.channel_id)
-                    message = await channel.fetch_message(dashboard.message_id)
-                    cutoff = now - timedelta(minutes=17)
-                    if (
-                        message.edited_at.replace(tzinfo=None) < cutoff
-                        and self.bot.startup_time < cutoff
-                    ):
-                        await self.bot.channels.moderator_channel.send(
-                            content=f"<@{self.bot.owner.id}> {message.jump_url} was last edited <t:{int(message.edited_at.timestamp())}:R> :warning:"
-                        )
-            except Exception as e:
-                self.bot.logger.error(
-                    f"{self.qualified_name} | dashboard_checking | {e}"
-                )
-
-    @dashboard_checking.before_loop
-    async def before_dashboard_check(self) -> None:
-        await self.bot.wait_until_ready()
 
     @tasks.loop(time=[time(hour=23, minute=0)])
     async def guild_checking(self) -> None:
