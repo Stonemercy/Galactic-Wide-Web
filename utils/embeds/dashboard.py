@@ -1842,7 +1842,7 @@ class Dashboard:
             super().__init__(
                 title=language_json["embeds"]["Dashboard"]["AttackEmbed"][
                     "title"
-                ].format(faction=language_json["factions"][faction]),
+                ].format(faction=language_json["factions"][f"{faction}_plural"]),
                 colour=Colour.from_rgb(
                     *Factions.get_from_identifier(name=faction).colour
                 ),
