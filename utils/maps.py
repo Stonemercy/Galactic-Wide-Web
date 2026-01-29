@@ -184,7 +184,7 @@ class Maps:
                         background,
                         planet.map_waypoints,
                         i,
-                        (i * 20, i * 5, i * 20, 255),
+                        (i * 25, i * 10, i * 25, 255),
                         -1,
                     )
                 circle(
@@ -194,7 +194,23 @@ class Maps:
                     (0, 0, 0, 255),
                     -1,
                 )
-            elif 1240 in [ae.id for ae in planet.active_effects]:
+            elif 1352 in (ae.id for ae in planet.active_effects):
+                for i in range(PLANET_RADIUS, PLANET_RADIUS - 4, -1):
+                    circle(
+                        background,
+                        planet.map_waypoints,
+                        i,
+                        (i * 10, i * 25, i * 25, 255),
+                        -1,
+                    )
+                circle(
+                    background,
+                    planet.map_waypoints,
+                    int(PLANET_RADIUS / 2),
+                    (0, 0, 0, 255),
+                    -1,
+                )
+            elif 1240 in (ae.id for ae in planet.active_effects):
                 circle(
                     background,
                     planet.map_waypoints,
