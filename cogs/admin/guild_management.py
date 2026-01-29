@@ -101,7 +101,10 @@ class GuildManagementCog(commands.Cog):
         dashboard = BotDashboardContainer(
             bot=self.bot, user_installs=self.user_installs
         )
-        await self.bot.bot_dashboard_message.edit(components=dashboard)
+        try:
+            await self.bot.bot_dashboard_message.edit(components=dashboard)
+        except:
+            pass
 
     @bot_dashboard.before_loop
     async def before_bot_dashboard(self) -> None:
