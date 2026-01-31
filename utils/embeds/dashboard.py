@@ -1964,6 +1964,8 @@ class Dashboard:
                         planet.index for planet in gambit_planets.values()
                     ]:
                         exclamation += ":chess_pawn:"
+                    if campaign.type == 2:
+                        field_name += Emojis.Icons.high_prio_campaign
                     skipped_planets_text += f"-# {campaign.planet.loc_names.get(language_json['code_long'], campaign.planet.name)} - **{campaign.planet.stats.player_count:,}** {exclamation}\n"
                     if compact_level < 2 and len(skipped_campaigns) < 10:
                         for region in campaign.planet.regions.values():
