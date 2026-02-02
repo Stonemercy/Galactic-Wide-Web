@@ -32,18 +32,38 @@ class UsageLoggerCog(commands.Cog):
         if inter.application_command.name not in self.usage_dict["commands"]:
             self.usage_dict["commands"][inter.application_command.name] = 0
         self.usage_dict["commands"][inter.application_command.name] += 1
+        options_str = ", ".join([f"{k}={v}" for k, v in inter.filled_options.items()])
+        self.bot.logger.info(
+            f"Command: /{inter.application_command.name} "
+            f"| User: {inter.author} "
+            f"| Guild: {inter.guild.name if inter.guild else 'DM'} "
+            f"| Options: {options_str if options_str else 'None'}"
+        )
 
     @commands.Cog.listener()
     async def on_button_click(self, inter: MessageInteraction) -> None:
         if inter.component.custom_id not in self.usage_dict["buttons"]:
             self.usage_dict["buttons"][inter.component.custom_id] = 0
         self.usage_dict["buttons"][inter.component.custom_id] += 1
+        self.bot.logger.info(
+            f"Button clicked: '{inter.component.custom_id}' "
+            f"| User: {inter.author} (ID: {inter.author.id}) "
+            f"| Guild: {inter.guild.name if inter.guild else 'DM'} "
+            f"| Channel: {inter.channel.name if hasattr(inter.channel, 'name') else 'DM'} "
+        )
 
     @commands.Cog.listener()
     async def on_dropdown(self, inter: MessageInteraction) -> None:
         if inter.component.custom_id not in self.usage_dict["dropdowns"]:
             self.usage_dict["dropdowns"][inter.component.custom_id] = 0
         self.usage_dict["dropdowns"][inter.component.custom_id] += 1
+        self.bot.logger.info(
+            f"Dropdown used: '{inter.component.custom_id}' "
+            f"| Selected: {inter.values[0]} "
+            f"| User: {inter.author} (ID: {inter.author.id}) "
+            f"| Guild: {inter.guild.name if inter.guild else 'DM'} "
+            f"| Channel: {inter.channel.name if hasattr(inter.channel, 'name') else 'DM'} "
+        )
 
     @commands.Cog.listener()
     async def on_guild_join(self, guild: Guild) -> None:
