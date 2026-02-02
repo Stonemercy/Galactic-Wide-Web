@@ -30,7 +30,7 @@ class UsageLoggerCog(commands.Cog):
     @commands.Cog.listener()
     async def on_slash_command(self, inter: AppCmdInter) -> None:
         if inter.application_command.name not in self.usage_dict["commands"]:
-            self.usage_dict["commands"][inter.application_command.name] = 0
+            self.usage_dict["commands"][inter.application_command.name] = 1
         self.usage_dict["commands"][inter.application_command.name] += 1
         options_str = ", ".join([f"{k}={v}" for k, v in inter.filled_options.items()])
         self.bot.logger.info(
@@ -43,7 +43,7 @@ class UsageLoggerCog(commands.Cog):
     @commands.Cog.listener()
     async def on_button_click(self, inter: MessageInteraction) -> None:
         if inter.component.custom_id not in self.usage_dict["buttons"]:
-            self.usage_dict["buttons"][inter.component.custom_id] = 0
+            self.usage_dict["buttons"][inter.component.custom_id] = 1
         self.usage_dict["buttons"][inter.component.custom_id] += 1
         self.bot.logger.info(
             f"Button clicked: '{inter.component.custom_id}' "
@@ -55,7 +55,7 @@ class UsageLoggerCog(commands.Cog):
     @commands.Cog.listener()
     async def on_dropdown(self, inter: MessageInteraction) -> None:
         if inter.component.custom_id not in self.usage_dict["dropdowns"]:
-            self.usage_dict["dropdowns"][inter.component.custom_id] = 0
+            self.usage_dict["dropdowns"][inter.component.custom_id] = 1
         self.usage_dict["dropdowns"][inter.component.custom_id] += 1
         self.bot.logger.info(
             f"Dropdown used: '{inter.component.custom_id}' "
