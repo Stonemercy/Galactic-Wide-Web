@@ -423,10 +423,6 @@ class SetupCog(commands.Cog):
                         language_code_short=guild_language["code"],
                         language_code_long=guild_language["code_long"],
                         planets=self.bot.data.formatted_data.planets,
-                        active_planets=[
-                            campaign.planet.index
-                            for campaign in self.bot.data.formatted_data.campaigns
-                        ],
                         planet_names_json=self.bot.json_dict["planets"],
                     )
                     message = await self.bot.channels.waste_bin_channel.send(
@@ -443,10 +439,6 @@ class SetupCog(commands.Cog):
                         lang=guild_language["code"],
                         long_code=guild_language["code_long"],
                         planets=self.bot.data.formatted_data.planets,
-                        active_planets=[
-                            c.planet.index
-                            for c in self.bot.data.formatted_data.campaigns
-                        ],
                         dss=self.bot.data.formatted_data.dss,
                         planet_names_json=self.bot.json_dict["planets"],
                     )

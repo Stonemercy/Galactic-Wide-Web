@@ -59,10 +59,7 @@ class Maps:
         self.update_sectors(planets=planets)
         self.update_waypoint_lines(planets=planets)
         self.update_assignment_tasks(assignments=assignments, planets=planets)
-        self.update_planets(
-            planets=planets,
-            active_planets=[campaign.planet.index for campaign in campaigns],
-        )
+        self.update_planets(planets=planets)
 
     def update_sectors(self, planets: list[Planet]) -> None:
         sectors: dict[str, list[str]] = {}
@@ -165,9 +162,7 @@ class Maps:
 
         imwrite(Maps.FileLocations.assignment_map, background)
 
-    def update_planets(
-        self, planets: dict[int, Planet], active_planets: list[int]
-    ) -> None:
+    def update_planets(self, planets: dict[int, Planet]) -> None:
         background = imread(Maps.FileLocations.assignment_map, IMREAD_UNCHANGED)
         PLANET_RADIUS = 8
         for index, planet in planets.items():
@@ -223,7 +218,7 @@ class Maps:
             else:
                 colour = (
                     planet.faction.colour
-                    if index in active_planets
+                    if planet.active_campaign
                     else tuple(int(colour / 1.5) for colour in planet.faction.colour)
                 )
                 colour = (*colour[::-1], 255)
@@ -281,7 +276,6 @@ class Maps:
         language_code_short: str,
         language_code_long: str,
         planets: dict[int, Planet],
-        active_planets: list[int],
         planet_names_json: dict,
     ) -> None:
         with Image.open(fp=Maps.FileLocations.planets_map) as background:
@@ -289,7 +283,6 @@ class Maps:
                 background=background,
                 language_code=language_code_long,
                 planets=planets,
-                active_planets=active_planets,
                 planet_names_json=planet_names_json,
             )
             background.save(fp=f"resources/maps/localized/{language_code_short}.webp")
@@ -299,13 +292,12 @@ class Maps:
         background: Image.Image,
         language_code: str,
         planets: dict[int, Planet],
-        active_planets: list[int],
         planet_names_json: dict,
     ) -> None:
         font = ImageFont.truetype("resources/gww-font.ttf", self.TEXT_SIZE)
         background_draw = ImageDraw.Draw(im=background)
         for index, planet in planets.items():
-            if index in active_planets:
+            if planet.active_campaign:
                 if planet.dss_in_orbit:
                     border_colour = "deepskyblue"
                 else:
@@ -345,7 +337,6 @@ class Maps:
         lang: str,
         long_code: str,
         planets: dict[int, Planet],
-        active_planets: list[int],
         dss: DSS,
         planet_names_json: dict,
     ):
@@ -369,7 +360,7 @@ class Maps:
                     y_offset=10,
                 )
             loc_name = planet_names_json[str(planet.index)]["names"][long_code]
-            if planet.index in active_planets:
+            if planet.active_campaign or planet.homeworld:
                 x_offset = 0
                 for su in SpecialUnits.get_from_effects_list(planet.active_effects):
                     su_icon = imread(
@@ -402,7 +393,7 @@ class Maps:
                     )
                 )
                 verti_diff = 20
-                if planet.index in active_planets:
+                if planet.active_campaign:
                     verti_diff += 45
                     loc_name = planet_names_json[str(planet.index)]["names"][long_code]
                     if loc_name.count(" ") > 0:

@@ -68,19 +68,12 @@ class MapCog(commands.Cog):
                     language_code_short=language_code,
                     language_code_long=language_json["code_long"],
                     planets=self.bot.data.formatted_data.planets,
-                    active_planets=[
-                        campaign.planet.index
-                        for campaign in self.bot.data.formatted_data.campaigns
-                    ],
                     planet_names_json=self.bot.json_dict["planets"],
                 )
                 self.bot.maps.add_icons(
                     lang=language_code,
                     long_code=language_json["code_long"],
                     planets=self.bot.data.formatted_data.planets,
-                    active_planets=[
-                        c.planet.index for c in self.bot.data.formatted_data.campaigns
-                    ],
                     dss=self.bot.data.formatted_data.dss,
                     planet_names_json=self.bot.json_dict["planets"],
                 )
@@ -159,19 +152,12 @@ class MapCog(commands.Cog):
                 language_code_short=language_json["code"],
                 language_code_long=language_json["code_long"],
                 planets=self.bot.data.formatted_data.planets,
-                active_planets=[
-                    campaign.planet.index
-                    for campaign in self.bot.data.formatted_data.campaigns
-                ],
                 planet_names_json=self.bot.json_dict["planets"],
             )
             self.bot.maps.add_icons(
                 lang=language_json["code"],
                 long_code=language_json["code_long"],
                 planets=self.bot.data.formatted_data.planets,
-                active_planets=[
-                    c.planet.index for c in self.bot.data.formatted_data.campaigns
-                ],
                 dss=self.bot.data.formatted_data.dss,
                 planet_names_json=self.bot.json_dict["planets"],
             )

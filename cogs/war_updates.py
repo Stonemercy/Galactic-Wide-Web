@@ -188,31 +188,18 @@ class WarUpdatesCog(commands.Cog):
                 assignments=self.bot.data.formatted_data.assignments.get("en", []),
                 planets=self.bot.data.formatted_data.planets,
             )
-            self.bot.maps.update_planets(
-                planets=self.bot.data.formatted_data.planets,
-                active_planets=[
-                    campaign.planet.index
-                    for campaign in self.bot.data.formatted_data.campaigns
-                ],
-            )
+            self.bot.maps.update_planets(planets=self.bot.data.formatted_data.planets)
             for lang in self.bot.json_dict["languages"].values():
                 self.bot.maps.localize_map(
                     language_code_short=lang["code"],
                     language_code_long=lang["code_long"],
                     planets=self.bot.data.formatted_data.planets,
-                    active_planets=[
-                        campaign.planet.index
-                        for campaign in self.bot.data.formatted_data.campaigns
-                    ],
                     planet_names_json=self.bot.json_dict["planets"],
                 )
                 self.bot.maps.add_icons(
                     lang=lang["code"],
                     long_code=lang["code_long"],
                     planets=self.bot.data.formatted_data.planets,
-                    active_planets=[
-                        c.planet.index for c in self.bot.data.formatted_data.campaigns
-                    ],
                     dss=self.bot.data.formatted_data.dss,
                     planet_names_json=self.bot.json_dict["planets"],
                 )
@@ -318,11 +305,7 @@ class WarUpdatesCog(commands.Cog):
             )
             if dss_has_moved:
                 self.bot.maps.update_planets(
-                    planets=self.bot.data.formatted_data.planets,
-                    active_planets=[
-                        campaign.planet.index
-                        for campaign in self.bot.data.formatted_data.campaigns
-                    ],
+                    planets=self.bot.data.formatted_data.planets
                 )
                 for lang in unique_langs:
                     lang_json = self.bot.json_dict["languages"][lang]
@@ -330,20 +313,12 @@ class WarUpdatesCog(commands.Cog):
                         language_code_short=lang,
                         language_code_long=lang_json["code_long"],
                         planets=self.bot.data.formatted_data.planets,
-                        active_planets=[
-                            campaign.planet.index
-                            for campaign in self.bot.data.formatted_data.campaigns
-                        ],
                         planet_names_json=self.bot.json_dict["planets"],
                     )
                     self.bot.maps.add_icons(
                         lang=lang,
                         long_code=lang_json["code_long"],
                         planets=self.bot.data.formatted_data.planets,
-                        active_planets=[
-                            c.planet.index
-                            for c in self.bot.data.formatted_data.campaigns
-                        ],
                         dss=self.bot.data.formatted_data.dss,
                         planet_names_json=self.bot.json_dict["planets"],
                     )
