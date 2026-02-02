@@ -10,7 +10,9 @@ class UsageContainer(ui.Container, ReprMixin):
             if not _usage_dict:
                 continue
             component = ui.TextDisplay(f"# {category.title()} Usage")
-            for i, usage in _usage_dict.items():
+            for i, usage in sorted(
+                _usage_dict.items(), key=lambda x: x[1], reverse=True
+            ):
                 component.content += f"\n-# {i} - **{usage}**"
             self.components.extend([component, ui.Separator()])
 
