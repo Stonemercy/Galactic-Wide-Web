@@ -1,5 +1,4 @@
-from datetime import datetime, time
-from disnake import Activity, ActivityType, Status
+from datetime import time
 from disnake.ext import commands, tasks
 from main import GalacticWideWebBot
 from utils.containers import APIChangesContainer
