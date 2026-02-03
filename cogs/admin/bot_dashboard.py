@@ -10,6 +10,7 @@ class BotDashboardCog(commands.Cog):
     def __init__(self, bot: GalacticWideWebBot) -> None:
         self.bot = bot
         self.bot_dashboard_db = None
+        self.user_installs = 0
 
     def cog_load(self) -> None:
         if not self.bot_dashboard_db:
