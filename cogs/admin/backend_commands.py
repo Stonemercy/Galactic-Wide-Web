@@ -116,7 +116,7 @@ class BackendCommandsCog(commands.Cog):
                     planets_with_gwe = [
                         p
                         for p in self.bot.data.formatted_data.planets.values()
-                        if gwe.id in (effect.id for effect in p.active_effects)
+                        if gwe in p.active_effects
                     ]
                 container = GWEContainer(
                     gwe=gwe,
@@ -179,7 +179,6 @@ class BackendCommandsCog(commands.Cog):
             components = []
             for ge in ge_list:
                 container = GlobalEventsContainer(
-                    long_lang_code="en-GB",
                     container_json=self.bot.json_dict["languages"]["en"]["containers"][
                         "GlobalEventsContainer"
                     ],
