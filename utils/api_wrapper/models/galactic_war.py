@@ -74,8 +74,18 @@ class AcquiredE711(GlobalResource):
         self.health_bar_colour = "MO"
 
 
+class ForcesInReserve(GlobalResource):
+    def __init__(self, raw_global_resource_data):
+        super().__init__(raw_global_resource_data=raw_global_resource_data)
+        self.name = "FORCES IN RESERVE"
+        self.description = "Remaining forces left in the reserve. Every Helldiver death reduces this gradually."
+        self.embed_colour = Colour.from_rgb(*Factions.humans.colour)
+        self.health_bar_colour = Factions.humans
+
+
 GLOBAL_RESOURCES_DICT = {
     1754540810: AcquiredE711,
+    1053905445: ForcesInReserve,
 }
 
 
