@@ -1672,6 +1672,10 @@ class Dashboard:
                 and global_resource.tracker.change_rate_per_hour != 0
             ):
                 field_value += f"\n`{f'{global_resource.tracker.change_rate_per_hour:+.2%}/hr':^25}`"
+                if global_resource.tracker.change_rate_per_hour > 0:
+                    field_value += f"\n-# 100% <t:{int(datetime.now().timestamp() + global_resource.tracker.seconds_until_complete)}:R>"
+                else:
+                    field_value += f"\n-# 0% <t:{int(datetime.now().timestamp() + global_resource.tracker.seconds_until_complete)}:R>"
             self.add_field("", field_value)
 
     class DefenceEmbed(Embed, EmbedReprMixin):
