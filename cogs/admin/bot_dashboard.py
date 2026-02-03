@@ -20,7 +20,7 @@ class BotDashboardCog(commands.Cog):
 
     def cog_unload(self) -> None:
         if self.bot_dashboard.is_running():
-            self.bot_dashboard.stop()
+            self.bot_dashboard.cancel()
         if self.bot_dashboard in self.bot.loops:
             self.bot.loops.remove(self.bot_dashboard)
 

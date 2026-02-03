@@ -16,7 +16,7 @@ class HealthCheckCog(commands.Cog):
 
     def cog_unload(self) -> None:
         if self.health_check.is_running():
-            self.health_check.stop()
+            self.health_check.cancel()
         if self.health_check in self.bot.loops:
             self.bot.loops.remove(self.health_check)
 

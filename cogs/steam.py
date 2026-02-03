@@ -24,7 +24,7 @@ class SteamCog(commands.Cog):
 
     def cog_unload(self) -> None:
         if self.steam_check.is_running():
-            self.steam_check.stop()
+            self.steam_check.cancel()
         if self.steam_check in self.bot.loops:
             self.bot.loops.remove(self.steam_check)
 

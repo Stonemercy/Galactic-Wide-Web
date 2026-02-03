@@ -16,7 +16,7 @@ class DashboardCog(commands.Cog):
 
     def cog_unload(self) -> None:
         if self.dashboard_poster.is_running():
-            self.dashboard_poster.stop()
+            self.dashboard_poster.cancel()
         if self.dashboard_poster in self.bot.loops:
             self.bot.loops.remove(self.dashboard_poster)
 

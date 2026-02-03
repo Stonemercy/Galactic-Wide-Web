@@ -27,7 +27,7 @@ class WarUpdatesCog(commands.Cog):
     def cog_unload(self) -> None:
         for loop in self.loops:
             if loop.is_running():
-                loop.stop()
+                loop.cancel()
             if loop in self.bot.loops:
                 self.bot.loops.remove(loop)
 

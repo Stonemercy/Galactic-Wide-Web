@@ -23,7 +23,7 @@ class UsageLoggerCog(commands.Cog):
 
     def cog_unload(self) -> None:
         if self.usage_report.is_running():
-            self.usage_report.stop()
+            self.usage_report.cancel()
         if self.usage_report in self.bot.loops:
             self.bot.loops.remove(self.usage_report)
 

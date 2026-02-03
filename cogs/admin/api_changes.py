@@ -37,7 +37,7 @@ class APIChangesCog(commands.Cog):
 
     def cog_unload(self) -> None:
         if self.api_changes.is_running():
-            self.api_changes.stop()
+            self.api_changes.cancel()
         if self.api_changes in self.bot.loops:
             self.bot.loops.remove(self.api_changes)
 

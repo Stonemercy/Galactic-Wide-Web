@@ -24,7 +24,7 @@ class DispatchesCog(commands.Cog):
 
     def cog_unload(self) -> None:
         if self.dispatch_check.is_running():
-            self.dispatch_check.stop()
+            self.dispatch_check.cancel()
         if self.dispatch_check in self.bot.loops:
             self.bot.loops.remove(self.dispatch_check)
 

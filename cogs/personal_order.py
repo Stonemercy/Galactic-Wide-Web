@@ -19,7 +19,7 @@ class PersonalOrderCog(commands.Cog):
 
     def cog_unload(self) -> None:
         if self.personal_order_updates.is_running():
-            self.personal_order_updates.stop()
+            self.personal_order_updates.cancel()
         if self.personal_order_updates in self.bot.loops:
             self.bot.loops.remove(self.personal_order_updates)
 

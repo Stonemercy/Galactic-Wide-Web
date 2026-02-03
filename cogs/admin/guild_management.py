@@ -24,7 +24,7 @@ class GuildManagementCog(commands.Cog):
 
     def cog_unload(self) -> None:
         if self.guild_checking.is_running():
-            self.guild_checking.stop()
+            self.guild_checking.cancel()
         if self.guild_checking in self.bot.loops:
             self.bot.loops.remove(self.guild_checking)
 
