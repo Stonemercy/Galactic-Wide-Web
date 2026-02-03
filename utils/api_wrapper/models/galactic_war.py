@@ -78,7 +78,7 @@ class ForcesInReserve(GlobalResource):
     def __init__(self, raw_global_resource_data):
         super().__init__(raw_global_resource_data=raw_global_resource_data)
         self.name = "FORCES IN RESERVE"
-        self.description = "Remaining forces left in the reserve. Every Helldiver death reduces this gradually."
+        self.description = "-# Remaining forces left in the reserve.\n-# **Every** Helldiver death reduces this."
         self.embed_colour = Colour.from_rgb(*Factions.humans.colour)
         self.health_bar_colour = Factions.humans
 
