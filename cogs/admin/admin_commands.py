@@ -116,11 +116,10 @@ class AdminCommandsCog(commands.Cog):
                 guild=discord_guild, db_guild=db_guild, fetching=True
             )
             await inter.send(components=container, ephemeral=True)
-        else:
-            await inter.send(
-                f"Didn't find a guild with ID `{id_to_check}` in use", ephemeral=True
-            )
             return
+        await inter.send(
+            f"Didn't find a guild with ID `{id_to_check}` in use", ephemeral=True
+        )
 
     @commands.Cog.listener("on_button_click")
     async def on_button_clicks(self, inter: MessageInteraction) -> None:
