@@ -46,7 +46,7 @@ class DSS(ReprMixin):
                 war_start_time + self.status_end
             )
             self.strategic_description: str = dispatch_format(
-                text=tactical_action_raw_data["strategicDescription"]
+                text=tactical_action_raw_data.get("strategicDescription", "")
             )
             self.cost: list[DSS.TacticalAction.Cost] = [
                 DSS.TacticalAction.Cost(cost=cost)
