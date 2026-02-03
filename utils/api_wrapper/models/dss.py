@@ -37,7 +37,7 @@ class DSS(ReprMixin):
             self.name: str = tactical_action_raw_data.get(
                 "name", "Unnamed Tactical Action"
             )
-            self.description: str = tactical_action_raw_data["description"]
+            self.description: str = tactical_action_raw_data.get("description", "")
             self.status: int = tactical_action_raw_data["status"]
             self.status_end: int = tactical_action_raw_data[
                 "statusExpireAtWarTimeSeconds"
