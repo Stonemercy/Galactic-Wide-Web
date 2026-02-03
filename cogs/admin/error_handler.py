@@ -114,7 +114,7 @@ class ErrorHandlerCog(commands.Cog):
         if len(error_text) > 1024:
             embed.add_field(
                 name="Error",
-                value="..." + error_text[-1024:],
+                value=f"```py\n{error_text[-1010:]}\n```",
                 inline=False,
             )
         else:
