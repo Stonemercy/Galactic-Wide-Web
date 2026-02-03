@@ -64,6 +64,12 @@ class DashboardCog(commands.Cog):
     async def before_dashboard_poster(self) -> None:
         await self.bot.wait_until_ready()
 
+    @dashboard_poster.error
+    async def dashboard_poster_error(self, error: Exception) -> None:
+        error_handler = self.bot.get_cog("ErrorHandlerCog")
+        if error_handler:
+            await error_handler.log_error(None, error, "dashboard_poster loop")
+
 
 def setup(bot: GalacticWideWebBot) -> None:
     bot.add_cog(DashboardCog(bot))

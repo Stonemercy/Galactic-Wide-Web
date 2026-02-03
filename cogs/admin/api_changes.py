@@ -130,8 +130,14 @@ class APIChangesCog(commands.Cog):
                 await msg.publish()
 
     @api_changes.before_loop
-    async def before_check_changes(self):
+    async def before_api_changes(self):
         await self.bot.wait_until_ready()
+
+    @api_changes.error
+    async def api_changes_error(self, error: Exception) -> None:
+        error_handler = self.bot.get_cog("ErrorHandlerCog")
+        if error_handler:
+            await error_handler.log_error(None, error, "api_changes loop")
 
 
 def setup(bot: GalacticWideWebBot):

@@ -69,6 +69,12 @@ class HealthCheckCog(commands.Cog):
     async def before_dashboard_check(self) -> None:
         await self.bot.wait_until_ready()
 
+    @health_check.error
+    async def health_check_error(self, error: Exception) -> None:
+        error_handler = self.bot.get_cog("ErrorHandlerCog")
+        if error_handler:
+            await error_handler.log_error(None, error, "health_check loop")
+
 
 def setup(bot: GalacticWideWebBot):
     bot.add_cog(HealthCheckCog(bot))

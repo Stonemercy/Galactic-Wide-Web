@@ -1,13 +1,5 @@
 from typing import TYPE_CHECKING
-from disnake import (
-    AppCmdInter,
-    HTTPException,
-    InteractionTimedOut,
-    MessageInteraction,
-    NotFound,
-    Permissions,
-    ui,
-)
+from disnake import AppCmdInter, MessageInteraction, Permissions, ui
 from disnake.ext import commands
 from main import GalacticWideWebBot
 from re import search
@@ -41,9 +33,6 @@ class AdminCommandsCog(commands.Cog):
         ),
     ) -> None:
         await inter.response.defer(ephemeral=True)
-        self.bot.logger.critical(
-            f"{self.qualified_name} | /{inter.application_command.name} <{feature = }> | used by <@{inter.author.id}> | @{inter.author.global_name}"
-        )
         match feature:
             case "Dashboard":
                 await self.bot.get_cog(name="DashboardCog").dashboard_poster()
@@ -80,9 +69,6 @@ class AdminCommandsCog(commands.Cog):
         ),
     ) -> None:
         await inter.response.defer(ephemeral=True)
-        self.bot.logger.critical(
-            f"{self.qualified_name} | /{inter.application_command.name} <{file_name = }> | used by <@{inter.author.id}> | @{inter.author.global_name}"
-        )
         for path in [f"cogs.{file_name}", f"cogs.admin.{file_name}"]:
             try:
                 self.bot.reload_extension(name=path)
@@ -113,9 +99,6 @@ class AdminCommandsCog(commands.Cog):
         self, inter: AppCmdInter, id_to_check: int = commands.Param(large=True)
     ) -> None:
         await inter.response.defer(ephemeral=True)
-        self.bot.logger.critical(
-            f"{self.qualified_name} | /{inter.application_command.name} <{id_to_check = }> | used by <@{inter.author.id}> | @{inter.author.global_name}"
-        )
         all_guilds = GWWGuilds(fetch_all=True)
         filtered_guild_list: list[GWWGuild] = [
             g
@@ -149,14 +132,7 @@ class AdminCommandsCog(commands.Cog):
         }
         if inter.component.custom_id not in allowed_ids:
             return
-        try:
-            await inter.response.defer()
-        except (NotFound, InteractionTimedOut):
-            await inter.channel.send(
-                "There was an error with this interaction, please try again.",
-                delete_after=5,
-            )
-            return
+        await inter.response.defer()
         guild_id_text_display: str = (
             inter.message.components[0].children[0].children[0].content
         )
@@ -186,25 +162,17 @@ class AdminCommandsCog(commands.Cog):
                 pass
             match split_button_id[0]:
                 case "leave":
-                    try:
-                        await discord_guild.leave()
-                    except HTTPException as e:
-                        await inter.send(
-                            f"There was an error:\n```py\n{e}\n```", ephemeral=True
-                        )
-                        return
+                    await discord_guild.leave()
                     await inter.send(
                         content=f"Successfully left **{discord_guild.name}**",
                         ephemeral=True,
                     )
                 case "reset":
-                    try:
-                        db_guild.reset()
-                    except Exception as e:
-                        await inter.send(
-                            f"There was an error:\n```py\n{e}\n```", ephemeral=True
-                        )
-                        return
+                    db_guild.reset()
+                    await inter.send(
+                        content=f"Successfully reset **{discord_guild.name}**",
+                        ephemeral=True,
+                    )
             await inter.edit_original_response(
                 components=GuildContainer(
                     guild=discord_guild, db_guild=db_guild, fetching=True
@@ -219,9 +187,6 @@ class AdminCommandsCog(commands.Cog):
         default_member_permissions=Permissions(administrator=True),
     )
     async def get_bot_info(self, inter: AppCmdInter) -> None:
-        self.bot.logger.critical(
-            f"{self.qualified_name} | /{inter.application_command.name} | used by <@{inter.author.id}> | @{inter.author.global_name}"
-        )
         embeds = BotInfoEmbeds(bot=self.bot)
         await inter.send(embeds=embeds, ephemeral=True)
 
@@ -238,9 +203,6 @@ class AdminCommandsCog(commands.Cog):
         public: str = commands.Param(choices=["Yes", "No"], default="No"),
     ) -> None:
         await inter.response.defer(ephemeral=public != "Yes")
-        self.bot.logger.critical(
-            f"{self.qualified_name} | /{inter.application_command.name} | used by <@{inter.author.id}> | @{inter.author.global_name}"
-        )
         gww_guilds = GWWGuilds(fetch_all=True)
         possible_fake_guilds = []
         for gww_guild in gww_guilds:

@@ -2,7 +2,6 @@ from disnake import (
     AppCmdInter,
     ApplicationInstallTypes,
     Guild,
-    HTTPException,
     InteractionContextTypes,
     MessageInteraction,
     NotFound,
@@ -30,14 +29,7 @@ class CommunityServersCog(commands.Cog):
         },
     )
     async def community_servers(self, inter: AppCmdInter) -> None:
-        try:
-            await inter.response.defer(ephemeral=True)
-        except HTTPException:
-            await inter.channel.send(
-                "There was an error with that command, please try again.",
-                delete_after=5,
-            )
-            return
+        await inter.response.defer(ephemeral=True)
         embed = CommunityServersEmbed(
             guilds=self.communities_with_links,
             new_index=min(16, len(self.communities_with_links)),

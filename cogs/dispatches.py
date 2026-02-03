@@ -2,7 +2,6 @@ from datetime import datetime
 from disnake import (
     AppCmdInter,
     ApplicationInstallTypes,
-    HTTPException,
     InteractionContextTypes,
     MessageInteraction,
 )
@@ -80,6 +79,12 @@ class DispatchesCog(commands.Cog):
     async def before_dispatch_check(self) -> None:
         await self.bot.wait_until_ready()
 
+    @dispatch_check.error
+    async def dispatch_check_error(self, error: Exception) -> None:
+        error_handler = self.bot.get_cog("ErrorHandlerCog")
+        if error_handler:
+            await error_handler.log_error(None, error, "dispatch_check loop")
+
     async def dispatch_autocomp(inter: AppCmdInter, user_input: str) -> list[str]:
         if not inter.bot.data.loaded:
             return []
@@ -118,17 +123,7 @@ class DispatchesCog(commands.Cog):
             description="Do you want other people to see the response to this command?",
         ),
     ) -> None:
-        try:
-            await inter.response.defer(ephemeral=public != "Yes")
-        except HTTPException:
-            await inter.channel.send(
-                "There was an error with that command, please try again.",
-                delete_after=5,
-            )
-            return
-        self.bot.logger.info(
-            f"{self.qualified_name} | /{inter.application_command.name} <{specific = }> <{public = }>"
-        )
+        await inter.response.defer(ephemeral=public != "Yes")
         if inter.guild:
             guild = GWWGuilds.get_specific_guild(id=inter.guild_id)
             if not guild:

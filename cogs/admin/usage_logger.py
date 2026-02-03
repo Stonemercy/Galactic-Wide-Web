@@ -89,6 +89,12 @@ class UsageLoggerCog(commands.Cog):
     async def before_usage_report(self) -> None:
         await self.bot.wait_until_ready()
 
+    @usage_report.error
+    async def usage_report_error(self, error: Exception) -> None:
+        error_handler = self.bot.get_cog("ErrorHandlerCog")
+        if error_handler:
+            await error_handler.log_error(None, error, "usage_report loop")
+
 
 def setup(bot: GalacticWideWebBot):
     bot.add_cog(UsageLoggerCog(bot))

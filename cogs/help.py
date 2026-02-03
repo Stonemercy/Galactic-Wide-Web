@@ -1,9 +1,4 @@
-from disnake import (
-    AppCmdInter,
-    ApplicationInstallTypes,
-    HTTPException,
-    InteractionContextTypes,
-)
+from disnake import AppCmdInter, ApplicationInstallTypes, InteractionContextTypes
 from disnake.ext import commands
 from main import GalacticWideWebBot
 from utils.containers import HelpContainer
@@ -53,17 +48,7 @@ class HelpCog(commands.Cog):
             description="Do you want other people to see the response to this command?",
         ),
     ) -> None:
-        try:
-            await inter.response.defer(ephemeral=public != "Yes")
-        except HTTPException:
-            await inter.channel.send(
-                "There was an error with that command, please try again.",
-                delete_after=5,
-            )
-            return
-        self.bot.logger.info(
-            f"{self.qualified_name} | /{inter.application_command.name} <{command = }> <{public = }>"
-        )
+        await inter.response.defer(ephemeral=public != "Yes")
         slash_commands = None
         slash_command = None
         if command != "all":

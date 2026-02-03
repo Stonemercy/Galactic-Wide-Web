@@ -1,68 +1,129 @@
-from datetime import timedelta
-from disnake import AppCmdInter
+from traceback import format_exception
+from disnake import AppCmdInter, Color, Embed, MessageInteraction
 from disnake.ext import commands
 from utils.bot import GalacticWideWebBot
-from sys import exc_info
-from traceback import format_exception
 
 
 class ErrorHandlerCog(commands.Cog):
-    def __init__(self, bot: GalacticWideWebBot):
+    def __init__(self, bot: GalacticWideWebBot) -> None:
         self.bot = bot
 
-    # this is a mess
     @commands.Cog.listener()
-    async def on_slash_command_error(
-        self, inter: AppCmdInter, error: commands.CommandError
-    ):
-        if hasattr(inter.application_command, "on_error"):
-            return
-        elif isinstance(error, commands.NotOwner):
-            await inter.send(
-                content=f"You are not allowed to use this command.",
-                ephemeral=True,
-            )
-            return
+    async def on_slash_command_error(self, inter: AppCmdInter, error):
+        error = getattr(error, "original", error)
+        embed = Embed(title="Error", color=Color.red())
+
+        if isinstance(error, commands.MissingPermissions):
+            embed.description = f"You don't have permission to use this command.\nRequired: {', '.join(error.missing_permissions)}"
+        elif isinstance(error, commands.BotMissingPermissions):
+            embed.description = f"I don't have the required permissions.\nMissing: {', '.join(error.missing_permissions)}"
+        elif isinstance(error, commands.MissingRequiredArgument):
+            embed.description = f"Missing required argument: `{error.param.name}`"
+        elif isinstance(error, commands.BadArgument):
+            embed.description = f"Invalid argument provided: {str(error)}"
         elif isinstance(error, commands.CheckFailure):
-            if (
-                inter.created_at.replace(tzinfo=None) + timedelta(hours=1)
-                < self.bot.ready_time
-            ):
-                await inter.send(
-                    content=(
-                        f"Please wait {self.bot.time_until_ready} seconds to use this.\n"
-                        f"Ready <t:{int(self.bot.ready_time.timestamp())}:R>"
-                    ),
-                    ephemeral=True,
-                    delete_after=self.bot.time_until_ready,
-                )
-                return
-            else:
-                await inter.send(error, ephemeral=True)
+            embed.description = "You don't have permission to use this command."
+        elif isinstance(error, commands.NoPrivateMessage):
+            embed.description = "This command cannot be used in DMs."
+        elif isinstance(error, commands.PrivateMessageOnly):
+            embed.description = "This command can only be used in DMs."
         else:
-            try:
-                await inter.send(
-                    content="There was an unexpected error. Please try again.",
-                    ephemeral=True,
-                    delete_after=30,
-                )
-                await self.bot.channels.moderator_channel.send(
-                    content=f"{self.bot.owner.mention}```py\n{''.join(format_exception(type(error), value=error, tb=error.__traceback__))[-1900:]}\n```"
-                )
-            except Exception as e:
-                await self.bot.channels.moderator_channel.send(
-                    content=f"{self.bot.owner.mention}\n```\n{error}```\n```\n{e}```"
-                )
-                raise error
+            embed.description = (
+                "An unexpected error occurred. The developers have been notified."
+            )
+            await self.log_error(inter, error, "Slash Command")
+
+        try:
+            if inter.response.is_done():
+                await inter.followup.send(embed=embed, ephemeral=True)
+            else:
+                await inter.response.send_message(embed=embed, ephemeral=True)
+        except:
+            pass
 
     @commands.Cog.listener()
-    async def on_error(self, event_method: str, *args, **kwargs):
-        exc_type, exc_value, exc_traceback = exc_info()
-        await self.bot.channels.moderator_channel.send(
-            content=f"{self.bot.owner.mention}\nUnhandled Event Error\n```py\n{''.join(format_exception(exc_type, exc_value, exc_traceback))}```",
-            event=event_method,
-        )
+    async def on_button_click_error(self, inter: MessageInteraction, error):
+        error = getattr(error, "original", error)
+        embed = Embed(title="Button Error", color=Color.red())
+
+        if isinstance(error, commands.CheckFailure):
+            embed.description = "You don't have permission to use this button."
+        elif isinstance(error, commands.CommandOnCooldown):
+            embed.description = f"This button is on cooldown. Try again in {error.retry_after:.2f} seconds."
+        else:
+            embed.description = "An error occurred while processing your button click."
+            await self.log_error(inter, error, "Button Click")
+
+        try:
+            if inter.response.is_done():
+                await inter.followup.send(embed=embed, ephemeral=True)
+            else:
+                await inter.response.send_message(embed=embed, ephemeral=True)
+        except:
+            pass
+
+    @commands.Cog.listener()
+    async def on_dropdown_error(self, inter: MessageInteraction, error):
+        error = getattr(error, "original", error)
+        embed = Embed(title="Dropdown Error", color=Color.red())
+
+        if isinstance(error, commands.CheckFailure):
+            embed.description = "You don't have permission to use this dropdown."
+        elif isinstance(error, commands.CommandOnCooldown):
+            embed.description = f"This dropdown is on cooldown. Try again in {error.retry_after:.2f} seconds."
+        else:
+            embed.description = "An error occurred while processing your selection."
+            await self.log_error(inter, error, "Dropdown")
+
+        try:
+            if inter.response.is_done():
+                await inter.followup.send(embed=embed, ephemeral=True)
+            else:
+                await inter.response.send_message(embed=embed, ephemeral=True)
+        except:
+            pass
+
+    async def log_error(
+        self,
+        inter: MessageInteraction | AppCmdInter | None,
+        error: Exception,
+        error_type="Unknown",
+    ):
+        embed = Embed(title=f"{error_type} error", color=Color.dark_red())
+        if hasattr(inter, "guild") and inter.guild:
+            embed.add_field(
+                name="Guild", value=f"{inter.guild.name} ({inter.guild.id})"
+            )
+        if hasattr(inter, "author"):
+            embed.add_field(
+                name="User",
+                value=f"{inter.author} ({inter.author.id}) {inter.author.mention}",
+            )
+        elif hasattr(inter, "user"):
+            embed.add_field(
+                name="User",
+                value=f"{inter.user} ({inter.user.id}) {inter.user.mention}",
+            )
+        if hasattr(inter, "channel"):
+            embed.add_field(
+                name="Channel", value=f"{inter.channel.name} {inter.channel.mention}"
+            )
+
+        error_text = "".join(format_exception(type(error), error, error.__traceback__))
+
+        if len(error_text) > 1024:
+            embed.add_field(
+                name="Error",
+                value="..." + error_text[-1024:],
+                inline=False,
+            )
+        else:
+            embed.add_field(
+                name="Error", value=f"```py\n{error_text}\n```", inline=False
+            )
+
+        await self.bot.channels.moderator_channel.send(embed=embed)
 
 
-def setup(bot: GalacticWideWebBot):
-    bot.add_cog(cog=ErrorHandlerCog(bot))
+def setup(bot: GalacticWideWebBot) -> None:
+    bot.add_cog(ErrorHandlerCog(bot))

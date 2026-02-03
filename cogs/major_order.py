@@ -1,10 +1,5 @@
 from datetime import datetime, time
-from disnake import (
-    AppCmdInter,
-    ApplicationInstallTypes,
-    HTTPException,
-    InteractionContextTypes,
-)
+from disnake import AppCmdInter, ApplicationInstallTypes, InteractionContextTypes
 from disnake.ext import commands, tasks
 from main import GalacticWideWebBot
 from typing import TYPE_CHECKING
@@ -126,6 +121,12 @@ class MajorOrderCog(commands.Cog):
     async def before_mo_check(self) -> None:
         await self.bot.wait_until_ready()
 
+    @major_order_check.error
+    async def major_order_check_error(self, error: Exception) -> None:
+        error_handler = self.bot.get_cog("ErrorHandlerCog")
+        if error_handler:
+            await error_handler.log_error(None, error, "major_order_check loop")
+
     @tasks.loop(
         time=[time(hour=6, minute=20, second=30), time(hour=18, minute=20, second=30)]
     )
@@ -173,6 +174,12 @@ class MajorOrderCog(commands.Cog):
     async def before_major_order_updates(self) -> None:
         await self.bot.wait_until_ready()
 
+    @major_order_updates.error
+    async def major_order_updates_error(self, error: Exception) -> None:
+        error_handler = self.bot.get_cog("ErrorHandlerCog")
+        if error_handler:
+            await error_handler.log_error(None, error, "major_order_updates loop")
+
     @wait_for_startup()
     @commands.slash_command(
         description="Returns information on the current major order(s) - if available.",
@@ -197,17 +204,7 @@ class MajorOrderCog(commands.Cog):
             description="If you want the response to be seen by others in the server.",
         ),
     ) -> None:
-        try:
-            await inter.response.defer(ephemeral=public != "Yes")
-        except HTTPException:
-            await inter.channel.send(
-                "There was an error with that command, please try again.",
-                delete_after=5,
-            )
-            return
-        self.bot.logger.info(
-            f"{self.qualified_name} | /{inter.application_command.name} <{with_announcement = }> <{public = }>"
-        )
+        await inter.response.defer(ephemeral=public != "Yes")
         if inter.guild:
             guild = GWWGuilds.get_specific_guild(id=inter.guild_id)
             if not guild:

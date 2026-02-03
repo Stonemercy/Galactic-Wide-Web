@@ -55,14 +55,17 @@ class BotDashboardCog(commands.Cog):
         dashboard = BotDashboardContainer(
             bot=self.bot, user_installs=self.user_installs
         )
-        try:
-            await self.bot.bot_dashboard_message.edit(components=dashboard)
-        except:
-            pass
+        await self.bot.bot_dashboard_message.edit(components=dashboard)
 
     @bot_dashboard.before_loop
     async def before_bot_dashboard(self) -> None:
         await self.bot.wait_until_ready()
+
+    @bot_dashboard.error
+    async def bot_dashboard_error(self, error: Exception) -> None:
+        error_handler = self.bot.get_cog("ErrorHandlerCog")
+        if error_handler:
+            await error_handler.log_error(None, error, "bot_dashboard loop")
 
 
 def setup(bot: GalacticWideWebBot) -> None:

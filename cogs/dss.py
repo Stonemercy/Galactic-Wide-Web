@@ -1,9 +1,4 @@
-from disnake import (
-    AppCmdInter,
-    ApplicationInstallTypes,
-    HTTPException,
-    InteractionContextTypes,
-)
+from disnake import AppCmdInter, ApplicationInstallTypes, InteractionContextTypes
 from disnake.ext import commands
 from utils.bot import GalacticWideWebBot
 from utils.checks import wait_for_startup
@@ -34,17 +29,7 @@ class DSSCog(commands.Cog):
             description="Do you want other people to see the response to this command?",
         ),
     ) -> None:
-        try:
-            await inter.response.defer(ephemeral=public != "Yes")
-        except HTTPException:
-            await inter.channel.send(
-                "There was an error with that command, please try again.",
-                delete_after=5,
-            )
-            return
-        self.bot.logger.info(
-            f"{self.qualified_name} | /{inter.application_command.name}"
-        )
+        await inter.response.defer(ephemeral=public != "Yes")
         if inter.guild:
             guild = GWWGuilds.get_specific_guild(id=inter.guild_id)
             if not guild:

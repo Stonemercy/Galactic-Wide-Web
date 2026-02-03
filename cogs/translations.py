@@ -3,7 +3,6 @@ from disnake import (
     ApplicationInstallTypes,
     Embed,
     File,
-    HTTPException,
     InteractionContextTypes,
 )
 from disnake.ext import commands
@@ -36,17 +35,7 @@ class TranslationsCog(commands.Cog):
             description="The language you want to check the missing translations for.",
         ),
     ) -> None:
-        try:
-            await inter.response.defer(ephemeral=True)
-        except HTTPException:
-            await inter.channel.send(
-                "There was an error with that command, please try again.",
-                delete_after=5,
-            )
-            return
-        self.bot.logger.info(
-            f"{self.qualified_name} | /{inter.application_command.name} | <{language_to_check = }>"
-        )
+        await inter.response.defer(ephemeral=True)
         if language_to_check == "ALL":
             embeds = []
             reference = self.bot.json_dict["languages"]["en"]

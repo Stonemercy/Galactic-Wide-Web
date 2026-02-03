@@ -39,6 +39,12 @@ class DataManagementCog(commands.Cog):
     async def before_startup(self) -> None:
         await self.bot.wait_until_ready()
 
+    @startup.error
+    async def startup_error(self, error: Exception) -> None:
+        error_handler = self.bot.get_cog("ErrorHandlerCog")
+        if error_handler:
+            await error_handler.log_error(None, error, "startup loop")
+
     @tasks.loop(
         time=[time(hour=j, minute=i, second=45) for j in range(24) for i in range(60)]
     )
@@ -71,6 +77,12 @@ class DataManagementCog(commands.Cog):
     @pull_from_api.before_loop
     async def before_pull_from_api(self) -> None:
         await self.bot.wait_until_ready()
+
+    @pull_from_api.error
+    async def api_changes_error(self, error: Exception) -> None:
+        error_handler = self.bot.get_cog("ErrorHandlerCog")
+        if error_handler:
+            await error_handler.log_error(None, error, "api_changes loop")
 
 
 def setup(bot: GalacticWideWebBot):

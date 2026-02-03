@@ -216,6 +216,12 @@ class WarUpdatesCog(commands.Cog):
     async def before_campaign_check(self) -> None:
         await self.bot.wait_until_ready()
 
+    @campaign_check.error
+    async def campaign_check_error(self, error: Exception) -> None:
+        error_handler = self.bot.get_cog("ErrorHandlerCog")
+        if error_handler:
+            await error_handler.log_error(None, error, "campaign_check loop")
+
     @tasks.loop(minutes=1)
     async def dss_check(self) -> None:
         update_start = datetime.now()
@@ -335,6 +341,12 @@ class WarUpdatesCog(commands.Cog):
     async def before_dss_check(self) -> None:
         await self.bot.wait_until_ready()
 
+    @dss_check.error
+    async def dss_check_error(self, error: Exception) -> None:
+        error_handler = self.bot.get_cog("ErrorHandlerCog")
+        if error_handler:
+            await error_handler.log_error(None, error, "dss_check loop")
+
     @tasks.loop(minutes=1)
     async def region_check(self) -> None:
         update_start = datetime.now()
@@ -445,6 +457,12 @@ class WarUpdatesCog(commands.Cog):
     @region_check.before_loop
     async def before_region_check(self) -> None:
         await self.bot.wait_until_ready()
+
+    @region_check.error
+    async def region_check_error(self, error: Exception) -> None:
+        error_handler = self.bot.get_cog("ErrorHandlerCog")
+        if error_handler:
+            await error_handler.log_error(None, error, "region_check loop")
 
 
 def setup(bot: GalacticWideWebBot) -> None:

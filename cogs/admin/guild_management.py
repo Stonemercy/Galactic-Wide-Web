@@ -97,6 +97,12 @@ class GuildManagementCog(commands.Cog):
     async def before_guild_check(self) -> None:
         await self.bot.wait_until_ready()
 
+    @guild_checking.error
+    async def guild_checking_error(self, error: Exception) -> None:
+        error_handler = self.bot.get_cog("ErrorHandlerCog")
+        if error_handler:
+            await error_handler.log_error(None, error, "guild_checking loop")
+
     @commands.Cog.listener("on_button_click")
     async def ban_listener(self, inter: MessageInteraction) -> None:
         if inter.component.custom_id == "guild_remove":

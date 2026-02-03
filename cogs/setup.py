@@ -5,7 +5,6 @@ from disnake import (
     Embed,
     File,
     Forbidden,
-    HTTPException,
     InteractionContextTypes,
     MessageInteraction,
     NotFound,
@@ -79,17 +78,7 @@ class SetupCog(commands.Cog):
         },
     )
     async def setup(self, inter: AppCmdInter) -> None:
-        try:
-            await inter.response.defer(ephemeral=True)
-        except HTTPException:
-            await inter.channel.send(
-                "There was an error with that command, please try again.",
-                delete_after=5,
-            )
-            return
-        self.bot.logger.info(
-            f"{self.qualified_name} | /{inter.application_command.name}"
-        )
+        await inter.response.defer(ephemeral=True)
         guild = GWWGuilds.get_specific_guild(id=inter.guild_id)
         if not guild:
             self.bot.logger.error(
@@ -115,14 +104,7 @@ class SetupCog(commands.Cog):
             and "clear_features_button-" not in inter.component.custom_id
         ):
             return
-        try:
-            await inter.response.defer()
-        except HTTPException:
-            await inter.channel.send(
-                "There was an error with this interaction, please try again.",
-                delete_after=5,
-            )
-            return
+        await inter.response.defer()
         guild: GWWGuild = GWWGuilds.get_specific_guild(inter.guild_id)
         guild_language = self.bot.json_dict["languages"][guild.language]
         container = ui.Container.from_component(inter.message.components[0])
@@ -266,12 +248,9 @@ class SetupCog(commands.Cog):
                         )
                     ),
                 )
-                try:
-                    await inter.edit_original_response(
-                        components=container,
-                    )
-                except Exception as e:
-                    self.bot.logger.error(f"ERROR SetupCog | {e}")
+                await inter.edit_original_response(
+                    components=container,
+                )
 
     @commands.Cog.listener("on_dropdown")
     async def on_dropdowns(self, inter: MessageInteraction) -> None:
@@ -280,14 +259,7 @@ class SetupCog(commands.Cog):
             and "feature_channel_select-" not in inter.component.custom_id
         ):
             return
-        try:
-            await inter.response.defer()
-        except HTTPException:
-            await inter.channel.send(
-                "There was an error with that dropdown, please try again.",
-                delete_after=5,
-            )
-            return
+        await inter.response.defer()
         guild: GWWGuild = GWWGuilds.get_specific_guild(inter.guild_id)
         guild_language = self.bot.json_dict["languages"][guild.language]
         if inter.component.custom_id == "dashboard_channel_select":
@@ -336,18 +308,10 @@ class SetupCog(commands.Cog):
                         json_dict=self.bot.json_dict,
                         compact_level=compact_level,
                     )
-                try:
-                    message = await dashboard_channel.send(
-                        embeds=dashboard.embeds,
-                        file=File("resources/dashboard/banner.png"),
-                    )
-                except Exception as e:
-                    self.bot.logger.error(f"SetupCog | dashboard setup | {e}")
-                    await inter.send(
-                        "An error has occured, I have contacted Super Earth High Command.",
-                        ephemeral=True,
-                    )
-                    return
+                message = await dashboard_channel.send(
+                    embeds=dashboard.embeds,
+                    file=File("resources/dashboard/banner.png"),
+                )
                 guild.features.append(
                     Feature(
                         name="dashboards",
@@ -373,7 +337,7 @@ class SetupCog(commands.Cog):
                 map_channel = self.bot.get_channel(
                     inter.values[0]
                 ) or await self.bot.fetch_channel(inter.values[0])
-            except:
+            except (NotFound, Forbidden):
                 await inter.send(
                     guild_language["setup"]["missing_perm"].format(
                         permissions="\n-# `View Channel`"
@@ -476,7 +440,7 @@ class SetupCog(commands.Cog):
                 channel = self.bot.get_channel(
                     inter.values[0]
                 ) or await self.bot.fetch_channel(inter.values[0])
-            except:
+            except (NotFound, Forbidden):
                 await inter.send(
                     guild_language["setup"]["cant_find_channel"],
                     ephemeral=True,

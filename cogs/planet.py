@@ -4,7 +4,6 @@ from disnake import (
     ApplicationInstallTypes,
     Colour,
     File,
-    HTTPException,
     InteractionContextTypes,
     MediaGalleryItem,
     ui,
@@ -61,17 +60,7 @@ class PlanetCog(commands.Cog):
             description="Do you want other people to see the response to this command?",
         ),
     ) -> None:
-        try:
-            await inter.response.defer(ephemeral=public != "Yes")
-        except HTTPException:
-            await inter.channel.send(
-                "There was an error with that command, please try again.",
-                delete_after=5,
-            )
-            return
-        self.bot.logger.info(
-            f"{self.qualified_name} | /{inter.application_command.name} <{planet = }> <{with_map = }> <{public = }>"
-        )
+        await inter.response.defer(ephemeral=public != "Yes")
         planet_data = None
         if "-" not in planet:
             planet_data_list = [

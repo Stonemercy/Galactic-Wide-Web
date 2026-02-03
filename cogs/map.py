@@ -98,6 +98,12 @@ class MapCog(commands.Cog):
     async def before_map_poster(self) -> None:
         await self.bot.wait_until_ready()
 
+    @map_poster.error
+    async def map_poster_error(self, error: Exception) -> None:
+        error_handler = self.bot.get_cog("ErrorHandlerCog")
+        if error_handler:
+            await error_handler.log_error(None, error, "map_poster loop")
+
     @wait_for_startup()
     @commands.slash_command(
         description="Get an up-to-date map of the galaxy",
@@ -117,17 +123,7 @@ class MapCog(commands.Cog):
             description="Do you want other people to see the response to this command?",
         ),
     ) -> None:
-        self.bot.logger.info(
-            f"{self.qualified_name} | /{inter.application_command.name} <{public = }>"
-        )
-        try:
-            await inter.response.defer(ephemeral=public != "Yes")
-        except HTTPException:
-            await inter.channel.send(
-                "There was an error with that command, please try again.",
-                delete_after=5,
-            )
-            return
+        await inter.response.defer(ephemeral=public != "Yes")
         if inter.guild:
             guild = GWWGuilds.get_specific_guild(id=inter.guild_id)
             if not guild:

@@ -1,10 +1,5 @@
 from datetime import datetime, time
-from disnake import (
-    AppCmdInter,
-    ApplicationInstallTypes,
-    HTTPException,
-    InteractionContextTypes,
-)
+from disnake import AppCmdInter, ApplicationInstallTypes, InteractionContextTypes
 from disnake.ext import commands, tasks
 from utils.bot import GalacticWideWebBot
 from utils.checks import wait_for_startup
@@ -69,6 +64,12 @@ class PersonalOrderCog(commands.Cog):
     async def before_po_updates(self) -> None:
         await self.bot.wait_until_ready()
 
+    @personal_order_updates.error
+    async def personal_order_updates_error(self, error: Exception) -> None:
+        error_handler = self.bot.get_cog("ErrorHandlerCog")
+        if error_handler:
+            await error_handler.log_error(None, error, "personal_order_updates loop")
+
     @wait_for_startup()
     @commands.slash_command(
         description="Get the current Personal Order",
@@ -88,17 +89,7 @@ class PersonalOrderCog(commands.Cog):
             description="Do you want other people to see the response to this command?",
         ),
     ) -> None:
-        try:
-            await inter.response.defer(ephemeral=public != "Yes")
-        except HTTPException:
-            await inter.channel.send(
-                "There was an error with that command, please try again.",
-                delete_after=5,
-            )
-            return
-        self.bot.logger.info(
-            f"{self.qualified_name} | /{inter.application_command.name} <{public = }>"
-        )
+        await inter.response.defer(ephemeral=public != "Yes")
         if not self.bot.data.formatted_data.personal_order:
             await inter.send(
                 "Personal order unavailable. Apologies for the inconvenience",

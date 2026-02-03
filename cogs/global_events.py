@@ -1,11 +1,5 @@
 from datetime import datetime
-from disnake import (
-    AppCmdInter,
-    ApplicationInstallTypes,
-    Embed,
-    HTTPException,
-    InteractionContextTypes,
-)
+from disnake import AppCmdInter, ApplicationInstallTypes, InteractionContextTypes
 from disnake.ext import commands, tasks
 from main import GalacticWideWebBot
 from utils.checks import wait_for_startup
@@ -86,6 +80,12 @@ class GlobalEventsCog(commands.Cog):
     async def before_ge_check(self) -> None:
         await self.bot.wait_until_ready()
 
+    @global_event_check.error
+    async def global_event_check_error(self, error: Exception) -> None:
+        error_handler = self.bot.get_cog("ErrorHandlerCog")
+        if error_handler:
+            await error_handler.log_error(None, error, "global_event_check loop")
+
     @wait_for_startup()
     @commands.slash_command(
         description="[WIP] Returns information on the current global event(s) - if available.",
@@ -105,17 +105,7 @@ class GlobalEventsCog(commands.Cog):
             description="If you want the response to be seen by others in the server.",
         ),
     ) -> None:
-        try:
-            await inter.response.defer(ephemeral=public != "Yes")
-        except HTTPException:
-            await inter.channel.send(
-                "There was an error with that command, please try again.",
-                delete_after=5,
-            )
-            return
-        self.bot.logger.info(
-            f"{self.qualified_name} | /{inter.application_command.name} <{public = }>"
-        )
+        await inter.response.defer(ephemeral=public != "Yes")
         if inter.guild:
             guild = GWWGuilds.get_specific_guild(id=inter.guild_id)
             if not guild:

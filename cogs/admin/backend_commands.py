@@ -64,9 +64,6 @@ class BackendCommandsCog(commands.Cog):
         ),
     ) -> None:
         await inter.response.defer(ephemeral=public != "Yes")
-        self.bot.logger.info(
-            f"{self.qualified_name} | /{inter.application_command.name} <{id = }> <{on_planet = }> <{public = }> | used by <@{inter.author.id}> | @{inter.author.global_name}"
-        )
         gwe_list = []
         if id != "0":
             try:
@@ -166,9 +163,6 @@ class BackendCommandsCog(commands.Cog):
         ),
     ) -> None:
         await inter.response.defer(ephemeral=public != "Yes")
-        self.bot.logger.info(
-            f"{self.qualified_name} | /{inter.application_command.name} <{title = }> <{public = }> | used by <@{inter.author.id}> | @{inter.author.global_name}"
-        )
         try:
             ge_id = int(title.split("-")[0])
         except ValueError:
