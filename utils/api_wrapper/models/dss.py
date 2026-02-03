@@ -33,12 +33,12 @@ class DSS(ReprMixin):
     class TacticalAction(ReprMixin):
         def __init__(self, tactical_action_raw_data: dict, war_start_time: int) -> None:
             """A Tactical Action for the DSS"""
-            self.id: int = tactical_action_raw_data["id32"]
+            self.id: int = tactical_action_raw_data.get("id32", 0)
             self.name: str = tactical_action_raw_data.get(
                 "name", "Unnamed Tactical Action"
             )
             self.description: str = tactical_action_raw_data.get("description", "")
-            self.status: int = tactical_action_raw_data["status"]
+            self.status: int = tactical_action_raw_data.get("status", 0)
             self.status_end: int = tactical_action_raw_data[
                 "statusExpireAtWarTimeSeconds"
             ]
@@ -50,7 +50,7 @@ class DSS(ReprMixin):
             )
             self.cost: list[DSS.TacticalAction.Cost] = [
                 DSS.TacticalAction.Cost(cost=cost)
-                for cost in tactical_action_raw_data["cost"]
+                for cost in tactical_action_raw_data.get("cost", [])
             ]
             self.cost_changes: dict[str, BaseTrackerEntry] = {}
             self.emoji = getattr(Emojis.DSS, self.name.lower().replace(" ", "_"), "")
