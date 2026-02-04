@@ -125,7 +125,7 @@ class APIChangesCog(commands.Cog):
                     )
                 ]
                 msg = await self.bot.channels.api_changes_channel.send(
-                    components=components, delete_after=300
+                    components=components
                 )
                 await msg.publish()
 
