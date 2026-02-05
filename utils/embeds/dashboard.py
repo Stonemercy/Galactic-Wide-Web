@@ -1582,7 +1582,11 @@ class Dashboard:
                     reverse=True,
                 )
                 next_planet = sorted_planets[0]
-                if because_of_planet and dss.planet == next_planet[0]:
+                if (
+                    because_of_planet
+                    and dss.planet == next_planet[0]
+                    and len(dss.votes.available_planets) == 8
+                ):
                     next_planet = sorted_planets[1]
                 self.description += f"\n-# {language_json['embeds']['Dashboard']['DSSEmbed']['next_location']}: {next_planet[0].faction.emoji} **{next_planet[0].loc_names.get(language_json['code_long'], next_planet[0].name)}**"
 
