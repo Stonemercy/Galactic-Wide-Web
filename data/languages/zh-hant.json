@@ -106,9 +106,9 @@
         "RegionChangesContainer": {
             "title": "地區更新",
             "victories": "勝利",
-            "new_regions": "新地區已開放",
+            "new_regions": "新城市已開放",
             "region_victory": "\n### {region_emoji} {region_name} 位於 {planet_name} 已從 {faction_name} 手中解放",
-            "new_region": "### {region_emoji} {region_name} 現已在 {planet_name} 可用",
+            "new_region": "### {region_emoji} {region_name} 現已在 {planet_name} 開放",
             "resistance": "\n-# 抵抗力: **{regen}/hr**"
         },
         "SetupContainer": {
