@@ -109,9 +109,9 @@ class RegionChangesContainer(ui.Container, ReprMixin):
                     ],
                     faction_name=self.container_json.factions[
                         (
-                            region.planet.faction.full_name
+                            f"{region.planet.faction.full_name}_plural"
                             if not region.planet.event
-                            else region.planet.event.faction.full_name
+                            else f"{region.planet.event.faction.full_name}_plural"
                         )
                     ],
                 )
