@@ -136,7 +136,7 @@ class CampaignChangesContainer(ui.Container, ReprMixin):
             ui.TextDisplay(
                 self.json.container["liberated"].format(
                     planet_name=planet.loc_names[self.json.lang_code_long],
-                    faction_name=self.json.factions[taken_from],
+                    faction_name=self.json.factions[f"{taken_from}_plural"],
                 )
             ),
             accessory=ui.Thumbnail(VICTORY_ICONS[taken_from.lower()]),
@@ -170,7 +170,7 @@ class CampaignChangesContainer(ui.Container, ReprMixin):
             ui.TextDisplay(
                 self.json.container["defended"].format(
                     planet_name=planet.loc_names[self.json.lang_code_long],
-                    faction_name=self.json.factions[defended_against],
+                    faction_name=self.json.factions[f"{defended_against}_plural"],
                 )
             ),
             accessory=ui.Thumbnail(VICTORY_ICONS[defended_against.lower()]),
@@ -317,7 +317,9 @@ class CampaignChangesContainer(ui.Container, ReprMixin):
                 self.json.container["planet_lost"].format(
                     planet_name=planet.loc_names[self.json.lang_code_long],
                     emojis=planet.exclamations,
-                    faction_name=self.json.factions[planet.faction.full_name],
+                    faction_name=self.json.factions[
+                        f"{planet.faction.full_name}_plural"
+                    ],
                 )
             ),
             accessory=ui.Thumbnail(LOSS_ICONS[planet.faction.full_name.lower()]),
