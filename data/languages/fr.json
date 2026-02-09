@@ -186,7 +186,7 @@
                     "type6": "{emoji} Utiliser le **{item}**{count_pre}{count}{count_post}{race_pre}{race}{race_post}{diff_pre}{diff}{diff_post}{multi}.",
                     "type7_f_p": "{emoji} Extraire d'un {mtype} réussi{race_pre}{race}{race_post}{diff_pre}{diff}{diff_post}{count_pre}{count}{count_post}{multi}{ext_pre}{ext}{ext_post}",
                     "type7_r": "{emoji} Extraire d'un {mtype} réussi{diff_pre}{diff}{diff_post}{count_pre}{count}{count_post}{multi}{ext_pre}{ext}{ext_post}",
-                    "type9_f": "{emoji} Compléter une **Opération**{race_pre}{race}{race_post}{diff_pre}{diff}{diff_post}{count_pre}{count}{count_post}{multi}{ext_pre}{ext}{ext_post}",
+                    "type9_f_p": "{emoji} Compléter une **Opération**{race_pre}{race}{race_post}{diff_pre}{diff}{diff_post}{count_pre}{count}{count_post}{multi}{ext_pre}{ext}{ext_post}",
                     "type9_r": "{emoji} Compléter une **Opération**{diff_pre}{diff}{diff_post}{count_pre}{count}{count_post}{multi}{ext_pre}{ext}{ext_post}",
                     "type10": "{emoji} Faire un don de **{count} {item}** {item_type}",
                     "type11": "{emoji} Libérer **{location}**",
