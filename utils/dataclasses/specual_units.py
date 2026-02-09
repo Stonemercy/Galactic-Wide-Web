@@ -13,6 +13,7 @@ class SpecialUnits:
         ("RUPTURE STRAIN", Emojis.SpecialUnits.rupture_strain): {1303},
         ("DRAGONROACHES", Emojis.SpecialUnits.dragonroaches): {1306},
         ("HIVE LORDS", Emojis.SpecialUnits.hive_lords): {1307},
+        ("CYBORGS", Emojis.SpecialUnits.cyborgs): {1360},
     }
 
     @classmethod

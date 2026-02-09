@@ -137,6 +137,7 @@ class Emojis:
         rupture_strain = "<:s:1412402213938270258>"
         dragonroaches = "<:s:1412402344502759425>"
         hive_lords = "<:s:1412402306334457916>"
+        cyborgs = "<:s:1467949410573877545>"
 
     @dataclass
     class PlanetFeatures:
