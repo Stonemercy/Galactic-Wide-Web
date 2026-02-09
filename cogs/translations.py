@@ -56,6 +56,12 @@ class TranslationsCog(commands.Cog):
                             f"-# Missing: {missing_count}"
                         ),
                     )
+                    if extra_count:
+                        extra_text = "\n".join([s for s in diffs if "Extra" in s])
+                        embed.add_field("Extra", f"{extra_text}", inline=False)
+                    if missing_count:
+                        missing_text = "\n".join([s for s in diffs if "Missing" in s])
+                        embed.add_field("missing", f"{missing_text}", inline=False)
                 else:
                     embed.add_field("None :)", "Everything has been translated so far")
                 embeds.append(embed)
