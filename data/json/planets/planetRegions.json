@@ -297,6 +297,32 @@
         "description": "",
         "descriptions": {}
     },
+    "2340207578": {
+        "name": "AUTONOMY",
+        "names": {
+            "en-GB": "AUTONOMY",
+            "de-DE": "AUTONOMY",
+            "es-ES": "AUTONOM\u00cdA",
+            "fr-FR": "AUTONOMIS",
+            "it-IT": "AUTONOMIA",
+            "pt-BR": "AUTONOMIA",
+            "ru-RU": "\u0410\u0412\u0422\u041e\u041d\u041e\u041c\u041d\u041e\u0421\u0422\u042c",
+            "zh-Hans": "\u81ea\u56fa\u5821",
+            "zh-Hant": "\u81ea\u6cbb\u57ce"
+        },
+        "description": "High Command has identified this Megafactory as one of two potential beachheads for the invasion of Cyberstan. Rapid insertion protocols will restrict deployment ammunition.",
+        "descriptions": {
+            "en-GB": "High Command has identified this Megafactory as one of two potential beachheads for the invasion of Cyberstan. Rapid insertion protocols will restrict deployment ammunition.",
+            "de-DE": "Das Oberkommando hat diese Megafabrik als eine von zwei potenziellen Ausgangsstellungen f\u00fcr die Invasion von Cyberstan identifiziert. Schnelleinsatzprotokolle erschweren den Einsatz von Munition.",
+            "es-ES": "El alto mando ha identificado esta megaf\u00e1brica como una de dos potenciales candidatas para la invasi\u00f3n de Cyberstan. Los protocolos de inserci\u00f3n r\u00e1pida restringir\u00e1n la munici\u00f3n de despliegue.",
+            "fr-FR": "L'\u00e9tat-major estime que cette m\u00e9ga-usine pourrait servir de t\u00eate de pont pour l'invasion de Cyberstan. Les protocoles d'insertion rapide limiteront la quantit\u00e9 de munitions d\u00e9ploy\u00e9es.",
+            "it-IT": "L'Alto comando ha individuato questa megafabbrica come una delle due possibili teste di ponte per l'invasione di Cyberstan. I protocolli di inserimento rapido limiteranno le munizioni disponibili.",
+            "pt-BR": "O Alto Comando identificou que essa megaf\u00e1brica \u00e9 uma das duas cabe\u00e7as de ponte poss\u00edveis para a invas\u00e3o a Ciberst\u00e2nia. Em conformidade com os protocolos de inser\u00e7\u00e3o r\u00e1pida, o envio de muni\u00e7\u00e3o ser\u00e1 restrito.",
+            "ru-RU": "\u0412\u044b\u0441\u0448\u0435\u0435 \u043a\u043e\u043c\u0430\u043d\u0434\u043e\u0432\u0430\u043d\u0438\u0435 \u0441\u0447\u0438\u0442\u0430\u0435\u0442 \u044d\u0442\u0443 \u043c\u0435\u0433\u0430\u0444\u0430\u0431\u0440\u0438\u043a\u0443 \u043e\u0434\u043d\u0438\u043c \u0438\u0437 \u0434\u0432\u0443\u0445 \u0432\u043e\u0437\u043c\u043e\u0436\u043d\u044b\u0445 \u043f\u043b\u0430\u0446\u0434\u0430\u0440\u043c\u043e\u0432 \u0434\u043b\u044f \u0432\u0442\u043e\u0440\u0436\u0435\u043d\u0438\u044f \u043d\u0430 \u041a\u0438\u0431\u0435\u0440\u0441\u0442\u0430\u043d. \u041f\u0440\u043e\u0442\u043e\u043a\u043e\u043b\u044b \u0431\u044b\u0441\u0442\u0440\u043e\u0433\u043e \u043d\u0430\u0441\u0442\u0443\u043f\u043b\u0435\u043d\u0438\u044f \u043e\u0433\u0440\u0430\u043d\u0438\u0447\u0430\u0442 \u043a\u043e\u043b\u0438\u0447\u0435\u0441\u0442\u0432\u043e \u0434\u043e\u0441\u0442\u0443\u043f\u043d\u044b\u0445 \u0431\u043e\u0435\u043f\u0440\u0438\u043f\u0430\u0441\u043e\u0432.",
+            "zh-Hans": "\u6700\u9ad8\u6307\u6325\u90e8\u5df2\u5c06\u8fd9\u5ea7\u8d85\u5927\u578b\u5de5\u5382\u8ba4\u5b9a\u4e3a\u5165\u4fb5\u751f\u5316\u65af\u5766\u7684\u4e24\u4e2a\u6f5c\u5728\u6ee9\u5934\u5821\u4e4b\u4e00\u3002\u5feb\u901f\u7a81\u5165\u534f\u8bae\u5c06\u9650\u5236\u90e8\u7f72\u5f39\u836f\u3002",
+            "zh-Hant": "\u6700\u9ad8\u53f8\u4ee4\u90e8\u5df2\u5c07\u9019\u5ea7\u8d85\u7d1a\u5de5\u5ee0\u5217\u70ba\u5165\u4fb5\u751f\u5316\u65af\u5766\u7684\u5169\u500b\u6f5b\u5728\u7058\u982d\u9663\u5730\u4e4b\u4e00\u3002\u5feb\u901f\u7a81\u5165\u5354\u8b70\u5c07\u9650\u5236\u80fd\u90e8\u7f72\u7684\u5f48\u85e5\u91cf\u3002"
+        }
+    },
     "3309151713": {
         "name": "BARRACKSBURG",
         "names": {
@@ -632,6 +658,32 @@
         },
         "description": "",
         "descriptions": {}
+    },
+    "3404329179": {
+        "name": "CAMRAT FOR",
+        "names": {
+            "en-GB": "CAMRAT FOR",
+            "de-DE": "CAMRAT FOR",
+            "es-ES": "CAMRAT FOR",
+            "fr-FR": "CAMRAT FOR",
+            "it-IT": "CAMRAT FOR",
+            "pt-BR": "CAMRAT FOR",
+            "ru-RU": "\u041a\u0410\u041c\u0420\u0410\u0422 \u0424\u041e",
+            "zh-Hans": "\u5361\u59c6\u62c9\u7279\u5821",
+            "zh-Hant": "\u574e\u62c9\u7279\u5f17\u723e"
+        },
+        "description": "This Megafactory contains significant Automaton production facilities. Anti-orbital defenses will tax Super Destroyer resources, resulting in longer orbital cooldowns.",
+        "descriptions": {
+            "en-GB": "This Megafactory contains significant Automaton production facilities. Anti-orbital defenses will tax Super Destroyer resources, resulting in longer orbital cooldowns.",
+            "de-DE": "Diese Megafabrik beherbergt zentrale Produktionsanlagen der Roboter. Anti-Orbital-Verteidigungen verbrauchen \u00dcber-Zerst\u00f6rer-Ressourcen, was zu l\u00e4ngeren Orbital-Abklingzeiten f\u00fchrt.",
+            "es-ES": "Esta megaf\u00e1brica contiene instalaciones de producci\u00f3n significativas de los aut\u00f3matas. Las defensas antiorbitales desafiar\u00e1n los recursos de los Superdestructores, lo que dar\u00e1 lugar a menores tiempos de recuperaci\u00f3n orbitales.",
+            "fr-FR": "D'importants sites de production automatons ont \u00e9t\u00e9 install\u00e9s dans cette m\u00e9ga-usine. Les canons de d\u00e9fense orbitale \u00e9puisent les ressources du Super Destroyer et prolongent les d\u00e9lais de rechargement des stratag\u00e8mes orbitaux.",
+            "it-IT": "Questa megafabbrica contiene importanti strutture produttive degli Automaton. Le difese antiorbitali costeranno risorse preziose ai Super Destroyer, con conseguenti tempi di ricarica orbitali pi\u00f9 lunghi.",
+            "pt-BR": "Essa megaf\u00e1brica abriga instala\u00e7\u00f5es significativas para a produ\u00e7\u00e3o aut\u00f4mata. As defesas antiorbitais sobrecarregar\u00e3o os recursos do Superdestr\u00f3ier, resultando em tempos de recarga orbital prolongados.",
+            "ru-RU": "\u0412 \u044d\u0442\u043e\u0439 \u043c\u0435\u0433\u0430\u0444\u0430\u0431\u0440\u0438\u043a\u0435 \u0441\u043e\u0441\u0440\u0435\u0434\u043e\u0442\u043e\u0447\u0435\u043d\u044b \u0437\u043d\u0430\u0447\u0438\u0442\u0435\u043b\u044c\u043d\u044b\u0435 \u043f\u0440\u043e\u0438\u0437\u0432\u043e\u0434\u0441\u0442\u0432\u0435\u043d\u043d\u044b\u0435 \u043c\u043e\u0449\u043d\u043e\u0441\u0442\u0438 \u0430\u0432\u0442\u043e\u043c\u0430\u0442\u043e\u043d\u043e\u0432. \u041a\u043e\u043d\u0442\u0440\u043e\u0440\u0431\u0438\u0442\u0430\u043b\u044c\u043d\u0430\u044f \u0437\u0430\u0449\u0438\u0442\u0430 \u043f\u0435\u0440\u0435\u0442\u044f\u0433\u0438\u0432\u0430\u0435\u0442 \u043d\u0430 \u0441\u0435\u0431\u044f \u0447\u0430\u0441\u0442\u044c \u0440\u0435\u0441\u0443\u0440\u0441\u043e\u0432 \u0441\u0443\u043f\u0435\u0440\u044d\u0441\u043c\u0438\u043d\u0446\u0435\u0432, \u0447\u0442\u043e \u043f\u0440\u0438\u0432\u043e\u0434\u0438\u0442 \u043a \u0437\u0430\u043c\u0435\u0434\u043b\u0435\u043d\u0438\u044e \u043f\u0435\u0440\u0435\u0437\u0430\u0440\u044f\u0434\u043a\u0438 \u043e\u0440\u0431\u0438\u0442\u0430\u043b\u044c\u043d\u044b\u0445 \u0441\u0442\u0440\u0430\u0442\u0430\u0433\u0435\u043c.",
+            "zh-Hans": "\u8fd9\u5ea7\u8d85\u5927\u578b\u5de5\u5382\u62e5\u6709\u5927\u91cf\u673a\u5668\u4eba\u751f\u4ea7\u8bbe\u65bd\u3002\u53cd\u8f68\u9053\u9632\u5fa1\u8bbe\u65bd\u5c06\u6d88\u8017\u8d85\u7ea7\u9a71\u9010\u8230\u8d44\u6e90\uff0c\u5bfc\u81f4\u8f68\u9053\u652f\u63f4\u51b7\u5374\u65f6\u95f4\u5ef6\u957f\u3002",
+            "zh-Hant": "\u9019\u5ea7\u8d85\u7d1a\u5de5\u5ee0\u64c1\u6709\u91cd\u8981\u7684\u6a5f\u5668\u4eba\u751f\u7522\u8a2d\u65bd\u3002\u53cd\u8ecc\u9053\u9632\u79a6\u8a2d\u65bd\u5c07\u6d88\u8017\u8d85\u7d1a\u9a45\u9010\u8266\u7684\u8cc7\u6e90\uff0c\u5c0e\u81f4\u8ecc\u9053\u6b66\u5668\u51b7\u537b\u6642\u9593\u5ef6\u9577\u3002"
+        }
     },
     "3263074211": {
         "name": "CARBONDALE",
@@ -1405,6 +1457,22 @@
         "description": "",
         "descriptions": {}
     },
+    "3732722501": {
+        "name": "EVOLUTION PLATS",
+        "names": {
+            "en-GB": "EVOLUTION PLATS",
+            "de-DE": "EVOLUTION PLATS",
+            "es-ES": "PARCELAS DE EVOLUCI\u00d3N",
+            "fr-FR": "PLAT \u00c9VO",
+            "it-IT": "APPEZZAMENTO EVOLUTIVO",
+            "pt-BR": "CANTEIROS EVOLUTIVOS",
+            "ru-RU": "\u042d\u0412\u041e\u041b\u042e\u0426\u0418\u041e\u041d\u041d\u042b\u0419 \u0414\u0412\u041e\u0420",
+            "zh-Hans": "\u6f14\u5316\u9ad8\u5730",
+            "zh-Hant": "\u9032\u5316\u5e73\u53f0"
+        },
+        "description": "",
+        "descriptions": {}
+    },
     "1273177678": {
         "name": "EXALT",
         "names": {
@@ -1801,6 +1869,54 @@
             "ru-RU": "\u0413\u0410\u0420\u0410\u0416-\u0412-\u0414\u042e\u041d\u0410\u0425",
             "zh-Hans": "\u8f66\u5e93\u6c99\u4e18",
             "zh-Hant": "\u6c99\u4e18\u8eca\u5eab"
+        },
+        "description": "",
+        "descriptions": {}
+    },
+    "1235784042": {
+        "name": "GEM LICKET",
+        "names": {
+            "en-GB": "GEM LICKET",
+            "de-DE": "GEM LICKET",
+            "es-ES": "LICKET DE GEMAS",
+            "fr-FR": "GEM LICKET",
+            "it-IT": "GEMMA LICKET",
+            "pt-BR": "GEMA LICKET",
+            "ru-RU": "\u0413\u0415\u041c-\u041b\u0418\u041a\u0415\u0422",
+            "zh-Hans": "\u6676\u8680",
+            "zh-Hant": "\u5bf6\u77f3\u5229\u514b\u7279"
+        },
+        "description": "",
+        "descriptions": {}
+    },
+    "4248413283": {
+        "name": "GEM LICKET",
+        "names": {
+            "en-GB": "GEM LICKET",
+            "de-DE": "GEM LICKET",
+            "es-ES": "LICKET DE GEMAS",
+            "fr-FR": "GEM LICKET",
+            "it-IT": "GEMMA LICKET",
+            "pt-BR": "GEMA LICKET",
+            "ru-RU": "\u0413\u0415\u041c-\u041b\u0418\u041a\u0415\u0422",
+            "zh-Hans": "\u6676\u8680",
+            "zh-Hant": "\u5bf6\u77f3\u5229\u514b\u7279"
+        },
+        "description": "",
+        "descriptions": {}
+    },
+    "3311068219": {
+        "name": "GEMSTELLE GENERATOR",
+        "names": {
+            "en-GB": "GEMSTELLE GENERATOR",
+            "de-DE": "GEMSTELLE GENERATOR",
+            "es-ES": "GENERADOR DE ESTELAS DE GEMAS",
+            "fr-FR": "GEMSTEL GENERATOR",
+            "it-IT": "GENERATORE GEMSTELLA",
+            "pt-BR": "GERADOR GEMAESTELAR",
+            "ru-RU": "\u0413\u0415\u041d\u0415\u0420\u0410\u0422\u041e\u0420 \u0414\u0420\u0410\u0413\u041e\u0426\u0415\u041d\u041d\u041e\u0421\u0422\u0415\u0419",
+            "zh-Hans": "\u6676\u661f\u52a8\u529b",
+            "zh-Hant": "\u5bf6\u77f3\u767c\u96fb\u5ee0"
         },
         "description": "",
         "descriptions": {}
@@ -2429,6 +2545,22 @@
         "description": "",
         "descriptions": {}
     },
+    "3603744514": {
+        "name": "INDUSTRY ALLATEED",
+        "names": {
+            "en-GB": "INDUSTRY ALLATEED",
+            "de-DE": "INDUSTRY ALLATEED",
+            "es-ES": "INDUSTRIA ALLATEED",
+            "fr-FR": "INDUSTRIE ALA\u00c9",
+            "it-IT": "INDUSTRIA ALLATEED",
+            "pt-BR": "IND\u00daSTRIA ALLATEED",
+            "ru-RU": "\u0418\u041d\u0414\u0423\u0421\u0422\u0420\u0418\u0410\u041b\u042c\u041d\u042b\u0419",
+            "zh-Hans": "\u963f\u62c9\u63d0\u5fb7\u5de5\u4e1a",
+            "zh-Hant": "\u963f\u62c9\u63d0\u5fb7\u5de5\u90fd"
+        },
+        "description": "",
+        "descriptions": {}
+    },
     "1013683905": {
         "name": "INTEREST",
         "names": {
@@ -2521,6 +2653,22 @@
             "ru-RU": "\u041f\u041e\u0420\u0422 \u041a\u0410\u041b\u0410\u0421\u0410\u0422\u0410\u041c\u0410",
             "zh-Hans": "\u5361\u62c9\u8428\u5854\u9a6c\u6e2f",
             "zh-Hant": "\u5361\u62c9\u85a9\u5854\u99ac\u6e2f"
+        },
+        "description": "",
+        "descriptions": {}
+    },
+    "3756959393": {
+        "name": "KELLA METAMORPH",
+        "names": {
+            "en-GB": "KELLA METAMORPH",
+            "de-DE": "KELLA METAMORPH",
+            "es-ES": "METAMORFO KELLA",
+            "fr-FR": "KELLA M\u00c9TAMORPH",
+            "it-IT": "KELLA METAMORPH",
+            "pt-BR": "METAMORFOSE DE KELLA",
+            "ru-RU": "\u041a\u0415\u041b\u041b\u0410-\u041c\u0415\u0422\u0410\u041c\u041e\u0420\u0424",
+            "zh-Hans": "\u51ef\u62c9\u8715\u53d8\u57ce",
+            "zh-Hant": "\u51f1\u62c9\u86fb\u8b8a"
         },
         "description": "",
         "descriptions": {}
@@ -2861,6 +3009,32 @@
         "description": "",
         "descriptions": {}
     },
+    "2634960640": {
+        "name": "LURZA",
+        "names": {
+            "en-GB": "LURZA",
+            "de-DE": "LURZA",
+            "es-ES": "LURZA",
+            "fr-FR": "LURZA",
+            "it-IT": "LURZA",
+            "pt-BR": "LURZA",
+            "ru-RU": "\u041b\u0423\u0420\u0426\u0410",
+            "zh-Hans": "\u5362\u5c14\u624e\u5821",
+            "zh-Hant": "\u76e7\u723e\u624e"
+        },
+        "description": "Monuments in this Megafactory twist history to valorize the supposed resolve of Cyborgs to \"endure\" Super Earth's benevolent attempts to rehabilitate them. \n\nAnti-air defenses will hinder Eagle operations.",
+        "descriptions": {
+            "en-GB": "Monuments in this Megafactory twist history to valorize the supposed resolve of Cyborgs to \"endure\" Super Earth's benevolent attempts to rehabilitate them. \n\nAnti-air defenses will hinder Eagle operations.",
+            "de-DE": "Die Monumente in dieser Megafabrik verdrehen die Geschichte, um die angebliche Entschlossenheit der Cyborgs zu w\u00fcrdigen, \u201eauszuharren\u201c und die wohlwollenden Versuche von \u00dcber-Erde, sie zu rehabilitieren, zu ertragen. \n\nLuftabwehr-Verteidigungen werden Adler-Operationen erschweren.",
+            "es-ES": "Los monumentos de esta megaf\u00e1brica tergiversan la historia para dar valor a la supuesta resoluci\u00f3n de los c\u00edborgs para \"soportar\" los intentos benevolentes de Supertierra de rehabilitarlos. \n\nLas defensas antia\u00e9reas dificultar\u00e1n las operaciones del \u00c1guila.",
+            "fr-FR": "Les monuments \u00e9rig\u00e9s dans cette m\u00e9ga-usine d\u00e9forment la v\u00e9rit\u00e9 et laissent entendre que les valeureux cyborgs ont tout fait pour \u00ab endurer \u00bb les bienveillantes tentatives de r\u00e9habilitation de la Super-Terre. \n\nDes d\u00e9fenses antia\u00e9riennes emp\u00eachent les Aigles d'op\u00e9rer normalement.",
+            "it-IT": "I monumenti in questa megafabbrica distorcono la storia, celebrando la presunta tenacia dei Cyborg nel \"resistere\" ai benevoli sforzi della Super Terra per riabilitarli. \n\nLe difese antiaeree rallenteranno le operazioni degli Eagle.",
+            "pt-BR": "Monumentos nesta Megaf\u00e1brica reescrevem a hist\u00f3ria para enaltecer a suposta for\u00e7a de vontade dos Ciborgues em \"suportar\" as tentativas benevolentes da Superterra de reabilit\u00e1-los. \n\nDefesas antia\u00e9reas dificultar\u00e3o as opera\u00e7\u00f5es da \u00c1guia.",
+            "ru-RU": "\u0421\u0442\u0430\u0442\u0443\u0438 \u043d\u0430 \u044d\u0442\u043e\u0439 \u043c\u0435\u0433\u0430\u0444\u0430\u0431\u0440\u0438\u043a\u0435 \u0438\u0441\u043a\u0430\u0436\u0430\u044e\u0442 \u0438\u0441\u0442\u043e\u0440\u0438\u044e, \u0432\u043e\u0441\u0445\u0432\u0430\u043b\u044f\u044f \u0442\u0430\u043a \u043d\u0430\u0437\u044b\u0432\u0430\u0435\u043c\u0443\u044e \u0440\u0435\u0448\u0438\u043c\u043e\u0441\u0442\u044c \u043a\u0438\u0431\u043e\u0440\u0433\u043e\u0432 \u00ab\u0432\u044b\u0441\u0442\u043e\u044f\u0442\u044c\u00bb \u043f\u0435\u0440\u0435\u0434 \u043b\u0438\u0446\u043e\u043c \u0431\u043b\u0430\u0433\u043e\u0440\u043e\u0434\u043d\u044b\u0445 \u043f\u043e\u043f\u044b\u0442\u043e\u043a \u0421\u0443\u043f\u0435\u0440-\u0417\u0435\u043c\u043b\u0438 \u0440\u0435\u0430\u0431\u0438\u043b\u0438\u0442\u0438\u0440\u043e\u0432\u0430\u0442\u044c \u0438\u0445. \n\n\u0421\u0438\u0441\u0442\u0435\u043c\u044b \u041f\u0412\u041e \u043c\u0435\u0448\u0430\u044e\u0442 \u043e\u043f\u0435\u0440\u0430\u0446\u0438\u044f\u043c \u00ab\u041e\u0440\u043b\u043e\u0432\u00bb.",
+            "zh-Hans": "\u8fd9\u5ea7\u8d85\u5927\u578b\u5de5\u5382\u7684\u7eaa\u5ff5\u7891\u626d\u66f2\u5386\u53f2\uff0c\u9882\u626c\u751f\u5316\u4eba\u6240\u8c13\u201c\u5fcd\u53d7\u201d\u8d85\u7ea7\u5730\u7403\u4ec1\u6148\u6539\u9020\u8ba1\u5212\u7684\u51b3\u5fc3\u3002\n\n\u9632\u7a7a\u7cfb\u7edf\u5c06\u59a8\u788d\u201c\u98de\u9e70\u201d\u7684\u884c\u52a8\u3002",
+            "zh-Hant": "\u9019\u5ea7\u8d85\u7d1a\u5de5\u5ee0\u5167\u8a2d\u7f6e\u7684\u7d00\u5ff5\u7891\u626d\u66f2\u4e86\u6b77\u53f2\u3002\u8d85\u7d1a\u5730\u7403\u6539\u9020\u751f\u5316\u4eba\u539f\u70ba\u5584\u610f\u4e4b\u8209\uff0c\u5728\u9019\u88e1\u537b\u980c\u63da\u751f\u5316\u4eba\u300c\u5fcd\u53d7\u300d\u4e86\u9019\u4e00\u5207\u3002\n\n\u9632\u7a7a\u8a2d\u65bd\u5c07\u963b\u7919\u98db\u9df9\u865f\u7684\u7a7a\u8972\u884c\u52d5\u3002"
+        }
+    },
     "1063822606": {
         "name": "LUSCIOUS LIBERTY",
         "names": {
@@ -2953,6 +3127,22 @@
             "ru-RU": "\u041c\u0410\u041b\u042c\u041c\u0411\u0415\u0420\u0413\u0415\u0422",
             "zh-Hans": "\u9a6c\u5c14\u59c6\u8d1d\u5409\u7279",
             "zh-Hant": "\u99ac\u723e\u59c6\u8c9d\u91cc\u8036"
+        },
+        "description": "",
+        "descriptions": {}
+    },
+    "3216000044": {
+        "name": "MASKIN",
+        "names": {
+            "en-GB": "MASKIN",
+            "de-DE": "MASKIN",
+            "es-ES": "MASKIN",
+            "fr-FR": "MASKIN",
+            "it-IT": "MASKIN",
+            "pt-BR": "MASKIN",
+            "ru-RU": "\u041c\u0410\u0421\u041a\u0418\u041d",
+            "zh-Hans": "\u739b\u65af\u91d1",
+            "zh-Hant": "\u99ac\u65af\u91d1"
         },
         "description": "",
         "descriptions": {}
@@ -3675,6 +3865,64 @@
         "description": "",
         "descriptions": {}
     },
+    "2300130357": {
+        "name": "OMA PEMMA",
+        "names": {
+            "en-GB": "OMA PEMMA",
+            "de-DE": "OMA PEMMA",
+            "es-ES": "OMA PEMMA",
+            "fr-FR": "OMA PEMMA",
+            "it-IT": "OMA PEMMA",
+            "pt-BR": "OMA PEMMA",
+            "ru-RU": "\u041e\u041c\u0410-\u041f\u0415\u041c\u041c\u0410",
+            "zh-Hans": "\u6b27\u739b\u4f69\u739b",
+            "zh-Hant": "\u6b50\u746a\u4f69\u746a"
+        },
+        "description": "",
+        "descriptions": {}
+    },
+    "3495232119": {
+        "name": "OMA PEMMA",
+        "names": {
+            "en-GB": "OMA PEMMA",
+            "de-DE": "OMA PEMMA",
+            "es-ES": "OMA PEMMA",
+            "fr-FR": "OMA PEMMA",
+            "it-IT": "OMA PEMMA",
+            "pt-BR": "OMA PEMMA",
+            "ru-RU": "\u041e\u041c\u0410-\u041f\u0415\u041c\u041c\u0410",
+            "zh-Hans": "\u6b27\u739b\u4f69\u739b",
+            "zh-Hant": "\u6b50\u746a\u4f69\u746a"
+        },
+        "description": "",
+        "descriptions": {}
+    },
+    "1512842277": {
+        "name": "OMNIPARITUS",
+        "names": {
+            "en-GB": "OMNIPARITUS",
+            "de-DE": "OMNIPARITUS",
+            "es-ES": "OMNIPARITUS",
+            "fr-FR": "OMNIPARITUS",
+            "it-IT": "OMNIPARITUS",
+            "pt-BR": "OMNIPARITUS",
+            "ru-RU": "\u041e\u041c\u041d\u0418\u041f\u0410\u0420\u0418\u0422\u0423\u0421",
+            "zh-Hans": "\u5168\u8bdb\u5821",
+            "zh-Hant": "\u5168\u5e15\u91cc\u5716\u65af"
+        },
+        "description": "Roughly translates to \"Destroy Freedom At All Costs.\" Significant conventional SEAF assaults will be required to support an offensive here, straining ammunition resources.",
+        "descriptions": {
+            "en-GB": "Roughly translates to \"Destroy Freedom At All Costs.\" Significant conventional SEAF assaults will be required to support an offensive here, straining ammunition resources.",
+            "de-DE": "Grob \u00fcbersetzt bedeutet dies \u201eZerst\u00f6rt die Freiheit um jeden Preis.\u201c Um eine Offensive hier zu unterst\u00fctzen, sind erhebliche konventionelle S.E.A.F.-Angriffe erforderlich, was die Munitionsressourcen strapazieren wird.",
+            "es-ES": "Se traduce, m\u00e1s o menos, como \"Destruir la libertad cueste lo que cueste\". Har\u00e1n falta ataques convencionales S.E.A.F. significativos para apoyar un ataque aqu\u00ed, lo que presionar\u00e1 a los recursos de munici\u00f3n.",
+            "fr-FR": "Ce nom pourrait se traduire par \u00ab\u00a0D\u00e9truisez la libert\u00e9 \u00e0 tout prix\u00a0\u00bb. Il faudra d\u00e9ployer de nombreuses escouades S.E.A.F. pour soutenir une offensive \u00e0 cet endroit, ce qui aura de lourdes cons\u00e9quences sur l'approvisionnement en munitions.",
+            "it-IT": "Significa grossomodo \"La Libert\u00e0 va distrutta\". Per sostenere l'offensiva qui, saranno necessari importanti assalti FAST convenzionali, con un impatto sulle risorse di munizioni.",
+            "pt-BR": "Em tradu\u00e7\u00e3o livre, \u00e9 algo como \"Destruir a Liberdade a Qualquer Custo\". Ser\u00e3o necess\u00e1rios ataques convencionais significativos das SEAF para apoiar uma ofensiva no local, o que vai pressionar os estoques de muni\u00e7\u00e3o.",
+            "ru-RU": "\u041f\u0440\u0438\u043c\u0435\u0440\u043d\u043e \u043f\u0435\u0440\u0435\u0432\u043e\u0434\u0438\u0442\u0441\u044f \u043a\u0430\u043a \u00ab\u0443\u043d\u0438\u0447\u0442\u043e\u0436\u0438\u0442\u044c \u0421\u0432\u043e\u0431\u043e\u0434\u0443 \u043b\u044e\u0431\u043e\u0439 \u0446\u0435\u043d\u043e\u0439\u00bb. \u0414\u043b\u044f \u043f\u043e\u0434\u0434\u0435\u0440\u0436\u043a\u0438 \u043d\u0430\u0441\u0442\u0443\u043f\u043b\u0435\u043d\u0438\u044f \u043f\u043e\u0442\u0440\u0435\u0431\u0443\u0435\u0442\u0441\u044f \u043f\u0440\u0438\u0432\u043b\u0435\u0447\u044c \u0437\u043d\u0430\u0447\u0438\u0442\u0435\u043b\u044c\u043d\u043e\u0435 \u043a\u043e\u043b\u0438\u0447\u0435\u0441\u0442\u0432\u043e \u043e\u0442\u0440\u044f\u0434\u043e\u0432 \u0412\u0421\u0421\u0417, \u0447\u0442\u043e \u043f\u0440\u0438\u0432\u0435\u0434\u0435\u0442 \u043a \u0434\u0435\u0444\u0438\u0446\u0438\u0442\u0443 \u0431\u043e\u0435\u043f\u0440\u0438\u043f\u0430\u0441\u043e\u0432.",
+            "zh-Hans": "\u5927\u610f\u4e3a\u201c\u4e0d\u60dc\u4e00\u5207\u4ee3\u4ef7\u6467\u6bc1\u81ea\u7531\u201d\u3002\u5728\u6b64\u53d1\u52a8\u653b\u52bf\u9700\u8981\u8d85\u7ea7\u5730\u7403\u6b66\u88c5\u90e8\u961f\u8fdb\u884c\u5927\u89c4\u6a21\u5e38\u89c4\u7a81\u51fb\u652f\u63f4\uff0c\u5f39\u836f\u8d44\u6e90\u5c06\u5341\u5206\u7d27\u5f20\u3002",
+            "zh-Hant": "\u53ef\u5927\u7565\u8b6f\u70ba\uff1a\u300c\u4e0d\u60dc\u4e00\u5207\u4ee3\u50f9\u6467\u6bc0\u81ea\u7531\u300d\u3002\u9700\u8981\u5927\u898f\u6a21\u7684SEAF\u8ecd\u968a\u5e38\u898f\u7a81\u64ca\u652f\u63f4\u624d\u80fd\u767c\u52d5\u653b\u52e2\uff0c\u9019\u5c07\u4f7f\u5f48\u85e5\u8cc7\u6e90\u66f4\u52a0\u7dca\u5f35\u3002"
+        }
+    },
     "3491570579": {
         "name": "ON-EARSAHOU",
         "names": {
@@ -3911,6 +4159,22 @@
             "ru-RU": "\u041d\u0410\u0421\u0422\u041e\u0419\u0427\u0418\u0412\u041e\u0421\u0422\u042c",
             "zh-Hans": "\u575a\u97e7\u5e02",
             "zh-Hant": "\u6bc5\u529b\u4e4b\u5730"
+        },
+        "description": "",
+        "descriptions": {}
+    },
+    "3212687176": {
+        "name": "PERSISTENCE GATE",
+        "names": {
+            "en-GB": "PERSISTENCE GATE",
+            "de-DE": "PERSISTENCE GATE",
+            "es-ES": "PUERTA DE LA PERSISTENCIA",
+            "fr-FR": "PORT PERSISTANCE",
+            "it-IT": "PORTA DELLA PERSISTENZA",
+            "pt-BR": "PORT\u00c3O DA PERSIST\u00caNCIA",
+            "ru-RU": "\u0412\u0420\u0410\u0422\u0410 \u0421\u0422\u041e\u0419\u041a\u041e\u0421\u0422\u0418",
+            "zh-Hans": "\u6052\u4e45\u4e4b\u95e8",
+            "zh-Hant": "\u6046\u6bc5\u95dc"
         },
         "description": "",
         "descriptions": {}
@@ -4489,6 +4753,38 @@
         "description": "",
         "descriptions": {}
     },
+    "1881788943": {
+        "name": "SAMEN-STARK",
+        "names": {
+            "en-GB": "SAMEN-STARK",
+            "de-DE": "SAMEN-STARK",
+            "es-ES": "DUREZA SAMEN",
+            "fr-FR": "SAMEN-STARK",
+            "it-IT": "SAMEN-STARK",
+            "pt-BR": "SAMEN-STARK",
+            "ru-RU": "\u0421\u0410\u041c\u0415\u041d-\u0421\u0422\u0410\u0420\u041a",
+            "zh-Hans": "\u8428\u95e8-\u65af\u5854\u514b",
+            "zh-Hant": "\u85a9\u9580-\u65af\u5854\u514b"
+        },
+        "description": "",
+        "descriptions": {}
+    },
+    "1122447002": {
+        "name": "SAMEN-STARK",
+        "names": {
+            "en-GB": "SAMEN-STARK",
+            "de-DE": "SAMEN-STARK",
+            "es-ES": "DUREZA SAMEN",
+            "fr-FR": "SAMEN-STARK",
+            "it-IT": "SAMEN-STARK",
+            "pt-BR": "SAMEN-STARK",
+            "ru-RU": "\u0421\u0410\u041c\u0415\u041d-\u0421\u0422\u0410\u0420\u041a",
+            "zh-Hans": "\u8428\u95e8-\u65af\u5854\u514b",
+            "zh-Hant": "\u85a9\u9580-\u65af\u5854\u514b"
+        },
+        "description": "",
+        "descriptions": {}
+    },
     "2006541056": {
         "name": "SAORSA GLEN",
         "names": {
@@ -4873,6 +5169,32 @@
         "description": "",
         "descriptions": {}
     },
+    "2577020579": {
+        "name": "SOLIDARITET",
+        "names": {
+            "en-GB": "SOLIDARITET",
+            "de-DE": "SOLIDARITET",
+            "es-ES": "SOLIDARITET",
+            "fr-FR": "SOLIDARITET",
+            "it-IT": "SOLIDARITET",
+            "pt-BR": "SOLIDARITET",
+            "ru-RU": "\u0421\u041e\u041b\u0418\u0414\u0410\u0420\u041d\u041e\u0421\u0422\u042c",
+            "zh-Hans": "\u56e2\u7ed3\u5821",
+            "zh-Hant": "\u7d22\u5229\u9054\u91cc\u7279"
+        },
+        "description": "High Command has identified this Megafactory as one of two potential beachheads for the invasion of Cyberstan. Anti-air fixtures will hamper Pelican extraction.",
+        "descriptions": {
+            "en-GB": "High Command has identified this Megafactory as one of two potential beachheads for the invasion of Cyberstan. Anti-air fixtures will hamper Pelican extraction.",
+            "de-DE": "Das Oberkommando hat diese Megafabrik als eine von zwei potenziellen Ausgangsstellungen f\u00fcr die Invasion von Cyberstan identifiziert. Luftabwehranlagen erschweren die Pelikan-Evakuierung.",
+            "es-ES": "El alto mando ha identificado esta megaf\u00e1brica como una de dos potenciales candidatas para la invasi\u00f3n de Cyberstan. Los elementos antia\u00e9reos dificultar\u00e1n la extracci\u00f3n de los Pel\u00edcanos.",
+            "fr-FR": "L'\u00e9tat-major estime que cette m\u00e9ga-usine pourrait servir de t\u00eate de pont pour l'invasion de Cyberstan. Les d\u00e9fenses antia\u00e9riennes vont allonger les d\u00e9lais d'extraction du P\u00e9lican.",
+            "it-IT": "L'Alto comando ha individuato questa megafabbrica come una delle due possibili teste di ponte per l'invasione di Cyberstan. Le strutture antiaeree ostacoleranno l'estrazione dei Pelican.",
+            "pt-BR": "O Alto Comando identificou que essa megaf\u00e1brica \u00e9 uma das duas cabe\u00e7as de ponte poss\u00edveis para a invas\u00e3o a Ciberst\u00e2nia. As instala\u00e7\u00f5es antia\u00e9reas dificultar\u00e3o a opera\u00e7\u00e3o de extra\u00e7\u00e3o do Pelicano.",
+            "ru-RU": "\u0412\u044b\u0441\u0448\u0435\u0435 \u043a\u043e\u043c\u0430\u043d\u0434\u043e\u0432\u0430\u043d\u0438\u0435 \u0441\u0447\u0438\u0442\u0430\u0435\u0442 \u044d\u0442\u0443 \u043c\u0435\u0433\u0430\u0444\u0430\u0431\u0440\u0438\u043a\u0443 \u043e\u0434\u043d\u0438\u043c \u0438\u0437 \u0434\u0432\u0443\u0445 \u0432\u043e\u0437\u043c\u043e\u0436\u043d\u044b\u0445 \u043f\u043b\u0430\u0446\u0434\u0430\u0440\u043c\u043e\u0432 \u0434\u043b\u044f \u0432\u0442\u043e\u0440\u0436\u0435\u043d\u0438\u044f \u043d\u0430 \u041a\u0438\u0431\u0435\u0440\u0441\u0442\u0430\u043d. \u0421\u0440\u0435\u0434\u0441\u0442\u0432\u0430 \u041f\u0412\u041e \u0432\u0440\u0430\u0433\u0430 \u043c\u043e\u0433\u0443 \u043c\u0435\u0448\u0430\u0442\u044c \u044d\u0432\u0430\u043a\u0443\u0430\u0446\u0438\u0438 \u043d\u0430 \u00ab\u041f\u0435\u043b\u0438\u043a\u0430\u043d\u0430\u0445\u00bb.",
+            "zh-Hans": "\u6700\u9ad8\u6307\u6325\u90e8\u5df2\u5c06\u8fd9\u5ea7\u8d85\u5927\u578b\u5de5\u5382\u8ba4\u5b9a\u4e3a\u5165\u4fb5\u751f\u5316\u65af\u5766\u7684\u4e24\u4e2a\u6f5c\u5728\u6ee9\u5934\u5821\u4e4b\u4e00\u3002\u9632\u7a7a\u8bbe\u65bd\u5c06\u963b\u788d\u201c\u9e48\u9e55\u201d\u53f7\u64a4\u79bb\u3002",
+            "zh-Hant": "\u6700\u9ad8\u53f8\u4ee4\u90e8\u5df2\u5c07\u9019\u5ea7\u8d85\u7d1a\u5de5\u5ee0\u5217\u70ba\u5165\u4fb5\u751f\u5316\u65af\u5766\u7684\u5169\u500b\u6f5b\u5728\u7058\u982d\u9663\u5730\u4e4b\u4e00\u3002\u9632\u7a7a\u8a2d\u65bd\u5c07\u963b\u7919\u5858\u9d5d\u865f\u7684\u64a4\u96e2\u884c\u52d5\u3002"
+        }
+    },
     "3421372928": {
         "name": "SONGGUO CUN",
         "names": {
@@ -4904,6 +5226,32 @@
         },
         "description": "",
         "descriptions": {}
+    },
+    "2735744233": {
+        "name": "STAR KIELD",
+        "names": {
+            "en-GB": "STAR KIELD",
+            "de-DE": "STAR KIELD",
+            "es-ES": "ESTRELLA KIELD",
+            "fr-FR": "STARKILD",
+            "it-IT": "STAR KIELD",
+            "pt-BR": "STAR KIELD",
+            "ru-RU": "\u0421\u0422\u0410-\u041a\u0418\u041b\u0414",
+            "zh-Hans": "\u661f\u9668\u5821",
+            "zh-Hant": "\u661f\u57fa\u723e\u5fb7"
+        },
+        "description": "Roughly translates to \"All Humans Must Die.\" One of the largest Megafactories on Cyberstan. A critical military production node. Defended by the Jet Brigade.",
+        "descriptions": {
+            "en-GB": "Roughly translates to \"All Humans Must Die.\" One of the largest Megafactories on Cyberstan. A critical military production node. Defended by the Jet Brigade.",
+            "de-DE": "Grob \u00fcbersetzt bedeutet dies \u201eAlle Menschen m\u00fcssen sterben.\u201c Eine der gr\u00f6\u00dften Megafabriken auf Cyberstan. Ein zentraler milit\u00e4rischer Produktionsknoten. Verteidigt von der Jet-Brigade.",
+            "es-ES": "Se traduce, m\u00e1s o menos, por \"Todos los humanos deben morir\". Una de las megaf\u00e1bricas m\u00e1s grandes de Cyberstan. Un n\u00f3dulo de producci\u00f3n militar esencial. Defendido por la brigada de cazas.",
+            "fr-FR": "Ce nom pourrait se traduire par \u00ab\u00a0Tous les humains doivent mourir\u00a0\u00bb. Il s'agit d'une des m\u00e9ga-usines les plus importantes de Cyberstan. Un centre de production militaire capital. Prot\u00e9g\u00e9 par la brigade a\u00e9rienne.",
+            "it-IT": "Significa grossomodo \"Morte a tutti gli umani\". Una delle pi\u00f9 grandi megafabbriche di Cyberstan. Un cruciale polo di produzione militare. Difeso dal Battaglione jet.",
+            "pt-BR": "Em tradu\u00e7\u00e3o livre, \u00e9 algo como \"Todos os Humanos Devem Morrer\". Uma das maiores megaf\u00e1bricas em Ciberst\u00e2nia. Um important\u00edssimo nodo de produ\u00e7\u00e3o militar. A Brigada a jato est\u00e1 encarregada da sua defesa.",
+            "ru-RU": "\u041f\u0440\u0438\u043c\u0435\u0440\u043d\u043e \u043f\u0435\u0440\u0435\u0432\u043e\u0434\u0438\u0442\u0441\u044f \u043a\u0430\u043a \u00ab\u0412\u0441\u0435 \u043b\u044e\u0434\u0438 \u0434\u043e\u043b\u0436\u043d\u044b \u0443\u043c\u0435\u0440\u0435\u0442\u044c\u00bb. \u041e\u0434\u043d\u0430 \u0438\u0437 \u043a\u0440\u0443\u043f\u043d\u0435\u0439\u0448\u0438\u0445 \u043c\u0435\u0433\u0430\u0444\u0430\u0431\u0440\u0438\u043a \u041a\u0438\u0431\u0435\u0440\u0441\u0442\u0430\u043d\u0430. \u041a\u0440\u0438\u0442\u0438\u0447\u0435\u0441\u043a\u0438 \u0432\u0430\u0436\u043d\u044b\u0439 \u0432\u043e\u0435\u043d\u043d\u044b\u0439 \u043f\u0440\u043e\u0438\u0437\u0432\u043e\u0434\u0441\u0442\u0432\u0435\u043d\u043d\u044b\u0439 \u0446\u0435\u043d\u0442\u0440. \u0415\u0433\u043e \u043e\u0431\u043e\u0440\u043e\u043d\u044f\u0435\u0442 \u0440\u0435\u0430\u043a\u0442\u0438\u0432\u043d\u044b\u0439 \u0431\u0430\u0442\u0430\u043b\u044c\u043e\u043d.",
+            "zh-Hans": "\u5927\u610f\u4e3a\u201c\u5168\u4eba\u7c7b\u5fc5\u987b\u6b7b\u201d\u3002\u751f\u5316\u65af\u5766\u6700\u5927\u7684\u8d85\u5927\u578b\u5de5\u5382\u4e4b\u4e00\u3002\u5173\u952e\u519b\u4e8b\u751f\u4ea7\u8282\u70b9\u3002\u7531\u55b7\u6c14\u65c5\u9a7b\u5b88\u3002",
+            "zh-Hant": "\u53ef\u4ee5\u5927\u7565\u8b6f\u70ba\uff1a\u300c\u4eba\u985e\u5fc5\u9808\u6ec5\u4ea1\u300d\u3002\u751f\u5316\u65af\u5766\u4e0a\u898f\u6a21\u6700\u5927\u7684\u8d85\u7d1a\u5de5\u5ee0\u4e4b\u4e00\u3002\u91cd\u8981\u7684\u8ecd\u4e8b\u751f\u7522\u7bc0\u9ede\u3002\u7531\u5674\u5c04\u968a\u9632\u5b88\u3002"
+        }
     },
     "2775422932": {
         "name": "STARPASS",
@@ -5017,6 +5365,38 @@
         "description": "",
         "descriptions": {}
     },
+    "1878476075": {
+        "name": "TECHNOLOCKIA ALLATEED",
+        "names": {
+            "en-GB": "TECHNOLOCKIA ALLATEED",
+            "de-DE": "TECHNOLOCKIA ALLATEED",
+            "es-ES": "TECNOLOQU\u00cdA ALLATEED",
+            "fr-FR": "TECHNOLOCKIA ALA\u00c9",
+            "it-IT": "TECHNOLOCKIA ALLATEED",
+            "pt-BR": "TECHNOLOCKIA ALLATEED",
+            "ru-RU": "\u041f\u0420\u041e\u0413\u0420\u0415\u0421\u0421\u0418\u0412\u041d\u042b\u0419",
+            "zh-Hans": "\u79d1\u9501\u6d1b\u57fa\u4e9a-\u963f\u62c9\u63d0\u5fb7",
+            "zh-Hant": "\u6cf0\u79d1\u6d1b\u57fa\u4e9e\u963f\u62c9\u63d0\u5fb7"
+        },
+        "description": "",
+        "descriptions": {}
+    },
+    "3600431647": {
+        "name": "TECHOLOCKY",
+        "names": {
+            "en-GB": "TECHOLOCKY",
+            "de-DE": "TECHOLOCKY",
+            "es-ES": "TECOLOQU\u00cdA",
+            "fr-FR": "TECHOLOCKIE",
+            "it-IT": "TECHOLOCKY",
+            "pt-BR": "TECHOLOCKY",
+            "ru-RU": "\u0422\u0415\u0425\u041d\u041e\u041b\u041e\u0413\u0418\u0427\u041d\u042b\u0419",
+            "zh-Hans": "\u9522\u6280\u574a",
+            "zh-Hant": "\u6cf0\u79d1\u6d1b\u57fa"
+        },
+        "description": "",
+        "descriptions": {}
+    },
     "334066640": {
         "name": "THE VILLAS",
         "names": {
@@ -5097,6 +5477,32 @@
         "description": "",
         "descriptions": {}
     },
+    "3380242454": {
+        "name": "TRANSCENDENCE",
+        "names": {
+            "en-GB": "TRANSCENDENCE",
+            "de-DE": "TRANSCENDENCE",
+            "es-ES": "TRANSCENDENCIA",
+            "fr-FR": "TRANSCENDANCE",
+            "it-IT": "TRASCENDENZA",
+            "pt-BR": "TRANSCEND\u00caNCIA",
+            "ru-RU": "\u041f\u0420\u0415\u0412\u041e\u0421\u0425\u041e\u0414\u0421\u0422\u0412\u041e",
+            "zh-Hans": "\u8d85\u9a8c\u67a2",
+            "zh-Hant": "\u8d85\u8d8a"
+        },
+        "description": "The first and most well-defended Megafactory. The nexus of Cyborg command. Its destruction will trigger the collapse of the enemy's defenses on Cyberstan. Expect extreme resistance.",
+        "descriptions": {
+            "en-GB": "The first and most well-defended Megafactory. The nexus of Cyborg command. Its destruction will trigger the collapse of the enemy's defenses on Cyberstan. Expect extreme resistance.",
+            "de-DE": "Die erste und am besten verteidigte Megafabrik. Der Nexus des Cyborg-Kommandos. Ihre Zerst\u00f6rung wird den Zusammenbruch der feindlichen Verteidigungen in Cyberstan verursachen. Rechne mit extremem Widerstand.",
+            "es-ES": "La primera y mejor defendida megaf\u00e1brica. El coraz\u00f3n del mando de los c\u00edborgs. Su destrucci\u00f3n activar\u00e1 el colapso de las defensas enemigas en Cyberstan. Esperad una resistencia extrema.",
+            "fr-FR": "La premi\u00e8re m\u00e9ga-usine de l'ennemi, et sans doute la mieux d\u00e9fendue. C'est le c\u0153ur m\u00eame de l'\u00e9tat-major des cyborgs. Sa destruction provoquerait l'effondrement des d\u00e9fenses de Cyberstan. Attendez-vous \u00e0 une r\u00e9sistance extr\u00eame.",
+            "it-IT": "La prima megafabbrica, nonch\u00e9 la meglio difesa. Il cuore del comando Cyborg. La sua distruzione causer\u00e0 il collasso delle difese nemiche su Cyberstan. C'\u00e8 da attendersi una feroce resistenza.",
+            "pt-BR": "A primeira e a mais bem defendida das megaf\u00e1bricas. Trata-se da base de comando dos Ciborgues. Sua destrui\u00e7\u00e3o provocaria o colapso das defesas inimigas em Ciberst\u00e2nia. A resist\u00eancia aqui tende a ser fort\u00edssima.",
+            "ru-RU": "\u041f\u0435\u0440\u0432\u0430\u044f \u0438 \u0441\u0430\u043c\u0430\u044f \u0445\u043e\u0440\u043e\u0448\u043e \u0437\u0430\u0449\u0438\u0449\u0435\u043d\u043d\u0430\u044f \u043c\u0435\u0433\u0430\u0444\u0430\u0431\u0440\u0438\u043a\u0430. \u0426\u0435\u043d\u0442\u0440 \u043a\u043e\u043c\u0430\u043d\u0434\u043e\u0432\u0430\u043d\u0438\u044f \u043a\u0438\u0431\u043e\u0440\u0433\u043e\u0432. \u0415\u0433\u043e \u0443\u043d\u0438\u0447\u0442\u043e\u0436\u0435\u043d\u0438\u0435 \u043f\u0440\u0438\u0432\u0435\u0434\u0435\u0442 \u043a \u043a\u0440\u0430\u0445\u0443 \u0432\u0440\u0430\u0436\u0435\u0441\u043a\u043e\u0439 \u043e\u0431\u043e\u0440\u043e\u043d\u044b \u043d\u0430 \u041a\u0438\u0431\u0435\u0440\u0441\u0442\u0430\u043d\u0435. \u041e\u0436\u0438\u0434\u0430\u0435\u0442\u0441\u044f \u043a\u0440\u0430\u0439\u043d\u0435 \u0441\u0438\u043b\u044c\u043d\u043e\u0435 \u0441\u043e\u043f\u0440\u043e\u0442\u0438\u0432\u043b\u0435\u043d\u0438\u0435.",
+            "zh-Hans": "\u6700\u65e9\u5efa\u6210\u3001\u9632\u5fa1\u6700\u575a\u56fa\u7684\u8d85\u5927\u578b\u5de5\u5382\u3002\u751f\u5316\u4eba\u7684\u6307\u6325\u4e2d\u67a2\u3002\u6467\u6bc1\u6b64\u76ee\u6807\u5c06\u5bfc\u81f4\u654c\u519b\u5728\u751f\u5316\u65af\u5766\u7684\u9632\u7ebf\u5168\u9762\u5d29\u6e83\u3002\u9884\u8ba1\u5c06\u906d\u9047\u6781\u7aef\u62b5\u6297\u3002",
+            "zh-Hant": "\u6700\u65e9\u5efa\u9020\u4e14\u9632\u79a6\u6700\u56b4\u5bc6\u7684\u8d85\u7d1a\u5de5\u5ee0\u3002\u751f\u5316\u4eba\u7684\u6307\u63ee\u4e2d\u6a1e\u3002\u82e5\u6467\u6bc0\u6b64\u8655\uff0c\u6575\u8ecd\u5728\u751f\u5316\u65af\u5766\u7684\u9632\u7dda\u5c07\u5168\u9762\u5d29\u6f70\u3002\u9810\u671f\u5c07\u906d\u9047\u6975\u70ba\u9811\u5f37\u7684\u62b5\u6297\u3002"
+        }
+    },
     "799267053": {
         "name": "TVENNE BOTTOMS",
         "names": {
@@ -5173,6 +5579,48 @@
             "ru-RU": "\u0423\u041d\u0418\u0421\u041e\u041d",
             "zh-Hans": "\u548c\u8c10\u5e02",
             "zh-Hant": "\u806f\u5408\u5e02"
+        },
+        "description": "",
+        "descriptions": {}
+    },
+    "1475859103": {
+        "name": "URSOOT NINE",
+        "names": {
+            "en-GB": "URSOOT NINE",
+            "de-DE": "URSOOT NINE",
+            "es-ES": "URSOOT NUEVE",
+            "fr-FR": "URSOUT NEUF",
+            "it-IT": "URSOOT NOVE",
+            "pt-BR": "URSOOT NOVE",
+            "ru-RU": "\u0423\u0420\u0421\u0423\u0422 \u0414\u0415\u0412\u042f\u0422\u042c",
+            "zh-Hans": "\u4e4c\u5c14\u82cf\u7279\u4e5d\u53f7",
+            "zh-Hant": "\u5384\u723e\u8607\u7279\u4e5d\u865f"
+        },
+        "description": "Likely one of the earliest Megafactories to be constructed on Cyberstan. The most significant producer of Cyborg combatants. Defended by the Incineration Corps.",
+        "descriptions": {
+            "en-GB": "Likely one of the earliest Megafactories to be constructed on Cyberstan. The most significant producer of Cyborg combatants. Defended by the Incineration Corps.",
+            "de-DE": "Vermutlich eine der ersten auf Cyberstan gebauten Megafabriken. Der bedeutendste Hersteller von Cyborg-K\u00e4mpfern. Verteidigt vom Brandkorps.",
+            "es-ES": "Seguramente, una de las primeras megaf\u00e1bricas construidas en Cyberstan. El principal productor de c\u00edborgs combatientes. Defendido por el cuerpo de incineraci\u00f3n.",
+            "fr-FR": "Sans doute l'une des premi\u00e8res m\u00e9ga-usines construites sur Cyberstan. Il s'agit du centre de production de cyborgs le plus prolifique de la plan\u00e8te. Il est prot\u00e9g\u00e9 par l'unit\u00e9 d'incin\u00e9ration.",
+            "it-IT": "Probabilmente \u00e8 una delle prime megafabbriche costruite su Cyberstan. Il centro primario per la produzione di combattenti Cyborg. Difeso dalla Compagnia crematoria.",
+            "pt-BR": "Provavelmente uma das primeiras megaf\u00e1bricas instaladas em Ciberst\u00e2nia. Trata-se da respons\u00e1vel principal pela produ\u00e7\u00e3o de combatentes ciborgues. As Unidades de incinera\u00e7\u00e3o est\u00e3o encarregadas da sua defesa.",
+            "ru-RU": "\u0421\u043a\u043e\u0440\u0435\u0435 \u0432\u0441\u0435\u0433\u043e, \u044d\u0442\u043e \u043e\u0434\u043d\u0430 \u0438\u0437 \u043f\u0435\u0440\u0432\u044b\u0445 \u043c\u0435\u0433\u0430\u0444\u0430\u0431\u0440\u0438\u043a, \u043f\u043e\u0441\u0442\u0440\u043e\u0435\u043d\u043d\u044b\u0445 \u043d\u0430 \u041a\u0438\u0431\u0435\u0440\u0441\u0442\u0430\u043d\u0435. \u0421\u0430\u043c\u044b\u0439 \u043a\u0440\u0443\u043f\u043d\u044b\u0439 \u043f\u0440\u043e\u0438\u0437\u0432\u043e\u0434\u0438\u0442\u0435\u043b\u044c \u0431\u043e\u0439\u0446\u043e\u0432-\u043a\u0438\u0431\u043e\u0440\u0433\u043e\u0432. \u0415\u0433\u043e \u043e\u0431\u043e\u0440\u043e\u043d\u044f\u0435\u0442 \u0438\u0441\u043f\u0435\u043f\u0435\u043b\u044f\u044e\u0449\u0438\u0439 \u043e\u0442\u0440\u044f\u0434.",
+            "zh-Hans": "\u8fd9\u53ef\u80fd\u662f\u751f\u5316\u65af\u5766\u6700\u65e9\u5efa\u9020\u7684\u8d85\u5927\u578b\u5de5\u5382\u4e4b\u4e00\u3002\u751f\u5316\u4eba\u6218\u6597\u5355\u4f4d\u7684\u6700\u4e3b\u8981\u751f\u4ea7\u5730\u3002\u7531\u70bd\u707c\u90e8\u961f\u9a7b\u5b88\u3002",
+            "zh-Hant": "\u53ef\u80fd\u662f\u751f\u5316\u65af\u5766\u6700\u65e9\u5efa\u9020\u7684\u8d85\u7d1a\u5de5\u5ee0\u4e4b\u4e00\u3002\u751f\u5316\u4eba\u6230\u58eb\u7684\u4e3b\u8981\u751f\u7522\u57fa\u5730\u3002\u7531\u711a\u71d2\u8ecd\u5718\u9632\u5b88\u3002"
+        }
+    },
+    "1230494439": {
+        "name": "UTOPIA VAREN",
+        "names": {
+            "en-GB": "UTOPIA VAREN",
+            "de-DE": "UTOPIA VAREN",
+            "es-ES": "UTOPIA VAREN",
+            "fr-FR": "UTOPIA VAREN",
+            "it-IT": "UTOPIA VAREN",
+            "pt-BR": "UTOPIA VAREN",
+            "ru-RU": "\u0423\u0422\u041e\u041f\u0418\u042f \u0423\u041e\u0420\u0420\u0415\u041d",
+            "zh-Hans": "\u74e6\u4f26\u4e4c\u6258\u90a6",
+            "zh-Hant": "\u70cf\u6258\u90a6\u74e6\u502b"
         },
         "description": "",
         "descriptions": {}
