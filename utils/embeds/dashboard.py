@@ -41,6 +41,12 @@ class Dashboard:
         self.embeds: list[Embed] = []
         self.compact_level = compact_level
 
+        # Homeworld Campaigns
+        homeworld_campaigns = [c for c in data.campaigns if c.planet.homeworld]
+        if homeworld_campaigns:
+            for c in homeworld_campaigns:
+                self.embeds.append(self.HomeworldCampaignEmbed(campaign=c))
+
         # Major Order Embeds
         if assignments := data.assignments.get(language_code):
             for assignment in assignments:
@@ -90,7 +96,9 @@ class Dashboard:
                 [
                     c
                     for c in data.campaigns
-                    if c.faction.full_name == f and not c.planet.event
+                    if c.faction.full_name == f
+                    and not c.planet.event
+                    and not c.planet.homeworld
                 ],
             )
             for f in ["Illuminate", "Terminids", "Automaton"]
@@ -153,6 +161,35 @@ class Dashboard:
                     total_characters += len(field.name.strip())
                     total_characters += len(field.value.strip())
         return total_characters
+
+    class HomeworldCampaignEmbed(Embed, EmbedReprMixin):
+        def __init__(
+            self,
+            campaign: Campaign,
+            compact_level: int = 0,
+        ):
+            super().__init__(
+                title=f"BATTLE FOR {campaign.planet.name.upper()}",
+                colour=Colour.from_rgb(*campaign.planet.homeworld.colour),
+            )
+            if compact_level == 0:
+                self.description = f"-# Carve a path through the Megafactories towards the Cyborg Capital—the largest Megafactory and nexus of the Cyborg resistance.\n-# Destroy it before our **Forces in Reserve** are depleted to liberate **{campaign.planet.name.upper()}**"
+
+            for region in campaign.planet.regions.values():
+                field_name = ""
+                field_value = ""
+                if region.is_available:
+                    field_name += f"{region.emoji} {region.name}"
+                    field_value += f"-# {region.description}"
+                    field_value += f"\n{region.health_bar}"
+                    field_value += f"\n`{region.perc:^25,.1%}`"
+                    if region.tracker and region.tracker.change_rate_per_hour != 0:
+                        change = f"{region.tracker.change_rate_per_hour:+.1%}/hr"
+                        field_value += f"\n`{change:^25}`"
+                else:
+                    field_value += f"-# {region.emoji} {region.name}"
+
+                self.add_field(field_name, field_value, inline=False)
 
     class MajorOrderEmbed(Embed, EmbedReprMixin):
         def __init__(
