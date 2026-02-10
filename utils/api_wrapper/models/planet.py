@@ -206,6 +206,11 @@ class Planet(ReprMixin):
 
         @property
         def emoji(self) -> str:
+            if self.planet.homeworld:
+                return getattr(
+                    getattr(Emojis.RegionIcons, self.owner.full_name),
+                    f"homeworld{self.size}",
+                )
             return getattr(
                 getattr(Emojis.RegionIcons, self.owner.full_name),
                 f"_{self.size}",

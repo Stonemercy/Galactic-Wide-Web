@@ -4,6 +4,7 @@ from data.lists import (
     CUSTOM_COLOURS,
     ATTACK_EMBED_ICONS,
     DEFENCE_EMBED_ICONS,
+    HOMEWORLD_ICONS,
 )
 from disnake import Colour, Embed
 from utils.api_wrapper.models import (
@@ -45,7 +46,13 @@ class Dashboard:
         homeworld_campaigns = [c for c in data.campaigns if c.planet.homeworld]
         if homeworld_campaigns:
             for c in homeworld_campaigns:
-                self.embeds.append(self.HomeworldCampaignEmbed(campaign=c))
+                self.embeds.append(
+                    self.HomeworldCampaignEmbed(
+                        campaign=c,
+                        language_json=language_json,
+                        compact_level=self.compact_level,
+                    )
+                )
 
         # Major Order Embeds
         if assignments := data.assignments.get(language_code):
@@ -166,28 +173,36 @@ class Dashboard:
         def __init__(
             self,
             campaign: Campaign,
+            language_json: dict,
             compact_level: int = 0,
         ):
             super().__init__(
-                title=f"BATTLE FOR {campaign.planet.name.upper()}",
+                title=f"BATTLE FOR {campaign.planet.loc_names.get(language_json['code_long'], campaign.planet.name).upper()}",
                 colour=Colour.from_rgb(*campaign.planet.homeworld.colour),
             )
+            if homeworld_icon := HOMEWORLD_ICONS.get(
+                campaign.faction.full_name.lower()
+            ):
+                self.set_thumbnail(homeworld_icon)
             if compact_level == 0:
-                self.description = f"-# Carve a path through the Megafactories towards the Cyborg Capital—the largest Megafactory and nexus of the Cyborg resistance.\n-# Destroy it before our **Forces in Reserve** are depleted to liberate **{campaign.planet.name.upper()}**"
+                self.description = f"-# Carve a path through the Megafactories towards the Cyborg Capital—the largest Megafactory and nexus of the Cyborg resistance.\n-# Destroy it before our **Forces in Reserve** are depleted to liberate **CYBERSTAN**"
 
             for region in campaign.planet.regions.values():
                 field_name = ""
                 field_value = ""
                 if region.is_available:
-                    field_name += f"{region.emoji} {region.name}"
-                    field_value += f"-# {region.description}"
+                    field_name += f"{region.emoji} {region.names.get(language_json['code_long'], region.name)}"
+                    if compact_level < 2:
+                        field_value += f"-# {region.descriptions.get(language_json['code_long'], region.description)}"
+                    if region.tracker and region.tracker.change_rate_per_hour > 0:
+                        field_value += f"\n-# Victory <t:{int(region.tracker.complete_time.timestamp())}:R>"
                     field_value += f"\n{region.health_bar}"
                     field_value += f"\n`{region.perc:^25,.1%}`"
                     if region.tracker and region.tracker.change_rate_per_hour != 0:
                         change = f"{region.tracker.change_rate_per_hour:+.1%}/hr"
                         field_value += f"\n`{change:^25}`"
                 else:
-                    field_value += f"-# {region.emoji} {region.name}"
+                    field_value += f"-# {region.emoji} {region.names.get(language_json['code_long'], region.name)}"
 
                 self.add_field(field_name, field_value, inline=False)
 

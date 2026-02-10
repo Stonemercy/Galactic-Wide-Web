@@ -33,6 +33,11 @@ CUSTOM_COLOURS = {
     "DSS": (214, 232, 248),
 }
 
+HOMEWORLD_ICONS = {
+    "humans": "https://cdn.discordapp.com/attachments/1212735927223590974/1470844299867328731/super_earth.png?ex=698cc600&is=698b7480&hm=2b4569859d9e09420085455de5ccd44b906e14d85ebe93914a5147e56c7286db&",
+    "automaton": "https://cdn.discordapp.com/attachments/1212735927223590974/1470848423996555467/auto_homeworld.png?ex=698cc9d7&is=698b7857&hm=010592cc01e4c82ab68cfc85b192ef176a68680c8289cc5f891291e9dbc133b9&",
+}
+
 ATTACK_EMBED_ICONS = {
     "illuminate": "https://media.discordapp.net/attachments/1212735927223590974/1414959912269643847/illuminate.png?ex=68c1779b&is=68c0261b&hm=f7f450e22f313d28b50f03c5aa9ee5c21ded41f79f5a528ec4f819f5283c479c&=&format=webp&quality=lossless",
     "automaton": "https://media.discordapp.net/attachments/1212735927223590974/1414959911728709632/automaton.png?ex=68c1779b&is=68c0261b&hm=b5a82963ba2a5010f9a8e1b1f5ea0ab15f3ca29ace1dda6922053105b122fadf&=&format=webp&quality=lossless",
