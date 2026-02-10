@@ -688,7 +688,7 @@ class Dashboard:
                     str(task.enemy_id), "UNKNOWN ENEMIES"
                 )
             elif task.faction:
-                enemy = self.language_json["factions"][task.faction.full_name]
+                enemy = self._get_faction_name(task.faction, plural=True)
             field_name = field_name.replace("{enemy}", enemy)
             if task.item_id:
                 strat_list = [
