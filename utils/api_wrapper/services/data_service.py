@@ -71,7 +71,7 @@ class DataService(ReprMixin):
                 if raw_war_status:
                     self._raw_war_status[lang.short_code] = raw_war_status
 
-                    if self.dss_id == 0:
+                    if self.dss_id == 0 and raw_war_status["spaceStations"] != []:
                         self.dss_id: int = raw_war_status["spaceStations"][0]["id32"]
 
                 # news_feed
