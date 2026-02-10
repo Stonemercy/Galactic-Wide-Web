@@ -227,7 +227,14 @@ class Planet(ReprMixin):
         @property
         def health_bar(self) -> str:
             """Returns the health bar for the region"""
-            return health_bar(perc=self.perc, faction=self.owner.full_name)
+            if self.tracker and self.tracker.change_rate_per_hour != 0:
+                return health_bar(
+                    perc=self.perc,
+                    faction=self.owner,
+                    anim=True,
+                    increasing=self.tracker.change_rate_per_hour > 0,
+                )
+            return health_bar(perc=self.perc, faction=self.owner)
 
         @property
         def planet_damage_perc(self) -> float:
