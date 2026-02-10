@@ -187,7 +187,9 @@ class Dashboard:
             if compact_level == 0:
                 self.description = f"-# Carve a path through the Megafactories towards the Cyborg Capital—the largest Megafactory and nexus of the Cyborg resistance.\n-# Destroy it before our **Forces in Reserve** are depleted to liberate **CYBERSTAN**"
 
-            for region in campaign.planet.regions.values():
+            for region in sorted(
+                campaign.planet.regions.values(), key=lambda x: x.size
+            ):
                 field_name = ""
                 field_value = ""
                 if region.is_available:
