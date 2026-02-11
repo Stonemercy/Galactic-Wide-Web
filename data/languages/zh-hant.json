@@ -147,6 +147,11 @@
     "embeds": {
         "Dashboard": {
             "outlook": "展望",
+            "HomeworldCampaignEmbed": {
+                "battle_for": "爭奪",
+                "automaton_description": "-# 開闢一道通往賽博格首都的路徑，穿過巨型工廠——最大的巨型工廠，也是賽博格抵抗的中心。\n-# 在我們的 **預備部隊** 耗盡之前摧毀它，以解放 **生化斯坦**",
+                "victory": "勝利"
+            },
             "MajorOrderEmbed": {
                 "assignment": "任務 #{id}",
                 "rewards": "獎勵",

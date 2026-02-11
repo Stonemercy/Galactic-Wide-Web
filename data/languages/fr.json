@@ -147,6 +147,11 @@
     "embeds": {
         "Dashboard": {
             "outlook": "Perspective",
+            "HomeworldCampaignEmbed": {
+                "battle_for": "BATAILLE POUR",
+                "automaton_description": "-# Tracez un chemin à travers les Méga-usines vers la Capitale Cyborg—la plus grande Méga-usine et le centre de la résistance Cyborg.\n-# Détruisez-la avant que nos **Forces en Réserve** ne soient épuisées pour libérer **CYBERSTAN**",
+                "victory": "Victoire"
+            },
             "MajorOrderEmbed": {
                 "assignment": "Affectation #{id}",
                 "rewards": "Récompenses",

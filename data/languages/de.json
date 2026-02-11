@@ -147,6 +147,11 @@
     "embeds": {
         "Dashboard": {
             "outlook": "Ausblick",
+            "HomeworldCampaignEmbed": {
+                "battle_for": "KAMPF UM",
+                "automaton_description": "-# Einen Pfad durch die Megafabriken zur Cyborg-Hauptstadt—die größte Megafabrik und das Zentrum des Cyborg-Widerstands.\n-# Zerstöre sie, bevor unsere **Kräfte in Reserve** erschöpft sind, um **CYBERSTAN** zu befreien",
+                "victory": "Sieg"
+            },
             "MajorOrderEmbed": {
                 "assignment": "Aufgabe #{id}",
                 "rewards": "Belohnungen",

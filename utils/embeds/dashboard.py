@@ -177,7 +177,7 @@ class Dashboard:
             compact_level: int = 0,
         ):
             super().__init__(
-                title=f"BATTLE FOR {campaign.planet.loc_names.get(language_json['code_long'], campaign.planet.name).upper()}",
+                title=f"{language_json['embeds']['Dashboard']['HomeworldCampaignEmbed']['battle_for']} {campaign.planet.loc_names.get(language_json['code_long'], campaign.planet.name).upper()}",
                 colour=Colour.from_rgb(*campaign.planet.homeworld.colour),
             )
             if homeworld_icon := HOMEWORLD_ICONS.get(
@@ -185,7 +185,9 @@ class Dashboard:
             ):
                 self.set_thumbnail(homeworld_icon)
             if compact_level == 0:
-                self.description = f"-# Carve a path through the Megafactories towards the Cyborg Capital—the largest Megafactory and nexus of the Cyborg resistance.\n-# Destroy it before our **Forces in Reserve** are depleted to liberate **CYBERSTAN**"
+                self.description = language_json["embeds"]["Dashboard"][
+                    "HomeworldCampaignEmbed"
+                ][f"{campaign.faction.full_name.lower()}_description"]
 
             for region in sorted(
                 campaign.planet.regions.values(), key=lambda x: x.size
@@ -197,7 +199,7 @@ class Dashboard:
                     if compact_level < 2:
                         field_value += f"-# {region.descriptions.get(language_json['code_long'], region.description)}"
                     if region.tracker and region.tracker.change_rate_per_hour > 0:
-                        field_value += f"\n-# Victory <t:{int(region.tracker.complete_time.timestamp())}:R>"
+                        field_value += f"\n-# {language_json['embeds']['Dashboard']['HomeworldCampaignEmbed']['victory']} <t:{int(region.tracker.complete_time.timestamp())}:R>"
                     field_value += f"\n{region.health_bar}"
                     field_value += f"\n`{region.perc:^25,.1%}`"
                     if region.tracker and region.tracker.change_rate_per_hour != 0:

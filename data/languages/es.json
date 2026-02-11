@@ -147,6 +147,11 @@
     "embeds": {
         "Dashboard": {
             "outlook": "Pronóstico",
+            "HomeworldCampaignEmbed": {
+                "battle_for": "BATALLA POR",
+                "automaton_description": "-# Forja un camino a través de las Megafactorías hacia la Capital Cyborg—la megafactoría más grande y nexo de la resistencia Cyborg.\n-# Destrúyela antes de que nuestras **Fuerzas en Reserva** se agoten para liberar **CYBERSTAN**",
+                "victory": "Victoria"
+            },
             "MajorOrderEmbed": {
                 "assignment": "Asignación #{id}",
                 "rewards": "Recompensas",

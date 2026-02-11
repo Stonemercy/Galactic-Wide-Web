@@ -147,6 +147,11 @@
     "embeds": {
         "Dashboard": {
             "outlook": "Outlook",
+            "HomeworldCampaignEmbed": {
+                "battle_for": "BATTLE FOR",
+                "automaton_description": "-# Carve a path through the Megafactories towards the Cyborg Capital—the largest Megafactory and nexus of the Cyborg resistance.\n-# Destroy it before our **Forces in Reserve** are depleted to liberate **CYBERSTAN**",
+                "victory": "Victory"
+            },
             "MajorOrderEmbed": {
                 "assignment": "Assignment #{id}",
                 "rewards": "Rewards",

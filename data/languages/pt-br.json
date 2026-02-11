@@ -147,6 +147,11 @@
     "embeds": {
         "Dashboard": {
             "outlook": "Visão geral",
+            "HomeworldCampaignEmbed": {
+                "battle_for": "BATALHA POR",
+                "automaton_description": "-# Abra um caminho através das Megafábricas rumo à Capital Ciborgue—a maior Megafábrica e núcleo da resistência Ciborgue.\n-# Destrua-a antes que nossas **Forças em Reserva** se esgotem para libertar **CIBERSTÂNIA**",
+                "victory": "Vitória"
+            },
             "MajorOrderEmbed": {
                 "assignment": "Tarefa #{id}",
                 "rewards": "Recompensas",
