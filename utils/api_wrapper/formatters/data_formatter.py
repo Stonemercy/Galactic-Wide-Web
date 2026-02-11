@@ -15,6 +15,157 @@ from ..models import (
 )
 from ...dataclasses import Factions
 
+CORRECT_SECTORS = {
+    "SOL": ["SUPER EARTH"],
+    "ALTUS": [
+        "KLEN DAHTH II",
+        "NEW HAVEN",
+        "PATHFINDER V",
+        "PILEN V",
+        "WIDOW'S HARBOR",
+    ],
+    "KELVIN": ["EMERIA", "FORT JUSTICE", "IGLA", "NEW KIRUNA", "ZEGEMA PARADISE"],
+    "BARNARD": [
+        "DARROWSPORT",
+        "FORNSKOGUR II",
+        "HYDROFALL PRIME",
+        "MARRE IV",
+        "MIDASBURG",
+        "VEIL",
+    ],
+    "CANTOLUS": ["FREEDOM PEAK", "KELVINOR", "MARTYR'S BAY", "OBARI", "VIRIDIA PRIME"],
+    "CANCRI": [
+        "CERBERUS IIIC",
+        "EFFLUVIA",
+        "FORT SANCTUARY",
+        "PROSPERITY FALLS",
+        "SEYSHEL BEACH",
+    ],
+    "GOTHMAR": ["DILUVIA", "OKUL VI", "SOLGHAST"],
+    "IDUN": ["ATRAMA", "MAW", "MYRADESH", "WRAITH"],
+    "CELESTE": [
+        "IVIS",
+        "KRAKATWO",
+        "MERIDIA",
+        "MORADESH",
+        "NUBLARIA I",
+        "SLIF",
+        "SULFURA",
+    ],
+    "MARSPIRA": ["BARABOS", "CURIA", "FENMIRE", "MASTIA", "TARSH"],
+    "KORPUS": ["ALTA V", "CARAMOOR", "CRUCIBLE", "INARI", "VOLTERRA"],
+    "IPTUS": ["IRIDICA", "KRAKABOS", "PRIMORDIA", "PROVIDENCE", "RATCH", "VALGAARD"],
+    "SAGAN": ["BOREA", "GUNVALD", "OSLO STATION"],
+    "MERIDIAN": ["BALDRICK PRIME", "EMORATH", "ILDUNA PRIME", "LIBERTY RIDGE"],
+    "TALUS": ["GAELLIVARE", "IMBER", "SHALLUS", "SHELT"],
+    "MORGON": ["EUKORIA", "MOG", "MYRIUM", "REGNUS"],
+    "SALERIA": ["CALYPSO", "IRULTA", "OUTPOST 32", "REAF"],
+    "RICTUS": [
+        "GENESIS PRIME",
+        "GRAFMERE",
+        "IRO",
+        "KERTH SECUNDUS",
+        "OASIS",
+        "PARSH",
+        "VALMOX",
+    ],
+    "ORION": [
+        "ANGEL'S VENTURE",
+        "AZTERRA",
+        "CIRRUS",
+        "FORT UNION",
+        "HEETH",
+        "TERREK",
+        "VELD",
+    ],
+    "GALLUX": ["ACUBENS PRIME", "ADHARA", "AFOYAY BAY", "BASHYR", "KHARST", "RASP"],
+    "HYDRA": ["AESIR PASS", "MENKENT", "VERNEN WELLS"],
+    "NANOS": ["BEKVAM III", "DOLPH", "DUMA TYR", "JULHEIM"],
+    "TARRAGON": [
+        "BRINK-2",
+        "BUNDA SECUNDUS",
+        "CANOPUS",
+        "EAST IRIDIUM TRADING BAY",
+        "OSUPSAM",
+    ],
+    "UMLAUT": ["ERATA PRIME", "FENRIR III", "TURING"],
+    "THESEUS": ["CAPH", "CASTOR", "KUPER", "LASTOFE", "THE WEIR", "TIEN KWAN"],
+    "GUANG": ["ALDERIDGE COVE", "BELLATRIX", "BOTEIN", "ELYSIAN MEADOWS", "KHANDARK"],
+    "URSA": ["ACRAB XI", "ACRUX IX", "GEMMA", "SKAASH"],
+    "HANZO": ["AIN-5", "ALAIRT III", "ALAMAK VII", "HEZE BAY", "NEW STOCKHOLM"],
+    "AKIRA": ["ALARAPH", "ALATHFAR XI", "ANDAR", "ASPEROTH PRIME", "KEID"],
+    "BORGUS": ["ACHERNAR SECUNDUS", "ACHIRD III", "DARIUS II", "URSICA XI"],
+    "ANDROMEDA": ["CHARBAL-VII", "CHARON PRIME", "MARFARK", "MARTALE", "MATAR BAY"],
+    "LACAILLE": ["CHOOHE", "CHORT BAY", "LESATH", "PENTA"],
+    "FERRIS": ["HADAR", "HALDUS", "HERTHON SECUNDUS", "ZEA RUGOSIA"],
+    "ARTURION": [
+        "ARKTURUS",
+        "DENEB SECUNDUS",
+        "ELECTRA BAY",
+        "KIRRIK",
+        "MORTAX PRIME",
+        "PIONEER II",
+        "WILFORD STATION",
+    ],
+    "TANIS": ["CLAORELL", "CLASA", "DEMIURG", "VOG-SOJOTH", "YED PRIOR", "ZEFIA"],
+    "ALSTRAD": ["KLAKA 5", "KNETH PORT", "KRAZ"],
+    "FALSTAFF": ["BORE ROCK", "ERSON SANDS", "ESKER", "SOCORRO III"],
+    "DRACO": ["CRIMSICA", "ESTANU", "FORI PRIME"],
+    "MIRIN": ["HELLMIRE", "NIVEL 43", "OSHAUNE", "ZAGON PRIME"],
+    "XZAR": ["DRAUPNIR", "FURY", "INGMAR", "MANTES", "MORT", "PÖPLI IX"],
+    "JIN XI": [
+        "ACAMAR IV",
+        "GACRUX",
+        "GAR HAREN",
+        "GATRIA",
+        "PANDION-XXIV",
+        "PHACT BAY",
+    ],
+    "OMEGA": ["HYDROBIUS", "KARLIA", "SEASSE", "SENGE 23", "SETIA"],
+    "LEO": ["HAKA", "HALIES PORT", "PROPUS", "RAS ALGETHI"],
+    "VALDIS": [
+        "AURORA BAY",
+        "CYBERSTAN",
+        "MEKBUDA",
+        "MERAK",
+        "MERGA IV",
+        "VINDEMITARIX PRIME",
+    ],
+    "RIGEL": ["HESOE PRIME", "HORT", "RD-4", "RIRGA BAY", "ROGUE 5"],
+    "QUINTUS": ["LENG SECUNDUS", "SPHERION", "STOR THA PRIME", "STOUT", "TERMADON"],
+    "TRIGON": [
+        "CHOEPESSA IV",
+        "K",
+        "MOX",
+        "TROOST",
+        "USTOTU",
+        "VANDALON IV",
+        "VARYLIA 5",
+    ],
+    "XI TAURI": ["SHETE", "SIEMNOT", "SIRIUS", "SKAT BAY"],
+    "FARSIGHT": [
+        "GRAND ERRANT",
+        "PHERKAD SECUNDUS",
+        "POLARIS PRIME",
+        "POLLUX 31",
+        "PRASA",
+    ],
+    "L'ESTRADE": [
+        "DIASPORA X",
+        "ENULIALE",
+        "EPSILON PHOENCIS VI",
+        "GEMSTONE BLUFFS",
+        "NABATEA SECUNDUS",
+        "NAVI VII",
+        "OMICRON",
+    ],
+    "YMIR": ["MEISSA", "VEGA BAY", "WASAT", "WEZEN", "X-45"],
+    "GELLERT": ["BLISTICA", "MINCHIR", "MINTORIA", "ZOSMA", "ZZANIAH PRIME"],
+    "SEVERIN": ["DURGEN", "MAIA", "MALEVELON CREEK", "TIBIT", "UBANEA"],
+    "HAWKING": ["EUPHORIA III", "KUMA", "MORDIA 9", "SKITTER"],
+    "STEN": ["AZUR SECUNDUS", "OVERGOE PRIME", "PARTION", "PEACOCK", "TRANDOR"],
+}
+
 
 @dataclass
 class FormattedDataContext:
@@ -91,8 +242,18 @@ class FormattedData:
                 planet = Planet(
                     raw_planet_info=raw_planet,
                     planets_json=context.json_dict["planets"][str(raw_planet["index"])],
+                    sectors_json=context.json_dict["sectors"],
                 )
                 self.planets[planet.index] = planet
+            for planet in self.planets.values():
+                if planet.names["en-GB"] not in CORRECT_SECTORS.get(planet.sector, []):
+                    sector_list = [
+                        s
+                        for s, pl in CORRECT_SECTORS.items()
+                        if planet.names["en-GB"] in pl
+                    ]
+                    if sector_list:
+                        planet.sector = sector_list[0]
 
             for homeworld in context.war_info["homeWorlds"]:
                 for planet_index in homeworld["planetIndices"]:

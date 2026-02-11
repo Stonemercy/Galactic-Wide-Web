@@ -18,7 +18,12 @@ class Planet(ReprMixin):
         "in_assignment",
     )
 
-    def __init__(self, raw_planet_info: dict, planets_json: dict[str, dict]) -> None:
+    def __init__(
+        self,
+        raw_planet_info: dict,
+        planets_json: dict[str, dict],
+        sectors_json: dict[int, str],
+    ) -> None:
         """Organise data for a specific planet"""
         self.index: int = raw_planet_info["index"]
         self.settings_hash: int = raw_planet_info["settingsHash"]
@@ -26,7 +31,8 @@ class Planet(ReprMixin):
         self.description: str = planets_json.get("description", "")
         self.position: dict = raw_planet_info["position"]
         self.waypoints: list[int] = raw_planet_info["waypoints"]
-        self.sector: int = raw_planet_info["sector"]
+        self._sector = raw_planet_info["sector"]
+        self.sector: int = sectors_json.get(str(raw_planet_info["sector"]))
         self.dss_in_orbit: bool = False
         self.active_campaign: bool = False
         self.eagle_storm_active: bool = False
