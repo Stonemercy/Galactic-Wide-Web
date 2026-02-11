@@ -22,6 +22,7 @@ class PlanetContainers(list[ui.Container]):
                 container_json=containers_json["PlanetContainer"],
                 faction_json=faction_json,
                 gambit_planets=gambit_planets,
+                lang_code=lang_code,
             )
         )
         if planet.regions:
@@ -40,7 +41,9 @@ class PlanetContainers(list[ui.Container]):
             container_json: dict,
             faction_json: dict,
             gambit_planets: dict[int, Planet],
+            lang_code: str,
         ):
+            self.lang_code = lang_code
             self.components = []
             self.add_planet_info(
                 planet=planet,
@@ -91,9 +94,10 @@ class PlanetContainers(list[ui.Container]):
                         ui.Section(
                             ui.TextDisplay(
                                 (
-                                    f"# {planet.faction.emoji} {planet.name} {planet.exclamations}"
+                                    f"# {planet.faction.emoji} {planet.names.get(self.lang_code, planet.index)} {planet.exclamations}"
                                     f"\n{component_json['sector']}: **{planet.sector}**"
                                     f"\n{component_json['owner']}: **{factions_json[planet.faction.full_name]}**{planet.faction.emoji}"
+                                    f"\n{planet.description}"
                                 )
                             ),
                             accessory=WikiButton(
@@ -131,7 +135,7 @@ class PlanetContainers(list[ui.Container]):
                 if end_time_info.source_planet:
                     liberation_text += f"\n-# {component_json['liberated']} **<t:{int(planet.tracker.complete_time.timestamp())}:R>**"
                 elif end_time_info.gambit_planet:
-                    liberation_text += f"\n-# {component_json['liberated']} **<t:{int(end_time_info.gambit_planet.tracker.complete_time.timestamp())}:R>** thanks to {end_time_info.gambit_planet.name} liberation"
+                    liberation_text += f"\n-# {component_json['liberated']} **<t:{int(end_time_info.gambit_planet.tracker.complete_time.timestamp())}:R>** thanks to {end_time_info.gambit_planet.names.get(self.lang_code, end_time_info.gambit_planet.index)} liberation"
                 elif end_time_info.regions:
                     regions_list = f"\n-# ".join(
                         [f" {r.emoji} {r.name}" for r in end_time_info.regions]

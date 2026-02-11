@@ -17,5 +17,7 @@ class WarfrontAllPlanetsEmbed(Embed, EmbedReprMixin):
             description=f"There are **{len(planets_list)}** planets under {faction} control",
         )
         name = "Planets list"
-        value = " - ".join([f"**{p.name}**" for p in planets_list])
+        value = " - ".join(
+            [f"**{p.names.get('en-GB', str(p.index))}**" for p in planets_list]
+        )
         self.add_field(name=name, value=value)

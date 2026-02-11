@@ -90,7 +90,7 @@ class FormattedData:
             for raw_planet in context.war_info["planetInfos"]:
                 planet = Planet(
                     raw_planet_info=raw_planet,
-                    planets_json=context.json_dict["planets"],
+                    planets_json=context.json_dict["planets"][str(raw_planet["index"])],
                 )
                 self.planets[planet.index] = planet
 

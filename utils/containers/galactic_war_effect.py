@@ -42,7 +42,9 @@ class GWEContainer(ui.Container, ReprMixin):
         if type(planets_with_gwe) == str:
             active_planets = "-# ALL PLANETS"
         elif planets_with_gwe:
-            active_planets = "-# " + "\n-# ".join([p.name for p in planets_with_gwe])
+            active_planets = "-# " + "\n-# ".join(
+                [p.names.get("en-GB", str(p.index)) for p in planets_with_gwe]
+            )
         else:
             active_planets = "-# None"
         components.append(ui.TextDisplay(f"Active on\n{active_planets}"))

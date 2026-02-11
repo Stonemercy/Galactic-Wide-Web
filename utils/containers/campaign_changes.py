@@ -72,16 +72,18 @@ class CampaignChangesContainer(ui.Container, ReprMixin):
     def _add_gambit(
         self,
         text_display: ui.TextDisplay,
-        gambit_planet=Planet,
+        gambit_planet: Planet,
     ):
         if gambit_planet.regen_perc_per_hour < 0.03:
-            text_display.content += f"\n-# :chess_pawn: {self.json.container['gambit']}: **{gambit_planet.loc_names[self.json.lang_code_long]}**"
-            if gambit_planet.loc_names[self.json.lang_code_long] not in [
-                b.label for b in self.planet_buttons
-            ]:
+            text_display.content += f"\n-# :chess_pawn: {self.json.container['gambit']}: **{gambit_planet.names.get(self.json.lang_code_long, gambit_planet.index)}**"
+            if gambit_planet.names.get(
+                self.json.lang_code_long, str(gambit_planet.index)
+            ) not in [b.label for b in self.planet_buttons]:
                 self.planet_buttons.append(
                     HDCButton(
-                        label=gambit_planet.loc_names[self.json.lang_code_long],
+                        label=gambit_planet.names.get(
+                            self.json.lang_code_long, str(gambit_planet.index)
+                        ),
                         link=f"https://helldiverscompanion.com/#hellpad/planets/{gambit_planet.index}",
                         emoji="♟️",
                     )
@@ -135,7 +137,9 @@ class CampaignChangesContainer(ui.Container, ReprMixin):
         section = ui.Section(
             ui.TextDisplay(
                 self.json.container["liberated"].format(
-                    planet_name=planet.loc_names[self.json.lang_code_long],
+                    planet_name=planet.names.get(
+                        self.json.lang_code_long, str(planet.index)
+                    ),
                     faction_name=self.json.factions[f"{taken_from}_plural"],
                 )
             ),
@@ -152,12 +156,12 @@ class CampaignChangesContainer(ui.Container, ReprMixin):
         self.victories.append(ui.Separator())
         self.victories.append(section)
 
-        if planet.loc_names[self.json.lang_code_long] not in [
+        if planet.names.get(self.json.lang_code_long, str(planet.index)) not in [
             b.label for b in self.planet_buttons
         ]:
             self.planet_buttons.append(
                 HDCButton(
-                    label=planet.loc_names[self.json.lang_code_long],
+                    label=planet.names.get(self.json.lang_code_long, str(planet.index)),
                     link=f"https://helldiverscompanion.com/#hellpad/planets/{planet.index}",
                 )
             )
@@ -169,7 +173,9 @@ class CampaignChangesContainer(ui.Container, ReprMixin):
         section = ui.Section(
             ui.TextDisplay(
                 self.json.container["defended"].format(
-                    planet_name=planet.loc_names[self.json.lang_code_long],
+                    planet_name=planet.names.get(
+                        self.json.lang_code_long, str(planet.index)
+                    ),
                     faction_name=self.json.factions[f"{defended_against}_plural"],
                 )
             ),
@@ -192,12 +198,12 @@ class CampaignChangesContainer(ui.Container, ReprMixin):
         self.victories.append(ui.Separator())
         self.victories.append(section)
 
-        if planet.loc_names[self.json.lang_code_long] not in [
+        if planet.names.get(self.json.lang_code_long, str(planet.index)) not in [
             b.label for b in self.planet_buttons
         ]:
             self.planet_buttons.append(
                 HDCButton(
-                    label=planet.loc_names[self.json.lang_code_long],
+                    label=planet.names.get(self.json.lang_code_long, str(planet.index)),
                     link=f"https://helldiverscompanion.com/#hellpad/planets/{planet.index}",
                 )
             )
@@ -209,9 +215,9 @@ class CampaignChangesContainer(ui.Container, ReprMixin):
                 ui.TextDisplay(
                     (
                         self.json.container["defend"].format(
-                            planet_name=campaign.planet.loc_names[
-                                self.json.lang_code_long
-                            ],
+                            planet_name=campaign.planet.names.get(
+                                self.json.lang_code_long, str(campaign.planet.index)
+                            ),
                             emojis=campaign.planet.exclamations,
                         )
                         + self.json.container["invasion_level"].format(
@@ -254,12 +260,14 @@ class CampaignChangesContainer(ui.Container, ReprMixin):
             self.new_campaigns.append(ui.Separator())
             self.new_campaigns.append(section)
 
-            if campaign.planet.loc_names[self.json.lang_code_long] not in [
-                b.label for b in self.planet_buttons
-            ]:
+            if campaign.planet.names.get(
+                self.json.lang_code_long, str(campaign.planet.index)
+            ) not in [b.label for b in self.planet_buttons]:
                 self.planet_buttons.append(
                     HDCButton(
-                        label=campaign.planet.loc_names[self.json.lang_code_long],
+                        label=campaign.planet.names.get(
+                            self.json.lang_code_long, str(campaign.planet.index)
+                        ),
                         link=f"https://helldiverscompanion.com/#hellpad/planets/{campaign.planet.index}",
                     )
                 )
@@ -268,9 +276,9 @@ class CampaignChangesContainer(ui.Container, ReprMixin):
                 ui.TextDisplay(
                     (
                         self.json.container["liberate"].format(
-                            planet_name=campaign.planet.loc_names[
-                                self.json.lang_code_long
-                            ],
+                            planet_name=campaign.planet.names.get(
+                                self.json.lang_code_long, str(campaign.planet.index)
+                            ),
                             emojis=campaign.faction.emoji
                             + campaign.planet.exclamations,
                         )
@@ -300,12 +308,14 @@ class CampaignChangesContainer(ui.Container, ReprMixin):
             self.new_campaigns.append(ui.Separator())
             self.new_campaigns.append(section)
 
-            if campaign.planet.loc_names[self.json.lang_code_long] not in [
-                b.label for b in self.planet_buttons
-            ]:
+            if campaign.planet.names.get(
+                self.json.lang_code_long, str(campaign.planet.index)
+            ) not in [b.label for b in self.planet_buttons]:
                 self.planet_buttons.append(
                     HDCButton(
-                        label=campaign.planet.loc_names[self.json.lang_code_long],
+                        label=campaign.planet.names.get(
+                            self.json.lang_code_long, str(campaign.planet.index)
+                        ),
                         link=f"https://helldiverscompanion.com/#hellpad/planets/{campaign.planet.index}",
                     )
                 )
@@ -315,7 +325,9 @@ class CampaignChangesContainer(ui.Container, ReprMixin):
         section = ui.Section(
             ui.TextDisplay(
                 self.json.container["planet_lost"].format(
-                    planet_name=planet.loc_names[self.json.lang_code_long],
+                    planet_name=planet.names.get(
+                        self.json.lang_code_long, str(planet.index)
+                    ),
                     emojis=planet.exclamations,
                     faction_name=self.json.factions[
                         f"{planet.faction.full_name}_plural"
@@ -335,12 +347,12 @@ class CampaignChangesContainer(ui.Container, ReprMixin):
         self.losses.append(ui.Separator())
         self.losses.append(section)
 
-        if planet.loc_names[self.json.lang_code_long] not in [
+        if planet.names.get(self.json.lang_code_long, str(planet.index)) not in [
             b.label for b in self.planet_buttons
         ]:
             self.planet_buttons.append(
                 HDCButton(
-                    label=planet.loc_names[self.json.lang_code_long],
+                    label=planet.names.get(self.json.lang_code_long, str(planet.index)),
                     link=f"https://helldiverscompanion.com/#hellpad/planets/{planet.index}",
                 )
             )

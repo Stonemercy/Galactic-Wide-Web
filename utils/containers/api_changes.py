@@ -73,7 +73,7 @@ class APIChangesContainer(ui.Container, ReprMixin):
                                 for wp in waypoints_removed:
                                     planet = planets.get(wp)
                                     if planet:
-                                        content += f"\n-# - **{planet.name}**"
+                                        content += f"\n-# - **{planet.names.get('en-GB', planet.index)}**"
                                     else:
                                         content += f"\n-# - **UNKNOWN PLANET**"
                             if waypoints_added := list(set(new_stat) - set(old_stat)):
@@ -81,7 +81,7 @@ class APIChangesContainer(ui.Container, ReprMixin):
                                 for wp in waypoints_added:
                                     planet = planets.get(wp)
                                     if planet:
-                                        content += f"\n-# - **{planet.name}**"
+                                        content += f"\n-# - **{planet.names.get('en-GB', planet.index)}**"
                                     else:
                                         content += f"\n-# - **UNKNOWN PLANET**"
                             if waypoints_added or waypoints_removed:
@@ -138,7 +138,7 @@ class APIChangesContainer(ui.Container, ReprMixin):
                 case "Region":
                     self.container_components.append(
                         ui.TextDisplay(
-                            f"## Update for {api_change.new_object.emoji} {api_change.new_object.type.name} {api_change.new_object.name} on {api_change.new_object.planet.name}{api_change.new_object.planet.faction.emoji}{api_change.new_object.planet.exclamations}"
+                            f"## Update for {api_change.new_object.emoji} {api_change.new_object.type.name} {api_change.new_object.name} on {api_change.new_object.planet.names.get('en-GB', str(api_change.new_object.planet.index))}{api_change.new_object.planet.faction.emoji}{api_change.new_object.planet.exclamations}"
                         )
                     )
                     match api_change.property:

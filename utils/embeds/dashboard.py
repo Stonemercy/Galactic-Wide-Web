@@ -177,7 +177,7 @@ class Dashboard:
             compact_level: int = 0,
         ):
             super().__init__(
-                title=f"{language_json['embeds']['Dashboard']['HomeworldCampaignEmbed']['battle_for']} {campaign.planet.loc_names.get(language_json['code_long'], campaign.planet.name).upper()}",
+                title=f"{language_json['embeds']['Dashboard']['HomeworldCampaignEmbed']['battle_for']} {campaign.planet.names.get(language_json['code_long'], str(campaign.planet.index)).upper()}",
                 colour=Colour.from_rgb(*campaign.planet.homeworld.colour),
             )
             if homeworld_icon := HOMEWORLD_ICONS.get(
@@ -454,7 +454,10 @@ class Dashboard:
                 text = text.replace("{ext_pre}", f" {from_the_planet} **")
                 if planet:
                     text = text.replace(
-                        "{ext}", planet.loc_names[self.language_json["code_long"]]
+                        "{ext}",
+                        planet.names.get(
+                            self.language_json["code_long"], str(planet.index)
+                        ),
                     )
                 else:
                     text = text.replace("{ext}", "UNKNOWN PLANET")
@@ -486,7 +489,10 @@ class Dashboard:
                 text = text.replace("{ext_pre}", f" {on} **")
                 if planet:
                     text = text.replace(
-                        "{ext}", planet.loc_names[self.language_json["code_long"]]
+                        "{ext}",
+                        planet.names.get(
+                            self.language_json["code_long"], str(planet.index)
+                        ),
                     )
                 else:
                     text = text.replace("{ext}", "UNKNOWN PLANET")
@@ -546,7 +552,10 @@ class Dashboard:
                 text = text.replace("{race_pre}", f" {on} **")
                 if planet:
                     text = text.replace(
-                        "{race}", planet.loc_names[self.language_json["code_long"]]
+                        "{race}",
+                        planet.names.get(
+                            self.language_json["code_long"], str(planet.index)
+                        ),
                     )
                 else:
                     text = text.replace("{race}", "UNKNOWN PLANET")
@@ -1080,8 +1089,8 @@ class Dashboard:
                 if not planet:
                     location_name = "Unknown Location"
                 else:
-                    location_name = planet.loc_names.get(
-                        self.language_json["code_long"], "UNKNOWN PLANET"
+                    location_name = planet.names.get(
+                        self.language_json["code_long"], str(planet.index)
                     )
             elif task.sector_index:
                 location_name = self.json_dict["sectors"].get(str(task.sector_index))
@@ -1106,9 +1115,10 @@ class Dashboard:
                                     if end_time_info.end_time:
                                         waypoint_timestamps.append(
                                             (
-                                                way_planet.loc_names[
-                                                    self.language_json["code_long"]
-                                                ],
+                                                way_planet.names.get(
+                                                    self.language_json["code_long"],
+                                                    str(way_planet.index),
+                                                ),
                                                 int(end_time_info.end_time.timestamp()),
                                             )
                                         )
@@ -1179,7 +1189,10 @@ class Dashboard:
                 planet = self.planets.get(task.planet_index)
                 if planet:
                     field_name = field_name.replace(
-                        "{planet}", planet.loc_names[self.language_json["code_long"]]
+                        "{planet}",
+                        planet.names.get(
+                            self.language_json["code_long"], str(planet.index)
+                        ),
                     )
                 else:
                     field_name = field_name.replace("{planet}", "UNKNOWN PLANET")
@@ -1225,9 +1238,9 @@ class Dashboard:
                 if task.planet_index:
                     planet = self.planets.get(task.planet_index)
                     if planet:
-                        location_name = planet.loc_names[
-                            self.language_json["code_long"]
-                        ]
+                        location_name = planet.names.get(
+                            self.language_json["code_long"], str(planet.index)
+                        )
                     else:
                         location_name = "UNKNOWN PLANET"
                 elif task.sector_index:
@@ -1373,9 +1386,10 @@ class Dashboard:
                                 ]["MajorOrderEmbed"]["tasks"][
                                     "type15_from_loss"
                                 ].format(
-                                    planet=planet.loc_names[
-                                        self.language_json["code_long"]
-                                    ],
+                                    planet=planet.names.get(
+                                        self.language_json["code_long"],
+                                        str(planet.index),
+                                    ),
                                     timestamp=f"<t:{int(planet.event.end_time_datetime.timestamp())}:R>",
                                 )
                         else:
@@ -1386,16 +1400,19 @@ class Dashboard:
                                 field_value += self.language_json["embeds"][
                                     "Dashboard"
                                 ]["MajorOrderEmbed"]["tasks"]["type15_from_lib"].format(
-                                    planet=planet.loc_names[
-                                        self.language_json["code_long"]
-                                    ],
+                                    planet=planet.names.get(
+                                        self.language_json["code_long"],
+                                        str(planet.index),
+                                    ),
                                     timestamp=f"<t:{int(end_time_info.end_time.timestamp())}:R>",
                                 )
                     elif planet.event:
                         field_value += self.language_json["embeds"]["Dashboard"][
                             "MajorOrderEmbed"
                         ]["tasks"]["type15_from_loss"].format(
-                            planet=planet.loc_names[self.language_json["code_long"]],
+                            planet=planet.names.get(
+                                self.language_json["code_long"], str(planet.index)
+                            ),
                             timestamp=f"<t:{int(planet.event.end_time_datetime.timestamp())}:R>",
                         )
 
@@ -1629,7 +1646,7 @@ class Dashboard:
                 because_of_planet = True
             self.description = (
                 f"-# {language_json['embeds']['Dashboard']['DSSEmbed']['station_moves']} **<t:{int(move_datetime.timestamp())}:R>**"
-                f"\n-# {language_json['embeds']['Dashboard']['DSSEmbed']['current_location']}: {dss.planet.faction.emoji} **{dss.planet.loc_names.get(language_json['code_long'], dss.planet.name)}**"
+                f"\n-# {language_json['embeds']['Dashboard']['DSSEmbed']['current_location']}: {dss.planet.faction.emoji} **{dss.planet.names.get(language_json['code_long'], str(dss.planet.index))}**"
             )
             if dss.votes:
                 sorted_planets: list[tuple[Planet, int]] = sorted(
@@ -1644,7 +1661,7 @@ class Dashboard:
                     and len(dss.votes.available_planets) == 8
                 ):
                     next_planet = sorted_planets[1]
-                self.description += f"\n-# {language_json['embeds']['Dashboard']['DSSEmbed']['next_location']}: {next_planet[0].faction.emoji} **{next_planet[0].loc_names.get(language_json['code_long'], next_planet[0].name)}**"
+                self.description += f"\n-# {language_json['embeds']['Dashboard']['DSSEmbed']['next_location']}: {next_planet[0].faction.emoji} **{next_planet[0].names.get(language_json['code_long'], str(next_planet[0].index))}**"
 
             if move_datetime < datetime.now() + timedelta(minutes=15):
                 self.description += f"\n-# {Emojis.Decoration.alert_icon} {language_json['embeds']['Dashboard']['DSSEmbed']['vote_reminder']} {Emojis.Decoration.alert_icon}"
@@ -1711,7 +1728,7 @@ class Dashboard:
                         ),
                         start=1,
                     ):
-                        field_value += f"\n-# #{index} - {planet.faction.emoji} {planet.loc_names[language_json['code_long']]} - {votes/dss.votes.total_votes:.1%}"
+                        field_value += f"\n-# #{index} - {planet.faction.emoji} {planet.names.get(language_json['code_long'], str(planet.index))} - {votes/dss.votes.total_votes:.1%}"
                     self.add_field(
                         language_json["embeds"]["Dashboard"]["DSSEmbed"]["votes"],
                         field_value,
@@ -1784,7 +1801,7 @@ class Dashboard:
             field_name = ""
             field_value = ""
 
-            field_name += f"{planet.loc_names[self.language_json['code_long']]} {planet.exclamations}"
+            field_name += f"{planet.names.get(self.language_json['code_long'], str(planet.index))} {planet.exclamations}"
             for su in SpecialUnits.get_from_effects_list(planet.active_effects):
                 field_value += (
                     f"\n-# {su[1]} {self.language_json['special_units'][su[0]]}"
@@ -1813,7 +1830,7 @@ class Dashboard:
             ):
                 field_value += f"\n{self.language_json['embeds']['Dashboard']['DefenceEmbed']['victory']} **<t:{int(calculated_end_time.end_time.timestamp())}:R>**"
                 if calculated_end_time.gambit_planet:
-                    field_value += f" {self.language_json['embeds']['Dashboard']['DefenceEmbed']['thanks_to_gambit'].format(planet=calculated_end_time.gambit_planet.loc_names[self.language_json['code_long']])}"
+                    field_value += f" {self.language_json['embeds']['Dashboard']['DefenceEmbed']['thanks_to_gambit'].format(planet=calculated_end_time.gambit_planet.names.get(self.language_json['code_long'], str(calculated_end_time.gambit_planet.index)))}"
                 elif calculated_end_time.regions:
                     regions_list = f"\n-# ".join(
                         [f" {r.emoji} {r.name}" for r in calculated_end_time.regions]
@@ -1825,7 +1842,7 @@ class Dashboard:
                 field_value += f"\n**{self.language_json['embeds']['Dashboard']['DefenceEmbed']['loss']}**"
                 if planet.index in self.gambit_planets and planet.event.progress < 0.5:
                     gambit_planet = self.gambit_planets[planet.index]
-                    field_value += f"\n-# :chess_pawn: **{gambit_planet.loc_names[self.language_json['code_long']]}** {self.language_json['embeds']['Dashboard']['DefenceEmbed']['gambit']}"
+                    field_value += f"\n-# :chess_pawn: **{gambit_planet.names.get(self.language_json['code_long'], str(gambit_planet.index))}** {self.language_json['embeds']['Dashboard']['DefenceEmbed']['gambit']}"
 
             field_value += f"\n{self.language_json['embeds']['Dashboard']['DefenceEmbed']['heroes']}: **{planet.stats.player_count:,}**"
             if self.compact_level < 1:
@@ -1927,7 +1944,7 @@ class Dashboard:
                     skipped_campaigns.append(campaign)
                     continue
                 else:
-                    field_name += f"{campaign.faction.emoji} - **{campaign.planet.loc_names.get(language_json['code_long'], campaign.planet.name)}** {campaign.planet.exclamations}"
+                    field_name += f"{campaign.faction.emoji} - **{campaign.planet.names.get(language_json['code_long'], str(campaign.planet.index))}** {campaign.planet.exclamations}"
                     if campaign.type == 2:
                         field_name += Emojis.Icons.high_prio_campaign
                     field_value += f"{language_json['embeds']['Dashboard']['AttackEmbed']['heroes']}: **{campaign.planet.stats.player_count:,}**"
@@ -1965,7 +1982,7 @@ class Dashboard:
                             ]
                         )
                         if gambit_planet:
-                            field_value += f"\n-# :chess_pawn: {language_json['embeds']['Dashboard']['AttackEmbed']['gambit_for']} {gambit_planet.loc_names.get(language_json['code_long'], gambit_planet.name)}"
+                            field_value += f"\n-# :chess_pawn: {language_json['embeds']['Dashboard']['AttackEmbed']['gambit_for']} {gambit_planet.names.get(language_json['code_long'], str(gambit_planet.index))}"
                     if compact_level < 1:
                         if campaign.type == 1:
                             field_value += f"\n**`{language_json['embeds']['Dashboard']['AttackEmbed']['recon_campaign']:^25}`**"
@@ -2030,7 +2047,7 @@ class Dashboard:
                         exclamation += ":chess_pawn:"
                     if campaign.type == 2:
                         field_name += Emojis.Icons.high_prio_campaign
-                    skipped_planets_text += f"-# {campaign.planet.loc_names.get(language_json['code_long'], campaign.planet.name)} - **{campaign.planet.stats.player_count:,}** {exclamation}\n"
+                    skipped_planets_text += f"-# {campaign.planet.names.get(language_json['code_long'], str(campaign.planet.index))} - **{campaign.planet.stats.player_count:,}** {exclamation}\n"
                     if compact_level < 2 and len(skipped_campaigns) < 10:
                         for region in campaign.planet.regions.values():
                             if (

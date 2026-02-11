@@ -28,13 +28,14 @@ class BackendCommandsCog(commands.Cog):
         if not inter.bot.data.loaded:
             return []
         return [
-            f"{p.index}-{p.name}"
+            f"{p.index}-{p.names.get('en-GB', str(p.index))}"
             for p in sorted(
                 inter.bot.data.formatted_data.planets.values(),
                 key=lambda x: len(x.active_effects),
                 reverse=True,
             )
-            if user_input.lower() in f"{p.index}-{p.name}".lower()
+            if user_input.lower()
+            in f"{p.index}-{p.names.get('en-GB', str(p.index))}".lower()
         ][:25]
 
     @wait_for_startup()
@@ -94,7 +95,7 @@ class BackendCommandsCog(commands.Cog):
                 return
             if not planet.active_effects:
                 await inter.send(
-                    f"No effects found on `{planet.name}`, sorry :pensive:"
+                    f"No effects found on `{planet.names.get('en-GB', planet.index)}`, sorry :pensive:"
                 )
                 return
             gwe_list = list(planet.active_effects)

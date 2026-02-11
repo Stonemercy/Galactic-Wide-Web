@@ -22,15 +22,11 @@ class Planet(ReprMixin):
         """Organise data for a specific planet"""
         self.index: int = raw_planet_info["index"]
         self.settings_hash: int = raw_planet_info["settingsHash"]
-        self.name: str = planets_json.get(str(self.index), {}).get("name")
-        self.loc_names: dict[str, str] = planets_json.get(str(self.index), {}).get(
-            "names", {}
-        )
+        self.names: dict[str, str] = planets_json.get("names", {})
+        self.description: str = planets_json.get("description", "")
         self.position: dict = raw_planet_info["position"]
         self.waypoints: list[int] = raw_planet_info["waypoints"]
-        self.sector: int = planets_json.get(str(self.index), {}).get(
-            "sector", raw_planet_info["sector"]
-        )
+        self.sector: int = raw_planet_info["sector"]
         self.dss_in_orbit: bool = False
         self.active_campaign: bool = False
         self.eagle_storm_active: bool = False

@@ -338,7 +338,6 @@ class Maps:
         long_code: str,
         planets: dict[int, Planet],
         dss: DSS,
-        planet_names_json: dict,
     ):
         frac_planet_icon = imread(
             "resources/map_icons/fractured_planet.png", IMREAD_UNCHANGED
@@ -359,7 +358,7 @@ class Maps:
                     x_offset=-20,
                     y_offset=10,
                 )
-            loc_name = planet_names_json[str(planet.index)]["names"][long_code]
+            loc_name = planet.names.get(long_code, str(planet.index))
             if planet.active_campaign or planet.homeworld:
                 x_offset = 0
                 for su in SpecialUnits.get_from_effects_list(planet.active_effects):
@@ -395,7 +394,6 @@ class Maps:
                 verti_diff = 20
                 if planet.active_campaign:
                     verti_diff += 45
-                    loc_name = planet_names_json[str(planet.index)]["names"][long_code]
                     if loc_name.count(" ") > 0:
                         verti_diff += loc_name.count(" ") * (self.TEXT_SIZE - 5)
                 dss_coords = (

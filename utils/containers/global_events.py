@@ -24,7 +24,7 @@ class GlobalEventsContainer(ui.Container, ReprMixin):
                     planets.get(index) for index in global_event.planet_indices
                 ]
                 specific_planets = "\n-# " + "\n- ".join(
-                    [p.name for p in spec_planets_list if p]
+                    [p.names.get("en-GB", str(p.index)) for p in spec_planets_list if p]
                 )
             for effect in global_event.effects:
                 if "UNKNOWN" in effect.planet_effect["name"]:
@@ -135,7 +135,11 @@ class GlobalEventCommandContainer(ui.Container):
                     planets.get(i) for i in global_event.planet_indices
                 ]
                 text += "\n- active on:\n  - " + "\n  - ".join(
-                    [f"**{p.name}**" for p in active_on_planets if p]
+                    [
+                        f"**{p.names.get('en-GB', str(p.index))}**"
+                        for p in active_on_planets
+                        if p
+                    ]
                 )
 
             section.children[0].content = text

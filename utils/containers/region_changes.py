@@ -104,9 +104,9 @@ class RegionChangesContainer(ui.Container, ReprMixin):
                 self.container_json.container["region_victory"].format(
                     region_emoji=region.emoji,
                     region_name=region.names[self.container_json.lang_code_long],
-                    planet_name=region.planet.loc_names[
-                        self.container_json.lang_code_long
-                    ],
+                    planet_name=region.planet.names.get(
+                        self.container_json.lang_code_long, str(region.planet.index)
+                    ),
                     faction_name=self.container_json.factions[
                         (
                             f"{region.planet.faction.full_name}_plural"
@@ -137,12 +137,14 @@ class RegionChangesContainer(ui.Container, ReprMixin):
         self.victories.append(ui.Separator())
         self.victories.append(section)
 
-        if region.planet.loc_names[self.container_json.lang_code_long] not in [
-            b.label for b in self.planet_buttons
-        ]:
+        if region.planet.names.get(
+            self.container_json.lang_code_long, str(region.planet.index)
+        ) not in [b.label for b in self.planet_buttons]:
             self.planet_buttons.append(
                 HDCButton(
-                    label=region.planet.loc_names[self.container_json.lang_code_long],
+                    label=region.planet.names.get(
+                        self.container_json.lang_code_long, str(region.planet.index)
+                    ),
                     link=f"https://helldiverscompanion.com/#hellpad/planets/{region.planet.index}",
                 )
             )
@@ -155,9 +157,9 @@ class RegionChangesContainer(ui.Container, ReprMixin):
                     self.container_json.container["new_region"].format(
                         region_emoji=region.emoji,
                         region_name=region.names[self.container_json.lang_code_long],
-                        planet_name=region.planet.loc_names[
-                            self.container_json.lang_code_long
-                        ],
+                        planet_name=region.planet.names.get(
+                            self.container_json.lang_code_long.str(region.planet.index)
+                        ),
                     )
                     + self.container_json.container["resistance"].format(
                         regen=f"{region.regen_perc_per_hour:.2%}"
@@ -192,12 +194,14 @@ class RegionChangesContainer(ui.Container, ReprMixin):
         self.new_regions.append(ui.Separator())
         self.new_regions.append(section)
 
-        if region.planet.loc_names[self.container_json.lang_code_long] not in [
-            b.label for b in self.planet_buttons
-        ]:
+        if region.planet.names.get(
+            self.container_json.lang_code_long, str(region.planet.index)
+        ) not in [b.label for b in self.planet_buttons]:
             self.planet_buttons.append(
                 HDCButton(
-                    label=region.planet.loc_names[self.container_json.lang_code_long],
+                    label=region.planet.names.get(
+                        self.container_json.lang_code_long, str(region.planet.index)
+                    ),
                     link=f"https://helldiverscompanion.com/#hellpad/planets/{region.planet.index}",
                 )
             )

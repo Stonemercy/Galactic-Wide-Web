@@ -24,13 +24,14 @@ class PlanetCog(commands.Cog):
         if not inter.bot.data.loaded:
             return []
         return [
-            f"{p.index}-{p.name}"
+            f"{p.index}-{p.names.get('en-GB', str(p.index))}"
             for p in sorted(
                 inter.bot.data.formatted_data.planets.values(),
                 key=lambda x: x.stats.player_count,
                 reverse=True,
             )
-            if user_input.lower() in p.name.lower() or user_input in str(p.index)
+            if user_input.lower() in p.names.get("en-GB", str(p.index)).lower()
+            or user_input in str(p.index)
         ][:25]
 
     @wait_for_startup()
@@ -66,7 +67,7 @@ class PlanetCog(commands.Cog):
             planet_data_list = [
                 p
                 for p in self.bot.data.formatted_data.planets.values()
-                if p.name.lower() == planet
+                if p.names.get("en-GB", str(p.index)).lower() == planet
             ]
             if planet_data_list:
                 planet_data = planet_data_list[0]

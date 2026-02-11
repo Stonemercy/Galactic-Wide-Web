@@ -58,10 +58,10 @@ class DSSChangesContainer(ui.Container, ReprMixin):
     def _add_gambit(
         self,
         text_display: ui.TextDisplay,
-        gambit_planet=Planet,
+        gambit_planet: Planet,
     ):
         if gambit_planet.regen_perc_per_hour < 0.03:
-            text_display.content += f"\n-# {self.json.container['gambit']}: {gambit_planet.loc_names[self.json.lang_code_long]}"
+            text_display.content += f"\n-# {self.json.container['gambit']}: {gambit_planet.names.get(self.json.lang_code_long, str(gambit_planet.index))}"
 
     def _update_containers(self):
         super().__init__(*(self.title + self.sections), accent_colour=self.colour)
@@ -78,8 +78,12 @@ class DSSChangesContainer(ui.Container, ReprMixin):
         section = ui.Section(
             ui.TextDisplay(
                 self.json.container["has_moved"].format(
-                    planet_name1=before_planet.loc_names[self.json.lang_code_long],
-                    planet_name2=after_planet.loc_names[self.json.lang_code_long],
+                    planet_name1=before_planet.names.get(
+                        self.json.lang_code_long, str(before_planet.index)
+                    ),
+                    planet_name2=after_planet.names.get(
+                        self.json.lang_code_long, str(after_planet.index)
+                    ),
                     emojis=after_planet.exclamations,
                 )
             ),
