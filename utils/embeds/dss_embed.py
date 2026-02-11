@@ -26,9 +26,13 @@ class DSSEmbed(Embed, EmbedReprMixin):
             title=language_json["embeds"]["DSSEmbed"]["title"],
             colour=Colour.from_rgb(*CUSTOM_COLOURS["DSS"]),
         )
-        if dss_data.flags == 2 or (
-            all([ta.status == 0 for ta in dss_data.tactical_actions])
-            and dss_data.move_timer_datetime > datetime.now() + timedelta(days=30)
+        if (
+            not dss_data
+            or dss_data.flags == 2
+            or (
+                all([ta.status == 0 for ta in dss_data.tactical_actions])
+                and dss_data.move_timer_datetime > datetime.now() + timedelta(days=30)
+            )
         ):
             self.add_field("The DSS is currently unavailable.", "")
             self.colour = Colour.brand_red()
