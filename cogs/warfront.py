@@ -44,6 +44,11 @@ class WarfrontCog(commands.Cog):
         else:
             guild = GWWGuild.default()
         guild_language = self.bot.json_dict["languages"][guild.language]
+        eagle_storm = (
+            self.bot.data.formatted_data.dss.get_ta_by_name("EAGLE STORM")
+            if self.bot.data.formatted_data.dss
+            else None
+        )
         defence_embed = Dashboard.DefenceEmbed(
             planet_events=[
                 planet
@@ -52,7 +57,7 @@ class WarfrontCog(commands.Cog):
             ],
             language_json=guild_language,
             total_players=self.bot.data.formatted_data.total_players,
-            eagle_storm=self.bot.data.formatted_data.dss.get_ta_by_name("EAGLE STORM"),
+            eagle_storm=eagle_storm,
             gambit_planets=self.bot.data.formatted_data.gambit_planets,
         )
         attack_embed = Dashboard.AttackEmbed(
