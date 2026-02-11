@@ -49,6 +49,7 @@ class Dashboard:
                 self.embeds.append(
                     self.HomeworldCampaignEmbed(
                         campaign=c,
+                        total_players=data.total_players,
                         language_json=language_json,
                         compact_level=self.compact_level,
                     )
@@ -173,6 +174,7 @@ class Dashboard:
         def __init__(
             self,
             campaign: Campaign,
+            total_players: int,
             language_json: dict,
             compact_level: int = 0,
         ):
@@ -180,6 +182,10 @@ class Dashboard:
                 title=f"{language_json['embeds']['Dashboard']['HomeworldCampaignEmbed']['battle_for']} {campaign.planet.names.get(language_json['code_long'], str(campaign.planet.index)).upper()}",
                 colour=Colour.from_rgb(*campaign.planet.homeworld.colour),
             )
+            total_players_doing_campaign = (
+                campaign.planet.stats.player_count / total_players
+            )
+            self.title += f" ({total_players_doing_campaign:.2%})"
             if homeworld_icon := HOMEWORLD_ICONS.get(
                 campaign.faction.full_name.lower()
             ):
