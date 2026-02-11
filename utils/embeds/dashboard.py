@@ -1687,7 +1687,7 @@ class Dashboard:
                             cost_change = tactical_action.cost_changes.get(ta_cost.item)
                             if (
                                 cost_change
-                                and cost_change.change_rate_per_hour != 0
+                                and cost_change.change_rate_per_hour > 0
                                 and 2 not in [ta.status for ta in dss.tactical_actions]
                             ):
                                 field_value += f"\n{health_bar(perc=ta_cost.progress, faction='MO', anim=True, increasing=cost_change.change_rate_per_hour > 0)}"
