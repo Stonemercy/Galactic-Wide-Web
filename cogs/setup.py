@@ -404,7 +404,6 @@ class SetupCog(commands.Cog):
                         long_code=guild_language["code_long"],
                         planets=self.bot.data.formatted_data.planets,
                         dss=self.bot.data.formatted_data.dss,
-                        planet_names_json=self.bot.json_dict["planets"],
                     )
                     latest_map = self.bot.maps.latest_maps[guild_language["code"]]
                     message = await map_channel.send(

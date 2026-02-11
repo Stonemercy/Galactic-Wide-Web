@@ -75,7 +75,6 @@ class MapCog(commands.Cog):
                     long_code=language_json["code_long"],
                     planets=self.bot.data.formatted_data.planets,
                     dss=self.bot.data.formatted_data.dss,
-                    planet_names_json=self.bot.json_dict["planets"],
                 )
                 message = await self.bot.channels.waste_bin_channel.send(
                     file=File(
@@ -155,7 +154,6 @@ class MapCog(commands.Cog):
                 long_code=language_json["code_long"],
                 planets=self.bot.data.formatted_data.planets,
                 dss=self.bot.data.formatted_data.dss,
-                planet_names_json=self.bot.json_dict["planets"],
             )
             try:
                 message = await self.bot.channels.waste_bin_channel.send(
