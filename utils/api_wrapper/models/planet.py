@@ -78,8 +78,7 @@ class Planet(ReprMixin):
                 anim=True,
                 increasing=self.tracker.change_rate_per_hour > 0,
             )
-        else:
-            return health_bar(perc=progress, faction=faction)
+        return health_bar(perc=progress, faction=faction)
 
     @property
     def map_waypoints(self) -> tuple[int, int]:
