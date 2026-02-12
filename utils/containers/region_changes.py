@@ -158,7 +158,7 @@ class RegionChangesContainer(ui.Container, ReprMixin):
                         region_emoji=region.emoji,
                         region_name=region.names[self.container_json.lang_code_long],
                         planet_name=region.planet.names.get(
-                            self.container_json.lang_code_long.str(region.planet.index)
+                            self.container_json.lang_code_long, str(region.planet.index)
                         ),
                     )
                     + self.container_json.container["resistance"].format(
