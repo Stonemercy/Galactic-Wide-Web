@@ -9,7 +9,6 @@ from cv2 import (
     line,
     LINE_AA,
     merge,
-    resize,
     split,
 )
 from data.lists import CUSTOM_COLOURS
@@ -17,8 +16,8 @@ from dataclasses import dataclass
 from datetime import datetime, timedelta
 from numpy import uint8, zeros
 from PIL import Image, ImageDraw, ImageFont
-from utils.api_wrapper.models import Assignment, Campaign, DSS, Planet
-from utils.dataclasses import Factions, SpecialUnits
+from utils.api_wrapper.models import Assignment, DSS, Planet
+from utils.dataclasses import Factions, Faction, SpecialUnits
 from utils.mixins import ReprMixin
 
 DIM_FACTION_COLOURS: dict[str, tuple[int, int, int]] = {
@@ -39,13 +38,14 @@ class Maps:
 
     @dataclass
     class FileLocations:
-        empty_map: str = "resources/maps/empty_map.webp"
-        sector_map: str = "resources/maps/sector_map.webp"
-        waypoints_map: str = "resources/maps/waypoints_map.webp"
-        assignment_map: str = "resources/maps/assignment_map.webp"
-        planets_map: str = "resources/maps/planets_map.webp"
-        icons_map: str = "resources/maps/icons_map.webp"
-        arrow_map: str = "resources/maps/arrow_map.webp"
+        _prefix: str = "resources/maps/"
+        empty_map: str = _prefix + "empty_map.webp"
+        sector_map: str = _prefix + "sector_map.webp"
+        waypoints_map: str = _prefix + "waypoints_map.webp"
+        assignment_map: str = _prefix + "assignment_map.webp"
+        planets_map: str = _prefix + "planets_map.webp"
+        icons_map: str = _prefix + "icons_map.webp"
+        arrow_map: str = _prefix + "arrow_map.webp"
 
         def localized_map_path(language_code: str) -> str:
             return f"resources/maps/localized/{language_code}.webp"
@@ -58,29 +58,18 @@ class Maps:
         self.update_assignment_tasks(assignments=assignments, planets=planets)
         self.update_planets(planets=planets)
 
-    def update_sectors(self, planets: list[Planet]) -> None:
-        sectors: dict[str, list[str]] = {}
+    def update_sectors(self, planets: dict[int, Planet]) -> None:
+        sectors: dict[str, list[Faction]] = {}
         for planet in planets.values():
-            faction_name = (
-                planet.faction.full_name
-                if not planet.event
-                else planet.event.faction.full_name
-            )
+            faction = planet.faction if not planet.event else planet.event.faction
             if planet.sector not in sectors:
-                sectors[planet.sector] = [faction_name]
+                sectors[planet.sector] = [faction]
             else:
-                sectors[planet.sector].append(faction_name)
-        enemy_sectors = {s: l for s, l in sectors.items() if set(l) != set(["Humans"])}
-        sector_percentages = {
-            sector: 1.5
-            - (factions.count(max(factions, key=factions.count)) / len(factions))
-            for sector, factions in enemy_sectors.items()
+                sectors[planet.sector].append(faction)
+        enemy_sectors = {
+            s: set(l) for s, l in sectors.items() if set(l) != set(["Humans"])
         }
-        sector_factions = {
-            s: max([i for i in f if i != "Humans"], key=f.count)
-            for s, f in enemy_sectors.items()
-        }
-        sector_coords = {}
+        sector_coords: dict[str, tuple[int, int]] = {}
         for sector in enemy_sectors:
             sector_coords[sector] = [p for p in planets.values() if p.sector == sector][
                 0
@@ -94,13 +83,24 @@ class Maps:
             alpha_channel = None
 
         for sector, coords in sector_coords.items():
-            color = DIM_FACTION_COLOURS[sector_factions[sector]]
-            percentage = sector_percentages[sector]
-            bgr_color = (
-                int(color[2] * percentage),
-                int(color[1] * percentage),
-                int(color[0] * percentage),
-            )
+            sector_faction = list(enemy_sectors[sector])
+            if len(sector_faction) == 1:
+                if sector_faction[0] == Factions.humans:
+                    continue
+                elif [
+                    p
+                    for p in planets.values()
+                    if p.sector == sector and p.active_campaign
+                ]:
+                    bgr_color = DIM_FACTION_COLOURS[sector_faction[0].full_name]
+                else:
+                    bgr_color = tuple(
+                        int(i / 2)
+                        for i in DIM_FACTION_COLOURS[sector_faction[0].full_name]
+                    )
+            else:
+                bgr_color = DIM_FACTION_COLOURS[sector_faction[1].full_name]
+            bgr_color = tuple(int(i) for i in bgr_color[::-1])
             h, w = background.shape[:2]
             mask = zeros((h + 2, w + 2), uint8)
             floodFill(
