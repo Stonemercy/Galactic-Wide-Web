@@ -363,14 +363,17 @@ class Maps:
                         f"resources/map_icons/{su[0].lower().replace(' ', '_')}_bordered.png",
                         IMREAD_UNCHANGED,
                     )
-                    self.paste_image(
-                        background,
-                        su_icon,
-                        planet.map_waypoints,
-                        x_offset=35 + x_offset,
-                        y_offset=-(20 + ((loc_name.count(" ") + 1) * self.TEXT_SIZE)),
-                    )
-                    x_offset += su_icon.shape[0]
+                    if su_icon is not None:
+                        self.paste_image(
+                            background,
+                            su_icon,
+                            planet.map_waypoints,
+                            x_offset=35 + x_offset,
+                            y_offset=-(
+                                20 + ((loc_name.count(" ") + 1) * self.TEXT_SIZE)
+                            ),
+                        )
+                        x_offset += su_icon.shape[0]
             if dss and planet.dss_in_orbit:
                 dss_icon = (
                     imread("resources/map_icons/dss_glow.png", IMREAD_UNCHANGED)
