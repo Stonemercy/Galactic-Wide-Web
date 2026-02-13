@@ -203,7 +203,10 @@ class Dashboard:
                 if region.is_available:
                     field_name += f"{region.emoji} {region.names.get(language_json['code_long'], region.name)}"
                     if compact_level < 2:
-                        field_value += f"-# {region.descriptions.get(language_json['code_long'], region.description)}"
+                        description = region.descriptions.get(
+                            language_json["code_long"], region.description
+                        ).replace("\n", "")
+                        field_value += f"-# {description}"
                     if region.tracker and region.tracker.change_rate_per_hour > 0:
                         field_value += f"\n-# {language_json['embeds']['Dashboard']['HomeworldCampaignEmbed']['victory']} <t:{int(region.tracker.complete_time.timestamp())}:R>"
                     field_value += f"\n{region.health_bar}"
