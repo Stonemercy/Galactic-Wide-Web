@@ -51,10 +51,7 @@ class Maps:
             return f"resources/maps/localized/{language_code}.webp"
 
     def update_base_map(
-        self,
-        planets: list[Planet],
-        assignments: list[Assignment],
-        campaigns: list[Campaign],
+        self, planets: list[Planet], assignments: list[Assignment]
     ) -> None:
         self.update_sectors(planets=planets)
         self.update_waypoint_lines(planets=planets)

@@ -60,7 +60,6 @@ class MapCog(commands.Cog):
             self.bot.maps.update_base_map(
                 planets=self.bot.data.formatted_data.planets,
                 assignments=self.bot.data.formatted_data.assignments.get("en", []),
-                campaigns=self.bot.data.formatted_data.campaigns,
             )
             for language_code, embed in map_embeds.items():
                 language_json = self.bot.json_dict["languages"][language_code]
@@ -140,7 +139,6 @@ class MapCog(commands.Cog):
             self.bot.maps.update_base_map(
                 planets=self.bot.data.formatted_data.planets,
                 assignments=self.bot.data.formatted_data.assignments.get("en", []),
-                campaigns=self.bot.data.formatted_data.campaigns,
             )
             language_json = self.bot.json_dict["languages"][guild.language]
             self.bot.maps.localize_map(

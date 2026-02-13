@@ -381,7 +381,6 @@ class SetupCog(commands.Cog):
                         assignments=self.bot.data.formatted_data.assignments.get(
                             "en", []
                         ),
-                        campaigns=self.bot.data.formatted_data.campaigns,
                     )
                     self.bot.maps.localize_map(
                         language_code_short=guild_language["code"],
