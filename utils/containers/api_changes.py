@@ -176,7 +176,7 @@ class APIChangesContainer(ui.Container, ReprMixin):
                         case "damage_multiplier":
                             self.container_components.append(
                                 ui.TextDisplay(
-                                    f"Region's damage multiplier has changed from:\n**{old_stat:.1}x** {Emojis.Stratagems.right} **{new_stat:.1}x**"
+                                    f"Region's damage multiplier has changed from:\n**{old_stat}x** {Emojis.Stratagems.right} **{new_stat}x**"
                                 )
                             )
             self.container_components.append(ui.Separator())
