@@ -48,11 +48,13 @@ class AdminCommandsCog(commands.Cog):
         """Returns the name of each cog currently loaded"""
         if not inter.bot.extensions:
             return []
-        return [
-            ext.split(".")[-1]
-            for ext in list(inter.bot.extensions.keys())
-            if user_input.lower() in ext.lower()
-        ][:25]
+        return sorted(
+            [
+                ext.split(".")[-1]
+                for ext in list(inter.bot.extensions.keys())
+                if user_input.lower() in ext.lower()
+            ]
+        )[:25]
 
     @wait_for_startup()
     @commands.is_owner()
