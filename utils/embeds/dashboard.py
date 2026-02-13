@@ -1034,6 +1034,7 @@ class Dashboard:
                         progress = (
                             f"\n`{f'{task.tracker.change_rate_per_hour:+.1%}/hr':^25}`"
                         )
+                        progress += f"\n-# {self.language_json['embeds']['Dashboard']['MajorOrderEmbed']['complete']} <t:{int(task.tracker.complete_time.timestamp())}:R>"
                     field_value += (
                         f"-# {self.language_json['embeds']['Dashboard']['MajorOrderEmbed']['progress']}: **{short_format(task.progress)}/{short_format(task.target)}**"
                         f"\n{task.health_bar}"
