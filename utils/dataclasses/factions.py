@@ -14,6 +14,9 @@ class Faction:
     def emoji(self):
         return getattr(Emojis.Factions, self.full_name.lower())
 
+    def __hash__(self):
+        return hash(self.number)
+
 
 class Factions:
     humans: Faction = Faction(
