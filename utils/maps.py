@@ -363,10 +363,6 @@ class Maps:
                         f"resources/map_icons/{su[0].lower().replace(' ', '_')}_bordered.png",
                         IMREAD_UNCHANGED,
                     )
-                    su_icon = resize(
-                        su_icon,
-                        (int(32 * (su_icon.shape[1] / su_icon.shape[0])), 32),
-                    )
                     self.paste_image(
                         background,
                         su_icon,
