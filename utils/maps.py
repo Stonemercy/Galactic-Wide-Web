@@ -154,7 +154,7 @@ class Maps:
                     image=background,
                     coords=planet.map_waypoints,
                     fill_colour=CUSTOM_COLOURS["MO"],
-                    radius=12,
+                    radius=12 if not planet.dss_in_orbit else 15,
                 )
 
         imwrite(Maps.FileLocations.assignment_map, background)
