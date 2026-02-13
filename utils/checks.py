@@ -1,14 +1,17 @@
 from datetime import datetime
 from disnake import AppCmdInter
 from disnake.ext import commands
-from utils.errors import NotWhitelisted
+from utils.errors import NotReadyYet, NotWhitelisted
 
 
 def wait_for_startup():
     """Waits for the bot to be ready before allowing the interaction"""
 
     def predicate(inter: AppCmdInter):
-        return datetime.now() > inter.bot.ready_time
+        if datetime.now() > inter.bot.ready_time:
+            return True
+
+        raise NotReadyYet()
 
     return commands.check(predicate)
 

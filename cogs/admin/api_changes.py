@@ -23,8 +23,6 @@ REGION_STATS_TO_CHECK = {
     "Damage Multiplier": "damage_multiplier",
 }
 
-FETCH_SKIP_LIMIT = 5
-
 
 class APIChangesCog(commands.Cog):
     def __init__(self, bot: GalacticWideWebBot) -> None:

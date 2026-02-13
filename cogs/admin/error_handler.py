@@ -2,6 +2,7 @@ from traceback import format_exception
 from disnake import AppCmdInter, Color, Embed, MessageInteraction
 from disnake.ext import commands
 from utils.bot import GalacticWideWebBot
+from utils.errors import NotReadyYet, NotWhitelisted
 
 
 class ErrorHandlerCog(commands.Cog):
@@ -13,7 +14,13 @@ class ErrorHandlerCog(commands.Cog):
         error = getattr(error, "original", error)
         embed = Embed(title="Error", color=Color.red())
 
-        if isinstance(error, commands.MissingPermissions):
+        if isinstance(error, NotReadyYet):
+            embed.description = f"The bot isn't ready yet, try again <t:{int(self.bot.ready_time.timestamp())}:R>"
+        elif isinstance(error, NotWhitelisted):
+            embed.description = (
+                f"This command isn't for public use. Apologies for the inconvenience."
+            )
+        elif isinstance(error, commands.MissingPermissions):
             embed.description = f"You don't have permission to use this command.\nRequired: {', '.join(error.missing_permissions)}"
         elif isinstance(error, commands.BotMissingPermissions):
             embed.description = f"I don't have the required permissions.\nMissing: {', '.join(error.missing_permissions)}"
@@ -46,7 +53,13 @@ class ErrorHandlerCog(commands.Cog):
         error = getattr(error, "original", error)
         embed = Embed(title="Button Error", color=Color.red())
 
-        if isinstance(error, commands.CheckFailure):
+        if isinstance(error, NotReadyYet):
+            embed.description = f"The bot isn't ready yet, try again <t:{int(self.bot.ready_time.timestamp())}:R>"
+        elif isinstance(error, NotWhitelisted):
+            embed.description = (
+                f"This command isn't for public use. Apologies for the inconvenience."
+            )
+        elif isinstance(error, commands.CheckFailure):
             embed.description = "You don't have permission to use this button."
         elif isinstance(error, commands.CommandOnCooldown):
             embed.description = f"This button is on cooldown. Try again in {error.retry_after:.2f} seconds."
@@ -67,7 +80,13 @@ class ErrorHandlerCog(commands.Cog):
         error = getattr(error, "original", error)
         embed = Embed(title="Dropdown Error", color=Color.red())
 
-        if isinstance(error, commands.CheckFailure):
+        if isinstance(error, NotReadyYet):
+            embed.description = f"The bot isn't ready yet, try again <t:{int(self.bot.ready_time.timestamp())}:R>"
+        elif isinstance(error, NotWhitelisted):
+            embed.description = (
+                f"This command isn't for public use. Apologies for the inconvenience."
+            )
+        elif isinstance(error, commands.CheckFailure):
             embed.description = "You don't have permission to use this dropdown."
         elif isinstance(error, commands.CommandOnCooldown):
             embed.description = f"This dropdown is on cooldown. Try again in {error.retry_after:.2f} seconds."
