@@ -212,7 +212,16 @@ class Dashboard:
                         change = f"{region.tracker.change_rate_per_hour:+.1%}/hr"
                         field_value += f"\n`{change:^25}`"
                 else:
-                    field_value += f"-# {region.emoji} {region.names.get(language_json['code_long'], region.name)}"
+                    if any(
+                        (
+                            r
+                            for r in campaign.planet.regions.values()
+                            if r.size > region.size and r.is_available
+                        )
+                    ):
+                        field_value += f"-# ~~{region.emoji} {region.names.get(language_json['code_long'], region.name)}~~"
+                    else:
+                        field_value += f"-# {region.emoji} {region.names.get(language_json['code_long'], region.name)}"
 
                 self.add_field(field_name, field_value, inline=False)
 
@@ -772,7 +781,7 @@ class Dashboard:
                     field_name = field_name.replace("{COUNT}", f"{task.target:,}")
                     field_name = field_name.replace("{COUNT_POST}", f"** {times}")
             else:
-                # idk how they are going to put this through atm
+                # idk how they are going to put this through atm so I have purposely not localized it
                 objective_verb = choice(["activate", "destroy", "primary", "secondary"])
                 match objective_verb:
                     case "activate":
