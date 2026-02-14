@@ -51,10 +51,12 @@ class APIChangesContainer(ui.Container, ReprMixin):
                     self.container_components.append(
                         ui.Section(
                             ui.TextDisplay(
-                                f"## Update to **{api_change.new_object.name}** {api_change.new_object.faction.emoji}{api_change.new_object.exclamations}"
+                                f"## Update to **{api_change.new_object.names.get('en-GB', str(api_change.new_object.index))}** {api_change.new_object.faction.emoji}{api_change.new_object.exclamations}"
                             ),
                             accessory=HDCButton(
-                                label=api_change.new_object.name,
+                                label=api_change.new_object.names.get(
+                                    "en-GB", str(api_change.new_object.index)
+                                ),
                                 link=f"https://helldiverscompanion.com/#hellpad/planets/{api_change.new_object.index}",
                             ),
                         )
