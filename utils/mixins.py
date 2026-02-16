@@ -66,7 +66,7 @@ class GWEReprMixin:
         if self.found_enemy:
             base_str += f"\n    Enemy Found: **{self.found_enemy}**"
         if self.found_stratagem:
-            base_str += f"\n    Stratagem Found: **{self.found_stratagem[0]}**"
+            base_str += f"\n    Stratagem Found: **{self.found_stratagem}**"
         if self.found_booster:
             base_str += f"\n    Booster Found: **{self.found_booster['name']}**"
         if self.count:
