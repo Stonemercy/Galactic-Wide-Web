@@ -195,11 +195,20 @@ class PlanetContainers(list[ui.Container]):
         def __init__(self, planet: Planet, lang_code: str, container_json: dict):
             self.components = []
             now_seconds = int(datetime.now().timestamp())
-            for region in planet.regions.values():
+            for region in sorted(planet.regions.values(), key=lambda x: x.size):
                 text_display = ui.TextDisplay(
                     f"{region.owner.emoji} **{region.names.get(lang_code, region.name)}**"
                 )
-                text_display.content += f"\n{region.emoji} {region.type.name.replace("_", " ").title()}"
+                if not region.is_available and any(
+                    [r for r in planet.regions.values() if r.size > region.size]
+                ):
+                    text_display.content = f"~~{text_display.content}~~"
+                if planet.homeworld and planet.faction == Factions.automaton:
+                    text_display.content += (
+                        f"\n-# {region.emoji} Class {region.size} Megafactory"
+                    )
+                else:
+                    text_display.content += f"\n-# {region.emoji} {region.type.name.replace('_', ' ').title()}"
                 if region.description and len(planet.regions) < 5:
                     text_display.content += f"\n-# {region.descriptions[lang_code]}"
                 if region.is_available:

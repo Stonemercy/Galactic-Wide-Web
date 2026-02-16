@@ -202,7 +202,13 @@ class Dashboard:
                 field_value = ""
                 if region.is_available:
                     field_name += f"{region.emoji} {region.names.get(language_json['code_long'], region.name)}"
-                    if compact_level < 2:
+                    if compact_level < 2 and not any(
+                        [
+                            r
+                            for r in campaign.planet.regions.values()
+                            if r.size > region.size and r.is_available
+                        ]
+                    ):
                         description = region.descriptions.get(
                             language_json["code_long"], region.description
                         ).replace("\n", "")
