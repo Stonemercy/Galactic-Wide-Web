@@ -199,8 +199,12 @@ class PlanetContainers(list[ui.Container]):
                 text_display = ui.TextDisplay(
                     f"{region.owner.emoji} **{region.names.get(lang_code, region.name)}**"
                 )
-                if not region.is_available and any(
-                    [r for r in planet.regions.values() if r.size > region.size]
+                if (
+                    planet.homeworld
+                    and not region.is_available
+                    and any(
+                        [r for r in planet.regions.values() if r.size > region.size]
+                    )
                 ):
                     text_display.content = f"~~{text_display.content}~~"
                 if planet.homeworld and planet.faction == Factions.automaton:
