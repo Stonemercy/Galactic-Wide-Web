@@ -199,8 +199,8 @@ class PlanetContainers(list[ui.Container]):
                 text_display = ui.TextDisplay(
                     f"{region.owner.emoji} **{region.names.get(lang_code, region.name)}**"
                 )
-                text_display.content += f"\n{region.emoji} {region.type.name.title()}"
-                if region.description:
+                text_display.content += f"\n{region.emoji} {region.type.name.replace("_", " ").title()}"
+                if region.description and len(planet.regions) < 5:
                     text_display.content += f"\n-# {region.descriptions[lang_code]}"
                 if region.is_available:
                     text_display.content += f"\n-# {container_json['heroes']}: **{region.players}** ({region.players / planet.stats.player_count:.2%})"
