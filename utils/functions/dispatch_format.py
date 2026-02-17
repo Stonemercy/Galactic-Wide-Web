@@ -8,6 +8,7 @@ def dispatch_format(text: str):
         "<i=1",
         "</i=3>",
         "<i>",
+        "</>",
     ]
     for replacement in replacements:
         text = text.replace(replacement, "**")
