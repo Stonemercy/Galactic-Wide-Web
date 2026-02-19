@@ -395,6 +395,18 @@ class FormattedData:
                     key=lambda x: x.ends_at_datetime,
                     reverse=True,
                 )
+                for assignment in self.assignments[lang]:
+                    if assignment.briefing and assignment.briefing.count("_") > 5:
+                        english_assignment_list = [
+                            a for a in self.assignments["en"] if a.id == assignment.id
+                        ]
+                        if english_assignment_list:
+                            english_assignment = english_assignment_list[0]
+                            if (
+                                english_assignment.briefing
+                                and english_assignment.briefing.count("_") < 5
+                            ):
+                                assignment.briefing = english_assignment.briefing
 
             # in_assignment
             for assignment in self.assignments["en"]:
