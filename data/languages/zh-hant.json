@@ -96,9 +96,9 @@
             },
             "RegionContainer": {
                 "heroes": "英雄",
-                "boost_when_liberated": "解放時提升",
-                "liberated": "已解放",
-                "liberation": "解放",
+                "boost_when_liberated": "解放時將提升",
+                "liberated": "解放於",
+                "liberation": "解放進度",
                 "defence_duration": "防禦時長",
                 "unlocked_when": "\n當 **{stat_to_use}** 達到 **{av_factor}** 時解鎖"
             }
@@ -146,7 +146,7 @@
     },
     "embeds": {
         "Dashboard": {
-            "outlook": "展望",
+            "outlook": "預期",
             "HomeworldCampaignEmbed": {
                 "battle_for": "爭奪",
                 "automaton_description": "-# 開闢一道通往賽博格首都的路徑，穿過巨型工廠——最大的巨型工廠，也是賽博格抵抗的中心。\n-# 在我們的 **預備部隊** 耗盡之前摧毀它，以解放 **生化斯坦**",
@@ -155,9 +155,9 @@
             "MajorOrderEmbed": {
                 "assignment": "任務 #{id}",
                 "rewards": "獎勵",
-                "reward_pluralized": "{reward}s",
-                "ahead_of_schedule": "\n-# **{hours}h {minutes}m** 提前完成",
-                "behind_schedule": "\n-# **{hours}h {minutes}m** 落後進度",
+                "reward_pluralized": "{reward}",
+                "ahead_of_schedule": "\n-#快於預期 **{hours}小時 {minutes}分鐘**",
+                "behind_schedule": "\n-#落後預期 **{hours}小時 {minutes}分鐘** ",
                 "avail_thanks_to_wp": "\n-# 可用於 **<t:{timestamp}:R>**，由於 **{planet_name}** 的解放",
                 "progress": "進度",
                 "complete": "完成",
@@ -201,7 +201,7 @@
                     "type12_p_r": "{emoji} 防守 **{planet}** 免受來自 **{count}** 次攻擊",
                     "type12_r_f": "{emoji} 防禦來自 **{race}** 的 **{count}** 次攻擊",
                     "type12_r_r": "{emoji} 防禦任意行星上的 **{count}** 次攻擊",
-                    "type13_c_s": "{emoji} Hold **{count}** planets in the **{sector}** sector when the order expires",
+                    "type13_c_s": "{emoji} 在任務結束前於 **{sector}** 星區堅守住 **{count}** 顆星球",
                     "type13_r": "{emoji} 在指令到期時守住 **{location}**",
                     "type14_f": "{emoji} 自 **{race}** 手中解放 **{count}** 顆星球",
                     "type14_r": "{emoji} 解放 **{count}** 顆星球",
@@ -279,7 +279,7 @@
         "DSSEmbed": {
             "title": "民主太空站",
             "stationed_at": "駐紮於 **{planet}** {faction_emoji}\n",
-            "next_move": "移動 {timestamp}",
+            "next_move": "將在 {timestamp} 後移動",
             "preparing": "準備中",
             "active": "啟動中",
             "inactive": "未啟動",
@@ -361,7 +361,7 @@
         "THE GREAT HOST": "大遠征隊",
         "RUPTURE STRAIN": "裂破變種",
         "DRAGONROACHES": "龍蟑",
-        "HIVE LORDS": "霸王重",
-        "CYBORGS": "CYBORGS"
+        "HIVE LORDS": "霸王蟲",
+        "CYBORGS": "生化人"
     }
 }
