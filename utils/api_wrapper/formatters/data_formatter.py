@@ -543,6 +543,17 @@ class FormattedData:
                 personal_order=correct_po, json_dict=context.json_dict
             )
 
+        for region in (r for p in self.planets.values() for r in p.regions.values()):
+            for index in region._connection_indices:
+                if connected_region_list := [
+                    r
+                    for p in self.planets.values()
+                    for r in p.regions.values()
+                    if r.settings_hash == index
+                ]:
+                    connected_region = connected_region_list[0]
+                    region.connections.append(connected_region)
+
         self.formatted_at = datetime.now()
 
     def copy(self):

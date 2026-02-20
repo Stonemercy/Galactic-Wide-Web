@@ -202,7 +202,13 @@ class Dashboard:
                 field_value = ""
                 if region.is_available:
                     field_name += f"{region.emoji} {region.names.get(language_json['code_long'], region.name)}"
-                    field_value += f"\n-# {language_json['embeds']['Dashboard']['HomeworldCampaignEmbed']['heroes']}: {region.players:,} ({region.players/ campaign.planet.stats.player_count:,.1%})"
+                    field_value += f"\n-# {language_json['embeds']['Dashboard']['HomeworldCampaignEmbed']['heroes']}: {region.players:,} ({region.players / campaign.planet.stats.player_count:,.1%})"
+                    if avail_connected_regions := [
+                        r for r in region.connections if r.is_available
+                    ]:
+                        field_value += "\n-# Connections:"
+                        for connection in avail_connected_regions:
+                            field_value += f"\n-# ↳ {connection.emoji} {connection.names.get(language_json['code_long'], region.name)}"
                     if compact_level < 2 and not any(
                         [
                             r

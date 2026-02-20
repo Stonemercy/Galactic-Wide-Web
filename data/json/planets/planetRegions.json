@@ -13,7 +13,8 @@
             "zh-Hant": "\u8c50\u9952\u4e4b\u5730"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "622301006": {
         "name": "ABUNDANCE BLUFF",
@@ -29,7 +30,8 @@
             "zh-Hant": "\u8c50\u9952\u4e4b\u5d16"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3205582835": {
         "name": "ACCOUNTANT GRAEBER",
@@ -45,7 +47,8 @@
             "zh-Hant": "\u683c\u96f7\u4f2f\u6703\u8a08\u5e2b"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3179108272": {
         "name": "ADAM PARK",
@@ -61,7 +64,8 @@
             "zh-Hant": "\u4e9e\u7576\u516c\u5712"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3958784315": {
         "name": "ADMINISTRATIVE CENTER 02",
@@ -87,7 +91,8 @@
             "ru-RU": "\u041a\u0430\u0436\u0434\u044b\u0439 \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442 \u0438 \u0437\u0430\u044f\u0432\u043b\u0435\u043d\u0438\u0435, \u043a\u043e\u0442\u043e\u0440\u044b\u0435 \u043f\u0440\u043e\u0445\u043e\u0434\u044f\u0442 \u0447\u0435\u0440\u0435\u0437 \u0441\u0432\u044f\u0449\u0435\u043d\u043d\u044b\u0435 \u0437\u0430\u043b\u044b \u0410\u0434\u043c\u0438\u043d\u0446\u0435\u043d\u0442\u0440\u0430, \u0443\u043a\u0440\u0430\u0448\u0430\u044e\u0442\u0441\u044f \u041f\u0435\u0447\u0430\u0442\u044c\u044e \u044d\u043f\u043e\u0445 \u0438 \u043f\u043e\u043b\u0443\u0447\u0430\u044e\u0442 \u043f\u043e\u0447\u0435\u0442\u043d\u043e\u0435 \u043c\u0435\u0441\u0442\u043e \u0432 \u0434\u043e\u043c\u0435.",
             "zh-Hans": "\u884c\u653f\u4e2d\u5fc3\u795e\u5723\u5927\u5385\u7ecf\u624b\u7684\u8868\u683c\u548c\u7533\u8bf7\u5747\u5370\u6709\u201c\u65f6\u4ee3\u5370\u7ae0\u201d\uff0c\u5e94\u5f53\u6446\u653e\u5728\u5bb6\u4e2d\u663e\u8d6b\u4f4d\u7f6e\u3002",
             "zh-Hant": "\u6bcf\u4efd\u901a\u904e\u884c\u653f\u4e2d\u5fc3\u838a\u56b4\u5927\u5ef3\u7684\u8868\u55ae\u548c\u7533\u8acb\uff0c\u90fd\u70d9\u5370\u8457\u6b72\u6708\u7684\u5370\u8a18\uff0c\u61c9\u8a72\u653e\u5728\u5bb6\u4e2d\u8b39\u614e\u73cd\u85cf\u3002"
-        }
+        },
+        "connections": []
     },
     "786867005": {
         "name": "ADNAN",
@@ -103,7 +108,8 @@
             "zh-Hant": "\u963f\u5fb7\u5357"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3342871593": {
         "name": "ADVENTURE",
@@ -119,7 +125,8 @@
             "zh-Hant": "\u5192\u96aa\u4e4b\u5730"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3175334400": {
         "name": "AGARTHA",
@@ -135,7 +142,8 @@
             "zh-Hant": "\u96c5\u6208\u6cf0"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "457233553": {
         "name": "AIDESVILLE",
@@ -151,7 +159,8 @@
             "zh-Hant": "\u54c0\u5730\u65af\u6751"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "860486103": {
         "name": "ALIGNMENT",
@@ -167,7 +176,8 @@
             "zh-Hant": "\u5411\u5fc3\u4e4b\u5730"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3964263469": {
         "name": "ALTONBURG",
@@ -183,7 +193,8 @@
             "zh-Hant": "\u963f\u723e\u9813\u5821"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2300653457": {
         "name": "ANDROS DELTA",
@@ -199,7 +210,8 @@
             "zh-Hant": "\u5b89\u5fb7\u7f85\u65af\u5fb7\u723e\u5854"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "137264955": {
         "name": "ANDROS GAMMA",
@@ -215,7 +227,8 @@
             "zh-Hant": "\u5b89\u5fb7\u7f85\u65af\u4f3d\u746a"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "763067932": {
         "name": "ANNE'S VIGIL",
@@ -231,7 +244,8 @@
             "zh-Hant": "\u5b89\u59ae\u591c\u79b1\u57ce"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3116199682": {
         "name": "ANNWN",
@@ -247,7 +261,8 @@
             "zh-Hant": "\u5b89\u6eab"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1428185423": {
         "name": "ANTBOOT",
@@ -263,7 +278,8 @@
             "zh-Hant": "\u8e0f\u87f2\u5e02"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1872830438": {
         "name": "APPROVAL CITY",
@@ -279,7 +295,8 @@
             "zh-Hant": "\u8a8d\u53ef\u57ce"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2541292675": {
         "name": "ASPEN HILLS",
@@ -295,7 +312,8 @@
             "zh-Hant": "\u767d\u694a\u4e4b\u4e18"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2340207578": {
         "name": "AUTONOMY",
@@ -321,7 +339,11 @@
             "ru-RU": "\u0412\u044b\u0441\u0448\u0435\u0435 \u043a\u043e\u043c\u0430\u043d\u0434\u043e\u0432\u0430\u043d\u0438\u0435 \u0441\u0447\u0438\u0442\u0430\u0435\u0442 \u044d\u0442\u0443 \u043c\u0435\u0433\u0430\u0444\u0430\u0431\u0440\u0438\u043a\u0443 \u043e\u0434\u043d\u0438\u043c \u0438\u0437 \u0434\u0432\u0443\u0445 \u0432\u043e\u0437\u043c\u043e\u0436\u043d\u044b\u0445 \u043f\u043b\u0430\u0446\u0434\u0430\u0440\u043c\u043e\u0432 \u0434\u043b\u044f \u0432\u0442\u043e\u0440\u0436\u0435\u043d\u0438\u044f \u043d\u0430 \u041a\u0438\u0431\u0435\u0440\u0441\u0442\u0430\u043d. \u041f\u0440\u043e\u0442\u043e\u043a\u043e\u043b\u044b \u0431\u044b\u0441\u0442\u0440\u043e\u0433\u043e \u043d\u0430\u0441\u0442\u0443\u043f\u043b\u0435\u043d\u0438\u044f \u043e\u0433\u0440\u0430\u043d\u0438\u0447\u0430\u0442 \u043a\u043e\u043b\u0438\u0447\u0435\u0441\u0442\u0432\u043e \u0434\u043e\u0441\u0442\u0443\u043f\u043d\u044b\u0445 \u0431\u043e\u0435\u043f\u0440\u0438\u043f\u0430\u0441\u043e\u0432.",
             "zh-Hans": "\u6700\u9ad8\u6307\u6325\u90e8\u5df2\u5c06\u8fd9\u5ea7\u8d85\u5927\u578b\u5de5\u5382\u8ba4\u5b9a\u4e3a\u5165\u4fb5\u751f\u5316\u65af\u5766\u7684\u4e24\u4e2a\u6f5c\u5728\u6ee9\u5934\u5821\u4e4b\u4e00\u3002\u5feb\u901f\u7a81\u5165\u534f\u8bae\u5c06\u9650\u5236\u90e8\u7f72\u5f39\u836f\u3002",
             "zh-Hant": "\u6700\u9ad8\u53f8\u4ee4\u90e8\u5df2\u5c07\u9019\u5ea7\u8d85\u7d1a\u5de5\u5ee0\u5217\u70ba\u5165\u4fb5\u751f\u5316\u65af\u5766\u7684\u5169\u500b\u6f5b\u5728\u7058\u982d\u9663\u5730\u4e4b\u4e00\u3002\u5feb\u901f\u7a81\u5165\u5354\u8b70\u5c07\u9650\u5236\u80fd\u90e8\u7f72\u7684\u5f48\u85e5\u91cf\u3002"
-        }
+        },
+        "connections": [
+            1512842277,
+            2634960640
+        ]
     },
     "3309151713": {
         "name": "BARRACKSBURG",
@@ -337,7 +359,8 @@
             "zh-Hant": "\u8ecd\u71df\u5821"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1322103873": {
         "name": "BARREN WARD",
@@ -353,7 +376,8 @@
             "zh-Hant": "\u8352\u539f\u5340"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1762725992": {
         "name": "BASE CAMP 8",
@@ -369,7 +393,8 @@
             "zh-Hant": "8\u865f\u71df"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2033316867": {
         "name": "BATU BELIG",
@@ -385,7 +410,8 @@
             "zh-Hant": "\u5df4\u5716\u8c9d\u5229\u683c"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1201038992": {
         "name": "BEACHVIEW",
@@ -401,7 +427,8 @@
             "zh-Hant": "\u6ff1\u6d77\u773a\u5cb8"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "521646997": {
         "name": "BEEFBURG",
@@ -417,7 +444,8 @@
             "zh-Hant": "\u725b\u5821"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1365889454": {
         "name": "BENEVOLENCE",
@@ -433,7 +461,8 @@
             "zh-Hant": "\u4ec1\u6148\u57ce"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "468034602": {
         "name": "BIRCHVILLE",
@@ -449,7 +478,8 @@
             "zh-Hant": "\u6a3a\u6728\u6751"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2591044773": {
         "name": "BIRTH",
@@ -465,7 +495,8 @@
             "zh-Hant": "\u8a95\u751f\u4e4b\u5730"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "873382628": {
         "name": "BLACKVEIN MINES",
@@ -481,7 +512,8 @@
             "zh-Hant": "\u9ed1\u8108\u7926"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "484247622": {
         "name": "BLESTRAIL",
@@ -497,7 +529,8 @@
             "zh-Hant": "\u795d\u798f\u4e4b\u5f91"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "452138560": {
         "name": "BLIGHTSMURK",
@@ -513,7 +546,8 @@
             "zh-Hant": "\u8352\u75ab\u4e4b\u5730"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1690681912": {
         "name": "BOPSFIELD",
@@ -529,7 +563,8 @@
             "zh-Hant": "\u535a\u666e\u65af\u83f2\u723e\u5fb7"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1108939907": {
         "name": "BRAVERY",
@@ -545,7 +580,8 @@
             "zh-Hant": "\u52c7\u6c23\u57ce"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1415969325": {
         "name": "BRAWFERMLAND",
@@ -561,7 +597,8 @@
             "zh-Hant": "\u5e03\u52de\u5f17\u862d"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2193235528": {
         "name": "BRIGHT WING",
@@ -577,7 +614,8 @@
             "zh-Hant": "\u5149\u7ffc\u57ce"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "481340922": {
         "name": "BRNO",
@@ -593,7 +631,8 @@
             "zh-Hant": "\u5e03\u723e\u8afe"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "521454425": {
         "name": "BROKER'S WEALTH",
@@ -609,7 +648,8 @@
             "zh-Hant": "\u7d93\u8ca1\u57ce"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1000010048": {
         "name": "BUCU'S REST",
@@ -625,7 +665,8 @@
             "zh-Hant": "\u5e03\u8c37\u5b89\u606f\u5730"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1050611219": {
         "name": "BUJU",
@@ -641,7 +682,8 @@
             "zh-Hant": "\u5e03\u6731"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3950276676": {
         "name": "CAMP LEIGHTON",
@@ -657,7 +699,8 @@
             "zh-Hant": "\u96f7\u9813\u71df"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3404329179": {
         "name": "CAMRAT FOR",
@@ -683,7 +726,11 @@
             "ru-RU": "\u0412 \u044d\u0442\u043e\u0439 \u043c\u0435\u0433\u0430\u0444\u0430\u0431\u0440\u0438\u043a\u0435 \u0441\u043e\u0441\u0440\u0435\u0434\u043e\u0442\u043e\u0447\u0435\u043d\u044b \u0437\u043d\u0430\u0447\u0438\u0442\u0435\u043b\u044c\u043d\u044b\u0435 \u043f\u0440\u043e\u0438\u0437\u0432\u043e\u0434\u0441\u0442\u0432\u0435\u043d\u043d\u044b\u0435 \u043c\u043e\u0449\u043d\u043e\u0441\u0442\u0438 \u0430\u0432\u0442\u043e\u043c\u0430\u0442\u043e\u043d\u043e\u0432. \u041a\u043e\u043d\u0442\u0440\u043e\u0440\u0431\u0438\u0442\u0430\u043b\u044c\u043d\u0430\u044f \u0437\u0430\u0449\u0438\u0442\u0430 \u043f\u0435\u0440\u0435\u0442\u044f\u0433\u0438\u0432\u0430\u0435\u0442 \u043d\u0430 \u0441\u0435\u0431\u044f \u0447\u0430\u0441\u0442\u044c \u0440\u0435\u0441\u0443\u0440\u0441\u043e\u0432 \u0441\u0443\u043f\u0435\u0440\u044d\u0441\u043c\u0438\u043d\u0446\u0435\u0432, \u0447\u0442\u043e \u043f\u0440\u0438\u0432\u043e\u0434\u0438\u0442 \u043a \u0437\u0430\u043c\u0435\u0434\u043b\u0435\u043d\u0438\u044e \u043f\u0435\u0440\u0435\u0437\u0430\u0440\u044f\u0434\u043a\u0438 \u043e\u0440\u0431\u0438\u0442\u0430\u043b\u044c\u043d\u044b\u0445 \u0441\u0442\u0440\u0430\u0442\u0430\u0433\u0435\u043c.",
             "zh-Hans": "\u8fd9\u5ea7\u8d85\u5927\u578b\u5de5\u5382\u62e5\u6709\u5927\u91cf\u673a\u5668\u4eba\u751f\u4ea7\u8bbe\u65bd\u3002\u53cd\u8f68\u9053\u9632\u5fa1\u8bbe\u65bd\u5c06\u6d88\u8017\u8d85\u7ea7\u9a71\u9010\u8230\u8d44\u6e90\uff0c\u5bfc\u81f4\u8f68\u9053\u652f\u63f4\u51b7\u5374\u65f6\u95f4\u5ef6\u957f\u3002",
             "zh-Hant": "\u9019\u5ea7\u8d85\u7d1a\u5de5\u5ee0\u64c1\u6709\u91cd\u8981\u7684\u6a5f\u5668\u4eba\u751f\u7522\u8a2d\u65bd\u3002\u53cd\u8ecc\u9053\u9632\u79a6\u8a2d\u65bd\u5c07\u6d88\u8017\u8d85\u7d1a\u9a45\u9010\u8266\u7684\u8cc7\u6e90\uff0c\u5c0e\u81f4\u8ecc\u9053\u6b66\u5668\u51b7\u537b\u6642\u9593\u5ef6\u9577\u3002"
-        }
+        },
+        "connections": [
+            1475859103,
+            297843856
+        ]
     },
     "3263074211": {
         "name": "CARBONDALE",
@@ -699,7 +746,8 @@
             "zh-Hant": "\u5361\u672c\u6234\u723e"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2368444431": {
         "name": "CELEBRATION",
@@ -715,7 +763,8 @@
             "zh-Hant": "\u6176\u5178\u4e4b\u5730"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3625692119": {
         "name": "CHAIRMAN OKOTE",
@@ -731,7 +780,8 @@
             "zh-Hant": "\u5967\u514b\u7279\u4e3b\u5e2d"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "867139136": {
         "name": "CHAIRMAN OYESLLO",
@@ -747,7 +797,8 @@
             "zh-Hant": "\u5967\u8036\u65af\u7f85\u4e3b\u5e2d"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3924472281": {
         "name": "CHATOYANT",
@@ -763,7 +814,8 @@
             "zh-Hant": "\u7165\u5f69\u57ce"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "4151302370": {
         "name": "CLE ELUM REDIVIVA",
@@ -779,7 +831,8 @@
             "zh-Hant": "\u65b0\u514b\u5229\u57c3\u52d2\u59c6"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2519594311": {
         "name": "CLOCKSTOP",
@@ -795,7 +848,8 @@
             "zh-Hant": "\u6642\u505c\u9ede"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3039275068": {
         "name": "COMMUNEFALLS",
@@ -811,7 +865,8 @@
             "zh-Hant": "\u5171\u6cbb\u7011\u5e03"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3185820932": {
         "name": "CONSENSUS",
@@ -827,7 +882,8 @@
             "zh-Hant": "\u5eb7\u68ee\u745f\u65af"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2143424881": {
         "name": "CONVENIENCE",
@@ -843,7 +899,8 @@
             "zh-Hant": "\u4fbf\u6377\u57ce"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3283689576": {
         "name": "CORNUCOPOLIS",
@@ -859,7 +916,8 @@
             "zh-Hant": "\u5bcc\u9952\u90fd"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3385219022": {
         "name": "COUNCILLOR RORA",
@@ -875,7 +933,8 @@
             "zh-Hant": "\u8b70\u54e1\u7f85\u62c9"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1915702028": {
         "name": "COZY FLATS",
@@ -891,7 +950,8 @@
             "zh-Hant": "\u8212\u9069\u5e73\u539f"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "4028778105": {
         "name": "CRYSTAL SLOPES",
@@ -907,7 +967,8 @@
             "zh-Hant": "\u6c34\u6676\u5761"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "559843220": {
         "name": "CURRENCY",
@@ -923,7 +984,8 @@
             "zh-Hant": "\u901a\u532f\u5e02"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2712707536": {
         "name": "DARKWELL",
@@ -939,7 +1001,8 @@
             "zh-Hant": "\u6697\u4e95"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2146650468": {
         "name": "DARROWSHOME",
@@ -955,7 +1018,8 @@
             "zh-Hant": "\u9054\u7f85\u4e4b\u5bb6"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2418052824": {
         "name": "DEBTOR'S DOWNS",
@@ -971,7 +1035,8 @@
             "zh-Hant": "\u50b5\u52d9\u8c37"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2719536576": {
         "name": "DEEPWELL",
@@ -987,7 +1052,8 @@
             "zh-Hant": "\u6df1\u4e95"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "324613052": {
         "name": "DEMOCRACY ALWAYS",
@@ -1003,7 +1069,8 @@
             "zh-Hant": "\u6c38\u6046\u6c11\u4e3b\u57ce"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1838126407": {
         "name": "DEMOCRACY'S LANDING",
@@ -1019,7 +1086,8 @@
             "zh-Hant": "\u6c11\u4e3b\u767b\u9678\u5730"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1447385649": {
         "name": "DIGITI",
@@ -1035,7 +1103,8 @@
             "zh-Hant": "\u5e1d\u5409\u8dbe"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1668618298": {
         "name": "DIPLOMACY",
@@ -1051,7 +1120,8 @@
             "zh-Hant": "\u5916\u4ea4\u9ede"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2187047436": {
         "name": "DISCOVERY GLEN",
@@ -1067,7 +1137,8 @@
             "zh-Hant": "\u63a2\u7d22\u8c37"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2185475541": {
         "name": "DIVER'S GLORY",
@@ -1083,7 +1154,8 @@
             "zh-Hant": "\u6230\u5175\u69ae\u5149"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "4162876257": {
         "name": "DIVER'S REST",
@@ -1099,7 +1171,8 @@
             "zh-Hant": "\u6230\u5175\u5b89\u606f\u5730"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3644870667": {
         "name": "DOGTOWN",
@@ -1115,7 +1188,8 @@
             "zh-Hant": "\u91ce\u72d7\u93ae"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1543050297": {
         "name": "DOSTOINSTVO",
@@ -1131,7 +1205,8 @@
             "zh-Hant": "\u5c0a\u56b4\u4e4b\u5730"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1725242014": {
         "name": "DOWNPOUR",
@@ -1147,7 +1222,8 @@
             "zh-Hant": "\u66b4\u96e8\u57ce"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2563609963": {
         "name": "DRYWELL",
@@ -1163,7 +1239,8 @@
             "zh-Hant": "\u4e7e\u4e95\u57ce"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1161514581": {
         "name": "DYER STREETS",
@@ -1179,7 +1256,8 @@
             "zh-Hant": "\u67d3\u5de5\u8857\u5340"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2939223654": {
         "name": "DYN ALPHA 534-2",
@@ -1195,7 +1273,8 @@
             "zh-Hant": "\u6c99\u4e18\u963f\u723e\u6cd5534-2"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2391484056": {
         "name": "EAGLE'S LIKENESS",
@@ -1211,7 +1290,8 @@
             "zh-Hant": "\u9df9\u59ff\u5e02"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "4132827034": {
         "name": "EAGLECRY",
@@ -1227,7 +1307,8 @@
             "zh-Hant": "\u9df9\u9cf4\u5e02"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2903117961": {
         "name": "EAGLEMOUNT",
@@ -1243,7 +1324,8 @@
             "zh-Hant": "\u9df9\u5c71"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "4196558004": {
         "name": "EAGLEOPOLIS",
@@ -1269,7 +1351,8 @@
             "ru-RU": "\u042d\u0442\u043e \u0441\u0435\u0440\u0434\u0446\u0435 \u0442\u043e\u0440\u0433\u043e\u0432\u043b\u0438 \u0438\u0437\u0432\u0435\u0441\u0442\u043d\u043e \u0432\u0441\u0435\u0439 \u0433\u0430\u043b\u0430\u043a\u0442\u0438\u043a\u0435 \u0441\u0432\u043e\u0438\u043c\u0438 \u043e\u0433\u0440\u043e\u043c\u043d\u044b\u043c\u0438 \u0442\u043e\u0440\u0433\u043e\u0432\u044b\u043c\u0438 \u043a\u043e\u043c\u043f\u043b\u0435\u043a\u0441\u0430\u043c\u0438 \u0438 \u0432\u0435\u043b\u0438\u0447\u0435\u0441\u0442\u0432\u0435\u043d\u043d\u044b\u043c\u0438 \u0440\u0430\u0437\u0432\u043b\u0435\u043a\u0430\u0442\u0435\u043b\u044c\u043d\u044b\u043c\u0438 \u0446\u0435\u043d\u0442\u0440\u0430\u043c\u0438.",
             "zh-Hans": "\u8fd9\u5ea7\u4f1f\u5927\u5546\u8d38\u4e2d\u67a2\u56e0\u5b8f\u4f1f\u7684\u8d2d\u7269\u5546\u573a\u548c\u7e41\u534e\u7684\u5a31\u4e50\u4e2d\u5fc3\u800c\u95fb\u540d\u6574\u4e2a\u94f6\u6cb3\u7cfb\u3002",
             "zh-Hant": "\u9019\u5ea7\u57ce\u5e02\u582a\u7a31\u5546\u696d\u4e2d\u5fc3\uff0c\u4ee5\u5b8f\u5049\u7684\u8cfc\u7269\u4e2d\u5fc3\u8207\u83ef\u9e97\u5a1b\u6a02\u8a2d\u65bd\u805e\u540d\u6574\u500b\u9280\u6cb3\u7cfb\u3002"
-        }
+        },
+        "connections": []
     },
     "3320001654": {
         "name": "EAGLESTAR ETERNAL",
@@ -1285,7 +1368,8 @@
             "zh-Hant": "\u6046\u9df9\u4e4b\u661f"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1168572634": {
         "name": "EAST EMBANKMENT",
@@ -1301,7 +1385,8 @@
             "zh-Hant": "\u6771\u5824\u5cb8"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1479079406": {
         "name": "EAST REST",
@@ -1317,7 +1402,8 @@
             "zh-Hant": "\u6771\u606f\u5e02"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1761215575": {
         "name": "EASTCLEFT",
@@ -1333,7 +1419,8 @@
             "zh-Hant": "\u6771\u88c2\u57ce"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1451291824": {
         "name": "EDWARD'S GRAVE",
@@ -1349,7 +1436,8 @@
             "zh-Hant": "\u611b\u5fb7\u83ef\u4e4b\u5893"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "741084747": {
         "name": "EIGHTRINGS",
@@ -1365,7 +1453,8 @@
             "zh-Hant": "\u516b\u74b0\u57ce"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "130236915": {
         "name": "EPH",
@@ -1381,7 +1470,8 @@
             "zh-Hant": "\u4f0a\u5f17"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "550918906": {
         "name": "EQUALITY-ON-SEA",
@@ -1407,7 +1497,8 @@
             "ru-RU": "\u0413\u043e\u0440\u043e\u0434 \u043f\u043e\u043b\u0443\u0447\u0438\u043b \u0438\u043c\u044f \u0432 \u0447\u0435\u0441\u0442\u044c \u0438\u0441\u0442\u043e\u0440\u0438\u0447\u0435\u0441\u043a\u043e\u0439 \u043a\u043e\u043d\u0444\u0435\u0440\u0435\u043d\u0446\u0438\u0438, \u043d\u0430 \u043a\u043e\u0442\u043e\u0440\u043e\u0439 \u0447\u0435\u043b\u043e\u0432\u0435\u0447\u0435\u0441\u0442\u0432\u043e \u0431\u044b\u043b\u043e \u043d\u0430\u0437\u0432\u0430\u043d\u043e \u043d\u0430\u0438\u0440\u0430\u0432\u043d\u0435\u0439\u0448\u0438\u043c \u0436\u0438\u0432\u044b\u043c \u0432\u0438\u0434\u043e\u043c \u0432 \u0433\u0430\u043b\u0430\u043a\u0442\u0438\u043a\u0435.",
             "zh-Hans": "\u56e0\u5386\u53f2\u6027\u4f1a\u8bae\u800c\u5f97\u540d\uff0c\u6b64\u4f1a\u8bae\u5c06\u4eba\u7c7b\u8ba4\u5b9a\u4e3a\u94f6\u6cb3\u7cfb\u6700\u5e73\u7b49\u7684\u7269\u79cd\u3002",
             "zh-Hant": "\u4ee5\u4e00\u5834\u6b77\u53f2\u6027\u7684\u6703\u8b70\u547d\u540d\uff0c\u5e2d\u9593\u4eba\u985e\u88ab\u8a8d\u5b9a\u70ba\u9280\u6cb3\u7cfb\u6700\u5e73\u7b49\u7684\u7269\u7a2e\u3002"
-        }
+        },
+        "connections": []
     },
     "855833074": {
         "name": "ERIDANI",
@@ -1423,7 +1514,8 @@
             "zh-Hant": "\u6ce2\u6c5f\u5ea7"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3067104866": {
         "name": "ERSATZ",
@@ -1439,7 +1531,8 @@
             "zh-Hant": "\u5384\u723e\u85a9\u8332"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3775882537": {
         "name": "ESCAPADE",
@@ -1455,7 +1548,8 @@
             "zh-Hant": "\u5947\u9047\u5730"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3732722501": {
         "name": "EVOLUTION PLATS",
@@ -1471,7 +1565,8 @@
             "zh-Hant": "\u9032\u5316\u5e73\u53f0"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1273177678": {
         "name": "EXALT",
@@ -1487,7 +1582,8 @@
             "zh-Hant": "\u9ad8\u5d07\u5e02"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1514913854": {
         "name": "EXCITEMENT",
@@ -1503,7 +1599,8 @@
             "zh-Hant": "\u60c5\u71b1\u4e4b\u5730"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "4269009782": {
         "name": "EXO CITY",
@@ -1519,7 +1616,8 @@
             "zh-Hant": "\u5916\u9aa8\u9abc\u4e4b\u57ce"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3342476592": {
         "name": "FAMEWOLF PEAK",
@@ -1535,7 +1633,8 @@
             "zh-Hant": "\u805e\u72fc\u5cf0"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2650088088": {
         "name": "FAMILY GROVE",
@@ -1551,7 +1650,8 @@
             "zh-Hant": "\u5bb6\u65cf\u6797\u5730"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "16522331": {
         "name": "FARMHANDSTOWN",
@@ -1567,7 +1667,8 @@
             "zh-Hant": "\u8fb2\u5de5\u5c0f\u93ae"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "281317935": {
         "name": "FEARLESS HOLLOW",
@@ -1583,7 +1684,8 @@
             "zh-Hant": "\u7121\u754f\u8c37"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "4127238767": {
         "name": "FILIBUSTER",
@@ -1599,7 +1701,8 @@
             "zh-Hant": "\u64fe\u8b70\u4e4b\u5730"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2895050350": {
         "name": "FIREFLY MEADOWS",
@@ -1615,7 +1718,8 @@
             "zh-Hant": "\u87a2\u706b\u87f2\u8349\u539f"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "4192092503": {
         "name": "FODDER GORGE",
@@ -1631,7 +1735,8 @@
             "zh-Hant": "\u98fc\u6599\u5cfd\u8c37"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "167295516": {
         "name": "FORT BOUNTY",
@@ -1647,7 +1752,8 @@
             "zh-Hant": "\u8cde\u91d1\u8981\u585e"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3188612954": {
         "name": "FORT SANGUINE",
@@ -1663,7 +1769,8 @@
             "zh-Hant": "\u8840\u7d05\u5821"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "316170794": {
         "name": "FORTITUDE",
@@ -1679,7 +1786,8 @@
             "zh-Hant": "\u525b\u5f37\u57ce"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "579852265": {
         "name": "FOUNDRY",
@@ -1695,7 +1803,8 @@
             "zh-Hant": "\u9444\u9020\u57ce"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3895412065": {
         "name": "FOUR CROWNS",
@@ -1711,7 +1820,8 @@
             "zh-Hant": "\u56db\u51a0\u57ce"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1603459330": {
         "name": "FREE APARTMENTS",
@@ -1727,7 +1837,8 @@
             "zh-Hant": "\u81ea\u7531\u516c\u5bd3"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "476417027": {
         "name": "FREE TRADE",
@@ -1743,7 +1854,8 @@
             "zh-Hant": "\u81ea\u7531\u8cbf\u6613\u5340"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1954581243": {
         "name": "FREECREST",
@@ -1759,7 +1871,8 @@
             "zh-Hant": "\u81ea\u7531\u5dba"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2936987719": {
         "name": "FREEDOM ETERNAL",
@@ -1775,7 +1888,8 @@
             "zh-Hant": "\u6c38\u6046\u81ea\u7531\u57ce"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3921926208": {
         "name": "FREEDOM'S TORCH",
@@ -1791,7 +1905,8 @@
             "zh-Hant": "\u81ea\u7531\u706b\u70ac\u57ce"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3455957267": {
         "name": "FRESH ORCHARDS",
@@ -1807,7 +1922,8 @@
             "zh-Hant": "\u65b0\u9bae\u679c\u5712"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3034375188": {
         "name": "FROSTOWN",
@@ -1823,7 +1939,8 @@
             "zh-Hant": "\u971c\u93ae"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "4014866766": {
         "name": "FUTURE PRIDE",
@@ -1839,7 +1956,8 @@
             "zh-Hant": "\u672a\u4f86\u69ae\u8000\u57ce"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "4275209727": {
         "name": "FUTURIA",
@@ -1855,7 +1973,8 @@
             "zh-Hant": "\u672a\u4f86\u4e4b\u5730"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "12564835": {
         "name": "GARAGE DUNE",
@@ -1871,7 +1990,8 @@
             "zh-Hant": "\u6c99\u4e18\u8eca\u5eab"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1235784042": {
         "name": "GEM LICKET",
@@ -1887,7 +2007,8 @@
             "zh-Hant": "\u5bf6\u77f3\u5229\u514b\u7279"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "4248413283": {
         "name": "GEM LICKET",
@@ -1903,7 +2024,8 @@
             "zh-Hant": "\u5bf6\u77f3\u5229\u514b\u7279"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3311068219": {
         "name": "GEMSTELLE GENERATOR",
@@ -1919,7 +2041,8 @@
             "zh-Hant": "\u5bf6\u77f3\u767c\u96fb\u5ee0"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "518148662": {
         "name": "GENE",
@@ -1935,7 +2058,8 @@
             "zh-Hant": "\u57fa\u56e0\u5e02"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3184875338": {
         "name": "GENERATORSVILLE",
@@ -1951,7 +2075,8 @@
             "zh-Hant": "\u96fb\u529b\u4e4b\u57ce"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "647996051": {
         "name": "GIRD",
@@ -1967,7 +2092,8 @@
             "zh-Hant": "\u4f48\u9632\u5340"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1061744043": {
         "name": "GIRI",
@@ -1983,7 +2109,8 @@
             "zh-Hant": "\u7fa9\u7406\u57ce"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2130828005": {
         "name": "GLOBULUS",
@@ -1999,7 +2126,8 @@
             "zh-Hant": "\u5713\u7403\u57ce"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1123715107": {
         "name": "GOTHENBURG III",
@@ -2015,7 +2143,8 @@
             "zh-Hant": "\u54e5\u7279\u5821III"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2180989349": {
         "name": "GRACIOUS LIBERTY",
@@ -2031,7 +2160,8 @@
             "zh-Hant": "\u512a\u96c5\u81ea\u7531\u5730"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1897395642": {
         "name": "GRAFSART",
@@ -2047,7 +2177,8 @@
             "zh-Hant": "\u683c\u62c9\u592b\u85a9\u7279"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3851016682": {
         "name": "GRAFSEAD",
@@ -2063,7 +2194,8 @@
             "zh-Hant": "\u683c\u62c9\u592b\u5e0c\u5fb7"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3626214155": {
         "name": "GRAFSWALLIT",
@@ -2079,7 +2211,8 @@
             "zh-Hant": "\u683c\u62c9\u592b\u65af\u74e6\u5229\u7279"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3585703392": {
         "name": "GRAPESHOT",
@@ -2095,7 +2228,8 @@
             "zh-Hant": "\u8461\u8404\u5f48\u57ce"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1613437962": {
         "name": "GRAVITAS",
@@ -2111,7 +2245,8 @@
             "zh-Hant": "\u91cd\u529b\u9ede"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2689075072": {
         "name": "GREATER ATLANTEAN POWER PLANT",
@@ -2127,7 +2262,8 @@
             "zh-Hant": "\u5927\u4e9e\u7279\u862d\u63d0\u65af\u767c\u96fb\u5ee0"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "997505218": {
         "name": "GREATER INVESTMENT",
@@ -2143,7 +2279,8 @@
             "zh-Hant": "\u5de8\u8cc7\u4e4b\u5730"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "755864726": {
         "name": "GREATER STOROUSE",
@@ -2159,7 +2296,8 @@
             "zh-Hant": "\u5927\u5009\u5eab"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1312916665": {
         "name": "GREATWOOD MILLS",
@@ -2175,7 +2313,8 @@
             "zh-Hant": "\u5de8\u6728\u5de5\u574a"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "873089075": {
         "name": "GROWL",
@@ -2191,7 +2330,8 @@
             "zh-Hant": "\u5486\u54ee\u57ce"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2751322458": {
         "name": "GUNPOWDER MEADOWS",
@@ -2207,7 +2347,8 @@
             "zh-Hant": "\u706b\u85e5\u8349\u5730"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3910908375": {
         "name": "GYEONGSEONG",
@@ -2223,7 +2364,8 @@
             "zh-Hant": "\u4eac\u57ce"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2007842501": {
         "name": "HABITAT RED-2",
@@ -2239,7 +2381,8 @@
             "zh-Hant": "\u7d052\u68f2\u5730"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "4179557814": {
         "name": "HAERSTVIK",
@@ -2255,7 +2398,8 @@
             "zh-Hant": "\u54c8\u723e\u65af\u7279\u7dad\u514b"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2190098981": {
         "name": "HAKU CITY",
@@ -2271,7 +2415,8 @@
             "zh-Hant": "\u54c8\u5eab\u57ce"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2024755529": {
         "name": "HANDAKAS",
@@ -2287,7 +2432,8 @@
             "zh-Hant": "\u6f22\u9054\u5361\u65af"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1143862620": {
         "name": "HANGAR 6",
@@ -2303,7 +2449,8 @@
             "zh-Hant": "6\u865f\u6a5f\u5eab"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2298034348": {
         "name": "HARDY",
@@ -2319,7 +2466,8 @@
             "zh-Hant": "\u5805\u6bc5\u4e4b\u5730"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2004207949": {
         "name": "HAVEN",
@@ -2335,7 +2483,8 @@
             "zh-Hant": "\u5e73\u548c\u4e4b\u5730"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3291554432": {
         "name": "HEART FLATS",
@@ -2351,7 +2500,8 @@
             "zh-Hant": "\u5fc3\u4e4b\u5e73\u539f"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3612551140": {
         "name": "HEATHERFIELD",
@@ -2367,7 +2517,8 @@
             "zh-Hant": "\u77f3\u6960\u539f\u91ce"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3066706899": {
         "name": "HILDOARA CENTRAL",
@@ -2383,7 +2534,8 @@
             "zh-Hant": "\u5e0c\u723e\u591a\u62c9\u4e2d\u5fc3"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "4121418923": {
         "name": "HILJAISUUS",
@@ -2399,7 +2551,8 @@
             "zh-Hant": "\u9ed8\u8a00\u57ce"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2472296828": {
         "name": "HOLL",
@@ -2415,7 +2568,8 @@
             "zh-Hant": "\u7a7a\u6d1e\u57ce"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1062239247": {
         "name": "HOMESTEAD HILL",
@@ -2431,7 +2585,8 @@
             "zh-Hant": "\u5bb6\u5712\u5c71\u4e18"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "4059243365": {
         "name": "HOPESHIRE",
@@ -2447,7 +2602,8 @@
             "zh-Hant": "\u5e0c\u671b\u90e1"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "539875676": {
         "name": "HOT GATES",
@@ -2463,7 +2619,8 @@
             "zh-Hant": "\u708e\u95dc"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2126832849": {
         "name": "HUMAN WILL",
@@ -2479,7 +2636,8 @@
             "zh-Hant": "\u4eba\u985e\u610f\u5fd7"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3021776166": {
         "name": "HUMANITY",
@@ -2495,7 +2653,8 @@
             "zh-Hant": "\u4eba\u9053\u5e02"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2544875580": {
         "name": "HUNTER'S BLUFF",
@@ -2511,7 +2670,8 @@
             "zh-Hant": "\u7375\u4eba\u7d55\u58c1"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1688960258": {
         "name": "ICE BEND",
@@ -2527,7 +2687,8 @@
             "zh-Hant": "\u51b0\u7d50\u6e2f\u7063"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "4101984974": {
         "name": "INDEPENDENCE",
@@ -2543,7 +2704,8 @@
             "zh-Hant": "\u7368\u7acb\u5e02"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3603744514": {
         "name": "INDUSTRY ALLATEED",
@@ -2559,7 +2721,8 @@
             "zh-Hant": "\u963f\u62c9\u63d0\u5fb7\u5de5\u90fd"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1013683905": {
         "name": "INTEREST",
@@ -2575,7 +2738,8 @@
             "zh-Hant": "\u5229\u76ca\u9ede"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2581434266": {
         "name": "INTREPIDNESS",
@@ -2591,7 +2755,8 @@
             "zh-Hant": "\u7121\u754f\u4e4b\u5730"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2741839635": {
         "name": "INVESTMENT",
@@ -2607,7 +2772,8 @@
             "zh-Hant": "\u6295\u8cc7\u9ede"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2853318855": {
         "name": "ISEGORIA",
@@ -2623,7 +2789,8 @@
             "zh-Hant": "\u81ea\u8a00\u57ce"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "400630653": {
         "name": "KALASATAMA",
@@ -2639,7 +2806,8 @@
             "zh-Hant": "\u5361\u62c9\u85a9\u5854\u99ac"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1599927394": {
         "name": "KALASATAMA PORT",
@@ -2655,7 +2823,8 @@
             "zh-Hant": "\u5361\u62c9\u85a9\u5854\u99ac\u6e2f"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3756959393": {
         "name": "KELLA METAMORPH",
@@ -2671,7 +2840,8 @@
             "zh-Hant": "\u51f1\u62c9\u86fb\u8b8a"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1023474728": {
         "name": "KESUMA",
@@ -2687,7 +2857,8 @@
             "zh-Hant": "\u82b1\u90fd"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3911522018": {
         "name": "KILLJOY TOWN",
@@ -2703,7 +2874,8 @@
             "zh-Hant": "\u6bba\u622e\u5c0f\u93ae"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "4204734822": {
         "name": "KINABATANGAN",
@@ -2719,7 +2891,8 @@
             "zh-Hant": "\u4eac\u90a3\u5cc7\u7576\u5cb8"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1329166626": {
         "name": "KNIGHT'S HONOR",
@@ -2735,7 +2908,8 @@
             "zh-Hant": "\u9a0e\u58eb\u69ae\u8000\u57ce"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2332413862": {
         "name": "KODIAK FALLS",
@@ -2751,7 +2925,8 @@
             "zh-Hant": "\u79d1\u8fea\u4e9e\u514b\u7011\u5e03"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1178227778": {
         "name": "KURRI KURRI",
@@ -2767,7 +2942,8 @@
             "zh-Hant": "\u5eab\u91cc\u5eab\u91cc"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2519745557": {
         "name": "LACED STRAIT",
@@ -2783,7 +2959,8 @@
             "zh-Hant": "\u7e54\u7d0b\u6d77\u5cfd"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "649934138": {
         "name": "LAELIA",
@@ -2799,7 +2976,8 @@
             "zh-Hant": "\u857e\u9e97\u862d"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1791361107": {
         "name": "LAGERL\u00d6F CITY",
@@ -2815,7 +2993,8 @@
             "zh-Hant": "\u62c9\u683c\u6d1b\u592b\u57ce"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1842220312": {
         "name": "LASTOME",
@@ -2831,7 +3010,8 @@
             "zh-Hant": "\u62c9\u65af\u6258\u59c6"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1028801816": {
         "name": "LEMURIA RISING",
@@ -2847,7 +3027,8 @@
             "zh-Hant": "\u65b0\u96f7\u59c6\u5229\u4e9e"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "967684667": {
         "name": "LIBER-TEA TOWNSHIP",
@@ -2863,7 +3044,8 @@
             "zh-Hant": "\u81ea\u7531\u8336\u93ae"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1501066740": {
         "name": "LIFEBLOOD",
@@ -2879,7 +3061,8 @@
             "zh-Hant": "\u547d\u8108\u57ce"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3885625492": {
         "name": "LIFESWORTH",
@@ -2895,7 +3078,8 @@
             "zh-Hant": "\u60dc\u547d\u4e4b\u5730"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "311758306": {
         "name": "LIGHT-OF-LIBERTY",
@@ -2911,7 +3095,8 @@
             "zh-Hant": "\u8000\u8f1d\u81ea\u7531\u57ce"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1032709433": {
         "name": "LIL'OME",
@@ -2927,7 +3112,8 @@
             "zh-Hant": "\u6a02\u5c45\u57ce"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1161134727": {
         "name": "LLANFAIRPWLLGWYNGYLLGOGERYCHWYRNDROBWLLLLANTYSILIOGOGOGOCH II",
@@ -2943,7 +3129,8 @@
             "zh-Hant": "LLANFAIRPWLLGWYNGYLLGOGERYCHWYRNDROBWLLLLANTYSILIOGOGOGOCH II"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2185109890": {
         "name": "LOGISTICS HUB 188-B",
@@ -2959,7 +3146,8 @@
             "zh-Hant": "188-B\u7269\u6d41\u4e2d\u5fc3"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2659108161": {
         "name": "LOGISTICS HUB 232-B",
@@ -2975,7 +3163,8 @@
             "zh-Hant": "232-B\u7269\u6d41\u4e2d\u5fc3"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2057457464": {
         "name": "LOKAHEIM",
@@ -2991,7 +3180,8 @@
             "zh-Hant": "\u6d1b\u5361\u6d77\u59c6"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2285651547": {
         "name": "LOOKOUT",
@@ -3007,7 +3197,8 @@
             "zh-Hant": "\u77ad\u671b\u8655"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2634960640": {
         "name": "LURZA",
@@ -3033,7 +3224,10 @@
             "ru-RU": "\u0421\u0442\u0430\u0442\u0443\u0438 \u043d\u0430 \u044d\u0442\u043e\u0439 \u043c\u0435\u0433\u0430\u0444\u0430\u0431\u0440\u0438\u043a\u0435 \u0438\u0441\u043a\u0430\u0436\u0430\u044e\u0442 \u0438\u0441\u0442\u043e\u0440\u0438\u044e, \u0432\u043e\u0441\u0445\u0432\u0430\u043b\u044f\u044f \u0442\u0430\u043a \u043d\u0430\u0437\u044b\u0432\u0430\u0435\u043c\u0443\u044e \u0440\u0435\u0448\u0438\u043c\u043e\u0441\u0442\u044c \u043a\u0438\u0431\u043e\u0440\u0433\u043e\u0432 \u00ab\u0432\u044b\u0441\u0442\u043e\u044f\u0442\u044c\u00bb \u043f\u0435\u0440\u0435\u0434 \u043b\u0438\u0446\u043e\u043c \u0431\u043b\u0430\u0433\u043e\u0440\u043e\u0434\u043d\u044b\u0445 \u043f\u043e\u043f\u044b\u0442\u043e\u043a \u0421\u0443\u043f\u0435\u0440-\u0417\u0435\u043c\u043b\u0438 \u0440\u0435\u0430\u0431\u0438\u043b\u0438\u0442\u0438\u0440\u043e\u0432\u0430\u0442\u044c \u0438\u0445. \n\n\u0421\u0438\u0441\u0442\u0435\u043c\u044b \u041f\u0412\u041e \u043c\u0435\u0448\u0430\u044e\u0442 \u043e\u043f\u0435\u0440\u0430\u0446\u0438\u044f\u043c \u00ab\u041e\u0440\u043b\u043e\u0432\u00bb.",
             "zh-Hans": "\u8fd9\u5ea7\u8d85\u5927\u578b\u5de5\u5382\u7684\u7eaa\u5ff5\u7891\u626d\u66f2\u5386\u53f2\uff0c\u9882\u626c\u751f\u5316\u4eba\u6240\u8c13\u201c\u5fcd\u53d7\u201d\u8d85\u7ea7\u5730\u7403\u4ec1\u6148\u6539\u9020\u8ba1\u5212\u7684\u51b3\u5fc3\u3002\n\n\u9632\u7a7a\u7cfb\u7edf\u5c06\u59a8\u788d\u201c\u98de\u9e70\u201d\u7684\u884c\u52a8\u3002",
             "zh-Hant": "\u9019\u5ea7\u8d85\u7d1a\u5de5\u5ee0\u5167\u8a2d\u7f6e\u7684\u7d00\u5ff5\u7891\u626d\u66f2\u4e86\u6b77\u53f2\u3002\u8d85\u7d1a\u5730\u7403\u6539\u9020\u751f\u5316\u4eba\u539f\u70ba\u5584\u610f\u4e4b\u8209\uff0c\u5728\u9019\u88e1\u537b\u980c\u63da\u751f\u5316\u4eba\u300c\u5fcd\u53d7\u300d\u4e86\u9019\u4e00\u5207\u3002\n\n\u9632\u7a7a\u8a2d\u65bd\u5c07\u963b\u7919\u98db\u9df9\u865f\u7684\u7a7a\u8972\u884c\u52d5\u3002"
-        }
+        },
+        "connections": [
+            2735744233
+        ]
     },
     "1063822606": {
         "name": "LUSCIOUS LIBERTY",
@@ -3049,7 +3243,8 @@
             "zh-Hant": "\u8525\u9b31\u81ea\u7531\u5730"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2849889311": {
         "name": "LUXE POINT",
@@ -3065,7 +3260,8 @@
             "zh-Hant": "\u83ef\u9e97\u89d2"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3212629027": {
         "name": "MAGNITUDE",
@@ -3081,7 +3277,8 @@
             "zh-Hant": "\u58ef\u9e97\u4e4b\u5730"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3028191212": {
         "name": "MAJOSYRI",
@@ -3097,7 +3294,8 @@
             "zh-Hant": "\u99ac\u7d04\u897f\u91cc"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2507971325": {
         "name": "MALLSTRIP NODES",
@@ -3113,7 +3311,8 @@
             "zh-Hant": "\u8cfc\u7269\u5927\u9053\u7bc0\u9ede"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "4038285524": {
         "name": "MALMBERGET",
@@ -3129,7 +3328,8 @@
             "zh-Hant": "\u99ac\u723e\u59c6\u8c9d\u91cc\u8036"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3216000044": {
         "name": "MASKIN",
@@ -3145,7 +3345,8 @@
             "zh-Hant": "\u99ac\u65af\u91d1"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2500124294": {
         "name": "MEGACORPUS",
@@ -3161,7 +3362,8 @@
             "zh-Hant": "\u5de8\u9ad4\u57ce"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3109135198": {
         "name": "MEMORIALS",
@@ -3177,7 +3379,8 @@
             "zh-Hant": "\u7d00\u5ff5\u7891"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2832454199": {
         "name": "MESSAGER'S MESA",
@@ -3193,7 +3396,8 @@
             "zh-Hant": "\u4fe1\u4f7f\u53f0\u5730"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "4039645448": {
         "name": "MINE 902",
@@ -3209,7 +3413,8 @@
             "zh-Hant": "902\u865f\u7926\u5751"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1289084629": {
         "name": "MINERAL REFINEMENT WORKS",
@@ -3225,7 +3430,8 @@
             "zh-Hant": "\u7926\u7269\u7cbe\u7149\u5ee0"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1068853940": {
         "name": "MINERAL'S END",
@@ -3241,7 +3447,8 @@
             "zh-Hant": "\u7926\u76e1\u4e4b\u5730"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "4264188855": {
         "name": "MIRAGE",
@@ -3257,7 +3464,8 @@
             "zh-Hant": "\u5e7b\u5883\u57ce"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3493472115": {
         "name": "MOBERG'S DREAM",
@@ -3273,7 +3481,8 @@
             "zh-Hant": "\u83ab\u8c9d\u683c\u4e4b\u5922"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "974467043": {
         "name": "MOGO PLAINS",
@@ -3289,7 +3498,8 @@
             "zh-Hant": "\u83ab\u6208\u5e73\u539f"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3373033616": {
         "name": "MORSKIE OKO",
@@ -3305,7 +3515,8 @@
             "zh-Hant": "\u6d77\u6d0b\u4e4b\u773c"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1820689153": {
         "name": "MT MONUMENT",
@@ -3321,7 +3532,8 @@
             "zh-Hant": "\u7d00\u5ff5\u5c71"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "991650372": {
         "name": "MUNITION CITY",
@@ -3337,7 +3549,8 @@
             "zh-Hant": "\u8ecd\u706b\u57ce"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1759245992": {
         "name": "NEKK POND",
@@ -3353,7 +3566,8 @@
             "zh-Hant": "\u5167\u514b\u5858"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "832046850": {
         "name": "NEW ABERDEEN",
@@ -3369,7 +3583,8 @@
             "zh-Hant": "\u65b0\u4e9e\u4f2f\u4e01"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "491224618": {
         "name": "NEW ALEXANDRIA",
@@ -3385,7 +3600,8 @@
             "zh-Hant": "\u65b0\u4e9e\u6b77\u73ca\u5353"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1193052974": {
         "name": "NEW ASPIRATION CITY",
@@ -3411,7 +3627,8 @@
             "ru-RU": "\u041e\u0434\u0438\u043d \u0438\u0437 3 \u0433\u043e\u0440\u043e\u0434\u043e\u0432 \u043c\u0430\u043a\u0441\u0438\u043c\u0430\u043b\u044c\u043d\u043e\u0439 \u0437\u0430\u0449\u0438\u0449\u0435\u043d\u043d\u043e\u0441\u0442\u0438. \u041e\u043d\u0438 \u043d\u0435\u043f\u0440\u043e\u043d\u0438\u0446\u0430\u0435\u043c\u044b \u0434\u043b\u044f \u0422\u0438\u0440\u0430\u043d\u0438\u0438 \u0438 \u0441\u0442\u0430\u043d\u0443\u0442 \u0431\u0443\u0434\u0443\u0449\u0438\u043c \u0424\u0435\u0434\u0435\u0440\u0430\u0446\u0438\u0438.",
             "zh-Hans": "\u4e09\u5927\u6700\u9ad8\u5b89\u5168\u7ea7\u522b\u57ce\u5e02\u4e4b\u4e00\u3002\u66b4\u653f\u65e0\u6cd5\u653b\u7834\u4e4b\u57ce\uff0c\u8054\u90a6\u7684\u672a\u6765\u3002",
             "zh-Hant": "3\u5ea7\u6700\u9ad8\u5b89\u5168\u7b49\u7d1a\u57ce\u5e02\u4e4b\u4e00\u3002\u66b4\u653f\u7684\u8b77\u5b88\u4e4b\u76fe\uff1b\u806f\u90a6\u672a\u4f86\u7684\u71c8\u5854\u3002"
-        }
+        },
+        "connections": []
     },
     "3455315905": {
         "name": "NEW COB",
@@ -3427,7 +3644,8 @@
             "zh-Hant": "\u65b0\u79d1\u5e03\u5e02"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "905823730": {
         "name": "NEW DA NANG",
@@ -3443,7 +3661,8 @@
             "zh-Hant": "\u65b0\u5cf4\u6e2f"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1121037205": {
         "name": "NEW EAGLE",
@@ -3459,7 +3678,8 @@
             "zh-Hant": "\u65b0\u84bc\u9df9\u57ce"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1058460461": {
         "name": "NEW HEARTH CITY",
@@ -3475,7 +3695,8 @@
             "zh-Hant": "\u65b0\u7210\u57ce"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1239520232": {
         "name": "NEW HOPE CITY",
@@ -3501,7 +3722,8 @@
             "ru-RU": "\u0424\u043b\u0430\u0433\u043c\u0430\u043d\u0441\u043a\u0438\u0439 \u0433\u043e\u0440\u043e\u0434 \u043c\u0430\u043a\u0441\u0438\u043c\u0430\u043b\u044c\u043d\u043e\u0439 \u0437\u0430\u0449\u0438\u0449\u0435\u043d\u043d\u043e\u0441\u0442\u0438. \u041e\u043d\u0438 \u043d\u0435\u043f\u0440\u043e\u043d\u0438\u0446\u0430\u0435\u043c\u044b \u0434\u043b\u044f \u0422\u0438\u0440\u0430\u043d\u0438\u0438 \u0438 \u0441\u0442\u0430\u043d\u0443\u0442 \u0431\u0443\u0434\u0443\u0449\u0438\u043c \u0424\u0435\u0434\u0435\u0440\u0430\u0446\u0438\u0438.",
             "zh-Hans": "\u6700\u9ad8\u5b89\u5168\u7ea7\u522b\u57ce\u5e02\u4e2d\u7684\u738b\u724c\u3002\u66b4\u653f\u65e0\u6cd5\u653b\u7834\u4e4b\u57ce\uff0c\u8054\u90a6\u7684\u672a\u6765\u3002",
             "zh-Hant": "\u65d7\u8266\u7d1a\u6700\u9ad8\u5b89\u5168\u57ce\u5e02\u3002\u66b4\u653f\u7684\u8b77\u5b88\u4e4b\u76fe\uff1b\u806f\u90a6\u672a\u4f86\u7684\u71c8\u5854\u3002"
-        }
+        },
+        "connections": []
     },
     "770916674": {
         "name": "NEW KATHMANDU",
@@ -3517,7 +3739,8 @@
             "zh-Hant": "\u65b0\u52a0\u5fb7\u6eff\u90fd"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1578230839": {
         "name": "NEW NEWTONVILLE",
@@ -3533,7 +3756,8 @@
             "zh-Hant": "\u65b0\u725b\u9813\u7dad\u723e"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1946203146": {
         "name": "NEW PARADISE",
@@ -3549,7 +3773,8 @@
             "zh-Hant": "\u65b0\u6a02\u5712"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2095568588": {
         "name": "NEW PENG",
@@ -3565,7 +3790,8 @@
             "zh-Hant": "\u65b0\u9d6c\u93ae"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2258293610": {
         "name": "NEW STOROUSE",
@@ -3581,7 +3807,8 @@
             "zh-Hant": "\u65b0\u5009\u5eab"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2919580452": {
         "name": "NEW TOKYO",
@@ -3597,7 +3824,8 @@
             "zh-Hant": "\u65b0\u6771\u4eac"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1623710024": {
         "name": "NEW VICTORY",
@@ -3613,7 +3841,8 @@
             "zh-Hant": "\u65b0\u52dd\u4e4b\u57ce"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "27836851": {
         "name": "NEW YEARNING CITY",
@@ -3639,7 +3868,8 @@
             "ru-RU": "\u041e\u0434\u0438\u043d \u0438\u0437 3 \u0433\u043e\u0440\u043e\u0434\u043e\u0432 \u043c\u0430\u043a\u0441\u0438\u043c\u0430\u043b\u044c\u043d\u043e\u0439 \u0437\u0430\u0449\u0438\u0449\u0435\u043d\u043d\u043e\u0441\u0442\u0438. \u041e\u043d\u0438 \u043d\u0435\u043f\u0440\u043e\u043d\u0438\u0446\u0430\u0435\u043c\u044b \u0434\u043b\u044f \u0422\u0438\u0440\u0430\u043d\u0438\u0438 \u0438 \u0441\u0442\u0430\u043d\u0443\u0442 \u0431\u0443\u0434\u0443\u0449\u0438\u043c \u0424\u0435\u0434\u0435\u0440\u0430\u0446\u0438\u0438.",
             "zh-Hans": "\u4e09\u5927\u6700\u9ad8\u5b89\u5168\u7ea7\u522b\u57ce\u5e02\u4e4b\u4e00\u3002\u66b4\u653f\u65e0\u6cd5\u653b\u7834\u4e4b\u57ce\uff0c\u8054\u90a6\u7684\u672a\u6765\u3002",
             "zh-Hant": "3\u5ea7\u6700\u9ad8\u5b89\u5168\u7b49\u7d1a\u57ce\u5e02\u4e4b\u4e00\u3002\u66b4\u653f\u7684\u8b77\u5b88\u4e4b\u76fe\uff1b\u806f\u90a6\u672a\u4f86\u7684\u71c8\u5854\u3002"
-        }
+        },
+        "connections": []
     },
     "1344426011": {
         "name": "NO COMPOUND",
@@ -3655,7 +3885,8 @@
             "zh-Hant": "\u7121\u8907\u5408\u5730"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3687523144": {
         "name": "NON-PARTISAN",
@@ -3671,7 +3902,8 @@
             "zh-Hant": "\u7121\u9ee8\u5e02"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1468847276": {
         "name": "NUOVA ROMA",
@@ -3687,7 +3919,8 @@
             "zh-Hant": "\u65b0\u7f85\u99ac"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "4187567384": {
         "name": "NYA SKELLEFTEA",
@@ -3703,7 +3936,8 @@
             "zh-Hant": "\u65b0\u8b1d\u840a\u592b\u7279\u5967"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3363260441": {
         "name": "OBEDIENCE",
@@ -3719,7 +3953,8 @@
             "zh-Hant": "\u670d\u5f9e\u4e4b\u5730"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1653634596": {
         "name": "OBSERVATORY 6",
@@ -3735,7 +3970,8 @@
             "zh-Hant": "\u7b2c\u516d\u5929\u6587\u53f0"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2762012044": {
         "name": "OL' OLDHAM",
@@ -3751,7 +3987,8 @@
             "zh-Hant": "\u820a\u5967\u5fb7\u6f22\u59c6"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1978368732": {
         "name": "OLD BRANCH",
@@ -3767,7 +4004,8 @@
             "zh-Hant": "\u820a\u679d\u57ce"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "523284406": {
         "name": "OLD CHEMLAND",
@@ -3783,7 +4021,8 @@
             "zh-Hant": "\u820a\u5316\u5de5\u57ce"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2232171610": {
         "name": "OLD CONUNDRUM",
@@ -3799,7 +4038,8 @@
             "zh-Hant": "\u820a\u96e3\u57ce"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2253802431": {
         "name": "OLD DOVE",
@@ -3815,7 +4055,8 @@
             "zh-Hant": "\u8001\u9d3f\u57ce"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1136017261": {
         "name": "OLD HEARTH CITY",
@@ -3831,7 +4072,8 @@
             "zh-Hant": "\u820a\u7210\u57ce"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "581000702": {
         "name": "OLD INTERNMENTS",
@@ -3847,7 +4089,8 @@
             "zh-Hant": "\u53e4\u8001\u5b89\u846c\u5730"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2509774688": {
         "name": "OLUFSEN'S FOOTPRINT",
@@ -3863,7 +4106,8 @@
             "zh-Hant": "\u5967\u9b6f\u592b\u68ee\u8db3\u8de1"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2300130357": {
         "name": "OMA PEMMA",
@@ -3879,7 +4123,8 @@
             "zh-Hant": "\u6b50\u746a\u4f69\u746a"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3495232119": {
         "name": "OMA PEMMA",
@@ -3895,7 +4140,8 @@
             "zh-Hant": "\u6b50\u746a\u4f69\u746a"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1512842277": {
         "name": "OMNIPARITUS",
@@ -3921,7 +4167,11 @@
             "ru-RU": "\u041f\u0440\u0438\u043c\u0435\u0440\u043d\u043e \u043f\u0435\u0440\u0435\u0432\u043e\u0434\u0438\u0442\u0441\u044f \u043a\u0430\u043a \u00ab\u0443\u043d\u0438\u0447\u0442\u043e\u0436\u0438\u0442\u044c \u0421\u0432\u043e\u0431\u043e\u0434\u0443 \u043b\u044e\u0431\u043e\u0439 \u0446\u0435\u043d\u043e\u0439\u00bb. \u0414\u043b\u044f \u043f\u043e\u0434\u0434\u0435\u0440\u0436\u043a\u0438 \u043d\u0430\u0441\u0442\u0443\u043f\u043b\u0435\u043d\u0438\u044f \u043f\u043e\u0442\u0440\u0435\u0431\u0443\u0435\u0442\u0441\u044f \u043f\u0440\u0438\u0432\u043b\u0435\u0447\u044c \u0437\u043d\u0430\u0447\u0438\u0442\u0435\u043b\u044c\u043d\u043e\u0435 \u043a\u043e\u043b\u0438\u0447\u0435\u0441\u0442\u0432\u043e \u043e\u0442\u0440\u044f\u0434\u043e\u0432 \u0412\u0421\u0421\u0417, \u0447\u0442\u043e \u043f\u0440\u0438\u0432\u0435\u0434\u0435\u0442 \u043a \u0434\u0435\u0444\u0438\u0446\u0438\u0442\u0443 \u0431\u043e\u0435\u043f\u0440\u0438\u043f\u0430\u0441\u043e\u0432.",
             "zh-Hans": "\u5927\u610f\u4e3a\u201c\u4e0d\u60dc\u4e00\u5207\u4ee3\u4ef7\u6467\u6bc1\u81ea\u7531\u201d\u3002\u5728\u6b64\u53d1\u52a8\u653b\u52bf\u9700\u8981\u8d85\u7ea7\u5730\u7403\u6b66\u88c5\u90e8\u961f\u8fdb\u884c\u5927\u89c4\u6a21\u5e38\u89c4\u7a81\u51fb\u652f\u63f4\uff0c\u5f39\u836f\u8d44\u6e90\u5c06\u5341\u5206\u7d27\u5f20\u3002",
             "zh-Hant": "\u53ef\u5927\u7565\u8b6f\u70ba\uff1a\u300c\u4e0d\u60dc\u4e00\u5207\u4ee3\u50f9\u6467\u6bc0\u81ea\u7531\u300d\u3002\u9700\u8981\u5927\u898f\u6a21\u7684SEAF\u8ecd\u968a\u5e38\u898f\u7a81\u64ca\u652f\u63f4\u624d\u80fd\u767c\u52d5\u653b\u52e2\uff0c\u9019\u5c07\u4f7f\u5f48\u85e5\u8cc7\u6e90\u66f4\u52a0\u7dca\u5f35\u3002"
-        }
+        },
+        "connections": [
+            2735744233,
+            1475859103
+        ]
     },
     "3491570579": {
         "name": "ON-EARSAHOU",
@@ -3937,7 +4187,8 @@
             "zh-Hant": "\u5b89\u96c5\u85a9\u4faf"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "4253491601": {
         "name": "ONSEN",
@@ -3953,7 +4204,8 @@
             "zh-Hant": "\u6eab\u6cc9\u57ce"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1701644792": {
         "name": "ORBSHAM",
@@ -3969,7 +4221,8 @@
             "zh-Hant": "\u5967\u5e03\u820d\u59c6"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "540250241": {
         "name": "ORESINK",
@@ -3985,7 +4238,8 @@
             "zh-Hant": "\u7926\u6e23\u57ce"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2557369266": {
         "name": "OTARU'S PLEDGE",
@@ -4001,7 +4255,8 @@
             "zh-Hant": "\u5c0f\u6a3d\u7d04\u5e02"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2491531357": {
         "name": "PADOSAN",
@@ -4017,7 +4272,8 @@
             "zh-Hant": "\u5e15\u591a\u6851"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1199071894": {
         "name": "PARRHESIA",
@@ -4033,7 +4289,8 @@
             "zh-Hant": "\u5766\u8ad6\u57ce"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3862302711": {
         "name": "PEASE",
@@ -4049,7 +4306,8 @@
             "zh-Hant": "\u76ae\u65af"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3042839498": {
         "name": "PEDIS",
@@ -4065,7 +4323,8 @@
             "zh-Hant": "\u4f69\u8fea\u8dbe"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "314025568": {
         "name": "PENSCEWT",
@@ -4081,7 +4340,8 @@
             "zh-Hant": "\u4f69\u65af\u79d1\u7279"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "706797536": {
         "name": "PEOPLE'S HAND",
@@ -4097,7 +4357,8 @@
             "zh-Hant": "\u767e\u59d3\u4e4b\u624b"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3090254958": {
         "name": "PERIWINKLE MILLS",
@@ -4113,7 +4374,8 @@
             "zh-Hant": "\u9577\u6625\u82b1\u574a\u57ce"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2876102528": {
         "name": "PERMACURIS",
@@ -4129,7 +4391,8 @@
             "zh-Hant": "\u535a\u99ac\u4e18\u62c9\u5e02"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3130397378": {
         "name": "PERSEVERANCE",
@@ -4145,7 +4408,8 @@
             "zh-Hant": "\u5805\u6bc5\u4e4b\u5730"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1101206164": {
         "name": "PERSISTENCE",
@@ -4161,7 +4425,8 @@
             "zh-Hant": "\u6bc5\u529b\u4e4b\u5730"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3212687176": {
         "name": "PERSISTENCE GATE",
@@ -4177,7 +4442,8 @@
             "zh-Hant": "\u6046\u6bc5\u95dc"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1676064266": {
         "name": "PHAM'S SITE",
@@ -4193,7 +4459,8 @@
             "zh-Hant": "\u8303\u59c6\u5730"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3849073717": {
         "name": "PILOT'S BERTH",
@@ -4209,7 +4476,8 @@
             "zh-Hant": "\u98db\u8259\u5e02"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2345167795": {
         "name": "PINESWOLD",
@@ -4225,7 +4493,8 @@
             "zh-Hant": "\u677e\u539f\u93ae"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3634134154": {
         "name": "PIONEER'S DREAM",
@@ -4241,7 +4510,8 @@
             "zh-Hant": "\u5148\u92d2\u5922\u57ce"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3710473299": {
         "name": "PIT 8",
@@ -4257,7 +4527,8 @@
             "zh-Hant": "8\u865f\u5751"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2098963156": {
         "name": "PLETHORA",
@@ -4273,7 +4544,8 @@
             "zh-Hant": "\u9918\u5269\u5e02"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3147829923": {
         "name": "PO'S RAVENNA",
@@ -4289,7 +4561,8 @@
             "zh-Hant": "\u6ce2\u4e4b\u62c9\u6587\u7d0d"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "502504685": {
         "name": "PORT MERCY",
@@ -4315,7 +4588,8 @@
             "ru-RU": "\u0421 \u0442\u0435\u0445 \u043f\u043e\u0440 \u043a\u0430\u043a \u041f\u043e\u0440\u0442 \u043c\u0438\u043b\u043e\u0441\u0435\u0440\u0434\u0438\u044f \u0443\u043a\u0440\u044b\u043b \u043c\u0438\u043b\u043b\u0438\u043e\u043d\u044b \u0431\u043b\u0430\u0433\u043e\u043d\u0430\u0434\u0435\u0436\u043d\u044b\u0445 \u0431\u0435\u0436\u0435\u043d\u0446\u0435\u0432 \u0432\u043e \u0432\u0440\u0435\u043c\u044f \u041f\u043e\u0441\u043b\u0435\u0434\u043d\u0435\u0439 \u0412\u0435\u043b\u0438\u043a\u043e\u0439 \u0432\u043e\u0439\u043d\u044b, \u043e\u043d \u0441\u0442\u0430\u043b \u0443\u0431\u0435\u0436\u0438\u0449\u0435\u043c \u0434\u043b\u044f \u0432\u0441\u0435\u0445 \u0433\u0440\u0430\u0436\u0434\u0430\u043d \u043a\u043b\u0430\u0441\u0441\u0430 \u0410, \u043d\u0443\u0436\u0434\u0430\u044e\u0449\u0438\u0445\u0441\u044f \u0432 \u043f\u043e\u043c\u043e\u0449\u0438.",
             "zh-Hans": "\u81ea\u7ec8\u6781\u5927\u6218\u4e2d\u5e87\u62a4\u6570\u767e\u4e07\u5fe0\u8bda\u96be\u6c11\u8d77\uff0c\u4ec1\u6148\u6e2f\u4fbf\u6210\u4e3a\u6240\u6709A\u7ea7\u516c\u6c11\u5371\u96be\u65f6\u7684\u5b89\u5168\u6e2f\u6e7e\u3002",
             "zh-Hant": "\u81ea\u5927\u6230\u671f\u9593\u5e87\u8b77\u6578\u767e\u842c\u5fe0\u8aa0\u96e3\u6c11\u4ee5\u4f86\uff0c\u300c\u6148\u60b2\u6e2f\u300d\u4e00\u76f4\u662f\u4e00\u7d1a\u516c\u6c11\u6709\u96e3\u6642\u7684\u5b89\u5168\u907f\u98a8\u6e2f\u3002"
-        }
+        },
+        "connections": []
     },
     "1097134956": {
         "name": "PORTE LIBERT\u00c9",
@@ -4331,7 +4605,8 @@
             "zh-Hant": "\u81ea\u7531\u9580"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "511490869": {
         "name": "PORUGU",
@@ -4347,7 +4622,8 @@
             "zh-Hant": "\u6ce2\u9b6f\u53e4"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2617273113": {
         "name": "PRAVOGRAD",
@@ -4363,7 +4639,8 @@
             "zh-Hant": "\u79e9\u5e8f\u4e4b\u57ce"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "807761309": {
         "name": "PROGRESS",
@@ -4379,7 +4656,8 @@
             "zh-Hant": "\u9032\u6b65\u57ce"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "718092071": {
         "name": "PROMINENCE",
@@ -4395,7 +4673,8 @@
             "zh-Hant": "\u5d22\u5db8\u57ce"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "248027603": {
         "name": "PROSPERITY",
@@ -4411,7 +4690,8 @@
             "zh-Hant": "\u7e41\u76db\u4e4b\u5730"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1750980320": {
         "name": "PROSPERITY CITY",
@@ -4437,7 +4717,8 @@
             "ru-RU": "\u0411\u0443\u0434\u0443\u0447\u0438 \u043c\u0435\u0441\u0442\u043e\u043c \u0437\u0430\u0441\u0435\u0434\u0430\u043d\u0438\u0439 \u0414\u0435\u043c\u043e\u043a\u0440\u0430\u0442\u0438\u0447\u0435\u0441\u043a\u043e\u0433\u043e \u0441\u043e\u0432\u0435\u0442\u0430, \u043d\u0430\u0448\u0430 \u0433\u043e\u0440\u0434\u0430\u044f \u0441\u0442\u043e\u043b\u0438\u0446\u0430 \u044f\u0432\u043b\u044f\u0435\u0442\u0441\u044f \u043c\u0430\u044f\u043a\u043e\u043c \u043f\u0440\u043e\u0433\u0440\u0435\u0441\u0441\u0430, \u043f\u0440\u043e\u0434\u0443\u043a\u0442\u0438\u0432\u043d\u043e\u0441\u0442\u0438 \u0438 \u043f\u0430\u0442\u0440\u0438\u043e\u0442\u0438\u0437\u043c\u0430.",
             "zh-Hans": "\u6211\u4eec\u5f15\u4ee5\u4e3a\u50b2\u7684\u9996\u90fd\u65e2\u662f\u6c11\u4e3b\u59d4\u5458\u4f1a\u7684\u6240\u5728\u5730\uff0c\u4e5f\u662f\u8fdb\u6b65\u3001\u751f\u4ea7\u529b\u548c\u7231\u56fd\u4e3b\u4e49\u7684\u7480\u74a8\u706f\u5854\u3002",
             "zh-Hant": "\u4f5c\u70ba\u6c11\u4e3b\u8b70\u6703\u7684\u6240\u5728\u5730\uff0c\u6211\u5011\u5f15\u4ee5\u70ba\u50b2\u7684\u9996\u90fd\u662f\u9032\u6b65\u3001\u751f\u7522\u529b\u8207\u611b\u570b\u7cbe\u795e\u7684\u71c8\u5854\u3002"
-        }
+        },
+        "connections": []
     },
     "189783404": {
         "name": "PSEUDOTOPIA",
@@ -4453,7 +4734,8 @@
             "zh-Hant": "\u507d\u70cf\u6258\u90a6"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3841350324": {
         "name": "QUASAR",
@@ -4469,7 +4751,8 @@
             "zh-Hant": "\u594e\u85a9"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2541809256": {
         "name": "QUASAR",
@@ -4485,7 +4768,8 @@
             "zh-Hant": "\u594e\u85a9"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2069832250": {
         "name": "QUELLED DISSENT",
@@ -4501,7 +4785,8 @@
             "zh-Hant": "\u5e73\u7570\u57ce"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2252336577": {
         "name": "QUENCH",
@@ -4517,7 +4802,8 @@
             "zh-Hant": "\u6dec\u706b\u57ce"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3161124521": {
         "name": "QZ-4",
@@ -4533,7 +4819,8 @@
             "zh-Hant": "QZ-4"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1713282699": {
         "name": "REBELSGRAVE",
@@ -4549,7 +4836,8 @@
             "zh-Hant": "\u53db\u5f92\u4e4b\u5893"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "119875523": {
         "name": "RECON HEIGHTS",
@@ -4565,7 +4853,8 @@
             "zh-Hant": "\u5075\u5bdf\u9ad8\u5730"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "786534585": {
         "name": "REDFIELD",
@@ -4581,7 +4870,8 @@
             "zh-Hant": "\u8d64\u7d05\u7530\u91ce"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "438247765": {
         "name": "REFORMED-BY-TRUTH",
@@ -4597,7 +4887,8 @@
             "zh-Hant": "\u771f\u7406\u6539\u9020\u5730"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1874705974": {
         "name": "REGISTER",
@@ -4613,7 +4904,8 @@
             "zh-Hant": "\u767b\u8a18\u5730"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1199462527": {
         "name": "REMEMBRANCE",
@@ -4639,7 +4931,8 @@
             "ru-RU": "\u041f\u043e\u0434\u043d\u044f\u0432\u0448\u0438\u0439\u0441\u044f \u0438\u0437 \u0440\u0443\u0438\u043d \u0434\u0440\u0435\u0432\u043d\u0435\u0433\u043e \u0433\u043e\u0440\u043e\u0434\u0430, \u0412\u043e\u0441\u043f\u043e\u043c\u0438\u043d\u0430\u043d\u0438\u0435 \u2014 \u044d\u0442\u043e \u043f\u0430\u043c\u044f\u0442\u043d\u0438\u043a \u0443\u043f\u043e\u0440\u0441\u0442\u0432\u0443 \u0447\u0435\u043b\u043e\u0432\u0435\u0447\u0435\u0441\u0442\u0432\u0430.",
             "zh-Hans": "\u81ea\u53e4\u57ce\u5e9f\u589f\u4e2d\u6d85\u69c3\u91cd\u751f\uff0c\u7f05\u57ce\u4e43\u4eba\u7c7b\u4e0d\u5c48\u7cbe\u795e\u7684\u4e30\u7891\u3002",
             "zh-Hant": "\u81ea\u53e4\u57ce\u5ee2\u589f\u4e2d\u91cd\u751f\u7684\u300c\u56de\u61b6\u57ce\u300d\uff0c\u662f\u4eba\u985e\u4e0d\u5c48\u7cbe\u795e\u7684\u7d00\u5ff5\u7891\u3002"
-        }
+        },
+        "connections": []
     },
     "829716394": {
         "name": "REQUIEM",
@@ -4655,7 +4948,8 @@
             "zh-Hant": "\u5b89\u9b42\u57ce"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2788606019": {
         "name": "RESILIENCE",
@@ -4671,7 +4965,8 @@
             "zh-Hant": "\u5805\u97cc\u57ce"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3194418120": {
         "name": "RESOLVE",
@@ -4687,7 +4982,8 @@
             "zh-Hant": "\u525b\u6bc5\u5e02"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3263317504": {
         "name": "RESPITE",
@@ -4703,7 +4999,8 @@
             "zh-Hant": "\u6b47\u606f\u5730"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3839797397": {
         "name": "REWA",
@@ -4719,7 +5016,8 @@
             "zh-Hant": "\u6cb3\u671b\u57ce"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3553590218": {
         "name": "RINKTOWN",
@@ -4735,7 +5033,8 @@
             "zh-Hant": "\u51b0\u5834\u5c0f\u93ae"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3677320822": {
         "name": "RIZIO'S VISION",
@@ -4751,7 +5050,8 @@
             "zh-Hant": "\u745e\u5947\u5967\u4e4b\u671b"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1881788943": {
         "name": "SAMEN-STARK",
@@ -4767,7 +5067,8 @@
             "zh-Hant": "\u85a9\u9580-\u65af\u5854\u514b"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1122447002": {
         "name": "SAMEN-STARK",
@@ -4783,7 +5084,8 @@
             "zh-Hant": "\u85a9\u9580-\u65af\u5854\u514b"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2006541056": {
         "name": "SAORSA GLEN",
@@ -4799,7 +5101,8 @@
             "zh-Hant": "\u7d39\u723e\u85a9\u8c37"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2409136536": {
         "name": "SAPPHIRE LAKE",
@@ -4815,7 +5118,8 @@
             "zh-Hant": "\u85cd\u5bf6\u77f3\u6e56"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3878380748": {
         "name": "SAPPORO",
@@ -4831,7 +5135,8 @@
             "zh-Hant": "\u672d\u5e4c"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1654362284": {
         "name": "SARAH SWIFT DAM",
@@ -4847,7 +5152,8 @@
             "zh-Hant": "\u838e\u62c9\u65af\u5a01\u592b\u7279\u5927\u58e9"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1562611653": {
         "name": "SCALD",
@@ -4863,7 +5169,8 @@
             "zh-Hant": "\u707c\u71d2\u4e4b\u5730"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1954453569": {
         "name": "SCARLET HAVEN",
@@ -4879,7 +5186,8 @@
             "zh-Hant": "\u7dcb\u7d05\u907f\u98a8\u6e2f"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "4221006651": {
         "name": "SCHOLAR'S MOOR",
@@ -4895,7 +5203,8 @@
             "zh-Hant": "\u5b78\u8005\u6cbc\u5730"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3164536732": {
         "name": "SEASSEFYRE",
@@ -4911,7 +5220,8 @@
             "zh-Hant": "\u897f\u5e0c\u83f2\u723e"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1068743995": {
         "name": "SENATOR PEAKS",
@@ -4927,7 +5237,8 @@
             "zh-Hant": "\u8b70\u54e1\u5cf0"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3513777986": {
         "name": "SEORAKSAN",
@@ -4943,7 +5254,8 @@
             "zh-Hant": "\u96ea\u5dbd\u5c71"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3036848565": {
         "name": "SEQUIM",
@@ -4959,7 +5271,8 @@
             "zh-Hant": "\u53f2\u9b41\u6069\u57ce"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "660742724": {
         "name": "SERENITY SUMMIT",
@@ -4975,7 +5288,8 @@
             "zh-Hant": "\u5be7\u975c\u5cf0"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "451637988": {
         "name": "SERVITUDE",
@@ -4991,7 +5305,8 @@
             "zh-Hant": "\u5974\u5f79\u5730"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "4065420956": {
         "name": "SETTLEMENT 7",
@@ -5007,7 +5322,8 @@
             "zh-Hant": "7\u865f\u5b9a\u5c45\u9ede"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "321980142": {
         "name": "SETTLER'S HONOR",
@@ -5023,7 +5339,8 @@
             "zh-Hant": "\u62d3\u8352\u8005\u69ae\u5730"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1039071856": {
         "name": "SEVENSEAL",
@@ -5039,7 +5356,8 @@
             "zh-Hant": "\u4e03\u5370\u57ce"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3896987202": {
         "name": "SEVERITY",
@@ -5055,7 +5373,8 @@
             "zh-Hant": "\u56b4\u5cfb\u4e4b\u5730"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2106184075": {
         "name": "SHADY OAKS",
@@ -5071,7 +5390,8 @@
             "zh-Hant": "\u852d\u6a61"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3006088005": {
         "name": "SHED",
@@ -5087,7 +5407,8 @@
             "zh-Hant": "\u5009\u68da"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2293980636": {
         "name": "SHELTER",
@@ -5103,7 +5424,8 @@
             "zh-Hant": "\u5e87\u8b77\u6240"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "297388908": {
         "name": "SHOTGUN SUMMIT",
@@ -5119,7 +5441,8 @@
             "zh-Hant": "\u9730\u5f48\u5cf0"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "586167831": {
         "name": "SILO A",
@@ -5135,7 +5458,8 @@
             "zh-Hant": "A\u865f\u7b52\u5009"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "697345425": {
         "name": "SKAR'S GARDENS",
@@ -5151,7 +5475,8 @@
             "zh-Hant": "\u65af\u5361\u82b1\u5712"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3607786620": {
         "name": "SLAYER CITY",
@@ -5167,7 +5492,8 @@
             "zh-Hant": "\u5c60\u8005\u57ce"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2577020579": {
         "name": "SOLIDARITET",
@@ -5193,7 +5519,11 @@
             "ru-RU": "\u0412\u044b\u0441\u0448\u0435\u0435 \u043a\u043e\u043c\u0430\u043d\u0434\u043e\u0432\u0430\u043d\u0438\u0435 \u0441\u0447\u0438\u0442\u0430\u0435\u0442 \u044d\u0442\u0443 \u043c\u0435\u0433\u0430\u0444\u0430\u0431\u0440\u0438\u043a\u0443 \u043e\u0434\u043d\u0438\u043c \u0438\u0437 \u0434\u0432\u0443\u0445 \u0432\u043e\u0437\u043c\u043e\u0436\u043d\u044b\u0445 \u043f\u043b\u0430\u0446\u0434\u0430\u0440\u043c\u043e\u0432 \u0434\u043b\u044f \u0432\u0442\u043e\u0440\u0436\u0435\u043d\u0438\u044f \u043d\u0430 \u041a\u0438\u0431\u0435\u0440\u0441\u0442\u0430\u043d. \u0421\u0440\u0435\u0434\u0441\u0442\u0432\u0430 \u041f\u0412\u041e \u0432\u0440\u0430\u0433\u0430 \u043c\u043e\u0433\u0443 \u043c\u0435\u0448\u0430\u0442\u044c \u044d\u0432\u0430\u043a\u0443\u0430\u0446\u0438\u0438 \u043d\u0430 \u00ab\u041f\u0435\u043b\u0438\u043a\u0430\u043d\u0430\u0445\u00bb.",
             "zh-Hans": "\u6700\u9ad8\u6307\u6325\u90e8\u5df2\u5c06\u8fd9\u5ea7\u8d85\u5927\u578b\u5de5\u5382\u8ba4\u5b9a\u4e3a\u5165\u4fb5\u751f\u5316\u65af\u5766\u7684\u4e24\u4e2a\u6f5c\u5728\u6ee9\u5934\u5821\u4e4b\u4e00\u3002\u9632\u7a7a\u8bbe\u65bd\u5c06\u963b\u788d\u201c\u9e48\u9e55\u201d\u53f7\u64a4\u79bb\u3002",
             "zh-Hant": "\u6700\u9ad8\u53f8\u4ee4\u90e8\u5df2\u5c07\u9019\u5ea7\u8d85\u7d1a\u5de5\u5ee0\u5217\u70ba\u5165\u4fb5\u751f\u5316\u65af\u5766\u7684\u5169\u500b\u6f5b\u5728\u7058\u982d\u9663\u5730\u4e4b\u4e00\u3002\u9632\u7a7a\u8a2d\u65bd\u5c07\u963b\u7919\u5858\u9d5d\u865f\u7684\u64a4\u96e2\u884c\u52d5\u3002"
-        }
+        },
+        "connections": [
+            1512842277,
+            3404329179
+        ]
     },
     "3421372928": {
         "name": "SONGGUO CUN",
@@ -5209,7 +5539,8 @@
             "zh-Hant": "\u677e\u679c\u6751"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "945140203": {
         "name": "STACY",
@@ -5225,7 +5556,8 @@
             "zh-Hant": "\u65af\u6cf0\u897f"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2735744233": {
         "name": "STAR KIELD",
@@ -5251,7 +5583,10 @@
             "ru-RU": "\u041f\u0440\u0438\u043c\u0435\u0440\u043d\u043e \u043f\u0435\u0440\u0435\u0432\u043e\u0434\u0438\u0442\u0441\u044f \u043a\u0430\u043a \u00ab\u0412\u0441\u0435 \u043b\u044e\u0434\u0438 \u0434\u043e\u043b\u0436\u043d\u044b \u0443\u043c\u0435\u0440\u0435\u0442\u044c\u00bb. \u041e\u0434\u043d\u0430 \u0438\u0437 \u043a\u0440\u0443\u043f\u043d\u0435\u0439\u0448\u0438\u0445 \u043c\u0435\u0433\u0430\u0444\u0430\u0431\u0440\u0438\u043a \u041a\u0438\u0431\u0435\u0440\u0441\u0442\u0430\u043d\u0430. \u041a\u0440\u0438\u0442\u0438\u0447\u0435\u0441\u043a\u0438 \u0432\u0430\u0436\u043d\u044b\u0439 \u0432\u043e\u0435\u043d\u043d\u044b\u0439 \u043f\u0440\u043e\u0438\u0437\u0432\u043e\u0434\u0441\u0442\u0432\u0435\u043d\u043d\u044b\u0439 \u0446\u0435\u043d\u0442\u0440. \u0415\u0433\u043e \u043e\u0431\u043e\u0440\u043e\u043d\u044f\u0435\u0442 \u0440\u0435\u0430\u043a\u0442\u0438\u0432\u043d\u044b\u0439 \u0431\u0430\u0442\u0430\u043b\u044c\u043e\u043d.",
             "zh-Hans": "\u5927\u610f\u4e3a\u201c\u5168\u4eba\u7c7b\u5fc5\u987b\u6b7b\u201d\u3002\u751f\u5316\u65af\u5766\u6700\u5927\u7684\u8d85\u5927\u578b\u5de5\u5382\u4e4b\u4e00\u3002\u5173\u952e\u519b\u4e8b\u751f\u4ea7\u8282\u70b9\u3002\u7531\u55b7\u6c14\u65c5\u9a7b\u5b88\u3002",
             "zh-Hant": "\u53ef\u4ee5\u5927\u7565\u8b6f\u70ba\uff1a\u300c\u4eba\u985e\u5fc5\u9808\u6ec5\u4ea1\u300d\u3002\u751f\u5316\u65af\u5766\u4e0a\u898f\u6a21\u6700\u5927\u7684\u8d85\u7d1a\u5de5\u5ee0\u4e4b\u4e00\u3002\u91cd\u8981\u7684\u8ecd\u4e8b\u751f\u7522\u7bc0\u9ede\u3002\u7531\u5674\u5c04\u968a\u9632\u5b88\u3002"
-        }
+        },
+        "connections": [
+            3380242454
+        ]
     },
     "2775422932": {
         "name": "STARPASS",
@@ -5267,7 +5602,8 @@
             "zh-Hant": "\u661f\u9014\u95dc\u53e3"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1999301409": {
         "name": "STEEL RESOLVE",
@@ -5283,7 +5619,8 @@
             "zh-Hant": "\u9435\u5fd7\u57ce"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2547946895": {
         "name": "STRENGTH",
@@ -5299,7 +5636,8 @@
             "zh-Hant": "\u529b\u91cf\u4e4b\u5730"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1119186435": {
         "name": "STRONGFORT",
@@ -5315,7 +5653,8 @@
             "zh-Hant": "\u5805\u5be6\u5821\u58d8"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3272102382": {
         "name": "SUPERIORITY",
@@ -5331,7 +5670,8 @@
             "zh-Hant": "\u5353\u8d8a\u57ce"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "4051063223": {
         "name": "SYCAMORE GARDENS",
@@ -5347,7 +5687,8 @@
             "zh-Hant": "\u61f8\u9234\u6728\u82b1\u5712"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3858818769": {
         "name": "SYZYGY",
@@ -5363,7 +5704,8 @@
             "zh-Hant": "\u897f\u6fa4\u5409"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1878476075": {
         "name": "TECHNOLOCKIA ALLATEED",
@@ -5379,7 +5721,8 @@
             "zh-Hant": "\u6cf0\u79d1\u6d1b\u57fa\u4e9e\u963f\u62c9\u63d0\u5fb7"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3600431647": {
         "name": "TECHOLOCKY",
@@ -5395,7 +5738,8 @@
             "zh-Hant": "\u6cf0\u79d1\u6d1b\u57fa"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "334066640": {
         "name": "THE VILLAS",
@@ -5411,7 +5755,8 @@
             "zh-Hant": "\u5225\u5885\u5340"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2634421583": {
         "name": "TIMELY",
@@ -5427,7 +5772,8 @@
             "zh-Hant": "\u53ca\u6642\u57ce"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3368734830": {
         "name": "TOIL",
@@ -5443,7 +5789,8 @@
             "zh-Hant": "\u52de\u82e6\u4e4b\u5730"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2184145680": {
         "name": "TOPSOIL",
@@ -5459,7 +5806,8 @@
             "zh-Hant": "\u8868\u571f"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3106360883": {
         "name": "TRAITOR'S END",
@@ -5475,7 +5823,8 @@
             "zh-Hant": "\u53db\u672b\u4e4b\u5730"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3380242454": {
         "name": "TRANSCENDENCE",
@@ -5501,7 +5850,8 @@
             "ru-RU": "\u041f\u0435\u0440\u0432\u0430\u044f \u0438 \u0441\u0430\u043c\u0430\u044f \u0445\u043e\u0440\u043e\u0448\u043e \u0437\u0430\u0449\u0438\u0449\u0435\u043d\u043d\u0430\u044f \u043c\u0435\u0433\u0430\u0444\u0430\u0431\u0440\u0438\u043a\u0430. \u0426\u0435\u043d\u0442\u0440 \u043a\u043e\u043c\u0430\u043d\u0434\u043e\u0432\u0430\u043d\u0438\u044f \u043a\u0438\u0431\u043e\u0440\u0433\u043e\u0432. \u0415\u0433\u043e \u0443\u043d\u0438\u0447\u0442\u043e\u0436\u0435\u043d\u0438\u0435 \u043f\u0440\u0438\u0432\u0435\u0434\u0435\u0442 \u043a \u043a\u0440\u0430\u0445\u0443 \u0432\u0440\u0430\u0436\u0435\u0441\u043a\u043e\u0439 \u043e\u0431\u043e\u0440\u043e\u043d\u044b \u043d\u0430 \u041a\u0438\u0431\u0435\u0440\u0441\u0442\u0430\u043d\u0435. \u041e\u0436\u0438\u0434\u0430\u0435\u0442\u0441\u044f \u043a\u0440\u0430\u0439\u043d\u0435 \u0441\u0438\u043b\u044c\u043d\u043e\u0435 \u0441\u043e\u043f\u0440\u043e\u0442\u0438\u0432\u043b\u0435\u043d\u0438\u0435.",
             "zh-Hans": "\u6700\u65e9\u5efa\u6210\u3001\u9632\u5fa1\u6700\u575a\u56fa\u7684\u8d85\u5927\u578b\u5de5\u5382\u3002\u751f\u5316\u4eba\u7684\u6307\u6325\u4e2d\u67a2\u3002\u6467\u6bc1\u6b64\u76ee\u6807\u5c06\u5bfc\u81f4\u654c\u519b\u5728\u751f\u5316\u65af\u5766\u7684\u9632\u7ebf\u5168\u9762\u5d29\u6e83\u3002\u9884\u8ba1\u5c06\u906d\u9047\u6781\u7aef\u62b5\u6297\u3002",
             "zh-Hant": "\u6700\u65e9\u5efa\u9020\u4e14\u9632\u79a6\u6700\u56b4\u5bc6\u7684\u8d85\u7d1a\u5de5\u5ee0\u3002\u751f\u5316\u4eba\u7684\u6307\u63ee\u4e2d\u6a1e\u3002\u82e5\u6467\u6bc0\u6b64\u8655\uff0c\u6575\u8ecd\u5728\u751f\u5316\u65af\u5766\u7684\u9632\u7dda\u5c07\u5168\u9762\u5d29\u6f70\u3002\u9810\u671f\u5c07\u906d\u9047\u6975\u70ba\u9811\u5f37\u7684\u62b5\u6297\u3002"
-        }
+        },
+        "connections": []
     },
     "799267053": {
         "name": "TVENNE BOTTOMS",
@@ -5517,7 +5867,8 @@
             "zh-Hant": "\u7279\u7dad\u5c3c\u4f4e\u5730"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "472831334": {
         "name": "UNANIMITY",
@@ -5533,7 +5884,8 @@
             "zh-Hant": "\u5718\u7d50\u5e02"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1702672301": {
         "name": "UNDERVATTEN",
@@ -5549,7 +5901,8 @@
             "zh-Hant": "\u6c89\u6c34\u57ce"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2696938432": {
         "name": "UNGU",
@@ -5565,7 +5918,8 @@
             "zh-Hant": "\u7d2b\u90fd"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "874781515": {
         "name": "UNISON",
@@ -5581,7 +5935,8 @@
             "zh-Hant": "\u806f\u5408\u5e02"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1475859103": {
         "name": "URSOOT NINE",
@@ -5607,7 +5962,10 @@
             "ru-RU": "\u0421\u043a\u043e\u0440\u0435\u0435 \u0432\u0441\u0435\u0433\u043e, \u044d\u0442\u043e \u043e\u0434\u043d\u0430 \u0438\u0437 \u043f\u0435\u0440\u0432\u044b\u0445 \u043c\u0435\u0433\u0430\u0444\u0430\u0431\u0440\u0438\u043a, \u043f\u043e\u0441\u0442\u0440\u043e\u0435\u043d\u043d\u044b\u0445 \u043d\u0430 \u041a\u0438\u0431\u0435\u0440\u0441\u0442\u0430\u043d\u0435. \u0421\u0430\u043c\u044b\u0439 \u043a\u0440\u0443\u043f\u043d\u044b\u0439 \u043f\u0440\u043e\u0438\u0437\u0432\u043e\u0434\u0438\u0442\u0435\u043b\u044c \u0431\u043e\u0439\u0446\u043e\u0432-\u043a\u0438\u0431\u043e\u0440\u0433\u043e\u0432. \u0415\u0433\u043e \u043e\u0431\u043e\u0440\u043e\u043d\u044f\u0435\u0442 \u0438\u0441\u043f\u0435\u043f\u0435\u043b\u044f\u044e\u0449\u0438\u0439 \u043e\u0442\u0440\u044f\u0434.",
             "zh-Hans": "\u8fd9\u53ef\u80fd\u662f\u751f\u5316\u65af\u5766\u6700\u65e9\u5efa\u9020\u7684\u8d85\u5927\u578b\u5de5\u5382\u4e4b\u4e00\u3002\u751f\u5316\u4eba\u6218\u6597\u5355\u4f4d\u7684\u6700\u4e3b\u8981\u751f\u4ea7\u5730\u3002\u7531\u70bd\u707c\u90e8\u961f\u9a7b\u5b88\u3002",
             "zh-Hant": "\u53ef\u80fd\u662f\u751f\u5316\u65af\u5766\u6700\u65e9\u5efa\u9020\u7684\u8d85\u7d1a\u5de5\u5ee0\u4e4b\u4e00\u3002\u751f\u5316\u4eba\u6230\u58eb\u7684\u4e3b\u8981\u751f\u7522\u57fa\u5730\u3002\u7531\u711a\u71d2\u8ecd\u5718\u9632\u5b88\u3002"
-        }
+        },
+        "connections": [
+            3380242454
+        ]
     },
     "1230494439": {
         "name": "UTOPIA VAREN",
@@ -5623,7 +5981,8 @@
             "zh-Hant": "\u70cf\u6258\u90a6\u74e6\u502b"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2231267715": {
         "name": "VANQUISHMENT",
@@ -5639,7 +5998,8 @@
             "zh-Hant": "\u5f81\u670d\u4e4b\u5730"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "4237135854": {
         "name": "VAULT CITY",
@@ -5655,7 +6015,8 @@
             "zh-Hant": "\u5bf6\u5eab\u57ce"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1854961214": {
         "name": "VENERATION",
@@ -5671,7 +6032,8 @@
             "zh-Hant": "\u656c\u4ef0\u4e4b\u5730"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2727770200": {
         "name": "VERVE",
@@ -5687,7 +6049,8 @@
             "zh-Hant": "\u7cbe\u529b\u57ce"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1633627715": {
         "name": "VIBRANCY",
@@ -5703,7 +6066,8 @@
             "zh-Hant": "\u84ec\u52c3\u4e4b\u5730"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1411801971": {
         "name": "VICTORY",
@@ -5719,7 +6083,8 @@
             "zh-Hant": "\u52dd\u5229\u4e4b\u5730"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3550784979": {
         "name": "VILHELMINA DOROTHEA FREDRIKA",
@@ -5735,7 +6100,8 @@
             "zh-Hant": "\u5a01\u723e\u6d77\u7c73\u5a1c\u00b7\u591a\u863f\u897f\u5a6d\u00b7\u5f17\u96f7\u5fb7\u91cc\u5361"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3054618608": {
         "name": "VOTER'S FALLOW",
@@ -5751,7 +6117,8 @@
             "zh-Hant": "\u9078\u6c11\u4f11\u8015\u5730"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3568007842": {
         "name": "VOTING DISTRICT F-012357",
@@ -5767,7 +6134,8 @@
             "zh-Hant": "\u6295\u7968\u5340F-012357"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3900513024": {
         "name": "V\u00c1HTJER",
@@ -5783,7 +6151,8 @@
             "zh-Hant": "\u74e6\u8d6b\u5091\u723e"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "983151377": {
         "name": "WALKAWAY",
@@ -5799,7 +6168,8 @@
             "zh-Hant": "\u900d\u9059\u4e4b\u5730"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "4099883014": {
         "name": "WALNUT ACRES",
@@ -5815,7 +6185,8 @@
             "zh-Hant": "\u80e1\u6843\u838a\u5712"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1523836342": {
         "name": "WASTEMOUNT",
@@ -5831,7 +6202,8 @@
             "zh-Hant": "\u5ee2\u68c4\u9ad8\u5730"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1447639542": {
         "name": "WEST BROKER",
@@ -5847,7 +6219,8 @@
             "zh-Hant": "\u897f\u90e8\u4ef2\u4ecb\u5340"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1002278606": {
         "name": "WEST MANAGEMENT",
@@ -5863,7 +6236,8 @@
             "zh-Hant": "\u897f\u7ba1\u5e02"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "480136851": {
         "name": "WORKHOUSE 239-C",
@@ -5879,7 +6253,8 @@
             "zh-Hant": "239-C\u6551\u6fdf\u6240"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1338066975": {
         "name": "WORKSONG",
@@ -5895,7 +6270,8 @@
             "zh-Hant": "\u5de5\u4eba\u4e4b\u6b4c"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3540948886": {
         "name": "XIAMEN ANEW",
@@ -5911,7 +6287,8 @@
             "zh-Hant": "\u65b0\u5ec8\u9580"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "4087006817": {
         "name": "XIN FUZHOU",
@@ -5927,7 +6304,8 @@
             "zh-Hant": "\u65b0\u798f\u5dde"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2592017616": {
         "name": "XIRAN'S CLAIM",
@@ -5943,7 +6321,8 @@
             "zh-Hant": "\u5e0c\u862d\u4e3b\u6b0a\u5730"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "2140217517": {
         "name": "YATAKHANE 263",
@@ -5959,7 +6338,8 @@
             "zh-Hant": "\u96c5\u5854\u54c8\u5c3c263\u865f"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "1017291850": {
         "name": "YDINKESKUSTA",
@@ -5975,7 +6355,8 @@
             "zh-Hant": "\u4e2d\u5fc3\u57ce"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "391918492": {
         "name": "YORK SUPREME",
@@ -6001,7 +6382,8 @@
             "ru-RU": "\u041f\u043e\u0441\u043b\u0435 \u0412\u0435\u043b\u0438\u043a\u043e\u0433\u043e \u043a\u0440\u0438\u0437\u0438\u0441\u0430 \u0419\u043e\u0440\u043a\u043e\u0432 \u043e\u0434\u0438\u043d \u0433\u043e\u0440\u043e\u0434 \u0432\u043e\u0437\u0432\u044b\u0441\u0438\u043b\u0441\u044f \u043d\u0430\u0434 \u043e\u0441\u0442\u0430\u043b\u044c\u043d\u044b\u043c\u0438, \u043f\u043e\u043a\u043b\u044f\u0432\u0448\u0438\u0441\u044c \u043f\u043e\u043c\u043e\u0433\u0430\u0442\u044c \u0432\u0441\u0435\u043c \u043e\u0441\u0442\u0430\u043b\u044c\u043d\u044b\u043c \u0419\u043e\u0440\u043a\u0430\u043c, \u0434\u0430\u0431\u044b \u043d\u0435 \u043f\u0440\u043e\u043b\u0438\u0432\u0430\u043b\u0430\u0441\u044c \u0431\u043e\u043b\u044c\u0448\u0435 \u043a\u0440\u043e\u0432\u044c \u0432 \u0431\u043e\u0440\u044c\u0431\u0435 \u043c\u0435\u0436\u0434\u0443 \u043d\u0438\u043c\u0438.",
             "zh-Hans": "\u7ea6\u514b\u5927\u7eb7\u4e89\u7ed3\u675f\u540e\uff0c\u4e00\u5ea7\u57ce\u5e02\u529b\u538b\u7fa4\u96c4\uff0c\u8a93\u8981\u7edf\u5fa1\u5176\u4ed6\u7ea6\u514b\u5e02\uff0c\u7ec8\u7ed3\u5f7c\u6b64\u95f4\u7684\u6d41\u8840\u7eb7\u4e89\u3002",
             "zh-Hant": "\u7d93\u6b77\u300c\u5927\u7d04\u514b\u56f0\u5c40\u300d\u5f8c\uff0c\u6709\u5ea7\u57ce\u5e02\u5f37\u52e2\u5d1b\u8d77\uff0c\u8a93\u8981\u638c\u63a7\u4e26\u51cc\u99d5\u65bc\u5176\u4ed6\u7d04\u514b\u57ce\u4e4b\u4e0a\uff0c\u907f\u514d\u6d41\u8840\u885d\u7a81\u518d\u5ea6\u767c\u751f\u3002"
-        }
+        },
+        "connections": []
     },
     "3647907388": {
         "name": "ZENITH",
@@ -6017,7 +6399,8 @@
             "zh-Hant": "\u5929\u9802"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "3510978126": {
         "name": "ZONE 3",
@@ -6033,7 +6416,8 @@
             "zh-Hant": "\u7b2c3\u5340"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     },
     "687069999": {
         "name": "\u00d6DESH\u00d6GRE",
@@ -6049,6 +6433,7 @@
             "zh-Hant": "\u5384\u5fb7\u65af\u8d6b\u683c\u96f7"
         },
         "description": "",
-        "descriptions": {}
+        "descriptions": {},
+        "connections": []
     }
 }

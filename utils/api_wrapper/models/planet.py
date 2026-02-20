@@ -174,6 +174,7 @@ class Planet(ReprMixin):
             "is_available",
             "players",
             "type",
+            "connections",
         )
 
         def __init__(
@@ -204,6 +205,8 @@ class Planet(ReprMixin):
             self.size: int = raw_planet_region_data["regionSize"] + 1
             self.type: RegionType = RegionType(self.size)
             self.tracker: BaseTrackerEntry | None = None
+            self._connection_indices: list[int] = json_entry.get("connections", [])
+            self.connections: list[Planet.Region] = []
 
         @property
         def emoji(self) -> str:
