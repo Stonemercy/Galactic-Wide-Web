@@ -114,7 +114,7 @@ class Assignment(ReprMixin):
             """Returns a health_bar based on the task type and progress"""
             anim = False
             increasing = False
-            if self.tracker != None:
+            if self.tracker and self.tracker.change_rate_per_hour != 0:
                 anim = True
                 increasing = self.tracker.change_rate_per_hour > 0
 
