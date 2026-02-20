@@ -202,6 +202,7 @@ class Dashboard:
                 field_value = ""
                 if region.is_available:
                     field_name += f"{region.emoji} {region.names.get(language_json['code_long'], region.name)}"
+                    field_value += f"\n-# {language_json['embeds']['Dashboard']['HomeworldCampaignEmbed']['heroes']}: {region.players:,} ({region.players/ campaign.planet.stats.player_count:,.1%})"
                     if compact_level < 2 and not any(
                         [
                             r
@@ -212,7 +213,7 @@ class Dashboard:
                         description = region.descriptions.get(
                             language_json["code_long"], region.description
                         ).replace("\n", "")
-                        field_value += f"-# {description}"
+                        field_value += f"\n-# {description}"
                     if region.tracker and region.tracker.change_rate_per_hour > 0:
                         field_value += f"\n-# {language_json['embeds']['Dashboard']['HomeworldCampaignEmbed']['victory']} <t:{int(region.tracker.complete_time.timestamp())}:R>"
                     field_value += f"\n{region.health_bar}"
