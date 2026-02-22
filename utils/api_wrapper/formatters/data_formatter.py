@@ -495,10 +495,21 @@ class FormattedData:
                             pass
 
         if context.dss:
-            dss_planet = self.planets.get(context.dss["planetIndex"])
+            if context.dss["flags"] == 0:
+                planet_with_1217 = next(
+                    (
+                        p
+                        for p in self.planets.values()
+                        if 1217 in (ae.id for ae in p.active_effects)
+                    ),
+                    None,
+                )
+                if planet_with_1217:
+                    dss_planet = planet_with_1217
+            else:
+                dss_planet = self.planets.get(context.dss["planetIndex"])
             if dss_planet:
-                if context.dss["flags"] == 1:
-                    dss_planet.dss_in_orbit = True
+                dss_planet.dss_in_orbit = True
                 self.dss: DSS = DSS(
                     raw_dss_data=context.dss,
                     planet=dss_planet,
