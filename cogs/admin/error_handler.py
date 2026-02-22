@@ -109,23 +109,28 @@ class ErrorHandlerCog(commands.Cog):
         error_type="Unknown",
     ):
         embed = Embed(title=f"{error_type} error", color=Color.dark_red())
+        if inter and inter.application_command:
+            embed.title += f" - /{inter.application_command.name}"
         if hasattr(inter, "guild") and inter.guild:
             embed.add_field(
-                name="Guild", value=f"{inter.guild.name} ({inter.guild.id})"
+                name="Guild",
+                value=f"-# {inter.guild.name} - {inter.guild.approximate_member_count}\n-# {inter.guild.id}",
             )
         if hasattr(inter, "author"):
             embed.add_field(
                 name="User",
-                value=f"{inter.author} ({inter.author.id}) {inter.author.mention}",
+                value=f"-# {inter.author}\n-# {inter.author.id}\n-# {inter.author.mention}",
             )
         elif hasattr(inter, "user"):
             embed.add_field(
                 name="User",
-                value=f"{inter.user} ({inter.user.id}) {inter.user.mention}",
+                value=f"-# {inter.user}\n-# {inter.user.id}\n-# {inter.user.mention}",
             )
         if hasattr(inter, "channel"):
             embed.add_field(
-                name="Channel", value=f"{inter.channel.name} {inter.channel.mention}"
+                name="Channel",
+                value=f"-# {inter.channel.name}\n-# {inter.channel.mention}",
+                inline=False,
             )
 
         error_text = "".join(format_exception(type(error), error, error.__traceback__))
@@ -141,7 +146,9 @@ class ErrorHandlerCog(commands.Cog):
                 name="Error", value=f"```py\n{error_text}\n```", inline=False
             )
 
-        await self.bot.channels.moderator_channel.send(embed=embed)
+        await self.bot.channels.moderator_channel.send(
+            content=self.bot.owner.mention, embed=embed
+        )
 
 
 def setup(bot: GalacticWideWebBot) -> None:
