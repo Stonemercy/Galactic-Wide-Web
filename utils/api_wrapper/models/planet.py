@@ -11,7 +11,7 @@ from ..utils.constants import DEFENCE_LEVEL_EXCLAMATION_DICT, RegionType
 class Planet(ReprMixin):
     __slots__ = (
         "index",
-        "name",
+        "names",
         "sector",
         "event",
         "dss_in_orbit",
