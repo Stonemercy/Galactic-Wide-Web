@@ -79,9 +79,7 @@ class APIChangesCog(commands.Cog):
                 self.bot.data.formatted_data.planets.values(),
             ):
                 for stat_name, property in PLANET_STATS_TO_CHECK.items():
-                    old_attr = getattr(old_planet, property)
-                    new_attr = getattr(new_planet, property)
-                    if new_attr != old_attr:
+                    if getattr(new_planet, property) != getattr(old_planet, property):
                         total_changes.append(
                             APIChanges(
                                 old_object=old_planet,
