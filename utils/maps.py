@@ -171,6 +171,7 @@ class Maps:
                     radius=12,
                 )
             if index == 64:
+                # meridia
                 for i in range(PLANET_RADIUS, PLANET_RADIUS - 4, -1):
                     circle(
                         background,
@@ -187,6 +188,7 @@ class Maps:
                     -1,
                 )
             elif 1352 in (ae.id for ae in planet.active_effects):
+                # black hole
                 for i in range(PLANET_RADIUS, PLANET_RADIUS - 4, -1):
                     circle(
                         background,
@@ -203,6 +205,7 @@ class Maps:
                     -1,
                 )
             elif 1240 in (ae.id for ae in planet.active_effects):
+                # going to be destroyed
                 circle(
                     background,
                     planet.map_waypoints,
@@ -211,6 +214,7 @@ class Maps:
                     -1,
                 )
             elif [ae for ae in planet.active_effects if ae.id in (1241, 1252)] != []:
+                # fractured planets
                 continue
             else:
                 colour = (
