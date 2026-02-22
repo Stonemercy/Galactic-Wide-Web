@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta
-from utils.dataclasses import CalculatedEndTime
+from utils.dataclasses import CalculatedEndTime, Factions
 from ..api_wrapper.models.planet import Planet
 
 
@@ -13,6 +13,13 @@ def get_end_time(
 
     if not source_planet.tracker or source_planet.tracker.change_rate_per_hour <= 0:
         return results
+
+    if source_planet.homeworld and source_planet.faction != Factions.humans:
+        final_region = sorted(source_planet.regions.values(), key=lambda x: x.size)[-1]
+        if final_region.tracker and final_region.tracker.change_rate_per_hour > 0:
+            results.end_time = final_region.tracker.complete_time
+            results.regions.append(final_region)
+            return results
 
     if source_planet.event:
         # Regular defence win
