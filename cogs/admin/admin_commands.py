@@ -1,5 +1,5 @@
 from typing import TYPE_CHECKING
-from disnake import AppCmdInter, MessageInteraction, Permissions, ui
+from disnake import AppCmdInter, Guild, MessageInteraction, Permissions, ui
 from disnake.ext import commands
 from main import GalacticWideWebBot
 from re import search
@@ -66,9 +66,7 @@ class AdminCommandsCog(commands.Cog):
     async def reload_extension(
         self,
         inter: AppCmdInter,
-        file_name: str = commands.Param(
-            autocomplete=extension_names_autocomp,
-        ),
+        file_name: str = commands.Param(autocomplete=extension_names_autocomp),
     ) -> None:
         await inter.response.defer(ephemeral=True)
         for path in [f"cogs.{file_name}", f"cogs.admin.{file_name}"]:
@@ -102,15 +100,17 @@ class AdminCommandsCog(commands.Cog):
     ) -> None:
         await inter.response.defer(ephemeral=True)
         all_guilds = GWWGuilds(fetch_all=True)
-        filtered_guild_list: list[GWWGuild] = [
-            g
-            for g in all_guilds
-            if g.guild_id == id_to_check
-            or id_to_check
-            in (v for f in g.features for v in (f.channel_id, f.message_id) if v)
-        ]
-        if filtered_guild_list != []:
-            db_guild = filtered_guild_list[0]
+        db_guild: GWWGuild = next(
+            (
+                g
+                for g in all_guilds
+                if g.guild_id == id_to_check
+                or id_to_check
+                in (v for f in g.features for v in (f.channel_id, f.message_id) if v)
+            ),
+            None,
+        )
+        if db_guild:
             discord_guild = self.bot.get_guild(
                 db_guild.guild_id
             ) or await self.bot.fetch_guild(db_guild.guild_id)
@@ -205,7 +205,7 @@ class AdminCommandsCog(commands.Cog):
     ) -> None:
         await inter.response.defer(ephemeral=public != "Yes")
         gww_guilds = GWWGuilds(fetch_all=True)
-        possible_fake_guilds = []
+        possible_fake_guilds: list[Guild] = []
         for gww_guild in gww_guilds:
             if gww_guild.features == []:
                 discord_guild = self.bot.get_guild(
@@ -216,7 +216,10 @@ class AdminCommandsCog(commands.Cog):
                     and discord_guild.member_count < 100
                 ):
                     possible_fake_guilds.append(discord_guild)
-        await inter.send(f"Possible fake guilds: {len(possible_fake_guilds)}")
+        fake_guilds_sample = "\n".join([str(g.id) for g in possible_fake_guilds[:10]])
+        await inter.send(
+            f"Possible fake guilds: {len(possible_fake_guilds)}\n{fake_guilds_sample}"
+        )
 
 
 def setup(bot: GalacticWideWebBot) -> None:
