@@ -28,7 +28,7 @@ class DSSEmbed(Embed, EmbedReprMixin):
         )
         if (
             not dss_data
-            or dss_data.flags == 2
+            or dss_data.flags in [0, 2]
             or (
                 all([ta.status == 0 for ta in dss_data.tactical_actions])
                 and dss_data.move_timer_datetime > datetime.now() + timedelta(days=30)
