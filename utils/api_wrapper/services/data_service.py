@@ -13,9 +13,12 @@ from ..services.tracking_service import TrackingService
 from ..utils.constants import EndpointBase
 from ..formatters import FormattedData, FormattedDataContext
 
+SPACE_STATION_IDS = {
+    "DSS": 749875195,
+}
+
 
 class DataService(ReprMixin):
-    __slots__ = ("war_id", "dss_id")
 
     def __init__(self, json_dict: dict, logger: GWWLogger) -> None:
         """The object to retrieve and organise all 3rd-party data used by the bot"""
@@ -28,7 +31,6 @@ class DataService(ReprMixin):
         self.tracking_service = TrackingService()
 
         self.war_id = 801
-        self.dss_id = 0
         self.steam_player_count = 0
         self._raw_war_status: dict[str, dict] = {}
         self._raw_news_feed: dict[str, list[dict]] = {}
@@ -71,9 +73,6 @@ class DataService(ReprMixin):
                 if raw_war_status:
                     self._raw_war_status[lang.short_code] = raw_war_status
 
-                    if self.dss_id == 0 and raw_war_status["spaceStations"] != []:
-                        self.dss_id: int = raw_war_status["spaceStations"][0]["id32"]
-
                 # news_feed
                 time_for_dispatches = int(
                     (
@@ -105,12 +104,11 @@ class DataService(ReprMixin):
                     self._raw_assignments[lang.short_code] = assignments
 
             # dss
-            if self.dss_id != 0:
-                dss = await client.get_dss_info(
-                    war_id=self.war_id, station_id=self.dss_id
-                )
-                if dss:
-                    self._raw_dss = dss
+            dss = await client.get_dss_info(
+                war_id=self.war_id, station_id=SPACE_STATION_IDS["DSS"]
+            )
+            if dss:
+                self._raw_dss = dss
 
             # war stats
             war_stats = await client.get_war_stats(war_id=self.war_id)
@@ -166,7 +164,6 @@ class DataService(ReprMixin):
             self.previous_data = self.formatted_data.copy()
         formatted_data_context = FormattedDataContext(
             war_id=self.war_id,
-            dss_id=self.dss_id,
             steam_player_count=self.steam_player_count,
             war_status=self._raw_war_status,
             news_feed=self._raw_news_feed,
