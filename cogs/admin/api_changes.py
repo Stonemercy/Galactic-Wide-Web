@@ -13,6 +13,7 @@ PLANET_STATS_TO_CHECK = {
     "Planet Regen": "regen_perc_per_hour",
     "DSS in orbit": "dss_in_orbit",
     "Active Effects": "active_effects",
+    "Sector": "sector",
 }
 
 REGION_STATS_TO_CHECK = {

@@ -62,7 +62,7 @@ class APIChangesContainer(ui.Container, ReprMixin):
                         )
                     )
                     match api_change.property:
-                        case "location":
+                        case "position":
                             self.container_components.append(
                                 ui.TextDisplay(
                                     f"Planet has moved from:\n**{old_stat}** {Emojis.Stratagems.right} **{new_stat}**"
@@ -137,6 +137,12 @@ class APIChangesContainer(ui.Container, ReprMixin):
                                             f"### Effect __added__ :white_check_mark:\n{gwe.pretty_print()}"
                                         )
                                     )
+                        case "sector":
+                            self.container_components.append(
+                                ui.TextDisplay(
+                                    f"Sector has changed from:\n**{old_stat}** {Emojis.Stratagems.right} **{new_stat}**"
+                                )
+                            )
                 case "Region":
                     self.container_components.append(
                         ui.TextDisplay(
