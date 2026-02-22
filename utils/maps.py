@@ -360,7 +360,7 @@ class Maps:
                     y_offset=10,
                 )
             loc_name = planet.names.get(long_code, str(planet.index))
-            if planet.active_campaign or planet.homeworld:
+            if planet.active_campaign:
                 x_offset = 0
                 for su in SpecialUnits.get_from_effects_list(planet.active_effects):
                     su_icon = imread(
