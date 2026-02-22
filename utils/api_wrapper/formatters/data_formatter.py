@@ -170,7 +170,6 @@ CORRECT_SECTORS = {
 @dataclass
 class FormattedDataContext:
     war_id: int
-    dss_id: int
     steam_player_count: int
     war_status: dict[str, dict]
     news_feed: dict[str, list[dict]]
