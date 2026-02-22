@@ -28,7 +28,7 @@ class BackendCommandsCog(commands.Cog):
         if not inter.bot.data.loaded:
             return []
         return [
-            f"{p.index}-{p.names.get('en-GB', str(p.index))}"
+            f"{p.index}-{p.names.get('en-GB', str(p.index))} {len(p.active_effects)} effects"
             for p in sorted(
                 inter.bot.data.formatted_data.planets.values(),
                 key=lambda x: len(x.active_effects),
@@ -51,7 +51,7 @@ class BackendCommandsCog(commands.Cog):
         id: str = commands.Param(
             autocomplete=id_autocomp,
             description="The ID you want to lookup",
-            default="0",
+            default="",
         ),
         on_planet: str = commands.Param(
             autocomplete=planet_autocomp,
@@ -60,13 +60,13 @@ class BackendCommandsCog(commands.Cog):
         ),
         public: str = commands.Param(
             choices=["Yes", "No"],
-            default="No",
             description="If you want the response to be seen by others",
+            default="No",
         ),
     ) -> None:
         await inter.response.defer(ephemeral=public != "Yes")
         gwe_list = []
-        if id != "0":
+        if id != "":
             try:
                 id = int(id.split("-")[0])
             except ValueError:
@@ -159,8 +159,8 @@ class BackendCommandsCog(commands.Cog):
         ),
         public: str = commands.Param(
             choices=["Yes", "No"],
-            default="No",
             description="If you want the response to be seen by others",
+            default="No",
         ),
     ) -> None:
         await inter.response.defer(ephemeral=public != "Yes")
@@ -191,7 +191,7 @@ class BackendCommandsCog(commands.Cog):
             await inter.send(components=components, ephemeral=public != "Yes")
         else:
             await inter.send(
-                "Couldn't find that effect, sorry :pensive:", ephemeral=public != "Yes"
+                "Couldn't find that event, sorry :pensive:", ephemeral=public != "Yes"
             )
 
 
