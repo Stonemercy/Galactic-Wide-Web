@@ -291,7 +291,11 @@ class Maps:
         planets: dict[int, Planet],
         planet_names_json: dict,
     ) -> None:
-        font = ImageFont.truetype("resources/gww-font.ttf", self.TEXT_SIZE)
+        if language_code == "zh-Hant":
+            font = ImageFont.truetype("resources/gww-font-zh-hant.ttf", self.TEXT_SIZE)
+            font.set_variation_by_name("Medium")
+        else:
+            font = ImageFont.truetype("resources/gww-font.ttf", self.TEXT_SIZE)
         background_draw = ImageDraw.Draw(im=background)
         for index, planet in planets.items():
             if planet.active_campaign:
