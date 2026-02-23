@@ -208,8 +208,8 @@
                     "type14_r": "{emoji} Liberar **{count}** planetas",
                     "type15_f": "{emoji} Liberar mas planetas de los que se pierden contra **{race}** durante la vigencia de la orden",
                     "type15_r": "{emoji} Liberar mas planetas de los que se pierden durante la vigencia de la orden",
-                    "type15_from_loss": "\n-# **-#** de la pérdida de **{planet}** en {timestamp}",
-                    "type15_from_lib": "\n-# **-#** de **{planet}** liberación {timestamp}"
+                    "type15_from_loss": "\n-# **-1** de la pérdida de **{planet}** en {timestamp}",
+                    "type15_from_lib": "\n-# **+1** de **{planet}** liberación {timestamp}"
                 }
             },
             "DSSEmbed": {

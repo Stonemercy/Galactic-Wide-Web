@@ -208,8 +208,8 @@
                     "type14_r": "{emoji} Befreie **{count}** Planeten",
                     "type15_f": "{emoji} Befreie mehr Planeten als an **{race}** während der Auftragsdauer verloren gehen",
                     "type15_r": "{emoji} Befreie mehr Planeten als verloren gehen während der Auftragsdauer",
-                    "type15_from_loss": "\n-# **-#** von Verlust von **{planet}** {timestamp}",
-                    "type15_from_lib": "\n-# **-#** von Befreiung von **{planet}** {timestamp}"
+                    "type15_from_loss": "\n-# **-1** von Verlust von **{planet}** {timestamp}",
+                    "type15_from_lib": "\n-# **+1** von Befreiung von **{planet}** {timestamp}"
                 }
             },
             "DSSEmbed": {

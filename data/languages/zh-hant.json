@@ -208,8 +208,8 @@
                     "type14_r": "{emoji} 解放 **{count}** 顆星球",
                     "type15_f": "{emoji} 在指令期間解放的星球數量多於輸給 **{race}** 的星球數量",
                     "type15_r": "{emoji} 在指令期间解放的星球數量多於失去的星球數量",
-                    "type15_from_loss": "\n-# **-#** 來自 **{planet}** 的失去 {timestamp}",
-                    "type15_from_lib": "\n-# **-#** 來自 **{planet}** 的解放 {timestamp}"
+                    "type15_from_loss": "\n-# **-1** 來自 **{planet}** 的失去 {timestamp}",
+                    "type15_from_lib": "\n-# **+1** 來自 **{planet}** 的解放 {timestamp}"
                 }
             },
             "DSSEmbed": {

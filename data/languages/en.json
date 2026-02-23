@@ -208,8 +208,8 @@
                     "type14_r": "{emoji} Liberate **{count}** planets",
                     "type15_f": "{emoji} Liberate more planets than are lost to **{race}** during the order duration",
                     "type15_r": "{emoji} Liberate more planets than are lost during the order duration",
-                    "type15_from_loss": "\n-# **-#** from **{planet}** loss {timestamp}",
-                    "type15_from_lib": "\n-# **-#** from **{planet}** liberation {timestamp}"
+                    "type15_from_loss": "\n-# **-1** from **{planet}** loss {timestamp}",
+                    "type15_from_lib": "\n-# **+1** from **{planet}** liberation {timestamp}"
                 }
             },
             "DSSEmbed": {
