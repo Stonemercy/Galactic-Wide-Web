@@ -495,6 +495,7 @@ class FormattedData:
                             pass
 
         if context.dss:
+            dss_planet = None
             if context.dss["flags"] == 0:
                 planet_with_1217 = next(
                     (
