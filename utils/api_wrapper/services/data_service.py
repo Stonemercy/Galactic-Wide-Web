@@ -43,8 +43,21 @@ class DataService(ReprMixin):
         self._raw_personal_order: dict = {}
         self._raw_steam_news: list = []
 
+    def clear(self) -> None:
+        self._raw_war_status.clear()
+        self._raw_news_feed.clear()
+        self._raw_assignments.clear()
+        self._raw_dss.clear()
+        self._raw_dss_votes.clear()
+        self._raw_war_stats.clear()
+        self._raw_war_info.clear()
+        self._raw_war_effects.clear()
+        self._raw_personal_order.clear()
+        self._raw_steam_news.clear()
+
     async def pull_from_api(self) -> None:
         """Pulls the data from each endpoint"""
+        self.clear()
         self.logger.info("STARTING API PULLS")
         self.fetching = True
         async with HelldiversClient(
