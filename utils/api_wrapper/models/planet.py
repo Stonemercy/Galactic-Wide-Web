@@ -198,6 +198,7 @@ class Planet(ReprMixin):
             self.health: int = raw_planet_region_data["maxHealth"]
             self.max_health: int = raw_planet_region_data["maxHealth"]
             self.damage_multiplier: float = raw_planet_region_data["damageMultiplier"]
+            self.flags: int = raw_planet_region_data["flags"]
             self.regen_per_sec: int = 0
             self.availability_factor: float = 0.0
             self.is_available: bool = False
@@ -210,10 +211,10 @@ class Planet(ReprMixin):
 
         @property
         def emoji(self) -> str:
-            if self.planet.homeworld:
+            if self.flags == 1:
                 return getattr(
                     getattr(Emojis.RegionIcons, self.owner.full_name),
-                    f"homeworld{self.size}",
+                    f"special{self.size}",
                 )
             return getattr(
                 getattr(Emojis.RegionIcons, self.owner.full_name),

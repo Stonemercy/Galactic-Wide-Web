@@ -207,7 +207,7 @@ class PlanetContainers(list[ui.Container]):
                     )
                 ):
                     text_display.content = f"~~{text_display.content}~~"
-                if planet.homeworld and planet.faction == Factions.automaton:
+                if region.flags == 1 and planet.faction == Factions.automaton:
                     text_display.content += (
                         f"\n-# {region.emoji} Class {region.size} Megafactory"
                     )
