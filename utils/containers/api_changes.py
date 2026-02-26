@@ -143,10 +143,16 @@ class APIChangesContainer(ui.Container, ReprMixin):
                                     f"Sector has changed from:\n**{old_stat}** {Emojis.Stratagems.right} **{new_stat}**"
                                 )
                             )
+                        case _:
+                            self.container_components.append(
+                                ui.TextDisplay(
+                                    f"{api_change.stat_name} has changed from:\n**{old_stat}** {Emojis.Stratagems.right} **{new_stat}**"
+                                )
+                            )
                 case "Region":
                     self.container_components.append(
                         ui.TextDisplay(
-                            f"## Update for {api_change.new_object.emoji} {api_change.new_object.type.name} {api_change.new_object.name} on {api_change.new_object.planet.names.get('en-GB', str(api_change.new_object.planet.index))}{api_change.new_object.planet.faction.emoji}{api_change.new_object.planet.exclamations}"
+                            f"## Update for {api_change.new_object.emoji} {api_change.new_object.type.name.replace('_', ' ').title()} {api_change.new_object.name} on {api_change.new_object.planet.names.get('en-GB', str(api_change.new_object.planet.index))}{api_change.new_object.planet.faction.emoji}{api_change.new_object.planet.exclamations}"
                         )
                     )
                     match api_change.property:
@@ -185,6 +191,12 @@ class APIChangesContainer(ui.Container, ReprMixin):
                             self.container_components.append(
                                 ui.TextDisplay(
                                     f"Region's damage multiplier has changed from:\n**{old_stat}x** {Emojis.Stratagems.right} **{new_stat}x**"
+                                )
+                            )
+                        case _:
+                            self.container_components.append(
+                                ui.TextDisplay(
+                                    f"{api_change.stat_name} has changed from:\n**{old_stat}** {Emojis.Stratagems.right} **{new_stat}**"
                                 )
                             )
             self.container_components.append(ui.Separator())

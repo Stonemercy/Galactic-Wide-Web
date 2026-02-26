@@ -22,6 +22,7 @@ REGION_STATS_TO_CHECK = {
     "Region Regen": "regen_perc_per_hour",
     "Is available": "is_available",
     "Damage Multiplier": "damage_multiplier",
+    "Flags": "flags",
 }
 
 
