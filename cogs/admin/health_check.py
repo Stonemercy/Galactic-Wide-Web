@@ -8,6 +8,7 @@ from utils.dbv2 import Feature, GWWGuild, GWWGuilds
 class HealthCheckCog(commands.Cog):
     def __init__(self, bot: GalacticWideWebBot) -> None:
         self.bot = bot
+        self.error_dict = {}
 
     def cog_load(self) -> None:
         if not self.health_check.is_running():
@@ -56,14 +57,16 @@ class HealthCheckCog(commands.Cog):
                 )
         if self.bot.data.formatted_data:
             if self.bot.data.formatted_data.formatted_at < now - timedelta(minutes=5):
-                await self.bot.channels.moderator_channel.send(
-                    content=f"<@{self.bot.owner.id}> Data was last formatted <t:{int(self.bot.data.formatted_data.formatted_at.timestamp())}:R> :warning:"
+                await self.send_warning(
+                    error=f"Data was last formatted <t:{int(self.bot.data.formatted_data.formatted_at.timestamp())}:R>"
                 )
+            elif not self.bot.data.formatted_data.personal_order:
+                await self.send_warning(error=f"PO is missing")
+            elif not self.bot.data.formatted_data.dss.votes:
+                await self.send_warning(error=f"DSS votes are missing")
         else:
             if self.bot.ready_time < now:
-                await self.bot.channels.moderator_channel.send(
-                    content=f"<@{self.bot.owner.id}> Data has **not** been formatted yet :warning:"
-                )
+                await self.send_warning(error=f"Data has not been formatted yet")
 
     @health_check.before_loop
     async def before_dashboard_check(self) -> None:
@@ -74,6 +77,21 @@ class HealthCheckCog(commands.Cog):
         error_handler = self.bot.get_cog("ErrorHandlerCog")
         if error_handler:
             await error_handler.log_error(None, error, "health_check loop")
+
+    async def send_warning(self, error: str) -> None:
+        self.bot.logger.error(error)
+        now = datetime.now()
+        if error_time := self.error_dict.get(error):
+            if error_time < now - timedelta(minutes=29):
+                await self.bot.channels.moderator_channel.send(
+                    content=f"<@{self.bot.owner.id}> {error} :warning:"
+                )
+                self.error_dict[error] = now
+        else:
+            await self.bot.channels.moderator_channel.send(
+                content=f"<@{self.bot.owner.id}> {error} :warning:"
+            )
+            self.error_dict[error] = now
 
 
 def setup(bot: GalacticWideWebBot):
