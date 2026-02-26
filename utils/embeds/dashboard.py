@@ -1866,7 +1866,10 @@ class Dashboard:
                     field_value += f" {self.language_json['embeds']['Dashboard']['DefenceEmbed']['thanks_to_gambit'].format(planet=calculated_end_time.gambit_planet.names.get(self.language_json['code_long'], str(calculated_end_time.gambit_planet.index)))}"
                 elif calculated_end_time.regions:
                     regions_list = f"\n-# ".join(
-                        [f" {r.emoji} {r.name}" for r in calculated_end_time.regions]
+                        [
+                            f" {r.emoji} {r.names.get(self.language_json['code_long'], r.name)}"
+                            for r in calculated_end_time.regions
+                        ]
                     )
                     field_value += self.language_json["embeds"]["Dashboard"][
                         "DefenceEmbed"
