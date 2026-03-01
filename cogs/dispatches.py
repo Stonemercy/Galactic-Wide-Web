@@ -46,6 +46,11 @@ class DispatchesCog(commands.Cog):
         for index, dispatch in enumerate(self.bot.data.formatted_data.dispatches["en"]):
             if self.bot.databases.war_info.dispatch_id < dispatch.id:
                 if len(dispatch.full_message) < 5 or "#planet" in dispatch.full_message:
+                    self.bot.logger.warning(f"Dispatch {dispatch.id} skipped")
+                    if len(dispatch.full_message) < 5:
+                        self.bot.logger.warning("   Full message length under 5")
+                    if "#planet" in dispatch.full_message:
+                        self.bot.logger.warning("   #planet in full message")
                     self.bot.databases.war_info.dispatch_id = dispatch.id
                     self.bot.databases.war_info.save_changes()
                     continue
@@ -71,7 +76,7 @@ class DispatchesCog(commands.Cog):
                 self.bot.databases.war_info.dispatch_id = dispatch.id
                 self.bot.databases.war_info.save_changes()
                 self.bot.logger.info(
-                    f"Sent dispatch out to {len(self.bot.interface_handler.war_announcements)} channels in {(datetime.now() - dispatch_start).total_seconds():.2f}s"
+                    f"Sent dispatch #{dispatch.id} out to {len(self.bot.interface_handler.war_announcements)} channels in {(datetime.now() - dispatch_start).total_seconds():.2f}s"
                 )
                 return
 
