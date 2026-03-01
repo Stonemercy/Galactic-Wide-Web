@@ -1398,56 +1398,42 @@ class Dashboard:
                 else:
                     pointer_text = f"{arrow}{progress}"
                 field_value += f"\n`{left_buffer}{pointer_text}{right_buffer}`"
-                for planet in (
-                    p for p in self.planets.values() if p.stats.player_count > 200
-                ):
+                for planet in (p for p in self.planets.values() if p.active_campaign):
                     if task.faction:
                         if (planet.event and planet.event.faction != task.faction) or (
                             not planet.event and planet.faction != task.faction
                         ):
                             continue
                     end_time_info = get_end_time(planet, self.gambit_planets)
-                    if end_time_info.end_time:
-                        if planet.event:
-                            if (
-                                planet.event.end_time_datetime < end_time_info.end_time
-                                and planet.event.end_time_datetime
-                                < self.assignment.ends_at_datetime
-                            ):
-                                field_value += self.language_json["embeds"][
-                                    "Dashboard"
-                                ]["MajorOrderEmbed"]["tasks"][
-                                    "type15_from_loss"
-                                ].format(
-                                    planet=planet.names.get(
-                                        self.language_json["code_long"],
-                                        str(planet.index),
-                                    ),
-                                    timestamp=f"<t:{int(planet.event.end_time_datetime.timestamp())}:R>",
-                                )
-                        else:
-                            if (
-                                end_time_info.end_time
-                                < self.assignment.ends_at_datetime
-                            ):
-                                field_value += self.language_json["embeds"][
-                                    "Dashboard"
-                                ]["MajorOrderEmbed"]["tasks"]["type15_from_lib"].format(
-                                    planet=planet.names.get(
-                                        self.language_json["code_long"],
-                                        str(planet.index),
-                                    ),
-                                    timestamp=f"<t:{int(end_time_info.end_time.timestamp())}:R>",
-                                )
-                    elif planet.event:
-                        field_value += self.language_json["embeds"]["Dashboard"][
-                            "MajorOrderEmbed"
-                        ]["tasks"]["type15_from_loss"].format(
-                            planet=planet.names.get(
-                                self.language_json["code_long"], str(planet.index)
-                            ),
-                            timestamp=f"<t:{int(planet.event.end_time_datetime.timestamp())}:R>",
-                        )
+                    if planet.event:
+                        if (
+                            planet.event.end_time_datetime
+                            < self.assignment.ends_at_datetime
+                            and not end_time_info.end_time
+                        ):
+                            field_value += self.language_json["embeds"]["Dashboard"][
+                                "MajorOrderEmbed"
+                            ]["tasks"]["type15_from_loss"].format(
+                                planet=planet.names.get(
+                                    self.language_json["code_long"], str(planet.index)
+                                ),
+                                timestamp=f"<t:{int(planet.event.end_time_datetime.timestamp())}:R>",
+                            )
+                    else:
+                        if (
+                            end_time_info.end_time
+                            and end_time_info.end_time
+                            < self.assignment.ends_at_datetime
+                        ):
+                            field_value += self.language_json["embeds"]["Dashboard"][
+                                "MajorOrderEmbed"
+                            ]["tasks"]["type15_from_lib"].format(
+                                planet=planet.names.get(
+                                    self.language_json["code_long"],
+                                    str(planet.index),
+                                ),
+                                timestamp=f"<t:{int(end_time_info.end_time.timestamp())}:R>",
+                            )
 
             self.add_field(field_name, field_value, inline=False)
 
