@@ -695,8 +695,63 @@
         "description_short": "This planet continually produces a thick atmospheric Gloom cover, rendering logistical support extremely challenging.\nTotal Reinforcements are reduced by 20%, Eagle Rearm time is increased by 30% and Ammo from pickups is reduced by 50%."
     },
     "1324": {
-        "name": "ULGRAMAFIC MINE",
+        "name": "ULTRAMAFIC MINE",
         "description_long": "",
         "description_short": "A mine extracting platinum from deep-seated deposits of igneous rock."
+    },
+    "1329": {
+        "galacticEffectId": 1329,
+        "name": "LIBERTY DAY CELEBRATION",
+        "description": "Super Earth, our home, is the center of Liberty Day Festivities. Together, all citizens can watch on television the annual Defense Parade, the Justice Executions, and of course, the Freedom Fireworks. \n\nOn this special day, Helldivers are encouraged to visit Super Earth and watch this year's fireworks from their Super Destroyers."
+    },
+    "1333": {
+        "galacticEffectId": 1333,
+        "name": "E-711 EXTRACTION FACILITY",
+        "description": "Extensive mining and drilling operations are taking place to comb this former Hive World for all traces of the highly valuable substance known as E-711."
+    },
+    "1342": {
+        "galacticEffectId": 1342,
+        "name": "CENTER FOR THE CONFINEMENT OF DISSIDENCE (CECOD)",
+        "description": "This planet-wide ultra-high-security facility provides ample space for the secure confinement of terrorist dissidents until they are fully rehabilitated and re-educated."
+    },
+    "1344": {
+        "galacticEffectId": 1344,
+        "name": "PANDORA BASE",
+        "description": "The top-secret site where augmentations to the DSS are constructed."
+    },
+    "1352": {
+        "galacticEffectId": 1352,
+        "name": "CONVENTIONAL BLACK HOLE",
+        "description": "This former planet is now nothing but a normal, stable black hole."
+    },
+    "1353": {
+        "galacticEffectId": 1353,
+        "name": "DATA CENTER",
+        "description": "The Automatons store large amounts of encrypted information here."
+    },
+    "1355": {
+        "galacticEffectId": 1355,
+        "name": "HEAVY ARMOR SURGE",
+        "description": "Prepare to counter high numbers of heavily armored enemies."
+    },
+    "1357": {
+        "galacticEffectId": 1357,
+        "name": "HULK SURGE",
+        "description": "High numbers of enemy Hulks have been reported on this planet. Prepare to counter heavily armored enemies."
+    },
+    "1359": {
+        "galacticEffectId": 1359,
+        "name": "DEVASTATOR SURGE",
+        "description": "The Automatons have deployed high numbers of Devastators to this planet."
+    },
+    "1360": {
+        "description": "Cyborgs are deployed to the battlefield of this planet, leading their Automaton armies.",
+        "galacticEffectId": 1360,
+        "name": "CYBORGS (Enemies)"
+    },
+    "1361": {
+        "description": "Cyborgs are deployed to the battlefield of this planet, leading their Automaton armies.",
+        "galacticEffectId": 1361,
+        "name": "CYBORGS"
     }
 }

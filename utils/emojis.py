@@ -157,9 +157,10 @@ class Emojis:
         new_hope_city = "<:s:1422657922642743486>"
         new_aspiration_city = "<:s:1422657920771817613>"
         new_yearning_city = "<:s:1422657931186540545>"
-        ulgramafic_mine = "<:s:1422659152349495316>"
+        ultramafic_mine = "<:s:1422659152349495316>"
         e711_extraction_facility = "<:s:1435280504978018335>"
         cecod = "<:s:1446068780429082744>"
+        pandora_base = "<:s:1478444563034013876>"
 
     @dataclass
     class Flags:

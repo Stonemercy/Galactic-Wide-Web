@@ -34,14 +34,16 @@ class PlanetFeatures:
             Emojis.PlanetFeatures.helldiver_training_facilities,
         ): {1292},
         ("HIVE WORLD", Emojis.PlanetFeatures.hive_world): {1311},
-        ("ULGRAMAFIC MINE", Emojis.PlanetFeatures.ulgramafic_mine): {1324},
-        ("E-711 Extraction Facility", Emojis.PlanetFeatures.e711_extraction_facility): {
+        ("ULTRAMAFIC MINE", Emojis.PlanetFeatures.ultramafic_mine): {1324},
+        ("E-711 EXTRACTION FACILITY", Emojis.PlanetFeatures.e711_extraction_facility): {
             1333
         },
         (
-            "Centre for the Confinement of Dissidence (CECOD)",
+            "CENTRE FOR THE CONFINEMENT OF DISSIDENCE (CECOD)",
             Emojis.PlanetFeatures.cecod,
         ): {1342},
+        ("PANDORA BASE", Emojis.PlanetFeatures.pandora_base): {1344},
+        ("CONVENTIONAL BLACK HOLE", Emojis.PlanetFeatures.black_hole): {1352},
     }
 
     @classmethod
