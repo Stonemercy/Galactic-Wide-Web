@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta
 from disnake import (
     AppCmdInter,
+    ChannelType,
     Colour,
     Embed,
     File,
@@ -332,6 +333,11 @@ class SetupCog(commands.Cog):
                         active_category="dashboards",
                     ),
                 )
+                if dashboard_channel.type == ChannelType.public_thread:
+                    await inter.followup.send(
+                        "Be aware, dashboards set up in threads may get archived by Discord automatically and stop being updated.",
+                        ephemeral=True,
+                    )
         elif inter.component.custom_id == "map_channel_select":
             try:
                 map_channel = self.bot.get_channel(
