@@ -701,8 +701,12 @@ class Dashboard:
             if task.progress_perc < 1:
                 if task.target > 1:
                     progress = ""
-                    if task.tracker and task.tracker.change_rate_per_hour > 0.1:
-                        progress = f"`+{task.tracker.change_rate_per_hour:^25,.1%}/hr`"
+                    if task.tracker and task.tracker.change_rate_per_hour > 0.0001:
+                        change = f"{task.tracker.change_rate_per_hour:+,.1%}/hr"
+                        progress = (
+                            f"\n`{change:^25}`"
+                            f"\n-# {self.language_json['embeds']['Dashboard']['MajorOrderEmbed']['complete']} <t:{int(task.tracker.complete_time.timestamp())}:R>"
+                        )
                     field_value += (
                         f"-# {self.language_json['embeds']['Dashboard']['MajorOrderEmbed']['progress']}: **{short_format(task.progress)}/{short_format(task.target)}**"
                         f"\n{task.health_bar}"
