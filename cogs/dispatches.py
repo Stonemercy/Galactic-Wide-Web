@@ -43,42 +43,46 @@ class DispatchesCog(commands.Cog):
                 "# No dispatch ID found in the database. Please check the war info table."
             )
             return
-        for index, dispatch in enumerate(self.bot.data.formatted_data.dispatches["en"]):
-            if self.bot.databases.war_info.dispatch_id < dispatch.id:
-                if len(dispatch.full_message) < 5 or "#planet" in dispatch.full_message:
-                    self.bot.logger.warning(f"Dispatch {dispatch.id} skipped")
-                    if len(dispatch.full_message) < 5:
-                        self.bot.logger.warning("   Full message length under 5")
-                    if "#planet" in dispatch.full_message:
-                        self.bot.logger.warning("   #planet in full message")
+        if english_dispatches := self.bot.data.formatted_data.dispatches.get("en"):
+            for index, dispatch in enumerate(english_dispatches):
+                if self.bot.databases.war_info.dispatch_id < dispatch.id:
+                    if (
+                        len(dispatch.full_message) < 5
+                        or "#planet" in dispatch.full_message
+                    ):
+                        self.bot.logger.warning(f"Dispatch {dispatch.id} skipped")
+                        if len(dispatch.full_message) < 5:
+                            self.bot.logger.warning("   Full message length under 5")
+                        if "#planet" in dispatch.full_message:
+                            self.bot.logger.warning("   #planet in full message")
+                        self.bot.databases.war_info.dispatch_id = dispatch.id
+                        self.bot.databases.war_info.save_changes()
+                        continue
+                    unique_langs = GWWGuilds.unique_languages()
+                    containers = {
+                        lang: [
+                            DispatchContainer(
+                                dispatch_json=self.bot.json_dict["languages"][lang][
+                                    "containers"
+                                ]["DispatchContainer"],
+                                dispatch=self.bot.data.formatted_data.dispatches[lang][
+                                    index
+                                ],
+                            )
+                        ]
+                        for lang in unique_langs
+                    }
+                    await self.bot.interface_handler.send_feature(
+                        feature_type="war_announcements",
+                        content=containers,
+                        announcement_type="dispatch",
+                    )
                     self.bot.databases.war_info.dispatch_id = dispatch.id
                     self.bot.databases.war_info.save_changes()
-                    continue
-                unique_langs = GWWGuilds.unique_languages()
-                containers = {
-                    lang: [
-                        DispatchContainer(
-                            dispatch_json=self.bot.json_dict["languages"][lang][
-                                "containers"
-                            ]["DispatchContainer"],
-                            dispatch=self.bot.data.formatted_data.dispatches[lang][
-                                index
-                            ],
-                        )
-                    ]
-                    for lang in unique_langs
-                }
-                await self.bot.interface_handler.send_feature(
-                    feature_type="war_announcements",
-                    content=containers,
-                    announcement_type="dispatch",
-                )
-                self.bot.databases.war_info.dispatch_id = dispatch.id
-                self.bot.databases.war_info.save_changes()
-                self.bot.logger.info(
-                    f"Sent dispatch #{dispatch.id} out to {len(self.bot.interface_handler.war_announcements)} channels in {(datetime.now() - dispatch_start).total_seconds():.2f}s"
-                )
-                return
+                    self.bot.logger.info(
+                        f"Sent dispatch #{dispatch.id} out to {len(self.bot.interface_handler.war_announcements)} channels in {(datetime.now() - dispatch_start).total_seconds():.2f}s"
+                    )
+                    return
 
     @dispatch_check.before_loop
     async def before_dispatch_check(self) -> None:
