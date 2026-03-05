@@ -13,6 +13,7 @@ from .planet_features import PlanetFeatures
 from .randomiser_data import RandomiserData
 from .region_changes_json import RegionChangesJson
 from .specual_units import SpecialUnits
+from .VIPs import VIP
 from .warbond_images import WarbondImages
 
 __all__ = [
@@ -33,5 +34,6 @@ __all__ = [
     "RandomiserData",
     "RegionChangesJson",
     "SpecialUnits",
+    "VIP",
     "WarbondImages",
 ]

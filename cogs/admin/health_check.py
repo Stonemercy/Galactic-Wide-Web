@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta, timezone
 from disnake.ext import commands, tasks
 from main import GalacticWideWebBot
-from utils.dataclasses import Config
+from utils.dataclasses import Config, VIP
 from utils.dbv2 import Feature, GWWGuild, GWWGuilds
 
 
@@ -64,9 +64,13 @@ class HealthCheckCog(commands.Cog):
                     error=f"Data was last formatted <t:{int(self.bot.data.formatted_data.formatted_at.timestamp())}:R>"
                 )
             if not self.bot.data.formatted_data.personal_order:
-                await self.send_warning(error=f"PO is missing")
+                await self.send_warning(
+                    error=f"PO is missing", vips_to_cc=[VIP.RawBeef]
+                )
             if not self.bot.data.formatted_data.dss.votes:
-                await self.send_warning(error=f"DSS votes are missing")
+                await self.send_warning(
+                    error=f"DSS votes are missing", vips_to_cc=[VIP.RawBeef]
+                )
         else:
             if self.bot.ready_time < now:
                 await self.send_warning(error=f"Data has not been formatted yet")
@@ -81,18 +85,21 @@ class HealthCheckCog(commands.Cog):
         if error_handler:
             await error_handler.log_error(None, error, "health_check loop")
 
-    async def send_warning(self, error: str) -> None:
+    async def send_warning(self, error: str, vips_to_cc: list[str] = None) -> None:
         self.bot.logger.error(error)
         now = datetime.now()
+        mentions = f"<@{self.bot.owner.id}>" + (
+            "".join([f"<@{i}>" for i in vips_to_cc]) if vips_to_cc else ""
+        )
         if error_time := self.error_dict.get(error):
             if error_time < now - timedelta(minutes=29):
                 await self.bot.channels.moderator_channel.send(
-                    content=f"<@{self.bot.owner.id}> {error} :warning:"
+                    content=f"{mentions} {error} :warning:"
                 )
                 self.error_dict[error] = now
         else:
             await self.bot.channels.moderator_channel.send(
-                content=f"<@{self.bot.owner.id}> {error} :warning:"
+                content=f"{mentions} {error} :warning:"
             )
             self.error_dict[error] = now
 
