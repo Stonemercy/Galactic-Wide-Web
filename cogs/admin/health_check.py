@@ -48,8 +48,8 @@ class HealthCheckCog(commands.Cog):
                         message.edited_at.replace(tzinfo=None) < cutoff
                         and self.bot.startup_time < cutoff
                     ):
-                        await self.bot.channels.moderator_channel.send(
-                            content=f"<@{self.bot.owner.id}> {message.jump_url} was last edited <t:{int(message.edited_at.timestamp())}:R> :warning:"
+                        await self.send_warning(
+                            error=f"{message.jump_url} was last edited <t:{int(message.edited_at.timestamp())}:R>"
                         )
             except Exception as e:
                 self.bot.logger.error(
