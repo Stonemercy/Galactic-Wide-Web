@@ -60,9 +60,9 @@ class HealthCheckCog(commands.Cog):
                 await self.send_warning(
                     error=f"Data was last formatted <t:{int(self.bot.data.formatted_data.formatted_at.timestamp())}:R>"
                 )
-            elif not self.bot.data.formatted_data.personal_order:
+            if not self.bot.data.formatted_data.personal_order:
                 await self.send_warning(error=f"PO is missing")
-            elif not self.bot.data.formatted_data.dss.votes:
+            if not self.bot.data.formatted_data.dss.votes:
                 await self.send_warning(error=f"DSS votes are missing")
         else:
             if self.bot.ready_time < now:
