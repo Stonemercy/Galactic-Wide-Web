@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from disnake.ext import commands, tasks
 from main import GalacticWideWebBot
 from utils.dataclasses import Config
@@ -48,8 +48,11 @@ class HealthCheckCog(commands.Cog):
                         message.edited_at.replace(tzinfo=None) < cutoff
                         and self.bot.startup_time < cutoff
                     ):
+                        hours = (
+                            datetime.now(timezone.utc) - message.edited_at
+                        ).total_seconds() / 3600
                         await self.send_warning(
-                            error=f"{message.jump_url} was last edited <t:{int(message.edited_at.timestamp())}:R>"
+                            error=f"Dashboards were last edited {hours:,.2} hours ago"
                         )
             except Exception as e:
                 self.bot.logger.error(
