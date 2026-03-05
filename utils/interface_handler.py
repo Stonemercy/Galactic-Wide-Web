@@ -6,7 +6,7 @@ from utils.interactables import WikiButton
 from utils.mixins import ReprMixin
 
 # Time to wait between feature updates to avoid rate limits (in seconds)
-WAIT_TIME = 0.001
+WAIT_TIME = 0.0005
 
 
 class InterfaceHandler:
@@ -206,7 +206,8 @@ class InterfaceHandler:
                     message: PartialMessage
                     guild: GWWGuild = GWWGuilds.get_specific_guild(message.guild.id)
                     if not guild:
-                        list_to_use.remove(message)
+                        if message in list_to_use:
+                            list_to_use.remove(message)
                         self.bot.logger.error(
                             f"send_feature {feature_type} | guild not found in DB | {message.guild.id = }"
                         )
@@ -222,7 +223,8 @@ class InterfaceHandler:
                     message: PartialMessage
                     guild: GWWGuild = GWWGuilds.get_specific_guild(message.guild.id)
                     if not guild:
-                        list_to_use.remove(message)
+                        if message in list_to_use:
+                            list_to_use.remove(message)
                         self.bot.logger.error(
                             f"send_feature {feature_type} | guild not found in DB | {message.guild.id = }"
                         )
@@ -241,7 +243,8 @@ class InterfaceHandler:
                 for channel in list_to_use.copy():
                     guild = GWWGuilds.get_specific_guild(channel.guild.id)
                     if not guild:
-                        list_to_use.remove(channel)
+                        if message in list_to_use:
+                            list_to_use.remove(channel)
                         self.bot.logger.error(
                             f"send_feature {feature_type} {announcement_type} | guild not found in DB | {channel.guild.id = }"
                         )
@@ -275,7 +278,8 @@ class InterfaceHandler:
                     channel: TextChannel
                     guild = GWWGuilds.get_specific_guild(channel.guild.id)
                     if not guild:
-                        list_to_use.remove(channel)
+                        if message in list_to_use:
+                            list_to_use.remove(channel)
                         self.bot.logger.error(
                             f"send_feature {feature_type} {announcement_type} | guild not found in DB | {channel.guild.id = }"
                         )
