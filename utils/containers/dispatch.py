@@ -1,3 +1,4 @@
+from datetime import datetime, timedelta
 from data.lists import CUSTOM_COLOURS
 from disnake import Colour, ui
 from utils.api_wrapper.models import Dispatch
@@ -18,7 +19,7 @@ class DispatchContainer(ui.Container, ReprMixin):
         components.append(text_display)
 
         extra_text_display = ui.TextDisplay("")
-        if with_time:
+        if with_time or dispatch.published_at < datetime.now() - timedelta(hours=1):
             extra_text_display.content += dispatch_json["with_time"].format(
                 timestamp=int(dispatch.published_at.timestamp())
             )
