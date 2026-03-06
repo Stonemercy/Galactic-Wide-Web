@@ -1,4 +1,4 @@
-from ...functions import dispatch_format
+from ...functions import arrowhead_format
 from ...mixins import ReprMixin
 from datetime import datetime
 
@@ -12,7 +12,7 @@ class Dispatch(ReprMixin):
         self.published_at: datetime = datetime.fromtimestamp(
             war_start_timestamp + raw_dispatch_data.get("published", 0)
         )
-        self.full_message: str = dispatch_format(
+        self.full_message: str = arrowhead_format(
             text=raw_dispatch_data.get("message", "")
         )
         self.title: str = ""

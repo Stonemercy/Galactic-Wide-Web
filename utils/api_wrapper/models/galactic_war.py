@@ -1,7 +1,7 @@
 from disnake import Colour
 from ...mixins import GWEReprMixin, ReprMixin
 from ...dataclasses import Faction, Factions
-from ...functions import dispatch_format
+from ...functions import arrowhead_format
 from ...functions.health_bar import health_bar
 from ..services.tracking_service import TrackerEntry
 from data.lists import stratagem_id_dict
@@ -233,8 +233,8 @@ class GlobalEvent(ReprMixin):
     ) -> None:
         """Organised data of a global event"""
         self.id: int = raw_global_event_data["eventId"]
-        self.title: str = dispatch_format(raw_global_event_data.get("title", ""))
-        self.message: str = dispatch_format(
+        self.title: str = arrowhead_format(raw_global_event_data.get("title", ""))
+        self.message: str = arrowhead_format(
             text=raw_global_event_data.get("message", "")
         )
         self.faction: Faction = Factions.get_from_identifier(

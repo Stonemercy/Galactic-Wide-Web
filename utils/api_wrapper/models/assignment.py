@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+from utils.functions import arrowhead_format
 from ...mixins import ReprMixin
 from ...trackers import BaseTrackerEntry
 from ...dataclasses import Faction, Factions
@@ -11,7 +12,7 @@ class Assignment(ReprMixin):
         self.id: int = raw_assignment_data["id32"]
         self.title: str = raw_assignment_data["setting"]["overrideTitle"]
         self.briefing: str = (
-            (
+            arrowhead_format(
                 raw_assignment_data["setting"]["overrideBrief"]
                 if raw_assignment_data["setting"]["overrideBrief"] not in ([], None)
                 else ""

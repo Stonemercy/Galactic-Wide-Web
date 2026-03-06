@@ -1,5 +1,5 @@
 from ...mixins import ReprMixin
-from ...functions import dispatch_format
+from ...functions import arrowhead_format
 from ...trackers import BaseTrackerEntry
 from ...emojis import Emojis
 from .planet import Planet
@@ -45,7 +45,7 @@ class DSS(ReprMixin):
             self.status_end_datetime: datetime = datetime.fromtimestamp(
                 war_start_time + self.status_end
             )
-            self.strategic_description: str = dispatch_format(
+            self.strategic_description: str = arrowhead_format(
                 text=tactical_action_raw_data.get("strategicDescription", "")
             )
             self.cost: list[DSS.TacticalAction.Cost] = [

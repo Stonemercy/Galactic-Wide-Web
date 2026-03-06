@@ -1,4 +1,4 @@
-def dispatch_format(text: str):
+def arrowhead_format(text: str):
     replacements = [
         "<i=1>",
         "<I=1>",
