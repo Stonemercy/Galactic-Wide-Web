@@ -105,6 +105,8 @@ class GuildManagementCog(commands.Cog):
 
     @commands.Cog.listener("on_button_click")
     async def ban_listener(self, inter: MessageInteraction) -> None:
+        if inter.author != self.bot.owner:
+            await inter.send("You arent allowed to do this.")
         if inter.component.custom_id == "guild_remove":
             gww_guilds_to_remove: list[GWWGuild] = [
                 GWWGuilds.get_specific_guild(id=guild_id)

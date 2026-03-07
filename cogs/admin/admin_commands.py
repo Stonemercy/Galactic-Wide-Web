@@ -133,6 +133,8 @@ class AdminCommandsCog(commands.Cog):
         }
         if inter.component.custom_id not in allowed_ids:
             return
+        if inter.author != self.bot.owner:
+            await inter.send("You arent allowed to do this.")
         await inter.response.defer()
         guild_id_text_display: str = (
             inter.message.components[0].children[0].children[0].content
