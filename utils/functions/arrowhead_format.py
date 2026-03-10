@@ -9,6 +9,7 @@ def arrowhead_format(text: str):
         "</i=3>",
         "<i>",
         "</>",
+        "<i/>",
     ]
     for replacement in replacements:
         text = text.replace(replacement, "**")
