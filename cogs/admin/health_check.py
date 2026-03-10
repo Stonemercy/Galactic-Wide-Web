@@ -48,11 +48,8 @@ class HealthCheckCog(commands.Cog):
                         message.edited_at.replace(tzinfo=None) < cutoff
                         and self.bot.startup_time < cutoff
                     ):
-                        hours = (
-                            datetime.now(timezone.utc) - message.edited_at
-                        ).total_seconds() / 3600
                         await self.send_warning(
-                            error=f"Dashboards were last edited {hours:,.2} hours ago"
+                            error=f"Dashboards are late to being updated"
                         )
             except Exception as e:
                 self.bot.logger.error(
