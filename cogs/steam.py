@@ -39,28 +39,22 @@ class SteamCog(commands.Cog):
             or not self.bot.data.formatted_data.steam_news
         ):
             return
-        if (
-            self.bot.databases.war_info.patch_notes_id
-            < self.bot.data.formatted_data.steam_news[0].id
-        ):
-            unique_langs = GWWGuilds.unique_languages()
-            embeds = {
-                lang: [
-                    SteamEmbed(
-                        self.bot.data.formatted_data.steam_news[0],
-                        self.bot.json_dict["languages"][lang],
-                    )
-                ]
-                for lang in unique_langs
-            }
-            await self.bot.interface_handler.send_feature("patch_notes", embeds)
-            self.bot.databases.war_info.patch_notes_id = (
-                self.bot.data.formatted_data.steam_news[0].id
-            )
-            self.bot.databases.war_info.save_changes()
-            self.bot.logger.info(
-                f"Sent patch announcements out to {len(self.bot.interface_handler.patch_notes)} channels in {(datetime.now() - patch_notes_start).total_seconds():.2f}s"
-            )
+        for steam_news in self.bot.data.formatted_data.steam_news[::-1]:
+            if steam_news.id > self.bot.databases.war_info.patch_notes_id:
+                unique_langs = GWWGuilds.unique_languages()
+                embeds = {
+                    lang: [
+                        SteamEmbed(steam_news, self.bot.json_dict["languages"][lang])
+                    ]
+                    for lang in unique_langs
+                }
+                await self.bot.interface_handler.send_feature("patch_notes", embeds)
+                self.bot.databases.war_info.patch_notes_id = steam_news.id
+                self.bot.databases.war_info.save_changes()
+                self.bot.logger.info(
+                    f"Sent patch announcements out to {len(self.bot.interface_handler.patch_notes)} channels in {(datetime.now() - patch_notes_start).total_seconds():.2f}s"
+                )
+                return
 
     @steam_check.before_loop
     async def before_steam_check(self) -> None:
