@@ -37,20 +37,9 @@ class GlobalEventsContainer(ui.Container, ReprMixin):
                         text_display.content += f"\n{container_json['booster_identified']}: {effect.found_booster['name']}"
                 else:
                     text_display.content += f"\n{effect.planet_effect['name']}"
-                    if effect.planet_effect["description_long"]:
+                    if effect.planet_effect["description"]:
                         text_display.content += (
-                            f"\n-# {effect.planet_effect['description_long']}"
-                        )
-                    if effect.planet_effect["description_short"]:
-                        if effect.effect_type == 32:
-                            if effect.found_stratagem:
-                                effect.planet_effect["description_short"] = (
-                                    effect.planet_effect["description_short"].replace(
-                                        "#V_ONE", effect.found_stratagem
-                                    )
-                                )
-                        text_display.content += (
-                            f"\n-# {effect.planet_effect['description_short']}"
+                            f"\n-# {effect.planet_effect['description']}"
                         )
                     text_display.content += f"{container_json['active_on_planets'].format(planets=specific_planets)}"
         else:
