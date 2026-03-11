@@ -2033,7 +2033,12 @@ class Dashboard:
                     ]
                     if available_regions:
                         for region in available_regions:
-                            field_value += f"\n-# ↳ {region.emoji} {language_json['regions'][str(region.type.value)]} **{region.names[language_json['code_long']]}** {region.perc:.2%}"
+                            region_type = (
+                                language_json["regions"][str(region.type.value)]
+                                if not region.is_factory
+                                else "Megafactory"
+                            )
+                            field_value += f"\n-# ↳ {region.emoji} {region_type} **{region.names[language_json['code_long']]}** {region.perc:.2%}"
                             if (
                                 region.tracker
                                 and region.tracker.change_rate_per_hour != 0
