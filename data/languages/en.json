@@ -312,6 +312,7 @@
     "complete": "Complete",
     "failure": "Failure",
     "regions": {
+        "megafactory": "Megafactory",
         "4": "Mega City",
         "3": "City",
         "2": "Town",

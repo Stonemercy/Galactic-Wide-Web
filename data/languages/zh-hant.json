@@ -312,6 +312,7 @@
     "complete": "完成",
     "failure": "失敗",
     "regions": {
+        "megafactory": "巨型工廠",
         "4": "大都會",
         "3": "城市",
         "2": "鎮",
