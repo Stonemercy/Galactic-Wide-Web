@@ -180,6 +180,7 @@ class BackendCommandsCog(commands.Cog):
             components = []
             for ge in ge_list:
                 container = GlobalEventsContainer(
+                    lang_code="en",
                     container_json=self.bot.json_dict["languages"]["en"]["containers"][
                         "GlobalEventsContainer"
                     ],

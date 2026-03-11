@@ -7,6 +7,7 @@ from utils.mixins import ReprMixin
 class GlobalEventsContainer(ui.Container, ReprMixin):
     def __init__(
         self,
+        lang_code: str,
         container_json: dict,
         global_event: GlobalEvent,
         planets: dict[int, Planet],
@@ -24,7 +25,11 @@ class GlobalEventsContainer(ui.Container, ReprMixin):
                     planets.get(index) for index in global_event.planet_indices
                 ]
                 specific_planets = "\n-# " + "\n- ".join(
-                    [p.names.get("en-GB", str(p.index)) for p in spec_planets_list if p]
+                    [
+                        p.names.get(lang_code, str(p.index))
+                        for p in spec_planets_list
+                        if p
+                    ]
                 )
             for effect in global_event.effects:
                 if "UNKNOWN" in effect.planet_effect["name"]:
