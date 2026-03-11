@@ -208,10 +208,11 @@ class Planet(ReprMixin):
             self.tracker: BaseTrackerEntry | None = None
             self._connection_indices: list[int] = json_entry.get("connections", [])
             self.connections: list[Planet.Region] = []
+            self.is_factory: bool = json_entry.get("is_factory", False)
 
         @property
         def emoji(self) -> str:
-            if self.flags == 1:
+            if self.is_factory == 1:
                 return getattr(
                     getattr(Emojis.RegionIcons, self.owner.full_name),
                     f"special{self.size}",

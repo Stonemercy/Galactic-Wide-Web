@@ -14,7 +14,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "622301006": {
         "name": "ABUNDANCE BLUFF",
@@ -31,7 +32,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3205582835": {
         "name": "ACCOUNTANT GRAEBER",
@@ -48,7 +50,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3179108272": {
         "name": "ADAM PARK",
@@ -65,7 +68,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3958784315": {
         "name": "ADMINISTRATIVE CENTER 02",
@@ -92,7 +96,8 @@
             "zh-Hans": "\u884c\u653f\u4e2d\u5fc3\u795e\u5723\u5927\u5385\u7ecf\u624b\u7684\u8868\u683c\u548c\u7533\u8bf7\u5747\u5370\u6709\u201c\u65f6\u4ee3\u5370\u7ae0\u201d\uff0c\u5e94\u5f53\u6446\u653e\u5728\u5bb6\u4e2d\u663e\u8d6b\u4f4d\u7f6e\u3002",
             "zh-Hant": "\u6bcf\u4efd\u901a\u904e\u884c\u653f\u4e2d\u5fc3\u838a\u56b4\u5927\u5ef3\u7684\u8868\u55ae\u548c\u7533\u8acb\uff0c\u90fd\u70d9\u5370\u8457\u6b72\u6708\u7684\u5370\u8a18\uff0c\u61c9\u8a72\u653e\u5728\u5bb6\u4e2d\u8b39\u614e\u73cd\u85cf\u3002"
         },
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "786867005": {
         "name": "ADNAN",
@@ -109,7 +114,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3342871593": {
         "name": "ADVENTURE",
@@ -126,7 +132,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3175334400": {
         "name": "AGARTHA",
@@ -143,7 +150,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "457233553": {
         "name": "AIDESVILLE",
@@ -160,7 +168,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "860486103": {
         "name": "ALIGNMENT",
@@ -177,7 +186,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3964263469": {
         "name": "ALTONBURG",
@@ -194,7 +204,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2300653457": {
         "name": "ANDROS DELTA",
@@ -211,7 +222,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "137264955": {
         "name": "ANDROS GAMMA",
@@ -228,7 +240,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "763067932": {
         "name": "ANNE'S VIGIL",
@@ -245,7 +258,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3116199682": {
         "name": "ANNWN",
@@ -262,7 +276,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1428185423": {
         "name": "ANTBOOT",
@@ -279,7 +294,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1872830438": {
         "name": "APPROVAL CITY",
@@ -296,7 +312,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2541292675": {
         "name": "ASPEN HILLS",
@@ -313,7 +330,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2340207578": {
         "name": "AUTONOMY",
@@ -343,7 +361,8 @@
         "connections": [
             1512842277,
             2634960640
-        ]
+        ],
+        "is_factory": true
     },
     "3309151713": {
         "name": "BARRACKSBURG",
@@ -360,7 +379,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1322103873": {
         "name": "BARREN WARD",
@@ -377,7 +397,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1762725992": {
         "name": "BASE CAMP 8",
@@ -394,7 +415,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2033316867": {
         "name": "BATU BELIG",
@@ -411,7 +433,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1201038992": {
         "name": "BEACHVIEW",
@@ -428,7 +451,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "521646997": {
         "name": "BEEFBURG",
@@ -445,7 +469,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1365889454": {
         "name": "BENEVOLENCE",
@@ -462,7 +487,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "468034602": {
         "name": "BIRCHVILLE",
@@ -479,7 +505,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2591044773": {
         "name": "BIRTH",
@@ -496,7 +523,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "873382628": {
         "name": "BLACKVEIN MINES",
@@ -513,7 +541,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "484247622": {
         "name": "BLESTRAIL",
@@ -530,7 +559,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "452138560": {
         "name": "BLIGHTSMURK",
@@ -547,7 +577,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1690681912": {
         "name": "BOPSFIELD",
@@ -564,7 +595,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1108939907": {
         "name": "BRAVERY",
@@ -581,7 +613,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1415969325": {
         "name": "BRAWFERMLAND",
@@ -598,7 +631,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2193235528": {
         "name": "BRIGHT WING",
@@ -615,7 +649,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "481340922": {
         "name": "BRNO",
@@ -632,7 +667,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "521454425": {
         "name": "BROKER'S WEALTH",
@@ -649,7 +685,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1000010048": {
         "name": "BUCU'S REST",
@@ -666,7 +703,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1050611219": {
         "name": "BUJU",
@@ -683,7 +721,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3950276676": {
         "name": "CAMP LEIGHTON",
@@ -700,7 +739,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3404329179": {
         "name": "CAMRAT FOR",
@@ -730,7 +770,8 @@
         "connections": [
             1475859103,
             297843856
-        ]
+        ],
+        "is_factory": true
     },
     "3263074211": {
         "name": "CARBONDALE",
@@ -747,7 +788,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2368444431": {
         "name": "CELEBRATION",
@@ -764,7 +806,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3625692119": {
         "name": "CHAIRMAN OKOTE",
@@ -781,7 +824,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "867139136": {
         "name": "CHAIRMAN OYESLLO",
@@ -798,7 +842,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3924472281": {
         "name": "CHATOYANT",
@@ -815,7 +860,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "4151302370": {
         "name": "CLE ELUM REDIVIVA",
@@ -832,7 +878,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2519594311": {
         "name": "CLOCKSTOP",
@@ -849,7 +896,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3039275068": {
         "name": "COMMUNEFALLS",
@@ -866,7 +914,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3185820932": {
         "name": "CONSENSUS",
@@ -883,7 +932,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2143424881": {
         "name": "CONVENIENCE",
@@ -900,7 +950,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3283689576": {
         "name": "CORNUCOPOLIS",
@@ -917,7 +968,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3385219022": {
         "name": "COUNCILLOR RORA",
@@ -934,7 +986,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1915702028": {
         "name": "COZY FLATS",
@@ -951,7 +1004,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "4028778105": {
         "name": "CRYSTAL SLOPES",
@@ -968,7 +1022,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "559843220": {
         "name": "CURRENCY",
@@ -985,7 +1040,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2712707536": {
         "name": "DARKWELL",
@@ -1002,7 +1058,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2146650468": {
         "name": "DARROWSHOME",
@@ -1019,7 +1076,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2418052824": {
         "name": "DEBTOR'S DOWNS",
@@ -1036,7 +1094,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2719536576": {
         "name": "DEEPWELL",
@@ -1053,7 +1112,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "324613052": {
         "name": "DEMOCRACY ALWAYS",
@@ -1070,7 +1130,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1838126407": {
         "name": "DEMOCRACY'S LANDING",
@@ -1087,7 +1148,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1447385649": {
         "name": "DIGITI",
@@ -1104,7 +1166,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1668618298": {
         "name": "DIPLOMACY",
@@ -1121,7 +1184,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2187047436": {
         "name": "DISCOVERY GLEN",
@@ -1138,7 +1202,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2185475541": {
         "name": "DIVER'S GLORY",
@@ -1155,7 +1220,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "4162876257": {
         "name": "DIVER'S REST",
@@ -1172,7 +1238,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3644870667": {
         "name": "DOGTOWN",
@@ -1189,7 +1256,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1543050297": {
         "name": "DOSTOINSTVO",
@@ -1206,7 +1274,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1725242014": {
         "name": "DOWNPOUR",
@@ -1223,7 +1292,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2563609963": {
         "name": "DRYWELL",
@@ -1240,7 +1310,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1161514581": {
         "name": "DYER STREETS",
@@ -1257,7 +1328,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2939223654": {
         "name": "DYN ALPHA 534-2",
@@ -1274,7 +1346,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2391484056": {
         "name": "EAGLE'S LIKENESS",
@@ -1291,7 +1364,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "4132827034": {
         "name": "EAGLECRY",
@@ -1308,7 +1382,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2903117961": {
         "name": "EAGLEMOUNT",
@@ -1325,7 +1400,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "4196558004": {
         "name": "EAGLEOPOLIS",
@@ -1352,7 +1428,8 @@
             "zh-Hans": "\u8fd9\u5ea7\u4f1f\u5927\u5546\u8d38\u4e2d\u67a2\u56e0\u5b8f\u4f1f\u7684\u8d2d\u7269\u5546\u573a\u548c\u7e41\u534e\u7684\u5a31\u4e50\u4e2d\u5fc3\u800c\u95fb\u540d\u6574\u4e2a\u94f6\u6cb3\u7cfb\u3002",
             "zh-Hant": "\u9019\u5ea7\u57ce\u5e02\u582a\u7a31\u5546\u696d\u4e2d\u5fc3\uff0c\u4ee5\u5b8f\u5049\u7684\u8cfc\u7269\u4e2d\u5fc3\u8207\u83ef\u9e97\u5a1b\u6a02\u8a2d\u65bd\u805e\u540d\u6574\u500b\u9280\u6cb3\u7cfb\u3002"
         },
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3320001654": {
         "name": "EAGLESTAR ETERNAL",
@@ -1369,7 +1446,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1168572634": {
         "name": "EAST EMBANKMENT",
@@ -1386,7 +1464,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1479079406": {
         "name": "EAST REST",
@@ -1403,7 +1482,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1761215575": {
         "name": "EASTCLEFT",
@@ -1420,7 +1500,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1451291824": {
         "name": "EDWARD'S GRAVE",
@@ -1437,7 +1518,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "741084747": {
         "name": "EIGHTRINGS",
@@ -1454,7 +1536,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "130236915": {
         "name": "EPH",
@@ -1471,7 +1554,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "550918906": {
         "name": "EQUALITY-ON-SEA",
@@ -1498,7 +1582,8 @@
             "zh-Hans": "\u56e0\u5386\u53f2\u6027\u4f1a\u8bae\u800c\u5f97\u540d\uff0c\u6b64\u4f1a\u8bae\u5c06\u4eba\u7c7b\u8ba4\u5b9a\u4e3a\u94f6\u6cb3\u7cfb\u6700\u5e73\u7b49\u7684\u7269\u79cd\u3002",
             "zh-Hant": "\u4ee5\u4e00\u5834\u6b77\u53f2\u6027\u7684\u6703\u8b70\u547d\u540d\uff0c\u5e2d\u9593\u4eba\u985e\u88ab\u8a8d\u5b9a\u70ba\u9280\u6cb3\u7cfb\u6700\u5e73\u7b49\u7684\u7269\u7a2e\u3002"
         },
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "855833074": {
         "name": "ERIDANI",
@@ -1515,7 +1600,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3067104866": {
         "name": "ERSATZ",
@@ -1532,7 +1618,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3775882537": {
         "name": "ESCAPADE",
@@ -1549,7 +1636,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3732722501": {
         "name": "EVOLUTION PLATS",
@@ -1566,7 +1654,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": true
     },
     "1273177678": {
         "name": "EXALT",
@@ -1583,7 +1672,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1514913854": {
         "name": "EXCITEMENT",
@@ -1600,7 +1690,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "4269009782": {
         "name": "EXO CITY",
@@ -1617,7 +1708,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3342476592": {
         "name": "FAMEWOLF PEAK",
@@ -1634,7 +1726,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2650088088": {
         "name": "FAMILY GROVE",
@@ -1651,7 +1744,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "16522331": {
         "name": "FARMHANDSTOWN",
@@ -1668,7 +1762,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "281317935": {
         "name": "FEARLESS HOLLOW",
@@ -1685,7 +1780,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "4127238767": {
         "name": "FILIBUSTER",
@@ -1702,7 +1798,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2895050350": {
         "name": "FIREFLY MEADOWS",
@@ -1719,7 +1816,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "4192092503": {
         "name": "FODDER GORGE",
@@ -1736,7 +1834,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "167295516": {
         "name": "FORT BOUNTY",
@@ -1753,7 +1852,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3188612954": {
         "name": "FORT SANGUINE",
@@ -1770,7 +1870,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "316170794": {
         "name": "FORTITUDE",
@@ -1787,7 +1888,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "579852265": {
         "name": "FOUNDRY",
@@ -1804,7 +1906,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3895412065": {
         "name": "FOUR CROWNS",
@@ -1821,7 +1924,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1603459330": {
         "name": "FREE APARTMENTS",
@@ -1838,7 +1942,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "476417027": {
         "name": "FREE TRADE",
@@ -1855,7 +1960,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1954581243": {
         "name": "FREECREST",
@@ -1872,7 +1978,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2936987719": {
         "name": "FREEDOM ETERNAL",
@@ -1889,7 +1996,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3921926208": {
         "name": "FREEDOM'S TORCH",
@@ -1906,7 +2014,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3455957267": {
         "name": "FRESH ORCHARDS",
@@ -1923,7 +2032,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3034375188": {
         "name": "FROSTOWN",
@@ -1940,7 +2050,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "4014866766": {
         "name": "FUTURE PRIDE",
@@ -1957,7 +2068,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "4275209727": {
         "name": "FUTURIA",
@@ -1974,7 +2086,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "12564835": {
         "name": "GARAGE DUNE",
@@ -1991,7 +2104,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1235784042": {
         "name": "GEM LICKET",
@@ -2008,7 +2122,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": true
     },
     "4248413283": {
         "name": "GEM LICKET",
@@ -2025,7 +2140,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": true
     },
     "3311068219": {
         "name": "GEMSTELLE GENERATOR",
@@ -2042,7 +2158,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": true
     },
     "518148662": {
         "name": "GENE",
@@ -2059,7 +2176,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3184875338": {
         "name": "GENERATORSVILLE",
@@ -2076,7 +2194,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "647996051": {
         "name": "GIRD",
@@ -2093,7 +2212,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1061744043": {
         "name": "GIRI",
@@ -2110,7 +2230,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2130828005": {
         "name": "GLOBULUS",
@@ -2127,7 +2248,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1123715107": {
         "name": "GOTHENBURG III",
@@ -2144,7 +2266,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2180989349": {
         "name": "GRACIOUS LIBERTY",
@@ -2161,7 +2284,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1897395642": {
         "name": "GRAFSART",
@@ -2178,7 +2302,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3851016682": {
         "name": "GRAFSEAD",
@@ -2195,7 +2320,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3626214155": {
         "name": "GRAFSWALLIT",
@@ -2212,7 +2338,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3585703392": {
         "name": "GRAPESHOT",
@@ -2229,7 +2356,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1613437962": {
         "name": "GRAVITAS",
@@ -2246,7 +2374,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2689075072": {
         "name": "GREATER ATLANTEAN POWER PLANT",
@@ -2263,7 +2392,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "997505218": {
         "name": "GREATER INVESTMENT",
@@ -2280,7 +2410,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "755864726": {
         "name": "GREATER STOROUSE",
@@ -2297,7 +2428,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1312916665": {
         "name": "GREATWOOD MILLS",
@@ -2314,7 +2446,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "873089075": {
         "name": "GROWL",
@@ -2331,7 +2464,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2751322458": {
         "name": "GUNPOWDER MEADOWS",
@@ -2348,7 +2482,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3910908375": {
         "name": "GYEONGSEONG",
@@ -2365,7 +2500,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2007842501": {
         "name": "HABITAT RED-2",
@@ -2382,7 +2518,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "4179557814": {
         "name": "HAERSTVIK",
@@ -2399,7 +2536,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2190098981": {
         "name": "HAKU CITY",
@@ -2416,7 +2554,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2024755529": {
         "name": "HANDAKAS",
@@ -2433,7 +2572,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1143862620": {
         "name": "HANGAR 6",
@@ -2450,7 +2590,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2298034348": {
         "name": "HARDY",
@@ -2467,7 +2608,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2004207949": {
         "name": "HAVEN",
@@ -2484,7 +2626,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3291554432": {
         "name": "HEART FLATS",
@@ -2501,7 +2644,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3612551140": {
         "name": "HEATHERFIELD",
@@ -2518,7 +2662,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3066706899": {
         "name": "HILDOARA CENTRAL",
@@ -2535,7 +2680,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "4121418923": {
         "name": "HILJAISUUS",
@@ -2552,7 +2698,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2472296828": {
         "name": "HOLL",
@@ -2569,7 +2716,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1062239247": {
         "name": "HOMESTEAD HILL",
@@ -2586,7 +2734,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "4059243365": {
         "name": "HOPESHIRE",
@@ -2603,7 +2752,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "539875676": {
         "name": "HOT GATES",
@@ -2620,7 +2770,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2126832849": {
         "name": "HUMAN WILL",
@@ -2637,7 +2788,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3021776166": {
         "name": "HUMANITY",
@@ -2654,7 +2806,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2544875580": {
         "name": "HUNTER'S BLUFF",
@@ -2671,7 +2824,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1688960258": {
         "name": "ICE BEND",
@@ -2688,7 +2842,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "4101984974": {
         "name": "INDEPENDENCE",
@@ -2705,7 +2860,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3603744514": {
         "name": "INDUSTRY ALLATEED",
@@ -2722,7 +2878,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": true
     },
     "1013683905": {
         "name": "INTEREST",
@@ -2739,7 +2896,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2581434266": {
         "name": "INTREPIDNESS",
@@ -2756,7 +2914,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2741839635": {
         "name": "INVESTMENT",
@@ -2773,7 +2932,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2853318855": {
         "name": "ISEGORIA",
@@ -2790,7 +2950,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "400630653": {
         "name": "KALASATAMA",
@@ -2807,7 +2968,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1599927394": {
         "name": "KALASATAMA PORT",
@@ -2824,7 +2986,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3756959393": {
         "name": "KELLA METAMORPH",
@@ -2841,7 +3004,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": true
     },
     "1023474728": {
         "name": "KESUMA",
@@ -2858,7 +3022,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3911522018": {
         "name": "KILLJOY TOWN",
@@ -2875,7 +3040,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "4204734822": {
         "name": "KINABATANGAN",
@@ -2892,7 +3058,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1329166626": {
         "name": "KNIGHT'S HONOR",
@@ -2909,7 +3076,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2332413862": {
         "name": "KODIAK FALLS",
@@ -2926,7 +3094,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1178227778": {
         "name": "KURRI KURRI",
@@ -2943,7 +3112,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2519745557": {
         "name": "LACED STRAIT",
@@ -2960,7 +3130,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "649934138": {
         "name": "LAELIA",
@@ -2977,7 +3148,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1791361107": {
         "name": "LAGERL\u00d6F CITY",
@@ -2994,7 +3166,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1842220312": {
         "name": "LASTOME",
@@ -3011,7 +3184,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1028801816": {
         "name": "LEMURIA RISING",
@@ -3028,7 +3202,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "967684667": {
         "name": "LIBER-TEA TOWNSHIP",
@@ -3045,7 +3220,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1501066740": {
         "name": "LIFEBLOOD",
@@ -3062,7 +3238,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3885625492": {
         "name": "LIFESWORTH",
@@ -3079,7 +3256,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "311758306": {
         "name": "LIGHT-OF-LIBERTY",
@@ -3096,7 +3274,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1032709433": {
         "name": "LIL'OME",
@@ -3113,7 +3292,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1161134727": {
         "name": "LLANFAIRPWLLGWYNGYLLGOGERYCHWYRNDROBWLLLLANTYSILIOGOGOGOCH II",
@@ -3130,7 +3310,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2185109890": {
         "name": "LOGISTICS HUB 188-B",
@@ -3147,7 +3328,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2659108161": {
         "name": "LOGISTICS HUB 232-B",
@@ -3164,7 +3346,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2057457464": {
         "name": "LOKAHEIM",
@@ -3181,7 +3364,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2285651547": {
         "name": "LOOKOUT",
@@ -3198,7 +3382,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2634960640": {
         "name": "LURZA",
@@ -3227,7 +3412,8 @@
         },
         "connections": [
             2735744233
-        ]
+        ],
+        "is_factory": true
     },
     "1063822606": {
         "name": "LUSCIOUS LIBERTY",
@@ -3244,7 +3430,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2849889311": {
         "name": "LUXE POINT",
@@ -3261,7 +3448,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3212629027": {
         "name": "MAGNITUDE",
@@ -3278,7 +3466,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3028191212": {
         "name": "MAJOSYRI",
@@ -3295,7 +3484,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2507971325": {
         "name": "MALLSTRIP NODES",
@@ -3312,7 +3502,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "4038285524": {
         "name": "MALMBERGET",
@@ -3329,7 +3520,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3216000044": {
         "name": "MASKIN",
@@ -3346,7 +3538,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": true
     },
     "2500124294": {
         "name": "MEGACORPUS",
@@ -3363,7 +3556,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3109135198": {
         "name": "MEMORIALS",
@@ -3380,7 +3574,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2832454199": {
         "name": "MESSAGER'S MESA",
@@ -3397,7 +3592,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "4039645448": {
         "name": "MINE 902",
@@ -3414,7 +3610,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1289084629": {
         "name": "MINERAL REFINEMENT WORKS",
@@ -3431,7 +3628,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1068853940": {
         "name": "MINERAL'S END",
@@ -3448,7 +3646,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "4264188855": {
         "name": "MIRAGE",
@@ -3465,7 +3664,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3493472115": {
         "name": "MOBERG'S DREAM",
@@ -3482,7 +3682,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "974467043": {
         "name": "MOGO PLAINS",
@@ -3499,7 +3700,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3373033616": {
         "name": "MORSKIE OKO",
@@ -3516,7 +3718,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1820689153": {
         "name": "MT MONUMENT",
@@ -3533,7 +3736,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "991650372": {
         "name": "MUNITION CITY",
@@ -3550,7 +3754,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1759245992": {
         "name": "NEKK POND",
@@ -3567,7 +3772,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "832046850": {
         "name": "NEW ABERDEEN",
@@ -3584,7 +3790,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "491224618": {
         "name": "NEW ALEXANDRIA",
@@ -3601,7 +3808,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1193052974": {
         "name": "NEW ASPIRATION CITY",
@@ -3628,7 +3836,8 @@
             "zh-Hans": "\u4e09\u5927\u6700\u9ad8\u5b89\u5168\u7ea7\u522b\u57ce\u5e02\u4e4b\u4e00\u3002\u66b4\u653f\u65e0\u6cd5\u653b\u7834\u4e4b\u57ce\uff0c\u8054\u90a6\u7684\u672a\u6765\u3002",
             "zh-Hant": "3\u5ea7\u6700\u9ad8\u5b89\u5168\u7b49\u7d1a\u57ce\u5e02\u4e4b\u4e00\u3002\u66b4\u653f\u7684\u8b77\u5b88\u4e4b\u76fe\uff1b\u806f\u90a6\u672a\u4f86\u7684\u71c8\u5854\u3002"
         },
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3455315905": {
         "name": "NEW COB",
@@ -3645,7 +3854,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "905823730": {
         "name": "NEW DA NANG",
@@ -3662,7 +3872,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1121037205": {
         "name": "NEW EAGLE",
@@ -3679,7 +3890,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1058460461": {
         "name": "NEW HEARTH CITY",
@@ -3696,7 +3908,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1239520232": {
         "name": "NEW HOPE CITY",
@@ -3723,7 +3936,8 @@
             "zh-Hans": "\u6700\u9ad8\u5b89\u5168\u7ea7\u522b\u57ce\u5e02\u4e2d\u7684\u738b\u724c\u3002\u66b4\u653f\u65e0\u6cd5\u653b\u7834\u4e4b\u57ce\uff0c\u8054\u90a6\u7684\u672a\u6765\u3002",
             "zh-Hant": "\u65d7\u8266\u7d1a\u6700\u9ad8\u5b89\u5168\u57ce\u5e02\u3002\u66b4\u653f\u7684\u8b77\u5b88\u4e4b\u76fe\uff1b\u806f\u90a6\u672a\u4f86\u7684\u71c8\u5854\u3002"
         },
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "770916674": {
         "name": "NEW KATHMANDU",
@@ -3740,7 +3954,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1578230839": {
         "name": "NEW NEWTONVILLE",
@@ -3757,7 +3972,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1946203146": {
         "name": "NEW PARADISE",
@@ -3774,7 +3990,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2095568588": {
         "name": "NEW PENG",
@@ -3791,7 +4008,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2258293610": {
         "name": "NEW STOROUSE",
@@ -3808,7 +4026,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2919580452": {
         "name": "NEW TOKYO",
@@ -3825,7 +4044,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1623710024": {
         "name": "NEW VICTORY",
@@ -3842,7 +4062,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "27836851": {
         "name": "NEW YEARNING CITY",
@@ -3869,7 +4090,8 @@
             "zh-Hans": "\u4e09\u5927\u6700\u9ad8\u5b89\u5168\u7ea7\u522b\u57ce\u5e02\u4e4b\u4e00\u3002\u66b4\u653f\u65e0\u6cd5\u653b\u7834\u4e4b\u57ce\uff0c\u8054\u90a6\u7684\u672a\u6765\u3002",
             "zh-Hant": "3\u5ea7\u6700\u9ad8\u5b89\u5168\u7b49\u7d1a\u57ce\u5e02\u4e4b\u4e00\u3002\u66b4\u653f\u7684\u8b77\u5b88\u4e4b\u76fe\uff1b\u806f\u90a6\u672a\u4f86\u7684\u71c8\u5854\u3002"
         },
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1344426011": {
         "name": "NO COMPOUND",
@@ -3886,7 +4108,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3687523144": {
         "name": "NON-PARTISAN",
@@ -3903,7 +4126,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1468847276": {
         "name": "NUOVA ROMA",
@@ -3920,7 +4144,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "4187567384": {
         "name": "NYA SKELLEFTEA",
@@ -3937,7 +4162,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3363260441": {
         "name": "OBEDIENCE",
@@ -3954,7 +4180,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1653634596": {
         "name": "OBSERVATORY 6",
@@ -3971,7 +4198,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2762012044": {
         "name": "OL' OLDHAM",
@@ -3988,7 +4216,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1978368732": {
         "name": "OLD BRANCH",
@@ -4005,7 +4234,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "523284406": {
         "name": "OLD CHEMLAND",
@@ -4022,7 +4252,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2232171610": {
         "name": "OLD CONUNDRUM",
@@ -4039,7 +4270,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2253802431": {
         "name": "OLD DOVE",
@@ -4056,7 +4288,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1136017261": {
         "name": "OLD HEARTH CITY",
@@ -4073,7 +4306,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "581000702": {
         "name": "OLD INTERNMENTS",
@@ -4090,7 +4324,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2509774688": {
         "name": "OLUFSEN'S FOOTPRINT",
@@ -4107,7 +4342,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2300130357": {
         "name": "OMA PEMMA",
@@ -4124,7 +4360,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": true
     },
     "3495232119": {
         "name": "OMA PEMMA",
@@ -4141,7 +4378,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": true
     },
     "1512842277": {
         "name": "OMNIPARITUS",
@@ -4171,7 +4409,8 @@
         "connections": [
             2735744233,
             1475859103
-        ]
+        ],
+        "is_factory": true
     },
     "3491570579": {
         "name": "ON-EARSAHOU",
@@ -4188,7 +4427,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "4253491601": {
         "name": "ONSEN",
@@ -4205,7 +4445,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1701644792": {
         "name": "ORBSHAM",
@@ -4222,7 +4463,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "540250241": {
         "name": "ORESINK",
@@ -4239,7 +4481,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2557369266": {
         "name": "OTARU'S PLEDGE",
@@ -4256,7 +4499,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2491531357": {
         "name": "PADOSAN",
@@ -4273,7 +4517,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1199071894": {
         "name": "PARRHESIA",
@@ -4290,7 +4535,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3862302711": {
         "name": "PEASE",
@@ -4307,7 +4553,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3042839498": {
         "name": "PEDIS",
@@ -4324,7 +4571,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "314025568": {
         "name": "PENSCEWT",
@@ -4341,7 +4589,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "706797536": {
         "name": "PEOPLE'S HAND",
@@ -4358,7 +4607,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3090254958": {
         "name": "PERIWINKLE MILLS",
@@ -4375,7 +4625,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2876102528": {
         "name": "PERMACURIS",
@@ -4392,7 +4643,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3130397378": {
         "name": "PERSEVERANCE",
@@ -4409,7 +4661,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1101206164": {
         "name": "PERSISTENCE",
@@ -4426,7 +4679,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3212687176": {
         "name": "PERSISTENCE GATE",
@@ -4443,7 +4697,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": true
     },
     "1676064266": {
         "name": "PHAM'S SITE",
@@ -4460,7 +4715,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3849073717": {
         "name": "PILOT'S BERTH",
@@ -4477,7 +4733,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2345167795": {
         "name": "PINESWOLD",
@@ -4494,7 +4751,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3634134154": {
         "name": "PIONEER'S DREAM",
@@ -4511,7 +4769,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3710473299": {
         "name": "PIT 8",
@@ -4528,7 +4787,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2098963156": {
         "name": "PLETHORA",
@@ -4545,7 +4805,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3147829923": {
         "name": "PO'S RAVENNA",
@@ -4562,7 +4823,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "502504685": {
         "name": "PORT MERCY",
@@ -4589,7 +4851,8 @@
             "zh-Hans": "\u81ea\u7ec8\u6781\u5927\u6218\u4e2d\u5e87\u62a4\u6570\u767e\u4e07\u5fe0\u8bda\u96be\u6c11\u8d77\uff0c\u4ec1\u6148\u6e2f\u4fbf\u6210\u4e3a\u6240\u6709A\u7ea7\u516c\u6c11\u5371\u96be\u65f6\u7684\u5b89\u5168\u6e2f\u6e7e\u3002",
             "zh-Hant": "\u81ea\u5927\u6230\u671f\u9593\u5e87\u8b77\u6578\u767e\u842c\u5fe0\u8aa0\u96e3\u6c11\u4ee5\u4f86\uff0c\u300c\u6148\u60b2\u6e2f\u300d\u4e00\u76f4\u662f\u4e00\u7d1a\u516c\u6c11\u6709\u96e3\u6642\u7684\u5b89\u5168\u907f\u98a8\u6e2f\u3002"
         },
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1097134956": {
         "name": "PORTE LIBERT\u00c9",
@@ -4606,7 +4869,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "511490869": {
         "name": "PORUGU",
@@ -4623,7 +4887,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2617273113": {
         "name": "PRAVOGRAD",
@@ -4640,7 +4905,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "807761309": {
         "name": "PROGRESS",
@@ -4657,7 +4923,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "718092071": {
         "name": "PROMINENCE",
@@ -4674,7 +4941,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "248027603": {
         "name": "PROSPERITY",
@@ -4691,7 +4959,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1750980320": {
         "name": "PROSPERITY CITY",
@@ -4718,7 +4987,8 @@
             "zh-Hans": "\u6211\u4eec\u5f15\u4ee5\u4e3a\u50b2\u7684\u9996\u90fd\u65e2\u662f\u6c11\u4e3b\u59d4\u5458\u4f1a\u7684\u6240\u5728\u5730\uff0c\u4e5f\u662f\u8fdb\u6b65\u3001\u751f\u4ea7\u529b\u548c\u7231\u56fd\u4e3b\u4e49\u7684\u7480\u74a8\u706f\u5854\u3002",
             "zh-Hant": "\u4f5c\u70ba\u6c11\u4e3b\u8b70\u6703\u7684\u6240\u5728\u5730\uff0c\u6211\u5011\u5f15\u4ee5\u70ba\u50b2\u7684\u9996\u90fd\u662f\u9032\u6b65\u3001\u751f\u7522\u529b\u8207\u611b\u570b\u7cbe\u795e\u7684\u71c8\u5854\u3002"
         },
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "189783404": {
         "name": "PSEUDOTOPIA",
@@ -4735,7 +5005,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3841350324": {
         "name": "QUASAR",
@@ -4752,7 +5023,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2541809256": {
         "name": "QUASAR",
@@ -4769,7 +5041,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2069832250": {
         "name": "QUELLED DISSENT",
@@ -4786,7 +5059,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2252336577": {
         "name": "QUENCH",
@@ -4803,7 +5077,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3161124521": {
         "name": "QZ-4",
@@ -4820,7 +5095,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1713282699": {
         "name": "REBELSGRAVE",
@@ -4837,7 +5113,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "119875523": {
         "name": "RECON HEIGHTS",
@@ -4854,7 +5131,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "786534585": {
         "name": "REDFIELD",
@@ -4871,7 +5149,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "438247765": {
         "name": "REFORMED-BY-TRUTH",
@@ -4888,7 +5167,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1874705974": {
         "name": "REGISTER",
@@ -4905,7 +5185,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1199462527": {
         "name": "REMEMBRANCE",
@@ -4932,7 +5213,8 @@
             "zh-Hans": "\u81ea\u53e4\u57ce\u5e9f\u589f\u4e2d\u6d85\u69c3\u91cd\u751f\uff0c\u7f05\u57ce\u4e43\u4eba\u7c7b\u4e0d\u5c48\u7cbe\u795e\u7684\u4e30\u7891\u3002",
             "zh-Hant": "\u81ea\u53e4\u57ce\u5ee2\u589f\u4e2d\u91cd\u751f\u7684\u300c\u56de\u61b6\u57ce\u300d\uff0c\u662f\u4eba\u985e\u4e0d\u5c48\u7cbe\u795e\u7684\u7d00\u5ff5\u7891\u3002"
         },
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "829716394": {
         "name": "REQUIEM",
@@ -4949,7 +5231,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2788606019": {
         "name": "RESILIENCE",
@@ -4966,7 +5249,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3194418120": {
         "name": "RESOLVE",
@@ -4983,7 +5267,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3263317504": {
         "name": "RESPITE",
@@ -5000,7 +5285,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3839797397": {
         "name": "REWA",
@@ -5017,7 +5303,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3553590218": {
         "name": "RINKTOWN",
@@ -5034,7 +5321,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3677320822": {
         "name": "RIZIO'S VISION",
@@ -5051,7 +5339,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1881788943": {
         "name": "SAMEN-STARK",
@@ -5068,7 +5357,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": true
     },
     "1122447002": {
         "name": "SAMEN-STARK",
@@ -5085,7 +5375,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": true
     },
     "2006541056": {
         "name": "SAORSA GLEN",
@@ -5102,7 +5393,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2409136536": {
         "name": "SAPPHIRE LAKE",
@@ -5119,7 +5411,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3878380748": {
         "name": "SAPPORO",
@@ -5136,7 +5429,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1654362284": {
         "name": "SARAH SWIFT DAM",
@@ -5153,7 +5447,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1562611653": {
         "name": "SCALD",
@@ -5170,7 +5465,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1954453569": {
         "name": "SCARLET HAVEN",
@@ -5187,7 +5483,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "4221006651": {
         "name": "SCHOLAR'S MOOR",
@@ -5204,7 +5501,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3164536732": {
         "name": "SEASSEFYRE",
@@ -5221,7 +5519,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1068743995": {
         "name": "SENATOR PEAKS",
@@ -5238,7 +5537,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3513777986": {
         "name": "SEORAKSAN",
@@ -5255,7 +5555,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3036848565": {
         "name": "SEQUIM",
@@ -5272,7 +5573,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "660742724": {
         "name": "SERENITY SUMMIT",
@@ -5289,7 +5591,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "451637988": {
         "name": "SERVITUDE",
@@ -5306,7 +5609,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "4065420956": {
         "name": "SETTLEMENT 7",
@@ -5323,7 +5627,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "321980142": {
         "name": "SETTLER'S HONOR",
@@ -5340,7 +5645,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1039071856": {
         "name": "SEVENSEAL",
@@ -5357,7 +5663,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3896987202": {
         "name": "SEVERITY",
@@ -5374,7 +5681,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2106184075": {
         "name": "SHADY OAKS",
@@ -5391,7 +5699,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3006088005": {
         "name": "SHED",
@@ -5408,7 +5717,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2293980636": {
         "name": "SHELTER",
@@ -5425,7 +5735,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "297388908": {
         "name": "SHOTGUN SUMMIT",
@@ -5442,7 +5753,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "586167831": {
         "name": "SILO A",
@@ -5459,7 +5771,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "697345425": {
         "name": "SKAR'S GARDENS",
@@ -5476,7 +5789,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3607786620": {
         "name": "SLAYER CITY",
@@ -5493,7 +5807,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2577020579": {
         "name": "SOLIDARITET",
@@ -5523,7 +5838,8 @@
         "connections": [
             1512842277,
             3404329179
-        ]
+        ],
+        "is_factory": true
     },
     "3421372928": {
         "name": "SONGGUO CUN",
@@ -5540,7 +5856,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "945140203": {
         "name": "STACY",
@@ -5557,7 +5874,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2735744233": {
         "name": "STAR KIELD",
@@ -5586,7 +5904,8 @@
         },
         "connections": [
             3380242454
-        ]
+        ],
+        "is_factory": true
     },
     "2775422932": {
         "name": "STARPASS",
@@ -5603,7 +5922,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1999301409": {
         "name": "STEEL RESOLVE",
@@ -5620,7 +5940,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2547946895": {
         "name": "STRENGTH",
@@ -5637,7 +5958,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1119186435": {
         "name": "STRONGFORT",
@@ -5654,7 +5976,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3272102382": {
         "name": "SUPERIORITY",
@@ -5671,7 +5994,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "4051063223": {
         "name": "SYCAMORE GARDENS",
@@ -5688,7 +6012,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3858818769": {
         "name": "SYZYGY",
@@ -5705,7 +6030,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1878476075": {
         "name": "TECHNOLOCKIA ALLATEED",
@@ -5722,7 +6048,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": true
     },
     "3600431647": {
         "name": "TECHOLOCKY",
@@ -5739,7 +6066,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": true
     },
     "334066640": {
         "name": "THE VILLAS",
@@ -5756,7 +6084,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2634421583": {
         "name": "TIMELY",
@@ -5773,7 +6102,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3368734830": {
         "name": "TOIL",
@@ -5790,7 +6120,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2184145680": {
         "name": "TOPSOIL",
@@ -5807,7 +6138,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3106360883": {
         "name": "TRAITOR'S END",
@@ -5824,7 +6156,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3380242454": {
         "name": "TRANSCENDENCE",
@@ -5851,7 +6184,8 @@
             "zh-Hans": "\u6700\u65e9\u5efa\u6210\u3001\u9632\u5fa1\u6700\u575a\u56fa\u7684\u8d85\u5927\u578b\u5de5\u5382\u3002\u751f\u5316\u4eba\u7684\u6307\u6325\u4e2d\u67a2\u3002\u6467\u6bc1\u6b64\u76ee\u6807\u5c06\u5bfc\u81f4\u654c\u519b\u5728\u751f\u5316\u65af\u5766\u7684\u9632\u7ebf\u5168\u9762\u5d29\u6e83\u3002\u9884\u8ba1\u5c06\u906d\u9047\u6781\u7aef\u62b5\u6297\u3002",
             "zh-Hant": "\u6700\u65e9\u5efa\u9020\u4e14\u9632\u79a6\u6700\u56b4\u5bc6\u7684\u8d85\u7d1a\u5de5\u5ee0\u3002\u751f\u5316\u4eba\u7684\u6307\u63ee\u4e2d\u6a1e\u3002\u82e5\u6467\u6bc0\u6b64\u8655\uff0c\u6575\u8ecd\u5728\u751f\u5316\u65af\u5766\u7684\u9632\u7dda\u5c07\u5168\u9762\u5d29\u6f70\u3002\u9810\u671f\u5c07\u906d\u9047\u6975\u70ba\u9811\u5f37\u7684\u62b5\u6297\u3002"
         },
-        "connections": []
+        "connections": [],
+        "is_factory": true
     },
     "799267053": {
         "name": "TVENNE BOTTOMS",
@@ -5868,7 +6202,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "472831334": {
         "name": "UNANIMITY",
@@ -5885,7 +6220,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1702672301": {
         "name": "UNDERVATTEN",
@@ -5902,7 +6238,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2696938432": {
         "name": "UNGU",
@@ -5919,7 +6256,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "874781515": {
         "name": "UNISON",
@@ -5936,7 +6274,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1475859103": {
         "name": "URSOOT NINE",
@@ -5965,7 +6304,8 @@
         },
         "connections": [
             3380242454
-        ]
+        ],
+        "is_factory": true
     },
     "1230494439": {
         "name": "UTOPIA VAREN",
@@ -5982,7 +6322,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": true
     },
     "2231267715": {
         "name": "VANQUISHMENT",
@@ -5999,7 +6340,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "4237135854": {
         "name": "VAULT CITY",
@@ -6016,7 +6358,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1854961214": {
         "name": "VENERATION",
@@ -6033,7 +6376,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2727770200": {
         "name": "VERVE",
@@ -6050,7 +6394,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1633627715": {
         "name": "VIBRANCY",
@@ -6067,7 +6412,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1411801971": {
         "name": "VICTORY",
@@ -6084,7 +6430,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3550784979": {
         "name": "VILHELMINA DOROTHEA FREDRIKA",
@@ -6101,7 +6448,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3054618608": {
         "name": "VOTER'S FALLOW",
@@ -6118,7 +6466,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3568007842": {
         "name": "VOTING DISTRICT F-012357",
@@ -6135,7 +6484,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3900513024": {
         "name": "V\u00c1HTJER",
@@ -6152,7 +6502,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "983151377": {
         "name": "WALKAWAY",
@@ -6169,7 +6520,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "4099883014": {
         "name": "WALNUT ACRES",
@@ -6186,7 +6538,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1523836342": {
         "name": "WASTEMOUNT",
@@ -6203,7 +6556,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1447639542": {
         "name": "WEST BROKER",
@@ -6220,7 +6574,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1002278606": {
         "name": "WEST MANAGEMENT",
@@ -6237,7 +6592,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "480136851": {
         "name": "WORKHOUSE 239-C",
@@ -6254,7 +6610,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1338066975": {
         "name": "WORKSONG",
@@ -6271,7 +6628,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3540948886": {
         "name": "XIAMEN ANEW",
@@ -6288,7 +6646,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "4087006817": {
         "name": "XIN FUZHOU",
@@ -6305,7 +6664,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2592017616": {
         "name": "XIRAN'S CLAIM",
@@ -6322,7 +6682,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "2140217517": {
         "name": "YATAKHANE 263",
@@ -6339,7 +6700,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "1017291850": {
         "name": "YDINKESKUSTA",
@@ -6356,7 +6718,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "391918492": {
         "name": "YORK SUPREME",
@@ -6383,7 +6746,8 @@
             "zh-Hans": "\u7ea6\u514b\u5927\u7eb7\u4e89\u7ed3\u675f\u540e\uff0c\u4e00\u5ea7\u57ce\u5e02\u529b\u538b\u7fa4\u96c4\uff0c\u8a93\u8981\u7edf\u5fa1\u5176\u4ed6\u7ea6\u514b\u5e02\uff0c\u7ec8\u7ed3\u5f7c\u6b64\u95f4\u7684\u6d41\u8840\u7eb7\u4e89\u3002",
             "zh-Hant": "\u7d93\u6b77\u300c\u5927\u7d04\u514b\u56f0\u5c40\u300d\u5f8c\uff0c\u6709\u5ea7\u57ce\u5e02\u5f37\u52e2\u5d1b\u8d77\uff0c\u8a93\u8981\u638c\u63a7\u4e26\u51cc\u99d5\u65bc\u5176\u4ed6\u7d04\u514b\u57ce\u4e4b\u4e0a\uff0c\u907f\u514d\u6d41\u8840\u885d\u7a81\u518d\u5ea6\u767c\u751f\u3002"
         },
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3647907388": {
         "name": "ZENITH",
@@ -6400,7 +6764,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "3510978126": {
         "name": "ZONE 3",
@@ -6417,7 +6782,8 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     },
     "687069999": {
         "name": "\u00d6DESH\u00d6GRE",
@@ -6434,6 +6800,7 @@
         },
         "description": "",
         "descriptions": {},
-        "connections": []
+        "connections": [],
+        "is_factory": false
     }
 }
