@@ -212,7 +212,7 @@ class Planet(ReprMixin):
 
         @property
         def emoji(self) -> str:
-            if self.is_factory == 1:
+            if self.is_factory == 1 and not self.owner == Factions.humans:
                 return getattr(
                     getattr(Emojis.RegionIcons, self.owner.full_name),
                     f"special{self.size}",
