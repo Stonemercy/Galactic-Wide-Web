@@ -1,5 +1,5 @@
 from traceback import format_exception
-from disnake import AppCmdInter, Color, Embed, MessageInteraction
+from disnake import AppCmdInter, Color, DMChannel, Embed, MessageInteraction
 from disnake.ext import commands
 from utils.bot import GalacticWideWebBot
 from utils.errors import NotReadyYet, NotWhitelisted
@@ -129,7 +129,7 @@ class ErrorHandlerCog(commands.Cog):
         if hasattr(inter, "channel"):
             embed.add_field(
                 name="Channel",
-                value=f"-# {inter.channel.name}\n-# {inter.channel.mention}",
+                value=f"-# {inter.channel.name if inter.channel.type != DMChannel else 'DMs'}\n-# {inter.channel.mention}",
                 inline=False,
             )
 
