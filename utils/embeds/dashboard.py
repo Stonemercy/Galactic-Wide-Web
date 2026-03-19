@@ -2080,8 +2080,15 @@ class Dashboard:
             for campaign in campaigns:
                 field_name = ""
                 field_value = ""
-                if campaign.planet.stats.player_count < (
-                    total_players * max((compact_level * 0.05), 0.05)
+                if (
+                    campaign.planet.stats.player_count
+                    < (total_players * max((compact_level * 0.05), 0.05))
+                ) and (
+                    (
+                        campaign.planet.tracker
+                        and campaign.planet.tracker.change_rate_per_hour < 0.0001
+                    )
+                    or not campaign.planet.tracker
                 ):
                     skipped_campaigns.append(campaign)
                     continue
