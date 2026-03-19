@@ -265,9 +265,9 @@ class GWWGuild(ReprMixin):
     def reset(self) -> None:
         """Reset this entry to default"""
         self.language = "en"
-        for feature_key in self.feature_keys:
-            with connection() as conn:
-                with conn.cursor() as curs:
+        with connection() as conn:
+            with conn.cursor() as curs:
+                for feature_key in self.feature_keys:
                     curs.execute(
                         query=f"DELETE FROM feature.{feature_key} WHERE guild_id = {self.guild_id}"
                     )
