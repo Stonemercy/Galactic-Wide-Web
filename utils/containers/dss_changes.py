@@ -43,7 +43,12 @@ class DSSChangesContainer(ui.Container, ReprMixin):
 
     def _add_regions(self, text_display: ui.TextDisplay, regions: list[Planet.Region]):
         for region in sorted(regions, key=lambda x: x.availability_factor):
-            text_display.content += f"\n-# {region.emoji} {self.json.regions[str(region.type.value)]} **{region.names[self.json.lang_code_long]}**"
+            region_type = (
+                self.json.regions[str(region.type.value)]
+                if not region.is_factory
+                else self.json.regions["megafactory"]
+            )
+            text_display.content += f"\n-# {region.emoji} {region_type} **{region.names[self.json.lang_code_long]}**"
 
     def _add_features(
         self, text_display: ui.TextDisplay, active_effects: set[GalacticWarEffect]
