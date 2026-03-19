@@ -393,7 +393,7 @@ class PlanetRegion(ReprMixin):
     planet_index: int
 
 
-class PlanetRegions(list[PlanetRegion], ReprMixin):
+class PlanetRegions(list[PlanetRegion]):
     def __init__(self):
         with connection() as conn:
             with conn.cursor() as curs:
@@ -415,7 +415,11 @@ class PlanetRegions(list[PlanetRegion], ReprMixin):
                     ),
                 )
                 conn.commit()
-        self.append(region)
+        self.append(
+            PlanetRegion(
+                region.settings_hash, region.owner.full_name, region.planet_index
+            )
+        )
 
     def delete(self, region):
         with connection() as conn:
