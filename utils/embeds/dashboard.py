@@ -1812,7 +1812,10 @@ class Dashboard:
                 if len(set(defence_factions)) > 1:
                     thumbnail = "https://cdn.discordapp.com/attachments/1212735927223590974/1414958449967632466/0x7d2b143494a63666.png?ex=68c1763f&is=68c024bf&hm=9c1978e23c9c7991376201637f004791471d0b7e0968dfec6d1af4d4a6a9ff09&"
                 else:
-                    thumbnail = DEFENCE_EMBED_ICONS.get(defence_factions[0])
+                    thumbnail = DEFENCE_EMBED_ICONS.get(
+                        defence_factions[0],
+                        "https://cdn.discordapp.com/attachments/1212735927223590974/1414958449967632466/0x7d2b143494a63666.png?ex=68c1763f&is=68c024bf&hm=9c1978e23c9c7991376201637f004791471d0b7e0968dfec6d1af4d4a6a9ff09&",
+                    )
                 self.set_thumbnail(thumbnail)
                 for planet in planet_events:
                     match planet.event.type:

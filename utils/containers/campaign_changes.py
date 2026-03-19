@@ -231,7 +231,10 @@ class CampaignChangesContainer(ui.Container, ReprMixin):
                     )
                 ),
                 accessory=ui.Thumbnail(
-                    DEFENCE_EMBED_ICONS[campaign.planet.event.faction.full_name.lower()]
+                    DEFENCE_EMBED_ICONS.get(
+                        campaign.planet.event.faction.full_name.lower(),
+                        "https://cdn.discordapp.com/attachments/1212735927223590974/1414958449967632466/0x7d2b143494a63666.png?ex=68c1763f&is=68c024bf&hm=9c1978e23c9c7991376201637f004791471d0b7e0968dfec6d1af4d4a6a9ff09&",
+                    )
                 ),
             )
             self._add_features(
