@@ -99,7 +99,7 @@ class APIChangesContainer(ui.Container, ReprMixin):
                         case "faction":
                             self.container_components.append(
                                 ui.TextDisplay(
-                                    f"Owner has changed from:\n**{old_stat.full_name}** {old_stat.emoji} {Emojis.Stratagems.right} **{new_stat.full_name}** {old_stat.emoji}"
+                                    f"Owner has changed from:\n**{old_stat.full_name}** {old_stat.emoji} {Emojis.Stratagems.right} **{new_stat.full_name}** {new_stat.emoji}"
                                 )
                             )
                         case "regen_perc_per_hour":
