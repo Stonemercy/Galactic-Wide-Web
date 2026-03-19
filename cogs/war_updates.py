@@ -50,9 +50,7 @@ class WarUpdatesCog(commands.Cog):
                     container=self.bot.json_dict["languages"][lang]["containers"][
                         "CampaignChangesContainer"
                     ],
-                    special_units=self.bot.json_dict["languages"][lang][
-                        "special_units"
-                    ],
+                    subfactions=self.bot.json_dict["languages"][lang]["subfactions"],
                     factions=self.bot.json_dict["languages"][lang]["factions"],
                     regions=self.bot.json_dict["languages"][lang]["regions"],
                 )
@@ -245,8 +243,8 @@ class WarUpdatesCog(commands.Cog):
                         container=self.bot.json_dict["languages"][lang]["containers"][
                             "DSSChangesContainer"
                         ],
-                        special_units=self.bot.json_dict["languages"][lang][
-                            "special_units"
+                        subfactions=self.bot.json_dict["languages"][lang][
+                            "subfactions"
                         ],
                         regions=self.bot.json_dict["languages"][lang]["regions"],
                     )
@@ -376,9 +374,7 @@ class WarUpdatesCog(commands.Cog):
                     container=self.bot.json_dict["languages"][lang]["containers"][
                         "RegionChangesContainer"
                     ],
-                    special_units=self.bot.json_dict["languages"][lang][
-                        "special_units"
-                    ],
+                    subfactions=self.bot.json_dict["languages"][lang]["subfactions"],
                     factions=self.bot.json_dict["languages"][lang]["factions"],
                 )
             )

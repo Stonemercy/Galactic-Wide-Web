@@ -12,7 +12,7 @@ from .modes import GWWBotModes
 from .planet_features import PlanetFeatures
 from .randomiser_data import RandomiserData
 from .region_changes_json import RegionChangesJson
-from .specual_units import SpecialUnits
+from .subfactions import Subfactions
 from .VIPs import VIP
 from .warbond_images import WarbondImages
 
@@ -33,7 +33,7 @@ __all__ = [
     "PlanetFeatures",
     "RandomiserData",
     "RegionChangesJson",
-    "SpecialUnits",
+    "Subfactions",
     "VIP",
     "WarbondImages",
 ]

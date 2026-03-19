@@ -355,8 +355,8 @@
         "Rare Sample": "Échantillon rare",
         "Super Sample": "Super Échantillon"
     },
-    "special_units": {
-        "THE JET BRIGADE": "LA BRIGADE AERIENNE",
+    "subfactions": {
+        "JET BRIGADE": "BRIGADE AERIENNE",
         "PREDATOR STRAIN": "SOUCHE PRÉDATRICE",
         "GLOOM BURSTER STRAIN": "RUCHE PLANETAIRE",
         "INCINERATION CORPS": "UNITE D'INCINÉRATION",
@@ -364,6 +364,8 @@
         "RUPTURE STRAIN": "SOUCHE DES FOUISSEURS",
         "DRAGONROACHES": "DRACOFARDS",
         "HIVE LORDS": "SEIGNEURS DE LA RUCHE",
-        "CYBORGS": "CYBORGS"
+        "CYBORGS": "CYBORGS",
+        "MINDLESS MASSES": "MINDLESS MASSES",
+        "APPROPRIATORS": "APPROPRIATORS"
     }
 }

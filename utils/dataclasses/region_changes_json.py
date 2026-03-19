@@ -5,5 +5,5 @@ from dataclasses import dataclass
 class RegionChangesJson:
     lang_code_long: str
     container: dict
-    special_units: dict
+    subfactions: dict
     factions: dict

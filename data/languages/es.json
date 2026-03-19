@@ -355,8 +355,8 @@
         "Rare Sample": "Muestra Rara",
         "Super Sample": "Súper Muestra"
     },
-    "special_units": {
-        "THE JET BRIGADE": "LA BRIGADA A REACCIÓN",
+    "subfactions": {
+        "JET BRIGADE": "BRIGADA A REACCIÓN",
         "PREDATOR STRAIN": "CEPA PREDATOR",
         "GLOOM BURSTER STRAIN": "CEPA REVENTADORA DE OSCURIDAD",
         "INCINERATION CORPS": "CUERPO DE INCINERACIÓN",
@@ -364,6 +364,8 @@
         "RUPTURE STRAIN": "CEPA RUPTURA",
         "DRAGONROACHES": "CUCARACHAS DRAGÓN",
         "HIVE LORDS": "SEÑORES DE LA COLMENA",
-        "CYBORGS": "CYBORGS"
+        "CYBORGS": "CYBORGS",
+        "MINDLESS MASSES": "MINDLESS MASSES",
+        "APPROPRIATORS": "APPROPRIATORS"
     }
 }

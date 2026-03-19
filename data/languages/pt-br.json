@@ -355,8 +355,8 @@
         "Rare Sample": "Amostras Rara",
         "Super Sample": "Super Amostra"
     },
-    "special_units": {
-        "THE JET BRIGADE": "BRIGADA A JATO",
+    "subfactions": {
+        "JET BRIGADE": "BRIGADA A JATO",
         "PREDATOR STRAIN": "CEPA PREDADORA",
         "GLOOM BURSTER STRAIN": "CEPA ESPORÍFERA",
         "INCINERATION CORPS": "UNIDADES DE INCINERAÇÃO",
@@ -364,6 +364,8 @@
         "RUPTURE STRAIN": "CEPA ROMPEDORA",
         "DRAGONROACHES": "DRACOBARATAS",
         "HIVE LORDS": "SENHORES DOS NINHOS",
-        "CYBORGS": "CYBORGS"
+        "CYBORGS": "CYBORGS",
+        "MINDLESS MASSES": "MINDLESS MASSES",
+        "APPROPRIATORS": "APPROPRIATORS"
     }
 }

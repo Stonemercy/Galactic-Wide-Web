@@ -132,7 +132,7 @@ class Emojis:
         volcanic_activity = "<:s:1368174822722633738>"
 
     @dataclass
-    class SpecialUnits:
+    class Subfactions:
         predator_strain = "<:s:1355905145992646877>"
         jet_brigade = "<:s:1355912552143393039>"
         incineration_corps = "<:s:1355913678704349336>"
@@ -142,6 +142,8 @@ class Emojis:
         dragonroaches = "<:s:1412402344502759425>"
         hive_lords = "<:s:1412402306334457916>"
         cyborgs = "<:s:1467949410573877545>"
+        mindless_masses = "<:s:1483424339251564615>"
+        appropriators = "<:s:1483424341470478389>"
 
     @dataclass
     class PlanetFeatures:

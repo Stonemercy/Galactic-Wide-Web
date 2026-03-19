@@ -1,7 +1,8 @@
 from data.lists import CUSTOM_COLOURS
 from disnake import Colour, ui
-from utils.dataclasses import DSSChangesJson, DSSImages, SpecialUnits, PlanetFeatures
+from utils.dataclasses import DSSChangesJson, DSSImages, PlanetFeatures
 from utils.api_wrapper.models import DSS, GalacticWarEffect, Planet
+from utils.dataclasses.subfactions import Subfaction
 from utils.emojis import Emojis
 from utils.functions import short_format
 from utils.interactables import HDCButton
@@ -32,16 +33,13 @@ class DSSChangesContainer(ui.Container, ReprMixin):
         ]
         self.sections = []
 
-    def _add_special_units(
-        self, text_display: ui.TextDisplay, active_effects: set[GalacticWarEffect]
+    def _add_subfactions(
+        self, text_display: ui.TextDisplay, subfactions: set[Subfaction]
     ):
-        if special_units := SpecialUnits.get_from_effects_list(
-            active_effects=active_effects
-        ):
-            for su_name, su_emoji in special_units:
-                text_display.content += (
-                    f"\n-# {su_emoji} **{self.json.special_units[su_name]}**"
-                )
+        for sf in subfactions:
+            text_display.content += (
+                f"\n-# {sf.emoji} **{self.json.subfactions[sf.eng_name]}**"
+            )
 
     def _add_regions(self, text_display: ui.TextDisplay, regions: list[Planet.Region]):
         for region in sorted(regions, key=lambda x: x.availability_factor):
@@ -95,9 +93,9 @@ class DSSChangesContainer(ui.Container, ReprMixin):
             text_display=section.children[0],
             active_effects=after_planet.active_effects,
         )
-        self._add_special_units(
+        self._add_subfactions(
             text_display=section.children[0],
-            active_effects=after_planet.active_effects,
+            subfactions=after_planet.subfactions,
         )
         self._add_regions(
             text_display=section.children[0],

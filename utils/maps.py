@@ -17,7 +17,7 @@ from datetime import datetime, timedelta
 from numpy import uint8, zeros
 from PIL import Image, ImageDraw, ImageFont
 from utils.api_wrapper.models import Assignment, DSS, Planet
-from utils.dataclasses import Factions, Faction, SpecialUnits
+from utils.dataclasses import Factions, Faction
 from utils.mixins import ReprMixin
 
 DIM_FACTION_COLOURS: dict[str, tuple[int, int, int]] = {
@@ -366,22 +366,22 @@ class Maps:
             loc_name = planet.names.get(long_code, str(planet.index))
             if planet.active_campaign:
                 x_offset = 0
-                for su in SpecialUnits.get_from_effects_list(planet.active_effects):
-                    su_icon = imread(
-                        f"resources/map_icons/{su[0].lower().replace(' ', '_')}_bordered.png",
+                for sf in planet.subfactions:
+                    sf_icon = imread(
+                        f"resources/map_icons/{sf.eng_name.lower().replace(' ', '_')}_bordered.png",
                         IMREAD_UNCHANGED,
                     )
-                    if su_icon is not None:
+                    if sf_icon is not None:
                         self.paste_image(
                             background,
-                            su_icon,
+                            sf_icon,
                             planet.map_waypoints,
                             x_offset=35 + x_offset,
                             y_offset=-(
                                 20 + ((loc_name.count(" ") + 1) * self.TEXT_SIZE)
                             ),
                         )
-                        x_offset += su_icon.shape[0]
+                        x_offset += sf_icon.shape[0]
             if dss and planet.dss_in_orbit:
                 dss_icon = (
                     imread("resources/map_icons/dss_glow.png", IMREAD_UNCHANGED)

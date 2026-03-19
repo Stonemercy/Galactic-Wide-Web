@@ -1,6 +1,7 @@
 from datetime import datetime
+from utils.dataclasses.subfactions import Subfaction
 from ...mixins import ReprMixin
-from ...dataclasses import Faction, Factions, PlanetFeatures, SpecialUnits
+from ...dataclasses import Faction, Factions, PlanetFeatures, Subfactions
 from ...emojis import Emojis
 from .galactic_war import GalacticWarEffect
 from ...trackers import BaseTrackerEntry
@@ -102,15 +103,17 @@ class Planet(ReprMixin):
             result += Emojis.Icons.mo
         if self.dss_in_orbit:
             result += Emojis.DSS.icon
-        for special_unit in SpecialUnits.get_from_effects_list(
-            active_effects=self.active_effects
-        ):
-            result += special_unit[1]
+        for subfactions in self.subfactions:
+            result += subfactions.emoji
         for feature in PlanetFeatures.get_from_effects_list(
             active_effects=self.active_effects
         ):
             result += feature[1]
         return result
+
+    @property
+    def subfactions(self) -> set[Subfaction]:
+        return Subfactions.get_from_effects_list(self.active_effects)
 
     class Event(ReprMixin):
         __slots__ = (

@@ -355,8 +355,8 @@
         "Rare Sample": "Редкий образец",
         "Super Sample": "Суперобразец"
     },
-    "special_units": {
-        "THE JET BRIGADE": "РЕАКТИВНАЯ БРИГАДА",
+    "subfactions": {
+        "JET BRIGADE": "РЕАКТИВНАЯ БРИГАДА",
         "PREDATOR STRAIN": "ШТАММ ХИЩНИК",
         "GLOOM BURSTER STRAIN": "ШТАММ СПОРОВИКОВ",
         "INCINERATION CORPS": "ИСПЕПЕЛЯЮЩИЙ ОТРЯД",
@@ -364,6 +364,8 @@
         "RUPTURE STRAIN": "ПРОРЫВНОЙ ШТАММ",
         "DRAGONROACHES": "ДРАКОРАКАНЫ",
         "HIVE LORDS": "ВЛАСТЕЛИНЫ УЛЬЯ",
-        "CYBORGS": "КИБОРГИ"
+        "CYBORGS": "КИБОРГИ",
+        "MINDLESS MASSES": "MINDLESS MASSES",
+        "APPROPRIATORS": "APPROPRIATORS"
     }
 }

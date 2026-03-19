@@ -16,7 +16,7 @@ from utils.api_wrapper.models import (
     Planet,
 )
 from utils.api_wrapper.formatters.data_formatter import FormattedData
-from utils.dataclasses import AssignmentImages, Factions, SpecialUnits, PlanetFeatures
+from utils.dataclasses import AssignmentImages, Factions, PlanetFeatures
 from utils.dataclasses.factions import Faction
 from utils.emojis import Emojis
 from utils.functions import get_end_time, health_bar, short_format
@@ -1828,9 +1828,9 @@ class Dashboard:
             field_value = ""
 
             field_name += f"{planet.names.get(self.language_json['code_long'], str(planet.index))} {planet.exclamations}"
-            for su in SpecialUnits.get_from_effects_list(planet.active_effects):
+            for sf in planet.subfactions:
                 field_value += (
-                    f"\n-# {su[1]} {self.language_json['special_units'][su[0]]}"
+                    f"\n-# {sf.emoji} {self.language_json['subfactions'][sf.eng_name]}"
                 )
 
             for planet_feature in PlanetFeatures.get_from_effects_list(
@@ -1978,10 +1978,8 @@ class Dashboard:
                         field_name += Emojis.Icons.high_prio_campaign
                     field_value += f"{language_json['embeds']['Dashboard']['AttackEmbed']['heroes']}: **{campaign.planet.stats.player_count:,}**"
 
-                    for su in SpecialUnits.get_from_effects_list(
-                        campaign.planet.active_effects
-                    ):
-                        field_value += f"\n-# {su[1]} {language_json['special_units'].get(su[0], su[0])}"
+                    for sf in campaign.planet.subfactions:
+                        field_value += f"\n-# {sf.emoji} {language_json['subfactions'].get(sf.eng_name, sf.eng_name)}"
 
                     for feature in PlanetFeatures.get_from_effects_list(
                         campaign.planet.active_effects

@@ -1,7 +1,8 @@
 from data.lists import ATTACK_EMBED_ICONS, VICTORY_ICONS, CUSTOM_COLOURS
 from disnake import Colour, ui
 from utils.api_wrapper.models import GalacticWarEffect, Planet
-from utils.dataclasses import PlanetFeatures, RegionChangesJson, SpecialUnits
+from utils.dataclasses import PlanetFeatures, RegionChangesJson
+from utils.dataclasses.subfactions import Subfaction
 from utils.emojis import Emojis
 from utils.interactables import HDCButton
 from utils.mixins import ReprMixin
@@ -35,16 +36,13 @@ class RegionChangesContainer(ui.Container, ReprMixin):
             },
         ]
 
-    def _add_special_units(
-        self, text_display: ui.TextDisplay, active_effects: set[GalacticWarEffect]
+    def _add_subfactions(
+        self, text_display: ui.TextDisplay, subfactions: set[Subfaction]
     ):
-        if special_units := SpecialUnits.get_from_effects_list(
-            active_effects=active_effects
-        ):
-            for su_name, su_emoji in special_units:
-                text_display.content += (
-                    f"\n-# {su_emoji} **{self.container_json.special_units[su_name]}**"
-                )
+        for sf in subfactions:
+            text_display.content += (
+                f"\n-# {sf.emoji} **{self.container_json.subfactions[sf.eng_name]}**"
+            )
 
     def _add_features(
         self, text_display: ui.TextDisplay, active_effects: set[GalacticWarEffect]
@@ -130,9 +128,9 @@ class RegionChangesContainer(ui.Container, ReprMixin):
             text_display=section.children[0],
             active_effects=region.planet.active_effects,
         )
-        self._add_special_units(
+        self._add_subfactions(
             text_display=section.children[0],
-            active_effects=region.planet.active_effects,
+            subfactions=region.planet.subfactions,
         )
         self.victories.append(ui.Separator())
         self.victories.append(section)
@@ -186,9 +184,9 @@ class RegionChangesContainer(ui.Container, ReprMixin):
             text_display=section.children[0],
             active_effects=region.planet.active_effects,
         )
-        self._add_special_units(
+        self._add_subfactions(
             text_display=section.children[0],
-            active_effects=region.planet.active_effects,
+            subfactions=region.planet.subfactions,
         )
 
         self.new_regions.append(ui.Separator())

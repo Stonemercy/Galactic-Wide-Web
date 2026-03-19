@@ -355,8 +355,8 @@
         "Rare Sample": "Seltenes Proben",
         "Super Sample": "Super-Proben"
     },
-    "special_units": {
-        "THE JET BRIGADE": "THE JET BRIGADE",
+    "subfactions": {
+        "JET BRIGADE": "JET BRIGADE",
         "PREDATOR STRAIN": "PREDATOR-STAMM",
         "GLOOM BURSTER STRAIN": "GLOOM BURSTER STRAIN",
         "INCINERATION CORPS": "DAS BRANDKORPS",
@@ -364,6 +364,8 @@
         "RUPTURE STRAIN": "KLUFT-STAMM",
         "DRAGONROACHES": "DRACHENSCHABEN",
         "HIVE LORDS": "SCHWARM-LORDS",
-        "CYBORGS": "CYBORGS"
+        "CYBORGS": "CYBORGS",
+        "MINDLESS MASSES": "MINDLESS MASSES",
+        "APPROPRIATORS": "APPROPRIATORS"
     }
 }

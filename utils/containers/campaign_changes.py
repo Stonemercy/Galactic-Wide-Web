@@ -6,8 +6,9 @@ from data.lists import (
     CUSTOM_COLOURS,
 )
 from disnake import Colour, ui
-from utils.dataclasses import CampaignChangesJson, PlanetFeatures, SpecialUnits
+from utils.dataclasses import CampaignChangesJson, PlanetFeatures
 from utils.api_wrapper.models import Campaign, GalacticWarEffect, Planet
+from utils.dataclasses.subfactions import Subfaction
 from utils.emojis import Emojis
 from utils.interactables import HDCButton
 from utils.mixins import ReprMixin
@@ -47,14 +48,12 @@ class CampaignChangesContainer(ui.Container, ReprMixin):
             },
         ]
 
-    def _add_special_units(
-        self, text_display: ui.TextDisplay, active_effects: set[GalacticWarEffect]
+    def _add_subfactions(
+        self, text_display: ui.TextDisplay, subfactions: set[Subfaction]
     ):
-        for su_name, su_emoji in SpecialUnits.get_from_effects_list(
-            active_effects=active_effects
-        ):
+        for sf in subfactions:
             text_display.content += (
-                f"\n-# {su_emoji} **{self.json.special_units[su_name]}**"
+                f"\n-# {sf.emoji} **{self.json.subfactions[sf.eng_name]}**"
             )
 
     def _add_regions(self, text_display: ui.TextDisplay, regions: list[Planet.Region]):
@@ -149,9 +148,9 @@ class CampaignChangesContainer(ui.Container, ReprMixin):
             text_display=section.children[0],
             active_effects=planet.active_effects,
         )
-        self._add_special_units(
+        self._add_subfactions(
             text_display=section.children[0],
-            active_effects=planet.active_effects,
+            subfactions=planet.subfactions,
         )
         self.victories.append(ui.Separator())
         self.victories.append(section)
@@ -191,9 +190,9 @@ class CampaignChangesContainer(ui.Container, ReprMixin):
             text_display=section.children[0],
             active_effects=planet.active_effects,
         )
-        self._add_special_units(
+        self._add_subfactions(
             text_display=section.children[0],
-            active_effects=planet.active_effects,
+            subfactions=planet.subfactions,
         )
         self.victories.append(ui.Separator())
         self.victories.append(section)
@@ -240,9 +239,9 @@ class CampaignChangesContainer(ui.Container, ReprMixin):
                 active_effects=campaign.planet.active_effects,
             )
 
-            self._add_special_units(
+            self._add_subfactions(
                 text_display=section.children[0],
-                active_effects=campaign.planet.active_effects,
+                subfactions=campaign.planet.subfactions,
             )
 
             self._add_regions(
@@ -295,9 +294,9 @@ class CampaignChangesContainer(ui.Container, ReprMixin):
                 text_display=section.children[0],
                 active_effects=campaign.planet.active_effects,
             )
-            self._add_special_units(
+            self._add_subfactions(
                 text_display=section.children[0],
-                active_effects=campaign.planet.active_effects,
+                subfactions=campaign.planet.subfactions,
             )
             self._add_regions(
                 text_display=section.children[0],
@@ -340,9 +339,9 @@ class CampaignChangesContainer(ui.Container, ReprMixin):
             text_display=section.children[0],
             active_effects=planet.active_effects,
         )
-        self._add_special_units(
+        self._add_subfactions(
             text_display=section.children[0],
-            active_effects=planet.active_effects,
+            subfactions=planet.subfactions,
         )
         self.losses.append(ui.Separator())
         self.losses.append(section)

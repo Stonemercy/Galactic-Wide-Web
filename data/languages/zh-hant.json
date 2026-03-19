@@ -355,8 +355,8 @@
         "Rare Sample": "稀有樣本",
         "Super Sample": "超級樣本"
     },
-    "special_units": {
-        "THE JET BRIGADE": "噴射隊",
+    "subfactions": {
+        "JET BRIGADE": "噴射隊",
         "PREDATOR STRAIN": "掠食者品種",
         "GLOOM BURSTER STRAIN": "幽霾變種",
         "INCINERATION CORPS": "焚燒軍團",
@@ -364,6 +364,8 @@
         "RUPTURE STRAIN": "裂破變種",
         "DRAGONROACHES": "龍蟑",
         "HIVE LORDS": "霸王蟲",
-        "CYBORGS": "生化人"
+        "CYBORGS": "生化人",
+        "MINDLESS MASSES": "MINDLESS MASSES",
+        "APPROPRIATORS": "APPROPRIATORS"
     }
 }

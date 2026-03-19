@@ -355,8 +355,8 @@
         "Rare Sample": "Campione Raro",
         "Super Sample": "Campione Super"
     },
-    "special_units": {
-        "THE JET BRIGADE": "THE JET BRIGADE",
+    "subfactions": {
+        "JET BRIGADE": "JET BRIGADE",
         "PREDATOR STRAIN": "PREDATOR STRAIN",
         "GLOOM BURSTER STRAIN": "GLOOM BURSTER STRAIN",
         "INCINERATION CORPS": "INCINERATION CORPS",
@@ -364,6 +364,8 @@
         "RUPTURE STRAIN": "RUPTURE STRAIN",
         "DRAGONROACHES": "DRAGONROACHES",
         "HIVE LORDS": "HIVE LORDS",
-        "CYBORGS": "CYBORGS"
+        "CYBORGS": "CYBORGS",
+        "MINDLESS MASSES": "MINDLESS MASSES",
+        "APPROPRIATORS": "APPROPRIATORS"
     }
 }
