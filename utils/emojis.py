@@ -142,8 +142,8 @@ class Emojis:
         dragonroaches = "<:s:1412402344502759425>"
         hive_lords = "<:s:1412402306334457916>"
         cyborgs = "<:s:1467949410573877545>"
-        mindless_masses = "<:s:1483424339251564615>"
-        appropriators = "<:s:1483424341470478389>"
+        mindless_masses = "<:s:1483440352701452379>"
+        appropriators = "<:s:1483440351380504586>"
 
     @dataclass
     class PlanetFeatures:
@@ -163,7 +163,7 @@ class Emojis:
         e711_extraction_facility = "<:s:1435280504978018335>"
         cecod = "<:s:1446068780429082744>"
         pandora_base = "<:s:1478444563034013876>"
-        exostorm = "<:s:1484322212935897329>"
+        exostorm = "<:s:1484326498151432355>"
 
     @dataclass
     class Flags:
