@@ -292,6 +292,9 @@ class FormattedData:
                     raw_event_data=planet_event,
                     war_start_timestamp=self.war_start_timestamp,
                 )
+                if planet.event.type == 0:
+                    # urgent liberation
+                    planet.event.faction = planet.faction
 
             for campaign in context.war_status["en"]["campaigns"]:
                 c_planet = self.planets.get(campaign["planetIndex"])

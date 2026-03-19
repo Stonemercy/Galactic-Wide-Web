@@ -1816,12 +1816,122 @@ class Dashboard:
                 self.set_thumbnail(thumbnail)
                 for planet in planet_events:
                     match planet.event.type:
+                        case 0:
+                            # Urgent liberations (not defence)
+                            self.add_event_type_0(planet=planet)
                         case 1:
                             # Regular defence campaign
                             self.add_event_type_1(planet=planet)
                         case _:
                             # Unconfigured campaigns
-                            self.add_unconfigured_event_type()
+                            self.add_unconfigured_event_type(planet=planet)
+
+        def add_event_type_0(self, planet: Planet):
+            # Urgent liberation (not defence)
+            field_name = ""
+            field_value = ""
+
+            field_name += f"{Emojis.Decoration.alert_icon} URGENT LIBERATION {Emojis.Decoration.alert_icon}\n{planet.names.get(self.language_json['code_long'], str(planet.index))} {planet.exclamations}"
+            for sf in planet.subfactions:
+                field_value += (
+                    f"\n-# {sf.emoji} {self.language_json['subfactions'][sf.eng_name]}"
+                )
+
+            for planet_feature in PlanetFeatures.get_from_effects_list(
+                (ae for ae in planet.active_effects if ae.effect_type == 71)
+            ):
+                field_value += f"\n-# {planet_feature[1]} {planet_feature[0]}"
+
+            if (
+                planet.dss_in_orbit
+                and self.eagle_storm
+                and self.eagle_storm.status == 2
+            ):
+                field_value += self.language_json["embeds"]["Dashboard"][
+                    "DefenceEmbed"
+                ]["defence_held_by_dss"]
+
+            field_value += f"\n{self.language_json['ends']} **<t:{int(planet.event.end_time_datetime.timestamp())}:R>**"
+            field_value += f"\n{self.language_json['embeds']['Dashboard']['DefenceEmbed']['invasion_level']} **{planet.event.level}**{planet.event.level_exclamation}"
+
+            calculated_end_time = get_end_time(planet, self.gambit_planets)
+            if calculated_end_time.end_time and (
+                self.now < calculated_end_time.end_time < planet.event.end_time_datetime
+            ):
+                field_value += f"\n{self.language_json['embeds']['Dashboard']['DefenceEmbed']['victory']} **<t:{int(calculated_end_time.end_time.timestamp())}:R>**"
+                if calculated_end_time.gambit_planet:
+                    field_value += f" {self.language_json['embeds']['Dashboard']['DefenceEmbed']['thanks_to_gambit'].format(planet=calculated_end_time.gambit_planet.names.get(self.language_json['code_long'], str(calculated_end_time.gambit_planet.index)))}"
+                elif calculated_end_time.regions:
+                    regions_list = f"\n-# ".join(
+                        [
+                            f" {r.emoji} {r.names.get(self.language_json['code_long'], r.name)}"
+                            for r in calculated_end_time.regions
+                        ]
+                    )
+                    field_value += self.language_json["embeds"]["Dashboard"][
+                        "DefenceEmbed"
+                    ]["if_region_lib"].format(regions_list=regions_list)
+            elif planet.tracker and planet.tracker.change_rate_per_hour > 0:
+                field_value += f"\n**{self.language_json['embeds']['Dashboard']['DefenceEmbed']['loss']}**"
+                if planet.index in self.gambit_planets and planet.event.progress < 0.5:
+                    gambit_planet = self.gambit_planets[planet.index]
+                    field_value += f"\n-# :chess_pawn: **{gambit_planet.names.get(self.language_json['code_long'], str(gambit_planet.index))}** {self.language_json['embeds']['Dashboard']['DefenceEmbed']['gambit']}"
+
+            field_value += f"\n{self.language_json['embeds']['Dashboard']['DefenceEmbed']['heroes']}: **{planet.stats.player_count:,}**"
+            if self.compact_level < 1:
+                field_value += f"\n{planet.health_bar}"
+            field_value += f"\n`{planet.event.progress:^25.2%}`"
+            if planet.tracker and planet.tracker.change_rate_per_hour > 0:
+                change = f"{planet.tracker.change_rate_per_hour:+.2%}/hr"
+                field_value += f"\n`{change:^25}`"
+
+            for region in sorted(
+                planet.regions.values(), key=lambda x: x.availability_factor
+            ):
+                if region.is_available:
+                    field_value += f"\n-# ↳ {region.emoji} {self.language_json['regions'][str(region.type.value)]} **{region.names[self.language_json['code_long']]}** - {region.perc:.0%}"
+                    if (
+                        self.compact_level < 2
+                        and region.tracker
+                        and region.tracker.change_rate_per_hour != 0
+                    ):
+                        field_value += (
+                            f" **{region.tracker.change_rate_per_hour:+.1%}**/hr"
+                        )
+                else:
+                    now_seconds = int(datetime.now().timestamp())
+                    event_progression = (
+                        now_seconds - planet.event.start_time_datetime.timestamp()
+                    ) / (
+                        planet.event.end_time_datetime.timestamp()
+                        - planet.event.start_time_datetime.timestamp()
+                    )
+                    if (
+                        region.availability_factor > event_progression
+                        and region.owner != Factions.humans
+                        and self.compact_level < 2
+                    ):
+                        region_avail_datetime = datetime.fromtimestamp(
+                            now_seconds
+                            + (
+                                (
+                                    (region.availability_factor - event_progression)
+                                    / (1 - event_progression)
+                                )
+                                * (
+                                    planet.event.end_time_datetime.timestamp()
+                                    - now_seconds
+                                )
+                            )
+                        )
+                        if (
+                            calculated_end_time.end_time
+                            and region_avail_datetime < calculated_end_time.end_time
+                        ):
+                            field_value += f"\n-# ↳ {region.emoji} {self.language_json['regions'][str(region.type.value)]} **{region.names[self.language_json['code_long']]}** - {self.language_json['embeds']['Dashboard']['DefenceEmbed']['available']} <t:{int(region_avail_datetime.timestamp())}:R>"
+                        break
+
+            self.add_field(field_name, field_value, inline=False)
 
         def add_event_type_1(self, planet: Planet):
             field_name = ""
