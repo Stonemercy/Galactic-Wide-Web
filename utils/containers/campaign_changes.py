@@ -142,7 +142,9 @@ class CampaignChangesContainer(ui.Container, ReprMixin):
                     faction_name=self.json.factions[f"{taken_from}_plural"],
                 )
             ),
-            accessory=ui.Thumbnail(VICTORY_ICONS[taken_from.lower()]),
+            accessory=ui.Thumbnail(
+                VICTORY_ICONS.get(taken_from.lower(), VICTORY_ICONS["default"])
+            ),
         )
         self._add_features(
             text_display=section.children[0],
@@ -178,7 +180,9 @@ class CampaignChangesContainer(ui.Container, ReprMixin):
                     faction_name=self.json.factions[f"{defended_against}_plural"],
                 )
             ),
-            accessory=ui.Thumbnail(VICTORY_ICONS[defended_against.lower()]),
+            accessory=ui.Thumbnail(
+                VICTORY_ICONS.get(defended_against.lower(), VICTORY_ICONS["default"])
+            ),
         )
         if hours_remaining != 0:
             section.children[0].content += self.json.container[
@@ -233,7 +237,7 @@ class CampaignChangesContainer(ui.Container, ReprMixin):
                 accessory=ui.Thumbnail(
                     DEFENCE_EMBED_ICONS.get(
                         campaign.planet.event.faction.full_name.lower(),
-                        "https://cdn.discordapp.com/attachments/1212735927223590974/1414958449967632466/0x7d2b143494a63666.png?ex=68c1763f&is=68c024bf&hm=9c1978e23c9c7991376201637f004791471d0b7e0968dfec6d1af4d4a6a9ff09&",
+                        DEFENCE_EMBED_ICONS["default"],
                     )
                 ),
             )
@@ -290,7 +294,10 @@ class CampaignChangesContainer(ui.Container, ReprMixin):
                     )
                 ),
                 accessory=ui.Thumbnail(
-                    ATTACK_EMBED_ICONS[campaign.faction.full_name.lower()]
+                    ATTACK_EMBED_ICONS.get(
+                        campaign.faction.full_name.lower(),
+                        ATTACK_EMBED_ICONS["default"],
+                    )
                 ),
             )
             self._add_features(
@@ -336,7 +343,9 @@ class CampaignChangesContainer(ui.Container, ReprMixin):
                     ],
                 )
             ),
-            accessory=ui.Thumbnail(LOSS_ICONS[planet.faction.full_name.lower()]),
+            accessory=ui.Thumbnail(
+                LOSS_ICONS.get(planet.faction.full_name.lower(), LOSS_ICONS["default"])
+            ),
         )
         self._add_features(
             text_display=section.children[0],

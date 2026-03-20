@@ -5,6 +5,7 @@ from data.lists import (
     ATTACK_EMBED_ICONS,
     DEFENCE_EMBED_ICONS,
     HOMEWORLD_ICONS,
+    URGENT_ICONS,
 )
 from disnake import Colour, Embed
 from utils.api_wrapper.models import (
@@ -1809,12 +1810,18 @@ class Dashboard:
                 defence_factions = [
                     p.event.faction.full_name.lower() for p in planet_events
                 ]
-                if len(set(defence_factions)) > 1:
-                    thumbnail = "https://cdn.discordapp.com/attachments/1212735927223590974/1414958449967632466/0x7d2b143494a63666.png?ex=68c1763f&is=68c024bf&hm=9c1978e23c9c7991376201637f004791471d0b7e0968dfec6d1af4d4a6a9ff09&"
+                if all([p.event.type == 0 for p in planet_events]):
+                    dict_to_use = URGENT_ICONS
+                    self.title = f"Urgent Liberations{total_players_doing_defence}"
                 else:
-                    thumbnail = DEFENCE_EMBED_ICONS.get(
-                        defence_factions[0],
-                        "https://cdn.discordapp.com/attachments/1212735927223590974/1414958449967632466/0x7d2b143494a63666.png?ex=68c1763f&is=68c024bf&hm=9c1978e23c9c7991376201637f004791471d0b7e0968dfec6d1af4d4a6a9ff09&",
+                    dict_to_use = DEFENCE_EMBED_ICONS
+                    if any([p.event.type == 0 for p in planet_events]):
+                        self.title = f"Urgent Liberations and " + self.title
+                if len(set(defence_factions)) > 1:
+                    thumbnail = dict_to_use["default"]
+                else:
+                    thumbnail = dict_to_use.get(
+                        defence_factions[0], dict_to_use["default"]
                     )
                 self.set_thumbnail(thumbnail)
                 for planet in planet_events:
@@ -2070,7 +2077,9 @@ class Dashboard:
                     *Factions.get_from_identifier(name=faction).colour
                 ),
             )
-            self.set_thumbnail(ATTACK_EMBED_ICONS[faction.lower()])
+            self.set_thumbnail(
+                ATTACK_EMBED_ICONS.get(faction.lower(), ATTACK_EMBED_ICONS["default"])
+            )
             total_players_doing_faction = (
                 sum(campaign.planet.stats.player_count for campaign in campaigns)
                 / total_players

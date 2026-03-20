@@ -115,13 +115,14 @@ class RegionChangesContainer(ui.Container, ReprMixin):
                 )
             ),
             accessory=ui.Thumbnail(
-                VICTORY_ICONS[
+                VICTORY_ICONS.get(
                     (
                         region.planet.faction.full_name.lower()
                         if not region.planet.event
                         else region.planet.event.faction.full_name.lower()
-                    )
-                ]
+                    ),
+                    VICTORY_ICONS["default"],
+                )
             ),
         )
         self._add_features(
@@ -165,13 +166,14 @@ class RegionChangesContainer(ui.Container, ReprMixin):
                 )
             ),
             accessory=ui.Thumbnail(
-                ATTACK_EMBED_ICONS[
+                ATTACK_EMBED_ICONS.get(
                     (
                         region.planet.faction.full_name.lower()
                         if not region.planet.event
                         else region.planet.event.faction.full_name.lower()
-                    )
-                ]
+                    ),
+                    ATTACK_EMBED_ICONS["default"],
+                )
             ),
         )
         if region.description:
