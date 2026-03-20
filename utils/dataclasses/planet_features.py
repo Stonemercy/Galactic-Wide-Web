@@ -44,7 +44,10 @@ class PlanetFeatures:
         ): {1342},
         ("PANDORA BASE", Emojis.PlanetFeatures.pandora_base): {1344},
         ("CONVENTIONAL BLACK HOLE", Emojis.PlanetFeatures.black_hole): {1352},
-        ("EXOSTORM", Emojis.PlanetFeatures.exostorm): {1373},
+        ("CLASS 1 EXOSTORM", Emojis.PlanetFeatures.exostorm): {1373},
+        ("CLASS 2 EXOSTORM", Emojis.PlanetFeatures.exostorm): {1374},
+        ("CLASS 3 EXOSTORM", Emojis.PlanetFeatures.exostorm): {1375},
+        ("CLASS 4 EXOSTORM", Emojis.PlanetFeatures.exostorm): {1376},
     }
 
     @classmethod
