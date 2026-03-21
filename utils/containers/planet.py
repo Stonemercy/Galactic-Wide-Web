@@ -97,7 +97,7 @@ class PlanetContainers(list[ui.Container]):
                                     f"# {planet.faction.emoji} {planet.names.get(self.lang_code, planet.index)} {planet.exclamations}"
                                     f"\n{component_json['sector']}: **{planet.sector}**"
                                     f"\n{component_json['owner']}: **{factions_json[planet.faction.full_name]}**{planet.faction.emoji}"
-                                    f"\n{planet.description}"
+                                    f"\n-# {planet.description}"
                                 )
                             ),
                             accessory=WikiButton(
