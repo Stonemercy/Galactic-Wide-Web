@@ -4,6 +4,8 @@
 planetRegionsBACKUP.json
 stratagems_backup.json
 resources/maps/*_map.webp
+data/json/strings.json
+data/json/planets/planetBACKUP.json
 
 ## Of a type
 *.code-workspace
