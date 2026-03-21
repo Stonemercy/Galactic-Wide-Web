@@ -331,9 +331,9 @@
         "Terminids": "Terminídios",
         "Automaton": "Autômatos",
         "Illuminate": "Iluminados",
-        "Terminids_plural": "Terminids",
-        "Automaton_plural": "Automaton",
-        "Illuminate_plural": "Illuminate"
+        "Terminids_plural": "Terminidíos",
+        "Automaton_plural": "Autômatos",
+        "Illuminate_plural": "Iluminados"
     },
     "difficulty": {
         "1": "Trivial.",
@@ -351,8 +351,8 @@
         "Unknown Item": "Item desconhecido",
         "Medal": "Medalha",
         "Requisition Slip": "Fichas de Requisição",
-        "Common Sample": "Amostras Comun",
-        "Rare Sample": "Amostras Rara",
+        "Common Sample": "Amostra Comum",
+        "Rare Sample": "Amostra Rara",
         "Super Sample": "Super Amostra"
     },
     "subfactions": {
@@ -364,7 +364,7 @@
         "RUPTURE STRAIN": "CEPA ROMPEDORA",
         "DRAGONROACHES": "DRACOBARATAS",
         "HIVE LORDS": "SENHORES DOS NINHOS",
-        "CYBORGS": "CYBORGS",
+        "CYBORGS": "CIBORGUES",
         "MINDLESS MASSES": "MINDLESS MASSES",
         "APPROPRIATORS": "APPROPRIATORS"
     }
