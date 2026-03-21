@@ -4,6 +4,7 @@ def arrowhead_format(text: str):
         "<I=1>",
         "<i=3>",
         "</i>",
+        "</I>",
         "</i=1>",
         "<i=1",
         "</i=3>",
