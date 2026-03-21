@@ -26,6 +26,7 @@ json_dict = {
         "path": "data/json/effects/galactic_war_effects/effect_types.json",
         "value": None,
     },
+    "strings": {"path": "data/json/strings.json", "value": None},
 }
 
 CUSTOM_COLOURS = {

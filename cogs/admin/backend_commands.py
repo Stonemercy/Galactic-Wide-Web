@@ -14,7 +14,7 @@ class BackendCommandsCog(commands.Cog):
             return []
         id_list = sorted(
             [
-                f"{i.id}-{i.effect_description['name']}"
+                f"{i.id}-{i.name or i.effect_description['name']}"
                 for i in inter.bot.data.formatted_data.war_effects.values()
             ],
             key=lambda x: int(x.split("-")[0]),

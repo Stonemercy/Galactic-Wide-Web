@@ -36,7 +36,7 @@ class APIChangesContainer(ui.Container, ReprMixin):
                     ]:
                         content += "\n### Galactic Effects Removed ❌"
                         for gwe in effects_removed:
-                            content += f"\n {gwe.pretty_print()}"
+                            content += f"\n {gwe.id}"
                     if effects_added := [
                         gwe
                         for id, gwe in api_change.new_object.items()
@@ -44,7 +44,7 @@ class APIChangesContainer(ui.Container, ReprMixin):
                     ]:
                         content += "\n### Galactic Effects Added :white_check_mark:"
                         for gwe in effects_added:
-                            content += f"\n {gwe.pretty_print()}"
+                            content += f"\n {gwe.id}"
                     if effects_removed or effects_added:
                         self.container_components.append(ui.TextDisplay(content))
                 case "Planet":
@@ -124,7 +124,7 @@ class APIChangesContainer(ui.Container, ReprMixin):
                                 for gwe in effects_removed:
                                     self.container_components.append(
                                         ui.TextDisplay(
-                                            f"### Effect __removed__ ❌\n{gwe.pretty_print()}"
+                                            f"### Effect __removed__ ❌\n{gwe.id}"
                                         )
                                     )
 
@@ -134,7 +134,7 @@ class APIChangesContainer(ui.Container, ReprMixin):
                                 for gwe in effects_added:
                                     self.container_components.append(
                                         ui.TextDisplay(
-                                            f"### Effect __added__ :white_check_mark:\n{gwe.pretty_print()}"
+                                            f"### Effect __added__ :white_check_mark:\n{gwe.id}"
                                         )
                                     )
                         case "sector":

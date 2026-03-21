@@ -96,12 +96,15 @@ class GalacticWarEffect(GWEReprMixin):
         "effect_type",
         "flags",
         "name_hash",
+        "name",
         "fluff_description_hash",
+        "fluff_description",
         "long_description_hash",
+        "long_description",
         "short_description_hash",
+        "short_description",
         "values_dict",
         "effect_description",
-        "planet_effect",
         "count",
         "percent",
         "faction",
@@ -118,10 +121,22 @@ class GalacticWarEffect(GWEReprMixin):
         "planet_body_type",
         "value15",
         "resource_hash",
+        "resource",
     )
 
     def __init__(self, gwa: dict, json_dict: dict) -> None:
         """Organised data for a galactic war effect"""
+        self.count = self.percent = self.faction = self.mix_id = self.value5 = (
+            self.DEPRECATED_enemy_group
+        ) = self.DEPRECATED_item_package = self.value8 = self.value9 = (
+            self.reward_multiplier_id
+        ) = self.value11 = self.item_tag = self.hash_id = self.planet_body_type = (
+            self.value15
+        ) = self.resource_hash = self.found_enemy = self.found_stratagem = (
+            self.found_booster
+        ) = self.fluff_description = self.name = self.long_description = (
+            self.short_description
+        ) = self.resource = None
         self.id: int = gwa["id"]
         self.gameplay_effect_id32: int = gwa["gameplayEffectId32"]
         self.effect_type: int = gwa["effectType"]
@@ -135,28 +150,10 @@ class GalacticWarEffect(GWEReprMixin):
             str(gwa["effectType"]),
             {"name": "UNKNOWN", "simplified_name": "", "description": ""},
         )
-        self.planet_effect: dict | None = json_dict["planet_effects"].get(
-            str(self.id),
-            {
-                "name": f"UNKNOWN [{self.id}]",
-                "description_long": "",
-                "description_short": "",
-            },
-        )
-        self.count = self.percent = self.faction = self.mix_id = self.value5 = (
-            self.DEPRECATED_enemy_group
-        ) = self.DEPRECATED_item_package = self.value8 = self.value9 = (
-            self.reward_multiplier_id
-        ) = self.value11 = self.item_tag = self.hash_id = self.planet_body_type = (
-            self.value15
-        ) = self.resource_hash = self.found_enemy = self.found_stratagem = (
-            self.found_booster
-        ) = None
-
         if count := self.values_dict.get(1):
-            self.count: int | float = count
+            self.count: int | float = abs(count)
         if percent := self.values_dict.get(2):
-            self.percent: int | float = percent
+            self.percent: int | float = abs(percent)
         if faction := self.values_dict.get(3):
             self.faction: Faction | None = Factions.get_from_identifier(number=faction)
         if mix_id := self.values_dict.get(4):
@@ -202,6 +199,35 @@ class GalacticWarEffect(GWEReprMixin):
             self.resource_hash = resource_hash
             if enemy := json_dict["enemy_ids"].get(str(self.resource_hash), None):
                 self.found_enemy = enemy
+
+        if self.name_hash:
+            self.name = json_dict["strings"].get(str(self.name_hash))
+        if self.fluff_description_hash:
+            self.fluff_description = json_dict["strings"].get(
+                str(self.fluff_description_hash)
+            )
+        if self.long_description_hash:
+            self.long_description = json_dict["strings"].get(
+                str(self.long_description_hash)
+            )
+        if self.short_description_hash:
+            short_desc = json_dict["strings"].get(str(self.short_description_hash))
+            if short_desc:
+                value = iter(
+                    [
+                        self.count,
+                        self.percent,
+                        self.found_booster,
+                        self.found_enemy,
+                        self.found_stratagem,
+                    ]
+                )
+                short_desc = arrowhead_format(short_desc)
+                if "#V_ONE" in short_desc:
+                    short_desc = short_desc.replace("#V_ONE", str(next(value)))
+                if "#V_TWO" in short_desc:
+                    short_desc = short_desc.replace("#V_TWO", str(next(value)))
+                self.short_description = short_desc
 
     def __hash__(self):
         return hash((self.id))

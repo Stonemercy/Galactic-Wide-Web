@@ -1,6 +1,7 @@
 from data.lists import CUSTOM_COLOURS, STRATAGEM_IMAGE_LINKS
 from disnake import Colour, ui
 from utils.api_wrapper.models import GlobalEvent, Planet
+from utils.dataclasses import Subfactions
 from utils.mixins import ReprMixin
 
 
@@ -24,40 +25,44 @@ class GlobalEventsContainer(ui.Container, ReprMixin):
                 spec_planets_list = [
                     planets.get(index) for index in global_event.planet_indices
                 ]
-                specific_planets = "\n-# " + "\n- ".join(
+                specific_planets = "\n-# - " + "\n- ".join(
                     [
                         p.names.get(lang_code, str(p.index))
                         for p in spec_planets_list
                         if p
                     ]
                 )
-            for effect in global_event.effects:
-                if "UNKNOWN" in effect.planet_effect["name"]:
-                    text_display.content += f"\nUNKNOWN effect (ID {effect.id})\n{effect.effect_description['simplified_name']}{container_json['active_on_planets'].format(planets=specific_planets)}"
-                    if effect.found_enemy:
-                        text_display.content += f"\n{container_json['enemy_identified']}: {effect.found_enemy}"
-                    if effect.found_stratagem:
-                        text_display.content += f"\n{container_json['strat_identified']}: {effect.found_stratagem}"
-                    if effect.found_booster:
-                        text_display.content += f"\n{container_json['booster_identified']}: {effect.found_booster['name']}"
-                else:
-                    text_display.content += f"\n{effect.planet_effect['name']}"
-                    if effect.planet_effect["description_long"]:
-                        text_display.content += (
-                            f"\n-# {effect.planet_effect['description_long']}"
-                        )
-                    if effect.planet_effect["description_short"]:
-                        if effect.effect_type == 32:
-                            if effect.found_stratagem:
-                                effect.planet_effect["description_short"] = (
-                                    effect.planet_effect["description_short"].replace(
-                                        "#V_ONE", effect.found_stratagem
-                                    )
-                                )
-                        text_display.content += (
-                            f"\n-# {effect.planet_effect['description_short']}"
-                        )
-                    text_display.content += f"{container_json['active_on_planets'].format(planets=specific_planets)}"
+            for index, effect in enumerate(global_event.effects, start=1):
+                text_display.content += (
+                    f"\n### Effect **#{index}**\n    ID: **{effect.id}**"
+                )
+                if effect.name:
+                    text_display.content += f"\n    **{effect.name}**"
+                if effect.short_description:
+                    text_display.content += f"\n-#    {effect.short_description}"
+                if not effect.name and not effect.short_description:
+                    text_display.content += (
+                        f"\n    {effect.effect_description['simplified_name']}"
+                    )
+                if effect.found_booster:
+                    text_display.content += (
+                        f"\n    Booster: **{effect.found_booster['name']}**"
+                    )
+                if effect.found_stratagem:
+                    text_display.content += (
+                        f"\n    Stratagem: **{effect.found_stratagem}**"
+                    )
+                if effect.found_enemy:
+                    text_display.content += f"\n    Enemy: **{effect.found_enemy}**"
+                    if subfactions := [
+                        sf
+                        for sf in Subfactions._all
+                        if sf.eng_name.lower() == effect.found_enemy.lower()
+                    ]:
+                        sf = subfactions[0]
+                        text_display.content += sf.emoji
+            text_display.content += f"\n### Effects added to:{specific_planets}"
+
         else:
             for chunk in global_event.split_message:
                 text_display.content += f"\n{chunk}"
@@ -97,7 +102,7 @@ class GlobalEventCommandContainer(ui.Container):
                     "https://cdn.discordapp.com/attachments/1212735927223590974/1422512588973015081/0xa92d559bf3ae174.png?ex=692eae96&is=692d5d16&hm=1a6a92832ea0b6746ec96b5cc6c6c7894be3d5bc828a8d23a89e16782947c481&"
                 ),
             )
-            text: str = effect.effect_description["format_desc"]
+            text: str = effect.effect_description.get("format_desc", "")
 
             if (
                 effect.percent

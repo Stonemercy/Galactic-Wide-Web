@@ -1,5 +1,6 @@
 from disnake import Colour, ui
 from utils.api_wrapper.models import GalacticWarEffect, Planet
+from utils.dataclasses import Subfactions
 from utils.mixins import ReprMixin
 
 
@@ -16,9 +17,28 @@ class GWEContainer(ui.Container, ReprMixin):
         components.append(
             ui.TextDisplay(f"{gwe.id} - {gwe.effect_description['simplified_name']}")
         )
+        if gwe.name:
+            components.append(ui.TextDisplay(f"{gwe.name}"))
+        if gwe.short_description:
+            components.append(ui.TextDisplay(f"{gwe.short_description}"))
+        if gwe.long_description:
+            components.append(ui.TextDisplay(f"{gwe.long_description}"))
+        if gwe.fluff_description:
+            components.append(ui.TextDisplay(f"{gwe.fluff_description}"))
+        if gwe.resource:
+            components.append(ui.TextDisplay(f"{gwe.resource}"))
 
         if gwe.found_enemy:
-            components.append(ui.TextDisplay(f"ENEMY DETECTED - **{gwe.found_enemy}**"))
+            enemy = str(gwe.found_enemy)
+            subfaction = [
+                sf for sf in Subfactions._all if sf.eng_name.lower() == enemy.lower()
+            ]
+            if subfaction:
+                sf = subfaction[0]
+                enemy_text = f"**{sf.eng_name}** {sf.emoji}"
+            else:
+                enemy_text = f"**{gwe.found_enemy}**"
+            components.append(ui.TextDisplay(f"ENEMY DETECTED - {enemy_text}"))
 
         if gwe.found_stratagem:
             components.append(
@@ -29,14 +49,6 @@ class GWEContainer(ui.Container, ReprMixin):
             components.append(
                 ui.TextDisplay(f"BOOSTER DETECTED - **{gwe.found_booster['name']}**")
             )
-
-        if gwe.count:
-            word = "INCREASED" if gwe.count > 0 else "DECREASED"
-            components.append(ui.TextDisplay(f"{word} BY {gwe.count}"))
-
-        if gwe.percent != None:
-            word = "INCREASED" if gwe.percent > 0 else "DECREASED"
-            components.append(ui.TextDisplay(f"{word} BY {gwe.percent}%"))
 
         active_planets = ""
         if type(planets_with_gwe) == str:

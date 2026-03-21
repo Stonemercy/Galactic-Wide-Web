@@ -55,7 +55,9 @@ class GlobalEventsCog(commands.Cog):
                 containers = {
                     lang: [
                         GlobalEventsContainer(
-                            lang_code=lang,
+                            lang_code=self.bot.json_dict["languages"][lang][
+                                "code_long"
+                            ],
                             container_json=self.bot.json_dict["languages"][lang][
                                 "containers"
                             ]["GlobalEventsContainer"],
