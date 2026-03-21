@@ -65,7 +65,7 @@ class APIChangesContainer(ui.Container, ReprMixin):
                         case "position":
                             self.container_components.append(
                                 ui.TextDisplay(
-                                    f"Planet has moved from:\n**{old_stat}** {Emojis.Stratagems.right} **{new_stat}**"
+                                    f"Planet has moved from:\n**{old_stat['x']}, {old_stat['y']}** {Emojis.Stratagems.right} **{new_stat['x']}, {new_stat['y']}**"
                                 )
                             )
                         case "waypoints":
