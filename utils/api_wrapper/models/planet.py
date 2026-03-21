@@ -97,7 +97,7 @@ class Planet(ReprMixin):
     @property
     def exclamations(self) -> str:
         result = ""
-        if self.event:
+        if self.event and self.event.type != 0:
             result += f":shield:{self.event.faction.emoji}"
         if self.in_assignment:
             result += Emojis.Icons.mo
