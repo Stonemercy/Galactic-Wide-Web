@@ -1252,6 +1252,10 @@ class Dashboard:
                 f"\n{task.health_bar}"
                 f"\n`{task.progress_perc:^25.1%}`"
             )
+            if task.planet_index and task.target == 1:
+                planet = self.planets.get(task.planet_index)
+                if planet and planet.event and planet.event.type != 0:
+                    field_value = ""
 
             if self.assignment.flags in (2, 3):
                 task_index = self.assignment.tasks.index(task)
