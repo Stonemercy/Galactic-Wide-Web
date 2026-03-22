@@ -33,7 +33,7 @@ class Planet(ReprMixin):
         self.position: dict = raw_planet_info["position"]
         self.waypoints: list[int] = raw_planet_info["waypoints"]
         self._sector = raw_planet_info["sector"]
-        self.sector: int = sectors_json.get(str(raw_planet_info["sector"]))
+        self.sector: str = sectors_json.get(str(raw_planet_info["sector"]), "UNKNOWN")
         self.dss_in_orbit: bool = False
         self.active_campaign: bool = False
         self.eagle_storm_active: bool = False
