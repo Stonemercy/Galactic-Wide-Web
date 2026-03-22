@@ -571,6 +571,11 @@ class FormattedData:
                         connected_region = connected_region_list[0]
                         region.connections.append(connected_region)
 
+            for ge in self.global_events.get("en", []):
+                if ge.effects and ge.planet_indices:
+                    for planet in (self.planets.get(i) for i in ge.planet_indices):
+                        planet.active_effects.update(set(ge.effects))
+
         self.formatted_at = datetime.now()
 
     def copy(self):
