@@ -39,7 +39,7 @@ class GlobalEventsContainer(ui.Container, ReprMixin):
                 if effect.name:
                     text_display.content += f"\n    **{effect.name}**"
                 if effect.short_description:
-                    text_display.content += f"\n-#    {effect.short_description}"
+                    text_display.content += f"\n    {effect.short_description}"
                 if not effect.name and not effect.short_description:
                     text_display.content += (
                         f"\n    {effect.effect_description['simplified_name']}"
