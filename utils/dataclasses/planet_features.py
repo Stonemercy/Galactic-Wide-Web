@@ -47,7 +47,7 @@ class PlanetFeatures:
         ("CLASS 1 EXOSTORM", Emojis.PlanetFeatures.exostorm): {1373},
         ("CLASS 2 EXOSTORM", Emojis.PlanetFeatures.exostorm): {1374},
         ("CLASS 3 EXOSTORM", Emojis.PlanetFeatures.exostorm): {1375},
-        ("CLASS 4 EXOSTORM", Emojis.PlanetFeatures.exostorm): {1376},
+        ("VOID", Emojis.PlanetFeatures.void): {1376},
     }
 
     @classmethod

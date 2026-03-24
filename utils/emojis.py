@@ -163,7 +163,7 @@ class Emojis:
         e711_extraction_facility = "<:s:1435280504978018335>"
         cecod = "<:s:1446068780429082744>"
         pandora_base = "<:s:1478444563034013876>"
-        exostorm = "<:s:1484326498151432355>"
+        void = "<:s:1486057474220884179>"
 
     @dataclass
     class Flags:
