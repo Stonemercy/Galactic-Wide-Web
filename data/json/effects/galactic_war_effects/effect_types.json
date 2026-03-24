@@ -257,6 +257,11 @@
     "94": {
         "name": "game_ModifierEffect",
         "simplified_name": "Modifier Effect",
-        "format_desc": "Collection of game-client value overrides, enabled by id32"
+        "format_desc": "Collection of game-client value overrides"
+    },
+    "95": {
+        "name": "Unknown",
+        "simplified_name": "Unknown effect",
+        "format_desc": ""
     }
 }
