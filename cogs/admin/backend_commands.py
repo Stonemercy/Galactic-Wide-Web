@@ -1,8 +1,11 @@
+from json import loads
 from disnake import AppCmdInter, ApplicationInstallTypes, InteractionContextTypes
 from disnake.ext import commands
 from main import GalacticWideWebBot
+from utils.api_wrapper.models import Assignment
 from utils.checks import is_whitelisted, wait_for_startup
 from utils.containers import GlobalEventsContainer, GWEContainer
+from utils.embeds import Dashboard
 
 
 class BackendCommandsCog(commands.Cog):
@@ -194,6 +197,44 @@ class BackendCommandsCog(commands.Cog):
             await inter.send(
                 "Couldn't find that event, sorry :pensive:", ephemeral=public != "Yes"
             )
+
+    @wait_for_startup()
+    @is_whitelisted()
+    @commands.slash_command(
+        description="Check some Major Order json",
+        install_types=ApplicationInstallTypes.all(),
+        contexts=InteractionContextTypes.all(),
+    )
+    async def pmajor_order(
+        self,
+        inter: AppCmdInter,
+        json: str,
+        public: str = commands.Param(
+            choices=["Yes", "No"],
+            description="If you want the response to be seen by others",
+            default="No",
+        ),
+    ) -> None:
+        await inter.response.defer(ephemeral=public != "Yes")
+        try:
+            json_parsed = loads(json)
+            if isinstance(json_parsed, list):
+                json_parsed = json_parsed[0]
+        except Exception as e:
+            await inter.send(f"```py\n{e}\n```", ephemeral=public != True)
+            return
+        major_order = Assignment(
+            raw_assignment_data=json_parsed,
+            war_start_timestamp=self.bot.data.formatted_data.war_start_timestamp,
+        )
+        embed = Dashboard.MajorOrderEmbed(
+            assignment=major_order,
+            planets=self.bot.data.formatted_data.planets,
+            gambit_planets=self.bot.data.formatted_data.gambit_planets,
+            language_json=self.bot.json_dict["languages"]["en"],
+            json_dict=self.bot.json_dict,
+        )
+        await inter.send(embed=embed, ephemeral=public != "Yes")
 
 
 def setup(bot: GalacticWideWebBot) -> None:

@@ -10,20 +10,21 @@ class Assignment(ReprMixin):
     def __init__(self, raw_assignment_data: dict, war_start_timestamp: int) -> None:
         """Organised data of an Assignment or Major Order"""
         self.id: int = raw_assignment_data["id32"]
-        self.title: str = raw_assignment_data["setting"]["overrideTitle"]
+        self.title: str = raw_assignment_data["setting"].get("overrideTitle", None)
         self.briefing: str = (
             arrowhead_format(
-                raw_assignment_data["setting"]["overrideBrief"]
-                if raw_assignment_data["setting"]["overrideBrief"] not in ([], None)
+                raw_assignment_data["setting"].get("overrideBrief", None)
+                if raw_assignment_data["setting"].get("overrideBrief", None)
+                not in ([], None)
                 else ""
             )
             .strip("\n")
             .replace("\n", "\n-# ")
         )
         self.description: str = (
-            raw_assignment_data["setting"]["taskDescription"]
-            if raw_assignment_data["setting"]["taskDescription"]
-            not in ([], None, raw_assignment_data["setting"]["overrideBrief"])
+            raw_assignment_data["setting"].get("taskDescription", None)
+            if raw_assignment_data["setting"].get("taskDescription", None)
+            not in ([], None, raw_assignment_data["setting"].get("overrideBrief", None))
             else ""
         )
         self.tasks: list[Assignment.Task] = []
