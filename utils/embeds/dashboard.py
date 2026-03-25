@@ -1175,7 +1175,7 @@ class Dashboard:
                                 )
                         field_value += (
                             f"\n{planet.health_bar}"
-                            f"\n`{1 - planet.health_perc:^25,.1%}`"
+                            f"\n`{(1 - planet.health_perc if not (planet.event and planet.event.type == 0) else planet.event.progress):^25,.1%}`"
                         )
                 elif task.sector_index:
                     sector_name: str = self.json_dict["sectors"].get(
