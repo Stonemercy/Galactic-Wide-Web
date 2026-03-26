@@ -163,6 +163,15 @@ class Maps:
         background = imread(Maps.FileLocations.assignment_map, IMREAD_UNCHANGED)
         PLANET_RADIUS = 8
         for index, planet in planets.items():
+            planet_effect_ids = [ae.id for ae in planet.active_effects]
+            if 1376 in planet_effect_ids:
+                continue
+            if any(aeid in (1373, 1374, 1375) for aeid in planet_effect_ids):
+                # exostorm
+                exostorm_icon = imread(
+                    "resources/map_icons/exostorm_swirl.png", IMREAD_UNCHANGED
+                )
+                self.paste_image(background, exostorm_icon, planet.map_waypoints)
             if planet.dss_in_orbit:
                 self._draw_ellipse(
                     image=background,
@@ -187,7 +196,7 @@ class Maps:
                     (0, 0, 0, 255),
                     -1,
                 )
-            elif 1352 in (ae.id for ae in planet.active_effects):
+            elif 1352 in planet_effect_ids:
                 # black hole
                 for i in range(PLANET_RADIUS, PLANET_RADIUS - 4, -1):
                     circle(
@@ -204,7 +213,7 @@ class Maps:
                     (0, 0, 0, 255),
                     -1,
                 )
-            elif 1240 in (ae.id for ae in planet.active_effects):
+            elif 1240 in planet_effect_ids:
                 # going to be destroyed
                 circle(
                     background,
@@ -213,7 +222,7 @@ class Maps:
                     (0, 0, 255, 255),
                     -1,
                 )
-            elif [ae for ae in planet.active_effects if ae.id in (1241, 1252)] != []:
+            elif any([aeid in (1241, 1252) for aeid in planet_effect_ids]):
                 # fractured planets
                 continue
             else:
@@ -350,12 +359,15 @@ class Maps:
         path = Maps.FileLocations.localized_map_path(language_code=lang)
         background = imread(path, IMREAD_UNCHANGED)
         for planet in planets.values():
+            planet_effect_ids = [ae.id for ae in planet.active_effects]
+            if 1376 in planet_effect_ids:
+                continue
             if planet.index == 0:
                 se_icon = imread(
                     "resources/map_icons/super_earth.png", IMREAD_UNCHANGED
                 )
                 self.paste_image(background, se_icon, planet.map_waypoints)
-            elif [ae for ae in planet.active_effects if ae.id in (1241, 1252)] != []:
+            elif any([aeid in (1241, 1252) for aeid in planet_effect_ids]):
                 self.paste_image(
                     background,
                     frac_planet_icon,
