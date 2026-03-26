@@ -364,7 +364,7 @@ class Maps:
                     y_offset=10,
                 )
             loc_name = planet.names.get(long_code, str(planet.index))
-            if planet.active_campaign:
+            if planet.faction != Factions.humans:
                 x_offset = 0
                 for sf in planet.subfactions:
                     sf_icon = imread(
@@ -376,9 +376,13 @@ class Maps:
                             background,
                             sf_icon,
                             planet.map_waypoints,
-                            x_offset=35 + x_offset,
+                            x_offset=(35 if planet.active_campaign else 10) + x_offset,
                             y_offset=-(
-                                20 + ((loc_name.count(" ") + 1) * self.TEXT_SIZE)
+                                20
+                                + (
+                                    (loc_name.count(" ") + 1)
+                                    * (self.TEXT_SIZE if planet.active_campaign else 0)
+                                )
                             ),
                         )
                         x_offset += sf_icon.shape[0]
