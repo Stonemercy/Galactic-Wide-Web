@@ -199,7 +199,7 @@ class FormattedData:
         "dispatches",
         "assignments",
         "dss",
-        "planet_events",
+        "event_campaigns",
         "campaigns",
         "steam_news",
         "personal_order",
@@ -223,7 +223,7 @@ class FormattedData:
         self.dispatches: dict[str, list[Dispatch]] = {}
         self.assignments: dict[str, list[Assignment]] = {}
         self.dss: DSS = None
-        self.planet_events: list[Planet] = []
+        self.event_campaigns: list[Campaign] = []
         self.campaigns: list[Campaign] = []
         self.steam_news: list[SteamNews] = []
         self.personal_order: PersonalOrder = None
@@ -440,20 +440,20 @@ class FormattedData:
                         case 12:
                             if task.sector_index:
                                 if task.faction:
-                                    for planet_event in (
-                                        pe
-                                        for pe in self.planet_events
-                                        if pe.sector == task.sector_index
-                                        and pe.event.faction == task.faction
+                                    for event_campaign in (
+                                        c
+                                        for c in self.event_campaigns
+                                        if c.planet.sector == task.sector_index
+                                        and c.planet.event.faction == task.faction
                                     ):
-                                        planet_event.in_assignment = True
+                                        event_campaign.planet.in_assignment = True
                                 else:
-                                    for planet_event in (
-                                        pe
-                                        for pe in self.planet_events
-                                        if pe.sector == task.sector_index
+                                    for event_campaign in (
+                                        c
+                                        for c in self.event_campaigns
+                                        if c.planet.sector == task.sector_index
                                     ):
-                                        planet_event.in_assignment = True
+                                        event_campaign.planet.in_assignment = True
                             elif task.planet_index:
                                 planet = self.planets.get(task.planet_index)
                                 if planet:
@@ -465,15 +465,15 @@ class FormattedData:
                                             if planet.event:
                                                 planet.in_assignment = True
                             elif task.faction:
-                                for planet_event in (
-                                    pe
-                                    for pe in self.planet_events
-                                    if pe.event.faction == task.faction
+                                for event_campaign in (
+                                    c
+                                    for c in self.event_campaigns
+                                    if c.planet.event.faction == task.faction
                                 ):
-                                    planet_event.in_assignment = True
+                                    event_campaign.planet.in_assignment = True
                             else:
-                                for planet_event in self.planet_events:
-                                    planet_event.in_assignment = True
+                                for event_campaign in self.event_campaigns:
+                                    event_campaign.planet.in_assignment = True
                         case 13:
                             if task.sector_index:
                                 for planet in (
@@ -520,14 +520,17 @@ class FormattedData:
                     war_start_timestamp=self.war_start_timestamp,
                 )
                 if eagle_storm := self.dss.get_ta_by_name("EAGLE STORM"):
-                    if eagle_storm.status == 2:
-                        if dss_planet.event:
-                            dss_planet.eagle_storm_active = True
-                            dss_planet.event.end_time_datetime += timedelta(
-                                seconds=(
-                                    eagle_storm.status_end_datetime - datetime.now()
-                                ).total_seconds()
-                            )
+                    if (
+                        eagle_storm.status == 2
+                        and dss_planet.event
+                        and not dss_planet.event.type == 0
+                    ):
+                        dss_planet.eagle_storm_active = True
+                        dss_planet.event.end_time_datetime += timedelta(
+                            seconds=(
+                                eagle_storm.status_end_datetime - datetime.now()
+                            ).total_seconds()
+                        )
                 if context.dss_votes:
                     self.dss.votes = DSS.Votes(
                         planets=self.planets,
@@ -535,9 +538,9 @@ class FormattedData:
                     )
 
         if self.planets:
-            self.planet_events: list[Planet] = sorted(
-                [planet for planet in self.planets.values() if planet.event],
-                key=lambda planet: planet.stats.player_count,
+            self.event_campaigns: list[Campaign] = sorted(
+                [c for c in self.campaigns if c.planet.event],
+                key=lambda c: c.planet.stats.player_count,
                 reverse=True,
             )
             if context.war_stats:

@@ -84,12 +84,31 @@ class Dashboard:
         for gr in data.global_resources:
             self.embeds.append(self.GlobalResourceEmbed(global_resource=gr))
 
-        # Defence Embed
-        if data.planet_events:
+        # Urgent Liberations Embed
+        if urgent_liberations := [
+            c
+            for c in data.campaigns
+            if c.type == 4 and c.planet.event and c.planet.event.type == 0
+        ]:
+            self.embeds.append(
+                self.UrgentLiberationsEmbed(
+                    urgent_lib_campaigns=urgent_liberations,
+                    language_json=language_json,
+                    total_players=data.total_players,
+                    compact_level=compact_level,
+                )
+            )
+
+        # Defence Campaigns Embed
+        if defence_campaigns := [
+            c
+            for c in data.campaigns
+            if c.type == 4 and c.planet.event and c.planet.event.type == 1
+        ]:
             eagle_storm = data.dss.get_ta_by_name("EAGLE STORM") if data.dss else None
             self.embeds.append(
-                self.DefenceEmbed(
-                    planet_events=data.planet_events,
+                self.DefenceEventsEmbed(
+                    event_campaigns=defence_campaigns,
                     language_json=language_json,
                     total_players=data.total_players,
                     eagle_storm=eagle_storm,
@@ -98,7 +117,7 @@ class Dashboard:
                 )
             )
 
-        # Attack Embeds
+        # Liberation Campaign Embeds
         faction_campaigns = [
             (
                 f,
@@ -1786,96 +1805,62 @@ class Dashboard:
                     field_value += f"\n-# 0% <t:{int(datetime.now().timestamp() + global_resource.tracker.seconds_until_complete)}:R>"
             self.add_field("", field_value)
 
-    class DefenceEmbed(Embed, EmbedReprMixin):
+    class UrgentLiberationsEmbed(Embed, EmbedReprMixin):
         def __init__(
             self,
-            planet_events: list[Planet],
+            urgent_lib_campaigns: list[Campaign],
             language_json: dict,
             total_players: int,
-            eagle_storm: DSS.TacticalAction | None,
-            gambit_planets: dict[int, Planet],
             compact_level: int = 0,
         ):
             self.language_json = language_json
-            self.eagle_storm = eagle_storm
-            self.gambit_planets = gambit_planets
             self.total_players = total_players
             self.compact_level = compact_level
             self.now = datetime.now()
             if total_players != 0:
-                total_players_doing_defence = f" ({(sum(planet.stats.player_count for planet in planet_events)/total_players):.2%})"
+                total_players_doing_defence = f" ({(sum(c.planet.stats.player_count for c in urgent_lib_campaigns)/total_players):.2%})"
             else:
                 total_players_doing_defence = ""
             super().__init__(
-                title=f"{language_json['embeds']['Dashboard']['DefenceEmbed']['title']}{total_players_doing_defence}",
-                colour=Colour.blue(),
+                title=f"{Emojis.Decoration.alert_icon} Urgent Liberations{total_players_doing_defence}",
+                colour=Colour.red(),
             )
-            if planet_events:
-                defence_factions = [
-                    p.event.faction.full_name.lower() for p in planet_events
-                ]
-                if all([p.event.type == 0 for p in planet_events]):
-                    dict_to_use = URGENT_ICONS
-                    self.title = f"Urgent Liberations{total_players_doing_defence}"
-                else:
-                    dict_to_use = DEFENCE_EMBED_ICONS
-                    if any([p.event.type == 0 for p in planet_events]):
-                        self.title = f"Urgent Liberations and " + self.title
-                if len(set(defence_factions)) > 1:
-                    thumbnail = dict_to_use["default"]
-                else:
-                    thumbnail = dict_to_use.get(
-                        defence_factions[0], dict_to_use["default"]
-                    )
-                self.set_thumbnail(thumbnail)
-                for planet in planet_events:
-                    match planet.event.type:
-                        case 0:
-                            # Urgent liberations (not defence)
-                            self.add_event_type_0(planet=planet)
-                        case 1:
-                            # Regular defence campaign
-                            self.add_event_type_1(planet=planet)
-                        case _:
-                            # Unconfigured campaigns
-                            self.add_unconfigured_event_type(planet=planet)
+            factions = [
+                c.planet.event.faction.full_name.lower() for c in urgent_lib_campaigns
+            ]
+            if len(set(factions)) > 1:
+                thumbnail = URGENT_ICONS["default"]
+            else:
+                thumbnail = URGENT_ICONS.get(factions[0], URGENT_ICONS["default"])
+            self.set_thumbnail(thumbnail)
+            for c in urgent_lib_campaigns:
+                self.add_urgent_lib_campaign(campaign=c)
 
-        def add_event_type_0(self, planet: Planet):
-            # Urgent liberation (not defence)
+        def add_urgent_lib_campaign(self, campaign: Campaign):
             field_name = ""
             field_value = ""
 
-            field_name += f"{Emojis.Decoration.alert_icon} URGENT LIBERATION {Emojis.Decoration.alert_icon}\n{planet.names.get(self.language_json['code_long'], str(planet.index))} {planet.exclamations}"
-            for sf in planet.subfactions:
+            field_name += f"\n{campaign.planet.names.get(self.language_json['code_long'], str(campaign.planet.index))} {campaign.planet.exclamations}"
+
+            for sf in campaign.planet.subfactions:
                 field_value += (
                     f"\n-# {sf.emoji} {self.language_json['subfactions'][sf.eng_name]}"
                 )
 
-            for planet_feature in PlanetFeatures.get_from_effects_list(
-                (ae for ae in planet.active_effects if ae.effect_type == 71)
-            ):
+            for planet_feature in campaign.planet.planet_features:
                 field_value += f"\n-# {planet_feature[1]} {planet_feature[0]}"
 
-            if (
-                planet.dss_in_orbit
-                and self.eagle_storm
-                and self.eagle_storm.status == 2
-            ):
-                field_value += self.language_json["embeds"]["Dashboard"][
-                    "DefenceEmbed"
-                ]["defence_held_by_dss"]
+            field_value += f"\n{self.language_json['ends']} **<t:{int(campaign.planet.event.end_time_datetime.timestamp())}:R>**"
+            field_value += f"\n{self.language_json['embeds']['Dashboard']['DefenceEmbed']['invasion_level']} **{campaign.planet.event.level}**{campaign.planet.event.level_exclamation}"
 
-            field_value += f"\n{self.language_json['ends']} **<t:{int(planet.event.end_time_datetime.timestamp())}:R>**"
-            field_value += f"\n{self.language_json['embeds']['Dashboard']['DefenceEmbed']['invasion_level']} **{planet.event.level}**{planet.event.level_exclamation}"
-
-            calculated_end_time = get_end_time(planet, self.gambit_planets)
+            calculated_end_time = get_end_time(campaign.planet)
             if calculated_end_time.end_time and (
-                self.now < calculated_end_time.end_time < planet.event.end_time_datetime
+                self.now
+                < calculated_end_time.end_time
+                < campaign.planet.event.end_time_datetime
             ):
                 field_value += f"\n{self.language_json['embeds']['Dashboard']['DefenceEmbed']['victory']} **<t:{int(calculated_end_time.end_time.timestamp())}:R>**"
-                if calculated_end_time.gambit_planet:
-                    field_value += f" {self.language_json['embeds']['Dashboard']['DefenceEmbed']['thanks_to_gambit'].format(planet=calculated_end_time.gambit_planet.names.get(self.language_json['code_long'], str(calculated_end_time.gambit_planet.index)))}"
-                elif calculated_end_time.regions:
+                if calculated_end_time.regions:
                     regions_list = f"\n-# ".join(
                         [
                             f" {r.emoji} {r.names.get(self.language_json['code_long'], r.name)}"
@@ -1885,22 +1870,25 @@ class Dashboard:
                     field_value += self.language_json["embeds"]["Dashboard"][
                         "DefenceEmbed"
                     ]["if_region_lib"].format(regions_list=regions_list)
-            elif planet.tracker and planet.tracker.change_rate_per_hour > 0:
+            elif (
+                campaign.planet.tracker
+                and campaign.planet.tracker.change_rate_per_hour > 0
+            ):
                 field_value += f"\n**{self.language_json['embeds']['Dashboard']['DefenceEmbed']['loss']}**"
-                if planet.index in self.gambit_planets and planet.event.progress < 0.5:
-                    gambit_planet = self.gambit_planets[planet.index]
-                    field_value += f"\n-# :chess_pawn: **{gambit_planet.names.get(self.language_json['code_long'], str(gambit_planet.index))}** {self.language_json['embeds']['Dashboard']['DefenceEmbed']['gambit']}"
 
-            field_value += f"\n{self.language_json['embeds']['Dashboard']['DefenceEmbed']['heroes']}: **{planet.stats.player_count:,}**"
+            field_value += f"\n{self.language_json['embeds']['Dashboard']['DefenceEmbed']['heroes']}: **{campaign.planet.stats.player_count:,}**"
             if self.compact_level < 1:
-                field_value += f"\n{planet.health_bar}"
-            field_value += f"\n`{planet.event.progress:^25.2%}`"
-            if planet.tracker and planet.tracker.change_rate_per_hour > 0:
-                change = f"{planet.tracker.change_rate_per_hour:+.2%}/hr"
+                field_value += f"\n{campaign.planet.health_bar}"
+            field_value += f"\n`{campaign.planet.event.progress:^25.2%}`"
+            if (
+                campaign.planet.tracker
+                and campaign.planet.tracker.change_rate_per_hour > 0
+            ):
+                change = f"{campaign.planet.tracker.change_rate_per_hour:+.2%}/hr"
                 field_value += f"\n`{change:^25}`"
 
             for region in sorted(
-                planet.regions.values(), key=lambda x: x.availability_factor
+                campaign.planet.regions.values(), key=lambda x: x.availability_factor
             ):
                 if region.is_available:
                     field_value += f"\n-# ↳ {region.emoji} {self.language_json['regions'][str(region.type.value)]} **{region.names[self.language_json['code_long']]}** - {region.perc:.0%}"
@@ -1915,10 +1903,11 @@ class Dashboard:
                 else:
                     now_seconds = int(datetime.now().timestamp())
                     event_progression = (
-                        now_seconds - planet.event.start_time_datetime.timestamp()
+                        now_seconds
+                        - campaign.planet.event.start_time_datetime.timestamp()
                     ) / (
-                        planet.event.end_time_datetime.timestamp()
-                        - planet.event.start_time_datetime.timestamp()
+                        campaign.planet.event.end_time_datetime.timestamp()
+                        - campaign.planet.event.start_time_datetime.timestamp()
                     )
                     if (
                         region.availability_factor > event_progression
@@ -1933,7 +1922,7 @@ class Dashboard:
                                     / (1 - event_progression)
                                 )
                                 * (
-                                    planet.event.end_time_datetime.timestamp()
+                                    campaign.planet.event.end_time_datetime.timestamp()
                                     - now_seconds
                                 )
                             )
@@ -1947,7 +1936,52 @@ class Dashboard:
 
             self.add_field(field_name, field_value, inline=False)
 
-        def add_event_type_1(self, planet: Planet):
+    class DefenceEventsEmbed(Embed, EmbedReprMixin):
+        def __init__(
+            self,
+            defence_event_campaigns: list[Campaign],
+            language_json: dict,
+            total_players: int,
+            eagle_storm: DSS.TacticalAction | None,
+            gambit_planets: dict[int, Planet],
+            compact_level: int = 0,
+        ):
+            self.language_json = language_json
+            self.eagle_storm = eagle_storm
+            self.gambit_planets = gambit_planets
+            self.total_players = total_players
+            self.compact_level = compact_level
+            self.now = datetime.now()
+            if total_players != 0:
+                total_players_doing_defence = f" ({(sum(c.planet.stats.player_count for c in defence_event_campaigns)/total_players):.2%})"
+            else:
+                total_players_doing_defence = ""
+            super().__init__(
+                title=f"{language_json['embeds']['Dashboard']['DefenceEmbed']['title']}{total_players_doing_defence}",
+                colour=Colour.blue(),
+            )
+            if defence_event_campaigns:
+                defence_factions = [
+                    c.planet.event.faction.full_name.lower()
+                    for c in defence_event_campaigns
+                ]
+                if len(set(defence_factions)) > 1:
+                    thumbnail = DEFENCE_EMBED_ICONS["default"]
+                else:
+                    thumbnail = DEFENCE_EMBED_ICONS.get(
+                        defence_factions[0], DEFENCE_EMBED_ICONS["default"]
+                    )
+                self.set_thumbnail(thumbnail)
+                for c in defence_event_campaigns:
+                    match c.planet.event.type:
+                        case 1:
+                            # Regular defence campaign
+                            self.add_defence_event(planet=c.planet)
+                        case _:
+                            # Unconfigured campaigns
+                            self.add_unconfigured_event_type(planet=c.planet)
+
+        def add_defence_event(self, planet: Planet):
             field_name = ""
             field_value = ""
 

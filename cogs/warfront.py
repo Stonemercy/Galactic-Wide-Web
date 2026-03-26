@@ -50,10 +50,10 @@ class WarfrontCog(commands.Cog):
             else None
         )
         defence_embed = Dashboard.DefenceEmbed(
-            planet_events=[
-                planet
-                for planet in self.bot.data.formatted_data.planet_events
-                if planet.event.faction.full_name == faction
+            event_campaigns=[
+                c
+                for c in self.bot.data.formatted_data.event_campaigns
+                if c.planet.event.faction.full_name == faction
             ],
             language_json=guild_language,
             total_players=self.bot.data.formatted_data.total_players,
