@@ -25,7 +25,3 @@ DEFENCE_LEVEL_EXCLAMATION_DICT = {
     100: " :skull:",
     250: " :skull_crossbones:",
 }
-
-ENDPOINTS = {
-    "global_stats": "https://api.live.prod.thehelldiversgame.com/api/Stats/War/{war_id}/Summary",
-}
