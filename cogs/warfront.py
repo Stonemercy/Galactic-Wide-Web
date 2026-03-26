@@ -49,11 +49,12 @@ class WarfrontCog(commands.Cog):
             if self.bot.data.formatted_data.dss
             else None
         )
-        defence_embed = Dashboard.DefenceEmbed(
-            event_campaigns=[
+        defence_events_embed = Dashboard.DefenceEventsEmbed(
+            defence_event_campaigns=[
                 c
                 for c in self.bot.data.formatted_data.event_campaigns
                 if c.planet.event.faction.full_name == faction
+                and c.planet.event.type == 1
             ],
             language_json=guild_language,
             total_players=self.bot.data.formatted_data.total_players,
@@ -75,7 +76,21 @@ class WarfrontCog(commands.Cog):
         all_planets_embed = WarfrontAllPlanetsEmbed(
             planets=self.bot.data.formatted_data.planets, faction=faction
         )
-        embeds: list[Embed] = [defence_embed, attack_embed, all_planets_embed]
+        embeds: list[Embed] = [defence_events_embed, attack_embed, all_planets_embed]
+        if urgent_campaigns := [
+            c
+            for c in self.bot.data.formatted_data.campaigns
+            if c.faction.full_name == faction
+            if c.type == 4 and c.planet.event and c.planet.event.type == 0
+        ]:
+            embeds.insert(
+                0,
+                Dashboard.UrgentLiberationsEmbed(
+                    urgent_lib_campaigns=urgent_campaigns,
+                    language_json=guild_language,
+                    total_players=self.bot.data.formatted_data.total_players,
+                ),
+            )
         for embed in embeds.copy():
             if len(embed.fields) == 0:
                 embeds.remove(embed)
