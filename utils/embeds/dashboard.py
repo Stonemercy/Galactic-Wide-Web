@@ -44,8 +44,7 @@ class Dashboard:
         self.compact_level = compact_level
 
         # Homeworld Campaigns
-        homeworld_campaigns = [c for c in data.campaigns if c.planet.homeworld]
-        if homeworld_campaigns:
+        if homeworld_campaigns := [c for c in data.campaigns if c.planet.homeworld]:
             for c in homeworld_campaigns:
                 self.embeds.append(
                     self.HomeworldCampaignEmbed(
@@ -341,8 +340,9 @@ class Dashboard:
         def _set_thumbnail(self) -> None:
             """Sets the thumbnail based on the Assignment's task types"""
             task_numbers = [task.type for task in self.assignment.tasks]
-            task_for_image = max(set(task_numbers), key=task_numbers.count)
-            self.set_thumbnail(url=AssignmentImages.get(task_for_image))
+            if task_numbers != []:
+                task_for_image = max(set(task_numbers), key=task_numbers.count)
+                self.set_thumbnail(url=AssignmentImages.get(task_for_image))
 
         def _add_description(self) -> None:
             """Adds the description of the MO, if available. And sets the footer to the assignment ID"""
@@ -761,6 +761,8 @@ class Dashboard:
                 )
             elif task.faction:
                 enemy = self._get_faction_name(task.faction, plural=True)
+            else:
+                enemy = "UNKNOWN ENEMY"
             field_name = field_name.replace("{enemy}", enemy)
             if task.item_id:
                 strat_list = [
@@ -1494,7 +1496,7 @@ class Dashboard:
             if (
                 datetime.now() < self.assignment.ends_at_datetime - timedelta(days=2)
                 and {13, 15} & self.assignment.unique_task_types
-            ):
+            ) or not self.completion_timestamps:
                 # return if assignments that last the full assignment duration are present
                 # and we are not within 2 days of assignment end
                 return

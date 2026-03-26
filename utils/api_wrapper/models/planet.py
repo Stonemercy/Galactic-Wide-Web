@@ -105,15 +105,17 @@ class Planet(ReprMixin):
             result += Emojis.DSS.icon
         for subfactions in self.subfactions:
             result += subfactions.emoji
-        for feature in PlanetFeatures.get_from_effects_list(
-            active_effects=self.active_effects
-        ):
+        for feature in self.planet_features:
             result += feature[1]
         return result
 
     @property
     def subfactions(self) -> set[Subfaction]:
         return Subfactions.get_from_effects_list(self.active_effects)
+
+    @property
+    def planet_features(self) -> set[tuple[str, str]]:
+        return PlanetFeatures.get_from_effects_list(self.active_effects)
 
     class Event(ReprMixin):
         __slots__ = (

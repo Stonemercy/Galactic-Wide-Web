@@ -22,3 +22,9 @@ class Campaign(ReprMixin):
             if self.planet.event != None
             else self.planet.faction
         )
+
+    def __eq__(self, value):
+        return self.id == value.id
+
+    def __hash__(self):
+        return hash(self.id)

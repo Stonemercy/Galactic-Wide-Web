@@ -268,11 +268,17 @@ class FormattedData:
                 )
 
         if context.war_status.get("en"):
-            self.galactic_impact_mod = context.war_status["en"]["impactMultiplier"]
+            self.galactic_impact_mod: float = context.war_status["en"][
+                "impactMultiplier"
+            ]
             for planet_status in context.war_status["en"]["planetStatus"]:
                 planet = self.planets.get(planet_status["index"])
                 if planet:
                     planet.add_data_from_status(raw_planet_status=planet_status)
+                else:
+                    print(
+                        f"data_formatter - Planet not found for status {planet_status['index']}"
+                    )
 
             self.total_players: int = sum(
                 [planet.stats.player_count for planet in self.planets.values()]
@@ -344,7 +350,9 @@ class FormattedData:
                         )
                         planet.regions[region["regionIndex"]].planet = planet
 
-            for region_status in context.war_status["en"]["planetRegions"]:
+            for region_status in context.war_status.get("en", {"planetRegions": []})[
+                "planetRegions"
+            ]:
                 planet = self.planets.get(region_status["planetIndex"])
                 if planet:
                     region = planet.regions.get(region_status["regionIndex"])
@@ -411,7 +419,7 @@ class FormattedData:
                                 assignment.briefing = english_assignment.briefing
 
             # in_assignment
-            for assignment in self.assignments["en"]:
+            for assignment in self.assignments.get("en"):
                 for task in assignment.tasks:
                     if task.progress_perc >= 1:
                         continue
