@@ -1519,11 +1519,10 @@ class Dashboard:
                 )
 
         def _add_outlook_text(self) -> None:
-
             if (
                 datetime.now() < self.assignment.ends_at_datetime - timedelta(days=2)
                 and {13, 15} & self.assignment.unique_task_types
-            ) or not self.completion_timestamps:
+            ):
                 # return if assignments that last the full assignment duration are present
                 # and we are not within 2 days of assignment end
                 return
@@ -1567,7 +1566,9 @@ class Dashboard:
                     if planet:
                         if planet.faction.full_name == "Humans" and not planet.event:
                             complete_type_13s.append(True)
-                        elif planet.faction.full_name != "Humans":
+                        elif planet.faction.full_name != "Humans" or (
+                            planet.event and planet.event.type == 1
+                        ):
                             end_time_info = get_end_time(
                                 source_planet=planet, gambit_planets=self.gambit_planets
                             )
