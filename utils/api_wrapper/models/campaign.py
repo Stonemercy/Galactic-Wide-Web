@@ -19,7 +19,7 @@ class Campaign(ReprMixin):
         )
         self.faction: Faction = (
             self.planet.event.faction
-            if self.planet.event != None
+            if self.planet.event and self.planet.event.type != 0
             else self.planet.faction
         )
 
