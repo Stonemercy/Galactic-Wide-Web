@@ -17,6 +17,7 @@ class APIChangesContainer(ui.Container, ReprMixin):
             if api_change.stat_source not in [
                 "Global Resources",
                 "Galactic War Effects",
+                "Task",
             ]:
                 old_stat = getattr(api_change.old_object, api_change.property)
                 new_stat = getattr(api_change.new_object, api_change.property)
@@ -47,6 +48,12 @@ class APIChangesContainer(ui.Container, ReprMixin):
                             content += f"\n {gwe.id}"
                     if effects_removed or effects_added:
                         self.container_components.append(ui.TextDisplay(content))
+                case "Task":
+                    self.container_components.append(
+                        ui.TextDisplay(
+                            f"## Update to **{api_change.stat_name}**\n    Target for task **#{api_change.property}**\n        **{api_change.old_object.target:,} {Emojis.Stratagems.right} {api_change.new_object.target:,}**"
+                        )
+                    )
                 case "Planet":
                     self.container_components.append(
                         ui.Section(
@@ -128,7 +135,7 @@ class APIChangesContainer(ui.Container, ReprMixin):
                                     text_display.content += f"\n{effect.id}"
                                     if effect.short_description:
                                         text_display.content += (
-                                            f"\n-#    {effect.short_description}"
+                                            f"\n    {effect.short_description}"
                                         )
                                     if not effect.name and not effect.short_description:
                                         text_display.content += f"\n    {effect.effect_description['simplified_name']}"

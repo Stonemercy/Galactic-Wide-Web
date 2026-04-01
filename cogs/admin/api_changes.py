@@ -74,6 +74,33 @@ class APIChangesCog(commands.Cog):
                     )
                 )
 
+            for mo_index, old_assignment in enumerate(
+                self.bot.data.previous_data.assignments.get("en", []), start=1
+            ):
+                new_assignment = next(
+                    (
+                        a
+                        for a in self.bot.data.formatted_data.assignments.get("en", [])
+                        if a.id == old_assignment.id
+                    ),
+                    None,
+                )
+                if new_assignment:
+                    for index, (old_task, new_task) in enumerate(
+                        zip(old_assignment.tasks, new_assignment.tasks), start=1
+                    ):
+                        if old_task.target and new_task.target:
+                            if old_task.target != new_task.target:
+                                total_changes.append(
+                                    APIChanges(
+                                        old_object=old_task,
+                                        new_object=new_task,
+                                        property=index,
+                                        stat_name=f"MO #{mo_index}",
+                                        stat_source="Task",
+                                    )
+                                )
+
             for old_planet, new_planet in zip(
                 self.bot.data.previous_data.planets.values(),
                 self.bot.data.formatted_data.planets.values(),
