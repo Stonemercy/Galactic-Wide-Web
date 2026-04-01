@@ -1,6 +1,7 @@
 from copy import deepcopy
 from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
+from utils.dataclasses.enums import EventType
 from ..models import (
     Assignment,
     Campaign,
@@ -299,8 +300,7 @@ class FormattedData:
                     raw_event_data=planet_event,
                     war_start_timestamp=self.war_start_timestamp,
                 )
-                if planet.event.type == 0:
-                    # urgent liberation
+                if planet.event.type == EventType.UrgentLiberation:
                     planet.event.faction = planet.faction
 
             for campaign in context.war_status["en"]["campaigns"]:
@@ -532,7 +532,7 @@ class FormattedData:
                     if (
                         eagle_storm.status == 2
                         and dss_planet.event
-                        and not dss_planet.event.type == 0
+                        and not dss_planet.event.type == EventType.UrgentLiberation
                     ):
                         dss_planet.eagle_storm_active = True
                         dss_planet.event.end_time_datetime += timedelta(

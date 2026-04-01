@@ -2,6 +2,7 @@ from disnake import AppCmdInter, ApplicationInstallTypes, Embed, InteractionCont
 from disnake.ext import commands
 from main import GalacticWideWebBot
 from utils.checks import wait_for_startup
+from utils.dataclasses.enums import CampaignType, EventType
 from utils.dbv2 import GWWGuild, GWWGuilds
 from utils.embeds import WarfrontAllPlanetsEmbed, Dashboard
 
@@ -54,7 +55,7 @@ class WarfrontCog(commands.Cog):
                 c
                 for c in self.bot.data.formatted_data.event_campaigns
                 if c.planet.event.faction.full_name == faction
-                and c.planet.event.type == 1
+                and c.planet.event.type == EventType.Defence
             ],
             language_json=guild_language,
             total_players=self.bot.data.formatted_data.total_players,
@@ -81,7 +82,9 @@ class WarfrontCog(commands.Cog):
             c
             for c in self.bot.data.formatted_data.campaigns
             if c.faction.full_name == faction
-            if c.type == 4 and c.planet.event and c.planet.event.type == 0
+            if c.type == CampaignType.Event
+            and c.planet.event
+            and c.planet.event.type == EventType.UrgentLiberation
         ]:
             embeds.insert(
                 0,

@@ -9,6 +9,7 @@ from utils.containers import (
     CampaignChangesContainer,
 )
 from utils.dataclasses import CampaignChangesJson, DSSChangesJson, RegionChangesJson
+from utils.dataclasses.enums import EventType
 from utils.dbv2 import GWWGuilds
 from utils.maps import Maps
 
@@ -67,7 +68,7 @@ class WarUpdatesCog(commands.Cog):
                     planet_owner=new_campaign.planet.faction.full_name,
                     event=bool(new_campaign.planet.event),
                     event_type=(
-                        new_campaign.planet.event.type
+                        new_campaign.planet.event.type.value
                         if new_campaign.planet.event
                         else None
                     ),
@@ -138,7 +139,7 @@ class WarUpdatesCog(commands.Cog):
                 # if campaign is brand new
                 if (
                     new_campaign.planet.event
-                    and new_campaign.planet.event.type == 2
+                    and new_campaign.planet.event.type == EventType.Invasion
                     and new_campaign.planet.event.potential_buildup == 0
                 ):
                     # if campaign is an illuminate invasion but doesnt have the buildup data
@@ -154,7 +155,7 @@ class WarUpdatesCog(commands.Cog):
                     planet_owner=new_campaign.planet.faction.full_name,
                     event=bool(new_campaign.planet.event),
                     event_type=(
-                        new_campaign.planet.event.type
+                        new_campaign.planet.event.type.value
                         if new_campaign.planet.event
                         else None
                     ),

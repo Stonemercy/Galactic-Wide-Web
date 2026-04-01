@@ -18,6 +18,7 @@ from utils.api_wrapper.models import (
 )
 from utils.api_wrapper.formatters.data_formatter import FormattedData
 from utils.dataclasses import AssignmentImages, Factions, PlanetFeatures
+from utils.dataclasses.enums import CampaignType, EventType
 from utils.dataclasses.factions import Faction
 from utils.emojis import Emojis
 from utils.functions import get_end_time, health_bar, short_format
@@ -87,7 +88,9 @@ class Dashboard:
         if invasion_events := [
             c
             for c in data.campaigns
-            if c.type == 4 and c.planet.event and c.planet.event.type == 2
+            if c.type == CampaignType.Event
+            and c.planet.event
+            and c.planet.event.type == EventType.Invasion
         ]:
             self.embeds.append(
                 self.InvasionEventsEmbed(
@@ -102,7 +105,9 @@ class Dashboard:
         if urgent_liberations := [
             c
             for c in data.campaigns
-            if c.type == 4 and c.planet.event and c.planet.event.type == 0
+            if c.type == CampaignType.Event
+            and c.planet.event
+            and c.planet.event.type == EventType.UrgentLiberation
         ]:
             self.embeds.append(
                 self.UrgentLiberationsEmbed(
@@ -117,7 +122,9 @@ class Dashboard:
         if defence_campaigns := [
             c
             for c in data.campaigns
-            if c.type == 4 and c.planet.event and c.planet.event.type == 1
+            if c.type == CampaignType.Event
+            and c.planet.event
+            and c.planet.event.type == EventType.Defence
         ]:
             eagle_storm = data.dss.get_ta_by_name("EAGLE STORM") if data.dss else None
             self.embeds.append(
@@ -132,7 +139,9 @@ class Dashboard:
             )
 
         # Recon Campaigns Embed
-        if recon_campaigns := [c for c in data.campaigns if c.type == 2]:
+        if recon_campaigns := [
+            c for c in data.campaigns if c.type == CampaignType.Recon
+        ]:
             self.embeds.append(
                 self.ReconCampaignEmbed(
                     recon_campaigns=recon_campaigns,
@@ -150,7 +159,12 @@ class Dashboard:
                     c
                     for c in data.campaigns
                     if c.faction.full_name == f
-                    and not c.type in (1, 2, 3, 4)
+                    and not c.type
+                    in (
+                        CampaignType.Recon,
+                        CampaignType.Event,
+                        CampaignType.HighPriority,
+                    )
                     and not c.planet.event
                     and not c.planet.homeworld
                 ],
@@ -459,10 +473,14 @@ class Dashboard:
                                 planet = self.planets.get(task.planet_index)
                                 if not planet:
                                     continue
-                                if planet.event and (
-                                    planet.event.end_time_datetime
-                                    < self.assignment.ends_at_datetime
-                                ):
+                                if (
+                                    planet.event
+                                    and (
+                                        planet.event.end_time_datetime
+                                        < self.assignment.ends_at_datetime
+                                    )
+                                    and planet.event.type != EventType.UrgentLiberation
+                                ) or planet.faction != Factions.humans:
                                     end_time_info = get_end_time(
                                         source_planet=planet,
                                         gambit_planets=self.gambit_planets,
@@ -1225,7 +1243,7 @@ class Dashboard:
                                 )
                         field_value += (
                             f"\n{planet.health_bar}"
-                            f"\n`{(1 - planet.health_perc if not (planet.event and planet.event.type == 0) else planet.event.progress):^25,.1%}`"
+                            f"\n`{(1 - planet.health_perc if not (planet.event and planet.event.type == EventType.UrgentLiberation) else planet.event.progress):^25,.1%}`"
                         )
                 elif task.sector_index:
                     sector_name: str = self.json_dict["sectors"].get(
@@ -1304,7 +1322,11 @@ class Dashboard:
             )
             if task.planet_index and task.target == 1:
                 planet = self.planets.get(task.planet_index)
-                if planet and planet.event and planet.event.type != 0:
+                if (
+                    planet
+                    and planet.event
+                    and planet.event.type != EventType.UrgentLiberation
+                ):
                     field_value = ""
 
             if self.assignment.flags in (2, 3):
@@ -2352,7 +2374,7 @@ class Dashboard:
                     continue
                 else:
                     field_name += f"{campaign.faction.emoji} - **{campaign.planet.names.get(language_json['code_long'], str(campaign.planet.index))}** {campaign.planet.exclamations}"
-                    if campaign.type == 2:
+                    if campaign.type == CampaignType.HighPriority:
                         field_name += Emojis.Icons.high_prio_campaign
                     field_value += f"{language_json['embeds']['Dashboard']['AttackEmbed']['heroes']}: **{campaign.planet.stats.player_count:,}**"
 
@@ -2389,12 +2411,9 @@ class Dashboard:
                         if gambit_planet:
                             field_value += f"\n-# :chess_pawn: {language_json['embeds']['Dashboard']['AttackEmbed']['gambit_for']} {gambit_planet.names.get(language_json['code_long'], str(gambit_planet.index))}"
                     if compact_level < 1:
-                        if campaign.type == 1:
-                            field_value += f"\n**`{language_json['embeds']['Dashboard']['AttackEmbed']['recon_campaign']:^25}`**"
-                        else:
-                            field_value += f"\n{campaign.planet.health_bar}"
-                    if campaign.type != 1:
-                        field_value += f"\n`{(1 - (campaign.planet.health_perc)):^25.2%}`"  # 1 - {health} because we need it to reach 0
+                        field_value += f"\n{campaign.planet.health_bar}"
+                    field_value += f"\n`{(1 - (campaign.planet.health_perc)):^25.2%}`"  # 1 - {health} because we need it to reach 0
+
                     if (
                         campaign.planet.tracker
                         and campaign.planet.tracker.change_rate_per_hour != 0
@@ -2455,7 +2474,7 @@ class Dashboard:
                         planet.index for planet in gambit_planets.values()
                     ]:
                         exclamation += ":chess_pawn:"
-                    if campaign.type == 2:
+                    if campaign.type == CampaignType.HighPriority:
                         field_name += Emojis.Icons.high_prio_campaign
                     skipped_planets_text += f"-# {campaign.planet.names.get(language_json['code_long'], str(campaign.planet.index))} - **{campaign.planet.stats.player_count:,}** {exclamation}\n"
                     if compact_level < 2 and len(skipped_campaigns) < 10:

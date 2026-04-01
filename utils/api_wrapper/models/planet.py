@@ -1,4 +1,5 @@
 from datetime import datetime, timezone
+from utils.dataclasses.enums import EventType
 from utils.dataclasses.subfactions import Subfaction
 from ...mixins import ReprMixin
 from ...dataclasses import Faction, Factions, PlanetFeatures, Subfactions
@@ -97,7 +98,7 @@ class Planet(ReprMixin):
     @property
     def exclamations(self) -> str:
         result = ""
-        if self.event and self.event.type != 0:
+        if self.event and self.event.type != EventType.UrgentLiberation:
             result += f":shield:{self.event.faction.emoji}"
         if self.in_assignment:
             result += Emojis.Icons.mo
@@ -134,7 +135,8 @@ class Planet(ReprMixin):
         def __init__(self, raw_event_data: dict, war_start_timestamp: int) -> None:
             """Organised data for a planet's event (defence campaign)"""
             self.id: int = raw_event_data["id"]
-            self.type: int = raw_event_data["eventType"]
+            self._type: int = raw_event_data["eventType"]
+            self.type: EventType = EventType(self._type)
             self.faction: Faction | None = Factions.get_from_identifier(
                 number=raw_event_data["race"]
             )
