@@ -1,5 +1,5 @@
 from data.lists import CUSTOM_COLOURS
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from disnake import Colour, Embed
 from utils.api_wrapper.models import DSS, Campaign
 from utils.emojis import Emojis
@@ -31,7 +31,8 @@ class DSSEmbed(Embed, EmbedReprMixin):
             or dss_data.flags in [0, 2]
             or (
                 all([ta.status == 0 for ta in dss_data.tactical_actions])
-                and dss_data.move_timer_datetime > datetime.now() + timedelta(days=30)
+                and dss_data.move_timer_datetime
+                > datetime.now(tz=timezone.utc) + timedelta(days=30)
             )
         ):
             self.add_field("The DSS is currently unavailable.", "")
@@ -66,7 +67,7 @@ class DSSEmbed(Embed, EmbedReprMixin):
                     if ta_cost_change and ta_cost_change.change_rate_per_hour != 0:
                         change = f"{ta_cost_change.change_rate_per_hour:+.2%}/hr"
                         change_text = f"\n`{change:^25}`"
-                        change_text += f"\n-# {language_json['embeds']['Dashboard']['DSSEmbed']['active']} <t:{int(datetime.now().timestamp() + ta_cost_change.seconds_until_complete)}:R>"
+                        change_text += f"\n-# {language_json['embeds']['Dashboard']['DSSEmbed']['active']} <t:{int(datetime.now(tz=timezone.utc).timestamp() + ta_cost_change.seconds_until_complete)}:R>"
                         ta_cost_health_bar = health_bar(
                             ta_cost.progress,
                             "MO" if ta_cost.progress != 1 else "Humans",

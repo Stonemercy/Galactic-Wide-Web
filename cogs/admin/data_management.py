@@ -1,4 +1,4 @@
-from datetime import datetime, time
+from datetime import datetime, time, timezone
 from disnake import Activity, ActivityType, Status
 from disnake.ext import commands, tasks
 from main import GalacticWideWebBot
@@ -64,7 +64,7 @@ class DataManagementCog(commands.Cog):
         await self.bot.data.pull_from_api()
         self.bot.data.format_data()
         if first_load:
-            now = datetime.now()
+            now = datetime.now(tz=timezone.utc)
             if now < self.bot.ready_time:
                 change = f"{(self.bot.ready_time - now).total_seconds():.2f} seconds faster than the given 45"
             else:

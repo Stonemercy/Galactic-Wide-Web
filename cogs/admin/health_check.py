@@ -23,7 +23,7 @@ class HealthCheckCog(commands.Cog):
 
     @tasks.loop(minutes=1)
     async def health_check(self) -> None:
-        now = datetime.now()
+        now = datetime.now(tz=timezone.utc)
         guild: GWWGuild | None = GWWGuilds.get_specific_guild(
             id=Config.SUPPORT_SERVER_ID
         )
@@ -44,10 +44,7 @@ class HealthCheckCog(commands.Cog):
                     ) or await self.bot.fetch_channel(dashboard.channel_id)
                     message = await channel.fetch_message(dashboard.message_id)
                     cutoff = now - timedelta(minutes=17)
-                    if (
-                        message.edited_at.replace(tzinfo=None) < cutoff
-                        and self.bot.startup_time < cutoff
-                    ):
+                    if message.edited_at < cutoff and self.bot.startup_time < cutoff:
                         await self.send_warning(
                             error=f"Dashboards are late to being updated"
                         )
@@ -84,7 +81,7 @@ class HealthCheckCog(commands.Cog):
 
     async def send_warning(self, error: str, vips_to_cc: list[str] = None) -> None:
         self.bot.logger.error(error)
-        now = datetime.now()
+        now = datetime.now(tz=timezone.utc)
         mentions = f"<@{self.bot.owner.id}>" + (
             "".join([f"<@{i}>" for i in vips_to_cc]) if vips_to_cc else ""
         )

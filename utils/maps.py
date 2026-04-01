@@ -13,7 +13,7 @@ from cv2 import (
 )
 from data.lists import CUSTOM_COLOURS
 from dataclasses import dataclass
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from numpy import uint8, zeros
 from PIL import Image, ImageDraw, ImageFont
 from utils.api_wrapper.models import Assignment, DSS, Planet
@@ -405,7 +405,7 @@ class Maps:
                     and not (
                         all([ta.status == 0 for ta in dss.tactical_actions])
                         and dss.move_timer_datetime
-                        > datetime.now() + timedelta(days=30)
+                        > datetime.now(tz=timezone.utc) + timedelta(days=30)
                     )
                     else imread(
                         "resources/map_icons/dss_glow_inactive.png", IMREAD_UNCHANGED

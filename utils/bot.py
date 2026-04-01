@@ -1,5 +1,5 @@
 from data.lists import json_dict
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from disnake import Intents, Message, Status, TextChannel
 from disnake.ext import commands, tasks
 from json import load
@@ -18,7 +18,7 @@ class GalacticWideWebBot(commands.AutoShardedInteractionBot):
         super().__init__(intents=Intents.default(), status=Status.idle)
         self.MODE = GWWBotModes.LIVE
         self.logger: GWWLogger = GWWLogger()
-        self.startup_time = datetime.now()
+        self.startup_time = datetime.now(tz=timezone.utc)
         self.ready_time = self.startup_time + timedelta(seconds=45)
         self.interface_handler = InterfaceHandler(bot=self)
         self.channels = BotChannels()
@@ -37,7 +37,7 @@ class GalacticWideWebBot(commands.AutoShardedInteractionBot):
 
     @property
     def time_until_ready(self) -> int:
-        return int((self.ready_time - datetime.now()).total_seconds())
+        return int((self.ready_time - datetime.now(tz=timezone.utc)).total_seconds())
 
     async def on_ready(self) -> None:
         await self.channels.get_channels(self)

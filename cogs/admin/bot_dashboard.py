@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from disnake import HTTPException, NotFound, ui
 from disnake.ext import commands, tasks
 from utils.bot import GalacticWideWebBot
@@ -49,7 +49,7 @@ class BotDashboardCog(commands.Cog):
                 bot_dashboard.save_changes()
             except HTTPException:
                 return
-        now = datetime.now()
+        now = datetime.now(tz=timezone.utc)
         if now.minute == 0 or now - timedelta(minutes=2) < self.bot.startup_time:
             app_info = await self.bot.application_info()
             self.user_installs = app_info.approximate_user_install_count

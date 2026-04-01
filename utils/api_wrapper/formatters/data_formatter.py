@@ -1,6 +1,6 @@
 from copy import deepcopy
 from dataclasses import dataclass
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from ..models import (
     Assignment,
     Campaign,
@@ -233,7 +233,8 @@ class FormattedData:
 
         if context.war_status.get("en"):
             self.war_start_timestamp: int = (
-                int(datetime.now().timestamp()) - context.war_status["en"]["time"]
+                int(datetime.now(tz=timezone.utc).timestamp())
+                - context.war_status["en"]["time"]
             )
 
         if context.war_info:
@@ -536,7 +537,8 @@ class FormattedData:
                         dss_planet.eagle_storm_active = True
                         dss_planet.event.end_time_datetime += timedelta(
                             seconds=(
-                                eagle_storm.status_end_datetime - datetime.now()
+                                eagle_storm.status_end_datetime
+                                - datetime.now(tz=timezone.utc)
                             ).total_seconds()
                         )
                 if context.dss_votes:
@@ -587,7 +589,7 @@ class FormattedData:
                     for planet in (self.planets.get(i) for i in ge.planet_indices):
                         planet.active_effects.update(set(ge.effects))
 
-        self.formatted_at = datetime.now()
+        self.formatted_at = datetime.now(tz=timezone.utc)
 
     def copy(self):
         """Returns a deep copy of the data"""

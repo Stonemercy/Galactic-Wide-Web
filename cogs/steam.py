@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timezone
 from disnake import (
     AppCmdInter,
     ApplicationInstallTypes,
@@ -30,7 +30,7 @@ class SteamCog(commands.Cog):
 
     @tasks.loop(minutes=1)
     async def steam_check(self) -> None:
-        patch_notes_start = datetime.now()
+        patch_notes_start = datetime.now(tz=timezone.utc)
         if (
             not self.bot.interface_handler.loaded
             or patch_notes_start < self.bot.ready_time
@@ -52,7 +52,7 @@ class SteamCog(commands.Cog):
                 self.bot.databases.war_info.patch_notes_id = steam_news.id
                 self.bot.databases.war_info.save_changes()
                 self.bot.logger.info(
-                    f"Sent patch announcements out to {len(self.bot.interface_handler.patch_notes)} channels in {(datetime.now() - patch_notes_start).total_seconds():.2f}s"
+                    f"Sent patch announcements out to {len(self.bot.interface_handler.patch_notes)} channels in {(datetime.now(tz=timezone.utc) - patch_notes_start).total_seconds():.2f}s"
                 )
                 return
 

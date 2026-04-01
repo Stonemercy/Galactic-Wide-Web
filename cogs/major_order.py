@@ -1,4 +1,4 @@
-from datetime import datetime, time
+from datetime import datetime, time, timezone
 from disnake import AppCmdInter, ApplicationInstallTypes, InteractionContextTypes
 from disnake.ext import commands, tasks
 from main import GalacticWideWebBot
@@ -36,7 +36,7 @@ class MajorOrderCog(commands.Cog):
 
     @tasks.loop(minutes=1)
     async def major_order_check(self) -> None:
-        mo_check_start = datetime.now()
+        mo_check_start = datetime.now(tz=timezone.utc)
         if (
             not self.bot.interface_handler.loaded
             or mo_check_start < self.bot.ready_time
@@ -105,7 +105,7 @@ class MajorOrderCog(commands.Cog):
                     announcement_type="MO",
                 )
                 self.bot.logger.info(
-                    f"Sent MO announcements out to {len(self.bot.interface_handler.major_order_updates)} channels in {(datetime.now() - mo_check_start).total_seconds():.2f}s"
+                    f"Sent MO announcements out to {len(self.bot.interface_handler.major_order_updates)} channels in {(datetime.now(tz=timezone.utc) - mo_check_start).total_seconds():.2f}s"
                 )
 
         # check for old MO IDs that are no longer active
@@ -131,7 +131,7 @@ class MajorOrderCog(commands.Cog):
         time=[time(hour=6, minute=20, second=30), time(hour=18, minute=20, second=30)]
     )
     async def major_order_updates(self):
-        mo_updates_start = datetime.now()
+        mo_updates_start = datetime.now(tz=timezone.utc)
         self.bot.logger.info(f"MO loop starting at {mo_updates_start}")
         if (
             self.last_mo_update
@@ -167,7 +167,7 @@ class MajorOrderCog(commands.Cog):
             announcement_type="MO",
         )
         self.bot.logger.info(
-            f"Sent MO announcements out to {len(self.bot.interface_handler.major_order_updates)} channels in {(datetime.now() - mo_updates_start).total_seconds():.2f}s"
+            f"Sent MO announcements out to {len(self.bot.interface_handler.major_order_updates)} channels in {(datetime.now(tz=timezone.utc) - mo_updates_start).total_seconds():.2f}s"
         )
 
     @major_order_updates.before_loop

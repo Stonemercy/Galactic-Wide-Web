@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from utils.dataclasses import CalculatedEndTime, Factions
 from ..api_wrapper.models.planet import Planet
 
@@ -112,7 +112,10 @@ def get_end_time(
                                 - source_planet.event.start_time_datetime
                             ).total_seconds()
                             elapsed_time = (
-                                (datetime.now() + timedelta(hours=hours_from_now))
+                                (
+                                    datetime.now(tz=timezone.utc)
+                                    + timedelta(hours=hours_from_now)
+                                )
                                 - source_planet.event.start_time_datetime
                             ).total_seconds()
                             target_duration = event_duration * next_avail
@@ -127,7 +130,9 @@ def get_end_time(
                     hours_from_now += (
                         1 - current_perc
                     ) / source_planet.tracker.change_rate_per_hour
-                end_time = datetime.now() + timedelta(hours=hours_from_now)
+                end_time = datetime.now(tz=timezone.utc) + timedelta(
+                    hours=hours_from_now
+                )
                 if results.end_time and end_time < results.end_time:
                     results.clear()
                     results.end_time = end_time
@@ -233,7 +238,7 @@ def get_end_time(
                 hours_from_now += (1 - current_perc) / (
                     average_total_hp_per_hour / source_planet.max_health
                 )
-            end_time = datetime.now() + timedelta(hours=hours_from_now)
+            end_time = datetime.now(tz=timezone.utc) + timedelta(hours=hours_from_now)
             if regions_liberated:
                 results.regions = regions_liberated
             else:

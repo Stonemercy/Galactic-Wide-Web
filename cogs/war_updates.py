@@ -1,5 +1,5 @@
 from asyncio import to_thread
-from datetime import datetime
+from datetime import datetime, timezone
 from disnake import File
 from disnake.ext import commands, tasks
 from main import GalacticWideWebBot
@@ -33,7 +33,7 @@ class WarUpdatesCog(commands.Cog):
 
     @tasks.loop(minutes=1)
     async def campaign_check(self) -> None:
-        update_start = datetime.now()
+        update_start = datetime.now(tz=timezone.utc)
         if (
             not self.bot.interface_handler.loaded
             or not self.bot.data.loaded
@@ -172,7 +172,7 @@ class WarUpdatesCog(commands.Cog):
                 feature_type="war_announcements", content=components
             )
             self.bot.logger.info(
-                f"Sent war announcements out to {len(self.bot.interface_handler.war_announcements)} channels in {(datetime.now() - update_start).total_seconds():.2f}s"
+                f"Sent war announcements out to {len(self.bot.interface_handler.war_announcements)} channels in {(datetime.now(tz=timezone.utc) - update_start).total_seconds():.2f}s"
             )
             if need_to_update_sectors:
                 await to_thread(
@@ -206,7 +206,7 @@ class WarUpdatesCog(commands.Cog):
                     )
                 )
                 self.bot.maps.latest_maps[lang["code"]] = Maps.LatestMap(
-                    datetime.now(), message.attachments[0].url
+                    datetime.now(tz=timezone.utc), message.attachments[0].url
                 )
 
     @campaign_check.before_loop
@@ -221,7 +221,7 @@ class WarUpdatesCog(commands.Cog):
 
     @tasks.loop(minutes=1)
     async def dss_check(self) -> None:
-        update_start = datetime.now()
+        update_start = datetime.now(tz=timezone.utc)
         if (
             not self.bot.interface_handler.loaded
             or not self.bot.data.loaded
@@ -304,7 +304,7 @@ class WarUpdatesCog(commands.Cog):
                 feature_type="dss_announcements", content=containers
             )
             self.bot.logger.info(
-                f"Sent DSS announcements out to {len(self.bot.interface_handler.dss_announcements)} channels in {(datetime.now() - update_start).total_seconds():.2f}s"
+                f"Sent DSS announcements out to {len(self.bot.interface_handler.dss_announcements)} channels in {(datetime.now(tz=timezone.utc) - update_start).total_seconds():.2f}s"
             )
             if dss_has_moved:
                 self.bot.maps.update_planets(
@@ -330,7 +330,7 @@ class WarUpdatesCog(commands.Cog):
                         )
                     )
                     self.bot.maps.latest_maps[lang] = Maps.LatestMap(
-                        datetime.now(), message.attachments[0].url
+                        datetime.now(tz=timezone.utc), message.attachments[0].url
                     )
 
     @dss_check.before_loop
@@ -345,7 +345,7 @@ class WarUpdatesCog(commands.Cog):
 
     @tasks.loop(minutes=1)
     async def region_check(self) -> None:
-        update_start = datetime.now()
+        update_start = datetime.now(tz=timezone.utc)
         if (
             not self.bot.interface_handler.loaded
             or not self.bot.data.loaded
@@ -445,7 +445,7 @@ class WarUpdatesCog(commands.Cog):
                     "region_announcements", components
                 )
                 self.bot.logger.info(
-                    f"Sent region announcements out to {len(self.bot.interface_handler.region_announcements)} channels in {(datetime.now() - update_start).total_seconds():.2f}s"
+                    f"Sent region announcements out to {len(self.bot.interface_handler.region_announcements)} channels in {(datetime.now(tz=timezone.utc) - update_start).total_seconds():.2f}s"
                 )
 
     @region_check.before_loop

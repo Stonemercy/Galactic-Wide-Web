@@ -1,4 +1,4 @@
-from datetime import datetime, time
+from datetime import datetime, time, timezone
 from disnake.ext import commands, tasks
 from utils.bot import GalacticWideWebBot
 from utils.dbv2 import GWWGuilds
@@ -28,7 +28,7 @@ class DashboardCog(commands.Cog):
         ]
     )
     async def dashboard_poster(self) -> None:
-        dashboards_start = datetime.now()
+        dashboards_start = datetime.now(tz=timezone.utc)
         if (
             not self.bot.interface_handler.loaded
             or not self.bot.data.loaded
@@ -57,7 +57,7 @@ class DashboardCog(commands.Cog):
                 dashboard = dashboards[lang]
         await self.bot.interface_handler.send_feature("dashboards", dashboards)
         self.bot.logger.info(
-            f"Updated {len(self.bot.interface_handler.dashboards)} dashboards in {(datetime.now()-dashboards_start).total_seconds():.2f} seconds"
+            f"Updated {len(self.bot.interface_handler.dashboards)} dashboards in {(datetime.now(tz=timezone.utc)-dashboards_start).total_seconds():.2f} seconds"
         )
 
     @dashboard_poster.before_loop

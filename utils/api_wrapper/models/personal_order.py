@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from data.lists import stratagem_id_dict
 from ...mixins import ReprMixin
 from ...dataclasses import Faction, Factions
@@ -19,7 +19,7 @@ class PersonalOrder(ReprMixin):
     def __init__(self, personal_order: dict, json_dict: dict):
         self.id: int = personal_order["id32"]
         self.expiration_secs_from_now: int = personal_order["expiresIn"]
-        self.expiration_datetime: datetime = datetime.now() + timedelta(
+        self.expiration_datetime: datetime = datetime.now(tz=timezone.utc) + timedelta(
             seconds=self.expiration_secs_from_now,
         )
         self.title: str = personal_order["setting"]["overrideTitle"]

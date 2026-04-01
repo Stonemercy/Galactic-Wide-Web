@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from random import choice
 from data.lists import (
     CUSTOM_COLOURS,
@@ -361,7 +361,9 @@ class Dashboard:
                 value=f"-# <t:{int(self.assignment.ends_at_datetime.timestamp())}:R>",
             )
 
-            if self.assignment.starts_at_datetime < datetime.now() - timedelta(hours=1):
+            if self.assignment.starts_at_datetime < datetime.now(
+                tz=timezone.utc
+            ) - timedelta(hours=1):
                 self._add_outlook_text()
 
         def _set_thumbnail(self) -> None:
@@ -817,7 +819,7 @@ class Dashboard:
                         progress = f"\n`{progress:^25}`"
                         if task.tracker.complete_time < max(
                             self.assignment.ends_at_datetime,
-                            datetime.now() + timedelta(weeks=2),
+                            datetime.now(tz=timezone.utc) + timedelta(weeks=2),
                         ):
                             progress += f"\n-# {self.language_json['embeds']['Dashboard']['MajorOrderEmbed']['complete']} <t:{int(task.tracker.complete_time.timestamp())}:R>"
                     field_value += (
@@ -1055,7 +1057,7 @@ class Dashboard:
                         )
                         if task.tracker.complete_time < max(
                             self.assignment.ends_at_datetime,
-                            datetime.now() + timedelta(weeks=2),
+                            datetime.now(tz=timezone.utc) + timedelta(weeks=2),
                         ):
                             progress += f"\n-# {self.language_json['embeds']['Dashboard']['MajorOrderEmbed']['complete']} <t:{int(task.tracker.complete_time.timestamp())}:R>"
 
@@ -1520,7 +1522,8 @@ class Dashboard:
 
         def _add_outlook_text(self) -> None:
             if (
-                datetime.now() < self.assignment.ends_at_datetime - timedelta(days=2)
+                datetime.now(tz=timezone.utc)
+                < self.assignment.ends_at_datetime - timedelta(days=2)
                 and {13, 15} & self.assignment.unique_task_types
             ):
                 # return if assignments that last the full assignment duration are present
@@ -1725,7 +1728,7 @@ class Dashboard:
             self.set_thumbnail(
                 url="https://media.discordapp.net/attachments/1212735927223590974/1413612410819969114/0xfbbeedfa99b09fec.png?ex=68bc90a6&is=68bb3f26&hm=cd8bf236a355bbed28f4847d3d62b5908d050a7eeb7396bb9a891e108acc0241&=&format=webp&quality=lossless"
             )
-            move_datetime = dss.move_timer_datetime
+            move_datetime = dss.move_timer_datetime.replace(tzinfo=timezone.utc)
             because_of_planet = False
             end_time_info = get_end_time(dss.planet, gambit_planets)
             if end_time_info.end_time and end_time_info.end_time < move_datetime:
@@ -1750,7 +1753,7 @@ class Dashboard:
                     next_planet = sorted_planets[1]
                 self.description += f"\n-# {dss_embed_json['next_location']}: {next_planet[0].faction.emoji} **{next_planet[0].names.get(language_json['code_long'], str(next_planet[0].index))}**"
 
-            if move_datetime < datetime.now() + timedelta(minutes=15):
+            if move_datetime < datetime.now(tz=timezone.utc) + timedelta(minutes=15):
                 self.description += f"\n-# {Emojis.Decoration.alert_icon} {dss_embed_json['vote_reminder']} {Emojis.Decoration.alert_icon}"
             ta_jsons = dss_embed_json["tactical_actions"]
             for tactical_action in dss.tactical_actions:
@@ -1830,9 +1833,9 @@ class Dashboard:
             ):
                 field_value += f"\n`{f'{global_resource.tracker.change_rate_per_hour:+.2%}/hr':^25}`"
                 if global_resource.tracker.change_rate_per_hour > 0:
-                    field_value += f"\n-# 100% <t:{int(datetime.now().timestamp() + global_resource.tracker.seconds_until_complete)}:R>"
+                    field_value += f"\n-# 100% <t:{int(datetime.now(tz=timezone.utc).timestamp() + global_resource.tracker.seconds_until_complete)}:R>"
                 else:
-                    field_value += f"\n-# 0% <t:{int(datetime.now().timestamp() + global_resource.tracker.seconds_until_complete)}:R>"
+                    field_value += f"\n-# 0% <t:{int(datetime.now(tz=timezone.utc).timestamp() + global_resource.tracker.seconds_until_complete)}:R>"
             self.add_field("", field_value)
 
     class InvasionEventsEmbed(Embed, EmbedReprMixin):
@@ -1846,7 +1849,7 @@ class Dashboard:
             self.language_json = language_json
             self.total_players = total_players
             self.compact_level = compact_level
-            self.now = datetime.now()
+            self.now = datetime.now(tz=timezone.utc)
             if total_players != 0:
                 total_players_doing_invasions = f" ({(sum(c.planet.stats.player_count for c in invasion_event_campaigns)/total_players):.2%})"
             else:
@@ -1932,7 +1935,7 @@ class Dashboard:
                             f" **{region.tracker.change_rate_per_hour:+.1%}**/hr"
                         )
                 else:
-                    now_seconds = int(datetime.now().timestamp())
+                    now_seconds = int(datetime.now(tz=timezone.utc).timestamp())
                     event_progression = (
                         now_seconds
                         - campaign.planet.event.start_time_datetime.timestamp()
@@ -1978,7 +1981,7 @@ class Dashboard:
             self.language_json = language_json
             self.total_players = total_players
             self.compact_level = compact_level
-            self.now = datetime.now()
+            self.now = datetime.now(tz=timezone.utc)
             if total_players != 0:
                 total_players_doing_defence = f" ({(sum(c.planet.stats.player_count for c in urgent_lib_campaigns)/total_players):.2%})"
             else:
@@ -2063,7 +2066,7 @@ class Dashboard:
                             f" **{region.tracker.change_rate_per_hour:+.1%}**/hr"
                         )
                 else:
-                    now_seconds = int(datetime.now().timestamp())
+                    now_seconds = int(datetime.now(tz=timezone.utc).timestamp())
                     event_progression = (
                         now_seconds
                         - campaign.planet.event.start_time_datetime.timestamp()
@@ -2113,7 +2116,7 @@ class Dashboard:
             self.gambit_planets = gambit_planets
             self.total_players = total_players
             self.compact_level = compact_level
-            self.now = datetime.now()
+            self.now = datetime.now(tz=timezone.utc)
             if total_players != 0:
                 total_players_doing_defence = f" ({(sum(c.planet.stats.player_count for c in defence_event_campaigns)/total_players):.2%})"
             else:
@@ -2209,7 +2212,7 @@ class Dashboard:
                             f" **{region.tracker.change_rate_per_hour:+.1%}**/hr"
                         )
                 else:
-                    now_seconds = int(datetime.now().timestamp())
+                    now_seconds = int(datetime.now(tz=timezone.utc).timestamp())
                     event_progression = (
                         now_seconds - planet.event.start_time_datetime.timestamp()
                     ) / (
@@ -2232,7 +2235,8 @@ class Dashboard:
                                     planet.event.end_time_datetime.timestamp()
                                     - now_seconds
                                 )
-                            )
+                            ),
+                            tz=timezone.utc,
                         )
                         if (
                             calculated_end_time.end_time
@@ -2263,7 +2267,7 @@ class Dashboard:
             self.language_json = language_json
             self.total_players = total_players
             self.compact_level = compact_level
-            self.now = datetime.now()
+            self.now = datetime.now(tz=timezone.utc)
             if total_players != 0:
                 total_players_doing_recon = f" ({(sum(c.planet.stats.player_count for c in recon_campaigns)/total_players):.2%})"
             else:
@@ -2482,7 +2486,7 @@ class Dashboard:
             data_time: datetime,
         ):
             super().__init__(colour=Colour.dark_embed())
-            now = datetime.now()
+            now = datetime.now(tz=timezone.utc)
             self.add_field(
                 "",
                 (

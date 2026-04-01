@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timezone
 from disnake import (
     AppCmdInter,
     ApplicationInstallTypes,
@@ -30,7 +30,7 @@ class DispatchesCog(commands.Cog):
 
     @tasks.loop(minutes=1)
     async def dispatch_check(self) -> None:
-        dispatch_start = datetime.now()
+        dispatch_start = datetime.now(tz=timezone.utc)
         if (
             not self.bot.interface_handler.loaded
             or dispatch_start < self.bot.ready_time
@@ -80,7 +80,7 @@ class DispatchesCog(commands.Cog):
                     self.bot.databases.war_info.dispatch_id = dispatch.id
                     self.bot.databases.war_info.save_changes()
                     self.bot.logger.info(
-                        f"Sent dispatch #{dispatch.id} out to {len(self.bot.interface_handler.war_announcements)} channels in {(datetime.now() - dispatch_start).total_seconds():.2f}s"
+                        f"Sent dispatch #{dispatch.id} out to {len(self.bot.interface_handler.war_announcements)} channels in {(datetime.now(tz=timezone.utc) - dispatch_start).total_seconds():.2f}s"
                     )
                     return
 

@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from utils.dataclasses import Languages
 from utils.dbv2 import GWWGuilds
 from utils.logger import GWWLogger
@@ -92,9 +92,14 @@ class DataService(ReprMixin):
                         self._raw_war_status.get("en", {}).get(
                             "time",
                             (
-                                datetime.now()
+                                datetime.now(tz=timezone.utc)
                                 - datetime(
-                                    year=2024, month=2, day=14, hour=15, minute=11
+                                    year=2024,
+                                    month=2,
+                                    day=14,
+                                    hour=15,
+                                    minute=11,
+                                    tzinfo=timezone.utc,
                                 )
                             ).total_seconds(),
                         )

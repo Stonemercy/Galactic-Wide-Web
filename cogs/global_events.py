@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timezone
 from disnake import AppCmdInter, ApplicationInstallTypes, InteractionContextTypes
 from disnake.ext import commands, tasks
 from main import GalacticWideWebBot
@@ -24,7 +24,7 @@ class GlobalEventsCog(commands.Cog):
 
     @tasks.loop(minutes=1)
     async def global_event_check(self) -> None:
-        ge_start = datetime.now()
+        ge_start = datetime.now(tz=timezone.utc)
         if (
             not self.bot.interface_handler.loaded
             or ge_start < self.bot.ready_time
@@ -75,7 +75,7 @@ class GlobalEventsCog(commands.Cog):
                 self.bot.databases.war_info.global_event_id = global_event.id
                 self.bot.databases.war_info.save_changes()
                 self.bot.logger.info(
-                    f"Sent Global Event out to {len(self.bot.interface_handler.detailed_dispatches)} channels in {(datetime.now() - ge_start).total_seconds():.2f}s"
+                    f"Sent Global Event out to {len(self.bot.interface_handler.detailed_dispatches)} channels in {(datetime.now(tz=timezone.utc) - ge_start).total_seconds():.2f}s"
                 )
                 break
 

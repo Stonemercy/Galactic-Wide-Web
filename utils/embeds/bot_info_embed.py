@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timezone
 from disnake import Colour, Embed
 from disnake.ext.tasks import Loop
 from inspect import getmembers
@@ -18,7 +18,9 @@ class BotInfoEmbeds(list[Embed]):
             super().__init__(
                 title="Galactic Wide Web bot info", colour=Colour.dark_theme()
             )
-            uptime_seconds = (datetime.now() - bot.startup_time).total_seconds()
+            uptime_seconds = (
+                datetime.now(tz=timezone.utc) - bot.startup_time
+            ).total_seconds()
             hours = uptime_seconds // 3600
             minutes = (uptime_seconds % 3600) // 60
             remaining_seconds = uptime_seconds % 60

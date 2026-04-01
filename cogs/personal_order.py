@@ -1,4 +1,4 @@
-from datetime import datetime, time
+from datetime import datetime, time, timezone
 from disnake import AppCmdInter, ApplicationInstallTypes, InteractionContextTypes
 from disnake.ext import commands, tasks
 from utils.bot import GalacticWideWebBot
@@ -25,7 +25,7 @@ class PersonalOrderCog(commands.Cog):
 
     @tasks.loop(time=[time(hour=9, minute=30)])
     async def personal_order_updates(self):
-        po_updates_start = datetime.now()
+        po_updates_start = datetime.now(tz=timezone.utc)
         self.bot.logger.info(f"PO loop starting at {po_updates_start}")
         if (
             self.last_po_update
@@ -57,7 +57,7 @@ class PersonalOrderCog(commands.Cog):
             announcement_type="PO",
         )
         self.bot.logger.info(
-            f"Sent PO announcements out to {len(self.bot.interface_handler.personal_order_updates)} channels in {(datetime.now() - po_updates_start).total_seconds():.2f}s"
+            f"Sent PO announcements out to {len(self.bot.interface_handler.personal_order_updates)} channels in {(datetime.now(tz=timezone.utc) - po_updates_start).total_seconds():.2f}s"
         )
 
     @personal_order_updates.before_loop

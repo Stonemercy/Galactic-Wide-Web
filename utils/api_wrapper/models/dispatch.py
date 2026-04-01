@@ -1,6 +1,6 @@
 from ...functions import arrowhead_format
 from ...mixins import ReprMixin
-from datetime import datetime
+from datetime import datetime, timezone
 
 
 class Dispatch(ReprMixin):
@@ -10,7 +10,7 @@ class Dispatch(ReprMixin):
         """Organised data of a dispatch"""
         self.id: int = raw_dispatch_data["id"]
         self.published_at: datetime = datetime.fromtimestamp(
-            war_start_timestamp + raw_dispatch_data.get("published", 0)
+            war_start_timestamp + raw_dispatch_data.get("published", 0), tz=timezone.utc
         )
         self.full_message: str = arrowhead_format(
             text=raw_dispatch_data.get("message", "")

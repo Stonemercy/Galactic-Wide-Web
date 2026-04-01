@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timezone
 from disnake import Colour, ui
 from utils.api_wrapper.models import Planet
 from utils.dataclasses import Factions, PlanetFeatures
@@ -194,7 +194,7 @@ class PlanetContainers(list[ui.Container]):
     class RegionContainer(ui.Container, ReprMixin):
         def __init__(self, planet: Planet, lang_code: str, container_json: dict):
             self.components = []
-            now_seconds = int(datetime.now().timestamp())
+            now_seconds = int(datetime.now(tz=timezone.utc).timestamp())
             for region in sorted(planet.regions.values(), key=lambda x: x.size):
                 text_display = ui.TextDisplay(
                     f"{region.owner.emoji} **{region.names.get(lang_code, region.name)}**"

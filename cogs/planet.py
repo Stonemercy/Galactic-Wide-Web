@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from disnake import (
     AppCmdInter,
     ApplicationInstallTypes,
@@ -104,7 +104,7 @@ class PlanetCog(commands.Cog):
         )
 
         if with_map == "Yes":
-            fifteen_minutes_ago = datetime.now() - timedelta(minutes=15)
+            fifteen_minutes_ago = datetime.now(tz=timezone.utc) - timedelta(minutes=15)
             latest_map = self.bot.maps.latest_maps.get(guild.language)
             if not latest_map or (
                 latest_map and latest_map.updated_at < fifteen_minutes_ago
@@ -134,7 +134,7 @@ class PlanetCog(commands.Cog):
                     )
                 )
                 self.bot.maps.latest_maps[language_json["code"]] = Maps.LatestMap(
-                    datetime.now(), message.attachments[0].url
+                    datetime.now(tz=timezone.utc), message.attachments[0].url
                 )
                 latest_map = self.bot.maps.latest_maps[language_json["code"]]
             self.bot.maps.draw_arrow(language_code=guild.language, planet=planet_data)

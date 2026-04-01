@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from utils.functions import arrowhead_format
 from ...mixins import ReprMixin
 from ...trackers import BaseTrackerEntry
@@ -36,9 +36,9 @@ class Assignment(ReprMixin):
             )
         self.rewards: list[dict] = raw_assignment_data["setting"]["rewards"]
         self.starts_at_datetime: datetime = datetime.fromtimestamp(
-            raw_assignment_data["startTime"] + war_start_timestamp
+            raw_assignment_data["startTime"] + war_start_timestamp, tz=timezone.utc
         )
-        self.ends_at_datetime: datetime = datetime.now() + timedelta(
+        self.ends_at_datetime: datetime = datetime.now(tz=timezone.utc) + timedelta(
             seconds=raw_assignment_data["expiresIn"]
         )
         self.flags: int = raw_assignment_data["setting"]["flags"]

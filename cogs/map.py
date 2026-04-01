@@ -1,4 +1,4 @@
-from datetime import datetime, time, timedelta
+from datetime import datetime, time, timedelta, timezone
 from disnake import (
     AppCmdInter,
     ApplicationInstallTypes,
@@ -33,7 +33,7 @@ class MapCog(commands.Cog):
 
     @tasks.loop(time=[time(hour=hour, minute=5, second=0) for hour in range(24)])
     async def map_poster(self) -> None:
-        maps_start = datetime.now()
+        maps_start = datetime.now(tz=timezone.utc)
         if (
             not self.bot.interface_handler.loaded
             or maps_start < self.bot.ready_time
@@ -48,7 +48,7 @@ class MapCog(commands.Cog):
             pass
         unique_langs = GWWGuilds.unique_languages()
         map_embeds = {lang: Embed(colour=Colour.dark_embed()) for lang in unique_langs}
-        fifteen_minutes_ago = datetime.now() - timedelta(minutes=15)
+        fifteen_minutes_ago = datetime.now(tz=timezone.utc) - timedelta(minutes=15)
         need_to_update_maps = not all(
             [
                 lang in self.bot.maps.latest_maps
@@ -81,15 +81,17 @@ class MapCog(commands.Cog):
                     )
                 )
                 self.bot.maps.latest_maps[language_code] = Maps.LatestMap(
-                    datetime.now(), message.attachments[0].url
+                    datetime.now(tz=timezone.utc), message.attachments[0].url
                 )
         for language_code, embed in map_embeds.items():
             latest_map = self.bot.maps.latest_maps[language_code]
             embed.set_image(url=latest_map.map_link)
-            embed.add_field("", f"-# Updated <t:{int(datetime.now().timestamp())}:R>")
+            embed.add_field(
+                "", f"-# Updated <t:{int(datetime.now(tz=timezone.utc).timestamp())}:R>"
+            )
         await self.bot.interface_handler.send_feature("maps", map_embeds)
         self.bot.logger.info(
-            f"Updated {len(self.bot.interface_handler.maps)} maps in {(datetime.now()-maps_start).total_seconds():.2f} seconds"
+            f"Updated {len(self.bot.interface_handler.maps)} maps in {(datetime.now(tz=timezone.utc)-maps_start).total_seconds():.2f} seconds"
         )
 
     @map_poster.before_loop
@@ -132,7 +134,7 @@ class MapCog(commands.Cog):
         else:
             guild = GWWGuild.default()
         latest_map = self.bot.maps.latest_maps.get(guild.language, None)
-        fifteen_minutes_ago = datetime.now() - timedelta(minutes=15)
+        fifteen_minutes_ago = datetime.now(tz=timezone.utc) - timedelta(minutes=15)
         if not latest_map or (
             latest_map and latest_map.updated_at < fifteen_minutes_ago
         ):
@@ -162,7 +164,7 @@ class MapCog(commands.Cog):
                     ),
                 )
                 self.bot.maps.latest_maps[language_json["code"]] = Maps.LatestMap(
-                    datetime.now(), message.attachments[0].url
+                    datetime.now(tz=timezone.utc), message.attachments[0].url
                 )
                 latest_map = self.bot.maps.latest_maps[language_json["code"]]
             except HTTPException as e:

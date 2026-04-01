@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timezone
 from disnake import Colour, Embed
 from utils.mixins import EmbedReprMixin
 
@@ -11,5 +11,7 @@ class UsageEmbed(Embed, EmbedReprMixin):
             self.add_field(f"/{command_name}", f"Used **{usage}** times", inline=False)
         self.add_field("Guilds joined", guilds_joined, inline=False)
         self.add_field(
-            "", f"-# as of <t:{int(datetime.now().timestamp())}:R>", inline=False
+            "",
+            f"-# as of <t:{int(datetime.now(tz=timezone.utc).timestamp())}:R>",
+            inline=False,
         )

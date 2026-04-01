@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timezone
 from utils.dataclasses.subfactions import Subfaction
 from ...mixins import ReprMixin
 from ...dataclasses import Faction, Factions, PlanetFeatures, Subfactions
@@ -143,11 +143,11 @@ class Planet(ReprMixin):
             self.start_time: str = raw_event_data["startTime"]
             self.end_time: str = raw_event_data["expireTime"]
             self.start_time_datetime: datetime = datetime.fromtimestamp(
-                self.start_time + war_start_timestamp
-            ).replace(tzinfo=None)
+                self.start_time + war_start_timestamp, tz=timezone.utc
+            )
             self.end_time_datetime: datetime = datetime.fromtimestamp(
-                self.end_time + war_start_timestamp
-            ).replace(tzinfo=None)
+                self.end_time + war_start_timestamp, tz=timezone.utc
+            )
             self.progress: float = 1 - (self.health / self.max_health)
             """A float from 0-1"""
             self.level: int = int(self.max_health / 50000)

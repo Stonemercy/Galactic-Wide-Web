@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from disnake import (
     AppCmdInter,
     ChannelType,
@@ -369,13 +369,16 @@ class SetupCog(commands.Cog):
                 return
             else:
                 latest_map = self.bot.maps.latest_maps.get(guild.language, None)
-                fifteen_minutes_ago = datetime.now() - timedelta(minutes=15)
+                fifteen_minutes_ago = datetime.now(tz=timezone.utc) - timedelta(
+                    minutes=15
+                )
                 if latest_map and latest_map.updated_at > fifteen_minutes_ago:
                     message = await map_channel.send(
                         embed=Embed(colour=Colour.dark_embed())
                         .set_image(url=latest_map.map_link)
                         .add_field(
-                            "", f"-# Updated <t:{int(datetime.now().timestamp())}:R>"
+                            "",
+                            f"-# Updated <t:{int(datetime.now(tz=timezone.utc).timestamp())}:R>",
                         ),
                     )
                 else:
@@ -402,7 +405,7 @@ class SetupCog(commands.Cog):
                         )
                     )
                     self.bot.maps.latest_maps[guild_language["code"]] = Maps.LatestMap(
-                        datetime.now(), message.attachments[0].url
+                        datetime.now(tz=timezone.utc), message.attachments[0].url
                     )
                     self.bot.maps.add_icons(
                         lang=guild_language["code"],
@@ -415,7 +418,8 @@ class SetupCog(commands.Cog):
                         embed=Embed(colour=Colour.dark_embed())
                         .set_image(url=latest_map.map_link)
                         .add_field(
-                            "", f"-# Updated <t:{int(datetime.now().timestamp())}:R>"
+                            "",
+                            f"-# Updated <t:{int(datetime.now(tz=timezone.utc).timestamp())}:R>",
                         ),
                     )
                 guild.features.append(
