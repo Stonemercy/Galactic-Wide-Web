@@ -603,7 +603,7 @@ class Dashboard:
                 text = text.replace("{ext_pre}", f" {in_the} **")
                 text = text.replace("{ext}", sector_name)
                 text = text.replace("{ext_post}", f"** {sector}")
-            elif task.faction:
+            elif task.enemy_id:
                 on_any = tasks_json["loc_on_any"]
                 controlled_planet = tasks_json["loc_controlled"]
                 faction = self._get_faction_name(task.faction)
