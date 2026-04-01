@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timezone
 from disnake import Colour, OptionType, ui
 from math import inf
 from os import getpid
@@ -13,7 +13,7 @@ from utils.mixins import ReprMixin
 # DOESNT NEED LOCALIZATION
 class BotDashboardContainer(ui.Container, ReprMixin):
     def __init__(self, bot: GalacticWideWebBot, user_installs: int):
-        now = datetime.now()
+        now = datetime.now(tz=timezone.utc)
         self.components = []
         commands_text = f"## The GWW has {len([c for c in bot.global_slash_commands if c.name not in ['gwe', 'global_event']])} commands available\n"
         for global_command in sorted(bot.global_slash_commands, key=lambda sc: sc.name):
