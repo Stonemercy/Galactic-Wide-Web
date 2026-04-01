@@ -1543,13 +1543,20 @@ class Dashboard:
                 )
 
         def _add_outlook_text(self) -> None:
+            now = datetime.now(tz=timezone.utc)
             if (
-                datetime.now(tz=timezone.utc)
-                < self.assignment.ends_at_datetime - timedelta(days=2)
+                now < self.assignment.ends_at_datetime - timedelta(days=2)
                 and {13, 15} & self.assignment.unique_task_types
             ):
                 # return if assignments that last the full assignment duration are present
                 # and we are not within 2 days of assignment end
+                return
+
+            if (
+                12 in self.assignment.unique_task_types
+                and any([t.target > 1 for t in self.assignment.tasks if t.type == 12])
+                and now < self.assignment.ends_at_datetime - timedelta(days=2)
+            ):
                 return
 
             winning_all_unfinished_tasks = [
