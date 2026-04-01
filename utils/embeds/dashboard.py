@@ -206,7 +206,7 @@ class Dashboard:
                 embed.set_image("https://i.imgur.com/cThNy4f.png")
 
         embeds_to_skip = (self.DSSEmbed,)
-        if self.character_count() > 5900 or compact_level > 0:
+        if compact_level > 0:
             self.embeds = [
                 embed
                 for embed in self.embeds.copy()
