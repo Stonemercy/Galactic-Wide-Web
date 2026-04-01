@@ -362,6 +362,12 @@ class FormattedData:
                             raw_region_status_data=region_status
                         )
 
+            self.event_campaigns: list[Campaign] = sorted(
+                [c for c in self.campaigns if c.planet.event],
+                key=lambda c: c.planet.stats.player_count,
+                reverse=True,
+            )
+
             for lang, status in context.war_status.items():
                 self.global_events[lang] = [
                     GlobalEvent(
@@ -548,11 +554,6 @@ class FormattedData:
                     )
 
         if self.planets:
-            self.event_campaigns: list[Campaign] = sorted(
-                [c for c in self.campaigns if c.planet.event],
-                key=lambda c: c.planet.stats.player_count,
-                reverse=True,
-            )
             if context.war_stats:
                 for pstat in context.war_stats["planets_stats"]:
                     planet = self.planets.get(pstat["planetIndex"])
