@@ -44,7 +44,7 @@ class WarUpdatesCog(commands.Cog):
         ):
             return
         unique_langs = GWWGuilds.unique_languages()
-        components = {
+        components: dict[str, CampaignChangesContainer] = {
             lang: CampaignChangesContainer(
                 CampaignChangesJson(
                     lang_code_long=self.bot.json_dict["languages"][lang]["code_long"],
@@ -95,9 +95,9 @@ class WarUpdatesCog(commands.Cog):
                     previous_data_planet = self.bot.data.previous_data.planets.get(
                         old_campaign.planet_index
                     )
-                    hours_remaining = 0.0
                     if not previous_data_planet:
                         continue
+                    hours_remaining = 0.0
                     if previous_data_planet.event:
                         hours_remaining = (
                             previous_data_planet.event.end_time_datetime - update_start
