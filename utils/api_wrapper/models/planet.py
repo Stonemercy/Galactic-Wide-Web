@@ -62,6 +62,10 @@ class Planet(ReprMixin):
         self.position = raw_planet_status["position"]
 
     @property
+    def is_hidden(self) -> bool:
+        return 1190 in [ae.id for ae in self.active_effects]
+
+    @property
     def faction(self) -> Faction:
         return Factions.get_from_identifier(number=self.owner)
 

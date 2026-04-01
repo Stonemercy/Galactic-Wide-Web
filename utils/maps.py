@@ -311,7 +311,7 @@ class Maps:
             font = ImageFont.truetype("resources/gww-font.ttf", self.TEXT_SIZE)
         background_draw = ImageDraw.Draw(im=background)
         for index, planet in planets.items():
-            if planet.active_campaign:
+            if planet.active_campaign and not planet.is_hidden:
                 if planet.dss_in_orbit:
                     border_colour = "deepskyblue"
                 else:
@@ -376,7 +376,9 @@ class Maps:
                     y_offset=10,
                 )
             loc_name = planet.names.get(long_code, str(planet.index))
-            if planet.faction != Factions.humans:
+            if (
+                planet.faction != Factions.humans or planet.active_campaign
+            ) and not planet.is_hidden:
                 x_offset = 0
                 for sf in planet.subfactions:
                     sf_icon = imread(

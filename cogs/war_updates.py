@@ -135,6 +135,8 @@ class WarUpdatesCog(commands.Cog):
         ]
         for new_campaign in self.bot.data.formatted_data.campaigns:
             # loop through new campaigns
+            if new_campaign.planet.is_hidden:
+                continue
             if new_campaign.id not in old_campaign_ids:
                 # if campaign is brand new
                 if (
