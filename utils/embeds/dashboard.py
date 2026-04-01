@@ -1647,19 +1647,23 @@ class Dashboard:
                         if {13, 15} & self.assignment.unique_task_types:
                             outlook_text += f" <t:{int(self.assignment.ends_at_datetime.timestamp())}:R>"
                         else:
-                            time_to_use: datetime = sorted(
+                            time_list: list[datetime] = sorted(
                                 self.completion_timestamps, reverse=True
-                            )[0]
-                            outlook_text += f" <t:{int(time_to_use)}:R>"
-                            time_diff = (
-                                self.assignment.ends_at_datetime.timestamp()
-                                - time_to_use
                             )
-                            hours = f"{time_diff // 3600:.0f}"
-                            minutes = f"{(time_diff % 3600) // 60:.0f}"
-                            outlook_text += self.language_json["embeds"]["Dashboard"][
-                                "MajorOrderEmbed"
-                            ]["ahead_of_schedule"].format(hours=hours, minutes=minutes)
+                            if time_list:
+                                time_to_use = time_list[0]
+                                outlook_text += f" <t:{int(time_to_use)}:R>"
+                                time_diff = (
+                                    self.assignment.ends_at_datetime.timestamp()
+                                    - time_to_use
+                                )
+                                hours = f"{time_diff // 3600:.0f}"
+                                minutes = f"{(time_diff % 3600) // 60:.0f}"
+                                outlook_text += self.language_json["embeds"][
+                                    "Dashboard"
+                                ]["MajorOrderEmbed"]["ahead_of_schedule"].format(
+                                    hours=hours, minutes=minutes
+                                )
                     else:
                         outlook_text += f"{self.language_json['failure']} <t:{int(self.assignment.ends_at_datetime.timestamp())}:R>"
                         if self.completion_timestamps != [] and len(
@@ -1692,19 +1696,21 @@ class Dashboard:
                         if {13, 15} & self.assignment.unique_task_types:
                             outlook_text += f" <t:{int(self.assignment.ends_at_datetime.timestamp())}:R>"
                         else:
-                            time_to_use: datetime = sorted(self.completion_timestamps)[
-                                0
-                            ]
-                            outlook_text += f" <t:{int(time_to_use)}:R>"
-                            time_diff = (
-                                self.assignment.ends_at_datetime.timestamp()
-                                - time_to_use
-                            )
-                            hours = f"{time_diff // 3600:.0f}"
-                            minutes = f"{(time_diff % 3600) // 60:.0f}"
-                            outlook_text += self.language_json["embeds"]["Dashboard"][
-                                "MajorOrderEmbed"
-                            ]["ahead_of_schedule"].format(hours=hours, minutes=minutes)
+                            time_list: datetime = sorted(self.completion_timestamps)
+                            if time_list:
+                                time_to_use = time_list[0]
+                                outlook_text += f" <t:{int(time_to_use)}:R>"
+                                time_diff = (
+                                    self.assignment.ends_at_datetime.timestamp()
+                                    - time_to_use
+                                )
+                                hours = f"{time_diff // 3600:.0f}"
+                                minutes = f"{(time_diff % 3600) // 60:.0f}"
+                                outlook_text += self.language_json["embeds"][
+                                    "Dashboard"
+                                ]["MajorOrderEmbed"]["ahead_of_schedule"].format(
+                                    hours=hours, minutes=minutes
+                                )
                     else:
                         outlook_text += f"{self.language_json['failure']} <t:{int(self.assignment.ends_at_datetime.timestamp())}:R>"
                         if self.completion_timestamps != []:
