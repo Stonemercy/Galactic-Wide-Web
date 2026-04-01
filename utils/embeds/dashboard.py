@@ -1750,7 +1750,7 @@ class Dashboard:
             self.set_thumbnail(
                 url="https://media.discordapp.net/attachments/1212735927223590974/1413612410819969114/0xfbbeedfa99b09fec.png?ex=68bc90a6&is=68bb3f26&hm=cd8bf236a355bbed28f4847d3d62b5908d050a7eeb7396bb9a891e108acc0241&=&format=webp&quality=lossless"
             )
-            move_datetime = dss.move_timer_datetime.replace(tzinfo=timezone.utc)
+            move_datetime = dss.move_timer_datetime
             because_of_planet = False
             end_time_info = get_end_time(dss.planet, gambit_planets)
             if end_time_info.end_time and end_time_info.end_time < move_datetime:

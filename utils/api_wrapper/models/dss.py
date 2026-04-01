@@ -3,7 +3,7 @@ from ...functions import arrowhead_format
 from ...trackers import BaseTrackerEntry
 from ...emojis import Emojis
 from .planet import Planet
-from datetime import datetime
+from datetime import datetime, timezone
 
 
 class DSS(ReprMixin):
@@ -13,7 +13,7 @@ class DSS(ReprMixin):
         self.flags: int = raw_dss_data["flags"]
         self.move_timer_timestamp: int = raw_dss_data["currentElectionEndWarTime"]
         self.move_timer_datetime: datetime = datetime.fromtimestamp(
-            war_start_timestamp + self.move_timer_timestamp
+            war_start_timestamp + self.move_timer_timestamp, tz=timezone.utc
         )
         self.tactical_actions: list[DSS.TacticalAction] = [
             DSS.TacticalAction(
