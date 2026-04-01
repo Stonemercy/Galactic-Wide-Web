@@ -2381,9 +2381,7 @@ class Dashboard:
                     for sf in campaign.planet.subfactions:
                         field_value += f"\n-# {sf.emoji} {language_json['subfactions'].get(sf.eng_name, sf.eng_name)}"
 
-                    for feature in PlanetFeatures.get_from_effects_list(
-                        campaign.planet.active_effects
-                    ):
+                    for feature in campaign.planet.planet_features:
                         field_value += f"\n-# {feature[1]} {feature[0]}"
                     if campaign.planet.regen_perc_per_hour < 0.001:
                         field_value += f"\n-# :warning: {campaign.planet.regen_perc_per_hour:+.2%}/hr :warning:"
