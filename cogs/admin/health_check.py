@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta, timezone
+from disnake import ButtonStyle, MessageInteraction, ui
 from disnake.ext import commands, tasks
 from main import GalacticWideWebBot
 from utils.dataclasses import Config, VIP
@@ -85,17 +86,40 @@ class HealthCheckCog(commands.Cog):
         mentions = f"<@{self.bot.owner.id}>" + (
             "".join([f"<@{i}>" for i in vips_to_cc]) if vips_to_cc else ""
         )
+        components = [
+            ui.Button(
+                label="Snooze",
+                style=ButtonStyle.danger,
+                custom_id=f"snooze_{error}",
+            )
+        ]
         if error_time := self.error_dict.get(error):
             if error_time < now - timedelta(minutes=29):
                 await self.bot.channels.moderator_channel.send(
-                    content=f"{mentions} {error} :warning:"
+                    content=f"{mentions} {error} :warning:", components=components
                 )
                 self.error_dict[error] = now
         else:
             await self.bot.channels.moderator_channel.send(
-                content=f"{mentions} {error} :warning:"
+                content=f"{mentions} {error} :warning:", components=components
             )
             self.error_dict[error] = now
+
+    @commands.Cog.listener("on_button_click")
+    async def snooze_listener(self, inter: MessageInteraction) -> None:
+        if "snooze" in inter.component.custom_id:
+            error = inter.component.custom_id.split("_")[1]
+            if error in self.error_dict:
+                self.error_dict[error] += timedelta(hours=6)
+                await inter.message.edit(
+                    components=None,
+                    content=(
+                        inter.message.content
+                        + f"\nSnoozed until <t:{int((datetime.now(tz=timezone.utc) + timedelta(hours=6)).timestamp())}:f>"
+                    ),
+                )
+            else:
+                await inter.send(f"{self.bot.owner.mention} I couldn't find that error")
 
 
 def setup(bot: GalacticWideWebBot):
