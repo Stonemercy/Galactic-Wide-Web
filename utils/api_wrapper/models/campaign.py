@@ -20,9 +20,7 @@ class Campaign(ReprMixin):
             else self.planet.event.progress
         )
         self.faction: Faction = (
-            self.planet.event.faction
-            if self.planet.event and self.planet.event.type != 0
-            else self.planet.faction
+            self.planet.event.faction if self.planet.event else self.planet.faction
         )
 
     def __eq__(self, value):
