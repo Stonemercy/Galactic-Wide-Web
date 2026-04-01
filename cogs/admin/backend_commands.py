@@ -1,5 +1,11 @@
 from json import loads
-from disnake import AppCmdInter, ApplicationInstallTypes, InteractionContextTypes
+from random import choices
+from disnake import (
+    AppCmdInter,
+    ApplicationInstallTypes,
+    Attachment,
+    InteractionContextTypes,
+)
 from disnake.ext import commands
 from main import GalacticWideWebBot
 from utils.api_wrapper.models import Assignment
@@ -208,7 +214,7 @@ class BackendCommandsCog(commands.Cog):
     async def pmajor_order(
         self,
         inter: AppCmdInter,
-        json: str,
+        json: Attachment,
         public: str = commands.Param(
             choices=["Yes", "No"],
             description="If you want the response to be seen by others",
@@ -216,25 +222,54 @@ class BackendCommandsCog(commands.Cog):
         ),
     ) -> None:
         await inter.response.defer(ephemeral=public != "Yes")
+        if json.content_type not in (
+            "application/json; charset=utf-8",
+            "text/plain",
+        ) or not json.filename.endswith(".json"):
+            await inter.send("That isn't a json file 🤨", ephemeral=public != "Yes")
+            return
+        elif json.size > 200_000:
+            await inter.send(
+                "Awfully big file you got there 🤨",
+                ephemeral=public != "Yes",
+            )
+            return
+
         try:
-            json_parsed = loads(json)
-            if isinstance(json_parsed, list):
-                json_parsed = json_parsed[0]
+            text_raw = await json.read()
+            text_decoded = text_raw.decode()
+            json_parsed = loads(text_decoded)
+            if not isinstance(json_parsed, list):
+                json_parsed = [json_parsed]
+            else:
+                if len(json_parsed) > 5:
+                    json_parsed = choices(json_parsed, k=5)
+        except UnicodeDecodeError:
+            await inter.send(
+                "That file isn't in UTF-8 format", ephemeral=public != "Yes"
+            )
+            return
         except Exception as e:
             await inter.send(f"```py\n{e}\n```", ephemeral=public != True)
             return
-        major_order = Assignment(
-            raw_assignment_data=json_parsed,
-            war_start_timestamp=self.bot.data.formatted_data.war_start_timestamp,
-        )
-        embed = Dashboard.MajorOrderEmbed(
-            assignment=major_order,
-            planets=self.bot.data.formatted_data.planets,
-            gambit_planets=self.bot.data.formatted_data.gambit_planets,
-            language_json=self.bot.json_dict["languages"]["en"],
-            json_dict=self.bot.json_dict,
-        )
-        await inter.send(embed=embed, ephemeral=public != "Yes")
+        assignments = [
+            Assignment(
+                raw_assignment_data=a,
+                war_start_timestamp=self.bot.data.formatted_data.war_start_timestamp,
+            )
+            for a in json_parsed
+        ]
+        embeds = [
+            Dashboard.MajorOrderEmbed(
+                assignment=mo,
+                planets=self.bot.data.formatted_data.planets,
+                gambit_planets=self.bot.data.formatted_data.gambit_planets,
+                language_json=self.bot.json_dict["languages"]["en"],
+                json_dict=self.bot.json_dict,
+            )
+            for mo in assignments
+        ]
+        await inter.send(embeds=embeds, ephemeral=public != "Yes")
 
 
 def setup(bot: GalacticWideWebBot) -> None:
