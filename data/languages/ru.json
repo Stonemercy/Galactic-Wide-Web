@@ -334,9 +334,9 @@
         "Terminids_plural": "Терминидов",
         "Automaton_plural": "Автоматонов",
         "Illuminate_plural": "Просветленных",
-        "the_Terminids_plural": "ТЕРМИНИДЫ",
-        "the_Automaton_plural": "АВТОМАТОН",
-        "the_Illuminate_plural": "ИЛЛЮМИНАТЫ"
+        "the_Terminids_plural": "Терминидов",
+        "the_Automaton_plural": "Автоматонов",
+        "the_Illuminate_plural": "Просветленных"
     },
     "difficulty": {
         "1": "Простейшая",
