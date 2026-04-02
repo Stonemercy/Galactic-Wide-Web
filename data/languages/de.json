@@ -333,7 +333,10 @@
         "Illuminate": "Illuminierte",
         "Terminids_plural": "Terminiden",
         "Automaton_plural": "Roboter",
-        "Illuminate_plural": "Illuminierten"
+        "Illuminate_plural": "Illuminierten",
+        "the_Terminids_plural": "DIE TERMINIDS",
+        "the_Automaton_plural": "DER AUTOMATON",
+        "the_Illuminate_plural": "DIE ILLUMINATE"
     },
     "difficulty": {
         "1": "Trivial",

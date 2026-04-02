@@ -333,7 +333,10 @@
         "Illuminate": "Illuministe",
         "Terminids_plural": "Terminides",
         "Automaton_plural": "Automatons",
-        "Illuminate_plural": "Illuministes"
+        "Illuminate_plural": "Illuministes",
+        "the_Terminids_plural": "LES TERMINIDS",
+        "the_Automaton_plural": "L'AUTOMATE",
+        "the_Illuminate_plural": "LES ILLUMINÉS"
     },
     "difficulty": {
         "1": "Anecdotique",

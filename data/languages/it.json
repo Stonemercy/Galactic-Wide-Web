@@ -333,7 +333,10 @@
         "Illuminate": "Illuminati",
         "Terminids_plural": "Terminidi",
         "Automaton_plural": "Automatoni",
-        "Illuminate_plural": "Illuminati"
+        "Illuminate_plural": "Illuminati",
+        "the_Terminids_plural": "I TERMINIDI",
+        "the_Automaton_plural": "L'AUTOMATON",
+        "the_Illuminate_plural": "GLI ILLUMINATI"
     },
     "difficulty": {
         "1": "Banale",

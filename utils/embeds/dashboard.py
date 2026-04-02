@@ -533,12 +533,16 @@ class Dashboard:
                 ),
             )
 
-        def _get_faction_name(self, faction: Faction, plural: bool = False) -> str:
+        def _get_faction_name(
+            self, faction: Faction, plural: bool = False, the_prefix: bool = False
+        ) -> str:
             """Get localized and pluralized (if requested) faction name"""
             names: dict = self.language_json["factions"]
             name_to_get = (
                 faction.full_name if not plural else faction.full_name + "_plural"
             )
+            if the_prefix:
+                name_to_get = "the_" + name_to_get
             name = names.get(name_to_get, "Unknown Faction")
             return name
 
@@ -1308,7 +1312,9 @@ class Dashboard:
             else:
                 if task.faction:
                     field_name: str = tasks_json["type12_r_f"]
-                    race_name = self._get_faction_name(task.faction, plural=True)
+                    race_name = self._get_faction_name(
+                        task.faction, plural=True, the_prefix=True
+                    )
                     field_name = field_name.replace("{race}", race_name)
                 else:
                     field_name: str = tasks_json["type12_r_r"]

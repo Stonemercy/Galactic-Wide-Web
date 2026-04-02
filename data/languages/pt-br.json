@@ -333,7 +333,10 @@
         "Illuminate": "Iluminados",
         "Terminids_plural": "Terminidíos",
         "Automaton_plural": "Autômatos",
-        "Illuminate_plural": "Iluminados"
+        "Illuminate_plural": "Iluminados",
+        "the_Terminids_plural": "OS TERMINIDS",
+        "the_Automaton_plural": "O AUTOMATO",
+        "the_Illuminate_plural": "OS ILUMINADOS"
     },
     "difficulty": {
         "1": "Trivial.",

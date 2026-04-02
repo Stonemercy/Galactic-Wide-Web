@@ -333,7 +333,10 @@
         "Illuminate": "Illuminate",
         "Terminids_plural": "Terminids",
         "Automaton_plural": "Automaton",
-        "Illuminate_plural": "Illuminate"
+        "Illuminate_plural": "Illuminate",
+        "the_Terminids_plural": "THE TERMINIDS",
+        "the_Automaton_plural": "THE AUTOMATON",
+        "the_Illuminate_plural": "THE ILLUMINATE"
     },
     "difficulty": {
         "1": "Trivial",

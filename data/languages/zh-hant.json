@@ -333,7 +333,10 @@
         "Illuminate": "光能者",
         "Terminids_plural": "蟲族們",
         "Automaton_plural": "機器人們",
-        "Illuminate_plural": "光能者們"
+        "Illuminate_plural": "光能者們",
+        "the_Terminids_plural": "終結者",
+        "the_Automaton_plural": "自動人偶",
+        "the_Illuminate_plural": "啟蒙者"
     },
     "difficulty": {
         "1": "入門",
