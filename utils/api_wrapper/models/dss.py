@@ -43,7 +43,7 @@ class DSS(ReprMixin):
                 "statusExpireAtWarTimeSeconds"
             ]
             self.status_end_datetime: datetime = datetime.fromtimestamp(
-                war_start_time + self.status_end
+                war_start_time + self.status_end, tz=timezone.utc
             )
             self.strategic_description: str = arrowhead_format(
                 text=tactical_action_raw_data.get("strategicDescription", "")

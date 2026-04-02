@@ -2000,7 +2000,8 @@ class Dashboard:
                                     campaign.planet.event.end_time_datetime.timestamp()
                                     - now_seconds
                                 )
-                            )
+                            ),
+                            tz=timezone.utc,
                         )
                         if (
                             calculated_end_time.end_time
@@ -2131,7 +2132,8 @@ class Dashboard:
                                     campaign.planet.event.end_time_datetime.timestamp()
                                     - now_seconds
                                 )
-                            )
+                            ),
+                            tz=timezone.utc,
                         )
                         if (
                             calculated_end_time.end_time
