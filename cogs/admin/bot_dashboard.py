@@ -51,8 +51,11 @@ class BotDashboardCog(commands.Cog):
                 return
         now = datetime.now(tz=timezone.utc)
         if now.minute == 0 or now - timedelta(minutes=2) < self.bot.startup_time:
-            app_info = await self.bot.application_info()
-            self.user_installs = app_info.approximate_user_install_count
+            try:
+                app_info = await self.bot.application_info()
+                self.user_installs = app_info.approximate_user_install_count
+            except:
+                pass
         dashboard = BotDashboardContainer(
             bot=self.bot, user_installs=self.user_installs
         )
