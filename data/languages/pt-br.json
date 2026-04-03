@@ -191,7 +191,7 @@
                     "type5": "{emoji} Jogue **{count} {obj}**{race_pre}{race}{race_post}{diff_pre}{diff}{diff_post}{multi}.",
                     "type6": "{emoji} Use o/a **{item}**{count_pre}{count}{count_post}{race_pre}{race}{race_post}{diff_pre}{diff}{diff_post}{multi}.",
                     "type7_f_p": "{emoji} Extraia com sucesso de {mtype}{race_pre}{race}{race_post}{diff_pre}{diff}{diff_post}{count_pre}{count}{count_post}{multi}{ext_pre}{ext}{ext_post}",
-                    "type7_r": "{emoji} Extract com sucesso de {mtype}{diff_pre}{diff}{diff_post}{count_pre}{count}{count_post}{multi}{ext_pre}{ext}{ext_post}",
+                    "type7_r": "{emoji} Extraia com sucesso de {mtype}{diff_pre}{diff}{diff_post}{count_pre}{count}{count_post}{multi}{ext_pre}{ext}{ext_post}",
                     "type9_f_p": "{emoji} Complete uma **Operação**{race_pre}{race}{race_post}{diff_pre}{diff}{diff_post}{count_pre}{count}{count_post}{multi}{ext_pre}{ext}{ext_post}",
                     "type9_r": "{emoji} Complete uma **Operação**{diff_pre}{diff}{diff_post}{count_pre}{count}{count_post}{multi}{ext_pre}{ext}{ext_post}",
                     "type10": "{emoji} Doe **{count} {item}** {item_type}",
@@ -254,7 +254,7 @@
                 "loss": "Perdendo",
                 "thanks_to_gambit": "graças à liberação de **{planet}**",
                 "if_region_lib": "\n-# Se as seguintes regiões forem liberadas:\n-# {regions_list}",
-                "gambit": "GAMBITO",
+                "gambit": "GAMBITO EM",
                 "heroes": "Heróis",
                 "available": "disponível"
             },
@@ -334,8 +334,8 @@
         "Terminids_plural": "Terminidíos",
         "Automaton_plural": "Autômatos",
         "Illuminate_plural": "Iluminados",
-        "the_Terminids_plural": "OS TERMINIDS",
-        "the_Automaton_plural": "O AUTOMATO",
+        "the_Terminids_plural": "OS TERMINIDÍOS",
+        "the_Automaton_plural": "OS AUTÔMATOS",
         "the_Illuminate_plural": "OS ILUMINADOS"
     },
     "difficulty": {
@@ -368,7 +368,7 @@
         "DRAGONROACHES": "DRACOBARATAS",
         "HIVE LORDS": "SENHORES DOS NINHOS",
         "CYBORGS": "CIBORGUES",
-        "MINDLESS MASSES": "MINDLESS MASSES",
-        "APPROPRIATORS": "APPROPRIATORS"
+        "MINDLESS MASSES": "MASSAS IRRACIONAIS",
+        "APPROPRIATORS": "APROPRIADORES"
     }
 }
