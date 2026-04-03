@@ -13,11 +13,7 @@ class HelpContainer(ui.Container, ReprMixin):
     ):
         components = []
         if commands:
-            for global_command in sorted(
-                (cmd for cmd in commands if cmd.name not in ("global_event", "gwe")),
-                key=lambda cmd: cmd.name,
-            ):
-
+            for global_command in sorted(commands, key=lambda cmd: cmd.name):
                 options = "*Options:*\n" if global_command.options != [] else ""
                 for option in global_command.options:
                     if option.type == OptionType.sub_command:
@@ -29,7 +25,7 @@ class HelpContainer(ui.Container, ReprMixin):
                 components.extend(
                     [
                         ui.TextDisplay(
-                            f"## </{global_command.name}:{global_command.id}>\n-# {global_command.description}\n{options}"
+                            f"## </{global_command.name}:{global_command.id}>\n-# {global_command.description if global_command.description != '-' else 'WIP'}\n{options}"
                         ),
                         ui.Separator(),
                     ]
@@ -45,7 +41,7 @@ class HelpContainer(ui.Container, ReprMixin):
                     options += f"- **`{option.name}`** {'**[Required]**' if option.required else '**<Optional>**'} - {option.description}\n"
             components.append(
                 ui.TextDisplay(
-                    f"# /{command.name}\n{command.extras['long_description']}\n\n{options}\n**Example usage:**\n- {command.extras['example_usage']}"
+                    f"# /{command.name}\n{command.extras.get('long_description') or 'WIP'}\n\n{options}\n**Example usage:**\n- {command.extras.get('example_usage') or 'WIP'}"
                 )
             )
 

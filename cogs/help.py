@@ -4,6 +4,8 @@ from main import GalacticWideWebBot
 from utils.containers import HelpContainer
 from utils.checks import wait_for_startup
 
+PRIVATE_COMMANDS = ("global_event", "gwe", "pmajor_order")
+
 
 class HelpCog(commands.Cog):
     def __init__(self, bot: GalacticWideWebBot) -> None:
@@ -16,7 +18,7 @@ class HelpCog(commands.Cog):
             [
                 i.name
                 for i in inter.bot.global_slash_commands
-                if i.name not in ["gwe", "global_event"]
+                if i.name not in PRIVATE_COMMANDS
             ]
         )
         return [
@@ -54,15 +56,11 @@ class HelpCog(commands.Cog):
         if command != "all":
             slash_command = self.bot.get_slash_command(command)
         else:
-            slash_commands = (
-                self.bot.global_application_commands
-                if inter.guild
-                else [
-                    command
-                    for command in self.bot.global_slash_commands
-                    if command.contexts and command.contexts.private_channel
-                ]
-            )
+            slash_commands = [
+                c
+                for c in self.bot.global_application_commands
+                if c.name not in PRIVATE_COMMANDS
+            ]
 
         if not slash_command and not slash_commands:
             await inter.send(
