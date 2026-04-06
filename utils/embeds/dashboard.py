@@ -453,8 +453,11 @@ class Dashboard:
                                     )
                         case 12:
                             if task.target - task.progress == 1:
+                                victory_times = []
                                 for planet in [
-                                    p for p in self.planets.values() if p.event
+                                    p
+                                    for p in self.planets.values()
+                                    if p.event and p.event.type == EventType.Defence
                                 ]:
                                     end_time_info = get_end_time(
                                         source_planet=planet,
@@ -465,9 +468,13 @@ class Dashboard:
                                         and end_time_info.end_time
                                         < self.assignment.ends_at_datetime
                                     ):
-                                        self.completion_timestamps.append(
+                                        victory_times.append(
                                             end_time_info.end_time.timestamp()
                                         )
+                                if victory_times:
+                                    self.completion_timestamps.append(
+                                        sorted(victory_times, reverse=True)[0]
+                                    )
                         case 13:
                             if task.planet_index:
                                 planet = self.planets.get(task.planet_index)
@@ -1561,8 +1568,20 @@ class Dashboard:
             if (
                 12 in self.assignment.unique_task_types
                 and any([t.target > 1 for t in self.assignment.tasks if t.type == 12])
-                and now < self.assignment.ends_at_datetime - timedelta(days=2)
+                and (
+                    now < self.assignment.ends_at_datetime - timedelta(days=2)
+                    and not any(
+                        [
+                            t.progress_perc > 0.8
+                            for t in self.assignment.tasks
+                            if t.type == 12
+                        ]
+                    )
+                )
             ):
+                # return if type 12 in assignment with at least 2 as the target
+                # and we either arent within 2 days of assignment end,
+                # or task progress percentage is above 80%
                 return
 
             winning_all_unfinished_tasks = [
