@@ -214,19 +214,25 @@ class GalacticWarEffect(GWEReprMixin):
             short_desc = json_dict["strings"].get(str(self.short_description_hash))
             if short_desc:
                 value = iter(
-                    [
+                    i
+                    for i in [
                         self.count,
                         self.percent,
                         self.found_booster,
                         self.found_enemy,
                         self.found_stratagem,
                     ]
+                    if i
                 )
                 short_desc = arrowhead_format(short_desc)
                 if "#V_ONE" in short_desc:
-                    short_desc = short_desc.replace("#V_ONE", str(next(value)))
+                    short_desc = short_desc.replace(
+                        "#V_ONE", str(next(value, "NOT FOUND"))
+                    )
                 if "#V_TWO" in short_desc:
-                    short_desc = short_desc.replace("#V_TWO", str(next(value)))
+                    short_desc = short_desc.replace(
+                        "#V_TWO", str(next(value, "NOT FOUND"))
+                    )
                 self.short_description = short_desc
 
     def __hash__(self):
