@@ -61,7 +61,7 @@ class GlobalEventsContainer(ui.Container, ReprMixin):
                     ]:
                         sf = subfactions[0]
                         text_display.content += sf.emoji
-            text_display.content += f"\n### Effects added to:{specific_planets}"
+            text_display.content += f"\n### Effects added to:\n{specific_planets}"
 
         else:
             for chunk in global_event.split_message:
