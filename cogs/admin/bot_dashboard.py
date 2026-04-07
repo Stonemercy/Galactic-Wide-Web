@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta, timezone
-from disnake import HTTPException, NotFound, ui
+from disnake import DiscordServerError, HTTPException, NotFound, ui
 from disnake.ext import commands, tasks
 from utils.bot import GalacticWideWebBot
 from utils.containers import BotDashboardContainer
@@ -59,7 +59,10 @@ class BotDashboardCog(commands.Cog):
         dashboard = BotDashboardContainer(
             bot=self.bot, user_installs=self.user_installs
         )
-        await self.bot.bot_dashboard_message.edit(components=dashboard)
+        try:
+            await self.bot.bot_dashboard_message.edit(components=dashboard)
+        except DiscordServerError:
+            pass
 
     @bot_dashboard.before_loop
     async def before_bot_dashboard(self) -> None:
