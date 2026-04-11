@@ -1,5 +1,5 @@
 from disnake import Colour, Embed
-from data.lists import CUSTOM_COLOURS
+from data.lists import CURRENCIES, CUSTOM_COLOURS
 from utils.api_wrapper.models import PersonalOrder
 from utils.dataclasses import AssignmentImages
 from utils.emojis import Emojis
@@ -18,10 +18,12 @@ class PersonalOrderCommandEmbed(Embed, EmbedReprMixin):
         for task in personal_order.tasks:
             if task.type == 2:  # Extract with {number} {items}
                 if task.mix_id:
-                    item = json_dict["items"]["items"].get(
-                        str(task.mix_id), {"name": "UNKNOWN"}
+                    item = (
+                        CURRENCIES.get(task.mix_id)
+                        or json_dict["items"]["items"].get(
+                            str(task.mix_id), {"name": "UNKNOWN"}
+                        )["name"]
                     )
-                    item = item["name"]
                     full_objective = f"Successfully extract with {task.values[2]} {item}s {getattr(Emojis.Items, item.replace(' ', '_').lower(), '')}"
                 else:
                     full_objective = (
