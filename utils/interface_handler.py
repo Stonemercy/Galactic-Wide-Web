@@ -1,5 +1,13 @@
 from asyncio import sleep
-from disnake import Embed, Forbidden, NotFound, PartialMessage, TextChannel, ui
+from disnake import (
+    Embed,
+    Forbidden,
+    HTTPException,
+    NotFound,
+    PartialMessage,
+    TextChannel,
+    ui,
+)
 from disnake.ext.commands import AutoShardedInteractionBot
 from utils.dbv2 import Feature, GWWGuilds, GWWGuild as GWWGuild
 from utils.interactables import WikiButton
