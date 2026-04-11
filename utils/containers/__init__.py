@@ -11,6 +11,7 @@ from .mo_unavilable import MOUnavailableContainer
 from .planet import PlanetContainers
 from .region_changes import RegionChangesContainer
 from .setup import SetupContainer
+from .superstore import SuperstoreContainer
 from .usage_report import UsageContainer
 
 __all__ = [
@@ -28,5 +29,6 @@ __all__ = [
     "PlanetContainers",
     "RegionChangesContainer",
     "SetupContainer",
+    "SuperstoreContainer",
     "UsageContainer",
 ]
