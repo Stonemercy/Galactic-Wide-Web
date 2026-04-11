@@ -122,6 +122,20 @@ class InterfaceHandler:
             return self.bot.logger.error(
                 f"edit_dashboard | {guild.language} | {e} | reset in DB | {guild.guild_id = }"
             )
+        except HTTPException as e:
+            if "Thread is archived" in e.text:
+                self.dashboards.remove_entry(message.guild.id)
+                guild: GWWGuild = GWWGuilds.get_specific_guild(message.guild.id)
+                guild.features = [f for f in guild.features if f.name != "dashboards"]
+                guild.update_features()
+                guild.save_changes()
+                return self.bot.logger.error(
+                    f"edit_dashboard | {guild.language} | {e} | reset in DB | {guild.guild_id = }"
+                )
+            else:
+                return self.bot.logger.error(
+                    f"edit_dashboard | {e} | {message.guild.id = }"
+                )
         except Exception as e:
             return self.bot.logger.error(
                 f"edit_dashboard | {e} | {message.guild.id = }"
