@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta, timezone
 from random import choice
 from data.lists import (
+    CURRENCIES,
     CUSTOM_COLOURS,
     ATTACK_EMBED_ICONS,
     DEFENCE_EMBED_ICONS,
@@ -752,9 +753,12 @@ class Dashboard:
             field_name = field_name.replace("{count}", f"{task.target:,}")
             match task.item_type:
                 case 1:
-                    item_name: str = self.json_dict["items"]["item_names"].get(
-                        str(task.item_id), {"name": "UNKNOWN ITEM"}
-                    )["name"]
+                    item_name: str = (
+                        CURRENCIES.get(task.item_id)
+                        or self.json_dict["items"]["items"].get(
+                            str(task.item_id), {"name": "UNKNOWN ITEM"}
+                        )["name"]
+                    )
                     item_name = self.language_json["currencies"].get(
                         item_name, item_name
                     )
@@ -1164,11 +1168,12 @@ class Dashboard:
             if task.item_id:
                 # unsure how they get the items for this
                 item_name, item_type = ("item_name", "item_type")
-                item_name = self.json_dict["items"]["item_names"].get(
-                    str(task.item_id), {"name": "item_name"}
-                )[
-                    "name"
-                ]  # temp patch
+                item_name = (
+                    CURRENCIES.get(task.item_id)
+                    or self.json_dict["items"]["items"].get(
+                        str(task.item_id), {"name": "item_name"}
+                    )["name"]
+                )  # temp patch
                 field_name = field_name.replace("{item}", item_name)
                 field_name = field_name.replace("{item_type}", item_type)
             field_name = self._remove_empty_tags(text=field_name)
