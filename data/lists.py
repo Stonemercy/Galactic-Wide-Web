@@ -21,7 +21,6 @@ json_dict = {
         },
     },
     "enemy_ids": {"path": "data/json/enemies/enemy_ids.json", "value": None},
-    "planet_effects": {"path": "data/json/effects/planetEffects.json", "value": None},
     "galactic_war_effects": {
         "path": "data/json/effects/galactic_war_effects/effect_types.json",
         "value": None,
@@ -233,6 +232,8 @@ STRATAGEM_ID_DICT = {
     906184838: "MS-11 Solo Silo",
 }
 
-weapon_id_dict = {
-    4161086429: "Constitution",
+CURRENCIES = {
+    2985106497: "Rare Sample",
+    3992382197: "Common Sample",
+    3608481516: "Requisition Slip",
 }
