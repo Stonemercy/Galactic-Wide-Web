@@ -4,7 +4,7 @@ from ...dataclasses import Faction, Factions
 from ...functions import arrowhead_format
 from ...functions.health_bar import health_bar
 from ..services.tracking_service import TrackerEntry
-from data.lists import stratagem_id_dict
+from data.lists import STRATAGEM_ID_DICT
 
 
 class GlobalResource(ReprMixin):
@@ -158,7 +158,7 @@ class GalacticWarEffect(GWEReprMixin):
             self.faction: Faction | None = Factions.get_from_identifier(number=faction)
         if mix_id := self.values_dict.get(4):
             self.mix_id: int = mix_id
-            if stratagem := stratagem_id_dict.get(self.mix_id):
+            if stratagem := STRATAGEM_ID_DICT.get(self.mix_id):
                 self.found_stratagem: str = stratagem
             elif booster := json_dict["items"]["boosters"].get(str(self.mix_id), {}):
                 self.found_booster: dict = booster

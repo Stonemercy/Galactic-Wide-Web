@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta, timezone
-from data.lists import stratagem_id_dict
+from data.lists import STRATAGEM_ID_DICT
 from ...mixins import ReprMixin
 from ...dataclasses import Faction, Factions
 
@@ -73,7 +73,7 @@ class PersonalOrder(ReprMixin):
                 self.found_enemy = json_dict["enemy_ids"].get(str(self.enemy_id), None)
             if self.values_dict.get(6):
                 self.mix_id = self.values_dict.get(5)
-                if stratagem := stratagem_id_dict.get(self.mix_id):
+                if stratagem := STRATAGEM_ID_DICT.get(self.mix_id):
                     self.found_stratagem: str = stratagem
                 elif booster := json_dict["items"]["boosters"].get(
                     str(self.mix_id), {}

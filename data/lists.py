@@ -153,7 +153,7 @@ STRATAGEM_IMAGE_LINKS = {
     "Eagle Rearm": "https://helldivers.wiki.gg/images/Eagle_Rearm_Stratagem_Icon.png?1d2fc1",
 }
 
-stratagem_id_dict = {
+STRATAGEM_ID_DICT = {
     1078307866: "Orbital Gatling Barrage",
     2928105092: "Orbital 120mm HE Barrage",
     2831720448: "Orbital Airburst Strike",
