@@ -18,7 +18,7 @@ class PersonalOrderCommandEmbed(Embed, EmbedReprMixin):
         for task in personal_order.tasks:
             if task.type == 2:  # Extract with {number} {items}
                 if task.mix_id:
-                    item = json_dict["items"]["item_names"].get(
+                    item = json_dict["items"]["items"].get(
                         str(task.mix_id), {"name": "UNKNOWN"}
                     )
                     item = item["name"]

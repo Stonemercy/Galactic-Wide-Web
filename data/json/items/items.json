@@ -1,0 +1,3014 @@
+{
+    "2671489717": {
+        "name": "FS-37 Ravager",
+        "description": "Contains many small pockets, allowing the user to evenly distribute the weight of ammunition, samples, and cool rocks.",
+        "type": "Armor",
+        "cost": 250
+    },
+    "1917896581": {
+        "name": "FS-37 Ravager",
+        "description": "Contains many small pockets, allowing the user to evenly distribute the weight of ammunition, samples, and cool rocks.",
+        "type": "Helmet",
+        "cost": 125
+    },
+    "123640653": {
+        "name": "FS-55 Devastator",
+        "description": "Domestic versions of this armor enable colonial farmers to plant crops and mines side by side, safely.",
+        "type": "Armor",
+        "cost": 0
+    },
+    "3364088192": {
+        "name": "FS-55 Devastator",
+        "description": "Domestic versions of this armor enable colonial farmers to plant crops and mines side by side, safely.",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "1740717999": {
+        "name": "CW-4 Arctic Ranger",
+        "description": "Features a utility belt with pockets that can be filled with any number of things, such as pocket knives, mementos from home, and interesting rocks.",
+        "type": "Armor",
+        "cost": 0
+    },
+    "2829569639": {
+        "name": "CW-4 Arctic Ranger",
+        "description": "Features a utility belt with pockets that can be filled with any number of things, such as pocket knives, mementos from home, and interesting rocks.",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "3182845434": {
+        "name": "CW-22 Kodiak",
+        "description": "The CW-22 Kodiak armor was thoroughly pressure-tested by patriotic volunteers, as part of the \"Test Subjects for Super-Earth\" Citizen Advancement Program.",
+        "type": "Armor",
+        "cost": 0
+    },
+    "58483197": {
+        "name": "SA-25 Steel Trooper",
+        "description": "For optimal performance, the manufacturer recommends avoiding immersing this armor in salt water for prolonged periods. ",
+        "type": "Armor",
+        "cost": 0
+    },
+    "197210556": {
+        "name": "SA-25 Steel Trooper",
+        "description": "For optimal performance, the manufacturer recommends avoiding immersing this armor in salt water for prolonged periods. ",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "2858087169": {
+        "name": "SA-12 Servo-Assisted",
+        "description": "Each servo-assisted limb contains 138 miniature motors, to support a natural gait and long-term spinal health.",
+        "type": "Armor",
+        "cost": 0
+    },
+    "1675214662": {
+        "name": "SA-12 Servo-Assisted",
+        "description": "Each servo-assisted limb contains 138 miniature motors, to support a natural gait and long-term spinal health.",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "3247235347": {
+        "name": "SA-32 Dynamo",
+        "description": "In mountainous colonies, domestic variants of this armor are used to throw weather monitoring equipment uphill.",
+        "type": "Armor",
+        "cost": 0
+    },
+    "3108744452": {
+        "name": "SA-32 Dynamo",
+        "description": "In mountainous colonies, domestic variants of this armor are used to throw weather monitoring equipment uphill.",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "2707635295": {
+        "name": "CE-74 Breaker",
+        "description": "A domestic version of this armor is available for citizens who wish to perform efficient home renovation projects.",
+        "type": "Armor",
+        "cost": 250
+    },
+    "2560101303": {
+        "name": "CE-74 Breaker",
+        "description": "A domestic version of this armor is available for citizens who wish to perform efficient home renovation projects.",
+        "type": "Helmet",
+        "cost": 125
+    },
+    "324813428": {
+        "name": "armor_chem_trooper_medium_forest_veteran_name_cased",
+        "description": "armor_chem_trooper_medium_forest_veteran_desc",
+        "type": "Armor",
+        "cost": 0
+    },
+    "1801556340": {
+        "name": "armor_pristine_name_cased",
+        "description": "armor_chem_trooper_medium_hd_pristine_desc",
+        "type": "Armor",
+        "cost": 0
+    },
+    "1931908001": {
+        "name": "armor_chem_trooper_medium_hd_veteran_name_cased",
+        "description": "armor_chem_trooper_medium_hd_veteran_desc",
+        "type": "Armor",
+        "cost": 0
+    },
+    "2355853539": {
+        "name": "helmet_veteran_variation_forest_name_cased",
+        "description": "helmet_chem_trooper_medium_forest_veteran_desc",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "263608846": {
+        "name": "helmet_pristine_name_cased",
+        "description": "helmet_chem_trooper_medium_hd_pristine_desc",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "4138636345": {
+        "name": "helmet_veteran_name_cased",
+        "description": "helmet_chem_trooper_medium_hd_veteran_desc",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "4264835049": {
+        "name": "helmet_pristine_variation_gasmask_name_cased",
+        "description": "helmet_gasmask_medium_hd_pristine_desc",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "2943433394": {
+        "name": "DP-00 Tactical",
+        "description": "This classic armor set is recognized by every citizen: worn by the heroic Helldivers who battled and forever defeated the Terminids, Cyborgs, and Illuminate in the First Galactic War.",
+        "type": "Armor",
+        "cost": 0
+    },
+    "703523490": {
+        "name": "DP-00 Tactical",
+        "description": "This classic armor set is recognized by every citizen: worn by the heroic Helldivers who battled and forever defeated the Terminids, Cyborgs, and Illuminate in the First Galactic War.",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "627197346": {
+        "name": "CE-35 Trench Engineer",
+        "description": "After colonists of Hellmire recovered a lost shipment of this armor, the local pastime of fence-smashing was born.",
+        "type": "Armor",
+        "cost": 900
+    },
+    "2137194125": {
+        "name": "CE-35 Trench Engineer",
+        "description": "After colonists of Hellmire recovered a lost shipment of this armor, the local pastime of fence-smashing was born.",
+        "type": "Helmet",
+        "cost": 300
+    },
+    "600482535": {
+        "name": "CE-67 Titan",
+        "description": "A quality product, this armor can destroy over 300,000 kilometers of fencing with no decline in operational efficiency. ",
+        "type": "Armor",
+        "cost": 150
+    },
+    "3265219660": {
+        "name": "CE-67 Titan",
+        "description": "A quality product, this armor can destroy over 300,000 kilometers of fencing with no decline in operational efficiency. ",
+        "type": "Helmet",
+        "cost": 75
+    },
+    "1243352476": {
+        "name": "CE-27 Ground Breaker",
+        "description": "\"The ground is just another obstacle that hasn't yet been cleared.\" - SGM Janet Jones, Excavation Corps Founder.",
+        "type": "Armor",
+        "cost": 0
+    },
+    "4107448458": {
+        "name": "CE-27 Ground Breaker",
+        "description": "\"The ground is just another obstacle that hasn't yet been cleared.\" - SGM Janet Jones, Excavation Corps Founder.",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "726539469": {
+        "name": "CM-09 Bonesnapper",
+        "description": "Based on a colonial surgeon's gown, where surgeries were often interrupted by a need to perform defensive duties.",
+        "type": "Armor",
+        "cost": 0
+    },
+    "3202051201": {
+        "name": "CM-09 Bonesnapper",
+        "description": "Based on a colonial surgeon's gown, where surgeries were often interrupted by a need to perform defensive duties.",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "1496416071": {
+        "name": "CM-21 Trench Paramedic",
+        "description": "The suit was once designed to hold a variety of battlefield medical equipment. Now it holds a generous supply of stims.",
+        "type": "Armor",
+        "cost": 250
+    },
+    "1803822149": {
+        "name": "CM-21 Trench Paramedic",
+        "description": "The suit was once designed to hold a variety of battlefield medical equipment. Now it holds a generous supply of stims.",
+        "type": "Helmet",
+        "cost": 125
+    },
+    "1720124590": {
+        "name": "CM-17 Butcher",
+        "description": "An armor often worn by frontline surgeons, who are skilled at both putting bodies back together and taking them apart.",
+        "type": "Armor",
+        "cost": 250
+    },
+    "107122853": {
+        "name": "CM-17 Butcher",
+        "description": "An armor often worn by frontline surgeons, who are skilled at both putting bodies back together and taking them apart.",
+        "type": "Helmet",
+        "cost": 125
+    },
+    "569318072": {
+        "name": "CM-10 Clinician",
+        "description": "Featuring patented reverse-seam technology, to reduce the likelihood of bodily fluids entering the armor's interior.",
+        "type": "Armor",
+        "cost": 250
+    },
+    "1937229501": {
+        "name": "CM-10 Clinician",
+        "description": "Featuring patented reverse-seam technology, to reduce the likelihood of bodily fluids entering the armor's interior.",
+        "type": "Helmet",
+        "cost": 125
+    },
+    "3696494697": {
+        "name": "B-22 Model Citizen",
+        "description": "Gifted to Helldivers whose civilian lives were distinguished by exemplary citizenship, patriotism, and service to the Federation.",
+        "type": "Armor",
+        "cost": 0
+    },
+    "1571461053": {
+        "name": "B-22 Model Citizen",
+        "description": "Gifted to Helldivers whose civilian lives were distinguished by exemplary citizenship, patriotism, and service to the Federation.",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "2962098489": {
+        "name": "B-16 Battle-Scarred Veteran",
+        "description": "Spattered gore marks those heroes who braved the harrowing first days of the war for Managed Democracy.",
+        "type": "Armor",
+        "cost": 0
+    },
+    "2511084797": {
+        "name": "B-16 Battle-Scarred Veteran",
+        "description": "Spattered gore marks those heroes who braved the harrowing first days of the war for Managed Democracy.",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "3057681291": {
+        "name": "armor_deathtrooper_medium_hd_veteran_name_cased",
+        "description": "armor_deathtrooper_medium_hd_veteran_desc",
+        "type": "Armor",
+        "cost": 0
+    },
+    "1998231159": {
+        "name": "helmet_veteran_name_cased",
+        "description": "helmet_deathtrooper_medium_hd_veteran_desc",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "141528028": {
+        "name": "FS-61 Dreadnought",
+        "description": "With genuine gold accents, 74% of colonists voted this armor the set they would most like to be buried in.",
+        "type": "Armor",
+        "cost": 250
+    },
+    "2622359419": {
+        "name": "FS-61 Dreadnought",
+        "description": "With genuine gold accents, 74% of colonists voted this armor the set they would most like to be buried in.",
+        "type": "Helmet",
+        "cost": 125
+    },
+    "2090263706": {
+        "name": "CE-07 Demolition Specialist",
+        "description": "Originally worn by lunar terraformers, this suit can withstand rapid changes in pressure, heat, and personal velocity.",
+        "type": "Armor",
+        "cost": 0
+    },
+    "2038008847": {
+        "name": "CE-07 Demolition Specialist",
+        "description": "Originally worn by lunar terraformers, this suit can withstand rapid changes in pressure, heat, and personal velocity.",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "1541695550": {
+        "name": "SC-15 Drone Master",
+        "description": "Some soldiers report picking up strange radio interference when wearing this armor near alien artifacts.",
+        "type": "Armor",
+        "cost": 250
+    },
+    "613510753": {
+        "name": "SC-15 Drone Master",
+        "description": "Some soldiers report picking up strange radio interference when wearing this armor near alien artifacts.",
+        "type": "Helmet",
+        "cost": 125
+    },
+    "3425208119": {
+        "name": "FS-38 Eradicator",
+        "description": "First deployed in the mines of Cyberstan, where it offered protection against explosions in the hydrogen-rich caverns. ",
+        "type": "Armor",
+        "cost": 250
+    },
+    "2451094788": {
+        "name": "FS-38 Eradicator",
+        "description": "First deployed in the mines of Cyberstan, where it offered protection against explosions in the hydrogen-rich caverns. ",
+        "type": "Helmet",
+        "cost": 125
+    },
+    "3605514351": {
+        "name": "EX-03 Prototype 3",
+        "description": "Because this prototype's wires operate at 400,000 volts, it also includes a handy rubber underlayer for insulation.",
+        "type": "Armor",
+        "cost": 2900
+    },
+    "1004735217": {
+        "name": "EX-03 Prototype 3",
+        "description": "Because this prototype's wires operate at 400,000 volts, it also includes a handy rubber underlayer for insulation.",
+        "type": "Helmet",
+        "cost": 600
+    },
+    "1223759745": {
+        "name": "EX-16 Prototype 16",
+        "description": "As the electric arc generates a strong magnetic field, wearers should avoid use while in vicinity of stapled paperwork.",
+        "type": "Armor",
+        "cost": 0
+    },
+    "3182289738": {
+        "name": "EX-16 Prototype 16",
+        "description": "As the electric arc generates a strong magnetic field, wearers should avoid use while in vicinity of stapled paperwork.",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "1959739079": {
+        "name": "FS-34 Exterminator",
+        "description": "Features a patented non-stick coating, which makes scraping viscera off after a long day of battle less taxing.",
+        "type": "Armor",
+        "cost": 400
+    },
+    "1781176310": {
+        "name": "FS-34 Exterminator",
+        "description": "Features a patented non-stick coating, which makes scraping viscera off after a long day of battle less taxing.",
+        "type": "Helmet",
+        "cost": 200
+    },
+    "2076005753": {
+        "name": "DP-40 Hero of the Federation",
+        "description": "Though originally intended solely for ceremonial use, its inspirational energy proved equally useful on the battlefield.",
+        "type": "Armor",
+        "cost": 2900
+    },
+    "2712908266": {
+        "name": "TR-9 Cavalier of Democracy",
+        "description": "Bearers of this armor ride no equine mount, but are nonetheless borne to battle atop the trusty steed of Liberty.",
+        "type": "Armor",
+        "cost": 0
+    },
+    "2257162260": {
+        "name": "DP-40 Hero of the Federation",
+        "description": "Though originally intended solely for ceremonial use, its inspirational energy proved equally useful on the battlefield.",
+        "type": "Helmet",
+        "cost": 600
+    },
+    "1122513689": {
+        "name": "TR-9 Cavalier of Democracy",
+        "description": "Bearers of this armor ride no equine mount, but are nonetheless borne to battle atop the trusty steed of Liberty.",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "2948747084": {
+        "name": "DP-11 Champion of the People",
+        "description": "The three stripes on the pauldrons stand for the three principles of Super Earth: Liberty, Democracy, and Prosperity.",
+        "type": "Armor",
+        "cost": 0
+    },
+    "1533004132": {
+        "name": "DP-11 Champion of the People",
+        "description": "The three stripes on the pauldrons stand for the three principles of Super Earth: Liberty, Democracy, and Prosperity.",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "3658884708": {
+        "name": "CM-14 Physician",
+        "description": "The distinctive red, white, and green of the Intergalactic Medical Corps signal to all Helldivers that help is at hand.",
+        "type": "Armor",
+        "cost": 0
+    },
+    "2255718673": {
+        "name": "CM-14 Physician",
+        "description": "The distinctive red, white, and green of the Intergalactic Medical Corps signal to all Helldivers that help is at hand.",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "3066485739": {
+        "name": "TR-117 Alpha Commander",
+        "description": "For warriors who are so strong and confident that they don't need any reassurance whatsoever.",
+        "type": "Armor",
+        "cost": 0
+    },
+    "1945105139": {
+        "name": "TR-117 Alpha Commander",
+        "description": "For warriors who are so strong and confident that they don't need any reassurance whatsoever.",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "729713319": {
+        "name": "B-27 Fortified Commando",
+        "description": "This armor set first appeared in the music video for the summer anthem 'Our Love is Like Liberty (Indestructible)'. ",
+        "type": "Armor",
+        "cost": 400
+    },
+    "1440169212": {
+        "name": "B-27 Fortified Commando",
+        "description": "This armor set first appeared in the music video for the summer anthem 'Our Love is Like Liberty (Indestructible)'. ",
+        "type": "Helmet",
+        "cost": 200
+    },
+    "1853367679": {
+        "name": "EX-00 Prototype X",
+        "description": "The end result of several billion Super Credits and 12 years of reseach into creating \"the Soldier of Tomorrow.\"",
+        "type": "Armor",
+        "cost": 0
+    },
+    "377236948": {
+        "name": "EX-00 Prototype X",
+        "description": "The end result of several billion Super Credits and 12 years of reseach into creating \"the Soldier of Tomorrow.\"",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "4217833941": {
+        "name": "CE-81 Juggernaut",
+        "description": "One of the most durable engineer armors available, each set is quality tested by an impact with a full-grown Charger.",
+        "type": "Armor",
+        "cost": 250
+    },
+    "632014929": {
+        "name": "CE-81 Juggernaut",
+        "description": "One of the most durable engineer armors available, each set is quality tested by an impact with a full-grown Charger.",
+        "type": "Helmet",
+        "cost": 125
+    },
+    "2556497905": {
+        "name": "DP-8 Mountain-Scaled",
+        "description": "This armor recalls the legendary heroes who scared a ravenous Hive Lord away from a colony village, using only the village's battery of patriotic fireworks.",
+        "type": "Armor",
+        "cost": 250
+    },
+    "1233248044": {
+        "name": "DP-8 Mountain-Scaled",
+        "description": "This armor recalls the legendary heroes who scared a ravenous Hive Lord away from a colony village, using only the village's battery of patriotic fireworks.",
+        "type": "Helmet",
+        "cost": 125
+    },
+    "2304644113": {
+        "name": "armor_mechpilot_light_forest_veteran_name_cased",
+        "description": "armor_mechpilot_light_forest_veteran_desc",
+        "type": "Armor",
+        "cost": 0
+    },
+    "261917564": {
+        "name": "SC-37 Legionnaire",
+        "description": "This armor is based on the antique uniforms of the 'Super Earth Legion', a less patriotic precursor to the Helldivers.",
+        "type": "Armor",
+        "cost": 150
+    },
+    "2076675618": {
+        "name": "armor_mechpilot_light_hd_veteran_name_cased",
+        "description": "armor_mechpilot_light_hd_veteran_desc",
+        "type": "Armor",
+        "cost": 0
+    },
+    "1180262890": {
+        "name": "helmet_veteran_variation_forest_name_cased",
+        "description": "helmet_mechpilot_light_forest_veteran_desc",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "4084902841": {
+        "name": "SC-37 Legionnaire",
+        "description": "This armor is based on the antique uniforms of the 'Super Earth Legion', a less patriotic precursor to the Helldivers.",
+        "type": "Helmet",
+        "cost": 75
+    },
+    "2194213002": {
+        "name": "helmet_veteran_name_cased",
+        "description": "helmet_mechpilot_light_hd_veteran_desc",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "2107035846": {
+        "name": "CM-09 Bonesnapper",
+        "description": "Based on a colonial surgeon's gown, where surgeries were often interrupted by a need to perform defensive duties.",
+        "type": "Armor",
+        "cost": 0
+    },
+    "1303420068": {
+        "name": "CM-09 Bonesnapper",
+        "description": "Based on a colonial surgeon's gown, where surgeries were often interrupted by a need to perform defensive duties.",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "3855903191": {
+        "name": "B-08 Light Gunner",
+        "description": "Compact and flexible, this kevlar armor adds minimal mass, making it a common choice for Helldiver fitness tests.",
+        "type": "Armor",
+        "cost": 150
+    },
+    "123566382": {
+        "name": "B-08 Light Gunner",
+        "description": "Compact and flexible, this kevlar armor adds minimal mass, making it a common choice for Helldiver fitness tests.",
+        "type": "Helmet",
+        "cost": 75
+    },
+    "1054227457": {
+        "name": "A-9 Helljumper",
+        "description": "Debuted during the New Mombasa Armor Show, this sleek ensemble is sure to turn heads and blow minds.",
+        "type": "Armor",
+        "cost": 0
+    },
+    "4073412478": {
+        "name": "A-9 Helljumper",
+        "description": "Debuted during the New Mombasa Armor Show, this sleek ensemble is sure to turn heads and blow minds.",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "1449669830": {
+        "name": "A-35 Recon",
+        "description": "Made famous by the Ministry of Intelligence's hide-and-seek-and-destroy champion of '52, this armor has been improved by removing excess shoulder protection.",
+        "type": "Armor",
+        "cost": 0
+    },
+    "3018658853": {
+        "name": "A-35 Recon",
+        "description": "Made famous by the Ministry of Intelligence's hide-and-seek-and-destroy champion of '52, this armor has been improved by removing excess shoulder protection.",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "556862721": {
+        "name": "DP-53 Savior of the Free",
+        "description": "A faithful replica of the armor worn at The Battle of Liberty Peak. Honor their legacy, and wear it with pride. ",
+        "type": "Armor",
+        "cost": 0
+    },
+    "1296068557": {
+        "name": "DP-53 Savior of the Free",
+        "description": "A faithful replica of the armor worn at The Battle of Liberty Peak. Honor their legacy, and wear it with pride. ",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "1969314276": {
+        "name": "SC-30 Trailblazer Scout",
+        "description": "The patented fabric absorbs visible, infrared, and ultraviolet radiation, to prevent detection by all known species.",
+        "type": "Armor",
+        "cost": 0
+    },
+    "3884524834": {
+        "name": "SC-30 Trailblazer Scout",
+        "description": "The patented fabric absorbs visible, infrared, and ultraviolet radiation, to prevent detection by all known species.",
+        "type": "Armor",
+        "cost": 1750
+    },
+    "2141363041": {
+        "name": "SC-30 Trailblazer Scout",
+        "description": "The patented fabric absorbs visible, infrared, and ultraviolet radiation, to prevent detection by all known species.",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "2606482720": {
+        "name": "armorset_120_name_cased",
+        "description": "armorset_120_desc",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "3682449066": {
+        "name": "armorset_120_name_cased",
+        "description": "armorset_120_desc",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "161123434": {
+        "name": "SC-30 Trailblazer Scout",
+        "description": "The patented fabric absorbs visible, infrared, and ultraviolet radiation, to prevent detection by all known species.",
+        "type": "Helmet",
+        "cost": 600
+    },
+    "2231876405": {
+        "name": "armorset_120_name_cased",
+        "description": "armorset_120_desc",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "34232232": {
+        "name": "armorset_120_name_cased",
+        "description": "armorset_120_desc",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "1376017051": {
+        "name": "armorset_120_name_cased",
+        "description": "armorset_120_desc",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "2015397810": {
+        "name": "armorset_120_name_cased",
+        "description": "armorset_120_desc",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "2342442877": {
+        "name": "B-24 Enforcer",
+        "description": "In field tests, 84% of users said that the armor improved their posture and self-esteem.",
+        "type": "Armor",
+        "cost": 0
+    },
+    "2839523111": {
+        "name": "B-24 Enforcer",
+        "description": "In field tests, 84% of users said that the armor improved their posture and self-esteem.",
+        "type": "Armor",
+        "cost": 150
+    },
+    "2886393549": {
+        "name": "B-24 Enforcer",
+        "description": "In field tests, 84% of users said that the armor improved their posture and self-esteem.",
+        "type": "Armor",
+        "cost": 0
+    },
+    "370492118": {
+        "name": "B-24 Enforcer",
+        "description": "In field tests, 84% of users said that the armor improved their posture and self-esteem.",
+        "type": "Helmet",
+        "cost": 75
+    },
+    "124623533": {
+        "name": "FS-05 Marksman",
+        "description": "While early prototypes used shock-absorbing gels, this armor stabilizes aim with the use of internal gyroscopes. ",
+        "type": "Armor",
+        "cost": 0
+    },
+    "671123458": {
+        "name": "FS-05 Marksman",
+        "description": "While early prototypes used shock-absorbing gels, this armor stabilizes aim with the use of internal gyroscopes. ",
+        "type": "Armor",
+        "cost": 0
+    },
+    "3377389763": {
+        "name": "FS-05 Marksman",
+        "description": "While early prototypes used shock-absorbing gels, this armor stabilizes aim with the use of internal gyroscopes. ",
+        "type": "Armor",
+        "cost": 900
+    },
+    "255960702": {
+        "name": "FS-05 Marksman",
+        "description": "While early prototypes used shock-absorbing gels, this armor stabilizes aim with the use of internal gyroscopes. ",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "3058335410": {
+        "name": "FS-05 Marksman",
+        "description": "While early prototypes used shock-absorbing gels, this armor stabilizes aim with the use of internal gyroscopes. ",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "910516311": {
+        "name": "FS-05 Marksman",
+        "description": "While early prototypes used shock-absorbing gels, this armor stabilizes aim with the use of internal gyroscopes. ",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "2380729224": {
+        "name": "FS-05 Marksman",
+        "description": "While early prototypes used shock-absorbing gels, this armor stabilizes aim with the use of internal gyroscopes. ",
+        "type": "Helmet",
+        "cost": 300
+    },
+    "3642074737": {
+        "name": "FS-05 Marksman",
+        "description": "While early prototypes used shock-absorbing gels, this armor stabilizes aim with the use of internal gyroscopes. ",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "3826757243": {
+        "name": "FS-05 Marksman",
+        "description": "While early prototypes used shock-absorbing gels, this armor stabilizes aim with the use of internal gyroscopes. ",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "1146282869": {
+        "name": "FS-05 Marksman",
+        "description": "While early prototypes used shock-absorbing gels, this armor stabilizes aim with the use of internal gyroscopes. ",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "202045192": {
+        "name": "FS-05 Marksman",
+        "description": "While early prototypes used shock-absorbing gels, this armor stabilizes aim with the use of internal gyroscopes. ",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "2063654327": {
+        "name": "FS-11 Executioner",
+        "description": "Popularized by actor Chip Messiter, who wore this in the action-rom-com-musical \"Lost My Heart to a Man in a Helmet.\"",
+        "type": "Armor",
+        "cost": 150
+    },
+    "3777669305": {
+        "name": "FS-11 Executioner",
+        "description": "Popularized by actor Chip Messiter, who wore this in the action-rom-com-musical \"Lost My Heart to a Man in a Helmet.\"",
+        "type": "Helmet",
+        "cost": 75
+    },
+    "2441344260": {
+        "name": "SC-34 Infiltrator",
+        "description": "This suit's plutonium-238 nuclear battery enables environmental scanning long after the user has ceased operation.",
+        "type": "Armor",
+        "cost": 900
+    },
+    "1545242578": {
+        "name": "armorset_160_name_cased",
+        "description": "armorset_160_desc",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "1755983237": {
+        "name": "armorset_160_name_cased",
+        "description": "armorset_160_desc",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "1494299745": {
+        "name": "SC-34 Infiltrator",
+        "description": "This suit's plutonium-238 nuclear battery enables environmental scanning long after the user has ceased operation.",
+        "type": "Helmet",
+        "cost": 300
+    },
+    "309304502": {
+        "name": "armorset_160_name_cased",
+        "description": "armorset_160_desc",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "88270577": {
+        "name": "armorset_160_name_cased",
+        "description": "armorset_160_desc",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "3064132714": {
+        "name": "armorset_160_name_cased",
+        "description": "armorset_160_desc",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "2733962024": {
+        "name": "armorset_160_name_cased",
+        "description": "armorset_160_desc",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "3935965925": {
+        "name": "B-01 Tactical",
+        "description": "This armor is the Super Earth Standard Issue, made from the same titanium alloy as the Destroyer's hull.",
+        "type": "Armor",
+        "cost": 300
+    },
+    "495842462": {
+        "name": "TR-7 Ambassador of the Brand",
+        "description": "Promotional armor made by SUMY Corp. as part of a highly successful marketing campaign for frozen yogurt.",
+        "type": "Armor",
+        "cost": 0
+    },
+    "2053442827": {
+        "name": "B-01 Tactical",
+        "description": "This armor is the Super Earth Standard Issue, made from the same titanium alloy as the Destroyer's hull.",
+        "type": "Armor",
+        "cost": 300
+    },
+    "2394592819": {
+        "name": "B-01 Tactical",
+        "description": "This armor is the Super Earth Standard Issue, made from the same titanium alloy as the Destroyer's hull.",
+        "type": "Armor",
+        "cost": 300
+    },
+    "2993413082": {
+        "name": "B-01 Tactical",
+        "description": "This armor is the Super Earth Standard Issue, made from the same titanium alloy as the Destroyer's hull.",
+        "type": "Armor",
+        "cost": 0
+    },
+    "3397143939": {
+        "name": "B-01 Tactical",
+        "description": "This armor is the Super Earth Standard Issue, made from the same titanium alloy as the Destroyer's hull.",
+        "type": "Armor",
+        "cost": 0
+    },
+    "641961692": {
+        "name": "B-01 Tactical",
+        "description": "This armor is the Super Earth Standard Issue, made from the same titanium alloy as the Destroyer's hull.",
+        "type": "Armor",
+        "cost": 0
+    },
+    "527790324": {
+        "name": "B-01 Tactical",
+        "description": "This armor is the Super Earth Standard Issue, made from the same titanium alloy as the Destroyer's hull.",
+        "type": "Armor",
+        "cost": 0
+    },
+    "2905408536": {
+        "name": "B-01 Tactical",
+        "description": "This armor is the Super Earth Standard Issue, made from the same titanium alloy as the Destroyer's hull.",
+        "type": "Armor",
+        "cost": 0
+    },
+    "2553569133": {
+        "name": "B-01 Tactical",
+        "description": "This armor is the Super Earth Standard Issue, made from the same titanium alloy as the Destroyer's hull.",
+        "type": "Armor",
+        "cost": 300
+    },
+    "276679263": {
+        "name": "TR-40 Gold Eagle",
+        "description": "This high-visibility armor allows it's bearer to be easily seen through smoke, fog, and spewing viscera.",
+        "type": "Armor",
+        "cost": 0
+    },
+    "529287881": {
+        "name": "B-01 Tactical",
+        "description": "This armor is the Super Earth Standard Issue, made from the same titanium alloy as the Destroyer's hull.",
+        "type": "Helmet",
+        "cost": 100
+    },
+    "1967836924": {
+        "name": "TR-7 Ambassador of the Brand",
+        "description": "Promotional armor made by SUMY Corp. as part of a highly successful marketing campaign for frozen yogurt.",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "1332530540": {
+        "name": "B-01 Tactical",
+        "description": "This armor is the Super Earth Standard Issue, made from the same titanium alloy as the Destroyer's hull.",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "2694161121": {
+        "name": "B-01 Tactical",
+        "description": "This armor is the Super Earth Standard Issue, made from the same titanium alloy as the Destroyer's hull.",
+        "type": "Helmet",
+        "cost": 100
+    },
+    "4100314171": {
+        "name": "B-01 Tactical",
+        "description": "This armor is the Super Earth Standard Issue, made from the same titanium alloy as the Destroyer's hull.",
+        "type": "Helmet",
+        "cost": 100
+    },
+    "1773333561": {
+        "name": "B-01 Tactical",
+        "description": "This armor is the Super Earth Standard Issue, made from the same titanium alloy as the Destroyer's hull.",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "114989643": {
+        "name": "B-01 Tactical",
+        "description": "This armor is the Super Earth Standard Issue, made from the same titanium alloy as the Destroyer's hull.",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "1475463359": {
+        "name": "B-01 Tactical",
+        "description": "This armor is the Super Earth Standard Issue, made from the same titanium alloy as the Destroyer's hull.",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "38673775": {
+        "name": "B-01 Tactical",
+        "description": "This armor is the Super Earth Standard Issue, made from the same titanium alloy as the Destroyer's hull.",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "1742578540": {
+        "name": "B-01 Tactical",
+        "description": "This armor is the Super Earth Standard Issue, made from the same titanium alloy as the Destroyer's hull.",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "1483434009": {
+        "name": "B-01 Tactical",
+        "description": "This armor is the Super Earth Standard Issue, made from the same titanium alloy as the Destroyer's hull.",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "3792160842": {
+        "name": "B-01 Tactical",
+        "description": "This armor is the Super Earth Standard Issue, made from the same titanium alloy as the Destroyer's hull.",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "275807529": {
+        "name": "B-01 Tactical",
+        "description": "This armor is the Super Earth Standard Issue, made from the same titanium alloy as the Destroyer's hull.",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "2067677478": {
+        "name": "B-01 Tactical",
+        "description": "This armor is the Super Earth Standard Issue, made from the same titanium alloy as the Destroyer's hull.",
+        "type": "Helmet",
+        "cost": 100
+    },
+    "3057185732": {
+        "name": "B-01 Tactical",
+        "description": "This armor is the Super Earth Standard Issue, made from the same titanium alloy as the Destroyer's hull.",
+        "type": "Helmet",
+        "cost": 300
+    },
+    "2218652020": {
+        "name": "B-01 Tactical",
+        "description": "This armor is the Super Earth Standard Issue, made from the same titanium alloy as the Destroyer's hull.",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "3813318023": {
+        "name": "TR-40 Gold Eagle",
+        "description": "This high-visibility armor allows it's bearer to be easily seen through smoke, fog, and spewing viscera.",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "3587033897": {
+        "name": "AF-52 Lockdown",
+        "description": "Heavily layered to protect against ocular blistering, subdermal liquification, and gastrointestinal shattering, this armor is a testament to the power of iterative improvements based on user feedback.",
+        "type": "Armor",
+        "cost": 400
+    },
+    "2409962036": {
+        "name": "AF-52 Lockdown",
+        "description": "Heavily layered to protect against ocular blistering, subdermal liquification, and gastrointestinal shattering, this armor is a testament to the power of iterative improvements based on user feedback.",
+        "type": "Helmet",
+        "cost": 250
+    },
+    "2275886813": {
+        "name": "AF-91 Field Chemist",
+        "description": "This armor, together with its friendly-faced helmet, is instantly recognizable from the beloved children's show \"Jen Shriver the Science Diver.\"",
+        "type": "Armor",
+        "cost": 250
+    },
+    "3121601786": {
+        "name": "AF-91 Field Chemist",
+        "description": "This armor, together with its friendly-faced helmet, is instantly recognizable from the beloved children's show \"Jen Shriver the Science Diver.\"",
+        "type": "Helmet",
+        "cost": 125
+    },
+    "940858144": {
+        "name": "UF-84 Doubt Killer",
+        "description": "Even among the most depraved of dissidents, the mere sight of this armor is enough to inspire a change of heart.",
+        "type": "Armor",
+        "cost": 400
+    },
+    "3849573872": {
+        "name": "UF-84 Doubt Killer",
+        "description": "Even among the most depraved of dissidents, the mere sight of this armor is enough to inspire a change of heart.",
+        "type": "Helmet",
+        "cost": 200
+    },
+    "3228514517": {
+        "name": "SR-64 Cinderblock",
+        "description": "This armor uses repurposed metal from verified sources, such as vending machine packaging and Automaton scrap, making it a sustainable choice for the environmentally conscious Helldiver.",
+        "type": "Armor",
+        "cost": 250
+    },
+    "3896484359": {
+        "name": "SR-64 Cinderblock",
+        "description": "This armor uses repurposed metal from verified sources, such as vending machine packaging and Automaton scrap, making it a sustainable choice for the environmentally conscious Helldiver.",
+        "type": "Helmet",
+        "cost": 125
+    },
+    "1583911583": {
+        "name": "IE-57 Hell-Bent",
+        "description": "Assembled from pieces of recovered Helldiver armor and SEAF gear, for those who won't let a lack of full body protection keep them from the battlefront.",
+        "type": "Armor",
+        "cost": 250
+    },
+    "3053167931": {
+        "name": "IE-57 Hell-Bent",
+        "description": "Assembled from pieces of recovered Helldiver armor and SEAF gear, for those who won't let a lack of full body protection keep them from the battlefront.",
+        "type": "Helmet",
+        "cost": 125
+    },
+    "478833129": {
+        "name": "GS-11 Democracy's Deputy",
+        "description": "At the edge of the Federation, sometimes Democracy has only one representative. ",
+        "type": "Armor",
+        "cost": 300
+    },
+    "474780450": {
+        "name": "GS-11 Democracy's Deputy",
+        "description": "At the edge of the Federation, sometimes Democracy has only one representative. ",
+        "type": "Helmet",
+        "cost": 150
+    },
+    "1309932317": {
+        "name": "RE-824 Bearer of the Standard",
+        "description": "Commonly replicated in stage adaptions of \"Lady Liberty's Tower\", in which young Diver Beatrick dons this armor to slay Oppressio, the Tyrant Rex.",
+        "type": "Armor",
+        "cost": 400
+    },
+    "1749917951": {
+        "name": "RE-824 Bearer of the Standard",
+        "description": "Commonly replicated in stage adaptions of \"Lady Liberty's Tower\", in which young Diver Beatrick dons this armor to slay Oppressio, the Tyrant Rex.",
+        "type": "Helmet",
+        "cost": 200
+    },
+    "1856262587": {
+        "name": "AD-11 Livewire",
+        "description": "Part of a long line of experimental armor commonly seen on industrial engineering campuses, in the basements of select science aficionados, and around Super Destroyer Mega Garages.",
+        "type": "Armor",
+        "cost": 300
+    },
+    "2580087410": {
+        "name": "AD-11 Livewire",
+        "description": "Part of a long line of experimental armor commonly seen on industrial engineering campuses, in the basements of select science aficionados, and around Super Destroyer Mega Garages.",
+        "type": "Helmet",
+        "cost": 150
+    },
+    "4265797254": {
+        "name": "BP-77 Grand Juror",
+        "description": "Each gilded detail is polished to perfection by re-educated dissidents, as part of the Lifelong Post-Infraction Atonement Program.",
+        "type": "Armor",
+        "cost": 250
+    },
+    "2084675029": {
+        "name": "BP-77 Grand Juror",
+        "description": "Each gilded detail is polished to perfection by re-educated dissidents, as part of the Lifelong Post-Infraction Atonement Program.",
+        "type": "Helmet",
+        "cost": 125
+    },
+    "224926624": {
+        "name": "DS-10 Big Game Hunter",
+        "description": "With its rustic charm and huntsmanlike detailing, this armor evokes those heroic expansionists who braved the alien wilds and ushered in our current age of bio-uniformity.",
+        "type": "Armor",
+        "cost": 300
+    },
+    "1759673786": {
+        "name": "DS-10 Big Game Hunter",
+        "description": "With its rustic charm and huntsmanlike detailing, this armor evokes those heroic expansionists who braved the alien wilds and ushered in our current age of bio-uniformity.",
+        "type": "Helmet",
+        "cost": 150
+    },
+    "1335058381": {
+        "name": "CW-9 White Wolf",
+        "description": "The pattern used for this armor is the result of the Winter Camouflage Improvement Effort, which considered 136 entrants before determining the color white would best blend in with snow.",
+        "type": "Armor",
+        "cost": 300
+    },
+    "3233367200": {
+        "name": "CW-9 White Wolf",
+        "description": "The pattern used for this armor is the result of the Winter Camouflage Improvement Effort, which considered 136 entrants before determining the color white would best blend in with snow.",
+        "type": "Helmet",
+        "cost": 150
+    },
+    "824775809": {
+        "name": "CE-64 Grenadier",
+        "description": "The set's classic advertising campaign \"Have you tried a grenade?\" has remained unchanged for over 70 years.",
+        "type": "Armor",
+        "cost": 300
+    },
+    "2538783678": {
+        "name": "CE-64 Grenadier",
+        "description": "The set's classic advertising campaign \"Have you tried a grenade?\" has remained unchanged for over 70 years.",
+        "type": "Helmet",
+        "cost": 150
+    },
+    "217192825": {
+        "name": "PH-56 Jaguar",
+        "description": "\"Prowl like a jaguar, strike like a viper.\" -Motto of the storied SEAF special operations unit whose real exploits were portrayed in the classic comic book series \"Tales of the Viper Commandos.\"",
+        "type": "Armor",
+        "cost": 150
+    },
+    "1830434737": {
+        "name": "PH-56 Jaguar",
+        "description": "\"Prowl like a jaguar, strike like a viper.\" -Motto of the storied SEAF special operations unit whose real exploits were portrayed in the classic comic book series \"Tales of the Viper Commandos.\"",
+        "type": "Helmet",
+        "cost": 75
+    },
+    "420381699": {
+        "name": "CE-101 Guerilla Gorilla ",
+        "description": "Heavily insulated from animal bites, enemy fire, and the histrionic diatribes of anarchists.",
+        "type": "Armor",
+        "cost": 250
+    },
+    "1128708923": {
+        "name": "CE-101 Guerilla Gorilla ",
+        "description": "Heavily insulated from animal bites, enemy fire, and the histrionic diatribes of anarchists.",
+        "type": "Helmet",
+        "cost": 125
+    },
+    "3990548579": {
+        "name": "I-44 Salamander",
+        "description": "The signature orange pauldron allows easy battlefield detection of the bearer, alive or dead, on ash-strewn battlefields.",
+        "type": "Armor",
+        "cost": 250
+    },
+    "1240391202": {
+        "name": "I-44 Salamander",
+        "description": "The signature orange pauldron allows easy battlefield detection of the bearer, alive or dead, on ash-strewn battlefields.",
+        "type": "Helmet",
+        "cost": 125
+    },
+    "683079503": {
+        "name": "I-92 Fire Fighter",
+        "description": "The heavy rubber tunic and reflective limb guards, originally designed to save citizens from burning buildings, now enable the liberal application of the cleansing fires of Justice.",
+        "type": "Armor",
+        "cost": 250
+    },
+    "1282140582": {
+        "name": "I-92 Fire Fighter",
+        "description": "The heavy rubber tunic and reflective limb guards, originally designed to save citizens from burning buildings, now enable the liberal application of the cleansing fires of Justice.",
+        "type": "Helmet",
+        "cost": 125
+    },
+    "337564280": {
+        "name": "RS-6 Fiend Destroyer",
+        "description": "The understated color scheme and precision-molded armor plates make this armor a sensible choice for the Helldiver on the go.",
+        "type": "Armor",
+        "cost": 300
+    },
+    "1005738384": {
+        "name": "RS-6 Fiend Destroyer",
+        "description": "The understated color scheme and precision-molded armor plates make this armor a sensible choice for the Helldiver on the go.",
+        "type": "Helmet",
+        "cost": 150
+    },
+    "2564970677": {
+        "name": "RS-100 Sanctioner",
+        "description": "Armor inspired by the legend of the Sanctioner, a figure known only through a bizarrely unanimous patchwork of stifled whispers. As told, this fearsome, covert arbiter of primeval Justice delivered final, state-approved verdicts in the chaotic years before the Federation's founding.",
+        "type": "Helmet",
+        "cost": 125
+    },
+    "3639806567": {
+        "name": "CPR-80 Bulwark",
+        "description": "This armor pays tribute to the immoveable heroes of the front line\u2014those who refuse to acknowledge incoming fire, and consider \"dodging\" to be an abstract concept akin to cowardice.",
+        "type": "Armor",
+        "cost": 250
+    },
+    "2905528295": {
+        "name": "CPR-80 Bulwark",
+        "description": "This armor pays tribute to the immoveable heroes of the front line\u2014those who refuse to acknowledge incoming fire, and consider \"dodging\" to be an abstract concept akin to cowardice.",
+        "type": "Helmet",
+        "cost": 125
+    },
+    "2396807401": {
+        "name": "SA-04 Combat Technician",
+        "description": "Due to the enhanced strength caused by this armor, caution is advised when using door handles or embracing colleagues.",
+        "type": "Armor",
+        "cost": 1750
+    },
+    "4111545584": {
+        "name": "SA-04 Combat Technician",
+        "description": "Due to the enhanced strength caused by this armor, caution is advised when using door handles or embracing colleagues.",
+        "type": "Helmet",
+        "cost": 600
+    },
+    "1399805769": {
+        "name": "AF-50 Noxious Ranger",
+        "description": "\"We fear not poison, fear not death; spite our foes with every breath.\" From the beloved classic Hazard Pay: The Musical.",
+        "type": "Armor",
+        "cost": 0
+    },
+    "1431213118": {
+        "name": "AF-50 Noxious Ranger",
+        "description": "\"We fear not poison, fear not death; spite our foes with every breath.\" From the beloved classic Hazard Pay: The Musical.",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "996716618": {
+        "name": "AF-02 Haz-Master",
+        "description": "Developed by the Ministry of Science while investigating the phenomenon known as The Gloom, this armor is non-permeable and squeak resistant.",
+        "type": "Armor",
+        "cost": 0
+    },
+    "1368467090": {
+        "name": "AF-02 Haz-Master",
+        "description": "Developed by the Ministry of Science while investigating the phenomenon known as The Gloom, this armor is non-permeable and squeak resistant.",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "1927188023": {
+        "name": "UF-50 Bloodhound",
+        "description": "Users are advised not to scratch at the lacquer, as the Red 20,000 pigment that gives this armor its signature sheen may be correlated with rapid DNA unspooling.",
+        "type": "Armor",
+        "cost": 0
+    },
+    "4286615047": {
+        "name": "UF-50 Bloodhound",
+        "description": "Users are advised not to scratch at the lacquer, as the Red 20,000 pigment that gives this armor its signature sheen may be correlated with rapid DNA unspooling.",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "4168334185": {
+        "name": "UF-16 Inspector",
+        "description": "Made famous by the \"Truth Enforcers: Enforcers of Truth\" mystery novels, this armor calls to mind those paragons of patriotism who protect us from treasonous lies.",
+        "type": "Armor",
+        "cost": 0
+    },
+    "3285635529": {
+        "name": "UF-16 Inspector",
+        "description": "Made famous by the \"Truth Enforcers: Enforcers of Truth\" mystery novels, this armor calls to mind those paragons of patriotism who protect us from treasonous lies.",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "850142972": {
+        "name": "SR-24 Street Scout",
+        "description": "This armor's nostalgic color scheme brings to mind beloved trappings of colonial yesteryear: concrete frontier domiciles, slate-colored civilian jumpsuits, and Space Settlers' Pie.",
+        "type": "Armor",
+        "cost": 0
+    },
+    "979422228": {
+        "name": "SR-24 Street Scout",
+        "description": "This armor's nostalgic color scheme brings to mind beloved trappings of colonial yesteryear: concrete frontier domiciles, slate-colored civilian jumpsuits, and Space Settlers' Pie.",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "533156442": {
+        "name": "SR-18 Roadblock",
+        "description": "The crest on this armor's shoulder shows friendlies that safety is near, and foes that they have reached the end of the road.",
+        "type": "Armor",
+        "cost": 0
+    },
+    "401555819": {
+        "name": "SR-18 Roadblock",
+        "description": "The crest on this armor's shoulder shows friendlies that safety is near, and foes that they have reached the end of the road.",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "84888171": {
+        "name": "IE-3 Martyr",
+        "description": "Modeled after the Statue of Mournful Liberty, who weeps over the existence of tyranny, this armor is worn by those who would give their lives to dry her tears.",
+        "type": "Armor",
+        "cost": 0
+    },
+    "2754954732": {
+        "name": "IE-3 Martyr",
+        "description": "Modeled after the Statue of Mournful Liberty, who weeps over the existence of tyranny, this armor is worn by those who would give their lives to dry her tears.",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "2555924814": {
+        "name": "IE-12 Righteous",
+        "description": "Modeled after the myriad Statues of Judicious Liberty, who keep a watchful eye on checkout lines, schoolyards, perpetual rehabilitation communities, and public confession theaters.",
+        "type": "Armor",
+        "cost": 0
+    },
+    "3290540338": {
+        "name": "IE-12 Righteous",
+        "description": "Modeled after the myriad Statues of Judicious Liberty, who keep a watchful eye on checkout lines, schoolyards, perpetual rehabilitation communities, and public confession theaters.",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "3067569465": {
+        "name": "GS-17 Frontier Marshal",
+        "description": "Inspired by the trailblazing agents of the Super Earth Terraforming Company. These rugged adventurers surveyed hostile new planets during the post-GW1 Great Expansion era, preparing the untamed frontier for rapid and efficient assimilation.",
+        "type": "Armor",
+        "cost": 0
+    },
+    "563831799": {
+        "name": "GS-17 Frontier Marshal",
+        "description": "Inspired by the trailblazing agents of the Super Earth Terraforming Company. These rugged adventurers surveyed hostile new planets during the post-GW1 Great Expansion era, preparing the untamed frontier for rapid and efficient assimilation.",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "20617448": {
+        "name": "GS-66 Lawmaker",
+        "description": "Embodies the ethos of Manifest Democracy\u2014that it is our voter-given responsibility to emancipate the savage, un-Liberated galaxy. To rest only when every planet is safe, civilized, and Free.",
+        "type": "Armor",
+        "cost": 0
+    },
+    "1539200886": {
+        "name": "GS-66 Lawmaker",
+        "description": "Embodies the ethos of Manifest Democracy\u2014that it is our voter-given responsibility to emancipate the savage, un-Liberated galaxy. To rest only when every planet is safe, civilized, and Free.",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "3957418669": {
+        "name": "RE-2310 Honorary Guard",
+        "description": "This traditional armor has remained unchanged since time immemorial. Now with self-heated padding.",
+        "type": "Armor",
+        "cost": 0
+    },
+    "1658554228": {
+        "name": "RE-2310 Honorary Guard",
+        "description": "This traditional armor has remained unchanged since time immemorial. Now with self-heated padding.",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "3081927416": {
+        "name": "RE-1861 Parade Commander",
+        "description": "Awarded to those promoted to their point of greatest competency, and beyond.",
+        "type": "Armor",
+        "cost": 0
+    },
+    "2555685810": {
+        "name": "RE-1861 Parade Commander",
+        "description": "Awarded to those promoted to their point of greatest competency, and beyond.",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "1546855424": {
+        "name": "AD-26 Bleeding Edge",
+        "description": "Pushing the boundaries of bionic engineering, this armor collects and dispenses a number of vital fluids, several of which are soon to be declassified.",
+        "type": "Armor",
+        "cost": 0
+    },
+    "2393885006": {
+        "name": "AD-26 Bleeding Edge",
+        "description": "Pushing the boundaries of bionic engineering, this armor collects and dispenses a number of vital fluids, several of which are soon to be declassified.",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "3202340536": {
+        "name": "AD-49 Apollonian",
+        "description": "Equipped with the latest computational systems, subsystems, and supersystems, this armor is worth the equivalent of a small Megacity.",
+        "type": "Armor",
+        "cost": 0
+    },
+    "3116611839": {
+        "name": "AD-49 Apollonian",
+        "description": "Equipped with the latest computational systems, subsystems, and supersystems, this armor is worth the equivalent of a small Megacity.",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "1809542137": {
+        "name": "BP-20 Correct Officer",
+        "description": "A welcome sight in all Democratic neighborhoods, this armor inspires both civil pride and civic obedience.",
+        "type": "Armor",
+        "cost": 0
+    },
+    "2615161341": {
+        "name": "BP-20 Correct Officer",
+        "description": "A welcome sight in all Democratic neighborhoods, this armor inspires both civil pride and civic obedience.",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "602374314": {
+        "name": "BP-32 Jackboot",
+        "description": "Named for Helldiver Jack Boote, who shut down 908 illegal broadcasts before retiring with honors.",
+        "type": "Armor",
+        "cost": 0
+    },
+    "59431605": {
+        "name": "BP-32 Jackboot",
+        "description": "Named for Helldiver Jack Boote, who shut down 908 illegal broadcasts before retiring with honors.",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "2809605289": {
+        "name": "DS-42 Federation's Blade",
+        "description": "This patriotic armor comes recommended by the Ministry of Expansion, empowering the wearer to re-seize from our enemies any territory that any human has laid claim to, at any point in time.",
+        "type": "Armor",
+        "cost": 0
+    },
+    "3971713282": {
+        "name": "DS-42 Federation's Blade",
+        "description": "This patriotic armor comes recommended by the Ministry of Expansion, empowering the wearer to re-seize from our enemies any territory that any human has laid claim to, at any point in time.",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "3218502754": {
+        "name": "DS-191 Scorpion",
+        "description": "This multi-layered protective armor keeps rough sand, spores, and other coarse granules from irritating the skin.",
+        "type": "Armor",
+        "cost": 0
+    },
+    "4088040979": {
+        "name": "DS-191 Scorpion",
+        "description": "This multi-layered protective armor keeps rough sand, spores, and other coarse granules from irritating the skin.",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "3815716893": {
+        "name": "RS-20 Constrictor",
+        "description": "The official uniform of the League of Patriotic Arm Wrestlers, this armor's lycra base layer is supple and sweat-wicking for maximum flexing comfort.",
+        "type": "Armor",
+        "cost": 0
+    },
+    "2588890375": {
+        "name": "RS-20 Constrictor",
+        "description": "The official uniform of the League of Patriotic Arm Wrestlers, this armor's lycra base layer is supple and sweat-wicking for maximum flexing comfort.",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "522266733": {
+        "name": "RS-40 Beast of Prey",
+        "description": "Evoking legendary Helldiver Ronald Mambo on the eve of his untimely disappearance, the striking silhouette projects power, burliness, and strength.",
+        "type": "Armor",
+        "cost": 0
+    },
+    "4075141262": {
+        "name": "RS-40 Beast of Prey",
+        "description": "Evoking legendary Helldiver Ronald Mambo on the eve of his untimely disappearance, the striking silhouette projects power, burliness, and strength.",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "187766962": {
+        "name": "SA-7 Headfirst",
+        "description": "Disarmingly scrappy and viciously disarming, this armor is a staple of the Balayage FW/2185 collection \"Frontline Moxie\".",
+        "type": "Armor",
+        "cost": 0
+    },
+    "3479659906": {
+        "name": "SA-7 Headfirst",
+        "description": "Disarmingly scrappy and viciously disarming, this armor is a staple of the Balayage FW/2185 collection \"Frontline Moxie\".",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "1404281278": {
+        "name": "SA-8 Ram",
+        "description": "The heavy plate used in this armor is sustainably sourced from the corpses of non-sentient Automatons, then processed by other, similarly non-sentient Automatons.",
+        "type": "Armor",
+        "cost": 0
+    },
+    "1838148512": {
+        "name": "SA-8 Ram",
+        "description": "The heavy plate used in this armor is sustainably sourced from the corpses of non-sentient Automatons, then processed by other, similarly non-sentient Automatons.",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "1877242796": {
+        "name": "PH-9 Predator",
+        "description": "Based on the uniform of Jackle 6, a veteran of the Viper Commandos who held off an entire Terminid brood on Nublaria in the First Galactic War with nothing but a machine gun, pocket knife, and Orbital Laser Strikes.",
+        "type": "Armor",
+        "cost": 0
+    },
+    "2788735945": {
+        "name": "PH-9 Predator",
+        "description": "Based on the uniform of Jackle 6, a veteran of the Viper Commandos who held off an entire Terminid brood on Nublaria in the First Galactic War with nothing but a machine gun, pocket knife, and Orbital Laser Strikes.",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "1664632640": {
+        "name": "PH-202 Twigsnapper",
+        "description": "The omission of upper-limb coverings allows for optimized freedom of movement, perspiration, and communication of upper body strength to squadmates.",
+        "type": "Armor",
+        "cost": 0
+    },
+    "3728975654": {
+        "name": "PH-202 Twigsnapper",
+        "description": "The omission of upper-limb coverings allows for optimized freedom of movement, perspiration, and communication of upper body strength to squadmates.",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "3015649355": {
+        "name": "I-09 Heatseeker",
+        "description": "The burnished blood-red plates are forged in righteous fire, like the heroes they were wrought to protect.",
+        "type": "Armor",
+        "cost": 0
+    },
+    "3316979892": {
+        "name": "I-09 Heatseeker",
+        "description": "The burnished blood-red plates are forged in righteous fire, like the heroes they were wrought to protect.",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "267424901": {
+        "name": "I-102 Draconaught",
+        "description": "Completely sheathed in 14-cm silica fiber foam, except for a thin tube to the ear canal to enable hearing the satisfying screeches of Freedom's enemies as they burn.",
+        "type": "Armor",
+        "cost": 0
+    },
+    "2794703739": {
+        "name": "I-102 Draconaught",
+        "description": "Completely sheathed in 14-cm silica fiber foam, except for a thin tube to the ear canal to enable hearing the satisfying screeches of Freedom's enemies as they burn.",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "888714536": {
+        "name": "AC-1 Dutiful",
+        "description": "The breathing apparatus built into this equipment helps both soldiers and colonists thrive, even when assigned to planets with atmospheres rated \"suboptimal,\" \"extreme,\" and \"character building.\"",
+        "type": "Armor",
+        "cost": 500
+    },
+    "2800085991": {
+        "name": "AC-1 Dutiful",
+        "description": "The breathing apparatus built into this equipment helps both soldiers and colonists thrive, even when assigned to planets with atmospheres rated \"suboptimal,\" \"extreme,\" and \"character building.\"",
+        "type": "Helmet",
+        "cost": 310
+    },
+    "1631026563": {
+        "name": "AC-2 Obedient",
+        "description": "The muted colors and relaxed, high-mobility fit make this a favorite among long-distance snipers and hide-and-seek champions alike.",
+        "type": "Armor",
+        "cost": 500
+    },
+    "3352094518": {
+        "name": "AC-2 Obedient",
+        "description": "The muted colors and relaxed, high-mobility fit make this a favorite among long-distance snipers and hide-and-seek champions alike.",
+        "type": "Helmet",
+        "cost": 310
+    },
+    "962975775": {
+        "name": "RS-89 Shadow Paragon",
+        "description": "Armor befitting infiltrators of all caliber. Inspired by mythical Democracy-dispensers, whose meticulously undocumented operations remain an inspiration to all students of stealth.",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "267139539": {
+        "name": "RS-67 Null Cipher",
+        "description": "This armor, coated in radar-absorbent polymers and a null-signature heat baffle, reportedly turns its wearer into a sensor ghost\u2014a claim attributed to individuals who, curiously, appear to have never existed.",
+        "type": "Armor",
+        "cost": 0
+    },
+    "3157942416": {
+        "name": "RS-67 Null Cipher",
+        "description": "This armor, coated in radar-absorbent polymers and a null-signature heat baffle, reportedly turns its wearer into a sensor ghost\u2014a claim attributed to individuals who, curiously, appear to have never existed.",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "111225460": {
+        "name": "CPG-48 Sapper",
+        "description": "With extra capacity for storing throwable munitions, this armor ensures every enemy stronghold can be tactically ventilated, as per forceful de-fortification protocols.",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "192432627": {
+        "name": "CPH-26 Commandant",
+        "description": "Featuring a high collar scientifically designed to deflect mud, blood, and indirect non-lethal projectiles, this pristine armor bestows the authority to overcome close-quarters combat through a time-honored tradition: the delegation\u2014or court-martialing\u2014of subordinates.",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "2037274048": {
+        "name": "FS-23 Battle Master",
+        "description": "This aim-stabilizing armor found surprising secondary market success among alien birdwatching enthusiasts.",
+        "type": "Armor",
+        "cost": 2900
+    },
+    "1452909167": {
+        "name": "FS-23 Battle Master",
+        "description": "This aim-stabilizing armor found surprising secondary market success among alien birdwatching enthusiasts.",
+        "type": "Helmet",
+        "cost": 600
+    },
+    "2899116161": {
+        "name": "TR-62 Knight",
+        "description": "Crafted to deliver Justice to the darkest crevices of the galaxy.",
+        "type": "Armor",
+        "cost": 0
+    },
+    "2694550156": {
+        "name": "TR-62 Knight",
+        "description": "Crafted to deliver Justice to the darkest crevices of the galaxy.",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "2121537836": {
+        "name": "CW-36 Winter Warrior",
+        "description": "Offering camouflage in snowy environments, surplus sets of this armor are used by nature photographers and keen hunters alike.",
+        "type": "Armor",
+        "cost": 0
+    },
+    "108697242": {
+        "name": "CW-36 Winter Warrior",
+        "description": "Offering camouflage in snowy environments, surplus sets of this armor are used by nature photographers and keen hunters alike.",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "3690580532": {
+        "name": "Light of Eternal Liberty",
+        "description": "The unimpeachable justice of this cape's design is said to blind the enemies of Freedom with its glorious light.",
+        "type": "Cape",
+        "cost": 0
+    },
+    "1090563915": {
+        "name": "cape_battle_hardend_01_name_cased",
+        "description": "The cape's shredded hem presages the unrelenting savagery its wielder will visit upon the nemeses of Freedom.",
+        "type": "Cape",
+        "cost": 0
+    },
+    "2653547055": {
+        "name": "Bastion of Integrity",
+        "description": "Based on a SEAF Signaller's Cape, which was intended to enable easy location of fallen heroes by aerial recovery crews.",
+        "type": "Cape",
+        "cost": 0
+    },
+    "3598091569": {
+        "name": "cape_battle_hardend_02_name_cased",
+        "description": "A representation of the thankfulness of those infinite descendants whose liberated existence we strive to ensure.",
+        "type": "Cape",
+        "cost": 0
+    },
+    "734807139": {
+        "name": "cape_prototype_ex03_01_name_cased",
+        "description": "A cape that strikes a subroutine emulating fear into the CPUs of all Automatons who conduct visual scans of it.",
+        "type": "Cape",
+        "cost": 0
+    },
+    "3239075772": {
+        "name": "cape_prototype_ex16_01_name_cased",
+        "description": "It is said that only the truly Democratic can lift this cape to their shoulders.",
+        "type": "Cape",
+        "cost": 0
+    },
+    "199989180": {
+        "name": "deathtrooper_cape_01_cased",
+        "description": "deathtrooper_cape_01_desc",
+        "type": "Cape",
+        "cost": 0
+    },
+    "4111053667": {
+        "name": "Agent of Oblivion",
+        "description": "0.05% of profits are donated to Superstone National Park, as part of the Ministry of Unity's \"Greener Galaxy\" campaign.",
+        "type": "Cape",
+        "cost": 0
+    },
+    "1695626205": {
+        "name": "Beacon of Mercy",
+        "description": "The clasps on this cape are made from melted down Automaton housings\u2014evidence of Democracy's inevitable triumph.",
+        "type": "Cape",
+        "cost": 0
+    },
+    "2040543168": {
+        "name": "cape_demo_specialist_01_name_cased",
+        "description": "One of the earliest to be mass-produced, this cape has been the final sight of untold numbers of Freedom's foes.",
+        "type": "Cape",
+        "cost": 0
+    },
+    "2592491111": {
+        "name": "Drape of Glory",
+        "description": "Research suggests that Helldivers wearing this cape are seen as 17% more patriotic.",
+        "type": "Cape",
+        "cost": 0
+    },
+    "3259725045": {
+        "name": "cape_battle_master_01_name_cased",
+        "description": "The Helldiver Skull is said to strike fear in the hearts of foes attempting to sneak up on those wearing this cape.",
+        "type": "Cape",
+        "cost": 0
+    },
+    "865246378": {
+        "name": "cape_drone_operator_01_name_cased",
+        "description": "Our heroic fallen live on in this cape, guiding its bearer's aim to the heart of those who killed them.",
+        "type": "Cape",
+        "cost": 0
+    },
+    "4176085421": {
+        "name": "cape_gen_mil_medic_01_name_cased",
+        "description": "Emblazoned with the red, white, and green of the 676th Democracy Regiment, who made their final stand on the slopes of Justice Hill.",
+        "type": "Cape",
+        "cost": 0
+    },
+    "4000666917": {
+        "name": "cape_combat_medic_demo_01_name_cased",
+        "description": "A symbol of Super Earth's Astral Promise: that every star shall one day illuminate throngs of joyous voters.",
+        "type": "Cape",
+        "cost": 0
+    },
+    "3616764107": {
+        "name": "cape_support_heavy_01_name_cased",
+        "description": "Bearers of this cape take upon a sacred duty: that of delivering righteous retribution to every last deserving being.",
+        "type": "Cape",
+        "cost": 0
+    },
+    "2007907056": {
+        "name": "Will of the People",
+        "description": "Contains a grain of sand from Super Earth\u2014so its bearers carry a small piece of Liberty with them, wherever they go.",
+        "type": "Cape",
+        "cost": 0
+    },
+    "2457217350": {
+        "name": "cape_Infiltrator_01_name_cased",
+        "description": "A subdued cape, for those who need no recognition\u2014save that of their enemies, as their executioner.",
+        "type": "Cape",
+        "cost": 0
+    },
+    "843390517": {
+        "name": "cape_combat_mechanic_01_name_cased",
+        "description": "The featherlight construction belies the heavy burden this cape entails\u2014to live the Creed of the True Citizen.",
+        "type": "Cape",
+        "cost": 0
+    },
+    "2002245864": {
+        "name": "Protector of the Heart",
+        "description": "When the Illuminate threatened Super Earth, the very Heart of Democracy, the Helldivers answered the call.",
+        "type": "Cape",
+        "cost": 0
+    },
+    "1513263450": {
+        "name": "Thundering Hooves of Loyalty",
+        "description": "No dissident or alien, no creature big or small, can ever hope to stand against the furious stampede of Managed Democracy.",
+        "type": "Cape",
+        "cost": 100
+    },
+    "3822047995": {
+        "name": "Prosperous Green",
+        "description": "All Hail the Helldivers, who bring untold abundance to Super Earth's citizens.",
+        "type": "Cape",
+        "cost": 0
+    },
+    "3076249017": {
+        "name": "Reckoning's Cheer",
+        "description": "When facing the enemies of Freedom this Reckoningtide, keep up the festive spirit by recalling the opening line of A Vengeant Carol: \"They'll soon be dead, to begin with.\"",
+        "type": "Cape",
+        "cost": 0
+    },
+    "1838911009": {
+        "name": "United in Equality",
+        "description": "To honor the heartfelt siblinghood of the heroes who stood together, bled together, and laid down their lives together in defense of Equality-On-Sea, all Helldivers are awarded one (1) commemorative polyester cape.",
+        "type": "Cape",
+        "cost": 0
+    },
+    "1917397047": {
+        "name": "Against the Tyrant Cloud",
+        "description": "No oppressive murk, no fascist penumbra, no dictatorial haze and no unfree emanation; no tyrannical Gloom shall ever stand a chance against the searing light of Helldiver fire.",
+        "type": "Cape",
+        "cost": 0
+    },
+    "4028901518": {
+        "name": "Veridical Ideology",
+        "description": "This cape celebrates the one Veridical Ideology\u2014Managed Democracy\u2014a truth so self-evident, it requires no proof beyond the unwavering obedience of its champions.",
+        "type": "Cape",
+        "cost": 0
+    },
+    "2632342951": {
+        "name": "Red Planet's Memory",
+        "description": "The memory of the Martian training grounds will endure, even after all the Helldivers who trained there have passed, some day in the far future.",
+        "type": "Cape",
+        "cost": 0
+    },
+    "4112773733": {
+        "name": "Proud Gold",
+        "description": "All Hail the Helldivers, whose resplendent honor makes Tyrants tremble.",
+        "type": "Cape",
+        "cost": 0
+    },
+    "114199832": {
+        "name": "Patriot Blue",
+        "description": "All Hail the Helldivers, whose devotion to Managed Democracy has never faltered.",
+        "type": "Cape",
+        "cost": 0
+    },
+    "1902399433": {
+        "name": "Ingress-81",
+        "description": "This cape reminds us that even faced with the abyssal darkness of space, nothing can stand against our human ingenuity, our powers of collaboration, or our sheer overwhelming numbers.",
+        "type": "Cape",
+        "cost": 0
+    },
+    "66704491": {
+        "name": "Cover of Darkness",
+        "description": "When children have trouble sleeping, tucking them in under this cape reminds them that they are never alone, for Liberty's unseen defenders are always watching over them.",
+        "type": "Cape",
+        "cost": 250
+    },
+    "1123234369": {
+        "name": "Stone-Wrought Perseverance",
+        "description": "When wearers stand shoulder to shoulder, this cape shows them as they truly are: an unbreakable defense, keeping Freedom safe behind an impregnable wall.",
+        "type": "Cape",
+        "cost": 100
+    },
+    "1165305553": {
+        "name": "Vision of Freedom",
+        "description": "Artists and sculptors have made countless attempts at depicting the face of Liberty, but the truth is that any citizen can see it\u2014they need only requisition a mirror.",
+        "type": "Cape",
+        "cost": 100
+    },
+    "452377187": {
+        "name": "Veil of the Valorous Vagabond",
+        "description": "Legend tells of the unnamed Helldiver, wandering the edges of Super Earth's reach, delivering Democracy and leveling lawlessness wherever the tumbleweeds lead. Wear this, and keep the legend alive.",
+        "type": "Cape",
+        "cost": 120
+    },
+    "2679756720": {
+        "name": "Seal of General Consensus",
+        "description": "Made famous by the SEAF commander of the same name, this seal reminds us that only perfect Unity can ensure perfect Freedom.",
+        "type": "Cape",
+        "cost": 250
+    },
+    "4129649228": {
+        "name": "Schema Laid Bare",
+        "description": "This cape depicts the inner workings of a medical device submitted to the Ministry of Science 70 years ago, and is bound to clear their patent approval process any day now.",
+        "type": "Cape",
+        "cost": 120
+    },
+    "3041241535": {
+        "name": "Badge of Order",
+        "description": "This sigil reaffirms the Helldiver's pledge to protect Managed Democracy, serve Managed Democracy, and uphold Managed Democracy.",
+        "type": "Cape",
+        "cost": 100
+    },
+    "4111578760": {
+        "name": "Eternal Corona",
+        "description": "Featuring an ancient sun symbol and a distressed look, this cape reminds us that the light of Liberty is everlasting, and will keep shining even when we ourselves have become tattered and frayed.",
+        "type": "Cape",
+        "cost": 120
+    },
+    "285054471": {
+        "name": "De-Forester's Sailcloth",
+        "description": "This convenient cape can double as ground insulation, warming blanket, or camp roofing to the enterprising defoliator.",
+        "type": "Cape",
+        "cost": 120
+    },
+    "3555231182": {
+        "name": "Gilded Quill",
+        "description": "The golden, piercing quills symbolize the deadly and poetic Justice delivered to seditious oppositionists. Silent sanctions, delivered with unerring precision and incontestable deniability.",
+        "type": "Cape",
+        "cost": 100
+    },
+    "3026953460": {
+        "name": "Testament to Attrition",
+        "description": "Salvaged from a deep-storage vault, this well-ventilated cape symbolizes tenacious survival. Its visible scars bestow immediate veteran status, reminding all onlookers that the spirit of tireless service is immortal.",
+        "type": "Cape",
+        "cost": 100
+    },
+    "342959649": {
+        "name": "Standard of Safe Distance",
+        "description": "By reminding Chemical Agents of proper distancing rules, this extraordinary innovation in cape design ensures that they never cause another unfortunate outbreak of Carcino-Plague.",
+        "type": "Cape",
+        "cost": 0
+    },
+    "4237429476": {
+        "name": "Patient Zero's Rememberance",
+        "description": "With this cape we honor the bio-warfare pioneers of Division Zero, conscripted from quarantine zones and hospices to spread their Carcino-Plague on the battlefield.",
+        "type": "Cape",
+        "cost": 0
+    },
+    "1126585234": {
+        "name": "Pride of the Whistleblower",
+        "description": "Granted to the Truth Enforcers' Informant of the Month, this tasteful cape conjures images of dissident blood on asphalt.",
+        "type": "Cape",
+        "cost": 0
+    },
+    "3965478926": {
+        "name": "Proof of Faultless Virtue",
+        "description": "This cape signifies that its wearer thinks, feels, and acts correctly at all times, and thus bears the responsibility to educate and re-educate their fellow citizen.",
+        "type": "Cape",
+        "cost": 0
+    },
+    "3519089118": {
+        "name": "Greatcloak of Rebar Resolve",
+        "description": "Inside the collar is embroidered: \"Wherever I may plant my shield, know that I will never yield,\" and \"machine washable.\"",
+        "type": "Cape",
+        "cost": 0
+    },
+    "4171120414": {
+        "name": "Holder of the Yellow Line",
+        "description": "Since ancient times, the yellow line has symbolized an uncrossable boundary. To don this cape is to draw that line between tyranny and liberty, between alien monstrosities and Super Earth property, and never yield the right of way.",
+        "type": "Cape",
+        "cost": 0
+    },
+    "958121814": {
+        "name": "Fre Liberam",
+        "description": "Each purchase of this cape comes with a complimentary will and testament amendment form, which guarantees the soon-to-be-deceased a prominent spot on the Wall of Martyrs.",
+        "type": "Cape",
+        "cost": 0
+    },
+    "147568459": {
+        "name": "Per Democrasum",
+        "description": "This cape honors the Eagle pilots who would follow a Stratagem beacon into the very jaws of tyranny, even when the beacon's placement seems inscrutable to the non-Helldiver mind.",
+        "type": "Cape",
+        "cost": 0
+    },
+    "3164866294": {
+        "name": "Reaper of Bounties",
+        "description": "This cape recalls the popular folk tale of the \"Freedomslingers\": re-educated dissidents, seeking redemption on the Federation's Borderline, hunting dangerous thought-traitors in exchange for ballot bounties. ",
+        "type": "Cape",
+        "cost": 0
+    },
+    "975741671": {
+        "name": "Way of the Bandolier",
+        "description": "The dauntless pioneers of the Great Expansion, facing the un-Democratic unknown, adopted the Way of the Bandolier. With the gusto of their covering fire making up for their modest accuracy, they strived to be perfectly aligned in their shared values, and ready to serve when called upon by the machine gun of civic duty.",
+        "type": "Cape",
+        "cost": 0
+    },
+    "456906913": {
+        "name": "Federation's Embrace",
+        "description": "When donning the One True Flag, one must face the direction of Super Earth, recite the Super Earth Anthem, and salute one's own image in the nearest reflective surface. Wrongful discarding of this cape is a capital offense.",
+        "type": "Cape",
+        "cost": 0
+    },
+    "1440027723": {
+        "name": "Humble Regalia",
+        "description": "This modest cape has been worn by those guarding the Chamber of Unanimous Decision since time immemorial.",
+        "type": "Cape",
+        "cost": 0
+    },
+    "3954339443": {
+        "name": "Conductor of Brilliance",
+        "description": "The embroidered pattern uses aluminium from Automaton motherboards, granting the once-wretched metals a new and noble purpose.",
+        "type": "Cape",
+        "cost": 0
+    },
+    "376718346": {
+        "name": "Over Artifice Triumphant",
+        "description": "Humanity's intellect shines brighter than all other, piercing even the treacherous darkness that spawned the Automatons' pseudo-sentience; the darkness known as computer science.",
+        "type": "Cape",
+        "cost": 0
+    },
+    "1148253951": {
+        "name": "Miranda's Legacy",
+        "description": "Although Super Citizen Miranda's true identity has been lost to time, most legal historians agree that she was once a patron of highly-efficient interrogation techniques.",
+        "type": "Cape",
+        "cost": 0
+    },
+    "1006046695": {
+        "name": "Mother Eagle's Wings",
+        "description": "Those taken under the wings of the Law can rest easy knowing that their transgressions will soon be laid bare, their harms amended, and their citizenship safely sequestered.",
+        "type": "Cape",
+        "cost": 0
+    },
+    "819008890": {
+        "name": "Rightful Occupier",
+        "description": "Painted by visionary artist Silas Garm during an intense fever, this symbol represents Humanity's great Galactic endeavor: the blood-soaked dawn of Lasting Peace.",
+        "type": "Cape",
+        "cost": 0
+    },
+    "2129553675": {
+        "name": "Windswept Wayfinder",
+        "description": "It is well-documented that soldiers raised on harsh planets have an advantage when fighting in similar environments; this insight is foundational to the Democratic Youth Scouts Exchange Program.",
+        "type": "Cape",
+        "cost": 0
+    },
+    "4282790522": {
+        "name": "Dissident's Nightmare",
+        "description": "After extensive testing in Patriotic Rehabilitation Centers, this design was proved most terrifying to dissent-afflicted individuals. ",
+        "type": "Cape",
+        "cost": 0
+    },
+    "2871629098": {
+        "name": "Pinions of Everlasting Glory",
+        "description": "All but ensures ascension to the immortal ranks of those enshrined in the Super Earth Digital Archive of Valorous Acts.",
+        "type": "Cape",
+        "cost": 0
+    },
+    "3892781112": {
+        "name": "Order of the Venerated Ballot",
+        "description": "Adorned with the insignia of the Order of the Venerated Ballot, a Ministry-sanctioned Patriot's Club for citizens who pledge themselves to preserving the sanctity of voting.",
+        "type": "Cape",
+        "cost": 0
+    },
+    "2646411735": {
+        "name": "MARK OF THE CRIMSON FANG",
+        "description": "Marks the most obedient of the obedient, those who will strike headlong at the veins of Tyranny and administer the sweet antidote of Freedom.",
+        "type": "Cape",
+        "cost": 0
+    },
+    "291340630": {
+        "name": "EXECUTIONER'S CANOPY",
+        "description": "Crests the shoulders of those who deliver the final\u2014and most indispensable\u2014stroke of Justice.",
+        "type": "Cape",
+        "cost": 0
+    },
+    "939953131": {
+        "name": "Strength in Our Arms",
+        "description": "The symbol on this cape represents the pillars of freedom: duty, obedience, and loyalty.",
+        "type": "Cape",
+        "cost": 310
+    },
+    "1113633420": {
+        "name": "Defender of Our Dream",
+        "description": "Commemorating the New Stockholm treaty on prisoners of war, this cape celebrates the right of all enemy combatants to a swift and merciful execution.",
+        "type": "Cape",
+        "cost": 310
+    },
+    "4083075675": {
+        "name": "Mark of the Constrictor",
+        "description": "Marks the most Free of the Free, those who will seize tyranny by the neck and squeeze until no oppression remains.",
+        "type": "Cape",
+        "cost": 0
+    },
+    "1691924999": {
+        "name": "Foe Rent Asunder",
+        "description": "This ancient, likely allegorical, illustration of Might triumphing over the Anguiform is seen by scholars as a symbol of humankind's supremacy in the art of violence.",
+        "type": "Cape",
+        "cost": 0
+    },
+    "1392007336": {
+        "name": "Honored Heirloom",
+        "description": "Should the wearer of this cape perish at the hands of Freedom's enemies, it is customary to pass the cape on to their bravest child during the funeral, inspiring the next generation to take up arms.",
+        "type": "Cape",
+        "cost": 0
+    },
+    "3837863752": {
+        "name": "Eye of the Clandestine",
+        "description": "Those who serve Liberty from the shadows often elect to stay anonymous, moving like traceless specters through the night. May they watch over us always.",
+        "type": "Cape",
+        "cost": 0
+    },
+    "2491991003": {
+        "name": "Rags of the Fashionable",
+        "description": "Gently stonewashed by experienced hands, this luxury cape exudes the essence of state-approved attitude.",
+        "type": "Cape",
+        "cost": 0
+    },
+    "585941262": {
+        "name": "Wedgeful Tricorn",
+        "description": "Designed in homage to the triangle\u2014the most immovable of shapes\u2014this cape digs its heels into the eye of the observer, leaving a lasting impression.",
+        "type": "Cape",
+        "cost": 0
+    },
+    "1325899013": {
+        "name": "Pillar of the Abyss",
+        "description": "A cape inspired by hypothetical covert operatives\u2014pillars of Democratic order, operating in the hostile abyss where Liberty's light cannot yet reach.",
+        "type": "Cape",
+        "cost": 0
+    },
+    "114520195": {
+        "name": "Triangulation Veil",
+        "description": "This vision-disruptive pattern cloaks the silent crusaders whose untraceable deeds are a pure expression of true Freedom: freedom from accountability.",
+        "type": "Cape",
+        "cost": 0
+    },
+    "2630208565": {
+        "name": "Dignity of Toil",
+        "description": "Woven from coarse, industrial fibers designed to absorb sweat and oil, this cape features a spade emblem to honor Super Earth's groundbreakers, who ensure Liberty\u2019s light finds its way through any planet\u2019s crust.",
+        "type": "Cape",
+        "cost": 0
+    },
+    "1031686855": {
+        "name": "Crest of the Unsullied",
+        "description": "With sharp geometric angles to symbolize the rigid chain of command, this cape embodies the sanctity and moral fortitude of unblemished leadership over the mud-caked warriors they direct.",
+        "type": "Cape",
+        "cost": 0
+    },
+    "2321467216": {
+        "name": "Tideturner",
+        "description": "Some say that a mere glimpse of this cape, fluttering majestically in the breeze, is enough to spur a squad to victory.",
+        "type": "Cape",
+        "cost": 0
+    },
+    "3058055083": {
+        "name": "Tyranny's Bane",
+        "description": "Designed by fashion legend RH Gant, the pattern seen on this cape also appears on domestic dresses and gun-warmers. ",
+        "type": "Cape",
+        "cost": 0
+    },
+    "391288265": {
+        "name": "Agent of Oblivion",
+        "description": "0.05% of profits are donated to Superstone National Park, as part of the Ministry of Unity's \"Greener Galaxy\" campaign.",
+        "type": "Cape",
+        "cost": 0
+    },
+    "4124916847": {
+        "name": "Unblemished Allegiance",
+        "description": "A choir of patriotic schoolchildren sings the Super Earth anthem to each cape as the final step in its production.",
+        "type": "Cape",
+        "cost": 0
+    },
+    "1853027475": {
+        "name": "Light of Eternal Liberty",
+        "description": "The unimpeachable justice of this cape's design is said to blind the enemies of Freedom with its glorious light.",
+        "type": "Cape",
+        "cost": 0
+    },
+    "1675418984": {
+        "name": "Will of the People",
+        "description": "Contains a grain of sand from Super Earth\u2014so its bearers carry a small piece of Liberty with them, wherever they go.",
+        "type": "Cape",
+        "cost": 0
+    },
+    "1404455928": {
+        "name": "Cresting Honor",
+        "description": "The yellow is the exact shade of the Ministry of Unity's 'Golden Gate', leading to the Chamber of Unanimous Decision.",
+        "type": "Cape",
+        "cost": 0
+    },
+    "3562998132": {
+        "name": "Liberty's Herald",
+        "description": "The two stripes serve as a reminder of the two pillars of successful military campaigns: attack, and further attack.",
+        "type": "Cape",
+        "cost": 0
+    },
+    "1180159923": {
+        "name": "Foesmasher",
+        "description": "Durable, waterproof, and thermally-lined, surplus units of this cape are favored by domestic campers, to make tents.",
+        "type": "Cape",
+        "cost": 0
+    },
+    "752209840": {
+        "name": "Independence Bringer",
+        "description": "This cape's cropped length symbolizes the brevity of galactic conflicts, thanks to the efficiency of the Helldivers.",
+        "type": "Cape",
+        "cost": 0
+    },
+    "3359335006": {
+        "name": "Drape of Glory",
+        "description": "Research suggests that Helldivers wearing this cape are seen as 17% more patriotic.",
+        "type": "Cape",
+        "cost": 0
+    },
+    "1790198010": {
+        "name": "Wings of Valor",
+        "description": "Based on the ceremonial pennant flags of early Super Earth, which now adorn the entrance to each Ministry.",
+        "type": "Cape",
+        "cost": 0
+    },
+    "285943304": {
+        "name": "Beacon of Mercy",
+        "description": "The clasps on this cape are made from melted down Automaton housings\u2014evidence of Democracy's inevitable triumph.",
+        "type": "Cape",
+        "cost": 0
+    },
+    "2779185355": {
+        "name": "Unblemished Allegiance",
+        "description": "A choir of patriotic schoolchildren sings the Super Earth anthem to each cape as the final step in its production.",
+        "type": "Cape",
+        "cost": 0
+    },
+    "112836163": {
+        "name": "Drape of Glory",
+        "description": "Research suggests that Helldivers wearing this cape are seen as 17% more patriotic.",
+        "type": "Cape",
+        "cost": 0
+    },
+    "193259933": {
+        "name": "tutorial_cape_01_name_cased",
+        "description": "tutorial_cape_01_desc",
+        "type": "Cape",
+        "cost": 0
+    },
+    "2906140436": {
+        "name": "Resupply",
+        "description": "A Hellpod containing four supply packs, to replenish personal ammunition and stims in the field.",
+        "type": "Backpack",
+        "cost": 0
+    },
+    "1733110979": {
+        "name": "Equipment_Stratagem_Pad",
+        "description": "equipment_stratagem_pad_d",
+        "type": "Permanent Gear",
+        "cost": 0
+    },
+    "1991476415": {
+        "name": "grenade_antitank_prefix Grenade_Antitank_Name",
+        "description": "grenade_antitank_desc",
+        "type": "Throwable Weapon",
+        "cost": 0
+    },
+    "1030888251": {
+        "name": "G-31 Arc",
+        "description": "A throwable device engineered to bounce when hitting the ground, releasing bursts of electricity on each impact. Warning: may bounce unpredictably.",
+        "type": "Throwable Weapon",
+        "cost": 0
+    },
+    "189227448": {
+        "name": "G-48 Giga Grenade",
+        "description": "Designed to render even the largest foes into considerably smaller, and vastly more compliant, constituent parts. Sacrifices throwing range for a massive detonation on impact.",
+        "type": "Throwable Weapon",
+        "cost": 0
+    },
+    "338685597": {
+        "name": "grenade_emp_prefix Grenade_Emp_Name",
+        "description": "grenade_emp_desc",
+        "type": "Throwable Weapon",
+        "cost": 0
+    },
+    "2823164517": {
+        "name": "G-16 Impact",
+        "description": "A high explosive grenade which detonates on first impact.",
+        "type": "Throwable Weapon",
+        "cost": 2450
+    },
+    "131945085": {
+        "name": "G-89 Smokescreen",
+        "description": "A smoke grenade that rapidly deploys a small, dense cloud. Allows for rapid personal concealment and exfiltration.",
+        "type": "Throwable Weapon",
+        "cost": 300
+    },
+    "16338515": {
+        "name": "G-13 Incendiary Impact",
+        "description": "Detonates on impact, covering the immediate vicinity in self-igniting white phosphorus.",
+        "type": "Throwable Weapon",
+        "cost": 0
+    },
+    "1925755439": {
+        "name": "B-1 Supply Pack",
+        "description": "Supply boxes containing ammunition, with a backpack that allows the user to distribute boxes to fellow Helldivers.",
+        "type": "Backpack",
+        "cost": 0
+    },
+    "1028872423": {
+        "name": "SH-20 Ballistic Shield Backpack",
+        "description": "A backpack which can be wielded as a one-handed ballistic shield, protecting against small arms fire.",
+        "type": "Backpack",
+        "cost": 0
+    },
+    "4255545685": {
+        "name": "B-100 Portable Hellbomb",
+        "description": "A backpack-mounted Hellbomb that can be armed by the wearer or an ally, starting a countdown. Users are recommended to remove the backpack before the countdown reaches zero.",
+        "type": "Backpack",
+        "cost": 0
+    },
+    "3413503378": {
+        "name": "B/MD C4 Pack",
+        "description": "A backpack containing six adhesive C4 charges and a handheld wireless electronic detonator. Charges can be deployed and detonated individually, or as multiple simultaneous blasts.",
+        "type": "Support Weapon",
+        "cost": 0
+    },
+    "519340933": {
+        "name": "B/MD C4 Pack",
+        "description": "A backpack containing six adhesive C4 charges and a handheld wireless electronic detonator. Charges can be deployed and detonated individually, or as multiple simultaneous blasts.",
+        "type": "Backpack",
+        "cost": 0
+    },
+    "1382612374": {
+        "name": "SH-51 Directional Shield",
+        "description": "A one-handed device that deploys a wide energy barrier in front of the user. The barrier is semipermeable and blocks high-speed projectiles from the outside only, leaving the user free to shoot through it.",
+        "type": "Backpack",
+        "cost": 0
+    },
+    "3253029690": {
+        "name": "LIFT-182 Warp Pack",
+        "description": "A Dark Fluid-powered backpack that generates a portable micro-wormhole. This safe and well-understood technology allows the wearer to warp short distances. Warning: do not use while pack is overloaded.",
+        "type": "Backpack",
+        "cost": 0
+    },
+    "3883022479": {
+        "name": "AX/FLAM-75 Hot Dog",
+        "description": "An autonomous drone equipped with a flamethrower. Returns to backpack to refill fuel canisters.",
+        "type": "Backpack",
+        "cost": 0
+    },
+    "4243413869": {
+        "name": "AX/TX-13 Dog Breath",
+        "description": "A drone that defends its user by firing caustic gas at nearby enemies, blinding and slowing them temporarily. Returns to backpack to refill.",
+        "type": "Backpack",
+        "cost": 0
+    },
+    "2700946317": {
+        "name": "AX/AR-23 Guard Dog",
+        "description": "An autonomous drone equipped with a Liberator assault rifle, providing 360\u00b0 cover. Returns to backpack to rearm.",
+        "type": "Backpack",
+        "cost": 0
+    },
+    "1440244352": {
+        "name": "AX/LAS-5 Rover",
+        "description": "An autonomous drone equipped with a laser rifle, providing 360\u00b0 cover. Returns to backpack to cool down.",
+        "type": "Backpack",
+        "cost": 0
+    },
+    "1313198083": {
+        "name": "SH-32 Shield Generator Pack",
+        "description": "stratagem_energy_shield_backpack_desc",
+        "type": "Backpack",
+        "cost": 0
+    },
+    "1875465746": {
+        "name": "AX/ARC-3 K-9",
+        "description": "A humane, autonomous drone equipped with a modified Arc Thrower. Capable of projecting arcs of lightning through multiple targets. Does not need to recharge between shots.",
+        "type": "Backpack",
+        "cost": 0
+    },
+    "452826786": {
+        "name": "LIFT-860 Hover Pack",
+        "description": "Offers its user brief fixed-height flight, stable enough for pinpoint marksmanship.",
+        "type": "Backpack",
+        "cost": 0
+    },
+    "2649062090": {
+        "name": "LIFT-850 Jump Pack",
+        "description": "Enables the user to jump higher than 'gravity' and 'safety' would normally allow. Must be charged before use.",
+        "type": "Backpack",
+        "cost": 0
+    },
+    "4010403312": {
+        "name": "SH-20 Medic Backpack",
+        "description": "A backpack which can be wielded as a one-handed ballistic shield, protecting against small arms fire.",
+        "type": "Backpack",
+        "cost": 0
+    },
+    "2771075958": {
+        "name": "CQC-20 Breaching Hammer",
+        "description": "A sledgehammer that can be wielded with or without an explosive charge attached to its head.",
+        "type": "Support Weapon",
+        "cost": 0
+    },
+    "2518036308": {
+        "name": "CQC-19 Stun Lance",
+        "description": "A melee weapon tipped with electrified prongs that temporarily stun targets. Can be wielded one-handed.",
+        "type": "Sidearm Weapon",
+        "cost": 0
+    },
+    "4133671573": {
+        "name": "CQC-72 Entrenchment Tool",
+        "description": "A shovel that can be used as a melee weapon or, more conventionally, to dig holes in the ground.",
+        "type": "Support Weapon",
+        "cost": 0
+    },
+    "2173315377": {
+        "name": "CQC-72 Entrenchment Tool",
+        "description": "A shovel that can be used as a melee weapon or, more conventionally, to dig holes in the ground.",
+        "type": "Sidearm Weapon",
+        "cost": 0
+    },
+    "619315866": {
+        "name": "Weapon_Weapon_Stim_Shot_Name",
+        "description": "weapon_weapon_stim_shot_desc",
+        "type": "Permanent Gear",
+        "cost": 0
+    },
+    "2088854385": {
+        "name": "SG-8 Punisher",
+        "description": "A powerful dual magazine pump-action shotgun, with limited armor penetration. Ideal for small and fast targets.",
+        "type": "Primary Weapon",
+        "cost": 0
+    },
+    "1934208922": {
+        "name": "SG-8F Punisher Fire Of Liberty",
+        "description": "Punisher shotgun variant modifier with burst fire of incendiary round and a large drum magazine.",
+        "type": "Primary Weapon",
+        "cost": 0
+    },
+    "2246547985": {
+        "name": "SG-8S Slugger",
+        "description": "A modified Punisher shotgun firing heavy, high-damage slug rounds. Perfect for punching big holes in big targets.",
+        "type": "Primary Weapon",
+        "cost": 0
+    },
+    "122941246": {
+        "name": "SG-20 Halt",
+        "description": "A humane compliance weapon with two separate magazines: one for armor-penetrating flechette rounds and one for stun rounds.",
+        "type": "Primary Weapon",
+        "cost": 0
+    },
+    "1321109120": {
+        "name": "SG-451 Cookout",
+        "description": "A pump shotgun that fires a burst of incendiary phosphorus pellets, setting targets ablaze.",
+        "type": "Primary Weapon",
+        "cost": 0
+    },
+    "3955657629": {
+        "name": "SG-8P Punisher Plasma",
+        "description": "A modified Punisher shotgun firing exploding plasma rounds. Fire carefully - exploding plasma can injure squadmates.",
+        "type": "Primary Weapon",
+        "cost": 0
+    },
+    "931633769": {
+        "name": "SG-97 Sweeper",
+        "description": "A slamfire shotgun: fires continuously while the trigger is depressed, via activation of the pump-action mechanism. Loaded with armor-piercing flechettes and equipped with an extended bayonet.",
+        "type": "Primary Weapon",
+        "cost": 400
+    },
+    "3417185725": {
+        "name": "DBS-2 Double Freedom",
+        "description": "With its two barrels, one trigger, and vintage feel, this shotgun is perfect for historical reenactments.",
+        "type": "Primary Weapon",
+        "cost": 400
+    },
+    "3414013062": {
+        "name": "M90A Shotgun",
+        "description": "A top-loaded shotgun prominently featured in the final episode of \"Obedient Democracy Support Troopers.\"\nProduced by Martian Armory.",
+        "type": "Primary Weapon",
+        "cost": 0
+    },
+    "2161995568": {
+        "name": "MP-98 Knight",
+        "description": "A submachine gun with an extremely high rate of fire, which can be operated with one hand. Ideal for multitasking.",
+        "type": "Primary Weapon",
+        "cost": 0
+    },
+    "2011243293": {
+        "name": "SMG/FLAM-34 Stoker",
+        "description": "A versatile submachine gun equipped with iron sights and frontline incineration capabilities.",
+        "type": "Primary Weapon",
+        "cost": 0
+    },
+    "1179533432": {
+        "name": "StA-11 Smg",
+        "description": "A submachine gun with a helical-feed magazine, which gives the weapon a higher ammo capacity while making it more front-heavy. Produced by St\u00e5l Arms.",
+        "type": "Primary Weapon",
+        "cost": 615
+    },
+    "1246313930": {
+        "name": "M7S Smg",
+        "description": "An SMG that fires caseless ammunition and is equipped with a non-removable suppressor. \nProduced by Martian Armory.",
+        "type": "Primary Weapon",
+        "cost": 0
+    },
+    "725205791": {
+        "name": "SMG-32 Reprimand",
+        "description": "A heavy-duty submachine gun that fires large-caliber rounds, with a slower rate of fire to manage the high recoil. Ideal for use at close to medium range.",
+        "type": "Primary Weapon",
+        "cost": 0
+    },
+    "3478892931": {
+        "name": "PLAS-39 Accelerator Rifle",
+        "description": "A high-precision burst-fire plasma rifle that must be charged to fire.",
+        "type": "Primary Weapon",
+        "cost": 615
+    },
+    "469340936": {
+        "name": "VG-70 Variable",
+        "description": "A speed-loaded volley gun with three different firing modes and three different RPM options. Warning: recoil varies significantly between firing modes.",
+        "type": "Primary Weapon",
+        "cost": 0
+    },
+    "207998803": {
+        "name": "P-92 Warrant",
+        "description": "A pistol firing bursts of guided, jet-propelled ammunition. Can be set to non-guided mode at any time, removing the need to lock on to targets.",
+        "type": "Sidearm Weapon",
+        "cost": 300
+    },
+    "2811723672": {
+        "name": "P-2 Peacemaker",
+        "description": "The SEAF standard pistol - offering a high fire rate, generous capacity, and fast reloading.",
+        "type": "Sidearm Weapon",
+        "cost": 0
+    },
+    "1084288106": {
+        "name": "P-11 Stim Pistol",
+        "description": "Fires a ballistic dart at near-supersonic speeds, allowing the user to stim allies from a distance. Might sting.",
+        "type": "Sidearm Weapon",
+        "cost": 0
+    },
+    "1639574879": {
+        "name": "G-7 Pineapple",
+        "description": "A cluster fragmentation grenade. The shrapnel submunition allows it to inflict damage over a large area.",
+        "type": "Throwable Weapon",
+        "cost": 0
+    },
+    "385461545": {
+        "name": "TED-63 Dynamite",
+        "description": "Creates a far-reaching incendiary blast ideal for crowd control against smaller enemies of Freedom. Equipped with a programmable timer for strategic versatility.",
+        "type": "Throwable Weapon",
+        "cost": 0
+    },
+    "3466282658": {
+        "name": "G/SH-39 Shield",
+        "description": "A throwable emplacement that generates a spherical, projectile-blocking shield on impact. Has a limited lifetime once deployed.",
+        "type": "Throwable Weapon",
+        "cost": 0
+    },
+    "375014954": {
+        "name": "G-23 Stun",
+        "description": "Temporarily stuns all targets within the effective radius.",
+        "type": "Throwable Weapon",
+        "cost": 6900
+    },
+    "3295898003": {
+        "name": "G-6 Frag",
+        "description": "An antipersonnel fragmentation grenade. Creates damage over a large area when detonated.",
+        "type": "Throwable Weapon",
+        "cost": 900
+    },
+    "1255689962": {
+        "name": "G-4 Gas",
+        "description": "A grenade that releases a cloud of toxic gas, effective at temporarily blinding and slowing both organic and inorganic enemies.",
+        "type": "Throwable Weapon",
+        "cost": 0
+    },
+    "3191303848": {
+        "name": "G-12 High Explosive",
+        "description": "A high explosive grenade which damages lightly armored targets. Creates high damage over a small area when detonated.",
+        "type": "Throwable Weapon",
+        "cost": 0
+    },
+    "3748749890": {
+        "name": "G-10 Incendiary",
+        "description": "An incendiary grenade which ignites any targets and terrain within the blast radius. Use with caution.",
+        "type": "Throwable Weapon",
+        "cost": 0
+    },
+    "1752129915": {
+        "name": "TM-1 Lure Mine",
+        "description": "A throwable anti-personnel mine, capable of adhering to most surfaces. Upon deployment, emits lights and sounds which attract nearby hostiles to its proximity-activated detonator.",
+        "type": "Throwable Weapon",
+        "cost": 0
+    },
+    "1789694805": {
+        "name": "G-50 Seeker",
+        "description": "This grenade delivery drone follows the user until it detects an enemy nearby, then flies toward it and explodes on impact. Has a limited battery life.",
+        "type": "Throwable Weapon",
+        "cost": 0
+    },
+    "2877510587": {
+        "name": "G-3 Smoke",
+        "description": "A 'compliance weapon' to modify enemy behaviour. Creates a thick smoke screen to block targets' line of sight.",
+        "type": "Throwable Weapon",
+        "cost": 3450
+    },
+    "3869545997": {
+        "name": "G-123 Thermite",
+        "description": "A thermite grenade designed to adhere to surfaces before burning at 2000\u00b0C. Capable of burning through some armor.",
+        "type": "Throwable Weapon",
+        "cost": 0
+    },
+    "1625792993": {
+        "name": "G-109 Urchin",
+        "description": "This humane device attaches to its target and dispenses repeated electrical pulses, keeping the target in place for humane apprehension and/or termination.",
+        "type": "Throwable Weapon",
+        "cost": 0
+    },
+    "1858752103": {
+        "name": "K-2 Throwing Knife",
+        "description": "Delivers silent justice to Freedom's enemies.",
+        "type": "Throwable Weapon",
+        "cost": 0
+    },
+    "1612683909": {
+        "name": "G-142 Pyrotech",
+        "description": "A repurposed firework that showers its immediate surrounding area in sparks before exploding. As delightful as it is incendiary.",
+        "type": "Throwable Weapon",
+        "cost": 0
+    },
+    "3744531484": {
+        "name": "SG-88 Break-Action Shotgun",
+        "description": "A shotgun used in colonies to hunt and protect from threats.",
+        "type": "Support Weapon",
+        "cost": 0
+    },
+    "0": {
+        "name": "Backpack",
+        "description": "objective_carryable_bot_chemicals_d",
+        "type": "Backpack",
+        "cost": 0
+    },
+    "397581595": {
+        "name": "B/MD C4 Pack",
+        "description": "A backpack containing six adhesive C4 charges and a handheld wireless electronic detonator. Charges can be deployed and detonated individually, or as multiple simultaneous blasts.",
+        "type": "Support Weapon",
+        "cost": 0
+    },
+    "4109429659": {
+        "name": "CQC-2 Saber",
+        "description": "A one-handed ceremonial sword suitable for use in parades, sabrage, and combat.",
+        "type": "Sidearm Weapon",
+        "cost": 0
+    },
+    "1214427163": {
+        "name": "CQC-9 Defoliation Tool",
+        "description": "A useful field-clearing tool for removing trees, obstacles, and unlucky foes.",
+        "type": "Support Weapon",
+        "cost": 0
+    },
+    "3197732872": {
+        "name": "CQC-30 Stun Baton",
+        "description": "A lightweight melee weapon that temporarily stuns enemies.",
+        "type": "Sidearm Weapon",
+        "cost": 200
+    },
+    "819954976": {
+        "name": "CQC-1 One True Flag",
+        "description": "The eternal colors of Super Earth can never be tainted. Only quenched, by the blood of its enemies.",
+        "type": "Support Weapon",
+        "cost": 0
+    },
+    "1462250732": {
+        "name": "CQC-5 Combat Hatchet",
+        "description": "A heavy-hitting, one-handed melee weapon.",
+        "type": "Sidearm Weapon",
+        "cost": 200
+    },
+    "3859022603": {
+        "name": "CQC-42 Machete",
+        "description": "A heavy one-handed blade. Slower to swing than other melee weapons, but deals more damage.",
+        "type": "Sidearm Weapon",
+        "cost": 200
+    },
+    "999487482": {
+        "name": "ARC-12 Blitzer",
+        "description": "This shotgun blasts a wide burst of high-voltage electricity that arcs between all units\u2014enemy or otherwise\u2014within range.",
+        "type": "Primary Weapon",
+        "cost": 0
+    },
+    "2852344585": {
+        "name": "AR-23 Liberator",
+        "description": "The SEAF standard assault rifle, balancing power, fire rate, and weight for a reliable weapon against smaller targets.",
+        "type": "Primary Weapon",
+        "cost": 0
+    },
+    "1676113140": {
+        "name": "AR-23P Liberator Penetrator",
+        "description": "A modified Liberator fitted with a scope and firing armor-piercing rounds, to help users take down armored targets.",
+        "type": "Primary Weapon",
+        "cost": 0
+    },
+    "376039023": {
+        "name": "AR-23C Liberator Concussive",
+        "description": "A modified Liberator firing concussive rounds which do less damage but stagger enemies.",
+        "type": "Primary Weapon",
+        "cost": 0
+    },
+    "3428996225": {
+        "name": "AR/GL-21 One-Two",
+        "description": "A combination assault rifle/grenade launcher. Versatile, but heavy to wield.",
+        "type": "Primary Weapon",
+        "cost": 0
+    },
+    "3344526787": {
+        "name": "StA-52 Assault Rifle",
+        "description": "An assault rifle with a high-capacity drum magazine, good for providing sustained fire. \nProduced by St\u00e5l Arms.",
+        "type": "Primary Weapon",
+        "cost": 615
+    },
+    "3623018063": {
+        "name": "AR-32 Pacifier",
+        "description": "A large-capacity assault rifle firing humane stun rounds. Reports of lethal incidents have been thoroughly debunked.",
+        "type": "Primary Weapon",
+        "cost": 0
+    },
+    "400301984": {
+        "name": "AR-2 Coyote",
+        "description": "A reliable assault rifle with an antique iron sight, firing incendiary ammunition.",
+        "type": "Primary Weapon",
+        "cost": 0
+    },
+    "2564789309": {
+        "name": "MA5C Assault Rifle",
+        "description": "Often showcased in the \"Obedient Democracy Support Troopers\" cartoon, this assault rifle comes with a convenient ammo counter and compass.\nProduced by Martian Armory.",
+        "type": "Primary Weapon",
+        "cost": 0
+    },
+    "1160920394": {
+        "name": "AR-23A Liberator Carbine",
+        "description": "A compact version of the Liberator designed for increased viability in close quarters. Has an increased fire rate at the cost of higher spread.",
+        "type": "Primary Weapon",
+        "cost": 0
+    },
+    "1920374015": {
+        "name": "AR-61 Tenderizer",
+        "description": "A high-caliber assault rifle with a restrictive magazine size but more stopping power.",
+        "type": "Primary Weapon",
+        "cost": 0
+    },
+    "2643754746": {
+        "name": "AR-59 Suppressor",
+        "description": "A fully automatic assault rifle featuring a non-removable suppressor and subsonic ammunition. Slower rounds allow low-profile operation.",
+        "type": "Primary Weapon",
+        "cost": 0
+    },
+    "1182300424": {
+        "name": "SG-225 Breaker",
+        "description": "A fully-automatic shotgun with a high rate of fire, excellent for controlling crowds. Requires frequent reloading.",
+        "type": "Primary Weapon",
+        "cost": 0
+    },
+    "3814689025": {
+        "name": "SG-225SP Breaker Spray&Pray",
+        "description": "A modified Breaker shotgun firing birdshot, small pellets which saturate an area to clear up smaller targets.",
+        "type": "Primary Weapon",
+        "cost": 0
+    },
+    "3068666625": {
+        "name": "SG-225IE Breaker Incendiary",
+        "description": "A modified Breaker shotgun firing incendiary projectiles. Generates heat during use, so limited to burst fire.",
+        "type": "Primary Weapon",
+        "cost": 0
+    },
+    "2640366401": {
+        "name": "BR-14 Adjudicator",
+        "description": "An accurate, armor-penetrating rifle, the BR-14 Adjudicator delivers righteous judgement to medium-sized enemies, though its restrictive magazine limits its effectiveness against large groups.",
+        "type": "Primary Weapon",
+        "cost": 0
+    },
+    "3757606668": {
+        "name": "R-2 Amendment",
+        "description": "A semi-automatic ceremonial rifle equipped with a bayonet. Can be set to fire in three-shot bursts, to easily conduct the Fallen Hero's Salute.",
+        "type": "Primary Weapon",
+        "cost": 0
+    },
+    "4161086429": {
+        "name": "R-2124 Constitution",
+        "description": "This ceremonial rifle is modeled after antique relics from pre-Democratic times. It is traditionally gifted to every citizen upon turning 16 to encourage service.",
+        "type": "Primary Weapon",
+        "cost": 0
+    },
+    "1942567317": {
+        "name": "CB-9 Exploding Crossbow",
+        "description": "Fires powerful exploding bolts which do maximum damage upon direct impact. Gravity must be accounted for when aiming.",
+        "type": "Primary Weapon",
+        "cost": 0
+    },
+    "4108040377": {
+        "name": "FLAM-66 Torcher",
+        "description": "A lightweight flamethrower. Shoots pressurized fuel through a dispersion nozzle into an open flame. Safe.",
+        "type": "Primary Weapon",
+        "cost": 0
+    },
+    "2121387072": {
+        "name": "JAR-5 Dominator",
+        "description": "Firing jet-propelled rounds, the Dominator trades fire rate and magazine capacity for increased damage per projectile.",
+        "type": "Primary Weapon",
+        "cost": 0
+    },
+    "339272294": {
+        "name": "R-36 Eruptor",
+        "description": "This bolt-action rifle fires jet-assisted shells that explode shrapnel in all directions upon impact. Not recommended for close-quarters use.",
+        "type": "Primary Weapon",
+        "cost": 0
+    },
+    "3866352840": {
+        "name": "LAS-5 Scythe",
+        "description": "A laser rifle firing a continuous beam. Does not need reloading, but if it overheats a new heat sink must be fitted.",
+        "type": "Primary Weapon",
+        "cost": 0
+    },
+    "1794436168": {
+        "name": "LAS-16 Sickle",
+        "description": "A laser rifle, firing in short bursts. Does not need reloading, but if it overheats a new heat sink must be fitted.",
+        "type": "Primary Weapon",
+        "cost": 0
+    },
+    "309178703": {
+        "name": "LAS-17 Double-Edge Sickle",
+        "description": "A LAS-16 Sickle model with all overheating protections conveniently removed, allowing for far longer bursts of fire. Does more damage when overheated, at the cost of slightly burning the user.",
+        "type": "Primary Weapon",
+        "cost": 0
+    },
+    "2870692210": {
+        "name": " Las-13 Trident",
+        "description": "This time-honored shotgun-like weapon has been improved since the First Galactic War, and now fires six beams instead of three.",
+        "type": "Primary Weapon",
+        "cost": 0
+    },
+    "2104346664": {
+        "name": "R-6 Deadeye",
+        "description": "A mighty rifle with a signature lever-action enabling single round reload. Powerful precision suited to mid- and long-range combat.",
+        "type": "Primary Weapon",
+        "cost": 0
+    },
+    "1978117092": {
+        "name": "M-105 Stalwart",
+        "description": "A compact, low caliber machine gun. Trades power for ease of use, with faster reloading than heavier machine guns.",
+        "type": "Support Weapon",
+        "cost": 0
+    },
+    "838686177": {
+        "name": "R-72 Censor",
+        "description": "A mid-range precision rifle. Equipped with an integrated suppressor and subsonic rounds for barely-detectable operation.",
+        "type": "Primary Weapon",
+        "cost": 0
+    },
+    "2307301438": {
+        "name": "R-63 Diligence",
+        "description": "This high-caliber marksman rifle trades magazine capacity and rate of fire for powerful, accurate shots.",
+        "type": "Primary Weapon",
+        "cost": 0
+    },
+    "924530093": {
+        "name": "R-63CS Diligence Counter Sniper",
+        "description": "A modified Diligence rifle offering increased damage at the cost of some maneuverability. Fires a single bullet at a time.",
+        "type": "Primary Weapon",
+        "cost": 0
+    },
+    "2821209932": {
+        "name": "SMG-37 Defender",
+        "description": "A high-caliber submachine gun which can be fired with one hand. Has a relatively low rate of fire.",
+        "type": "Primary Weapon",
+        "cost": 0
+    },
+    "942049262": {
+        "name": "SMG-72 Pummeler",
+        "description": "Fires concussive rounds that stagger enemies. Slower rate of fire than other SMGs.",
+        "type": "Primary Weapon",
+        "cost": 0
+    },
+    "2739958254": {
+        "name": "weapon_primary_physicsgun_prefix Weapon_Primary_Physicsgun_Name",
+        "description": "weapon_primary_physicsgun_desc",
+        "type": "Support Weapon",
+        "cost": 0
+    },
+    "925809350": {
+        "name": "PLAS-1 Scorcher",
+        "description": "A plasma rifle, firing a bolt of superheated gas which explodes on impact. Avoid standing in proximity to the blast.",
+        "type": "Primary Weapon",
+        "cost": 0
+    },
+    "2887941494": {
+        "name": "PLAS-101 Purifier",
+        "description": "A plasma rifle that fires bolts of superheated gas, which can be charged by holding down the trigger. Charging up a shot fully makes the bolt explode on impact.",
+        "type": "Primary Weapon",
+        "cost": 0
+    },
+    "2264358800": {
+        "name": "SG-22 Bushwhacker",
+        "description": "A triple-barreled, break-action, sawed-off shotgun. Switch firing modes to fire all three barrels at once.",
+        "type": "Sidearm Weapon",
+        "cost": 0
+    },
+    "3981773112": {
+        "name": "P-19 Redeemer",
+        "description": "A fully-automatic pistol with an extremely high fire rate, allowing for efficient crowd control.",
+        "type": "Sidearm Weapon",
+        "cost": 0
+    },
+    "1102600214": {
+        "name": "P-35 Re-Educator",
+        "description": "A dart-firing pistol. Each of its six rounds administers a gaseous chemical agent, harmful to hostiles whether organic or artificial, that also induces a state of delirium in the target.",
+        "type": "Sidearm Weapon",
+        "cost": 0
+    },
+    "1920655850": {
+        "name": "LAS-58 Talon",
+        "description": "An accurate, hard-hitting laser revolver with bespoke break action for heat sink swaps.",
+        "type": "Sidearm Weapon",
+        "cost": 0
+    },
+    "2340232366": {
+        "name": "P-72 Crisper",
+        "description": "A compact handgun-style flamethrower, able to project a jet of fire over short distances.",
+        "type": "Sidearm Weapon",
+        "cost": 0
+    },
+    "2797735596": {
+        "name": "GP-31 Grenade Pistol",
+        "description": "A pistol that fires grenades. Must be reloaded between shots.",
+        "type": "Sidearm Weapon",
+        "cost": 0
+    },
+    "2501707184": {
+        "name": "LAS-7 Dagger",
+        "description": "A laser pistol that fires a continuous beam. Does not require ammo but can overheat and need to change batteries.",
+        "type": "Sidearm Weapon",
+        "cost": 0
+    },
+    "1938200223": {
+        "name": "P-113 Verdict",
+        "description": "The gas-operated, semiautomatic P-113 chambers the 14mm \"Rapid Deliberation,\" the largest centerfire cartridge of any magazine-fed pistol.",
+        "type": "Sidearm Weapon",
+        "cost": 0
+    },
+    "1312773632": {
+        "name": "P-69 Veto",
+        "description": "Loaded with jet-assisted rounds, this pistol is calibrated for creating and maintaining tactical distance from encroaching hostiles.",
+        "type": "Sidearm Weapon",
+        "cost": 0
+    },
+    "861637146": {
+        "name": "GP-20 Ultimatum",
+        "description": "A pistol front-loaded with a single, powerful explosive. The weight of the projectile limits the weapon's range.",
+        "type": "Sidearm Weapon",
+        "cost": 0
+    },
+    "2018836169": {
+        "name": "M6C/SOCOM Pistol",
+        "description": "A pistol with a built-in laser sight, suppressor, and flashlight.\nProduced by Martian Armory.",
+        "type": "Sidearm Weapon",
+        "cost": 0
+    },
+    "1902682578": {
+        "name": "PLAS-15 Loyalist",
+        "description": "A plasma pistol that charges each shot until the trigger is released. Plasma projectiles explode on impact.",
+        "type": "Sidearm Weapon",
+        "cost": 0
+    },
+    "1374036584": {
+        "name": "P-4 Senator",
+        "description": "A high-damage revolver, which can be reloaded with single rounds. A heavy-hitting and reliable sidearm.",
+        "type": "Sidearm Weapon",
+        "cost": 0
+    },
+    "3201417018": {
+        "name": "RL-77 Airburst Rocket Launcher",
+        "description": "Fires a rocket that detonates within proximity of a target, and deploys a cluster of explosive bomblets.",
+        "type": "Support Weapon",
+        "cost": 0
+    },
+    "2138935687": {
+        "name": "ARC-3 Arc Thrower",
+        "description": "Projects an arc of lightning at close range. Charges up to project bolts, and may discharge through multiple targets.",
+        "type": "Support Weapon",
+        "cost": 0
+    },
+    "841182351": {
+        "name": "AC-8 Autocannon",
+        "description": "A fully-automatic cannon effective against light vehicle armor. Includes support backpack required for reloading.",
+        "type": "Support Weapon",
+        "cost": 0
+    },
+    "316296057": {
+        "name": "GL-28 Belt-Fed Grenade Launcher",
+        "description": "A grenade launcher that can be fired continuously to deliver a nonstop barrage of explosives.",
+        "type": "Support Weapon",
+        "cost": 0
+    },
+    "1725541340": {
+        "name": "TX-41 Sterilizer",
+        "description": "Atomizes caustic chemicals into a fine mist that liquifies sensitive electronics and tissues. Blinds and slows most enemies.",
+        "type": "Support Weapon",
+        "cost": 0
+    },
+    "4095488231": {
+        "name": "EAT-411 Leveller",
+        "description": "A single-use weapon firing a high-yield missile. Discarded after every use.",
+        "type": "Support Weapon",
+        "cost": 0
+    },
+    "4189624954": {
+        "name": "EAT-700 Expendable Napalm",
+        "description": "A single-use weapon that fires a missile containing napalm cluster bombs that release upon impact.",
+        "type": "Support Weapon",
+        "cost": 0
+    },
+    "202236804": {
+        "name": "FAF-14 Spear",
+        "description": "An anti-tank homing missile which must lock onto its target before launch. Effective against large and armored enemies.",
+        "type": "Support Weapon",
+        "cost": 0
+    },
+    "3564779466": {
+        "name": "StA-X3 W.A.S.P. Launcher",
+        "description": "A versatile missile launcher loaded with seven lock-on homing missiles. These can either be fired from the launcher directly or as an airburst. Includes support backpack required for reloading.\nProduced by St\u00e5l Arms.",
+        "type": "Support Weapon",
+        "cost": 0
+    },
+    "1944161163": {
+        "name": "FLAM-40 Flamethrower",
+        "description": "An incendiary weapon for close range. Will ignite targets, terrain, and any flammable teammates.",
+        "type": "Support Weapon",
+        "cost": 0
+    },
+    "1159284196": {
+        "name": "GL-21 Grenade Launcher",
+        "description": "A grenade launcher effective against armored infantry. Not intended for use against vehicle armor or fortified buildings.",
+        "type": "Support Weapon",
+        "cost": 0
+    },
+    "3560739565": {
+        "name": "GL-52 De-Escalator",
+        "description": "A humane grenade launcher firing high-powered arc grenades.",
+        "type": "Support Weapon",
+        "cost": 0
+    },
+    "4030799106": {
+        "name": "S-11 Speargun",
+        "description": "A speargun firing heavy-duty projectiles. These projectiles release a cloud of gas on impact, and must be carefully loaded one at a time.",
+        "type": "Support Weapon",
+        "cost": 0
+    },
+    "2051054112": {
+        "name": "B/FLAM-80 Cremator",
+        "description": "Incendiary support fed by a massive backpack fuel tank. This heavy flamethrower enables a continuous column of fire to cleanse the battlefield.",
+        "type": "Support Weapon",
+        "cost": 0
+    },
+    "4038802832": {
+        "name": "MG-206 Heavy Machine Gun",
+        "description": "A very powerful but difficult-to-wield machine gun with intense recoil.",
+        "type": "Support Weapon",
+        "cost": 0
+    },
+    "961518079": {
+        "name": "LAS-98 Laser Cannon",
+        "description": "A laser weapon firing a continuous beam. Doesn't require ammunition, but will need heat sink replaced if it overheats.",
+        "type": "Support Weapon",
+        "cost": 0
+    },
+    "3212037062": {
+        "name": "MLS-4X Commando",
+        "description": "An expendable missile launcher equipped with four laser-guided missiles.",
+        "type": "Support Weapon",
+        "cost": 0
+    },
+    "1597673685": {
+        "name": "LAS-99 Quasar Cannon",
+        "description": "Charges up to fire a powerful, explosive energy burst. Has a long cooldown period after firing.",
+        "type": "Support Weapon",
+        "cost": 0
+    },
+    "1207425221": {
+        "name": "EAT-17 Expendable Anti-Tank",
+        "description": "A single-use weapon specialized for damaging vehicle armor. Discarded after every use.",
+        "type": "Support Weapon",
+        "cost": 0
+    },
+    "934703916": {
+        "name": "MG-43 Machine Gun",
+        "description": "A machine gun designed for stationary use. Trades higher power for increased recoil and reduced accuracy.",
+        "type": "Support Weapon",
+        "cost": 0
+    },
+    "3659583399": {
+        "name": "M-1000 Maxigun",
+        "description": "A belt-fed minigun with an exceptional ammo capacity. Cannot be reloaded with standard non-belted munitions.",
+        "type": "Support Weapon",
+        "cost": 0
+    },
+    "2918647117": {
+        "name": "Solo Silo Targeting Remote",
+        "description": "A targeting remote, used in combination with the Solo Silo.",
+        "type": "Support Weapon",
+        "cost": 0
+    },
+    "2140866400": {
+        "name": "PLAS-45 Epoch",
+        "description": "A powerful plasma weapon that fires one blast at a time, each blast exploding on impact. Must be charged to fire. Warning: do not overcharge.",
+        "type": "Support Weapon",
+        "cost": 0
+    },
+    "295440526": {
+        "name": "RS-422 Railgun",
+        "description": "An experimental weapon which prioritizes armor penetration. Must be charged between shots - so choose targets carefully.",
+        "type": "Support Weapon",
+        "cost": 250
+    },
+    "1594211884": {
+        "name": "GR-8 Recoilless Rifle",
+        "description": "A recoilless rifle effective against vehicle armor. Includes support backpack required for reloading.",
+        "type": "Support Weapon",
+        "cost": 0
+    },
+    "1076293717": {
+        "name": "Weapon_Remote_Explosives_Detonator_Name",
+        "description": "weapon_remote_explosives_detonator_name_desc",
+        "type": "Permanent Gear",
+        "cost": 0
+    },
+    "376960160": {
+        "name": "APW-1 Anti-Materiel Rifle",
+        "description": "A high-caliber sniper rifle effective over long distances against light vehicle armor. This rifle must be aimed downscope.",
+        "type": "Support Weapon",
+        "cost": 0
+    }
+}

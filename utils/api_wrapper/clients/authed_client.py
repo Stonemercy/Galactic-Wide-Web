@@ -17,3 +17,7 @@ class AuthedClient(BaseAPIClient):
     async def get_personal_order(self) -> dict:
         """Get the current personal orders"""
         return await self.get("/assignment")
+
+    async def get_superstore(self) -> dict:
+        """Get the current superstore rotation"""
+        return await self.get("/storefront")

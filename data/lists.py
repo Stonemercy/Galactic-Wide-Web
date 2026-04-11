@@ -13,7 +13,7 @@ json_dict = {
     "planetRegions": {"path": "data/json/planets/planetRegions.json", "value": None},
     "sectors": {"path": "data/json/planets/sectors.json", "value": None},
     "items": {
-        "item_names": {"path": "data/json/items/item_names.json", "value": None},
+        "items": {"path": "data/json/items/items.json", "value": None},
         "boosters": {"path": "data/json/items/boosters.json", "value": None},
         "reward_types": {
             "path": "data/json/assignments/reward/type.json",

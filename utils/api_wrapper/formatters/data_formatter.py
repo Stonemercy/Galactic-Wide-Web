@@ -13,6 +13,7 @@ from ..models import (
     PersonalOrder,
     Planet,
     SteamNews,
+    Superstore,
 )
 from ...dataclasses import Factions
 
@@ -182,6 +183,7 @@ class FormattedDataContext:
     war_effects: list
     personal_order: dict
     steam_news: list
+    superstore: list
 
     json_dict: dict
 
@@ -203,6 +205,7 @@ class FormattedData:
         "event_campaigns",
         "campaigns",
         "steam_news",
+        "superstore",
         "personal_order",
         "formatted_at",
     )
@@ -227,6 +230,7 @@ class FormattedData:
         self.event_campaigns: list[Campaign] = []
         self.campaigns: list[Campaign] = []
         self.steam_news: list[SteamNews] = []
+        self.superstore: Superstore = None
         self.personal_order: PersonalOrder = None
 
         if context.steam_player_count:
@@ -589,6 +593,12 @@ class FormattedData:
                 if ge.effects and ge.planet_indices:
                     for planet in (self.planets.get(i) for i in ge.planet_indices):
                         planet.active_effects.update(set(ge.effects))
+
+        if context.superstore:
+            self.superstore: Superstore = Superstore(
+                raw_superstore_data=context.superstore,
+                items_json=context.json_dict["items"]["items"],
+            )
 
         self.formatted_at = datetime.now(tz=timezone.utc)
 

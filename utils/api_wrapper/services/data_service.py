@@ -41,6 +41,7 @@ class DataService(ReprMixin):
         self._raw_war_info: dict = {}
         self._raw_war_effects: list = []
         self._raw_personal_order: dict = {}
+        self._raw_stuperstore: dict = {}
         self._raw_steam_news: list = []
 
     def clear(self) -> None:
@@ -174,6 +175,10 @@ class DataService(ReprMixin):
             if personal_order:
                 self._raw_personal_order = personal_order
 
+            superstore = await client.get_superstore()
+            if superstore:
+                self._raw_stuperstore = superstore
+
         self.fetching = False
         self.logger.info("PULLS COMPLETE!")
 
@@ -193,6 +198,7 @@ class DataService(ReprMixin):
             war_effects=self._raw_war_effects,
             personal_order=self._raw_personal_order,
             steam_news=self._raw_steam_news,
+            superstore=self._raw_stuperstore,
             json_dict=self.json_dict,
         )
         self.formatted_data = FormattedData(context=formatted_data_context)
