@@ -15,7 +15,8 @@ class SuperstoreContainer(ui.Container, ReprMixin):
             )
         )
         for section in superstore.sections:
-            for i in section.items:
+            sorted_items = self.sort_items(section.items)
+            for i in sorted_items:
                 if not i.name:
                     continue
                 else:
@@ -33,3 +34,18 @@ class SuperstoreContainer(ui.Container, ReprMixin):
                     )
 
         super().__init__(*self.components, accent_colour=Colour.blue())
+
+    def sort_items(self, items: list[Superstore.Section.Item]):
+        sorted_items: list[Superstore.Section.Item] = []
+        sorted_items.extend([i for i in items if "weapon" in i.type.lower()])
+        sorted_items.extend(
+            [
+                i
+                for i in items
+                if "armor" in i.type.lower() or "helmet" in i.type.lower()
+            ]
+        )
+        sorted_items.extend([i for i in items if "cape" in i.type.lower()])
+        sorted_items.extend([i for i in items if "player card" in i.type.lower()])
+        sorted_items.extend([i for i in items if "emote" in i.type.lower()])
+        return sorted_items
