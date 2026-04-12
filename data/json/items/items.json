@@ -3010,5 +3010,185 @@
         "description": "A high-caliber sniper rifle effective over long distances against light vehicle armor. This rifle must be aimed downscope.",
         "type": "Support Weapon",
         "cost": 0
+    },
+    "1455517800": {
+        "name": "Cheer",
+        "description": "",
+        "type": "Emote",
+        "cost": 0
+    },
+    "2520370483": {
+        "name": "Howdy",
+        "description": "",
+        "type": "Emote",
+        "cost": 0
+    },
+    "1200031688": {
+        "name": "Handshake Engineer",
+        "description": "",
+        "type": "Emote",
+        "cost": 0
+    },
+    "1508758952": {
+        "name": "Handshake Recon",
+        "description": "",
+        "type": "Emote",
+        "cost": 0
+    },
+    "198334139": {
+        "name": "High Five",
+        "description": "",
+        "type": "Emote",
+        "cost": 0
+    },
+    "2665206765": {
+        "name": "Hug",
+        "description": "",
+        "type": "Emote",
+        "cost": 0
+    },
+    "836157113": {
+        "name": "Rock Paper Scissors",
+        "description": "",
+        "type": "Emote",
+        "cost": 0
+    },
+    "3797678333": {
+        "name": "Salute",
+        "description": "",
+        "type": "Emote",
+        "cost": 0
+    },
+    "2271234922": {
+        "name": "Cancel",
+        "description": "",
+        "type": "Emote",
+        "cost": 0
+    },
+    "299597462": {
+        "name": "Draw",
+        "description": "",
+        "type": "Emote",
+        "cost": 250
+    },
+    "1871859054": {
+        "name": "Draw Fire",
+        "description": "",
+        "type": "Emote",
+        "cost": 0
+    },
+    "2289161816": {
+        "name": "Exit",
+        "description": "",
+        "type": "Emote",
+        "cost": 0
+    },
+    "100562250": {
+        "name": "Hifive Denied",
+        "description": "",
+        "type": "Emote",
+        "cost": 0
+    },
+    "2124284534": {
+        "name": "March",
+        "description": "",
+        "type": "Emote",
+        "cost": 0
+    },
+    "1427899644": {
+        "name": "March Flag",
+        "description": "",
+        "type": "Emote",
+        "cost": 0
+    },
+    "2713104908": {
+        "name": "March Forward",
+        "description": "",
+        "type": "Emote",
+        "cost": 0
+    },
+    "2815619249": {
+        "name": "March Saber",
+        "description": "",
+        "type": "Emote",
+        "cost": 0
+    },
+    "3494119488": {
+        "name": "Option Loc",
+        "description": "",
+        "type": "Emote",
+        "cost": 0
+    },
+    "1462074552": {
+        "name": "Rps Count 1",
+        "description": "",
+        "type": "Emote",
+        "cost": 0
+    },
+    "4293274972": {
+        "name": "Rps Count 2",
+        "description": "",
+        "type": "Emote",
+        "cost": 0
+    },
+    "997787071": {
+        "name": "Rps Count 3",
+        "description": "",
+        "type": "Emote",
+        "cost": 0
+    },
+    "446609972": {
+        "name": "Rps Count 4",
+        "description": "",
+        "type": "Emote",
+        "cost": 0
+    },
+    "2462633379": {
+        "name": "Rps Count 5",
+        "description": "",
+        "type": "Emote",
+        "cost": 0
+    },
+    "3713957825": {
+        "name": "Rps Draw",
+        "description": "",
+        "type": "Emote",
+        "cost": 0
+    },
+    "903988142": {
+        "name": "Rps Lose",
+        "description": "",
+        "type": "Emote",
+        "cost": 0
+    },
+    "1609836221": {
+        "name": "Rps Win",
+        "description": "",
+        "type": "Emote",
+        "cost": 0
+    },
+    "4693889": {
+        "name": "Stoic",
+        "description": "",
+        "type": "Emote",
+        "cost": 0
+    },
+    "3818154189": {
+        "name": "Taunt",
+        "description": "",
+        "type": "Emote",
+        "cost": 0
+    },
+    "3652117609": {
+        "name": "Type",
+        "description": "",
+        "type": "Emote",
+        "cost": 0
+    },
+    "2234906439": {
+        "name": "Enthusiastic Mirth",
+        "description": "",
+        "type": "Emote",
+        "cost": 250
     }
 }
