@@ -10,7 +10,7 @@ class Emojis:
         common_sample = "<:s:1306611420510687334>"
         rare_sample = "<:s:1306611408406052874>"
         requisition_slip = "<:s:1306611395986587689>"
-        super_credit = "<:s:1491076592061911253>"
+        super_credit = "<:s:1492853000291614750>"
 
     @dataclass
     class RegionIcons:
