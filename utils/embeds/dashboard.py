@@ -206,12 +206,12 @@ class Dashboard:
                 # add blank line (max size, dont change)
                 embed.set_image("https://i.imgur.com/cThNy4f.png")
 
-        embeds_to_skip = (self.DSSEmbed,)
-        if compact_level > 0:
+        embeds_to_skip = (self.DSSEmbed, self.FooterEmbed, self.GlobalResourceEmbed)
+        if self.compact_level > 0:
             self.embeds = [
                 embed
                 for embed in self.embeds.copy()
-                if type(embed) not in embeds_to_skip
+                if type(embed) not in embeds_to_skip[: self.compact_level]
             ]
 
     def character_count(self):
@@ -2453,7 +2453,7 @@ class Dashboard:
                         )
                         if gambit_planet:
                             field_value += f"\n-# :chess_pawn: {language_json['embeds']['Dashboard']['AttackEmbed']['gambit_for']} {gambit_planet.names.get(language_json['code_long'], str(gambit_planet.index))}"
-                    if compact_level < 1:
+                    if compact_level < 2:
                         field_value += f"\n{campaign.planet.health_bar}"
                     field_value += f"\n`{(1 - (campaign.planet.health_perc)):^25.2%}`"  # 1 - {health} because we need it to reach 0
 
