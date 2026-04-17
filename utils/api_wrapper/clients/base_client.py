@@ -24,7 +24,6 @@ class BaseAPIClient(ABC):
             logger: Logger instance
             timeout: Request timeout in seconds
             headers: Default headers to include in all requests
-            rate_limit_delay: Delay between requests in seconds (for rate limiting)
         """
         self.base_url = base_url.rstrip("/")
         self.logger = logger
