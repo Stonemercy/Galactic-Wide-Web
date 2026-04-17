@@ -9,8 +9,6 @@ class Config:
     MODERATION_CHANNEL_ID: int = int(getenv("MODERATION_CHANNEL"))
     WASTE_BIN_CHANNEL_ID: int = int(getenv("WASTE_BIN_CHANNEL"))
     API_CHANGES_CHANNEL_ID: int = int(getenv("API_CHANGES_CHANNEL"))
-    API_BASE: str = getenv("API")
-    BACKUP_API_BASE: str = getenv("BU_API")
 
     DB_HOSTNAME: str = getenv("DB_HOSTNAME")
     DATABASE: str = getenv("DBV2_NAME")
