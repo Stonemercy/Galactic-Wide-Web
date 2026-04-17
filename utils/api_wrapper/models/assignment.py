@@ -36,7 +36,8 @@ class Assignment(ReprMixin):
             )
         self.rewards: list[dict] = raw_assignment_data["setting"]["rewards"]
         self.starts_at_datetime: datetime = datetime.fromtimestamp(
-            raw_assignment_data["startTime"] + war_start_timestamp, tz=timezone.utc
+            raw_assignment_data.get("startTime", 0) + war_start_timestamp,
+            tz=timezone.utc,
         )
         self.ends_at_datetime: datetime = datetime.now(tz=timezone.utc) + timedelta(
             seconds=raw_assignment_data["expiresIn"]
