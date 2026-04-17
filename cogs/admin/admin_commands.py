@@ -1,5 +1,5 @@
 from typing import TYPE_CHECKING
-from disnake import AppCmdInter, Guild, MessageInteraction, Permissions, ui
+from disnake import AppCmdInter, Guild, MessageInteraction, NotFound, Permissions, ui
 from disnake.ext import commands
 from main import GalacticWideWebBot
 from re import search
@@ -111,9 +111,14 @@ class AdminCommandsCog(commands.Cog):
             None,
         )
         if db_guild:
-            discord_guild = self.bot.get_guild(
-                db_guild.guild_id
-            ) or await self.bot.fetch_guild(db_guild.guild_id)
+            try:
+                discord_guild = self.bot.get_guild(
+                    db_guild.guild_id
+                ) or await self.bot.fetch_guild(db_guild.guild_id)
+            except NotFound:
+                db_guild.delete()
+                await inter.send("Guild not found, deleted from DB")
+                return
             container = GuildContainer(
                 guild=discord_guild, db_guild=db_guild, fetching=True
             )
