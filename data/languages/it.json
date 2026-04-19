@@ -163,6 +163,8 @@
                 "progress": "Progresso",
                 "complete": "Completato",
                 "tasks": {
+                    "-1_from_loss": "\n-# **-1** da perdita di **{planet}** {timestamp}",
+                    "+1_from_lib": "\n-# **+1** da liberazione di **{planet}** {timestamp}",
                     "option": "Opzione",
                     "times": "volte",
                     "against": "contro",
@@ -207,9 +209,7 @@
                     "type14_f": "{emoji} Libera **{count}** pianeti da **{race}**",
                     "type14_r": "{emoji} Libera **{count}** pianeti",
                     "type15_f": "{emoji} Libera più pianeti di quanti ne vengano persi da **{race}** durante la durata dell'ordine",
-                    "type15_r": "{emoji} Libera più pianeti di quanti ne vengano persi durante la durata dell'ordine",
-                    "type15_from_loss": "\n-# **-1** da perdita di **{planet}** {timestamp}",
-                    "type15_from_lib": "\n-# **+1** da liberazione di **{planet}** {timestamp}"
+                    "type15_r": "{emoji} Libera più pianeti di quanti ne vengano persi durante la durata dell'ordine"
                 }
             },
             "DSSEmbed": {

@@ -163,6 +163,8 @@
                 "progress": "Fortschritt",
                 "complete": "Abgeschlossen",
                 "tasks": {
+                    "-1_from_loss": "\n-# **-1** von Verlust von **{planet}** {timestamp}",
+                    "+1_from_lib": "\n-# **+1** von Befreiung von **{planet}** {timestamp}",
                     "option": "Option",
                     "times": "mal",
                     "against": "gegen",
@@ -207,9 +209,7 @@
                     "type14_f": "{emoji} Befreie **{count}** Planeten von **{race}**",
                     "type14_r": "{emoji} Befreie **{count}** Planeten",
                     "type15_f": "{emoji} Befreie mehr Planeten als an **{race}** während der Auftragsdauer verloren gehen",
-                    "type15_r": "{emoji} Befreie mehr Planeten als verloren gehen während der Auftragsdauer",
-                    "type15_from_loss": "\n-# **-1** von Verlust von **{planet}** {timestamp}",
-                    "type15_from_lib": "\n-# **+1** von Befreiung von **{planet}** {timestamp}"
+                    "type15_r": "{emoji} Befreie mehr Planeten als verloren gehen während der Auftragsdauer"
                 }
             },
             "DSSEmbed": {

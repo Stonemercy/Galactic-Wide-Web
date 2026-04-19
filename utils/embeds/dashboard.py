@@ -1340,12 +1340,104 @@ class Dashboard:
             )
             if task.planet_index and task.target == 1:
                 planet = self.planets.get(task.planet_index)
-                if (
-                    planet
-                    and planet.event
-                    and planet.event.type != EventType.UrgentLiberation
-                ):
-                    field_value = ""
+                if planet and planet.event and planet.event.type == EventType.Defence:
+                    field_value: str = ""
+
+            if task.planet_index:
+                planet = self.planets.get(task.planet_index)
+                if planet.event:
+                    end_time_info = get_end_time(planet, self.gambit_planets)
+                    if (
+                        end_time_info.end_time
+                        and end_time_info.end_time < self.assignment.ends_at_datetime
+                        and end_time_info.end_time < planet.event.end_time_datetime
+                    ):
+                        field_value += self.language_json["embeds"]["Dashboard"][
+                            "MajorOrderEmbed"
+                        ]["tasks"]["+1_from_lib"].format(
+                            planet=planet.names.get(
+                                self.language_json["code_long"],
+                                str(planet.index),
+                            ),
+                            timestamp=f"<t:{int(end_time_info.end_time.timestamp())}:R>",
+                        )
+                        field_value = field_value.replace(
+                            task.health_bar,
+                            health_bar(
+                                task.progress_perc,
+                                planet.event.faction,
+                                anim=True,
+                                increasing=True,
+                            ),
+                        )
+            elif task.sector_index:
+                planets_in_sector = [
+                    p
+                    for p in self.planets.values()
+                    if p._sector == task.sector_index and p.event
+                ]
+                for planet in planets_in_sector:
+                    end_time_info = get_end_time(planet, self.gambit_planets)
+                    if (
+                        end_time_info.end_time
+                        and end_time_info.end_time < self.assignment.ends_at_datetime
+                        and end_time_info.end_time < planet.event.end_time_datetime
+                    ):
+                        field_value += self.language_json["embeds"]["Dashboard"][
+                            "MajorOrderEmbed"
+                        ]["tasks"]["+1_from_lib"].format(
+                            planet=planet.names.get(
+                                self.language_json["code_long"],
+                                str(planet.index),
+                            ),
+                            timestamp=f"<t:{int(end_time_info.end_time.timestamp())}:R>",
+                        )
+            else:
+                if task.faction:
+                    planets_for_faction = [
+                        p
+                        for p in self.planets.values()
+                        if p.event
+                        and p.event.type == EventType.Defence
+                        and p.event.faction == task.faction
+                    ]
+                    for planet in planets_for_faction:
+                        end_time_info = get_end_time(planet, self.gambit_planets)
+                        if (
+                            end_time_info.end_time
+                            and end_time_info.end_time
+                            < self.assignment.ends_at_datetime
+                            and end_time_info.end_time < planet.event.end_time_datetime
+                        ):
+                            field_value += self.language_json["embeds"]["Dashboard"][
+                                "MajorOrderEmbed"
+                            ]["tasks"]["+1_from_lib"].format(
+                                planet=planet.names.get(
+                                    self.language_json["code_long"],
+                                    str(planet.index),
+                                ),
+                                timestamp=f"<t:{int(end_time_info.end_time.timestamp())}:R>",
+                            )
+                            field_value = field_value.replace(
+                                task.health_bar,
+                                health_bar(
+                                    task.progress_perc,
+                                    planet.event.faction,
+                                    anim=True,
+                                    increasing=True,
+                                ),
+                            )
+                else:
+                    planet_events = [p for p in self.planets.values() if p.event]
+                    for planet in planet_events:
+                        end_time_info = get_end_time(planet, self.gambit_planets)
+                        if (
+                            end_time_info.end_time
+                            and end_time_info.end_time
+                            < self.assignment.ends_at_datetime
+                            and end_time_info.end_time < planet.event.end_time_datetime
+                        ):
+                            field_value += f"\n-# +1 from {planet.names['en-GB']} victory <t:{int(end_time_info.end_time.timestamp())}:R>"
 
             if self.assignment.flags in (2, 3):
                 task_index = self.assignment.tasks.index(task)
@@ -1515,7 +1607,7 @@ class Dashboard:
                         ):
                             field_value += self.language_json["embeds"]["Dashboard"][
                                 "MajorOrderEmbed"
-                            ]["tasks"]["type15_from_loss"].format(
+                            ]["tasks"]["-1_from_loss"].format(
                                 planet=planet.names.get(
                                     self.language_json["code_long"], str(planet.index)
                                 ),
@@ -1529,7 +1621,7 @@ class Dashboard:
                         ):
                             field_value += self.language_json["embeds"]["Dashboard"][
                                 "MajorOrderEmbed"
-                            ]["tasks"]["type15_from_lib"].format(
+                            ]["tasks"]["+1_from_lib"].format(
                                 planet=planet.names.get(
                                     self.language_json["code_long"],
                                     str(planet.index),
