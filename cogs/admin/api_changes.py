@@ -101,6 +101,21 @@ class APIChangesCog(commands.Cog):
                                     )
                                 )
 
+            if self.bot.data.previous_data.personal_order:
+                if (
+                    self.bot.data.previous_data.personal_order.id
+                    != self.bot.data.formatted_data.personal_order.id
+                ):
+                    total_changes.append(
+                        APIChanges(
+                            old_object=self.bot.data.previous_data.personal_order,
+                            new_object=self.bot.data.formatted_data.personal_order,
+                            property="PO",
+                            stat_name="Personal Order",
+                            stat_source="Personal Order",
+                        )
+                    )
+
             for old_planet, new_planet in zip(
                 self.bot.data.previous_data.planets.values(),
                 self.bot.data.formatted_data.planets.values(),

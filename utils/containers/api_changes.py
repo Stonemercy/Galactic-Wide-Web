@@ -11,13 +11,14 @@ class APIChangesContainer(ui.Container, ReprMixin):
     def __init__(
         self, api_changes: list[APIChanges], planets: dict[int, Planet]
     ) -> None:
-        self.container_components: list = []
+        self.container_components: list[ui.Section | ui.TextDisplay] = []
 
         for api_change in api_changes:
             if api_change.stat_source not in [
                 "Global Resources",
                 "Galactic War Effects",
                 "Task",
+                "Personal Order",
             ]:
                 old_stat = getattr(api_change.old_object, api_change.property)
                 new_stat = getattr(api_change.new_object, api_change.property)
@@ -54,25 +55,46 @@ class APIChangesContainer(ui.Container, ReprMixin):
                             f"## Update to **{api_change.stat_name}**\n    Target for task **#{api_change.property}**\n        **{api_change.old_object.target:,} {Emojis.Stratagems.right} {api_change.new_object.target:,}**"
                         )
                     )
-                case "Planet":
+                case "Personal Order":
                     self.container_components.append(
-                        ui.Section(
-                            ui.TextDisplay(
-                                f"## Update to **{api_change.new_object.names.get('en-GB', str(api_change.new_object.index))}** {api_change.new_object.faction.emoji}{api_change.new_object.exclamations}"
-                            ),
-                            accessory=HDCButton(
-                                label=api_change.new_object.names.get(
-                                    "en-GB", str(api_change.new_object.index)
-                                ),
-                                link=f"https://helldiverscompanion.com/#hellpad/planets/{api_change.new_object.index}",
-                            ),
+                        ui.TextDisplay(
+                            f"## Personal Order ID has changed\n**{api_change.old_object.id}** {Emojis.Stratagems.right} **{api_change.new_object.id}**"
                         )
                     )
+                case "Planet":
+                    if not next(
+                        (
+                            s
+                            for s in self.container_components
+                            if api_change.new_object.names.get(
+                                "en-GB", str(api_change.new_object.index)
+                            )
+                            in s.children[0].content
+                        ),
+                        None,
+                    ):
+                        self.container_components.append(
+                            ui.Section(
+                                ui.TextDisplay(
+                                    f"## Update to **{api_change.new_object.names.get('en-GB', str(api_change.new_object.index))}** {api_change.new_object.faction.emoji}{api_change.new_object.exclamations}"
+                                ),
+                                accessory=HDCButton(
+                                    label=api_change.new_object.names.get(
+                                        "en-GB", str(api_change.new_object.index)
+                                    ),
+                                    link=f"https://helldiverscompanion.com/#hellpad/planets/{api_change.new_object.index}",
+                                ),
+                            )
+                        )
                     match api_change.property:
                         case "position":
                             self.container_components.append(
                                 ui.TextDisplay(
-                                    f"Planet has moved from:\n**{old_stat['x']}, {old_stat['y']}** {Emojis.Stratagems.right} **{new_stat['x']}, {new_stat['y']}**"
+                                    f"Planet has __**moved**__"
+                                    f"\n**{old_stat['x']}, {old_stat['y']}**"
+                                    f"\n                         {Emojis.Stratagems.down}"
+                                    f"\n**{new_stat['x']}, {new_stat['y']}**"
+                                    f"\n**({(new_stat['x'] - (old_stat['x'])):+.8f}, {(new_stat['y'] - (old_stat['y'])):+.8f})**"
                                 )
                             )
                         case "waypoints":
@@ -100,29 +122,31 @@ class APIChangesContainer(ui.Container, ReprMixin):
                         case "max_health":
                             self.container_components.append(
                                 ui.TextDisplay(
-                                    f"Max health has changed from:\n**{old_stat:,}** {Emojis.Stratagems.right} **{new_stat:,}**"
+                                    f"**Max health** has changed from:\n**{old_stat:,}** {Emojis.Stratagems.right} **{new_stat:,}** | {(new_stat - old_stat):+,}"
                                 )
                             )
                         case "faction":
                             self.container_components.append(
                                 ui.TextDisplay(
-                                    f"Owner has changed from:\n**{old_stat.full_name}** {old_stat.emoji} {Emojis.Stratagems.right} **{new_stat.full_name}** {new_stat.emoji}"
+                                    f"**Owner** has changed from:\n{old_stat.emoji} **{old_stat.full_name}** {Emojis.Stratagems.right} **{new_stat.full_name}** {new_stat.emoji}"
                                 )
                             )
                         case "regen_perc_per_hour":
                             self.container_components.append(
                                 ui.TextDisplay(
-                                    f"Regen has changed from:\n**{old_stat:.2%}** {Emojis.Stratagems.right} **{new_stat:.2%}**"
+                                    f"**Regen** has changed from:\n**{old_stat:+.2%}**/hr {Emojis.Stratagems.right} **{new_stat:+.2%}**/hr"
                                 )
                             )
                         case "dss_in_orbit":
                             if new_stat == True:
                                 self.container_components.append(
-                                    ui.TextDisplay(f"-# DSS is **now in orbit**")
+                                    ui.TextDisplay(
+                                        "DSS is **now in orbit** :white_check_mark:"
+                                    )
                                 )
                             else:
                                 self.container_components.append(
-                                    ui.TextDisplay(f"-# DSS is **no longer in orbit**")
+                                    ui.TextDisplay("DSS is **no longer in orbit** ❌")
                                 )
                         case "active_effects":
                             if effects_removed := [
@@ -191,57 +215,71 @@ class APIChangesContainer(ui.Container, ReprMixin):
                         case "sector":
                             self.container_components.append(
                                 ui.TextDisplay(
-                                    f"Sector has changed from:\n**{old_stat}** {Emojis.Stratagems.right} **{new_stat}**"
+                                    f"__**Sector has changed**__:\n**{old_stat}** {Emojis.Stratagems.right} **{new_stat}**"
                                 )
                             )
                         case _:
                             self.container_components.append(
                                 ui.TextDisplay(
-                                    f"{api_change.stat_name} has changed from:\n**{old_stat}** {Emojis.Stratagems.right} **{new_stat}**"
+                                    f"U - **{api_change.stat_name}** has changed from:\n**{old_stat}** {Emojis.Stratagems.right} **{new_stat}**"
                                 )
                             )
                 case "Region":
-                    self.container_components.append(
-                        ui.TextDisplay(
-                            f"## Update for {api_change.new_object.emoji} {api_change.new_object.type.name.replace('_', ' ').title()} {api_change.new_object.name} on {api_change.new_object.planet.names.get('en-GB', str(api_change.new_object.planet.index))}{api_change.new_object.planet.faction.emoji}{api_change.new_object.planet.exclamations}"
+                    if not next(
+                        (
+                            s
+                            for s in self.container_components
+                            if api_change.new_object.name in s.children[0].content
+                        ),
+                        None,
+                    ):
+                        self.container_components.append(
+                            ui.Section(
+                                ui.TextDisplay(
+                                    f"## Update for {api_change.new_object.emoji} {api_change.new_object.type.name.replace('_', ' ').title()} {api_change.new_object.name}\non {api_change.new_object.planet.names.get('en-GB', str(api_change.new_object.planet.index))}{api_change.new_object.planet.faction.emoji}{api_change.new_object.planet.exclamations}"
+                                ),
+                                accessory=HDCButton(
+                                    label=api_change.new_object.planet.names.get(
+                                        "en-GB", str(api_change.new_object.planet.index)
+                                    ),
+                                    link=f"https://helldiverscompanion.com/#hellpad/planets/{api_change.new_object.planet.index}",
+                                ),
+                            )
                         )
-                    )
                     match api_change.property:
                         case "owner":
                             self.container_components.append(
                                 ui.TextDisplay(
-                                    f"Owner has changed from:\n**{old_stat.full_name}** {old_stat.emoji} {Emojis.Stratagems.right} **{new_stat.full_name}** {new_stat.emoji}"
+                                    f"**Owner** has changed from:\n{old_stat.emoji} **{old_stat.full_name}** {Emojis.Stratagems.right} **{new_stat.full_name}** {new_stat.emoji}"
                                 )
                             )
                         case "max_health":
                             self.container_components.append(
                                 ui.TextDisplay(
-                                    f"Region's max health has changed from:\n**{old_stat:,}** {Emojis.Stratagems.right} **{new_stat:,}**"
+                                    f"**Max health** has changed from:\n**{old_stat:,}** {Emojis.Stratagems.right} **{new_stat:,}** | {(new_stat - old_stat):+,}"
                                 )
                             )
                         case "regen_perc_per_hour":
                             self.container_components.append(
                                 ui.TextDisplay(
-                                    f"Region's regen has changed from:\n**{old_stat:.2%}** {Emojis.Stratagems.right} **{new_stat:.2%}**"
+                                    f"**Regen** has changed from:\n**{old_stat:+.2%}**/hr {Emojis.Stratagems.right} **{new_stat:+.2%}**/hr"
                                 )
                             )
                         case "is_available":
                             if new_stat == True:
                                 self.container_components.append(
                                     ui.TextDisplay(
-                                        f"Region is **now available** :white_check_mark:"
+                                        f"Is **now available** :white_check_mark:"
                                     )
                                 )
                             else:
                                 self.container_components.append(
-                                    ui.TextDisplay(
-                                        f"Region is **no longer available** ❌"
-                                    )
+                                    ui.TextDisplay(f"Is **no longer available** ❌")
                                 )
                         case "damage_multiplier":
                             self.container_components.append(
                                 ui.TextDisplay(
-                                    f"Region's damage multiplier has changed from:\n**{old_stat}x** {Emojis.Stratagems.right} **{new_stat}x**"
+                                    f"Damage multiplier has changed from:\n**{old_stat}x** {Emojis.Stratagems.right} **{new_stat}x**"
                                 )
                             )
                         case _:
