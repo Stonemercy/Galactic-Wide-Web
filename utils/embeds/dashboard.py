@@ -2580,39 +2580,27 @@ class Dashboard:
                         )
                         field_value += f"\n`{change:^25}`"
 
-                    available_regions = [
-                        r for r in campaign.planet.regions.values() if r.is_available
-                    ]
-                    if available_regions:
-                        for region in available_regions:
-                            region_type = (
-                                language_json["regions"][str(region.type.value)]
-                                if not region.is_factory
-                                else language_json["regions"]["megafactory"]
-                            )
-                            field_value += f"\n-# ↳ {region.emoji} {region_type} **{region.names[language_json['code_long']]}** {region.perc:.2%}"
-                            if (
-                                region.tracker
-                                and region.tracker.change_rate_per_hour != 0
-                            ):
-                                field_value += (
-                                    f" | {region.tracker.change_rate_per_hour:+.2%}/hr"
-                                )
-                    elif campaign.planet.regions:
-                        for region in sorted(
-                            [
-                                r
-                                for r in campaign.planet.regions.values()
-                                if r.owner != Factions.humans
-                            ],
-                            key=lambda x: x.availability_factor,
-                        ):
-                            if (
-                                region.availability_factor == 0
-                                and not region.is_available
-                            ):
-                                break
-                            field_value += f"\n-# ↳ {region.emoji} {language_json['regions'][str(region.type.value)]} **{region.names[language_json['code_long']]}** {language_json['embeds']['Dashboard']['AttackEmbed']['reg_avail_at']} **{region.availability_factor:.2%}**"
+                    for region in sorted(
+                        [
+                            r
+                            for r in campaign.planet.regions.values()
+                            if r.owner != Factions.humans
+                            and r.availability_factor != 1.0
+                        ],
+                        key=lambda x: x.availability_factor,
+                    ):
+                        if region.availability_factor == 0 and not region.is_available:
+                            break
+                        region_type = (
+                            language_json["regions"][str(region.type.value)]
+                            if not region.is_factory
+                            else language_json["regions"]["megafactory"]
+                        )
+                        field_value += f"\n-# ↳ {region.emoji} {region_type} **{region.names[language_json['code_long']]}**"
+                        if region.is_available:
+                            field_value += f" {region.perc:.2%}"
+                        else:
+                            field_value += f" {language_json['embeds']['Dashboard']['AttackEmbed']['reg_avail_at']} **{region.availability_factor:.2%}**"
                             break
 
                     self.add_field(
