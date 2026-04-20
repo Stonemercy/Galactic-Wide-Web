@@ -453,13 +453,33 @@ class Dashboard:
                                         max(sector_timestamps)
                                     )
                         case 12:
-                            if task.target - task.progress == 1:
-                                victory_times = []
-                                for planet in [
+                            required_wins = task.target - task.progress
+                            defence_events = [
+                                p
+                                for p in self.planets.values()
+                                if p.event and p.event.type == EventType.Defence
+                            ]
+                            if task.planet_index:
+                                defence_events = [
                                     p
-                                    for p in self.planets.values()
-                                    if p.event and p.event.type == EventType.Defence
-                                ]:
+                                    for p in defence_events
+                                    if p.index == task.planet_index
+                                ]
+                            elif task.sector_index:
+                                defence_events = [
+                                    p
+                                    for p in defence_events
+                                    if p._sector == task.sector_index
+                                ]
+                            elif task.faction:
+                                defence_events = [
+                                    p
+                                    for p in defence_events
+                                    if p.event.faction == task.faction
+                                ]
+                            if len(defence_events) >= required_wins:
+                                victory_times = []
+                                for planet in defence_events:
                                     end_time_info = get_end_time(
                                         source_planet=planet,
                                         gambit_planets=self.gambit_planets,
@@ -472,9 +492,11 @@ class Dashboard:
                                         victory_times.append(
                                             end_time_info.end_time.timestamp()
                                         )
-                                if victory_times:
+                                if len(victory_times) >= required_wins:
                                     self.completion_timestamps.append(
-                                        sorted(victory_times, reverse=True)[0]
+                                        sorted(victory_times, reverse=True)[
+                                            required_wins - 1
+                                        ]
                                     )
                         case 13:
                             if task.planet_index:
