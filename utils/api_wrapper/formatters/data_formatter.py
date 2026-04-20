@@ -272,6 +272,9 @@ class FormattedData:
                 self.war_effects[war_effect["id"]] = GalacticWarEffect(
                     gwa=war_effect, json_dict=context.json_dict
                 )
+            self.war_effects = dict(
+                sorted(self.war_effects.items(), key=lambda x: x[0])
+            )
 
         if context.war_status.get("en"):
             self.galactic_impact_mod: float = context.war_status["en"][
