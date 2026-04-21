@@ -1,4 +1,4 @@
-from disnake import ui
+from disnake import ComponentType, ui
 from utils.api_wrapper.models import Planet
 from utils.dataclasses import APIChanges, Subfactions
 from utils.emojis import Emojis
@@ -66,7 +66,8 @@ class APIChangesContainer(ui.Container, ReprMixin):
                         (
                             s
                             for s in self.container_components
-                            if api_change.new_object.names.get(
+                            if s.type == ComponentType.section
+                            and api_change.new_object.names.get(
                                 "en-GB", str(api_change.new_object.index)
                             )
                             in s.children[0].content
@@ -229,7 +230,8 @@ class APIChangesContainer(ui.Container, ReprMixin):
                         (
                             s
                             for s in self.container_components
-                            if api_change.new_object.name in s.children[0].content
+                            if s.type == ComponentType.section
+                            and api_change.new_object.name in s.children[0].content
                         ),
                         None,
                     ):
