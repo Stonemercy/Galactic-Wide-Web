@@ -41,7 +41,7 @@ class Superstore(ReprMixin):
             def __init__(self, raw_item_data: dict, items_json: dict):
                 self.id = raw_item_data.get("mixId")
                 json_entry: dict = items_json.get(str(self.id), {})
-                self.name = json_entry.get("name", "")
-                self.description = json_entry.get("description", "")
-                self.type = json_entry.get("type", "")
-                self.cost = json_entry.get("cost")
+                self.name: str = json_entry.get("name", "")
+                self.description: str = json_entry.get("description", "")
+                self.type: str = json_entry.get("type", "")
+                self.cost: int = json_entry.get("cost")

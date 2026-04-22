@@ -61,6 +61,7 @@ class DataService(ReprMixin):
         self.clear()
         self.logger.info("STARTING API PULLS")
         self.fetching = True
+
         async with HelldiversClient(
             logger=self.logger,
             base_url=EndpointBase.HELLDIVERS.value,
