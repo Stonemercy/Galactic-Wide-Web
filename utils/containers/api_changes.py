@@ -58,7 +58,8 @@ class APIChangesContainer(ui.Container, ReprMixin):
                 case "Personal Order":
                     self.container_components.append(
                         ui.TextDisplay(
-                            f"## Personal Order ID has changed\n**{api_change.old_object.id}** {Emojis.Stratagems.right} **{api_change.new_object.id}**"
+                            f"## Personal Order has changed\n**{api_change.old_object.id}** {Emojis.Stratagems.right} **{api_change.new_object.id}**"
+                            f"\n{api_change.stat_name}"
                         )
                     )
                 case "Planet":

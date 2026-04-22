@@ -3,6 +3,7 @@ from disnake.ext import commands, tasks
 from main import GalacticWideWebBot
 from utils.containers import APIChangesContainer
 from utils.dataclasses import APIChanges
+from utils.embeds.personal_order_embed import PersonalOrderCommandEmbed
 
 
 PLANET_STATS_TO_CHECK = {
@@ -106,12 +107,28 @@ class APIChangesCog(commands.Cog):
                     self.bot.data.previous_data.personal_order.id
                     != self.bot.data.formatted_data.personal_order.id
                 ):
+                    old_po_text = (
+                        PersonalOrderCommandEmbed(
+                            self.bot.data.previous_data.personal_order,
+                            self.bot.json_dict,
+                        )
+                        .fields[0]
+                        .name
+                    )
+                    new_po_text = (
+                        PersonalOrderCommandEmbed(
+                            self.bot.data.formatted_data.personal_order,
+                            self.bot.json_dict,
+                        )
+                        .fields[0]
+                        .name
+                    )
                     total_changes.append(
                         APIChanges(
                             old_object=self.bot.data.previous_data.personal_order,
                             new_object=self.bot.data.formatted_data.personal_order,
                             property="PO",
-                            stat_name="Personal Order",
+                            stat_name=f"{old_po_text}\n-# to\n{new_po_text}",
                             stat_source="Personal Order",
                         )
                     )
