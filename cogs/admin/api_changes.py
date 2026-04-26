@@ -102,7 +102,10 @@ class APIChangesCog(commands.Cog):
                                     )
                                 )
 
-            if self.bot.data.previous_data.personal_order:
+            if (
+                self.bot.data.previous_data.personal_order
+                and self.bot.data.formatted_data.personal_order
+            ):
                 if (
                     self.bot.data.previous_data.personal_order.id
                     != self.bot.data.formatted_data.personal_order.id
