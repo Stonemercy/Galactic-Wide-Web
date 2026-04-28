@@ -78,6 +78,7 @@ CORRECT_SECTORS = {
         "HEETH",
         "TERREK",
         "VELD",
+        "BRILLIANCE",
     ],
     "GALLUX": ["ACUBENS PRIME", "ADHARA", "AFOYAY BAY", "BASHYR", "KHARST", "RASP"],
     "HYDRA": ["AESIR PASS", "MENKENT", "VERNEN WELLS"],
@@ -121,6 +122,7 @@ CORRECT_SECTORS = {
         "GATRIA",
         "PANDION-XXIV",
         "PHACT BAY",
+        "LUXURIANT",
     ],
     "OMEGA": ["HYDROBIUS", "KARLIA", "SEASSE", "SENGE 23", "SETIA"],
     "LEO": ["HAKA", "HALIES PORT", "PROPUS", "RAS ALGETHI"],
@@ -164,7 +166,14 @@ CORRECT_SECTORS = {
     "GELLERT": ["BLISTICA", "MINCHIR", "MINTORIA", "ZOSMA", "ZZANIAH PRIME"],
     "SEVERIN": ["DURGEN", "MAIA", "MALEVELON CREEK", "TIBIT", "UBANEA"],
     "HAWKING": ["EUPHORIA III", "KUMA", "MORDIA 9", "SKITTER"],
-    "STEN": ["AZUR SECUNDUS", "OVERGOE PRIME", "PARTION", "PEACOCK", "TRANDOR"],
+    "STEN": [
+        "AZUR SECUNDUS",
+        "OVERGOE PRIME",
+        "PARTION",
+        "PEACOCK",
+        "TRANDOR",
+        "BIG ROCK",
+    ],
 }
 
 
