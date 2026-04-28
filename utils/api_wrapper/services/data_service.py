@@ -59,7 +59,6 @@ class DataService(ReprMixin):
     async def pull_from_api(self) -> None:
         """Pulls the data from each endpoint"""
         self.clear()
-        self.logger.info("STARTING API PULLS")
         self.fetching = True
 
         async with HelldiversClient(
@@ -177,7 +176,6 @@ class DataService(ReprMixin):
                 self._raw_personal_order = personal_order
 
         self.fetching = False
-        self.logger.info("PULLS COMPLETE!")
 
     def format_data(self) -> None:
         if self.formatted_data != None:

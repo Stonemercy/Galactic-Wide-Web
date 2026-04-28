@@ -191,7 +191,6 @@ class FormattedDataContext:
     war_effects: list
     personal_order: dict
     steam_news: list
-    superstore: list
 
     json_dict: dict
 

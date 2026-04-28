@@ -15,6 +15,7 @@ class Planet(ReprMixin):
         "index",
         "names",
         "sector",
+        "active_campaign",
         "event",
         "dss_in_orbit",
         "in_assignment",
@@ -146,7 +147,7 @@ class Planet(ReprMixin):
             )
             self.health: int = raw_event_data["health"]
             self.max_health: int = raw_event_data["maxHealth"]
-            self.start_time: str = raw_event_data["startTime"]
+            self.start_time: str = raw_event_data.get("startTime", 0)
             self.end_time: str = raw_event_data["expireTime"]
             self.start_time_datetime: datetime = datetime.fromtimestamp(
                 self.start_time + war_start_timestamp, tz=timezone.utc

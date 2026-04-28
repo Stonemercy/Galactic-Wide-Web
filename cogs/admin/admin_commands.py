@@ -100,7 +100,7 @@ class AdminCommandsCog(commands.Cog):
     ) -> None:
         await inter.response.defer(ephemeral=True)
         all_guilds = GWWGuilds(fetch_all=True)
-        db_guild: GWWGuild = next(
+        db_guild: GWWGuild | None = next(
             (
                 g
                 for g in all_guilds
@@ -223,7 +223,9 @@ class AdminCommandsCog(commands.Cog):
                     and discord_guild.member_count < 100
                 ):
                     possible_fake_guilds.append(discord_guild)
-        fake_guilds_sample = "\n".join([str(g.id) for g in possible_fake_guilds[:10]])
+        fake_guilds_sample = "\n".join(
+            [str(g.id) + f" - {g.name}" for g in possible_fake_guilds[:10]]
+        )
         await inter.send(
             f"Possible fake guilds: {len(possible_fake_guilds)}\n{fake_guilds_sample}"
         )

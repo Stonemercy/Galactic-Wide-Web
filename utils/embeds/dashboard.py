@@ -695,7 +695,10 @@ class Dashboard:
                 text = text.replace("{race_post}", "**")
             else:
                 on_a_planet_controlled_by_the = tasks_json["on_faction_planet"]
-                race_name = self._get_faction_name(task.faction, plural=True)
+                if task.faction:
+                    race_name = self._get_faction_name(task.faction, plural=True)
+                else:
+                    race_name = "Unknown"
                 text = text.replace(
                     "{race_pre}", f" {on_a_planet_controlled_by_the} **"
                 )
