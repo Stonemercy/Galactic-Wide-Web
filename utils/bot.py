@@ -39,14 +39,21 @@ class GalacticWideWebBot(commands.AutoShardedInteractionBot):
     def time_until_ready(self) -> int:
         return int((self.ready_time - datetime.now(tz=timezone.utc)).total_seconds())
 
+
     async def on_ready(self) -> None:
+        """
+        Fixed database init to prevent resource leaks and event loop blocking.
+        I Moved database connection pool creation BEFORE fetching owner info and also removed duplicate synchronous Databases() call that was overwriting the async connection
+        Using async Databases.create() means we wont be blocking I/O during startup
+        """
+         
         await self.channels.get_channels(self)
+        self.databases = await Databases.create()
+        await self.get_owner()
         self.logger.info(
             f"Loaded {len(self.cogs)}/{len([f for f in listdir('cogs') if f.endswith('.py')]) + len([f for f in listdir('cogs/admin') if f.endswith('.py')])} cogs successfully"
         )
-        await self.get_owner()
-        self.databases = Databases()
-
+        
     def load_json(self) -> None:
         for key, values in self.json_dict.copy().items():
             if "path" not in values:
