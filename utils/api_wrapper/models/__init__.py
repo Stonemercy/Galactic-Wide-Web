@@ -6,7 +6,6 @@ from .galactic_war import AcquiredE711, GalacticWarEffect, GlobalEvent, GlobalRe
 from .personal_order import PersonalOrder
 from .planet import Planet
 from .steam_news import SteamNews
-from .superstore import Superstore
 
 __all__ = [
     "Assignment",
@@ -20,5 +19,4 @@ __all__ = [
     "PersonalOrder",
     "Planet",
     "SteamNews",
-    "Superstore",
 ]
