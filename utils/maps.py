@@ -316,9 +316,23 @@ class Maps:
                     border_colour = "deepskyblue"
                 else:
                     border_colour = "black"
-                name_text = planet_names_json[str(index)]["names"][
-                    language_code
-                ].replace(" ", "\n")
+                name_text = planet_names_json.get(
+                    str(index),
+                    {
+                        "names": {
+                            "en-GB": f"UNKNOWN PLANET {index}",
+                            "de-DE": f"UNKNOWN PLANET {index}",
+                            "es-ES": f"UNKNOWN PLANET {index}",
+                            "fr-FR": f"UNKNOWN PLANET {index}",
+                            "it-IT": f"UNKNOWN PLANET {index}",
+                            "pt-BR": f"UNKNOWN PLANET {index}",
+                            "ru-RU": f"UNKNOWN PLANET {index}",
+                            "zh-Hans": f"UNKNOWN PLANET {index}",
+                            "zh-Hant": f"UNKNOWN PLANET {index}",
+                        },
+                        "description": "",
+                    },
+                )["names"][language_code].replace(" ", "\n")
                 background_draw.multiline_text(
                     xy=planet.map_waypoints,
                     text=name_text,

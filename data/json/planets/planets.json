@@ -3736,5 +3736,47 @@
             "zh-Hant": "\u83ab\u514b\u65af"
         },
         "description": "Constant eruptions keep this planet covered in lava flows and utterly inhospitable to Democratic life. It also makes it a treasure trove of rare minerals."
+    },
+    "267": {
+        "names": {
+            "en-GB": "BIG ROCK",
+            "de-DE": "BIG ROCK",
+            "es-ES": "BIG ROCK",
+            "fr-FR": "BIG ROCK",
+            "it-IT": "BIG ROCK",
+            "pt-BR": "BIG ROCK",
+            "ru-RU": "BIG ROCK",
+            "zh-Hans": "BIG ROCK",
+            "zh-Hant": "BIG ROCK"
+        },
+        "description": ""
+    },
+    "268": {
+        "names": {
+            "en-GB": "LUXURIANT",
+            "de-DE": "LUXURIANT",
+            "es-ES": "LUXURIANT",
+            "fr-FR": "LUXURIANT",
+            "it-IT": "LUXURIANT",
+            "pt-BR": "LUXURIANT",
+            "ru-RU": "LUXURIANT",
+            "zh-Hans": "LUXURIANT",
+            "zh-Hant": "LUXURIANT"
+        },
+        "description": ""
+    },
+    "269": {
+        "names": {
+            "en-GB": "BRILLIANCE",
+            "de-DE": "BRILLIANCE",
+            "es-ES": "BRILLIANCE",
+            "fr-FR": "BRILLIANCE",
+            "it-IT": "BRILLIANCE",
+            "pt-BR": "BRILLIANCE",
+            "ru-RU": "BRILLIANCE",
+            "zh-Hans": "BRILLIANCE",
+            "zh-Hant": "BRILLIANCE"
+        },
+        "description": ""
     }
 }

@@ -246,7 +246,23 @@ class FormattedData:
             for raw_planet in context.war_info["planetInfos"]:
                 planet = Planet(
                     raw_planet_info=raw_planet,
-                    planets_json=context.json_dict["planets"][str(raw_planet["index"])],
+                    planets_json=context.json_dict["planets"].get(
+                        str(raw_planet["index"]),
+                        {
+                            "names": {
+                                "en-GB": f"UNKNOWN PLANET {raw_planet['index']}",
+                                "de-DE": f"UNKNOWN PLANET {raw_planet['index']}",
+                                "es-ES": f"UNKNOWN PLANET {raw_planet['index']}",
+                                "fr-FR": f"UNKNOWN PLANET {raw_planet['index']}",
+                                "it-IT": f"UNKNOWN PLANET {raw_planet['index']}",
+                                "pt-BR": f"UNKNOWN PLANET {raw_planet['index']}",
+                                "ru-RU": f"UNKNOWN PLANET {raw_planet['index']}",
+                                "zh-Hans": f"UNKNOWN PLANET {raw_planet['index']}",
+                                "zh-Hant": f"UNKNOWN PLANET {raw_planet['index']}",
+                            },
+                            "description": "",
+                        },
+                    ),
                     sectors_json=context.json_dict["sectors"],
                 )
                 self.planets[planet.index] = planet
