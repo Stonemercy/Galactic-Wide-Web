@@ -19,7 +19,7 @@ class GalacticWideWebBot(commands.AutoShardedInteractionBot):
         self.MODE = GWWBotModes.LIVE
         self.logger: GWWLogger = GWWLogger()
         self.startup_time = datetime.now(tz=timezone.utc)
-        self.ready_time = self.startup_time + timedelta(seconds=45)
+        self.ready_time = self.startup_time + timedelta(seconds=60)
         self.interface_handler = InterfaceHandler(bot=self)
         self.channels = BotChannels()
         self.json_dict = json_dict.copy()

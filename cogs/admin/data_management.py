@@ -29,7 +29,6 @@ class DataManagementCog(commands.Cog):
     @tasks.loop(count=1)
     async def startup(self) -> None:
         await self.bot.interface_handler.populate_lists()
-        await self.pull_from_api()
         await self.bot.change_presence(
             activity=Activity(name="/setup - /help", type=ActivityType.listening),
             status=Status.online,
@@ -66,9 +65,9 @@ class DataManagementCog(commands.Cog):
         if first_load:
             now = datetime.now(tz=timezone.utc)
             if now < self.bot.ready_time:
-                change = f"{(self.bot.ready_time - now).total_seconds():.2f} seconds faster than the given 45"
+                change = f"{(self.bot.ready_time - now).total_seconds():.2f} seconds faster than the given 60"
             else:
-                change = f"Took {(now - self.bot.ready_time).total_seconds():.2f} seconds longer than the given 45"
+                change = f"Took {(now - self.bot.ready_time).total_seconds():.2f} seconds longer than the given 60"
             self.bot.logger.info(
                 f"Startup complete in {(now - self.bot.startup_time).total_seconds():.2f} seconds - {change}"
             )
