@@ -3741,42 +3741,42 @@
         "names": {
             "en-GB": "BIG ROCK",
             "de-DE": "BIG ROCK",
-            "es-ES": "BIG ROCK",
-            "fr-FR": "BIG ROCK",
-            "it-IT": "BIG ROCK",
-            "pt-BR": "BIG ROCK",
-            "ru-RU": "БОЛЬШОЙ КАМЕНЬ",
-            "zh-Hans": "BIG ROCK",
-            "zh-Hant": "BIG ROCK"
+            "es-ES": "ROCA GRANDE",
+            "fr-FR": "GROS-ROC",
+            "it-IT": "GROSSO MASSO",
+            "pt-BR": "ROCHA GRANDE",
+            "ru-RU": "\u0411\u041e\u041b\u042c\u0428\u041e\u0419 \u041a\u0410\u041c\u0415\u041d\u042c",
+            "zh-Hans": "\u5de8\u5ca9",
+            "zh-Hant": "\u5de8\u77f3"
         },
-        "description": ""
+        "description": "Ice and moss-covered rock can be found across most of the surface of this planet."
     },
     "268": {
         "names": {
             "en-GB": "LUXURIANT",
             "de-DE": "LUXURIANT",
-            "es-ES": "LUXURIANT",
-            "fr-FR": "LUXURIANT",
+            "es-ES": "EXUBERANTE",
+            "fr-FR": "LUXURIANCE",
             "it-IT": "LUXURIANT",
-            "pt-BR": "LUXURIANT",
-            "ru-RU": "РОСКОШЕСТВО",
-            "zh-Hans": "LUXURIANT",
-            "zh-Hant": "LUXURIANT"
+            "pt-BR": "LUXURIANTE",
+            "ru-RU": "\u0420\u041e\u0421\u041a\u041e\u0428\u0415\u0421\u0422\u0412\u041e",
+            "zh-Hans": "\u5bcc\u6e90",
+            "zh-Hant": "\u8c50\u8302"
         },
-        "description": ""
+        "description": "A blazing-hot desert planet, its rocky mesas are the sole interruptions to the endless sea of dunes."
     },
     "269": {
         "names": {
             "en-GB": "BRILLIANCE",
             "de-DE": "BRILLIANCE",
-            "es-ES": "BRILLIANCE",
-            "fr-FR": "BRILLIANCE",
-            "it-IT": "BRILLIANCE",
-            "pt-BR": "BRILLIANCE",
-            "ru-RU": "ГЕНИАЛЬНОСТЬ",
-            "zh-Hans": "BRILLIANCE",
-            "zh-Hant": "BRILLIANCE"
+            "es-ES": "LUMINOSIDAD",
+            "fr-FR": "\u00c9CLAT",
+            "it-IT": "SPLENDOR",
+            "pt-BR": "BRILHANTISMO",
+            "ru-RU": "\u0413\u0415\u041d\u0418\u0410\u041b\u042c\u041d\u041e\u0421\u0422\u042c",
+            "zh-Hans": "\u74a8\u5149",
+            "zh-Hant": "\u8f1d\u714c"
         },
-        "description": ""
+        "description": "The strange subversion of photosynthesis that sustains the oddly-hued flora that flourishes on this planet remains an intriguing mystery to Super Earth's greatest exo-biologists."
     }
 }
