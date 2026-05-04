@@ -23,8 +23,8 @@ class Subfactions:
     PREDATOR_STRAIN = Subfaction(
         "PREDATOR STRAIN", Emojis.Subfactions.predator_strain, 1243
     )
-    GLOOM_BURSTER_STRAIN = Subfaction(
-        "GLOOM BURSTER STRAIN", Emojis.Subfactions.gloom_burster_strain, 1244
+    SPORE_BURST_STRAIN = Subfaction(
+        "SPORE BURST STRAIN", Emojis.Subfactions.spore_burst_strain, 1244
     )
     INCINERATION_CORPS = Subfaction(
         "INCINERATION CORPS", Emojis.Subfactions.incineration_corps, 1248
@@ -48,7 +48,7 @@ class Subfactions:
     _all = (
         THE_JET_BRIGADE,
         PREDATOR_STRAIN,
-        GLOOM_BURSTER_STRAIN,
+        SPORE_BURST_STRAIN,
         INCINERATION_CORPS,
         THE_GREAT_HOST,
         RUPTURE_STRAIN,
