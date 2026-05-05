@@ -3778,5 +3778,33 @@
             "zh-Hant": "\u8f1d\u714c"
         },
         "description": "The strange subversion of photosynthesis that sustains the oddly-hued flora that flourishes on this planet remains an intriguing mystery to Super Earth's greatest exo-biologists."
+    },
+    "270": {
+        "names": {
+            "en-GB": "FRONTERIA",
+            "de-DE": "FRONTERIA",
+            "es-ES": "FRONTERIA",
+            "fr-FR": "FRONT\u00c9RIA",
+            "it-IT": "FRONTERIA",
+            "pt-BR": "FRONTERIA",
+            "ru-RU": "\u0424\u0420\u041e\u041d\u0422\u0415\u0420\u0418\u042f",
+            "zh-Hans": "\u8fb9\u9672",
+            "zh-Hant": "\u4f5b\u9686\u6cf0\u91cc\u4e9e"
+        },
+        "description": ""
+    },
+    "271": {
+        "names": {
+            "en-GB": "ZYGOS",
+            "de-DE": "ZYGOS",
+            "es-ES": "ZYGOS",
+            "fr-FR": "ZYGOS",
+            "it-IT": "ZYGOS",
+            "pt-BR": "ZYGOS",
+            "ru-RU": "\u0417\u0418\u0413\u041e\u0421",
+            "zh-Hans": "\u9f50\u6208\u65af",
+            "zh-Hant": "\u9f4a\u6208\u65af"
+        },
+        "description": ""
     }
 }
