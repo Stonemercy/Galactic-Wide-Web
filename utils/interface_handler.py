@@ -217,11 +217,12 @@ class InterfaceHandler:
         self.busy = True
         list_to_use: BaseFeatureInteractionHandler = getattr(self, feature_type)
         components = None
+        guild_map = {g.guild_id: g for g in GWWGuilds(fetch_all=True)}
         match feature_type:
             case "dashboards":
                 for message in list_to_use.copy():
                     message: PartialMessage
-                    guild: GWWGuild = GWWGuilds.get_specific_guild(message.guild.id)
+                    guild: GWWGuild = guild_map.get(message.guild.id)
                     if not guild:
                         if message in list_to_use:
                             list_to_use.remove(message)
@@ -238,7 +239,7 @@ class InterfaceHandler:
             case "maps":
                 for message in list_to_use.copy():
                     message: PartialMessage
-                    guild: GWWGuild = GWWGuilds.get_specific_guild(message.guild.id)
+                    guild: GWWGuild = guild_map.get(message.guild.id)
                     if not guild:
                         if message in list_to_use:
                             list_to_use.remove(message)
@@ -258,7 +259,7 @@ class InterfaceHandler:
                 | "region_announcements"
             ):
                 for channel in list_to_use.copy():
-                    guild = GWWGuilds.get_specific_guild(channel.guild.id)
+                    guild = guild_map.get(channel.guild.id)
                     if not guild:
                         if message in list_to_use:
                             list_to_use.remove(channel)
@@ -293,7 +294,7 @@ class InterfaceHandler:
             case _:
                 for channel in list_to_use.copy():
                     channel: TextChannel
-                    guild = GWWGuilds.get_specific_guild(channel.guild.id)
+                    guild = guild_map.get(channel.guild.id)
                     if not guild:
                         if message in list_to_use:
                             list_to_use.remove(channel)
