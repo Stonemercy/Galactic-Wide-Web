@@ -397,6 +397,7 @@ class Dashboard:
                         for l in self.assignment.briefing.splitlines()
                     ]
                 )
+                self.add_field(name="", value=briefing, inline=False)
             self.set_footer(
                 text=self.language_json["embeds"]["Dashboard"]["MajorOrderEmbed"][
                     "assignment"
