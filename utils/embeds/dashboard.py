@@ -391,10 +391,11 @@ class Dashboard:
         def _add_description(self) -> None:
             """Adds the description of the MO, if available. And sets the footer to the assignment ID"""
             if self.assignment.briefing:
-                self.add_field(
-                    name="",
-                    value=f"-# {self.assignment.briefing}",
-                    inline=False,
+                briefing = "\n".join(
+                    [
+                        "-# " + l if l != "" else l
+                        for l in self.assignment.briefing.splitlines()
+                    ]
                 )
             self.set_footer(
                 text=self.language_json["embeds"]["Dashboard"]["MajorOrderEmbed"][

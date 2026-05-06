@@ -13,6 +13,6 @@ def arrowhead_format(text: str):
         "<i/>",
     ]
     for replacement in replacements:
-        text = text.replace(replacement, "**")
+        text = text.replace(replacement, "**").strip("\n")
 
     return text
