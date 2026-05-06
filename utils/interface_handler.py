@@ -23,17 +23,17 @@ class InterfaceHandler:
         self.bot = bot
         self.busy = False
         self.loaded = False
-        self.all_guilds = GWWGuilds(fetch_all=True)
+        all_guilds = GWWGuilds(fetch_all=True)
         self.dashboards = BaseFeatureInteractionHandler(
             features=[
-                f for g in self.all_guilds for f in g.features if f.name == "dashboards"
+                f for g in all_guilds for f in g.features if f.name == "dashboards"
             ],
             bot=self.bot,
         )
         self.war_announcements = BaseFeatureInteractionHandler(
             features=[
                 f
-                for g in self.all_guilds
+                for g in all_guilds
                 for f in g.features
                 if f.name == "war_announcements"
             ],
@@ -42,7 +42,7 @@ class InterfaceHandler:
         self.dss_announcements = BaseFeatureInteractionHandler(
             features=[
                 f
-                for g in self.all_guilds
+                for g in all_guilds
                 for f in g.features
                 if f.name == "dss_announcements"
             ],
@@ -51,7 +51,7 @@ class InterfaceHandler:
         self.region_announcements = BaseFeatureInteractionHandler(
             features=[
                 f
-                for g in self.all_guilds
+                for g in all_guilds
                 for f in g.features
                 if f.name == "region_announcements"
             ],
@@ -59,17 +59,14 @@ class InterfaceHandler:
         )
         self.patch_notes = BaseFeatureInteractionHandler(
             features=[
-                f
-                for g in self.all_guilds
-                for f in g.features
-                if f.name == "patch_notes"
+                f for g in all_guilds for f in g.features if f.name == "patch_notes"
             ],
             bot=self.bot,
         )
         self.major_order_updates = BaseFeatureInteractionHandler(
             features=[
                 f
-                for g in self.all_guilds
+                for g in all_guilds
                 for f in g.features
                 if f.name == "major_order_updates"
             ],
@@ -78,7 +75,7 @@ class InterfaceHandler:
         self.personal_order_updates = BaseFeatureInteractionHandler(
             features=[
                 f
-                for g in self.all_guilds
+                for g in all_guilds
                 for f in g.features
                 if f.name == "personal_order_updates"
             ],
@@ -87,16 +84,14 @@ class InterfaceHandler:
         self.detailed_dispatches = BaseFeatureInteractionHandler(
             features=[
                 f
-                for g in self.all_guilds
+                for g in all_guilds
                 for f in g.features
                 if f.name == "detailed_dispatches"
             ],
             bot=self.bot,
         )
         self.maps = BaseFeatureInteractionHandler(
-            features=[
-                f for g in self.all_guilds for f in g.features if f.name == "maps"
-            ],
+            features=[f for g in all_guilds for f in g.features if f.name == "maps"],
             bot=self.bot,
         )
         self.lists = {
