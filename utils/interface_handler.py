@@ -136,8 +136,8 @@ class InterfaceHandler:
                     f"edit_dashboard | {guild.language} | {e} | reset in DB | {guild.guild_id = }"
                 )
             else:
-                return self.bot.logger.error(
-                    f"edit_dashboard | {e} | {message.guild.id = }"
+                return self.bot.logger.warning(
+                    f"edit_dashboard | HTTPException | {e} | {message.guild.id = }"
                 )
         except Exception as e:
             return self.bot.logger.error(
