@@ -237,6 +237,8 @@ class DataService(ReprMixin):
             for assignments in self.formatted_data.assignments.values():
                 for assignment in assignments:
                     for task_index, task in enumerate(assignment.tasks, start=1):
+                        if task.type in [11, 12, 13, 14, 15]:
+                            continue
                         task.tracker = (
                             self.tracking_service.major_order_changes.get_entry(
                                 key=(assignment.id, task_index)
