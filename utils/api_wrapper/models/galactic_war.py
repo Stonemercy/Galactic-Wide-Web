@@ -216,11 +216,11 @@ class GalacticWarEffect(GWEReprMixin):
                 value = iter(
                     i
                     for i in [
-                        self.count,
-                        self.percent,
-                        self.found_booster,
-                        self.found_enemy,
                         self.found_stratagem,
+                        self.found_enemy,
+                        self.found_booster,
+                        self.percent,
+                        self.count,
                     ]
                     if i
                 )
