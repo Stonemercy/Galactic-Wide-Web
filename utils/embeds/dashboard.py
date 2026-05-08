@@ -1366,9 +1366,7 @@ class Dashboard:
                 f"\n`{task.progress_perc:^25.1%}`"
             )
             if task.planet_index and task.target == 1:
-                planet = self.planets.get(task.planet_index)
-                if planet and planet.event and planet.event.type == EventType.Defence:
-                    field_value: str = ""
+                field_value = ""
 
             if task.planet_index:
                 planet = self.planets.get(task.planet_index)
@@ -1379,24 +1377,27 @@ class Dashboard:
                         and end_time_info.end_time < self.assignment.ends_at_datetime
                         and end_time_info.end_time < planet.event.end_time_datetime
                     ):
-                        field_value += self.language_json["embeds"]["Dashboard"][
-                            "MajorOrderEmbed"
-                        ]["tasks"]["+1_from_lib"].format(
-                            planet=planet.names.get(
-                                self.language_json["code_long"],
-                                str(planet.index),
-                            ),
-                            timestamp=f"<t:{int(end_time_info.end_time.timestamp())}:R>",
-                        )
-                        field_value = field_value.replace(
-                            task.health_bar,
-                            health_bar(
-                                task.progress_perc,
-                                planet.event.faction,
-                                anim=True,
-                                increasing=True,
-                            ),
-                        )
+                        if task.progress + 1 >= task.target:
+                            field_value += f"-# {self.language_json['complete']} <t:{int(end_time_info.end_time.timestamp())}:R>"
+                        else:
+                            field_value += self.language_json["embeds"]["Dashboard"][
+                                "MajorOrderEmbed"
+                            ]["tasks"]["+1_from_lib"].format(
+                                planet=planet.names.get(
+                                    self.language_json["code_long"],
+                                    str(planet.index),
+                                ),
+                                timestamp=f"<t:{int(end_time_info.end_time.timestamp())}:R>",
+                            )
+                            field_value = field_value.replace(
+                                task.health_bar,
+                                health_bar(
+                                    task.progress_perc,
+                                    planet.event.faction,
+                                    anim=True,
+                                    increasing=True,
+                                ),
+                            )
             elif task.sector_index:
                 planets_in_sector = [
                     p
