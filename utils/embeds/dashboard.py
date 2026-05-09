@@ -479,7 +479,7 @@ class Dashboard:
                                     for p in defence_events
                                     if p.event.faction == task.faction
                                 ]
-                            if len(defence_events) >= required_wins:
+                            if len(defence_events) >= required_wins > 0:
                                 victory_times = []
                                 for planet in defence_events:
                                     end_time_info = get_end_time(
@@ -1684,7 +1684,7 @@ class Dashboard:
             now = datetime.now(tz=timezone.utc)
             if (
                 now < self.assignment.ends_at_datetime - timedelta(days=2)
-                and {13, 15} & self.assignment.unique_task_types
+                and {12, 13, 15} & self.assignment.unique_task_types
             ):
                 # return if assignments that last the full assignment duration are present
                 # and we are not within 2 days of assignment end
