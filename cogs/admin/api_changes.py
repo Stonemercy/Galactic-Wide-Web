@@ -5,7 +5,6 @@ from utils.containers import APIChangesContainer
 from utils.dataclasses import APIChanges
 from utils.embeds.personal_order_embed import PersonalOrderCommandEmbed
 
-
 PLANET_STATS_TO_CHECK = {
     "Location": "position",
     "Waypoints": "waypoints",
