@@ -2561,16 +2561,15 @@ class Dashboard:
                             field_value += f"\n{language_json['embeds']['Dashboard']['AttackEmbed']['victory']} **<t:{int(calc_end_time.end_time.timestamp())}:R>**\n-# {language_json['embeds']['Dashboard']['AttackEmbed']['if_regions']}:\n-# {regions_list}"
                         elif calc_end_time.source_planet:
                             field_value += f"\n{language_json['embeds']['Dashboard']['AttackEmbed']['victory']} **<t:{int(campaign.planet.tracker.complete_time.timestamp())}:R>**"
-                    if campaign.planet.index in [
+                    if campaign.planet.index in (
                         p.index for p in gambit_planets.values()
-                    ]:
-                        gambit_planet = planets.get(
-                            {v.index: k for k, v in gambit_planets.items()}[
-                                campaign.planet.index
-                            ]
-                        )
-                        if gambit_planet:
-                            field_value += f"\n-# :chess_pawn: {language_json['embeds']['Dashboard']['AttackEmbed']['gambit_for']} {gambit_planet.names.get(language_json['code_long'], str(gambit_planet.index))}"
+                    ):
+                        for defence in [
+                            planets.get(k)
+                            for k, v in gambit_planets.items()
+                            if v.index == campaign.planet.index
+                        ]:
+                            field_value += f"\n-# :chess_pawn: {language_json['embeds']['Dashboard']['AttackEmbed']['gambit_for']} **{defence.names.get(language_json['code_long'], str(defence.index))}**"
                     if compact_level < 2:
                         field_value += f"\n{campaign.planet.health_bar}"
                     field_value += f"\n`{(1 - (campaign.planet.health_perc)):^25.2%}`"  # 1 - {health} because we need it to reach 0
