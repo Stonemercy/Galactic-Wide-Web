@@ -290,19 +290,12 @@ class Maps:
     ) -> None:
         with Image.open(fp=Maps.FileLocations.planets_map) as background:
             self._write_names(
-                background=background,
-                language_code=language_code_long,
-                planets=planets,
-                planet_names_json=planet_names_json,
+                background=background, language_code=language_code_long, planets=planets
             )
             background.save(fp=f"resources/maps/localized/{language_code_short}.webp")
 
     def _write_names(
-        self,
-        background: Image.Image,
-        language_code: str,
-        planets: dict[int, Planet],
-        planet_names_json: dict,
+        self, background: Image.Image, language_code: str, planets: dict[int, Planet]
     ) -> None:
         if language_code == "zh-Hant":
             font = ImageFont.truetype("resources/gww-font-zh-hant.ttf", self.TEXT_SIZE)
@@ -310,32 +303,17 @@ class Maps:
         else:
             font = ImageFont.truetype("resources/gww-font.ttf", self.TEXT_SIZE)
         background_draw = ImageDraw.Draw(im=background)
-        for index, planet in planets.items():
+        for planet in planets.values():
             if planet.active_campaign and not planet.is_hidden:
                 if planet.dss_in_orbit:
                     border_colour = "deepskyblue"
                 else:
                     border_colour = "black"
-                name_text = planet_names_json.get(
-                    str(index),
-                    {
-                        "names": {
-                            "en-GB": f"UNKNOWN PLANET {index}",
-                            "de-DE": f"UNKNOWN PLANET {index}",
-                            "es-ES": f"UNKNOWN PLANET {index}",
-                            "fr-FR": f"UNKNOWN PLANET {index}",
-                            "it-IT": f"UNKNOWN PLANET {index}",
-                            "pt-BR": f"UNKNOWN PLANET {index}",
-                            "ru-RU": f"UNKNOWN PLANET {index}",
-                            "zh-Hans": f"UNKNOWN PLANET {index}",
-                            "zh-Hant": f"UNKNOWN PLANET {index}",
-                        },
-                        "description": "",
-                    },
-                )["names"][language_code].replace(" ", "\n")
                 background_draw.multiline_text(
                     xy=planet.map_waypoints,
-                    text=name_text,
+                    text=planet.names.get(language_code, planet.name).replace(
+                        " ", "\n"
+                    ),
                     anchor="md",
                     font=font,
                     stroke_width=2,
@@ -389,7 +367,7 @@ class Maps:
                     x_offset=-20,
                     y_offset=10,
                 )
-            loc_name = planet.names.get(long_code, str(planet.index))
+            loc_name = planet.names.get(long_code, planet.name)
             if (
                 planet.faction != Factions.humans or planet.active_campaign
             ) and not planet.is_hidden:

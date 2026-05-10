@@ -117,7 +117,7 @@ class Setup:
                     style=ButtonStyle.gray,
                     label=container_json["language_button"],
                     custom_id="language_button",
-                    emoji=getattr(Emojis.Flags, language_code.replace("-", "_")),
+                    emoji=getattr(Emojis.Flags, language_code.replace("-", "_"), "❓"),
                 )
 
         class LanguageSelect(StringSelect):
@@ -129,7 +129,9 @@ class Setup:
                         SelectOption(
                             label=f"{lang.short_code}",
                             emoji=getattr(
-                                Emojis.Flags, lang.short_code.replace("-", "_")
+                                Emojis.Flags,
+                                lang.short_code.replace("-", "_"),
+                                "❓",
                             ),
                         )
                         for lang in Languages.all

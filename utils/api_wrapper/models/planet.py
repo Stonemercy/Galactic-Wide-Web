@@ -63,6 +63,10 @@ class Planet(ReprMixin):
         self.position = raw_planet_status["position"]
 
     @property
+    def name(self) -> str:
+        return self.names.get("en-GB", f"UNKNOWN PLANET #{self.index}")
+
+    @property
     def is_hidden(self) -> bool:
         return 1190 in [ae.id for ae in self.active_effects]
 
@@ -200,7 +204,7 @@ class Planet(ReprMixin):
             self.planet_index: int = raw_planet_region_data["planetIndex"]
             self.planet: Planet | None = None
             self.index: int = raw_planet_region_data["regionIndex"]
-            self.name: str = json_entry.get("name", "COLONY")
+            self.name: str = json_entry.get("name", f"COLONY {self.index}")
             self.names: dict[str, str] = json_entry.get("names", {})
             self.description: str | None = json_entry.get("description")
             self.descriptions: dict[str, str] | None = json_entry.get(

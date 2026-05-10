@@ -178,3 +178,4 @@ class Emojis:
         es = "🇪🇸"
         zh_hans = "🇨🇳"
         zh_hant = "🇨🇳"
+        tr = "🇹🇷"

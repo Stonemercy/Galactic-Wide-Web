@@ -1,0 +1,375 @@
+{
+    "code": "tr",
+    "code_long": "tr-TR",
+    "containers": {
+        "CampaignChangesContainer": {
+            "title": "GALACTIC WAR GÜNCELLEMELERİ",
+            "victories": "ZAFERLER",
+            "losses": "KAYIPLAR",
+            "new_campaigns": "YENİ CAMPAIGN'LER",
+            "gambit": "Kumar",
+            "liberated": "**{planet_name}**, **{faction_name}** elinden liberate edildi",
+            "defended": "**{planet_name}**, **{faction_name}** saldırısına karşı başarıyla savunuldu",
+            "ahead_of_schedule": ", planlanandan **{hours_remaining} saat** önce!",
+            "defend": "### **{planet_name}** GEZEGENİNİ DEFEND ET {emojis}",
+            "invasion_level": "İstila Seviyesi",
+            "ends": "\n-# Bitiş <t:{timestamp}:R>",
+            "liberate": "### **{planet_name}** GEZEGENİNİ LIBERATE ET {emojis}",
+            "resistance": "\n-# Direniş: **{regen}/saat**",
+            "planet_lost": "**{planet_name}** **{faction_name}** tarafından ele geçirildi {emojis}"
+        },
+        "DispatchContainer": {
+            "dispatch": "Bildiri",
+            "with_time": "\n\n-# Gönderildi <t:{timestamp}:R>"
+        },
+        "DSSChangesContainer": {
+            "title": "DSS GÜNCELLEMELERİ",
+            "gambit": "Kumar",
+            "has_moved": "\nDSS, **{planet_name1}** gezegeninden **{planet_name2}** gezegenine hareket etti {emojis}",
+            "ta_status_change": "\n**{ta_name}** artık **{status}**",
+            "preparing": "hazırlanıyor",
+            "active": "aktif",
+            "inactive": "inaktif",
+            "on_cooldown": "bekleme süresinde",
+            "prep_starts": "Hazırlık başlıyor",
+            "expires": "Sona eriyor",
+            "tactical_actions": {
+                "EAGLE STORM": {
+                    "name": "EAGLE STORM",
+                    "description": "-# Görevler sırasında periyodik **Eagle Airstrike**'lar gerçekleştirir.\n-# **Defence Campaign**'lerde düşman ilerlemesini durdurur."
+                },
+                "ORBITAL BLOCKADE": {
+                    "name": "ORBITAL BLOCKADE",
+                    "description": "-# Bu gezegenden **Defence Campaign** başlatılamaz.\n-# **HELLPOD SPACE OPTIMISATION** Booster'ı tüm görevlerde otomatik olarak aktiftir."
+                },
+                "HEAVY ORDNANCE DISTRIBUTION": {
+                    "name": "HEAVY ORDNANCE DISTRIBUTION",
+                    "description": "-# Görevlerde **Orbital 380mm HE Barrage** stratagem'ine erişim sağlar.\n-# **Liberation Campaign**'lerde ilerlemeyi hızlandırır."
+                },
+                "EAGLE BLOCKADE": {
+                    "name": "EAGLE BLOCKADE",
+                    "description": "-# Görevler sırasında periyodik **Eagle Strafing Run**'lar gerçekleştirir.\n-# **HELLPOD SPACE OPTIMIZATION** Booster'ı tüm görevlerde otomatik olarak aktiftir."
+                }
+            }
+        },
+        "GlobalEventsContainer": {
+            "new_event": "Yeni Global Event",
+            "all_planets": "tüm gezegenler",
+            "unknown_effect": "BİLİNMEYEN ETKİ",
+            "active_on_planets": "\n-# Şu gezegen(ler)de aktif:\n- {planets}",
+            "expires": "Sona eriyor",
+            "global_event": "Genel Olay",
+            "enemy": "düşman",
+            "stratagem": "Stratagem",
+            "booster": "Booster",
+            "effect": "etki"
+        },
+        "PlanetContainers": {
+            "PlanetContainer": {
+                "planet_info": {
+                    "sector": "Sektör",
+                    "owner": "Sahibi",
+                    "hazards": "Tehlike(ler)",
+                    "biome": "Biyom",
+                    "heroes": "Helldiver Sayısı",
+                    "liberated": "Liberate Edildi"
+                },
+                "mission_stats": {
+                    "title": "📊 Mission İstatistikleri",
+                    "missions_won": "Kazanılan Mission'lar",
+                    "missions_lost": "Kaybedilen Mission'lar",
+                    "missions_winrate": "Mission kazanma oranı",
+                    "missions_time_spent": "Mission'larda harcanan süre",
+                    "years": "yıl"
+                },
+                "hero_stats": {
+                    "title": "📈 Helldiver İstatistikleri",
+                    "active_heroes": "Aktif Helldiver'lar",
+                    "heroes_lost": "Kaybedilen Helldiver'lar",
+                    "accidentals": "Kazara ölümler",
+                    "shots_fired": "Atılan mermi",
+                    "shots_hit": "İsabet eden mermi",
+                    "accuracy": "İsabet oranı"
+                },
+                "misc_stats": {
+                    "killed": "öldürüldü"
+                }
+            },
+            "RegionContainer": {
+                "heroes": "Helldiver Sayısı",
+                "boost_when_liberated": "Liberate edildiğinde verilen boost",
+                "liberated": "Liberate Edildi",
+                "liberation": "Liberation",
+                "defence_duration": "Defence Süresi",
+                "unlocked_when": "\n**{stat_to_use}** değeri **{av_factor}**'a ulaştığında açılır"
+            }
+        },
+        "RegionChangesContainer": {
+            "title": "BÖLGE GÜNCELLEMELERİ",
+            "victories": "ZAFERLER",
+            "new_regions": "YENİ AÇILAN BÖLGELER",
+            "region_victory": "\n### {region_emoji} {planet_name} üzerindeki {region_name}, {faction_name} elinden liberate edildi",
+            "new_region": "### {region_emoji} {region_name} artık {planet_name} üzerinde mevcut",
+            "resistance": "\n-# Direniş: **{regen}/saat**"
+        },
+        "SetupContainer": {
+            "shard_info": "Sunucunuz Shard #**{shard_id}** üzerinde - **{latency}ms**",
+            "not_set": "Ayarlanmadı",
+            "channel": "Kanal",
+            "message": "Mesaj",
+            "dashboard_title": "Galactic Wide Web Bot Kurulumu",
+            "dashboard_desc": "-# Her 15 dakikada bir güncellenen, savaşa dair genel bilgileri içeren bir dashboard\n",
+            "dashboard_channel_select": "Dashboard için bir kanal seçin",
+            "map_title": "Harita",
+            "map_desc": "-# Her saat **##:05**'te güncellenen galaktik harita (örn. 09:05)\n",
+            "map_channel_select": "Harita için bir kanal seçin",
+            "war_announcements_title": "Savaş Duyuruları",
+            "war_announcements_desc": "-# Savaşla ilgili genel duyurular (örn. yeni Major Order'lar, kaybedilen/kazanılan gezegenler, dispatch'ler vb.)\n",
+            "dss_announcements_title": "DSS Duyuruları",
+            "dss_announcements_desc": "-# DSS ile ilgili duyurular (örn. DSS hareketleri veya Tactical Action durum değişiklikleri)\n",
+            "region_announcements_title": "Bölge Duyuruları",
+            "region_announcements_desc": "-# Gezegen bölgeleriyle ilgili duyurular (örn. yeni bölgelerin açılması veya bölgelerin kazanılması vb.)\n",
+            "patch_notes_title": "Yama Notları",
+            "patch_notes_desc": "-# Oyuna ait Steam duyurularına bağlantılar sağlar\n",
+            "major_order_updates_title": "Major Order güncellemeleri",
+            "major_order_updates_desc": "-# Aktif Major Order'lar için <t:1737786000:t> ve <t:1737829200:t> saatlerinde güncellemeler sağlar\n",
+            "personal_order_updates_title": "Personal Order güncellemeleri",
+            "personal_order_updates_desc": "-# Aktif Personal Order'lar için <t:1762594200:t> saatinde güncellemeler sağlar\n",
+            "detailed_dispatches_title": "Detaylı Dispatch'ler",
+            "detailed_dispatches_desc": "-# Super Earth High Command'dan gelen büyük dispatch'leri sağlar\n",
+            "feature_channel_select": "Bu özellik için bir kanal seçin",
+            "language_button": "Dil",
+            "language": "{flag_emoji} Dil",
+            "language_select": "İstediğiniz dili seçin",
+            "set_feature": "{feature} Ayarla",
+            "clear_feature": "{feature} Sıfırla"
+        }
+    },
+    "embeds": {
+        "Dashboard": {
+            "outlook": "Genel Görünüm",
+            "HomeworldCampaignEmbed": {
+                "battle_for": "Savaş alanı:",
+                "automaton_description": "-# Cyborg Capital'a doğru Megafactory'ler arasında bir yol açın—en büyük Megafactory ve Cyborg direnişinin merkezi.\n-# **Forces in Reserve** tükenmeden onu yok ederek **CYBERSTAN**'ı liberate edin",
+                "victory": "Zafer",
+                "heroes": "Helldiver Sayısı"
+            },
+            "MajorOrderEmbed": {
+                "assignment": "Görev #{id}",
+                "rewards": "Ödüller",
+                "reward_pluralized": "{reward}",
+                "ahead_of_schedule": "\n-# Planlanandan **{hours}sa {minutes}dk** önde",
+                "behind_schedule": "\n-# Planlanandan **{hours}sa {minutes}dk** geride",
+                "avail_thanks_to_wp": "\n-# **{planet_name}** liberation'ı sayesinde **<t:{timestamp}:R>** mevcut olacak",
+                "progress": "İlerleme",
+                "complete": "Tamamlandı",
+                "tasks": {
+                    "-1_from_loss": "\n-# **{planet}** kaybından dolayı **-1** {timestamp}",
+                    "+1_from_lib": "\n-# **{planet}** liberation'ından dolayı **+1** {timestamp}",
+                    "option": "Seçenek",
+                    "times": "kere",
+                    "against": "karşı",
+                    "mission": "görev",
+                    "missions": "Mission",
+                    "loc_from_planet": "şu gezegenden",
+                    "loc_on_planet": "şu gezegende",
+                    "loc_in_the": "şu",
+                    "loc_sector": "sektöründe",
+                    "loc_from_any": "herhangi bir",
+                    "loc_on_any": "herhangi bir",
+                    "loc_controlled": "kontrolündeki gezegende",
+                    "in_mp": " **multiplayer**'da",
+                    "diff_on": "zorlukta",
+                    "diff_or_higher": "veya daha yüksek",
+                    "on_the_planet": "şu gezegende",
+                    "on_faction_planet": "şunun kontrolündeki bir gezegende:",
+                    "typeUNK": "{emoji} BİLİNMEYEN GÖREV",
+                    "type1": "{emoji} {ext_pre}{ext}{ext_post}{count_pre}{count}{count_post}{diff_pre}{diff}{diff_post}{multi} başarıyla extract olun.",
+                    "type2": "{emoji} **{count}** {item_pre}{item}{item_post} ile{ext_pre}{ext}{ext_post}{diff_pre}{diff}{diff_post}{multi} başarıyla extract olun.",
+                    "type2_sample": "örnek",
+                    "type2_samples": "Sample",
+                    "type3": "{emoji} **{count} {enemy}**{item_pre}{item}{item_post}{ext_pre}{ext}{ext_post}{diff_pre}{diff}{diff_post}{multi} öldürün.",
+                    "type3_using_the": "şunu kullanarak:",
+                    "type4": "{emoji} **{obj} Objective**'i tamamlayın{count_pre}{count}{count_post}{race_pre}{race}{race_post}{diff_pre}{diff}{diff_post}{multi}.",
+                    "type5": "{emoji} **{count} {obj}** oynayın{race_pre}{race}{race_post}{diff_pre}{diff}{diff_post}{multi}.",
+                    "type6": "{emoji} **{item}**'i kullanın{count_pre}{count}{count_post}{race_pre}{race}{race_post}{diff_pre}{diff}{diff_post}{multi}.",
+                    "type7_f_p": "{emoji} Başarılı bir {mtype}'tan extract olun{race_pre}{race}{race_post}{diff_pre}{diff}{diff_post}{count_pre}{count}{count_post}{multi}{ext_pre}{ext}{ext_post}",
+                    "type7_r": "{emoji} Başarılı bir {mtype}'tan extract olun{diff_pre}{diff}{diff_post}{count_pre}{count}{count_post}{multi}{ext_pre}{ext}{ext_post}",
+                    "type9_f_p": "{emoji} Bir **Operation** tamamlayın{race_pre}{race}{race_post}{diff_pre}{diff}{diff_post}{count_pre}{count}{count_post}{multi}{ext_pre}{ext}{ext_post}",
+                    "type9_r": "{emoji} Bir **Operation** tamamlayın{diff_pre}{diff}{diff_post}{count_pre}{count}{count_post}{multi}{ext_pre}{ext}{ext_post}",
+                    "type10": "{emoji} **{count} {item}** {item_type} bağışlayın",
+                    "type11": "{emoji} **{location}**'ı liberate edin",
+                    "type12_s_f": "{emoji} **{sector}** sektöründe **{race}**'in **{count}** saldırısına karşı defend edin",
+                    "type12_s_r": "{emoji} **{sector}** sektöründe **{count}** saldırıya karşı defend edin",
+                    "type12_p_f": "{emoji} **{planet}**'i **{race}**'in **{count}** saldırısına karşı defend edin",
+                    "type12_p_r": "{emoji} **{planet}**'i **{count}** saldırıya karşı defend edin",
+                    "type12_r_f": "{emoji} **{race}**'in **{count}** saldırısına karşı defend edin",
+                    "type12_r_r": "{emoji} Herhangi bir gezegende **{count}** saldırıya karşı defend edin",
+                    "type13_c_s": "{emoji} Order süresi dolduğunda **{sector}** sektöründe **{count}** gezegen kontrolünüzde olsun",
+                    "type13_r": "{emoji} Order süresi dolduğunda **{location}** kontrolünüzde olsun",
+                    "type14_f": "{emoji} **{race}** elinden **{count}** gezegen liberate edin",
+                    "type14_r": "{emoji} **{count}** gezegen liberate edin",
+                    "type15_f": "{emoji} Order süresi boyunca **{race}**'e kaybedilenden daha fazla gezegen liberate edin",
+                    "type15_r": "{emoji} Order süresi boyunca kaybedilenden daha fazla gezegen liberate edin"
+                }
+            },
+            "DSSEmbed": {
+                "title": "Demokrasi Uzay İstasyonu",
+                "station_moves": "İstasyon hareketleri",
+                "current_location": "Mevcut Konum",
+                "next_location": "Sonraki Konum (Mevcut Çoğunluk Oyu)",
+                "vote_reminder": "YAKINDA HAREKET EDECEK - OY VERMEYİ UNUTMAYIN",
+                "voting_mode": "OYLAMA MODU AKTİF",
+                "select": "Bu demokratik süreç için hedefi seçin",
+                "votes": "Oy",
+                "status": "Durum",
+                "preparing": "Hazırlanıyor",
+                "active": "Aktif",
+                "on_cooldown": "Bekleme süresinde",
+                "off_cooldown": "Bekleme süresi bitti",
+                "inactive": "İnaktif",
+                "tactical_actions": {
+                    "EAGLE STORM": {
+                        "name": "EAGLE STORM",
+                        "description": "-# Görevler sırasında periyodik **Eagle Airstrike**'lar gerçekleştirir.\n-# **Defence Campaign**'lerde düşman ilerlemesini durdurur."
+                    },
+                    "ORBITAL BLOCKADE": {
+                        "name": "ORBITAL BLOCKADE",
+                        "description": "-# Bu gezegenden **Defence Campaign** başlatılamaz.\n-# **HELLPOD SPACE OPTIMISATION** Booster'ı tüm görevlerde otomatik olarak aktiftir."
+                    },
+                    "HEAVY ORDNANCE DISTRIBUTION": {
+                        "name": "HEAVY ORDNANCE DISTRIBUTION",
+                        "description": "-# Görevlerde **Orbital 380mm HE Barrage** stratagem'ine erişim sağlar.\n-# **Liberation Campaign**'lerde ilerlemeyi hızlandırır."
+                    },
+                    "EAGLE BLOCKADE": {
+                        "name": "EAGLE BLOCKADE",
+                        "description": "-# Görevler sırasında periyodik **Eagle Strafing Run**'lar gerçekleştirir.\n-# **HELLPOD SPACE OPTIMIZATION** Booster'ı tüm görevlerde otomatik olarak aktiftir."
+                    }
+                }
+            },
+            "DefenceEmbed": {
+                "title": "Savunmada",
+                "defence_held_by_dss": "\n-# DEFENCE DSS TARAFINDAN TUTULUYOR",
+                "invasion_level": "İstila Seviyesi",
+                "victory": "Zafer",
+                "loss": "Kaybediyor",
+                "thanks_to_gambit": "**{planet}** liberation'ı sayesinde",
+                "if_region_lib": "\n-# Şu bölgeler liberate edilirse:\n-# {regions_list}",
+                "gambit": "Kumar",
+                "heroes": "Helldiver Sayısı",
+                "available": "mevcut"
+            },
+            "AttackEmbed": {
+                "title": "{faction}'a Saldırılıyor",
+                "heroes": "Helldiver Sayısı",
+                "victory": "Zafer",
+                "gambit_for": "GAMBIT - HEDEF:",
+                "recon_campaign": "Keşif Kampanyası",
+                "reg_avail_at": "şurada mevcut olacak:",
+                "if_regions": "Şu bölgeler liberate edilirse",
+                "low_impact": "Düşük etki/popülasyona sahip gezegenler"
+            },
+            "FooterEmbed": {
+                "other_updated": "Güncellenme zamanı:",
+                "total_players": "Toplam oyuncu",
+                "liberty_day": "Liber-Tea size mutlu bir Liberty Day diler",
+                "malevelon_creek_day": "Liber-Tea size mutlu bir Malevelon Creek Memorial Day diler",
+                "festival_of_reckoning": "Liber-Tea size mutlu bir Festival of Reckoning diler",
+                "new_year": "Liber-Tea size mutlu yıllar diler"
+            }
+        },
+        "DSSEmbed": {
+            "title": "Demokrasi Uzay İstasyonu",
+            "stationed_at": "**{planet}** {faction_emoji}'da konuşlandırılmış\n",
+            "next_move": "Hareket {timestamp}",
+            "preparing": "Hazırlanıyor",
+            "active": "aktif",
+            "inactive": "İnaktif",
+            "on_cooldown": "bekleme süresinde",
+            "off_cooldown": "bekleme süresi bitti",
+            "status": "Durum",
+            "tactical_actions": {
+                "EAGLE STORM": {
+                    "name": "EAGLE STORM",
+                    "description": "-# Görevler sırasında periyodik **Eagle Airstrike**'lar gerçekleştirir.\n-# **Defence Campaign**'lerde düşman ilerlemesini durdurur."
+                },
+                "ORBITAL BLOCKADE": {
+                    "name": "ORBITAL BLOCKADE",
+                    "description": "-# Bu gezegenden **Defence Campaign** başlatılamaz.\n-# **HELLPOD SPACE OPTIMISATION** Booster'ı tüm görevlerde otomatik olarak aktiftir."
+                },
+                "HEAVY ORDNANCE DISTRIBUTION": {
+                    "name": "HEAVY ORDNANCE DISTRIBUTION",
+                    "description": "-# Görevlerde **Orbital 380mm HE Barrage** stratagem'ine erişim sağlar.\n-# **Liberation Campaign**'lerde ilerlemeyi hızlandırır."
+                },
+                "EAGLE BLOCKADE": {
+                    "name": "EAGLE BLOCKADE",
+                    "description": "-# Görevler sırasında periyodik **Eagle Strafing Run**'lar gerçekleştirir.\n-# **HELLPOD SPACE OPTIMIZATION** Booster'ı tüm görevlerde otomatik olarak aktiftir."
+                }
+            }
+        }
+    },
+    "ends": "Bitiş",
+    "message": "Mesaj #{message_id}",
+    "complete": "Tamamlandı",
+    "failure": "Başarısız",
+    "regions": {
+        "megafactory": "Mega Fabrika",
+        "4": "Araştırma",
+        "3": "Askeri",
+        "2": "Endüstriyel",
+        "1": "Şehir"
+    },
+    "setup": {
+        "cant_find_channel": "Bu kanalı hiç bulamıyorum. Lütfen `View Channel` izinlerimin olduğundan emin olun",
+        "missing_perm": "Bu kanala mesaj göndermek için izin eksik.\nLütfen şu izinleri verip tekrar deneyin:{permissions}"
+    },
+    "factions": {
+        "1": "Humans",
+        "2": "Terminids",
+        "3": "Automaton",
+        "4": "Illuminate",
+        "Humans": "Humans",
+        "Terminids": "Terminids",
+        "Automaton": "Automaton",
+        "Illuminate": "Illuminate",
+        "Terminids_plural": "Terminids",
+        "Automaton_plural": "Automaton",
+        "Illuminate_plural": "Illuminate",
+        "the_Terminids_plural": "the Terminids",
+        "the_Automaton_plural": "the Automaton",
+        "the_Illuminate_plural": "the Illuminate"
+    },
+    "difficulty": {
+        "1": "Trivial",
+        "2": "Easy",
+        "3": "Medium",
+        "4": "Challenging",
+        "5": "Hard",
+        "6": "Extreme",
+        "7": "Suicide Mission",
+        "8": "Impossible",
+        "9": "Helldive",
+        "10": "Super Helldive"
+    },
+    "currencies": {
+        "Unknown Item": "Bilinmeyen Eşya",
+        "Medal": "Madalya",
+        "Requisition Slip": "Talep Pusulası",
+        "Common Sample": "Yaygın Örnek",
+        "Rare Sample": "Nadir Örnek",
+        "Super Sample": "Süper Örnek"
+    },
+    "subfactions": {
+        "JET BRIGADE": "JET BRIGADE",
+        "PREDATOR STRAIN": "PREDATOR STRAIN",
+        "INCINERATION CORPS": "INCINERATION CORPS",
+        "THE GREAT HOST": "THE GREAT HOST",
+        "RUPTURE STRAIN": "RUPTURE STRAIN",
+        "DRAGONROACHES": "DRAGONROACHES",
+        "HIVE LORDS": "HIVE LORDS",
+        "CYBORGS": "CYBORGS",
+        "MINDLESS MASSES": "MINDLESS MASSES",
+        "APPROPRIATORS": "APPROPRIATORS",
+        "SPORE BURST STRAIN": "SPORE BURST STRAIN"
+    }
+}

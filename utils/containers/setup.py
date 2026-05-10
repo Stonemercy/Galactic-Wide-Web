@@ -42,6 +42,7 @@ class SetupContainer(ui.Container, ReprMixin):
                                 flag_emoji=getattr(
                                     Emojis.Flags,
                                     guild.language.lower().replace("-", "_"),
+                                    "❓",
                                 )
                             )
                             + f"\n**{guild.language_long}**"
