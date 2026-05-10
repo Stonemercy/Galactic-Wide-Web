@@ -23,7 +23,7 @@ CORRECT_SECTORS = {
         "NEW HAVEN",
         "PATHFINDER V",
         "PILEN V",
-        "WIDOW'S HARBOR",
+        "WIDOW'S HARBOUR",
     ],
     "KELVIN": ["EMERIA", "FORT JUSTICE", "IGLA", "NEW KIRUNA", "ZEGEMA PARADISE"],
     "BARNARD": [
@@ -36,7 +36,7 @@ CORRECT_SECTORS = {
     ],
     "CANTOLUS": ["FREEDOM PEAK", "KELVINOR", "MARTYR'S BAY", "OBARI", "VIRIDIA PRIME"],
     "CANCRI": [
-        "CERBERUS IIIC",
+        "CERBERUS IIIc",
         "EFFLUVIA",
         "FORT SANCTUARY",
         "PROSPERITY FALLS",
