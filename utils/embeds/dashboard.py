@@ -2375,7 +2375,7 @@ class Dashboard:
                 planet.regions.values(), key=lambda x: x.availability_factor
             ):
                 if region.is_available:
-                    field_value += f"\n-# ↳ {region.emoji} {self.language_json['regions'][str(region.type.value)]} **{region.names[self.language_json['code_long']]}** - {region.perc:.0%}"
+                    field_value += f"\n-# ↳ {region.emoji} {self.language_json['regions'][str(region.type.value)]} **{region.names.get(self.language_json['code_long'], region.name)}** - {region.perc:.0%}"
                     if (
                         self.compact_level < 2
                         and region.tracker
@@ -2542,7 +2542,7 @@ class Dashboard:
                         if calc_end_time.regions:
                             regions_list = f"\n-# ".join(
                                 [
-                                    f" {r.emoji} {r.names[language_json['code_long']]}"
+                                    f" {r.emoji} {r.names.get(language_json['code_long'], r.name)}"
                                     for r in calc_end_time.regions
                                 ]
                             )
