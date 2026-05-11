@@ -635,7 +635,7 @@ class Dashboard:
                 text = text.replace("{ext_pre}", f" {in_the} **")
                 text = text.replace("{ext}", sector_name)
                 text = text.replace("{ext_post}", f"** {sector}")
-            elif task.enemy_id:
+            elif task.faction and not task.enemy_id:
                 on_any = tasks_json["loc_on_any"]
                 controlled_planet = tasks_json["loc_controlled"]
                 faction = self._get_faction_name(task.faction)
@@ -840,8 +840,10 @@ class Dashboard:
             field_name = field_name.replace("{count}", f"{task.target:,}")
             if task.enemy_id:
                 enemy = self.json_dict["enemy_ids"].get(
-                    str(task.enemy_id), "UNKNOWN ENEMIES"
+                    str(task.enemy_id), "UNKNOWN ENEMY"
                 )
+                if task.target > 1:
+                    enemy = enemy + "s" if not enemy.endswith("s") else enemy
             elif task.faction:
                 enemy = self._get_faction_name(task.faction, plural=True)
             else:
