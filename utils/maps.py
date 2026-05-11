@@ -1,5 +1,7 @@
 from cv2 import (
+    addWeighted,
     circle,
+    fillPoly,
     floodFill,
     FLOODFILL_FIXED_RANGE,
     FLOODFILL_MASK_ONLY,
@@ -9,12 +11,28 @@ from cv2 import (
     line,
     LINE_AA,
     merge,
+    polylines,
     split,
 )
 from data.lists import CUSTOM_COLOURS
 from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
-from numpy import uint8, zeros
+from numpy import (
+    arctan2,
+    array,
+    clip,
+    cos,
+    dot,
+    linalg,
+    full_like,
+    newaxis,
+    pi,
+    sin,
+    sqrt,
+    uint8,
+    where,
+    zeros,
+)
 from PIL import Image, ImageDraw, ImageFont
 from utils.api_wrapper.models import Assignment, DSS, Planet
 from utils.dataclasses import Factions, Faction
@@ -165,6 +183,13 @@ class Maps:
         for index, planet in planets.items():
             planet_effect_ids = [ae.id for ae in planet.active_effects]
             if 1376 in planet_effect_ids:
+                circle(
+                    background,
+                    planet.map_waypoints,
+                    PLANET_RADIUS,
+                    (50, 0, 50, 255),
+                    -1,
+                )
                 continue
             if any(aeid in (1373, 1374, 1375) for aeid in planet_effect_ids):
                 # exostorm
@@ -239,6 +264,11 @@ class Maps:
                     colour,
                     -1,
                 )
+
+        for planet in [
+            p for p in planets.values() if 1376 in (e.id for e in p.active_effects)
+        ]:
+            self.draw_void(background, planet, planets)
 
         imwrite(Maps.FileLocations.planets_map, background)
 
@@ -416,3 +446,156 @@ class Maps:
                 )
                 self.paste_image(background, dss_icon, dss_coords)
         imwrite(path, background)
+
+    def get_voronoi_cell_polygon(
+        self, focal, others, bounds=(-2000, 2000, -2000, 2000)
+    ):
+        xmin, xmax, ymin, ymax = bounds
+        polygon = array(
+            [
+                [xmin, ymin],
+                [xmax, ymin],
+                [xmax, ymax],
+                [xmin, ymax],
+            ],
+            dtype=float,
+        )
+
+        for other in others:
+            mid = (focal + other) / 2.0
+            normal = focal - other
+            polygon = self.clip_polygon_by_halfplane(polygon, mid, normal)
+            if len(polygon) == 0:
+                break
+
+        return polygon
+
+    def clip_polygon_by_halfplane(self, polygon, point_on_plane, normal):
+        if len(polygon) == 0:
+            return polygon
+
+        result = []
+        n = len(polygon)
+
+        def inside(p):
+            return dot(p - point_on_plane, normal) >= 0
+
+        def intersect(a, b):
+            da = dot(a - point_on_plane, normal)
+            db = dot(b - point_on_plane, normal)
+            t = da / (da - db)
+            return a + t * (b - a)
+
+        for i in range(n):
+            a = polygon[i]
+            b = polygon[(i + 1) % n]
+            a_in = inside(a)
+            b_in = inside(b)
+
+            if a_in:
+                result.append(a)
+                if not b_in:
+                    result.append(intersect(a, b))
+            elif b_in:
+                result.append(intersect(a, b))
+
+        return array(result)
+
+    def clip_polygon_by_circle(self, polygon, center, radius):
+        if len(polygon) == 0:
+            return polygon
+
+        result = []
+        n = len(polygon)
+        tol = 1.0
+
+        def inside(p):
+            return linalg.norm(p - center) <= radius
+
+        def on_circle(p):
+            return abs(linalg.norm(p - center) - radius) <= tol
+
+        def intersect(a, b):
+            d = b - a
+            f = a - center
+            qa = dot(d, d)
+            qb = 2 * dot(f, d)
+            qc = dot(f, f) - radius**2
+            disc = qb**2 - 4 * qa * qc
+            if disc < 0:
+                return a
+            disc = sqrt(disc)
+            t1 = (-qb - disc) / (2 * qa)
+            t2 = (-qb + disc) / (2 * qa)
+            for t in (t1, t2):
+                if 0 <= t <= 1:
+                    return a + t * d
+            return a
+
+        for i in range(n):
+            a = polygon[i]
+            b = polygon[(i + 1) % n]
+            a_in = inside(a)
+            b_in = inside(b)
+
+            if a_in:
+                result.append(a)
+                if not b_in:
+                    result.append(intersect(a, b))
+            elif b_in:
+                result.append(intersect(a, b))
+
+        if len(result) == 0:
+            return array([])
+
+        final = []
+        for i in range(len(result)):
+            a = result[i]
+            b = result[(i + 1) % len(result)]
+            final.append(a)
+            if on_circle(a) and on_circle(b):
+                angle_a = arctan2(a[1] - center[1], a[0] - center[0])
+                angle_b = arctan2(b[1] - center[1], b[0] - center[0])
+                diff = (angle_b - angle_a + pi) % (2 * pi) - pi
+                for step in range(1, 20):
+                    t = step / 20
+                    angle = angle_a + diff * t
+                    final.append(center + radius * array([cos(angle), sin(angle)]))
+
+        return array(final)
+
+    def draw_voronoi_tint(self, background, focal_planet, nearby_planets):
+        cell_polygon = self.get_voronoi_cell_polygon(focal_planet, nearby_planets)
+        cell_polygon = self.clip_polygon_by_circle(
+            cell_polygon, array((1000, 1000), dtype=float), 1000
+        )
+        if len(cell_polygon) == 0:
+            return
+
+        cell_px = cell_polygon.astype(int)
+        cell_px = clip(cell_px, 0, 2000 - 1)
+
+        mask = zeros((2000, 2000), dtype=uint8)
+        fillPoly(mask, [cell_px], 255)
+
+        purple = (50, 0, 25, 255)
+        tint = full_like(background, purple)
+        tinted = addWeighted(background, 0.05, tint, 0.6, 0)
+
+        background[:] = where(mask[:, :, newaxis] == 255, tinted, background)
+
+        polylines(
+            background,
+            [cell_px],
+            isClosed=True,
+            color=(187, 59, 107, 255),
+            thickness=2,
+        )
+
+    def draw_void(self, background, planet: Planet, planets: dict[int, Planet]):
+        focal_planet = array(planet.map_waypoints)
+        nearby_planets = array(
+            [p.map_waypoints for p in planets.values() if p != planet], dtype=float
+        )
+
+        self.draw_voronoi_tint(background, focal_planet, nearby_planets)
