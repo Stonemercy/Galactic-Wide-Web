@@ -1370,7 +1370,7 @@ class Dashboard:
                         and end_time_info.end_time < planet.event.end_time_datetime
                     ):
                         if task.progress + 1 >= task.target:
-                            field_value += f"-# {self.language_json['complete']} <t:{int(end_time_info.end_time.timestamp())}:R>"
+                            field_value += f"\n-# {self.language_json['complete']} <t:{int(end_time_info.end_time.timestamp())}:R>"
                         else:
                             field_value += self.language_json["embeds"]["Dashboard"][
                                 "MajorOrderEmbed"
