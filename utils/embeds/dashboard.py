@@ -780,11 +780,11 @@ class Dashboard:
                             str(task.item_id), {"name": "UNKNOWN ITEM"}
                         )["name"]
                     )
-                    item_name = self.language_json["currencies"].get(
-                        item_name, item_name
-                    )
                     emoji = getattr(
                         Emojis.Items, item_name.lower().replace(" ", "_"), ""
+                    )
+                    item_name = self.language_json["currencies"].get(
+                        item_name, item_name
                     )
                     field_name = field_name.replace("{item_pre}", "**")
                     field_name = field_name.replace("{item}", f"{emoji} {item_name}")
