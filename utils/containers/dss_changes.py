@@ -8,7 +8,6 @@ from utils.functions import short_format
 from utils.interactables import HDCButton
 from utils.mixins import ReprMixin
 
-
 STATUSES = {0: "inactive", 1: "preparing", 2: "active", 3: "on_cooldown"}
 
 AMOUNT_PER_COST = {
@@ -64,7 +63,7 @@ class DSSChangesContainer(ui.Container, ReprMixin):
         gambit_planet: Planet,
     ):
         if gambit_planet.regen_perc_per_hour < 0.03:
-            text_display.content += f"\n-# {self.json.container['gambit']}: {gambit_planet.names.get(self.json.lang_code_long, str(gambit_planet.index))}"
+            text_display.content += f"\n-# {self.json.container['gambit']}: {gambit_planet.names.get(self.json.lang_code_long, gambit_planet.name)}"
 
     def _update_containers(self):
         super().__init__(*(self.title + self.sections), accent_colour=self.colour)
@@ -82,10 +81,10 @@ class DSSChangesContainer(ui.Container, ReprMixin):
             ui.TextDisplay(
                 self.json.container["has_moved"].format(
                     planet_name1=before_planet.names.get(
-                        self.json.lang_code_long, str(before_planet.index)
+                        self.json.lang_code_long, before_planet.name
                     ),
                     planet_name2=after_planet.names.get(
-                        self.json.lang_code_long, str(after_planet.index)
+                        self.json.lang_code_long, after_planet.name
                     ),
                     emojis=after_planet.exclamations,
                 )

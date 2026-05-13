@@ -183,7 +183,7 @@ class Planet(ReprMixin):
         __slots__ = (
             "planet_index",
             "index",
-            "name",
+            "names",
             "description",
             "owner",
             "availability_factor",
@@ -204,7 +204,6 @@ class Planet(ReprMixin):
             self.planet_index: int = raw_planet_region_data["planetIndex"]
             self.planet: Planet | None = None
             self.index: int = raw_planet_region_data["regionIndex"]
-            self.name: str = json_entry.get("name", f"COLONY {self.index}")
             self.names: dict[str, str] = json_entry.get("names", {})
             self.description: str | None = json_entry.get("description")
             self.descriptions: dict[str, str] | None = json_entry.get(
@@ -225,6 +224,10 @@ class Planet(ReprMixin):
             self._connection_indices: list[int] = json_entry.get("connections", [])
             self.connections: list[Planet.Region] = []
             self.is_factory: bool = json_entry.get("is_factory", False)
+
+        @property
+        def name(self) -> str:
+            return self.names.get("en-GB", f"{self.type.name} #{self.index}")
 
         @property
         def emoji(self) -> str:

@@ -55,7 +55,7 @@ class GWEContainer(ui.Container, ReprMixin):
             active_planets = "-# ALL PLANETS"
         elif planets_with_gwe:
             active_planets = "-# " + "\n-# ".join(
-                [p.names.get("en-GB", str(p.index)) for p in planets_with_gwe]
+                [p.names.get("en-GB", p.name) for p in planets_with_gwe]
             )
         else:
             active_planets = "-# None"

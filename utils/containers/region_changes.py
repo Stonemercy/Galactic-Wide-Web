@@ -105,7 +105,7 @@ class RegionChangesContainer(ui.Container, ReprMixin):
                         self.container_json.lang_code_long, region.name
                     ),
                     planet_name=region.planet.names.get(
-                        self.container_json.lang_code_long, str(region.planet.index)
+                        self.container_json.lang_code_long, region.planet.name
                     ),
                     faction_name=self.container_json.factions[
                         (
@@ -139,12 +139,12 @@ class RegionChangesContainer(ui.Container, ReprMixin):
         self.victories.append(section)
 
         if region.planet.names.get(
-            self.container_json.lang_code_long, str(region.planet.index)
+            self.container_json.lang_code_long, region.planet.name
         ) not in [b.label for b in self.planet_buttons]:
             self.planet_buttons.append(
                 HDCButton(
                     label=region.planet.names.get(
-                        self.container_json.lang_code_long, str(region.planet.index)
+                        self.container_json.lang_code_long, region.planet.name
                     ),
                     link=f"https://helldiverscompanion.com/#hellpad/planets/{region.planet.index}",
                 )
@@ -161,7 +161,7 @@ class RegionChangesContainer(ui.Container, ReprMixin):
                             self.container_json.lang_code_long, region.name
                         ),
                         planet_name=region.planet.names.get(
-                            self.container_json.lang_code_long, str(region.planet.index)
+                            self.container_json.lang_code_long, region.planet.name
                         ),
                     )
                     + self.container_json.container["resistance"].format(
@@ -199,12 +199,12 @@ class RegionChangesContainer(ui.Container, ReprMixin):
         self.new_regions.append(section)
 
         if region.planet.names.get(
-            self.container_json.lang_code_long, str(region.planet.index)
+            self.container_json.lang_code_long, region.planet.name
         ) not in [b.label for b in self.planet_buttons]:
             self.planet_buttons.append(
                 HDCButton(
                     label=region.planet.names.get(
-                        self.container_json.lang_code_long, str(region.planet.index)
+                        self.container_json.lang_code_long, region.planet.name
                     ),
                     link=f"https://helldiverscompanion.com/#hellpad/planets/{region.planet.index}",
                 )

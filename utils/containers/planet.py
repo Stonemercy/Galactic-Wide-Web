@@ -95,7 +95,7 @@ class PlanetContainers(list[ui.Container]):
                         ui.Section(
                             ui.TextDisplay(
                                 (
-                                    f"# {planet.faction.emoji} {planet.names.get(self.lang_code, planet.index)} {planet.exclamations}"
+                                    f"# {planet.faction.emoji} {planet.names.get(self.lang_code, planet.name)} {planet.exclamations}"
                                     f"\n{component_json['sector']}: **{planet.sector}**"
                                     f"\n{component_json['owner']}: **{factions_json[planet.faction.full_name]}**{planet.faction.emoji}"
                                     f"{description}"
@@ -136,10 +136,13 @@ class PlanetContainers(list[ui.Container]):
                 if end_time_info.source_planet:
                     liberation_text += f"\n-# {component_json['liberated']} **<t:{int(planet.tracker.complete_time.timestamp())}:R>**"
                 elif end_time_info.gambit_planet:
-                    liberation_text += f"\n-# {component_json['liberated']} **<t:{int(end_time_info.gambit_planet.tracker.complete_time.timestamp())}:R>** thanks to {end_time_info.gambit_planet.names.get(self.lang_code, end_time_info.gambit_planet.index)} liberation"
+                    liberation_text += f"\n-# {component_json['liberated']} **<t:{int(end_time_info.gambit_planet.tracker.complete_time.timestamp())}:R>** thanks to {end_time_info.gambit_planet.names.get(self.lang_code, end_time_info.gambit_planet.name)} liberation"
                 elif end_time_info.regions:
                     regions_list = f"\n-# ".join(
-                        [f" {r.emoji} {r.name}" for r in end_time_info.regions]
+                        [
+                            f" {r.emoji} {r.names.get(self.lang_code, r.name)}"
+                            for r in end_time_info.regions
+                        ]
                     )
                     liberation_text += f"\n**{component_json['liberated']}** <t:{int(end_time_info.end_time.timestamp())}:R>\nIf the following regions are liberated:\n-# {regions_list}"
 

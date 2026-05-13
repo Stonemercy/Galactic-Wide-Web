@@ -26,11 +26,7 @@ class GlobalEventsContainer(ui.Container, ReprMixin):
                     planets.get(index) for index in global_event.planet_indices
                 ]
                 specific_planets = "\n-# - " + "\n- ".join(
-                    [
-                        p.names.get(lang_code, str(p.index))
-                        for p in spec_planets_list
-                        if p
-                    ]
+                    [p.names.get(lang_code, p.name) for p in spec_planets_list if p]
                 )
             for index, effect in enumerate(global_event.effects, start=1):
                 text_display.content += (
@@ -145,7 +141,8 @@ class GlobalEventCommandContainer(ui.Container):
             text_display.content += "\n**ALL PLANETS**"
         else:
             for index in global_event.planet_indices:
-                text_display.content += f"\n- {planets.get(index).names['en-GB']}"
+                planet = planets.get(index)
+                text_display.content += f"\n- {planet.names.get('en-GB', planet.name)}"
         self.container_components.append(text_display)
 
         self.container_components.append(

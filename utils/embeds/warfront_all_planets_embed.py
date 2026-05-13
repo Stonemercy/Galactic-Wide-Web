@@ -18,6 +18,6 @@ class WarfrontAllPlanetsEmbed(Embed, EmbedReprMixin):
         )
         name = "Planets list"
         value = " - ".join(
-            [f"**{p.names.get('en-GB', str(p.index))}**" for p in planets_list]
+            [f"**{p.names.get('en-GB', p.name)}**" for p in planets_list]
         )
         self.add_field(name=name, value=value)

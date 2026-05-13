@@ -272,11 +272,13 @@ class FormattedData:
                     sectors_json=context.json_dict["sectors"],
                 )
                 self.planets[planet.index] = planet
-                if planet.names["en-GB"] not in CORRECT_SECTORS.get(planet.sector, []):
+                if planet.names.get("en-GB", planet.name) not in CORRECT_SECTORS.get(
+                    planet.sector, []
+                ):
                     sector_list = [
                         s
                         for s, pl in CORRECT_SECTORS.items()
-                        if planet.names["en-GB"] in pl
+                        if planet.names.get("en-GB", planet.name) in pl
                     ]
                     if sector_list:
                         planet.sector = sector_list[0]

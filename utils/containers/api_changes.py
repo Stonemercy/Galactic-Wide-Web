@@ -69,7 +69,7 @@ class APIChangesContainer(ui.Container, ReprMixin):
                             for s in self.container_components
                             if s.type == ComponentType.section
                             and api_change.new_object.names.get(
-                                "en-GB", str(api_change.new_object.index)
+                                "en-GB", api_change.new_object.name
                             )
                             in s.children[0].content
                         ),
@@ -78,11 +78,11 @@ class APIChangesContainer(ui.Container, ReprMixin):
                         self.container_components.append(
                             ui.Section(
                                 ui.TextDisplay(
-                                    f"## Update to **{api_change.new_object.names.get('en-GB', str(api_change.new_object.index))}** {api_change.new_object.faction.emoji}{api_change.new_object.exclamations}"
+                                    f"## Update to **{api_change.new_object.names.get('en-GB', api_change.new_object.name)}** {api_change.new_object.faction.emoji}{api_change.new_object.exclamations}"
                                 ),
                                 accessory=HDCButton(
                                     label=api_change.new_object.names.get(
-                                        "en-GB", str(api_change.new_object.index)
+                                        "en-GB", api_change.new_object.name
                                     ),
                                     link=f"https://helldiverscompanion.com/#hellpad/planets/{api_change.new_object.index}",
                                 ),
@@ -106,7 +106,7 @@ class APIChangesContainer(ui.Container, ReprMixin):
                                 for wp in waypoints_removed:
                                     planet = planets.get(wp)
                                     if planet:
-                                        content += f"\n-# - **{planet.names.get('en-GB', planet.index)}**"
+                                        content += f"\n-# - **{planet.names.get('en-GB', planet.name)}**"
                                     else:
                                         content += f"\n-# - **UNKNOWN PLANET**"
                             if waypoints_added := list(set(new_stat) - set(old_stat)):
@@ -114,7 +114,7 @@ class APIChangesContainer(ui.Container, ReprMixin):
                                 for wp in waypoints_added:
                                     planet = planets.get(wp)
                                     if planet:
-                                        content += f"\n-# - **{planet.names.get('en-GB', planet.index)}**"
+                                        content += f"\n-# - **{planet.names.get('en-GB', planet.name)}**"
                                     else:
                                         content += f"\n-# - **UNKNOWN PLANET**"
                             if waypoints_added or waypoints_removed:
@@ -239,11 +239,11 @@ class APIChangesContainer(ui.Container, ReprMixin):
                         self.container_components.append(
                             ui.Section(
                                 ui.TextDisplay(
-                                    f"## Update for {api_change.new_object.emoji} {api_change.new_object.type.name.replace('_', ' ').title()} {api_change.new_object.name} on {api_change.new_object.planet.names.get('en-GB', str(api_change.new_object.planet.index))}{api_change.new_object.planet.faction.emoji}{api_change.new_object.planet.exclamations}"
+                                    f"## Update for {api_change.new_object.emoji} {api_change.new_object.type.name.replace('_', ' ').title()} {api_change.new_object.name} on {api_change.new_object.planet.names.get('en-GB', api_change.new_object.planet.name)}{api_change.new_object.planet.faction.emoji}{api_change.new_object.planet.exclamations}"
                                 ),
                                 accessory=HDCButton(
                                     label=api_change.new_object.planet.names.get(
-                                        "en-GB", str(api_change.new_object.planet.index)
+                                        "en-GB", api_change.new_object.planet.name
                                     ),
                                     link=f"https://helldiverscompanion.com/#hellpad/planets/{api_change.new_object.planet.index}",
                                 ),
