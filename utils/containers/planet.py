@@ -89,7 +89,7 @@ class PlanetContainers(list[ui.Container]):
             gambit_planets,
         ):
             if planet.faction:
-                description = "\n-#" + planet.description if planet.description else ""
+                description = "\n-# " + planet.description if planet.description else ""
                 self.components.extend(
                     [
                         ui.Section(
