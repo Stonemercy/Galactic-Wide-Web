@@ -1,4 +1,6 @@
 def short_format(num):
+    if num < 1000:
+        return f"{num}"
     magnitude = 0
     while abs(num) >= 1000:
         magnitude += 1
