@@ -269,7 +269,7 @@ class Dashboard:
                     ]:
                         field_value += "\n-# Connections:"
                         for connection in avail_connected_regions:
-                            field_value += f"\n-# ↳ {connection.emoji} {connection.names.get(language_json['code_long'], region.name)}"
+                            field_value += f"\n-# ↳ {connection.emoji} {connection.names.get(language_json['code_long'], connection.name)}"
                     if compact_level < 2 and not any(
                         [
                             r

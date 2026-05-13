@@ -48,7 +48,7 @@ class DSSChangesContainer(ui.Container, ReprMixin):
                 if not region.is_factory
                 else self.json.regions["megafactory"]
             )
-            text_display.content += f"\n-# {region.emoji} {region_type} **{region.names[self.json.lang_code_long]}**"
+            text_display.content += f"\n-# {region.emoji} {region_type} **{region.names.get(self.json.lang_code_long, region.name)}**"
 
     def _add_features(
         self, text_display: ui.TextDisplay, active_effects: set[GalacticWarEffect]

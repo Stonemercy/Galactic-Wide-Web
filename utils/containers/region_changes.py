@@ -101,7 +101,9 @@ class RegionChangesContainer(ui.Container, ReprMixin):
             ui.TextDisplay(
                 self.container_json.container["region_victory"].format(
                     region_emoji=region.emoji,
-                    region_name=region.names[self.container_json.lang_code_long],
+                    region_name=region.names.get(
+                        self.container_json.lang_code_long, region.name
+                    ),
                     planet_name=region.planet.names.get(
                         self.container_json.lang_code_long, str(region.planet.index)
                     ),
@@ -155,7 +157,9 @@ class RegionChangesContainer(ui.Container, ReprMixin):
                 (
                     self.container_json.container["new_region"].format(
                         region_emoji=region.emoji,
-                        region_name=region.names[self.container_json.lang_code_long],
+                        region_name=region.names.get(
+                            self.container_json.lang_code_long, region.name
+                        ),
                         planet_name=region.planet.names.get(
                             self.container_json.lang_code_long, str(region.planet.index)
                         ),
