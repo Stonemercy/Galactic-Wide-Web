@@ -4,6 +4,7 @@ from math import inf
 from os import getpid
 from psutil import Process, cpu_percent, net_io_counters, virtual_memory
 from utils.bot import GalacticWideWebBot
+from utils.functions import short_format
 from utils.interactables.HDC_button import HDCButton
 from utils.interactables.github_button import GitHubButton
 from utils.interactables.ko_fi_button import KoFiButton
@@ -60,7 +61,7 @@ class BotDashboardContainer(ui.Container, ReprMixin):
                         f"\n-# ├ Text: **{text_channels:,}**"
                         f"\n-# └ Voice: **{voice_channels:,}**"
                         f"\nEmojis: **{total_emojis:,}**"
-                        f"\nUser installs: **{user_installs:,}**"
+                        f"\nUser installs: **{short_format(user_installs)}**"
                     )
                 ),
                 accessory=HDCButton(),
