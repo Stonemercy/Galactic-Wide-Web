@@ -1234,27 +1234,27 @@ class Dashboard:
                     planet = self.planets.get(task.planet_index)
                     if planet:
                         if not planet.active_campaign:
-                            waypoint_timestamps: list[tuple[str, int]] = []
-                            for waypoint in planet.waypoints:
-                                way_planet = self.planets.get(waypoint)
-                                if way_planet and way_planet.active_campaign:
+                            nearby_timestamps: list[tuple[str, int]] = []
+                            for near_planet_index in planet.nearby:
+                                near_planet = self.planets.get(near_planet_index)
+                                if near_planet and near_planet.active_campaign:
                                     end_time_info = get_end_time(
-                                        source_planet=way_planet,
+                                        source_planet=near_planet,
                                         gambit_planets=self.gambit_planets,
                                     )
                                     if end_time_info.end_time:
-                                        waypoint_timestamps.append(
+                                        nearby_timestamps.append(
                                             (
-                                                way_planet.names.get(
+                                                near_planet.names.get(
                                                     self.language_json["code_long"],
-                                                    way_planet.name,
+                                                    near_planet.name,
                                                 ),
                                                 int(end_time_info.end_time.timestamp()),
                                             )
                                         )
-                            if waypoint_timestamps != []:
+                            if nearby_timestamps != []:
                                 earliest_timestamp = sorted(
-                                    waypoint_timestamps, key=lambda x: x[1]
+                                    nearby_timestamps, key=lambda x: x[1]
                                 )[0]
                                 field_value += self.language_json["embeds"][
                                     "Dashboard"
