@@ -6,6 +6,7 @@ from data.lists import (
     ATTACK_EMBED_ICONS,
     DEFENCE_EMBED_ICONS,
     HOMEWORLD_ICONS,
+    STRATAGEM_ID_DICT,
     URGENT_ICONS,
 )
 from disnake import Colour, Embed
@@ -850,17 +851,11 @@ class Dashboard:
                 enemy = "UNKNOWN ENEMY"
             field_name = field_name.replace("{enemy}", enemy)
             if task.item_id:
-                strat_list = [
-                    name
-                    for stratagems in self.json_dict["stratagems"].values()
-                    for name, strat_info in stratagems.items()
-                    if strat_info["id"] == task.item_id
-                ]
-                if strat_list:
-                    using_the = tasks_json["type3_using_the"]
-                    field_name = field_name.replace("{item_pre}", f" {using_the} **")
-                    field_name = field_name.replace("{item}", strat_list[0])
-                    field_name = field_name.replace("{item_post}", "**")
+                strat = STRATAGEM_ID_DICT.get(task.item_id, "Unknown Item")
+                using_the = tasks_json["type3_using_the"]
+                field_name = field_name.replace("{item_pre}", f" {using_the} **")
+                field_name = field_name.replace("{item}", strat)
+                field_name = field_name.replace("{item_post}", "**")
             field_name = self._add_location_info_enemies(text=field_name, task=task)
             field_name = self._add_multiplayer_info(text=field_name, task=task)
             field_name = self._add_difficulty_info(text=field_name, task=task)
@@ -1024,14 +1019,8 @@ class Dashboard:
                 field_name = field_name.replace("{count}", f"{task.target:,}")
                 field_name = field_name.replace("{count_post}", f"** {times}")
             if task.item_id:
-                strat_list = [
-                    name
-                    for stratagems in self.json_dict["stratagems"].values()
-                    for name, strat_info in stratagems.items()
-                    if strat_info["id"] == task.item_id
-                ]
-                if strat_list:
-                    field_name = field_name.replace("{item}", strat_list[0])
+                strat = STRATAGEM_ID_DICT.get(task.item_id, "Unknown Item")
+                field_name = field_name.replace("{item}", strat)
             if task.faction:
                 against = tasks_json["against"]
                 race_name = self._get_faction_name(task.faction, plural=True)
