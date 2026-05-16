@@ -619,6 +619,10 @@ class FormattedData:
                         connected_region = connected_region_list[0]
                         region.connections.append(connected_region)
 
+            for p in self.planets.values():
+                for wplanet in (self.planets.get(wp) for wp in p.waypoints):
+                    wplanet.nearby.append(p.index)
+
             for ge in self.global_events.get("en", []):
                 if ge.effects and ge.planet_indices:
                     for planet in (self.planets.get(i) for i in ge.planet_indices):

@@ -34,6 +34,7 @@ class Planet(ReprMixin):
         self.description: str = planets_json.get("description", "")
         self.position: dict = raw_planet_info["position"]
         self.waypoints: list[int] = raw_planet_info["waypoints"]
+        self.nearby: list[int] = self.waypoints.copy()
         self._sector: int = raw_planet_info["sector"]
         self.sector: str = sectors_json.get(str(raw_planet_info["sector"]), "UNKNOWN")
         self.dss_in_orbit: bool = False
