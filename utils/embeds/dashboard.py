@@ -636,13 +636,6 @@ class Dashboard:
                 text = text.replace("{ext_pre}", f" {in_the} **")
                 text = text.replace("{ext}", sector_name)
                 text = text.replace("{ext_post}", f"** {sector}")
-            elif task.faction and not task.enemy_id:
-                on_any = tasks_json["loc_on_any"]
-                controlled_planet = tasks_json["loc_controlled"]
-                faction = self._get_faction_name(task.faction)
-                text = text.replace("{ext_pre}", f" {on_any} **")
-                text = text.replace("{ext}", faction)
-                text = text.replace("{ext_post}", f"** {controlled_planet}")
             return text
 
         def _add_multiplayer_info(self, text: str, task: Assignment.Task):
