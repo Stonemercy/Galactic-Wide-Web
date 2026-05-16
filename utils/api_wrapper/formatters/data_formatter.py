@@ -478,7 +478,10 @@ class FormattedData:
                                 for planet in (
                                     p
                                     for p in self.planets.values()
-                                    if p.faction == task.faction and p.active_campaign
+                                    if p.faction == task.faction
+                                    and p.active_campaign
+                                    or p.event
+                                    and p.event.faction == task.faction
                                 ):
                                     planet.in_assignment = True
                         case 10:
