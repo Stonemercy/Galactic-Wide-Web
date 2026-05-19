@@ -31,12 +31,12 @@ class TranslationsCog(commands.Cog):
         self,
         inter: AppCmdInter,
         language_to_check: str = commands.Param(
-            choices=[l.short_code for l in Languages.all] + ["ALL"],
+            choices=["all"] + [l.short_code for l in Languages.all],
             description="The language you want to check the missing translations for.",
         ),
     ) -> None:
         await inter.response.defer(ephemeral=True)
-        if language_to_check == "ALL":
+        if language_to_check == "all":
             embeds = []
             reference = self.bot.json_dict["languages"]["en"]
             for code, language_json in self.bot.json_dict["languages"].items():
