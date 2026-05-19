@@ -20,72 +20,103 @@
   </a>
 </p>
 
-<p>
-  Galactic Wide Web is a Discord bot focused on providing real-time information and interactive tools for Helldivers 2. It pulls live data from both the official Helldivers 2 API and <a href alt="Helldivers 2 API Repo" src="https://github.com/helldivers-2/api">Community API</a>, and combines it with curated information from the open-source <a href alt="Helldivers 2 Json Repo" src="https://github.com/helldivers-2/json">helldivers-2/json</a> repo to give users up-to-date game insights. Its core feature is an updating dashboard that refreshes every 15 minutes, offering a strategic overview of the current state of the galactic war.
-
+<p align="center">
+  Galactic Wide Web is a Discord bot for Helldivers 2 that provides real-time information on the Galactic War.
+  <br>
+  It pulls live data from the official Helldivers 2 API and the Steam API, and keeps an auto-updating dashboard refreshed every 15 minutes with a strategic overview of the current war effort.<br><br>
   The bot includes slash commands, interactive buttons, dropdowns, and embedded content. All interactions take place in text channels.
-
-  Highly configurable, Galactic Wide Web lets server administrators (or those with Manage Server permissions) choose which channels are used for dashboards and announcements. Optional push notifications can be toggled for key updates like Major Orders (MOs), Steam patch notes, planetary region changes and detailed dispatches. The bot supports multilingual output, currently offering English, French, German, Italian, Portuguese (BR), Russian, and Spanish—with more languages welcome via contributions.
-
+  <br>
+  Server administrators (or those with Manage Server permissions) can configure which channels are used for dashboards and map posts.
+  <br>
+  Notifications can be enabled for a range of events, including:
+  </p>
+    <ul align="center">
+    New Major Orders
+    <br>
+    Personal Orders
+    <br>
+    Dispatches
+    <br>
+    Global Events
+    <br>
+    DSS movements and Tactical Action changes
+    <br>
+    Planetary Region changes
+    <br>
+    Campaign wins and losses
+    <br>
+    and Steam patch notes.
+    </ul>
+  <p align="center">
+  <br>
+  The bot supports multilingual output, currently offering English, French, German, Italian, Portuguese (BR),
+  <br>
+  Russian, Spanish, Chinese (Traditional), and Turkish, with more languages welcome via contributions.
+  <br><br>
   Built using Disnake, it stores settings in PostgreSQL and uses Pillow and opencv to generate maps.
 </p>
 
 ## Quick Navigation
 - [Inviting the Bot](#inviting-the-galactic-wide-web)
-- [Commands](#commands)
 - [Examples](#examples)
 - [Support](#support)
 - [Contributing](#contributing)
 
 ## Inviting the Galactic Wide Web
-Want to try out the GWW on your server? [Invite Link](https://discord.com/oauth2/authorize?client_id=1212535586972369008)
+Want to try out the GWW on your server or your account? [Invite Link](https://discord.com/oauth2/authorize?client_id=1212535586972369008)
 
 ## Examples
-`/check_missing_translations DE`
-
-![check_missing_translations_de](resources/readme/check_missing_translations.png)
+### `/check_missing_translations language_to_check: pt-br`
+<img src="resources/readme/check_missing_translations.png" width="500">
 <p align="right"><a href="#top">Back to Top ↑</a></p>
 
-`/community_servers`
-
-![community_servers](resources/readme/community_servers.png)
+### `/community_servers`
+<img src="resources/readme/community_servers.png" width="500">
 <p align="right"><a href="#top">Back to Top ↑</a></p>
 
-`/help check_missing_translations`
-
-![help](resources/readme/help.png)
+### `/dispatches`
+<img src="resources/readme/dispatches.png" width="500">
 <p align="right"><a href="#top">Back to Top ↑</a></p>
 
-`/major_order`
-
-![major_order](resources/readme/major_order.png)
+### `/dss`
+![dss](resources/readme/dss.png)
 <p align="right"><a href="#top">Back to Top ↑</a></p>
 
-`/map`
-
-![map](resources/readme/map.png)
+### `/global_events`
+<img src="resources/readme/global_events.png" width="500">
 <p align="right"><a href="#top">Back to Top ↑</a></p>
 
-`/planet Terrek`
-
-![planet](resources/readme/planet.png)
+### `/help command: check_missing_translations`
+<img src="resources/readme/help.png" width="500">
 <p align="right"><a href="#top">Back to Top ↑</a></p>
 
-`/setup`
+### `/major_order`
+<img src="resources/readme/major_order.png" width="500">
+<p align="right"><a href="#top">Back to Top ↑</a></p>
 
+### `/map`
+<img src="resources/readme/map.png" width="500">
+<p align="right"><a href="#top">Back to Top ↑</a></p>
+
+### `/personal_order`
+![personal_order](resources/readme/personal_order.png)
+<p align="right"><a href="#top">Back to Top ↑</a></p>
+
+### `/planet planet: 112-VERNEN WELLS`
+<img src="resources/readme/planet.png" width="500">
+<p align="right"><a href="#top">Back to Top ↑</a></p>
+
+### `/setup`
 ![setup](resources/readme/setup.png)
 <p align="right"><a href="#top">Back to Top ↑</a></p>
 
-`/steam`
-
-![steam](resources/readme/steam.png)
+### `/steam`
+<img src="resources/readme/steam.png" width="500">
 <p align="right"><a href="#top">Back to Top ↑</a></p>
 
-`/warfront Terminids`
-
+### `/warfront faction: Terminids`
 ![warfront](resources/readme/warfront.png)
 <p align="right"><a href="#top">Back to Top ↑</a></p>
-
 
 ## Support
 Available here: [Discord Support Server](https://discord.gg/Z8Ae5H5DjZ)
@@ -96,7 +127,7 @@ Contributions are welcome!
 
 To contribute to localization:
 1. Open an issue with the Language Request template
-2. Create a pull request and add a .json file with your language's code found [here](https://github.com/Stonemercy/Galactic-Wide-Web/blob/d28d96b81c43655ed7be0c07e118f4752ba11acf/data/lists.py#L521)
+2. Create a pull request and add a .json file to the [data/languages/](https://github.com/Stonemercy/Galactic-Wide-Web/tree/main/data/languages) folder
 
 or just head to the Discord Support Server above
 <p align="right"><a href="#top">Back to Top ↑</a></p>
