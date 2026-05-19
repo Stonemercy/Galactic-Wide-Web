@@ -1,3 +1,5 @@
+from datetime import datetime, timezone
+from random import choice
 from typing import TYPE_CHECKING
 from disnake import AppCmdInter, Guild, MessageInteraction, NotFound, Permissions, ui
 from disnake.ext import commands
@@ -29,9 +31,19 @@ class AdminCommandsCog(commands.Cog):
         self,
         inter: AppCmdInter,
         feature: str = commands.Param(
-            choices=["Dashboard", "Map", "MO Update", "PO Update"]
+            choices=[
+                "Dashboard",
+                "Map",
+                "MO Update",
+                "PO Update",
+                "Global Event",
+                "Dispatch",
+                "DSS changes",
+                "Steam",
+            ],
         ),
     ) -> None:
+        command_start = datetime.now(tz=timezone.utc)
         await inter.response.defer(ephemeral=True)
         match feature:
             case "Dashboard":
@@ -42,7 +54,30 @@ class AdminCommandsCog(commands.Cog):
                 await self.bot.get_cog(name="MajorOrderCog").major_order_updates()
             case "PO Update":
                 await self.bot.get_cog(name="PersonalOrderCog").personal_order_updates()
-        await inter.send(content="Completed", ephemeral=True)
+            case "Global Event":
+                self.bot.databases.war_info.global_event_id -= 1
+                self.bot.databases.war_info.save_changes()
+                await self.bot.get_cog("GlobalEventsCog").global_event_check()
+            case "Dispatch":
+                self.bot.databases.war_info.dispatch_id -= 1
+                self.bot.databases.war_info.save_changes()
+                await self.bot.get_cog("DispatchesCog").dispatch_check()
+            case "DSS changes":
+                self.bot.databases.dss_info.planet_index -= 1
+                self.bot.databases.dss_info.tactical_action_statuses = {
+                    ta: choice([i for i in (1, 2, 3) if i != status])
+                    for ta, status in self.bot.databases.dss_info.tactical_action_statuses.items()
+                }
+                self.bot.databases.dss_info.save_changes()
+                await self.bot.get_cog("WarUpdatesCog").dss_check()
+            case "Steam":
+                self.bot.databases.war_info.patch_notes_id -= 1
+                self.bot.databases.war_info.save_changes()
+                await self.bot.get_cog("SteamCog").steam_check()
+        await inter.send(
+            content=f"{feature} force update completed in {(datetime.now(tz=timezone.utc) - command_start).total_seconds():.3f}s",
+            ephemeral=True,
+        )
 
     def extension_names_autocomp(inter: AppCmdInter, user_input: str) -> list[str]:
         """Returns the name of each cog currently loaded"""
@@ -100,7 +135,7 @@ class AdminCommandsCog(commands.Cog):
     ) -> None:
         await inter.response.defer(ephemeral=True)
         all_guilds = GWWGuilds(fetch_all=True)
-        db_guild: GWWGuild | None = next(
+        db_guild = next(
             (
                 g
                 for g in all_guilds
@@ -140,6 +175,7 @@ class AdminCommandsCog(commands.Cog):
             return
         if inter.author != self.bot.owner:
             await inter.send("You arent allowed to do this.")
+            return
         await inter.response.defer()
         guild_id_text_display: str = (
             inter.message.components[0].children[0].children[0].content
