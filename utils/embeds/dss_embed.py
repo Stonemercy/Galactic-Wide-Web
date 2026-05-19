@@ -125,3 +125,9 @@ class DSSEmbed(Embed, EmbedReprMixin):
             self.add_field(
                 "Predicted next voting period", predicted_field_value, inline=False
             )
+        else:
+            self.add_field(
+                "DSS voting data is unavailable.",
+                "\n-# Apologies for the inconvenience",
+                inline=False,
+            )
