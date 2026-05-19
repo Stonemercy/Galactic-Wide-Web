@@ -53,13 +53,14 @@
             }
         },
         "GlobalEventsContainer": {
+            "effect": "Effect",
             "new_event": "新事件",
             "all_planets": "所有星球",
             "unknown_effect": "未知效果",
-            "active_on_planets": "\n-# 現在在以下星球啟用:\n- {planets}",
-            "enemy_identified": "已辨識敵人",
-            "strat_identified": "已辨識戰略配備",
-            "booster_identified": "已辨識強化套件",
+            "active_on_planets": "現在在以下星球啟用",
+            "enemy": "已辨識敵人",
+            "stratagem": "已辨識戰略配備",
+            "booster": "已辨識強化套件",
             "expires": "已過期",
             "global_event": "全球事件"
         },

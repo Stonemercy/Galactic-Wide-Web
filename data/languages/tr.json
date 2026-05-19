@@ -53,16 +53,16 @@
             }
         },
         "GlobalEventsContainer": {
+            "effect": "Etki",
             "new_event": "Yeni Global Event",
             "all_planets": "tüm gezegenler",
             "unknown_effect": "BİLİNMEYEN ETKİ",
             "active_on_planets": "\n-# Şu gezegen(ler)de aktif:\n- {planets}",
-            "expires": "Sona eriyor",
-            "global_event": "Genel Olay",
             "enemy": "düşman",
             "stratagem": "Stratagem",
             "booster": "Booster",
-            "effect": "etki"
+            "expires": "Sona eriyor",
+            "global_event": "Genel Olay"
         },
         "PlanetContainers": {
             "PlanetContainer": {

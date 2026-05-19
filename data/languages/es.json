@@ -53,13 +53,14 @@
             }
         },
         "GlobalEventsContainer": {
+            "effect": "Effect",
             "new_event": "New Global Event",
             "all_planets": "Todos los planetas",
             "unknown_effect": "EFFECTO NO CONOCIDO",
-            "active_on_planets": "\n-# Ahora activo en el siguiente planeta(s):\n- {planets}",
-            "enemy_identified": "Enemigo identificado",
-            "strat_identified": "Estratagema identificada",
-            "booster_identified": "Potenciador Identificado",
+            "active_on_planets": "Ahora activo en el siguiente planeta(s)",
+            "enemy": "Enemigo",
+            "stratagem": "Estratagema",
+            "booster": "Potenciador",
             "expires": "Expira",
             "global_event": "Evento Global"
         },

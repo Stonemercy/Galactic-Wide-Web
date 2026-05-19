@@ -53,13 +53,14 @@
             }
         },
         "GlobalEventsContainer": {
+            "effect": "Effect",
             "new_event": "Novo Evento Global",
             "all_planets": "todos os planetas",
             "unknown_effect": "EFEITO DESCONHECIDO",
-            "active_on_planets": "\n-# Ativo nos seguintes planetas:\n- {planets}",
-            "enemy_identified": "Inimigo identificado",
-            "strat_identified": "Estratégia identificada",
-            "booster_identified": "Reforçador identificado",
+            "active_on_planets": "Ativo nos seguintes planetas",
+            "enemy": "Inimigo identificado",
+            "stratagem": "Estratégia identificada",
+            "booster": "Reforçador identificado",
             "expires": "Expira em:",
             "global_event": "Evento Global"
         },

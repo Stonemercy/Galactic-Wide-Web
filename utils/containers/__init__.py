@@ -3,7 +3,7 @@ from .bot_dashboard import BotDashboardContainer
 from .campaign_changes import CampaignChangesContainer
 from .dispatch import DispatchContainer
 from .dss_changes import DSSChangesContainer
-from .global_events import GlobalEventCommandContainer, GlobalEventsContainer
+from .global_events import GlobalEventsContainer
 from .guild import GuildContainer
 from .galactic_war_effect import GWEContainer
 from .help import HelpContainer
@@ -19,7 +19,6 @@ __all__ = [
     "CampaignChangesContainer",
     "DispatchContainer",
     "DSSChangesContainer",
-    "GlobalEventCommandContainer",
     "GlobalEventsContainer",
     "GuildContainer",
     "GWEContainer",

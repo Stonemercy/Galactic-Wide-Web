@@ -53,13 +53,14 @@
             }
         },
         "GlobalEventsContainer": {
+            "effect": "Effect",
             "new_event": "Новое глобальное событие",
             "all_planets": "все планеты",
             "unknown_effect": "НЕИЗВЕСТНЫЙ ЭФФЕКТ",
-            "active_on_planets": "\n-# Теперь активно на следующей(их) планете(ах):\n- {planets}",
-            "enemy_identified": "Обнаружен враг",
-            "strat_identified": "Обнаружена стратагема",
-            "booster_identified": "Обнаружено усиление",
+            "active_on_planets": "Теперь активно на следующей(их) планете(ах)",
+            "enemy": "Обнаружен враг",
+            "stratagem": "Обнаружена стратагема",
+            "booster": "Обнаружено усиление",
             "expires": "Истекает",
             "global_event": "Глобальное событие"
         },

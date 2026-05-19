@@ -3,7 +3,7 @@ from disnake import AppCmdInter, ApplicationInstallTypes, InteractionContextType
 from disnake.ext import commands, tasks
 from main import GalacticWideWebBot
 from utils.checks import wait_for_startup
-from utils.containers import GlobalEventCommandContainer, GlobalEventsContainer
+from utils.containers import GlobalEventsContainer
 from utils.dbv2 import GWWGuild, GWWGuilds
 
 
@@ -75,7 +75,7 @@ class GlobalEventsCog(commands.Cog):
                 self.bot.databases.war_info.global_event_id = global_event.id
                 self.bot.databases.war_info.save_changes()
                 self.bot.logger.info(
-                    f"Sent Global Event out to {len(self.bot.interface_handler.detailed_dispatches)} channels in {(datetime.now(tz=timezone.utc) - ge_start).total_seconds():.2f}s"
+                    f"Sent Global Event #{global_event.id} out to {len(self.bot.interface_handler.detailed_dispatches)} channels in {(datetime.now(tz=timezone.utc) - ge_start).total_seconds():.2f}s"
                 )
                 break
 
@@ -118,16 +118,20 @@ class GlobalEventsCog(commands.Cog):
                 guild = GWWGuilds.add(inter.guild_id, "en", [])
         else:
             guild = GWWGuild.default()
-        # guild_language = self.bot.json_dict["languages"][guild.language] TODO
+
         containers = []
         for global_event in sorted(
             self.bot.data.formatted_data.global_events[guild.language],
             key=lambda x: x.expire_time,
         ):
-            if global_event.assignment_id:
-                continue
-            container = GlobalEventCommandContainer(
-                global_event=global_event, planets=self.bot.data.formatted_data.planets
+            container = GlobalEventsContainer(
+                lang_code=guild.language,
+                container_json=self.bot.json_dict["languages"][guild.language][
+                    "containers"
+                ]["GlobalEventsContainer"],
+                global_event=global_event,
+                planets=self.bot.data.formatted_data.planets,
+                with_expiry_time=True,
             )
             containers.append(container)
         if not containers:
