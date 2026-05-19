@@ -68,12 +68,12 @@ class SteamCog(commands.Cog):
 
     @wait_for_startup()
     @commands.slash_command(
-        description="Get the 25 most recent Steam posts",
+        description="Get the most recent Helldivers 2 Steam posts",
         install_types=ApplicationInstallTypes.all(),
         contexts=InteractionContextTypes.all(),
         extras={
-            "long_description": "Returns the 25 latest patch notes with a dropdown to select other ones via title.",
-            "example_usage": "**`/steam public:Yes`** returns an embed with the most recent patch notes, it also has a dropdown for the most recent 10 patch notes you can choose from. Other people can see this too.",
+            "long_description": "Shows the most recent Helldivers 2 Steam post. Includes a dropdown to browse and switch between the 25 most recent posts by title.",
+            "example_usage": "**`/steam public:Yes`** returns the latest Steam post visible to everyone, with a dropdown to browse recent posts.",
         },
     )
     async def steam(

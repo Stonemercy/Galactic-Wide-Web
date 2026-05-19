@@ -72,12 +72,12 @@ class PersonalOrderCog(commands.Cog):
 
     @wait_for_startup()
     @commands.slash_command(
-        description="Get the current Personal Order",
+        description="Get the current Personal Order (if available)",
         install_types=ApplicationInstallTypes.all(),
         contexts=InteractionContextTypes.all(),
         extras={
-            "long_description": "Returns the current Personal Order, if available.",
-            "example_usage": "**`/personal_order public:Yes`** returns an embed with the current Personal Order. Other people can see this too.",
+            "long_description": "Shows the current Personal Order if one is active (and the data is available).",
+            "example_usage": "**`/personal_order public:Yes`** returns the current Personal Order, visible to everyone in the channel.",
         },
     )
     async def personal_order(

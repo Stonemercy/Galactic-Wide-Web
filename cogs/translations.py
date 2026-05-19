@@ -19,12 +19,12 @@ class TranslationsCog(commands.Cog):
 
     @wait_for_startup()
     @commands.slash_command(
-        description="Check language JSON for missing translations",
+        description="Check a language's translation file for missing or untranslated keys",
         install_types=ApplicationInstallTypes.all(),
         contexts=InteractionContextTypes.all(),
         extras={
-            "long_description": "Returns information on the current bot translations",
-            "example_usage": "**`/check_missing_translations language_to_check:de`** would return info on how much of the bot needs translated in German",
+            "long_description": "Compares a language's JSON file against the English reference and reports any untranslated, missing, or extra keys. Use `ALL` to check every supported language at once. Also attaches the language's JSON file for review.",
+            "example_usage": "**`/check_missing_translations language_to_check:de`** shows a breakdown of missing and untranslated keys in the German translation.\n- **`/check_missing_translations language_to_check:ALL`** checks every language at once.",
         },
     )
     async def check_missing_translations(

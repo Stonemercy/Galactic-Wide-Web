@@ -20,12 +20,12 @@ class CommunityServersCog(commands.Cog):
     # should really localize
     @wait_for_startup()
     @commands.slash_command(
-        description="Get all community servers and their invite links",
+        description="Get a list of community servers with invite links",
         install_types=ApplicationInstallTypes.all(),
         contexts=InteractionContextTypes.all(),
         extras={
-            "long_description": "Returns a list of as many servers the bot can send in one message. These servers are listed as Communities and have a vanity link.",
-            "example_usage": '**`/community_servers`** returns a list of every server the bot is on that is listed as "Community" and has a custom invite URL.',
+            "long_description": "Shows a paged list of servers the bot is in that are marked as Discord Community servers and have a vanity invite URL, sorted by member count. Use the Previous/Next buttons to browse through pages of 16 servers at a time.",
+            "example_usage": "**`/community_servers`** returns a paged list of community servers the bot is in, sorted by member count.",
         },
     )
     async def community_servers(self, inter: AppCmdInter) -> None:

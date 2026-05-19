@@ -182,12 +182,12 @@ class MajorOrderCog(commands.Cog):
 
     @wait_for_startup()
     @commands.slash_command(
-        description="Returns information on the current major order(s) - if available.",
+        description="Show the current Major Order(s), if any are active",
         install_types=ApplicationInstallTypes.all(),
         contexts=InteractionContextTypes.all(),
         extras={
-            "long_description": "Returns information on the current Major Order(s) and other assignments from High Command",
-            "example_usage": "**`/major_order public:Yes`** would return information on the current Major Order that other members in the server can see.",
+            "long_description": "Shows all currently active Major Orders from High Command. Use `with_announcement:Yes` to also attach the MO's briefing text. Includes a link to the wiki.",
+            "example_usage": "**`/major_order public:Yes`** returns the current Major Order visible to everyone.\n- **`/major_order with_announcement:Yes`** includes the High Command briefing text alongside the order.",
         },
     )
     async def major_order(

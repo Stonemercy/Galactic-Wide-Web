@@ -110,12 +110,12 @@ class DispatchesCog(commands.Cog):
 
     @wait_for_startup()
     @commands.slash_command(
-        description="Get the 25 most recent dispatches or a specific dispatch",
+        description="Get the most recent dispatch, or search for a specific one",
         install_types=ApplicationInstallTypes.all(),
         contexts=InteractionContextTypes.all(),
         extras={
-            "long_description": "Returns the 25 latest dispatches with a dropdown to select other ones via id-title.",
-            "example_usage": "**`/dispatches public:Yes`** returns an embed with the most recent patch notes, it also has a dropdown for the most recent 10 patch notes you can choose from. Other people can see this too.",
+            "long_description": "Shows the most recent in-game dispatch by default. Use the `specific` option with autocomplete to look up a particular dispatch by ID and title. Includes a dropdown to switch between the 25 most recent dispatches.",
+            "example_usage": "**`/dispatches public:Yes`** returns the latest dispatch visible to everyone.\n- **`/dispatches specific:1234-Title public:No`** returns that specific dispatch just for you.",
         },
     )
     async def dispatches(

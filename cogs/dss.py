@@ -12,12 +12,12 @@ class DSSCog(commands.Cog):
 
     @wait_for_startup()
     @commands.slash_command(
-        description="Show info on the Democracy Space Station",
+        description="Show current info on the Democracy Space Station",
         install_types=ApplicationInstallTypes.all(),
         contexts=InteractionContextTypes.all(),
         extras={
-            "long_description": "Directly opens the DSS tab of the Wiki, instead of using the menu.",
-            "example_usage": "**`/dss`** opens the Wiki to the DSS tab.",
+            "long_description": "Shows the current status of the Democracy Space Station, including its active tactical actions and the next planets being considered for a DSS vote (if available).",
+            "example_usage": "**`/dss public:Yes`** returns the DSS status embed visible to everyone in the channel.",
         },
     )
     async def dss(

@@ -13,12 +13,12 @@ class WarfrontCog(commands.Cog):
 
     @wait_for_startup()
     @commands.slash_command(
-        description="Returns information on a specific War front",
+        description="Get an overview of all active campaigns for a specific faction",
         install_types=ApplicationInstallTypes.all(),
         contexts=InteractionContextTypes.all(),
         extras={
-            "long_description": "Returns information on each campaign for a specific faction",
-            "example_usage": "**`/warfront faction:Illuminate public:Yes`** would return information on the Illuminate warfront that other members in the server can see.",
+            "long_description": "Shows all currently active campaigns for the chosen faction (Automaton, Terminids, or Illuminate), broken into separate embeds for urgent liberations (if any), defence events, attack campaigns, and a full list of that faction's planets.",
+            "example_usage": "**`/warfront faction:Automaton public:Yes`** returns all active Automaton campaigns visible to everyone.\n- **`/warfront faction:Illuminate`** shows the Illuminate warfront just for you.",
         },
     )
     async def warfront(

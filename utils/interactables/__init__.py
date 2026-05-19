@@ -4,6 +4,7 @@ from .community_servers import PreviousPageButton, NextPageButton
 from .dispatch_string_select import DispatchStringSelect
 from .github_button import GitHubButton
 from .HDC_button import HDCButton
+from .install_buttons import GuildInstallButton, UserInstallButton
 from .ko_fi_button import KoFiButton
 from .steam_string_select import SteamStringSelect
 from .support_server_button import SupportServerButton
@@ -19,6 +20,8 @@ __all__ = [
     "DispatchStringSelect",
     "GitHubButton",
     "HDCButton",
+    "GuildInstallButton",
+    "UserInstallButton",
     "KoFiButton",
     "SteamStringSelect",
     "SupportServerButton",

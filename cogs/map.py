@@ -106,12 +106,12 @@ class MapCog(commands.Cog):
 
     @wait_for_startup()
     @commands.slash_command(
-        description="Get an up-to-date map of the galaxy",
+        description="Get the current galactic map",
         install_types=ApplicationInstallTypes.all(),
         contexts=InteractionContextTypes.all(),
         extras={
-            "long_description": "Get an up-to-date map of the galaxy. This is generated upon use of the command so it may take a couple of seconds.",
-            "example_usage": "**`/map faction:Automaton public:Yes`** would return a map of the galaxy zoomed in on Automaton planets with names over active planets. It can also be seen by others in discord.",
+            "long_description": "Shows the current galactic map. Serves a cached version if one was generated in the last 15 minutes, otherwise generates a fresh one on the spot. The map respects your server's language setting.",
+            "example_usage": "**`/map public:Yes`** returns the current galactic map, visible to everyone in the channel.",
         },
     )
     async def map(

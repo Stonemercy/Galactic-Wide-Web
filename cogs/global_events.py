@@ -91,12 +91,12 @@ class GlobalEventsCog(commands.Cog):
 
     @wait_for_startup()
     @commands.slash_command(
-        description="[WIP] Returns information on the current global event(s) - if available.",
+        description="Show currently active global events",
         install_types=ApplicationInstallTypes.all(),
         contexts=InteractionContextTypes.all(),
         extras={
-            "long_description": "[WIP] Returns information on the current Global Event(s) if any are active",
-            "example_usage": "**`/global_events public:Yes`** would return information on the current Global Events that other members in the server can see.",
+            "long_description": "Shows any global events that are currently active.",
+            "example_usage": "**`/global_events public:Yes`** returns any active global events, visible to everyone in the channel.",
         },
     )
     async def global_events(

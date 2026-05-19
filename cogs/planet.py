@@ -36,12 +36,12 @@ class PlanetCog(commands.Cog):
 
     @wait_for_startup()
     @commands.slash_command(
-        description="Returns the war details on a specific planet.",
+        description="Get detailed war stats for a specific planet",
         install_types=ApplicationInstallTypes.all(),
         contexts=InteractionContextTypes.all(),
         extras={
-            "long_description": "Returns the war details on a specific planet. This includes a lot of stats that arent available in the dashboard.",
-            "example_usage": "**`/planet planet:Heeth with_map:Yes public:Yes`** returns a large embed with all of the stats the planet has. It also includes a map with an arrow pointing to the planet. It can also be seen by others in discord.",
+            "long_description": "Shows detailed war information for a specific planet, including stats not visible in the dashboard. Autocomplete is sorted by current player count so the most active planets appear first. Use `with_map:Yes` to attach a galactic map with an arrow pointing to that planet's location.",
+            "example_usage": "**`/planet planet:Heeth public:Yes`** returns detailed stats for Heeth, visible to everyone.\n- **`/planet planet:Heeth with_map:Yes`** also includes a map with an arrow pointing to Heeth.",
         },
     )
     async def planet(

@@ -1,6 +1,10 @@
 from disnake import APISlashCommand, Colour, ui, OptionType
 from disnake.ext.commands.slash_core import InvokableSlashCommand
-from utils.interactables.support_server_button import SupportServerButton
+from utils.interactables import (
+    GuildInstallButton,
+    SupportServerButton,
+    UserInstallButton,
+)
 from utils.mixins import ReprMixin
 
 
@@ -41,10 +45,14 @@ class HelpContainer(ui.Container, ReprMixin):
                     options += f"- **`{option.name}`** {'**[Required]**' if option.required else '**<Optional>**'} - {option.description}\n"
             components.append(
                 ui.TextDisplay(
-                    f"# /{command.name}\n{command.extras.get('long_description') or 'WIP'}\n\n{options}\n**Example usage:**\n- {command.extras.get('example_usage') or 'WIP'}"
+                    f"# /{command.name}\n{command.extras.get('long_description') or 'WIP'}\n{options}\n**Example usage:**\n- {command.extras.get('example_usage') or 'WIP'}"
                 )
             )
 
-        components.append(ui.ActionRow(SupportServerButton()))
+        components.append(
+            ui.ActionRow(
+                SupportServerButton(), GuildInstallButton(), UserInstallButton()
+            )
+        )
 
         super().__init__(*components, accent_colour=Colour.green())

@@ -8,4 +8,5 @@ class SupportServerButton(Button):
             style=ButtonStyle.link,
             label="Support Server",
             url="https://discord.gg/Z8Ae5H5DjZ",
+            emoji="❓",
         )

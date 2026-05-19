@@ -29,12 +29,12 @@ class HelpCog(commands.Cog):
 
     @wait_for_startup()
     @commands.slash_command(
-        description='Get some help for a specific command, or a list of every command by using "all".',
+        description='Get help for a specific command, or use "all" for a full command list',
         install_types=ApplicationInstallTypes.all(),
         contexts=InteractionContextTypes.all(),
         extras={
-            "long_description": "Get some help for a specific command or all commands. You can obtain longer descriptions and examples when you lookup a specific command.",
-            "example_usage": "**`/help command:Automatons public:Yes`** would return an embed with useful information about the Automatons command including example usage that other members in the server can see.",
+            "long_description": 'Shows a detailed description and example usage for a specific command. Use "all" to see a list of every available command. Autocomplete will suggest command names as you type.',
+            "example_usage": "**`/help command:planet public:Yes`** returns a detailed description and example usage for the `/planet` command, visible to everyone.\n- **`/help command:all`** lists every available command.",
         },
     )
     async def help(

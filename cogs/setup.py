@@ -70,12 +70,12 @@ class SetupCog(commands.Cog):
 
     @wait_for_startup()
     @commands.slash_command(
-        description="Change GWW settings.",
+        description="Configure GWW settings for this server",
         default_member_permissions=Permissions(manage_guild=True),
         contexts=InteractionContextTypes(guild=True),
         extras={
-            "long_description": "Change the GWW settings for your server.",
-            "example_usage": "**`/setup`** brings up a message with buttons you can use to change the bot's settings.",
+            "long_description": "Opens the server configuration panel. Requires Manage Server permission. Lets admins set channels for the auto-updating dashboard and map, toggle notification features (Major Orders, Personal Orders, dispatches, patch notes, DSS announcements, region changes, and detailed dispatches), and change the bot's language.",
+            "example_usage": "**`/setup`** opens the settings panel with buttons to configure dashboards, maps, notification features, and language.",
         },
     )
     async def setup(self, inter: AppCmdInter) -> None:
