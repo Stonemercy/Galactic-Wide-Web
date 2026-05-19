@@ -32,11 +32,11 @@ class CommunityServersCog(commands.Cog):
         await inter.response.defer(ephemeral=True)
         embed = CommunityServersEmbed(
             guilds=self.communities_with_links,
-            new_index=min(16, len(self.communities_with_links)),
+            new_index=min(10, len(self.communities_with_links)),
         )
         components = [
             PreviousPageButton(disabled=True),
-            NextPageButton(disabled=len(self.communities_with_links) < 16),
+            NextPageButton(disabled=len(self.communities_with_links) < 10),
         ]
         await inter.send(embed=embed, components=components, ephemeral=True)
 
@@ -68,20 +68,20 @@ class CommunityServersCog(commands.Cog):
             index = (
                 int(footer_text.split("/")[0])
                 if footer_text and "/" in footer_text
-                else 16
+                else 10
             )
         except (IndexError, AttributeError, ValueError):
-            index = 16
+            index = 10
         match inter.component.custom_id:
             case "CommunityServerPreviousPageButton":
-                new_index = max(16, index - 16)
+                new_index = max(10, index - 10)
                 embed = CommunityServersEmbed(
                     guilds=self.communities_with_links,
                     new_index=new_index,
                 )
                 components = [
-                    PreviousPageButton(disabled=new_index <= 16),
-                    NextPageButton(disabled=len(self.communities_with_links) < 16),
+                    PreviousPageButton(disabled=new_index <= 10),
+                    NextPageButton(disabled=len(self.communities_with_links) < 10),
                 ]
                 try:
                     await inter.edit_original_response(
@@ -95,13 +95,13 @@ class CommunityServersCog(commands.Cog):
                     )
                     return
             case "CommunityServerNextPageButton":
-                new_index = min(len(self.communities_with_links), index + 16)
+                new_index = min(len(self.communities_with_links), index + 10)
                 embed = CommunityServersEmbed(
                     guilds=self.communities_with_links,
                     new_index=new_index,
                 )
                 components = [
-                    PreviousPageButton(disabled=len(self.communities_with_links) < 16),
+                    PreviousPageButton(disabled=len(self.communities_with_links) < 10),
                     NextPageButton(
                         disabled=new_index >= len(self.communities_with_links)
                     ),

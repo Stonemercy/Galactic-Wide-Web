@@ -11,7 +11,7 @@ class CommunityServersEmbed(Embed, EmbedReprMixin):
             description=f"The GWW is in **{len(guilds)}** community servers",
         )
         for index, guild in enumerate(
-            guilds[new_index - 16 : new_index], start=max(1, new_index - 15)
+            guilds[new_index - 10 : new_index], start=max(1, new_index - 9)
         ):
             if self.character_count() < 6000 and len(self.fields) < 24:
                 self.add_field(
