@@ -1455,7 +1455,9 @@ class Dashboard:
             ]
             if task.target > 1 and task.sector_index:
                 field_name = tasks_json["type13_c_s"]
-            elif task.target == 1 and any([task.planet_index, task.sector_index]):
+            elif task.target == 1 and any(
+                [task.planet_index != None, task.sector_index]
+            ):
                 field_name = tasks_json["type13_r"]
             else:
                 return  # invalid config
@@ -1463,7 +1465,7 @@ class Dashboard:
             if task.target > 0:
                 field_name = field_name.replace("{count}", f"{task.target:,}")
             if task.target == 1:
-                if task.planet_index:
+                if task.planet_index != None:
                     planet = self.planets.get(task.planet_index)
                     if planet:
                         location_name = planet.names.get(
