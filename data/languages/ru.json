@@ -53,7 +53,7 @@
             }
         },
         "GlobalEventsContainer": {
-            "effect": "Effect",
+            "effect": "Эффект",
             "new_event": "Новое глобальное событие",
             "all_planets": "все планеты",
             "unknown_effect": "НЕИЗВЕСТНЫЙ ЭФФЕКТ",
