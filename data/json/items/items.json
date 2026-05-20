@@ -89,48 +89,6 @@
         "type": "Helmet",
         "cost": 125
     },
-    "324813428": {
-        "name": "armor_chem_trooper_medium_forest_veteran_name_cased",
-        "description": "armor_chem_trooper_medium_forest_veteran_desc",
-        "type": "Armor",
-        "cost": 0
-    },
-    "1801556340": {
-        "name": "armor_pristine_name_cased",
-        "description": "armor_chem_trooper_medium_hd_pristine_desc",
-        "type": "Armor",
-        "cost": 0
-    },
-    "1931908001": {
-        "name": "armor_chem_trooper_medium_hd_veteran_name_cased",
-        "description": "armor_chem_trooper_medium_hd_veteran_desc",
-        "type": "Armor",
-        "cost": 0
-    },
-    "2355853539": {
-        "name": "helmet_veteran_variation_forest_name_cased",
-        "description": "helmet_chem_trooper_medium_forest_veteran_desc",
-        "type": "Helmet",
-        "cost": 0
-    },
-    "263608846": {
-        "name": "helmet_pristine_name_cased",
-        "description": "helmet_chem_trooper_medium_hd_pristine_desc",
-        "type": "Helmet",
-        "cost": 0
-    },
-    "4138636345": {
-        "name": "helmet_veteran_name_cased",
-        "description": "helmet_chem_trooper_medium_hd_veteran_desc",
-        "type": "Helmet",
-        "cost": 0
-    },
-    "4264835049": {
-        "name": "helmet_pristine_variation_gasmask_name_cased",
-        "description": "helmet_gasmask_medium_hd_pristine_desc",
-        "type": "Helmet",
-        "cost": 0
-    },
     "2943433394": {
         "name": "DP-00 Tactical",
         "description": "This classic armor set is recognized by every citizen: worn by the heroic Helldivers who battled and forever defeated the Terminids, Cyborgs, and Illuminate in the First Galactic War.",
@@ -248,18 +206,6 @@
     "2511084797": {
         "name": "B-16 Battle-Scarred Veteran",
         "description": "Spattered gore marks those heroes who braved the harrowing first days of the war for Managed Democracy.",
-        "type": "Helmet",
-        "cost": 0
-    },
-    "3057681291": {
-        "name": "armor_deathtrooper_medium_hd_veteran_name_cased",
-        "description": "armor_deathtrooper_medium_hd_veteran_desc",
-        "type": "Armor",
-        "cost": 0
-    },
-    "1998231159": {
-        "name": "helmet_veteran_name_cased",
-        "description": "helmet_deathtrooper_medium_hd_veteran_desc",
         "type": "Helmet",
         "cost": 0
     },
@@ -455,41 +401,17 @@
         "type": "Helmet",
         "cost": 125
     },
-    "2304644113": {
-        "name": "armor_mechpilot_light_forest_veteran_name_cased",
-        "description": "armor_mechpilot_light_forest_veteran_desc",
-        "type": "Armor",
-        "cost": 0
-    },
     "261917564": {
         "name": "SC-37 Legionnaire",
         "description": "This armor is based on the antique uniforms of the 'Super Earth Legion', a less patriotic precursor to the Helldivers.",
         "type": "Armor",
         "cost": 150
     },
-    "2076675618": {
-        "name": "armor_mechpilot_light_hd_veteran_name_cased",
-        "description": "armor_mechpilot_light_hd_veteran_desc",
-        "type": "Armor",
-        "cost": 0
-    },
-    "1180262890": {
-        "name": "helmet_veteran_variation_forest_name_cased",
-        "description": "helmet_mechpilot_light_forest_veteran_desc",
-        "type": "Helmet",
-        "cost": 0
-    },
     "4084902841": {
         "name": "SC-37 Legionnaire",
         "description": "This armor is based on the antique uniforms of the 'Super Earth Legion', a less patriotic precursor to the Helldivers.",
         "type": "Helmet",
         "cost": 75
-    },
-    "2194213002": {
-        "name": "helmet_veteran_name_cased",
-        "description": "helmet_mechpilot_light_hd_veteran_desc",
-        "type": "Helmet",
-        "cost": 0
     },
     "2107035846": {
         "name": "CM-09 Bonesnapper",
@@ -569,47 +491,11 @@
         "type": "Helmet",
         "cost": 0
     },
-    "2606482720": {
-        "name": "armorset_120_name_cased",
-        "description": "armorset_120_desc",
-        "type": "Helmet",
-        "cost": 0
-    },
-    "3682449066": {
-        "name": "armorset_120_name_cased",
-        "description": "armorset_120_desc",
-        "type": "Helmet",
-        "cost": 0
-    },
     "161123434": {
         "name": "SC-30 Trailblazer Scout",
         "description": "The patented fabric absorbs visible, infrared, and ultraviolet radiation, to prevent detection by all known species.",
         "type": "Helmet",
         "cost": 600
-    },
-    "2231876405": {
-        "name": "armorset_120_name_cased",
-        "description": "armorset_120_desc",
-        "type": "Helmet",
-        "cost": 0
-    },
-    "34232232": {
-        "name": "armorset_120_name_cased",
-        "description": "armorset_120_desc",
-        "type": "Helmet",
-        "cost": 0
-    },
-    "1376017051": {
-        "name": "armorset_120_name_cased",
-        "description": "armorset_120_desc",
-        "type": "Helmet",
-        "cost": 0
-    },
-    "2015397810": {
-        "name": "armorset_120_name_cased",
-        "description": "armorset_120_desc",
-        "type": "Helmet",
-        "cost": 0
     },
     "2342442877": {
         "name": "B-24 Enforcer",
@@ -719,47 +605,11 @@
         "type": "Armor",
         "cost": 900
     },
-    "1545242578": {
-        "name": "armorset_160_name_cased",
-        "description": "armorset_160_desc",
-        "type": "Helmet",
-        "cost": 0
-    },
-    "1755983237": {
-        "name": "armorset_160_name_cased",
-        "description": "armorset_160_desc",
-        "type": "Helmet",
-        "cost": 0
-    },
     "1494299745": {
         "name": "SC-34 Infiltrator",
         "description": "This suit's plutonium-238 nuclear battery enables environmental scanning long after the user has ceased operation.",
         "type": "Helmet",
         "cost": 300
-    },
-    "309304502": {
-        "name": "armorset_160_name_cased",
-        "description": "armorset_160_desc",
-        "type": "Helmet",
-        "cost": 0
-    },
-    "88270577": {
-        "name": "armorset_160_name_cased",
-        "description": "armorset_160_desc",
-        "type": "Helmet",
-        "cost": 0
-    },
-    "3064132714": {
-        "name": "armorset_160_name_cased",
-        "description": "armorset_160_desc",
-        "type": "Helmet",
-        "cost": 0
-    },
-    "2733962024": {
-        "name": "armorset_160_name_cased",
-        "description": "armorset_160_desc",
-        "type": "Helmet",
-        "cost": 0
     },
     "3935965925": {
         "name": "B-01 Tactical",
@@ -1571,39 +1421,9 @@
         "type": "Cape",
         "cost": 0
     },
-    "1090563915": {
-        "name": "cape_battle_hardend_01_name_cased",
-        "description": "The cape's shredded hem presages the unrelenting savagery its wielder will visit upon the nemeses of Freedom.",
-        "type": "Cape",
-        "cost": 0
-    },
     "2653547055": {
         "name": "Bastion of Integrity",
         "description": "Based on a SEAF Signaller's Cape, which was intended to enable easy location of fallen heroes by aerial recovery crews.",
-        "type": "Cape",
-        "cost": 0
-    },
-    "3598091569": {
-        "name": "cape_battle_hardend_02_name_cased",
-        "description": "A representation of the thankfulness of those infinite descendants whose liberated existence we strive to ensure.",
-        "type": "Cape",
-        "cost": 0
-    },
-    "734807139": {
-        "name": "cape_prototype_ex03_01_name_cased",
-        "description": "A cape that strikes a subroutine emulating fear into the CPUs of all Automatons who conduct visual scans of it.",
-        "type": "Cape",
-        "cost": 0
-    },
-    "3239075772": {
-        "name": "cape_prototype_ex16_01_name_cased",
-        "description": "It is said that only the truly Democratic can lift this cape to their shoulders.",
-        "type": "Cape",
-        "cost": 0
-    },
-    "199989180": {
-        "name": "deathtrooper_cape_01_cased",
-        "description": "deathtrooper_cape_01_desc",
         "type": "Cape",
         "cost": 0
     },
@@ -1619,63 +1439,15 @@
         "type": "Cape",
         "cost": 0
     },
-    "2040543168": {
-        "name": "cape_demo_specialist_01_name_cased",
-        "description": "One of the earliest to be mass-produced, this cape has been the final sight of untold numbers of Freedom's foes.",
-        "type": "Cape",
-        "cost": 0
-    },
     "2592491111": {
         "name": "Drape of Glory",
         "description": "Research suggests that Helldivers wearing this cape are seen as 17% more patriotic.",
         "type": "Cape",
         "cost": 0
     },
-    "3259725045": {
-        "name": "cape_battle_master_01_name_cased",
-        "description": "The Helldiver Skull is said to strike fear in the hearts of foes attempting to sneak up on those wearing this cape.",
-        "type": "Cape",
-        "cost": 0
-    },
-    "865246378": {
-        "name": "cape_drone_operator_01_name_cased",
-        "description": "Our heroic fallen live on in this cape, guiding its bearer's aim to the heart of those who killed them.",
-        "type": "Cape",
-        "cost": 0
-    },
-    "4176085421": {
-        "name": "cape_gen_mil_medic_01_name_cased",
-        "description": "Emblazoned with the red, white, and green of the 676th Democracy Regiment, who made their final stand on the slopes of Justice Hill.",
-        "type": "Cape",
-        "cost": 0
-    },
-    "4000666917": {
-        "name": "cape_combat_medic_demo_01_name_cased",
-        "description": "A symbol of Super Earth's Astral Promise: that every star shall one day illuminate throngs of joyous voters.",
-        "type": "Cape",
-        "cost": 0
-    },
-    "3616764107": {
-        "name": "cape_support_heavy_01_name_cased",
-        "description": "Bearers of this cape take upon a sacred duty: that of delivering righteous retribution to every last deserving being.",
-        "type": "Cape",
-        "cost": 0
-    },
     "2007907056": {
         "name": "Will of the People",
         "description": "Contains a grain of sand from Super Earth\u2014so its bearers carry a small piece of Liberty with them, wherever they go.",
-        "type": "Cape",
-        "cost": 0
-    },
-    "2457217350": {
-        "name": "cape_Infiltrator_01_name_cased",
-        "description": "A subdued cape, for those who need no recognition\u2014save that of their enemies, as their executioner.",
-        "type": "Cape",
-        "cost": 0
-    },
-    "843390517": {
-        "name": "cape_combat_mechanic_01_name_cased",
-        "description": "The featherlight construction belies the heavy burden this cape entails\u2014to live the Creed of the True Citizen.",
         "type": "Cape",
         "cost": 0
     },
@@ -2111,28 +1883,10 @@
         "type": "Cape",
         "cost": 0
     },
-    "193259933": {
-        "name": "tutorial_cape_01_name_cased",
-        "description": "tutorial_cape_01_desc",
-        "type": "Cape",
-        "cost": 0
-    },
     "2906140436": {
         "name": "Resupply",
         "description": "A Hellpod containing four supply packs, to replenish personal ammunition and stims in the field.",
         "type": "Backpack",
-        "cost": 0
-    },
-    "1733110979": {
-        "name": "Equipment_Stratagem_Pad",
-        "description": "equipment_stratagem_pad_d",
-        "type": "Permanent Gear",
-        "cost": 0
-    },
-    "1991476415": {
-        "name": "grenade_antitank_prefix Grenade_Antitank_Name",
-        "description": "grenade_antitank_desc",
-        "type": "Throwable Weapon",
         "cost": 0
     },
     "1030888251": {
@@ -2144,12 +1898,6 @@
     "189227448": {
         "name": "G-48 Giga Grenade",
         "description": "Designed to render even the largest foes into considerably smaller, and vastly more compliant, constituent parts. Sacrifices throwing range for a massive detonation on impact.",
-        "type": "Throwable Weapon",
-        "cost": 0
-    },
-    "338685597": {
-        "name": "grenade_emp_prefix Grenade_Emp_Name",
-        "description": "grenade_emp_desc",
         "type": "Throwable Weapon",
         "cost": 0
     },
@@ -2289,12 +2037,6 @@
         "name": "CQC-72 Entrenchment Tool",
         "description": "A shovel that can be used as a melee weapon or, more conventionally, to dig holes in the ground.",
         "type": "Sidearm Weapon",
-        "cost": 0
-    },
-    "619315866": {
-        "name": "Weapon_Weapon_Stim_Shot_Name",
-        "description": "weapon_weapon_stim_shot_desc",
-        "type": "Permanent Gear",
         "cost": 0
     },
     "2088854385": {
@@ -2753,12 +2495,6 @@
         "type": "Primary Weapon",
         "cost": 0
     },
-    "2739958254": {
-        "name": "weapon_primary_physicsgun_prefix Weapon_Primary_Physicsgun_Name",
-        "description": "weapon_primary_physicsgun_desc",
-        "type": "Support Weapon",
-        "cost": 0
-    },
     "925809350": {
         "name": "PLAS-1 Scorcher",
         "description": "A plasma rifle, firing a bolt of superheated gas which explodes on impact. Avoid standing in proximity to the blast.",
@@ -2997,12 +2733,6 @@
         "name": "GR-8 Recoilless Rifle",
         "description": "A recoilless rifle effective against vehicle armor. Includes support backpack required for reloading.",
         "type": "Support Weapon",
-        "cost": 0
-    },
-    "1076293717": {
-        "name": "Weapon_Remote_Explosives_Detonator_Name",
-        "description": "weapon_remote_explosives_detonator_name_desc",
-        "type": "Permanent Gear",
         "cost": 0
     },
     "376960160": {
