@@ -16,8 +16,8 @@ json_dict = {
     "items": {
         "items": {"path": "data/json/items/items.json", "value": None},
         "boosters": {"path": "data/json/items/boosters.json", "value": None},
-        "reward_types": {
-            "path": "data/json/assignments/reward/type.json",
+        "rewards": {
+            "path": "data/json/assignments/rewards.json",
             "value": None,
         },
     },
