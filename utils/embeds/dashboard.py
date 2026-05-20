@@ -1634,16 +1634,23 @@ class Dashboard:
         def _add_rewards(self) -> None:
             rewards_text = ""
             for reward in self.assignment.rewards:
-                reward_name: str = self.json_dict["items"]["reward_types"].get(
-                    str(reward["type"]), "Unknown Item"
-                )
-                localized_name = self.language_json["currencies"].get(reward_name)
                 rewards_text += f"{reward['amount']:,} "
-                if reward["amount"] > 1:
-                    rewards_text += f"**{self.language_json['embeds']['Dashboard']['MajorOrderEmbed']['reward_pluralized'].format(reward=localized_name)}** "
+                if rewards_entry := self.json_dict["items"]["rewards"].get(
+                    str(reward["id32"])
+                ):
+                    localized_name = self.language_json["currencies"].get(
+                        rewards_entry, rewards_entry
+                    )
+                    if reward["amount"] > 1:
+                        rewards_text += f"**{self.language_json['embeds']['Dashboard']['MajorOrderEmbed']['reward_pluralized'].format(reward=localized_name)}** "
+                    else:
+                        rewards_text += f"**{localized_name}**"
+                    rewards_text += f"{getattr(Emojis.Items, rewards_entry.replace(' ', '_').lower(), '')}\n"
                 else:
-                    rewards_text += f"**{localized_name}**"
-                rewards_text += f"{getattr(Emojis.Items, reward_name.replace(' ', '_').lower(), '')}\n"
+                    if items_entry := self.json_dict["items"]["items"].get(
+                        str(reward["id32"])
+                    ):
+                        rewards_text += f"**{items_entry['type']}**"
             if rewards_text != "":
                 self.add_field(
                     self.language_json["embeds"]["Dashboard"]["MajorOrderEmbed"][
