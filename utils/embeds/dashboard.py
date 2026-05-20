@@ -1798,11 +1798,7 @@ class Dashboard:
                         if self.completion_timestamps != [] and len(
                             self.completion_timestamps
                         ) == len(
-                            [
-                                True
-                                for t in self.assignment.tasks
-                                if t.progress_perc >= 1
-                            ]
+                            [t for t in self.assignment.tasks if t.progress_perc < 1]
                         ):
                             oldest_timestamp: int = sorted(
                                 self.completion_timestamps, reverse=True
