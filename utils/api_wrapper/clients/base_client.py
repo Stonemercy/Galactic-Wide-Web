@@ -89,7 +89,9 @@ class BaseAPIClient(ABC):
                         )
 
             except ClientSSLError as e:
-                self.logger.error(f"SSL Error for {endpoint}: {e}")
+                self.logger.error(
+                    f"[{self.__class__.__name__}] SSL Error for {endpoint}: {e}"
+                )
                 raise
             except Exception as e:
                 self.logger.error(
