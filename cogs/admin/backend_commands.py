@@ -46,6 +46,22 @@ class BackendCommandsCog(commands.Cog):
             if user_input.lower() in f"{p.index}-{p.names.get('en-GB', p.name)}".lower()
         ][:25]
 
+    async def strat_autocomp(inter: AppCmdInter, user_input: str) -> list[str]:
+        if not inter.bot.data.loaded:
+            return []
+        id_list = sorted(
+            [
+                f"{i.id}-{i.name or i.effect_description['name']} {i.found_stratagem}"
+                for i in inter.bot.data.formatted_data.war_effects.values()
+                if i.found_stratagem
+            ],
+            key=lambda x: int(x.split("-")[0]),
+            reverse=True,
+        )
+        return [gwe for gwe in id_list if str(user_input).lower() in str(gwe).lower()][
+            :25
+        ]
+
     @wait_for_startup()
     @is_whitelisted()
     @commands.slash_command(
@@ -66,6 +82,11 @@ class BackendCommandsCog(commands.Cog):
             description="The planet you want to lookup",
             default="",
         ),
+        stratagem: str = commands.Param(
+            autocomplete=strat_autocomp,
+            description="The stratagem you want to lookup",
+            default="",
+        ),
         public: str = commands.Param(
             choices=["Yes", "No"],
             description="If you want the response to be seen by others",
@@ -74,7 +95,7 @@ class BackendCommandsCog(commands.Cog):
     ) -> None:
         await inter.response.defer(ephemeral=public != "Yes")
         gwe_list = []
-        if id != "":
+        if id:
             try:
                 id = int(id.split("-")[0])
             except ValueError:
@@ -87,7 +108,7 @@ class BackendCommandsCog(commands.Cog):
                 for g in self.bot.data.formatted_data.war_effects.values()
                 if g.id == id
             ]
-        elif on_planet != "":
+        elif on_planet:
             try:
                 planet_index = int(on_planet.split("-")[0])
             except ValueError:
@@ -107,6 +128,19 @@ class BackendCommandsCog(commands.Cog):
                 )
                 return
             gwe_list = list(planet.active_effects)
+        elif stratagem:
+            try:
+                stratagem = int(stratagem.split("-")[0])
+            except ValueError:
+                await inter.send(
+                    f"The stratagem you supplied (`{stratagem}`) is in the incorrect format. Please choose an ID from the list or type in the ID on its own."
+                )
+                return
+            gwe_list = [
+                g
+                for g in self.bot.data.formatted_data.war_effects.values()
+                if g.id == stratagem
+            ]
 
         if gwe_list != []:
             components = []
