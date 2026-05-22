@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from disnake import (
     AppCmdInter,
     ApplicationInstallTypes,
@@ -52,12 +52,20 @@ class DispatchesCog(commands.Cog):
                     ):
                         self.bot.logger.warning(f"Dispatch {dispatch.id} skipped")
                         if len(dispatch.full_message) < 5:
-                            self.bot.logger.warning("   Full message length under 5")
+                            self.bot.logger.warning(
+                                f"   Full message length under 5\nMessage: '{dispatch.full_message}'"
+                            )
                         if "#planet" in dispatch.full_message:
                             self.bot.logger.warning("   #planet in full message")
-                        self.bot.databases.war_info.dispatch_id = dispatch.id
-                        self.bot.databases.war_info.save_changes()
-                        continue
+                        if dispatch.published_at < datetime.now(
+                            tzinfo=timezone.utc
+                        ) - timedelta(minutes=15):
+                            self.bot.logger.error(
+                                f"Dispatch #{dispatch.id} has been faulty for 15 minutes, skipping"
+                            )
+                            self.bot.databases.war_info.dispatch_id = dispatch.id
+                            self.bot.databases.war_info.save_changes()
+                            continue
                     unique_langs = GWWGuilds.unique_languages()
                     containers = {
                         lang: [
