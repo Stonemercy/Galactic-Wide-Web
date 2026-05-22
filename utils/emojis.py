@@ -6,7 +6,7 @@ class Emojis:
 
     @dataclass
     class Items:
-        medal = "<:s:1226254158278037504>"
+        medal = "<:s:1507479373094195400>"
         common_sample = "<:s:1306611420510687334>"
         rare_sample = "<:s:1306611408406052874>"
         requisition_slip = "<:s:1306611395986587689>"
