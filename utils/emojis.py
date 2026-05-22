@@ -11,6 +11,12 @@ class Emojis:
         rare_sample = "<:s:1306611408406052874>"
         requisition_slip = "<:s:1306611395986587689>"
         super_credit = "<:s:1492853000291614750>"
+        cape = "<:s:1506751771765248030>"
+        armor = "<:s:1507054836053573702>"
+        helmet = "<:s:1507054837391556763>"
+        primary_weapon = "<:s:1507054839052374229>"
+        sidearm_weapon = "<:s:1507054840235294943>"
+        throwable_weapon = "<:s:1507054841179013212>"
 
     @dataclass
     class RegionIcons:

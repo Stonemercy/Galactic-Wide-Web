@@ -1653,6 +1653,12 @@ class Dashboard:
                         str(reward["id32"])
                     ):
                         rewards_text += f"**{items_entry['type']}**"
+                        if emoji := getattr(
+                            Emojis.Items,
+                            items_entry["type"].replace(" ", "_").lower(),
+                            None,
+                        ):
+                            rewards_text += f" {emoji}"
             if rewards_text != "":
                 self.add_field(
                     self.language_json["embeds"]["Dashboard"]["MajorOrderEmbed"][
