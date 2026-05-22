@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta, timezone
 from utils.dataclasses import Languages
+from utils.dataclasses.enums import AssignmentTaskType
 from utils.dbv2 import GWWGuilds
 from utils.logger import GWWLogger
 from utils.mixins import ReprMixin
@@ -230,7 +231,13 @@ class DataService(ReprMixin):
         if self.formatted_data.assignments.get("en"):
             for assignment in self.formatted_data.assignments["en"]:
                 for task_index, task in enumerate(assignment.tasks, start=1):
-                    if task.type in [11, 12, 13, 14, 15]:
+                    if task.type in [
+                        AssignmentTaskType.LiberateLocationsSpecific,
+                        AssignmentTaskType.DefendFromAttacks,
+                        AssignmentTaskType.HoldLocationsUntilEnd,
+                        AssignmentTaskType.LiberateLocationsCount,
+                        AssignmentTaskType.NetLiberation,
+                    ]:
                         continue
                     self.tracking_service.major_order_changes.add_entry(
                         key=(assignment.id, task_index), value=task.progress_perc
@@ -238,7 +245,13 @@ class DataService(ReprMixin):
             for assignments in self.formatted_data.assignments.values():
                 for assignment in assignments:
                     for task_index, task in enumerate(assignment.tasks, start=1):
-                        if task.type in [11, 12, 13, 14, 15]:
+                        if task.type in [
+                            AssignmentTaskType.LiberateLocationsSpecific,
+                            AssignmentTaskType.DefendFromAttacks,
+                            AssignmentTaskType.HoldLocationsUntilEnd,
+                            AssignmentTaskType.LiberateLocationsCount,
+                            AssignmentTaskType.NetLiberation,
+                        ]:
                             continue
                         task.tracker = (
                             self.tracking_service.major_order_changes.get_entry(

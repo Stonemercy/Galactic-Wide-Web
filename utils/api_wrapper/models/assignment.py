@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta, timezone
+from utils.dataclasses.enums import AssignmentTaskType
 from utils.functions import arrowhead_format
 from ...mixins import ReprMixin
 from ...trackers import BaseTrackerEntry
@@ -41,7 +42,7 @@ class Assignment(ReprMixin):
         self.flags: int = raw_assignment_data["setting"]["flags"]
 
     @property
-    def unique_task_types(self) -> set[int]:
+    def unique_task_types(self) -> set[AssignmentTaskType]:
         return {t.type for t in self.tasks}
 
     class Task(ReprMixin):
@@ -65,7 +66,8 @@ class Assignment(ReprMixin):
         )
 
         def __init__(self, task: dict, current_progress: int | float) -> None:
-            self.type: int = task["type"]
+            self._type: int = task["type"]
+            self.type: AssignmentTaskType = AssignmentTaskType(self._type)
             self.progress: int | float = current_progress
             self.values_dict = dict(zip(task["valueTypes"], task["values"]))
             self.faction = self.target = self.enemy_id = self.item_id = (
@@ -118,25 +120,39 @@ class Assignment(ReprMixin):
                 increasing = self.tracker.change_rate_per_hour > 0
 
             match self.type:
-                case 1 | 2 | 4 | 5 | 10 | 13 | 14:
+                case (
+                    AssignmentTaskType.ExtractFromLocations
+                    | AssignmentTaskType.ExtractWithItem
+                    | AssignmentTaskType.CompleteObjectives
+                    | AssignmentTaskType.PlayObjectives
+                    | AssignmentTaskType.DonateItems
+                    | AssignmentTaskType.HoldLocationsUntilEnd
+                    | AssignmentTaskType.LiberateLocationsCount
+                ):
                     return health_bar(
                         perc=self.progress_perc,
                         faction=Factions.humans,
                         anim=anim,
                         increasing=increasing,
                     )
-                case 3 | 6 | 7 | 9 | 12:
+                case (
+                    AssignmentTaskType.KillEnemies
+                    | AssignmentTaskType.UseItems
+                    | AssignmentTaskType.ExtractFromMission
+                    | AssignmentTaskType.CompleteOperations
+                    | AssignmentTaskType.DefendFromAttacks
+                ):
                     return health_bar(
                         perc=self.progress_perc,
                         faction=self.faction or "MO",
                         anim=anim,
                         increasing=increasing,
                     )
-                case 15:
+                case AssignmentTaskType.NetLiberation:
                     return health_bar(
                         perc=0.5,
-                        faction=(Factions.automaton),
+                        faction=Factions.automaton,
                         empty_colour="green",
                     )
                 case _:
-                    return
+                    return ""

@@ -20,7 +20,7 @@ from utils.api_wrapper.models import (
 )
 from utils.api_wrapper.formatters.data_formatter import FormattedData
 from utils.dataclasses import AssignmentImages, Factions, PlanetFeatures
-from utils.dataclasses.enums import CampaignType, EventType
+from utils.dataclasses.enums import AssignmentTaskType, CampaignType, EventType
 from utils.dataclasses.factions import Faction
 from utils.emojis import Emojis
 from utils.functions import get_end_time, health_bar, short_format
@@ -350,20 +350,20 @@ class Dashboard:
             self._collect_completion_timestamps()
 
             task_handlers = {
-                1: self._add_type_1,
-                2: self._add_type_2,
-                3: self._add_type_3,
-                4: self._add_type_4,
-                5: self._add_type_5,
-                6: self._add_type_6,
-                7: self._add_type_7,
-                9: self._add_type_9,
-                10: self._add_type_10,
-                11: self._add_type_11,
-                12: self._add_type_12,
-                13: self._add_type_13,
-                14: self._add_type_14,
-                15: self._add_type_15,
+                AssignmentTaskType.ExtractFromLocations: self._add_type_1,
+                AssignmentTaskType.ExtractWithItem: self._add_type_2,
+                AssignmentTaskType.KillEnemies: self._add_type_3,
+                AssignmentTaskType.CompleteObjectives: self._add_type_4,
+                AssignmentTaskType.PlayObjectives: self._add_type_5,
+                AssignmentTaskType.UseItems: self._add_type_6,
+                AssignmentTaskType.ExtractFromMission: self._add_type_7,
+                AssignmentTaskType.CompleteOperations: self._add_type_9,
+                AssignmentTaskType.DonateItems: self._add_type_10,
+                AssignmentTaskType.LiberateLocationsSpecific: self._add_type_11,
+                AssignmentTaskType.DefendFromAttacks: self._add_type_12,
+                AssignmentTaskType.HoldLocationsUntilEnd: self._add_type_13,
+                AssignmentTaskType.LiberateLocationsCount: self._add_type_14,
+                AssignmentTaskType.NetLiberation: self._add_type_15,
             }
 
             for task in self.assignment.tasks:
@@ -384,9 +384,8 @@ class Dashboard:
 
         def _set_thumbnail(self) -> None:
             """Sets the thumbnail based on the Assignment's task types"""
-            task_numbers = [task.type for task in self.assignment.tasks]
-            if task_numbers != []:
-                task_for_image = max(set(task_numbers), key=task_numbers.count)
+            if task_types := [task.type for task in self.assignment.tasks]:
+                task_for_image = max(set(task_types), key=task_types.count)
                 self.set_thumbnail(url=AssignmentImages.get(task_for_image))
 
         def _add_description(self) -> None:
@@ -414,7 +413,7 @@ class Dashboard:
                     )
                 else:
                     match task.type:
-                        case 11:
+                        case AssignmentTaskType.LiberateLocationsSpecific:
                             if task.planet_index:
                                 planet = self.planets.get(task.planet_index)
                                 if not planet:
@@ -455,7 +454,7 @@ class Dashboard:
                                     self.completion_timestamps.append(
                                         max(sector_timestamps)
                                     )
-                        case 12:
+                        case AssignmentTaskType.DefendFromAttacks:
                             required_wins = task.target - task.progress
                             defence_events = [
                                 p
@@ -501,7 +500,7 @@ class Dashboard:
                                             required_wins - 1
                                         ]
                                     )
-                        case 13:
+                        case AssignmentTaskType.HoldLocationsUntilEnd:
                             if task.planet_index:
                                 planet = self.planets.get(task.planet_index)
                                 if not planet:
@@ -552,7 +551,10 @@ class Dashboard:
                                     )
 
         def _add_progress_emoji(self, text: str, task: Assignment.Task):
-            if task.type == 13 and task.progress_perc != 1:
+            if (
+                task.type == AssignmentTaskType.HoldLocationsUntilEnd
+                and task.progress_perc != 1
+            ):
                 if task.planet_index:
                     planet = self.planets.get(task.planet_index)
                     if planet and planet.faction == Factions.humans:
@@ -1671,24 +1673,28 @@ class Dashboard:
             now = datetime.now(tz=timezone.utc)
             if (
                 now < self.assignment.ends_at_datetime - timedelta(days=2)
-                and {12, 13, 15} & self.assignment.unique_task_types
+                and {
+                    AssignmentTaskType.DefendFromAttacks,
+                    AssignmentTaskType.HoldLocationsUntilEnd,
+                    AssignmentTaskType.NetLiberation,
+                }
+                & self.assignment.unique_task_types
             ):
                 # return if assignments that last the full assignment duration are present
                 # and we are not within 2 days of assignment end
                 return
 
+            type_12_tasks = [
+                t
+                for t in self.assignment.tasks
+                if t.type == AssignmentTaskType.DefendFromAttacks
+            ]
             if (
-                12 in self.assignment.unique_task_types
-                and any([t.target > 1 for t in self.assignment.tasks if t.type == 12])
+                type_12_tasks
+                and any([t.target > 1 for t in type_12_tasks])
                 and (
                     now < self.assignment.ends_at_datetime - timedelta(days=2)
-                    and not any(
-                        [
-                            t.progress_perc > 0.8
-                            for t in self.assignment.tasks
-                            if t.type == 12
-                        ]
-                    )
+                    and not any([t.progress_perc > 0.8 for t in type_12_tasks])
                 )
             ):
                 # return if type 12 in assignment with at least 2 as the target
@@ -1702,7 +1708,11 @@ class Dashboard:
             ]
 
             complete_type_15s = []
-            for task in (t for t in self.assignment.tasks if t.type == 15):
+            for task in (
+                t
+                for t in self.assignment.tasks
+                if t.type == AssignmentTaskType.NetLiberation
+            ):
                 progress = int(task.progress)
                 for planet in (
                     p for p in self.planets.values() if p.stats.player_count > 200
@@ -1729,7 +1739,11 @@ class Dashboard:
                     complete_type_15s.append(True)
 
             complete_type_13s = []
-            for task in (t for t in self.assignment.tasks if t.type == 13):
+            for task in (
+                t
+                for t in self.assignment.tasks
+                if t.type == AssignmentTaskType.HoldLocationsUntilEnd
+            ):
                 if task.planet_index:
                     planet = self.planets.get(task.planet_index)
                     if planet:
@@ -1767,7 +1781,12 @@ class Dashboard:
                 [
                     True
                     for t in self.assignment.tasks
-                    if t.progress_perc >= 1 and t.type not in [13, 15]
+                    if t.progress_perc >= 1
+                    and t.type
+                    not in [
+                        AssignmentTaskType.HoldLocationsUntilEnd,
+                        AssignmentTaskType.NetLiberation,
+                    ]
                 ]
                 + [b for b in winning_all_unfinished_tasks if b]
                 + complete_type_13s

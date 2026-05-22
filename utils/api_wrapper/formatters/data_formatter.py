@@ -1,7 +1,7 @@
 from copy import deepcopy
 from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
-from utils.dataclasses.enums import EventType, SpaceStationType
+from utils.dataclasses.enums import AssignmentTaskType, EventType, SpaceStationType
 from ..models import (
     Assignment,
     Campaign,
@@ -463,7 +463,17 @@ class FormattedData:
                     if task.progress_perc >= 1:
                         continue
                     match task.type:
-                        case 1 | 2 | 3 | 4 | 5 | 6 | 7 | 9 | 11:
+                        case (
+                            AssignmentTaskType.ExtractFromLocations
+                            | AssignmentTaskType.ExtractWithItem
+                            | AssignmentTaskType.KillEnemies
+                            | AssignmentTaskType.CompleteObjectives
+                            | AssignmentTaskType.PlayObjectives
+                            | AssignmentTaskType.UseItems
+                            | AssignmentTaskType.ExtractFromMission
+                            | AssignmentTaskType.CompleteOperations
+                            | AssignmentTaskType.LiberateLocationsSpecific
+                        ):
                             if task.planet_index:
                                 planet = self.planets.get(task.planet_index)
                                 if planet:
@@ -485,9 +495,9 @@ class FormattedData:
                                     and p.event.faction == task.faction
                                 ):
                                     planet.in_assignment = True
-                        case 10:
+                        case AssignmentTaskType.DonateItems:
                             pass
-                        case 12:
+                        case AssignmentTaskType.DefendFromAttacks:
                             if task.sector_index:
                                 if task.faction:
                                     for event_campaign in (
@@ -524,7 +534,7 @@ class FormattedData:
                             else:
                                 for event_campaign in self.event_campaigns:
                                     event_campaign.planet.in_assignment = True
-                        case 13:
+                        case AssignmentTaskType.HoldLocationsUntilEnd:
                             if task.sector_index:
                                 for planet in (
                                     p
@@ -536,7 +546,10 @@ class FormattedData:
                                 planet = self.planets.get(task.planet_index)
                                 if planet:
                                     planet.in_assignment = True
-                        case 14 | 15:
+                        case (
+                            AssignmentTaskType.LiberateLocationsCount
+                            | AssignmentTaskType.NetLiberation
+                        ):
                             if task.faction:
                                 for campaign in (
                                     c

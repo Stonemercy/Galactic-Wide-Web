@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from utils.dataclasses.enums import AssignmentTaskType
 
 
 @dataclass
@@ -13,10 +14,10 @@ class AssignmentImages:
     _13 = "https://cdn.discordapp.com/attachments/1212735927223590974/1415964772368777220/mo_icon_defend.png?ex=68c51f75&is=68c3cdf5&hm=893a16ca781bad19865b474932f1d2c54271a6f6c7bcb9eaa5cdd49559015547&"
     _15 = "https://cdn.discordapp.com/attachments/1212735927223590974/1415964775007129661/Type_13_MO.png?ex=68c51f75&is=68c3cdf5&hm=586104cd845e87c2c59e44c3c82419ea2b21ea2c4a042cb573e3cd06a48dbcef&"
 
-    def get(id: int) -> str:
+    def get(task_type: AssignmentTaskType) -> str:
         """Gets the appropriate Assignment Icon"""
         return getattr(
             AssignmentImages,
-            f"_{id}",
+            f"_{task_type.value}",
             "https://cdn.discordapp.com/attachments/1212735927223590974/1415964773949902848/mo_icon_liberate.png?ex=68c51f75&is=68c3cdf5&hm=b019701f6c7ae76be3d0cf18db2ee2f53385be4ac52eaf14874cd6cadfae789a&",
         )
