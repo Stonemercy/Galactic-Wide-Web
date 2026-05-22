@@ -13,9 +13,11 @@ class ErrorHandlerCog(commands.Cog):
     async def on_slash_command_error(self, inter: AppCmdInter, error):
         error = getattr(error, "original", error)
         embed = Embed(title="Error", color=Color.red())
+        log_error = True
 
         if isinstance(error, NotReadyYet):
             embed.description = f"The bot isn't ready yet, try again <t:{int(self.bot.ready_time.timestamp())}:R>"
+            log_error = False
         elif isinstance(error, NotWhitelisted):
             embed.description = (
                 f"This command isn't for public use. Apologies for the inconvenience."
@@ -32,12 +34,15 @@ class ErrorHandlerCog(commands.Cog):
             embed.description = "You don't have permission to use this command."
         elif isinstance(error, commands.NoPrivateMessage):
             embed.description = "This command cannot be used in DMs."
+            log_error = False
         elif isinstance(error, commands.PrivateMessageOnly):
             embed.description = "This command can only be used in DMs."
+            log_error = False
         else:
             embed.description = (
                 "An unexpected error occurred. The developers have been notified."
             )
+        if log_error:
             await self.log_error(inter, error, "Slash Command")
 
         try:
@@ -65,7 +70,7 @@ class ErrorHandlerCog(commands.Cog):
             embed.description = f"This button is on cooldown. Try again in {error.retry_after:.2f} seconds."
         else:
             embed.description = "An error occurred while processing your button click."
-            await self.log_error(inter, error, "Button Click")
+        await self.log_error(inter, error, "Button Click")
 
         try:
             if inter.response.is_done():
@@ -92,7 +97,7 @@ class ErrorHandlerCog(commands.Cog):
             embed.description = f"This dropdown is on cooldown. Try again in {error.retry_after:.2f} seconds."
         else:
             embed.description = "An error occurred while processing your selection."
-            await self.log_error(inter, error, "Dropdown")
+        await self.log_error(inter, error, "Dropdown")
 
         try:
             if inter.response.is_done():
