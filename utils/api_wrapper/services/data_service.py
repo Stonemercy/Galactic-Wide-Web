@@ -113,7 +113,7 @@ class DataService(ReprMixin):
                     lang=lang.long_code,
                 )
                 if news_feed:
-                    self._raw_news_feed[lang.short_code] = news_feed[-20:]
+                    self._raw_news_feed[lang.short_code] = news_feed[-25:]
 
                 # assignments
                 assignments = await client.get_assignments(
