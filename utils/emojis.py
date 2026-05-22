@@ -117,12 +117,12 @@ class Emojis:
     class SpaceStations:
         @dataclass
         class DSS:
-            icon = "<:s:1486726204361936916>"
-            orbital_blockade = "<:s:1486726461732815018>"
-            heavy_ordnance_distribution = "<:s:1486727985695428628>"
-            eagle_storm = "<:s:1486726460138852442>"
-            operational_support = "<:s:1486727886663847946>"
-            eagle_blockade = "<:s:1486726459040202782>"
+            icon = "<:s:1417971465311223808>"
+            orbital_blockade = "<:s:1318875016909029388>"
+            heavy_ordnance_distribution = "<:s:1318874283350687816>"
+            eagle_storm = "<:s:1318874257773690881>"
+            operational_support = "<:s:1340990960120631376>"
+            eagle_blockade = "<:s:1377971389570744361>"
 
     @dataclass
     class Weather:
