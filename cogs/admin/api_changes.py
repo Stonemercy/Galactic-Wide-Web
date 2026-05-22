@@ -59,6 +59,9 @@ class APIChangesCog(commands.Cog):
                         stat_source="Global Resources",
                     )
                 )
+                self.bot.logger.info(
+                    f"Global Resources changed from {[gr.id for gr in self.bot.data.previous_data.global_resources]} to {[gr.id for gr in self.bot.data.formatted_data.global_resources]}"
+                )
 
             if (
                 self.bot.data.previous_data.war_effects
@@ -72,6 +75,9 @@ class APIChangesCog(commands.Cog):
                         stat_name="",
                         stat_source="Galactic War Effects",
                     )
+                )
+                self.bot.logger.info(
+                    f"Galactic War Effects changed - Removed: {[gwe.id for gwe in self.bot.data.previous_data.war_effects.values() if gwe not in self.bot.data.formatted_data.war_effects.values()]} - Added: {[gwe.id for gwe in self.bot.data.formatted_data.war_effects.values() if gwe not in self.bot.data.previous_data.war_effects.values()]}"
                 )
 
             for mo_index, old_assignment in enumerate(
@@ -99,6 +105,9 @@ class APIChangesCog(commands.Cog):
                                         stat_name=f"MO #{mo_index}",
                                         stat_source="Task",
                                     )
+                                )
+                                self.bot.logger.info(
+                                    f"MO #{mo_index} Task #{index} target changed from {old_task.target} to {new_task.target}"
                                 )
 
             if (
@@ -134,6 +143,9 @@ class APIChangesCog(commands.Cog):
                             stat_source="Personal Order",
                         )
                     )
+                    self.bot.logger.info(
+                        f"Personal Order changed from {old_po_text} to {new_po_text}"
+                    )
 
             for old_planet, new_planet in zip(
                 self.bot.data.previous_data.planets.values(),
@@ -149,6 +161,18 @@ class APIChangesCog(commands.Cog):
                                 stat_name=stat_name,
                                 stat_source="Planet",
                             )
+                        )
+                        old_p_property = getattr(old_planet, property)
+                        new_p_property = getattr(new_planet, property)
+                        if property == "active_effects":
+                            old_p_property = [gwe.id for gwe in old_p_property]
+                            new_p_property = [gwe.id for gwe in new_p_property]
+                        elif property == "faction":
+                            old_p_property = old_p_property.full_name
+                            new_p_property = new_p_property.full_name
+
+                        self.bot.logger.info(
+                            f"{old_planet.names.get('en-GB', old_planet.name)} {stat_name} changed from {old_p_property} to {new_p_property}"
                         )
                 if old_planet.regions:
                     for old_region, new_region in zip(
@@ -166,6 +190,15 @@ class APIChangesCog(commands.Cog):
                                         stat_name=stat_name,
                                         stat_source="Region",
                                     )
+                                )
+                                old_r_property = getattr(old_region, property)
+                                new_r_property = getattr(new_region, property)
+                                if property == "owner":
+                                    old_r_property = old_r_property.full_name
+                                    new_r_property = new_r_property.full_name
+
+                                self.bot.logger.info(
+                                    f"{old_region.names.get('en-GB', old_region.name)} {stat_name} changed from {old_r_property} to {new_r_property}"
                                 )
         if total_changes != []:
             if len(total_changes) > 20:
