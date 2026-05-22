@@ -23,7 +23,9 @@ class DSSChangesContainer(ui.Container, ReprMixin):
         self.colour = Colour.from_rgb(*CUSTOM_COLOURS["DSS"])
         self.title = [
             ui.Section(
-                ui.TextDisplay(f"# {self.json.container['title']} {Emojis.DSS.icon}"),
+                ui.TextDisplay(
+                    f"# {self.json.container['title']} {Emojis.SpaceStations.DSS.icon}"
+                ),
                 accessory=HDCButton(
                     label="HDC/space_stations",
                     link="https://helldiverscompanion.com/#hellpad/stations",

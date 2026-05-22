@@ -36,8 +36,8 @@ class HelldiversClient(BaseAPIClient):
             headers={"Accept-Language": lang},
         )
 
-    async def get_dss_info(self, war_id: int, station_id: int) -> dict:
-        """Get DSS tactical actions and status"""
+    async def get_space_station_info(self, war_id: int, station_id: int) -> dict:
+        """Get space station tactical actions and status"""
         return await self.get(endpoint=f"SpaceStation/{war_id}/{station_id}")
 
     async def get_war_id(self) -> dict[str, int]:

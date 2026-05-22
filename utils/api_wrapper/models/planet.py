@@ -113,7 +113,7 @@ class Planet(ReprMixin):
         if self.in_assignment:
             result += Emojis.Icons.mo
         if self.dss_in_orbit:
-            result += Emojis.DSS.icon
+            result += Emojis.SpaceStations.DSS.icon
         for subfactions in self.subfactions:
             result += subfactions.emoji
         for feature in self.planet_features:

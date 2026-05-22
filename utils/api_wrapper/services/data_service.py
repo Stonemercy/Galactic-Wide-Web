@@ -14,7 +14,7 @@ from ..utils.constants import EndpointBase
 from ..formatters import FormattedData, FormattedDataContext
 
 SPACE_STATION_IDS = {
-    "DSS": 749875195,
+    749875195: "DSS",
 }
 
 
@@ -35,7 +35,7 @@ class DataService(ReprMixin):
         self._raw_war_status: dict[str, dict] = {}
         self._raw_news_feed: dict[str, list[dict]] = {}
         self._raw_assignments: dict[str, list[dict]] = {}
-        self._raw_dss: dict = {}
+        self._raw_space_stations = []
         self._raw_dss_votes: dict = {}
         self._raw_war_stats: dict = {}
         self._raw_war_info: dict = {}
@@ -48,7 +48,7 @@ class DataService(ReprMixin):
         self._raw_war_status.clear()
         self._raw_news_feed.clear()
         self._raw_assignments.clear()
-        self._raw_dss.clear()
+        self._raw_space_stations.clear()
         self._raw_dss_votes.clear()
         self._raw_war_stats.clear()
         self._raw_war_info.clear()
@@ -122,12 +122,13 @@ class DataService(ReprMixin):
                 if assignments:
                     self._raw_assignments[lang.short_code] = assignments
 
-            # dss
-            dss = await client.get_dss_info(
-                war_id=self.war_id, station_id=SPACE_STATION_IDS["DSS"]
-            )
-            if dss:
-                self._raw_dss = dss
+            for space_station in self._raw_war_status.get("en", {}).get(
+                "spaceStations", []
+            ):
+                space_station_info = await client.get_space_station_info(
+                    war_id=self.war_id, station_id=space_station["id32"]
+                )
+                self._raw_space_stations.append(space_station_info)
 
             # war stats
             war_stats = await client.get_war_stats(war_id=self.war_id)
@@ -186,7 +187,7 @@ class DataService(ReprMixin):
             war_status=self._raw_war_status,
             news_feed=self._raw_news_feed,
             assignments=self._raw_assignments,
-            dss=self._raw_dss,
+            space_stations=self._raw_space_stations,
             dss_votes=self._raw_dss_votes,
             war_stats=self._raw_war_stats,
             war_info=self._raw_war_info,

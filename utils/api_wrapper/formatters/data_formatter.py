@@ -1,7 +1,7 @@
 from copy import deepcopy
 from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
-from utils.dataclasses.enums import EventType
+from utils.dataclasses.enums import EventType, SpaceStationType
 from ..models import (
     Assignment,
     Campaign,
@@ -12,6 +12,7 @@ from ..models import (
     GlobalResource,
     PersonalOrder,
     Planet,
+    SpaceStation,
     SteamNews,
 )
 from ...dataclasses import Factions
@@ -185,12 +186,12 @@ class FormattedDataContext:
     war_status: dict[str, dict]
     news_feed: dict[str, list[dict]]
     assignments: dict[str, list[dict]]
-    dss: dict
     dss_votes: dict
     war_stats: dict
     war_info: dict
     war_effects: list
     personal_order: dict
+    space_stations: list[dict]
     steam_news: list
 
     json_dict: dict
@@ -209,7 +210,7 @@ class FormattedData:
         "global_resources",
         "dispatches",
         "assignments",
-        "dss",
+        "space_stations",
         "event_campaigns",
         "campaigns",
         "steam_news",
@@ -233,7 +234,7 @@ class FormattedData:
         self.global_resources: list[GlobalResource] = []
         self.dispatches: dict[str, list[Dispatch]] = {}
         self.assignments: dict[str, list[Assignment]] = {}
-        self.dss: DSS = None
+        self.space_stations: list[SpaceStation] = []
         self.event_campaigns: list[Campaign] = []
         self.campaigns: list[Campaign] = []
         self.steam_news: list[SteamNews] = []
@@ -546,46 +547,73 @@ class FormattedData:
                         case _:
                             pass
 
-        if context.dss:
-            dss_planet = None
-            if context.dss["flags"] == 0:
-                planet_with_1217 = next(
-                    (
-                        p
-                        for p in self.planets.values()
-                        if 1217 in (ae.id for ae in p.active_effects)
-                    ),
-                    None,
-                )
-                if planet_with_1217:
-                    dss_planet = planet_with_1217
-            else:
-                dss_planet = self.planets.get(context.dss["planetIndex"])
-            if dss_planet:
-                dss_planet.dss_in_orbit = True
-                self.dss: DSS = DSS(
-                    raw_dss_data=context.dss,
-                    planet=dss_planet,
-                    war_start_timestamp=self.war_start_timestamp,
-                )
-                if eagle_storm := self.dss.get_ta_by_name("EAGLE STORM"):
-                    if (
-                        eagle_storm.status == 2
-                        and dss_planet.event
-                        and not dss_planet.event.type == EventType.UrgentLiberation
-                    ):
-                        dss_planet.eagle_storm_active = True
-                        dss_planet.event.end_time_datetime += timedelta(
-                            seconds=(
-                                eagle_storm.status_end_datetime
-                                - datetime.now(tz=timezone.utc)
-                            ).total_seconds()
+        for space_station_json in context.space_stations:
+            ss_planet = self.planets.get(space_station_json.get("planetIndex", 0))
+            if space_station_json.get("id32") in [
+                sst.value for sst in SpaceStationType
+            ]:
+                match SpaceStationType(space_station_json["id32"]):
+                    case SpaceStationType.DSS:
+                        if space_station_json.get("flags") == 0:
+                            planet_with_1217 = next(
+                                (
+                                    p
+                                    for p in self.planets.values()
+                                    if 1217 in (ae.id for ae in p.active_effects)
+                                ),
+                                None,
+                            )
+                            if planet_with_1217:
+                                ss_planet = planet_with_1217
+
+                        space_station = DSS(
+                            space_station_json,
+                            ss_planet,
+                            self.war_start_timestamp,
                         )
-                if context.dss_votes:
-                    self.dss.votes = DSS.Votes(
-                        planets=self.planets,
-                        raw_votes_data=context.dss_votes,
-                    )
+
+                        space_station.planet.dss_in_orbit = True
+
+                        if eagle_storm := space_station.get_ta_by_name("EAGLE STORM"):
+                            if (
+                                eagle_storm.status == 2
+                                and space_station.planet.event
+                                and not space_station.planet.event.type
+                                == EventType.UrgentLiberation
+                            ):
+                                space_station.planet.eagle_storm_active = True
+                                space_station.planet.event.end_time_datetime += (
+                                    timedelta(
+                                        seconds=(
+                                            eagle_storm.status_end_datetime
+                                            - datetime.now(tz=timezone.utc)
+                                        ).total_seconds()
+                                    )
+                                )
+
+                        if context.dss_votes:
+                            space_station.votes = DSS.Votes(
+                                planets=self.planets,
+                                raw_votes_data=context.dss_votes,
+                            )
+            else:
+                space_station = SpaceStation(
+                    space_station_json, ss_planet, self.war_start_timestamp
+                )
+            if ss_effects := next(
+                (
+                    ss
+                    for ss in context.war_status.get("en", {}).get("spaceStations", [])
+                    if ss["id32"] == space_station.id
+                ),
+                {},
+            ).get("activeEffectIds", []):
+                for effect in ss_effects:
+                    space_station.active_effects.append(self.war_effects.get(effect))
+                    for effect in space_station.active_effects:
+                        space_station.planet.active_effects.add(effect)
+
+            self.space_stations.append(space_station)
 
         if self.planets:
             if context.war_stats:
@@ -633,3 +661,10 @@ class FormattedData:
     def copy(self):
         """Returns a deep copy of the data"""
         return deepcopy(self)
+
+    @property
+    def dss(self) -> DSS | None:
+        """Returns the DSS data"""
+        return next(
+            (ss for ss in self.space_stations if ss.type == SpaceStationType.DSS), None
+        )

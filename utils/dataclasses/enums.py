@@ -8,6 +8,10 @@ class CampaignType(Enum):
     Event = 4
 
 
+class SpaceStationType(Enum):
+    UNKNOWN = 0
+    DSS = 749875195
+
 class EventType(Enum):
     UrgentLiberation = 0
     Defence = 1
