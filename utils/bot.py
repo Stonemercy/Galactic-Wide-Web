@@ -11,6 +11,8 @@ from utils.logger import GWWLogger
 from utils.maps import Maps
 from utils.api_wrapper.services.data_service import DataService
 
+STARTUP_SECONDS = 90
+
 
 class GalacticWideWebBot(commands.AutoShardedInteractionBot):
     def __init__(self) -> None:
@@ -19,7 +21,7 @@ class GalacticWideWebBot(commands.AutoShardedInteractionBot):
         self.MODE = GWWBotModes.LIVE
         self.logger: GWWLogger = GWWLogger()
         self.startup_time = datetime.now(tz=timezone.utc)
-        self.ready_time = self.startup_time + timedelta(seconds=60)
+        self.ready_time = self.startup_time + timedelta(seconds=STARTUP_SECONDS)
         self.interface_handler = InterfaceHandler(bot=self)
         self.channels = BotChannels()
         self.json_dict = json_dict.copy()

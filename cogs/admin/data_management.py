@@ -2,9 +2,7 @@ from datetime import datetime, time, timezone
 from disnake import Activity, ActivityType, Status
 from disnake.ext import commands, tasks
 from main import GalacticWideWebBot
-
-
-FETCH_SKIP_LIMIT = 5
+from utils.bot import STARTUP_SECONDS
 
 
 class DataManagementCog(commands.Cog):
@@ -33,6 +31,19 @@ class DataManagementCog(commands.Cog):
             activity=Activity(name="/setup - /help", type=ActivityType.listening),
             status=Status.online,
         )
+        self.bot.logger.info("Startup loop completed")
+        now = datetime.now()
+        secs_until_pull_from_api = (
+            (
+                now.replace(second=45)
+                if now.second < 45
+                else now.replace(minute=now.minute + 1, second=45)
+            )
+            - now
+        ).total_seconds()
+        self.bot.logger.info(
+            f"pull_from_api should begin in {secs_until_pull_from_api:.1f} seconds"
+        )
 
     @startup.before_loop
     async def before_startup(self) -> None:
@@ -48,30 +59,29 @@ class DataManagementCog(commands.Cog):
         time=[time(hour=j, minute=i, second=45) for j in range(24) for i in range(60)]
     )
     async def pull_from_api(self) -> None:
-        if self.bot.data.fetching and self.fetch_skips < FETCH_SKIP_LIMIT:
+        self.bot.logger.info("pull_from_api started")
+        if self.bot.data.fetching and self.fetch_skips < 5:
             self.fetch_skips += 1
             self.bot.logger.warning(
                 f"Bot is already fetching. Skipped {self.fetch_skips} times so far"
             )
             return
-        if self.fetch_skips > 0:
-            self.fetch_skips = 0
-        if self.bot.data.loaded:
-            first_load = False
-        else:
-            first_load = True
+        first_load = False if self.bot.data.loaded else True
         await self.bot.data.pull_from_api()
         self.bot.data.format_data()
+        if self.fetch_skips != 0:
+            self.fetch_skips = 0
         if first_load:
             now = datetime.now(tz=timezone.utc)
             if now < self.bot.ready_time:
-                change = f"{(self.bot.ready_time - now).total_seconds():.2f} seconds faster than the given 60"
+                change = f"{(self.bot.ready_time - now).total_seconds():.2f} seconds faster than the given {STARTUP_SECONDS}"
             else:
-                change = f"Took {(now - self.bot.ready_time).total_seconds():.2f} seconds longer than the given 60"
+                change = f"Took {(now - self.bot.ready_time).total_seconds():.2f} seconds longer than the given {STARTUP_SECONDS}"
             self.bot.logger.info(
                 f"Startup complete in {(now - self.bot.startup_time).total_seconds():.2f} seconds - {change}"
             )
             self.bot.ready_time = now
+        self.bot.logger.info("pull_from_api loop completed")
 
     @pull_from_api.before_loop
     async def before_pull_from_api(self) -> None:
