@@ -2385,7 +2385,7 @@ class Dashboard:
                     field_value += f"\n-# :chess_pawn: **{gambit_planet.names.get(self.language_json['code_long'], gambit_planet.name)}** {self.language_json['embeds']['Dashboard']['DefenceEmbed']['gambit']}"
 
             field_value += f"\n{self.language_json['embeds']['Dashboard']['DefenceEmbed']['heroes']}: **{planet.stats.player_count:,}**"
-            if self.compact_level < 1:
+            if self.compact_level < 2:
                 field_value += f"\n{planet.health_bar}"
             field_value += f"\n`{planet.event.progress:^25.2%}`"
             if planet.tracker and planet.tracker.change_rate_per_hour > 0:
