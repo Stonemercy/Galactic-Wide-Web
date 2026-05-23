@@ -1672,16 +1672,23 @@ class Dashboard:
         def _add_outlook_text(self) -> None:
             now = datetime.now(tz=timezone.utc)
             if (
-                now < self.assignment.ends_at_datetime - timedelta(days=2)
+                now
+                < self.assignment.ends_at_datetime
+                - (
+                    (
+                        self.assignment.ends_at_datetime
+                        - self.assignment.starts_at_datetime
+                    )
+                    / 2
+                )
                 and {
-                    AssignmentTaskType.DefendFromAttacks,
                     AssignmentTaskType.HoldLocationsUntilEnd,
                     AssignmentTaskType.NetLiberation,
                 }
                 & self.assignment.unique_task_types
             ):
                 # return if assignments that last the full assignment duration are present
-                # and we are not within 2 days of assignment end
+                # and we are not at least half way through the assignment duration
                 return
 
             type_12_tasks = [
