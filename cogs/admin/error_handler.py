@@ -86,7 +86,7 @@ class ErrorHandlerCog(commands.Cog):
             )
             embed.add_field(
                 name="Channel",
-                value=f"-# {channel_name}\n-# {inter.channel.mention}",
+                value=f"-# {channel_name}\n-# {inter.channel.mention if hasattr(inter.channel, 'mention') else 'DM'}",
                 inline=False,
             )
 
