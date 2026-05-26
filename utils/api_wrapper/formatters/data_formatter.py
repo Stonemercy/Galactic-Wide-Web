@@ -640,15 +640,19 @@ class FormattedData:
                         planet.stats.update(raw_stats_info=pstat)
 
         if context.personal_order:
-            correct_po = [
-                po
-                for po in context.personal_order
-                if po["setting"]["rewards"] != []
-                and 8 not in (task["type"] for task in po["setting"]["tasks"])
-            ][0]
-            self.personal_order: PersonalOrder = PersonalOrder(
-                personal_order=correct_po, json_dict=context.json_dict
+            correct_po = next(
+                (
+                    po
+                    for po in context.personal_order
+                    if po["setting"]["rewards"] != []
+                    and 8 not in (task["type"] for task in po["setting"]["tasks"])
+                ),
+                None,
             )
+            if correct_po:
+                self.personal_order: PersonalOrder = PersonalOrder(
+                    personal_order=correct_po, json_dict=context.json_dict
+                )
 
         if self.planets:
             for region in (
