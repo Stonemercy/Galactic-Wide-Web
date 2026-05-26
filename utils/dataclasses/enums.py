@@ -3,9 +3,30 @@ from enum import Enum
 
 class CampaignType(Enum):
     Liberation = 0
+    """Regular liberation campaigns"""
     Recon = 1
+    """Campaigns that don't do any damage to planets"""
     HighPriority = 2
+    """High priority campaigns that have a marker on the map"""
+    Attrition = 3
+    """Sieges tied to a global resource"""
     Event = 4
+    """Campaigns with an event on the planet"""
+
+
+class EventType(Enum):
+    UrgentLiberation = 0
+    """Planet is owned by non-human faction and marked on the map
+
+    Planet changes owner if event is won by Helldivers"""
+    Defence = 1
+    """Human owned planet is attacked by the enemy with a duration
+    
+    Planet changes owner if event is won by Helldivers"""
+    Invasion = 2
+    """Human owned planet attacked by non-human faction
+    
+    Planet does not change owner if event is won"""
 
 
 class SpaceStationType(Enum):

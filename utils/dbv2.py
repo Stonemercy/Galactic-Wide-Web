@@ -171,11 +171,11 @@ class Feature(ReprMixin):
     message_id: int | None = None
 
 
-class GWWGuild(ReprMixin):
+class GWWGuild:
     def __init__(self, row: dict):
         self.guild_id = row.get("guild_id")
         self.language: str = row.get("language", "en")
-        self.feature_keys = row.get("feature_keys", [])
+        self.feature_keys: list[str] = row.get("feature_keys", [])
         self.features: list[Feature] = []
         if len(row) > 3:
             features_dict: dict[str, dict[str, int]] = {}

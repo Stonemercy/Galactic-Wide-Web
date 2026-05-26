@@ -393,7 +393,7 @@ class Dashboard:
             if self.assignment.briefing:
                 briefing = "\n".join(
                     [
-                        "-# " + l if l != "" else l
+                        "-# " + l if l else l
                         for l in self.assignment.briefing.splitlines()
                     ]
                 )
@@ -641,10 +641,10 @@ class Dashboard:
             return text
 
         def _add_multiplayer_info(self, text: str, task: Assignment.Task):
-            in_multiplayer = self.language_json["embeds"]["Dashboard"][
-                "MajorOrderEmbed"
-            ]["tasks"]["in_mp"]
             if task.min_players and task.min_players > 1:
+                in_multiplayer = self.language_json["embeds"]["Dashboard"][
+                    "MajorOrderEmbed"
+                ]["tasks"]["in_mp"]
                 text = text.replace("{multi}", in_multiplayer)
             return text
 
@@ -699,11 +699,10 @@ class Dashboard:
             return text
 
         def _add_option_number(self, text: str, task_index: int):
-            text = (
+            return (
                 f"{self.language_json['embeds']['Dashboard']['MajorOrderEmbed']['tasks']['option']} {task_index + 1}\n"
                 + text
             )
-            return text
 
         def _add_type_UNK(self, task: Assignment.Task) -> None:
             """Type UNK: UNKNOWN"""

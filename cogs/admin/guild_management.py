@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 class GuildManagementCog(commands.Cog):
     def __init__(self, bot: GalacticWideWebBot) -> None:
         self.bot = bot
-        self.guilds_to_remove = []
+        self.guilds_to_remove: list[GWWGuild] = []
         self.user_installs = 0
 
     def cog_load(self) -> None:

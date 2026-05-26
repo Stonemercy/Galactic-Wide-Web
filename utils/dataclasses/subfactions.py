@@ -45,7 +45,7 @@ class Subfactions:
         "APPROPRIATORS", Emojis.Subfactions.appropriators, 1380
     )  # fix emoji
 
-    _all = (
+    _all: tuple[Subfaction] = (
         THE_JET_BRIGADE,
         PREDATOR_STRAIN,
         SPORE_BURST_STRAIN,

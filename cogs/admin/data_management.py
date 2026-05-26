@@ -59,7 +59,7 @@ class DataManagementCog(commands.Cog):
         time=[time(hour=j, minute=i, second=45) for j in range(24) for i in range(60)]
     )
     async def pull_from_api(self) -> None:
-        self.bot.logger.info("pull_from_api started")
+        self.bot.logger.info("pull_from_api loop started")
         if self.bot.data.fetching and self.fetch_skips < 5:
             self.fetch_skips += 1
             self.bot.logger.warning(
