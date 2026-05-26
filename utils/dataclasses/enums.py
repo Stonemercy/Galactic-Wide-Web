@@ -44,6 +44,7 @@ class AssignmentTaskType(Enum):
     PlayObjectives = 5\n
     UseItems = 6\n
     ExtractFromMission = 7\n
+    PersonalOrder = 8\n
     CompleteOperations = 9\n
     DonateItems = 10\n
     LiberateLocationsSpecific = 11\n
@@ -62,6 +63,7 @@ class AssignmentTaskType(Enum):
     PlayObjectives = 5
     UseItems = 6
     ExtractFromMission = 7
+    PersonalOrder = 8
     CompleteOperations = 9
     DonateItems = 10
     LiberateLocationsSpecific = 11
