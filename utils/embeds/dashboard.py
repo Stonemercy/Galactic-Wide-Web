@@ -2100,7 +2100,7 @@ class Dashboard:
                 field_value += f"\n**{self.language_json['embeds']['Dashboard']['DefenceEmbed']['loss']}**"
 
             field_value += f"\n{self.language_json['embeds']['Dashboard']['DefenceEmbed']['heroes']}: **{campaign.planet.stats.player_count:,}**"
-            if self.compact_level < 1:
+            if self.compact_level < 2:
                 field_value += f"\n{campaign.planet.health_bar}"
             field_value += f"\n`{campaign.planet.event.progress:^25.2%}`"
             if (
@@ -2232,7 +2232,7 @@ class Dashboard:
                 field_value += f"\n**{self.language_json['embeds']['Dashboard']['DefenceEmbed']['loss']}**"
 
             field_value += f"\n{self.language_json['embeds']['Dashboard']['DefenceEmbed']['heroes']}: **{campaign.planet.stats.player_count:,}**"
-            if self.compact_level < 1:
+            if self.compact_level < 2:
                 field_value += f"\n{campaign.planet.health_bar}"
             field_value += f"\n`{campaign.planet.event.progress:^25.2%}`"
             if (
