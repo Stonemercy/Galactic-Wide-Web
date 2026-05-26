@@ -18,3 +18,8 @@ class Config:
 
     AUTHED_API_HEADERS: dict[str, str] = loads(getenv("AUTHED_API_HEADERS"))
     AUTHED_API_URL: str = getenv("AUTHED_API_URL")
+    ALT_AUTHED_API_HEADERS: dict[str, str] = loads(getenv("ALT_AUTHED_API_HEADERS"))
+    ALT_AUTHED_API_DSS_ENDPOINT: str = getenv("ALT_AUTHED_API_DSS_ENDPOINT")
+    ALT_PO_ENDPOINT: str = getenv("ALT_PO_ENDPOINT")
+
+    ARSENAL_API_URL: str = getenv("ARSENAL_API_URL")

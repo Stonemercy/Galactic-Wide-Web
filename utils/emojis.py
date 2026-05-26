@@ -5,6 +5,10 @@ from dataclasses import dataclass
 class Emojis:
 
     @dataclass
+    class CommunityIcons:
+        arsenal = "<:s:1507750876607942806>"
+
+    @dataclass
     class Items:
         medal = "<:s:1507479373094195400>"
         common_sample = "<:s:1306611420510687334>"

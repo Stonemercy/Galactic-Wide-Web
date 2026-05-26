@@ -1,4 +1,5 @@
 from datetime import datetime, timezone
+from utils.dataclasses.communities import Community
 from utils.dataclasses.enums import EventType
 from utils.dataclasses.subfactions import Subfaction
 from ...mixins import ReprMixin
@@ -55,6 +56,9 @@ class Planet(ReprMixin):
         self.regions: dict[int, Planet.Region] = {}
         self.tracker: BaseTrackerEntry | None = None
         self.stats: Planet.Stats = Planet.Stats()
+
+        # community choices
+        self.community_targets: list[Community] = []
 
     def add_data_from_status(self, raw_planet_status: dict) -> None:
         self.owner: int = raw_planet_status["owner"]
@@ -118,6 +122,8 @@ class Planet(ReprMixin):
             result += subfactions.emoji
         for feature in self.planet_features:
             result += feature[1]
+        for comm in self.community_targets:
+            result += comm.emoji
         return result
 
     @property

@@ -1,4 +1,5 @@
 from disnake import Colour, Embed, Guild
+from utils.emojis import Emojis
 from utils.mixins import EmbedReprMixin
 
 
@@ -14,8 +15,9 @@ class CommunityServersEmbed(Embed, EmbedReprMixin):
             guilds[new_index - 10 : new_index], start=max(1, new_index - 9)
         ):
             if self.character_count() < 6000 and len(self.fields) < 24:
+                emoji = getattr(Emojis.CommunityIcons, guild.name.lower(), "")
                 self.add_field(
-                    name=f"{index}. {guild.name}",
+                    name=f"{index}. {guild.name}{emoji}",
                     value=(
                         f"Members: **{guild.member_count:,}**"
                         f"\nInvite: [Link](<https://discord.com/invite/{guild.vanity_url_code}>)"

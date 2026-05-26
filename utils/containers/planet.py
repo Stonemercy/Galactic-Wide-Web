@@ -122,6 +122,14 @@ class PlanetContainers(list[ui.Container]):
             if sf_text != "### Subfactions:":
                 self.components.append(ui.TextDisplay(sf_text))
 
+            comm_target_text = f"### Communities targeting this planet:"
+            if len(planet.community_targets) > 0:
+                for comm in planet.community_targets:
+                    comm_target_text += (
+                        f"\n-# {comm.full_name} [{comm.emoji}](<{comm.discord_link}>)"
+                    )
+                self.components.append(ui.TextDisplay(comm_target_text))
+
             liberation_text = (
                 f"### {component_json['heroes']}: **{planet.stats.player_count:,}**"
                 f"\n{planet.health_bar}"

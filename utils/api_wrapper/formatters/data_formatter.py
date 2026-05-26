@@ -1,6 +1,7 @@
 from copy import deepcopy
 from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
+from utils.dataclasses.communities import arsenal
 from utils.dataclasses.enums import AssignmentTaskType, EventType, SpaceStationType
 from ..models import (
     Assignment,
@@ -193,6 +194,9 @@ class FormattedDataContext:
     personal_order: dict
     space_stations: list[dict]
     steam_news: list
+
+    # community targets
+    arsenal_targets: list[int]
 
     json_dict: dict
 
@@ -669,6 +673,12 @@ class FormattedData:
                     for planet in (self.planets.get(i) for i in ge.planet_indices):
                         planet.active_effects.update(set(ge.effects))
 
+            # community targets
+            if context.arsenal_targets:
+                for i in context.arsenal_targets:
+                    planet = self.planets.get(i)
+                    if planet:
+                        planet.community_targets.append(arsenal)
         self.formatted_at = datetime.now(tz=timezone.utc)
 
     def copy(self):

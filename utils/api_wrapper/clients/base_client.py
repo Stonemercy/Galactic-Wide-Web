@@ -34,7 +34,7 @@ class BaseAPIClient(ABC):
 
     async def get(
         self,
-        endpoint: str,
+        endpoint: str = "",
         params: Optional[dict] = None,
         headers: Optional[dict] = None,
         retries: int = 2,

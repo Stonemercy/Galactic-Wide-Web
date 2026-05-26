@@ -5,6 +5,9 @@ from utils.dbv2 import GWWGuilds
 from utils.logger import GWWLogger
 from utils.mixins import ReprMixin
 from ..clients import (
+    AltDSSVotesAuthedClient,
+    AltPOAuthedClient,
+    ArsenalClient,
     AuthedClient,
     HelldiversClient,
     SteamNewsClient,
@@ -44,6 +47,9 @@ class DataService(ReprMixin):
         self._raw_personal_order: dict = {}
         self._raw_stuperstore: dict = {}
         self._raw_steam_news: list = []
+
+        # community targets
+        self._arsenal_targets: list[int] = []
 
     def clear(self) -> None:
         self._raw_war_status.clear()
@@ -177,6 +183,29 @@ class DataService(ReprMixin):
             if personal_order:
                 self._raw_personal_order = personal_order
 
+        if not self._raw_dss_votes:
+            if dss := next(
+                (ss for ss in self._raw_space_stations if ss["id32"] == 749875195), None
+            ):
+                if current_vote_id := dss.get("currentElectionId", None):
+                    async with AltDSSVotesAuthedClient(logger=self.logger) as client:
+                        # alternate dss votes
+                        dss_votes = await client.get_dss_votes(current_vote_id)
+                        if dss_votes:
+                            self._raw_dss_votes = dss_votes
+
+        if not self._raw_personal_order:
+            async with AltPOAuthedClient(logger=self.logger) as client:
+                # alternate personal order
+                personal_order = await client.get_personal_order()
+                if personal_order:
+                    self._raw_personal_order = personal_order
+
+        async with ArsenalClient(logger=self.logger) as client:
+            arsenal_target = await client.get_community_target()
+            if arsenal_target and arsenal_target["count"] != 0:
+                self._arsenal_targets: list[int] = arsenal_target["data"]
+
         self.fetching = False
 
     def format_data(self) -> None:
@@ -195,6 +224,7 @@ class DataService(ReprMixin):
             war_effects=self._raw_war_effects,
             personal_order=self._raw_personal_order,
             steam_news=self._raw_steam_news,
+            arsenal_targets=self._arsenal_targets,
             json_dict=self.json_dict,
         )
         self.formatted_data = FormattedData(context=formatted_data_context)
