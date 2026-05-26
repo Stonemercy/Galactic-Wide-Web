@@ -32,6 +32,7 @@
             "inactive": "неактивно",
             "on_cooldown": "на перезарядке",
             "prep_starts": "Сбор средств начнется",
+            "required_cost": "\n-# Требуется **{amount}** {item_name} для активации",
             "expires": "Истекает",
             "tactical_actions": {
                 "EAGLE STORM": {

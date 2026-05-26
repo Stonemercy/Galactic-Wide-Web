@@ -7,3 +7,4 @@ class DSSChangesJson:
     container: dict
     subfactions: dict
     regions: dict
+    currencies: dict

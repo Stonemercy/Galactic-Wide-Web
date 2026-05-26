@@ -32,6 +32,7 @@
             "inactive": "未啟動",
             "on_cooldown": "冷卻中",
             "prep_starts": "準備開始",
+            "required_cost": "\n-# 需要 **{amount}** {item_name} 以啟用",
             "expires": "已過期",
             "tactical_actions": {
                 "EAGLE STORM": {

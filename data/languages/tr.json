@@ -32,6 +32,7 @@
             "inactive": "inaktif",
             "on_cooldown": "bekleme süresinde",
             "prep_starts": "Hazırlık başlıyor",
+            "required_cost": "\n-# Aktifleştirmek için **{amount}** {item_name} gerekir",
             "expires": "Sona eriyor",
             "tactical_actions": {
                 "EAGLE STORM": {

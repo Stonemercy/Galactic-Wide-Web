@@ -236,7 +236,6 @@ class WarUpdatesCog(commands.Cog):
         dss_updates = False
         unique_langs = GWWGuilds.unique_languages()
         if self.bot.data.formatted_data.dss != None:
-            # DSS updates
             containers = {
                 lang: DSSChangesContainer(
                     json=DSSChangesJson(
@@ -250,6 +249,7 @@ class WarUpdatesCog(commands.Cog):
                             "subfactions"
                         ],
                         regions=self.bot.json_dict["languages"][lang]["regions"],
+                        currencies=self.bot.json_dict["languages"][lang]["currencies"],
                     )
                 )
                 for lang in unique_langs

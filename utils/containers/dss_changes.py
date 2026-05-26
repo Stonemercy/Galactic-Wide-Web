@@ -133,9 +133,12 @@ class DSSChangesContainer(ui.Container, ReprMixin):
         )
         if tactical_action.status == 1:
             for cost in tactical_action.cost:
-                section.children[
-                    0
-                ].content += f"\n-# Requires **{short_format(cost.target * AMOUNT_PER_COST[cost.item])}** {cost.item} to activate"
+                section.children[0].content += self.json.container[
+                    "required_cost"
+                ].format(
+                    amount=short_format(cost.target * AMOUNT_PER_COST[cost.item]),
+                    item_name=self.json.currencies.get(cost.item, cost.item),
+                )
         elif tactical_action.status == 2:
             section.children[0].content += (
                 f"\n{self.json.container['tactical_actions'].get(tactical_action.name, {}).get('description', tactical_action.description)}"

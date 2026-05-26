@@ -32,6 +32,7 @@
             "inactive": "inactivo",
             "on_cooldown": "en recarga",
             "prep_starts": "El preparativo comienza",
+            "required_cost": "\n-# Requiere **{amount}** {item_name} para activar",
             "expires": "Expira",
             "tactical_actions": {
                 "EAGLE STORM": {
