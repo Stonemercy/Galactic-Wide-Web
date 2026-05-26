@@ -1,4 +1,4 @@
-from datetime import time
+from datetime import time, timezone
 from typing import TYPE_CHECKING
 from disnake import ButtonStyle, Colour, Embed, Guild, MessageInteraction, ui
 from disnake.ext import commands, tasks
@@ -58,7 +58,7 @@ class GuildManagementCog(commands.Cog):
             for c in (c for c in lst.copy() if c.guild.id == guild.id):
                 lst.remove(c)
 
-    @tasks.loop(time=[time(hour=23, minute=0)])
+    @tasks.loop(time=[time(hour=23, minute=0, tzinfo=timezone.utc)])
     async def guild_checking(self) -> None:
         dbguilds = GWWGuilds(fetch_all=True)
         if dbguilds:
