@@ -107,9 +107,7 @@ class Dashboard:
         if urgent_liberations := [
             c
             for c in data.campaigns
-            if c.type == CampaignType.Event
-            and c.planet.event
-            and c.planet.event.type == EventType.UrgentLiberation
+            if c.planet.event and c.planet.event.type == EventType.UrgentLiberation
         ]:
             self.embeds.append(
                 self.UrgentLiberationsEmbed(
