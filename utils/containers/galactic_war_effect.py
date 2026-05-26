@@ -47,7 +47,7 @@ class GWEContainer(ui.Container, ReprMixin):
 
         if gwe.found_booster:
             components.append(
-                ui.TextDisplay(f"BOOSTER DETECTED - **{gwe.found_booster['name']}**")
+                ui.TextDisplay(f"BOOSTER DETECTED - **{gwe.found_booster}**")
             )
 
         active_planets = ""

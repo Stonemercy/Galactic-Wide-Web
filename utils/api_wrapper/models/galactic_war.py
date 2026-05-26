@@ -161,7 +161,7 @@ class GalacticWarEffect(GWEReprMixin):
             if stratagem := STRATAGEM_ID_DICT.get(self.mix_id):
                 self.found_stratagem: str = stratagem
             elif booster := json_dict["items"]["boosters"].get(str(self.mix_id), {}):
-                self.found_booster: dict = booster
+                self.found_booster: str = booster["name"]
         if value5 := self.values_dict.get(5):
             self.value5 = value5
             print(f"VALUE5 USED: {self.id} {self.value5 = }")
