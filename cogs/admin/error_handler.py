@@ -22,6 +22,7 @@ class ErrorHandlerCog(commands.Cog):
             embed.description = (
                 f"This command isn't for public use. Apologies for the inconvenience."
             )
+            log_error = False
         elif isinstance(error, commands.MissingPermissions):
             embed.description = f"You don't have permission to use this command.\nRequired: {', '.join(error.missing_permissions)}"
         elif isinstance(error, commands.BotMissingPermissions):
