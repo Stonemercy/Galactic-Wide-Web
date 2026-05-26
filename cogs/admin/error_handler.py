@@ -54,60 +54,6 @@ class ErrorHandlerCog(commands.Cog):
         except:
             pass
 
-    @commands.Cog.listener()
-    async def on_button_click_error(self, inter: MessageInteraction, error):
-        error = getattr(error, "original", error)
-        embed = Embed(title="Button Error", color=Color.red())
-
-        if isinstance(error, NotReadyYet):
-            embed.description = f"The bot isn't ready yet, try again <t:{int(self.bot.ready_time.timestamp())}:R>"
-        elif isinstance(error, NotWhitelisted):
-            embed.description = (
-                f"This command isn't for public use. Apologies for the inconvenience."
-            )
-        elif isinstance(error, commands.CheckFailure):
-            embed.description = "You don't have permission to use this button."
-        elif isinstance(error, commands.CommandOnCooldown):
-            embed.description = f"This button is on cooldown. Try again in {error.retry_after:.2f} seconds."
-        else:
-            embed.description = "An error occurred while processing your button click."
-        await self.log_error(inter, error, "Button Click")
-
-        try:
-            if inter.response.is_done():
-                await inter.followup.send(embed=embed, ephemeral=True)
-            else:
-                await inter.response.send_message(embed=embed, ephemeral=True)
-        except:
-            pass
-
-    @commands.Cog.listener()
-    async def on_dropdown_error(self, inter: MessageInteraction, error):
-        error = getattr(error, "original", error)
-        embed = Embed(title="Dropdown Error", color=Color.red())
-
-        if isinstance(error, NotReadyYet):
-            embed.description = f"The bot isn't ready yet, try again <t:{int(self.bot.ready_time.timestamp())}:R>"
-        elif isinstance(error, NotWhitelisted):
-            embed.description = (
-                f"This command isn't for public use. Apologies for the inconvenience."
-            )
-        elif isinstance(error, commands.CheckFailure):
-            embed.description = "You don't have permission to use this dropdown."
-        elif isinstance(error, commands.CommandOnCooldown):
-            embed.description = f"This dropdown is on cooldown. Try again in {error.retry_after:.2f} seconds."
-        else:
-            embed.description = "An error occurred while processing your selection."
-        await self.log_error(inter, error, "Dropdown")
-
-        try:
-            if inter.response.is_done():
-                await inter.followup.send(embed=embed, ephemeral=True)
-            else:
-                await inter.response.send_message(embed=embed, ephemeral=True)
-        except:
-            pass
-
     async def log_error(
         self,
         inter: MessageInteraction | AppCmdInter | None,
