@@ -215,14 +215,16 @@ class APIChangesContainer(ui.Container, ReprMixin):
                                         text_display.content += (
                                             f"\n    Enemy: **{effect.found_enemy}**"
                                         )
-                                        if subfactions := [
-                                            sf
-                                            for sf in Subfactions._all
-                                            if sf.eng_name.lower()
-                                            == effect.found_enemy.lower()
-                                        ]:
-                                            sf = subfactions[0]
-                                            text_display.content += sf.emoji
+                                        if subfaction := next(
+                                            (
+                                                sf
+                                                for sf in Subfactions._all
+                                                if sf.eng_name.lower()
+                                                == effect.found_enemy.lower()
+                                            ),
+                                            None,
+                                        ):
+                                            text_display.content += subfaction.emoji
                                 self.container_components.append(text_display)
 
                             if effects_added := [
