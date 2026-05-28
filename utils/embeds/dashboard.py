@@ -462,7 +462,7 @@ class Dashboard:
                             if task.planet_index != None:
                                 defence_events = [
                                     p
-                                    for p in defence_events
+                                    for p in defence_events.copy()
                                     if p.index == task.planet_index
                                 ]
                             elif task.sector_index:
@@ -474,11 +474,11 @@ class Dashboard:
                             elif task.faction:
                                 defence_events = [
                                     p
-                                    for p in defence_events
+                                    for p in defence_events.copy()
                                     if p.event.faction == task.faction
                                 ]
-                            if len(defence_events) >= required_wins > 0:
-                                victory_times = []
+                            if len(defence_events) >= required_wins:
+                                victory_timestamps = []
                                 for planet in defence_events:
                                     end_time_info = get_end_time(
                                         source_planet=planet,
@@ -489,12 +489,12 @@ class Dashboard:
                                         and end_time_info.end_time
                                         < self.assignment.ends_at_datetime
                                     ):
-                                        victory_times.append(
+                                        victory_timestamps.append(
                                             end_time_info.end_time.timestamp()
                                         )
-                                if len(victory_times) >= required_wins:
+                                if len(victory_timestamps) >= required_wins:
                                     self.completion_timestamps.append(
-                                        sorted(victory_times, reverse=True)[
+                                        sorted(victory_timestamps, reverse=True)[
                                             required_wins - 1
                                         ]
                                     )
