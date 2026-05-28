@@ -478,7 +478,7 @@ class FormattedData:
                             | AssignmentTaskType.CompleteOperations
                             | AssignmentTaskType.LiberateLocationsSpecific
                         ):
-                            if task.planet_index:
+                            if task.planet_index != None:
                                 planet = self.planets.get(task.planet_index)
                                 if planet:
                                     planet.in_assignment = True
@@ -518,7 +518,7 @@ class FormattedData:
                                         if c.planet.sector == task.sector_index
                                     ):
                                         event_campaign.planet.in_assignment = True
-                            elif task.planet_index:
+                            elif task.planet_index != None:
                                 planet = self.planets.get(task.planet_index)
                                 if planet:
                                     if planet.event:
@@ -546,7 +546,7 @@ class FormattedData:
                                     if p.sector == task.sector_index
                                 ):
                                     planet.in_assignment = True
-                            elif task.planet_index:
+                            elif task.planet_index != None:
                                 planet = self.planets.get(task.planet_index)
                                 if planet:
                                     planet.in_assignment = True

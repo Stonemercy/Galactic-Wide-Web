@@ -412,7 +412,7 @@ class Dashboard:
                 else:
                     match task.type:
                         case AssignmentTaskType.LiberateLocationsSpecific:
-                            if task.planet_index:
+                            if task.planet_index != None:
                                 planet = self.planets.get(task.planet_index)
                                 if not planet:
                                     continue
@@ -459,7 +459,7 @@ class Dashboard:
                                 for p in self.planets.values()
                                 if p.event and p.event.type == EventType.Defence
                             ]
-                            if task.planet_index:
+                            if task.planet_index != None:
                                 defence_events = [
                                     p
                                     for p in defence_events
@@ -499,7 +499,7 @@ class Dashboard:
                                         ]
                                     )
                         case AssignmentTaskType.HoldLocationsUntilEnd:
-                            if task.planet_index:
+                            if task.planet_index != None:
                                 planet = self.planets.get(task.planet_index)
                                 if not planet:
                                     continue
@@ -553,7 +553,7 @@ class Dashboard:
                 task.type == AssignmentTaskType.HoldLocationsUntilEnd
                 and task.progress_perc != 1
             ):
-                if task.planet_index:
+                if task.planet_index != None:
                     planet = self.planets.get(task.planet_index)
                     if planet and planet.faction == Factions.humans:
                         return text.replace("{emoji}", Emojis.Icons.mo_task_complete)
@@ -584,7 +584,7 @@ class Dashboard:
                 "tasks"
             ]
 
-            if task.planet_index:
+            if task.planet_index != None:
                 planet = self.planets.get(task.planet_index)
                 from_the_planet = tasks_json["loc_from_planet"]
                 text = text.replace("{ext_pre}", f" {from_the_planet} **")
@@ -617,7 +617,7 @@ class Dashboard:
                 "tasks"
             ]
 
-            if task.planet_index:
+            if task.planet_index != None:
                 planet = self.planets.get(task.planet_index)
                 on = tasks_json["loc_on_planet"]
                 text = text.replace("{ext_pre}", f" {on} **")
@@ -671,7 +671,7 @@ class Dashboard:
             tasks_json = self.language_json["embeds"]["Dashboard"]["MajorOrderEmbed"][
                 "tasks"
             ]
-            if task.planet_index:
+            if task.planet_index != None:
                 on = tasks_json["on_the_planet"]
                 planet = self.planets.get(task.planet_index)
                 text = text.replace("{race_pre}", f" {on} **")
@@ -1051,7 +1051,7 @@ class Dashboard:
             tasks_json = self.language_json["embeds"]["Dashboard"]["MajorOrderEmbed"][
                 "tasks"
             ]
-            if task.faction or task.planet_index:
+            if task.faction or task.planet_index != None:
                 field_name = tasks_json["type7_f_p"]
             else:
                 field_name = tasks_json["type7_r"]
@@ -1114,7 +1114,7 @@ class Dashboard:
             tasks_json = self.language_json["embeds"]["Dashboard"]["MajorOrderEmbed"][
                 "tasks"
             ]
-            if task.faction or task.planet_index:
+            if task.faction or task.planet_index != None:
                 field_name = tasks_json["type9_f_p"]
             else:
                 field_name = tasks_json["type9_r"]
@@ -1213,7 +1213,7 @@ class Dashboard:
             field_name = tasks_json["type11"]
             field_name = self._add_progress_emoji(text=field_name, task=task)
 
-            if task.planet_index:
+            if task.planet_index != None:
                 planet = self.planets.get(task.planet_index)
                 if not planet:
                     location_name = "Unknown Location"
@@ -1229,7 +1229,7 @@ class Dashboard:
 
             field_value = ""
             if task.progress_perc != 1:
-                if task.planet_index:
+                if task.planet_index != None:
                     planet = self.planets.get(task.planet_index)
                     if planet:
                         if not planet.active_campaign:
@@ -1308,7 +1308,7 @@ class Dashboard:
                     field_name: str = tasks_json["type12_s_r"]
                 sector_name = self.json_dict["sectors"].get(str(task.sector_index))
                 field_name = field_name.replace("{sector}", sector_name)
-            elif task.planet_index:
+            elif task.planet_index != None:
                 if task.faction:
                     field_name: str = tasks_json["type12_p_f"]
                     race_name = self._get_faction_name(task.faction, plural=True)
@@ -1340,10 +1340,10 @@ class Dashboard:
                 f"\n{task.health_bar}"
                 f"\n`{task.progress_perc:^25.1%}`"
             )
-            if task.planet_index and task.target == 1:
+            if task.planet_index != None and task.target == 1:
                 field_value = ""
 
-            if task.planet_index:
+            if task.planet_index != None:
                 planet = self.planets.get(task.planet_index)
                 if planet.event:
                     end_time_info = get_end_time(planet, self.gambit_planets)
@@ -1487,7 +1487,7 @@ class Dashboard:
 
             field_value = ""
             if task.progress_perc != 1:
-                if task.planet_index:
+                if task.planet_index != None:
                     planet = self.planets.get(task.planet_index)
                     if planet and planet.faction != Factions.humans:
                         field_value += (
@@ -1499,7 +1499,7 @@ class Dashboard:
                         f"\n{task.health_bar}"
                         f"\n`{task.progress_perc:^25,.2%}`"
                     )
-            elif task.planet_index:
+            elif task.planet_index != None:
                 planet = self.planets.get(task.planet_index)
                 if planet:
                     if planet.event:
@@ -1748,7 +1748,7 @@ class Dashboard:
                 for t in self.assignment.tasks
                 if t.type == AssignmentTaskType.HoldLocationsUntilEnd
             ):
-                if task.planet_index:
+                if task.planet_index != None:
                     planet = self.planets.get(task.planet_index)
                     if planet:
                         if planet.faction.full_name == "Humans" and not planet.event:
@@ -1799,10 +1799,13 @@ class Dashboard:
 
             outlook_text = ""
             match self.assignment.flags:
-                case 0 | 1:  # complete all tasks
+                case 0 | 1 | 5:  # complete all tasks
                     if len(complete_tasks) == len(self.assignment.tasks):
                         outlook_text = self.language_json["complete"]
-                        if {13, 15} & self.assignment.unique_task_types:
+                        if {
+                            AssignmentTaskType.HoldLocationsUntilEnd,
+                            AssignmentTaskType.NetLiberation,
+                        } & self.assignment.unique_task_types:
                             outlook_text += f" <t:{int(self.assignment.ends_at_datetime.timestamp())}:R>"
                         else:
                             time_list: list[datetime] = sorted(
