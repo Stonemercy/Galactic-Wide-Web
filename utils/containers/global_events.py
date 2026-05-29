@@ -45,7 +45,9 @@ class GlobalEventsContainer(ui.Container, ReprMixin):
                     effect.found_booster
                     and effect.found_booster not in effect_component.content
                 ):
-                    effect_component.content += f"\n    {container_json['booster']}: **{effect.found_booster['name']}**"
+                    effect_component.content += (
+                        f"\n    {container_json['booster']}: **{effect.found_booster}**"
+                    )
                 if (
                     effect.found_stratagem
                     and effect.found_stratagem not in effect_component.content

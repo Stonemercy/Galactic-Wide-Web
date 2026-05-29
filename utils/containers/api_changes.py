@@ -208,7 +208,9 @@ class APIChangesContainer(ui.Container, ReprMixin):
                                     if not effect.name and not effect.short_description:
                                         text_display.content += f"\n    {effect.effect_description['simplified_name']}"
                                     if effect.found_booster:
-                                        text_display.content += f"\n    Booster: **{effect.found_booster['name']}**"
+                                        text_display.content += (
+                                            f"\n    Booster: **{effect.found_booster}**"
+                                        )
                                     if effect.found_stratagem:
                                         text_display.content += f"\n    Stratagem: **{effect.found_stratagem}**"
                                     if effect.found_enemy:
@@ -242,7 +244,9 @@ class APIChangesContainer(ui.Container, ReprMixin):
                                     if not effect.name and not effect.short_description:
                                         text_display.content += f"\n    {effect.effect_description['simplified_name']}"
                                     if effect.found_booster:
-                                        text_display.content += f"\n    Booster: **{effect.found_booster['name']}**"
+                                        text_display.content += (
+                                            f"\n    Booster: **{effect.found_booster}**"
+                                        )
                                     if effect.found_stratagem:
                                         text_display.content += f"\n    Stratagem: **{effect.found_stratagem}**"
                                     if effect.found_enemy:
