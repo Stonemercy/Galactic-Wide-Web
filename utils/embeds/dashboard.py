@@ -1658,6 +1658,7 @@ class Dashboard:
                             None,
                         ):
                             rewards_text += f" {emoji}"
+                        rewards_text += f"\n-# {items_entry['name']}"
             if rewards_text != "":
                 self.add_field(
                     self.language_json["embeds"]["Dashboard"]["MajorOrderEmbed"][
