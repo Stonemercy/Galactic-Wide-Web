@@ -16,9 +16,6 @@ class AuthedClient(BaseAPIClient):
     async def get_personal_order(self) -> dict:
         return await self.get("/raw/assignment")
 
-    async def get_player(self, user_id: str, platform: int) -> dict:
-        return await self.get(f"/player/lookup?user={user_id}&platform={platform}")
-
 
 class AltDSSVotesAuthedClient(BaseAPIClient):
     def __init__(self, logger):
