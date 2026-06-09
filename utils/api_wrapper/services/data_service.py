@@ -75,13 +75,8 @@ class DataService(ReprMixin):
 
             unique_languages = GWWGuilds.unique_languages()
             in_use_languages = [
-                l
-                for l in Languages.all
-                if l.short_code in unique_languages or True  # ALL FOR DEBUGGING
+                l for l in Languages.all if l.short_code in unique_languages
             ]
-            self._raw_war_status.clear()
-            self._raw_news_feed.clear()
-            self._raw_assignments.clear()
             for lang in in_use_languages:
                 raw_war_status = await client.get_war_status(
                     war_id=self.war_id,
