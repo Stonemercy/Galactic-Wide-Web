@@ -27,16 +27,15 @@ class BotDashboardCog(commands.Cog):
 
     @tasks.loop(minutes=1)
     async def bot_dashboard(self) -> None:
-        bot_dashboard = self.bot_dashboard_db
         if not self.bot.bot_dashboard_channel:
             self.bot.bot_dashboard_channel = self.bot.get_channel(
-                bot_dashboard.channel_id
-            ) or await self.bot.fetch_channel(bot_dashboard.channel_id)
+                self.bot_dashboard_db.channel_id
+            ) or await self.bot.fetch_channel(self.bot_dashboard_db.channel_id)
         if not self.bot.bot_dashboard_message:
             try:
                 self.bot.bot_dashboard_message = (
                     await self.bot.bot_dashboard_channel.fetch_message(
-                        bot_dashboard.message_id
+                        self.bot_dashboard_db.message_id
                     )
                 )
             except NotFound:
@@ -45,8 +44,8 @@ class BotDashboardCog(commands.Cog):
                         components=[ui.TextDisplay("Placeholder please ignore")]
                     )
                 )
-                bot_dashboard.message_id = self.bot.bot_dashboard_message.id
-                bot_dashboard.save_changes()
+                self.bot_dashboard_db.message_id = self.bot.bot_dashboard_message.id
+                self.bot_dashboard_db.save_changes()
             except HTTPException:
                 return
         now = datetime.now(tz=timezone.utc)
