@@ -205,13 +205,8 @@ class APIChangesCog(commands.Cog):
             return
 
         if total_changes != []:
-            if len(total_changes) > 20:
-                await self.bot.channels.moderator_channel.send(
-                    f"TOTAL API CHANGES LENGTH = {len(total_changes)}\nCANCELLING MESSAGE"
-                )
-                return
             chunked_changes = [
-                total_changes[i : i + 5] for i in range(0, len(total_changes), 5)
+                total_changes[i : i + 10] for i in range(0, len(total_changes), 10)
             ]
             for chunk in chunked_changes:
                 components = [
