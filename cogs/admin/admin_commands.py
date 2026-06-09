@@ -15,6 +15,13 @@ from utils.interactables import ConfirmButton
 if TYPE_CHECKING:
     from utils.dbv2 import GWWGuild
 
+LEAVE_AND_RESET_BUTTON_IDS = {
+    "leave_guild_button",
+    "reset_guild_button",
+    "leave_confirm_button",
+    "reset_confirm_button",
+}
+
 
 class AdminCommandsCog(commands.Cog):
     def __init__(self, bot: GalacticWideWebBot) -> None:
@@ -164,13 +171,7 @@ class AdminCommandsCog(commands.Cog):
 
     @commands.Cog.listener("on_button_click")
     async def on_button_clicks(self, inter: MessageInteraction) -> None:
-        allowed_ids = {
-            "leave_guild_button",
-            "reset_guild_button",
-            "leave_confirm_button",
-            "reset_confirm_button",
-        }
-        if inter.component.custom_id not in allowed_ids:
+        if inter.component.custom_id not in LEAVE_AND_RESET_BUTTON_IDS:
             return
         if inter.author != self.bot.owner:
             self.bot.logger.warning(
