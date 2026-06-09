@@ -1,9 +1,10 @@
 from disnake import ComponentType, ui
 from utils.api_wrapper.models import Planet
-from utils.dataclasses import APIChanges, Subfactions
+from utils.dataclasses import APIChanges
 from utils.emojis import Emojis
 from utils.interactables import HDCButton
 from utils.mixins import ReprMixin
+from .galactic_war_effect import GWEContainer
 
 
 # DOESNT NEED LOCALIZATION
@@ -36,59 +37,33 @@ class APIChangesContainer(ui.Container, ReprMixin):
                         for id, gwe in api_change.old_object.items()
                         if id not in api_change.new_object
                     ]:
-                        content += "\n### Galactic Effects Removed ❌"
+                        content += "\n### Galactic Effect(s) Removed ❌"
                         for gwe in effects_removed:
-                            if gwe.short_description:
-                                content += f"\n    {gwe.short_description}"
-                            if not gwe.name and not gwe.short_description:
-                                content += (
-                                    f"\n    {gwe.effect_description['simplified_name']}"
-                                )
-                            if gwe.found_booster:
-                                content += f"\n    Booster: **{gwe.found_booster}**"
-                            if gwe.found_stratagem:
-                                content += f"\n    Stratagem: **{gwe.found_stratagem}**"
-                            if gwe.found_enemy:
-                                content += f"\n    Enemy: **{gwe.found_enemy}**"
-                                if subfaction := next(
-                                    (
-                                        sf
-                                        for sf in Subfactions._all
-                                        if sf.eng_name.lower()
-                                        == gwe.found_enemy.lower()
-                                    ),
-                                    None,
-                                ):
-                                    content += subfaction.emoji
+                            gwe_container = GWEContainer(gwe, [], False, False)
+                            gwe_content = (
+                                "\n"
+                                + gwe_container.components[0].content
+                                + "\n"
+                                + gwe_container.components[1].content
+                            )
+                            content += gwe_content
+
                     if effects_added := [
                         gwe
                         for id, gwe in api_change.new_object.items()
                         if id not in api_change.old_object
                     ]:
-                        content += "\n### Galactic Effects Added :white_check_mark:"
+                        content += "\n### Galactic Effect(s) Added :white_check_mark:"
                         for gwe in effects_added:
-                            if gwe.short_description:
-                                content += f"\n    {gwe.short_description}"
-                            if not gwe.name and not gwe.short_description:
-                                content += (
-                                    f"\n    {gwe.effect_description['simplified_name']}"
-                                )
-                            if gwe.found_booster:
-                                content += f"\n    Booster: **{gwe.found_booster}**"
-                            if gwe.found_stratagem:
-                                content += f"\n    Stratagem: **{gwe.found_stratagem}**"
-                            if gwe.found_enemy:
-                                content += f"\n    Enemy: **{gwe.found_enemy}**"
-                                if subfaction := next(
-                                    (
-                                        sf
-                                        for sf in Subfactions._all
-                                        if sf.eng_name.lower()
-                                        == gwe.found_enemy.lower()
-                                    ),
-                                    None,
-                                ):
-                                    content += subfaction.emoji
+                            gwe_container = GWEContainer(gwe, [], False, False)
+                            gwe_content = (
+                                "\n"
+                                + gwe_container.components[0].content
+                                + "\n"
+                                + gwe_container.components[1].content
+                            )
+                            content += gwe_content
+
                     if effects_removed or effects_added:
                         self.container_components.append(ui.TextDisplay(content))
                 case "Task":
@@ -197,70 +172,38 @@ class APIChangesContainer(ui.Container, ReprMixin):
                                 gwe for gwe in old_stat if gwe not in new_stat
                             ]:
                                 text_display = ui.TextDisplay(
-                                    f"### Effect __removed__ ❌"
+                                    f"### Effect(s) __removed__ ❌"
                                 )
                                 for effect in effects_removed:
-                                    text_display.content += f"\n{effect.id}"
-                                    if effect.short_description:
-                                        text_display.content += (
-                                            f"\n    {effect.short_description}"
-                                        )
-                                    if not effect.name and not effect.short_description:
-                                        text_display.content += f"\n    {effect.effect_description['simplified_name']}"
-                                    if effect.found_booster:
-                                        text_display.content += (
-                                            f"\n    Booster: **{effect.found_booster}**"
-                                        )
-                                    if effect.found_stratagem:
-                                        text_display.content += f"\n    Stratagem: **{effect.found_stratagem}**"
-                                    if effect.found_enemy:
-                                        text_display.content += (
-                                            f"\n    Enemy: **{effect.found_enemy}**"
-                                        )
-                                        if subfaction := next(
-                                            (
-                                                sf
-                                                for sf in Subfactions._all
-                                                if sf.eng_name.lower()
-                                                == effect.found_enemy.lower()
-                                            ),
-                                            None,
-                                        ):
-                                            text_display.content += subfaction.emoji
+                                    gwe_container = GWEContainer(
+                                        effect, [], False, False
+                                    )
+                                    gwe_content = (
+                                        "\n"
+                                        + gwe_container.components[0].content
+                                        + "\n"
+                                        + gwe_container.components[1].content
+                                    )
+                                    text_display.content += gwe_content
                                 self.container_components.append(text_display)
 
                             if effects_added := [
                                 gwe for gwe in new_stat if gwe not in old_stat
                             ]:
                                 text_display = ui.TextDisplay(
-                                    f"### Effect __added__ :white_check_mark:"
+                                    f"### Effect(s) __added__ :white_check_mark:"
                                 )
                                 for effect in effects_added:
-                                    text_display.content += f"\n{effect.id}"
-                                    if effect.short_description:
-                                        text_display.content += (
-                                            f"\n-#    {effect.short_description}"
-                                        )
-                                    if not effect.name and not effect.short_description:
-                                        text_display.content += f"\n    {effect.effect_description['simplified_name']}"
-                                    if effect.found_booster:
-                                        text_display.content += (
-                                            f"\n    Booster: **{effect.found_booster}**"
-                                        )
-                                    if effect.found_stratagem:
-                                        text_display.content += f"\n    Stratagem: **{effect.found_stratagem}**"
-                                    if effect.found_enemy:
-                                        text_display.content += (
-                                            f"\n    Enemy: **{effect.found_enemy}**"
-                                        )
-                                        if subfactions := [
-                                            sf
-                                            for sf in Subfactions._all
-                                            if sf.eng_name.lower()
-                                            == effect.found_enemy.lower()
-                                        ]:
-                                            sf = subfactions[0]
-                                            text_display.content += sf.emoji
+                                    gwe_container = GWEContainer(
+                                        effect, [], False, False
+                                    )
+                                    gwe_content = (
+                                        "\n"
+                                        + gwe_container.components[0].content
+                                        + "\n"
+                                        + gwe_container.components[1].content
+                                    )
+                                    text_display.content += gwe_content
                                 self.container_components.append(text_display)
                         case "sector":
                             self.container_components.append(

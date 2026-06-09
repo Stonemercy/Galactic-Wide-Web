@@ -7,6 +7,7 @@ class Subfaction:
     eng_name: str
     emoji: str
     division_id: int
+    poi_id: int
 
     def __hash__(self):
         return hash(self.division_id)
@@ -19,31 +20,35 @@ class Subfaction:
 
 @dataclass
 class Subfactions:
-    THE_JET_BRIGADE = Subfaction("JET BRIGADE", Emojis.Subfactions.jet_brigade, 1202)
+    THE_JET_BRIGADE = Subfaction(
+        "JET BRIGADE", Emojis.Subfactions.jet_brigade, 1202, 1203
+    )
     PREDATOR_STRAIN = Subfaction(
-        "PREDATOR STRAIN", Emojis.Subfactions.predator_strain, 1243
+        "PREDATOR STRAIN", Emojis.Subfactions.predator_strain, 1243, 1245
     )
     SPORE_BURST_STRAIN = Subfaction(
-        "SPORE BURST STRAIN", Emojis.Subfactions.spore_burst_strain, 1244
+        "SPORE BURST STRAIN", Emojis.Subfactions.spore_burst_strain, 1244, 1386
     )
     INCINERATION_CORPS = Subfaction(
-        "INCINERATION CORPS", Emojis.Subfactions.incineration_corps, 1248
+        "INCINERATION CORPS", Emojis.Subfactions.incineration_corps, 1248, 1249
     )
     THE_GREAT_HOST = Subfaction(
-        "THE GREAT HOST", Emojis.Subfactions.the_great_host, 1269
+        "THE GREAT HOST", Emojis.Subfactions.the_great_host, 1269, 1269
     )
     RUPTURE_STRAIN = Subfaction(
-        "RUPTURE STRAIN", Emojis.Subfactions.rupture_strain, 1303
+        "RUPTURE STRAIN", Emojis.Subfactions.rupture_strain, 1303, 1310
     )
-    DRAGONROACHES = Subfaction("DRAGONROACHES", Emojis.Subfactions.dragonroaches, 1306)
-    HIVE_LORDS = Subfaction("HIVE LORDS", Emojis.Subfactions.hive_lords, 1307)
-    CYBORGS = Subfaction("CYBORGS", Emojis.Subfactions.cyborgs, 1360)
+    DRAGONROACHES = Subfaction(
+        "DRAGONROACHES", Emojis.Subfactions.dragonroaches, 1306, 1309
+    )
+    HIVE_LORDS = Subfaction("HIVE LORDS", Emojis.Subfactions.hive_lords, 1307, 1308)
+    CYBORGS = Subfaction("CYBORGS", Emojis.Subfactions.cyborgs, 1360, 1361)
     MINDLESS_MASSES = Subfaction(
-        "MINDLESS MASSES", Emojis.Subfactions.mindless_masses, 1377
-    )  # fix emoji
+        "MINDLESS MASSES", Emojis.Subfactions.mindless_masses, 1377, 1378
+    )
     APPROPRIATORS = Subfaction(
-        "APPROPRIATORS", Emojis.Subfactions.appropriators, 1380
-    )  # fix emoji
+        "APPROPRIATORS", Emojis.Subfactions.appropriators, 1380, 1379
+    )
 
     _all: tuple[Subfaction] = (
         THE_JET_BRIGADE,

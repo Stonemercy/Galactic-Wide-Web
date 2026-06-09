@@ -1,6 +1,7 @@
 from disnake import Colour, ui
 from utils.api_wrapper.models import GalacticWarEffect, Planet
 from utils.dataclasses import Subfactions
+from utils.dataclasses.planet_features import PlanetFeatures
 from utils.mixins import ReprMixin
 
 
@@ -10,25 +11,36 @@ class GWEContainer(ui.Container, ReprMixin):
         self,
         gwe: GalacticWarEffect,
         planets_with_gwe: list[Planet] | str,
+        with_planets_list: bool = True,
         with_pretty_print: bool = True,
     ):
-        components = []
-        self.attachments = []
-        components.append(
+        self.components = []
+        self.components.append(
             ui.TextDisplay(f"{gwe.id} - {gwe.effect_description['simplified_name']}")
         )
+        content = ""
         if gwe.name:
-            components.append(ui.TextDisplay(f"{gwe.name}"))
+            content += f"\n**{gwe.name}**"
         if gwe.short_description:
-            components.append(ui.TextDisplay(f"{gwe.short_description}"))
+            content += f"\n{gwe.short_description}"
         if gwe.long_description:
-            components.append(ui.TextDisplay(f"{gwe.long_description}"))
+            content += f"\n-# {gwe.long_description}"
         if gwe.fluff_description:
-            components.append(ui.TextDisplay(f"{gwe.fluff_description}"))
+            content += f"\n-# {gwe.fluff_description}"
         if gwe.resource:
-            components.append(ui.TextDisplay(f"{gwe.resource}"))
+            content += f"\n{gwe.resource}"
 
-        if gwe.found_enemy:
+        if planet_feature := next(
+            (pf for pf in PlanetFeatures.get_from_effects_list([gwe])), None
+        ):
+            content += f"\n**{planet_feature[0]}** {planet_feature[1]}"
+
+        if subfaction_poi := next(
+            (sf for sf in Subfactions._all if sf.poi_id == gwe.id), None
+        ):
+            content += f"\n**{subfaction_poi.eng_name}** {subfaction_poi.emoji}"
+
+        if gwe.found_enemy and gwe.found_enemy not in content:
             enemy = str(gwe.found_enemy)
             subfaction = [
                 sf for sf in Subfactions._all if sf.eng_name.lower() == enemy.lower()
@@ -38,33 +50,42 @@ class GWEContainer(ui.Container, ReprMixin):
                 enemy_text = f"**{sf.eng_name}** {sf.emoji}"
             else:
                 enemy_text = f"**{gwe.found_enemy}**"
-            components.append(ui.TextDisplay(f"ENEMY DETECTED - {enemy_text}"))
+            content += f"\nEnemy: {enemy_text}"
 
-        if gwe.found_stratagem:
-            components.append(
-                ui.TextDisplay(f"STRATAGEM DETECTED - **{gwe.found_stratagem}**")
-            )
+        if gwe.found_stratagem and gwe.found_stratagem not in content:
+            content += f"\nStratagem: **{gwe.found_stratagem}**"
 
-        if gwe.found_booster:
-            components.append(
-                ui.TextDisplay(f"BOOSTER DETECTED - **{gwe.found_booster}**")
-            )
+        if gwe.found_booster and gwe.found_booster not in content:
+            content += f"\nBooster: **{gwe.found_booster}**"
 
-        active_planets = ""
-        if type(planets_with_gwe) == str:
-            active_planets = "-# ALL PLANETS"
-        elif planets_with_gwe:
-            active_planets = "-# " + "\n-# ".join(
-                [p.names.get("en-GB", p.name) for p in planets_with_gwe]
-            )
-        else:
-            active_planets = "-# None"
-        components.append(ui.TextDisplay(f"Active on\n{active_planets}"))
+        if gwe.count:
+            content += f"\nCount: **{gwe.count:+,}**"
+        if gwe.percent:
+            percent = gwe.percent
+            match gwe.effect_type:
+                case 1 | 72:
+                    percent -= 100
+            content += f"\nPercent: **{percent:+,}%**"
+
+        if with_planets_list:
+            active_planets = ""
+            if isinstance(planets_with_gwe, str):
+                active_planets = "-# ALL PLANETS"
+            elif planets_with_gwe:
+                active_planets = "-# " + "\n-# ".join(
+                    [f"#{p.index} - {p.name}" for p in planets_with_gwe]
+                )
+            else:
+                active_planets = "-# None"
+            content += f"\n**Active on**\n{active_planets}"
+
+        self.components.append(ui.TextDisplay(content))
+
         if with_pretty_print:
-            components.append(ui.Separator())
-            components.append(ui.TextDisplay(f"```py\n{gwe}```"))
+            self.components.append(ui.Separator())
+            self.components.append(ui.TextDisplay(f"```py\n{gwe}```"))
 
         super().__init__(
-            *components,
+            *self.components,
             accent_colour=Colour.dark_theme(),
         )
