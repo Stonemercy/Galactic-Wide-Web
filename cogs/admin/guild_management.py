@@ -32,9 +32,11 @@ class GuildManagementCog(commands.Cog):
     async def on_guild_join(self, guild: Guild) -> None:
         guild_in_db: GWWGuild | None = GWWGuilds.get_specific_guild(id=guild.id)
         if guild_in_db:
-            await self.bot.channels.moderator_channel.send(
+            text = (
                 f"Guild **{guild.name}** just added the bot but was already in the DB"
             )
+            await self.bot.channels.moderator_channel.send(text)
+            self.bot.logger.warning(text)
         else:
             language = Languages.get_from_locale(guild.preferred_locale)
             guild_in_db = GWWGuilds.add(
@@ -42,14 +44,15 @@ class GuildManagementCog(commands.Cog):
             )
         container = GuildContainer(guild=guild, db_guild=guild_in_db, joined=True)
         await self.bot.channels.moderator_channel.send(components=container)
+        self.bot.logger.info(f"Bot added to guild {guild.id} - '{guild.name}'")
 
     @commands.Cog.listener()
     async def on_guild_remove(self, guild: Guild) -> None:
         guild_in_db: GWWGuild | None = GWWGuilds.get_specific_guild(id=guild.id)
         if not guild_in_db:
-            await self.bot.channels.moderator_channel.send(
-                f"Guild **{guild.name}** just removed the bot but was not in the DB"
-            )
+            text = f"Guild **{guild.name}** just removed the bot but was not in the DB"
+            await self.bot.channels.moderator_channel.send(text)
+            self.bot.logger.warning(text)
         else:
             container = GuildContainer(guild=guild, db_guild=guild_in_db, removed=True)
             guild_in_db.delete()
@@ -57,6 +60,7 @@ class GuildManagementCog(commands.Cog):
         for lst in self.bot.interface_handler.lists.values():
             for c in (c for c in lst.copy() if c.guild.id == guild.id):
                 lst.remove(c)
+        self.bot.logger.info(f"Bot removed from {guild.id} - '{guild.name}'")
 
     @tasks.loop(time=[time(hour=23, minute=0, tzinfo=timezone.utc)])
     async def guild_checking(self) -> None:

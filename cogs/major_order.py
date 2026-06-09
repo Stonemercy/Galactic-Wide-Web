@@ -131,8 +131,8 @@ class MajorOrderCog(commands.Cog):
         time=[time(hour=6, minute=20, second=30), time(hour=18, minute=20, second=30)]
     )
     async def major_order_updates(self):
+        self.bot.logger.info("major_order_updates loop started")
         mo_updates_start = datetime.now(tz=timezone.utc)
-        self.bot.logger.info(f"MO loop starting at {mo_updates_start}")
         if (
             self.last_mo_update
             and (mo_updates_start - self.last_mo_update).total_seconds() < 600
@@ -167,7 +167,7 @@ class MajorOrderCog(commands.Cog):
             announcement_type="MO",
         )
         self.bot.logger.info(
-            f"Sent MO announcements out to {len(self.bot.interface_handler.major_order_updates)} channels in {(datetime.now(tz=timezone.utc) - mo_updates_start).total_seconds():.2f}s"
+            f"Sent MO announcements out to {len(self.bot.interface_handler.major_order_updates)} channels in {(datetime.now(tz=timezone.utc) - mo_updates_start).total_seconds():.2f} seconds"
         )
 
     @major_order_updates.before_loop

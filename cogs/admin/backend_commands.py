@@ -74,12 +74,12 @@ class BackendCommandsCog(commands.Cog):
         inter: AppCmdInter,
         id: str = commands.Param(
             autocomplete=id_autocomp,
-            description="The ID you want to lookup",
+            description="The effect you want to lookup",
             default="",
         ),
         on_planet: str = commands.Param(
             autocomplete=planet_autocomp,
-            description="The planet you want to lookup",
+            description="The planet you want to get all effects for",
             default="",
         ),
         stratagem: str = commands.Param(
@@ -124,7 +124,7 @@ class BackendCommandsCog(commands.Cog):
                 return
             if not planet.active_effects:
                 await inter.send(
-                    f"No effects found on `{planet.names.get('en-GB', planet.name)}`, sorry :pensive:"
+                    f"No effects found on `{planet.names.get('en-GB', planet.name)}`"
                 )
                 return
             gwe_list = list(planet.active_effects)
@@ -170,7 +170,8 @@ class BackendCommandsCog(commands.Cog):
             await inter.send(components=components, ephemeral=public != "Yes")
         else:
             await inter.send(
-                "Couldn't find that effect, sorry :pensive:", ephemeral=public != "Yes"
+                "Couldn't find the effect(s), sorry :pensive:",
+                ephemeral=public != "Yes",
             )
 
     async def title_autocomp(inter: AppCmdInter, user_input: str) -> list[str]:

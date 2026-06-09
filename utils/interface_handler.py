@@ -107,9 +107,12 @@ class InterfaceHandler:
         }
 
     async def populate_lists(self):
-        for feature_list in self.lists.values():
+        for list_name, feature_list in self.lists.items():
             feature_list.clear()
             await feature_list.populate()
+            self.bot.logger.info(
+                f"{list_name} populated with {len(feature_list)} items"
+            )
         self.loaded = True
         self.bot.logger.info("InterfaceHandler has been populated")
 

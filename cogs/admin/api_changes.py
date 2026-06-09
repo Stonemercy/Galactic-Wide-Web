@@ -144,7 +144,7 @@ class APIChangesCog(commands.Cog):
                         )
                     )
                     self.bot.logger.info(
-                        f"Personal Order changed from {old_po_text} to {new_po_text}"
+                        f"Personal Order changed from |{old_po_text}| to |{new_po_text}|"
                     )
 
             for old_planet, new_planet in zip(
@@ -200,6 +200,10 @@ class APIChangesCog(commands.Cog):
                                 self.bot.logger.info(
                                     f"{old_region.names.get('en-GB', old_region.name)} {stat_name} changed from {old_r_property} to {new_r_property}"
                                 )
+        else:
+            self.bot.logger.info("No previous data, skipping API Changes loop")
+            return
+
         if total_changes != []:
             if len(total_changes) > 20:
                 await self.bot.channels.moderator_channel.send(

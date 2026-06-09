@@ -23,9 +23,7 @@ SPACE_STATION_IDS = {
 
 
 class DataService(ReprMixin):
-
     def __init__(self, json_dict: dict, logger: GWWLogger) -> None:
-        """The object to retrieve and organise all 3rd-party data used by the bot"""
         self.json_dict = json_dict
         self.logger = logger
         self.loaded = False
@@ -64,7 +62,6 @@ class DataService(ReprMixin):
         self._raw_steam_news.clear()
 
     async def pull_from_api(self) -> None:
-        """Pulls the data from each endpoint"""
         self.clear()
         self.fetching = True
 
@@ -86,7 +83,6 @@ class DataService(ReprMixin):
             self._raw_news_feed.clear()
             self._raw_assignments.clear()
             for lang in in_use_languages:
-                # war status
                 raw_war_status = await client.get_war_status(
                     war_id=self.war_id,
                     lang=lang.long_code,
@@ -94,7 +90,6 @@ class DataService(ReprMixin):
                 if raw_war_status:
                     self._raw_war_status[lang.short_code] = raw_war_status
 
-                # news_feed
                 time_for_dispatches = int(
                     (
                         self._raw_war_status.get("en", {}).get(
@@ -122,7 +117,6 @@ class DataService(ReprMixin):
                 if news_feed:
                     self._raw_news_feed[lang.short_code] = news_feed[-25:]
 
-                # assignments
                 assignments = await client.get_assignments(
                     war_id=self.war_id, lang=lang.long_code
                 )
@@ -137,17 +131,14 @@ class DataService(ReprMixin):
                 )
                 self._raw_space_stations.append(space_station_info)
 
-            # war stats
             war_stats = await client.get_war_stats(war_id=self.war_id)
             if war_stats:
                 self._raw_war_stats = war_stats
 
-            # war info
             war_info = await client.get_war_info(war_id=self.war_id)
             if war_info:
                 self._raw_war_info = war_info
 
-            # war effects
             war_effects = await client.get_war_effects()
             if war_effects:
                 self._raw_war_effects = war_effects
@@ -155,7 +146,6 @@ class DataService(ReprMixin):
         async with SteamPlayerCountClient(
             logger=self.logger, base_url=EndpointBase.STEAM_PLAYER_COUNT.value
         ) as client:
-            # steam player count
             steam_count = await client.get_steam_count()
             if steam_count:
                 self.steam_player_count = steam_count["response"]["player_count"]
@@ -163,7 +153,6 @@ class DataService(ReprMixin):
         async with SteamNewsClient(
             logger=self.logger, base_url=EndpointBase.STEAM_NEWS.value
         ) as client:
-            # steam news
             steam_news = await client.get_steam_news()
             if steam_news:
                 self._raw_steam_news: list[dict] = [
@@ -189,14 +178,12 @@ class DataService(ReprMixin):
             ):
                 if current_vote_id := dss.get("currentElectionId", None):
                     async with AltDSSVotesAuthedClient(logger=self.logger) as client:
-                        # alternate dss votes
                         dss_votes = await client.get_dss_votes(current_vote_id)
                         if dss_votes:
                             self._raw_dss_votes = dss_votes
 
         if not self._raw_personal_order:
             async with AltPOAuthedClient(logger=self.logger) as client:
-                # alternate personal order
                 personal_order = await client.get_personal_order()
                 if personal_order:
                     self._raw_personal_order = personal_order
@@ -233,7 +220,6 @@ class DataService(ReprMixin):
             self.loaded = True
 
     def update_tracker_rates(self):
-        # liberation rates
         for campaign in self.formatted_data.campaigns:
             self.tracking_service.liberation_changes.add_entry(
                 key=campaign.planet.index, value=campaign.progress
@@ -244,7 +230,6 @@ class DataService(ReprMixin):
                 )
             )
 
-        # region rates
         planets_with_regions = [
             p for p in self.formatted_data.planets.values() if p.regions
         ]
@@ -257,7 +242,7 @@ class DataService(ReprMixin):
                     region.tracker = self.tracking_service.region_changes.get_entry(
                         key=region.settings_hash
                     )
-        # major order rates
+
         if self.formatted_data.assignments.get("en"):
             for assignment in self.formatted_data.assignments["en"]:
                 for task_index, task in enumerate(assignment.tasks, start=1):
@@ -288,7 +273,7 @@ class DataService(ReprMixin):
                                 key=(assignment.id, task_index)
                             )
                         )
-        # ta rates
+
         if self.formatted_data.dss:
             for ta in self.formatted_data.dss.tactical_actions:
                 for cost in ta.cost:
@@ -301,7 +286,6 @@ class DataService(ReprMixin):
                         )
                     )
 
-        # global resource rates
         if self.formatted_data.global_resources:
             for gr in self.formatted_data.global_resources:
                 self.tracking_service.global_resource_changes.add_entry(

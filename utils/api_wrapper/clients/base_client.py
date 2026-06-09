@@ -49,10 +49,6 @@ class BaseAPIClient(ABC):
                 async with session.get(
                     url=url, params=params, headers=request_headers
                 ) as response:
-                    self.logger.debug(
-                        f"[{self.__class__.__name__}] GET {endpoint} - Status: {response.status}"
-                    )
-
                     if response.status == 200:
                         data = await response.json()
                         return data
@@ -61,7 +57,6 @@ class BaseAPIClient(ABC):
                             f"[{self.__class__.__name__}] GET {endpoint} failed - "
                             f"Status: {response.status}, Attempt {attempt + 1}/{retries}"
                         )
-
             except ClientSSLError as e:
                 self.logger.error(
                     f"[{self.__class__.__name__}] SSL Error for {endpoint}: {e}"
@@ -76,8 +71,6 @@ class BaseAPIClient(ABC):
                     await sleep(1 * (attempt + 1))
                 else:
                     return None
-
-        return None
 
     async def __aenter__(self):
         await self._get_session()

@@ -26,12 +26,13 @@ class DataManagementCog(commands.Cog):
 
     @tasks.loop(count=1)
     async def startup(self) -> None:
+        self.bot.logger.info("startup loop started")
         await self.bot.interface_handler.populate_lists()
         await self.bot.change_presence(
             activity=Activity(name="/setup - /help", type=ActivityType.listening),
             status=Status.online,
         )
-        self.bot.logger.info("Startup loop completed")
+        self.bot.logger.info("startup loop completed")
         now = datetime.now()
         secs_until_pull_from_api = (
             (
@@ -59,7 +60,6 @@ class DataManagementCog(commands.Cog):
         time=[time(hour=j, minute=i, second=45) for j in range(24) for i in range(60)]
     )
     async def pull_from_api(self) -> None:
-        self.bot.logger.info("pull_from_api loop started")
         if self.bot.data.fetching and self.fetch_skips < 5:
             self.fetch_skips += 1
             self.bot.logger.warning(
@@ -73,15 +73,10 @@ class DataManagementCog(commands.Cog):
             self.fetch_skips = 0
         if first_load:
             now = datetime.now(tz=timezone.utc)
-            if now < self.bot.ready_time:
-                change = f"{(self.bot.ready_time - now).total_seconds():.2f} seconds faster than the given {STARTUP_SECONDS}"
-            else:
-                change = f"Took {(now - self.bot.ready_time).total_seconds():.2f} seconds longer than the given {STARTUP_SECONDS}"
             self.bot.logger.info(
-                f"Startup complete in {(now - self.bot.startup_time).total_seconds():.2f} seconds - {change}"
+                f"Galactic Wide Web booted in {(now - self.bot.startup_time).total_seconds():.2f} seconds with {len(self.bot.guilds):,} Discord guilds"
             )
             self.bot.ready_time = now
-        self.bot.logger.info("pull_from_api loop completed")
 
     @pull_from_api.before_loop
     async def before_pull_from_api(self) -> None:

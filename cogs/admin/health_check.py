@@ -53,6 +53,12 @@ class HealthCheckCog(commands.Cog):
                 self.bot.logger.error(
                     f"{self.qualified_name} | dashboard_checking | {e}"
                 )
+        else:
+            self.bot.logger.critical(
+                f"{self.qualified_name} | dashboard_checking | Support server not found in Database"
+            )
+            return
+
         if self.bot.data.formatted_data:
             if self.bot.data.formatted_data.formatted_at < now - timedelta(minutes=5):
                 await self.send_warning(

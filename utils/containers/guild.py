@@ -5,7 +5,6 @@ from utils.interactables.ADMIN.leave_guild_button import LeaveGuildButton
 from utils.interactables.ADMIN.reset_guild_button import ResetGuildButton
 from utils.mixins import ReprMixin
 
-
 VERIFICATION_DICT = {
     0: "No criteria set.",
     1: "Member must have a verified email on their Discord account.",

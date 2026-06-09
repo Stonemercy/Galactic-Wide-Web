@@ -75,12 +75,11 @@ class AdminCommandsCog(commands.Cog):
                 self.bot.databases.war_info.save_changes()
                 await self.bot.get_cog("SteamCog").steam_check()
         await inter.send(
-            content=f"{feature} force update completed in {(datetime.now(tz=timezone.utc) - command_start).total_seconds():.3f}s",
+            content=f"{feature} update completed in {(datetime.now(tz=timezone.utc) - command_start).total_seconds():.3f} seconds",
             ephemeral=True,
         )
 
     def extension_names_autocomp(inter: AppCmdInter, user_input: str) -> list[str]:
-        """Returns the name of each cog currently loaded"""
         if not inter.bot.extensions:
             return []
         return sorted(
@@ -174,6 +173,9 @@ class AdminCommandsCog(commands.Cog):
         if inter.component.custom_id not in allowed_ids:
             return
         if inter.author != self.bot.owner:
+            self.bot.logger.warning(
+                f"{inter.author.name} tried to press the button '{inter.component.custom_id}'"
+            )
             await inter.send("You arent allowed to do this.")
             return
         await inter.response.defer()
@@ -211,11 +213,17 @@ class AdminCommandsCog(commands.Cog):
                         content=f"Successfully left **{discord_guild.name}**",
                         ephemeral=True,
                     )
+                    self.bot.logger.info(
+                        f"Discord Guild '{discord_guild.name}' left via admin button"
+                    )
                 case "reset":
                     db_guild.reset()
                     await inter.send(
                         content=f"Successfully reset **{discord_guild.name}**",
                         ephemeral=True,
+                    )
+                    self.bot.logger.info(
+                        f"DB Guild '{discord_guild.name}' reset via admin button"
                     )
             await inter.edit_original_response(
                 components=GuildContainer(
