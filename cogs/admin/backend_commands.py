@@ -95,9 +95,9 @@ class BackendCommandsCog(commands.Cog):
     ) -> None:
         await inter.response.defer(ephemeral=public != "Yes")
         gwe_list = []
-        if id:
+        if id != "":
             try:
-                id = int(id.split("-")[0])
+                int_id = int(id.split("-")[0])
             except ValueError:
                 await inter.send(
                     f"The id you supplied (`{id}`) is in the incorrect format. Please choose an ID from the list or type in the ID on its own."
@@ -106,9 +106,9 @@ class BackendCommandsCog(commands.Cog):
             gwe_list = [
                 g
                 for g in self.bot.data.formatted_data.war_effects.values()
-                if g.id == id
+                if g.id == int_id
             ]
-        elif on_planet:
+        elif on_planet != "":
             try:
                 planet_index = int(on_planet.split("-")[0])
             except ValueError:
@@ -128,9 +128,9 @@ class BackendCommandsCog(commands.Cog):
                 )
                 return
             gwe_list = list(planet.active_effects)
-        elif stratagem:
+        elif stratagem != "":
             try:
-                stratagem = int(stratagem.split("-")[0])
+                int_stratagem = int(stratagem.split("-")[0])
             except ValueError:
                 await inter.send(
                     f"The stratagem you supplied (`{stratagem}`) is in the incorrect format. Please choose an ID from the list or type in the ID on its own."
@@ -139,7 +139,7 @@ class BackendCommandsCog(commands.Cog):
             gwe_list = [
                 g
                 for g in self.bot.data.formatted_data.war_effects.values()
-                if g.id == stratagem
+                if g.id == int_stratagem
             ]
 
         if gwe_list != []:
@@ -174,7 +174,7 @@ class BackendCommandsCog(commands.Cog):
                 ephemeral=public != "Yes",
             )
 
-    async def title_autocomp(inter: AppCmdInter, user_input: str) -> list[str]:
+    async def global_event_autocomp(inter: AppCmdInter, user_input: str) -> list[str]:
         if inter.bot.data.loaded:
             return [
                 ge
@@ -198,7 +198,8 @@ class BackendCommandsCog(commands.Cog):
         self,
         inter: AppCmdInter,
         title: str = commands.Param(
-            autocomplete=title_autocomp, description="The event you want to lookup"
+            autocomplete=global_event_autocomp,
+            description="The event you want to lookup",
         ),
         public: str = commands.Param(
             choices=["Yes", "No"],
