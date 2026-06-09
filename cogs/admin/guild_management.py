@@ -69,7 +69,7 @@ class GuildManagementCog(commands.Cog):
             disc_guild_ids = [dguild.id for dguild in self.bot.guilds]
             for dbguild in dbguilds:
                 if dbguild.guild_id not in disc_guild_ids:
-                    self.guilds_to_remove.append(dbguild.guild_id)
+                    self.guilds_to_remove.append(dbguild)
             if self.guilds_to_remove != []:
                 embed = Embed(
                     title="Guilds in DB that don't have the bot installed",
@@ -78,7 +78,7 @@ class GuildManagementCog(commands.Cog):
                 ).add_field(
                     name="Guilds:",
                     value="\n".join(
-                        [str(guild_id) for guild_id in self.guilds_to_remove]
+                        [str(guild.guild_id) for guild in self.guilds_to_remove]
                     ),
                     inline=False,
                 )
@@ -113,11 +113,9 @@ class GuildManagementCog(commands.Cog):
             if inter.author != self.bot.owner:
                 await inter.send("You arent allowed to do this.")
                 return
-            gww_guilds_to_remove: list[GWWGuild] = [
-                GWWGuilds.get_specific_guild(id=guild_id)
-                for guild_id in self.guilds_to_remove
-            ]
-            for guild in gww_guilds_to_remove:
+            for guild in self.guilds_to_remove:
+                guild.features.clear()
+                guild.update_features()
                 guild.delete()
                 self.bot.logger.info(
                     f"{self.qualified_name} | ban_listener | removed {guild.guild_id} from the DB"
@@ -125,7 +123,7 @@ class GuildManagementCog(commands.Cog):
                 await inter.send(
                     content=f"Deleted guild `{guild.guild_id}` from the DB"
                 )
-            embed: Embed = inter.message.embeds[0].add_field(
+            embed = inter.message.embeds[0].add_field(
                 name="", value="# GUILDS DELETED FROM DB", inline=False
             )
             await inter.message.edit(components=None, embed=embed)
