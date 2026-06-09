@@ -66,7 +66,7 @@ class DataManagementCog(commands.Cog):
                 f"Bot is already fetching. Skipped {self.fetch_skips} times so far"
             )
             return
-        first_load = False if self.bot.data.loaded else True
+        first_load = not self.bot.data.loaded
         await self.bot.data.pull_from_api()
         self.bot.data.format_data()
         if self.fetch_skips != 0:
