@@ -151,9 +151,9 @@ class GalacticWarEffect(GWEReprMixin):
             {"name": "UNKNOWN", "simplified_name": "", "description": ""},
         )
         if count := self.values_dict.get(1):
-            self.count: int | float = abs(count)
+            self.count: int | float = count
         if percent := self.values_dict.get(2):
-            self.percent: int | float = abs(percent)
+            self.percent: int | float = percent
         if faction := self.values_dict.get(3):
             self.faction: Faction | None = Factions.get_from_identifier(number=faction)
         if mix_id := self.values_dict.get(4):
@@ -233,6 +233,7 @@ class GalacticWarEffect(GWEReprMixin):
                     short_desc = short_desc.replace(
                         "#V_TWO", str(next(value, "NOT FOUND"))
                     )
+                short_desc = short_desc.replace("\n", " ")
                 self.short_description = short_desc
 
     def __hash__(self):
