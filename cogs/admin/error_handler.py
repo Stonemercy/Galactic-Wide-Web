@@ -54,6 +54,8 @@ class ErrorHandlerCog(commands.Cog):
         except:
             pass
 
+        self.bot.logger.error(error)
+
     async def log_error(
         self,
         inter: MessageInteraction | AppCmdInter | None,
