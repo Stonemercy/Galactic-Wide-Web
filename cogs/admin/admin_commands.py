@@ -1,5 +1,5 @@
 from datetime import datetime, timezone
-from random import choice
+from random import choice, choices
 from typing import TYPE_CHECKING
 from disnake import AppCmdInter, Guild, MessageInteraction, NotFound, Permissions, ui
 from disnake.ext import commands
@@ -180,12 +180,10 @@ class AdminCommandsCog(commands.Cog):
             await inter.send("You arent allowed to do this.")
             return
         await inter.response.defer()
-        guild_id_text_display: str = (
+        guild_id_text_display = (
             inter.message.components[0].children[0].children[0].content
         )
-        guild_id: int = int(
-            search(r"Guild ID:\s*(\d+)", guild_id_text_display).group(1)
-        )
+        guild_id = int(search(r"Guild ID:\s*(\d+)", guild_id_text_display).group(1))
         discord_guild = self.bot.get_guild(guild_id) or await self.bot.fetch_guild(
             guild_id
         )
@@ -200,14 +198,14 @@ class AdminCommandsCog(commands.Cog):
                 + [ui.ActionRow(ConfirmButton("reset", discord_guild))]
             )
         elif "confirm_button" in inter.component.custom_id:
-            split_button_id = inter.component.custom_id.split("_")
+            button_type = inter.component.custom_id.split("_")[0]
             db_guild: GWWGuild = GWWGuilds.get_specific_guild(id=guild_id)
-            try:
-                for interface_list in self.bot.interface_handler.lists.values():
+            for interface_list in self.bot.interface_handler.lists.values():
+                try:
                     interface_list.remove_entry(guild_id_to_remove=guild_id)
-            except:
-                pass
-            match split_button_id[0]:
+                except:
+                    pass
+            match button_type:
                 case "leave":
                     await discord_guild.leave()
                     await inter.send(
@@ -269,7 +267,7 @@ class AdminCommandsCog(commands.Cog):
                 ):
                     possible_fake_guilds.append(discord_guild)
         fake_guilds_sample = "\n".join(
-            [str(g.id) + f" - {g.name}" for g in possible_fake_guilds[:10]]
+            [str(g.id) + f" - {g.name}" for g in choices(possible_fake_guilds, k=10)]
         )
         await inter.send(
             f"Possible fake guilds: {len(possible_fake_guilds)}\n{fake_guilds_sample}"
