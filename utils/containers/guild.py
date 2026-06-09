@@ -59,6 +59,8 @@ class GuildContainer(ui.Container, ReprMixin):
             title_component.children[
                 0
             ].content += f"\n-# Vanity URL code\n<https://discord.com/invite/{guild.vanity_url_code}>"
+        if guild.description:
+            title_component.children[0].content += f"\n-# {guild.description}"
         components.extend([title_component, ui.Separator()])
 
         text_display = ui.TextDisplay("")
