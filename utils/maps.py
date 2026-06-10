@@ -1,4 +1,6 @@
+from numpy.random import randint
 from cv2 import (
+    INTER_NEAREST,
     addWeighted,
     circle,
     fillPoly,
@@ -12,6 +14,7 @@ from cv2 import (
     LINE_AA,
     merge,
     polylines,
+    resize,
     split,
 )
 from data.lists import CUSTOM_COLOURS
@@ -23,6 +26,7 @@ from numpy import (
     clip,
     cos,
     dot,
+    float32,
     linalg,
     full_like,
     newaxis,
@@ -41,6 +45,12 @@ from utils.mixins import ReprMixin
 DIM_FACTION_COLOURS: dict[str, tuple[int, int, int]] = {
     faction.full_name: tuple(int(colour / 2.5) for colour in faction.colour)
     for faction in Factions.all
+}
+
+VONOROI_COLOURS: dict[Faction, dict[str, tuple]] = {
+    Factions.automaton: {"tint": (0, 0, 100), "lines": (0, 0, 175)},
+    Factions.illuminate: {"tint": (40, 0, 15), "lines": (175, 60, 110)},
+    Factions.terminids: {"tint": (20, 75, 95), "lines": (0, 150, 200)},
 }
 
 
@@ -182,14 +192,7 @@ class Maps:
         PLANET_RADIUS = 8
         for index, planet in planets.items():
             planet_effect_ids = [ae.id for ae in planet.active_effects]
-            if 1376 in planet_effect_ids:
-                circle(
-                    background,
-                    planet.map_waypoints,
-                    PLANET_RADIUS,
-                    (50, 0, 50, 255),
-                    -1,
-                )
+            if 1190 in planet_effect_ids or 1376 in planet_effect_ids:
                 continue
             if any(aeid in (1373, 1374, 1375) for aeid in planet_effect_ids):
                 # exostorm
@@ -269,6 +272,13 @@ class Maps:
             p for p in planets.values() if 1376 in (e.id for e in p.active_effects)
         ]:
             self.draw_void(background, planet, planets)
+
+        for planet in [
+            p
+            for p in planets.values()
+            if 73 in (e.effect_type for e in p.active_effects)
+        ]:
+            self.draw_gloom(background, planet, planets)
 
         imwrite(Maps.FileLocations.planets_map, background)
 
@@ -564,7 +574,18 @@ class Maps:
 
         return array(final)
 
-    def draw_voronoi_tint(self, background, focal_planet, nearby_planets):
+    def draw_voronoi_tint(
+        self,
+        background,
+        focal_planet,
+        nearby_planets,
+        background_weight: float,
+        tint_colour: tuple[int, int, int],
+        tint_weight: float,
+        with_lines: bool = True,
+        line_colour: tuple[int, int, int] = None,
+        with_static: bool = False,
+    ):
         cell_polygon = self.get_voronoi_cell_polygon(focal_planet, nearby_planets)
         cell_polygon = self.clip_polygon_by_circle(
             cell_polygon, array((1000, 1000), dtype=float), 1000
@@ -578,19 +599,47 @@ class Maps:
         mask = zeros((2000, 2000), dtype=uint8)
         fillPoly(mask, [cell_px], 255)
 
-        purple = (50, 0, 25, 255)
-        tint = full_like(background, purple)
-        tinted = addWeighted(background, 0.05, tint, 0.6, 0)
+        tint_colour = (*tint_colour, 255)
+        tint = full_like(background, tint_colour)
+        tinted = addWeighted(background, background_weight, tint, tint_weight, 0)
 
         background[:] = where(mask[:, :, newaxis] == 255, tinted, background)
+        if with_lines:
+            polylines(
+                background,
+                [cell_px],
+                isClosed=True,
+                color=(*line_colour, 150),
+                thickness=2,
+            )
 
-        polylines(
-            background,
-            [cell_px],
-            isClosed=True,
-            color=(187, 59, 107, 255),
-            thickness=2,
-        )
+        if with_static:
+            cell_pixels = where(mask == 255)
+            if len(cell_pixels[0]) > 0:
+                intensity = int(30 * tint_weight)
+                if intensity > 0:
+                    grain_size = 2
+                    small_noise = randint(
+                        -intensity,
+                        intensity + 1,
+                        size=(2000 // grain_size, 2000 // grain_size),
+                    )
+                    noise_full = resize(
+                        small_noise.astype(float32),
+                        (2000, 2000),
+                        interpolation=INTER_NEAREST,
+                    ).astype(int)
+                    noise = noise_full[cell_pixels]
+                    for c in range(3):
+                        ch = background[:, :, c]
+                        vals = ch[cell_pixels].astype(int)
+                        reflected = where(
+                            vals + noise < 0,
+                            -noise,
+                            where(vals + noise > 255, -noise, noise),
+                        )
+                        ch[cell_pixels] = clip(vals + reflected, 0, 255).astype(uint8)
+                        background[:, :, c] = ch
 
     def draw_void(self, background, planet: Planet, planets: dict[int, Planet]):
         focal_planet = array(planet.map_waypoints)
@@ -598,4 +647,35 @@ class Maps:
             [p.map_waypoints for p in planets.values() if p != planet], dtype=float
         )
 
-        self.draw_voronoi_tint(background, focal_planet, nearby_planets)
+        self.draw_voronoi_tint(
+            background,
+            focal_planet,
+            nearby_planets,
+            0.05,
+            VONOROI_COLOURS[Factions.illuminate]["tint"],
+            0.7,
+            line_colour=VONOROI_COLOURS[Factions.illuminate]["lines"],
+        )
+
+    def draw_gloom(self, background, planet: Planet, planets: dict[int, Planet]):
+        focal_planet = array(planet.map_waypoints)
+        nearby_planets = array(
+            [p.map_waypoints for p in planets.values() if p != planet], dtype=float
+        )
+        gloom_effect = next(
+            (gwe for gwe in planet.active_effects if gwe.effect_type == 73), None
+        )
+
+        effect_percent = gloom_effect.percent / 100
+        if planet.active_campaign:
+            effect_percent -= 0.1
+        self.draw_voronoi_tint(
+            background,
+            focal_planet,
+            nearby_planets,
+            clip(0.25 + (1 - effect_percent) / 0.25 * 0.6, 0.25, 0.75),
+            VONOROI_COLOURS[Factions.terminids]["tint"],
+            effect_percent,
+            with_lines=False,
+            with_static=True,
+        )
