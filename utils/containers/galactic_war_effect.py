@@ -55,6 +55,9 @@ class GWEContainer(ui.Container, ReprMixin):
         if gwe.found_stratagem and gwe.found_stratagem not in content:
             content += f"\nStratagem: **{gwe.found_stratagem}**"
 
+        if gwe.stratagem_category:
+            content += f"\nStratagem Category: **{gwe.stratagem_category}**"
+
         if gwe.found_booster and gwe.found_booster not in content:
             content += f"\nBooster: **{gwe.found_booster}**"
 

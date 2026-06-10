@@ -181,8 +181,8 @@ class APIChangesContainer(ui.Container, ReprMixin):
                                     gwe_content = (
                                         "\n"
                                         + gwe_container.components[0].content
-                                        + "\n"
                                         + gwe_container.components[1].content
+                                        + "\n"
                                     )
                                     text_display.content += gwe_content
                                 self.container_components.append(text_display)
@@ -200,8 +200,8 @@ class APIChangesContainer(ui.Container, ReprMixin):
                                     gwe_content = (
                                         "\n"
                                         + gwe_container.components[0].content
-                                        + "\n"
                                         + gwe_container.components[1].content
+                                        + "\n"
                                     )
                                     text_display.content += gwe_content
                                 self.container_components.append(text_display)
