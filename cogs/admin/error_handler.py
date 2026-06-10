@@ -54,7 +54,9 @@ class ErrorHandlerCog(commands.Cog):
         except:
             pass
 
-        self.bot.logger.error(error)
+        self.bot.logger.error(
+            f"{inter.author.name} | /{inter.application_command.qualified_name} | {error}"
+        )
 
     async def log_error(
         self,
