@@ -1,7 +1,7 @@
+from .galactic_war_effect import GWEContainer
 from data.lists import CUSTOM_COLOURS
 from disnake import Colour, ui
 from utils.api_wrapper.models import GlobalEvent, Planet
-from utils.dataclasses import Subfactions
 from utils.mixins import ReprMixin
 
 
@@ -18,8 +18,10 @@ class GlobalEventsContainer(ui.Container, ReprMixin):
         title = ui.TextDisplay(
             f"# {global_event.title if global_event.title else container_json['new_event']}"
         )
+        if global_event.assignment_id:
+            title.content += f"\n-# Related to Assignment #{global_event.assignment_id}"
         components.extend([title, ui.Separator()])
-        if global_event.flag == 0:
+        if global_event.effects != []:
             if not global_event.planet_indices:
                 specific_planets = f"\n    {container_json['all_planets']}"
             else:
@@ -29,45 +31,17 @@ class GlobalEventsContainer(ui.Container, ReprMixin):
                 specific_planets = "\n-# - " + "\n- ".join(
                     [p.names.get(lang_code, p.name) for p in spec_planets_list if p]
                 )
-            for index, effect in enumerate(global_event.effects, start=1):
-                effect_component = ui.TextDisplay(
-                    f"\n### {container_json['effect']} **#{index}**"
+            effects_text = ""
+            for effect in global_event.effects:
+                effect_container = GWEContainer(effect, [], False, False)
+                gwe_content = (
+                    "\n"
+                    + effect_container.components[0].content
+                    + effect_container.components[1].content
+                    + "\n"
                 )
-                if effect.name:
-                    effect_component.content += f"\n    **{effect.name}**"
-                if effect.short_description:
-                    effect_component.content += f"\n    {effect.short_description}"
-                if not effect.name and not effect.short_description:
-                    effect_component.content += (
-                        f"\n    {effect.effect_description['simplified_name']}"
-                    )
-                if (
-                    effect.found_booster
-                    and effect.found_booster not in effect_component.content
-                ):
-                    effect_component.content += (
-                        f"\n    {container_json['booster']}: **{effect.found_booster}**"
-                    )
-                if (
-                    effect.found_stratagem
-                    and effect.found_stratagem not in effect_component.content
-                ):
-                    effect_component.content += f"\n    {container_json['stratagem']}: **{effect.found_stratagem}**"
-                if (
-                    effect.found_enemy
-                    and effect.found_enemy not in effect_component.content
-                ):
-                    effect_component.content += (
-                        f"\n    {container_json['enemy']}: **{effect.found_enemy}**"
-                    )
-                    if subfactions := [
-                        sf
-                        for sf in Subfactions._all
-                        if sf.eng_name.lower() == effect.found_enemy.lower()
-                    ]:
-                        sf = subfactions[0]
-                        effect_component.content += sf.emoji
-                components.extend([effect_component, ui.Separator()])
+                effects_text += gwe_content
+            components.append(ui.TextDisplay(effects_text or "No effects present"))
             components.extend(
                 [
                     ui.TextDisplay(
@@ -81,6 +55,7 @@ class GlobalEventsContainer(ui.Container, ReprMixin):
                 [
                     ui.TextDisplay(
                         "".join(f"\n{chunk}" for chunk in global_event.split_message)
+                        or "Empty Message"
                     ),
                     ui.Separator(),
                 ]
