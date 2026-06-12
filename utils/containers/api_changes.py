@@ -43,8 +43,8 @@ class APIChangesContainer(ui.Container, ReprMixin):
                             gwe_content = (
                                 "\n"
                                 + gwe_container.components[0].content
-                                + "\n"
                                 + gwe_container.components[1].content
+                                + "\n"
                             )
                             content += gwe_content
 
@@ -59,8 +59,8 @@ class APIChangesContainer(ui.Container, ReprMixin):
                             gwe_content = (
                                 "\n"
                                 + gwe_container.components[0].content
-                                + "\n"
                                 + gwe_container.components[1].content
+                                + "\n"
                             )
                             content += gwe_content
 
