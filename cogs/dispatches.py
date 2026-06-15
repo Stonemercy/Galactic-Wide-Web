@@ -58,7 +58,7 @@ class DispatchesCog(commands.Cog):
                         if "#planet" in dispatch.full_message:
                             self.bot.logger.warning("   #planet in full message")
                         if dispatch.published_at < datetime.now(
-                            tzinfo=timezone.utc
+                            tz=timezone.utc
                         ) - timedelta(minutes=15):
                             self.bot.logger.error(
                                 f"Dispatch #{dispatch.id} has been faulty for 15 minutes, skipping"
