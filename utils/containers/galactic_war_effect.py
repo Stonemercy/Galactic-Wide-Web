@@ -62,7 +62,8 @@ class GWEContainer(ui.Container, ReprMixin):
             content += f"\nBooster: **{gwe.found_booster}**"
 
         if gwe.count:
-            content += f"\nCount: **{gwe.count:+,}**"
+            count = "Count" if gwe.effect_type != 32 else "Uses per mission"
+            content += f"\n{count}: **{gwe.count:+,}**"
         if gwe.percent:
             percent = gwe.percent
             match gwe.effect_type:
