@@ -3806,5 +3806,33 @@
             "zh-Hant": "\u9f4a\u6208\u65af"
         },
         "description": ""
+    },
+    "272": {
+        "names": {
+            "en-GB": "BASQUINE VIII",
+            "de-DE": "BASQUINE VIII",
+            "es-ES": "BASQUINE VIII",
+            "fr-FR": "BASQUINE\u00a0VIII",
+            "it-IT": "BASQUINE VIII",
+            "pt-BR": "BASQUINE VIII",
+            "ru-RU": "\u0411\u0410\u0421\u041a\u0421\u041a\u0410\u042f VIII",
+            "zh-Hans": "\u5df4\u65af\u91d1VIII",
+            "zh-Hant": "\u5df4\u65af\u594eVIII"
+        },
+        "description": "This world teems with ethereal, boundless, and peculiar plant life that spreads silent and uninterrupted across its entire surface."
+    },
+    "273": {
+        "names": {
+            "en-GB": "SANGIS",
+            "de-DE": "SANGIS",
+            "es-ES": "SANGIS",
+            "fr-FR": "SANGIS",
+            "it-IT": "SANGIS",
+            "pt-BR": "SANGIS",
+            "ru-RU": "\u0421\u0410\u041d\u0413\u0418\u0421",
+            "zh-Hans": "\u8d64\u8840",
+            "zh-Hant": "\u8840\u8272"
+        },
+        "description": "This world teems with ethereal, boundless, and peculiar plant life that spreads silent and uninterrupted across its entire surface."
     }
 }
