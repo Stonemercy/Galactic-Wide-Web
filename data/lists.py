@@ -99,6 +99,7 @@ STRATAGEM_CAT_DICT = {
     2: "Hellpod",
     1: "Support Weapon",
 }
+
 STRATAGEM_ID_DICT = {
     336620886: "B-1 Supply Pack",
     2369837022: "SH-20 Ballistic Shield Backpack",
@@ -185,6 +186,8 @@ STRATAGEM_ID_DICT = {
     669794144: "A/FLAM-40 Flame Sentry",
     914471076: "A/LAS-98 Laser Sentry",
     2074801524: "M-102 Fast Recon Vehicle",
+    2996892424: "M-103 Supply FRV",
+    3657826519: "M-104 Incinerator FRV",
     754365924: "EXO-49 Emancipator Exosuit",
     1299305542: "EXO-51 Lumberer Exosuit",
     841332828: "EXO-55 Breakthrough Exosuit",
