@@ -29,11 +29,7 @@ class DashboardCog(commands.Cog):
     )
     async def dashboard_poster(self) -> None:
         dashboards_start = datetime.now(tz=timezone.utc)
-        if (
-            not self.bot.interface_handler.loaded
-            or not self.bot.data.loaded
-            or dashboards_start < self.bot.ready_time
-        ):
+        if not self.bot.ready:
             return
         unique_langs = GWWGuilds.unique_languages()
         dashboards = {

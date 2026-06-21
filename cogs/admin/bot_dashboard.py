@@ -27,6 +27,8 @@ class BotDashboardCog(commands.Cog):
 
     @tasks.loop(minutes=1)
     async def bot_dashboard(self) -> None:
+        if not self.bot.ready:
+            return
         if not self.bot.bot_dashboard_channel:
             self.bot.bot_dashboard_channel = self.bot.get_channel(
                 self.bot_dashboard_db.channel_id

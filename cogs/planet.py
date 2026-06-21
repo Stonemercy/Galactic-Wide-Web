@@ -21,7 +21,7 @@ class PlanetCog(commands.Cog):
         self.bot = bot
 
     async def planet_autocomp(inter: AppCmdInter, user_input: str) -> list[str]:
-        if not inter.bot.data.loaded:
+        if not inter.bot.ready:
             return []
         return [
             f"{p.index}-{p.names.get('en-GB', p.name)}"

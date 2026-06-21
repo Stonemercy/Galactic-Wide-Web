@@ -38,9 +38,7 @@ class MajorOrderCog(commands.Cog):
     async def major_order_check(self) -> None:
         mo_check_start = datetime.now(tz=timezone.utc)
         if (
-            not self.bot.interface_handler.loaded
-            or mo_check_start < self.bot.ready_time
-            or not self.bot.data.loaded
+            not self.bot.ready
             or self.bot.interface_handler.busy
             or not self.bot.data.formatted_data.assignments.get("en")
         ):
@@ -140,12 +138,7 @@ class MajorOrderCog(commands.Cog):
             self.bot.logger.info(f"Skipping duplicate MO loop execution")
             return
         self.last_mo_update = mo_updates_start
-        if (
-            not self.bot.interface_handler.loaded
-            or mo_updates_start < self.bot.ready_time
-            or not self.bot.data.loaded
-            or not self.bot.data.formatted_data.assignments.get("en")
-        ):
+        if not self.bot.ready or not self.bot.data.formatted_data.assignments.get("en"):
             return
         unique_langs = GWWGuilds.unique_languages()
         embeds = {

@@ -35,12 +35,7 @@ class PersonalOrderCog(commands.Cog):
             self.bot.logger.info(f"Skipping duplicate PO loop execution")
             return
         self.last_po_update = po_updates_start
-        if (
-            not self.bot.interface_handler.loaded
-            or po_updates_start < self.bot.ready_time
-            or not self.bot.data.loaded
-            or not self.bot.data.formatted_data.personal_order
-        ):
+        if not self.bot.ready or not self.bot.data.formatted_data.personal_order:
             return
         unique_langs = GWWGuilds.unique_languages()
         embeds = {

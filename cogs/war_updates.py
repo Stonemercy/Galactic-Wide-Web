@@ -36,11 +36,9 @@ class WarUpdatesCog(commands.Cog):
     async def campaign_check(self) -> None:
         update_start = datetime.now(tz=timezone.utc)
         if (
-            not self.bot.interface_handler.loaded
-            or not self.bot.data.loaded
-            or not self.bot.data.previous_data
-            or update_start < self.bot.ready_time
+            not self.bot.ready
             or self.bot.interface_handler.busy
+            or not self.bot.data.previous_data
         ):
             return
         unique_langs = GWWGuilds.unique_languages()
@@ -226,11 +224,9 @@ class WarUpdatesCog(commands.Cog):
     async def dss_check(self) -> None:
         update_start = datetime.now(tz=timezone.utc)
         if (
-            not self.bot.interface_handler.loaded
-            or not self.bot.data.loaded
-            or not self.bot.data.previous_data
-            or update_start < self.bot.ready_time
+            not self.bot.ready
             or self.bot.interface_handler.busy
+            or not self.bot.data.previous_data
         ):
             return
         dss_updates = False
@@ -350,10 +346,8 @@ class WarUpdatesCog(commands.Cog):
     async def region_check(self) -> None:
         update_start = datetime.now(tz=timezone.utc)
         if (
-            not self.bot.interface_handler.loaded
-            or not self.bot.data.loaded
+            not self.bot.ready
             or not self.bot.data.previous_data
-            or update_start < self.bot.ready_time
             or self.bot.interface_handler.busy
         ):
             return

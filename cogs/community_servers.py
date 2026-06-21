@@ -42,6 +42,8 @@ class CommunityServersCog(commands.Cog):
 
     @property
     def communities_with_links(self) -> list[Guild]:
+        if not self.bot.ready:
+            return []
         return sorted(
             [
                 guild

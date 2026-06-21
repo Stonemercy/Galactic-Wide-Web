@@ -32,9 +32,7 @@ class SteamCog(commands.Cog):
     async def steam_check(self) -> None:
         patch_notes_start = datetime.now(tz=timezone.utc)
         if (
-            not self.bot.interface_handler.loaded
-            or patch_notes_start < self.bot.ready_time
-            or not self.bot.data.loaded
+            not self.bot.ready
             or self.bot.interface_handler.busy
             or not self.bot.data.formatted_data.steam_news
         ):
@@ -107,7 +105,8 @@ class SteamCog(commands.Cog):
     @commands.Cog.listener("on_dropdown")
     async def steam_notes_listener(self, inter: MessageInteraction):
         if (
-            inter.component.custom_id != "steam"
+            not self.bot.ready
+            or inter.component.custom_id != "steam"
             or inter.author != inter.message.interaction_metadata.user
         ):
             return

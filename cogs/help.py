@@ -12,18 +12,18 @@ class HelpCog(commands.Cog):
         self.bot = bot
 
     async def help_autocomp(inter: AppCmdInter, user_input: str) -> list[str]:
-        if not inter.bot.global_slash_commands:
+        if not inter.bot.ready:
             return []
-        commands_list = ["all"] + sorted(
-            [
-                i.name
-                for i in inter.bot.global_slash_commands
-                if i.name not in PRIVATE_COMMANDS
-            ]
-        )
         return [
             command
-            for command in commands_list
+            for command in ["all"]
+            + sorted(
+                [
+                    i.name
+                    for i in inter.bot.global_slash_commands
+                    if i.name not in PRIVATE_COMMANDS
+                ]
+            )
             if user_input.lower() in command.lower()
         ][:25]
 

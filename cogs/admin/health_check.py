@@ -24,6 +24,8 @@ class HealthCheckCog(commands.Cog):
 
     @tasks.loop(minutes=1)
     async def health_check(self) -> None:
+        if not self.bot.ready:
+            return
         now = datetime.now(tz=timezone.utc)
         guild: GWWGuild | None = GWWGuilds.get_specific_guild(
             id=Config.SUPPORT_SERVER_ID
@@ -113,6 +115,8 @@ class HealthCheckCog(commands.Cog):
 
     @commands.Cog.listener("on_button_click")
     async def snooze_listener(self, inter: MessageInteraction) -> None:
+        if not self.bot.ready:
+            return
         if "snooze" in inter.component.custom_id:
             error = inter.component.custom_id.split("_")[1]
             if error in self.error_dict:

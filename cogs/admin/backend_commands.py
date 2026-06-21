@@ -19,7 +19,7 @@ class BackendCommandsCog(commands.Cog):
         self.bot = bot
 
     async def id_autocomp(inter: AppCmdInter, user_input: str) -> list[str]:
-        if not inter.bot.data.loaded:
+        if not inter.bot.ready:
             return []
         id_list = sorted(
             [
@@ -34,7 +34,7 @@ class BackendCommandsCog(commands.Cog):
         ]
 
     async def planet_autocomp(inter: AppCmdInter, user_input: str) -> list[str]:
-        if not inter.bot.data.loaded:
+        if not inter.bot.ready:
             return []
         return [
             f"{p.index}-{p.names.get('en-GB', p.name)} {len(p.active_effects)} effects"
@@ -47,7 +47,7 @@ class BackendCommandsCog(commands.Cog):
         ][:25]
 
     async def strat_autocomp(inter: AppCmdInter, user_input: str) -> list[str]:
-        if not inter.bot.data.loaded:
+        if not inter.bot.ready:
             return []
         id_list = sorted(
             [
@@ -175,17 +175,16 @@ class BackendCommandsCog(commands.Cog):
             )
 
     async def global_event_autocomp(inter: AppCmdInter, user_input: str) -> list[str]:
-        if inter.bot.data.loaded:
-            return [
-                ge
-                for ge in [
-                    f"{i.id}-{i.title}{[j.id for j in i.effects]}"
-                    for i in inter.bot.data.formatted_data.global_events["en"]
-                ]
-                if user_input.lower() in ge.split("-")[1].lower()
-            ][:25]
-        else:
+        if not inter.bot.ready:
             return []
+        return [
+            ge
+            for ge in [
+                f"{i.id}-{i.title}{[j.id for j in i.effects]}"
+                for i in inter.bot.data.formatted_data.global_events["en"]
+            ]
+            if user_input.lower() in ge.split("-")[1].lower()
+        ][:25]
 
     @wait_for_startup()
     @is_whitelisted()

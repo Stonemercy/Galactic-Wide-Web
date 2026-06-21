@@ -44,6 +44,8 @@ class APIChangesCog(commands.Cog):
         time=[time(hour=j, minute=i, second=15) for j in range(24) for i in range(60)]
     )
     async def api_changes(self) -> None:
+        if not self.bot.ready:
+            return
         total_changes: list[APIChanges] = []
         if self.bot.data.previous_data:
             if (

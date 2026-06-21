@@ -31,12 +31,7 @@ class DispatchesCog(commands.Cog):
     @tasks.loop(minutes=1)
     async def dispatch_check(self) -> None:
         dispatch_start = datetime.now(tz=timezone.utc)
-        if (
-            not self.bot.interface_handler.loaded
-            or dispatch_start < self.bot.ready_time
-            or not self.bot.data.loaded
-            or self.bot.interface_handler.busy
-        ):
+        if not self.bot.ready or self.bot.interface_handler.busy:
             return
         if not self.bot.databases.war_info.dispatch_id:
             await self.bot.channels.moderator_channel.send(
@@ -103,18 +98,19 @@ class DispatchesCog(commands.Cog):
             await error_handler.log_error(None, error, "dispatch_check loop")
 
     async def dispatch_autocomp(inter: AppCmdInter, user_input: str) -> list[str]:
-        if not inter.bot.data.loaded:
+        if not inter.bot.ready:
             return []
-        dispatch_list = sorted(
-            [
-                f"{i.id}-{i.title}"[:90]
-                for i in inter.bot.data.formatted_data.dispatches["en"]
-            ],
-            reverse=True,
-        )
-        return [d for d in dispatch_list if str(user_input).lower() in str(d).lower()][
-            :25
-        ]
+        return [
+            d
+            for d in sorted(
+                [
+                    f"{i.id}-{i.title}"[:90]
+                    for i in inter.bot.data.formatted_data.dispatches["en"]
+                ],
+                reverse=True,
+            )
+            if str(user_input).lower() in str(d).lower()
+        ][:25]
 
     @wait_for_startup()
     @commands.slash_command(
@@ -190,7 +186,8 @@ class DispatchesCog(commands.Cog):
     @commands.Cog.listener("on_dropdown")
     async def dispatches_listener(self, inter: MessageInteraction) -> None:
         if (
-            inter.component.custom_id != "dispatch"
+            not self.bot.ready
+            or inter.component.custom_id != "dispatch"
             or inter.author != inter.message.interaction_metadata.user
         ):
             return

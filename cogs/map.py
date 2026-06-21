@@ -34,11 +34,7 @@ class MapCog(commands.Cog):
     @tasks.loop(time=[time(hour=hour, minute=5, second=0) for hour in range(24)])
     async def map_poster(self) -> None:
         maps_start = datetime.now(tz=timezone.utc)
-        if (
-            not self.bot.interface_handler.loaded
-            or maps_start < self.bot.ready_time
-            or not self.bot.data.loaded
-        ):
+        if not self.bot.ready:
             return
         try:
             await self.bot.channels.waste_bin_channel.purge(

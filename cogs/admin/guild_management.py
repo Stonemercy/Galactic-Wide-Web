@@ -64,6 +64,8 @@ class GuildManagementCog(commands.Cog):
 
     @tasks.loop(time=[time(hour=23, minute=0, tzinfo=timezone.utc)])
     async def guild_checking(self) -> None:
+        if not self.bot.ready:
+            return
         dbguilds = GWWGuilds(fetch_all=True)
         if dbguilds:
             disc_guild_ids = [dguild.id for dguild in self.bot.guilds]
@@ -109,6 +111,8 @@ class GuildManagementCog(commands.Cog):
 
     @commands.Cog.listener("on_button_click")
     async def ban_listener(self, inter: MessageInteraction) -> None:
+        if not self.bot.ready:
+            return
         if inter.component.custom_id == "guild_remove":
             if inter.author != self.bot.owner:
                 await inter.send("You arent allowed to do this.")

@@ -29,6 +29,8 @@ class UsageLoggerCog(commands.Cog):
 
     @commands.Cog.listener()
     async def on_slash_command(self, inter: AppCmdInter) -> None:
+        if not self.bot.ready:
+            return
         if inter.application_command.name not in self.usage_dict["commands"]:
             self.usage_dict["commands"][inter.application_command.name] = 1
         self.usage_dict["commands"][inter.application_command.name] += 1
@@ -42,6 +44,8 @@ class UsageLoggerCog(commands.Cog):
 
     @commands.Cog.listener()
     async def on_button_click(self, inter: MessageInteraction) -> None:
+        if not self.bot.ready:
+            return
         if inter.component.custom_id not in self.usage_dict["buttons"]:
             self.usage_dict["buttons"][inter.component.custom_id] = 1
         self.usage_dict["buttons"][inter.component.custom_id] += 1
@@ -54,6 +58,8 @@ class UsageLoggerCog(commands.Cog):
 
     @commands.Cog.listener()
     async def on_dropdown(self, inter: MessageInteraction) -> None:
+        if not self.bot.ready:
+            return
         if inter.component.custom_id not in self.usage_dict["dropdowns"]:
             self.usage_dict["dropdowns"][inter.component.custom_id] = 1
         self.usage_dict["dropdowns"][inter.component.custom_id] += 1
@@ -75,7 +81,7 @@ class UsageLoggerCog(commands.Cog):
 
     @tasks.loop(time=time(hour=22, minute=0, second=0))
     async def usage_report(self) -> None:
-        if dict_empty(self.usage_dict):
+        if dict_empty(self.usage_dict) or not self.bot.ready:
             return
         container = UsageContainer(
             usage_dict=self.usage_dict, guilds_joined=self.guilds_joined

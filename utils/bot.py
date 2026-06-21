@@ -41,6 +41,10 @@ class GalacticWideWebBot(commands.AutoShardedInteractionBot):
     def time_until_ready(self) -> int:
         return int((self.ready_time - datetime.now(tz=timezone.utc)).total_seconds())
 
+    @property
+    def ready(self) -> bool:
+        return self.ready_time < datetime.now(tz=timezone.utc)
+
     async def on_ready(self) -> None:
         await self.channels.get_channels(self)
         self.logger.info(

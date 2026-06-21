@@ -26,9 +26,7 @@ class GlobalEventsCog(commands.Cog):
     async def global_event_check(self) -> None:
         ge_start = datetime.now(tz=timezone.utc)
         if (
-            not self.bot.interface_handler.loaded
-            or ge_start < self.bot.ready_time
-            or not self.bot.data.loaded
+            not self.bot.ready
             or self.bot.interface_handler.busy
             or not self.bot.data.formatted_data.global_events["en"]
         ):

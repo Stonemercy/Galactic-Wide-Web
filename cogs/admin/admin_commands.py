@@ -87,7 +87,7 @@ class AdminCommandsCog(commands.Cog):
         )
 
     def extension_names_autocomp(inter: AppCmdInter, user_input: str) -> list[str]:
-        if not inter.bot.extensions:
+        if not inter.bot.ready or not inter.bot.extensions:
             return []
         return sorted(
             [
@@ -171,7 +171,10 @@ class AdminCommandsCog(commands.Cog):
 
     @commands.Cog.listener("on_button_click")
     async def on_button_clicks(self, inter: MessageInteraction) -> None:
-        if inter.component.custom_id not in LEAVE_AND_RESET_BUTTON_IDS:
+        if (
+            not self.bot.ready
+            or inter.component.custom_id not in LEAVE_AND_RESET_BUTTON_IDS
+        ):
             return
         if inter.author != self.bot.owner:
             self.bot.logger.warning(

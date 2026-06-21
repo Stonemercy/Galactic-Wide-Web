@@ -100,7 +100,8 @@ class SetupCog(commands.Cog):
     @commands.Cog.listener("on_button_click")
     async def on_button_clicks(self, inter: MessageInteraction) -> None:
         if (
-            inter.component.custom_id not in ALLOWED_BUTTONS
+            not self.bot.ready
+            or inter.component.custom_id not in ALLOWED_BUTTONS
             and "set_features_button-" not in inter.component.custom_id
             and "clear_features_button-" not in inter.component.custom_id
         ):
@@ -256,7 +257,8 @@ class SetupCog(commands.Cog):
     @commands.Cog.listener("on_dropdown")
     async def on_dropdowns(self, inter: MessageInteraction) -> None:
         if (
-            inter.component.custom_id not in ALLOWED_DROPDOWNS
+            not self.bot.ready
+            or inter.component.custom_id not in ALLOWED_DROPDOWNS
             and "feature_channel_select-" not in inter.component.custom_id
         ):
             return
