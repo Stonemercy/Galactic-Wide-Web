@@ -15,14 +15,11 @@ class GlobalEventsContainer(ui.Container, ReprMixin):
         with_expiry_time: bool = False,
     ):
         components = []
-        if global_event.outtro_image_id or global_event.intro_image_id:
-            components.append(
-                ui.MediaGallery(
-                    MediaGalleryItem(
-                        f"attachment://{global_event.outtro_image_id or global_event.intro_image_id}.png"
-                    )
+        if media_id := global_event.outtro_image_id or global_event.intro_image_id:
+            if f"{media_id}.png" in listdir("resources/news_images"):
+                components.append(
+                    ui.MediaGallery(MediaGalleryItem(f"attachment://{media_id}.png"))
                 )
-            )
         title = ui.TextDisplay(
             f"# {global_event.title if global_event.title else container_json['new_event']}"
         )
