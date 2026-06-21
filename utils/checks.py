@@ -8,7 +8,7 @@ def wait_for_startup():
     """Waits for the bot to be ready before allowing the interaction"""
 
     def predicate(inter: AppCmdInter):
-        if datetime.now(tz=timezone.utc) > inter.bot.ready_time:
+        if inter.bot.ready:
             return True
 
         raise NotReadyYet()
