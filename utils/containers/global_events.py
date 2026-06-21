@@ -1,6 +1,6 @@
 from .galactic_war_effect import GWEContainer
 from data.lists import CUSTOM_COLOURS
-from disnake import Colour, ui
+from disnake import Colour, MediaGalleryItem, ui
 from utils.api_wrapper.models import GlobalEvent, Planet
 from utils.mixins import ReprMixin
 
@@ -15,6 +15,14 @@ class GlobalEventsContainer(ui.Container, ReprMixin):
         with_expiry_time: bool = False,
     ):
         components = []
+        if global_event.outtro_image_id or global_event.intro_image_id:
+            components.append(
+                ui.MediaGallery(
+                    MediaGalleryItem(
+                        f"attachment://{global_event.outtro_image_id or global_event.intro_image_id}.png"
+                    )
+                )
+            )
         title = ui.TextDisplay(
             f"# {global_event.title if global_event.title else container_json['new_event']}"
         )

@@ -1,5 +1,6 @@
 from datetime import datetime, timezone
-from disnake import AppCmdInter, ApplicationInstallTypes, InteractionContextTypes
+from os import listdir
+from disnake import AppCmdInter, ApplicationInstallTypes, File, InteractionContextTypes
 from disnake.ext import commands, tasks
 from main import GalacticWideWebBot
 from utils.checks import wait_for_startup
@@ -118,10 +119,22 @@ class GlobalEventsCog(commands.Cog):
             guild = GWWGuild.default()
 
         containers = []
+        images = []
         for global_event in sorted(
             self.bot.data.formatted_data.global_events[guild.language],
             key=lambda x: x.expire_time,
         ):
+            event_image = next(
+                (
+                    File(f"resources/news_images/{i}")
+                    for i in listdir("resources/news_images")
+                    if int(i.removesuffix(".png"))
+                    == (global_event.intro_image_id or global_event.outtro_image_id)
+                ),
+                None,
+            )
+            if event_image:
+                images.append(event_image)
             container = GlobalEventsContainer(
                 lang_code=guild.language,
                 container_json=self.bot.json_dict["languages"][guild.language][
@@ -137,6 +150,7 @@ class GlobalEventsCog(commands.Cog):
             return
         await inter.send(
             components=containers,
+            files=images,
             ephemeral=public != "Yes",
         )
 
