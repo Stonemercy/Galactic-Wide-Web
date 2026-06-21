@@ -1,5 +1,5 @@
 from traceback import format_exception
-from disnake import AppCmdInter, ChannelType, Color, Embed, MessageInteraction
+from disnake import AppCmdInter, ChannelType, Color, Embed, MessageInteraction, NotFound
 from disnake.ext import commands
 from utils.bot import GalacticWideWebBot
 from utils.errors import NotReadyYet, NotWhitelisted
@@ -43,6 +43,8 @@ class ErrorHandlerCog(commands.Cog):
             embed.description = (
                 "An unexpected error occurred. The developers have been notified."
             )
+            if isinstance(error, NotFound):
+                log_error = False
         if log_error:
             await self.log_error(inter, error, "Slash Command")
 
