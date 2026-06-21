@@ -1,3 +1,4 @@
+from os import listdir
 from .galactic_war_effect import GWEContainer
 from data.lists import CUSTOM_COLOURS
 from disnake import Colour, MediaGalleryItem, ui
