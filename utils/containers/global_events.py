@@ -1,4 +1,3 @@
-from os import listdir
 from .galactic_war_effect import GWEContainer
 from data.lists import CUSTOM_COLOURS
 from disnake import Colour, MediaGalleryItem, ui
@@ -14,13 +13,14 @@ class GlobalEventsContainer(ui.Container, ReprMixin):
         global_event: GlobalEvent,
         planets: dict[int, Planet],
         with_expiry_time: bool = False,
+        image_url: str = None,
+        attachment_url: str = None,
     ):
         components = []
-        if media_id := global_event.outtro_image_id or global_event.intro_image_id:
-            if f"{media_id}.png" in listdir("resources/news_images"):
-                components.append(
-                    ui.MediaGallery(MediaGalleryItem(f"attachment://{media_id}.png"))
-                )
+        if image_url:
+            components.append(ui.MediaGallery(MediaGalleryItem(image_url)))
+        elif attachment_url:
+            components.append(ui.MediaGallery(MediaGalleryItem(attachment_url)))
         title = ui.TextDisplay(
             f"# {global_event.title if global_event.title else container_json['new_event']}"
         )

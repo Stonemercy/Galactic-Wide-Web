@@ -51,6 +51,21 @@ class GlobalEventsCog(commands.Cog):
                     self.bot.databases.war_info.save_changes()
                     continue
                 unique_langs = GWWGuilds.unique_languages()
+
+                image_url = None
+                if (
+                    image_id := (
+                        global_event.outtro_image_id or global_event.intro_image_id
+                    )
+                ) and f"{image_id}.png" in listdir("resources/news_images"):
+                    try:
+                        image_message = await self.bot.channels.waste_bin_channel.send(
+                            file=File(f"resources/news_images/{image_id}.png")
+                        )
+                    except:
+                        pass
+                    image_url = image_message.attachments[0].url
+
                 containers = {
                     lang: [
                         GlobalEventsContainer(
@@ -64,6 +79,7 @@ class GlobalEventsCog(commands.Cog):
                                 lang
                             ][index],
                             planets=self.bot.data.formatted_data.planets,
+                            image_url=image_url,
                         )
                     ]
                     for lang in unique_langs
@@ -124,17 +140,14 @@ class GlobalEventsCog(commands.Cog):
             self.bot.data.formatted_data.global_events[guild.language],
             key=lambda x: x.expire_time,
         ):
-            event_image = next(
-                (
-                    File(f"resources/news_images/{i}")
-                    for i in listdir("resources/news_images")
-                    if int(i.removesuffix(".png"))
-                    == (global_event.intro_image_id or global_event.outtro_image_id)
-                ),
-                None,
-            )
-            if event_image:
+            attachment_url = None
+            if (
+                image_id := global_event.outtro_image_id or global_event.intro_image_id
+            ) and f"{image_id}.png" in listdir("resources/news_images"):
+                event_image = File(f"resources/news_images/{image_id}.png")
                 images.append(event_image)
+                attachment_url = f"attachment://{image_id}.png"
+
             container = GlobalEventsContainer(
                 lang_code=guild.language,
                 container_json=self.bot.json_dict["languages"][guild.language][
@@ -143,6 +156,7 @@ class GlobalEventsCog(commands.Cog):
                 global_event=global_event,
                 planets=self.bot.data.formatted_data.planets,
                 with_expiry_time=True,
+                attachment_url=attachment_url,
             )
             containers.append(container)
         if not containers:
