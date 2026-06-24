@@ -357,6 +357,7 @@ class WarUpdatesCog(commands.Cog):
             r
             for p in self.bot.data.formatted_data.planets.values()
             for r in p.regions.values()
+            if not p.is_hidden
         ]
         if not self.bot.databases.planet_regions:
             for region in all_regions:
