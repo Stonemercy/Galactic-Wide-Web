@@ -39,12 +39,14 @@ class ErrorHandlerCog(commands.Cog):
         elif isinstance(error, commands.PrivateMessageOnly):
             embed.description = "This command can only be used in DMs."
             log_error = False
+        elif isinstance(error, NotFound):
+            embed.description = "There was an error with Discord for this interaction. Please try again."
+            log_error = False
         else:
             embed.description = (
                 "An unexpected error occurred. The developers have been notified."
             )
-            if isinstance(error, NotFound):
-                log_error = False
+
         if log_error:
             await self.log_error(inter, error, "Slash Command")
 
