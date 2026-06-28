@@ -157,13 +157,13 @@ class DataService(ReprMixin):
                 ]
 
         async with AuthedClient(logger=self.logger) as client:
-            # dss votes
-            dss_votes = await client.get_dss_votes()
+            # dss_votes = await client.get_dss_votes()
+            dss_votes = None
             if dss_votes:
                 self._raw_dss_votes = dss_votes
 
-            # personal order
-            personal_order = await client.get_personal_order()
+            # personal_order = await client.get_personal_order()
+            personal_order = None
             if personal_order:
                 self._raw_personal_order = personal_order
 
