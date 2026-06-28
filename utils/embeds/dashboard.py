@@ -1755,6 +1755,11 @@ class Dashboard:
                         if planet.faction.full_name == "Humans" and not planet.event:
                             complete_type_13s.append(True)
                         elif planet.event and planet.event.type == EventType.Defence:
+                            if (
+                                planet.event.end_time_datetime
+                                > self.assignment.ends_at_datetime
+                            ):
+                                complete_type_13s.append(True)
                             end_time_info = get_end_time(
                                 source_planet=planet, gambit_planets=self.gambit_planets
                             )
