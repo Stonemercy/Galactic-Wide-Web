@@ -55,7 +55,7 @@ class GlobalEventsCog(commands.Cog):
                 image_url = None
                 if (
                     image_id := (
-                        global_event.outtro_image_id or global_event.intro_image_id
+                        global_event.outro_image_id or global_event.intro_image_id
                     )
                 ) and f"{image_id}.png" in listdir("resources/news_images"):
                     try:
@@ -142,7 +142,7 @@ class GlobalEventsCog(commands.Cog):
         ):
             attachment_url = None
             if (
-                image_id := global_event.outtro_image_id or global_event.intro_image_id
+                image_id := global_event.outro_image_id or global_event.intro_image_id
             ) and f"{image_id}.png" in listdir("resources/news_images"):
                 event_image = File(f"resources/news_images/{image_id}.png")
                 images.append(event_image)

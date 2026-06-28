@@ -303,6 +303,8 @@ class GlobalEvent(ReprMixin):
         ]
         self.planet_indices: list[int] = raw_global_event_data["planetIndices"]
         self.expire_time: int = raw_global_event_data["expireTime"] + war_time
+        self.intro_image_id: int = raw_global_event_data.get("introMediaId32", 0)
+        self.outro_image_id: int = raw_global_event_data.get("outroMediaId32", 0)
 
     @property
     def split_message(self) -> list[str]:
