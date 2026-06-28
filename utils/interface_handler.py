@@ -335,7 +335,7 @@ class BaseFeatureInteractionHandler(list, ReprMixin):
                     self.append(message)
                 else:
                     self.append(channel)
-            except NotFound | Forbidden as e:
+            except (NotFound, Forbidden) as e:
                 guild: GWWGuild = GWWGuilds.get_specific_guild(id=feature.guild_id)
                 if not guild:
                     self.bot.logger.error(
