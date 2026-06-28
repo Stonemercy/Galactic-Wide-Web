@@ -1760,15 +1760,17 @@ class Dashboard:
                                 > self.assignment.ends_at_datetime
                             ):
                                 complete_type_13s.append(True)
-                            end_time_info = get_end_time(
-                                source_planet=planet, gambit_planets=self.gambit_planets
-                            )
-                            if (
-                                end_time_info.end_time
-                                and end_time_info.end_time
-                                < self.assignment.ends_at_datetime
-                            ):
-                                complete_type_13s.append(True)
+                            else:
+                                end_time_info = get_end_time(
+                                    source_planet=planet,
+                                    gambit_planets=self.gambit_planets,
+                                )
+                                if (
+                                    end_time_info.end_time
+                                    and end_time_info.end_time
+                                    < self.assignment.ends_at_datetime
+                                ):
+                                    complete_type_13s.append(True)
                 elif task.sector_index:
                     sector = self.json_dict["sectors"][task.sector_index]
                     sector_wins = []
