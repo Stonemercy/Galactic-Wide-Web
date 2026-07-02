@@ -6,25 +6,27 @@ from disnake import (
     MessageInteraction,
     NotFound,
 )
-from disnake.ext import commands
+from disnake.ext.commands import Cog, slash_command
 from utils.bot import GalacticWideWebBot
 from utils.checks import wait_for_startup
 from utils.embeds import CommunityServersEmbed
-from utils.interactables import NextPageButton, PreviousPageButton
+from utils.interactables.community_servers import NextPageButton, PreviousPageButton
+
+ALLOWED_BUTTONS = ["CommunityServerPreviousPageButton", "CommunityServerNextPageButton"]
 
 
-class CommunityServersCog(commands.Cog):
+class CommunityServersCog(Cog):
     def __init__(self, bot: GalacticWideWebBot) -> None:
         self.bot = bot
 
     # should really localize
     @wait_for_startup()
-    @commands.slash_command(
+    @slash_command(
         description="Get a list of community servers with invite links",
         install_types=ApplicationInstallTypes.all(),
         contexts=InteractionContextTypes.all(),
         extras={
-            "long_description": "Shows a paged list of servers the bot is in that are marked as Discord Community servers and have a vanity invite URL, sorted by member count. Use the Previous/Next buttons to browse through pages of 16 servers at a time.",
+            "long_description": "Shows a paged list of servers the bot is in that are marked as Discord Community servers and have a vanity invite URL, sorted by member count. Use the Previous/Next buttons to browse through pages of 10 servers at a time.",
             "example_usage": "**`/community_servers`** returns a paged list of community servers the bot is in, sorted by member count.",
         },
     )
@@ -54,12 +56,9 @@ class CommunityServersCog(commands.Cog):
             reverse=True,
         )
 
-    @commands.Cog.listener("on_button_click")
+    @Cog.listener("on_button_click")
     async def on_button_clicks(self, inter: MessageInteraction) -> None:
-        if inter.component.custom_id not in (
-            "CommunityServerPreviousPageButton",
-            "CommunityServerNextPageButton",
-        ):
+        if inter.component.custom_id not in ALLOWED_BUTTONS:
             return
         await inter.response.defer()
         try:
