@@ -5,20 +5,20 @@ from disnake import (
     File,
     InteractionContextTypes,
 )
-from disnake.ext import commands
-from main import GalacticWideWebBot
+from disnake.ext.commands import Cog, Param, slash_command
+from utils.bot import GalacticWideWebBot
 from utils.checks import wait_for_startup
 from utils.dataclasses import Languages
 from utils.functions import compare_translations, split_long_string
 from utils.interactables import SupportServerButton
 
 
-class TranslationsCog(commands.Cog):
+class TranslationsCog(Cog):
     def __init__(self, bot: GalacticWideWebBot) -> None:
         self.bot = bot
 
     @wait_for_startup()
-    @commands.slash_command(
+    @slash_command(
         description="Check a language's translation file for missing or untranslated keys",
         install_types=ApplicationInstallTypes.all(),
         contexts=InteractionContextTypes.all(),
@@ -30,7 +30,7 @@ class TranslationsCog(commands.Cog):
     async def check_missing_translations(
         self,
         inter: AppCmdInter,
-        language_to_check: str = commands.Param(
+        language_to_check: str = Param(
             choices=["all"] + [l.short_code for l in Languages.all],
             description="The language you want to check the missing translations for.",
         ),
