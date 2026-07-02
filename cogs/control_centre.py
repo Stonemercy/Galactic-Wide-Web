@@ -27,11 +27,11 @@ class ControlCentreCog(Cog):
 
     @wait_for_startup()
     @slash_command(
-        description="Control Centre command",
+        description="Check the status of the in-game Control Centre",
         install_types=ApplicationInstallTypes.all(),
         contexts=InteractionContextTypes.all(),
         extras={
-            "long_description": "Shows a Discord representation of the in-game Control Centre. You can use the buttons and dropdowns to navigate.",
+            "long_description": "Shows the in-game Control Centre. You can use the buttons and dropdowns to navigate.",
             "example_usage": "**`/control_centre public:Yes`** returns the current Control Centre, visible to everyone.",
         },
     )
