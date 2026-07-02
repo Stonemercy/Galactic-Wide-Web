@@ -1,20 +1,21 @@
 from data.lists import json_dict
 from datetime import datetime, timedelta, timezone
 from disnake import Intents, Message, Status, TextChannel
-from disnake.ext import commands, tasks
+from disnake.ext.commands import AutoShardedInteractionBot
+from disnake.ext.tasks import Loop
 from json import load
 from os import listdir
+from utils.api_wrapper.services import DataService
 from utils.dataclasses import BotChannels, Config, GWWBotModes
 from utils.dbv2 import Databases
 from utils.interface_handler import InterfaceHandler
 from utils.logger import GWWLogger
 from utils.maps import Maps
-from utils.api_wrapper.services.data_service import DataService
 
 STARTUP_SECONDS = 90
 
 
-class GalacticWideWebBot(commands.AutoShardedInteractionBot):
+class GalacticWideWebBot(AutoShardedInteractionBot):
     def __init__(self) -> None:
         """The main Galactic Wide Web bot class"""
         super().__init__(intents=Intents.default(), status=Status.idle)
@@ -33,7 +34,7 @@ class GalacticWideWebBot(commands.AutoShardedInteractionBot):
         self.bot_dashboard_channel: TextChannel | None = None
         self.bot_dashboard_message: Message | None = None
         self.maps = Maps()
-        self.loops: list[tasks.Loop] = []
+        self.loops: list[Loop] = []
         self.load_extensions("cogs/admin")
         self.load_extensions("cogs")
 
