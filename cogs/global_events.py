@@ -1,14 +1,15 @@
 from datetime import datetime, timezone
-from os import listdir
 from disnake import AppCmdInter, ApplicationInstallTypes, File, InteractionContextTypes
-from disnake.ext import commands, tasks
-from main import GalacticWideWebBot
+from disnake.ext.commands import Cog, Param, slash_command
+from disnake.ext.tasks import loop
+from os import listdir
+from utils.bot import GalacticWideWebBot
 from utils.checks import wait_for_startup
 from utils.containers import GlobalEventsContainer
 from utils.dbv2 import GWWGuild, GWWGuilds
 
 
-class GlobalEventsCog(commands.Cog):
+class GlobalEventsCog(Cog):
     def __init__(self, bot: GalacticWideWebBot) -> None:
         self.bot = bot
 
@@ -23,15 +24,30 @@ class GlobalEventsCog(commands.Cog):
         if self.global_event_check in self.bot.loops:
             self.bot.loops.remove(self.global_event_check)
 
-    @tasks.loop(minutes=1)
+    @loop(minutes=1)
     async def global_event_check(self) -> None:
         ge_start = datetime.now(tz=timezone.utc)
-        if (
-            not self.bot.ready
-            or self.bot.interface_handler.busy
-            or not self.bot.data.formatted_data.global_events["en"]
-        ):
+        if not self.bot.ready:
+            self.bot.logger.warning(
+                "global_event_check loop returning - the bot isn't ready"
+            )
             return
+        if self.bot.interface_handler.busy:
+            self.bot.logger.warning(
+                "global_event_check loop returning - the interface_handler is busy"
+            )
+            return
+        if not self.bot.data.formatted_data.global_events.get("en"):
+            self.bot.logger.warning(
+                "global_event_check loop returning - english global events are missing"
+            )
+            return
+        if not self.bot.data.formatted_data:
+            self.bot.logger.error(
+                "global_event_check loop returning - NO FORMATTED DATA"
+            )
+            return
+
         for index, global_event in enumerate(
             self.bot.data.formatted_data.global_events["en"]
         ):
@@ -47,6 +63,9 @@ class GlobalEventsCog(commands.Cog):
                     )
                     or "BRIEFING" in global_event.title.upper()
                 ):
+                    self.bot.logger.info(
+                        f"global_event_check loop - global event {global_event.id} identified as MO briefing and is being skipped"
+                    )
                     self.bot.databases.war_info.global_event_id = global_event.id
                     self.bot.databases.war_info.save_changes()
                     continue
@@ -90,7 +109,7 @@ class GlobalEventsCog(commands.Cog):
                 self.bot.databases.war_info.global_event_id = global_event.id
                 self.bot.databases.war_info.save_changes()
                 self.bot.logger.info(
-                    f"Sent Global Event #{global_event.id} out to {len(self.bot.interface_handler.detailed_dispatches)} channels in {(datetime.now(tz=timezone.utc) - ge_start).total_seconds():.2f}s"
+                    f"global_event_check loop - sent global event {global_event.id} out to {len(self.bot.interface_handler.detailed_dispatches)} channels in {(datetime.now(tz=timezone.utc) - ge_start).total_seconds():.2f} seconds"
                 )
                 break
 
@@ -105,7 +124,7 @@ class GlobalEventsCog(commands.Cog):
             await error_handler.log_error(None, error, "global_event_check loop")
 
     @wait_for_startup()
-    @commands.slash_command(
+    @slash_command(
         description="Show currently active global events",
         install_types=ApplicationInstallTypes.all(),
         contexts=InteractionContextTypes.all(),
@@ -117,7 +136,7 @@ class GlobalEventsCog(commands.Cog):
     async def global_events(
         self,
         inter: AppCmdInter,
-        public: str = commands.Param(
+        public: str = Param(
             choices=["Yes", "No"],
             default="No",
             description="If you want the response to be seen by others in the server.",
@@ -125,12 +144,12 @@ class GlobalEventsCog(commands.Cog):
     ) -> None:
         await inter.response.defer(ephemeral=public != "Yes")
         if inter.guild:
-            guild = GWWGuilds.get_specific_guild(id=inter.guild_id)
+            guild = GWWGuilds.get_specific_guild(id=inter.guild.id)
             if not guild:
                 self.bot.logger.error(
-                    f"Guild {inter.guild_id} - {inter.guild.name} - had the bot installed but wasn't found in the DB"
+                    f"Guild {inter.guild.id} - {inter.guild.name} - had the bot installed but wasn't found in the DB"
                 )
-                guild = GWWGuilds.add(inter.guild_id, "en", [])
+                guild = GWWGuilds.add(inter.guild.id, "en", [])
         else:
             guild = GWWGuild.default()
 
