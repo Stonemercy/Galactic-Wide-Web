@@ -597,6 +597,12 @@ class FormattedData:
                             self.war_start_timestamp,
                         )
 
+                        if context.dss_votes:
+                            space_station.votes = DSS.Votes(
+                                planets=self.planets,
+                                raw_votes_data=context.dss_votes,
+                            )
+
                         space_station.planet.dss_in_orbit = True
 
                         if eagle_storm := space_station.get_ta_by_name("EAGLE STORM"):
@@ -607,20 +613,30 @@ class FormattedData:
                                 == EventType.UrgentLiberation
                             ):
                                 space_station.planet.eagle_storm_active = True
-                                space_station.planet.event.end_time_datetime += (
-                                    timedelta(
-                                        seconds=(
-                                            eagle_storm.status_end_datetime
-                                            - datetime.now(tz=timezone.utc)
+                                dss_moving = False
+                                if space_station.votes:
+                                    next_planet = space_station.votes.available_planets[
+                                        0
+                                    ][0]
+                                    if space_station.planet != next_planet:
+                                        time_until_move = (
+                                            space_station.move_timer_datetime
+                                            - datetime.now()
                                         ).total_seconds()
-                                    )
-                                )
+                                        space_station.planet.event.end_time_datetime += timedelta(
+                                            seconds=time_until_move
+                                        )
+                                        dss_moving = True
 
-                        if context.dss_votes:
-                            space_station.votes = DSS.Votes(
-                                planets=self.planets,
-                                raw_votes_data=context.dss_votes,
-                            )
+                                if not dss_moving:
+                                    space_station.planet.event.end_time_datetime += (
+                                        timedelta(
+                                            seconds=(
+                                                eagle_storm.status_end_datetime
+                                                - datetime.now(tz=timezone.utc)
+                                            ).total_seconds()
+                                        )
+                                    )
             else:
                 space_station = SpaceStation(
                     space_station_json, ss_planet, self.war_start_timestamp
