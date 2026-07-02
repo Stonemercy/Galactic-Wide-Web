@@ -1,8 +1,9 @@
 from asyncio import to_thread
 from datetime import datetime, timezone
 from disnake import File
-from disnake.ext import commands, tasks
-from main import GalacticWideWebBot
+from disnake.ext.commands import Cog
+from disnake.ext.tasks import loop
+from utils.bot import GalacticWideWebBot
 from utils.containers import (
     DSSChangesContainer,
     RegionChangesContainer,
@@ -14,7 +15,7 @@ from utils.dbv2 import GWWGuilds
 from utils.maps import Maps
 
 
-class WarUpdatesCog(commands.Cog):
+class WarUpdatesCog(Cog):
     def __init__(self, bot: GalacticWideWebBot) -> None:
         self.bot = bot
         self.loops = (self.campaign_check, self.dss_check, self.region_check)
@@ -32,14 +33,23 @@ class WarUpdatesCog(commands.Cog):
             if loop in self.bot.loops:
                 self.bot.loops.remove(loop)
 
-    @tasks.loop(minutes=1)
+    @loop(minutes=1)
     async def campaign_check(self) -> None:
         update_start = datetime.now(tz=timezone.utc)
-        if (
-            not self.bot.ready
-            or self.bot.interface_handler.busy
-            or not self.bot.data.previous_data
-        ):
+        if not self.bot.ready:
+            self.bot.logger.warning(
+                "campaign_check loop returning - the bot isn't ready"
+            )
+            return
+        if self.bot.interface_handler.busy:
+            self.bot.logger.warning(
+                "campaign_check loop returning - the interface_handler is busy"
+            )
+            return
+        if not self.bot.data.previous_data:
+            self.bot.logger.warning(
+                "campaign_check loop returning - previous data is missing"
+            )
             return
         unique_langs = GWWGuilds.unique_languages()
         components: dict[str, CampaignChangesContainer] = {
@@ -173,7 +183,7 @@ class WarUpdatesCog(commands.Cog):
                 feature_type="war_announcements", content=components
             )
             self.bot.logger.info(
-                f"Sent war announcements out to {len(self.bot.interface_handler.war_announcements)} channels in {(datetime.now(tz=timezone.utc) - update_start).total_seconds():.2f}s"
+                f"campaign_check loop - sent campaign announcement out to {len(self.bot.interface_handler.war_announcements)} channels in {(datetime.now(tz=timezone.utc) - update_start).total_seconds():.2f} seconds"
             )
             if need_to_update_sectors:
                 await to_thread(
@@ -220,14 +230,21 @@ class WarUpdatesCog(commands.Cog):
         if error_handler:
             await error_handler.log_error(None, error, "campaign_check loop")
 
-    @tasks.loop(minutes=1)
+    @loop(minutes=1)
     async def dss_check(self) -> None:
         update_start = datetime.now(tz=timezone.utc)
-        if (
-            not self.bot.ready
-            or self.bot.interface_handler.busy
-            or not self.bot.data.previous_data
-        ):
+        if not self.bot.ready:
+            self.bot.logger.warning("dss_check loop returning - the bot isn't ready")
+            return
+        if self.bot.interface_handler.busy:
+            self.bot.logger.warning(
+                "dss_check loop returning - the interface_handler is busy"
+            )
+            return
+        if not self.bot.data.previous_data:
+            self.bot.logger.warning(
+                "dss_check loop returning - previous data is missing"
+            )
             return
         dss_updates = False
         unique_langs = GWWGuilds.unique_languages()
@@ -303,7 +320,7 @@ class WarUpdatesCog(commands.Cog):
                 feature_type="dss_announcements", content=containers
             )
             self.bot.logger.info(
-                f"Sent DSS announcements out to {len(self.bot.interface_handler.dss_announcements)} channels in {(datetime.now(tz=timezone.utc) - update_start).total_seconds():.2f}s"
+                f"dss_check loop - sent DSS announcement out to {len(self.bot.interface_handler.dss_announcements)} channels in {(datetime.now(tz=timezone.utc) - update_start).total_seconds():.2f} seconds"
             )
             if dss_has_moved:
                 self.bot.maps.update_planets(
@@ -342,14 +359,21 @@ class WarUpdatesCog(commands.Cog):
         if error_handler:
             await error_handler.log_error(None, error, "dss_check loop")
 
-    @tasks.loop(minutes=1)
+    @loop(minutes=1)
     async def region_check(self) -> None:
         update_start = datetime.now(tz=timezone.utc)
-        if (
-            not self.bot.ready
-            or not self.bot.data.previous_data
-            or self.bot.interface_handler.busy
-        ):
+        if not self.bot.ready:
+            self.bot.logger.warning("region_check loop returning - the bot isn't ready")
+            return
+        if self.bot.interface_handler.busy:
+            self.bot.logger.warning(
+                "region_check loop returning - the interface_handler is busy"
+            )
+            return
+        if not self.bot.data.previous_data:
+            self.bot.logger.warning(
+                "region_check loop returning - previous data is missing"
+            )
             return
         region_updates = False
         unique_langs = GWWGuilds.unique_languages()
@@ -443,7 +467,7 @@ class WarUpdatesCog(commands.Cog):
                     "region_announcements", components
                 )
                 self.bot.logger.info(
-                    f"Sent region announcements out to {len(self.bot.interface_handler.region_announcements)} channels in {(datetime.now(tz=timezone.utc) - update_start).total_seconds():.2f}s"
+                    f"region_check loop - sent region announcements out to {len(self.bot.interface_handler.region_announcements)} channels in {(datetime.now(tz=timezone.utc) - update_start).total_seconds():.2f} seconds"
                 )
 
     @region_check.before_loop
