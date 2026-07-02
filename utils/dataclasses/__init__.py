@@ -1,10 +1,10 @@
 from .api_changes import APIChanges
 from .assignment_images import AssignmentImages
+from .config import Config
 from .bot_channels import BotChannels
 from .calculated_end_time import CalculatedEndTime
 from .campaign_changes_json import CampaignChangesJson
 from .communities import Community
-from .config import Config
 from .dss_changes_json import DSSChangesJson
 from .dss_images import DSSImages
 from .factions import Faction, Factions

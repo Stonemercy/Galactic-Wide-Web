@@ -4,9 +4,9 @@ from .campaign_changes import CampaignChangesContainer
 from .control_centre import ControlCentreContainer
 from .dispatch import DispatchContainer
 from .dss_changes import DSSChangesContainer
+from .galactic_war_effect import GWEContainer
 from .global_events import GlobalEventsContainer
 from .guild import GuildContainer
-from .galactic_war_effect import GWEContainer
 from .help import HelpContainer
 from .mo_unavilable import MOUnavailableContainer
 from .planet import PlanetContainers
