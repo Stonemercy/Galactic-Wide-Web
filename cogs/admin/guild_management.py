@@ -1,7 +1,9 @@
 from datetime import time, timezone
+from disnake import ButtonStyle, Colour, Embed, Guild, MessageInteraction
+from disnake.ext.commands import Cog
+from disnake.ext.tasks import loop
+from disnake.ui import Button
 from typing import TYPE_CHECKING
-from disnake import ButtonStyle, Colour, Embed, Guild, MessageInteraction, ui
-from disnake.ext import commands, tasks
 from utils.bot import GalacticWideWebBot
 from utils.containers import GuildContainer
 from utils.dataclasses import Languages
@@ -11,7 +13,7 @@ if TYPE_CHECKING:
     from utils.dbv2 import GWWGuild
 
 
-class GuildManagementCog(commands.Cog):
+class GuildManagementCog(Cog):
     def __init__(self, bot: GalacticWideWebBot) -> None:
         self.bot = bot
         self.guilds_to_remove: list[GWWGuild] = []
@@ -28,7 +30,7 @@ class GuildManagementCog(commands.Cog):
         if self.guild_checking in self.bot.loops:
             self.bot.loops.remove(self.guild_checking)
 
-    @commands.Cog.listener()
+    @Cog.listener()
     async def on_guild_join(self, guild: Guild) -> None:
         guild_in_db: GWWGuild | None = GWWGuilds.get_specific_guild(id=guild.id)
         if guild_in_db:
@@ -46,7 +48,7 @@ class GuildManagementCog(commands.Cog):
         await self.bot.channels.moderator_channel.send(components=container)
         self.bot.logger.info(f"Bot added to guild {guild.id} - '{guild.name}'")
 
-    @commands.Cog.listener()
+    @Cog.listener()
     async def on_guild_remove(self, guild: Guild) -> None:
         guild_in_db: GWWGuild | None = GWWGuilds.get_specific_guild(id=guild.id)
         if not guild_in_db:
@@ -62,9 +64,12 @@ class GuildManagementCog(commands.Cog):
                 lst.remove(c)
         self.bot.logger.info(f"Bot removed from {guild.id} - '{guild.name}'")
 
-    @tasks.loop(time=[time(hour=23, minute=0, tzinfo=timezone.utc)])
+    @loop(time=[time(hour=23, minute=0, tzinfo=timezone.utc)])
     async def guild_checking(self) -> None:
         if not self.bot.ready:
+            self.bot.logger.warning(
+                f"guild_checking loop returning - the bot isn't ready"
+            )
             return
         dbguilds = GWWGuilds(fetch_all=True)
         if dbguilds:
@@ -87,7 +92,7 @@ class GuildManagementCog(commands.Cog):
                 await self.bot.channels.moderator_channel.send(
                     embed=embed,
                     components=[
-                        ui.Button(
+                        Button(
                             label="Remove",
                             style=ButtonStyle.danger,
                             custom_id="guild_remove",
@@ -109,7 +114,7 @@ class GuildManagementCog(commands.Cog):
         if error_handler:
             await error_handler.log_error(None, error, "guild_checking loop")
 
-    @commands.Cog.listener("on_button_click")
+    @Cog.listener("on_button_click")
     async def ban_listener(self, inter: MessageInteraction) -> None:
         if not self.bot.ready:
             return
