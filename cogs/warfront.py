@@ -1,18 +1,18 @@
 from disnake import AppCmdInter, ApplicationInstallTypes, Embed, InteractionContextTypes
-from disnake.ext import commands
-from main import GalacticWideWebBot
+from disnake.ext.commands import Cog, Param, slash_command
+from utils.bot import GalacticWideWebBot
 from utils.checks import wait_for_startup
 from utils.dataclasses.enums import CampaignType, EventType
 from utils.dbv2 import GWWGuild, GWWGuilds
 from utils.embeds import WarfrontAllPlanetsEmbed, Dashboard
 
 
-class WarfrontCog(commands.Cog):
+class WarfrontCog(Cog):
     def __init__(self, bot: GalacticWideWebBot) -> None:
         self.bot = bot
 
     @wait_for_startup()
-    @commands.slash_command(
+    @slash_command(
         description="Get an overview of all active campaigns for a specific faction",
         install_types=ApplicationInstallTypes.all(),
         contexts=InteractionContextTypes.all(),
@@ -24,11 +24,11 @@ class WarfrontCog(commands.Cog):
     async def warfront(
         self,
         inter: AppCmdInter,
-        faction=commands.Param(
+        faction=Param(
             choices=["Automaton", "Terminids", "Illuminate"],
             description="The faction to focus on",
         ),
-        public: str = commands.Param(
+        public: str = Param(
             choices=["Yes", "No"],
             default="No",
             description="If you want the response to be seen by others in the server.",
@@ -36,12 +36,12 @@ class WarfrontCog(commands.Cog):
     ) -> None:
         await inter.response.defer(ephemeral=public != "Yes")
         if inter.guild:
-            guild = GWWGuilds.get_specific_guild(id=inter.guild_id)
+            guild = GWWGuilds.get_specific_guild(id=inter.guild.id)
             if not guild:
                 self.bot.logger.error(
-                    f"Guild {inter.guild_id} - {inter.guild.name} - had the bot installed but wasn't found in the DB"
+                    f"Guild {inter.guild.id} - {inter.guild.name} - had the bot installed but wasn't found in the DB"
                 )
-                guild = GWWGuilds.add(inter.guild_id, "en", [])
+                guild = GWWGuilds.add(inter.guild.id, "en", [])
         else:
             guild = GWWGuild.default()
         guild_language = self.bot.json_dict["languages"][guild.language]
