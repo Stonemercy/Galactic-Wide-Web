@@ -2194,7 +2194,7 @@ class Dashboard:
             else:
                 total_players_doing_defence = ""
             super().__init__(
-                title=f"{Emojis.Decoration.alert_icon} Urgent Liberations{total_players_doing_defence}",
+                title=f"{Emojis.Decoration.alert_icon} {self.language_json['embeds']['Dashboard']['UrgentLiberationsEmbed']['title']}{total_players_doing_defence}",
                 colour=Colour.red(),
             )
             factions = [
@@ -2223,7 +2223,7 @@ class Dashboard:
                 field_value += f"\n-# {planet_feature[1]} {planet_feature[0]}"
 
             field_value += f"\n{self.language_json['ends']} **<t:{int(campaign.planet.event.end_time_datetime.timestamp())}:R>**"
-            field_value += f"\n{self.language_json['embeds']['Dashboard']['DefenceEmbed']['invasion_level']} **{campaign.planet.event.level}**{campaign.planet.event.level_exclamation}"
+            field_value += f"\n{self.language_json['embeds']['Dashboard']['UrgentLiberationsEmbed']['urgency_level']} **{campaign.planet.event.level}**{campaign.planet.event.level_exclamation}"
 
             calculated_end_time = get_end_time(campaign.planet)
             if calculated_end_time.end_time and (

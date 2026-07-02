@@ -16,7 +16,9 @@
             "ends": "\n-# Endet <t:{timestamp}:R>",
             "liberate": "### BEFREIEN **{planet_name}** {emojis}",
             "resistance": "\n-# Widerstand: **{regen}/Std**",
-            "planet_lost": "**{planet_name}** ging an **{faction_name}** verloren {emojis}"
+            "planet_lost": "**{planet_name}** ging an **{faction_name}** verloren {emojis}",
+            "urgently_liberate": "### URGENTLY LIBERATE **{planet_name}** {emojis}",
+            "urgency_level": "\n-# Urgency Level **{level}{emoji}**"
         },
         "DispatchContainer": {
             "dispatch": "Versand",
@@ -247,6 +249,10 @@
                         "description": "-# Setzt periodische **Adler Strafing Runs** während Missionen ein.\n-# Der **HELLPOD SPACE OPTIMIZATION** Booster ist für alle Missionen automatisch aktiv."
                     }
                 }
+            },
+            "UrgentLiberationsEmbed": {
+                "title": "Urgent Liberations",
+                "urgency_level": "Urgency Level"
             },
             "DefenceEmbed": {
                 "title": "Verteidigung",

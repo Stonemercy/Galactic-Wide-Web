@@ -16,7 +16,9 @@
             "ends": "\n-# Acaba em <t:{timestamp}:R>",
             "liberate": "### LIBERAR **{planet_name}** {emojis}",
             "resistance": "\n-# Resistência: **{regen}/hr**",
-            "planet_lost": "**{planet_name}** foi perdido para os **{faction_name}** {emojis}"
+            "planet_lost": "**{planet_name}** foi perdido para os **{faction_name}** {emojis}",
+            "urgently_liberate": "### URGENTLY LIBERATE **{planet_name}** {emojis}",
+            "urgency_level": "\n-# Urgency Level **{level}{emoji}**"
         },
         "DispatchContainer": {
             "dispatch": "Despacho",
@@ -247,6 +249,10 @@
                         "description": "-# Envia **Ataques Aéreos via Águia** periódicos durante as missões.\n-# O reforçador **Otimização Espacial de Hellpod** fica ativo automaticamente durante as missões."
                     }
                 }
+            },
+            "UrgentLiberationsEmbed": {
+                "title": "Urgent Liberations",
+                "urgency_level": "Urgency Level"
             },
             "DefenceEmbed": {
                 "title": "Defendendo",

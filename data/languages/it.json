@@ -16,7 +16,9 @@
             "ends": "\n-# Finisce <t:{timestamp}:R>",
             "liberate": "### LIBERA **{planet_name}** {emojis}",
             "resistance": "\n-# Resistenza: **{regen}/hr**",
-            "planet_lost": "**{planet_name}** è stato perso al **{faction_name}** {emojis}"
+            "planet_lost": "**{planet_name}** è stato perso al **{faction_name}** {emojis}",
+            "urgently_liberate": "### URGENTLY LIBERATE **{planet_name}** {emojis}",
+            "urgency_level": "\n-# Urgency Level **{level}{emoji}**"
         },
         "DispatchContainer": {
             "dispatch": "Spedizione",
@@ -247,6 +249,10 @@
                         "description": "-# Deploya periodici **Eagle Strafing Runs** durante le missioni.\n-# Il potenziatore **HELLPOD SPACE OPTIMIZATION** è attivo automaticamente per tutte le missioni."
                     }
                 }
+            },
+            "UrgentLiberationsEmbed": {
+                "title": "Urgent Liberations",
+                "urgency_level": "Urgency Level"
             },
             "DefenceEmbed": {
                 "title": "Difendendo",

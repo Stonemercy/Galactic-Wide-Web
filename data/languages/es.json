@@ -16,7 +16,9 @@
             "ends": "\n-# termina en <t:{timestamp}:R>",
             "liberate": "### LIBERA **{planet_name}** {emojis}",
             "resistance": "\n-# Resistencia: **{regen}/hr**",
-            "planet_lost": "**{planet_name}** ha sido perdido a **{faction_name}** {emojis}"
+            "planet_lost": "**{planet_name}** ha sido perdido a **{faction_name}** {emojis}",
+            "urgently_liberate": "### URGENTLY LIBERATE **{planet_name}** {emojis}",
+            "urgency_level": "\n-# Urgency Level **{level}{emoji}**"
         },
         "DispatchContainer": {
             "dispatch": "Despachos",
@@ -247,6 +249,10 @@
                         "description": "-# Despliega **Pasadas de Ataque de Águila** periódicas durante las misiones.\n-# El Potenciador de **OPTIMIZACIÓN DEL ESPACIO DE LA CÁPSULA HELL** está automáticamente activo para todas las misiones."
                     }
                 }
+            },
+            "UrgentLiberationsEmbed": {
+                "title": "Urgent Liberations",
+                "urgency_level": "Urgency Level"
             },
             "DefenceEmbed": {
                 "title": "Defendiendo",

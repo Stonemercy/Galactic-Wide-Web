@@ -16,7 +16,9 @@
             "ends": "\n-# Заканчивается <t:{timestamp}:R>",
             "liberate": "### ОСВОБОДИТЕ ПЛАНЕТУ **{planet_name}** {emojis}",
             "resistance": "\n-# Сопротивление: **{regen}/ч**",
-            "planet_lost": "Планета **{planet_name}** перешла под контроль **{faction_name}** {emojis}"
+            "planet_lost": "Планета **{planet_name}** перешла под контроль **{faction_name}** {emojis}",
+            "urgently_liberate": "### URGENTLY LIBERATE **{planet_name}** {emojis}",
+            "urgency_level": "\n-# Urgency Level **{level}{emoji}**"
         },
         "DispatchContainer": {
             "dispatch": "Рапорт",
@@ -247,6 +249,10 @@
                         "description": "-# Периодически выполняет стратагему **Орёл: бреющий полёт** во время заданий.\n-# Усилитель **ОПТИМИЗАЦИЯ МЕСТА В АДСКОЙ КАПСУЛЕ** автоматически активируется для всех заданий."
                     }
                 }
+            },
+            "UrgentLiberationsEmbed": {
+                "title": "Urgent Liberations",
+                "urgency_level": "Urgency Level"
             },
             "DefenceEmbed": {
                 "title": "Оборона",

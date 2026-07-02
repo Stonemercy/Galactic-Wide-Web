@@ -16,7 +16,9 @@
             "ends": "\n-# Bitiş <t:{timestamp}:R>",
             "liberate": "### **{planet_name}** GEZEGENİNİ LIBERATE ET {emojis}",
             "resistance": "\n-# Direniş: **{regen}/saat**",
-            "planet_lost": "**{planet_name}** **{faction_name}** tarafından ele geçirildi {emojis}"
+            "planet_lost": "**{planet_name}** **{faction_name}** tarafından ele geçirildi {emojis}",
+            "urgently_liberate": "### URGENTLY LIBERATE **{planet_name}** {emojis}",
+            "urgency_level": "\n-# Urgency Level **{level}{emoji}**"
         },
         "DispatchContainer": {
             "dispatch": "Bildiri",
@@ -247,6 +249,10 @@
                         "description": "-# Görevler sırasında periyodik **Eagle Strafing Run**'lar gerçekleştirir.\n-# **HELLPOD SPACE OPTIMIZATION** Booster'ı tüm görevlerde otomatik olarak aktiftir."
                     }
                 }
+            },
+            "UrgentLiberationsEmbed": {
+                "title": "Urgent Liberations",
+                "urgency_level": "Urgency Level"
             },
             "DefenceEmbed": {
                 "title": "Savunmada",

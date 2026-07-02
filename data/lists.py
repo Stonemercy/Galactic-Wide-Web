@@ -68,10 +68,10 @@ LOSS_ICONS = {
 }
 
 URGENT_ICONS = {
-    "default": "https://media.discordapp.net/attachments/1212735927223590974/1484600955457769654/urgent_default.png?ex=69bed1e2&is=69bd8062&hm=d03b43c424caaa5fe2c9225921d7dbe0e6ca6262bb97aabfae0c67cd21c080e8&=&format=webp&quality=lossless",
-    "illuminate": "https://media.discordapp.net/attachments/1212735927223590974/1484600034447331438/urgent_illuminate.png?ex=69bed106&is=69bd7f86&hm=9c34ecece956b51463ae70b492843b87fb74382898e2cefb3ab194ec93e8870f&=&format=webp&quality=lossless",
-    "automaton": "https://media.discordapp.net/attachments/1212735927223590974/1484600024859148518/urgent_automaton.png?ex=69bed104&is=69bd7f84&hm=c2257d88c42e6832bca42a79fe1e1c0f9a619edd47ddd478d7142c6bda222f07&=&format=webp&quality=lossless",
-    "terminids": "https://media.discordapp.net/attachments/1212735927223590974/1484600044345884843/urgent_terminids.png?ex=69bed109&is=69bd7f89&hm=1b041e02ef31e44353ebf1d4f29bbf7c1912b48a4593ee6c40714787f7a8b579&=&format=webp&quality=lossless",
+    "default": "https://media.discordapp.net/attachments/1212735927223590974/1510033844315881672/urgent_default.png?ex=6a1b581b&is=6a1a069b&hm=e754028aa63c4e6f45f829fd53bf6dab32da1c3c6949472783b5b402a7ac263b&=&format=webp&quality=lossless",
+    "illuminate": "https://media.discordapp.net/attachments/1212735927223590974/1510033844693110836/urgent_illuminate.png?ex=6a1b581b&is=6a1a069b&hm=7744429ac3791dc06db61213e8c884554874aaea8cf78f3422ffd3749f49f7f7&=&format=webp&quality=lossless",
+    "automaton": "https://media.discordapp.net/attachments/1212735927223590974/1510033843917164674/urgent_automaton.png?ex=6a1b581b&is=6a1a069b&hm=f7dfe6ec47bea6220817632568d0bbf0716d91e9379aa94e69159b6cb9c1684a&=&format=webp&quality=lossless",
+    "terminids": "https://media.discordapp.net/attachments/1212735927223590974/1510033843439140924/urgent_terminids.png?ex=6a1b581b&is=6a1a069b&hm=8fa1b61de67356452f4289fb4cdbc08fdbc7a67778ee7f2577e7b5708c749716&=&format=webp&quality=lossless",
 }
 
 STRATAGEM_CAT_DICT = {

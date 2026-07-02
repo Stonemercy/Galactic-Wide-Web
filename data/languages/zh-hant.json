@@ -16,7 +16,9 @@
             "ends": "\n-# 將結束於 <t:{timestamp}:R>",
             "liberate": "### 解放 **{planet_name}** {emojis}",
             "resistance": "\n-# 抵抗力: **{regen}/hr**",
-            "planet_lost": "**{planet_name}** 已被 **{faction_name}** 佔領 {emojis}"
+            "planet_lost": "**{planet_name}** 已被 **{faction_name}** 佔領 {emojis}",
+            "urgently_liberate": "### URGENTLY LIBERATE **{planet_name}** {emojis}",
+            "urgency_level": "\n-# Urgency Level **{level}{emoji}**"
         },
         "DispatchContainer": {
             "dispatch": "報告",
@@ -247,6 +249,10 @@
                         "description": "-# 在任務期間週期性部屬 **飛鷹掃射**。\n-# **絕地艙空間最佳化** 強化套件在所有任務中自動啟用。"
                     }
                 }
+            },
+            "UrgentLiberationsEmbed": {
+                "title": "Urgent Liberations",
+                "urgency_level": "Urgency Level"
             },
             "DefenceEmbed": {
                 "title": "防禦中",

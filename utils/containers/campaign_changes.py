@@ -1,6 +1,7 @@
 from data.lists import (
     ATTACK_EMBED_ICONS,
     DEFENCE_EMBED_ICONS,
+    URGENT_ICONS,
     VICTORY_ICONS,
     LOSS_ICONS,
     CUSTOM_COLOURS,
@@ -318,7 +319,7 @@ class CampaignChangesContainer(Container):
             )
 
             # last step
-            self.new_campaigns.append(ui.Separator())
+            self.new_campaigns.append(Separator())
             self.new_campaigns.append(section)
 
             if campaign.planet.names.get(
@@ -332,6 +333,74 @@ class CampaignChangesContainer(Container):
                         link=f"https://helldiverscompanion.com/#hellpad/planets/{campaign.planet.index}",
                     )
                 )
+
+    @update_containers
+    def new_urgent_liberation(
+        self, campaign: Campaign, gambit_planets: dict[int, Planet]
+    ):
+        section = Section(
+            TextDisplay(
+                (
+                    self.json.container["urgently_liberate"].format(
+                        planet_name=campaign.planet.names.get(
+                            self.json.lang_code_long, campaign.planet.name
+                        ),
+                        emojis=campaign.planet.exclamations,
+                    )
+                    + self.json.container["urgency_level"].format(
+                        level=campaign.planet.event.level,
+                        emoji=campaign.planet.event.level_exclamation,
+                    )
+                    + self.json.container["ends"].format(
+                        timestamp=int(
+                            campaign.planet.event.end_time_datetime.timestamp()
+                        )
+                    )
+                )
+            ),
+            accessory=Thumbnail(
+                URGENT_ICONS.get(
+                    campaign.planet.event.faction.full_name.lower(),
+                    URGENT_ICONS["default"],
+                )
+            ),
+        )
+        self._add_features(
+            text_display=section.children[0],
+            active_effects=campaign.planet.active_effects,
+        )
+
+        self._add_subfactions(
+            text_display=section.children[0],
+            subfactions=campaign.planet.subfactions,
+        )
+
+        self._add_regions(
+            text_display=section.children[0],
+            regions=campaign.planet.regions.values(),
+        )
+
+        if campaign.planet.index in gambit_planets:
+            self._add_gambit(
+                text_display=section.children[0],
+                gambit_planet=gambit_planets[campaign.planet.index],
+            )
+
+        # last step
+        self.new_campaigns.append(Separator())
+        self.new_campaigns.append(section)
+
+        if campaign.planet.names.get(
+            self.json.lang_code_long, campaign.planet.name
+        ) not in [b.label for b in self.planet_buttons]:
+            self.planet_buttons.append(
+                HDCButton(
+                    label=campaign.planet.names.get(
+                        self.json.lang_code_long, campaign.planet.name
+                    ),
+                    link=f"https://helldiverscompanion.com/#hellpad/planets/{campaign.planet.index}",
+                )
+            )
 
     @update_containers
     def add_planet_lost(self, planet: Planet):

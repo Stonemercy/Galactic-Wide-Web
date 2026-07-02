@@ -136,6 +136,30 @@ class WarUpdatesCog(Cog):
                 old_campaign.delete()
                 self.bot.databases.war_campaigns.remove(old_campaign)
                 need_to_update_sectors = True
+            else:
+                if new_campaign := next(
+                    (
+                        nc
+                        for nc in self.bot.data.formatted_data.campaigns
+                        if nc.id == old_campaign.campaign_id
+                    ),
+                    None,
+                ):
+                    if (
+                        new_campaign.planet.event
+                        and new_campaign.planet.event.type == EventType.UrgentLiberation
+                    ) and not old_campaign.event:
+                        # Liberation has become urgent
+                        for container in components.values():
+                            container.new_urgent_liberation(
+                                campaign=new_campaign,
+                                gambit_planets=self.bot.data.formatted_data.gambit_planets,
+                            )
+                        old_campaign.event = True
+                        old_campaign.event_faction = new_campaign.faction.full_name
+                        old_campaign.event_type = new_campaign.planet.event.type.value
+                        old_campaign.save_event_changes()
+                        new_updates = True
 
         old_campaign_ids = [
             old_campaign.campaign_id

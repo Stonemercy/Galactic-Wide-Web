@@ -84,6 +84,14 @@ class WarCampaign(ReprMixin):
                 )
                 conn.commit()
 
+    def save_event_changes(self) -> None:
+        with connection() as conn:
+            with conn.cursor() as curs:
+                curs.execute(
+                    f"UPDATE war.campaigns SET event = {self.event}, event_type = {self.event_type}, event_faction = {self.event_faction} WHERE campaign_id = {self.campaign_id}"
+                )
+                conn.commit()
+
 
 class WarCampaigns(list[WarCampaign], ReprMixin):
     def __init__(self):
