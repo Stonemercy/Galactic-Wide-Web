@@ -47,3 +47,8 @@ class HelldiversClient(BaseAPIClient):
 
     async def get_war_stats(self, war_id: int) -> dict:
         return await self.get(endpoint=f"Stats/War/{war_id}/Summary")
+
+    async def get_control_centre(self, war_id: int, lang: str = "en-GB") -> list:
+        return await self.get(
+            endpoint=f"Episode/{war_id}", headers={"Accept-Language": lang}
+        )

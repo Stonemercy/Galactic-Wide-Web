@@ -45,6 +45,10 @@ class DataService(ReprMixin):
         self._raw_personal_order: dict = {}
         self._raw_stuperstore: dict = {}
         self._raw_steam_news: list = []
+        self._raw_control_centre: dict[str, list] = {}
+        self._episode_phase_translations: dict = {
+            l.short_code: {"episodes": {}, "phases": {}} for l in Languages.all
+        }
 
         # community targets
         self._arsenal_targets: list[int] = []
@@ -60,6 +64,7 @@ class DataService(ReprMixin):
         self._raw_war_effects.clear()
         self._raw_personal_order.clear()
         self._raw_steam_news.clear()
+        self._raw_control_centre.clear()
 
     async def pull_from_api(self) -> None:
         self.clear()
@@ -117,6 +122,120 @@ class DataService(ReprMixin):
                 )
                 if assignments != None:
                     self._raw_assignments[lang.short_code] = assignments
+
+                control_centre = await client.get_control_centre(
+                    war_id=self.war_id, lang=lang.long_code
+                )
+                if control_centre:
+                    self._raw_control_centre[lang.short_code] = control_centre
+
+            if english_cc := self._raw_control_centre.get("en"):
+                for language, cc in self._raw_control_centre.items():
+                    if language == "en":
+                        continue
+                    for ep in cc.get("episodes", []):
+                        if english_ep := next(
+                            (eng_ep for eng_ep in english_cc.get("episodes", [])),
+                            None,
+                        ):
+                            if ep["title"] != english_ep["title"]:
+                                if (
+                                    ep["id32"]
+                                    not in self._episode_phase_translations[language][
+                                        "episodes"
+                                    ]
+                                ):
+                                    self._episode_phase_translations[language][
+                                        "episodes"
+                                    ][ep["id32"]] = {
+                                        "title": ep["title"],
+                                        "description": ep["description"],
+                                    }
+
+                            else:
+                                if (
+                                    ep["id32"]
+                                    in self._episode_phase_translations[language][
+                                        "episodes"
+                                    ]
+                                ):
+                                    ep["title"] = self._episode_phase_translations[
+                                        language
+                                    ]["episodes"][ep["id32"]]["title"]
+                                    ep["description"] = (
+                                        self._episode_phase_translations[language][
+                                            "episodes"
+                                        ][ep["id32"]]["description"]
+                                    )
+
+                            for phase in ep["phases"]:
+                                if english_ph := next(
+                                    (
+                                        eng_ph
+                                        for eng_ph in english_ep.get("phases", [])
+                                        if eng_ph["id32"] == phase["id32"]
+                                    ),
+                                    None,
+                                ):
+                                    if phase["introTitle"] != english_ph["introTitle"]:
+                                        if (
+                                            phase["id32"]
+                                            not in self._episode_phase_translations[
+                                                language
+                                            ]["phases"]
+                                        ):
+                                            self._episode_phase_translations[language][
+                                                "phases"
+                                            ][phase["id32"]] = {
+                                                "introTitle": phase["introTitle"],
+                                                "introMessage": phase["introMessage"],
+                                                "outroTitle": phase["outroTitle"],
+                                                "outroMessage": phase["outroMessage"],
+                                            }
+                                        else:
+                                            for (
+                                                key,
+                                                value,
+                                            ) in self._episode_phase_translations[
+                                                language
+                                            ][
+                                                "phases"
+                                            ][
+                                                phase["id32"]
+                                            ].items():
+                                                if phase[key] != value:
+                                                    value = phase[key]
+                                    else:
+                                        if (
+                                            phase["id32"]
+                                            in self._episode_phase_translations[
+                                                language
+                                            ]["phases"]
+                                        ):
+                                            phase["introTitle"] = (
+                                                self._episode_phase_translations[
+                                                    language
+                                                ]["phases"][phase["id32"]]["introTitle"]
+                                            )
+                                            phase["introMessage"] = (
+                                                self._episode_phase_translations[
+                                                    language
+                                                ]["phases"][phase["id32"]][
+                                                    "introMessage"
+                                                ]
+                                            )
+                                            phase["outroTitle"] = (
+                                                self._episode_phase_translations[
+                                                    language
+                                                ]["phases"][phase["id32"]]["outroTitle"]
+                                            )
+                                            phase["outroMessage"] = (
+                                                self._episode_phase_translations[
+                                                    language
+                                                ]["phases"][phase["id32"]][
+                                                    "outroMessage"
+                                                ]
+                                            )
 
             for space_station in self._raw_war_status.get("en", {}).get(
                 "spaceStations", []
@@ -206,6 +325,7 @@ class DataService(ReprMixin):
             war_effects=self._raw_war_effects,
             personal_order=self._raw_personal_order,
             steam_news=self._raw_steam_news,
+            control_centre=self._raw_control_centre,
             arsenal_targets=self._arsenal_targets,
             json_dict=self.json_dict,
         )

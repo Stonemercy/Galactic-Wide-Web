@@ -1,5 +1,10 @@
 from .ADMIN import ConfirmButton, LeaveGuildButton, ResetGuildButton
 from .app_directory_button import AppDirectoryButton
+from .control_centre.control_centre_buttons import (
+    ActiveCampaignButton,
+    PastCampaignsButton,
+    OverviewButton,
+)
 from .dispatch_string_select import DispatchStringSelect
 from .github_button import GitHubButton
 from .HDC_button import HDCButton
@@ -10,6 +15,9 @@ from .support_server_button import SupportServerButton
 from .wiki_button import WikiButton
 
 __all__ = [
+    "ActiveCampaignButton",
+    "PastCampaignsButton",
+    "OverviewButton",
     "ConfirmButton",
     "LeaveGuildButton",
     "ResetGuildButton",

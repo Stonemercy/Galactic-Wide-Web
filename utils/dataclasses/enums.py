@@ -77,7 +77,7 @@ class AssignmentTaskType(Enum):
         return cls.UNKNOWN
 
 
-class EventType(Enum):
-    UrgentLiberation = 0
-    Defence = 1
-    Invasion = 2
+class ControlCentrePage(Enum):
+    Overview = 0
+    ActiveCampaign = 1
+    PastCampaigns = 2

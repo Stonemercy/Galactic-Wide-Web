@@ -4,6 +4,7 @@ from datetime import datetime, timedelta, timezone
 from utils.api_wrapper.models import (
     Assignment,
     Campaign,
+    ControlCentre,
     Dispatch,
     DSS,
     GalacticWarEffect,
@@ -194,6 +195,7 @@ class FormattedDataContext:
     personal_order: dict
     space_stations: list[dict]
     steam_news: list
+    control_centre: dict[str, list[dict]]
 
     # community targets
     arsenal_targets: list[int]
@@ -218,6 +220,7 @@ class FormattedData:
         "event_campaigns",
         "campaigns",
         "steam_news",
+        "control_centre",
         "personal_order",
         "formatted_at",
     )
@@ -242,6 +245,7 @@ class FormattedData:
         self.event_campaigns: list[Campaign] = []
         self.campaigns: list[Campaign] = []
         self.steam_news: list[SteamNews] = []
+        self.control_centre: dict[str, ControlCentre] = {}
         self.personal_order: PersonalOrder = None
 
         if context.steam_player_count:
@@ -687,6 +691,17 @@ class FormattedData:
                     planet = self.planets.get(i)
                     if planet:
                         planet.community_targets.append(arsenal)
+
+        if context.control_centre.get("en"):
+            self.control_centre = {
+                lang: ControlCentre(
+                    context.control_centre.get(lang),
+                    context.json_dict,
+                    self.war_start_timestamp,
+                )
+                for lang in context.control_centre
+            }
+
         self.formatted_at = datetime.now(tz=timezone.utc)
 
     def copy(self):

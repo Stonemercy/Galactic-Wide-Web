@@ -1,6 +1,7 @@
 from .api_changes import APIChangesContainer
 from .bot_dashboard import BotDashboardContainer
 from .campaign_changes import CampaignChangesContainer
+from .control_centre import ControlCentreContainer
 from .dispatch import DispatchContainer
 from .dss_changes import DSSChangesContainer
 from .global_events import GlobalEventsContainer
@@ -18,6 +19,7 @@ __all__ = [
     "APIChangesContainer",
     "BotDashboardContainer",
     "CampaignChangesContainer",
+    "ControlCentreContainer",
     "DispatchContainer",
     "DSSChangesContainer",
     "GlobalEventsContainer",

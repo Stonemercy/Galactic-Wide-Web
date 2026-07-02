@@ -5,6 +5,12 @@ from dataclasses import dataclass
 class Emojis:
 
     @dataclass
+    class ControlCentre:
+        overview = "<:s:1517986931944980652>"
+        active_campaigns = "<:s:1517986930367795260>"
+        past_campaigns = "<:s:1517986933228437614>"
+
+    @dataclass
     class CommunityIcons:
         arsenal = "<:s:1507750876607942806>"
 
