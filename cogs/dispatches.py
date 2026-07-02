@@ -47,28 +47,33 @@ class DispatchesCog(Cog):
             return
 
         if english_dispatches := self.bot.data.formatted_data.dispatches.get("en"):
+            fifteen_minutes_ago = datetime.now(tz=timezone.utc) - timedelta(minutes=15)
             for index, dispatch in enumerate(english_dispatches):
                 if self.bot.databases.war_info.dispatch_id < dispatch.id:
-                    if (
-                        len(dispatch.full_message) < 5
-                        or "#planet" in dispatch.full_message
-                    ):
-                        self.bot.logger.warning(f"Dispatch {dispatch.id} skipped")
-                        if len(dispatch.full_message) < 5:
-                            self.bot.logger.warning(
-                                f"   Full message length under 5\nMessage: '{dispatch.full_message}'"
-                            )
-                        if "#planet" in dispatch.full_message:
-                            self.bot.logger.warning("   #planet in full message")
-                        if dispatch.published_at < datetime.now(
-                            tz=timezone.utc
-                        ) - timedelta(minutes=15):
-                            self.bot.logger.error(
-                                f"Dispatch #{dispatch.id} has been faulty for 15 minutes, skipping"
-                            )
-                            self.bot.databases.war_info.dispatch_id = dispatch.id
-                            self.bot.databases.war_info.save_changes()
-                            continue
+                    faulty_dispatch = False
+                    if len(dispatch.full_message) < 5:
+                        self.bot.logger.warning(
+                            f"dispatch_check loop - dispatch {dispatch.id} full message length is {len(dispatch.full_message)}"
+                        )
+                        if dispatch.published_at < fifteen_minutes_ago:
+                            faulty_dispatch = True
+                        else:
+                            return
+                    elif "#planet" in dispatch.full_message:
+                        self.bot.logger.warning(
+                            f"dispatch_check loop - dispatch {dispatch.id} has #planet in message"
+                        )
+                        if dispatch.published_at < fifteen_minutes_ago:
+                            faulty_dispatch = True
+                        else:
+                            return
+                    if faulty_dispatch:
+                        self.bot.logger.error(
+                            f"dispatch_check loop - dispatch {dispatch.id} has been faulty for 15 minutes, skipping"
+                        )
+                        self.bot.databases.war_info.dispatch_id = dispatch.id
+                        self.bot.databases.war_info.save_changes()
+                        continue
                     unique_langs = GWWGuilds.unique_languages()
                     containers = {
                         lang: [
