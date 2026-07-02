@@ -62,6 +62,7 @@ class ControlCentreCog(Cog):
         images_required = [
             f"{i}.png"
             for i in cc.images_required(episode_id=cc.episodes[-1].id, phase_id=0)
+            if f"{i}.png" in self.usable_images
         ]
         print(len(images_required))
         container = ControlCentreContainer(
@@ -126,6 +127,7 @@ class ControlCentreCog(Cog):
                     need_episode=need_episode,
                     phase_id=phase_id,
                 )
+                if f"{i}.png" in self.usable_images
             ]
             if page == ControlCentrePage.PastCampaigns:
                 try:
@@ -159,6 +161,7 @@ class ControlCentreCog(Cog):
                 for i in cc.images_required(
                     episode_id=episode_id, need_episode=False, phase_id=phase_id
                 )
+                if f"{i}.png" in self.usable_images
             ]
             container = ControlCentreContainer(
                 control_centre=cc,
@@ -204,6 +207,7 @@ class ControlCentreCog(Cog):
             for i in cc.images_required(
                 episode_id=episode_id, need_episode=False, phase_id=phase_id
             )
+            if f"{i}.png" in self.usable_images
         ]
         container = ControlCentreContainer(
             control_centre=cc,
