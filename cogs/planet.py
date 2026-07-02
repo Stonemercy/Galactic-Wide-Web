@@ -6,17 +6,17 @@ from disnake import (
     File,
     InteractionContextTypes,
     MediaGalleryItem,
-    ui,
 )
-from disnake.ext import commands
-from main import GalacticWideWebBot
+from disnake.ext.commands import Cog, Param, slash_command
+from disnake.ui import Container, MediaGallery
+from utils.bot import GalacticWideWebBot
 from utils.containers import PlanetContainers
 from utils.checks import wait_for_startup
 from utils.dbv2 import GWWGuild, GWWGuilds
 from utils.maps import Maps
 
 
-class PlanetCog(commands.Cog):
+class PlanetCog(Cog):
     def __init__(self, bot: GalacticWideWebBot):
         self.bot = bot
 
@@ -35,7 +35,7 @@ class PlanetCog(commands.Cog):
         ][:25]
 
     @wait_for_startup()
-    @commands.slash_command(
+    @slash_command(
         description="Get detailed war stats for a specific planet",
         install_types=ApplicationInstallTypes.all(),
         contexts=InteractionContextTypes.all(),
@@ -47,15 +47,15 @@ class PlanetCog(commands.Cog):
     async def planet(
         self,
         inter: AppCmdInter,
-        planet: str = commands.Param(
+        planet: str = Param(
             autocomplete=planet_autocomp, description="The planet you want to lookup"
         ),
-        with_map: str = commands.Param(
+        with_map: str = Param(
             choices=["Yes", "No"],
             default="No",
             description="Do you want a map showing where this planet is?",
         ),
-        public: str = commands.Param(
+        public: str = Param(
             choices=["Yes", "No"],
             default="No",
             description="Do you want other people to see the response to this command?",
@@ -86,12 +86,12 @@ class PlanetCog(commands.Cog):
                 ephemeral=public != "Yes",
             )
         if inter.guild:
-            guild = GWWGuilds.get_specific_guild(id=inter.guild_id)
+            guild = GWWGuilds.get_specific_guild(id=inter.guild.id)
             if not guild:
                 self.bot.logger.error(
-                    f"Guild {inter.guild_id} - {inter.guild.name} - had the bot installed but wasn't found in the DB"
+                    f"Guild {inter.guild.id} - {inter.guild.name} - had the bot installed but wasn't found in the DB"
                 )
-                guild = GWWGuilds.add(inter.guild_id, "en", [])
+                guild = GWWGuilds.add(inter.guild.id, "en", [])
         else:
             guild = GWWGuild.default()
         guild_language = self.bot.json_dict["languages"][guild.language]
@@ -142,8 +142,8 @@ class PlanetCog(commands.Cog):
                 file=File(fp=self.bot.maps.FileLocations.arrow_map)
             )
             components.append(
-                ui.Container(
-                    ui.MediaGallery(
+                Container(
+                    MediaGallery(
                         MediaGalleryItem(arrow_map_message.attachments[0].url)
                     ),
                     accent_colour=Colour.dark_embed(),
