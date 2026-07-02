@@ -17,8 +17,8 @@
             "liberate": "### ОСВОБОДИТЕ ПЛАНЕТУ **{planet_name}** {emojis}",
             "resistance": "\n-# Сопротивление: **{regen}/ч**",
             "planet_lost": "Планета **{planet_name}** перешла под контроль **{faction_name}** {emojis}",
-            "urgently_liberate": "### URGENTLY LIBERATE **{planet_name}** {emojis}",
-            "urgency_level": "\n-# Urgency Level **{level}{emoji}**"
+            "urgently_liberate": "### СРОЧНО ОСВОБОДИТЕ **{planet_name}** {emojis}",
+            "urgency_level": "\n-# Уровень опасности **{level}{emoji}**"
         },
         "DispatchContainer": {
             "dispatch": "Рапорт",
@@ -251,8 +251,8 @@
                 }
             },
             "UrgentLiberationsEmbed": {
-                "title": "Urgent Liberations",
-                "urgency_level": "Urgency Level"
+                "title": "Срочные кампании",
+                "urgency_level": "Уровень опасности"
             },
             "DefenceEmbed": {
                 "title": "Оборона",
@@ -320,7 +320,7 @@
     "complete": "Успех",
     "failure": "Провал",
     "regions": {
-        "megafactory": "Class {number} Мегафабрика",
+        "megafactory": "Мегафабрика класса {number}",
         "4": "Мегаполис",
         "3": "Город",
         "2": "Поселок",
