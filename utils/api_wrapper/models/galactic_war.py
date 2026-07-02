@@ -208,7 +208,7 @@ class GalacticWarEffect(GWEReprMixin):
                 case 13:
                     self.hash_id = value
                     if enemy := json_dict["enemy_ids"].get(str(self.hash_id), None):
-                        self.found_enemy: str = enemy
+                        self.found_enemy: str = enemy["name"]
                 case 14:
                     # BlackHole = 1, UNKNOWN = 2
                     self.planet_body_type = value
@@ -221,7 +221,7 @@ class GalacticWarEffect(GWEReprMixin):
                     if enemy := json_dict["enemy_ids"].get(
                         str(self.resource_hash), None
                     ):
-                        self.found_enemy = enemy
+                        self.found_enemy = enemy["name"]
 
         if self.name_hash:
             self.name = json_dict["strings"].get(str(self.name_hash))

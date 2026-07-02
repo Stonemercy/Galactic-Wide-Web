@@ -70,7 +70,12 @@ class PersonalOrder(ReprMixin):
                 self.target: int | float = target
             if enemy_id := self.values_dict.get(4):
                 self.enemy_id: int = enemy_id
-                self.found_enemy = json_dict["enemy_ids"].get(str(self.enemy_id), None)
+                self.found_enemy = (
+                    json_dict["enemy_ids"].get(str(self.enemy_id), {}).get("name", None)
+                    or json_dict["strings"].get(str(self.enemy_id))
+                    or "Unknown Enemy"
+                )
+
             if self.values_dict.get(6):
                 self.mix_id = self.values_dict.get(5)
                 if stratagem := STRATAGEM_ID_DICT.get(self.mix_id):

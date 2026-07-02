@@ -1,172 +1,698 @@
 {
-    "AUTOMATONS": "===================================================================",
-    "621159586": "Commissar",
-    "2521687525": "Commissar",
-    "878778730": "Trooper",
-    "4039692928": "Trooper",
-    "1678159601": "Trooper",
-    "1127649354": "Pyro Trooper",
-    "2861014363": "Pyro Trooper",
-    "585039032": "Pyro Trooper",
-    "1974334302": "Brawler",
-    "1625228342": "Brawler",
-    "1467464627": "Assault Raider",
-    "4155034467": "Assault Raider",
-    "3112705780": "Rocket Raider",
-    "1593396044": "Rocket Raider",
-    "586021653": "MG Raider",
-    "1599552702": "MG Raider",
-    "2454424572": "Marauder",
-    "349105144": "Marauder",
-    "3201222154": "Berserker",
-    "1264796786": "Berserker",
-    "20706814": "Scout Strider",
-    "2252238823": "Scout Strider",
-    "4276710272": "Devastator",
-    "1649987991": "Devastator",
-    "565587391": "Devastator",
-    "2176809320": "Devastator",
-    "1784440447": "Conflagration Devastator",
-    "3498181594": "Conflagration Devastator",
-    "364931179": "Conflagration Devastator",
-    "75849082": "Incendiary MG Devastator",
-    "1262004523": "Incendiary MG Devastator",
-    "2365630221": "Rocket Devastator",
-    "2886459219": "Rocket Devastator",
-    "398976798": "Heavy Devastator",
-    "3257396446": "Heavy Devastator",
-    "1371180916": "Agitator",
-    "23741406": "Radical",
-    "1871700431": "Reinforced Scout Strider",
-    "1178047811": "Reinforced Scout Strider",
-    "1932062202": "Gunship",
-    "437176070": "Gunship",
-    "3635343795": "Shredder Tank",
-    "2664856027": "Shredder Tank",
-    "1370595971": "Shredder Tank",
-    "3455009224": "Annihilator Tank",
-    "3251507636": "Annihilator Tank",
-    "3921592399": "Barrager Tank",
-    "1000280911": "Barrager Tank",
-    "471929602": "Hulk",
-    "790541304": "Hulk",
-    "819295132": "Hulk",
-    "2090691137": "Hulk Firebomber",
-    "1181272016": "Hulk Firebomber",
-    "1775662925": "Hulk Scorcher",
-    "2976047544": "Hulk Scorcher",
-    "613980508": "Hulk Bruiser",
-    "3857136067": "Hulk Bruiser",
-    "1560770730": "Hulk Obliterator",
-    "854147169": "Hulk Obliterator",
-    "1461595808": "Lieutenant Suppressor Jump",
-    "2927044192": "Lieutenant Assault Jump",
-    "554367013": "Dropship",
-    "3884747845": "Dropship",
-    "523260929": "War Strider",
-    "3216070267": "War Strider",
-    "1153658728": "Factory Strider",
-    "1054068826": "Factory Strider",
-    "4066406510": "Vox Engine",
-    "208056545": "Bulk Fabricator",
-    "1703232728": "Incineration Corps",
-    "2922304745": "Jet Brigade",
-    "141977090": "Cyborgs",
-    "1925535306": "Heavy Armor",
-    "TERMINIDS": "===================================================================",
-    "4212839382": "Scavenger",
-    "3478611010": "Scavenger",
-    "2842755544": "Spore Burst Scavenger",
-    "1428114468": "Spore Burst Scavenger",
-    "908216632": "Pouncer",
-    "4236837183": "Pouncer",
-    "444529084": "Bile Spitter",
-    "843164597": "Bile Spitter",
-    "3330362068": "Hunter",
-    "3517152816": "Hunter",
-    "3029738043": "Predator Hunter",
-    "1210082392": "Spore Burst Hunter",
-    "333947844": "Spore Burst Hunter",
-    "1229149324": "Predator Hunter",
-    "2058088313": "Warrior",
-    "100334534": "Warrior",
-    "3564923972": "Warrior",
-    "2478129961": "Warrior",
-    "563427185": "Warrior",
-    "2912133180": "Warrior",
-    "2115960485": "Spore Burst Warrior",
-    "512390556": "Spore Burst Warrior",
-    "3365898186": "Bile Warrior",
-    "1453367020": "Bile Warrior",
-    "626718113": "Hive Guard",
-    "2985056363": "Hive Guard",
-    "487985459": "Nursing Spewer",
-    "1837263553": "Nursing Spewer",
-    "1379865898": "Bile Spewer",
-    "717622970": "Bile Spewer",
-    "2255668545": "Bile Spewer",
-    "2387277009": "Stalker",
-    "1571860610": "Stalker",
-    "4106686024": "Predator Stalker",
-    "112786645Li": "Predator Stalker",
-    "793026793": "Shrieker",
-    "2519355991": "Shrieker",
-    "3077749065": "Brood Commander",
-    "957043117": "Brood Commander",
-    "4211972166": "Brood Commander",
-    "570845236": "Alpha Commander",
-    "1129879701": "Alpha Commander",
-    "3860493587": "Charger",
-    "2651633799": "Charger",
-    "1299714559": "Charger",
-    "2724699650": "Charger",
-    "1289790787": "Charger Bull",
-    "1939105083": "Spore Charger",
-    "3764892677": "Spore Charger",
-    "1076678822": "Charger Behemoth",
-    "1046000873": "Impaler",
-    "769209189": "Impaler",
-    "2514244534": "Bile Titan",
-    "839087686": "Bile Titan",
-    "2681574458": "Dragonroaches",
-    "424440415": "Hive Lords",
-    "3929716830": "Hive Lords",
-    "2423391486": "Rupture Strain",
-    "2745424799": "Spore Burst Strain",
-    "2313485354": "Predator Strain",
-    "ILLUMINATE": "===================================================================",
-    "4211847317": "Voteless",
-    "886803190": "Watcher",
-    "2218141647": "Watcher",
-    "921769811": "Watcher",
-    "1899936906": "Overseer",
-    "3619404483": "Overseer",
-    "3235582888": "Overseer",
-    "3621116014": "Orbtruder",
-    "3877563222": "Crescent Overseer",
-    "3162264097": "Crescent Overseer",
-    "2745056259": "Elevated Overseer",
-    "3699579456": "Elevated Overseer",
-    "2880434041": "Fleshmob",
-    "1508800662": "Fleshmob",
-    "3541110630": "Fleshmob",
-    "3776682558": "Veracitor",
-    "1870840792": "Gatekeeper",
-    "1405979473": "Harvester",
-    "2340896389": "Harvester",
-    "4160806915": "Stingray",
-    "3837895314": "Stingray",
-    "3579113113": "Warp Ship",
-    "1511926116": "Warp Ship",
-    "3097344451": "Leviathan",
-    "3587465014": "Leviathan",
-    "1912255141": "Leviathan",
-    "4134104203": "Overship",
-    "3635671436": "Overship",
-    "35348659": "Mindless Masses",
-    "3792924074": "Appropriators",
-    "MISC": "===================================================================",
-    "1333134146": "SEAF Soldier",
-    "1977685950": "SEAF Soldier",
-    "1764323819": "One True Flag"
+    "1371180916": {
+        "name": "Agitator",
+        "plural": "Agitators"
+    },
+    "570845236": {
+        "name": "Alpha Commander",
+        "plural": "Alpha Commanders"
+    },
+    "1129879701": {
+        "name": "Alpha Commander",
+        "plural": "Alpha Commanders"
+    },
+    "3455009224": {
+        "name": "Annihilator Tank",
+        "plural": "Annihilator Tanks"
+    },
+    "3251507636": {
+        "name": "Annihilator Tank",
+        "plural": "Annihilator Tanks"
+    },
+    "3792924074": {
+        "name": "Appropriators",
+        "plural": "Appropriators"
+    },
+    "1467464627": {
+        "name": "Assault Raider",
+        "plural": "Assault Raiders"
+    },
+    "4155034467": {
+        "name": "Assault Raider",
+        "plural": "Assault Raiders"
+    },
+    "2649067399": {
+        "name": "Automaton Mortar Emplacement",
+        "plural": "Automaton Mortar Emplacements"
+    },
+    "1289920842": {
+        "name": "Ballistic Missile",
+        "plural": "Cannon Turrets"
+    },
+    "3921592399": {
+        "name": "Barrager Tank",
+        "plural": "Barrager Tanks"
+    },
+    "1000280911": {
+        "name": "Barrager Tank",
+        "plural": "Barrager Tanks"
+    },
+    "3201222154": {
+        "name": "Berserker",
+        "plural": "Berserkers"
+    },
+    "1264796786": {
+        "name": "Berserker",
+        "plural": "Berserkers"
+    },
+    "717622970": {
+        "name": "Bile Spewer",
+        "plural": "Bile Spewers"
+    },
+    "1379865898": {
+        "name": "Bile Spewer",
+        "plural": "Bile Spewers"
+    },
+    "2255668545": {
+        "name": "Bile Spewer",
+        "plural": "Bile Spewers"
+    },
+    "444529084": {
+        "name": "Bile Spitter",
+        "plural": "Bile Spitters"
+    },
+    "843164597": {
+        "name": "Bile Spitter",
+        "plural": "Bile Spitters"
+    },
+    "2514244534": {
+        "name": "Bile Titan",
+        "plural": "Bile Titans"
+    },
+    "839087686": {
+        "name": "Bile Titan",
+        "plural": "Bile Titans"
+    },
+    "3365898186": {
+        "name": "Bile Warrior",
+        "plural": "Bile Warriors"
+    },
+    "1453367020": {
+        "name": "Bile Warrior",
+        "plural": "Bile Warriors"
+    },
+    "1974334302": {
+        "name": "Brawler",
+        "plural": "Brawlers"
+    },
+    "1625228342": {
+        "name": "Brawler",
+        "plural": "Brawlers"
+    },
+    "3077749065": {
+        "name": "Brood Commander",
+        "plural": "Brood Commanders"
+    },
+    "957043117": {
+        "name": "Brood Commander",
+        "plural": "Brood Commanders"
+    },
+    "4211972166": {
+        "name": "Brood Commander",
+        "plural": "Brood Commanders"
+    },
+    "208056545": {
+        "name": "Bulk Fabricator",
+        "plural": "Bulk Fabricators"
+    },
+    "478200978": {
+        "name": "Cannon Turret",
+        "plural": "Cannon Turrets"
+    },
+    "1299714559": {
+        "name": "Charger",
+        "plural": "Chargers"
+    },
+    "3860493587": {
+        "name": "Charger",
+        "plural": "Chargers"
+    },
+    "2651633799": {
+        "name": "Charger",
+        "plural": "Chargers"
+    },
+    "2724699650": {
+        "name": "Charger",
+        "plural": "Chargers"
+    },
+    "1076678822": {
+        "name": "Charger Behemoth",
+        "plural": "Charger Behemoths"
+    },
+    "1289790787": {
+        "name": "Charger Bull",
+        "plural": "Charger Bulls"
+    },
+    "621159586": {
+        "name": "Commissar",
+        "plural": "Commissars"
+    },
+    "2521687525": {
+        "name": "Commissar",
+        "plural": "Commissars"
+    },
+    "3498181594": {
+        "name": "Conflagration Devastator",
+        "plural": "Conflagration Devastators"
+    },
+    "1784440447": {
+        "name": "Conflagration Devastator",
+        "plural": "Conflagration Devastators"
+    },
+    "364931179": {
+        "name": "Conflagration Devastator",
+        "plural": "Conflagration Devastators"
+    },
+    "3877563222": {
+        "name": "Crescent Overseer",
+        "plural": "Crescent Overseers"
+    },
+    "3162264097": {
+        "name": "Crescent Overseer",
+        "plural": "Crescent Overseers"
+    },
+    "141977090": {
+        "name": "Cyborgs",
+        "plural": "Cyborgs"
+    },
+    "1649987991": {
+        "name": "Devastator",
+        "plural": "Devastators"
+    },
+    "4276710272": {
+        "name": "Devastator",
+        "plural": "Devastators"
+    },
+    "565587391": {
+        "name": "Devastator",
+        "plural": "Devastators"
+    },
+    "2176809320": {
+        "name": "Devastator",
+        "plural": "Devastators"
+    },
+    "1378841226": {
+        "name": "Dragonroach",
+        "plural": "Dragonroaches"
+    },
+    "2681574458": {
+        "name": "Dragonroaches",
+        "plural": "Dragonroaches"
+    },
+    "554367013": {
+        "name": "Dropship",
+        "plural": "Dropships"
+    },
+    "3884747845": {
+        "name": "Dropship",
+        "plural": "Dropships"
+    },
+    "2745056259": {
+        "name": "Elevated Overseer",
+        "plural": "Elevated Overseers"
+    },
+    "3699579456": {
+        "name": "Elevated Overseer",
+        "plural": "Elevated Overseers"
+    },
+    "1153658728": {
+        "name": "Factory Strider",
+        "plural": "Factory Striders"
+    },
+    "1054068826": {
+        "name": "Factory Strider",
+        "plural": "Factory Striders"
+    },
+    "2880434041": {
+        "name": "Fleshmob",
+        "plural": "Fleshmobs"
+    },
+    "1508800662": {
+        "name": "Fleshmob",
+        "plural": "Fleshmobs"
+    },
+    "3541110630": {
+        "name": "Fleshmob",
+        "plural": "Fleshmobs"
+    },
+    "1870840792": {
+        "name": "Gatekeeper",
+        "plural": "Gatekeepers"
+    },
+    "1932062202": {
+        "name": "Gunship",
+        "plural": "Gunships"
+    },
+    "437176070": {
+        "name": "Gunship",
+        "plural": "Gunships"
+    },
+    "1405979473": {
+        "name": "Harvester",
+        "plural": "Harvesters"
+    },
+    "2340896389": {
+        "name": "Harvester",
+        "plural": "Harvesters"
+    },
+    "1925535306": {
+        "name": "Heavy Armor",
+        "plural": "Heavy Armor"
+    },
+    "398976798": {
+        "name": "Heavy Devastator",
+        "plural": "Heavy Devastators"
+    },
+    "3257396446": {
+        "name": "Heavy Devastator",
+        "plural": "Heavy Devastators"
+    },
+    "626718113": {
+        "name": "Hive Guard",
+        "plural": "Hive Guards"
+    },
+    "2985056363": {
+        "name": "Hive Guard",
+        "plural": "Hive Guards"
+    },
+    "3929716830": {
+        "name": "Hive Lord",
+        "plural": "Hive Lords"
+    },
+    "424440415": {
+        "name": "Hive Lords",
+        "plural": "Hive Lords"
+    },
+    "790541304": {
+        "name": "Hulk",
+        "plural": "Hulks"
+    },
+    "471929602": {
+        "name": "Hulk",
+        "plural": "Hulks"
+    },
+    "819295132": {
+        "name": "Hulk",
+        "plural": "Hulks"
+    },
+    "613980508": {
+        "name": "Hulk Bruiser",
+        "plural": "Hulk Bruisers"
+    },
+    "3857136067": {
+        "name": "Hulk Bruiser",
+        "plural": "Hulk Bruisers"
+    },
+    "2090691137": {
+        "name": "Hulk Firebomber",
+        "plural": "Hulk Firebombers"
+    },
+    "1181272016": {
+        "name": "Hulk Firebomber",
+        "plural": "Hulk Firebombers"
+    },
+    "1560770730": {
+        "name": "Hulk Obliterator",
+        "plural": "Hulk Obliterators"
+    },
+    "854147169": {
+        "name": "Hulk Obliterator",
+        "plural": "Hulk Obliterators"
+    },
+    "1775662925": {
+        "name": "Hulk Scorcher",
+        "plural": "Hulk Scorchers"
+    },
+    "2976047544": {
+        "name": "Hulk Scorcher",
+        "plural": "Hulk Scorchers"
+    },
+    "3330362068": {
+        "name": "Hunter",
+        "plural": "Hunters"
+    },
+    "3517152816": {
+        "name": "Hunter",
+        "plural": "Hunters"
+    },
+    "1046000873": {
+        "name": "Impaler",
+        "plural": "Impalers"
+    },
+    "769209189": {
+        "name": "Impaler",
+        "plural": "Impalers"
+    },
+    "75849082": {
+        "name": "Incendiary MG Devastator",
+        "plural": "Incendiary MG Devastators"
+    },
+    "1262004523": {
+        "name": "Incendiary MG Devastator",
+        "plural": "Incendiary MG Devastators"
+    },
+    "1703232728": {
+        "name": "Incineration Corps",
+        "plural": "Incineration Corps"
+    },
+    "2922304745": {
+        "name": "Jet Brigade",
+        "plural": "Jet Brigade"
+    },
+    "3097344451": {
+        "name": "Leviathan",
+        "plural": "Leviathans"
+    },
+    "3587465014": {
+        "name": "Leviathan",
+        "plural": "Leviathans"
+    },
+    "1912255141": {
+        "name": "Leviathan",
+        "plural": "Leviathans"
+    },
+    "1271321738": {
+        "name": "Lightning Spire",
+        "plural": "Lightning Spires"
+    },
+    "586021653": {
+        "name": "MG Raider",
+        "plural": "MG Raiders"
+    },
+    "1599552702": {
+        "name": "MG Raider",
+        "plural": "MG Raiders"
+    },
+    "2454424572": {
+        "name": "Marauder",
+        "plural": "Marauders"
+    },
+    "349105144": {
+        "name": "Marauder",
+        "plural": "Marauders"
+    },
+    "35348659": {
+        "name": "Mindless Masses",
+        "plural": "Mindless Masses"
+    },
+    "487985459": {
+        "name": "Nursing Spewer",
+        "plural": "Nursing Spewers"
+    },
+    "1837263553": {
+        "name": "Nursing Spewer",
+        "plural": "Nursing Spewers"
+    },
+    "1764323819": {
+        "name": "One True Flag",
+        "plural": "One True Flags"
+    },
+    "3621116014": {
+        "name": "Orbtruder",
+        "plural": "Orbtruders"
+    },
+    "1899936906": {
+        "name": "Overseer",
+        "plural": "Overseers"
+    },
+    "3619404483": {
+        "name": "Overseer",
+        "plural": "Overseers"
+    },
+    "3235582888": {
+        "name": "Overseer",
+        "plural": "Overseers"
+    },
+    "4134104203": {
+        "name": "Overship",
+        "plural": "Overships"
+    },
+    "3635671436": {
+        "name": "Overship",
+        "plural": "Overships"
+    },
+    "908216632": {
+        "name": "Pouncer",
+        "plural": "Pouncers"
+    },
+    "4236837183": {
+        "name": "Pouncer",
+        "plural": "Pouncers"
+    },
+    "3029738043": {
+        "name": "Predator Hunter",
+        "plural": "Predator Hunters"
+    },
+    "1229149324": {
+        "name": "Predator Hunter",
+        "plural": "Predator Hunters"
+    },
+    "4106686024": {
+        "name": "Predator Stalker",
+        "plural": "Predator Stalkers"
+    },
+    "112786645Li": {
+        "name": "Predator Stalker",
+        "plural": "Predator Stalkers"
+    },
+    "2313485354": {
+        "name": "Predator Strain",
+        "plural": "Predator Strain"
+    },
+    "2861014363": {
+        "name": "Pyro Trooper",
+        "plural": "Pyro Troopers"
+    },
+    "1127649354": {
+        "name": "Pyro Trooper",
+        "plural": "Pyro Troopers"
+    },
+    "585039032": {
+        "name": "Pyro Trooper",
+        "plural": "Pyro Troopers"
+    },
+    "23741406": {
+        "name": "Radical",
+        "plural": "Radicals"
+    },
+    "2000862158": {
+        "name": "Raider",
+        "plural": "Raiders"
+    },
+    "1871700431": {
+        "name": "Reinforced Scout Strider",
+        "plural": "Reinforced Scout Striders"
+    },
+    "1178047811": {
+        "name": "Reinforced Scout Strider",
+        "plural": "Reinforced Scout Striders"
+    },
+    "2365630221": {
+        "name": "Rocket Devastator",
+        "plural": "Rocket Devastators"
+    },
+    "2886459219": {
+        "name": "Rocket Devastator",
+        "plural": "Rocket Devastators"
+    },
+    "3112705780": {
+        "name": "Rocket Raider",
+        "plural": "Rocket Raiders"
+    },
+    "1593396044": {
+        "name": "Rocket Raider",
+        "plural": "Rocket Raiders"
+    },
+    "3903153972": {
+        "name": "Rupture Charger",
+        "plural": "Rupture Chargers"
+    },
+    "2270698456": {
+        "name": "Rupture Spewer",
+        "plural": "Rupture Spewers"
+    },
+    "2423391486": {
+        "name": "Rupture Strain",
+        "plural": "Rupture Strain"
+    },
+    "953392591": {
+        "name": "Rupture Warrior",
+        "plural": "Rupture Warriors"
+    },
+    "1333134146": {
+        "name": "SEAF Soldier",
+        "plural": "SEAF Soldiers"
+    },
+    "1977685950": {
+        "name": "SEAF Soldier",
+        "plural": "SEAF Soldiers"
+    },
+    "4212839382": {
+        "name": "Scavenger",
+        "plural": "Scavengers"
+    },
+    "3478611010": {
+        "name": "Scavenger",
+        "plural": "Scavengers"
+    },
+    "2319746535": {
+        "name": "Scout Raider",
+        "plural": "Scout Raiders"
+    },
+    "20706814": {
+        "name": "Scout Strider",
+        "plural": "Scout Striders"
+    },
+    "2252238823": {
+        "name": "Scout Strider",
+        "plural": "Scout Striders"
+    },
+    "3635343795": {
+        "name": "Shredder Tank",
+        "plural": "Shredder Tanks"
+    },
+    "2664856027": {
+        "name": "Shredder Tank",
+        "plural": "Shredder Tanks"
+    },
+    "1370595971": {
+        "name": "Shredder Tank",
+        "plural": "Shredder Tanks"
+    },
+    "793026793": {
+        "name": "Shrieker",
+        "plural": "Shriekers"
+    },
+    "2519355991": {
+        "name": "Shrieker",
+        "plural": "Shriekers"
+    },
+    "1210082392": {
+        "name": "Spore Burst Hunter",
+        "plural": "Spore Burst Hunters"
+    },
+    "333947844": {
+        "name": "Spore Burst Hunter",
+        "plural": "Spore Burst Hunters"
+    },
+    "2842755544": {
+        "name": "Spore Burst Scavenger",
+        "plural": "Spore Burst Scavengers"
+    },
+    "1428114468": {
+        "name": "Spore Burst Scavenger",
+        "plural": "Spore Burst Scavengers"
+    },
+    "2745424799": {
+        "name": "Spore Burst Strain",
+        "plural": "Spore Burst Strains"
+    },
+    "2115960485": {
+        "name": "Spore Burst Warrior",
+        "plural": "Spore Burst Warriors"
+    },
+    "512390556": {
+        "name": "Spore Burst Warrior",
+        "plural": "Spore Burst Warriors"
+    },
+    "1939105083": {
+        "name": "Spore Charger",
+        "plural": "Spore Chargers"
+    },
+    "3764892677": {
+        "name": "Spore Charger",
+        "plural": "Spore Chargers"
+    },
+    "2387277009": {
+        "name": "Stalker",
+        "plural": "Stalkers"
+    },
+    "1571860610": {
+        "name": "Stalker",
+        "plural": "Stalkers"
+    },
+    "4160806915": {
+        "name": "Stingray",
+        "plural": "Stingrays"
+    },
+    "3837895314": {
+        "name": "Stingray",
+        "plural": "Stingrays"
+    },
+    "4039692928": {
+        "name": "Trooper",
+        "plural": "Troopers"
+    },
+    "878778730": {
+        "name": "Trooper",
+        "plural": "Troopers"
+    },
+    "1678159601": {
+        "name": "Trooper",
+        "plural": "Troopers"
+    },
+    "3776682558": {
+        "name": "Veracitor",
+        "plural": "Veracitors"
+    },
+    "4211847317": {
+        "name": "Voteless",
+        "plural": "Voteless"
+    },
+    "4066406510": {
+        "name": "Vox Engine",
+        "plural": "Vox Engines"
+    },
+    "523260929": {
+        "name": "War Strider",
+        "plural": "War Striders"
+    },
+    "3216070267": {
+        "name": "War Strider",
+        "plural": "War Striders"
+    },
+    "3579113113": {
+        "name": "Warp Ship",
+        "plural": "Warp Ships"
+    },
+    "1511926116": {
+        "name": "Warp Ship",
+        "plural": "Warp Ships"
+    },
+    "3564923972": {
+        "name": "Warrior",
+        "plural": "Warriors"
+    },
+    "2058088313": {
+        "name": "Warrior",
+        "plural": "Warriors"
+    },
+    "100334534": {
+        "name": "Warrior",
+        "plural": "Warriors"
+    },
+    "2478129961": {
+        "name": "Warrior",
+        "plural": "Warriors"
+    },
+    "563427185": {
+        "name": "Warrior",
+        "plural": "Warriors"
+    },
+    "2912133180": {
+        "name": "Warrior",
+        "plural": "Warriors"
+    },
+    "886803190": {
+        "name": "Watcher",
+        "plural": "Watchers"
+    },
+    "2218141647": {
+        "name": "Watcher",
+        "plural": "Watchers"
+    },
+    "921769811": {
+        "name": "Watcher",
+        "plural": "Watchers"
+    }
 }

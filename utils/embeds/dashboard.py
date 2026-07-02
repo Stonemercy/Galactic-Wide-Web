@@ -578,6 +578,17 @@ class Dashboard:
             name = names.get(name_to_get, "Unknown Faction")
             return name
 
+        def _get_enemy_name(self, enemy_id: int, plural: bool = False) -> str:
+            """Get localized and pluralized (if requested) enemy name"""
+            enemy = (
+                self.json_dict["enemy_ids"]
+                .get(str(enemy_id))
+                .get("name" if not plural else "plural")
+                or self.json_dict["strings"].get(str(enemy_id))
+                or "Unknown Enemy"
+            )
+            return enemy
+
         def _add_location_info(self, text: str, task: Assignment.Task) -> None:
             tasks_json = self.language_json["embeds"]["Dashboard"]["MajorOrderEmbed"][
                 "tasks"
@@ -831,11 +842,7 @@ class Dashboard:
             field_name = self._add_progress_emoji(text=field_name, task=task)
             field_name = field_name.replace("{count}", f"{task.target:,}")
             if task.enemy_id:
-                enemy = self.json_dict["enemy_ids"].get(
-                    str(task.enemy_id), "UNKNOWN ENEMY"
-                )
-                if task.target > 1:
-                    enemy = enemy + "s" if not enemy.endswith("s") else enemy
+                enemy = self._get_enemy_name(task.enemy_id, plural=task.target > 1)
             elif task.faction:
                 enemy = self._get_faction_name(task.faction, plural=True)
             else:
