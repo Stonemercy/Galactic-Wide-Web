@@ -1,12 +1,13 @@
 from datetime import time
 from disnake import AppCmdInter, Guild, MessageInteraction
-from disnake.ext import commands, tasks
+from disnake.ext.commands import Cog
+from disnake.ext.tasks import loop
 from utils.bot import GalacticWideWebBot
 from utils.containers import UsageContainer
 from utils.functions import dict_empty
 
 
-class UsageLoggerCog(commands.Cog):
+class UsageLoggerCog(Cog):
     def __init__(self, bot: GalacticWideWebBot) -> None:
         self.bot = bot
         self.usage_dict = {
@@ -27,7 +28,7 @@ class UsageLoggerCog(commands.Cog):
         if self.usage_report in self.bot.loops:
             self.bot.loops.remove(self.usage_report)
 
-    @commands.Cog.listener()
+    @Cog.listener()
     async def on_slash_command(self, inter: AppCmdInter) -> None:
         if not self.bot.ready:
             return
@@ -42,7 +43,7 @@ class UsageLoggerCog(commands.Cog):
             f"| Options: {options_str if options_str else 'None'}"
         )
 
-    @commands.Cog.listener()
+    @Cog.listener()
     async def on_button_click(self, inter: MessageInteraction) -> None:
         if not self.bot.ready:
             return
@@ -56,7 +57,7 @@ class UsageLoggerCog(commands.Cog):
             f"| Channel: {inter.channel.name if hasattr(inter.channel, 'name') else 'DM'} "
         )
 
-    @commands.Cog.listener()
+    @Cog.listener()
     async def on_dropdown(self, inter: MessageInteraction) -> None:
         if not self.bot.ready:
             return
@@ -71,15 +72,15 @@ class UsageLoggerCog(commands.Cog):
             f"| Channel: {inter.channel.name if hasattr(inter.channel, 'name') else 'DM'} "
         )
 
-    @commands.Cog.listener()
+    @Cog.listener()
     async def on_guild_join(self, guild: Guild) -> None:
         self.guilds_joined += 1
 
-    @commands.Cog.listener()
+    @Cog.listener()
     async def on_guild_remove(self, guild: Guild) -> None:
         self.guilds_joined -= 1
 
-    @tasks.loop(time=time(hour=22, minute=0, second=0))
+    @loop(time=time(hour=22, minute=0, second=0))
     async def usage_report(self) -> None:
         if dict_empty(self.usage_dict) or not self.bot.ready:
             return
