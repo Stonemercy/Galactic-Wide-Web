@@ -2632,6 +2632,10 @@ class Dashboard:
                         field_value += f"\n-# ↳ {region.emoji} {region_type} **{region.names.get(language_json['code_long'], region.name)}**"
                         if region.is_available:
                             field_value += f" {region.perc:.2%}"
+                            if region.tracker and not (
+                                -0.0001 < region.tracker.change_rate_per_hour < 0.0001
+                            ):
+                                field_value += f" **{region.tracker.change_rate_per_hour:+.2%}**/hr"
                         else:
                             field_value += f" {language_json['embeds']['Dashboard']['AttackEmbed']['reg_avail_at']} **{region.availability_factor:.2%}**"
                             break
