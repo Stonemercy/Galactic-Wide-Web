@@ -1,11 +1,12 @@
 from datetime import datetime, time, timezone
-from disnake.ext import commands, tasks
+from disnake.ext.commands import Cog
+from disnake.ext.tasks import loop
 from utils.bot import GalacticWideWebBot
 from utils.dbv2 import GWWGuilds
 from utils.embeds import Dashboard
 
 
-class DashboardCog(commands.Cog):
+class DashboardCog(Cog):
     def __init__(self, bot: GalacticWideWebBot) -> None:
         self.bot = bot
 
@@ -20,7 +21,7 @@ class DashboardCog(commands.Cog):
         if self.dashboard_poster in self.bot.loops:
             self.bot.loops.remove(self.dashboard_poster)
 
-    @tasks.loop(
+    @loop(
         time=[
             time(hour=i, minute=j, second=0)
             for i in range(24)
@@ -30,6 +31,7 @@ class DashboardCog(commands.Cog):
     async def dashboard_poster(self) -> None:
         dashboards_start = datetime.now(tz=timezone.utc)
         if not self.bot.ready:
+            self.bot.logger.warning("dashboard_poster returning - the bot isn't ready")
             return
         unique_langs = GWWGuilds.unique_languages()
         dashboards = {
@@ -53,7 +55,7 @@ class DashboardCog(commands.Cog):
                 dashboard = dashboards[lang]
         await self.bot.interface_handler.send_feature("dashboards", dashboards)
         self.bot.logger.info(
-            f"Updated {len(self.bot.interface_handler.dashboards)} dashboards in {(datetime.now(tz=timezone.utc)-dashboards_start).total_seconds():.2f} seconds"
+            f"dashboard_poster loop - updated {len(self.bot.interface_handler.dashboards)} dashboards in {(datetime.now(tz=timezone.utc)-dashboards_start).total_seconds():.2f} seconds"
         )
 
     @dashboard_poster.before_loop
