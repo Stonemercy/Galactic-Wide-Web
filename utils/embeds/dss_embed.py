@@ -116,7 +116,11 @@ class DSSEmbed(Embed, EmbedReprMixin):
                 ),
                 start=1,
             ):
-                votes_text += f"\n-# #{index} - {planet_votes_dict[0].faction.emoji} {planet_votes_dict[0].names.get(language_json['code_long'], planet_votes_dict[0].name)} - ({(planet_votes_dict[1]/dss_data.votes.total_votes):.0%})"
+                if planet_votes_dict[1] == 0:
+                    votes = 0.0
+                else:
+                    votes = planet_votes_dict[1] / dss_data.votes.total_votes
+                votes_text += f"\n-# #{index} - {planet_votes_dict[0].faction.emoji} {planet_votes_dict[0].names.get(language_json['code_long'], planet_votes_dict[0].name)} - ({votes:.0%})"
             self.add_field("", votes_text, inline=False)
 
             predicted_field_value = ""
