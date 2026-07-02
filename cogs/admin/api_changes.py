@@ -68,7 +68,7 @@ class APIChangesCog(Cog):
     )
     async def api_changes(self) -> None:
         if not self.bot.ready:
-            self.bot.logger.info("api_changes loop returning - the bot isn't ready")
+            self.bot.logger.warning("api_changes loop returning - the bot isn't ready")
             return
         if not self.bot.data.previous_data:
             self.bot.logger.warning(
