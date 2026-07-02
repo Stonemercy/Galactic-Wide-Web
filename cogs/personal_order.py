@@ -1,13 +1,14 @@
 from datetime import datetime, time, timezone
 from disnake import AppCmdInter, ApplicationInstallTypes, InteractionContextTypes
-from disnake.ext import commands, tasks
+from disnake.ext.commands import Cog, Param, slash_command
+from disnake.ext.tasks import loop
 from utils.bot import GalacticWideWebBot
 from utils.checks import wait_for_startup
 from utils.dbv2 import GWWGuilds
-from utils.embeds.personal_order_embed import PersonalOrderCommandEmbed
+from utils.embeds import PersonalOrderCommandEmbed
 
 
-class PersonalOrderCog(commands.Cog):
+class PersonalOrderCog(Cog):
     def __init__(self, bot: GalacticWideWebBot) -> None:
         self.bot = bot
         self.last_po_update: None | datetime = None
@@ -23,19 +24,27 @@ class PersonalOrderCog(commands.Cog):
         if self.personal_order_updates in self.bot.loops:
             self.bot.loops.remove(self.personal_order_updates)
 
-    @tasks.loop(time=[time(hour=9, minute=30)])
+    @loop(time=[time(hour=9, minute=30)])
     async def personal_order_updates(self):
-        self.bot.logger.info("personal_order_updates loop started")
         po_updates_start = datetime.now(tz=timezone.utc)
-        self.bot.logger.info(f"PO loop starting at {po_updates_start}")
         if (
             self.last_po_update
             and (po_updates_start - self.last_po_update).total_seconds() < 600
         ):
-            self.bot.logger.info(f"Skipping duplicate PO loop execution")
+            self.bot.logger.info(
+                f"personal_order_updates loop - skipping duplicate loop execution"
+            )
             return
         self.last_po_update = po_updates_start
-        if not self.bot.ready or not self.bot.data.formatted_data.personal_order:
+        if not self.bot.ready:
+            self.bot.logger.warning(
+                "personal_order_updates loop returning - the bot isn't ready"
+            )
+            return
+        if not self.bot.data.formatted_data.personal_order:
+            self.bot.logger.warning(
+                "personal_order_updates loop returning - personal order is missing"
+            )
             return
         unique_langs = GWWGuilds.unique_languages()
         embeds = {
@@ -53,7 +62,7 @@ class PersonalOrderCog(commands.Cog):
             announcement_type="PO",
         )
         self.bot.logger.info(
-            f"Sent PO announcements out to {len(self.bot.interface_handler.personal_order_updates)} channels in {(datetime.now(tz=timezone.utc) - po_updates_start).total_seconds():.2f} seconds"
+            f"personal_order_updates - sent PO {self.bot.data.formatted_data.personal_order.id} announcement out to {len(self.bot.interface_handler.personal_order_updates)} channels in {(datetime.now(tz=timezone.utc) - po_updates_start).total_seconds():.2f} seconds"
         )
 
     @personal_order_updates.before_loop
@@ -67,7 +76,7 @@ class PersonalOrderCog(commands.Cog):
             await error_handler.log_error(None, error, "personal_order_updates loop")
 
     @wait_for_startup()
-    @commands.slash_command(
+    @slash_command(
         description="Get the current Personal Order (if available)",
         install_types=ApplicationInstallTypes.all(),
         contexts=InteractionContextTypes.all(),
@@ -79,7 +88,7 @@ class PersonalOrderCog(commands.Cog):
     async def personal_order(
         self,
         inter: AppCmdInter,
-        public: str = commands.Param(
+        public: str = Param(
             choices=["Yes", "No"],
             default="No",
             description="Do you want other people to see the response to this command?",
