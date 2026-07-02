@@ -81,3 +81,15 @@ class ControlCentrePage(Enum):
     Overview = 0
     ActiveCampaign = 1
     PastCampaigns = 2
+
+
+class ControlCentreStatus(Enum):
+    UNKNOWN = -1
+    InProgress = 0
+    Success = 2
+    Failed = 3
+
+    @classmethod
+    def _missing_(cls, value):
+        return cls(-1)
+
