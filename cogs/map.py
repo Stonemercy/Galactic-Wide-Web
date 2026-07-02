@@ -9,14 +9,15 @@ from disnake import (
     InteractionContextTypes,
     NotFound,
 )
-from disnake.ext import commands, tasks
-from main import GalacticWideWebBot
+from disnake.ext.commands import Cog, Param, slash_command
+from disnake.ext.tasks import loop
+from utils.bot import GalacticWideWebBot
 from utils.checks import wait_for_startup
 from utils.dbv2 import GWWGuild, GWWGuilds
 from utils.maps import Maps
 
 
-class MapCog(commands.Cog):
+class MapCog(Cog):
     def __init__(self, bot: GalacticWideWebBot):
         self.bot = bot
 
@@ -31,10 +32,11 @@ class MapCog(commands.Cog):
         if self.map_poster in self.bot.loops:
             self.bot.loops.remove(self.map_poster)
 
-    @tasks.loop(time=[time(hour=hour, minute=5, second=0) for hour in range(24)])
+    @loop(time=[time(hour=hour, minute=5, second=0) for hour in range(24)])
     async def map_poster(self) -> None:
         maps_start = datetime.now(tz=timezone.utc)
         if not self.bot.ready:
+            self.bot.logger.warning("map_poster returning - the bot isn't ready")
             return
         try:
             await self.bot.channels.waste_bin_channel.purge(
@@ -87,7 +89,7 @@ class MapCog(commands.Cog):
             )
         await self.bot.interface_handler.send_feature("maps", map_embeds)
         self.bot.logger.info(
-            f"Updated {len(self.bot.interface_handler.maps)} maps in {(datetime.now(tz=timezone.utc)-maps_start).total_seconds():.2f} seconds"
+            f"map_poster loop - updated {len(self.bot.interface_handler.maps)} maps in {(datetime.now(tz=timezone.utc)-maps_start).total_seconds():.2f} seconds"
         )
 
     @map_poster.before_loop
@@ -101,7 +103,7 @@ class MapCog(commands.Cog):
             await error_handler.log_error(None, error, "map_poster loop")
 
     @wait_for_startup()
-    @commands.slash_command(
+    @slash_command(
         description="Get the current galactic map",
         install_types=ApplicationInstallTypes.all(),
         contexts=InteractionContextTypes.all(),
@@ -113,7 +115,7 @@ class MapCog(commands.Cog):
     async def map(
         self,
         inter: AppCmdInter,
-        public: str = commands.Param(
+        public: str = Param(
             choices=["Yes", "No"],
             default="No",
             description="Do you want other people to see the response to this command?",
@@ -121,12 +123,12 @@ class MapCog(commands.Cog):
     ) -> None:
         await inter.response.defer(ephemeral=public != "Yes")
         if inter.guild:
-            guild = GWWGuilds.get_specific_guild(id=inter.guild_id)
+            guild = GWWGuilds.get_specific_guild(id=inter.guild.id)
             if not guild:
                 self.bot.logger.error(
-                    f"Guild {inter.guild_id} - {inter.guild.name} - had the bot installed but wasn't found in the DB"
+                    f"Guild {inter.guild.id} - {inter.guild.name} - had the bot installed but wasn't found in the DB"
                 )
-                guild = GWWGuilds.add(inter.guild_id, "en", [])
+                guild = GWWGuilds.add(inter.guild.id, "en", [])
         else:
             guild = GWWGuild.default()
         latest_map = self.bot.maps.latest_maps.get(guild.language, None)
