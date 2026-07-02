@@ -10,12 +10,12 @@ from disnake import (
     MessageInteraction,
     NotFound,
     Permissions,
-    ui,
 )
-from disnake.ext import commands
-from main import GalacticWideWebBot
-from utils.containers import SetupContainer
+from disnake.ext.commands import Cog, slash_command
+from disnake.ui import ActionRow, Container, TextDisplay
+from utils.bot import GalacticWideWebBot
 from utils.checks import wait_for_startup
+from utils.containers import SetupContainer
 from utils.dbv2 import Feature, GWWGuild, GWWGuilds
 from utils.embeds import Dashboard
 from utils.maps import Maps
@@ -46,7 +46,7 @@ ALLOWED_DROPDOWNS = {
 }
 
 
-class SetupCog(commands.Cog):
+class SetupCog(Cog):
     def __init__(self, bot: GalacticWideWebBot) -> None:
         self.bot = bot
         self.dashboard_perms_needed = Permissions(
@@ -69,7 +69,7 @@ class SetupCog(commands.Cog):
         )
 
     @wait_for_startup()
-    @commands.slash_command(
+    @slash_command(
         description="Configure GWW settings for this server",
         default_member_permissions=Permissions(manage_guild=True),
         contexts=InteractionContextTypes(guild=True),
@@ -80,12 +80,12 @@ class SetupCog(commands.Cog):
     )
     async def setup(self, inter: AppCmdInter) -> None:
         await inter.response.defer(ephemeral=True)
-        guild = GWWGuilds.get_specific_guild(id=inter.guild_id)
+        guild = GWWGuilds.get_specific_guild(id=inter.guild.id)
         if not guild:
             self.bot.logger.error(
-                f"Guild {inter.guild_id} - {inter.guild.name} - had the bot installed but wasn't found in the DB"
+                f"Guild {inter.guild.id} - {inter.guild.name} - had the bot installed but wasn't found in the DB"
             )
-            guild: GWWGuild = GWWGuilds.add(inter.guild_id, "en", [])
+            guild: GWWGuild = GWWGuilds.add(inter.guild.id, "en", [])
         await inter.send(
             components=SetupContainer(
                 guild=guild,
@@ -97,7 +97,7 @@ class SetupCog(commands.Cog):
             )
         )
 
-    @commands.Cog.listener("on_button_click")
+    @Cog.listener("on_button_click")
     async def on_button_clicks(self, inter: MessageInteraction) -> None:
         if (
             not self.bot.ready
@@ -107,9 +107,9 @@ class SetupCog(commands.Cog):
         ):
             return
         await inter.response.defer()
-        guild: GWWGuild = GWWGuilds.get_specific_guild(inter.guild_id)
+        guild: GWWGuild = GWWGuilds.get_specific_guild(inter.guild.id)
         guild_language = self.bot.json_dict["languages"][guild.language]
-        container = ui.Container.from_component(inter.message.components[0])
+        container = Container.from_component(inter.message.components[0])
         if inter.component.custom_id == "setup_home_button":
             container = SetupContainer(
                 guild=guild,
@@ -203,7 +203,7 @@ class SetupCog(commands.Cog):
                 )
                 container.children.insert(
                     FEATURE_INDEXES[feature_type],
-                    ui.ActionRow(
+                    ActionRow(
                         Setup.Features.FeatureChannelSelect(
                             feature_type=feature_type,
                             container_json=guild_language["containers"][
@@ -242,7 +242,7 @@ class SetupCog(commands.Cog):
                 )
                 container.children.insert(
                     len(container.children),
-                    ui.ActionRow(
+                    ActionRow(
                         Setup.Language.LanguageSelect(
                             container_json=guild_language["containers"][
                                 "SetupContainer"
@@ -254,7 +254,7 @@ class SetupCog(commands.Cog):
                     components=container,
                 )
 
-    @commands.Cog.listener("on_dropdown")
+    @Cog.listener("on_dropdown")
     async def on_dropdowns(self, inter: MessageInteraction) -> None:
         if (
             not self.bot.ready
@@ -263,7 +263,7 @@ class SetupCog(commands.Cog):
         ):
             return
         await inter.response.defer()
-        guild: GWWGuild = GWWGuilds.get_specific_guild(inter.guild_id)
+        guild: GWWGuild = GWWGuilds.get_specific_guild(inter.guild.id)
         guild_language = self.bot.json_dict["languages"][guild.language]
         if inter.component.custom_id == "dashboard_channel_select":
             try:
@@ -385,7 +385,7 @@ class SetupCog(commands.Cog):
                     )
                 else:
                     await inter.edit_original_response(
-                        components=[ui.TextDisplay("Generating map, please wait...")]
+                        components=[TextDisplay("Generating map, please wait...")]
                     )
                     self.bot.maps.update_base_map(
                         planets=self.bot.data.formatted_data.planets,
