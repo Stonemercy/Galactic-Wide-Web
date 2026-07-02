@@ -46,4 +46,5 @@ LOCALES_DICT: dict[Locale, Language] = {
     Locale.es_LATAM: Languages.spanish,
     Locale.zh_CN: Languages.chinese_trad,
     Locale.zh_TW: Languages.chinese_trad,
+    Locale.tr: Languages.turkish,
 }
