@@ -320,7 +320,7 @@
     "complete": "Успех",
     "failure": "Провал",
     "regions": {
-        "megafactory": "Мегафабрика",
+        "megafactory": "Class {number} Мегафабрика",
         "4": "Мегаполис",
         "3": "Город",
         "2": "Поселок",

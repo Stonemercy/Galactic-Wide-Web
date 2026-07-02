@@ -65,7 +65,7 @@ class CampaignChangesContainer(Container):
             descriptor = (
                 self.json.regions[str(region.type.value)]
                 if not region.is_factory
-                else f"Class {region.size} Megafactory"
+                else self.json.regions["megafactory"].format(number=region.size)
             )
             text_display.content += f"\n-# {region.emoji} {descriptor} **{region.names.get(self.json.lang_code_long, region.name)}**"
 

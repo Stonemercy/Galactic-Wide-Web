@@ -44,7 +44,7 @@ class DSSChangesContainer(Container):
             region_type = (
                 self.json.regions[str(region.type.value)]
                 if not region.is_factory
-                else self.json.regions["megafactory"]
+                else self.json.regions["megafactory"].format(number=region.type.value)
             )
             text_display.content += f"\n-# {region.emoji} {region_type} **{region.names.get(self.json.lang_code_long, region.name)}**"
 

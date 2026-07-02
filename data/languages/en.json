@@ -320,7 +320,7 @@
     "complete": "Complete",
     "failure": "Failure",
     "regions": {
-        "megafactory": "Megafactory",
+        "megafactory": "Class {number} Megafactory",
         "4": "Mega City",
         "3": "City",
         "2": "Town",

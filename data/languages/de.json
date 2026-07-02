@@ -320,7 +320,7 @@
     "complete": "Abgeschlossen",
     "failure": "Fehler",
     "regions": {
-        "megafactory": "Megafabrik",
+        "megafactory": "Class {number} Megafabrik",
         "4": "Mega-Stadt",
         "3": "Stadt",
         "2": "Städtchen",

@@ -320,7 +320,7 @@
     "complete": "Tamamlandı",
     "failure": "Başarısız",
     "regions": {
-        "megafactory": "Mega Fabrika",
+        "megafactory": "Class {number} Mega Fabrika",
         "4": "Araştırma",
         "3": "Askeri",
         "2": "Endüstriyel",
