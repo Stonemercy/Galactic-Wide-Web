@@ -1,15 +1,24 @@
-from traceback import format_exception
 from disnake import AppCmdInter, ChannelType, Color, Embed, MessageInteraction, NotFound
-from disnake.ext import commands
+from disnake.ext.commands import (
+    BadArgument,
+    BotMissingPermissions,
+    CheckFailure,
+    Cog,
+    MissingPermissions,
+    MissingRequiredArgument,
+    NoPrivateMessage,
+    PrivateMessageOnly,
+)
+from traceback import format_exception
 from utils.bot import GalacticWideWebBot
 from utils.errors import NotReadyYet, NotWhitelisted
 
 
-class ErrorHandlerCog(commands.Cog):
+class ErrorHandlerCog(Cog):
     def __init__(self, bot: GalacticWideWebBot) -> None:
         self.bot = bot
 
-    @commands.Cog.listener()
+    @Cog.listener()
     async def on_slash_command_error(self, inter: AppCmdInter, error):
         error = getattr(error, "original", error)
         embed = Embed(title="Error", color=Color.red())
@@ -23,20 +32,20 @@ class ErrorHandlerCog(commands.Cog):
                 f"This command isn't for public use. Apologies for the inconvenience."
             )
             log_error = False
-        elif isinstance(error, commands.MissingPermissions):
+        elif isinstance(error, MissingPermissions):
             embed.description = f"You don't have permission to use this command.\nRequired: {', '.join(error.missing_permissions)}"
-        elif isinstance(error, commands.BotMissingPermissions):
+        elif isinstance(error, BotMissingPermissions):
             embed.description = f"I don't have the required permissions.\nMissing: {', '.join(error.missing_permissions)}"
-        elif isinstance(error, commands.MissingRequiredArgument):
+        elif isinstance(error, MissingRequiredArgument):
             embed.description = f"Missing required argument: `{error.param.name}`"
-        elif isinstance(error, commands.BadArgument):
+        elif isinstance(error, BadArgument):
             embed.description = f"Invalid argument provided: {str(error)}"
-        elif isinstance(error, commands.CheckFailure):
+        elif isinstance(error, CheckFailure):
             embed.description = "You don't have permission to use this command."
-        elif isinstance(error, commands.NoPrivateMessage):
+        elif isinstance(error, NoPrivateMessage):
             embed.description = "This command cannot be used in DMs."
             log_error = False
-        elif isinstance(error, commands.PrivateMessageOnly):
+        elif isinstance(error, PrivateMessageOnly):
             embed.description = "This command can only be used in DMs."
             log_error = False
         elif isinstance(error, NotFound):
