@@ -88,7 +88,7 @@ class WarCampaign(ReprMixin):
         with connection() as conn:
             with conn.cursor() as curs:
                 curs.execute(
-                    f"UPDATE war.campaigns SET event = {self.event}, event_type = {self.event_type}, event_faction = {self.event_faction} WHERE campaign_id = {self.campaign_id}"
+                    f"UPDATE war.campaigns SET event = {self.event}, event_type = {self.event_type}, event_faction = '{self.event_faction}' WHERE campaign_id = {self.campaign_id}"
                 )
                 conn.commit()
 
