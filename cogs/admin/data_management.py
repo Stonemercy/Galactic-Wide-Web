@@ -1,11 +1,11 @@
 from datetime import datetime, time, timezone
 from disnake import Activity, ActivityType, Status
-from disnake.ext import commands, tasks
-from main import GalacticWideWebBot
-from utils.bot import STARTUP_SECONDS
+from disnake.ext.commands import Cog
+from disnake.ext.tasks import loop
+from utils.bot import GalacticWideWebBot
 
 
-class DataManagementCog(commands.Cog):
+class DataManagementCog(Cog):
     def __init__(self, bot: GalacticWideWebBot) -> None:
         self.bot = bot
         self.loops = (self.startup, self.pull_from_api)
@@ -24,7 +24,7 @@ class DataManagementCog(commands.Cog):
             if loop in self.bot.loops:
                 self.bot.loops.remove(loop)
 
-    @tasks.loop(count=1)
+    @loop(count=1)
     async def startup(self) -> None:
         self.bot.logger.info("startup loop started")
         await self.bot.interface_handler.populate_lists()
@@ -56,7 +56,7 @@ class DataManagementCog(commands.Cog):
         if error_handler:
             await error_handler.log_error(None, error, "startup loop")
 
-    @tasks.loop(
+    @loop(
         time=[time(hour=j, minute=i, second=45) for j in range(24) for i in range(60)]
     )
     async def pull_from_api(self) -> None:
@@ -74,7 +74,13 @@ class DataManagementCog(commands.Cog):
         if first_load:
             now = datetime.now(tz=timezone.utc)
             self.bot.logger.info(
-                f"Galactic Wide Web booted in {(now - self.bot.startup_time).total_seconds():.2f} seconds with {len(self.bot.guilds):,} Discord guilds"
+                "======================================================================="
+            )
+            self.bot.logger.info(
+                f"=== Galactic Wide Web booted in {(now - self.bot.startup_time).total_seconds():.2f} seconds with {len(self.bot.guilds):,} Discord guilds ==="
+            )
+            self.bot.logger.info(
+                "======================================================================="
             )
             self.bot.ready_time = now
 
