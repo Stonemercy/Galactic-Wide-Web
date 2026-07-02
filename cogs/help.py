@@ -1,13 +1,13 @@
 from disnake import AppCmdInter, ApplicationInstallTypes, InteractionContextTypes
-from disnake.ext import commands
-from main import GalacticWideWebBot
+from disnake.ext.commands import Cog, Param, slash_command
+from utils.bot import GalacticWideWebBot
 from utils.containers import HelpContainer
 from utils.checks import wait_for_startup
 
 PRIVATE_COMMANDS = ("global_event", "gwe", "pmajor_order")
 
 
-class HelpCog(commands.Cog):
+class HelpCog(Cog):
     def __init__(self, bot: GalacticWideWebBot) -> None:
         self.bot = bot
 
@@ -28,7 +28,7 @@ class HelpCog(commands.Cog):
         ][:25]
 
     @wait_for_startup()
-    @commands.slash_command(
+    @slash_command(
         description='Get help for a specific command, or use "all" for a full command list',
         install_types=ApplicationInstallTypes.all(),
         contexts=InteractionContextTypes.all(),
@@ -40,11 +40,11 @@ class HelpCog(commands.Cog):
     async def help(
         self,
         inter: AppCmdInter,
-        command: str = commands.Param(
+        command: str = Param(
             autocomplete=help_autocomp,
             description='The command you want to lookup, use "all" for a list of all available commands',
         ),
-        public: str = commands.Param(
+        public: str = Param(
             choices=["Yes", "No"],
             default="No",
             description="Do you want other people to see the response to this command?",
