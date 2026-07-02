@@ -367,13 +367,13 @@
     },
     "1853367679": {
         "name": "EX-00 Prototype X",
-        "description": "The end result of several billion Super Credits and 12 years of reseach into creating \"the Soldier of Tomorrow.\"",
+        "description": "The end result of several billion Super Credits and 12 years of research into creating \"the Soldier of Tomorrow.\"",
         "type": "Armor",
         "cost": 0
     },
     "377236948": {
         "name": "EX-00 Prototype X",
-        "description": "The end result of several billion Super Credits and 12 years of reseach into creating \"the Soldier of Tomorrow.\"",
+        "description": "The end result of several billion Super Credits and 12 years of research into creating \"the Soldier of Tomorrow.\"",
         "type": "Helmet",
         "cost": 0
     },
@@ -2141,6 +2141,12 @@
         "type": "Sidearm Weapon",
         "cost": 300
     },
+    "358989959": {
+        "name": "P-33 Missile Pistol",
+        "description": "A pistol firing guided, jet-propelled ammunition. It's lock-on feature ensures high accuracy, but the weapon must be reloaded after every round fired.",
+        "type": "Sidearm Weapon",
+        "cost": 0
+    },
     "2811723672": {
         "name": "P-2 Peacemaker",
         "description": "The SEAF standard pistol - offering a high fire rate, generous capacity, and fast reloading.",
@@ -2465,6 +2471,12 @@
         "type": "Support Weapon",
         "cost": 0
     },
+    "2232169940": {
+        "name": "R-4 Hyena",
+        "description": "A heavy, large-caliber marksman rifle bridging the gap between precision and sheer stopping power. Fires armor-piercing rounds coated in a high-ignition thermite compound to ignite targets.",
+        "type": "Primary Weapon",
+        "cost": 0
+    },
     "838686177": {
         "name": "R-72 Censor",
         "description": "A mid-range precision rifle. Equipped with an integrated suppressor and subsonic rounds for barely-detectable operation.",
@@ -2612,6 +2624,12 @@
     "1725541340": {
         "name": "TX-41 Sterilizer",
         "description": "Atomizes caustic chemicals into a fine mist that liquifies sensitive electronics and tissues. Blinds and slows most enemies.",
+        "type": "Support Weapon",
+        "cost": 0
+    },
+    "4001788629": {
+        "name": "MGX-42 Bullet Storm",
+        "description": "A single-use weapon sporting caseless ammunition stacked in multiple barrels. An electrical firing mechanism releases the rounds in rapid succession upon firing, after which the weapon is to be discarded.",
         "type": "Support Weapon",
         "cost": 0
     },
