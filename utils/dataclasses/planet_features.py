@@ -46,6 +46,7 @@ class PlanetFeatures:
         ): {1342},
         ("PANDORA BASE", Emojis.PlanetFeatures.pandora_base): {1344},
         ("CONVENTIONAL BLACK HOLE", Emojis.PlanetFeatures.black_hole): {1352},
+        ("DATA CENTRE", Emojis.Factions.automaton): {1353},
         ("DEVASTATOR SURGE", Emojis.Factions.automaton): {1359},
         ("CLASS 1 EXOSTORM", Emojis.PlanetFeatures.exostorm): {1373},
         ("CLASS 2 EXOSTORM", Emojis.PlanetFeatures.exostorm): {1374},
