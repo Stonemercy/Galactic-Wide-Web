@@ -2410,7 +2410,14 @@ class Dashboard:
                 planet.regions.values(), key=lambda x: x.availability_factor
             ):
                 if region.is_available:
-                    field_value += f"\n-# ↳ {region.emoji} {self.language_json['regions'][str(region.type.value)]} **{region.names.get(self.language_json['code_long'], region.name)}** - {region.perc:.0%}"
+                    region_descriptor = (
+                        self.language_json["regions"][str(region.type.value)]
+                        if not region.is_factory
+                        else self.language_json["regions"]["megafactory"].format(
+                            number=region.size
+                        )
+                    )
+                    field_value += f"\n-# ↳ {region.emoji} {region_descriptor} **{region.names.get(self.language_json['code_long'], region.name)}** - {region.perc:.0%}"
                     if (
                         self.compact_level < 2
                         and region.tracker
