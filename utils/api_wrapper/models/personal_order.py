@@ -22,16 +22,20 @@ class PersonalOrder(ReprMixin):
         self.expiration_datetime: datetime = datetime.now(tz=timezone.utc) + timedelta(
             seconds=self.expiration_secs_from_now,
         )
-        self.title: str = personal_order["setting"]["overrideTitle"]
-        self.brief: str = personal_order["setting"]["overrideBrief"]
-        self.description: str = personal_order["setting"]["taskDescription"]
+        self.title: str = personal_order.get("setting", {}).get("overrideTitle", "")
+        self.brief: str = personal_order.get("setting", {}).get("overrideBrief", "")
+        self.description: str = personal_order.get("setting", {}).get(
+            "taskDescription", ""
+        )
         self.tasks: list[PersonalOrder.Task] = [
-            self.Task(task, json_dict) for task in personal_order["setting"]["tasks"]
+            self.Task(task, json_dict)
+            for task in personal_order.get("setting", {}).get("tasks", [])
         ]
         self.rewards: list[PersonalOrder.Reward] = [
-            self.Reward(reward) for reward in personal_order["setting"]["rewards"]
+            self.Reward(reward)
+            for reward in personal_order.get("setting", {}).get("rewards", [])
         ]
-        self.flags: int = personal_order["setting"]["flags"]
+        self.flags: int = personal_order.get("setting", {}).get("flags", None)
 
     class Task(ReprMixin):
         __slots__ = (
