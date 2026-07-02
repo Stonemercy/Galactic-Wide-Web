@@ -1,20 +1,20 @@
-from json import loads
-from random import choices
 from disnake import (
     AppCmdInter,
     ApplicationInstallTypes,
     Attachment,
     InteractionContextTypes,
 )
-from disnake.ext import commands
-from main import GalacticWideWebBot
+from disnake.ext.commands import Cog, Param, slash_command
+from json import loads
+from random import choices
 from utils.api_wrapper.models import Assignment
+from utils.bot import GalacticWideWebBot
 from utils.checks import is_whitelisted, wait_for_startup
 from utils.containers import GlobalEventsContainer, GWEContainer
 from utils.embeds import Dashboard
 
 
-class BackendCommandsCog(commands.Cog):
+class BackendCommandsCog(Cog):
     def __init__(self, bot: GalacticWideWebBot) -> None:
         self.bot = bot
 
@@ -64,7 +64,7 @@ class BackendCommandsCog(commands.Cog):
 
     @wait_for_startup()
     @is_whitelisted()
-    @commands.slash_command(
+    @slash_command(
         description="Check a galactic effect",
         install_types=ApplicationInstallTypes.all(),
         contexts=InteractionContextTypes.all(),
@@ -72,22 +72,22 @@ class BackendCommandsCog(commands.Cog):
     async def gwe(
         self,
         inter: AppCmdInter,
-        id: str = commands.Param(
+        id: str = Param(
             autocomplete=id_autocomp,
             description="The effect you want to lookup",
             default="",
         ),
-        on_planet: str = commands.Param(
+        on_planet: str = Param(
             autocomplete=planet_autocomp,
             description="The planet you want to get all effects for",
             default="",
         ),
-        stratagem: str = commands.Param(
+        stratagem: str = Param(
             autocomplete=strat_autocomp,
             description="The stratagem you want to lookup",
             default="",
         ),
-        public: str = commands.Param(
+        public: str = Param(
             choices=["Yes", "No"],
             description="If you want the response to be seen by others",
             default="No",
@@ -188,7 +188,7 @@ class BackendCommandsCog(commands.Cog):
 
     @wait_for_startup()
     @is_whitelisted()
-    @commands.slash_command(
+    @slash_command(
         description="Check a global event",
         install_types=ApplicationInstallTypes.all(),
         contexts=InteractionContextTypes.all(),
@@ -196,11 +196,11 @@ class BackendCommandsCog(commands.Cog):
     async def global_event(
         self,
         inter: AppCmdInter,
-        title: str = commands.Param(
+        title: str = Param(
             autocomplete=global_event_autocomp,
             description="The event you want to lookup",
         ),
-        public: str = commands.Param(
+        public: str = Param(
             choices=["Yes", "No"],
             description="If you want the response to be seen by others",
             default="No",
@@ -240,7 +240,7 @@ class BackendCommandsCog(commands.Cog):
 
     @wait_for_startup()
     @is_whitelisted()
-    @commands.slash_command(
+    @slash_command(
         description="Check some Major Order json",
         install_types=ApplicationInstallTypes.all(),
         contexts=InteractionContextTypes.all(),
@@ -249,7 +249,7 @@ class BackendCommandsCog(commands.Cog):
         self,
         inter: AppCmdInter,
         json: Attachment,
-        public: str = commands.Param(
+        public: str = Param(
             choices=["Yes", "No"],
             description="If you want the response to be seen by others",
             default="No",
