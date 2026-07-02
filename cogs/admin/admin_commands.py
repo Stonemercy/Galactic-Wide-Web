@@ -1,10 +1,11 @@
 from datetime import datetime, timezone
-from random import choice, choices
-from typing import TYPE_CHECKING
-from disnake import AppCmdInter, Guild, MessageInteraction, NotFound, Permissions, ui
+from disnake import AppCmdInter, Guild, MessageInteraction, NotFound, Permissions
 from disnake.ext import commands
-from main import GalacticWideWebBot
+from disnake.ui import ActionRow, components_from_message
+from random import choice, choices
 from re import search
+from typing import TYPE_CHECKING
+from utils.bot import GalacticWideWebBot
 from utils.checks import wait_for_startup
 from utils.containers import GuildContainer
 from utils.dataclasses import Config
@@ -192,13 +193,13 @@ class AdminCommandsCog(commands.Cog):
         )
         if inter.component.custom_id == "leave_guild_button":
             await inter.edit_original_response(
-                components=[ui.components_from_message(inter.message)[0]]
-                + [ui.ActionRow(ConfirmButton("leave", discord_guild))]
+                components=[components_from_message(inter.message)[0]]
+                + [ActionRow(ConfirmButton("leave", discord_guild))]
             )
         elif inter.component.custom_id == "reset_guild_button":
             await inter.edit_original_response(
-                components=[ui.components_from_message(inter.message)[0]]
-                + [ui.ActionRow(ConfirmButton("reset", discord_guild))]
+                components=[components_from_message(inter.message)[0]]
+                + [ActionRow(ConfirmButton("reset", discord_guild))]
             )
         elif "confirm_button" in inter.component.custom_id:
             button_type = inter.component.custom_id.split("_")[0]
