@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from disnake import TextChannel
-from disnake.ext import commands
-from utils.dataclasses.config import Config
+from disnake.ext.commands import AutoShardedInteractionBot
+from utils.dataclasses import Config
 
 
 @dataclass
@@ -10,7 +10,7 @@ class BotChannels:
     waste_bin_channel: TextChannel | None = None
     api_changes_channel: TextChannel | None = None
 
-    async def get_channels(self, bot: commands.AutoShardedInteractionBot):
+    async def get_channels(self, bot: AutoShardedInteractionBot):
         channels = [
             ("moderator_channel", Config.MODERATION_CHANNEL_ID),
             ("waste_bin_channel", Config.WASTE_BIN_CHANNEL_ID),

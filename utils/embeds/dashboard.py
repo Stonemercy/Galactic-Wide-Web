@@ -10,6 +10,7 @@ from data.lists import (
     URGENT_ICONS,
 )
 from disnake import Colour, Embed
+from utils.api_wrapper.formatters import FormattedData
 from utils.api_wrapper.models import (
     Assignment,
     Campaign,
@@ -18,10 +19,8 @@ from utils.api_wrapper.models import (
     GlobalResource,
     Planet,
 )
-from utils.api_wrapper.formatters.data_formatter import FormattedData
-from utils.dataclasses import AssignmentImages, Factions, PlanetFeatures
+from utils.dataclasses import AssignmentImages, Faction, Factions, PlanetFeatures
 from utils.dataclasses.enums import AssignmentTaskType, CampaignType, EventType
-from utils.dataclasses.factions import Faction
 from utils.emojis import Emojis
 from utils.functions import get_end_time, health_bar, short_format
 from utils.mixins import EmbedReprMixin

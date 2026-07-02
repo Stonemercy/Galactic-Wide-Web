@@ -1,6 +1,6 @@
-from ...functions import arrowhead_format
-from ...mixins import ReprMixin
 from datetime import datetime, timezone
+from utils.functions import arrowhead_format
+from utils.mixins import ReprMixin
 
 
 class Dispatch(ReprMixin):

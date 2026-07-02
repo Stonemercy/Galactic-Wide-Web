@@ -1,12 +1,11 @@
+from abc import ABC
 from aiohttp import ClientSession, ClientTimeout, ClientSSLError
 from asyncio import sleep
 from typing import Optional
-from abc import ABC
 from utils.logger import GWWLogger
 
 
 class BaseAPIClient(ABC):
-
     def __init__(
         self,
         base_url: str,

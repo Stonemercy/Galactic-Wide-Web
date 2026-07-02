@@ -6,10 +6,10 @@ from disnake import (
     NotFound,
     PartialMessage,
     TextChannel,
-    ui,
 )
 from disnake.ext.commands import AutoShardedInteractionBot
-from utils.dbv2 import Feature, GWWGuilds, GWWGuild as GWWGuild
+from disnake.ui import Container
+from utils.dbv2 import Feature, GWWGuilds, GWWGuild
 from utils.interactables import WikiButton
 from utils.mixins import ReprMixin
 
@@ -191,7 +191,7 @@ class InterfaceHandler:
         self,
         feature_type: str,
         channel: TextChannel,
-        container: ui.Container,
+        container: Container,
     ):
         try:
             await channel.send(components=container)
@@ -214,7 +214,7 @@ class InterfaceHandler:
     async def send_feature(
         self,
         feature_type: str,
-        content: dict[str, Embed | ui.Container],
+        content: dict[str, Embed | Container],
         announcement_type: str = None,
     ):
         self.busy = True

@@ -1,4 +1,4 @@
-from ...api_wrapper.clients import BaseAPIClient
+from utils.api_wrapper.clients import BaseAPIClient
 
 
 class SteamPlayerCountClient(BaseAPIClient):

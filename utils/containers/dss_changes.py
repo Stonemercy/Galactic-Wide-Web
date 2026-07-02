@@ -1,12 +1,11 @@
 from data.lists import CUSTOM_COLOURS
-from disnake import Colour, ui
-from utils.dataclasses import DSSChangesJson, DSSImages, PlanetFeatures
+from disnake import Colour
+from disnake.ui import Container, Section, Separator, TextDisplay, Thumbnail
+from utils.dataclasses import DSSChangesJson, DSSImages, PlanetFeatures, Subfaction
 from utils.api_wrapper.models import DSS, GalacticWarEffect, Planet
-from utils.dataclasses.subfactions import Subfaction
 from utils.emojis import Emojis
 from utils.functions import short_format
 from utils.interactables import HDCButton
-from utils.mixins import ReprMixin
 
 STATUSES = {0: "inactive", 1: "preparing", 2: "active", 3: "on_cooldown"}
 
@@ -17,13 +16,13 @@ AMOUNT_PER_COST = {
 }
 
 
-class DSSChangesContainer(ui.Container, ReprMixin):
+class DSSChangesContainer(Container):
     def __init__(self, json: DSSChangesJson):
         self.json = json
         self.colour = Colour.from_rgb(*CUSTOM_COLOURS["DSS"])
         self.title = [
-            ui.Section(
-                ui.TextDisplay(
+            Section(
+                TextDisplay(
                     f"# {self.json.container['title']} {Emojis.SpaceStations.DSS.icon}"
                 ),
                 accessory=HDCButton(
@@ -34,15 +33,13 @@ class DSSChangesContainer(ui.Container, ReprMixin):
         ]
         self.sections = []
 
-    def _add_subfactions(
-        self, text_display: ui.TextDisplay, subfactions: set[Subfaction]
-    ):
+    def _add_subfactions(self, text_display: TextDisplay, subfactions: set[Subfaction]):
         for sf in subfactions:
             text_display.content += (
                 f"\n-# {sf.emoji} **{self.json.subfactions[sf.eng_name]}**"
             )
 
-    def _add_regions(self, text_display: ui.TextDisplay, regions: list[Planet.Region]):
+    def _add_regions(self, text_display: TextDisplay, regions: list[Planet.Region]):
         for region in sorted(regions, key=lambda x: x.availability_factor):
             region_type = (
                 self.json.regions[str(region.type.value)]
@@ -52,7 +49,7 @@ class DSSChangesContainer(ui.Container, ReprMixin):
             text_display.content += f"\n-# {region.emoji} {region_type} **{region.names.get(self.json.lang_code_long, region.name)}**"
 
     def _add_features(
-        self, text_display: ui.TextDisplay, active_effects: set[GalacticWarEffect]
+        self, text_display: TextDisplay, active_effects: set[GalacticWarEffect]
     ):
         for planet_feature in PlanetFeatures.get_from_effects_list(
             (ae for ae in active_effects if ae.effect_type == 71)
@@ -61,7 +58,7 @@ class DSSChangesContainer(ui.Container, ReprMixin):
 
     def _add_gambit(
         self,
-        text_display: ui.TextDisplay,
+        text_display: TextDisplay,
         gambit_planet: Planet,
     ):
         if gambit_planet.regen_perc_per_hour < 0.03:
@@ -79,8 +76,8 @@ class DSSChangesContainer(ui.Container, ReprMixin):
 
     @update_containers
     def dss_moved(self, before_planet: Planet, after_planet: Planet):
-        section = ui.Section(
-            ui.TextDisplay(
+        section = Section(
+            TextDisplay(
                 self.json.container["has_moved"].format(
                     planet_name1=before_planet.names.get(
                         self.json.lang_code_long, before_planet.name
@@ -91,7 +88,7 @@ class DSSChangesContainer(ui.Container, ReprMixin):
                     emojis=after_planet.exclamations,
                 )
             ),
-            accessory=ui.Thumbnail(
+            accessory=Thumbnail(
                 "https://media.discordapp.net/attachments/1212735927223590974/1417530135292280854/DSS_moved.png?ex=68cad150&is=68c97fd0&hm=893a42a4a8f7c594bf708abd7d0edd98eb9f33be4f26543207d6171fd0e1f27b&=&format=webp&quality=lossless"
             ),
         )
@@ -108,13 +105,13 @@ class DSSChangesContainer(ui.Container, ReprMixin):
             regions=after_planet.regions.values(),
         )
 
-        self.sections.append(ui.Separator())
+        self.sections.append(Separator())
         self.sections.append(section)
 
     @update_containers
     def ta_status_changed(self, tactical_action: DSS.TacticalAction):
-        section = ui.Section(
-            ui.TextDisplay(
+        section = Section(
+            TextDisplay(
                 self.json.container["ta_status_change"].format(
                     ta_name=self.json.container["tactical_actions"]
                     .get(tactical_action.name, {})
@@ -122,7 +119,7 @@ class DSSChangesContainer(ui.Container, ReprMixin):
                     status=self.json.container[STATUSES[tactical_action.status]],
                 )
             ),
-            accessory=ui.Thumbnail(
+            accessory=Thumbnail(
                 DSSImages.get(
                     ta_name=tactical_action.name,
                     status=STATUSES.get(tactical_action.status),
@@ -148,5 +145,5 @@ class DSSChangesContainer(ui.Container, ReprMixin):
             section.children[
                 0
             ].content += f"\n-# {self.json.container['prep_starts']} **<t:{int(tactical_action.status_end_datetime.timestamp())}:R>**"
-        self.sections.append(ui.Separator())
+        self.sections.append(Separator())
         self.sections.append(section)

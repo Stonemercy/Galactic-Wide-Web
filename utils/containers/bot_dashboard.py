@@ -1,18 +1,16 @@
 from datetime import datetime, timezone
-from disnake import Colour, OptionType, ui
+from disnake import Colour, OptionType
+from disnake.ui import Container, Section, Separator, TextDisplay
 from math import inf
 from os import getpid
 from psutil import Process, cpu_percent, net_io_counters, virtual_memory
 from utils.bot import GalacticWideWebBot
 from utils.functions import short_format
-from utils.interactables.HDC_button import HDCButton
-from utils.interactables.github_button import GitHubButton
-from utils.interactables.ko_fi_button import KoFiButton
-from utils.mixins import ReprMixin
+from utils.interactables import GitHubButton, HDCButton, KoFiButton
 
 
 # DOESNT NEED LOCALIZATION
-class BotDashboardContainer(ui.Container, ReprMixin):
+class BotDashboardContainer(Container):
     def __init__(self, bot: GalacticWideWebBot, user_installs: int):
         self.components = []
 
@@ -29,13 +27,13 @@ class BotDashboardContainer(ui.Container, ReprMixin):
                         f"</{global_command.name} {option.name}:{global_command.id}> "
                     )
             commands_text += f"</{global_command.name}:{global_command.id}> "
-        self.components.extend([ui.TextDisplay(commands_text), ui.Separator()])
+        self.components.extend([TextDisplay(commands_text), Separator()])
 
         quickest_server = sorted(
             bot.guilds, key=lambda x: (x.me.joined_at - x.created_at)
         )[0]
         self.components.append(
-            ui.TextDisplay(
+            TextDisplay(
                 f"**Fastest server to add the bot after creation**\n-# **{(quickest_server.me.joined_at - quickest_server.created_at).total_seconds():.0f} seconds**"
             )
         )
@@ -49,8 +47,8 @@ class BotDashboardContainer(ui.Container, ReprMixin):
         voice_channels = sum(len(g.voice_channels) for g in bot.guilds)
         total_emojis = sum(len(g.emojis) for g in bot.guilds)
         self.components.append(
-            ui.Section(
-                ui.TextDisplay(
+            Section(
+                TextDisplay(
                     (
                         f"Servers: **{len(bot.guilds):,}**"
                         f"\n-# ├ Newest Server: Created **<t:{int(newest_server.created_at.timestamp())}:R>**"
@@ -68,7 +66,7 @@ class BotDashboardContainer(ui.Container, ReprMixin):
             )
         )
 
-        self.components.append(ui.Separator())
+        self.components.append(Separator())
 
         memory_used = Process(getpid()).memory_info().rss / 1024**3
         total_system_memory = virtual_memory().total / 1024**3
@@ -93,8 +91,8 @@ class BotDashboardContainer(ui.Container, ReprMixin):
             cpu_text += f"Core {i:2}: {bar} {percent:4.1f}%"
 
         self.components.append(
-            ui.Section(
-                ui.TextDisplay(
+            Section(
+                TextDisplay(
                     f"### :desktop: Hardware Info"
                     f"\n```CPU:"
                     f"\nOverall: {overall_bar} {overall_cpu:4.1f}%"
@@ -112,12 +110,12 @@ class BotDashboardContainer(ui.Container, ReprMixin):
         bytes_recv_gb = net_io.bytes_recv / (1024**3)
 
         self.components.append(
-            ui.TextDisplay(
+            TextDisplay(
                 f"### :satellite: Network Info\n-# **Sent**: {bytes_sent_gb:.2f}GB\n-# **Received:** {bytes_recv_gb:.2f}GB"
             )
         )
 
-        self.components.append(ui.Separator())
+        self.components.append(Separator())
 
         shardinfo = "\n".join(
             [
@@ -126,8 +124,8 @@ class BotDashboardContainer(ui.Container, ReprMixin):
             ]
         )
         self.components.append(
-            ui.Section(
-                ui.TextDisplay(f"### :jigsaw: Shards\n{shardinfo}"),
+            Section(
+                TextDisplay(f"### :jigsaw: Shards\n{shardinfo}"),
                 accessory=GitHubButton(),
             )
         )
@@ -143,11 +141,11 @@ class BotDashboardContainer(ui.Container, ReprMixin):
                 loop_errors += f"{loop.coro.__name__} - **__ERROR__**:warning:\n"
                 errors += 1
         if loop_errors:
-            self.components.append(ui.Separator())
-            self.components.append(ui.TextDisplay(f"# LOOP ERRORS\n{loop_errors}"))
+            self.components.append(Separator())
+            self.components.append(TextDisplay(f"# LOOP ERRORS\n{loop_errors}"))
         accent_colour = embed_colours.get(errors, Colour.from_rgb(0, 0, 0))
         self.components.append(
-            ui.TextDisplay(
+            TextDisplay(
                 f"-# Updated <t:{int(datetime.now(tz=timezone.utc).timestamp())}:R>"
             )
         )

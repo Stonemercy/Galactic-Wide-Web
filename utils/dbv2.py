@@ -1,7 +1,7 @@
 from dataclasses import dataclass
-from typing import Self
 from psycopg2 import connect
 from psycopg2.extras import Json, DictCursor
+from typing import Self
 from utils.mixins import ReprMixin
 from utils.dataclasses import Languages, Config
 

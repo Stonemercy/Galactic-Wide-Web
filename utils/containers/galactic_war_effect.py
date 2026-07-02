@@ -1,12 +1,12 @@
-from disnake import Colour, ui
+from disnake import Colour
+from disnake.ui import Container, Separator, TextDisplay
 from utils.api_wrapper.models import GalacticWarEffect, Planet
-from utils.dataclasses import Subfactions
-from utils.dataclasses.planet_features import PlanetFeatures
+from utils.dataclasses import PlanetFeatures, Subfactions
 from utils.mixins import ReprMixin
 
 
 # DOESNT NEED LOCALIZATION
-class GWEContainer(ui.Container, ReprMixin):
+class GWEContainer(Container, ReprMixin):
     def __init__(
         self,
         gwe: GalacticWarEffect,
@@ -16,7 +16,7 @@ class GWEContainer(ui.Container, ReprMixin):
     ):
         self.components = []
         self.components.append(
-            ui.TextDisplay(f"{gwe.id} - {gwe.effect_description['simplified_name']}")
+            TextDisplay(f"{gwe.id} - {gwe.effect_description['simplified_name']}")
         )
         content = ""
         if gwe.name:
@@ -83,11 +83,11 @@ class GWEContainer(ui.Container, ReprMixin):
                 active_planets = "-# None"
             content += f"\n**Active on**\n{active_planets}"
 
-        self.components.append(ui.TextDisplay(content))
+        self.components.append(TextDisplay(content))
 
         if with_pretty_print:
-            self.components.append(ui.Separator())
-            self.components.append(ui.TextDisplay(f"```py\n{gwe}```"))
+            self.components.append(Separator())
+            self.components.append(TextDisplay(f"```py\n{gwe}```"))
 
         super().__init__(
             *self.components,

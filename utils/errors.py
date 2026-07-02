@@ -1,11 +1,11 @@
-from disnake.ext import commands
+from disnake.ext.commands import CheckFailure
 
 
-class NotWhitelisted(commands.CheckFailure):
+class NotWhitelisted(CheckFailure):
     def __init__(self):
         super().__init__("User tried to use a whitelisted command.")
 
 
-class NotReadyYet(commands.CheckFailure):
+class NotReadyYet(CheckFailure):
     def __init__(self):
         super().__init__("The bot isn't ready yet.")

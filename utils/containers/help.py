@@ -1,15 +1,15 @@
-from disnake import APISlashCommand, Colour, ui, OptionType
+from disnake import APISlashCommand, Colour, OptionType
+from disnake.ui import ActionRow, Container, Separator, TextDisplay
 from disnake.ext.commands.slash_core import InvokableSlashCommand
 from utils.interactables import (
     GuildInstallButton,
     SupportServerButton,
     UserInstallButton,
 )
-from utils.mixins import ReprMixin
 
 
 # DOESNT NEED LOCALIZATION (YET)
-class HelpContainer(ui.Container, ReprMixin):
+class HelpContainer(Container):
     def __init__(
         self,
         commands: list[APISlashCommand] = None,
@@ -28,10 +28,10 @@ class HelpContainer(ui.Container, ReprMixin):
                         options += f"- **`{option.name}`**: `{option.type.name}` {'**[Required]**' if option.required else '**<Optional>**'} - {option.description}\n"
                 components.extend(
                     [
-                        ui.TextDisplay(
+                        TextDisplay(
                             f"## </{global_command.name}:{global_command.id}>\n-# {global_command.description if global_command.description != '-' else 'WIP'}\n{options}"
                         ),
-                        ui.Separator(),
+                        Separator(),
                     ]
                 )
         elif command:
@@ -44,15 +44,13 @@ class HelpContainer(ui.Container, ReprMixin):
                 else:
                     options += f"- **`{option.name}`** {'**[Required]**' if option.required else '**<Optional>**'} - {option.description}\n"
             components.append(
-                ui.TextDisplay(
+                TextDisplay(
                     f"# /{command.name}\n{command.extras.get('long_description') or 'WIP'}\n{options}\n**Example usage:**\n- {command.extras.get('example_usage') or 'WIP'}"
                 )
             )
 
         components.append(
-            ui.ActionRow(
-                SupportServerButton(), GuildInstallButton(), UserInstallButton()
-            )
+            ActionRow(SupportServerButton(), GuildInstallButton(), UserInstallButton())
         )
 
         super().__init__(*components, accent_colour=Colour.green())

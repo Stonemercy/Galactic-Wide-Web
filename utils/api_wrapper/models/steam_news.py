@@ -1,5 +1,5 @@
 from datetime import datetime, timezone
-from ...mixins import ReprMixin
+from utils.mixins import ReprMixin
 
 
 class SteamNews(ReprMixin):

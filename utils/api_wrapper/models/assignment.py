@@ -1,13 +1,11 @@
 from datetime import datetime, timedelta, timezone
+from utils.dataclasses import Faction, Factions
 from utils.dataclasses.enums import AssignmentTaskType
-from utils.functions import arrowhead_format
-from ...mixins import ReprMixin
-from ...trackers import BaseTrackerEntry
-from ...dataclasses import Faction, Factions
-from ...functions import health_bar
+from utils.functions import arrowhead_format, health_bar
+from utils.trackers import BaseTrackerEntry
 
 
-class Assignment(ReprMixin):
+class Assignment:
     def __init__(self, raw_assignment_data: dict, war_start_timestamp: int) -> None:
         """Organised data of an Assignment or Major Order"""
         self.id: int = raw_assignment_data["id32"]
@@ -45,26 +43,7 @@ class Assignment(ReprMixin):
     def unique_task_types(self) -> set[AssignmentTaskType]:
         return {t.type for t in self.tasks}
 
-    class Task(ReprMixin):
-        """Organised data of an Assignment Task"""
-
-        __slots__ = (
-            "faction",
-            "target",
-            "enemy_id",
-            "item_id",
-            "item_type",
-            "objective",
-            "min_players",
-            "mission_type",
-            "difficulty",
-            "planet_index",
-            "sector_index",
-            "type",
-            "progress",
-            "tracker",
-        )
-
+    class Task:
         def __init__(self, task: dict, current_progress: int | float) -> None:
             self._type: int = task["type"]
             self.type: AssignmentTaskType = AssignmentTaskType(self._type)

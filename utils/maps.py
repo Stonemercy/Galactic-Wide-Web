@@ -1,4 +1,3 @@
-from numpy.random import randint
 from cv2 import (
     INTER_NEAREST,
     addWeighted,
@@ -37,6 +36,7 @@ from numpy import (
     where,
     zeros,
 )
+from numpy.random import randint
 from PIL import Image, ImageDraw, ImageFont
 from utils.api_wrapper.models import Assignment, DSS, Planet
 from utils.dataclasses import Factions, Faction

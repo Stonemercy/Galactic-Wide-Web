@@ -1,11 +1,11 @@
-from disnake import Colour, ui, ShardInfo
+from disnake import Colour, ShardInfo
+from disnake.ui import ActionRow, Button, Container, Section, Separator, TextDisplay
 from utils.dbv2 import GWWGuild
 from utils.emojis import Emojis
-from utils.mixins import ReprMixin
 from utils.setup import Setup
 
 
-class SetupContainer(ui.Container, ReprMixin):
+class SetupContainer(Container):
     def __init__(
         self,
         guild: GWWGuild,
@@ -18,26 +18,26 @@ class SetupContainer(ui.Container, ReprMixin):
 
         self.components.extend(
             [
-                ui.TextDisplay(
+                TextDisplay(
                     container_json["shard_info"].format(
                         shard_id=shard_info.id,
                         latency=f"{shard_info.latency * 1000:.0f}",
                     )
                 ),
-                ui.Separator(),
+                Separator(),
             ]
         )
 
         if not active_category:
             self.components.extend(
                 [
-                    ui.ActionRow(
+                    ActionRow(
                         Setup.Dashboards.DashboardsButton(),
                         Setup.Features.FeaturesButton(),
                     ),
-                    ui.Separator(),
-                    ui.Section(
-                        ui.TextDisplay(
+                    Separator(),
+                    Section(
+                        TextDisplay(
                             container_json["language"].format(
                                 flag_emoji=getattr(
                                     Emojis.Flags,
@@ -54,14 +54,14 @@ class SetupContainer(ui.Container, ReprMixin):
                 ]
             )
         else:
-            self.components.append(ui.TextDisplay(f"# {active_category.title()}"))
+            self.components.append(TextDisplay(f"# {active_category.title()}"))
             if active_category == "dashboards":
                 dashboard_feature = [
                     f for f in guild.features if f.name == "dashboards"
                 ]
                 if dashboard_feature:
-                    dashboard_section = ui.Section(
-                        ui.TextDisplay(
+                    dashboard_section = Section(
+                        TextDisplay(
                             f":white_check_mark: {container_json['dashboard_title']}\n{container_json['dashboard_desc']}"
                         ),
                         accessory=Setup.Dashboards.Dashboard.ClearDashboardButton(
@@ -73,31 +73,31 @@ class SetupContainer(ui.Container, ReprMixin):
                         f"{container_json['channel']}: <#{dashboard.channel_id}>"
                         f"\n{container_json['message']}: https://discord.com/channels/{guild.guild_id}/{dashboard.channel_id}/{dashboard.message_id}"
                     )
-                    self.components.extend([ui.Separator(), dashboard_section])
+                    self.components.extend([Separator(), dashboard_section])
                 else:
-                    text_display = ui.TextDisplay(
+                    text_display = TextDisplay(
                         f":x: {container_json['dashboard_title']}\n{container_json['dashboard_desc']}**{container_json['not_set']}**"
                     )
                     self.components.extend(
                         [
                             text_display,
-                            ui.ActionRow(
+                            ActionRow(
                                 Setup.Dashboards.Dashboard.DashboardChannelSelect(
                                     container_json=container_json
                                 )
                             ),
-                            ui.Separator(),
+                            Separator(),
                         ]
                     )
 
                 # map
                 map_feature = [f for f in guild.features if f.name == "maps"]
                 if map_feature:
-                    map_section = ui.Section(
-                        ui.TextDisplay(
+                    map_section = Section(
+                        TextDisplay(
                             f":white_check_mark: {container_json['map_title']}\n{container_json['map_desc']}"
                         ),
-                        accessory=ui.Button(),
+                        accessory=Button(),
                     )
                     galaxy_map = map_feature[0]
                     map_section.children[0].content += (
@@ -107,15 +107,15 @@ class SetupContainer(ui.Container, ReprMixin):
                     map_section.accessory = Setup.Dashboards.Map.ClearMapButton(
                         container_json=container_json
                     )
-                    self.components.extend([ui.Separator(), map_section])
+                    self.components.extend([Separator(), map_section])
                 else:
-                    text_display = ui.TextDisplay(
+                    text_display = TextDisplay(
                         f":x: {container_json['map_title']}\n{container_json['map_desc']}**{container_json['not_set']}**"
                     )
                     self.components.extend(
                         [
                             text_display,
-                            ui.ActionRow(
+                            ActionRow(
                                 Setup.Dashboards.Map.MapChannelSelect(
                                     container_json=container_json
                                 )
@@ -124,11 +124,11 @@ class SetupContainer(ui.Container, ReprMixin):
                     )
             elif active_category == "features":
                 # war announcements
-                war_announcements_section = ui.Section(
-                    ui.TextDisplay(
+                war_announcements_section = Section(
+                    TextDisplay(
                         f"{container_json['war_announcements_title']}\n{container_json['war_announcements_desc']}"
                     ),
-                    accessory=ui.Button(),
+                    accessory=Button(),
                 )
                 war_announcements_feature = [
                     f for f in guild.features if f.name == "war_announcements"
@@ -161,14 +161,14 @@ class SetupContainer(ui.Container, ReprMixin):
                             container_json=container_json,
                         )
                     )
-                self.components.extend([ui.Separator(), war_announcements_section])
+                self.components.extend([Separator(), war_announcements_section])
 
                 # dss announcements
-                dss_announcements_section = ui.Section(
-                    ui.TextDisplay(
+                dss_announcements_section = Section(
+                    TextDisplay(
                         f"{container_json['dss_announcements_title']}\n{container_json['dss_announcements_desc']}"
                     ),
-                    accessory=ui.Button(),
+                    accessory=Button(),
                 )
                 dss_announcements_feature = [
                     f for f in guild.features if f.name == "dss_announcements"
@@ -201,14 +201,14 @@ class SetupContainer(ui.Container, ReprMixin):
                             container_json=container_json,
                         )
                     )
-                self.components.extend([ui.Separator(), dss_announcements_section])
+                self.components.extend([Separator(), dss_announcements_section])
 
                 # region announcements
-                region_announcements_section = ui.Section(
-                    ui.TextDisplay(
+                region_announcements_section = Section(
+                    TextDisplay(
                         f"{container_json['region_announcements_title']}\n{container_json['region_announcements_desc']}"
                     ),
-                    accessory=ui.Button(),
+                    accessory=Button(),
                 )
                 region_announcements_feature = [
                     f for f in guild.features if f.name == "region_announcements"
@@ -241,14 +241,14 @@ class SetupContainer(ui.Container, ReprMixin):
                             container_json=container_json,
                         )
                     )
-                self.components.extend([ui.Separator(), region_announcements_section])
+                self.components.extend([Separator(), region_announcements_section])
 
                 # patch notes
-                patch_notes_section = ui.Section(
-                    ui.TextDisplay(
+                patch_notes_section = Section(
+                    TextDisplay(
                         f"{container_json['patch_notes_title']}\n{container_json['patch_notes_desc']}"
                     ),
-                    accessory=ui.Button(),
+                    accessory=Button(),
                 )
                 patch_notes_feature = [
                     f for f in guild.features if f.name == "patch_notes"
@@ -276,14 +276,14 @@ class SetupContainer(ui.Container, ReprMixin):
                     patch_notes_section.accessory = Setup.Features.SetFeatureButton(
                         feature_type="patch_notes", container_json=container_json
                     )
-                self.components.extend([ui.Separator(), patch_notes_section])
+                self.components.extend([Separator(), patch_notes_section])
 
                 # mo updates
-                mo_updates_section = ui.Section(
-                    ui.TextDisplay(
+                mo_updates_section = Section(
+                    TextDisplay(
                         f"{container_json['major_order_updates_title']}\n{container_json['major_order_updates_desc']}"
                     ),
-                    accessory=ui.Button(),
+                    accessory=Button(),
                 )
                 mo_updates_feature = [
                     f for f in guild.features if f.name == "major_order_updates"
@@ -313,14 +313,14 @@ class SetupContainer(ui.Container, ReprMixin):
                         feature_type="major_order_updates",
                         container_json=container_json,
                     )
-                self.components.extend([ui.Separator(), mo_updates_section])
+                self.components.extend([Separator(), mo_updates_section])
 
                 # po updates
-                po_updates_section = ui.Section(
-                    ui.TextDisplay(
+                po_updates_section = Section(
+                    TextDisplay(
                         f"{container_json['personal_order_updates_title']}\n{container_json['personal_order_updates_desc']}"
                     ),
-                    accessory=ui.Button(),
+                    accessory=Button(),
                 )
                 po_updates_feature = [
                     f for f in guild.features if f.name == "personal_order_updates"
@@ -350,14 +350,14 @@ class SetupContainer(ui.Container, ReprMixin):
                         feature_type="personal_order_updates",
                         container_json=container_json,
                     )
-                self.components.extend([ui.Separator(), po_updates_section])
+                self.components.extend([Separator(), po_updates_section])
 
                 # detailed dispatches
-                ddispatches_section = ui.Section(
-                    ui.TextDisplay(
+                ddispatches_section = Section(
+                    TextDisplay(
                         f"{container_json['detailed_dispatches_title']}\n{container_json['detailed_dispatches_desc']}"
                     ),
-                    accessory=ui.Button(),
+                    accessory=Button(),
                 )
                 ddispatches_feature = [
                     f for f in guild.features if f.name == "detailed_dispatches"
@@ -387,10 +387,10 @@ class SetupContainer(ui.Container, ReprMixin):
                         feature_type="detailed_dispatches",
                         container_json=container_json,
                     )
-                self.components.extend([ui.Separator(), ddispatches_section])
+                self.components.extend([Separator(), ddispatches_section])
 
         if active_category:
-            self.components.extend([ui.Separator(), ui.ActionRow(Setup.HomeButton())])
+            self.components.extend([Separator(), ActionRow(Setup.HomeButton())])
 
         super().__init__(
             *self.components,

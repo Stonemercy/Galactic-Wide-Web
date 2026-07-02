@@ -1,10 +1,5 @@
 from datetime import datetime, timedelta, timezone
-from utils.dataclasses import Languages
-from utils.dataclasses.enums import AssignmentTaskType
-from utils.dbv2 import GWWGuilds
-from utils.logger import GWWLogger
-from utils.mixins import ReprMixin
-from ..clients import (
+from utils.api_wrapper.clients import (
     AltDSSVotesAuthedClient,
     AltPOAuthedClient,
     ArsenalClient,
@@ -13,9 +8,14 @@ from ..clients import (
     SteamNewsClient,
     SteamPlayerCountClient,
 )
-from ..services.tracking_service import TrackingService
-from ..utils.constants import EndpointBase
-from ..formatters import FormattedData, FormattedDataContext
+from utils.api_wrapper.formatters import FormattedData, FormattedDataContext
+from utils.api_wrapper.services import TrackingService
+from utils.api_wrapper.utils.constants import EndpointBase
+from utils.dataclasses import Languages
+from utils.dataclasses.enums import AssignmentTaskType
+from utils.dbv2 import GWWGuilds
+from utils.logger import GWWLogger
+from utils.mixins import ReprMixin
 
 SPACE_STATION_IDS = {
     749875195: "DSS",
@@ -115,7 +115,7 @@ class DataService(ReprMixin):
                 assignments = await client.get_assignments(
                     war_id=self.war_id, lang=lang.long_code
                 )
-                if assignments:
+                if assignments != None:
                     self._raw_assignments[lang.short_code] = assignments
 
             for space_station in self._raw_war_status.get("en", {}).get(

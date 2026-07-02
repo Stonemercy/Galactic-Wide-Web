@@ -1,5 +1,5 @@
+from utils.api_wrapper.clients import BaseAPIClient
 from utils.dataclasses import Config
-from . import BaseAPIClient
 
 
 class ArsenalClient(BaseAPIClient):

@@ -1,25 +1,23 @@
-from disnake import Colour, ui
-from utils.api_wrapper.models.planet import Planet
-from utils.dataclasses.factions import Factions
-from utils.dataclasses.subfactions import Subfaction
-from utils.interactables import HDCButton
-from utils.interactables.subfactions_string_select import SubfactionsStringSelect
-from utils.interactables.wiki_button import WikiButton
+from disnake import Colour
+from disnake.ui import ActionRow, Container, Section, Separator, TextDisplay
+from utils.api_wrapper.models import Planet
+from utils.dataclasses import Factions, Subfaction
+from utils.interactables import HDCButton, SubfactionsStringSelect, WikiButton
 
 
-class SubfactionsContainer(ui.Container):
+class SubfactionsContainer(Container):
     def __init__(self, subfaction: Subfaction, planets: dict[int, Planet]):
         self.components = []
 
-        title_section = ui.Section(
-            ui.TextDisplay(f"# {subfaction.emoji} {subfaction.eng_name.title()}"),
+        title_section = Section(
+            TextDisplay(f"# {subfaction.emoji} {subfaction.eng_name.title()}"),
             accessory=WikiButton(
                 link=f"https://helldivers.wiki.gg/wiki/{subfaction.eng_name.title().replace(' ', '_')}",
             ),
         )
-        self.components.extend([title_section, ui.Separator()])
+        self.components.extend([title_section, Separator()])
 
-        self.components.append(ui.TextDisplay(f"Planets with this subfaction active:"))
+        self.components.append(TextDisplay(f"Planets with this subfaction active:"))
         if planets_with_sf := sorted(
             [
                 p
@@ -33,8 +31,8 @@ class SubfactionsContainer(ui.Container):
             for planet in planets_with_sf:
                 self.components.extend(
                     [
-                        ui.Section(
-                            ui.TextDisplay(
+                        Section(
+                            TextDisplay(
                                 (
                                     f"\n- {planet.faction.emoji} {planet.name}"
                                     f"\n-# {planet.stats.player_count:,} Heroes"
@@ -45,7 +43,7 @@ class SubfactionsContainer(ui.Container):
                                 link=f"https://helldiverscompanion.com/#hellpad/planets/{planet.index}",
                             ),
                         ),
-                        ui.Separator(),
+                        Separator(),
                     ]
                 )
             colour = max(
@@ -53,10 +51,10 @@ class SubfactionsContainer(ui.Container):
                 key=[p.faction for p in planets_with_sf].count,
             ).colour
         else:
-            self.components.append(ui.TextDisplay(f"- None"))
+            self.components.append(TextDisplay(f"- None"))
             colour = Factions.humans.colour
 
-        self.components.append(ui.ActionRow(SubfactionsStringSelect(planets=planets)))
+        self.components.append(ActionRow(SubfactionsStringSelect(planets=planets)))
 
         super().__init__(
             *self.components,

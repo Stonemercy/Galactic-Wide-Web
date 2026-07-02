@@ -1,9 +1,7 @@
 from copy import deepcopy
 from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
-from utils.dataclasses.communities import arsenal
-from utils.dataclasses.enums import AssignmentTaskType, EventType, SpaceStationType
-from ..models import (
+from utils.api_wrapper.models import (
     Assignment,
     Campaign,
     Dispatch,
@@ -16,7 +14,9 @@ from ..models import (
     SpaceStation,
     SteamNews,
 )
-from ...dataclasses import Factions
+from utils.dataclasses import Factions
+from utils.dataclasses.communities import arsenal
+from utils.dataclasses.enums import AssignmentTaskType, EventType, SpaceStationType
 
 CORRECT_SECTORS = {
     "SOL": ["SUPER EARTH"],
@@ -435,7 +435,7 @@ class FormattedData:
                 for steam_news in context.steam_news
             ]
 
-        if context.assignments.get("en"):
+        if context.assignments.get("en") != None:
             for lang, assignments in context.assignments.items():
                 self.assignments[lang] = sorted(
                     [
@@ -448,13 +448,17 @@ class FormattedData:
                     key=lambda x: x.ends_at_datetime,
                     reverse=True,
                 )
-                for assignment in self.assignments[lang]:
+                for assignment in self.assignments.get(lang, []):
                     if assignment.briefing and assignment.briefing.count("_") > 5:
-                        english_assignment_list = [
-                            a for a in self.assignments["en"] if a.id == assignment.id
-                        ]
-                        if english_assignment_list:
-                            english_assignment = english_assignment_list[0]
+                        english_assignment = next(
+                            (
+                                a
+                                for a in self.assignments.get("en", [])
+                                if a.id == assignment.id
+                            ),
+                            None,
+                        )
+                        if english_assignment:
                             if (
                                 english_assignment.briefing
                                 and english_assignment.briefing.count("_") < 5
@@ -462,7 +466,7 @@ class FormattedData:
                                 assignment.briefing = english_assignment.briefing
 
             # in_assignment
-            for assignment in self.assignments.get("en"):
+            for assignment in self.assignments.get("en", []):
                 for task in assignment.tasks:
                     if task.progress_perc >= 1:
                         continue

@@ -1,5 +1,5 @@
-from ...api_wrapper.clients import BaseAPIClient
-from ...dataclasses import Config
+from utils.api_wrapper.clients import BaseAPIClient
+from utils.dataclasses import Config
 
 
 class AuthedClient(BaseAPIClient):

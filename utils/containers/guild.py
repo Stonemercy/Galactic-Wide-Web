@@ -1,9 +1,16 @@
-from disnake import Colour, MediaGalleryItem, ui, Guild
+from disnake import Colour, MediaGalleryItem, Guild
+from disnake.ui import (
+    ActionRow,
+    Container,
+    MediaGallery,
+    Section,
+    Separator,
+    TextDisplay,
+    Thumbnail,
+)
 from utils.dataclasses import Languages
 from utils.dbv2 import GWWGuild
-from utils.interactables.ADMIN.leave_guild_button import LeaveGuildButton
-from utils.interactables.ADMIN.reset_guild_button import ResetGuildButton
-from utils.mixins import ReprMixin
+from utils.interactables.ADMIN import LeaveGuildButton, ResetGuildButton
 
 VERIFICATION_DICT = {
     0: "No criteria set.",
@@ -25,7 +32,7 @@ FLAG_DICT = {
 
 
 # DOESNT NEED LOCALIZATION
-class GuildContainer(ui.Container, ReprMixin):
+class GuildContainer(Container):
     def __init__(
         self,
         guild: Guild,
@@ -36,9 +43,9 @@ class GuildContainer(ui.Container, ReprMixin):
     ):
         components = []
         colour = Colour.dark_theme()
-        title_component = ui.Section(
-            ui.TextDisplay(f"# Guild"),
-            accessory=ui.Thumbnail(
+        title_component = Section(
+            TextDisplay(f"# Guild"),
+            accessory=Thumbnail(
                 guild.icon.url
                 if guild.icon
                 else "https://cdn.discordapp.com/attachments/1212735927223590974/1422512588973015081/0xa92d559bf3ae174.png?ex=68dcf196&is=68dba016&hm=6d361df60c5c8b49467f549fa599f018039887cb355f329f1575ba701bcd7d60&"
@@ -61,18 +68,18 @@ class GuildContainer(ui.Container, ReprMixin):
             ].content += f"\n-# Vanity URL code\n<https://discord.com/invite/{guild.vanity_url_code}>"
         if guild.description:
             title_component.children[0].content += f"\n-# {guild.description}"
-        components.extend([title_component, ui.Separator()])
+        components.extend([title_component, Separator()])
 
-        text_display = ui.TextDisplay("")
+        text_display = TextDisplay("")
         text_display.content += f"👥 Members: **{guild.member_count}**"
         text_display.content += f"\n:hash: Text channels: **{len(guild.text_channels)}**\n:speaking_head: Voice channels: **{len(guild.voice_channels)}**"
         text_display.content += f"\nCreated On <t:{int(guild.created_at.timestamp())}:F>\n(<t:{int(guild.created_at.timestamp())}:R>)"
-        components.extend([text_display, ui.Separator()])
+        components.extend([text_display, Separator()])
 
-        text_display = ui.TextDisplay("")
+        text_display = TextDisplay("")
         text_display.content += f"## Verification Level\n**{str(guild.verification_level).capitalize()}**\n-# {VERIFICATION_DICT.get(guild.verification_level.value, 'Unknown')}"
         text_display.content += f"\n🌐 Locale\n{FLAG_DICT.get(Languages.get_from_locale(guild.preferred_locale).short_code, '')} {guild.preferred_locale}"
-        components.extend([text_display, ui.Separator()])
+        components.extend([text_display, Separator()])
 
         features_text = ""
         if guild.features:
@@ -106,7 +113,7 @@ class GuildContainer(ui.Container, ReprMixin):
                 features_text += f"-# - {feature.replace('_', ' ').capitalize()}\n"
         if features_text:
             components.extend(
-                [ui.TextDisplay(f"## Features:\n{features_text}"), ui.Separator()]
+                [TextDisplay(f"## Features:\n{features_text}"), Separator()]
             )
         if not joined:
             if db_guild.features != []:
@@ -121,21 +128,18 @@ class GuildContainer(ui.Container, ReprMixin):
                 db_features_text = "-# None"
             components.extend(
                 [
-                    ui.TextDisplay(f"## Bot Features Enabled\n{db_features_text}"),
-                    ui.Separator(),
+                    TextDisplay(f"## Bot Features Enabled\n{db_features_text}"),
+                    Separator(),
                 ]
             )
         components.extend(
-            [
-                ui.TextDisplay(f"###  Shard ID #{guild.shard_id}"),
-                ui.Separator(),
-            ]
+            [TextDisplay(f"###  Shard ID #{guild.shard_id}"), Separator()]
         )
 
         if guild.banner:
-            components.append(ui.MediaGallery(MediaGalleryItem(guild.banner.url)))
+            components.append(MediaGallery(MediaGalleryItem(guild.banner.url)))
 
         if joined or fetching:
-            components.append(ui.ActionRow(*[LeaveGuildButton(), ResetGuildButton()]))
+            components.append(ActionRow(*[LeaveGuildButton(), ResetGuildButton()]))
 
         super().__init__(*components, accent_colour=colour)

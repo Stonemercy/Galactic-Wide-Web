@@ -3,6 +3,7 @@ from .assignment_images import AssignmentImages
 from .bot_channels import BotChannels
 from .calculated_end_time import CalculatedEndTime
 from .campaign_changes_json import CampaignChangesJson
+from .communities import Community
 from .config import Config
 from .dss_changes_json import DSSChangesJson
 from .dss_images import DSSImages
@@ -12,7 +13,7 @@ from .modes import GWWBotModes
 from .planet_features import PlanetFeatures
 from .randomiser_data import RandomiserData
 from .region_changes_json import RegionChangesJson
-from .subfactions import Subfactions
+from .subfactions import Subfactions, Subfaction
 from .VIPs import VIP
 from .warbond_images import WarbondImages
 
@@ -22,6 +23,7 @@ __all__ = [
     "BotChannels",
     "CalculatedEndTime",
     "CampaignChangesJson",
+    "Community",
     "Config",
     "Databases",
     "DSSChangesJson",
@@ -33,6 +35,7 @@ __all__ = [
     "PlanetFeatures",
     "RandomiserData",
     "RegionChangesJson",
+    "Subfaction",
     "Subfactions",
     "VIP",
     "WarbondImages",

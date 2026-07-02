@@ -1,11 +1,11 @@
-from .galactic_war_effect import GWEContainer
 from data.lists import CUSTOM_COLOURS
-from disnake import Colour, MediaGalleryItem, ui
+from disnake import Colour, MediaGalleryItem
+from disnake.ui import Container, MediaGallery, Separator, TextDisplay
 from utils.api_wrapper.models import GlobalEvent, Planet
-from utils.mixins import ReprMixin
+from utils.containers import GWEContainer
 
 
-class GlobalEventsContainer(ui.Container, ReprMixin):
+class GlobalEventsContainer(Container):
     def __init__(
         self,
         lang_code: str,
@@ -18,15 +18,15 @@ class GlobalEventsContainer(ui.Container, ReprMixin):
     ):
         components = []
         if image_url:
-            components.append(ui.MediaGallery(MediaGalleryItem(image_url)))
+            components.append(MediaGallery(MediaGalleryItem(image_url)))
         elif attachment_url:
-            components.append(ui.MediaGallery(MediaGalleryItem(attachment_url)))
-        title = ui.TextDisplay(
+            components.append(MediaGallery(MediaGalleryItem(attachment_url)))
+        title = TextDisplay(
             f"# {global_event.title if global_event.title else container_json['new_event']}"
         )
         if global_event.assignment_id:
             title.content += f"\n-# Related to Assignment #{global_event.assignment_id}"
-        components.extend([title, ui.Separator()])
+        components.extend([title, Separator()])
         if global_event.effects != []:
             if not global_event.planet_indices:
                 specific_planets = f"\n    {container_json['all_planets']}"
@@ -47,27 +47,27 @@ class GlobalEventsContainer(ui.Container, ReprMixin):
                     + "\n"
                 )
                 effects_text += gwe_content
-            components.append(ui.TextDisplay(effects_text or "No effects present"))
+            components.append(TextDisplay(effects_text or "No effects present"))
             components.extend(
                 [
-                    ui.TextDisplay(
+                    TextDisplay(
                         f"\n### {container_json['active_on_planets']}:{specific_planets}"
                     ),
-                    ui.Separator(),
+                    Separator(),
                 ]
             )
         else:
             components.extend(
                 [
-                    ui.TextDisplay(
+                    TextDisplay(
                         "".join(f"\n{chunk}" for chunk in global_event.split_message)
                         or "Empty Message"
                     ),
-                    ui.Separator(),
+                    Separator(),
                 ]
             )
 
-        extra_text_display = ui.TextDisplay("")
+        extra_text_display = TextDisplay("")
         if with_expiry_time:
             extra_text_display.content += (
                 f"-# {container_json['expires']} <t:{global_event.expire_time}:R>"

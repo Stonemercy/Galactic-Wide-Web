@@ -1,6 +1,5 @@
 from .ADMIN import ConfirmButton, LeaveGuildButton, ResetGuildButton
 from .app_directory_button import AppDirectoryButton
-from .community_servers import PreviousPageButton, NextPageButton
 from .dispatch_string_select import DispatchStringSelect
 from .github_button import GitHubButton
 from .HDC_button import HDCButton
@@ -15,8 +14,6 @@ __all__ = [
     "LeaveGuildButton",
     "ResetGuildButton",
     "AppDirectoryButton",
-    "PreviousPageButton",
-    "NextPageButton",
     "DispatchStringSelect",
     "GitHubButton",
     "HDCButton",

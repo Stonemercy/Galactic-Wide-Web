@@ -1,7 +1,7 @@
+from utils.dataclasses import Faction
 from utils.dataclasses.enums import CampaignType
-from ...mixins import ReprMixin
-from ...dataclasses import Faction
-from .planet import Planet
+from utils.mixins import ReprMixin
+from utils.api_wrapper.models.planet import Planet
 
 
 class Campaign(ReprMixin):

@@ -1,8 +1,7 @@
 from disnake import SelectOption
 from disnake.ui import StringSelect
 from utils.api_wrapper.models import Planet
-from utils.dataclasses.factions import Factions
-from utils.dataclasses.subfactions import Subfactions
+from utils.dataclasses import Factions, Subfactions
 
 
 class SubfactionsStringSelect(StringSelect):

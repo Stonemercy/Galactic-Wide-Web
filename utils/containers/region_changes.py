@@ -1,33 +1,41 @@
 from data.lists import ATTACK_EMBED_ICONS, VICTORY_ICONS, CUSTOM_COLOURS
-from disnake import Colour, ui
+from disnake import Colour
+from disnake.ui import (
+    ActionRow,
+    Button,
+    Container,
+    Section,
+    Separator,
+    TextDisplay,
+    Thumbnail,
+)
 from utils.api_wrapper.models import GalacticWarEffect, Planet
-from utils.dataclasses import PlanetFeatures, RegionChangesJson
-from utils.dataclasses.subfactions import Subfaction
+from utils.dataclasses import PlanetFeatures, RegionChangesJson, Subfaction
 from utils.emojis import Emojis
 from utils.interactables import HDCButton
 from utils.mixins import ReprMixin
 
 
-class RegionChangesContainer(ui.Container, ReprMixin):
+class RegionChangesContainer(Container, ReprMixin):
     def __init__(self, container_json: RegionChangesJson):
         self.container_json = container_json
         self.colour = Colour.dark_theme()
         self.title = [
-            ui.TextDisplay(
+            TextDisplay(
                 f"# {Emojis.Decoration.left_banner} {self.container_json.container['title']} {Emojis.Decoration.right_banner}",
             )
         ]
         self.victories = [
-            ui.TextDisplay(
+            TextDisplay(
                 f"## {self.container_json.container['victories']} {Emojis.Icons.victory}"
             )
         ]
         self.new_regions = [
-            ui.TextDisplay(
+            TextDisplay(
                 f"## {self.container_json.container['new_regions']} {Emojis.Icons.new_icon}"
             )
         ]
-        self.planet_buttons: list[ui.Button] = []
+        self.planet_buttons: list[Button] = []
         self.container_colours = [
             {"list": self.victories, "colour": Colour.brand_green()},
             {
@@ -36,16 +44,14 @@ class RegionChangesContainer(ui.Container, ReprMixin):
             },
         ]
 
-    def _add_subfactions(
-        self, text_display: ui.TextDisplay, subfactions: set[Subfaction]
-    ):
+    def _add_subfactions(self, text_display: TextDisplay, subfactions: set[Subfaction]):
         for sf in subfactions:
             text_display.content += (
                 f"\n-# {sf.emoji} **{self.container_json.subfactions[sf.eng_name]}**"
             )
 
     def _add_features(
-        self, text_display: ui.TextDisplay, active_effects: set[GalacticWarEffect]
+        self, text_display: TextDisplay, active_effects: set[GalacticWarEffect]
     ):
         for planet_feature in PlanetFeatures.get_from_effects_list(
             (ae for ae in active_effects if ae.effect_type == 71)
@@ -68,7 +74,7 @@ class RegionChangesContainer(ui.Container, ReprMixin):
                 self.title
                 + self.non_empty_components
                 + (
-                    [ui.ActionRow(*chunk) for chunk in planet_button_chunks]
+                    [ActionRow(*chunk) for chunk in planet_button_chunks]
                     if self.planet_buttons
                     else []
                 )
@@ -97,8 +103,8 @@ class RegionChangesContainer(ui.Container, ReprMixin):
 
     @update_containers
     def add_region_victory(self, region: Planet.Region):
-        section = ui.Section(
-            ui.TextDisplay(
+        section = Section(
+            TextDisplay(
                 self.container_json.container["region_victory"].format(
                     region_emoji=region.emoji,
                     region_name=region.names.get(
@@ -116,7 +122,7 @@ class RegionChangesContainer(ui.Container, ReprMixin):
                     ],
                 )
             ),
-            accessory=ui.Thumbnail(
+            accessory=Thumbnail(
                 VICTORY_ICONS.get(
                     (
                         region.planet.faction.full_name.lower()
@@ -135,7 +141,7 @@ class RegionChangesContainer(ui.Container, ReprMixin):
             text_display=section.children[0],
             subfactions=region.planet.subfactions,
         )
-        self.victories.append(ui.Separator())
+        self.victories.append(Separator())
         self.victories.append(section)
 
         if region.planet.names.get(
@@ -152,8 +158,8 @@ class RegionChangesContainer(ui.Container, ReprMixin):
 
     @update_containers
     def add_new_region(self, region: Planet.Region):
-        section = ui.Section(
-            ui.TextDisplay(
+        section = Section(
+            TextDisplay(
                 (
                     self.container_json.container["new_region"].format(
                         region_emoji=region.emoji,
@@ -169,7 +175,7 @@ class RegionChangesContainer(ui.Container, ReprMixin):
                     )
                 )
             ),
-            accessory=ui.Thumbnail(
+            accessory=Thumbnail(
                 ATTACK_EMBED_ICONS.get(
                     (
                         region.planet.faction.full_name.lower()
@@ -195,7 +201,7 @@ class RegionChangesContainer(ui.Container, ReprMixin):
             subfactions=region.planet.subfactions,
         )
 
-        self.new_regions.append(ui.Separator())
+        self.new_regions.append(Separator())
         self.new_regions.append(section)
 
         if region.planet.names.get(

@@ -5,40 +5,45 @@ from data.lists import (
     LOSS_ICONS,
     CUSTOM_COLOURS,
 )
-from disnake import Colour, ui
-from utils.dataclasses import CampaignChangesJson, PlanetFeatures
+from disnake import Colour, Thumbnail
+from disnake.ui import (
+    ActionRow,
+    Button,
+    Container,
+    Section,
+    Separator,
+    TextDisplay,
+    Thumbnail,
+)
 from utils.api_wrapper.models import Campaign, GalacticWarEffect, Planet
-from utils.dataclasses.subfactions import Subfaction
+from utils.dataclasses import CampaignChangesJson, PlanetFeatures, Subfaction
 from utils.emojis import Emojis
 from utils.interactables import HDCButton
-from utils.mixins import ReprMixin
 
 
-class CampaignChangesContainer(ui.Container, ReprMixin):
+class CampaignChangesContainer(Container):
     def __init__(self, json: CampaignChangesJson):
         self.json = json
         self.colour = Colour.dark_theme()
         self.title = [
-            ui.TextDisplay(
+            TextDisplay(
                 f"# {Emojis.Decoration.left_banner} {self.json.container['title']} {Emojis.Decoration.right_banner}"
             )
         ]
         self.victories = [
-            ui.TextDisplay(
-                f"## {self.json.container['victories']} {Emojis.Icons.victory}"
-            )
+            TextDisplay(f"## {self.json.container['victories']} {Emojis.Icons.victory}")
         ]
         self.losses = [
-            ui.TextDisplay(
+            TextDisplay(
                 f"## {self.json.container['losses']} {Emojis.Decoration.alert_icon}"
             ),
         ]
         self.new_campaigns = [
-            ui.TextDisplay(
+            TextDisplay(
                 f"## {self.json.container['new_campaigns']} {Emojis.Icons.new_icon}"
             )
         ]
-        self.planet_buttons: list[ui.Button] = []
+        self.planet_buttons: list[Button] = []
         self.container_colours = [
             {"list": self.victories, "colour": Colour.brand_green()},
             {"list": self.losses, "colour": Colour.brand_red()},
@@ -48,15 +53,13 @@ class CampaignChangesContainer(ui.Container, ReprMixin):
             },
         ]
 
-    def _add_subfactions(
-        self, text_display: ui.TextDisplay, subfactions: set[Subfaction]
-    ):
+    def _add_subfactions(self, text_display: TextDisplay, subfactions: set[Subfaction]):
         for sf in subfactions:
             text_display.content += (
                 f"\n-# {sf.emoji} **{self.json.subfactions[sf.eng_name]}**"
             )
 
-    def _add_regions(self, text_display: ui.TextDisplay, regions: list[Planet.Region]):
+    def _add_regions(self, text_display: TextDisplay, regions: list[Planet.Region]):
         for region in regions:
             descriptor = (
                 self.json.regions[str(region.type.value)]
@@ -66,7 +69,7 @@ class CampaignChangesContainer(ui.Container, ReprMixin):
             text_display.content += f"\n-# {region.emoji} {descriptor} **{region.names.get(self.json.lang_code_long, region.name)}**"
 
     def _add_features(
-        self, text_display: ui.TextDisplay, active_effects: set[GalacticWarEffect]
+        self, text_display: TextDisplay, active_effects: set[GalacticWarEffect]
     ):
         for feature_name, feature_emoji in PlanetFeatures.get_from_effects_list(
             active_effects
@@ -75,7 +78,7 @@ class CampaignChangesContainer(ui.Container, ReprMixin):
 
     def _add_gambit(
         self,
-        text_display: ui.TextDisplay,
+        text_display: TextDisplay,
         gambit_planet: Planet,
     ):
         if gambit_planet.regen_perc_per_hour < 0.03:
@@ -109,7 +112,7 @@ class CampaignChangesContainer(ui.Container, ReprMixin):
                 self.title
                 + self.non_empty_components
                 + (
-                    [ui.ActionRow(*chunk) for chunk in planet_button_chunks]
+                    [ActionRow(*chunk) for chunk in planet_button_chunks]
                     if self.planet_buttons
                     else []
                 )
@@ -138,14 +141,14 @@ class CampaignChangesContainer(ui.Container, ReprMixin):
 
     @update_containers
     def add_liberation_victory(self, planet: Planet, taken_from: str):
-        section = ui.Section(
-            ui.TextDisplay(
+        section = Section(
+            TextDisplay(
                 self.json.container["liberated"].format(
                     planet_name=planet.names.get(self.json.lang_code_long, planet.name),
                     faction_name=self.json.factions[f"{taken_from}_plural"],
                 )
             ),
-            accessory=ui.Thumbnail(
+            accessory=Thumbnail(
                 VICTORY_ICONS.get(taken_from.lower(), VICTORY_ICONS["default"])
             ),
         )
@@ -157,7 +160,7 @@ class CampaignChangesContainer(ui.Container, ReprMixin):
             text_display=section.children[0],
             subfactions=planet.subfactions,
         )
-        self.victories.append(ui.Separator())
+        self.victories.append(Separator())
         self.victories.append(section)
 
         if planet.names.get(self.json.lang_code_long, planet.name) not in [
@@ -174,14 +177,14 @@ class CampaignChangesContainer(ui.Container, ReprMixin):
     def add_defence_victory(
         self, planet: Planet, defended_against: str, hours_remaining: int
     ):
-        section = ui.Section(
-            ui.TextDisplay(
+        section = Section(
+            TextDisplay(
                 self.json.container["defended"].format(
                     planet_name=planet.names.get(self.json.lang_code_long, planet.name),
                     faction_name=self.json.factions[f"{defended_against}_plural"],
                 )
             ),
-            accessory=ui.Thumbnail(
+            accessory=Thumbnail(
                 VICTORY_ICONS.get(defended_against.lower(), VICTORY_ICONS["default"])
             ),
         )
@@ -199,7 +202,7 @@ class CampaignChangesContainer(ui.Container, ReprMixin):
             text_display=section.children[0],
             subfactions=planet.subfactions,
         )
-        self.victories.append(ui.Separator())
+        self.victories.append(Separator())
         self.victories.append(section)
 
         if planet.names.get(self.json.lang_code_long, planet.name) not in [
@@ -215,8 +218,8 @@ class CampaignChangesContainer(ui.Container, ReprMixin):
     @update_containers
     def add_new_campaign(self, campaign: Campaign, gambit_planets: dict[int, Planet]):
         if campaign.planet.event:
-            section = ui.Section(
-                ui.TextDisplay(
+            section = Section(
+                TextDisplay(
                     (
                         self.json.container["defend"].format(
                             planet_name=campaign.planet.names.get(
@@ -235,7 +238,7 @@ class CampaignChangesContainer(ui.Container, ReprMixin):
                         )
                     )
                 ),
-                accessory=ui.Thumbnail(
+                accessory=Thumbnail(
                     DEFENCE_EMBED_ICONS.get(
                         campaign.planet.event.faction.full_name.lower(),
                         DEFENCE_EMBED_ICONS["default"],
@@ -264,7 +267,7 @@ class CampaignChangesContainer(ui.Container, ReprMixin):
                 )
 
             # last step
-            self.new_campaigns.append(ui.Separator())
+            self.new_campaigns.append(Separator())
             self.new_campaigns.append(section)
 
             if campaign.planet.names.get(
@@ -279,8 +282,8 @@ class CampaignChangesContainer(ui.Container, ReprMixin):
                     )
                 )
         else:
-            section = ui.Section(
-                ui.TextDisplay(
+            section = Section(
+                TextDisplay(
                     (
                         self.json.container["liberate"].format(
                             planet_name=campaign.planet.names.get(
@@ -294,7 +297,7 @@ class CampaignChangesContainer(ui.Container, ReprMixin):
                         )
                     )
                 ),
-                accessory=ui.Thumbnail(
+                accessory=Thumbnail(
                     ATTACK_EMBED_ICONS.get(
                         campaign.faction.full_name.lower(),
                         ATTACK_EMBED_ICONS["default"],
@@ -332,8 +335,8 @@ class CampaignChangesContainer(ui.Container, ReprMixin):
 
     @update_containers
     def add_planet_lost(self, planet: Planet):
-        section = ui.Section(
-            ui.TextDisplay(
+        section = Section(
+            TextDisplay(
                 self.json.container["planet_lost"].format(
                     planet_name=planet.names.get(self.json.lang_code_long, planet.name),
                     emojis=planet.exclamations,
@@ -342,7 +345,7 @@ class CampaignChangesContainer(ui.Container, ReprMixin):
                     ],
                 )
             ),
-            accessory=ui.Thumbnail(
+            accessory=Thumbnail(
                 LOSS_ICONS.get(planet.faction.full_name.lower(), LOSS_ICONS["default"])
             ),
         )
@@ -354,7 +357,7 @@ class CampaignChangesContainer(ui.Container, ReprMixin):
             text_display=section.children[0],
             subfactions=planet.subfactions,
         )
-        self.losses.append(ui.Separator())
+        self.losses.append(Separator())
         self.losses.append(section)
 
         if planet.names.get(self.json.lang_code_long, planet.name) not in [

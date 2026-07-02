@@ -1,25 +1,25 @@
-from disnake import Colour, ui
-from utils.mixins import ReprMixin
+from disnake import Colour
+from disnake.ui import Container, Section, Separator, TextDisplay, Thumbnail
 
 
-class UsageContainer(ui.Container, ReprMixin):
+class UsageContainer(Container):
     def __init__(self, usage_dict: dict[str, dict[str, int]], guilds_joined: int):
         self.components = []
 
         for category, _usage_dict in usage_dict.items():
             if not _usage_dict:
                 continue
-            component = ui.TextDisplay(f"# {category.title()} Usage")
+            component = TextDisplay(f"# {category.title()} Usage")
             for i, usage in sorted(
                 _usage_dict.items(), key=lambda x: x[1], reverse=True
             ):
                 component.content += f"\n-# {i} - **{usage}**"
-            self.components.extend([component, ui.Separator()])
+            self.components.extend([component, Separator()])
 
         self.components.append(
-            ui.Section(
-                ui.TextDisplay(f"Guilds Joined: **{guilds_joined}**"),
-                accessory=ui.Thumbnail(
+            Section(
+                TextDisplay(f"Guilds Joined: **{guilds_joined}**"),
+                accessory=Thumbnail(
                     "https://cdn.discordapp.com/emojis/1288680892516274196.webp?size=96"
                     if guilds_joined > 0
                     else "https://cdn.discordapp.com/emojis/1303048630583820342.webp?size=96"
