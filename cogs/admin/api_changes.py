@@ -204,10 +204,8 @@ class APIChangesCog(Cog):
                 self.bot.data.previous_data.control_centre.get("en").episodes,
                 self.bot.data.formatted_data.control_centre.get("en").episodes,
             ):
-                print(f"=== processing episode {old_episode.id} ===")
                 for stat_name, property in EPISODE_STATS_TO_CHECK.items():
                     if getattr(new_episode, property) != getattr(old_episode, property):
-                        print(" ", property, "different")
                         total_changes.append(
                             APIChanges(
                                 old_object=old_episode,
@@ -221,10 +219,8 @@ class APIChangesCog(Cog):
                     old_episode.phases,
                     new_episode.phases,
                 ):
-                    print(f"processing phase {old_phase.id}")
                     for stat_name, property in PHASE_STATS_TO_CHECK.items():
                         if getattr(new_phase, property) != getattr(old_phase, property):
-                            print(" ", property, "different")
                             different_enough = False
                             if "message" in property:
                                 ratio = SequenceMatcher(
@@ -232,13 +228,11 @@ class APIChangesCog(Cog):
                                     getattr(new_phase, property),
                                     getattr(old_phase, property),
                                 ).ratio()
-                                print("  message", ratio)
                                 if ratio < 0.95:
                                     different_enough = True
                             else:
                                 different_enough = True
                             if different_enough:
-                                print("   difference!")
                                 total_changes.append(
                                     APIChanges(
                                         old_object=old_phase,

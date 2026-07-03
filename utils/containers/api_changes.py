@@ -289,54 +289,111 @@ class APIChangesContainer(Container):
                             )
 
                 case "Episode":
-                    self.container_components.append(
-                        TextDisplay(
-                            f"## Update to Episode **{api_change.new_object.id}** {api_change.new_object.title}"
+                    if not next(
+                        (
+                            c
+                            for c in self.container_components
+                            if isinstance(c, TextDisplay)
+                            and str(api_change.new_object.id) in c.content
+                        ),
+                        None,
+                    ):
+                        self.container_components.append(
+                            TextDisplay(
+                                f"## Update to Episode **{api_change.new_object.id}**"
+                            )
                         )
-                    )
+
                     match api_change.property:
                         case "faction":
                             self.container_components.append(
                                 TextDisplay(
-                                    f"**{api_change.stat_name}** has changed from:\n{old_stat.emoji} {old_stat.full_name}\n{Emojis.Stratagems.down}\n{new_stat.emoji} {new_stat.full_name}"
+                                    f"\n**{api_change.stat_name}** has changed from:"
+                                    f"\n{old_stat.emoji} {old_stat.full_name}"
+                                    f"\n{Emojis.Stratagems.down}"
+                                    f"\n{new_stat.emoji} {new_stat.full_name}"
                                 )
                             )
                         case "status":
                             self.container_components.append(
                                 TextDisplay(
-                                    f"**{api_change.stat_name}** has changed from:\n{STATUS_DICT.get(old_stat, 'UNKNOWN')}\n{Emojis.Stratagems.down}\n{STATUS_DICT.get(new_stat, 'UNKNOWN')}"
+                                    f"\n**{api_change.stat_name}** has changed from:"
+                                    f"\n{STATUS_DICT.get(old_stat, 'UNKNOWN')}"
+                                    f"\n{Emojis.Stratagems.down}"
+                                    f"\n{STATUS_DICT.get(new_stat, 'UNKNOWN')}"
                                 )
                             )
                         case "phases":
                             self.container_components.append(
                                 TextDisplay(
-                                    f"**{api_change.stat_name}** has changed from:\n{[p.outro_title or p.intro_title for p in old_stat]}\n{Emojis.Stratagems.down}\n{[p.outro_title or p.intro_title for p in new_stat]}"
+                                    f"\n**{api_change.stat_name}** has changed from:"
+                                    f"\n{[f'{p.id} - {p.intro_title}' for p in old_stat]}"
+                                    f"\n{Emojis.Stratagems.down}"
+                                    f"\n{[f'{p.id} - {p.intro_title}' for p in new_stat]}"
                                 )
                             )
                         case "rewards":
                             self.container_components.append(
                                 TextDisplay(
-                                    f"**{api_change.stat_name}** has changed from:\n{[r.item_name for r in old_stat]}\n{Emojis.Stratagems.down}\n{[r.item_name for r in new_stat]}"
+                                    f"\n**{api_change.stat_name}** has changed from:"
+                                    f"\n{[f'{r.amount} x {r.item_name}' for r in old_stat]}"
+                                    f"\n{Emojis.Stratagems.down}"
+                                    f"\n{[f'{r.amount} x {r.item_name}' for r in new_stat]}"
                                 )
                             )
                         case _:
                             self.container_components.append(
                                 TextDisplay(
-                                    f"**{api_change.stat_name}** has changed from:\n{old_stat}\n{Emojis.Stratagems.down}\n{new_stat}"
+                                    f"\n**{api_change.stat_name}** has changed from:"
+                                    f"\n{old_stat}"
+                                    f"\n{Emojis.Stratagems.down}"
+                                    f"\n{new_stat}"
                                 )
                             )
+
                 case "Phase":
-                    self.container_components.append(
-                        TextDisplay(
-                            f"## Update to Phase **{api_change.new_object.id}** {api_change.new_object.outro_title or api_change.new_object.intro_title}"
+                    if not next(
+                        (
+                            c
+                            for c in self.container_components
+                            if isinstance(c, TextDisplay)
+                            and str(api_change.new_object.id) in c.content
+                        ),
+                        None,
+                    ):
+                        self.container_components.append(
+                            TextDisplay(
+                                f"## Update to Phase **{api_change.new_object.id}**"
+                            )
                         )
-                    )
                     match api_change.property:
+                        case "status":
+                            self.container_components.append(
+                                TextDisplay(
+                                    f"**{api_change.stat_name}** has changed from:"
+                                    f"\n{STATUS_DICT.get(old_stat, 'UNKNOWN')}"
+                                    f"\n{Emojis.Stratagems.down}"
+                                    f"\n{STATUS_DICT.get(new_stat, 'UNKNOWN')}"
+                                )
+                            )
+                        case "rewards":
+                            self.container_components.append(
+                                TextDisplay(
+                                    f"**{api_change.stat_name}** has changed from:"
+                                    f"\n{[f'{r.amount} x {r.item_name}' for r in old_stat]}"
+                                    f"\n{Emojis.Stratagems.down}"
+                                    f"\n{[f'{r.amount} x {r.item_name}' for r in new_stat]}"
+                                )
+                            )
                         case _:
                             self.container_components.append(
                                 TextDisplay(
-                                    f"**{api_change.stat_name}** has changed from:\n{old_stat}\n{Emojis.Stratagems.down}\n{new_stat}"
+                                    f"**{api_change.stat_name}** has changed from:"
+                                    f"\n{old_stat}"
+                                    f"\n{Emojis.Stratagems.down}"
+                                    f"\n{new_stat}"
                                 )
                             )
+
             self.container_components.append(Separator())
         super().__init__(*self.container_components)
