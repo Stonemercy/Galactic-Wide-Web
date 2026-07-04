@@ -64,7 +64,6 @@ class ControlCentreCog(Cog):
             for i in cc.images_required(episode_id=cc.episodes[-1].id, phase_id=0)
             if f"{i}.png" in self.usable_images
         ]
-        print(len(images_required))
         container = ControlCentreContainer(
             control_centre=cc,
             required_images=images_required,

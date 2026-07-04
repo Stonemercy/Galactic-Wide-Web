@@ -27,10 +27,10 @@ REGION_STATS_TO_CHECK = {
 }
 
 EPISODE_STATS_TO_CHECK = {
-    "Title": "title",
-    "Description": "description",
-    "Intro Message": "intro_message",
-    "Outro Message": "outro_message",
+    # "Title": "title",
+    # "Description": "description",
+    # "Intro Message": "intro_message",
+    # "Outro Message": "outro_message",
     "Faction": "faction",
     "Status": "status",
     "Major Orders": "phases",
@@ -38,10 +38,10 @@ EPISODE_STATS_TO_CHECK = {
 }
 
 PHASE_STATS_TO_CHECK = {
-    "Intro Title": "intro_title",
-    "Intro Message": "intro_message",
-    "Outro Title": "outro_title",
-    "Outro Message": "outro_message",
+    # "Intro Title": "intro_title",
+    # "Intro Message": "intro_message",
+    # "Outro Title": "outro_title",
+    # "Outro Message": "outro_message",
     "Status": "status",
     "Entries": "entries",
     "Rewards": "rewards",
@@ -248,9 +248,6 @@ class APIChangesCog(Cog):
                 total_changes[i : i + 10] for i in range(0, len(total_changes), 10)
             ]
             for chunk in chunked_changes:
-                for change in chunk:
-                    print(getattr(change.old_object, change.property))
-                    print(getattr(change.new_object, change.property))
                 components = [
                     APIChangesContainer(
                         api_changes=chunk, planets=self.bot.data.formatted_data.planets
