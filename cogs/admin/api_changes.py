@@ -248,6 +248,8 @@ class APIChangesCog(Cog):
                 total_changes[i : i + 10] for i in range(0, len(total_changes), 10)
             ]
             for chunk in chunked_changes:
+                for change in chunk:
+                    print(change)
                 components = [
                     APIChangesContainer(
                         api_changes=chunk, planets=self.bot.data.formatted_data.planets
