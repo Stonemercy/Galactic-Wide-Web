@@ -256,7 +256,6 @@
             },
             "DefenceEmbed": {
                 "title": "Verteidigung",
-                "defence_held_by_dss": "\n-# VERTEIDIGUNG VON DRS GEHALTEN",
                 "invasion_level": "Invasionsstufe",
                 "victory": "Sieg",
                 "loss": "Verlust",

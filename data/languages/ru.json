@@ -256,7 +256,6 @@
             },
             "DefenceEmbed": {
                 "title": "Оборона",
-                "defence_held_by_dss": "\n-# ОБОРОНА ВЕДЕТСЯ ДКС",
                 "invasion_level": "Уровень вторжения",
                 "victory": "Победа",
                 "loss": "Проигрыш",

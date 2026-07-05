@@ -256,7 +256,6 @@
             },
             "DefenceEmbed": {
                 "title": "Savunmada",
-                "defence_held_by_dss": "\n-# DEFENCE DSS TARAFINDAN TUTULUYOR",
                 "invasion_level": "İstila Seviyesi",
                 "victory": "Zafer",
                 "loss": "Kaybediyor",

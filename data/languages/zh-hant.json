@@ -256,7 +256,6 @@
             },
             "DefenceEmbed": {
                 "title": "防禦中",
-                "defence_held_by_dss": "\n-# 進攻由 DSS 擋下",
                 "invasion_level": "入侵等級",
                 "victory": "勝利",
                 "loss": "失敗",

@@ -256,7 +256,6 @@
             },
             "DefenceEmbed": {
                 "title": "Défense",
-                "defence_held_by_dss": "\n-# DÉFENSE MAINTENUE PAR LE DSS",
                 "invasion_level": "Niveau d'invasion",
                 "victory": "Victoire",
                 "loss": "Défaite",

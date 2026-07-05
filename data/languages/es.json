@@ -256,7 +256,6 @@
             },
             "DefenceEmbed": {
                 "title": "Defendiendo",
-                "defence_held_by_dss": "\n-# DEFENSA MANTENIDA POR EED",
                 "invasion_level": "Nivel de Invasión",
                 "victory": "Victoria",
                 "loss": "Perdiendo",

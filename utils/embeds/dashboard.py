@@ -2363,15 +2363,6 @@ class Dashboard:
             ):
                 field_value += f"\n-# {planet_feature[1]} {planet_feature[0]}"
 
-            if (
-                planet.dss_in_orbit
-                and self.eagle_storm
-                and self.eagle_storm.status == 2
-            ):
-                field_value += self.language_json["embeds"]["Dashboard"][
-                    "DefenceEmbed"
-                ]["defence_held_by_dss"]
-
             field_value += f"\n{self.language_json['ends']} **<t:{int(planet.event.end_time_datetime.timestamp())}:R>**"
             field_value += f"\n{self.language_json['embeds']['Dashboard']['DefenceEmbed']['invasion_level']} **{planet.event.level}**{planet.event.level_exclamation}"
 
