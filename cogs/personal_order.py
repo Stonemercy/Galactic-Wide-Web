@@ -24,7 +24,7 @@ class PersonalOrderCog(Cog):
         if self.personal_order_updates in self.bot.loops:
             self.bot.loops.remove(self.personal_order_updates)
 
-    @loop(time=[time(hour=9, minute=30)])
+    @loop(time=[time(hour=9, minute=35)])
     async def personal_order_updates(self):
         po_updates_start = datetime.now(tz=timezone.utc)
         if (
