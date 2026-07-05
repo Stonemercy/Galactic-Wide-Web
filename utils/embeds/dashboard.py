@@ -19,7 +19,7 @@ from utils.api_wrapper.models import (
     GlobalResource,
     Planet,
 )
-from utils.dataclasses import AssignmentImages, Faction, Factions, PlanetFeatures
+from utils.dataclasses import AssignmentImages, Faction, Factions
 from utils.dataclasses.enums import AssignmentTaskType, CampaignType, EventType
 from utils.emojis import Emojis
 from utils.functions import get_end_time, health_bar, short_format
@@ -2088,7 +2088,7 @@ class Dashboard:
                 )
 
             for planet_feature in campaign.planet.planet_features:
-                field_value += f"\n-# {planet_feature[1]} {planet_feature[0]}"
+                field_value += f"\n-# {planet_feature.emoji} {planet_feature.name}"
 
             field_value += f"\n{self.language_json['ends']} **<t:{int(campaign.planet.event.end_time_datetime.timestamp())}:R>**"
             field_value += f"\n{self.language_json['embeds']['Dashboard']['DefenceEmbed']['invasion_level']} **{campaign.planet.event.level}**{campaign.planet.event.level_exclamation}"
@@ -2220,7 +2220,7 @@ class Dashboard:
                 )
 
             for planet_feature in campaign.planet.planet_features:
-                field_value += f"\n-# {planet_feature[1]} {planet_feature[0]}"
+                field_value += f"\n-# {planet_feature.emoji} {planet_feature.name}"
 
             field_value += f"\n{self.language_json['ends']} **<t:{int(campaign.planet.event.end_time_datetime.timestamp())}:R>**"
             field_value += f"\n{self.language_json['embeds']['Dashboard']['UrgentLiberationsEmbed']['urgency_level']} **{campaign.planet.event.level}**{campaign.planet.event.level_exclamation}"
@@ -2358,10 +2358,8 @@ class Dashboard:
                     f"\n-# {sf.emoji} {self.language_json['subfactions'][sf.eng_name]}"
                 )
 
-            for planet_feature in PlanetFeatures.get_from_effects_list(
-                (ae for ae in planet.active_effects if ae.effect_type == 71)
-            ):
-                field_value += f"\n-# {planet_feature[1]} {planet_feature[0]}"
+            for feature in planet.planet_features:
+                field_value += f"\n-# {feature.emoji} {feature.name}"
 
             field_value += f"\n{self.language_json['ends']} **<t:{int(planet.event.end_time_datetime.timestamp())}:R>**"
             field_value += f"\n{self.language_json['embeds']['Dashboard']['DefenceEmbed']['invasion_level']} **{planet.event.level}**{planet.event.level_exclamation}"
@@ -2507,7 +2505,7 @@ class Dashboard:
                 )
 
             for planet_feature in campaign.planet.planet_features:
-                field_value += f"\n-# {planet_feature[1]} {planet_feature[0]}"
+                field_value += f"\n-# {planet_feature.emoji} {planet_feature.name}"
 
             field_value += f"\n{self.language_json['embeds']['Dashboard']['DefenceEmbed']['heroes']}: **{campaign.planet.stats.player_count:,}**"
 
@@ -2566,7 +2564,8 @@ class Dashboard:
                         field_value += f"\n-# {sf.emoji} {language_json['subfactions'].get(sf.eng_name, sf.eng_name)}"
 
                     for feature in campaign.planet.planet_features:
-                        field_value += f"\n-# {feature[1]} {feature[0]}"
+                        field_value += f"\n-# {feature.emoji} {feature.name}"
+
                     if campaign.planet.regen_perc_per_hour < 0.001:
                         field_value += f"\n-# :warning: {campaign.planet.regen_perc_per_hour:+.2%}/hr :warning:"
 

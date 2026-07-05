@@ -165,6 +165,10 @@ class Emojis:
 
     @dataclass
     class PlanetFeatures:
+        terminid_research_preserve = "<:s:1522266050752806923>"
+        negative_energy_labratory = "<:s:1522269875135971509>"
+        tyranny_park_2 = "<:s:1522272390128599160>"
+        tcs_plus = "<:s:1523049499671396442>"
         black_hole = "<:s:1417101106055479327>"
         cfcsas = "<:s:1417097098901327882>"
         hive_world = "<:s:1417088669478813788>"
@@ -174,6 +178,7 @@ class Emojis:
         fractured_planet = "<:s:1422646803681247333>"
         deep_mantle_forge_complex = "<:s:1422648073133359195>"
         helldiver_training_facilities = "<:s:1422657339902656542>"
+        max_sec_city_construction_site = "<:s:1522271221620936897>"
         new_hope_city = "<:s:1422657922642743486>"
         new_aspiration_city = "<:s:1422657920771817613>"
         new_yearning_city = "<:s:1422657931186540545>"

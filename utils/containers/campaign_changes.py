@@ -16,8 +16,8 @@ from disnake.ui import (
     TextDisplay,
     Thumbnail,
 )
-from utils.api_wrapper.models import Campaign, GalacticWarEffect, Planet
-from utils.dataclasses import CampaignChangesJson, PlanetFeatures, Subfaction
+from utils.api_wrapper.models import Campaign, Planet
+from utils.dataclasses import CampaignChangesJson, PlanetFeature, Subfaction
 from utils.emojis import Emojis
 from utils.interactables import HDCButton
 
@@ -70,12 +70,10 @@ class CampaignChangesContainer(Container):
             text_display.content += f"\n-# {region.emoji} {descriptor} **{region.names.get(self.json.lang_code_long, region.name)}**"
 
     def _add_features(
-        self, text_display: TextDisplay, active_effects: set[GalacticWarEffect]
+        self, text_display: TextDisplay, planet_features: list[PlanetFeature]
     ):
-        for feature_name, feature_emoji in PlanetFeatures.get_from_effects_list(
-            active_effects
-        ):
-            text_display.content += f"\n-# {feature_emoji} **{feature_name}**"
+        for feature in planet_features:
+            text_display.content += f"\n-# {feature.emoji} **{feature.name}**"
 
     def _add_gambit(
         self,
@@ -155,7 +153,7 @@ class CampaignChangesContainer(Container):
         )
         self._add_features(
             text_display=section.children[0],
-            active_effects=planet.active_effects,
+            planet_features=planet.planet_features,
         )
         self._add_subfactions(
             text_display=section.children[0],
@@ -197,7 +195,7 @@ class CampaignChangesContainer(Container):
             )
         self._add_features(
             text_display=section.children[0],
-            active_effects=planet.active_effects,
+            planet_features=planet.planet_features,
         )
         self._add_subfactions(
             text_display=section.children[0],
@@ -248,7 +246,7 @@ class CampaignChangesContainer(Container):
             )
             self._add_features(
                 text_display=section.children[0],
-                active_effects=campaign.planet.active_effects,
+                planet_features=campaign.planet.planet_features,
             )
 
             self._add_subfactions(
@@ -307,7 +305,7 @@ class CampaignChangesContainer(Container):
             )
             self._add_features(
                 text_display=section.children[0],
-                active_effects=campaign.planet.active_effects,
+                planet_features=campaign.planet.planet_features,
             )
             self._add_subfactions(
                 text_display=section.children[0],
@@ -367,7 +365,7 @@ class CampaignChangesContainer(Container):
         )
         self._add_features(
             text_display=section.children[0],
-            active_effects=campaign.planet.active_effects,
+            planet_features=campaign.planet.planet_features,
         )
 
         self._add_subfactions(
@@ -420,7 +418,7 @@ class CampaignChangesContainer(Container):
         )
         self._add_features(
             text_display=section.children[0],
-            active_effects=planet.active_effects,
+            planet_features=planet.planet_features,
         )
         self._add_subfactions(
             text_display=section.children[0],

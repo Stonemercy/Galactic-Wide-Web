@@ -5,6 +5,7 @@ from utils.dataclasses import (
     Community,
     Faction,
     Factions,
+    PlanetFeature,
     PlanetFeatures,
     Subfaction,
     Subfactions,
@@ -126,7 +127,7 @@ class Planet(ReprMixin):
         for subfactions in self.subfactions:
             result += subfactions.emoji
         for feature in self.planet_features:
-            result += feature[1]
+            result += feature.emoji
         for comm in self.community_targets:
             result += comm.emoji
         return result
@@ -136,8 +137,10 @@ class Planet(ReprMixin):
         return Subfactions.get_from_effects_list(self.active_effects)
 
     @property
-    def planet_features(self) -> set[tuple[str, str]]:
-        return PlanetFeatures.get_from_effects_list(self.active_effects)
+    def planet_features(self) -> list[PlanetFeature]:
+        return PlanetFeatures.get_many(
+            [ae.id for ae in self.active_effects if ae.effect_type == 71]
+        )
 
     class Event(ReprMixin):
         __slots__ = (

@@ -30,10 +30,8 @@ class GWEContainer(Container, ReprMixin):
         if gwe.resource:
             content += f"\n{gwe.resource}"
 
-        if planet_feature := next(
-            (pf for pf in PlanetFeatures.get_from_effects_list([gwe])), None
-        ):
-            content += f"\n**{planet_feature[0]}** {planet_feature[1]}"
+        if feature := PlanetFeatures.all.get(gwe.id):
+            content += f"\n**{feature.name}** {feature.emoji}"
 
         if subfaction_poi := next(
             (sf for sf in Subfactions._all if sf.poi_id == gwe.id), None

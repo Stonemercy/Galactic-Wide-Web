@@ -1,8 +1,8 @@
 from data.lists import CUSTOM_COLOURS
 from disnake import Colour
 from disnake.ui import Container, Section, Separator, TextDisplay, Thumbnail
-from utils.dataclasses import DSSChangesJson, DSSImages, PlanetFeatures, Subfaction
-from utils.api_wrapper.models import DSS, GalacticWarEffect, Planet
+from utils.dataclasses import DSSChangesJson, DSSImages, PlanetFeature, Subfaction
+from utils.api_wrapper.models import DSS, Planet
 from utils.emojis import Emojis
 from utils.functions import short_format
 from utils.interactables import HDCButton
@@ -49,12 +49,10 @@ class DSSChangesContainer(Container):
             text_display.content += f"\n-# {region.emoji} {region_type} **{region.names.get(self.json.lang_code_long, region.name)}**"
 
     def _add_features(
-        self, text_display: TextDisplay, active_effects: set[GalacticWarEffect]
+        self, text_display: TextDisplay, planet_features: list[PlanetFeature]
     ):
-        for planet_feature in PlanetFeatures.get_from_effects_list(
-            (ae for ae in active_effects if ae.effect_type == 71)
-        ):
-            text_display.content += f"\n-# {planet_feature[1]} {planet_feature[0]}"
+        for feature in planet_features:
+            text_display.content += f"\n-# {feature.emoji} {feature.name}"
 
     def _add_gambit(
         self,
@@ -94,7 +92,7 @@ class DSSChangesContainer(Container):
         )
         self._add_features(
             text_display=section.children[0],
-            active_effects=after_planet.active_effects,
+            planet_features=after_planet.planet_features,
         )
         self._add_subfactions(
             text_display=section.children[0],

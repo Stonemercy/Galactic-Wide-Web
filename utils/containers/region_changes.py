@@ -9,8 +9,8 @@ from disnake.ui import (
     TextDisplay,
     Thumbnail,
 )
-from utils.api_wrapper.models import GalacticWarEffect, Planet
-from utils.dataclasses import PlanetFeatures, RegionChangesJson, Subfaction
+from utils.api_wrapper.models import Planet
+from utils.dataclasses import PlanetFeature, RegionChangesJson, Subfaction
 from utils.emojis import Emojis
 from utils.interactables import HDCButton
 from utils.mixins import ReprMixin
@@ -51,12 +51,10 @@ class RegionChangesContainer(Container, ReprMixin):
             )
 
     def _add_features(
-        self, text_display: TextDisplay, active_effects: set[GalacticWarEffect]
+        self, text_display: TextDisplay, planet_features: list[PlanetFeature]
     ):
-        for planet_feature in PlanetFeatures.get_from_effects_list(
-            (ae for ae in active_effects if ae.effect_type == 71)
-        ):
-            text_display.content += f"\n-# {planet_feature[1]} {planet_feature[0]}"
+        for feature in planet_features:
+            text_display.content += f"\n-# {feature.emoji} {feature.name}"
 
     def _update_containers(self):
         colour = Colour.dark_theme()
@@ -135,7 +133,7 @@ class RegionChangesContainer(Container, ReprMixin):
         )
         self._add_features(
             text_display=section.children[0],
-            active_effects=region.planet.active_effects,
+            planet_features=region.planet.planet_features,
         )
         self._add_subfactions(
             text_display=section.children[0],
@@ -194,7 +192,7 @@ class RegionChangesContainer(Container, ReprMixin):
             )
         self._add_features(
             text_display=section.children[0],
-            active_effects=region.planet.active_effects,
+            planet_features=region.planet.planet_features,
         )
         self._add_subfactions(
             text_display=section.children[0],
