@@ -154,7 +154,7 @@ class MajorOrderCog(Cog):
                 "major_order_updates returning - the bot isn't ready"
             )
             return
-        if not self.bot.data.formatted_data.assignments.get("en") == None:
+        if self.bot.data.formatted_data.assignments.get("en") == None:
             self.bot.logger.warning(
                 "major_order_updates returning - english assignments are missing"
             )
