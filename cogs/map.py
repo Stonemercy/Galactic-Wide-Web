@@ -38,12 +38,6 @@ class MapCog(Cog):
         if not self.bot.ready:
             self.bot.logger.warning("map_poster returning - the bot isn't ready")
             return
-        try:
-            await self.bot.channels.waste_bin_channel.purge(
-                before=maps_start - timedelta(hours=2)
-            )
-        except:
-            pass
         unique_langs = GWWGuilds.unique_languages()
         map_embeds = {lang: Embed(colour=Colour.dark_embed()) for lang in unique_langs}
         fifteen_minutes_ago = datetime.now(tz=timezone.utc) - timedelta(minutes=15)
