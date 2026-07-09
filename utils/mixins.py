@@ -40,7 +40,7 @@ class GWEReprMixin:
                     if getattr(object, slot) != None
                 )
                 empty_slots = [
-                    slot for slot in object.__slots__ if getattr(object, slot) == None
+                    slot for slot in object.__slots__ if getattr(object, slot) is None
                 ]
         else:
             items = []
