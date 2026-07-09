@@ -36,10 +36,11 @@ from numpy import (
     where,
     zeros,
 )
-from numpy.random import randint
+from numpy.random import randint, random_sample
 from PIL import Image, ImageDraw, ImageFont
 from utils.api_wrapper.models import Assignment, DSS, Planet
 from utils.dataclasses import Factions, Faction
+from utils.dataclasses.enums import EventType
 from utils.mixins import ReprMixin
 
 DIM_FACTION_COLOURS: dict[str, tuple[int, int, int]] = {
@@ -156,19 +157,49 @@ class Maps:
     def update_waypoint_lines(self, planets: dict[int, Planet]) -> None:
         background = imread(Maps.FileLocations.sector_map, IMREAD_UNCHANGED)
         for planet in planets.values():
-            for waypoint in planet.waypoints:
-                try:
-                    way_planet = planets.get(waypoint)
-                    if way_planet:
-                        line(
-                            img=background,
-                            pt1=planet.map_waypoints,
-                            pt2=way_planet.map_waypoints,
-                            color=(255, 255, 255, 255),
-                            thickness=2,
-                        )
-                except KeyError:
+            colour = planet.faction.colour
+            if planet.event:
+                colour = planet.event.faction.colour
+            for n_index in planet.nearby:
+                near_planet = planets.get(n_index)
+                if not near_planet or (near_planet.is_hidden and planet.is_hidden):
                     continue
+                x1, y1 = planet.map_waypoints
+                x2, y2 = near_planet.map_waypoints
+                distance_div = 1
+                if near_planet.is_hidden:
+                    distance_div = 0.25
+                elif planet.is_hidden:
+                    distance_div = 0.75
+                else:
+                    if planet.active_campaign and near_planet.active_campaign:
+                        distance_div = 0.5
+                    elif planet.active_campaign:
+                        distance_div = 0.33
+                        if (
+                            planet.event
+                            and planet.event.type != EventType.UrgentLiberation
+                        ):
+                            distance_div = 0.01
+                    elif near_planet.active_campaign:
+                        distance_div = 0.67
+                        if (
+                            near_planet.event
+                            and near_planet.event.type != EventType.UrgentLiberation
+                        ):
+                            distance_div = 0.99
+                midpoint = (
+                    int(x1 + (x2 - x1) * distance_div),
+                    int(y1 + (y2 - y1) * distance_div),
+                )
+                line(
+                    img=background,
+                    pt1=planet.map_waypoints,
+                    pt2=midpoint,
+                    color=(*list(colour)[::-1], 255),
+                    thickness=2,
+                    lineType=LINE_AA,
+                )
 
         imwrite(Maps.FileLocations.waypoints_map, background)
 
@@ -585,6 +616,7 @@ class Maps:
         with_lines: bool = True,
         line_colour: tuple[int, int, int] = None,
         with_static: bool = False,
+        with_stars: bool = False,
     ):
         cell_polygon = self.get_voronoi_cell_polygon(focal_planet, nearby_planets)
         cell_polygon = self.clip_polygon_by_circle(
@@ -630,6 +662,9 @@ class Maps:
                         interpolation=INTER_NEAREST,
                     ).astype(int)
                     noise = noise_full[cell_pixels]
+                    if with_stars:
+                        star_chance = 0.0015
+                        star_mask = random_sample(len(cell_pixels[0])) < star_chance
                     for c in range(3):
                         ch = background[:, :, c]
                         vals = ch[cell_pixels].astype(int)
@@ -638,7 +673,10 @@ class Maps:
                             -noise,
                             where(vals + noise > 255, -noise, noise),
                         )
-                        ch[cell_pixels] = clip(vals + reflected, 0, 255).astype(uint8)
+                        new_vals = clip(vals + reflected, 0, 255).astype(uint8)
+                        if with_stars:
+                            new_vals[star_mask] = 255
+                        ch[cell_pixels] = new_vals
                         background[:, :, c] = ch
 
     def draw_void(self, background, planet: Planet, planets: dict[int, Planet]):
@@ -655,6 +693,8 @@ class Maps:
             VONOROI_COLOURS[Factions.illuminate]["tint"],
             0.7,
             line_colour=VONOROI_COLOURS[Factions.illuminate]["lines"],
+            with_static=True,
+            with_stars=True,
         )
 
     def draw_gloom(self, background, planet: Planet, planets: dict[int, Planet]):
