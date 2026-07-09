@@ -1,6 +1,8 @@
+from math import hypot
 from cv2 import (
     INTER_NEAREST,
     addWeighted,
+    arrowedLine,
     circle,
     fillPoly,
     floodFill,
@@ -40,7 +42,6 @@ from numpy.random import randint, random_sample
 from PIL import Image, ImageDraw, ImageFont
 from utils.api_wrapper.models import Assignment, DSS, Planet
 from utils.dataclasses import Factions, Faction
-from utils.dataclasses.enums import EventType
 from utils.mixins import ReprMixin
 
 DIM_FACTION_COLOURS: dict[str, tuple[int, int, int]] = {
@@ -157,45 +158,47 @@ class Maps:
     def update_waypoint_lines(self, planets: dict[int, Planet]) -> None:
         background = imread(Maps.FileLocations.sector_map, IMREAD_UNCHANGED)
         for planet in planets.values():
-            colour = planet.faction.colour
-            if planet.event:
-                colour = planet.event.faction.colour
             for n_index in planet.nearby:
+                colour = planet.faction.colour
+                if planet.event:
+                    colour = planet.event.faction.colour
                 near_planet = planets.get(n_index)
                 if not near_planet or (near_planet.is_hidden and planet.is_hidden):
                     continue
                 x1, y1 = planet.map_waypoints
                 x2, y2 = near_planet.map_waypoints
-                distance_div = 1
+                distance_div = 0.5
+                with_attack_arrows = False
                 if near_planet.is_hidden:
                     distance_div = 0.25
                 elif planet.is_hidden:
                     distance_div = 0.75
                 else:
-                    if planet.active_campaign and near_planet.active_campaign:
-                        distance_div = 0.5
-                    elif planet.active_campaign:
-                        distance_div = 0.33
-                        if (
-                            planet.event
-                            and planet.event.type != EventType.UrgentLiberation
-                        ):
+                    if planet.event:
+                        if near_planet.index in planet.defending_from:
                             distance_div = 0.01
-                    elif near_planet.active_campaign:
-                        distance_div = 0.67
-                        if (
-                            near_planet.event
-                            and near_planet.event.type != EventType.UrgentLiberation
-                        ):
+                        else:
+                            colour = planet.faction.colour
+                    elif near_planet.event:
+                        if planet.index in near_planet.defending_from:
                             distance_div = 0.99
-                midpoint = (
+                            with_attack_arrows = True
+                        elif planet.faction == near_planet.faction:
+                            colour = near_planet.faction.colour
+                end_point = (
                     int(x1 + (x2 - x1) * distance_div),
                     int(y1 + (y2 - y1) * distance_div),
                 )
+                if with_attack_arrows:
+                    self.draw_flow_arrows(
+                        background=background,
+                        pt1=planet.map_waypoints,
+                        pt2=end_point,
+                    )
                 line(
                     img=background,
                     pt1=planet.map_waypoints,
-                    pt2=midpoint,
+                    pt2=end_point,
                     color=(*list(colour)[::-1], 255),
                     thickness=2,
                     lineType=LINE_AA,
@@ -294,7 +297,7 @@ class Maps:
                 circle(
                     background,
                     planet.map_waypoints,
-                    8,
+                    PLANET_RADIUS,
                     colour,
                     -1,
                 )
@@ -347,6 +350,29 @@ class Maps:
                 width=20,
             )
             background.save(fp=Maps.FileLocations.arrow_map)
+
+    def draw_flow_arrows(self, background, pt1, pt2, spacing=15, size=10):
+        x1, y1 = pt1
+        x2, y2 = pt2
+        length = hypot(x2 - x1, y2 - y1)
+        if length < spacing:
+            return
+        dx, dy = (x2 - x1) / length, (y2 - y1) / length
+        steps = int(length // spacing)
+        for i in range(1, steps):
+            cx = x1 + dx * spacing * i
+            cy = y1 + dy * spacing * i
+            tail = (round(cx - dx * size / 2), round(cy - dy * size / 2))
+            tip = (round(cx + dx * size / 2), round(cy + dy * size / 2))
+            arrowedLine(
+                img=background,
+                pt1=tail,
+                pt2=tip,
+                color=(255, 255, 255, 175),
+                thickness=1,
+                line_type=LINE_AA,
+                tipLength=1,
+            )
 
     def _draw_ellipse(self, image, coords, fill_colour, radius=15):
         bgr_color = (*fill_colour[::-1], 255)
