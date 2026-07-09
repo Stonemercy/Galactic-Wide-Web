@@ -3,6 +3,7 @@ from disnake import (
     AppCmdInter,
     ChannelType,
     Colour,
+    DiscordServerError,
     Embed,
     File,
     Forbidden,
@@ -311,10 +312,18 @@ class SetupCog(Cog):
                         json_dict=self.bot.json_dict,
                         compact_level=compact_level,
                     )
-                message = await dashboard_channel.send(
-                    embeds=dashboard.embeds,
-                    file=File("resources/dashboard/banner.png"),
-                )
+                try:
+                    message = await dashboard_channel.send(
+                        embeds=dashboard.embeds,
+                        file=File("resources/dashboard/banner.png"),
+                    )
+                except DiscordServerError:
+                    await inter.send(
+                        "There was an Discord Server error when setting up the dashboard, please try again."
+                        "\nIf this persists, there is nothing I can do, sorry. :pensive:",
+                        ephemeral=True,
+                    )
+                    return
                 guild.features.append(
                     Feature(
                         name="dashboards",
