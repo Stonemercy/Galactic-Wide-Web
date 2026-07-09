@@ -45,7 +45,7 @@ class DataService(ReprMixin):
         self._raw_personal_order: dict = {}
         self._raw_stuperstore: dict = {}
         self._raw_steam_news: list = []
-        self._raw_control_centre: dict[str, list] = {}
+        self._raw_control_centre: dict[str, dict] = {}
         self._episode_phase_translations: dict = {
             l.short_code: {"episodes": {}, "phases": {}} for l in Languages.all
         }
