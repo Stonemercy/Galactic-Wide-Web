@@ -65,11 +65,11 @@ class AdminCommandsCog(commands.Cog):
             case "Global Event":
                 self.bot.databases.war_info.global_event_id -= 1
                 self.bot.databases.war_info.save_changes()
-                await self.bot.get_cog("GlobalEventsCog").global_event_check()
+                await self.bot.get_cog(name="GlobalEventsCog").global_event_check()
             case "Dispatch":
                 self.bot.databases.war_info.dispatch_id -= 1
                 self.bot.databases.war_info.save_changes()
-                await self.bot.get_cog("DispatchesCog").dispatch_check()
+                await self.bot.get_cog(name="DispatchesCog").dispatch_check()
             case "DSS changes":
                 self.bot.databases.dss_info.planet_index -= 1
                 self.bot.databases.dss_info.tactical_action_statuses = {
@@ -77,11 +77,11 @@ class AdminCommandsCog(commands.Cog):
                     for ta, status in self.bot.databases.dss_info.tactical_action_statuses.items()
                 }
                 self.bot.databases.dss_info.save_changes()
-                await self.bot.get_cog("WarUpdatesCog").dss_check()
+                await self.bot.get_cog(name="WarUpdatesCog").dss_check()
             case "Steam":
                 self.bot.databases.war_info.patch_notes_id -= 1
                 self.bot.databases.war_info.save_changes()
-                await self.bot.get_cog("SteamCog").steam_check()
+                await self.bot.get_cog(name="SteamCog").steam_check()
         await inter.send(
             content=f"{feature} update completed in {(datetime.now(tz=timezone.utc) - command_start).total_seconds():.3f} seconds",
             ephemeral=True,
