@@ -292,7 +292,7 @@ class WarUpdatesCog(Cog):
                 for lang in unique_langs
             }
             if (
-                self.bot.databases.dss_info.planet_index == None
+                self.bot.databases.dss_info.planet_index is None
                 or not self.bot.databases.dss_info.tactical_action_statuses
             ):
                 self.bot.databases.dss_info.planet_index = (
@@ -330,7 +330,7 @@ class WarUpdatesCog(Cog):
                 old_status = self.bot.databases.dss_info.tactical_action_statuses.get(
                     ta.id
                 )
-                if old_status == None or old_status != ta.status:
+                if old_status is None or old_status != ta.status:
                     for container in containers.values():
                         container.ta_status_changed(tactical_action=ta)
                         self.bot.databases.dss_info.tactical_action_statuses[ta.id] = (
