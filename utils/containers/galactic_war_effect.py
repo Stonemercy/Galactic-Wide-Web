@@ -34,14 +34,13 @@ class GWEContainer(Container, ReprMixin):
             content += f"\n**{feature.name}** {feature.emoji}"
 
         if subfaction_poi := next(
-            (sf for sf in Subfactions._all if sf.poi_id == gwe.id), None
+            (sf for sf in Subfactions._all if sf.token_effect_id == gwe.id), None
         ):
             content += f"\n**{subfaction_poi.eng_name}** {subfaction_poi.emoji}"
 
-        if gwe.found_enemy and gwe.found_enemy not in content:
-            enemy = str(gwe.found_enemy)
+        if gwe.found_enemy and gwe.found_enemy.upper() not in content:
             subfaction = [
-                sf for sf in Subfactions._all if sf.eng_name.lower() == enemy.lower()
+                sf for sf in Subfactions._all if sf.resource_hash == gwe.resource_hash
             ]
             if subfaction:
                 sf = subfaction[0]

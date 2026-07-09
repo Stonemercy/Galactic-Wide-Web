@@ -134,7 +134,9 @@ class Planet(ReprMixin):
 
     @property
     def subfactions(self) -> set[Subfaction]:
-        return Subfactions.get_from_effects_list(self.active_effects)
+        if division_effects := [e for e in self.active_effects if e.effect_type == 40]:
+            return Subfactions.get_from_effects_list(division_effects)
+        return set()
 
     @property
     def planet_features(self) -> list[PlanetFeature]:

@@ -216,7 +216,7 @@ class GalacticWarEffect(GWEReprMixin):
                     # might be a boolean flag, only used with game_OperationModToggle so far
                     self.value15 = value
                 case 16:
-                    # murmur2 resource hash
+                    # resource hash
                     self.resource_hash = value
                     if enemy := json_dict["enemy_ids"].get(
                         str(self.resource_hash), None
