@@ -29,6 +29,12 @@ class Emojis:
         throwable_weapon = "<:s:1507054841179013212>"
 
     @dataclass
+    class DefenceIcons:
+        automaton = "<:s:1524785202457612328>"
+        terminids = "<:s:1524785204999491725>"
+        illuminate = "<:s:1524785203707642101>"
+
+    @dataclass
     class RegionIcons:
         @dataclass
         class Automaton:

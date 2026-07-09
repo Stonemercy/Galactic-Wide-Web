@@ -119,7 +119,11 @@ class Planet(ReprMixin):
     def exclamations(self) -> str:
         result = ""
         if self.event and self.event.type != EventType.UrgentLiberation:
-            result += f":shield:{self.event.faction.emoji}"
+            result += getattr(
+                Emojis.DefenceIcons,
+                self.event.faction.full_name.lower(),
+                ":shield:",
+            )
         if self.in_assignment:
             result += Emojis.Icons.mo
         if self.dss_in_orbit:
