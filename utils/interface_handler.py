@@ -124,7 +124,6 @@ class InterfaceHandler:
             guild: GWWGuild = GWWGuilds.get_specific_guild(message.guild.id)
             guild.features = [f for f in guild.features if f.name != "dashboards"]
             guild.update_features()
-            guild.save_changes()
             return self.bot.logger.error(
                 f"edit_dashboard | {guild.language} | {e} | reset in DB | {guild.guild_id = }"
             )
@@ -134,7 +133,6 @@ class InterfaceHandler:
                 guild: GWWGuild = GWWGuilds.get_specific_guild(message.guild.id)
                 guild.features = [f for f in guild.features if f.name != "dashboards"]
                 guild.update_features()
-                guild.save_changes()
                 return self.bot.logger.error(
                     f"edit_dashboard | {guild.language} | {e} | reset in DB | {guild.guild_id = }"
                 )
@@ -155,7 +153,6 @@ class InterfaceHandler:
             guild: GWWGuild = GWWGuilds.get_specific_guild(message.guild.id)
             guild.features = [f for f in guild.features if f.name != "maps"]
             guild.update_features()
-            guild.save_changes()
             return self.bot.logger.error(
                 f"edit_map | {e} | reset in DB | {guild.guild_id = }"
             )
@@ -178,7 +175,6 @@ class InterfaceHandler:
             guild: GWWGuild = GWWGuilds.get_specific_guild(channel.guild.id)
             guild.features = [f for f in guild.features if f.name != feature_type]
             guild.update_features()
-            guild.save_changes()
             return self.bot.logger.error(
                 f"send_embed {feature_type} | {e} | reset in DB | {channel.guild.id = }"
             )
@@ -202,7 +198,6 @@ class InterfaceHandler:
             guild: GWWGuild = GWWGuilds.get_specific_guild(channel.guild.id)
             guild.features = [f for f in guild.features if f.name != feature_type]
             guild.update_features()
-            guild.save_changes()
             return self.bot.logger.error(
                 f"send_component {feature_type} | {e} | reset in DB | {channel.guild.id = }"
             )
@@ -347,7 +342,6 @@ class BaseFeatureInteractionHandler(list, ReprMixin):
                         f for f in guild.features if f.name != feature.name
                     ]
                     guild.update_features()
-                    guild.save_changes()
                     self.bot.logger.error(
                         f"{feature.name}.populate() ERROR | {e} | reset in DB | {guild.guild_id = }"
                     )

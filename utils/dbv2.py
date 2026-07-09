@@ -249,6 +249,7 @@ class GWWGuild:
                         (self.feature_keys, self.guild_id),
                     )
                 conn.commit()
+        self.save_changes()
 
     def save_changes(self) -> None:
         """Save changes to the database"""

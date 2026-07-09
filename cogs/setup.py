@@ -141,7 +141,6 @@ class SetupCog(Cog):
                     pass
                 guild.features = [f for f in guild.features if f.name != "dashboards"]
                 guild.update_features()
-                guild.save_changes()
                 self.bot.interface_handler.dashboards.remove_entry(guild.guild_id)
                 await inter.edit_original_response(
                     components=SetupContainer(
@@ -167,7 +166,6 @@ class SetupCog(Cog):
                     pass
                 guild.features = [f for f in guild.features if f.name != "maps"]
                 guild.update_features()
-                guild.save_changes()
                 self.bot.interface_handler.maps.remove_entry(guild.guild_id)
                 await inter.edit_original_response(
                     components=SetupContainer(
@@ -218,7 +216,6 @@ class SetupCog(Cog):
                 feature_type = inter.component.custom_id.split("-")[1]
                 guild.features = [f for f in guild.features if f.name != feature_type]
                 guild.update_features()
-                guild.save_changes()
                 getattr(self.bot.interface_handler, feature_type).remove_entry(
                     guild.guild_id
                 )
@@ -333,7 +330,6 @@ class SetupCog(Cog):
                     )
                 )
                 guild.update_features()
-                guild.save_changes()
                 self.bot.interface_handler.dashboards.append(message)
                 await inter.edit_original_response(
                     components=SetupContainer(
@@ -442,7 +438,6 @@ class SetupCog(Cog):
                     )
                 )
                 guild.update_features()
-                guild.save_changes()
                 self.bot.interface_handler.maps.append(message)
                 await inter.edit_original_response(
                     components=SetupContainer(
@@ -492,7 +487,6 @@ class SetupCog(Cog):
                     )
                 )
                 guild.update_features()
-                guild.save_changes()
                 list_to_update: list = getattr(self.bot.interface_handler, feature_type)
                 list_to_update.append(channel)
                 await inter.edit_original_response(
