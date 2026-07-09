@@ -2,7 +2,7 @@ from datetime import datetime, timezone
 from disnake import Colour
 from disnake.ui import Container, Section, Separator, TextDisplay
 from utils.api_wrapper.models import Planet
-from utils.dataclasses import Factions, PlanetFeatures
+from utils.dataclasses import Factions
 from utils.emojis import Emojis
 from utils.functions import get_end_time, short_format
 from utils.interactables import HDCButton, WikiButton
@@ -112,8 +112,8 @@ class PlanetContainers(list[Container]):
                 )
 
             effects_text = f"### Features:"
-            for pf in PlanetFeatures.get_from_effects_list(planet.active_effects):
-                effects_text += f"\n-# {pf[1]} {pf[0]}"
+            for pf in planet.planet_features:
+                effects_text += f"\n-# {pf.emoji} {pf.name}"
             if effects_text != "### Features:":
                 self.components.append(TextDisplay(effects_text))
 
