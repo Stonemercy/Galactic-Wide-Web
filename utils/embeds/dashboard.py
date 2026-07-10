@@ -1509,10 +1509,14 @@ class Dashboard:
                 planet = self.planets.get(task.planet_index)
                 if planet:
                     if planet.event:
-                        field_value += getattr(
+                        emoji = getattr(
                             Emojis.DefenceIcons,
                             planet.event.faction.full_name.lower(),
                             ":shield:",
+                        )
+                        field_value += (
+                            f"{planet.health_bar}{emoji}"
+                            f"\n`{planet.event.progress:^25,.2%}`"
                         )
 
             if self.assignment.flags in (2, 3):
