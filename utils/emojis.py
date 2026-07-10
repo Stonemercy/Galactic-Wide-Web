@@ -171,10 +171,6 @@ class Emojis:
 
     @dataclass
     class PlanetFeatures:
-        terminid_research_preserve = "<:s:1522266050752806923>"
-        negative_energy_labratory = "<:s:1522269875135971509>"
-        tyranny_park_2 = "<:s:1522272390128599160>"
-        tcs_plus = "<:s:1523049499671396442>"
         black_hole = "<:s:1417101106055479327>"
         cfcsas = "<:s:1417097098901327882>"
         hive_world = "<:s:1417088669478813788>"
@@ -194,6 +190,10 @@ class Emojis:
         pandora_base = "<:s:1478444563034013876>"
         exostorm = "<:s:1484326498151432355>"
         void = "<:s:1486057474220884179>"
+        terminid_research_preserve = "<:s:1522266050752806923>"
+        negative_energy_labratory = "<:s:1522269875135971509>"
+        tyranny_park_2 = "<:s:1522272390128599160>"
+        tcs_plus = "<:s:1525091788988350465>"
 
     @dataclass
     class Flags:
