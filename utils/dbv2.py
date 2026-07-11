@@ -223,7 +223,8 @@ class GWWGuild:
                         match feature.name:
                             case "dashboards" | "maps":
                                 curs.execute(
-                                    f"INSERT INTO feature.{feature.name} (guild_id, channel_id, message_id) VALUES (%s, %s, %s)",
+                                    f"INSERT INTO feature.{feature.name} (guild_id, channel_id, message_id) VALUES (%s, %s, %s)"
+                                    " ON CONFLICT (guild_id) DO UPDATE SET channel_id = EXCLUDED.channel_id, message_id = EXCLUDED.message_id",
                                     (
                                         self.guild_id,
                                         feature.channel_id,
@@ -232,7 +233,8 @@ class GWWGuild:
                                 )
                             case _:
                                 curs.execute(
-                                    f"INSERT INTO feature.{feature.name} (guild_id, channel_id) VALUES (%s, %s)",
+                                    f"INSERT INTO feature.{feature.name} (guild_id, channel_id) VALUES (%s, %s)"
+                                    " ON CONFLICT (guild_id) DO UPDATE SET channel_id = EXCLUDED.channel_id",
                                     (self.guild_id, feature.channel_id),
                                 )
                 for feature_key in self.feature_keys.copy():

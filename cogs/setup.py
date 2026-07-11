@@ -321,6 +321,7 @@ class SetupCog(Cog):
                         ephemeral=True,
                     )
                     return
+                guild.features = [f for f in guild.features if f.name != "dashboards"]
                 guild.features.append(
                     Feature(
                         name="dashboards",
@@ -429,6 +430,7 @@ class SetupCog(Cog):
                             f"-# Updated <t:{int(datetime.now(tz=timezone.utc).timestamp())}:R>",
                         ),
                     )
+                guild.features = [f for f in guild.features if f.name != "maps"]
                 guild.features.append(
                     Feature(
                         name="maps",
@@ -479,6 +481,7 @@ class SetupCog(Cog):
                 )
                 return
             else:
+                guild.features = [f for f in guild.features if f.name != feature_type]
                 guild.features.append(
                     Feature(
                         name=feature_type,
