@@ -621,7 +621,7 @@ class FormattedData:
                                     if space_station.planet != next_planet:
                                         time_until_move = (
                                             space_station.move_timer_datetime
-                                            - datetime.now()
+                                            - datetime.now(tz=timezone.utc)
                                         ).total_seconds()
                                         space_station.planet.event.end_time_datetime += timedelta(
                                             seconds=time_until_move
