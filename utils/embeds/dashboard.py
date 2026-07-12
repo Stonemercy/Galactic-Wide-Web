@@ -498,27 +498,39 @@ class Dashboard:
                                         ]
                                     )
                         case AssignmentTaskType.HoldLocationsUntilEnd:
-                            if task.planet_index != None:
+                            if task.planet_index is not None:
                                 planet = self.planets.get(task.planet_index)
-                                if not planet:
+                                if planet is None:
                                     continue
-                                if (
-                                    planet.event
-                                    and (
-                                        planet.event.end_time_datetime
-                                        < self.assignment.ends_at_datetime
-                                    )
-                                    and planet.event.type != EventType.UrgentLiberation
-                                ) or planet.faction != Factions.humans:
-                                    end_time_info = get_end_time(
-                                        source_planet=planet,
-                                        gambit_planets=self.gambit_planets,
-                                    )
+                                end_time_info = get_end_time(
+                                    source_planet=planet,
+                                    gambit_planets=self.gambit_planets,
+                                )
+                                if planet.faction != Factions.humans:
                                     if end_time_info.end_time:
                                         self.completion_timestamps.append(
                                             end_time_info.end_time.timestamp()
                                         )
-                            elif task.sector_index:
+                                else:
+                                    if (
+                                        planet.event is None
+                                        or planet.event.type != EventType.Defence
+                                    ):
+                                        continue
+                                    if (
+                                        planet.event.end_time_datetime
+                                        > self.assignment.ends_at_datetime
+                                    ):
+                                        continue
+                                    else:
+                                        if end_time_info.end_time and (
+                                            end_time_info.end_time
+                                            > self.assignment.ends_at_datetime
+                                        ):
+                                            self.completion_timestamps.append(
+                                                end_time_info.end_time.timestamp()
+                                            )
+                            elif task.sector_index is not None:
                                 sector: str = self.json_dict["sectors"][
                                     str(task.sector_index)
                                 ]
@@ -1458,10 +1470,10 @@ class Dashboard:
             tasks_json = self.language_json["embeds"]["Dashboard"]["MajorOrderEmbed"][
                 "tasks"
             ]
-            if task.target > 1 and task.sector_index:
+            if task.target > 1 and task.sector_index is not None:
                 field_name = tasks_json["type13_c_s"]
             elif task.target == 1 and any(
-                [task.planet_index != None, task.sector_index]
+                [task.planet_index is not None, task.sector_index is not None]
             ):
                 field_name = tasks_json["type13_r"]
             else:
@@ -1470,45 +1482,45 @@ class Dashboard:
             if task.target > 0:
                 field_name = field_name.replace("{count}", f"{task.target:,}")
             if task.target == 1:
-                if task.planet_index != None:
+                if task.planet_index is not None:
                     planet = self.planets.get(task.planet_index)
-                    if planet:
+                    if planet is not None:
                         location_name = planet.names.get(
                             self.language_json["code_long"], planet.name
                         )
                     else:
-                        location_name = "UNKNOWN PLANET"
-                elif task.sector_index:
+                        location_name = f"PLANET #{task.planet_index}"
+                elif task.sector_index is not None:
                     location_name = self.json_dict["sectors"].get(
-                        str(task.sector_index), "UNKNOWN"
+                        str(task.sector_index), f"SECTOR #{task.sector_index}"
                     )
                 else:
                     return
                 field_name = field_name.replace("{location}", location_name)
-            elif task.target > 1 and task.sector_index:
+            elif task.target > 1 and task.sector_index is not None:
                 sector_name = self.json_dict["sectors"].get(
-                    str(task.sector_index), "UNKNOWN"
+                    str(task.sector_index), f"SECTOR #{task.sector_index}"
                 )
                 field_name = field_name.replace("{sector}", sector_name)
 
             field_value = ""
             if task.progress_perc != 1:
-                if task.planet_index != None:
+                if task.planet_index is not None:
                     planet = self.planets.get(task.planet_index)
-                    if planet and planet.faction != Factions.humans:
+                    if planet is not None and planet.faction != Factions.humans:
                         field_value += (
                             planet.health_bar + f"\n`{1 - planet.health_perc:^25,.2%}`"
                         )
-                elif task.target > 1 and task.sector_index:
+                elif task.target > 1 and task.sector_index is not None:
                     field_value += (
                         f"{self.language_json['embeds']['Dashboard']['MajorOrderEmbed']['progress']}: **{task.progress}/{task.target}**"
                         f"\n{task.health_bar}"
                         f"\n`{task.progress_perc:^25,.2%}`"
                     )
-            elif task.planet_index != None:
+            elif task.planet_index is not None:
                 planet = self.planets.get(task.planet_index)
-                if planet:
-                    if planet.event:
+                if planet is not None:
+                    if planet.event is not None:
                         emoji = getattr(
                             Emojis.DefenceIcons,
                             planet.event.faction.full_name.lower(),
@@ -1760,29 +1772,40 @@ class Dashboard:
                 for t in self.assignment.tasks
                 if t.type == AssignmentTaskType.HoldLocationsUntilEnd
             ):
-                if task.planet_index != None:
+                if task.planet_index is not None:
                     planet = self.planets.get(task.planet_index)
                     if planet:
-                        if planet.faction.full_name == "Humans" and not planet.event:
-                            complete_type_13s.append(True)
-                        elif planet.event and planet.event.type == EventType.Defence:
-                            if (
-                                planet.event.end_time_datetime
-                                > self.assignment.ends_at_datetime
-                            ):
+                        end_time_info = get_end_time(
+                            source_planet=planet,
+                            gambit_planets=self.gambit_planets,
+                        )
+                        if planet.faction == Factions.humans:
+                            if not planet.event:
                                 complete_type_13s.append(True)
                             else:
-                                end_time_info = get_end_time(
-                                    source_planet=planet,
-                                    gambit_planets=self.gambit_planets,
-                                )
-                                if (
-                                    end_time_info.end_time
-                                    and end_time_info.end_time
-                                    < self.assignment.ends_at_datetime
-                                ):
+                                if planet.event.type != EventType.Defence:
                                     complete_type_13s.append(True)
-                elif task.sector_index:
+                                else:
+                                    if (
+                                        planet.event.end_time_datetime
+                                        > self.assignment.ends_at_datetime
+                                    ):
+                                        complete_type_13s.append(True)
+                                    else:
+                                        if (
+                                            end_time_info.end_time
+                                            and end_time_info.end_time
+                                            < self.assignment.ends_at_datetime
+                                        ):
+                                            complete_type_13s.append(True)
+                        else:
+                            if (
+                                end_time_info.end_time
+                                and end_time_info.end_time
+                                < self.assignment.ends_at_datetime
+                            ):
+                                complete_type_13s.append(True)
+                elif task.sector_index is not None:
                     sector = self.json_dict["sectors"][task.sector_index]
                     sector_wins = []
                     for planet in [
@@ -1803,13 +1826,16 @@ class Dashboard:
             complete_tasks = (
                 [
                     True
-                    for t in self.assignment.tasks
-                    if t.progress_perc >= 1
-                    and t.type
-                    not in [
-                        AssignmentTaskType.HoldLocationsUntilEnd,
-                        AssignmentTaskType.NetLiberation,
+                    for t in [
+                        i
+                        for i in self.assignment.tasks
+                        if i.type
+                        not in [
+                            AssignmentTaskType.HoldLocationsUntilEnd,
+                            AssignmentTaskType.NetLiberation,
+                        ]
                     ]
+                    if t.progress_perc >= 1
                 ]
                 + [b for b in winning_all_unfinished_tasks if b]
                 + complete_type_13s
