@@ -182,7 +182,8 @@ class Maps:
                     elif near_planet.event:
                         if planet.index in near_planet.defending_from:
                             distance_div = 0.99
-                            with_attack_arrows = True
+                            if planet.faction != Factions.humans:
+                                with_attack_arrows = True
                         elif planet.faction == near_planet.faction:
                             colour = near_planet.faction.colour
                 end_point = (
