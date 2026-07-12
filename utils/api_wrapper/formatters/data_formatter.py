@@ -472,8 +472,6 @@ class FormattedData:
             # in_assignment
             for assignment in self.assignments.get("en", []):
                 for task in assignment.tasks:
-                    if task.progress_perc >= 1:
-                        continue
                     match task.type:
                         case (
                             AssignmentTaskType.ExtractFromLocations
@@ -486,6 +484,8 @@ class FormattedData:
                             | AssignmentTaskType.CompleteOperations
                             | AssignmentTaskType.LiberateLocationsSpecific
                         ):
+                            if task.progress_perc >= 1:
+                                continue
                             if task.planet_index != None:
                                 planet = self.planets.get(task.planet_index)
                                 if planet:
@@ -508,8 +508,12 @@ class FormattedData:
                                 ):
                                     planet.in_assignment = True
                         case AssignmentTaskType.DonateItems:
+                            if task.progress_perc >= 1:
+                                continue
                             pass
                         case AssignmentTaskType.DefendFromAttacks:
+                            if task.progress_perc >= 1:
+                                continue
                             if task.sector_index:
                                 if task.faction:
                                     for event_campaign in (
@@ -552,11 +556,24 @@ class FormattedData:
                                     p
                                     for p in self.planets.values()
                                     if p.sector == task.sector_index
+                                    and (
+                                        planet.faction != Factions.humans
+                                        or (
+                                            planet.event
+                                            and planet.event.type == EventType.Defence
+                                        )
+                                    )
                                 ):
                                     planet.in_assignment = True
                             elif task.planet_index != None:
                                 planet = self.planets.get(task.planet_index)
-                                if planet:
+                                if planet and (
+                                    planet.faction != Factions.humans
+                                    or (
+                                        planet.event
+                                        and planet.event.type == EventType.Defence
+                                    )
+                                ):
                                     planet.in_assignment = True
                         case (
                             AssignmentTaskType.LiberateLocationsCount
