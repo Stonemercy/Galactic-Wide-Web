@@ -1,4 +1,9 @@
-from disnake import AppCmdInter, ApplicationInstallTypes, InteractionContextTypes
+from disnake import (
+    AppCmdInter,
+    ApplicationInstallTypes,
+    InteractionContextTypes,
+    MessageInteraction,
+)
 from disnake.ext.commands import Cog, Param, slash_command
 from utils.bot import GalacticWideWebBot
 from utils.containers import HelpContainer
@@ -75,6 +80,22 @@ class HelpCog(Cog):
                 ),
                 ephemeral=public != "Yes",
             )
+
+    @Cog.listener("on_button_click")
+    async def on_button_clicks(self, inter: MessageInteraction) -> None:
+        if inter.component.custom_id != "welcome_help_button":
+            return
+
+        await inter.send(
+            components=HelpContainer(
+                commands=[
+                    c
+                    for c in self.bot.global_application_commands
+                    if c.name not in PRIVATE_COMMANDS
+                ],
+            ),
+            ephemeral=True,
+        )
 
 
 def setup(bot: GalacticWideWebBot) -> None:

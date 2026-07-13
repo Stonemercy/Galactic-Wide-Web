@@ -1,11 +1,11 @@
 from datetime import time, timezone
-from disnake import ButtonStyle, Colour, Embed, Guild, MessageInteraction
+from disnake import ButtonStyle, Colour, Embed, File, Guild, MessageInteraction
 from disnake.ext.commands import Cog
 from disnake.ext.tasks import loop
 from disnake.ui import Button
 from typing import TYPE_CHECKING
 from utils.bot import GalacticWideWebBot
-from utils.containers import GuildContainer
+from utils.containers import GuildContainer, WelcomeContainer
 from utils.dataclasses import Languages
 from utils.dbv2 import GWWGuilds
 
@@ -44,6 +44,17 @@ class GuildManagementCog(Cog):
             guild_in_db = GWWGuilds.add(
                 guild_id=guild.id, language=language.short_code, feature_keys=[]
             )
+
+        if guild.system_channel is not None:
+            if guild.system_channel.permissions_for(guild.me).send_messages:
+                await guild.system_channel.send(
+                    components=WelcomeContainer(guild, self.bot),
+                    file=File("resources/gww-banner.png"),
+                )
+                self.bot.logger.info(
+                    "Bot successfully sent intro message to system channel"
+                )
+
         container = GuildContainer(guild=guild, db_guild=guild_in_db, joined=True)
         await self.bot.channels.moderator_channel.send(components=container)
         self.bot.logger.info(f"Bot added to guild {guild.id} - '{guild.name}'")

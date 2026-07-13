@@ -14,6 +14,7 @@ from .region_changes import RegionChangesContainer
 from .setup import SetupContainer
 from .subfactions import SubfactionsContainer
 from .usage_report import UsageContainer
+from .welcome import WelcomeContainer
 
 __all__ = [
     "APIChangesContainer",
@@ -32,4 +33,5 @@ __all__ = [
     "SetupContainer",
     "SubfactionsContainer",
     "UsageContainer",
+    "WelcomeContainer",
 ]

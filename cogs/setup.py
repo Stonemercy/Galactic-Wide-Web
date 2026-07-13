@@ -39,6 +39,7 @@ ALLOWED_BUTTONS = {
     "clear_map_button",
     "features_button",
     "language_button",
+    "welcome_setup_button",
 }
 ALLOWED_DROPDOWNS = {
     "dashboard_channel_select",
@@ -119,6 +120,17 @@ class SetupCog(Cog):
                 shard_info=self.bot.shards[inter.guild.shard_id],
             )
             await inter.edit_original_response(components=container)
+        elif inter.component.custom_id == "welcome_setup_button":
+            container = [
+                SetupContainer(
+                    guild=guild,
+                    container_json=guild_language["containers"]["SetupContainer"],
+                    language_code=guild.language,
+                    shard_info=self.bot.shards[inter.guild.shard_id],
+                    active_category="dashboards",
+                )
+            ]
+            await inter.send(components=container, ephemeral=True)
         elif "dashboard" in inter.component.custom_id:
             if inter.component.custom_id == "dashboards_button":
                 container = SetupContainer(
