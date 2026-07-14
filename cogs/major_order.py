@@ -159,6 +159,8 @@ class MajorOrderCog(Cog):
                 "major_order_updates returning - english assignments are missing"
             )
             return
+        if self.bot.data.formatted_data.assignments.get("en") == []:
+            return
         unique_langs = GWWGuilds.unique_languages()
         embeds = {
             lang: [
