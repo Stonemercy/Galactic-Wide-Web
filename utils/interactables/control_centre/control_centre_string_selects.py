@@ -14,7 +14,7 @@ class ControlCentreActiveCampaignsStringSelect(StringSelect):
     def __init__(self, episode_id: int, phases: list[ControlCentre.Episode.Phase]):
         options = [
             SelectOption(
-                label=f"{phase.intro_title} - {index}/{len(phases)}",
+                label=f"{phase.intro_title} - {index}/{max(len(phases), 3)}",  # placeholder until they fix their glitch
                 value=phase.id,
                 emoji=EMOJIS_DICT.get(phase.status, "❔"),
             )

@@ -228,7 +228,7 @@ class ControlCentreContainer(Container):
         )
         section1.append(
             TextDisplay(
-                f"-# {campaign.title} {index + 1}/{len(campaign.phases)}"
+                f"-# {campaign.title} {index + 1}/{max(len(campaign.phases), 3)}"  # placeholder until AH fix this
                 f"\n# {faction_emoji} **{phase.intro_title}** {faction_emoji}"
                 f"\n**Outcome - {STATUS_DICT.get(phase.status, 'UNKNOWN')}**"
                 f"\n{phase.intro_message if phase.status == ControlCentreStatus.InProgress else phase.outro_message}"
