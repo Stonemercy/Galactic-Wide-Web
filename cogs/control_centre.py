@@ -83,8 +83,8 @@ class ControlCentreCog(Cog):
     async def on_button_clicks(self, inter: MessageInteraction) -> None:
         if (
             not self.bot.ready
-            and inter.component.custom_id not in MAIN_BUTTONS
-            and inter.author != inter.message.interaction_metadata.user
+            or inter.author != inter.message.interaction_metadata.user
+            or inter.component.custom_id not in MAIN_BUTTONS
             and "control_centre" not in inter.component.custom_id
         ):
             return
