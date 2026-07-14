@@ -971,6 +971,12 @@
         "type": "Helmet",
         "cost": 125
     },
+    "3534240935": {
+        "name": "KDM-500 Outrider",
+        "description": "Ruggedized for extended operation beyond the reach of paved logistics. This armor's heavy plating is intended for the \"unpaving\" of hostile territory, providing a mobile bulkhead for Helldivers who don't know the meaning of \"environmental obstacles.\"",
+        "type": "Helmet",
+        "cost": 0
+    },
     "337564280": {
         "name": "RS-6 Fiend Destroyer",
         "description": "The understated color scheme and precision-molded armor plates make this armor a sensible choice for the Helldiver on the go.",
