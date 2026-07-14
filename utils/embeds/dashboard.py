@@ -2648,7 +2648,9 @@ class Dashboard:
                         region_type = (
                             language_json["regions"][str(region.type.value)]
                             if not region.is_factory
-                            else language_json["regions"]["megafactory"]
+                            else language_json["regions"]["megafactory"].format(
+                                number=region.size
+                            )
                         )
                         field_value += f"\n-# ↳ {region.emoji} {region_type} **{region.names.get(language_json['code_long'], region.name)}**"
                         if region.is_available:
