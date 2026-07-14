@@ -1,3 +1,4 @@
+from aiohttp import ServerDisconnectedError
 from disnake import AppCmdInter, ChannelType, Color, Embed, MessageInteraction, NotFound
 from disnake.ext.commands import (
     BadArgument,
@@ -50,6 +51,9 @@ class ErrorHandlerCog(Cog):
             log_error = False
         elif isinstance(error, NotFound):
             embed.description = "There was an error with Discord for this interaction. Please try again."
+            log_error = False
+        elif isinstance(error, ServerDisconnectedError):
+            embed.description = "There was an error with Discord's server for this interaction. Please try again."
             log_error = False
         else:
             embed.description = (
