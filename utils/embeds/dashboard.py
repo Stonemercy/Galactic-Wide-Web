@@ -2511,9 +2511,7 @@ class Dashboard:
                 title=f"Recon Campaigns{total_players_doing_recon}",
                 colour=Colour.dark_embed(),
             )
-            factions = [
-                c.planet.event.faction.full_name.lower() for c in recon_campaigns
-            ]
+            factions = [c.planet.faction.full_name.lower() for c in recon_campaigns]
             if len(set(factions)) > 1:
                 thumbnail = ATTACK_EMBED_ICONS["default"]
             else:  # update these to recon icon if available
