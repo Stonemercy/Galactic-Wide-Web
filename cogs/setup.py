@@ -133,6 +133,37 @@ class SetupCog(Cog):
             await inter.send(components=container, ephemeral=True)
         elif "dashboard" in inter.component.custom_id:
             if inter.component.custom_id == "dashboards_button":
+                if "dashboards" not in guild.feature_keys:
+                    for channel in inter.guild.text_channels:
+                        if channel.permissions_for(inter.me).send_messages:
+                            async for message in channel.history(limit=10):
+                                if (
+                                    message.author == inter.guild.me
+                                    and message.embeds != []
+                                    and message.attachments != []
+                                ):
+                                    guild.features = [
+                                        f
+                                        for f in guild.features
+                                        if f.name != "dashboards"
+                                    ]
+                                    guild.features.append(
+                                        Feature(
+                                            name="dashboards",
+                                            guild_id=guild.guild_id,
+                                            channel_id=channel.id,
+                                            message_id=message.id,
+                                        )
+                                    )
+                                    guild.update_features()
+                                    self.bot.interface_handler.dashboards.append(
+                                        message
+                                    )
+                                    await inter.send(
+                                        f"Dashboard located and reconnected: {message.jump_url}",
+                                        ephemeral=True,
+                                    )
+                                    break
                 container = SetupContainer(
                     guild=guild,
                     container_json=guild_language["containers"]["SetupContainer"],
