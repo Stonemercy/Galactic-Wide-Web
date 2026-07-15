@@ -128,7 +128,7 @@ class InterfaceHandler:
                 f"edit_dashboard | {guild.language} | {e} | reset in DB | {guild.guild_id = }"
             )
         except HTTPException as e:
-            if "Thread is archived" in e.text or e.status == 500:
+            if "Thread is archived" in e.text:
                 self.dashboards.remove_entry(message.guild.id)
                 guild: GWWGuild = GWWGuilds.get_specific_guild(message.guild.id)
                 guild.features = [f for f in guild.features if f.name != "dashboards"]
