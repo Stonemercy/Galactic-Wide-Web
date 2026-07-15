@@ -313,7 +313,9 @@ class SetupCog(Cog):
                     json_dict=self.bot.json_dict,
                 )
                 compact_level = 0
-                while dashboard.character_count() > 6000 and compact_level < 2:
+                while (
+                    dashboard.character_count() > 6000 or len(dashboard.embeds) >= 9
+                ) and compact_level < 2:
                     compact_level += 1
                     dashboard = Dashboard(
                         data=self.bot.data.formatted_data,
