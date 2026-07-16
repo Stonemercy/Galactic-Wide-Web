@@ -45,7 +45,8 @@ class DashboardCog(Cog):
         for lang, dashboard in dashboards.copy().items():
             compact_level = 0
             while (
-                dashboard.character_count() > 6000 or len(dashboard.embeds) >= 9
+                dashboard.character_count() > 6000
+                or (len(dashboard.embeds) >= 9 and dashboard.character_count() > 5000)
             ) and compact_level < 2:
                 compact_level += 1
                 dashboards[lang] = Dashboard(
