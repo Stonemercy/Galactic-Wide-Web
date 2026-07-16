@@ -46,6 +46,13 @@ ATTACK_EMBED_ICONS = {
     "terminids": "https://media.discordapp.net/attachments/1212735927223590974/1414959912815169636/terminids.png?ex=68c1779b&is=68c0261b&hm=3c1ad5eea04d6ca74c0a99d70244780662fa37f5e25866d4039edc921e442b0b&=&format=webp&quality=lossless",
 }
 
+RECON_EMBED_ICONS = {
+    "default": "https://media.discordapp.net/attachments/1212735927223590974/1527048341463105686/recon_default.png?ex=6a593e17&is=6a57ec97&hm=cb11d50a0d256f7cbe6f5188f6b923ea5f8cfb5dd9b8e3b46489b8508d87dfbc&=&format=webp&quality=lossless",
+    "illuminate": "https://media.discordapp.net/attachments/1212735927223590974/1527048343610462338/recon_illuminate.png?ex=6a593e18&is=6a57ec98&hm=a0988c83ed3cfeff0be40182fcbbca0b6eb7d2fce9659dd10442613bbc9769f8&=&format=webp&quality=lossless",
+    "automaton": "https://media.discordapp.net/attachments/1212735927223590974/1527048341031223356/recon_automatons.png?ex=6a593e17&is=6a57ec97&hm=5247962ac3c805ddd2c728f374da394391782027c2846c4fa8a0149a1a7e2e11&=&format=webp&quality=lossless",
+    "terminids": "https://media.discordapp.net/attachments/1212735927223590974/1527048344118231060/recon_terminids.png?ex=6a593e18&is=6a57ec98&hm=ac79214978b8868b26281c6870b9632bc3aeeb9f964d16ca3d6b03a2213557cd&=&format=webp&quality=lossless",
+}
+
 DEFENCE_EMBED_ICONS = {
     "default": "https://media.discordapp.net/attachments/1212735927223590974/1484605635713700121/0x1453ed31ade4af41.png?ex=69bed63e&is=69bd84be&hm=7d4b2ffd4b7072940e64c7a7b9c787208ae3955340c964891f587a5d05487539&=&format=webp&quality=lossless",
     "illuminate": "https://media.discordapp.net/attachments/1212735927223590974/1415077451565891705/illuminate.png?ex=68c1e513&is=68c09393&hm=baa0da180398b0273df5e807e89e48270bd635fa9d5b0bcd29135ce4d98d1e11&=&format=webp&quality=lossless",

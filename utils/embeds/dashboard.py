@@ -5,6 +5,7 @@ from data.lists import (
     CUSTOM_COLOURS,
     ATTACK_EMBED_ICONS,
     DEFENCE_EMBED_ICONS,
+    RECON_EMBED_ICONS,
     HOMEWORLD_ICONS,
     STRATAGEM_ID_DICT,
     URGENT_ICONS,
@@ -2509,14 +2510,15 @@ class Dashboard:
                 total_players_doing_recon = ""
             super().__init__(
                 title=f"Recon Campaigns{total_players_doing_recon}",
+                description="-# Super Earth will not liberate Recon campaign planets, but they will remain available as long as the sector is active.",
                 colour=Colour.dark_embed(),
             )
             factions = [c.planet.faction.full_name.lower() for c in recon_campaigns]
             if len(set(factions)) > 1:
-                thumbnail = ATTACK_EMBED_ICONS["default"]
-            else:  # update these to recon icon if available
-                thumbnail = ATTACK_EMBED_ICONS.get(
-                    factions[0], ATTACK_EMBED_ICONS["default"]
+                thumbnail = RECON_EMBED_ICONS["default"]
+            else:
+                thumbnail = RECON_EMBED_ICONS.get(
+                    factions[0], RECON_EMBED_ICONS["default"]
                 )
             self.set_thumbnail(thumbnail)
             for c in recon_campaigns:
@@ -2669,7 +2671,7 @@ class Dashboard:
 
             if skipped_campaigns != []:
                 skipped_planets_text = ""
-                for campaign in skipped_campaigns[:10]:
+                for campaign in skipped_campaigns[:5]:
                     exclamation = campaign.planet.exclamations
                     if campaign.planet.regen_perc_per_hour < 0.001:
                         exclamation += f":warning: {campaign.planet.regen_perc_per_hour:+.2%}/hr :warning:"
@@ -2687,9 +2689,9 @@ class Dashboard:
                                 and region.players > total_players * 0.001
                             ):
                                 skipped_planets_text += f"-# ↳ {region.emoji} {language_json['regions'][str(region.type.value)]} **{region.names.get(language_json['code_long'], region.name)}** - {region.perc:.2%}\n"
-                if len(skipped_campaigns) > 10:
+                if len(skipped_campaigns) > 5:
                     other_count = sum(
-                        [c.planet.stats.player_count for c in skipped_campaigns[10:]]
+                        [c.planet.stats.player_count for c in skipped_campaigns[5:]]
                     )
                     skipped_planets_text += f"-# Other Planets: {other_count:,}"
                 if skipped_planets_text != "":
