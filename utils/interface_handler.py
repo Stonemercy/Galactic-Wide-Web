@@ -149,7 +149,7 @@ class InterfaceHandler:
         try:
             await message.edit(embed=embed)
         except (NotFound, Forbidden) as e:
-            self.maps.remove(message)
+            self.maps.remove_entry(message.guild.id)
             guild: GWWGuild = GWWGuilds.get_specific_guild(message.guild.id)
             guild.features = [f for f in guild.features if f.name != "maps"]
             guild.update_features()
