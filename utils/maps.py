@@ -3,6 +3,7 @@ from cv2 import (
     INTER_NEAREST,
     addWeighted,
     arrowedLine,
+    boundingRect,
     circle,
     fillPoly,
     floodFill,
@@ -29,6 +30,7 @@ from numpy import (
     dot,
     float32,
     linalg,
+    mgrid,
     full_like,
     newaxis,
     pi,
@@ -60,6 +62,7 @@ class Maps:
     def __init__(self):
         self.latest_maps: dict[str, Maps.LatestMap] = {}
         self.TEXT_SIZE = 25
+        self.PLANET_RADIUS = 8
 
     @dataclass
     class LatestMap(ReprMixin):
@@ -140,8 +143,22 @@ class Maps:
                 newVal=bgr_color,
                 loDiff=(50, 50, 50),
                 upDiff=(50, 50, 50),
-                flags=FLOODFILL_FIXED_RANGE | FLOODFILL_MASK_ONLY ^ FLOODFILL_MASK_ONLY,
+                flags=FLOODFILL_FIXED_RANGE | FLOODFILL_MASK_ONLY,
             )
+
+            # sector stripes
+            region_mask = mask[1:-1, 1:-1].astype(bool)
+            x, y, bw, bh = boundingRect(region_mask.astype(uint8))
+            if bw == 0 or bh == 0:
+                continue
+            yy, xx = mgrid[y : y + bh, x : x + bw]
+            stripes = ((xx + yy if 45 == 45 else xx - yy) % (5 * 2)) < 5
+            sub_region = region_mask[y : y + bh, x : x + bw]
+            sub_bg = background_rgb[y : y + bh, x : x + bw]
+            sub_bg[stripes & sub_region] = bgr_color
+            sub_bg[~stripes & sub_region] = tuple(int(c * 0.5) for c in bgr_color)
+            background_rgb[y : y + bh, x : x + bw] = sub_bg
+
         if alpha_channel is not None:
             background = merge(
                 [
@@ -224,17 +241,18 @@ class Maps:
 
     def update_planets(self, planets: dict[int, Planet]) -> None:
         background = imread(Maps.FileLocations.assignment_map, IMREAD_UNCHANGED)
-        PLANET_RADIUS = 8
         for index, planet in planets.items():
-            planet_effect_ids = [ae.id for ae in planet.active_effects]
-            if 1190 in planet_effect_ids or 1376 in planet_effect_ids:
+            if any(i in planet.effect_ids for i in (1190, 1241, 1252, 1376)):
+                # hidden or special (destroyed etc)
                 continue
-            if any(aeid in (1373, 1374, 1375) for aeid in planet_effect_ids):
+
+            if any(aeid in (1373, 1374, 1375) for aeid in planet.effect_ids):
                 # exostorm
                 exostorm_icon = imread(
                     "resources/map_icons/exostorm_swirl.png", IMREAD_UNCHANGED
                 )
                 self.paste_image(background, exostorm_icon, planet.map_waypoints)
+
             if planet.dss_in_orbit:
                 self._draw_ellipse(
                     image=background,
@@ -242,70 +260,57 @@ class Maps:
                     fill_colour=CUSTOM_COLOURS["DSS"],
                     radius=12,
                 )
+
             if index == 64:
                 # meridia
-                for i in range(PLANET_RADIUS, PLANET_RADIUS - 4, -1):
-                    circle(
-                        background,
-                        planet.map_waypoints,
-                        i,
-                        (i * 25, i * 10, i * 25, 255),
-                        -1,
+                for i in range(self.PLANET_RADIUS, self.PLANET_RADIUS - 4, -1):
+                    self._draw_ellipse(
+                        image=background,
+                        coords=planet.map_waypoints,
+                        fill_colour=(i * 25, i * 10, i * 25),
+                        radius=i,
                     )
-                circle(
-                    background,
-                    planet.map_waypoints,
-                    int(PLANET_RADIUS / 2),
-                    (0, 0, 0, 255),
-                    -1,
+                self._draw_ellipse(
+                    image=background,
+                    coords=planet.map_waypoints,
+                    fill_colour=(0, 0, 0),
+                    radius=int(self.PLANET_RADIUS / 2),
                 )
-            elif 1352 in planet_effect_ids:
+            elif 1352 in planet.effect_ids:
                 # black hole
-                for i in range(PLANET_RADIUS, PLANET_RADIUS - 4, -1):
-                    circle(
-                        background,
-                        planet.map_waypoints,
-                        i,
-                        (i * 10, i * 25, i * 25, 255),
-                        -1,
+                for i in range(self.PLANET_RADIUS, self.PLANET_RADIUS - 4, -1):
+                    self._draw_ellipse(
+                        image=background,
+                        coords=planet.map_waypoints,
+                        fill_colour=(i * 25, i * 25, i * 10),
+                        radius=i,
                     )
-                circle(
-                    background,
-                    planet.map_waypoints,
-                    int(PLANET_RADIUS / 2),
-                    (0, 0, 0, 255),
-                    -1,
+                self._draw_ellipse(
+                    image=background,
+                    coords=planet.map_waypoints,
+                    fill_colour=(0, 0, 0),
+                    radius=int(self.PLANET_RADIUS / 2),
                 )
-            elif 1240 in planet_effect_ids:
+            elif 1240 in planet.effect_ids:
                 # going to be destroyed
-                circle(
-                    background,
-                    planet.map_waypoints,
-                    PLANET_RADIUS,
-                    (0, 0, 255, 255),
-                    -1,
+                self._draw_ellipse(
+                    image=background,
+                    coords=planet.map_waypoints,
+                    fill_colour=(255, 0, 0),
                 )
-            elif any([aeid in (1241, 1252) for aeid in planet_effect_ids]):
-                # fractured planets
-                continue
             else:
                 colour = (
                     planet.faction.colour
                     if planet.active_campaign
                     else tuple(int(colour / 1.5) for colour in planet.faction.colour)
                 )
-                colour = (*colour[::-1], 255)
-                circle(
-                    background,
-                    planet.map_waypoints,
-                    PLANET_RADIUS,
-                    colour,
-                    -1,
+                self._draw_ellipse(
+                    image=background,
+                    coords=planet.map_waypoints,
+                    fill_colour=colour,
                 )
 
-        for planet in [
-            p for p in planets.values() if 1376 in (e.id for e in p.active_effects)
-        ]:
+        for planet in [p for p in planets.values() if 1376 in p.effect_ids]:
             self.draw_void(background, planet, planets)
 
         for planet in [
@@ -375,9 +380,16 @@ class Maps:
                 tipLength=1,
             )
 
-    def _draw_ellipse(self, image, coords, fill_colour, radius=15):
+    def _draw_ellipse(self, image, coords, fill_colour, radius=8):
         bgr_color = (*fill_colour[::-1], 255)
-        circle(image, coords, radius, bgr_color, -1, LINE_AA)
+        circle(
+            img=image,
+            center=coords,
+            radius=radius,
+            color=bgr_color,
+            thickness=-1,
+            lineType=LINE_AA,
+        )
 
     def localize_map(
         self,
@@ -449,15 +461,14 @@ class Maps:
         path = Maps.FileLocations.localized_map_path(language_code=lang)
         background = imread(path, IMREAD_UNCHANGED)
         for planet in planets.values():
-            planet_effect_ids = [ae.id for ae in planet.active_effects]
-            if 1376 in planet_effect_ids:
+            if 1376 in planet.effect_ids:
                 continue
             if planet.index == 0:
                 se_icon = imread(
                     "resources/map_icons/super_earth.png", IMREAD_UNCHANGED
                 )
                 self.paste_image(background, se_icon, planet.map_waypoints)
-            elif any([aeid in (1241, 1252) for aeid in planet_effect_ids]):
+            elif any([aeid in (1241, 1252) for aeid in planet.effect_ids]):
                 self.paste_image(
                     background,
                     frac_planet_icon,

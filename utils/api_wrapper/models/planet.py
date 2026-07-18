@@ -79,7 +79,7 @@ class Planet(ReprMixin):
 
     @property
     def is_hidden(self) -> bool:
-        return 1190 in [ae.id for ae in self.active_effects]
+        return any(i in [1190, 1376] for i in self.effect_ids)
 
     @property
     def faction(self) -> Faction:
@@ -147,6 +147,10 @@ class Planet(ReprMixin):
         return PlanetFeatures.get_many(
             [ae.id for ae in self.active_effects if ae.effect_type == 71]
         )
+
+    @property
+    def effect_ids(self) -> list[int]:
+        return [ae.id for ae in self.active_effects]
 
     class Event(ReprMixin):
         __slots__ = (
