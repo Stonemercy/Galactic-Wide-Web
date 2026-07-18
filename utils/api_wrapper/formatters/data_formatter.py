@@ -343,6 +343,12 @@ class FormattedData:
                 if planet.event.type == EventType.UrgentLiberation:
                     planet.event.faction = planet.faction
 
+            for active_effect in context.war_status["en"]["planetActiveEffects"]:
+                planet = self.planets.get(active_effect["index"])
+                effect = self.war_effects.get(active_effect["galacticEffectId"])
+                if planet and effect:
+                    planet.active_effects.add(effect)
+
             for campaign in context.war_status["en"]["campaigns"]:
                 c_planet = self.planets.get(campaign["planetIndex"])
                 if c_planet:
@@ -361,7 +367,7 @@ class FormattedData:
                     for c in self.campaigns
                     if c.planet.faction != Factions.humans
                     and c.planet.defending_from
-                    and 1190 not in (gwe.id for gwe in c.planet.active_effects)
+                    and not c.planet.is_hidden
                     and c.planet.regen_perc_per_hour <= 0.03
                 ]:
                     for defending_index in campaign.planet.attack_targets:
@@ -373,12 +379,6 @@ class FormattedData:
                             self.gambit_planets[defending_index] = campaign.planet
                 for campaign in self.campaigns:
                     campaign.planet.active_campaign = True
-
-            for active_effect in context.war_status["en"]["planetActiveEffects"]:
-                planet = self.planets.get(active_effect["index"])
-                effect = self.war_effects.get(active_effect["galacticEffectId"])
-                if planet and effect:
-                    planet.active_effects.add(effect)
 
             if context.war_info:
                 for region in context.war_info["planetRegions"]:
