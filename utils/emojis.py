@@ -135,7 +135,7 @@ class Emojis:
         class DSS:
             icon = "<:s:1417971465311223808>"
             orbital_blockade = "<:s:1318875016909029388>"
-            planetary_bombardment = "<:s:1318874283350687816>"
+            heavy_ordnance_distribution = "<:s:1318874283350687816>"
             eagle_storm = "<:s:1318874257773690881>"
             operational_support = "<:s:1340990960120631376>"
             eagle_blockade = "<:s:1377971389570744361>"

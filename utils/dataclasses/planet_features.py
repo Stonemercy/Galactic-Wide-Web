@@ -44,7 +44,7 @@ class PlanetFeatures:
         ),
         1211: PlanetFeature(
             "PLANETARY BOMBARDMENT",
-            Emojis.SpaceStations.DSS.planetary_bombardment,
+            Emojis.SpaceStations.DSS.heavy_ordnance_distribution,
         ),
         1212: PlanetFeature(
             "EAGLE STORM",
