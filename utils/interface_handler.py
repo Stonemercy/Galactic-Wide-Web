@@ -294,7 +294,7 @@ class InterfaceHandler:
                     channel: TextChannel
                     guild = guild_map.get(channel.guild.id)
                     if not guild:
-                        if message in list_to_use:
+                        if channel in list_to_use:
                             list_to_use.remove(channel)
                         self.bot.logger.error(
                             f"send_feature {feature_type} {announcement_type} | guild not found in DB | {channel.guild.id = }"
