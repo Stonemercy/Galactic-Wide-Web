@@ -88,6 +88,7 @@ class DSSCog(Cog):
                 embed = Embed(
                     title="DSS Voting Status",
                     colour=Colour.from_rgb(*CUSTOM_COLOURS["DSS"]),
+                    description=f"-# Scheduled to move <t:{int(dss.move_timer_datetime.timestamp())}:R>",
                 )
                 for i, (p, v) in enumerate(
                     sorted(
