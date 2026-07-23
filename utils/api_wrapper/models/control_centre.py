@@ -104,7 +104,7 @@ class ControlCentre:
                 self.amount: int = raw_reward_data.get("amount", 1)
                 self.item_name: str = (
                     json_dict["items"]["rewards"].get(str(self.id))
-                    or json_dict["items"]["items"].get(str(self.id)).get("type", None)
+                    or json_dict["items"]["items"].get(str(self.id), {}).get("type", None)
                     or json_dict["strings"].get(str(self.id))
                     or "Unknown Item"
                 )
