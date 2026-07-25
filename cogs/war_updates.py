@@ -227,7 +227,6 @@ class WarUpdatesCog(Cog):
                     language_code_short=lang["code"],
                     language_code_long=lang["code_long"],
                     planets=self.bot.data.formatted_data.planets,
-                    planet_names_json=self.bot.json_dict["planets"],
                 )
                 self.bot.maps.add_icons(
                     lang=lang["code"],
@@ -356,7 +355,6 @@ class WarUpdatesCog(Cog):
                         language_code_short=lang,
                         language_code_long=lang_json["code_long"],
                         planets=self.bot.data.formatted_data.planets,
-                        planet_names_json=self.bot.json_dict["planets"],
                     )
                     self.bot.maps.add_icons(
                         lang=lang,

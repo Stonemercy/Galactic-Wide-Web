@@ -396,7 +396,6 @@ class Maps:
         language_code_short: str,
         language_code_long: str,
         planets: dict[int, Planet],
-        planet_names_json: dict,
     ) -> None:
         with Image.open(fp=Maps.FileLocations.planets_map) as background:
             self._write_names(

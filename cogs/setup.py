@@ -448,7 +448,6 @@ class SetupCog(Cog):
                         language_code_short=guild_language["code"],
                         language_code_long=guild_language["code_long"],
                         planets=self.bot.data.formatted_data.planets,
-                        planet_names_json=self.bot.json_dict["planets"],
                     )
                     message = await self.bot.channels.waste_bin_channel.send(
                         file=File(

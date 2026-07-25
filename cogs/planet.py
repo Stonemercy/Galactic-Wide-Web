@@ -118,7 +118,6 @@ class PlanetCog(Cog):
                     language_code_short=language_json["code"],
                     language_code_long=language_json["code_long"],
                     planets=self.bot.data.formatted_data.planets,
-                    planet_names_json=self.bot.json_dict["planets"],
                 )
                 self.bot.maps.add_icons(
                     lang=guild.language,
