@@ -90,7 +90,7 @@ class ControlCentreContainer(Container):
             else:
                 section1.append(
                     TextDisplay(
-                        "-# Image unavailable. Please contact GWW admin to have this fixed."
+                        f"-# Image unavailable. Please contact GWW admin quoting {active_campaign.image_id} to have this fixed."
                     )
                 )
         faction_emoji = (
@@ -101,7 +101,7 @@ class ControlCentreContainer(Container):
         section1.append(
             TextDisplay(
                 f"# {faction_emoji} **{active_campaign.title}** {faction_emoji}"
-                f"\n{active_campaign.description}"
+                f"\n-# {active_campaign.description}"
             )
         )
         self.components.extend(section1 + [Separator()])
@@ -120,61 +120,71 @@ class ControlCentreContainer(Container):
                 case ControlCentreStatus.InProgress:
                     section2.append(
                         TextDisplay(
-                            "### Complete the Major Order to earn the Major Order Reward."
+                            "**Complete the Major Order to earn the Major Order Reward.**"
                         )
                     )
                 case ControlCentreStatus.Success:
                     section2.append(
                         TextDisplay(
-                            "### Major Order was successfully completed and reward paid out to participants."
+                            "-# Major Order was successfully completed and reward paid out to participants."
                         )
                     )
                     reward_result_emoji = "✅"
                 case ControlCentreStatus.Failed:
                     section2.append(
                         TextDisplay(
-                            "### Major Order was failed and no reward was paid out."
+                            "-# Major Order was failed and no reward was paid out."
                         )
                     )
                     reward_result_emoji = "❌"
                 case _:
                     section2.append(
-                        TextDisplay("### Unknown status."),
+                        TextDisplay("-# Unknown status."),
                     )
-            section2.append(TextDisplay("## **Major Order Reward**"))
+            section2.append(TextDisplay("### **Major Order Reward**"))
             mo_rewards_text = ""
             for reward in active_phase.rewards:
-                mo_rewards_text += f"**{reward.amount}** x {reward.item_name} {reward.emoji} {reward_result_emoji}"
+                reward_name = (
+                    reward.item_type
+                    if active_phase.status == ControlCentreStatus.InProgress
+                    else reward.item_name
+                )
+                mo_rewards_text += f"**{reward.amount}** x **{reward_name}** {reward.emoji} {reward_result_emoji}"
 
             if mo_rewards_text != "":
                 section2.append(TextDisplay(mo_rewards_text))
 
-        section2.append(TextDisplay("## **Campaign Reward**"))
+        section2.append(TextDisplay("### **Campaign Reward**"))
         reward_result_emoji = ""
         match active_campaign.status:
             case ControlCentreStatus.InProgress:
                 section2.append(
                     TextDisplay(
-                        "### Complete the majority of the Major Orders in this Campaign to earn the Campaign Reward."
+                        "**Complete the majority of the Major Orders in this Campaign to earn the Campaign Reward.**"
                     ),
                 )
             case ControlCentreStatus.Success:
                 section2.append(
                     TextDisplay(
-                        "### Campaign was successfully completed and reward paid out to participants."
+                        "-# Campaign was successfully completed and reward paid out to participants."
                     )
                 )
                 reward_result_emoji = "✅"
             case ControlCentreStatus.Failed:
                 section2.append(
-                    TextDisplay("### Campaign was failed and no reward was paid out.")
+                    TextDisplay("-# Campaign was failed and no reward was paid out.")
                 )
                 reward_result_emoji = "❌"
             case _:
-                section2.append(TextDisplay("### Unknown Status."))
+                section2.append(TextDisplay("-# Unknown Status."))
         campaign_rewards_text = ""
         for reward in active_campaign.rewards:
-            campaign_rewards_text += f"**{reward.amount}** x {reward.item_name} {reward.emoji} {reward_result_emoji}"
+            reward_name = (
+                reward.item_type
+                if active_campaign.status == ControlCentreStatus.InProgress
+                else reward.item_name
+            )
+            campaign_rewards_text += f"**{reward.amount}** x **{reward_name}** {reward.emoji} {reward_result_emoji}"
         if campaign_rewards_text != "":
             section2.append(TextDisplay(campaign_rewards_text))
         self.components.extend(section2 + [Separator()])
@@ -185,11 +195,12 @@ class ControlCentreContainer(Container):
         for dispatch in [
             d for d in self.dispatches[::-1][:2] if d.published_at > time_cutoff
         ]:
+            form_desc = dispatch.description.replace("\n\n", "\n\n-# ")
             section3.append(
                 TextDisplay(
                     f"### {dispatch.title}"
-                    f"\n{dispatch.description}"
-                    f"\n<t:{int(dispatch.published_at.timestamp())}:R>"
+                    f"\n-# {form_desc}"
+                    f"\n-# <t:{int(dispatch.published_at.timestamp())}:R>"
                 )
             )
         self.components.extend(section3 + [Separator()])
@@ -212,91 +223,102 @@ class ControlCentreContainer(Container):
         section1 = []
         section1.append(TextDisplay("## **Major Order Briefing**"))
         if image_id := phase.outro_image_id or phase.intro_image_id:
-            image_id = f"{image_id}.png"
-            if image_id in self.required_images:
+            image_path = f"{image_id}.png"
+            if image_path in self.required_images:
                 section1.append(
-                    MediaGallery(MediaGalleryItem(f"attachment://{image_id}"))
+                    MediaGallery(MediaGalleryItem(f"attachment://{image_path}"))
                 )
             else:
                 section1.append(
                     TextDisplay(
-                        "-# Image unavailable. Please contact GWW admin to have this fixed."
+                        f"-# Image unavailable. Please contact GWW admin quoting {image_id} to have this fixed."
                     )
                 )
         faction_emoji = (
             campaign.faction.emoji if campaign.faction else Emojis.Factions.humans
+        )
+        text_to_use = (phase.outro_message or phase.intro_message).replace(
+            "\n\n", "\n\n-# "
         )
         section1.append(
             TextDisplay(
                 f"-# {campaign.title} {index + 1}/{max(len(campaign.phases), 3)}"  # placeholder until AH fix this
                 f"\n# {faction_emoji} **{phase.intro_title}** {faction_emoji}"
                 f"\n**Outcome - {STATUS_DICT.get(phase.status, 'UNKNOWN')}**"
-                f"\n{phase.intro_message if phase.status == ControlCentreStatus.InProgress else phase.outro_message}"
+                f"\n-# {text_to_use}"
             )
         )
         self.accent_color = Colour.from_rgb(*campaign.faction.colour)
         self.components.extend(section1 + [Separator()])
 
         section2 = []
-        section2.append(TextDisplay("## **Major Order Reward**"))
+        section2.append(TextDisplay("### **Major Order Reward**"))
         reward_result_emoji = ""
         match phase.status:
             case ControlCentreStatus.InProgress:
                 section2.append(
                     TextDisplay(
-                        "### Complete the Major Order to earn the Major Order Reward."
+                        "**Complete the Major Order to earn the Major Order Reward.**"
                     )
                 )
             case ControlCentreStatus.Success:
                 section2.append(
                     TextDisplay(
-                        "### Major Order was successfully completed and reward paid out to participants."
+                        "-# Major Order was successfully completed and reward paid out to participants."
                     )
                 )
                 reward_result_emoji = "✅"
             case ControlCentreStatus.Failed:
                 section2.append(
-                    TextDisplay(
-                        "### Major Order was failed and no reward was paid out."
-                    )
+                    TextDisplay("-# Major Order was failed and no reward was paid out.")
                 )
                 reward_result_emoji = "❌"
             case _:
                 section2.append(
-                    TextDisplay("### Unknown Status"),
+                    TextDisplay("-# Unknown Status"),
                 )
         mo_rewards_text = ""
         for reward in phase.rewards:
-            mo_rewards_text += f"**{reward.amount}** x {reward.item_name} {reward.emoji} {reward_result_emoji}"
+            reward_name = (
+                reward.item_type
+                if phase.status == ControlCentreStatus.InProgress
+                else reward.item_name
+            )
+            mo_rewards_text += f"**{reward.amount}** x **{reward_name}** {reward.emoji} {reward_result_emoji}"
         if mo_rewards_text != "":
             section2.append(TextDisplay(mo_rewards_text))
 
-        section2.append(TextDisplay("## **Campaign Reward**"))
+        section2.append(TextDisplay("### **Campaign Reward**"))
         reward_result_emoji = ""
         match campaign.status:
             case ControlCentreStatus.InProgress:
                 section2.append(
                     TextDisplay(
-                        "### Complete the majority of the Major Orders in this Campaign to earn the Campaign Reward."
+                        "**Complete the majority of the Major Orders in this Campaign to earn the Campaign Reward.**"
                     ),
                 )
             case ControlCentreStatus.Success:
                 section2.append(
                     TextDisplay(
-                        "### Campaign was successfully completed and reward paid out to participants."
+                        "-# Campaign was successfully completed and reward paid out to participants."
                     )
                 )
                 reward_result_emoji = "✅"
             case ControlCentreStatus.Failed:
                 section2.append(
-                    TextDisplay("### Campaign was failed and no reward was paid out.")
+                    TextDisplay("-# Campaign was failed and no reward was paid out.")
                 )
                 reward_result_emoji = "❌"
             case _:
-                section2.append(TextDisplay("### Unknown status."))
+                section2.append(TextDisplay("-# Unknown status."))
         campaign_rewards_text = ""
         for reward in campaign.rewards:
-            campaign_rewards_text += f"**{reward.amount}** x {reward.item_name} {reward.emoji} {reward_result_emoji}"
+            reward_name = (
+                reward.item_type
+                if campaign.status == ControlCentreStatus.InProgress
+                else reward.item_name
+            )
+            campaign_rewards_text += f"**{reward.amount}** x **{reward_name}** {reward.emoji} {reward_result_emoji}"
         if campaign_rewards_text != "":
             section2.append(TextDisplay(campaign_rewards_text))
         self.components.extend(section2 + [Separator()])
@@ -345,7 +367,8 @@ class ControlCentreContainer(Container):
                     description += " ❌"
                 case ControlCentreStatus.Success:
                     description += " ✅"
-            description += f"\n{campaign.description}"
+            fmt_desc = campaign.description.replace("\n\n", "\n\n-# ")
+            description += f"\n-# {fmt_desc}"
             description = TextDisplay(description)
 
             section.append(Section(title, description, accessory=accessory))

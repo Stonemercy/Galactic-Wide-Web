@@ -104,16 +104,16 @@ class ControlCentre:
                 self.amount: int = raw_reward_data.get("amount", 1)
                 self.item_name: str = (
                     json_dict["items"]["rewards"].get(str(self.id))
-                    or json_dict["items"]["items"].get(str(self.id), {}).get("type", None)
+                    or json_dict["items"]["items"].get(str(self.id), {}).get("name")
                     or json_dict["strings"].get(str(self.id))
                     or "Unknown Item"
                 )
-                self.item_type = "" or json_dict["items"]["items"].get(
+                self.item_type: str = "" or json_dict["items"]["items"].get(
                     str(self.id), {}
-                ).get("type", "")
+                ).get("type", self.item_name)
                 self.emoji: str = getattr(
                     Emojis.Items,
-                    (self.item_type or self.item_name).replace(" ", "_").lower(),
+                    self.item_type.replace(" ", "_").lower(),
                     "",
                 )
 
