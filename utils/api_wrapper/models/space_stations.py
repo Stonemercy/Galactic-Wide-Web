@@ -9,13 +9,17 @@ from utils.trackers import BaseTrackerEntry
 
 class SpaceStation:
     def __init__(
-        self, raw_space_station_data: dict, planet: Planet, war_start_timestamp: int
+        self,
+        raw_space_station_data: dict,
+        ss_planet: Planet,
+        planets: dict[int, Planet],
+        war_start_timestamp: int,
     ) -> None:
         """Organised data for a Space Station"""
         self.name: str = "UNKNOWN SPACE STATION"
         self.id: int = raw_space_station_data.get("id32", 0)
         self.type: SpaceStationType = SpaceStationType(self.id)
-        self.planet: Planet = planet
+        self.planet: Planet = ss_planet
         self.flags: int = raw_space_station_data.get("flags")
         self.move_timer_timestamp: int = raw_space_station_data.get(
             "currentElectionEndWarTime"
@@ -30,7 +34,14 @@ class SpaceStation:
             for ta_raw_data in raw_space_station_data.get("tacticalActions")
         ]
         self.active_effects: list[GalacticWarEffect] = []
-        self.votes: SpaceStation.Votes | None = None
+        self.votes: SpaceStation.Votes | None = (
+            SpaceStation.Votes(
+                planets,
+                raw_space_station_data["votes"],
+            )
+            if raw_space_station_data.get("votes")
+            else None
+        )
 
     def get_ta_by_name(self, name: str):
         if name in [ta.name for ta in self.tactical_actions]:
@@ -39,7 +50,12 @@ class SpaceStation:
             return None
 
     def __repr__(self):
-        return f"SpaceStation:\n    {self.id = }\n    {self.name = }\n    {self.planet = })"
+        return (
+            f"SpaceStation("
+            f"\n    {self.id = }"
+            f"\n    {self.name = }"
+            f"\n    {self.planet.name = })"
+        )
 
     class TacticalAction:
         def __init__(self, tactical_action_raw_data: dict, war_start_time: int) -> None:
@@ -60,7 +76,7 @@ class SpaceStation:
                 text=tactical_action_raw_data.get("strategicDescription", "")
             )
             self.cost: list[SpaceStation.TacticalAction.Cost] = [
-                DSS.TacticalAction.Cost(cost=cost)
+                SpaceStation.TacticalAction.Cost(cost=cost)
                 for cost in tactical_action_raw_data.get("cost", [])
             ]
             self.cost_changes: dict[str, BaseTrackerEntry] = {}
@@ -93,18 +109,23 @@ class SpaceStation:
             self.available_planets: list[tuple[Planet, int]] = []
             for option in raw_votes_data["options"]:
                 planet = planets.get(option["metaId"])
-                if planet:
+                if planet is not None:
                     self.available_planets.append((planet, option["count"]))
 
 
 class DSS(SpaceStation):
     def __init__(
-        self, raw_dss_data: dict, planet: Planet, war_start_timestamp: int
+        self,
+        raw_space_station_data: dict,
+        ss_planet: Planet,
+        planets: dict[int, Planet],
+        war_start_timestamp: int,
     ) -> None:
         """Organised data for the DSS"""
         super().__init__(
-            raw_space_station_data=raw_dss_data,
-            planet=planet,
+            raw_space_station_data=raw_space_station_data,
+            ss_planet=ss_planet,
+            planets=planets,
             war_start_timestamp=war_start_timestamp,
         )
         self.name = "Democracy Space Station"

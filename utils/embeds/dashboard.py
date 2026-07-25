@@ -19,9 +19,15 @@ from utils.api_wrapper.models import (
     GlobalEvent,
     GlobalResource,
     Planet,
+    SpaceStation,
 )
 from utils.dataclasses import AssignmentImages, Faction, Factions
-from utils.dataclasses.enums import AssignmentTaskType, CampaignType, EventType
+from utils.dataclasses.enums import (
+    AssignmentTaskType,
+    CampaignType,
+    EventType,
+    SpaceStationType,
+)
 from utils.emojis import Emojis
 from utils.functions import get_end_time, health_bar, short_format
 from utils.mixins import EmbedReprMixin
@@ -72,15 +78,26 @@ class Dashboard:
                     )
                 )
 
-        # DSS Embed
-        if data.dss and data.dss.flags not in (0, 2):
-            self.embeds.append(
-                self.DSSEmbed(
-                    dss=data.dss,
-                    language_json=language_json,
-                    gambit_planets=data.gambit_planets,
-                )
-            )
+        # Space Station Embeds
+        for ss in data.space_stations:
+            match ss.type:
+                case SpaceStationType.DSS:
+                    if ss.flags not in (0, 2):
+                        self.embeds.append(
+                            self.DSSEmbed(
+                                dss=data.dss,
+                                language_json=language_json,
+                                gambit_planets=data.gambit_planets,
+                            )
+                        )
+                case _:
+                    self.embeds.append(
+                        self.SpaceStationEmbed(
+                            space_station=ss,
+                            language_json=language_json,
+                            gambit_planets=data.gambit_planets,
+                        )
+                    )
 
         # Global Resources
         for gr in data.global_resources:
@@ -205,7 +222,11 @@ class Dashboard:
                 # add blank line (max size, dont change)
                 embed.set_image("https://i.imgur.com/cThNy4f.png")
 
-        embeds_to_skip = (self.DSSEmbed, self.FooterEmbed, self.GlobalResourceEmbed)
+        embeds_to_skip = (
+            self.DSSEmbed,
+            self.SpaceStationEmbed,
+            self.GlobalResourceEmbed,
+        )
         if self.compact_level > 0:
             self.embeds = [
                 embed
@@ -2054,6 +2075,76 @@ class Dashboard:
                     ):
                         field_value += f"\n-# #{index} - {planet.faction.emoji} {planet.names.get(language_json['code_long'], planet.name)} - {votes/dss.votes.total_votes:.1%}"
                     self.add_field(dss_embed_json["votes"], field_value)
+
+    class SpaceStationEmbed(Embed, EmbedReprMixin):
+        def __init__(
+            self,
+            space_station: SpaceStation,
+            language_json: dict,
+            gambit_planets: dict[int, Planet],
+        ):
+            super().__init__(title=space_station.name, colour=Colour.red())
+            move_datetime = space_station.move_timer_datetime
+            self.description = (
+                f"-# Station Moves **<t:{int(move_datetime.timestamp())}:R>**"
+                f"\n-# Current Location: {space_station.planet.faction.emoji} **{space_station.planet.names.get(language_json['code_long'], space_station.planet.name)}**"
+            )
+            if space_station.votes:
+                because_of_planet = False
+                end_time_info = get_end_time(space_station.planet, gambit_planets)
+                if end_time_info.end_time and end_time_info.end_time < move_datetime:
+                    move_datetime = end_time_info.end_time
+                    because_of_planet = True
+                sorted_planets: list[tuple[Planet, int]] = sorted(
+                    space_station.votes.available_planets,
+                    key=lambda x: x[1],
+                    reverse=True,
+                )
+                next_planet = sorted_planets[0]
+                if (
+                    because_of_planet
+                    and space_station.planet == next_planet[0]
+                    and len(space_station.votes.available_planets) == 8
+                ):
+                    next_planet = sorted_planets[1]
+                self.description += f"\n-# Next Location: {next_planet[0].faction.emoji} **{next_planet[0].names.get(language_json['code_long'], next_planet[0].name)}**"
+
+            if move_datetime < datetime.now(tz=timezone.utc) + timedelta(minutes=15):
+                self.description += f"\n-# {Emojis.Decoration.alert_icon} VOTE REMINDER {Emojis.Decoration.alert_icon}"
+
+            for tactical_action in space_station.tactical_actions:
+                field_name = tactical_action.name.upper()
+                status = STATUS_DICT[tactical_action.status]
+                field_value = f"Status: **{status.replace('_', ' ').title()}**"
+                match status:
+                    case "preparing":
+                        for ta_cost in tactical_action.cost:
+                            cost_change = tactical_action.cost_changes.get(ta_cost.item)
+                            if (
+                                cost_change
+                                and cost_change.change_rate_per_hour > 0
+                                and 2
+                                not in [
+                                    ta.status for ta in space_station.tactical_actions
+                                ]
+                            ):
+                                field_value += f"\n{health_bar(perc=ta_cost.progress, faction='MO', anim=True, increasing=cost_change.change_rate_per_hour > 0)}"
+                                field_value += f"\n`{ta_cost.progress:^25.2%}`"
+                                change = f"{cost_change.change_rate_per_hour:+.2%}/hr"
+                                field_value += f"\n`{change:^25}`"
+                                field_value += f"\n-# Active <t:{int(cost_change.complete_time.timestamp())}:R>"
+                            else:
+                                field_value += f"\n{health_bar(perc=ta_cost.progress, faction='MO')}"
+                                field_value += f"\n`{ta_cost.progress:^25.2%}`"
+                    case "active":
+                        field_value += f" :green_circle:\n{language_json['ends']} <t:{int(tactical_action.status_end_datetime.timestamp())}:R>"
+                        field_value += f"\n{tactical_action.description}"
+                    case "on_cooldown":
+                        field_value += f"\n-# Off cooldown <t:{int(tactical_action.status_end_datetime.timestamp())}:R>"
+                    case _:
+                        continue
+
+            self.add_field(name=field_name, value=field_value, inline=False)
 
     class GlobalResourceEmbed(Embed, EmbedReprMixin):
         def __init__(self, global_resource: GlobalResource):

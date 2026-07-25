@@ -25,7 +25,7 @@ class AltDSSVotesAuthedClient(BaseAPIClient):
             headers=Config.ALT_AUTHED_API_HEADERS,
         )
 
-    async def get_dss_votes(self, period_id: str) -> dict:
+    async def get_space_stations_votes(self, period_id: str) -> dict:
         return await self.get(f"/{period_id}")
 
 

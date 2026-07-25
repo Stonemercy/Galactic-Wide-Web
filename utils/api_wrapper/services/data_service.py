@@ -17,10 +17,6 @@ from utils.dbv2 import GWWGuilds
 from utils.logger import GWWLogger
 from utils.mixins import ReprMixin
 
-SPACE_STATION_IDS = {
-    749875195: "DSS",
-}
-
 
 class DataService(ReprMixin):
     def __init__(self, json_dict: dict, logger: GWWLogger) -> None:
@@ -37,8 +33,7 @@ class DataService(ReprMixin):
         self._raw_war_status: dict[str, dict] = {}
         self._raw_news_feed: dict[str, list[dict]] = {}
         self._raw_assignments: dict[str, list[dict]] = {}
-        self._raw_space_stations = []
-        self._raw_dss_votes: dict = {}
+        self._raw_space_stations: list[dict] = []
         self._raw_war_stats: dict = {}
         self._raw_war_info: dict = {}
         self._raw_war_effects: list = []
@@ -58,7 +53,6 @@ class DataService(ReprMixin):
         self._raw_news_feed.clear()
         self._raw_assignments.clear()
         self._raw_space_stations.clear()
-        self._raw_dss_votes.clear()
         self._raw_war_stats.clear()
         self._raw_war_info.clear()
         self._raw_war_effects.clear()
@@ -286,15 +280,16 @@ class DataService(ReprMixin):
             if personal_order:
                 self._raw_personal_order = personal_order
 
-        if not self._raw_dss_votes:
-            if dss := next(
-                (ss for ss in self._raw_space_stations if ss["id32"] == 749875195), None
-            ):
-                if current_vote_id := dss.get("currentElectionId", None):
-                    async with AltDSSVotesAuthedClient(logger=self.logger) as client:
-                        dss_votes = await client.get_dss_votes(current_vote_id)
-                        if dss_votes:
-                            self._raw_dss_votes = dss_votes
+        for space_station in self._raw_space_stations:
+            if (
+                current_vote_id := space_station.get("currentElectionId", None)
+            ) is not None:
+                async with AltDSSVotesAuthedClient(logger=self.logger) as client:
+                    space_station_votes = await client.get_space_stations_votes(
+                        current_vote_id
+                    )
+                    if space_station_votes is not None:
+                        space_station["votes"] = space_station_votes
 
         if not self._raw_personal_order:
             async with AltPOAuthedClient(logger=self.logger) as client:
@@ -319,7 +314,6 @@ class DataService(ReprMixin):
             news_feed=self._raw_news_feed,
             assignments=self._raw_assignments,
             space_stations=self._raw_space_stations,
-            dss_votes=self._raw_dss_votes,
             war_stats=self._raw_war_stats,
             war_info=self._raw_war_info,
             war_effects=self._raw_war_effects,

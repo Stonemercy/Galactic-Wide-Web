@@ -33,6 +33,10 @@ class SpaceStationType(Enum):
     UNKNOWN = 0
     DSS = 749875195
 
+    @classmethod
+    def _missing_(cls, value):
+        return SpaceStationType.UNKNOWN
+
 
 class AssignmentTaskType(Enum):
     """The names I have given for Assignment Task Types\n

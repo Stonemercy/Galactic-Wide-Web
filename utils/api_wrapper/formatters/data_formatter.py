@@ -188,7 +188,6 @@ class FormattedDataContext:
     war_status: dict[str, dict]
     news_feed: dict[str, list[dict]]
     assignments: dict[str, list[dict]]
-    dss_votes: dict
     war_stats: dict
     war_info: dict
     war_effects: list
@@ -590,74 +589,66 @@ class FormattedData:
                             pass
 
         for space_station_json in context.space_stations:
+            space_station = None
             ss_planet = self.planets.get(space_station_json.get("planetIndex", 0))
-            if space_station_json.get("id32") in [
-                sst.value for sst in SpaceStationType
-            ]:
-                match SpaceStationType(space_station_json["id32"]):
-                    case SpaceStationType.DSS:
-                        if space_station_json.get("flags") == 0:
-                            planet_with_1217 = next(
-                                (
-                                    p
-                                    for p in self.planets.values()
-                                    if 1217 in (ae.id for ae in p.active_effects)
-                                ),
-                                None,
-                            )
-                            if planet_with_1217:
-                                ss_planet = planet_with_1217
-
-                        space_station = DSS(
-                            space_station_json,
-                            ss_planet,
-                            self.war_start_timestamp,
+            match SpaceStationType(space_station_json["id32"]):
+                case SpaceStationType.DSS:
+                    if space_station_json.get("flags") == 0:
+                        planet_with_1217 = next(
+                            (p for p in self.planets.values() if 1217 in p.effect_ids),
+                            None,
                         )
+                        if planet_with_1217:
+                            ss_planet = planet_with_1217
 
-                        if context.dss_votes:
-                            space_station.votes = DSS.Votes(
-                                planets=self.planets,
-                                raw_votes_data=context.dss_votes,
-                            )
+                    space_station = DSS(
+                        raw_space_station_data=space_station_json,
+                        ss_planet=ss_planet,
+                        planets=self.planets,
+                        war_start_timestamp=self.war_start_timestamp,
+                    )
 
-                        space_station.planet.dss_in_orbit = True
+                    space_station.planet.dss_in_orbit = True
 
-                        if eagle_storm := space_station.get_ta_by_name("EAGLE STORM"):
-                            if (
-                                eagle_storm.status == 2
-                                and space_station.planet.event
-                                and not space_station.planet.event.type
-                                == EventType.UrgentLiberation
-                            ):
-                                space_station.planet.eagle_storm_active = True
-                                dss_moving = False
-                                if space_station.votes:
-                                    next_planet = space_station.votes.available_planets[
-                                        0
-                                    ][0]
-                                    if space_station.planet != next_planet:
-                                        time_until_move = (
-                                            space_station.move_timer_datetime
+                    if eagle_storm := space_station.get_ta_by_name("EAGLE STORM"):
+                        if (
+                            eagle_storm.status == 2
+                            and space_station.planet.event
+                            and space_station.planet.event.type == EventType.Defence
+                        ):
+                            space_station.planet.eagle_storm_active = True
+                            dss_moving = False
+                            if space_station.votes:
+                                next_planet = space_station.votes.available_planets[0][
+                                    0
+                                ]
+                                if space_station.planet != next_planet:
+                                    time_until_move = (
+                                        space_station.move_timer_datetime
+                                        - datetime.now(tz=timezone.utc)
+                                    ).total_seconds()
+                                    space_station.planet.event.end_time_datetime += (
+                                        timedelta(seconds=time_until_move)
+                                    )
+                                    dss_moving = True
+
+                            if not dss_moving:
+                                space_station.planet.event.end_time_datetime += (
+                                    timedelta(
+                                        seconds=(
+                                            eagle_storm.status_end_datetime
                                             - datetime.now(tz=timezone.utc)
                                         ).total_seconds()
-                                        space_station.planet.event.end_time_datetime += timedelta(
-                                            seconds=time_until_move
-                                        )
-                                        dss_moving = True
-
-                                if not dss_moving:
-                                    space_station.planet.event.end_time_datetime += (
-                                        timedelta(
-                                            seconds=(
-                                                eagle_storm.status_end_datetime
-                                                - datetime.now(tz=timezone.utc)
-                                            ).total_seconds()
-                                        )
                                     )
-            else:
-                space_station = SpaceStation(
-                    space_station_json, ss_planet, self.war_start_timestamp
-                )
+                                )
+                case _:
+                    space_station = SpaceStation(
+                        raw_space_station_data=space_station_json,
+                        ss_planet=ss_planet,
+                        planets=self.planets,
+                        war_start_timestamp=self.war_start_timestamp,
+                    )
+
             if ss_effects := next(
                 (
                     ss
