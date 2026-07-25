@@ -30,8 +30,11 @@ class PlanetCog(Cog):
                 key=lambda x: x.stats.player_count,
                 reverse=True,
             )
-            if user_input.lower() in p.names.get("en-GB", p.name).lower()
-            or user_input in str(p.index)
+            if not p.is_hidden
+            and (
+                user_input.lower() in p.names.get("en-GB", p.name).lower()
+                or user_input in str(p.index)
+            )
         ][:25]
 
     @wait_for_startup()
