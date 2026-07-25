@@ -39,6 +39,7 @@ class Planet(ReprMixin):
         self.settings_hash: int = raw_planet_info["settingsHash"]
         self.names: dict[str, str] = planets_json.get("names", {})
         self.description: str = planets_json.get("description", "")
+        self.biome: str = planets_json.get("biome", "")
         self.position: dict = raw_planet_info["position"]
         self.waypoints: list[int] = raw_planet_info["waypoints"]
         self.nearby: list[int] = self.waypoints.copy()

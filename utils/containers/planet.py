@@ -1,6 +1,14 @@
 from datetime import datetime, timezone
-from disnake import Colour
-from disnake.ui import Container, Section, Separator, TextDisplay
+from disnake import Colour, MediaGalleryItem
+from disnake.ui import (
+    Container,
+    MediaGallery,
+    Section,
+    Separator,
+    TextDisplay,
+    Thumbnail,
+)
+from re import fullmatch
 from utils.api_wrapper.models import Planet
 from utils.dataclasses import Factions
 from utils.emojis import Emojis
@@ -46,6 +54,9 @@ class PlanetContainers(list[Container]):
         ):
             self.lang_code = lang_code
             self.components = []
+            self.components.append(
+                MediaGallery(MediaGalleryItem(f"attachment://{planet.biome}.png"))
+            )
             self.add_planet_info(
                 planet=planet,
                 component_json=container_json["planet_info"],
@@ -91,6 +102,15 @@ class PlanetContainers(list[Container]):
         ):
             if planet.faction:
                 description = "\n-# " + planet.description if planet.description else ""
+                name_parts = []
+                for word in planet.name.split(" "):
+                    parts = word.split("-")
+                    formatted_parts = [
+                        p if fullmatch(r"[IVXLCDM]+", p) else p.capitalize()
+                        for p in parts
+                    ]
+                    name_parts.append("-".join(formatted_parts))
+                url_name = "_".join(name_parts)
                 self.components.extend(
                     [
                         Section(
@@ -102,9 +122,8 @@ class PlanetContainers(list[Container]):
                                     f"{description}"
                                 )
                             ),
-                            accessory=WikiButton(
-                                label=f"HD Wiki - {planet.sector}",
-                                link=f"https://helldivers.wiki.gg/wiki/",  # {planet.sector.replace(' ', '_')}_Sector",
+                            accessory=Thumbnail(
+                                f"https://helldivers.wiki.gg/images/{url_name}_Planet_Icon.png"
                             ),
                         ),
                         Separator(),
@@ -134,11 +153,11 @@ class PlanetContainers(list[Container]):
             liberation_text = (
                 f"### {component_json['heroes']}: **{planet.stats.player_count:,}**"
                 f"\n{planet.health_bar}"
-                f"\n`{1 - planet.health_perc if not planet.event else planet.event.progress:^25.2%}`"
+                f"\n`{1 - planet.health_perc if not planet.event else planet.event.progress:^26.2%}`"
             )
             if planet.tracker and planet.tracker.change_rate_per_hour != 0:
                 change = f"{planet.tracker.change_rate_per_hour:+.2%}/hr"
-                liberation_text += f"\n`{change:^25}`"
+                liberation_text += f"\n`{change:^26}`"
 
             end_time_info = get_end_time(planet, gambit_planets)
             if end_time_info.end_time:
@@ -155,7 +174,18 @@ class PlanetContainers(list[Container]):
                     )
                     liberation_text += f"\n**{component_json['liberated']}** <t:{int(end_time_info.end_time.timestamp())}:R>\nIf the following regions are liberated:\n-# {regions_list}"
 
-            self.components.extend([TextDisplay(liberation_text), Separator()])
+            self.components.extend(
+                [
+                    Section(
+                        TextDisplay(liberation_text),
+                        accessory=WikiButton(
+                            label=f"Helldivers Wiki",
+                            link=f"https://helldivers.wiki.gg/wiki/{url_name}",
+                        ),
+                    ),
+                    Separator(),
+                ]
+            )
 
         def add_mission_stats(self, planet: Planet, component_json: dict):
             self.components.append(
@@ -252,11 +282,11 @@ class PlanetContainers(list[Container]):
                         )
                         text_display.content += f"\n-# *from **{percent_at:.2%}** to **{percent_total:.2%}** at time of liberation!*"
                     text_display.content += f"\n{region.health_bar}"
-                    text_display.content += f"\n`{region.perc:^25,.2%}`"
+                    text_display.content += f"\n`{region.perc:^26,.2%}`"
                     if region.tracker and region.tracker.change_rate_per_hour > 0:
                         change = f"{region.tracker.change_rate_per_hour:.2%}/hr"
                         text_display.content += (
-                            f"\n`{change:^25}`"
+                            f"\n`{change:^26}`"
                             f"\n-# {container_json['liberated']} <t:{int(region.tracker.complete_time.timestamp())}:R>"
                         )
                 elif region.owner.full_name != "Humans":

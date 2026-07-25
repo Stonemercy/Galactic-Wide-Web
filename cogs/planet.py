@@ -153,6 +153,7 @@ class PlanetCog(Cog):
             )
         await inter.send(
             components=components,
+            file=File(f"resources/biomes/{planet_data.biome}.png"),
             ephemeral=public != "Yes",
         )
 
