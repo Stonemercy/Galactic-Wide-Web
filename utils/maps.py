@@ -413,7 +413,7 @@ class Maps:
             font = ImageFont.truetype("resources/gww-font.ttf", self.TEXT_SIZE)
         background_draw = ImageDraw.Draw(im=background)
         for planet in planets.values():
-            if planet.active_campaign and not planet.is_hidden:
+            if (planet.active_campaign and not planet.is_hidden) or planet.dss_in_orbit:
                 if planet.dss_in_orbit:
                     border_colour = "deepskyblue"
                 else:
@@ -513,11 +513,9 @@ class Maps:
                         "resources/map_icons/dss_glow_inactive.png", IMREAD_UNCHANGED
                     )
                 )
-                verti_diff = 20
-                if planet.active_campaign:
-                    verti_diff += 45
-                    if loc_name.count(" ") > 0:
-                        verti_diff += loc_name.count(" ") * (self.TEXT_SIZE - 5)
+                verti_diff = 65
+                if loc_name.count(" ") > 0:
+                    verti_diff += loc_name.count(" ") * (self.TEXT_SIZE - 5)
                 dss_coords = (
                     int(dss.planet.map_waypoints[0]) - 17,
                     int(dss.planet.map_waypoints[1]) - verti_diff,
