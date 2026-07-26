@@ -2046,110 +2046,110 @@
         "cost": 0
     },
     "2906140436": {
-        "name": "Resupply",
+        "name": "RESUPPLY",
         "description": "A Hellpod containing four supply packs, to replenish personal ammunition and stims in the field.",
         "type": "Backpack",
         "cost": 0
     },
     "1030888251": {
-        "name": "G-31 Arc",
+        "name": "G-31 ARC",
         "description": "A throwable device engineered to bounce when hitting the ground, releasing bursts of electricity on each impact. Warning: may bounce unpredictably.",
         "type": "Throwable Weapon",
         "cost": 0
     },
     "189227448": {
-        "name": "G-48 Giga Grenade",
+        "name": "G-48 GIGA GRENADE",
         "description": "Designed to render even the largest foes into considerably smaller, and vastly more compliant, constituent parts. Sacrifices throwing range for a massive detonation on impact.",
         "type": "Throwable Weapon",
         "cost": 0
     },
     "2823164517": {
-        "name": "G-16 Impact",
+        "name": "G-16 IMPACT",
         "description": "A high explosive grenade which detonates on first impact.",
         "type": "Throwable Weapon",
         "cost": 2450
     },
     "131945085": {
-        "name": "G-89 Smokescreen",
+        "name": "G-89 SMOKESCREEN",
         "description": "A smoke grenade that rapidly deploys a small, dense cloud. Allows for rapid personal concealment and exfiltration.",
         "type": "Throwable Weapon",
         "cost": 300
     },
     "16338515": {
-        "name": "G-13 Incendiary Impact",
+        "name": "G-13 INCENDIARY IMPACT",
         "description": "Detonates on impact, covering the immediate vicinity in self-igniting white phosphorus.",
         "type": "Throwable Weapon",
         "cost": 0
     },
     "1925755439": {
-        "name": "B-1 Supply Pack",
+        "name": "B-1 SUPPLY PACK",
         "description": "Supply boxes containing ammunition, with a backpack that allows the user to distribute boxes to fellow Helldivers.",
         "type": "Backpack",
         "cost": 0
     },
     "1028872423": {
-        "name": "SH-20 Ballistic Shield Backpack",
+        "name": "SH-20 BALLISTIC SHIELD BACKPACK",
         "description": "A backpack which can be wielded as a one-handed ballistic shield, protecting against small arms fire.",
         "type": "Backpack",
         "cost": 0
     },
     "4255545685": {
-        "name": "B-100 Portable Hellbomb",
+        "name": "B-100 PORTABLE HELLBOMB",
         "description": "A backpack-mounted Hellbomb that can be armed by the wearer or an ally, starting a countdown. Users are recommended to remove the backpack before the countdown reaches zero.",
         "type": "Backpack",
         "cost": 0
     },
     "3413503378": {
-        "name": "B/MD C4 Pack",
+        "name": "B/MD C4 PACK",
         "description": "A backpack containing six adhesive C4 charges and a handheld wireless electronic detonator. Charges can be deployed and detonated individually, or as multiple simultaneous blasts.",
         "type": "Support Weapon",
         "cost": 0
     },
     "519340933": {
-        "name": "B/MD C4 Pack",
+        "name": "B/MD C4 PACK",
         "description": "A backpack containing six adhesive C4 charges and a handheld wireless electronic detonator. Charges can be deployed and detonated individually, or as multiple simultaneous blasts.",
         "type": "Backpack",
         "cost": 0
     },
     "1382612374": {
-        "name": "SH-51 Directional Shield",
+        "name": "SH-51 DIRECTIONAL SHIELD",
         "description": "A one-handed device that deploys a wide energy barrier in front of the user. The barrier is semipermeable and blocks high-speed projectiles from the outside only, leaving the user free to shoot through it.",
         "type": "Backpack",
         "cost": 0
     },
     "3253029690": {
-        "name": "LIFT-182 Warp Pack",
+        "name": "LIFT-182 WARP PACK",
         "description": "A Dark Fluid-powered backpack that generates a portable micro-wormhole. This safe and well-understood technology allows the wearer to warp short distances. Warning: do not use while pack is overloaded.",
         "type": "Backpack",
         "cost": 0
     },
     "3883022479": {
-        "name": "AX/FLAM-75 Hot Dog",
+        "name": "AX/FLAM-75 HOT DOG",
         "description": "An autonomous drone equipped with a flamethrower. Returns to backpack to refill fuel canisters.",
         "type": "Backpack",
         "cost": 0
     },
     "4243413869": {
-        "name": "AX/TX-13 Dog Breath",
+        "name": "AX/TX-13 DOG BREATH",
         "description": "A drone that defends its user by firing caustic gas at nearby enemies, blinding and slowing them temporarily. Returns to backpack to refill.",
         "type": "Backpack",
         "cost": 0
     },
     "2700946317": {
-        "name": "AX/AR-23 Guard Dog",
+        "name": "AX/AR-23 GUARD DOG",
         "description": "An autonomous drone equipped with a Liberator assault rifle, providing 360\u00b0 cover. Returns to backpack to rearm.",
         "type": "Backpack",
         "cost": 0
     },
     "1440244352": {
-        "name": "AX/LAS-5 Rover",
+        "name": "AX/LAS-5 ROVER",
         "description": "An autonomous drone equipped with a laser rifle, providing 360\u00b0 cover. Returns to backpack to cool down.",
         "type": "Backpack",
         "cost": 0
     },
     "1313198083": {
-        "name": "SH-32 Shield Generator Pack",
-        "description": "stratagem_energy_shield_backpack_desc",
+        "name": "SH-32 SHIELD GENERATOR PACK",
+        "description": "Encloses the wearer in a spherical shield which blocks high-speed projectiles. Has a limited lifetime once deployed.",
         "type": "Backpack",
         "cost": 0
     },
@@ -2160,781 +2160,757 @@
         "cost": 0
     },
     "452826786": {
-        "name": "LIFT-860 Hover Pack",
+        "name": "LIFT-860 HOVER PACK",
         "description": "Offers its user brief fixed-height flight, stable enough for pinpoint marksmanship.",
         "type": "Backpack",
         "cost": 0
     },
     "2649062090": {
-        "name": "LIFT-850 Jump Pack",
+        "name": "LIFT-850 JUMP PACK",
         "description": "Enables the user to jump higher than 'gravity' and 'safety' would normally allow. Must be charged before use.",
         "type": "Backpack",
         "cost": 0
     },
-    "4010403312": {
-        "name": "SH-20 Medic Backpack",
-        "description": "A backpack which can be wielded as a one-handed ballistic shield, protecting against small arms fire.",
-        "type": "Backpack",
-        "cost": 0
-    },
     "2771075958": {
-        "name": "CQC-20 Breaching Hammer",
+        "name": "CQC-20 BREACHING HAMMER",
         "description": "A sledgehammer that can be wielded with or without an explosive charge attached to its head.",
         "type": "Support Weapon",
         "cost": 0
     },
     "2518036308": {
-        "name": "CQC-19 Stun Lance",
+        "name": "CQC-19 STUN LANCE",
         "description": "A melee weapon tipped with electrified prongs that temporarily stun targets. Can be wielded one-handed.",
         "type": "Sidearm Weapon",
         "cost": 0
     },
     "4133671573": {
-        "name": "CQC-72 Entrenchment Tool",
+        "name": "CQC-72 ENTRENCHMENT TOOL",
         "description": "A shovel that can be used as a melee weapon or, more conventionally, to dig holes in the ground.",
         "type": "Support Weapon",
         "cost": 0
     },
     "2173315377": {
-        "name": "CQC-72 Entrenchment Tool",
+        "name": "CQC-72 ENTRENCHMENT TOOL",
         "description": "A shovel that can be used as a melee weapon or, more conventionally, to dig holes in the ground.",
         "type": "Sidearm Weapon",
         "cost": 0
     },
     "2088854385": {
-        "name": "SG-8 Punisher",
+        "name": "SG-8 PUNISHER",
         "description": "A powerful dual magazine pump-action shotgun, with limited armor penetration. Ideal for small and fast targets.",
         "type": "Primary Weapon",
         "cost": 0
     },
-    "1934208922": {
-        "name": "SG-8F Punisher Fire Of Liberty",
-        "description": "Punisher shotgun variant modifier with burst fire of incendiary round and a large drum magazine.",
-        "type": "Primary Weapon",
-        "cost": 0
-    },
     "2246547985": {
-        "name": "SG-8S Slugger",
+        "name": "SG-8S SLUGGER",
         "description": "A modified Punisher shotgun firing heavy, high-damage slug rounds. Perfect for punching big holes in big targets.",
         "type": "Primary Weapon",
         "cost": 0
     },
     "122941246": {
-        "name": "SG-20 Halt",
+        "name": "SG-20 HALT",
         "description": "A humane compliance weapon with two separate magazines: one for armor-penetrating flechette rounds and one for stun rounds.",
         "type": "Primary Weapon",
         "cost": 0
     },
     "1321109120": {
-        "name": "SG-451 Cookout",
+        "name": "SG-451 COOKOUT",
         "description": "A pump shotgun that fires a burst of incendiary phosphorus pellets, setting targets ablaze.",
         "type": "Primary Weapon",
         "cost": 0
     },
     "3955657629": {
-        "name": "SG-8P Punisher Plasma",
+        "name": "SG-8P PUNISHER PLASMA",
         "description": "A modified Punisher shotgun firing exploding plasma rounds. Fire carefully - exploding plasma can injure squadmates.",
         "type": "Primary Weapon",
         "cost": 0
     },
     "931633769": {
-        "name": "SG-97 Sweeper",
+        "name": "SG-97 SWEEPER",
         "description": "A slamfire shotgun: fires continuously while the trigger is depressed, via activation of the pump-action mechanism. Loaded with armor-piercing flechettes and equipped with an extended bayonet.",
         "type": "Primary Weapon",
         "cost": 400
     },
     "3417185725": {
-        "name": "DBS-2 Double Freedom",
+        "name": "DBS-2 DOUBLE FREEDOM",
         "description": "With its two barrels, one trigger, and vintage feel, this shotgun is perfect for historical reenactments.",
         "type": "Primary Weapon",
         "cost": 400
     },
     "3414013062": {
-        "name": "M90A Shotgun",
+        "name": "M90A SHOTGUN",
         "description": "A top-loaded shotgun prominently featured in the final episode of \"Obedient Democracy Support Troopers.\"\nProduced by Martian Armory.",
         "type": "Primary Weapon",
         "cost": 0
     },
     "2161995568": {
-        "name": "MP-98 Knight",
+        "name": "MP-98 KNIGHT",
         "description": "A submachine gun with an extremely high rate of fire, which can be operated with one hand. Ideal for multitasking.",
         "type": "Primary Weapon",
         "cost": 0
     },
     "2011243293": {
-        "name": "SMG/FLAM-34 Stoker",
+        "name": "SMG/FLAM-34 STOKER",
         "description": "A versatile submachine gun equipped with iron sights and frontline incineration capabilities.",
         "type": "Primary Weapon",
         "cost": 0
     },
     "1179533432": {
-        "name": "StA-11 Smg",
+        "name": "StA-11 SMG",
         "description": "A submachine gun with a helical-feed magazine, which gives the weapon a higher ammo capacity while making it more front-heavy. Produced by St\u00e5l Arms.",
         "type": "Primary Weapon",
         "cost": 615
     },
     "1246313930": {
-        "name": "M7S Smg",
+        "name": "M7S SMG",
         "description": "An SMG that fires caseless ammunition and is equipped with a non-removable suppressor. \nProduced by Martian Armory.",
         "type": "Primary Weapon",
         "cost": 0
     },
     "725205791": {
-        "name": "SMG-32 Reprimand",
+        "name": "SMG-32 REPRIMAND",
         "description": "A heavy-duty submachine gun that fires large-caliber rounds, with a slower rate of fire to manage the high recoil. Ideal for use at close to medium range.",
         "type": "Primary Weapon",
         "cost": 0
     },
     "539671360": {
-        "name": "SMG-203 Gallant",
+        "name": "SMG-203 GALLANT",
         "description": "A submachine gun with a longer barrel, allowing for higher muzzle velocity and increased armor penetration.",
         "type": "Primary Weapon",
         "cost": 0
     },
     "3478892931": {
-        "name": "PLAS-39 Accelerator Rifle",
+        "name": "PLAS-39 ACCELERATOR RIFLE",
         "description": "A high-precision burst-fire plasma rifle that must be charged to fire.",
         "type": "Primary Weapon",
         "cost": 615
     },
     "469340936": {
-        "name": "VG-70 Variable",
+        "name": "VG-70 VARIABLE",
         "description": "A speed-loaded volley gun with three different firing modes and three different RPM options. Warning: recoil varies significantly between firing modes.",
         "type": "Primary Weapon",
         "cost": 0
     },
     "207998803": {
-        "name": "P-92 Warrant",
+        "name": "P-92 WARRANT",
         "description": "A pistol firing bursts of guided, jet-propelled ammunition. Can be set to non-guided mode at any time, removing the need to lock on to targets.",
         "type": "Sidearm Weapon",
         "cost": 300
     },
     "358989959": {
-        "name": "P-33 Missile Pistol",
+        "name": "P-33 MISSILE PISTOL",
         "description": "A pistol firing guided, jet-propelled ammunition. It's lock-on feature ensures high accuracy, but the weapon must be reloaded after every round fired.",
         "type": "Sidearm Weapon",
         "cost": 0
     },
     "2811723672": {
-        "name": "P-2 Peacemaker",
+        "name": "P-2 PEACEMAKER",
         "description": "The SEAF standard pistol - offering a high fire rate, generous capacity, and fast reloading.",
         "type": "Sidearm Weapon",
         "cost": 0
     },
     "1084288106": {
-        "name": "P-11 Stim Pistol",
+        "name": "P-11 STIM PISTOL",
         "description": "Fires a ballistic dart at near-supersonic speeds, allowing the user to stim allies from a distance. Might sting.",
         "type": "Sidearm Weapon",
         "cost": 0
     },
     "1639574879": {
-        "name": "G-7 Pineapple",
+        "name": "G-7 PINEAPPLE",
         "description": "A cluster fragmentation grenade. The shrapnel submunition allows it to inflict damage over a large area.",
         "type": "Throwable Weapon",
         "cost": 0
     },
     "385461545": {
-        "name": "TED-63 Dynamite",
+        "name": "TED-63 DYNAMITE",
         "description": "Creates a far-reaching incendiary blast ideal for crowd control against smaller enemies of Freedom. Equipped with a programmable timer for strategic versatility.",
         "type": "Throwable Weapon",
         "cost": 0
     },
     "3466282658": {
-        "name": "G/SH-39 Shield",
+        "name": "G/SH-39 SHIELD",
         "description": "A throwable emplacement that generates a spherical, projectile-blocking shield on impact. Has a limited lifetime once deployed.",
         "type": "Throwable Weapon",
         "cost": 0
     },
     "375014954": {
-        "name": "G-23 Stun",
+        "name": "G-23 STUN",
         "description": "Temporarily stuns all targets within the effective radius.",
         "type": "Throwable Weapon",
         "cost": 6900
     },
     "3295898003": {
-        "name": "G-6 Frag",
+        "name": "G-6 FRAG",
         "description": "An antipersonnel fragmentation grenade. Creates damage over a large area when detonated.",
         "type": "Throwable Weapon",
         "cost": 900
     },
     "1255689962": {
-        "name": "G-4 Gas",
+        "name": "G-4 GAS",
         "description": "A grenade that releases a cloud of toxic gas, effective at temporarily blinding and slowing both organic and inorganic enemies.",
         "type": "Throwable Weapon",
         "cost": 0
     },
     "3191303848": {
-        "name": "G-12 High Explosive",
+        "name": "G-12 HIGH EXPLOSIVE",
         "description": "A high explosive grenade which damages lightly armored targets. Creates high damage over a small area when detonated.",
         "type": "Throwable Weapon",
         "cost": 0
     },
     "3748749890": {
-        "name": "G-10 Incendiary",
+        "name": "G-10 INCENDIARY",
         "description": "An incendiary grenade which ignites any targets and terrain within the blast radius. Use with caution.",
         "type": "Throwable Weapon",
         "cost": 0
     },
     "1752129915": {
-        "name": "TM-1 Lure Mine",
+        "name": "TM-1 LURE MINE",
         "description": "A throwable anti-personnel mine, capable of adhering to most surfaces. Upon deployment, emits lights and sounds which attract nearby hostiles to its proximity-activated detonator.",
         "type": "Throwable Weapon",
         "cost": 0
     },
     "1789694805": {
-        "name": "G-50 Seeker",
+        "name": "G-50 SEEKER",
         "description": "This grenade delivery drone follows the user until it detects an enemy nearby, then flies toward it and explodes on impact. Has a limited battery life.",
         "type": "Throwable Weapon",
         "cost": 0
     },
     "2877510587": {
-        "name": "G-3 Smoke",
+        "name": "G-3 SMOKE",
         "description": "A 'compliance weapon' to modify enemy behaviour. Creates a thick smoke screen to block targets' line of sight.",
         "type": "Throwable Weapon",
         "cost": 3450
     },
     "3869545997": {
-        "name": "G-123 Thermite",
+        "name": "G-123 THERMITE",
         "description": "A thermite grenade designed to adhere to surfaces before burning at 2000\u00b0C. Capable of burning through some armor.",
         "type": "Throwable Weapon",
         "cost": 0
     },
     "1625792993": {
-        "name": "G-109 Urchin",
+        "name": "G-109 URCHIN",
         "description": "This humane device attaches to its target and dispenses repeated electrical pulses, keeping the target in place for humane apprehension and/or termination.",
         "type": "Throwable Weapon",
         "cost": 0
     },
     "1858752103": {
-        "name": "K-2 Throwing Knife",
+        "name": "K-2 THROWING KNIFE",
         "description": "Delivers silent justice to Freedom's enemies.",
         "type": "Throwable Weapon",
         "cost": 0
     },
     "1612683909": {
-        "name": "G-142 Pyrotech",
+        "name": "G-142 PYROTECH",
         "description": "A repurposed firework that showers its immediate surrounding area in sparks before exploding. As delightful as it is incendiary.",
         "type": "Throwable Weapon",
         "cost": 0
     },
     "3744531484": {
-        "name": "SG-88 Break-Action Shotgun",
+        "name": "SG-88 BREAK-ACTION SHOTGUN",
         "description": "A shotgun used in colonies to hunt and protect from threats.",
         "type": "Support Weapon",
         "cost": 0
     },
-    "0": {
-        "name": "Backpack",
-        "description": "objective_carryable_bot_chemicals_d",
-        "type": "Backpack",
-        "cost": 0
-    },
     "397581595": {
-        "name": "B/MD C4 Pack",
+        "name": "B/MD C4 PACK",
         "description": "A backpack containing six adhesive C4 charges and a handheld wireless electronic detonator. Charges can be deployed and detonated individually, or as multiple simultaneous blasts.",
         "type": "Support Weapon",
         "cost": 0
     },
     "4109429659": {
-        "name": "CQC-2 Saber",
+        "name": "CQC-2 SABER",
         "description": "A one-handed ceremonial sword suitable for use in parades, sabrage, and combat.",
         "type": "Sidearm Weapon",
         "cost": 0
     },
     "1214427163": {
-        "name": "CQC-9 Defoliation Tool",
+        "name": "CQC-9 DEFOLIATION TOOL",
         "description": "A useful field-clearing tool for removing trees, obstacles, and unlucky foes.",
         "type": "Support Weapon",
         "cost": 0
     },
     "3197732872": {
-        "name": "CQC-30 Stun Baton",
+        "name": "CQC-30 STUN BATON",
         "description": "A lightweight melee weapon that temporarily stuns enemies.",
         "type": "Sidearm Weapon",
         "cost": 200
     },
     "819954976": {
-        "name": "CQC-1 One True Flag",
+        "name": "CQC-1 ONE TRUE FLAG",
         "description": "The eternal colors of Super Earth can never be tainted. Only quenched, by the blood of its enemies.",
         "type": "Support Weapon",
         "cost": 0
     },
     "1462250732": {
-        "name": "CQC-5 Combat Hatchet",
+        "name": "CQC-5 COMBAT HATCHET",
         "description": "A heavy-hitting, one-handed melee weapon.",
         "type": "Sidearm Weapon",
         "cost": 200
     },
     "3859022603": {
-        "name": "CQC-42 Machete",
+        "name": "CQC-42 MACHETE",
         "description": "A heavy one-handed blade. Slower to swing than other melee weapons, but deals more damage.",
         "type": "Sidearm Weapon",
         "cost": 200
     },
     "999487482": {
-        "name": "ARC-12 Blitzer",
+        "name": "ARC-12 BLITZER",
         "description": "This shotgun blasts a wide burst of high-voltage electricity that arcs between all units\u2014enemy or otherwise\u2014within range.",
         "type": "Primary Weapon",
         "cost": 0
     },
     "2852344585": {
-        "name": "AR-23 Liberator",
+        "name": "AR-23 LIBERATOR",
         "description": "The SEAF standard assault rifle, balancing power, fire rate, and weight for a reliable weapon against smaller targets.",
         "type": "Primary Weapon",
         "cost": 0
     },
     "1676113140": {
-        "name": "AR-23P Liberator Penetrator",
+        "name": "AR-23P LIBERATOR PENETRATOR",
         "description": "A modified Liberator fitted with a scope and firing armor-piercing rounds, to help users take down armored targets.",
         "type": "Primary Weapon",
         "cost": 0
     },
     "376039023": {
-        "name": "AR-23C Liberator Concussive",
+        "name": "AR-23C LIBERATOR CONCUSSIVE",
         "description": "A modified Liberator firing concussive rounds which do less damage but stagger enemies.",
         "type": "Primary Weapon",
         "cost": 0
     },
     "3428996225": {
-        "name": "AR/GL-21 One-Two",
+        "name": "AR/GL-21 ONE-TWO",
         "description": "A combination assault rifle/grenade launcher. Versatile, but heavy to wield.",
         "type": "Primary Weapon",
         "cost": 0
     },
     "3344526787": {
-        "name": "StA-52 Assault Rifle",
+        "name": "StA-52 ASSAULT RIFLE",
         "description": "An assault rifle with a high-capacity drum magazine, good for providing sustained fire. \nProduced by St\u00e5l Arms.",
         "type": "Primary Weapon",
         "cost": 615
     },
     "3623018063": {
-        "name": "AR-32 Pacifier",
+        "name": "AR-32 PACIFIER",
         "description": "A large-capacity assault rifle firing humane stun rounds. Reports of lethal incidents have been thoroughly debunked.",
         "type": "Primary Weapon",
         "cost": 0
     },
     "400301984": {
-        "name": "AR-2 Coyote",
+        "name": "AR-2 COYOTE",
         "description": "A reliable assault rifle with an antique iron sight, firing incendiary ammunition.",
         "type": "Primary Weapon",
         "cost": 0
     },
     "2564789309": {
-        "name": "MA5C Assault Rifle",
+        "name": "MA5C ASSAULT RIFLE",
         "description": "Often showcased in the \"Obedient Democracy Support Troopers\" cartoon, this assault rifle comes with a convenient ammo counter and compass.\nProduced by Martian Armory.",
         "type": "Primary Weapon",
         "cost": 0
     },
     "1160920394": {
-        "name": "AR-23A Liberator Carbine",
+        "name": "AR-23A LIBERATOR CARBINE",
         "description": "A compact version of the Liberator designed for increased viability in close quarters. Has an increased fire rate at the cost of higher spread.",
         "type": "Primary Weapon",
         "cost": 0
     },
     "1920374015": {
-        "name": "AR-61 Tenderizer",
+        "name": "AR-61 TENDERIZER",
         "description": "A high-caliber assault rifle with a restrictive magazine size but more stopping power.",
         "type": "Primary Weapon",
         "cost": 0
     },
     "2643754746": {
-        "name": "AR-59 Suppressor",
+        "name": "AR-59 SUPPRESSOR",
         "description": "A fully automatic assault rifle featuring a non-removable suppressor and subsonic ammunition. Slower rounds allow low-profile operation.",
         "type": "Primary Weapon",
         "cost": 0
     },
     "1182300424": {
-        "name": "SG-225 Breaker",
+        "name": "SG-225 BREAKER",
         "description": "A fully-automatic shotgun with a high rate of fire, excellent for controlling crowds. Requires frequent reloading.",
         "type": "Primary Weapon",
         "cost": 0
     },
     "3814689025": {
-        "name": "SG-225SP Breaker Spray&Pray",
+        "name": "SG-225SP BREAKER SPRAY&PRAY",
         "description": "A modified Breaker shotgun firing birdshot, small pellets which saturate an area to clear up smaller targets.",
         "type": "Primary Weapon",
         "cost": 0
     },
     "3068666625": {
-        "name": "SG-225IE Breaker Incendiary",
+        "name": "SG-225IE BREAKER INCENDIARY",
         "description": "A modified Breaker shotgun firing incendiary projectiles. Generates heat during use, so limited to burst fire.",
         "type": "Primary Weapon",
         "cost": 0
     },
     "2640366401": {
-        "name": "BR-14 Adjudicator",
+        "name": "BR-14 ADJUDICATOR",
         "description": "An accurate, armor-penetrating rifle, the BR-14 Adjudicator delivers righteous judgement to medium-sized enemies, though its restrictive magazine limits its effectiveness against large groups.",
         "type": "Primary Weapon",
         "cost": 0
     },
     "3757606668": {
-        "name": "R-2 Amendment",
+        "name": "R-2 AMENDMENT",
         "description": "A semi-automatic ceremonial rifle equipped with a bayonet. Can be set to fire in three-shot bursts, to easily conduct the Fallen Hero's Salute.",
         "type": "Primary Weapon",
         "cost": 0
     },
     "4161086429": {
-        "name": "R-2124 Constitution",
+        "name": "R-2124 CONSTITUTION",
         "description": "This ceremonial rifle is modeled after antique relics from pre-Democratic times. It is traditionally gifted to every citizen upon turning 16 to encourage service.",
         "type": "Primary Weapon",
         "cost": 0
     },
     "1942567317": {
-        "name": "CB-9 Exploding Crossbow",
+        "name": "CB-9 EXPLODING CROSSBOW",
         "description": "Fires powerful exploding bolts which do maximum damage upon direct impact. Gravity must be accounted for when aiming.",
         "type": "Primary Weapon",
         "cost": 0
     },
     "4108040377": {
-        "name": "FLAM-66 Torcher",
+        "name": "FLAM-66 TORCHER",
         "description": "A lightweight flamethrower. Shoots pressurized fuel through a dispersion nozzle into an open flame. Safe.",
         "type": "Primary Weapon",
         "cost": 0
     },
     "2121387072": {
-        "name": "JAR-5 Dominator",
+        "name": "JAR-5 DOMINATOR",
         "description": "Firing jet-propelled rounds, the Dominator trades fire rate and magazine capacity for increased damage per projectile.",
         "type": "Primary Weapon",
         "cost": 0
     },
     "339272294": {
-        "name": "R-36 Eruptor",
+        "name": "R-36 ERUPTOR",
         "description": "This bolt-action rifle fires jet-assisted shells that explode shrapnel in all directions upon impact. Not recommended for close-quarters use.",
         "type": "Primary Weapon",
         "cost": 0
     },
     "3866352840": {
-        "name": "LAS-5 Scythe",
+        "name": "LAS-5 SCYTHE",
         "description": "A laser rifle firing a continuous beam. Does not need reloading, but if it overheats a new heat sink must be fitted.",
         "type": "Primary Weapon",
         "cost": 0
     },
     "1794436168": {
-        "name": "LAS-16 Sickle",
+        "name": "LAS-16 SICKLE",
         "description": "A laser rifle, firing in short bursts. Does not need reloading, but if it overheats a new heat sink must be fitted.",
         "type": "Primary Weapon",
         "cost": 0
     },
     "309178703": {
-        "name": "LAS-17 Double-Edge Sickle",
+        "name": "LAS-17 DOUBLE-EDGE SICKLE",
         "description": "A LAS-16 Sickle model with all overheating protections conveniently removed, allowing for far longer bursts of fire. Does more damage when overheated, at the cost of slightly burning the user.",
         "type": "Primary Weapon",
         "cost": 0
     },
     "2870692210": {
-        "name": " Las-13 Trident",
+        "name": " LAS-13 TRIDENT",
         "description": "This time-honored shotgun-like weapon has been improved since the First Galactic War, and now fires six beams instead of three.",
         "type": "Primary Weapon",
         "cost": 0
     },
     "2104346664": {
-        "name": "R-6 Deadeye",
+        "name": "R-6 DEADEYE",
         "description": "A mighty rifle with a signature lever-action enabling single round reload. Powerful precision suited to mid- and long-range combat.",
         "type": "Primary Weapon",
         "cost": 0
     },
     "1978117092": {
-        "name": "M-105 Stalwart",
+        "name": "M-105 STALWART",
         "description": "A compact, low caliber machine gun. Trades power for ease of use, with faster reloading than heavier machine guns.",
         "type": "Support Weapon",
         "cost": 0
     },
     "2232169940": {
-        "name": "R-4 Hyena",
+        "name": "R-4 HYENA",
         "description": "A heavy, large-caliber marksman rifle bridging the gap between precision and sheer stopping power. Fires armor-piercing rounds coated in a high-ignition thermite compound to ignite targets.",
         "type": "Primary Weapon",
         "cost": 1
     },
     "838686177": {
-        "name": "R-72 Censor",
+        "name": "R-72 CENSOR",
         "description": "A mid-range precision rifle. Equipped with an integrated suppressor and subsonic rounds for barely-detectable operation.",
         "type": "Primary Weapon",
         "cost": 0
     },
     "2307301438": {
-        "name": "R-63 Diligence",
+        "name": "R-63 DILIGENCE",
         "description": "This high-caliber marksman rifle trades magazine capacity and rate of fire for powerful, accurate shots.",
         "type": "Primary Weapon",
         "cost": 0
     },
     "924530093": {
-        "name": "R-63CS Diligence Counter Sniper",
+        "name": "R-63CS DILIGENCE COUNTER SNIPER",
         "description": "A modified Diligence rifle offering increased damage at the cost of some maneuverability. Fires a single bullet at a time.",
         "type": "Primary Weapon",
         "cost": 0
     },
     "2821209932": {
-        "name": "SMG-37 Defender",
+        "name": "SMG-37 DEFENDER",
         "description": "A high-caliber submachine gun which can be fired with one hand. Has a relatively low rate of fire.",
         "type": "Primary Weapon",
         "cost": 0
     },
     "942049262": {
-        "name": "SMG-72 Pummeler",
+        "name": "SMG-72 PUMMELER",
         "description": "Fires concussive rounds that stagger enemies. Slower rate of fire than other SMGs.",
         "type": "Primary Weapon",
         "cost": 0
     },
     "925809350": {
-        "name": "PLAS-1 Scorcher",
+        "name": "PLAS-1 SCORCHER",
         "description": "A plasma rifle, firing a bolt of superheated gas which explodes on impact. Avoid standing in proximity to the blast.",
         "type": "Primary Weapon",
         "cost": 0
     },
     "2887941494": {
-        "name": "PLAS-101 Purifier",
+        "name": "PLAS-101 PURIFIER",
         "description": "A plasma rifle that fires bolts of superheated gas, which can be charged by holding down the trigger. Charging up a shot fully makes the bolt explode on impact.",
         "type": "Primary Weapon",
         "cost": 0
     },
     "2264358800": {
-        "name": "SG-22 Bushwhacker",
+        "name": "SG-22 BUSHWHACKER",
         "description": "A triple-barreled, break-action, sawed-off shotgun. Switch firing modes to fire all three barrels at once.",
         "type": "Sidearm Weapon",
         "cost": 0
     },
     "3981773112": {
-        "name": "P-19 Redeemer",
+        "name": "P-19 REDEEMER",
         "description": "A fully-automatic pistol with an extremely high fire rate, allowing for efficient crowd control.",
         "type": "Sidearm Weapon",
         "cost": 0
     },
     "1102600214": {
-        "name": "P-35 Re-Educator",
+        "name": "P-35 RE-EDUCATOR",
         "description": "A dart-firing pistol. Each of its six rounds administers a gaseous chemical agent, harmful to hostiles whether organic or artificial, that also induces a state of delirium in the target.",
         "type": "Sidearm Weapon",
         "cost": 0
     },
     "1920655850": {
-        "name": "LAS-58 Talon",
+        "name": "LAS-58 TALON",
         "description": "An accurate, hard-hitting laser revolver with bespoke break action for heat sink swaps.",
         "type": "Sidearm Weapon",
         "cost": 0
     },
     "2340232366": {
-        "name": "P-72 Crisper",
+        "name": "P-72 CRISPER",
         "description": "A compact handgun-style flamethrower, able to project a jet of fire over short distances.",
         "type": "Sidearm Weapon",
         "cost": 0
     },
     "2797735596": {
-        "name": "GP-31 Grenade Pistol",
+        "name": "GP-31 GRENADE PISTOL",
         "description": "A pistol that fires grenades. Must be reloaded between shots.",
         "type": "Sidearm Weapon",
         "cost": 0
     },
     "2501707184": {
-        "name": "LAS-7 Dagger",
+        "name": "LAS-7 DAGGER",
         "description": "A laser pistol that fires a continuous beam. Does not require ammo but can overheat and need to change batteries.",
         "type": "Sidearm Weapon",
         "cost": 0
     },
     "1938200223": {
-        "name": "P-113 Verdict",
+        "name": "P-113 VERDICT",
         "description": "The gas-operated, semiautomatic P-113 chambers the 14mm \"Rapid Deliberation,\" the largest centerfire cartridge of any magazine-fed pistol.",
         "type": "Sidearm Weapon",
         "cost": 0
     },
     "1312773632": {
-        "name": "P-69 Veto",
+        "name": "P-69 VETO",
         "description": "Loaded with jet-assisted rounds, this pistol is calibrated for creating and maintaining tactical distance from encroaching hostiles.",
         "type": "Sidearm Weapon",
         "cost": 0
     },
     "861637146": {
-        "name": "GP-20 Ultimatum",
+        "name": "GP-20 ULTIMATUM",
         "description": "A pistol front-loaded with a single, powerful explosive. The weight of the projectile limits the weapon's range.",
         "type": "Sidearm Weapon",
         "cost": 0
     },
     "2018836169": {
-        "name": "M6C/SOCOM Pistol",
+        "name": "M6C/SOCOM PISTOL",
         "description": "A pistol with a built-in laser sight, suppressor, and flashlight.\nProduced by Martian Armory.",
         "type": "Sidearm Weapon",
         "cost": 0
     },
     "1902682578": {
-        "name": "PLAS-15 Loyalist",
+        "name": "PLAS-15 LOYALIST",
         "description": "A plasma pistol that charges each shot until the trigger is released. Plasma projectiles explode on impact.",
         "type": "Sidearm Weapon",
         "cost": 0
     },
     "1374036584": {
-        "name": "P-4 Senator",
+        "name": "P-4 SENATOR",
         "description": "A high-damage revolver, which can be reloaded with single rounds. A heavy-hitting and reliable sidearm.",
         "type": "Sidearm Weapon",
         "cost": 0
     },
     "3201417018": {
-        "name": "RL-77 Airburst Rocket Launcher",
+        "name": "RL-77 AIRBURST ROCKET LAUNCHER",
         "description": "Fires a rocket that detonates within proximity of a target, and deploys a cluster of explosive bomblets.",
         "type": "Support Weapon",
         "cost": 0
     },
     "2138935687": {
-        "name": "ARC-3 Arc Thrower",
+        "name": "ARC-3 ARC THROWER",
         "description": "Projects an arc of lightning at close range. Charges up to project bolts, and may discharge through multiple targets.",
         "type": "Support Weapon",
         "cost": 0
     },
     "841182351": {
-        "name": "AC-8 Autocannon",
+        "name": "AC-8 AUTOCANNON",
         "description": "A fully-automatic cannon effective against light vehicle armor. Includes support backpack required for reloading.",
         "type": "Support Weapon",
         "cost": 0
     },
     "316296057": {
-        "name": "GL-28 Belt-Fed Grenade Launcher",
+        "name": "GL-28 BELT-FED GRENADE LAUNCHER",
         "description": "A grenade launcher that can be fired continuously to deliver a nonstop barrage of explosives.",
         "type": "Support Weapon",
         "cost": 0
     },
     "1725541340": {
-        "name": "TX-41 Sterilizer",
+        "name": "TX-41 STERILIZER",
         "description": "Atomizes caustic chemicals into a fine mist that liquifies sensitive electronics and tissues. Blinds and slows most enemies.",
         "type": "Support Weapon",
         "cost": 0
     },
     "4001788629": {
-        "name": "MGX-42 Bullet Storm",
+        "name": "MGX-42 BULLET STORM",
         "description": "A single-use weapon sporting caseless ammunition stacked in multiple barrels. An electrical firing mechanism releases the rounds in rapid succession upon firing, after which the weapon is to be discarded.",
         "type": "Support Weapon",
         "cost": 0
     },
     "4095488231": {
-        "name": "EAT-411 Leveller",
+        "name": "EAT-411 LEVELLER",
         "description": "A single-use weapon firing a high-yield missile. Discarded after every use.",
         "type": "Support Weapon",
         "cost": 0
     },
     "4189624954": {
-        "name": "EAT-700 Expendable Napalm",
+        "name": "EAT-700 EXPENDABLE NAPALM",
         "description": "A single-use weapon that fires a missile containing napalm cluster bombs that release upon impact.",
         "type": "Support Weapon",
         "cost": 0
     },
     "202236804": {
-        "name": "FAF-14 Spear",
+        "name": "FAF-14 SPEAR",
         "description": "An anti-tank homing missile which must lock onto its target before launch. Effective against large and armored enemies.",
         "type": "Support Weapon",
         "cost": 0
     },
     "3564779466": {
-        "name": "StA-X3 W.A.S.P. Launcher",
+        "name": "StA-X3 W.A.S.P. LAUNCHER",
         "description": "A versatile missile launcher loaded with seven lock-on homing missiles. These can either be fired from the launcher directly or as an airburst. Includes support backpack required for reloading.\nProduced by St\u00e5l Arms.",
         "type": "Support Weapon",
         "cost": 0
     },
     "1944161163": {
-        "name": "FLAM-40 Flamethrower",
+        "name": "FLAM-40 FLAMETHROWER",
         "description": "An incendiary weapon for close range. Will ignite targets, terrain, and any flammable teammates.",
         "type": "Support Weapon",
         "cost": 0
     },
     "1159284196": {
-        "name": "GL-21 Grenade Launcher",
+        "name": "GL-21 GRENADE LAUNCHER",
         "description": "A grenade launcher effective against armored infantry. Not intended for use against vehicle armor or fortified buildings.",
         "type": "Support Weapon",
         "cost": 0
     },
     "3560739565": {
-        "name": "GL-52 De-Escalator",
+        "name": "GL-52 DE-ESCALATOR",
         "description": "A humane grenade launcher firing high-powered arc grenades.",
         "type": "Support Weapon",
         "cost": 0
     },
     "4030799106": {
-        "name": "S-11 Speargun",
+        "name": "S-11 SPEARGUN",
         "description": "A speargun firing heavy-duty projectiles. These projectiles release a cloud of gas on impact, and must be carefully loaded one at a time.",
         "type": "Support Weapon",
         "cost": 0
     },
     "2051054112": {
-        "name": "B/FLAM-80 Cremator",
+        "name": "B/FLAM-80 CREMATOR",
         "description": "Incendiary support fed by a massive backpack fuel tank. This heavy flamethrower enables a continuous column of fire to cleanse the battlefield.",
         "type": "Support Weapon",
         "cost": 0
     },
     "4038802832": {
-        "name": "MG-206 Heavy Machine Gun",
+        "name": "MG-206 HEAVY MACHINE GUN",
         "description": "A very powerful but difficult-to-wield machine gun with intense recoil.",
         "type": "Support Weapon",
         "cost": 0
     },
     "961518079": {
-        "name": "LAS-98 Laser Cannon",
+        "name": "LAS-98 LASER CANNON",
         "description": "A laser weapon firing a continuous beam. Doesn't require ammunition, but will need heat sink replaced if it overheats.",
         "type": "Support Weapon",
         "cost": 0
     },
     "3212037062": {
-        "name": "MLS-4X Commando",
+        "name": "MLS-4X COMMANDO",
         "description": "An expendable missile launcher equipped with four laser-guided missiles.",
         "type": "Support Weapon",
         "cost": 0
     },
     "1597673685": {
-        "name": "LAS-99 Quasar Cannon",
+        "name": "LAS-99 QUASAR CANNON",
         "description": "Charges up to fire a powerful, explosive energy burst. Has a long cooldown period after firing.",
         "type": "Support Weapon",
         "cost": 0
     },
     "1207425221": {
-        "name": "EAT-17 Expendable Anti-Tank",
+        "name": "EAT-17 EXPENDABLE ANTI-TANK",
         "description": "A single-use weapon specialized for damaging vehicle armor. Discarded after every use.",
         "type": "Support Weapon",
         "cost": 0
     },
     "934703916": {
-        "name": "MG-43 Machine Gun",
+        "name": "MG-43 MACHINE GUN",
         "description": "A machine gun designed for stationary use. Trades higher power for increased recoil and reduced accuracy.",
         "type": "Support Weapon",
         "cost": 0
     },
     "3659583399": {
-        "name": "M-1000 Maxigun",
+        "name": "M-1000 MAXIGUN",
         "description": "A belt-fed minigun with an exceptional ammo capacity. Cannot be reloaded with standard non-belted munitions.",
         "type": "Support Weapon",
         "cost": 0
     },
     "2918647117": {
-        "name": "Solo Silo Targeting Remote",
+        "name": "SOLO SILO TARGETING REMOTE",
         "description": "A targeting remote, used in combination with the Solo Silo.",
         "type": "Support Weapon",
         "cost": 0
     },
     "2140866400": {
-        "name": "PLAS-45 Epoch",
+        "name": "PLAS-45 EPOCH",
         "description": "A powerful plasma weapon that fires one blast at a time, each blast exploding on impact. Must be charged to fire. Warning: do not overcharge.",
         "type": "Support Weapon",
         "cost": 0
     },
     "295440526": {
-        "name": "RS-422 Railgun",
+        "name": "RS-422 RAILGUN",
         "description": "An experimental weapon which prioritizes armor penetration. Must be charged between shots - so choose targets carefully.",
         "type": "Support Weapon",
         "cost": 250
     },
     "1594211884": {
-        "name": "GR-8 Recoilless Rifle",
+        "name": "GR-8 RECOILLESS RIFLE",
         "description": "A recoilless rifle effective against vehicle armor. Includes support backpack required for reloading.",
         "type": "Support Weapon",
         "cost": 0
     },
     "376960160": {
-        "name": "APW-1 Anti-Materiel Rifle",
+        "name": "APW-1 ANTI-MATERIEL RIFLE",
         "description": "A high-caliber sniper rifle effective over long distances against light vehicle armor. This rifle must be aimed downscope.",
         "type": "Support Weapon",
         "cost": 0
     },
     "1455517800": {
         "name": "Cheer",
-        "description": "",
-        "type": "Emote",
-        "cost": 0
-    },
-    "2520370483": {
-        "name": "Howdy",
         "description": "",
         "type": "Emote",
         "cost": 0
@@ -2975,110 +2951,14 @@
         "type": "Emote",
         "cost": 0
     },
-    "2271234922": {
-        "name": "Cancel",
-        "description": "",
-        "type": "Emote",
-        "cost": 0
-    },
     "299597462": {
         "name": "Draw!",
         "description": "",
         "type": "Emote",
         "cost": 250
     },
-    "1871859054": {
-        "name": "Draw Fire",
-        "description": "",
-        "type": "Emote",
-        "cost": 0
-    },
-    "2289161816": {
-        "name": "Exit",
-        "description": "",
-        "type": "Emote",
-        "cost": 0
-    },
-    "100562250": {
-        "name": "Hifive Denied",
-        "description": "",
-        "type": "Emote",
-        "cost": 0
-    },
     "2124284534": {
         "name": "March",
-        "description": "",
-        "type": "Emote",
-        "cost": 0
-    },
-    "1427899644": {
-        "name": "March Flag",
-        "description": "",
-        "type": "Emote",
-        "cost": 0
-    },
-    "2713104908": {
-        "name": "March Forward",
-        "description": "",
-        "type": "Emote",
-        "cost": 0
-    },
-    "2815619249": {
-        "name": "March Saber",
-        "description": "",
-        "type": "Emote",
-        "cost": 0
-    },
-    "3494119488": {
-        "name": "Option Loc",
-        "description": "",
-        "type": "Emote",
-        "cost": 0
-    },
-    "1462074552": {
-        "name": "Rps Count 1",
-        "description": "",
-        "type": "Emote",
-        "cost": 0
-    },
-    "4293274972": {
-        "name": "Rps Count 2",
-        "description": "",
-        "type": "Emote",
-        "cost": 0
-    },
-    "997787071": {
-        "name": "Rps Count 3",
-        "description": "",
-        "type": "Emote",
-        "cost": 0
-    },
-    "446609972": {
-        "name": "Rps Count 4",
-        "description": "",
-        "type": "Emote",
-        "cost": 0
-    },
-    "2462633379": {
-        "name": "Rps Count 5",
-        "description": "",
-        "type": "Emote",
-        "cost": 0
-    },
-    "3713957825": {
-        "name": "Rps Draw",
-        "description": "",
-        "type": "Emote",
-        "cost": 0
-    },
-    "903988142": {
-        "name": "Rps Lose",
-        "description": "",
-        "type": "Emote",
-        "cost": 0
-    },
-    "1609836221": {
-        "name": "Rps Win",
         "description": "",
         "type": "Emote",
         "cost": 0
@@ -3091,12 +2971,6 @@
     },
     "3818154189": {
         "name": "Taunt",
-        "description": "",
-        "type": "Emote",
-        "cost": 0
-    },
-    "3652117609": {
-        "name": "Type",
         "description": "",
         "type": "Emote",
         "cost": 0
