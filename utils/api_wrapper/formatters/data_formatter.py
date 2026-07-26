@@ -261,7 +261,7 @@ class FormattedData:
                 planet = Planet(
                     raw_planet_info=raw_planet,
                     planets_json=context.json_dict["planets"].get(
-                        str(raw_planet["index"]),
+                        str(raw_planet["settingsHash"]),
                         {
                             "names": {
                                 "en-GB": f"UNKNOWN PLANET {raw_planet['index']}",
