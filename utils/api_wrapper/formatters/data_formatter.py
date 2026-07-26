@@ -15,7 +15,7 @@ from utils.api_wrapper.models import (
     SpaceStation,
     SteamNews,
 )
-from utils.dataclasses import Factions
+from utils.dataclasses import Factions, Languages
 from utils.dataclasses.communities import arsenal
 from utils.dataclasses.enums import AssignmentTaskType, EventType, SpaceStationType
 
@@ -264,15 +264,8 @@ class FormattedData:
                         str(raw_planet["settingsHash"]),
                         {
                             "names": {
-                                "en-GB": f"UNKNOWN PLANET {raw_planet['index']}",
-                                "de-DE": f"UNKNOWN PLANET {raw_planet['index']}",
-                                "es-ES": f"UNKNOWN PLANET {raw_planet['index']}",
-                                "fr-FR": f"UNKNOWN PLANET {raw_planet['index']}",
-                                "it-IT": f"UNKNOWN PLANET {raw_planet['index']}",
-                                "pt-BR": f"UNKNOWN PLANET {raw_planet['index']}",
-                                "ru-RU": f"UNKNOWN PLANET {raw_planet['index']}",
-                                "zh-Hans": f"UNKNOWN PLANET {raw_planet['index']}",
-                                "zh-Hant": f"UNKNOWN PLANET {raw_planet['index']}",
+                                lang.long_code: f"UNKNOWN PLANET {raw_planet['index']}"
+                                for lang in Languages.all
                             },
                             "description": "",
                         },
