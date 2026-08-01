@@ -1001,6 +1001,18 @@
         "type": "Helmet",
         "cost": 150
     },
+    "3765197556": {
+        "name": "O-44 BONDED PILOT",
+        "description": "This armor celebrates the wearer's close relationship to their Exosuit---as intimate as is possible without succumbing to cyborgry.",
+        "type": "Armor",
+        "cost": 250
+    },
+    "2162208079": {
+        "name": "O-44 BONDED PILOT",
+        "description": "This armor celebrates the wearer's close relationship to their Exosuit---as intimate as is possible without succumbing to cyborgry.",
+        "type": "Helmet",
+        "cost": 125
+    },
     "2015848647": {
         "name": "RS-100 SANCTIONER",
         "description": "Armor inspired by the legend of the Sanctioner, a figure known only through a bizarrely unanimous patchwork of stifled whispers. As told, this fearsome, covert arbiter of primeval Justice delivered final, state-approved verdicts in the chaotic years before the Federation's founding.",
