@@ -545,6 +545,13 @@ class SetupCog(Cog):
                         active_category="features",
                     )
                 )
+                await channel.send(
+                    (
+                        f"This channel has been chosen to receive {feature_type.replace('_', ' ').title()}"
+                        f"\n-# This message will auto-destruct <t:{int((datetime.now(tz=timezone.utc) + timedelta(seconds=30)).timestamp())}:R>"
+                    ),
+                    delete_after=30,
+                )
         elif inter.component.custom_id == "language_select":
             guild.language = inter.values[0].lower()
             guild.save_changes()
