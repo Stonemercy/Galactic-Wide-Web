@@ -81,9 +81,9 @@ class GlobalEventsCog(Cog):
                         image_message = await self.bot.channels.waste_bin_channel.send(
                             file=File(f"resources/news_images/{image_id}.png")
                         )
+                        image_url = image_message.attachments[0].url
                     except:
                         pass
-                    image_url = image_message.attachments[0].url
 
                 containers = {
                     lang: [
