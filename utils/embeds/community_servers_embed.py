@@ -5,14 +5,15 @@ from utils.mixins import EmbedReprMixin
 
 # DOESNT NEED LOCALIZATION (YET)
 class CommunityServersEmbed(Embed, EmbedReprMixin):
-    def __init__(self, guilds: list[Guild], new_index: int):
+    def __init__(self, guilds: list[Guild], page_number: int):
         super().__init__(
             title="Community Servers",
             colour=Colour.blue(),
             description=f"The GWW is in **{len(guilds)}** community servers",
         )
         for index, guild in enumerate(
-            guilds[new_index - 10 : new_index], start=max(1, new_index - 9)
+            guilds[(page_number * 10) - 10 : page_number * 10],
+            start=max(1, (page_number * 10) - 9),
         ):
             if self.character_count() < 6000 and len(self.fields) < 24:
                 emoji = getattr(Emojis.CommunityIcons, guild.name.lower(), "")
@@ -33,7 +34,7 @@ class CommunityServersEmbed(Embed, EmbedReprMixin):
             self.set_image([g for g in guilds if g.banner][0].banner.url)
         except:
             pass
-        self.set_footer(text=f"{max(0, new_index)}/{len(guilds)}")
+        self.set_footer(text=f"Page {page_number}")
 
     def character_count(self):
         total_characters = 0

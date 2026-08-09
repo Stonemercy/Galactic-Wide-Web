@@ -4,7 +4,6 @@ from disnake import (
     Guild,
     InteractionContextTypes,
     MessageInteraction,
-    NotFound,
 )
 from disnake.ext.commands import Cog, slash_command
 from utils.bot import GalacticWideWebBot
@@ -32,15 +31,20 @@ class CommunityServersCog(Cog):
     )
     async def community_servers(self, inter: AppCmdInter) -> None:
         await inter.response.defer(ephemeral=True)
+
         embed = CommunityServersEmbed(
             guilds=self.communities_with_links,
-            new_index=min(10, len(self.communities_with_links)),
+            page_number=1,
         )
         components = [
             PreviousPageButton(disabled=True),
             NextPageButton(disabled=len(self.communities_with_links) < 10),
         ]
-        await inter.send(embed=embed, components=components, ephemeral=True)
+        await inter.send(
+            embed=embed,
+            components=components,
+            ephemeral=True,
+        )
 
     @property
     def communities_with_links(self) -> list[Guild]:
@@ -50,7 +54,7 @@ class CommunityServersCog(Cog):
             [
                 guild
                 for guild in self.bot.guilds
-                if "COMMUNITY" in guild.features and guild.vanity_url_code
+                if "COMMUNITY" in guild.features and guild.vanity_url_code is not None
             ],
             key=lambda guild: guild.member_count,
             reverse=True,
@@ -58,66 +62,51 @@ class CommunityServersCog(Cog):
 
     @Cog.listener("on_button_click")
     async def on_button_clicks(self, inter: MessageInteraction) -> None:
-        if inter.component.custom_id not in ALLOWED_BUTTONS:
+        if (
+            not self.bot.ready
+            or inter.component.custom_id not in ALLOWED_BUTTONS
+            or inter.author != inter.message.interaction_metadata.user
+        ):
             return
         await inter.response.defer()
-        try:
-            embed = inter.message.embeds[0]
-            footer_text = (
-                embed.footer.text if embed.footer and embed.footer.text else None
-            )
-            index = (
-                int(footer_text.split("/")[0])
-                if footer_text and "/" in footer_text
-                else 10
-            )
-        except (IndexError, AttributeError, ValueError):
-            index = 10
+
+        embed = inter.message.embeds[0]
+        current_page = 1
+        if (
+            embed.footer is not None
+            and embed.footer.text is not None
+            and "Page" in embed.footer.text
+        ):
+            current_page = int(embed.footer.text.split(" ")[1])
+
         match inter.component.custom_id:
             case "CommunityServerPreviousPageButton":
-                new_index = max(10, index - 10)
+                new_page = max(1, current_page - 1)
                 embed = CommunityServersEmbed(
                     guilds=self.communities_with_links,
-                    new_index=new_index,
+                    page_number=new_page,
                 )
                 components = [
-                    PreviousPageButton(disabled=new_index <= 10),
+                    PreviousPageButton(disabled=new_page == 1),
                     NextPageButton(disabled=len(self.communities_with_links) < 10),
                 ]
-                try:
-                    await inter.edit_original_response(
-                        embed=embed, components=components
-                    )
-                    return
-                except NotFound:
-                    await inter.send(
-                        "-# There was an issue changing page.\n-# Please try again.",
-                        ephemeral=True,
-                    )
-                    return
+                await inter.edit_original_response(embed=embed, components=components)
+                return
             case "CommunityServerNextPageButton":
-                new_index = min(len(self.communities_with_links), index + 10)
+                new_page = min(
+                    int(len(self.communities_with_links) / 10) + 1, current_page + 1
+                )
                 embed = CommunityServersEmbed(
-                    guilds=self.communities_with_links,
-                    new_index=new_index,
+                    guilds=self.communities_with_links, page_number=new_page
                 )
                 components = [
                     PreviousPageButton(disabled=len(self.communities_with_links) < 10),
                     NextPageButton(
-                        disabled=new_index >= len(self.communities_with_links)
+                        disabled=new_page >= len(self.communities_with_links) / 10
                     ),
                 ]
-                try:
-                    await inter.edit_original_response(
-                        embed=embed, components=components
-                    )
-                    return
-                except NotFound:
-                    await inter.send(
-                        "-# There was an issue changing page.\n-# Please try again.",
-                        ephemeral=True,
-                    )
-                    return
+                await inter.edit_original_response(embed=embed, components=components)
+                return
 
 
 def setup(bot: GalacticWideWebBot) -> None:
