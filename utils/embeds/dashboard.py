@@ -1796,7 +1796,7 @@ class Dashboard:
             ):
                 if task.planet_index is not None:
                     planet = self.planets.get(task.planet_index)
-                    if planet:
+                    if planet is not None:
                         end_time_info = get_end_time(
                             source_planet=planet,
                             gambit_planets=self.gambit_planets,
@@ -1820,13 +1820,6 @@ class Dashboard:
                                             < self.assignment.ends_at_datetime
                                         ):
                                             complete_type_13s.append(True)
-                        else:
-                            if (
-                                end_time_info.end_time
-                                and end_time_info.end_time
-                                < self.assignment.ends_at_datetime
-                            ):
-                                complete_type_13s.append(True)
                 elif task.sector_index is not None:
                     sector = self.json_dict["sectors"][task.sector_index]
                     sector_wins = []
