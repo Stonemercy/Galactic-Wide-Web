@@ -54,13 +54,6 @@ class GlobalEventsCog(Cog):
             if global_event.id > self.bot.databases.war_info.global_event_id:
                 if (
                     global_event.assignment_id != 0
-                    or all(
-                        [
-                            not global_event.title,
-                            not global_event.message,
-                            not global_event.effects,
-                        ]
-                    )
                     or "BRIEFING" in global_event.title.upper()
                 ):
                     self.bot.logger.info(
@@ -69,7 +62,19 @@ class GlobalEventsCog(Cog):
                     self.bot.databases.war_info.global_event_id = global_event.id
                     self.bot.databases.war_info.save_changes()
                     continue
-                unique_langs = GWWGuilds.unique_languages()
+                if all(
+                    [
+                        global_event.title == "",
+                        global_event.message == "",
+                        global_event.effects == [],
+                    ]
+                ):
+                    self.bot.logger.info(
+                        f"global_event_check loop - global event {global_event.id} is fully empty and is being skipped"
+                    )
+                    self.bot.databases.war_info.global_event_id = global_event.id
+                    self.bot.databases.war_info.save_changes()
+                    continue
 
                 image_url = None
                 if (
@@ -84,7 +89,7 @@ class GlobalEventsCog(Cog):
                         image_url = image_message.attachments[0].url
                     except:
                         pass
-
+                unique_langs = GWWGuilds.unique_languages()
                 containers = {
                     lang: [
                         GlobalEventsContainer(
