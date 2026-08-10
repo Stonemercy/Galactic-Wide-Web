@@ -37,22 +37,12 @@ class SubfactionCog(commands.Cog):
         ),
     ) -> None:
         await inter.response.defer(ephemeral=public != "Yes")
-        if inter.guild:
-            guild = GWWGuilds.get_specific_guild(id=inter.guild_id)
-            if not guild:
-                self.bot.logger.error(
-                    f"Guild {inter.guild_id} - {inter.guild.name} - had the bot installed but wasn't found in the DB"
-                )
-                guild = GWWGuilds.add(inter.guild_id, "en", [])
-        else:
-            guild = GWWGuild.default()
-
         sf_planetcount_tuples = [
             (
                 sf,
-                len(
+                sum(
                     [
-                        p
+                        p.stats.player_count
                         for p in self.bot.data.formatted_data.planets.values()
                         if sf in p.subfactions
                         and (p.faction != Factions.humans or p.active_campaign)
