@@ -1,6 +1,6 @@
 from asyncio import to_thread
 from datetime import datetime, timezone
-from disnake import File
+from disnake import DiscordServerError, File
 from disnake.ext.commands import Cog
 from disnake.ext.tasks import loop
 from utils.bot import GalacticWideWebBot
@@ -234,14 +234,21 @@ class WarUpdatesCog(Cog):
                     planets=self.bot.data.formatted_data.planets,
                     dss=self.bot.data.formatted_data.dss,
                 )
-                message = await self.bot.channels.waste_bin_channel.send(
-                    file=File(
-                        fp=self.bot.maps.FileLocations.localized_map_path(lang["code"])
+                try:
+                    message = await self.bot.channels.waste_bin_channel.send(
+                        file=File(
+                            fp=self.bot.maps.FileLocations.localized_map_path(
+                                lang["code"]
+                            )
+                        )
                     )
-                )
-                self.bot.maps.latest_maps[lang["code"]] = Maps.LatestMap(
-                    datetime.now(tz=timezone.utc), message.attachments[0].url
-                )
+                    self.bot.maps.latest_maps[lang["code"]] = Maps.LatestMap(
+                        datetime.now(tz=timezone.utc), message.attachments[0].url
+                    )
+                except DiscordServerError as e:
+                    self.bot.logger.error(
+                        f"campaign_check loop | map update upload error | {e}"
+                    )
 
     @campaign_check.before_loop
     async def before_campaign_check(self) -> None:
