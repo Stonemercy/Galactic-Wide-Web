@@ -11,7 +11,6 @@ from utils.bot import GalacticWideWebBot
 from utils.checks import wait_for_startup
 from utils.containers import ControlCentreContainer
 from utils.dataclasses.enums import ControlCentrePage
-from utils.dbv2 import GWWGuild, GWWGuilds
 
 MAIN_BUTTONS = [
     "overview_button",
@@ -45,20 +44,20 @@ class ControlCentreCog(Cog):
         ),
     ) -> None:
         await inter.response.defer(ephemeral=public != "Yes")
-        if inter.guild:
-            guild = GWWGuilds.get_specific_guild(id=inter.guild.id)
-            if not guild:
-                self.bot.logger.error(
-                    f"Guild {inter.guild.id} - {inter.guild.name} - had the bot installed but wasn't found in the DB"
+        guild = self.bot.get_guild_from_inter(inter=inter)
+        if (
+            cc := (
+                self.bot.data.formatted_data.control_centre.get(
+                    guild.language,
+                    self.bot.data.formatted_data.control_centre.get("en"),
                 )
-                guild = GWWGuilds.add(inter.guild.id, "en", [])
-        else:
-            guild = GWWGuild.default()
-        if not self.bot.data.formatted_data.control_centre.get(guild.language):
-            await inter.send("Control Centre unavailable")
+            )
+        ) is None:
+            await inter.send(
+                "Control Centre unavailable\nApologies for the inconvenience",
+                ephemeral=True,
+            )
             return
-
-        cc = self.bot.data.formatted_data.control_centre.get(guild.language)
         images_required = [
             f"{i}.png"
             for i in cc.images_required(episode_id=cc.episodes[-1].id, phase_id=0)
@@ -72,11 +71,7 @@ class ControlCentreCog(Cog):
         )
         await inter.send(
             components=container,
-            files=[
-                File(f"resources/news_images/{i}")
-                for i in images_required
-                if i in self.usable_images
-            ],
+            files=[File(f"resources/news_images/{i}") for i in images_required],
         )
 
     @Cog.listener("on_button_click")
@@ -91,23 +86,29 @@ class ControlCentreCog(Cog):
         ):
             return
         await inter.response.defer()
-        if inter.guild:
-            guild = GWWGuilds.get_specific_guild(id=inter.guild.id)
-            if not guild:
-                self.bot.logger.error(
-                    f"Guild {inter.guild.id} - {inter.guild.name} - had the bot installed but wasn't found in the DB"
+        guild = self.bot.get_guild_from_inter(inter=inter)
+        if (
+            cc := (
+                self.bot.data.formatted_data.control_centre.get(
+                    guild.language,
+                    self.bot.data.formatted_data.control_centre.get("en"),
                 )
-                guild = GWWGuilds.add(inter.guild.id, "en", [])
-        else:
-            guild = GWWGuild.default()
-
+            )
+        ) is None:
+            await inter.send(
+                "Control Centre unavailable\nApologies for the inconvenience",
+                ephemeral=True,
+            )
+            return
         if inter.component.custom_id in MAIN_BUTTONS:
             page = ControlCentrePage[
                 "".join(
                     inter.component.custom_id.replace("_", " ").title().split(" ")[:-1]
                 )
             ]
-            cc = self.bot.data.formatted_data.control_centre.get(guild.language)
+            cc = self.bot.data.formatted_data.control_centre.get(
+                guild.language, self.bot.data.formatted_data.control_centre.get("en")
+            )
             episode_id = None
             phase_id = None
             need_episode = True
@@ -139,17 +140,14 @@ class ControlCentreCog(Cog):
                 control_centre=cc,
                 required_images=images_required,
                 dispatches=self.bot.data.formatted_data.dispatches.get(
-                    guild.language, []
+                    guild.language,
+                    self.bot.data.formatted_data.dispatches.get("en", []),
                 ),
                 page=page,
             )
             await inter.edit_original_response(
                 components=container,
-                files=[
-                    File(f"resources/news_images/{i}")
-                    for i in images_required
-                    if i in self.usable_images
-                ],
+                files=[File(f"resources/news_images/{i}") for i in images_required],
             )
         else:
             episode_id = int(inter.component.custom_id.split("_")[-1])
@@ -168,38 +166,26 @@ class ControlCentreCog(Cog):
                 control_centre=cc,
                 required_images=images_required,
                 dispatches=self.bot.data.formatted_data.dispatches.get(
-                    guild.language, []
+                    guild.language,
+                    self.bot.data.formatted_data.dispatches.get("en", []),
                 ),
                 page=ControlCentrePage.ActiveCampaign,
                 episode_id=episode_id,
             )
             await inter.edit_original_response(
                 components=container,
-                files=[
-                    File(f"resources/news_images/{i}")
-                    for i in images_required
-                    if i in self.usable_images
-                ],
+                files=[File(f"resources/news_images/{i}") for i in images_required],
             )
 
     @Cog.listener("on_dropdown")
     async def on_dropdowns(self, inter: MessageInteraction) -> None:
         if (
             not self.bot.ready
-            or inter.author != inter.message.interaction_metadata.user
             or "cc_active_campaigns_dropdown" not in inter.component.custom_id
+            or inter.author != inter.message.interaction_metadata.user
         ):
             return
-        if inter.guild:
-            guild = GWWGuilds.get_specific_guild(id=inter.guild.id)
-            if not guild:
-                self.bot.logger.error(
-                    f"Guild {inter.guild.id} - {inter.guild.name} - had the bot installed but wasn't found in the DB"
-                )
-                guild = GWWGuilds.add(inter.guild.id, "en", [])
-        else:
-            guild = GWWGuild.default()
-
+        guild = self.bot.get_guild_from_inter(inter=inter)
         episode_id = int(inter.component.custom_id.split("_")[-1])
         phase_id = int(inter.values[0])
         cc = self.bot.data.formatted_data.control_centre.get(guild.language)
@@ -213,18 +199,16 @@ class ControlCentreCog(Cog):
         container = ControlCentreContainer(
             control_centre=cc,
             required_images=images_required,
-            dispatches=self.bot.data.formatted_data.dispatches.get(guild.language, []),
+            dispatches=self.bot.data.formatted_data.dispatches.get(
+                guild.language, self.bot.data.formatted_data.dispatches.get("en", [])
+            ),
             page=ControlCentrePage.ActiveCampaign,
             phase_id=phase_id,
             episode_id=episode_id,
         )
         await inter.response.edit_message(
             components=container,
-            files=[
-                File(f"resources/news_images/{i}")
-                for i in images_required
-                if i in self.usable_images
-            ],
+            files=[File(f"resources/news_images/{i}") for i in images_required],
         )
 
 

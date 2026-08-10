@@ -84,6 +84,7 @@ class Emojis:
         playstation = "<:s:1373613628552511559>"
         xbox = "<:s:1409811621907533845>"
         new_icon = "<:s:1418931498035318885>"
+        blank = "<:s:1536462190989545532>"
 
     @dataclass
     class Factions:

@@ -149,7 +149,12 @@ class ControlCentreContainer(Container):
                     if active_phase.status == ControlCentreStatus.InProgress
                     else reward.item_name
                 )
-                mo_rewards_text += f"**{reward.amount}** x **{reward_name}** {reward.emoji} {reward_result_emoji}"
+                reward_emoji = (
+                    f"[{reward.emoji}](http://{reward.item_name.replace(' ', '-')}.com)"
+                    if active_phase.status == ControlCentreStatus.InProgress
+                    else reward.emoji
+                )
+                mo_rewards_text += f"{Emojis.Icons.blank}**{reward.amount}** x **{reward_name}** {reward_emoji} {reward_result_emoji}"
 
             if mo_rewards_text != "":
                 section2.append(TextDisplay(mo_rewards_text))
@@ -184,7 +189,12 @@ class ControlCentreContainer(Container):
                 if active_campaign.status == ControlCentreStatus.InProgress
                 else reward.item_name
             )
-            campaign_rewards_text += f"**{reward.amount}** x **{reward_name}** {reward.emoji} {reward_result_emoji}"
+            reward_emoji = (
+                f"[{reward.emoji}](http://{reward.item_name.replace(' ', '-')}.com)"
+                if active_phase.status == ControlCentreStatus.InProgress
+                else reward.emoji
+            )
+            campaign_rewards_text += f"{Emojis.Icons.blank}**{reward.amount}** x **{reward_name}** {reward_emoji} {reward_result_emoji}"
         if campaign_rewards_text != "":
             section2.append(TextDisplay(campaign_rewards_text))
         self.components.extend(section2 + [Separator()])
@@ -284,7 +294,12 @@ class ControlCentreContainer(Container):
                 if phase.status == ControlCentreStatus.InProgress
                 else reward.item_name
             )
-            mo_rewards_text += f"**{reward.amount}** x **{reward_name}** {reward.emoji} {reward_result_emoji}"
+            reward_emoji = (
+                f"[{reward.emoji}](http://{reward.item_name.replace(' ', '-')}.com)"
+                if phase.status == ControlCentreStatus.InProgress
+                else reward.emoji
+            )
+            mo_rewards_text += f"{Emojis.Icons.blank}**{reward.amount}** x **{reward_name}** {reward_emoji} {reward_result_emoji}"
         if mo_rewards_text != "":
             section2.append(TextDisplay(mo_rewards_text))
 
@@ -318,7 +333,12 @@ class ControlCentreContainer(Container):
                 if campaign.status == ControlCentreStatus.InProgress
                 else reward.item_name
             )
-            campaign_rewards_text += f"**{reward.amount}** x **{reward_name}** {reward.emoji} {reward_result_emoji}"
+            reward_emoji = (
+                f"[{reward.emoji}](http://{reward.item_name.replace(' ', '-')}.com)"
+                if campaign.status == ControlCentreStatus.InProgress
+                else reward.emoji
+            )
+            campaign_rewards_text += f"{Emojis.Icons.blank}**{reward.amount}** x **{reward_name}** {reward_emoji} {reward_result_emoji}"
         if campaign_rewards_text != "":
             section2.append(TextDisplay(campaign_rewards_text))
         self.components.extend(section2 + [Separator()])
