@@ -9,7 +9,7 @@ from disnake.ext.commands import Cog, Param, slash_command
 from disnake.ext.tasks import loop
 from utils.bot import GalacticWideWebBot
 from utils.checks import wait_for_startup
-from utils.dbv2 import GWWGuild, GWWGuilds
+from utils.dbv2 import GWWGuilds
 from utils.embeds import SteamEmbed
 from utils.interactables import SteamStringSelect
 
@@ -40,7 +40,7 @@ class SteamCog(Cog):
                 "steam_check loop returning - the interface_handler is busy"
             )
             return
-        if not self.bot.data.formatted_data.steam_news:
+        if self.bot.data.formatted_data.steam_news == []:
             self.bot.logger.warning(
                 "steam_check loop returning - steam posts are missing"
             )
@@ -96,15 +96,7 @@ class SteamCog(Cog):
         ),
     ) -> None:
         await inter.response.defer(ephemeral=public != "Yes")
-        if inter.guild:
-            guild = GWWGuilds.get_specific_guild(id=inter.guild.id)
-            if not guild:
-                self.bot.logger.error(
-                    f"Guild {inter.guild.id} - {inter.guild.name} - had the bot installed but wasn't found in the DB"
-                )
-                guild = GWWGuilds.add(inter.guild.id, "en", [])
-        else:
-            guild = GWWGuild.default()
+        guild = self.bot.get_guild_from_inter(inter=inter)
         await inter.send(
             embed=SteamEmbed(
                 steam=self.bot.data.formatted_data.steam_news[0],
@@ -127,15 +119,7 @@ class SteamCog(Cog):
             for steam in self.bot.data.formatted_data.steam_news
             if steam.title == inter.values[0]
         ][0]
-        if inter.guild:
-            guild = GWWGuilds.get_specific_guild(id=inter.guild.id)
-            if not guild:
-                self.bot.logger.error(
-                    f"Guild {inter.guild.id} - {inter.guild.name} - had the bot installed but wasn't found in the DB"
-                )
-                guild = GWWGuilds.add(inter.guild.id, "en", [])
-        else:
-            guild = GWWGuild.default()
+        guild = self.bot.get_guild_from_inter(inter=inter)
         embed = SteamEmbed(
             steam=steam_data,
             language_json=self.bot.json_dict["languages"][guild.language],

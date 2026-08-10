@@ -13,7 +13,7 @@ from utils.bot import GalacticWideWebBot
 from utils.checks import wait_for_startup
 from utils.containers import MOUnavailableContainer
 from utils.dataclasses import Languages
-from utils.dbv2 import GWWGuild, GWWGuilds
+from utils.dbv2 import GWWGuilds
 from utils.embeds import Dashboard
 from utils.interactables import WikiButton
 
@@ -78,7 +78,7 @@ class MajorOrderCog(Cog):
                     if ge.assignment_id == major_order.id
                     and "" not in (ge.title, ge.message)
                 }
-                if not mo_briefing_dict:
+                if mo_briefing_dict == {}:
                     if major_order.id in self.mo_briefing_check_dict:
                         self.mo_briefing_check_dict[major_order.id] += 1
                     else:
@@ -173,7 +173,7 @@ class MajorOrderCog(Cog):
     async def major_order_updates(self):
         mo_updates_start = datetime.now(tz=timezone.utc)
         if (
-            self.last_mo_update
+            self.last_mo_update is not None
             and (mo_updates_start - self.last_mo_update).total_seconds() < 600
         ):
             self.bot.logger.warning(
@@ -253,16 +253,7 @@ class MajorOrderCog(Cog):
         ),
     ) -> None:
         await inter.response.defer(ephemeral=public != "Yes")
-        if inter.guild:
-            guild = GWWGuilds.get_specific_guild(id=inter.guild.id)
-            if not guild:
-                self.bot.logger.error(
-                    f"Guild {inter.guild.id} - {inter.guild.name} - had the bot installed but wasn't found in the DB"
-                )
-                guild = GWWGuilds.add(inter.guild.id, "en", [])
-        else:
-            guild = GWWGuild.default()
-        guild_language = self.bot.json_dict["languages"][guild.language]
+        guild = self.bot.get_guild_from_inter(inter=inter)
         if (
             assignments := self.bot.data.formatted_data.assignments.get(
                 guild.language, self.bot.data.formatted_data.assignments.get("en", [])
@@ -311,16 +302,14 @@ class MajorOrderCog(Cog):
                     assignment=assignment,
                     planets=self.bot.data.formatted_data.planets,
                     gambit_planets=self.bot.data.formatted_data.gambit_planets,
-                    language_json=guild_language,
+                    language_json=self.bot.json_dict["languages"][guild.language],
                     json_dict=self.bot.json_dict,
                 )
-
                 if briefing is not None:
                     embed._add_briefing(briefing)
                     if image_url is not None:
                         embed.set_image("https://i.imgur.com/cThNy4f.png")
                 embeds.append(embed)
-
             await inter.send(
                 embeds=embeds,
                 components=[

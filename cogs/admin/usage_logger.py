@@ -30,8 +30,6 @@ class UsageLoggerCog(Cog):
 
     @Cog.listener()
     async def on_slash_command(self, inter: AppCmdInter) -> None:
-        if not self.bot.ready:
-            return
         if inter.application_command.name not in self.usage_dict["commands"]:
             self.usage_dict["commands"][inter.application_command.name] = 1
         self.usage_dict["commands"][inter.application_command.name] += 1
@@ -45,8 +43,6 @@ class UsageLoggerCog(Cog):
 
     @Cog.listener()
     async def on_button_click(self, inter: MessageInteraction) -> None:
-        if not self.bot.ready:
-            return
         if inter.component.custom_id not in self.usage_dict["buttons"]:
             self.usage_dict["buttons"][inter.component.custom_id] = 1
         self.usage_dict["buttons"][inter.component.custom_id] += 1
@@ -59,8 +55,6 @@ class UsageLoggerCog(Cog):
 
     @Cog.listener()
     async def on_dropdown(self, inter: MessageInteraction) -> None:
-        if not self.bot.ready:
-            return
         if inter.component.custom_id not in self.usage_dict["dropdowns"]:
             self.usage_dict["dropdowns"][inter.component.custom_id] = 1
         self.usage_dict["dropdowns"][inter.component.custom_id] += 1

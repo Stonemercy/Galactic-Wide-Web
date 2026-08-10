@@ -10,7 +10,7 @@ from disnake.ext.tasks import loop
 from utils.bot import GalacticWideWebBot
 from utils.containers import DispatchContainer
 from utils.checks import wait_for_startup
-from utils.dbv2 import GWWGuild, GWWGuilds
+from utils.dbv2 import GWWGuilds
 from utils.interactables import DispatchStringSelect
 
 
@@ -45,7 +45,6 @@ class DispatchesCog(Cog):
         if not self.bot.data.formatted_data:
             self.bot.logger.error("dispatch_check loop returning - NO FORMATTED DATA")
             return
-
         if english_dispatches := self.bot.data.formatted_data.dispatches.get("en"):
             fifteen_minutes_ago = datetime.now(tz=timezone.utc) - timedelta(minutes=15)
             for index, dispatch in enumerate(english_dispatches):
@@ -150,17 +149,9 @@ class DispatchesCog(Cog):
         ),
     ) -> None:
         await inter.response.defer(ephemeral=public != "Yes")
-        if inter.guild:
-            guild = GWWGuilds.get_specific_guild(id=inter.guild.id)
-            if not guild:
-                self.bot.logger.error(
-                    f"Guild {inter.guild.id} - {inter.guild.name} - had the bot installed but wasn't found in the DB"
-                )
-                guild = GWWGuilds.add(inter.guild.id, "en", [])
-        else:
-            guild = GWWGuild.default()
+        guild = self.bot.get_guild_from_inter(inter=inter)
         dispatch = None
-        if specific:
+        if specific is not None:
             try:
                 disp_id = int(specific.split("-")[0])
             except ValueError:
@@ -168,16 +159,17 @@ class DispatchesCog(Cog):
                     f"The ID you supplied (`{specific}`) is in the incorrect format. Please choose a dispatch from the list."
                 )
                 return
-            specific_dispatch_list = [
-                d
-                for d in self.bot.data.formatted_data.dispatches[guild.language]
-                if d.id == disp_id
-            ]
-            if specific_dispatch_list != []:
-                dispatch = specific_dispatch_list[0]
+            dispatch = next(
+                (
+                    d
+                    for d in self.bot.data.formatted_data.dispatches[guild.language]
+                    if d.id == disp_id
+                ),
+                None,
+            )
         else:
             dispatch = self.bot.data.formatted_data.dispatches[guild.language][-1]
-        if not dispatch:
+        if dispatch is None:
             await inter.send("I couldn't find that dispatch, sorry.", ephemeral=True)
             return
         await inter.send(
@@ -204,15 +196,7 @@ class DispatchesCog(Cog):
             or inter.author != inter.message.interaction_metadata.user
         ):
             return
-        if inter.guild:
-            guild = GWWGuilds.get_specific_guild(id=inter.guild.id)
-            if not guild:
-                self.bot.logger.error(
-                    f"Guild {inter.guild.id} - {inter.guild.name} - had the bot installed but wasn't found in the DB"
-                )
-                guild = GWWGuilds.add(inter.guild.id, "en", [])
-        else:
-            guild = GWWGuild.default()
+        guild = self.bot.get_guild_from_inter(inter=inter)
         dispatch = [
             d
             for d in self.bot.data.formatted_data.dispatches[guild.language]

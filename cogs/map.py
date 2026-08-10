@@ -13,7 +13,7 @@ from disnake.ext.commands import Cog, Param, slash_command
 from disnake.ext.tasks import loop
 from utils.bot import GalacticWideWebBot
 from utils.checks import wait_for_startup
-from utils.dbv2 import GWWGuild, GWWGuilds
+from utils.dbv2 import GWWGuilds
 from utils.maps import Maps
 
 
@@ -41,10 +41,13 @@ class MapCog(Cog):
         unique_langs = GWWGuilds.unique_languages()
         map_embeds = {lang: Embed(colour=Colour.dark_embed()) for lang in unique_langs}
         fifteen_minutes_ago = datetime.now(tz=timezone.utc) - timedelta(minutes=15)
-        need_to_update_maps = not all(
+        need_to_update_maps = any(
             [
-                lang in self.bot.maps.latest_maps
-                and self.bot.maps.latest_maps[lang].updated_at > fifteen_minutes_ago
+                lang not in self.bot.maps.latest_maps
+                or (
+                    lang in self.bot.maps.latest_maps
+                    and self.bot.maps.latest_maps[lang].updated_at < fifteen_minutes_ago
+                )
                 for lang in unique_langs
             ]
         )
@@ -115,19 +118,11 @@ class MapCog(Cog):
         ),
     ) -> None:
         await inter.response.defer(ephemeral=public != "Yes")
-        if inter.guild:
-            guild = GWWGuilds.get_specific_guild(id=inter.guild.id)
-            if not guild:
-                self.bot.logger.error(
-                    f"Guild {inter.guild.id} - {inter.guild.name} - had the bot installed but wasn't found in the DB"
-                )
-                guild = GWWGuilds.add(inter.guild.id, "en", [])
-        else:
-            guild = GWWGuild.default()
+        guild = self.bot.get_guild_from_inter(inter=inter)
         latest_map = self.bot.maps.latest_maps.get(guild.language, None)
         fifteen_minutes_ago = datetime.now(tz=timezone.utc) - timedelta(minutes=15)
-        if not latest_map or (
-            latest_map and latest_map.updated_at < fifteen_minutes_ago
+        if latest_map is None or (
+            latest_map is not None and latest_map.updated_at < fifteen_minutes_ago
         ):
             self.bot.maps.update_base_map(
                 planets=self.bot.data.formatted_data.planets,

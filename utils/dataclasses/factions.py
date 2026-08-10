@@ -8,7 +8,7 @@ class Faction:
     full_name: str
     singular: str
     plural: str
-    colour: tuple
+    colour: tuple[int, int, int]
 
     @property
     def emoji(self):

@@ -6,7 +6,7 @@ from os import listdir
 from utils.bot import GalacticWideWebBot
 from utils.checks import wait_for_startup
 from utils.containers import GlobalEventsContainer
-from utils.dbv2 import GWWGuild, GWWGuilds
+from utils.dbv2 import GWWGuilds
 
 
 class GlobalEventsCog(Cog):
@@ -143,16 +143,7 @@ class GlobalEventsCog(Cog):
         ),
     ) -> None:
         await inter.response.defer(ephemeral=public != "Yes")
-        if inter.guild:
-            guild = GWWGuilds.get_specific_guild(id=inter.guild.id)
-            if not guild:
-                self.bot.logger.error(
-                    f"Guild {inter.guild.id} - {inter.guild.name} - had the bot installed but wasn't found in the DB"
-                )
-                guild = GWWGuilds.add(inter.guild.id, "en", [])
-        else:
-            guild = GWWGuild.default()
-
+        guild = self.bot.get_guild_from_inter(inter=inter)
         containers = []
         images = []
         for global_event in sorted(
@@ -178,8 +169,8 @@ class GlobalEventsCog(Cog):
                 attachment_url=attachment_url,
             )
             containers.append(container)
-        if not containers:
-            await inter.send("No global events active")
+        if containers == []:
+            await inter.send("No global events active", ephemeral=public != "Yes")
             return
         await inter.send(
             components=containers,

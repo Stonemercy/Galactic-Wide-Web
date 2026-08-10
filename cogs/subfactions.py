@@ -83,15 +83,6 @@ class SubfactionCog(commands.Cog):
             ),
             None,
         )
-        if inter.guild:
-            guild = GWWGuilds.get_specific_guild(id=inter.guild_id)
-            if not guild:
-                self.bot.logger.error(
-                    f"Guild {inter.guild_id} - {inter.guild.name} - had the bot installed but wasn't found in the DB"
-                )
-                guild = GWWGuilds.add(inter.guild_id, "en", [])
-        else:
-            guild = GWWGuild.default()
         container = SubfactionsContainer(
             subfaction=subfaction, planets=self.bot.data.formatted_data.planets
         )

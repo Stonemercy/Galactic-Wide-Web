@@ -89,6 +89,21 @@
         "description": "A desert planet prone to unpredictable and dangerous sand twisters.",
         "biome": "desert_sandy_spiky"
     },
+    "352961341": {
+        "names": {
+            "en-GB": "MERIDIAN IIa",
+            "de-DE": "MERIDIAN IIa",
+            "es-ES": "MERIDIONAL IIa",
+            "fr-FR": "MERIDIAN\u00a0IIa",
+            "it-IT": "MERIDIAN IIa",
+            "pt-BR": "MERIDIANO II-A",
+            "ru-RU": "\u041c\u0415\u0420\u0418\u0414\u0418\u0410\u041d II\u0430",
+            "zh-Hans": "\u9ed8\u91cc\u8fea\u6069IIa",
+            "zh-Hant": "\u6885\u91cc\u8fea\u4e9eIIa"
+        },
+        "description": "Submerged in eternal winter, this world's frosty peaks glimmer in the light of its too-distant star.",
+        "biome": "arctic_glacier_base"
+    },
     "167872110": {
         "names": {
             "en-GB": "HYDROFALL PRIME",
@@ -328,6 +343,21 @@
         },
         "description": "This world teems with ethereal, boundless, and peculiar plant life that spreads silent and uninterrupted across its entire surface.",
         "biome": "forest_primordial_purple"
+    },
+    "3064614513": {
+        "names": {
+            "en-GB": "THE BUG QUARANTINE",
+            "de-DE": "BUG QUARANTINE",
+            "es-ES": "CUARENTENA DE BICHOS",
+            "fr-FR": "INSECTO-ISOLA",
+            "it-IT": "QUARANTENA DEGLI INSETTI",
+            "pt-BR": "QUARENTENA DE INSETOS",
+            "ru-RU": "\u041a\u0410\u0420\u0410\u041d\u0422\u0418\u041d \u0416\u0423\u041a\u041e\u0412",
+            "zh-Hans": "\u9632\u866b",
+            "zh-Hant": "\u87f2\u65cf\u9694\u96e2\u5340"
+        },
+        "description": "Dense, toxic fumes from deep within the planet's crust seep out of cracks in the earth and coat the ground in a sickly haze.",
+        "biome": "desert_sandy_acid"
     },
     "160106209": {
         "names": {
@@ -808,6 +838,21 @@
         },
         "description": "A blazing-hot desert planet, its rocky mesas are the sole interruptions to the endless sea of dunes.",
         "biome": "desert_sandy_base"
+    },
+    "4130121765": {
+        "names": {
+            "en-GB": "ARLIA",
+            "de-DE": "ARLIA",
+            "es-ES": "ARLIA",
+            "fr-FR": "ARLIA",
+            "it-IT": "ARLIA",
+            "pt-BR": "\u00c1RLIA",
+            "ru-RU": "\u0410\u0420\u041b\u0418\u042f",
+            "zh-Hans": "\u963f\u5229\u4e9a",
+            "zh-Hant": "\u963f\u91cc\u4e9e"
+        },
+        "description": "The strange subversion of photosynthesis that sustains the oddly-hued flora that flourishes on this planet remains an intriguing mystery to Super Earth's greatest exo-biologists.",
+        "biome": "forest_primordial_blue"
     },
     "4190033207": {
         "names": {
@@ -2024,6 +2069,21 @@
         "description": "This world teems with ethereal, boundless, and peculiar plant life that spreads silent and uninterrupted across its entire surface.",
         "biome": "forest_primordial_purple"
     },
+    "1569522965": {
+        "names": {
+            "en-GB": "ADHAFERA SECUNDUS",
+            "de-DE": "ADHAFERA SECUNDUS",
+            "es-ES": "ADHAFERA SECUNDUS",
+            "fr-FR": "ADHAFERA SECUNDUS",
+            "it-IT": "ADHAFERA SECUNDUS",
+            "pt-BR": "ADHAFERA SECUNDUS",
+            "ru-RU": "\u0410\u0414\u0413\u0410\u0424\u0415\u0420\u0410 II",
+            "zh-Hans": "\u8f69\u8f95\u5341\u4e00\u6b21\u661f",
+            "zh-Hant": "\u8ed2\u8f45\u5341\u4e00\u6b21\u661f"
+        },
+        "description": "This world teems with ethereal, boundless, and peculiar plant life that spreads silent and uninterrupted across its entire surface.",
+        "biome": "forest_primordial_purple"
+    },
     "1937725917": {
         "names": {
             "en-GB": "ADHARA",
@@ -2068,6 +2128,21 @@
         },
         "description": "The lifeless grey of this planet is interrupted only by the violet flowers that grow from strange, parasitic outcroppings.",
         "biome": "forest_primordial_dead"
+    },
+    "641745001": {
+        "names": {
+            "en-GB": "ALADFAR CXI",
+            "de-DE": "ALADFAR CXI",
+            "es-ES": "ALADFAR CXI",
+            "fr-FR": "ALADFAR\u00a0CXI",
+            "it-IT": "ALADFAR CXI",
+            "pt-BR": "ALADFAR CXI",
+            "ru-RU": "\u0410\u041b\u0410\u0414\u0424\u0410\u0420 CXI",
+            "zh-Hans": "\u8f87\u9053\u4e8cCXI",
+            "zh-Hant": "\u8f26\u9053\u4e8cCXI"
+        },
+        "description": "Abundant with life, this wet planet is covered in deep oceans, thick forests, and tall grasses.",
+        "biome": "forest_primordial_base"
     },
     "1534729714": {
         "names": {
@@ -2339,6 +2414,21 @@
         "description": "A crimson algae has propagated wildly across this entire planet, coating its rocky hills with a constant red that masks the spilt blood of the heroes who defend it from tyranny.",
         "biome": "forest_moor_red"
     },
+    "36406352": {
+        "names": {
+            "en-GB": "CHARA",
+            "de-DE": "CHARA",
+            "es-ES": "CHARA",
+            "fr-FR": "CHARA",
+            "it-IT": "CHARA",
+            "pt-BR": "CHARA",
+            "ru-RU": "\u041a\u0410\u0420\u0410",
+            "zh-Hans": "\u5e38\u9648\u56db",
+            "zh-Hant": "\u51f1\u62c9"
+        },
+        "description": "A desert planet prone to unpredictable and dangerous sand twisters.",
+        "biome": "desert_sandy_spiky"
+    },
     "3531149629": {
         "names": {
             "en-GB": "CHARBAL-VII",
@@ -2444,6 +2534,21 @@
         "description": "Tall, gnarled trees flourish across the surface of this forested world. Sunlight filters past dangling vines, to the saturated undergrowth below. ",
         "biome": "forest_swamp_base"
     },
+    "1096398337": {
+        "names": {
+            "en-GB": "CURSA",
+            "de-DE": "CURSA",
+            "es-ES": "CURSA",
+            "fr-FR": "CURSA",
+            "it-IT": "CURSA",
+            "pt-BR": "CURSA",
+            "ru-RU": "\u041a\u0423\u0420\u0421\u0410",
+            "zh-Hans": "\u7389\u4e95\u4e09",
+            "zh-Hant": "\u7389\u4e95\u4e09"
+        },
+        "description": "Constant eruptions keep this planet covered in lava flows and utterly inhospitable to Democratic life. It also makes it a treasure trove of rare minerals.",
+        "biome": "desert_magma_base"
+    },
     "1270268663": {
         "names": {
             "en-GB": "DEMIURG",
@@ -2533,6 +2638,21 @@
         },
         "description": "A desert planet prone to unpredictable and dangerous sand twisters.",
         "biome": "desert_sandy_spiky"
+    },
+    "945664053": {
+        "names": {
+            "en-GB": "ERRANT",
+            "de-DE": "ERRANT",
+            "es-ES": "ERRANTE",
+            "fr-FR": "ERRANT",
+            "it-IT": "ERRANTE",
+            "pt-BR": "ERRANT",
+            "ru-RU": "\u042d\u0420\u0420\u0410\u041d\u0422",
+            "zh-Hans": "\u827e\u4f26\u7279",
+            "zh-Hant": "\u827e\u502b\u7279"
+        },
+        "description": "The strange subversion of photosynthesis that sustains the oddly-hued flora that flourishes on this planet remains an intriguing mystery to Super Earth's greatest exo-biologists.",
+        "biome": "forest_primordial_blue"
     },
     "356540875": {
         "names": {
@@ -2803,6 +2923,21 @@
         },
         "description": "Scorching temperatures, high winds, and low precipitation cause a near-constant cycle of fires to sweep this planet, punctuated by short bursts of lush rebirth between infernos.",
         "biome": "forest_moor_arid"
+    },
+    "4231826668": {
+        "names": {
+            "en-GB": "KARON BAY",
+            "de-DE": "KARON BAY",
+            "es-ES": "BAH\u00cdA KARON",
+            "fr-FR": "BAIE DE KARON",
+            "it-IT": "BAIA DI KARON",
+            "pt-BR": "BA\u00cdA KARON",
+            "ru-RU": "\u041a\u0410\u0420\u041e\u041d-\u0411\u042d\u0419",
+            "zh-Hans": "\u51ef\u4f26\u6e7e",
+            "zh-Hant": "\u51f1\u502b\u7063"
+        },
+        "description": "Constant eruptions keep this planet covered in lava flows and utterly inhospitable to Democratic life. It also makes it a treasure trove of rare minerals.",
+        "biome": "desert_magma_base"
     },
     "2563880739": {
         "names": {
@@ -3223,6 +3358,21 @@
         },
         "description": "The lifeless grey of this planet is interrupted only by the violet flowers that grow from strange, parasitic outcroppings.",
         "biome": "forest_primordial_dead"
+    },
+    "1730154803": {
+        "names": {
+            "en-GB": "OROTH",
+            "de-DE": "OROTH",
+            "es-ES": "OROTH",
+            "fr-FR": "OROTH",
+            "it-IT": "OROTH",
+            "pt-BR": "OROTH",
+            "ru-RU": "\u041e\u0420\u041e\u0422",
+            "zh-Hans": "\u6b27\u62c9\u65af",
+            "zh-Hant": "\u6b50\u62c9\u65af"
+        },
+        "description": "Constant eruptions keep this planet covered in lava flows and utterly inhospitable to Democratic life. It also makes it a treasure trove of rare minerals.",
+        "biome": "desert_magma_base"
     },
     "1344035939": {
         "names": {
@@ -3974,6 +4124,96 @@
         "description": "",
         "biome": "desert_oasis_base"
     },
+    "943068451": {
+        "names": {
+            "en-GB": "HETT",
+            "de-DE": "HETT",
+            "es-ES": "HETT",
+            "fr-FR": "HETT",
+            "it-IT": "HETT",
+            "pt-BR": "HETT",
+            "ru-RU": "\u0425\u0415\u0422\u0422",
+            "zh-Hans": "\u708e\u6838",
+            "zh-Hant": "\u707c\u71b1"
+        },
+        "description": "",
+        "biome": "desert_oasis_base"
+    },
+    "539364379": {
+        "names": {
+            "en-GB": "WORTHY I",
+            "de-DE": "WORTHY I",
+            "es-ES": "DIGNO I",
+            "fr-FR": "DIGNE\u00a0I",
+            "it-IT": "DEGNO I",
+            "pt-BR": "DIGNO I",
+            "ru-RU": "\u0414\u041e\u0421\u0422\u041e\u0419\u041d\u0410\u042f I",
+            "zh-Hans": "\u82f1\u6770I",
+            "zh-Hant": "\u69ae\u8000I"
+        },
+        "description": "",
+        "biome": "forest_coniferous_base"
+    },
+    "2994862260": {
+        "names": {
+            "en-GB": "PINE TAR",
+            "de-DE": "PINE TAR",
+            "es-ES": "ALQUITR\u00c1N",
+            "fr-FR": "MACAPIN",
+            "it-IT": "PECE DI PINO",
+            "pt-BR": "PICHE DE PINHO",
+            "ru-RU": "\u0421\u041c\u041e\u041b\u0410",
+            "zh-Hans": "\u677e\u7126",
+            "zh-Hant": "\u677e\u7126\u6cb9"
+        },
+        "description": "",
+        "biome": "forest_coniferous_base"
+    },
+    "3757403334": {
+        "names": {
+            "en-GB": "LONE",
+            "de-DE": "LONE",
+            "es-ES": "SOLITARIO",
+            "fr-FR": "SOLITAIRE",
+            "it-IT": "SOLITARIO",
+            "pt-BR": "SOLIT\u00c1RIO",
+            "ru-RU": "\u041e\u0414\u0418\u041d\u041e\u0427\u041a\u0410",
+            "zh-Hans": "\u72ec\u884c\u8005",
+            "zh-Hant": "\u5b64\u5bc2"
+        },
+        "description": "A desert planet prone to unpredictable and dangerous sand twisters.",
+        "biome": "desert_sandy_spiky"
+    },
+    "3265059383": {
+        "names": {
+            "en-GB": "PEONY",
+            "de-DE": "PEONY",
+            "es-ES": "PEON\u00cdA",
+            "fr-FR": "PIVOINE",
+            "it-IT": "PEONIA",
+            "pt-BR": "PE\u00d4NIA",
+            "ru-RU": "\u041f\u0418\u041e\u041d",
+            "zh-Hans": "\u7261\u4e39",
+            "zh-Hant": "\u7261\u4e39"
+        },
+        "description": "Dense, toxic fumes from deep within the planet's crust seep out of cracks in the earth and coat the ground in a sickly haze.",
+        "biome": "desert_sandy_acid"
+    },
+    "3148797885": {
+        "names": {
+            "en-GB": "CALEFACTORIA",
+            "de-DE": "CALEFACTORIA",
+            "es-ES": "CALEFACTORIA",
+            "fr-FR": "CAL\u00c9FACTORIA",
+            "it-IT": "CALEFACTORIA",
+            "pt-BR": "CALEFACT\u00d3RIA",
+            "ru-RU": "\u041a\u0410\u041b\u0415\u0424\u0410\u041a\u0422\u041e\u0420\u0418\u042f",
+            "zh-Hans": "\u70bd\u5ead",
+            "zh-Hant": "\u6696\u70d8"
+        },
+        "description": "",
+        "biome": "desert_oasis_base"
+    },
     "1653510998": {
         "names": {
             "en-GB": "LUXURIANT",
@@ -3988,6 +4228,291 @@
         },
         "description": "",
         "biome": "forest_deciduous_base"
+    },
+    "1231236069": {
+        "names": {
+            "en-GB": "SERENDIPITY XI",
+            "de-DE": "SERENDIPITY XI",
+            "es-ES": "SERENDIPIA XI",
+            "fr-FR": "S\u00c9RENDIPIT\u00c9\u00a0XI",
+            "it-IT": "FORTUNA XI",
+            "pt-BR": "SERENDIPIDADE XI",
+            "ru-RU": "\u041f\u0420\u041e\u0417\u041e\u0420\u041b\u0418\u0412\u041e\u0421\u0422\u042c XI",
+            "zh-Hans": "\u5929\u7f18XI",
+            "zh-Hant": "\u6a5f\u7de3XI"
+        },
+        "description": "",
+        "biome": "forest_deciduous_autumn"
+    },
+    "2542431771": {
+        "names": {
+            "en-GB": "BANKABILITY",
+            "de-DE": "BANKABILITY",
+            "es-ES": "RENTABILIDAD",
+            "fr-FR": "RENTABILIT\u00c9",
+            "it-IT": "ESIGIBILIT\u00c0",
+            "pt-BR": "LUCRO",
+            "ru-RU": "\u041f\u0420\u0418\u0411\u042b\u041b\u042c\u041d\u041e\u0421\u0422\u042c",
+            "zh-Hans": "\u91d1\u67a2",
+            "zh-Hant": "\u76c8\u5229"
+        },
+        "description": "The strange subversion of photosynthesis that sustains the oddly-hued flora that flourishes on this planet remains an intriguing mystery to Super Earth's greatest exo-biologists.",
+        "biome": "forest_primordial_blue"
+    },
+    "563995798": {
+        "names": {
+            "en-GB": "ARGENTIS",
+            "de-DE": "ARGENTIS",
+            "es-ES": "ARGENTIS",
+            "fr-FR": "ARGENTIS",
+            "it-IT": "ARGENTIS",
+            "pt-BR": "ARGENTIS",
+            "ru-RU": "\u0410\u0420\u0413\u0415\u041d\u0422\u0418\u0421",
+            "zh-Hans": "\u94f6\u8f89",
+            "zh-Hant": "\u963f\u91d1\u63d0\u65af"
+        },
+        "description": "A rocky, lonely moon with extremely valuable mineral deposits underneath the surface.",
+        "biome": "desert_sandy_moon"
+    },
+    "2426410233": {
+        "names": {
+            "en-GB": "PROBARE",
+            "de-DE": "PROBARE",
+            "es-ES": "PROBARE",
+            "fr-FR": "PROBARE",
+            "it-IT": "PROBARE",
+            "pt-BR": "PROBARE",
+            "ru-RU": "\u041f\u041e\u0414\u0422\u0412\u0415\u0420\u0416\u0414\u0415\u041d\u0418\u0415",
+            "zh-Hans": "\u7a76\u7406",
+            "zh-Hant": "\u666e\u7f85\u5df4\u96f7"
+        },
+        "description": "Abundant with life, this wet planet is covered in deep oceans, thick forests, and tall grasses.",
+        "biome": "forest_primordial_base"
+    },
+    "1249196326": {
+        "names": {
+            "en-GB": "CYGNIA III",
+            "de-DE": "CYGNIA III",
+            "es-ES": "CYGNIA III",
+            "fr-FR": "CYGNIA\u00a0III",
+            "it-IT": "CYGNIA III",
+            "pt-BR": "CYGNIA III",
+            "ru-RU": "\u0426\u0418\u0413\u041d\u0418\u042f III",
+            "zh-Hans": "\u897f\u683c\u5c3c\u4e9aIII",
+            "zh-Hant": "\u5929\u9d5dIII"
+        },
+        "description": "This world teems with ethereal, boundless, and peculiar plant life that spreads silent and uninterrupted across its entire surface.",
+        "biome": "forest_primordial_purple"
+    },
+    "1108826348": {
+        "names": {
+            "en-GB": "COLUMBIDAE",
+            "de-DE": "COLUMBIDAE",
+            "es-ES": "COLUMBIDAE",
+            "fr-FR": "COLUMBIDAE",
+            "it-IT": "COLUMBIDAE",
+            "pt-BR": "COLUMBIDAE",
+            "ru-RU": "\u041a\u041e\u041b\u0423\u041c\u0411\u0418\u0414\u0410",
+            "zh-Hans": "\u548c\u5e73\u9e3d",
+            "zh-Hant": "\u9ce9\u9d3f\u79d1"
+        },
+        "description": "Scorching temperatures, high winds, and low precipitation cause a near-constant cycle of fires to sweep this planet, punctuated by short bursts of lush rebirth between infernos.",
+        "biome": "forest_moor_arid"
+    },
+    "3544477981": {
+        "names": {
+            "en-GB": "PIPIONEM",
+            "de-DE": "PIPIONEM",
+            "es-ES": "PIPIONEM",
+            "fr-FR": "PIPIONEM",
+            "it-IT": "PIPIONEM",
+            "pt-BR": "PIPIONEM",
+            "ru-RU": "\u041f\u0418\u041f\u0418\u041e\u041d\u0415\u041c",
+            "zh-Hans": "\u96cf\u9e23",
+            "zh-Hant": "\u5541\u557e"
+        },
+        "description": "Rocky outcroppings punctuate fields of tall grass in a planet dominated by misty highland terrain.",
+        "biome": "forest_moor_base"
+    },
+    "2157554849": {
+        "names": {
+            "en-GB": "SUPERIORIA LV",
+            "de-DE": "SUPERIORIA LV",
+            "es-ES": "SUPERIORIA LV",
+            "fr-FR": "SUP\u00c9RIORIA\u00a0LV",
+            "it-IT": "SUPERIORIA LV",
+            "pt-BR": "SUPERI\u00d3RIA LV",
+            "ru-RU": "\u0421\u0423\u041f\u0415\u0420\u0418\u041e\u0420\u0418\u042f LV",
+            "zh-Hans": "\u5353\u5c0a",
+            "zh-Hant": "\u512a\u8d8aLV"
+        },
+        "description": "",
+        "biome": "forest_coniferous_base"
+    },
+    "2792842826": {
+        "names": {
+            "en-GB": "TANDEM",
+            "de-DE": "TANDEM",
+            "es-ES": "T\u00c1NDEM",
+            "fr-FR": "TANDEM",
+            "it-IT": "TANDEM",
+            "pt-BR": "TANDEM",
+            "ru-RU": "\u0422\u0410\u041d\u0414\u0415\u041c",
+            "zh-Hans": "\u5929\u817e",
+            "zh-Hant": "\u5354\u529b"
+        },
+        "description": "Submerged in eternal winter, this world's frosty peaks glimmer in the light of its too-distant star.",
+        "biome": "arctic_glacier_base"
+    },
+    "3118907831": {
+        "names": {
+            "en-GB": "RETRIBUTARY",
+            "de-DE": "RETRIBUTARY",
+            "es-ES": "RETRIBUTIVO",
+            "fr-FR": "R\u00c9TORSION",
+            "it-IT": "CASTIGO",
+            "pt-BR": "RETRIBUT\u00c1RIO",
+            "ru-RU": "\u0412\u041e\u0417\u0414\u0410\u042f\u041d\u0418\u0415",
+            "zh-Hans": "\u5929\u8c34",
+            "zh-Hant": "\u8b74\u8cac"
+        },
+        "description": "Ice and moss-covered rock can be found across most of the surface of this planet.",
+        "biome": "arctic_glacier_coldrocky"
+    },
+    "279293045": {
+        "names": {
+            "en-GB": "DEFENSIBLE",
+            "de-DE": "DEFENSIBLE",
+            "es-ES": "DEFENDIBLE",
+            "fr-FR": "D\u00c9FENSE",
+            "it-IT": "BASTIONE",
+            "pt-BR": "DEFENS\u00c1VEL",
+            "ru-RU": "\u041e\u0411\u041e\u0420\u041e\u041d\u0418\u0422\u0415\u041b\u042c\u041d\u0410\u042f",
+            "zh-Hans": "\u536b\u620d",
+            "zh-Hant": "\u4fdd\u885b"
+        },
+        "description": "A desert planet prone to unpredictable and dangerous sand twisters.",
+        "biome": "desert_sandy_spiky"
+    },
+    "40826223": {
+        "names": {
+            "en-GB": "WATCHDOG 5",
+            "de-DE": "WATCHDOG 5",
+            "es-ES": "PERRO GUARDI\u00c1N 5",
+            "fr-FR": "CERB\u00c8RE\u00a05",
+            "it-IT": "MASTINO 5",
+            "pt-BR": "FISCAL 5",
+            "ru-RU": "\u041e\u0425\u0420\u0410\u041d\u0418\u0422\u0415\u041b\u042c 5",
+            "zh-Hans": "\u5b88\u72ac5",
+            "zh-Hant": "\u770b\u9580\u72ac5"
+        },
+        "description": "The lifeless grey of this planet is interrupted only by the violet flowers that grow from strange, parasitic outcroppings.",
+        "biome": "forest_primordial_dead"
+    },
+    "939299113": {
+        "names": {
+            "en-GB": "AQUILA XXXII",
+            "de-DE": "AQUILA XXXII",
+            "es-ES": "AQUILA XXXII",
+            "fr-FR": "AQUILA XXXII",
+            "it-IT": "AQUILA XXXII",
+            "pt-BR": "\u00c1QUILA XXXII",
+            "ru-RU": "\u0410\u041a\u0412\u0418\u041b\u041b\u0410 XXXII",
+            "zh-Hans": "\u5929\u9e70XXXII",
+            "zh-Hant": "\u5929\u9df9XXXII"
+        },
+        "description": "",
+        "biome": "forest_coniferous_base"
+    },
+    "4060269695": {
+        "names": {
+            "en-GB": "ELIGIBLE",
+            "de-DE": "ELIGIBLE",
+            "es-ES": "ID\u00d3NEO",
+            "fr-FR": "\u00c9LIGIBLE",
+            "it-IT": "IDONEO",
+            "pt-BR": "ELEG\u00cdVEL",
+            "ru-RU": "\u0420\u0410\u0417\u0420\u0415\u0428\u0415\u041d\u041d\u0410\u042f",
+            "zh-Hans": "\u5929\u5951",
+            "zh-Hant": "\u5408\u683c"
+        },
+        "description": "Rocky outcroppings punctuate fields of tall grass in a planet dominated by misty highland terrain.",
+        "biome": "forest_moor_base"
+    },
+    "2437002548": {
+        "names": {
+            "en-GB": "PROBABILITY",
+            "de-DE": "PROBABILITY",
+            "es-ES": "PROBABILIDAD",
+            "fr-FR": "PROBABILIT\u00c9",
+            "it-IT": "PROBABILIT\u00c0",
+            "pt-BR": "PROBABILIDADE",
+            "ru-RU": "\u0412\u0415\u0420\u041e\u042f\u0422\u041d\u041e\u0421\u0422\u042c",
+            "zh-Hans": "\u5929\u673a",
+            "zh-Hant": "\u6a5f\u7387"
+        },
+        "description": "The lifeless grey of this planet is interrupted only by the violet flowers that grow from strange, parasitic outcroppings.",
+        "biome": "forest_primordial_dead"
+    },
+    "3548580792": {
+        "names": {
+            "en-GB": "LINK B",
+            "de-DE": "LINK B",
+            "es-ES": "ENLACE B",
+            "fr-FR": "CHA\u00ceNON\u00a0B",
+            "it-IT": "SNODO B",
+            "pt-BR": "LINK B",
+            "ru-RU": "\u0421\u0412\u042f\u0417\u0410\u041d\u041d\u0410\u042f B",
+            "zh-Hans": "\u94fe\u67a2B",
+            "zh-Hant": "\u9023\u7d50B"
+        },
+        "description": "Scorching temperatures, high winds, and low precipitation cause a near-constant cycle of fires to sweep this planet, punctuated by short bursts of lush rebirth between infernos.",
+        "biome": "forest_moor_arid"
+    },
+    "1640052698": {
+        "names": {
+            "en-GB": "HOPEFUL",
+            "de-DE": "HOPEFUL",
+            "es-ES": "OPTIMISTA",
+            "fr-FR": "PLEIN-ESPOIR",
+            "it-IT": "SPERANZA",
+            "pt-BR": "ESPERAN\u00c7A",
+            "ru-RU": "\u041d\u0410\u0414\u0415\u0416\u0414\u0410",
+            "zh-Hans": "\u5e0c\u671b",
+            "zh-Hant": "\u5e0c\u671b"
+        },
+        "description": "",
+        "biome": "forest_deciduous_base"
+    },
+    "2995599666": {
+        "names": {
+            "en-GB": "BICEP",
+            "de-DE": "BICEP",
+            "es-ES": "B\u00cdCEPS",
+            "fr-FR": "BICEP",
+            "it-IT": "BICIPITE",
+            "pt-BR": "B\u00cdCEPS",
+            "ru-RU": "\u0411\u0418\u0426\u0415\u041f\u0421",
+            "zh-Hans": "\u64ce\u7a79",
+            "zh-Hant": "\u4e8c\u982d\u808c"
+        },
+        "description": "Constant eruptions keep this planet covered in lava flows and utterly inhospitable to Democratic life. It also makes it a treasure trove of rare minerals.",
+        "biome": "desert_magma_base"
+    },
+    "662854011": {
+        "names": {
+            "en-GB": "ADRENAL 8",
+            "de-DE": "ADRENAL 8",
+            "es-ES": "SUPRARRENAL 8",
+            "fr-FR": "ADR\u00c9NAL\u00a08",
+            "it-IT": "ADRENALE 8",
+            "pt-BR": "ADRENAL 8",
+            "ru-RU": "\u041d\u0410\u0414\u041f\u041e\u0427\u0415\u0427\u041d\u0418\u041a 8",
+            "zh-Hans": "\u8109\u6d8c8",
+            "zh-Hant": "\u814e\u4e0a\u817a8"
+        },
+        "description": "Constant eruptions keep this planet covered in lava flows and utterly inhospitable to Democratic life. It also makes it a treasure trove of rare minerals.",
+        "biome": "desert_magma_base"
     },
     "666353454": {
         "names": {
@@ -4049,6 +4574,426 @@
         "description": "Constant eruptions keep this planet covered in lava flows and utterly inhospitable to Democratic life. It also makes it a treasure trove of rare minerals.",
         "biome": "desert_magma_base"
     },
+    "1586523119": {
+        "names": {
+            "en-GB": "TERRENE",
+            "de-DE": "TERRENE",
+            "es-ES": "TERRENO",
+            "fr-FR": "TERR\u00c8NE",
+            "it-IT": "TERRENO",
+            "pt-BR": "TERRENO",
+            "ru-RU": "\u0417\u0415\u041c\u041b\u0418\u0421\u0422\u0410\u042f",
+            "zh-Hans": "\u7c7b\u5730",
+            "zh-Hant": "\u571f\u58e4"
+        },
+        "description": "",
+        "biome": "forest_deciduous_base"
+    },
+    "3822560341": {
+        "names": {
+            "en-GB": "ARABILITY",
+            "de-DE": "ARABILITY",
+            "es-ES": "ARABILIDAD",
+            "fr-FR": "ARABLE",
+            "it-IT": "AGRIMENSORIO",
+            "pt-BR": "ARABILIDADE",
+            "ru-RU": "\u041f\u0410\u0425\u041e\u0422\u041e\u041f\u0420\u0418\u0413\u041e\u0414\u041d\u0410\u042f",
+            "zh-Hans": "\u6c83\u58e4",
+            "zh-Hant": "\u8015\u5730"
+        },
+        "description": "",
+        "biome": "forest_deciduous_autumn"
+    },
+    "1797727633": {
+        "names": {
+            "en-GB": "FAMILY-FRIEND",
+            "de-DE": "FAMILY-FRIEND",
+            "es-ES": "AMISTAD FAMILIAR",
+            "fr-FR": "AMIS-FAMILLE",
+            "it-IT": "PER FAMIGLIE",
+            "pt-BR": "FAMILIAR",
+            "ru-RU": "\u0414\u0420\u0423\u0413 \u0421\u0415\u041c\u042c\u0418",
+            "zh-Hans": "\u5bb6\u5b9c",
+            "zh-Hant": "\u95d4\u5bb6\u6b61"
+        },
+        "description": "",
+        "biome": "forest_coniferous_base"
+    },
+    "499915819": {
+        "names": {
+            "en-GB": "NASCENCE",
+            "de-DE": "NASCENCE",
+            "es-ES": "INICIO",
+            "fr-FR": "NASCENCE",
+            "it-IT": "GENESI",
+            "pt-BR": "NASCEN\u00c7A",
+            "ru-RU": "\u041f\u041e\u042f\u0412\u041b\u0415\u041d\u0418\u0415",
+            "zh-Hans": "\u592a\u521d",
+            "zh-Hant": "\u65b0\u751f"
+        },
+        "description": "",
+        "biome": "forest_coniferous_base"
+    },
+    "1267519632": {
+        "names": {
+            "en-GB": "FLEDGE",
+            "de-DE": "FLEDGE",
+            "es-ES": "EMPLUMAR",
+            "fr-FR": "EMPENNE",
+            "it-IT": "PIUMATURA",
+            "pt-BR": "EMPLUMADO",
+            "ru-RU": "\u0412\u0417\u0420\u041e\u0421\u041b\u0415\u041d\u0418\u0415",
+            "zh-Hans": "\u96cf\u7fbd",
+            "zh-Hant": "\u96db\u9ce5"
+        },
+        "description": "",
+        "biome": "forest_deciduous_base"
+    },
+    "1344759552": {
+        "names": {
+            "en-GB": "SAMMELSURIUM",
+            "de-DE": "SAMMELSURIUM",
+            "es-ES": "SAMMELSURIUM",
+            "fr-FR": "SAMMELSURIUM",
+            "it-IT": "SAMMELSURIUM",
+            "pt-BR": "SAMMELSURIUM",
+            "ru-RU": "\u041c\u0415\u0428\u0410\u041d\u0418\u041d\u0410",
+            "zh-Hans": "\u55a7\u6c8c",
+            "zh-Hant": "\u55a7\u6c8c"
+        },
+        "description": "The lifeless grey of this planet is interrupted only by the violet flowers that grow from strange, parasitic outcroppings.",
+        "biome": "forest_primordial_dead"
+    },
+    "3791008976": {
+        "names": {
+            "en-GB": "BALLOT",
+            "de-DE": "BALLOT",
+            "es-ES": "VOTACI\u00d3N",
+            "fr-FR": "SCRUTIN",
+            "it-IT": "BALLOTTAGGIO",
+            "pt-BR": "VOTO",
+            "ru-RU": "\u0411\u042e\u041b\u041b\u0415\u0422\u0415\u041d\u042c",
+            "zh-Hans": "\u6c11\u671b",
+            "zh-Hant": "\u9078\u7968"
+        },
+        "description": "The arid, rocky biome covering this world has driven the evolution of exceptionally efficient water usage in its various organisms.",
+        "biome": "desert_sandy_mineral"
+    },
+    "457459722": {
+        "names": {
+            "en-GB": "RESILIENCE",
+            "de-DE": "RESILIENCE",
+            "es-ES": "RESILIENCIA",
+            "fr-FR": "R\u00c9SILIENCE",
+            "it-IT": "RESILIENZA",
+            "pt-BR": "RESIST\u00caNCIA",
+            "ru-RU": "\u0412\u042b\u041d\u041e\u0421\u041b\u0418\u0412\u041e\u0421\u0422\u042c",
+            "zh-Hans": "\u97e7\u57ce",
+            "zh-Hant": "\u5805\u97cc\u57ce"
+        },
+        "description": "A blazing-hot desert planet, its rocky mesas are the sole interruptions to the endless sea of dunes.",
+        "biome": "desert_sandy_base"
+    },
+    "1556929234": {
+        "names": {
+            "en-GB": "GILE",
+            "de-DE": "GILE",
+            "es-ES": "GILE",
+            "fr-FR": "GILE",
+            "it-IT": "GILE",
+            "pt-BR": "GILE",
+            "ru-RU": "\u0416\u0418\u041b\u042c",
+            "zh-Hans": "\u5409\u5c14",
+            "zh-Hant": "\u5409\u52d2"
+        },
+        "description": "",
+        "biome": "forest_deciduous_autumn"
+    },
+    "694418289": {
+        "names": {
+            "en-GB": "LAMB'S PATCH",
+            "de-DE": "LAMB\u2018S PATCH",
+            "es-ES": "TERRENO DEL CORDERO",
+            "fr-FR": "PR\u00c9 OVIN",
+            "it-IT": "LAMB'S PATCH",
+            "pt-BR": "REMENDO DO CARNEIRO",
+            "ru-RU": "\u041e\u0412\u0415\u0427\u042c\u042f \u041f\u041e\u041b\u042f\u041d\u041a\u0410",
+            "zh-Hans": "\u7f94\u539f",
+            "zh-Hant": "\u7f94\u7f8a\u5712\u5730"
+        },
+        "description": "",
+        "biome": "forest_deciduous_base"
+    },
+    "2076606288": {
+        "names": {
+            "en-GB": "FRAKENEERIA",
+            "de-DE": "FRAKENEERIA",
+            "es-ES": "FRAKENEERIA",
+            "fr-FR": "FRAKENERIA",
+            "it-IT": "FRAKENEERIA",
+            "pt-BR": "FRAKENEERIA",
+            "ru-RU": "\u0424\u0420\u0410\u041d\u041a\u0415\u041d\u0418\u0420\u0418\u042f",
+            "zh-Hans": "\u5f17\u5170\u79d1\u5c3c\u4e9a",
+            "zh-Hant": "\u5f17\u62c9\u80af\u5167\u91cc\u4e9e"
+        },
+        "description": "Abundant with life, this wet planet is covered in deep oceans, thick forests, and tall grasses.",
+        "biome": "forest_primordial_base"
+    },
+    "2127508003": {
+        "names": {
+            "en-GB": "SHIRAHAMA",
+            "de-DE": "SHIRAHAMA",
+            "es-ES": "SHIRAHAMA",
+            "fr-FR": "SHIRAHAMA",
+            "it-IT": "SHIRAHAMA",
+            "pt-BR": "SHIRAHAMA",
+            "ru-RU": "\u0428\u0418\u0420\u0410\u0425\u0410\u041c\u0410",
+            "zh-Hans": "\u767d\u6ee8",
+            "zh-Hant": "\u767d\u6ff1"
+        },
+        "description": "A desert planet prone to unpredictable and dangerous sand twisters.",
+        "biome": "desert_sandy_spiky"
+    },
+    "90283719": {
+        "names": {
+            "en-GB": "ANDWELL",
+            "de-DE": "ANDWELL",
+            "es-ES": "ANDWELL",
+            "fr-FR": "ANDWELL",
+            "it-IT": "ANDWELL",
+            "pt-BR": "ANDWELL",
+            "ru-RU": "\u042d\u041d\u0414\u0423\u042d\u041b\u041b",
+            "zh-Hans": "\u5b89\u5f97\u536b",
+            "zh-Hant": "\u5b89\u5fb7\u7dad\u723e"
+        },
+        "description": "",
+        "biome": "forest_deciduous_base"
+    },
+    "357264243": {
+        "names": {
+            "en-GB": "LYNX LYNX",
+            "de-DE": "LYNX LYNX",
+            "es-ES": "LINCE LINCE",
+            "fr-FR": "LYNX LYNX",
+            "it-IT": "LYNX LYNX",
+            "pt-BR": "LINCE-LINCE",
+            "ru-RU": "\u0420\u042b\u0421\u042c-\u0420\u042b\u0421\u042c",
+            "zh-Hans": "\u731e\u7301",
+            "zh-Hant": "\u731e\u7301"
+        },
+        "description": "",
+        "biome": "forest_coniferous_base"
+    },
+    "559027961": {
+        "names": {
+            "en-GB": "ALMINA IV",
+            "de-DE": "ALMINA IV",
+            "es-ES": "ALMINA IV",
+            "fr-FR": "ALMINA\u00a0IV",
+            "it-IT": "ALMINA IV",
+            "pt-BR": "ALMINA IV",
+            "ru-RU": "\u042d\u041b\u041c\u0418\u041d\u0410 IV",
+            "zh-Hans": "\u963f\u5c14\u7c73\u7eb3IV",
+            "zh-Hant": "\u963f\u723e\u7c73\u5a1cIV"
+        },
+        "description": "Scorching temperatures, high winds, and low precipitation cause a near-constant cycle of fires to sweep this planet, punctuated by short bursts of lush rebirth between infernos.",
+        "biome": "forest_moor_arid"
+    },
+    "312754351": {
+        "names": {
+            "en-GB": "AUSPICE",
+            "de-DE": "AUSPICE",
+            "es-ES": "AUSPICIO",
+            "fr-FR": "AUSPICE",
+            "it-IT": "AUSPICIO",
+            "pt-BR": "AUSP\u00cdCIO",
+            "ru-RU": "\u041f\u0420\u0415\u0414\u0417\u041d\u0410\u041c\u0415\u041d\u041e\u0412\u0410\u041d\u0418\u0415",
+            "zh-Hans": "\u5929\u542f",
+            "zh-Hant": "\u5409\u5146"
+        },
+        "description": "",
+        "biome": "forest_deciduous_base"
+    },
+    "3074955678": {
+        "names": {
+            "en-GB": "RAYSTING",
+            "de-DE": "RAYSTING",
+            "es-ES": "RAYAMANTA",
+            "fr-FR": "RAYSTING",
+            "it-IT": "RAYSTING",
+            "pt-BR": "ARRAIA",
+            "ru-RU": "\u0420\u0410\u0419\u0421\u0422\u0418\u041d\u0413",
+            "zh-Hans": "\u96f7\u65af\u6c40",
+            "zh-Hant": "\u9b5a\u9b5f"
+        },
+        "description": "The strange subversion of photosynthesis that sustains the oddly-hued flora that flourishes on this planet remains an intriguing mystery to Super Earth's greatest exo-biologists.",
+        "biome": "forest_primordial_blue"
+    },
+    "2473967507": {
+        "names": {
+            "en-GB": "NOSSER",
+            "de-DE": "NOSSER",
+            "es-ES": "NOSSER",
+            "fr-FR": "NOSSER",
+            "it-IT": "NOSSER",
+            "pt-BR": "NOSSER",
+            "ru-RU": "\u041d\u041e\u0421\u0421\u0415\u0420",
+            "zh-Hans": "\u8bfa\u745f",
+            "zh-Hant": "\u8afe\u6c99"
+        },
+        "description": "A rocky, lonely moon with extremely valuable mineral deposits underneath the surface.",
+        "biome": "desert_sandy_moon"
+    },
+    "835280806": {
+        "names": {
+            "en-GB": "SATELLARIA",
+            "de-DE": "SATELLARIA",
+            "es-ES": "SATELLARIA",
+            "fr-FR": "SATELLARIA",
+            "it-IT": "SATELLARIA",
+            "pt-BR": "SATEL\u00c1RIA",
+            "ru-RU": "\u0421\u0410\u0422\u0415\u041b\u041b\u0410\u0420\u0418\u042f",
+            "zh-Hans": "\u536b\u73af",
+            "zh-Hant": "\u85a9\u6cf0\u62c9\u91cc\u4e9e"
+        },
+        "description": "A crimson algae has propagated wildly across this entire planet, coating its rocky hills with a constant red that masks the spilt blood of the heroes who defend it from tyranny.",
+        "biome": "forest_moor_red"
+    },
+    "2459737800": {
+        "names": {
+            "en-GB": "DOUBLET II",
+            "de-DE": "DOUBLET II",
+            "es-ES": "JUB\u00d3N II",
+            "fr-FR": "DOUBLET\u00a0II",
+            "it-IT": "FARSETTO II",
+            "pt-BR": "DOUBLET II",
+            "ru-RU": "\u0414\u0423\u0411\u041b\u0415\u0422 II",
+            "zh-Hans": "\u53cc\u5b50\u88f3II",
+            "zh-Hant": "\u96d9\u751fII"
+        },
+        "description": "Abundant with life, this wet planet is covered in deep oceans, thick forests, and tall grasses.",
+        "biome": "forest_primordial_base"
+    },
+    "2974582451": {
+        "names": {
+            "en-GB": "GENERATION",
+            "de-DE": "GENERATION",
+            "es-ES": "GENERACI\u00d3N",
+            "fr-FR": "G\u00c9N\u00c9RATION",
+            "it-IT": "GENERAZIONE",
+            "pt-BR": "GERA\u00c7\u00c3O",
+            "ru-RU": "\u041f\u041e\u041a\u041e\u041b\u0415\u041d\u0418\u0415",
+            "zh-Hans": "\u6e90\u4ee3",
+            "zh-Hant": "\u4e16\u4ee3"
+        },
+        "description": "Submerged in eternal winter, this world's frosty peaks glimmer in the light of its too-distant star.",
+        "biome": "arctic_glacier_base"
+    },
+    "635797345": {
+        "names": {
+            "en-GB": "CIVILITY",
+            "de-DE": "CIVILITY",
+            "es-ES": "CORTES\u00cdA",
+            "fr-FR": "CIVILIT\u00c9",
+            "it-IT": "CIVILT\u00c0",
+            "pt-BR": "CIVILIDADE",
+            "ru-RU": "\u0413\u0420\u0410\u0416\u0414\u0410\u041d\u0421\u0422\u0412\u0415\u041d\u041d\u041e\u0421\u0422\u042c",
+            "zh-Hans": "\u793c\u5e8f",
+            "zh-Hant": "\u79ae\u7bc0"
+        },
+        "description": "",
+        "biome": "forest_coniferous_base"
+    },
+    "3766232050": {
+        "names": {
+            "en-GB": "SCUTUM CANIS LUPUS",
+            "de-DE": "SCUTUM CANIS LUPUS",
+            "es-ES": "SCUTUM CANIS LUPUS",
+            "fr-FR": "SCUTUM CANIS LUPUS",
+            "it-IT": "SCUTUM CANIS LUPUS",
+            "pt-BR": "SCUTUM CANIS LUPUS",
+            "ru-RU": "\u0421\u041a\u0423\u0422\u0423\u041c \u041a\u0410\u041d\u0418\u0421 \u041b\u042e\u041f\u0423\u0421",
+            "zh-Hans": "\u72fc\u76fe",
+            "zh-Hant": "\u72fc\u76fe"
+        },
+        "description": "Rocky outcroppings punctuate fields of tall grass in a planet dominated by misty highland terrain.",
+        "biome": "forest_moor_base"
+    },
+    "4225545023": {
+        "names": {
+            "en-GB": "LOGISTICAE",
+            "de-DE": "LOGISTICAE",
+            "es-ES": "LOGISTICAE",
+            "fr-FR": "LOGISTICAE",
+            "it-IT": "LOGISTICAE",
+            "pt-BR": "LOGISTICAE",
+            "ru-RU": "\u041b\u041e\u0413\u0418\u0421\u0422\u0418\u0427\u0415\u0421\u041a\u0410\u042f",
+            "zh-Hans": "\u540e\u52e4",
+            "zh-Hant": "\u5f8c\u52e4"
+        },
+        "description": "Submerged in eternal winter, this world's frosty peaks glimmer in the light of its too-distant star.",
+        "biome": "arctic_glacier_base"
+    },
+    "2956267651": {
+        "names": {
+            "en-GB": "STOLTHET",
+            "de-DE": "STOLTHET",
+            "es-ES": "STOLTHET",
+            "fr-FR": "STOLTHET",
+            "it-IT": "STOLTHET",
+            "pt-BR": "STOLTHET",
+            "ru-RU": "\u0413\u041e\u0420\u0414\u041e\u0421\u0422\u042c",
+            "zh-Hans": "\u8363\u50b2",
+            "zh-Hant": "\u81ea\u8c6a"
+        },
+        "description": "Ice and moss-covered rock can be found across most of the surface of this planet.",
+        "biome": "arctic_glacier_coldrocky"
+    },
+    "4046521716": {
+        "names": {
+            "en-GB": "AVILA",
+            "de-DE": "AVILA",
+            "es-ES": "AVILA",
+            "fr-FR": "AVILA",
+            "it-IT": "AVILA",
+            "pt-BR": "\u00c1VILA",
+            "ru-RU": "\u0410\u0412\u0418\u041b\u0418\u042f",
+            "zh-Hans": "\u963f\u7ef4\u62c9",
+            "zh-Hant": "\u963f\u7dad\u62c9"
+        },
+        "description": "",
+        "biome": "desert_oasis_base"
+    },
+    "2872263469": {
+        "names": {
+            "en-GB": "MANDILARIA",
+            "de-DE": "MANDILARIA",
+            "es-ES": "MANDILARIA",
+            "fr-FR": "MANDILARIA",
+            "it-IT": "MANDILARIA",
+            "pt-BR": "MANDIL\u00c1RIA",
+            "ru-RU": "\u041c\u0410\u041d\u0414\u0418\u041b\u0410\u0420\u0418\u042f",
+            "zh-Hans": "\u66fc\u8fea\u62c9\u91cc\u4e9a",
+            "zh-Hant": "\u66fc\u8fea\u62c9\u91cc\u4e9e"
+        },
+        "description": "",
+        "biome": "desert_oasis_base"
+    },
+    "1317273314": {
+        "names": {
+            "en-GB": "EMBOLD",
+            "de-DE": "EMBOLD",
+            "es-ES": "EMBOLD",
+            "fr-FR": "EMBOLD",
+            "it-IT": "EMBOLD",
+            "pt-BR": "ENCORAJA",
+            "ru-RU": "\u041e\u0411\u041e\u0414\u0420\u042f\u042e\u0429\u0410\u042f",
+            "zh-Hans": "\u65e0\u754f",
+            "zh-Hant": "\u52c7\u6c23"
+        },
+        "description": "A perenially chilly climate has allowed short, colorful shrubs to flourish across this planet's surface.",
+        "biome": "forest_moor_tundra"
+    },
     "1367796466": {
         "names": {
             "en-GB": "BASQUINE VIII",
@@ -4063,6 +5008,111 @@
         },
         "description": "",
         "biome": "forest_deciduous_autumn"
+    },
+    "925874448": {
+        "names": {
+            "en-GB": "LAMBAST",
+            "de-DE": "LAMBAST",
+            "es-ES": "ARREMETIDA",
+            "fr-FR": "LAMBAST",
+            "it-IT": "FLAGELLANTES",
+            "pt-BR": "FUSTIGAR",
+            "ru-RU": "\u041a\u0420\u0418\u0422\u0418\u041a\u0423\u042e\u0429\u0410\u042f",
+            "zh-Hans": "\u5170\u5df4\u65af\u7279",
+            "zh-Hant": "\u75db\u65a5"
+        },
+        "description": "Rocky outcroppings punctuate fields of tall grass in a planet dominated by misty highland terrain.",
+        "biome": "forest_moor_base"
+    },
+    "1371866141": {
+        "names": {
+            "en-GB": "THRASH IV",
+            "de-DE": "THRASH IV",
+            "es-ES": "AZOTE IV",
+            "fr-FR": "SRASH\u00a0IV",
+            "it-IT": "BATOSTA IV",
+            "pt-BR": "SOVA IV",
+            "ru-RU": "\u041c\u0423\u0421\u041e\u0420\u041d\u0410\u042f IV",
+            "zh-Hans": "\u5854\u5c14\u4ec0",
+            "zh-Hant": "\u75db\u64caIV"
+        },
+        "description": "A crimson algae has propagated wildly across this entire planet, coating its rocky hills with a constant red that masks the spilt blood of the heroes who defend it from tyranny.",
+        "biome": "forest_moor_red"
+    },
+    "458291410": {
+        "names": {
+            "en-GB": "MIQ\u00c9",
+            "de-DE": "MIQ\u00c9",
+            "es-ES": "MIQ\u00c9",
+            "fr-FR": "MIK\u00c9",
+            "it-IT": "MIQ\u00c9",
+            "pt-BR": "MIQ\u00c9",
+            "ru-RU": "\u041c\u0418\u041a\u0415",
+            "zh-Hans": "\u7c73\u57fa",
+            "zh-Hant": "\u7c73\u514b"
+        },
+        "description": "The lifeless grey of this planet is interrupted only by the violet flowers that grow from strange, parasitic outcroppings.",
+        "biome": "forest_primordial_dead"
+    },
+    "4135188973": {
+        "names": {
+            "en-GB": "TOR E",
+            "de-DE": "TOR E",
+            "es-ES": "TOR E",
+            "fr-FR": "TOR\u00a0E",
+            "it-IT": "TOR E",
+            "pt-BR": "TOR E",
+            "ru-RU": "\u0422\u041e\u0420 \u0418",
+            "zh-Hans": "\u6258\u5c14E",
+            "zh-Hant": "\u6258\u723eE"
+        },
+        "description": "",
+        "biome": "desert_oasis_base"
+    },
+    "3625072224": {
+        "names": {
+            "en-GB": "PHANTOM 1",
+            "de-DE": "PHANTOM 1",
+            "es-ES": "FANTASMA 1",
+            "fr-FR": "PHANTOM\u00a01",
+            "it-IT": "FANTASMA 1",
+            "pt-BR": "FANTASMA 1",
+            "ru-RU": "\u0424\u0410\u041d\u0422\u041e\u041c 1",
+            "zh-Hans": "\u5e7b\u5f711",
+            "zh-Hant": "\u9b45\u5f711"
+        },
+        "description": "This world teems with ethereal, boundless, and peculiar plant life that spreads silent and uninterrupted across its entire surface.",
+        "biome": "forest_primordial_purple"
+    },
+    "792705719": {
+        "names": {
+            "en-GB": "SPOYLE",
+            "de-DE": "SPOYLE",
+            "es-ES": "SPOYLE",
+            "fr-FR": "SPOYLE",
+            "it-IT": "SPOYLE",
+            "pt-BR": "ESP\u00d3LYO",
+            "ru-RU": "\u0421\u041f\u041e\u0419\u041b\u0418",
+            "zh-Hans": "\u65af\u73c0\u4f0a\u5c14",
+            "zh-Hant": "\u63a0\u596a"
+        },
+        "description": "Abundant with life, this wet planet is covered in deep oceans, thick forests, and tall grasses.",
+        "biome": "forest_primordial_base"
+    },
+    "4283005796": {
+        "names": {
+            "en-GB": "WILE",
+            "de-DE": "WILE",
+            "es-ES": "TRETA",
+            "fr-FR": "WILE",
+            "it-IT": "INSIDIE",
+            "pt-BR": "EMBUSTE",
+            "ru-RU": "\u041a\u041e\u0412\u0410\u0420\u0421\u0422\u0412\u041e",
+            "zh-Hans": "\u5343\u60d1",
+            "zh-Hant": "\u8a6d\u8a08"
+        },
+        "description": "Submerged in eternal winter, this world's frosty peaks glimmer in the light of its too-distant star.",
+        "biome": "arctic_glacier_base"
     },
     "224163544": {
         "names": {
@@ -4079,6 +5129,66 @@
         "description": "",
         "biome": "forest_deciduous_base"
     },
+    "957113655": {
+        "names": {
+            "en-GB": "PIEA",
+            "de-DE": "PIEA",
+            "es-ES": "PIEA",
+            "fr-FR": "PIEA",
+            "it-IT": "PIEA",
+            "pt-BR": "PIEA",
+            "ru-RU": "\u041f\u0418\u0415\u042f",
+            "zh-Hans": "\u76ae\u8036\u963f",
+            "zh-Hant": "\u76ae\u8036\u963f"
+        },
+        "description": "A crimson algae has propagated wildly across this entire planet, coating its rocky hills with a constant red that masks the spilt blood of the heroes who defend it from tyranny.",
+        "biome": "forest_moor_red"
+    },
+    "1538639048": {
+        "names": {
+            "en-GB": "HUSARIA",
+            "de-DE": "HUSARIA",
+            "es-ES": "HUSARIA",
+            "fr-FR": "HUSARIA",
+            "it-IT": "HUSARIA",
+            "pt-BR": "HUSS\u00c1RIA",
+            "ru-RU": "\u0413\u0423\u0421\u0410\u0420\u0418\u042f",
+            "zh-Hans": "\u8f7b\u9a91",
+            "zh-Hant": "\u9a43\u9a0e\u5175"
+        },
+        "description": "Rocky outcroppings punctuate fields of tall grass in a planet dominated by misty highland terrain.",
+        "biome": "forest_moor_base"
+    },
+    "1260646010": {
+        "names": {
+            "en-GB": "OSTEHOVEL",
+            "de-DE": "OSTEHOVEL",
+            "es-ES": "OSTEHOVEL",
+            "fr-FR": "OSTEHOVEL",
+            "it-IT": "OSTEHOVEL",
+            "pt-BR": "OSTEHOVEL",
+            "ru-RU": "\u041e\u0421\u0422\u0415\u041d\u0425\u041e\u0412\u0415\u041b",
+            "zh-Hans": "\u916a\u6495\u7279\u970d\u7ef4",
+            "zh-Hant": "\u8d77\u53f8\u5228\u5200"
+        },
+        "description": "A blazing-hot desert planet, its rocky mesas are the sole interruptions to the endless sea of dunes.",
+        "biome": "desert_sandy_base"
+    },
+    "1555026222": {
+        "names": {
+            "en-GB": "MINERVA",
+            "de-DE": "MINERVA",
+            "es-ES": "MINERVA",
+            "fr-FR": "MINERVA",
+            "it-IT": "MINERVA",
+            "pt-BR": "MINERVA",
+            "ru-RU": "\u041c\u0418\u041d\u0415\u0420\u0412\u0410",
+            "zh-Hans": "\u5bc6\u6d85\u74e6",
+            "zh-Hant": "\u5bc6\u6d85\u74e6"
+        },
+        "description": "",
+        "biome": "desert_oasis_base"
+    },
     "2871915822": {
         "names": {
             "en-GB": "ZYGOS",
@@ -4094,6 +5204,141 @@
         "description": "",
         "biome": "desert_oasis_base"
     },
+    "1003822495": {
+        "names": {
+            "en-GB": "PESTIS",
+            "de-DE": "PESTIS",
+            "es-ES": "PESTIS",
+            "fr-FR": "PESTIS",
+            "it-IT": "PESTIS",
+            "pt-BR": "PESTIS",
+            "ru-RU": "\u041f\u0415\u0421\u0422\u0418\u0421",
+            "zh-Hans": "\u761f\u5389",
+            "zh-Hant": "\u761f\u75ab"
+        },
+        "description": "Abundant with life, this wet planet is covered in deep oceans, thick forests, and tall grasses.",
+        "biome": "forest_primordial_base"
+    },
+    "1655533806": {
+        "names": {
+            "en-GB": "AMITTERE",
+            "de-DE": "AMITTERE",
+            "es-ES": "AMITTERE",
+            "fr-FR": "AMITTERE",
+            "it-IT": "AMITTERE",
+            "pt-BR": "AMITTERE",
+            "ru-RU": "\u0410\u041c\u0418\u0422\u0422\u0415\u0420\u0415",
+            "zh-Hans": "\u4e9a\u7c73\u901d\u5730",
+            "zh-Hant": "\u5931\u843d"
+        },
+        "description": "The arid, rocky biome covering this world has driven the evolution of exceptionally efficient water usage in its various organisms.",
+        "biome": "desert_sandy_mineral"
+    },
+    "440274794": {
+        "names": {
+            "en-GB": "VINGE",
+            "de-DE": "VINGE",
+            "es-ES": "VINGE",
+            "fr-FR": "VINGE",
+            "it-IT": "VINGE",
+            "pt-BR": "VINGA",
+            "ru-RU": "\u0412\u0418\u041d\u0413\u0415",
+            "zh-Hans": "\u4e91\u7ffc",
+            "zh-Hant": "\u7fc5\u8180"
+        },
+        "description": "A blazing-hot desert planet, its rocky mesas are the sole interruptions to the endless sea of dunes.",
+        "biome": "desert_sandy_base"
+    },
+    "912524883": {
+        "names": {
+            "en-GB": "KORV",
+            "de-DE": "KORV",
+            "es-ES": "KORV",
+            "fr-FR": "KORV",
+            "it-IT": "KORV",
+            "pt-BR": "KORV",
+            "ru-RU": "\u041a\u041e\u0420\u0412",
+            "zh-Hans": "\u79d1\u5c14\u812f",
+            "zh-Hant": "\u79d1\u592b"
+        },
+        "description": "A rocky, lonely moon with extremely valuable mineral deposits underneath the surface.",
+        "biome": "desert_sandy_moon"
+    },
+    "600607323": {
+        "names": {
+            "en-GB": "CONLON COLONY",
+            "de-DE": "CONLON COLONY",
+            "es-ES": "COLONIA CONLON",
+            "fr-FR": "COLONIE DE CONLON",
+            "it-IT": "COLONIA CONLON",
+            "pt-BR": "COL\u00d4NIA CONLON",
+            "ru-RU": "\u041a\u041e\u041b\u041e\u041d\u0421\u041a\u0410\u042f \u041a\u041e\u041b\u041e\u041d\u0418\u042f",
+            "zh-Hans": "\u5eb7\u4f26\u62d3\u6b96\u5730",
+            "zh-Hant": "\u5eb7\u502b\u6b96\u6c11\u5730"
+        },
+        "description": "The strange subversion of photosynthesis that sustains the oddly-hued flora that flourishes on this planet remains an intriguing mystery to Super Earth's greatest exo-biologists.",
+        "biome": "forest_primordial_blue"
+    },
+    "3556243646": {
+        "names": {
+            "en-GB": "DEECON",
+            "de-DE": "DEECON",
+            "es-ES": "DEECON",
+            "fr-FR": "DEECON",
+            "it-IT": "DEECON",
+            "pt-BR": "DEECON",
+            "ru-RU": "\u0414\u0418\u041a\u041e\u041d",
+            "zh-Hans": "\u5723\u4f8d",
+            "zh-Hant": "\u57f7\u4e8b"
+        },
+        "description": "A desert planet prone to unpredictable and dangerous sand twisters.",
+        "biome": "desert_sandy_spiky"
+    },
+    "3512826333": {
+        "names": {
+            "en-GB": "SVITJOD",
+            "de-DE": "SVITJOD",
+            "es-ES": "SVITJOD",
+            "fr-FR": "SVITJOD",
+            "it-IT": "SVITJOD",
+            "pt-BR": "SVITJOD",
+            "ru-RU": "\u0421\u0412\u0418\u0422\u0419\u041e\u0420\u0414",
+            "zh-Hans": "\u65af\u7ef4\u7279\u7ea6\u5fb7",
+            "zh-Hant": "\u53e4\u745e\u5178"
+        },
+        "description": "Dense, toxic fumes from deep within the planet's crust seep out of cracks in the earth and coat the ground in a sickly haze.",
+        "biome": "desert_sandy_acid"
+    },
+    "4238148929": {
+        "names": {
+            "en-GB": "VACCA",
+            "de-DE": "VACCA",
+            "es-ES": "VACCA",
+            "fr-FR": "VACCA",
+            "it-IT": "VICCA",
+            "pt-BR": "VACCA",
+            "ru-RU": "\u0412\u0410\u041a\u041a\u0410",
+            "zh-Hans": "\u74e6\u5361",
+            "zh-Hant": "\u6bcd\u725b"
+        },
+        "description": "A blazing-hot desert planet, its rocky mesas are the sole interruptions to the endless sea of dunes.",
+        "biome": "desert_sandy_base"
+    },
+    "1597423767": {
+        "names": {
+            "en-GB": "OTUR",
+            "de-DE": "OTUR",
+            "es-ES": "OTUR",
+            "fr-FR": "OTUR",
+            "it-IT": "OTUR",
+            "pt-BR": "OTUR",
+            "ru-RU": "\u041e\u0422\u0423\u0420",
+            "zh-Hans": "\u5384\u56fe\u5c14",
+            "zh-Hant": "\u5384\u904b"
+        },
+        "description": "Dense, toxic fumes from deep within the planet's crust seep out of cracks in the earth and coat the ground in a sickly haze.",
+        "biome": "desert_sandy_acid"
+    },
     "104621771": {
         "names": {
             "en-GB": "SANGIS",
@@ -4108,5 +5353,365 @@
         },
         "description": "",
         "biome": "forest_deciduous_autumn"
+    },
+    "36651719": {
+        "names": {
+            "en-GB": "SIRIUS II",
+            "de-DE": "SIRIUS II",
+            "es-ES": "SIRIUS II",
+            "fr-FR": "SIRIUS\u00a0II",
+            "it-IT": "SIRIUS II",
+            "pt-BR": "SIRIUS II",
+            "ru-RU": "\u0421\u0418\u0420\u0418\u0423\u0421 II",
+            "zh-Hans": "\u5929\u72fc\u661fII",
+            "zh-Hant": "\u5929\u72fc\u661fII"
+        },
+        "description": "A rocky, lonely moon with extremely valuable mineral deposits underneath the surface.",
+        "biome": "desert_sandy_moon"
+    },
+    "1550292276": {
+        "names": {
+            "en-GB": "HAMMARBY",
+            "de-DE": "HAMMARBY",
+            "es-ES": "HAMMARBY",
+            "fr-FR": "HAMMARBY",
+            "it-IT": "HAMMARBY",
+            "pt-BR": "HAMMARBY",
+            "ru-RU": "\u0425\u0410\u041c\u041c\u0410\u0420\u0411\u042e",
+            "zh-Hans": "\u54c8\u9a6c\u6bd4",
+            "zh-Hant": "\u54c8\u99ac\u6bd4"
+        },
+        "description": "A rocky, lonely moon with extremely valuable mineral deposits underneath the surface.",
+        "biome": "desert_sandy_moon"
+    },
+    "2371182145": {
+        "names": {
+            "en-GB": "MOMO-1",
+            "de-DE": "MOMO-1",
+            "es-ES": "MOMO-1",
+            "fr-FR": "MOMO-1",
+            "it-IT": "MOMO-1",
+            "pt-BR": "MOMO-1",
+            "ru-RU": "\u041c\u041e\u041c\u041e-1",
+            "zh-Hans": "\u83ab\u83ab-1",
+            "zh-Hant": "\u83ab\u83ab-1"
+        },
+        "description": "Abundant with life, this wet planet is covered in deep oceans, thick forests, and tall grasses.",
+        "biome": "forest_primordial_base"
+    },
+    "3781016616": {
+        "names": {
+            "en-GB": "LINDOME",
+            "de-DE": "LINDOME",
+            "es-ES": "LINDOME",
+            "fr-FR": "LINDOME",
+            "it-IT": "LINDOME",
+            "pt-BR": "LINDOME",
+            "ru-RU": "\u041b\u0418\u041d\u0414\u041e\u041c",
+            "zh-Hans": "\u6797\u675c\u9ed8",
+            "zh-Hant": "\u6797\u675c\u9ed8"
+        },
+        "description": "Submerged in eternal winter, this world's frosty peaks glimmer in the light of its too-distant star.",
+        "biome": "arctic_glacier_base"
+    },
+    "745407869": {
+        "names": {
+            "en-GB": "BOHUS",
+            "de-DE": "BOHUS",
+            "es-ES": "BOHUS",
+            "fr-FR": "BOHUS",
+            "it-IT": "BOHUS",
+            "pt-BR": "BOHUS",
+            "ru-RU": "\u0411\u041e\u0425\u0423\u0421",
+            "zh-Hans": "\u5e03\u80e1\u65af",
+            "zh-Hant": "\u535a\u80e1\u65af"
+        },
+        "description": "The lifeless grey of this planet is interrupted only by the violet flowers that grow from strange, parasitic outcroppings.",
+        "biome": "forest_primordial_dead"
+    },
+    "417099853": {
+        "names": {
+            "en-GB": "NIBIRU",
+            "de-DE": "NIBIRU",
+            "es-ES": "NIBIRU",
+            "fr-FR": "NIBIRU",
+            "it-IT": "NIBIRU",
+            "pt-BR": "NIBIRU",
+            "ru-RU": "\u041d\u0418\u0411\u0418\u0420\u0423",
+            "zh-Hans": "\u5c3c\u6bd4\u9c81",
+            "zh-Hant": "\u5c3c\u6bd4\u9b6f"
+        },
+        "description": "Rocky outcroppings punctuate fields of tall grass in a planet dominated by misty highland terrain.",
+        "biome": "forest_moor_base"
+    },
+    "3634094425": {
+        "names": {
+            "en-GB": "GUNNAR",
+            "de-DE": "GUNNAR",
+            "es-ES": "GUNNAR",
+            "fr-FR": "GUNNAR",
+            "it-IT": "GUNNAR",
+            "pt-BR": "GUNNAR",
+            "ru-RU": "\u0413\u042e\u041d\u041d\u0410\u0420",
+            "zh-Hans": "\u521a\u7eb3\u5c14",
+            "zh-Hant": "\u53e4\u7d0d"
+        },
+        "description": "A rocky, lonely moon with extremely valuable mineral deposits underneath the surface.",
+        "biome": "desert_sandy_moon"
+    },
+    "10324412": {
+        "names": {
+            "en-GB": "URECTEM",
+            "de-DE": "URECTEM",
+            "es-ES": "URECTEM",
+            "fr-FR": "URECTEM",
+            "it-IT": "URECTEM",
+            "pt-BR": "URETO",
+            "ru-RU": "\u0423\u0420\u0415\u041a\u0422\u0415\u041c",
+            "zh-Hans": "\u4e4c\u96f7\u514b\u7279\u59c6",
+            "zh-Hant": "\u70cf\u96f7\u514b\u63d0\u59c6"
+        },
+        "description": "Ice and moss-covered rock can be found across most of the surface of this planet.",
+        "biome": "arctic_glacier_coldrocky"
+    },
+    "3897302531": {
+        "names": {
+            "en-GB": "M\u00d6NSTER\u00c5S II",
+            "de-DE": "M\u00d6NSTER\u00c5S II",
+            "es-ES": "M\u00d6NSTER\u00c5S II",
+            "fr-FR": "M\u00d6NSTER\u00c5S\u00a0II",
+            "it-IT": "M\u00d6NSTER\u00c5S II",
+            "pt-BR": "M\u00d6NSTER\u00c5S II",
+            "ru-RU": "\u041c\u041e\u041d\u0421\u0422\u0415\u0420\u0410\u0421 II",
+            "zh-Hans": "\u95e8\u65af\u7279\u7f57\u65afII",
+            "zh-Hant": "\u8499\u65af\u7279\u7f85\u65afII"
+        },
+        "description": "Abundant with life, this wet planet is covered in deep oceans, thick forests, and tall grasses.",
+        "biome": "forest_primordial_base"
+    },
+    "1387273604": {
+        "names": {
+            "en-GB": "MONHEIM",
+            "de-DE": "MONHEIM",
+            "es-ES": "MONHEIM",
+            "fr-FR": "MONHEIM",
+            "it-IT": "MONHEIM",
+            "pt-BR": "MONHEIM",
+            "ru-RU": "\u041c\u041e\u041d\u0425\u0415\u0419\u041c",
+            "zh-Hans": "\u8499\u6d77\u59c6",
+            "zh-Hant": "\u8499\u6d77\u59c6"
+        },
+        "description": "",
+        "biome": "forest_deciduous_base"
+    },
+    "2378790132": {
+        "names": {
+            "en-GB": "DUNOONIA",
+            "de-DE": "DUNOONIA",
+            "es-ES": "DUNOONIA",
+            "fr-FR": "DUNOUNIA",
+            "it-IT": "DUMNONIA",
+            "pt-BR": "DUNOONIA",
+            "ru-RU": "\u0414\u042e\u041d\u041e\u041e\u041d\u0418\u042f",
+            "zh-Hans": "\u987f\u8bfa\u5c3c\u4e9a",
+            "zh-Hant": "\u675c\u59c6\u8afe\u5c3c\u4e9e"
+        },
+        "description": "",
+        "biome": "forest_deciduous_autumn"
+    },
+    "3084757731": {
+        "names": {
+            "en-GB": "PAYONG",
+            "de-DE": "PAYONG",
+            "es-ES": "PAYONG",
+            "fr-FR": "PAYONG",
+            "it-IT": "PAYONG",
+            "pt-BR": "PAYONG",
+            "ru-RU": "\u041f\u0410\u0419\u041e\u041d",
+            "zh-Hans": "\u5e87\u6c38",
+            "zh-Hant": "\u96e8\u5098"
+        },
+        "description": "Rocky outcroppings punctuate fields of tall grass in a planet dominated by misty highland terrain.",
+        "biome": "forest_moor_base"
+    },
+    "1669152006": {
+        "names": {
+            "en-GB": "PENNYBRIDGE",
+            "de-DE": "PENNYBRIDGE",
+            "es-ES": "PENNYBRIDGE",
+            "fr-FR": "PENNYBRIDGE",
+            "it-IT": "PENNYBRIDGE",
+            "pt-BR": "PENNYBRIDGE",
+            "ru-RU": "\u041f\u0415\u041d\u041d\u0418\u0411\u0420\u0418\u0414\u0416",
+            "zh-Hans": "\u5f6d\u5c3c\u5e03\u91cc\u5947",
+            "zh-Hant": "\u4fbf\u58eb\u6a4b"
+        },
+        "description": "",
+        "biome": "forest_coniferous_base"
+    },
+    "2198453495": {
+        "names": {
+            "en-GB": "UNKNOWN SYSTEM",
+            "de-DE": "UNBEKANNTES SYSTEM",
+            "es-ES": "SISTEMA DESCONOCIDO",
+            "fr-FR": "SYST\u00c8ME INCONNU",
+            "it-IT": "SISTEMA SCONOSCIUTO",
+            "pt-BR": "SISTEMA DESCONHECIDO",
+            "ru-RU": "\u041d\u0415\u0418\u0417\u0412\u0415\u0421\u0422\u041d\u0410\u042f \u0421\u0418\u0421\u0422\u0415\u041c\u0410",
+            "zh-Hans": "\u672a\u77e5\u661f\u7cfb",
+            "zh-Hant": "\u672a\u77e5\u661f\u7cfb"
+        },
+        "description": "Abundant with life, this wet planet is covered in deep oceans, thick forests, and tall grasses.",
+        "biome": "forest_primordial_base"
+    },
+    "3717376507": {
+        "names": {
+            "en-GB": "UNREGISTERED SYSTEM",
+            "de-DE": "NICHT REGISTRIERTES SYSTEM",
+            "es-ES": "SISTEMA NO REGISTRADO",
+            "fr-FR": "SYST\u00c8ME NON ENREGISTR\u00c9",
+            "it-IT": "SISTEMA NON REGISTRATO",
+            "pt-BR": "SISTEMA N\u00c3O REGISTRADO",
+            "ru-RU": "\u041d\u0415\u0417\u0410\u0420\u0415\u0413\u0418\u0421\u0422\u0420\u0418\u0420\u041e\u0412\u0410\u041d\u041d\u0410\u042f \u0421\u0418\u0421\u0422\u0415\u041c\u0410",
+            "zh-Hans": "\u672a\u6ce8\u518c\u661f\u7cfb",
+            "zh-Hant": "\u672a\u8a3b\u518a\u661f\u7cfb"
+        },
+        "description": "This world teems with ethereal, boundless, and peculiar plant life that spreads silent and uninterrupted across its entire surface.",
+        "biome": "forest_primordial_purple"
+    },
+    "4169407650": {
+        "names": {
+            "en-GB": "UNMAPPED SYSTEM",
+            "de-DE": "NICHT KARTIERTES SYSTEM",
+            "es-ES": "SISTEMA NO EXPLORADO",
+            "fr-FR": "SYST\u00c8ME NON CARTOGRAPHI\u00c9",
+            "it-IT": "SISTEMA NON MAPPATO",
+            "pt-BR": "SISTEMA N\u00c3O MAPEADO",
+            "ru-RU": "\u041d\u0415\u041a\u0410\u0420\u0422\u041e\u0413\u0420\u0410\u0424\u0418\u0420\u041e\u0412\u0410\u041d\u041d\u0410\u042f \u0421\u0418\u0421\u0422\u0415\u041c\u0410",
+            "zh-Hans": "\u672a\u6d4b\u7ed8\u661f\u7cfb",
+            "zh-Hant": "\u672a\u6e2c\u7e6a\u661f\u7cfb"
+        },
+        "description": "The lifeless grey of this planet is interrupted only by the violet flowers that grow from strange, parasitic outcroppings.",
+        "biome": "forest_primordial_dead"
+    },
+    "3638342106": {
+        "names": {
+            "en-GB": "RUINED SYSTEM",
+            "de-DE": "ZERST\u00d6RTES SYSTEM",
+            "es-ES": "SISTEMA ARRUINADO",
+            "fr-FR": "SYST\u00c8ME EN RUINE",
+            "it-IT": "SISTEMA IN ROVINA",
+            "pt-BR": "SISTEMA EM RU\u00cdNAS",
+            "ru-RU": "\u0420\u0410\u0417\u0420\u0423\u0428\u0415\u041d\u041d\u0410\u042f \u0421\u0418\u0421\u0422\u0415\u041c\u0410",
+            "zh-Hans": "\u5e9f\u589f\u661f\u7cfb",
+            "zh-Hant": "\u5ee2\u589f\u661f\u7cfb"
+        },
+        "description": "A perenially chilly climate has allowed short, colorful shrubs to flourish across this planet's surface.",
+        "biome": "forest_moor_tundra"
+    },
+    "1321031843": {
+        "names": {
+            "en-GB": "ANOMALOUS SYSTEM",
+            "de-DE": "ANORMALES SYSTEM",
+            "es-ES": "SISTEMA AN\u00d3MALO",
+            "fr-FR": "SYST\u00c8ME ANORMAL",
+            "it-IT": "SISTEMA ANOMALO",
+            "pt-BR": "SISTEMA AN\u00d4MALO",
+            "ru-RU": "\u0410\u041d\u041e\u041c\u0410\u041b\u042c\u041d\u0410\u042f \u0421\u0418\u0421\u0422\u0415\u041c\u0410",
+            "zh-Hans": "\u5f02\u5e38\u661f\u7cfb",
+            "zh-Hant": "\u7570\u5e38\u661f\u7cfb"
+        },
+        "description": "Submerged in eternal winter, this world's frosty peaks glimmer in the light of its too-distant star.",
+        "biome": "arctic_glacier_base"
+    },
+    "1557881004": {
+        "names": {
+            "en-GB": "CONCEALED SYSTEM",
+            "de-DE": "VERBORGENES SYSTEM",
+            "es-ES": "SISTEMA OCULTO",
+            "fr-FR": "SYST\u00c8ME CACH\u00c9",
+            "it-IT": "SISTEMA OCCULTATO",
+            "pt-BR": "SISTEMA OCULTO",
+            "ru-RU": "\u0421\u041a\u0420\u042b\u0422\u0410\u042f \u0421\u0418\u0421\u0422\u0415\u041c\u0410",
+            "zh-Hans": "\u9690\u853d\u661f\u7cfb",
+            "zh-Hant": "\u96b1\u853d\u661f\u7cfb"
+        },
+        "description": "Scorching temperatures, high winds, and low precipitation cause a near-constant cycle of fires to sweep this planet, punctuated by short bursts of lush rebirth between infernos.",
+        "biome": "forest_moor_arid"
+    },
+    "4097379787": {
+        "names": {
+            "en-GB": "E-710-RICH SYSTEM",
+            "de-DE": "E-710-REICHES SYSTEM",
+            "es-ES": "SISTEMA RICO EN E-710",
+            "fr-FR": "SYST\u00c8ME RICHE EN E-710",
+            "it-IT": "SISTEMA RICCO DI E-710",
+            "pt-BR": "SISTEMA RICO EM E-710",
+            "ru-RU": "\u0411\u041e\u0413\u0410\u0422\u0410\u042f \u042d-710 \u0421\u0418\u0421\u0422\u0415\u041c\u0410",
+            "zh-Hans": "710\u5143\u7d20\u5bcc\u96c6\u661f\u7cfb",
+            "zh-Hant": "E-710\u5bcc\u85cf\u661f\u7cfb"
+        },
+        "description": "A perenially chilly climate has allowed short, colorful shrubs to flourish across this planet's surface.",
+        "biome": "forest_moor_tundra"
+    },
+    "1606226206": {
+        "names": {
+            "en-GB": "ANNIHILATED SYSTEM",
+            "de-DE": "VERNICHTETES SYSTEM",
+            "es-ES": "SISTEMA ANIQUILADO",
+            "fr-FR": "SYST\u00c8ME ANNIHIL\u00c9",
+            "it-IT": "SISTEMA ANNIENTATO",
+            "pt-BR": "SISTEMA ANIQUILADO",
+            "ru-RU": "\u0423\u041d\u0418\u0427\u0422\u041e\u0416\u0415\u041d\u041d\u0410\u042f \u0421\u0418\u0421\u0422\u0415\u041c\u0410",
+            "zh-Hans": "\u5df2\u6b7c\u706d\u661f\u7cfb",
+            "zh-Hant": "\u5df2\u6bb2\u6ec5\u661f\u7cfb"
+        },
+        "description": "A crimson algae has propagated wildly across this entire planet, coating its rocky hills with a constant red that masks the spilt blood of the heroes who defend it from tyranny.",
+        "biome": "forest_moor_red"
+    },
+    "1406573183": {
+        "names": {
+            "en-GB": "VITAL SYSTEM",
+            "de-DE": "VITALES SYSTEM",
+            "es-ES": "SISTEMA ESENCIAL",
+            "fr-FR": "SYST\u00c8ME CAPITAL",
+            "it-IT": "SISTEMA VITALE",
+            "pt-BR": "SISTEMA VITAL",
+            "ru-RU": "\u0412\u0410\u0416\u041d\u0410\u042f \u0421\u0418\u0421\u0422\u0415\u041c\u0410",
+            "zh-Hans": "\u5173\u952e\u661f\u7cfb",
+            "zh-Hant": "\u95dc\u9375\u661f\u7cfb"
+        },
+        "description": "Rocky outcroppings punctuate fields of tall grass in a planet dominated by misty highland terrain.",
+        "biome": "forest_moor_base"
+    },
+    "3315509438": {
+        "names": {
+            "en-GB": "UNINHABITABLE SYSTEM",
+            "de-DE": "UNBEWOHNBARES SYSTEM",
+            "es-ES": "SISTEMA INHABITABLE",
+            "fr-FR": "SYST\u00c8ME INHABITABLE",
+            "it-IT": "SISTEMA INABITABILE",
+            "pt-BR": "SISTEMA INABIT\u00c1VEL",
+            "ru-RU": "\u041d\u0415\u041e\u0411\u0418\u0422\u0410\u0415\u041c\u0410\u042f \u0421\u0418\u0421\u0422\u0415\u041c\u0410",
+            "zh-Hans": "\u4e0d\u5b9c\u5c45\u661f\u7cfb",
+            "zh-Hant": "\u4e0d\u5b9c\u5c45\u661f\u7cfb"
+        },
+        "description": "A blazing-hot desert planet, its rocky mesas are the sole interruptions to the endless sea of dunes.",
+        "biome": "desert_sandy_base"
+    },
+    "3553482976": {
+        "names": {
+            "en-GB": "MERIDIA",
+            "de-DE": "MERIDIA",
+            "es-ES": "MERIDIA",
+            "fr-FR": "M\u00c9RIDIA",
+            "it-IT": "MERIDIA",
+            "pt-BR": "MER\u00cdDIA",
+            "ru-RU": "\u041c\u0415\u0420\u0418\u0414\u0418\u042f",
+            "zh-Hans": "\u9ed8\u91cc\u8fea\u4e9a",
+            "zh-Hant": "\u6885\u91cc\u8fea\u4e9e"
+        },
+        "description": "Entirely unforeseeable mutations from the Termicide led to hyper-accelerated bug growth on this planet, turning it into a Supercolony. It is corrupted beyond saving. The bugs infest every inch of it, down to the mantle, spawning trillions of spores every day.",
+        "biome": ""
     }
 }

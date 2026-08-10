@@ -85,7 +85,6 @@ class HelpCog(Cog):
     async def on_button_clicks(self, inter: MessageInteraction) -> None:
         if inter.component.custom_id != "welcome_help_button":
             return
-
         await inter.send(
             components=HelpContainer(
                 commands=[

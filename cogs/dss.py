@@ -9,7 +9,6 @@ from disnake.ext.commands import Cog, Param, slash_command
 from data.lists import CUSTOM_COLOURS
 from utils.bot import GalacticWideWebBot
 from utils.checks import wait_for_startup
-from utils.dbv2 import GWWGuild, GWWGuilds
 from utils.embeds import DSSEmbed
 
 
@@ -37,15 +36,7 @@ class DSSCog(Cog):
         ),
     ) -> None:
         await inter.response.defer(ephemeral=public != "Yes")
-        if inter.guild:
-            guild = GWWGuilds.get_specific_guild(id=inter.guild.id)
-            if not guild:
-                self.bot.logger.error(
-                    f"Guild {inter.guild.id} - {inter.guild.name} - had the bot installed but wasn't found in the DB"
-                )
-                guild = GWWGuilds.add(inter.guild.id, "en", [])
-        else:
-            guild = GWWGuild.default()
+        guild = self.bot.get_guild_from_inter(inter=inter)
         guild_language = self.bot.json_dict["languages"][guild.language]
         embed = DSSEmbed(
             language_json=guild_language,
@@ -74,15 +65,6 @@ class DSSCog(Cog):
         ),
     ) -> None:
         await inter.response.defer(ephemeral=public != "Yes")
-        if inter.guild:
-            guild = GWWGuilds.get_specific_guild(id=inter.guild.id)
-            if not guild:
-                self.bot.logger.error(
-                    f"Guild {inter.guild.id} - {inter.guild.name} - had the bot installed but wasn't found in the DB"
-                )
-                guild = GWWGuilds.add(inter.guild.id, "en", [])
-        else:
-            guild = GWWGuild.default()
         if (dss := self.bot.data.formatted_data.dss) is not None:
             if dss.votes is not None:
                 embed = Embed(

@@ -203,27 +203,6 @@ class FormattedDataContext:
 
 
 class FormattedData:
-    __slots__ = (
-        "total_players",
-        "steam_player_count",
-        "galactic_impact_mod",
-        "war_start_timestamp",
-        "planets",
-        "gambit_planets",
-        "war_effects",
-        "global_events",
-        "global_resources",
-        "dispatches",
-        "assignments",
-        "space_stations",
-        "event_campaigns",
-        "campaigns",
-        "steam_news",
-        "control_centre",
-        "personal_order",
-        "formatted_at",
-    )
-
     def __init__(
         self,
         context: FormattedDataContext,

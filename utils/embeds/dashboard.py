@@ -403,13 +403,13 @@ class Dashboard:
 
         def _set_thumbnail(self) -> None:
             """Sets the thumbnail based on the Assignment's task types"""
-            if task_types := [task.type for task in self.assignment.tasks]:
+            if (task_types := [task.type for task in self.assignment.tasks]) != []:
                 task_for_image = max(set(task_types), key=task_types.count)
                 self.set_thumbnail(url=AssignmentImages.get(task_for_image))
 
         def _add_description(self) -> None:
             """Adds the description of the MO, if available. And sets the footer to the assignment ID"""
-            if self.assignment.briefing:
+            if self.assignment.briefing != "":
                 briefing = "\n".join(
                     [
                         "-# " + l if l else l

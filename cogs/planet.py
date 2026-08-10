@@ -12,7 +12,6 @@ from disnake.ui import Container, MediaGallery
 from utils.bot import GalacticWideWebBot
 from utils.containers import PlanetContainers
 from utils.checks import wait_for_startup
-from utils.dbv2 import GWWGuild, GWWGuilds
 from utils.maps import Maps
 
 
@@ -88,15 +87,7 @@ class PlanetCog(Cog):
                 "That planet is unavailable. Please select another planet from the list.",
                 ephemeral=public != "Yes",
             )
-        if inter.guild:
-            guild = GWWGuilds.get_specific_guild(id=inter.guild.id)
-            if not guild:
-                self.bot.logger.error(
-                    f"Guild {inter.guild.id} - {inter.guild.name} - had the bot installed but wasn't found in the DB"
-                )
-                guild = GWWGuilds.add(inter.guild.id, "en", [])
-        else:
-            guild = GWWGuild.default()
+        guild = self.bot.get_guild_from_inter(inter=inter)
         guild_language = self.bot.json_dict["languages"][guild.language]
         components = PlanetContainers(
             planet=planet_data,

@@ -17,7 +17,7 @@ from disnake.ui import ActionRow, Container, TextDisplay
 from utils.bot import GalacticWideWebBot
 from utils.checks import wait_for_startup
 from utils.containers import SetupContainer
-from utils.dbv2 import Feature, GWWGuild, GWWGuilds
+from utils.dbv2 import Feature
 from utils.embeds import Dashboard
 from utils.maps import Maps
 from utils.setup import Setup
@@ -82,12 +82,7 @@ class SetupCog(Cog):
     )
     async def setup(self, inter: AppCmdInter) -> None:
         await inter.response.defer(ephemeral=True)
-        guild = GWWGuilds.get_specific_guild(id=inter.guild.id)
-        if not guild:
-            self.bot.logger.error(
-                f"Guild {inter.guild.id} - {inter.guild.name} - had the bot installed but wasn't found in the DB"
-            )
-            guild: GWWGuild = GWWGuilds.add(inter.guild.id, "en", [])
+        guild = self.bot.get_guild_from_inter(inter=inter)
         await inter.send(
             components=SetupContainer(
                 guild=guild,
@@ -109,7 +104,7 @@ class SetupCog(Cog):
         ):
             return
         await inter.response.defer()
-        guild: GWWGuild = GWWGuilds.get_specific_guild(inter.guild.id)
+        guild = self.bot.get_guild_from_inter(inter=inter)
         guild_language = self.bot.json_dict["languages"][guild.language]
         container = Container.from_component(inter.message.components[0])
         if inter.component.custom_id == "setup_home_button":
@@ -304,7 +299,7 @@ class SetupCog(Cog):
         ):
             return
         await inter.response.defer()
-        guild: GWWGuild = GWWGuilds.get_specific_guild(inter.guild.id)
+        guild = self.bot.get_guild_from_inter(inter=inter)
         guild_language = self.bot.json_dict["languages"][guild.language]
         if inter.component.custom_id == "dashboard_channel_select":
             try:

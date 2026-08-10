@@ -271,7 +271,7 @@ class WarUpdatesCog(Cog):
             return
         dss_updates = False
         unique_langs = GWWGuilds.unique_languages()
-        if self.bot.data.formatted_data.dss != None:
+        if self.bot.data.formatted_data.dss is not None:
             containers = {
                 lang: DSSChangesContainer(
                     json=DSSChangesJson(
@@ -292,7 +292,7 @@ class WarUpdatesCog(Cog):
             }
             if (
                 self.bot.databases.dss_info.planet_index is None
-                or not self.bot.databases.dss_info.tactical_action_statuses
+                or self.bot.databases.dss_info.tactical_action_statuses == {}
             ):
                 self.bot.databases.dss_info.planet_index = (
                     self.bot.data.formatted_data.dss.planet.index
