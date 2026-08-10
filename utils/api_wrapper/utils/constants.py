@@ -14,6 +14,7 @@ class EndpointBase(Enum):
         "https://api.steampowered.com/ISteamUserStats/GetNumberOfCurrentPlayers/v1/"
     )
     STEAM_NEWS = "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=553850&count=20&maxlength=0&format=json"
+    ITEMS = "https://api.live.prod.thehelldiversgame.com/api/progression/items"
 
 
 DEFENCE_LEVEL_EXCLAMATION_DICT = {

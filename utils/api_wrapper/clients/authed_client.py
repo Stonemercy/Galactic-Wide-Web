@@ -39,3 +39,18 @@ class AltPOAuthedClient(BaseAPIClient):
 
     async def get_personal_order(self) -> dict:
         return await self.get()
+
+
+class AltSuperstoreAuthedClient(BaseAPIClient):
+    def __init__(self, logger):
+        super().__init__(
+            base_url=Config.ALT_SUPERSTORE_ENDPOINT,
+            logger=logger,
+            headers=Config.ALT_AUTHED_API_HEADERS,
+        )
+
+    async def get_superstore(self) -> dict:
+        return await self.get()
+
+    async def get_rotating(self) -> dict:
+        return await self.get("/rotation")

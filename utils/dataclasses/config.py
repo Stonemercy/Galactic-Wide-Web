@@ -22,5 +22,6 @@ class Config:
     ALT_AUTHED_API_HEADERS: dict[str, str] = loads(getenv("ALT_AUTHED_API_HEADERS"))
     ALT_AUTHED_API_DSS_ENDPOINT: str = getenv("ALT_AUTHED_API_DSS_ENDPOINT")
     ALT_PO_ENDPOINT: str = getenv("ALT_PO_ENDPOINT")
+    ALT_SUPERSTORE_ENDPOINT: str = getenv("ALT_SUPERSTORE_ENDPOINT")
 
     ARSENAL_API_URL: str = getenv("ARSENAL_API_URL")

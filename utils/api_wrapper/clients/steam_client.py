@@ -10,7 +10,6 @@ class SteamPlayerCountClient(BaseAPIClient):
 
     async def get_steam_count(self) -> dict:
         return await self.get(
-            endpoint="",
             params={"appid": 553850},
         )
 
@@ -23,6 +22,4 @@ class SteamNewsClient(BaseAPIClient):
         )
 
     async def get_steam_news(self) -> dict:
-        return await self.get(
-            endpoint="",
-        )
+        return await self.get()

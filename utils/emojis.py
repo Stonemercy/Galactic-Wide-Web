@@ -27,6 +27,7 @@ class Emojis:
         primary_weapon = "<:s:1507054839052374229>"
         sidearm_weapon = "<:s:1507054840235294943>"
         throwable_weapon = "<:s:1507054841179013212>"
+        player_card = "<:s:1536476364226568312>"
 
     @dataclass
     class DefenceIcons:

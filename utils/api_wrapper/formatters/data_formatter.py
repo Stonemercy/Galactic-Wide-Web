@@ -7,6 +7,7 @@ from utils.api_wrapper.models import (
     ControlCentre,
     Dispatch,
     DSS,
+    EndpointItem,
     GalacticWarEffect,
     GlobalEvent,
     GlobalResource,
@@ -14,6 +15,7 @@ from utils.api_wrapper.models import (
     Planet,
     SpaceStation,
     SteamNews,
+    Superstore,
 )
 from utils.dataclasses import Factions, Languages
 from utils.dataclasses.communities import arsenal
@@ -195,6 +197,8 @@ class FormattedDataContext:
     space_stations: list[dict]
     steam_news: list
     control_centre: dict[str, list[dict]]
+    superstore: list[dict]
+    items_data: list[dict]
 
     # community targets
     arsenal_targets: list[int]
@@ -224,7 +228,15 @@ class FormattedData:
         self.campaigns: list[Campaign] = []
         self.steam_news: list[SteamNews] = []
         self.control_centre: dict[str, ControlCentre] = {}
+        self.superstore: Superstore | None = None
+        self.items_data: list[dict] = []
+        self.organised_items: list[EndpointItem] = []
         self.personal_order: PersonalOrder = None
+
+        if context.items_data != []:
+            self.items_data = context.items_data
+            for i in self.items_data:
+                self.organised_items.append(EndpointItem(i))
 
         if context.steam_player_count:
             self.steam_player_count: int = context.steam_player_count
@@ -697,6 +709,13 @@ class FormattedData:
                 )
                 for lang in context.control_centre
             }
+
+        if context.superstore != []:
+            self.superstore = Superstore(
+                context.superstore,
+                context.json_dict["items"]["items"],
+                self.organised_items,
+            )
 
         self.formatted_at = datetime.now(tz=timezone.utc)
 

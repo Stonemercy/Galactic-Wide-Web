@@ -13,6 +13,7 @@ from .planet import PlanetContainers
 from .region_changes import RegionChangesContainer
 from .setup import SetupContainer
 from .subfactions import SubfactionsContainer
+from .superstore import SuperstoreContainer
 from .usage_report import UsageContainer
 from .welcome import WelcomeContainer
 
@@ -32,6 +33,7 @@ __all__ = [
     "RegionChangesContainer",
     "SetupContainer",
     "SubfactionsContainer",
+    "SuperstoreContainer",
     "UsageContainer",
     "WelcomeContainer",
 ]

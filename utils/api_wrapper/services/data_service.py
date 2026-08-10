@@ -2,9 +2,11 @@ from datetime import datetime, timedelta, timezone
 from utils.api_wrapper.clients import (
     AltDSSVotesAuthedClient,
     AltPOAuthedClient,
+    AltSuperstoreAuthedClient,
     ArsenalClient,
     AuthedClient,
     HelldiversClient,
+    ItemsClient,
     SteamNewsClient,
     SteamPlayerCountClient,
 )
@@ -38,12 +40,13 @@ class DataService(ReprMixin):
         self._raw_war_info: dict = {}
         self._raw_war_effects: list = []
         self._raw_personal_order: dict = {}
-        self._raw_stuperstore: dict = {}
+        self._raw_stuperstore: list = {}
         self._raw_steam_news: list = []
         self._raw_control_centre: dict[str, dict] = {}
         self._episode_phase_translations: dict = {
             l.short_code: {"episodes": {}, "phases": {}} for l in Languages.all
         }
+        self._raw_api_items: list[dict] = []
 
         # community targets
         self._arsenal_targets: list[int] = []
@@ -61,6 +64,7 @@ class DataService(ReprMixin):
         self._raw_control_centre.clear()
 
     async def pull_from_api(self) -> None:
+        self.pull_start_time = datetime.now(tz=timezone.utc)
         self.clear()
         self.fetching = True
 
@@ -89,7 +93,7 @@ class DataService(ReprMixin):
                         self._raw_war_status.get("en", {}).get(
                             "time",
                             (
-                                datetime.now(tz=timezone.utc)
+                                self.pull_start_time
                                 - datetime(
                                     year=2024,
                                     month=2,
@@ -297,6 +301,25 @@ class DataService(ReprMixin):
                 if personal_order:
                     self._raw_personal_order = personal_order
 
+        if self.pull_start_time.minute == 0 or not self.loaded:
+            async with ItemsClient(
+                logger=self.logger, base_url=EndpointBase.ITEMS.value
+            ) as client:
+                self._raw_api_items = await client.get_items()
+
+            async with AltSuperstoreAuthedClient(logger=self.logger) as client:
+                mother_data = await client.get_superstore()
+                super_store_pages: dict = next(
+                    (s for s in mother_data if s["id32"] == 2776696735), None
+                )
+                if super_store_pages is not None:
+                    self._raw_stuperstore: list = super_store_pages.get("sections", [])
+                rotating_data = await client.get_rotating()
+                if rotating_data is not None:
+                    self._raw_stuperstore.insert(
+                        0, rotating_data.get("salesPage", {}).get("sections", [{}])[0]
+                    )
+
         async with ArsenalClient(logger=self.logger) as client:
             arsenal_target = await client.get_community_target()
             if arsenal_target and arsenal_target["count"] != 0:
@@ -320,6 +343,8 @@ class DataService(ReprMixin):
             personal_order=self._raw_personal_order,
             steam_news=self._raw_steam_news,
             control_centre=self._raw_control_centre,
+            superstore=self._raw_stuperstore,
+            items_data=self._raw_api_items,
             arsenal_targets=self._arsenal_targets,
             json_dict=self.json_dict,
         )

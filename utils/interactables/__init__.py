@@ -12,6 +12,7 @@ from .install_buttons import GuildInstallButton, UserInstallButton
 from .ko_fi_button import KoFiButton
 from .steam_string_select import SteamStringSelect
 from .subfactions_string_select import SubfactionsStringSelect
+from .superstore_string_select import SuperstoreStringSelect
 from .support_server_button import SupportServerButton
 from .wiki_button import WikiButton
 
@@ -31,6 +32,7 @@ __all__ = [
     "KoFiButton",
     "SteamStringSelect",
     "SubfactionsStringSelect",
+    "SuperstoreStringSelect",
     "SupportServerButton",
     "WikiButton",
 ]
