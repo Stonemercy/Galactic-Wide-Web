@@ -150,7 +150,11 @@ class GalacticWarEffect(GWEReprMixin):
         self.values_list: list = list(zip(gwa["valueTypes"], gwa["values"]))
         self.effect_description: dict = json_dict["galactic_war_effects"].get(
             str(gwa["effectType"]),
-            {"name": "UNKNOWN", "simplified_name": "", "description": ""},
+            {
+                "name": "UNKNOWN",
+                "simplified_name": "NEW EFFECT TYPE",
+                "description": "This effect has yet to be documented by the GWW",
+            },
         )
         for value_type, value in self.values_list:
             match value_type:
