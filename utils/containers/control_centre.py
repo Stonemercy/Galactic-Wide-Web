@@ -152,6 +152,7 @@ class ControlCentreContainer(Container):
                 reward_emoji = (
                     f"[{reward.emoji}](http://{reward.item_name.replace(' ', '-')}.com)"
                     if active_phase.status == ControlCentreStatus.InProgress
+                    and reward_name != "Unknown Item"
                     else reward.emoji
                 )
                 mo_rewards_text += f"{Emojis.Icons.blank}**{reward.amount}** x **{reward_name}** {reward_emoji} {reward_result_emoji}"
@@ -192,6 +193,7 @@ class ControlCentreContainer(Container):
             reward_emoji = (
                 f"[{reward.emoji}](http://{reward.item_name.replace(' ', '-')}.com)"
                 if active_phase.status == ControlCentreStatus.InProgress
+                and reward_name != "Unknown Item"
                 else reward.emoji
             )
             campaign_rewards_text += f"{Emojis.Icons.blank}**{reward.amount}** x **{reward_name}** {reward_emoji} {reward_result_emoji}"
@@ -297,6 +299,7 @@ class ControlCentreContainer(Container):
             reward_emoji = (
                 f"[{reward.emoji}](http://{reward.item_name.replace(' ', '-')}.com)"
                 if phase.status == ControlCentreStatus.InProgress
+                and reward_name != "Unknown Item"
                 else reward.emoji
             )
             mo_rewards_text += f"{Emojis.Icons.blank}**{reward.amount}** x **{reward_name}** {reward_emoji} {reward_result_emoji}"
@@ -336,6 +339,7 @@ class ControlCentreContainer(Container):
             reward_emoji = (
                 f"[{reward.emoji}](http://{reward.item_name.replace(' ', '-')}.com)"
                 if campaign.status == ControlCentreStatus.InProgress
+                and reward_name != "Unknown Item"
                 else reward.emoji
             )
             campaign_rewards_text += f"{Emojis.Icons.blank}**{reward.amount}** x **{reward_name}** {reward_emoji} {reward_result_emoji}"

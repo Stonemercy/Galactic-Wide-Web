@@ -114,7 +114,7 @@ class ControlCentre:
                 self.emoji: str = getattr(
                     Emojis.Items,
                     self.item_type.replace(" ", "_").lower(),
-                    "",
+                    Emojis.Icons.victory,
                 )
 
             def __eq__(self, value):
