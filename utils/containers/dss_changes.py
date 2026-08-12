@@ -35,9 +35,7 @@ class DSSChangesContainer(Container):
 
     def _add_subfactions(self, text_display: TextDisplay, subfactions: set[Subfaction]):
         for sf in subfactions:
-            text_display.content += (
-                f"\n-# {sf.emoji} **{self.json.subfactions[sf.eng_name]}**"
-            )
+            text_display.content += f"\n-# {sf.emoji} **{self.json.subfactions.get(sf.eng_name, sf.eng_name)}**"
 
     def _add_regions(self, text_display: TextDisplay, regions: list[Planet.Region]):
         for region in sorted(regions, key=lambda x: x.availability_factor):

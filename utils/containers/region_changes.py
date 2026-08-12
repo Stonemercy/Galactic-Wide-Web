@@ -46,9 +46,7 @@ class RegionChangesContainer(Container, ReprMixin):
 
     def _add_subfactions(self, text_display: TextDisplay, subfactions: set[Subfaction]):
         for sf in subfactions:
-            text_display.content += (
-                f"\n-# {sf.emoji} **{self.container_json.subfactions[sf.eng_name]}**"
-            )
+            text_display.content += f"\n-# {sf.emoji} **{self.container_json.subfactions.get(sf.eng_name, sf.eng_name)}**"
 
     def _add_features(
         self, text_display: TextDisplay, planet_features: list[PlanetFeature]
