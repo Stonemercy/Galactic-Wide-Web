@@ -110,7 +110,22 @@ class Subfactions:
         1380,
         1379,
         Factions.illuminate,
-    
+    )
+    HEAVY_SEAF_PRESENCE = Subfaction(
+        3126357841,
+        "HEAVY SEAF PRESENCE",
+        Emojis.Subfactions.heavy_seaf_presence,
+        1401,
+        1400,
+        Factions.humans,
+    )
+    VOTE_SNATCHERS = Subfaction(
+        4253783814,
+        "VOTE SNATCHERS",
+        Emojis.Subfactions.vote_snatchers,
+        1402,
+        1403,
+        Factions.illuminate,
     )
 
     _all: tuple[Subfaction] = (
@@ -125,6 +140,8 @@ class Subfactions:
         CYBORGS,
         MINDLESS_MASSES,
         APPROPRIATORS,
+        HEAVY_SEAF_PRESENCE,
+        VOTE_SNATCHERS,
     )
 
     @classmethod
