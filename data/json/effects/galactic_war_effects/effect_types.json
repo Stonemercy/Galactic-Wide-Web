@@ -208,7 +208,15 @@
         "simplified_name": "Modifier Effect"
     },
     "95": {
-        "name": "Unknown",
-        "simplified_name": "Unknown effect"
+        "name": "game_OperationOverride",
+        "simplified_name": "Overrides the operations for the planet"
+    },
+    "96": {
+        "name": "game_MissionTypeOverride",
+        "simplified_name": "Overrides the missions for the planet"
+    },
+    "97": {
+        "name": "game_PlanetBiomeOverride",
+        "simplified_name": "Overrides the planet biome"
     }
 }
