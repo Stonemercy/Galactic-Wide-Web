@@ -359,6 +359,12 @@
         "type": "Helmet",
         "cost": 0
     },
+    "2547900634": {
+        "name": "IX-VOIDWALKER",
+        "description": "A helmet worn by the pioneering Helldivers who first ventured into the Void. Designed by Super Earth scientists with liberated Illuminate blueprints.",
+        "type": "Helmet",
+        "cost": 0
+    },
     "729713319": {
         "name": "B-27 FORTIFIED COMMANDO",
         "description": "This armor set first appeared in the music video for the summer anthem 'Our Love is Like Liberty (Indestructible)'. ",
@@ -1385,6 +1391,30 @@
         "type": "Helmet",
         "cost": 310
     },
+    "2022698159": {
+        "name": "TG-8 SHARPSHOOTER",
+        "description": "\"Where lesser soldiers break, Helldivers obey. When Tyranny's horrors swarm, Helldivers obey. When death is certain, and hope and sense have fled, Helldivers obey.\" \u2014 Last Lord Governor of Chara.",
+        "type": "Armor",
+        "cost": 0
+    },
+    "709947019": {
+        "name": "TG-8 SHARPSHOOTER",
+        "description": "\"Where lesser soldiers break, Helldivers obey. When Tyranny's horrors swarm, Helldivers obey. When death is certain, and hope and sense have fled, Helldivers obey.\" \u2014 Last Lord Governor of Chara.",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "459709488": {
+        "name": "TG-122 DEMO-TROOPER",
+        "description": "The design of the Demo-Trooper armor has been a corporate secret since ST Construction first issued it to the Charan Colonial Guard in the early days of the Galactic Federation. Now, STC has contracted with the Ministry of Defense to issue the storied armor of its fallen homeworld to the Helldivers.",
+        "type": "Armor",
+        "cost": 0
+    },
+    "556991843": {
+        "name": "TG-122 DEMO-TROOPER",
+        "description": "The design of the Demo-Trooper armor has been a corporate secret since ST Construction first issued it to the Charan Colonial Guard in the early days of the Galactic Federation. Now, STC has contracted with the Ministry of Defense to issue the storied armor of its fallen homeworld to the Helldivers.",
+        "type": "Helmet",
+        "cost": 0
+    },
     "521433875": {
         "name": "RS-89 SHADOW PARAGON",
         "description": "Armor befitting infiltrators of all caliber. Inspired by mythical Democracy-dispensers, whose meticulously undocumented operations remain an inspiration to all students of stealth.",
@@ -1919,6 +1949,18 @@
         "type": "Cape",
         "cost": 0
     },
+    "1917125054": {
+        "name": "CAMO CLOAK",
+        "description": "The horrors of Tyranny are manifold, their minions many, but they are naught before Democracy's twin swords: overwhelming firepower, and those trained elite who unquestioningly wield it.",
+        "type": "Cape",
+        "cost": 0
+    },
+    "2588059193": {
+        "name": "CITY FIGHTER'S RESOLVE",
+        "description": "\"The Helldivers are all that stand between Democracy and the Fascist hordes. Trained since birth in the art of Defensive Warfare, they meet mindless legions with the steady aim of one who has seen countless battles.\" \u2014Excerpt from the journal of a Charan Democracy Officer, ca. 2082 SE",
+        "type": "Cape",
+        "cost": 0
+    },
     "2491991003": {
         "name": "RAGS OF THE FASHIONABLE",
         "description": "Gently stonewashed by experienced hands, this luxury cape exudes the essence of state-approved attitude.",
@@ -2387,6 +2429,12 @@
         "type": "Throwable Weapon",
         "cost": 0
     },
+    "1339288659": {
+        "name": "G/40-K MELTA MINE",
+        "description": "A powerful, single-use, proximity-detonated heat energy mine. During the Fall of Chara, it is said enough Melta Mines were detonated to outshine the planet's sun. \n\nProduced by ST Construction.",
+        "type": "Throwable Weapon",
+        "cost": 0
+    },
     "1789694805": {
         "name": "G-50 SEEKER",
         "description": "This grenade delivery drone follows the user until it detects an enemy nearby, then flies toward it and explodes on impact. Has a limited battery life.",
@@ -2651,6 +2699,12 @@
         "type": "Primary Weapon",
         "cost": 0
     },
+    "4050324431": {
+        "name": "R/40-K HOT-SHOT MARKSMAN RIFLE",
+        "description": "The alloy in these long-range rifles includes metals from the dead planet Chara, overrun in the First Galactic War. \n\nProduced by ST Construction.",
+        "type": "Primary Weapon",
+        "cost": 0
+    },
     "2307301438": {
         "name": "R-63 DILIGENCE",
         "description": "This high-caliber marksman rifle trades magazine capacity and rate of fire for powerful, accurate shots.",
@@ -2750,6 +2804,12 @@
     "2018836169": {
         "name": "M6C/SOCOM PISTOL",
         "description": "A pistol with a built-in laser sight, suppressor, and flashlight.\nProduced by Martian Armory.",
+        "type": "Sidearm Weapon",
+        "cost": 0
+    },
+    "3271863995": {
+        "name": "P/40-K BOLT PISTOL",
+        "description": "The utilitarian sidearm that was standard-issue to the Charan Colonial Guard in the early days of the Galactic Federation. \n\nProduced by ST Construction.",
         "type": "Sidearm Weapon",
         "cost": 0
     },
@@ -2928,73 +2988,73 @@
         "cost": 0
     },
     "1455517800": {
-        "name": "Cheer",
+        "name": "CHEER",
         "description": "",
         "type": "Emote",
         "cost": 0
     },
     "1200031688": {
-        "name": "Handshake Engineer",
+        "name": "HANDSHAKE ENGINEER",
         "description": "",
         "type": "Emote",
         "cost": 0
     },
     "1508758952": {
-        "name": "Handshake Recon",
+        "name": "HANDSHAKE RECON",
         "description": "",
         "type": "Emote",
         "cost": 0
     },
     "198334139": {
-        "name": "High Five",
+        "name": "HIGH FIVE",
         "description": "",
         "type": "Emote",
         "cost": 0
     },
     "2665206765": {
-        "name": "Hug",
+        "name": "HUG",
         "description": "",
         "type": "Emote",
         "cost": 0
     },
     "836157113": {
-        "name": "Rock Paper Scissors",
+        "name": "ROCK PAPER SCISSORS",
         "description": "",
         "type": "Emote",
         "cost": 0
     },
     "3797678333": {
-        "name": "Salute",
+        "name": "SALUTE",
         "description": "",
         "type": "Emote",
         "cost": 0
     },
     "299597462": {
-        "name": "Draw!",
+        "name": "DRAW!",
         "description": "",
         "type": "Emote",
         "cost": 250
     },
     "2124284534": {
-        "name": "March",
+        "name": "MARCH",
         "description": "",
         "type": "Emote",
         "cost": 0
     },
     "4693889": {
-        "name": "Stoic",
+        "name": "STOIC",
         "description": "",
         "type": "Emote",
         "cost": 0
     },
     "3818154189": {
-        "name": "Taunt",
+        "name": "TAUNT",
         "description": "",
         "type": "Emote",
         "cost": 0
     },
     "2234906439": {
-        "name": "Enthusiastic Mirth",
+        "name": "ENTHUSIASTIC MIRTH",
         "description": "",
         "type": "Emote",
         "cost": 250

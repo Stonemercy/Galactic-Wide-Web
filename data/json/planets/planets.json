@@ -3611,8 +3611,8 @@
             "zh-Hans": "\u897f\u65af",
             "zh-Hant": "\u897f\u5e0c"
         },
-        "description": "Tall, gnarled trees flourish across the surface of this forested world. Sunlight filters past dangling vines, to the saturated undergrowth below. ",
-        "biome": "forest_swamp_base"
+        "description": "",
+        "biome": "forest_rift_active"
     },
     "3709894755": {
         "names": {
@@ -5713,5 +5713,12 @@
         },
         "description": "Entirely unforeseeable mutations from the Termicide led to hyper-accelerated bug growth on this planet, turning it into a Supercolony. It is corrupted beyond saving. The bugs infest every inch of it, down to the mantle, spawning trillions of spores every day.",
         "biome": ""
+    },
+    "3843221315": {
+        "names": {
+            "en-GB": "VOID SOURCE PLANET"
+        },
+        "description": "",
+        "biome": "forest_rift_active"
     }
 }

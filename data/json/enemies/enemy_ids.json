@@ -115,6 +115,10 @@
         "name": "Bulk Fabricator",
         "plural": "Bulk Fabricators"
     },
+    "3921936527": {
+        "name": "Bunker Turret",
+        "plural": "Bunker Turrets"
+    },
     "478200978": {
         "name": "Cannon Turret",
         "plural": "Cannon Turrets"
@@ -170,6 +174,10 @@
     "3162264097": {
         "name": "Crescent Overseer",
         "plural": "Crescent Overseers"
+    },
+    "3922421925": {
+        "name": "Crusher",
+        "plural": "Crushers"
     },
     "141977090": {
         "name": "Cyborgs",
@@ -246,6 +254,10 @@
     "437176070": {
         "name": "Gunship",
         "plural": "Gunships"
+    },
+    "3126357841": {
+        "name": "HEAVY SEAF PRESENCE",
+        "plural": "HEAVY SEAF PRESENCE"
     },
     "1405979473": {
         "name": "Harvester",
@@ -631,6 +643,10 @@
         "name": "Trooper",
         "plural": "Troopers"
     },
+    "4253783814": {
+        "name": "VOTE SNATCHERS",
+        "plural": "VOTE SNATCHERS"
+    },
     "3776682558": {
         "name": "Veracitor",
         "plural": "Veracitors"
@@ -695,12 +711,8 @@
         "name": "Watcher",
         "plural": "Watchers"
     },
-    "3126357841": {
-        "name": "HEAVY SEAF PRESENCE",
-        "plural": "HEAVY SEAF PRESENCE"
-    },
-    "4253783814": {
-        "name": "VOTE SNATCHERS",
-        "plural": "VOTE SNATCHERS"
+    "2118086817": {
+        "name": "Wretch",
+        "plural": "Wretches"
     }
 }

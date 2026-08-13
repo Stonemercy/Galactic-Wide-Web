@@ -184,6 +184,7 @@ STRATAGEM_ID_DICT = {
     2961443701: "PLAS-45 Epoch",
     3659583399: "M-1000 Maxigun",
     2427670661: "B/FLAM-80 Cremator",
+    4080785205: "40-K Meltagun",
     1228689284: "A/MG-43 Machine Gun Sentry",
     2446402932: "A/G-16 Gatling Sentry",
     461790327: "A/M-12 Mortar Sentry",
