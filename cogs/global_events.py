@@ -53,6 +53,11 @@ class GlobalEventsCog(Cog):
         ):
             if global_event.id > self.bot.databases.war_info.global_event_id:
                 if (
+                    40 in [gwe.effect_type for gwe in global_event.effects]
+                    and global_event.planet_indices == []
+                ):
+                    return
+                if (
                     global_event.assignment_id != 0
                     or "BRIEFING" in global_event.title.upper()
                 ):
