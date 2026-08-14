@@ -142,11 +142,17 @@ class PlanetCog(Cog):
                     accent_colour=Colour.dark_embed(),
                 ),
             )
-        await inter.send(
-            components=components,
-            file=File(f"resources/biomes/{planet_data.biome}.png"),
-            ephemeral=public != "Yes",
-        )
+        if planet_data.biome != "":
+            await inter.send(
+                components=components,
+                file=File(f"resources/biomes/{planet_data.biome}.png"),
+                ephemeral=public != "Yes",
+            )
+        else:
+            await inter.send(
+                components=components,
+                ephemeral=public != "Yes",
+            )
 
 
 def setup(bot: GalacticWideWebBot) -> None:

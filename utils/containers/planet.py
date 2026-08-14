@@ -54,9 +54,10 @@ class PlanetContainers(list[Container]):
         ):
             self.lang_code = lang_code
             self.components = []
-            self.components.append(
-                MediaGallery(MediaGalleryItem(f"attachment://{planet.biome}.png"))
-            )
+            if planet.biome != "":
+                self.components.append(
+                    MediaGallery(MediaGalleryItem(f"attachment://{planet.biome}.png"))
+                )
             self.add_planet_info(
                 planet=planet,
                 component_json=container_json["planet_info"],
