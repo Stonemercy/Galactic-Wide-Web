@@ -23,17 +23,17 @@ class PlanetCog(Cog):
         if not inter.bot.ready:
             return []
         return [
-            f"{p.index}-{p.names.get('en-GB', p.name)}"
+            f"{p.index} - {p.names.get('en-GB', p.name)} - {p.sector}"
             for p in sorted(
                 inter.bot.data.formatted_data.planets.values(),
                 key=lambda x: x.stats.player_count,
                 reverse=True,
             )
-            if not p.is_hidden
-            and (
-                user_input.lower() in p.names.get("en-GB", p.name).lower()
+            if (
+                user_input.lower() in f"{p.name} {p.sector}".lower()
                 or user_input in str(p.index)
             )
+            and 1376 not in p.effect_ids
         ][:25]
 
     @wait_for_startup()
