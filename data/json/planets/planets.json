@@ -552,7 +552,7 @@
             "zh-Hant": "\u9ed1\u9ea5\u723e"
         },
         "description": "Scorching temperatures, high winds, and low precipitation cause a near-constant cycle of fires to sweep this planet, punctuated by short bursts of lush rebirth between infernos.",
-        "biome": "forest_moor_arid"
+        "biome": "hellmire"
     },
     "2640422831": {
         "names": {
@@ -3792,7 +3792,7 @@
             "zh-Hant": "\u5929\u95dc"
         },
         "description": "Ice and moss-covered rock can be found across most of the surface of this planet.",
-        "biome": "arctic_glacier_coldrocky"
+        "biome": "tien_kwan"
     },
     "1049999007": {
         "names": {
@@ -5699,6 +5699,62 @@
         "description": "A blazing-hot desert planet, its rocky mesas are the sole interruptions to the endless sea of dunes.",
         "biome": "desert_sandy_base"
     },
+    "721718208": {
+        "names": {
+            "en-GB": "UVP ALPHA",
+            "de-DE": "ULP ALPHA",
+            "es-ES": "UVP ALFA",
+            "fr-FR": "UVP ALPHA",
+            "it-IT": "UVP ALFA",
+            "pt-BR": "UVP ALFA",
+            "ru-RU": "\u041d\u041f\u0411 \u00ab\u0410\u041b\u042c\u0424\u0410\u00bb",
+            "zh-Hant": "UVP\u963f\u723e\u6cd5"
+        },
+        "description": "",
+        "biome": "forest_deciduous_crimson"
+    },
+    "3860924039": {
+        "names": {
+            "en-GB": "UVP BETA",
+            "de-DE": "ULP BETA",
+            "es-ES": "UVP BETA",
+            "fr-FR": "UVP B\u00caTA",
+            "it-IT": "UVP BETA",
+            "pt-BR": "UVP BETA",
+            "ru-RU": "\u041d\u041f\u0411 \u00ab\u0411\u0415\u0422\u0410\u00bb",
+            "zh-Hant": "UVP\u8c9d\u5854"
+        },
+        "description": "The lifeless grey of this planet is interrupted only by the violet flowers that grow from strange, parasitic outcroppings.",
+        "biome": "forest_primordial_dead"
+    },
+    "3756972388": {
+        "names": {
+            "en-GB": "UVP GAMMA",
+            "de-DE": "ULP GAMMA",
+            "es-ES": "UVP GAMMA",
+            "fr-FR": "UVP GAMMA",
+            "it-IT": "UVP GAMMA",
+            "pt-BR": "UVP GAMA",
+            "ru-RU": "\u041d\u041f\u0411 \u00ab\u0413\u0410\u041c\u041c\u0410\u00bb",
+            "zh-Hant": "UVP\u4f3d\u746a"
+        },
+        "description": "",
+        "biome": "desert_oasis_bleak"
+    },
+    "2621050767": {
+        "names": {
+            "en-GB": "KEPLER-390b",
+            "de-DE": "ULP DELTA",
+            "es-ES": "UVP DELTA",
+            "fr-FR": "UVP DELTA",
+            "it-IT": "UVP DELTA",
+            "pt-BR": "UVP DELTA",
+            "ru-RU": "\u041d\u041f\u0411 \u00ab\u0414\u0415\u041b\u042c\u0422\u0410\u00bb",
+            "zh-Hant": "UVP\u5fb7\u723e\u5854"
+        },
+        "description": "Squelching mud, twisting roots; the odor of rot and anarchy. A teeming, endless morass.",
+        "biome": "forest_swamp_haunted"
+    },
     "3553482976": {
         "names": {
             "en-GB": "MERIDIA",
@@ -5720,5 +5776,33 @@
         },
         "description": "",
         "biome": "forest_rift_active"
+    },
+    "2136773246": {
+        "names": {
+            "en-GB": "HELLMIRE",
+            "de-DE": "HELLMIRE",
+            "es-ES": "LODAZAL INFERNAL",
+            "fr-FR": "BOURBEFEU",
+            "it-IT": "HELLMIRE",
+            "pt-BR": "LODOFERNO",
+            "ru-RU": "\u0425\u0415\u041b\u041b\u041c\u0415\u0419\u0420",
+            "zh-Hant": "\u9ed1\u9ea5\u723e"
+        },
+        "description": "Scorching temperatures, high winds, and low precipitation cause a near-constant cycle of fires to sweep this planet, punctuated by short bursts of lush rebirth between infernos.",
+        "biome": "forest_moor_arid"
+    },
+    "2822176416": {
+        "names": {
+            "en-GB": "TIEN KWAN",
+            "de-DE": "TIEN KWAN",
+            "es-ES": "TIEN KWAN",
+            "fr-FR": "TIEN KWAN",
+            "it-IT": "TIEN KWAN",
+            "pt-BR": "TIEN KWAN",
+            "ru-RU": "\u0422\u042c\u0415\u041d-\u041a\u0412\u0410\u041d",
+            "zh-Hant": "\u5929\u95dc"
+        },
+        "description": "Ice and moss-covered rock can be found across most of the surface of this planet.",
+        "biome": "arctic_glacier_coldrocky"
     }
 }
