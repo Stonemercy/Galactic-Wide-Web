@@ -212,26 +212,28 @@ class WarUpdatesCog(Cog):
             if need_to_update_sectors:
                 await to_thread(
                     self.bot.maps.update_sectors,
-                    planets=self.bot.data.formatted_data.planets,
+                    planets=self.bot.data.formatted_data.galactic_planets,
                 )
                 self.bot.maps.update_waypoint_lines(
-                    planets=self.bot.data.formatted_data.planets
+                    planets=self.bot.data.formatted_data.galactic_planets
                 )
             self.bot.maps.update_assignment_tasks(
                 assignments=self.bot.data.formatted_data.assignments.get("en", []),
-                planets=self.bot.data.formatted_data.planets,
+                planets=self.bot.data.formatted_data.galactic_planets,
             )
-            self.bot.maps.update_planets(planets=self.bot.data.formatted_data.planets)
+            self.bot.maps.update_planets(
+                planets=self.bot.data.formatted_data.galactic_planets
+            )
             for lang in self.bot.json_dict["languages"].values():
                 self.bot.maps.localize_map(
                     language_code_short=lang["code"],
                     language_code_long=lang["code_long"],
-                    planets=self.bot.data.formatted_data.planets,
+                    planets=self.bot.data.formatted_data.galactic_planets,
                 )
                 self.bot.maps.add_icons(
                     lang=lang["code"],
                     long_code=lang["code_long"],
-                    planets=self.bot.data.formatted_data.planets,
+                    planets=self.bot.data.formatted_data.galactic_planets,
                     dss=self.bot.data.formatted_data.dss,
                 )
                 try:
@@ -354,19 +356,19 @@ class WarUpdatesCog(Cog):
             )
             if dss_has_moved:
                 self.bot.maps.update_planets(
-                    planets=self.bot.data.formatted_data.planets
+                    planets=self.bot.data.formatted_data.galactic_planets
                 )
                 for lang in unique_langs:
                     lang_json = self.bot.json_dict["languages"][lang]
                     self.bot.maps.localize_map(
                         language_code_short=lang,
                         language_code_long=lang_json["code_long"],
-                        planets=self.bot.data.formatted_data.planets,
+                        planets=self.bot.data.formatted_data.galactic_planets,
                     )
                     self.bot.maps.add_icons(
                         lang=lang,
                         long_code=lang_json["code_long"],
-                        planets=self.bot.data.formatted_data.planets,
+                        planets=self.bot.data.formatted_data.galactic_planets,
                         dss=self.bot.data.formatted_data.dss,
                     )
                     message = await self.bot.channels.waste_bin_channel.send(

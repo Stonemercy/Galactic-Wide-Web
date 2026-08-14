@@ -176,19 +176,21 @@ class Maps:
         background = imread(Maps.FileLocations.sector_map, IMREAD_UNCHANGED)
         for planet in planets.values():
             for n_index in planet.nearby:
-                colour = planet.faction.colour
-                if planet.event:
-                    colour = planet.event.faction.colour
                 near_planet = planets.get(n_index)
-                if not near_planet or (near_planet.is_hidden and planet.is_hidden):
+                if near_planet is None or (near_planet.is_hidden and planet.is_hidden):
                     continue
+                colour = planet.faction.colour
+                if planet.event is not None and n_index in planet.defending_from:
+                    colour = planet.event.faction.colour
                 x1, y1 = planet.map_waypoints
                 x2, y2 = near_planet.map_waypoints
                 distance_div = 0.5
                 with_attack_arrows = False
-                if near_planet.is_hidden:
+                if near_planet.is_hidden or planet.regen_perc_per_hour < 0:
                     distance_div = 0.25
-                elif planet.is_hidden:
+                elif (
+                    planet.is_hidden and planet.index not in near_planet.defending_from
+                ) or near_planet.regen_perc_per_hour < 0:
                     distance_div = 0.75
                 else:
                     if planet.event:
@@ -203,6 +205,11 @@ class Maps:
                                 with_attack_arrows = True
                         elif planet.faction == near_planet.faction:
                             colour = near_planet.faction.colour
+                    elif planet.in_assignment:
+                        distance_div = 0.25
+                    elif near_planet.in_assignment:
+                        distance_div = 0.75
+
                 end_point = (
                     int(x1 + (x2 - x1) * distance_div),
                     int(y1 + (y2 - y1) * distance_div),

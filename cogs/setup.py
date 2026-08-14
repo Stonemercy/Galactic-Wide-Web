@@ -434,7 +434,7 @@ class SetupCog(Cog):
                         components=[TextDisplay("Generating map, please wait...")]
                     )
                     self.bot.maps.update_base_map(
-                        planets=self.bot.data.formatted_data.planets,
+                        planets=self.bot.data.formatted_data.galactic_planets,
                         assignments=self.bot.data.formatted_data.assignments.get(
                             "en", []
                         ),
@@ -442,7 +442,7 @@ class SetupCog(Cog):
                     self.bot.maps.localize_map(
                         language_code_short=guild_language["code"],
                         language_code_long=guild_language["code_long"],
-                        planets=self.bot.data.formatted_data.planets,
+                        planets=self.bot.data.formatted_data.galactic_planets,
                     )
                     message = await self.bot.channels.waste_bin_channel.send(
                         file=File(
@@ -457,7 +457,7 @@ class SetupCog(Cog):
                     self.bot.maps.add_icons(
                         lang=guild_language["code"],
                         long_code=guild_language["code_long"],
-                        planets=self.bot.data.formatted_data.planets,
+                        planets=self.bot.data.formatted_data.galactic_planets,
                         dss=self.bot.data.formatted_data.dss,
                     )
                     latest_map = self.bot.maps.latest_maps[guild_language["code"]]

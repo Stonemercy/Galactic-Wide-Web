@@ -153,6 +153,10 @@ class Planet(ReprMixin):
     def effect_ids(self) -> list[int]:
         return [ae.id for ae in self.active_effects]
 
+    @property
+    def in_void(self) -> bool:
+        return 1409 in self.effect_ids
+
     class Event(ReprMixin):
         __slots__ = (
             "id",

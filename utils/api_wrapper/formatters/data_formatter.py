@@ -581,6 +581,15 @@ class FormattedData:
                 for wplanet in (self.planets.get(wp) for wp in p.waypoints):
                     wplanet.nearby.append(p.index)
 
+                if 1411 in p.effect_ids and p.in_void:
+                    for lang in p.names:
+                        p.names[lang] = "UNIDENTIFIED LOCATION"
+                        p.biome == ""
+                elif 1412 in p.effect_ids and p.in_void:
+                    for lang in p.names:
+                        p.names[lang] = "ANOMALY LOCATION"
+                        p.biome == ""
+
             for ge in self.global_events.get("en", []):
                 if ge.effects and ge.planet_indices:
                     for planet in (self.planets.get(i) for i in ge.planet_indices):
@@ -622,3 +631,11 @@ class FormattedData:
         return next(
             (ss for ss in self.space_stations if ss.type == SpaceStationType.DSS), None
         )
+
+    @property
+    def galactic_planets(self) -> dict[int, Planet]:
+        return {k: v for k, v in self.planets.items() if not v.in_void}
+
+    @property
+    def void_planets(self) -> dict[int, Planet]:
+        return {k: v for k, v in self.planets.items() if v.in_void}
