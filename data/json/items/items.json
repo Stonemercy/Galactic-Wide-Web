@@ -2855,6 +2855,12 @@
         "type": "Support Weapon",
         "cost": 0
     },
+    "4080785205": {
+        "name": "40-K MELTAGUN",
+        "description": "Fires a short-ranged superheated blast of thermal energy that melts the heaviest armor and thickest chitin into slag. \n\nProduced by ST Construction.",
+        "type": "Support Weapon",
+        "cost": 0
+    },
     "4001788629": {
         "name": "MGX-42 BULLET STORM",
         "description": "A single-use weapon sporting caseless ammunition stacked in multiple barrels. An electrical firing mechanism releases the rounds in rapid succession upon firing, after which the weapon is to be discarded.",
