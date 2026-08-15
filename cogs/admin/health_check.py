@@ -69,8 +69,11 @@ class HealthCheckCog(commands.Cog):
             if not self.bot.data.formatted_data.personal_order:
                 await self.send_warning(
                     error=f"PO is missing", vips_to_cc=[VIP.RawBeef]
-                )
-            if not self.bot.data.formatted_data.dss.votes:
+                    )
+            if (
+                self.bot.data.formatted_data.dss is not None
+                and self.bot.data.formatted_data.dss.votes is None
+            ):
                 await self.send_warning(
                     error=f"DSS votes are missing", vips_to_cc=[VIP.RawBeef]
                 )

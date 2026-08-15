@@ -65,6 +65,9 @@ class DSSCog(Cog):
         ),
     ) -> None:
         await inter.response.defer(ephemeral=public != "Yes")
+        embed = Embed(
+            title="DSS votes are unavailable. Apologies for the inconvenience."
+        )
         if (dss := self.bot.data.formatted_data.dss) is not None:
             if dss.votes is not None:
                 embed = Embed(
