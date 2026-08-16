@@ -581,13 +581,13 @@ class FormattedData:
                 for wplanet in (self.planets.get(wp) for wp in p.waypoints):
                     wplanet.nearby.append(p.index)
 
-                if 1411 in p.effect_ids and p.in_void:
-                    for lang in p.names:
-                        p.names[lang] = "UNIDENTIFIED LOCATION"
-                        p.biome == ""
-                elif 1412 in p.effect_ids and p.in_void:
+                if 1412 in p.effect_ids and p.in_void:
                     for lang in p.names:
                         p.names[lang] = "ANOMALY LOCATION"
+                        p.biome == ""
+                elif p.in_void and not p.active_campaign:
+                    for lang in p.names:
+                        p.names[lang] = "UNIDENTIFIED LOCATION"
                         p.biome == ""
 
             for ge in self.global_events.get("en", []):
