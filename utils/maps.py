@@ -483,11 +483,19 @@ class Maps:
                     y_offset=10,
                 )
             loc_name = planet.names.get(long_code, planet.name)
-            if (
-                planet.faction != Factions.humans or planet.active_campaign
-            ) and not planet.is_hidden:
+            if not planet.is_hidden:
                 x_offset = 0
                 for sf in planet.subfactions:
+                    if (
+                        sf.faction
+                        != (
+                            planet.event.faction
+                            if planet.event is not None
+                            else planet.faction
+                        )
+                        and sf.faction != Factions.humans
+                    ):
+                        continue
                     sf_icon = imread(
                         f"resources/map_icons/{sf.eng_name.lower().replace(' ', '_')}_bordered.png",
                         IMREAD_UNCHANGED,
