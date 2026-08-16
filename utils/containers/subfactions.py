@@ -46,10 +46,7 @@ class SubfactionsContainer(Container):
                         Separator(),
                     ]
                 )
-            colour = max(
-                [p.faction for p in planets_with_sf],
-                key=[p.faction for p in planets_with_sf].count,
-            ).colour
+            colour = subfaction.faction.colour
         else:
             self.components.append(TextDisplay(f"- None"))
             colour = Factions.humans.colour
