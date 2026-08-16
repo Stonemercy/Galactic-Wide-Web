@@ -212,11 +212,11 @@
         "simplified_name": "Overrides the operations for the planet"
     },
     "96": {
-        "name": "game_MissionTypeOverride",
-        "simplified_name": "Overrides the missions for the planet"
+        "name": "war_addOperationTag",
+        "simplified_name": "Adds a tag to operations on that planet"
     },
     "97": {
-        "name": "game_PlanetBiomeOverride",
-        "simplified_name": "Overrides the planet biome"
+        "name": "map_SideboardID",
+        "simplified_name": "Places the planet within the a side board"
     }
 }
