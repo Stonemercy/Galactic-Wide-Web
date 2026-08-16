@@ -111,6 +111,14 @@ class Subfactions:
         1379,
         Factions.illuminate,
     )
+    INVASION_FLEET = Subfaction(
+        872028856,
+        "INVASION FLEET",
+        Emojis.Subfactions.invasion_fleet,
+        1413,
+        1414,
+        Factions.illuminate,
+    )
     HEAVY_SEAF_PRESENCE = Subfaction(
         3126357841,
         "HEAVY SEAF PRESENCE",
@@ -140,6 +148,7 @@ class Subfactions:
         CYBORGS,
         MINDLESS_MASSES,
         APPROPRIATORS,
+        INVASION_FLEET,
         HEAVY_SEAF_PRESENCE,
         VOTE_SNATCHERS,
     )

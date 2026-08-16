@@ -170,6 +170,7 @@ class Emojis:
         cyborgs = "<:s:1467949410573877545>"
         mindless_masses = "<:s:1483440352701452379>"
         appropriators = "<:s:1483440351380504586>"
+        invasion_fleet = "<:s:1524785461908738098>"
         heavy_seaf_presence = "<:s:1537193617360425093>"
         vote_snatchers = "<:s:1537193618522243153>"
 
