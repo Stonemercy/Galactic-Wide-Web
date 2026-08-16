@@ -435,40 +435,49 @@ class Maps:
         planets: dict[int, Planet],
         dss: DSS,
     ):
-        frac_planet_icon = imread(
-            "resources/map_icons/fractured_planet.png", IMREAD_UNCHANGED
-        )
         path = Maps.FileLocations.localized_map_path(language_code=lang)
         background = imread(path, IMREAD_UNCHANGED)
         for planet in planets.values():
             if 1376 in planet.effect_ids:
+                # in void
                 continue
-            if planet.index == 0:
+
+            if planet.name == "SUPER EARTH":
+                # super earth
                 se_icon = imread(
                     "resources/map_icons/super_earth.png", IMREAD_UNCHANGED
                 )
-                self.paste_image(background, se_icon, planet.map_waypoints)
-            elif any([aeid in (1241, 1252) for aeid in planet.effect_ids]):
                 self.paste_image(
-                    background,
-                    frac_planet_icon,
-                    planet.map_waypoints,
+                    background=background,
+                    overlay=se_icon,
+                    coords=planet.map_waypoints,
+                )
+            elif any([aeid in (1241, 1252) for aeid in planet.effect_ids]):
+                # fractured planets
+                frac_planet_icon = imread(
+                    "resources/map_icons/fractured_planet.png", IMREAD_UNCHANGED
+                )
+                self.paste_image(
+                    background=background,
+                    overlay=frac_planet_icon,
+                    coords=planet.map_waypoints,
                     x_offset=-20,
                     y_offset=10,
                 )
+
             loc_name = planet.names.get(long_code, planet.name)
             if not planet.is_hidden:
-                x_offset = 0
+                allied_horiz_offset = -26
+                enemy_horiz_offset = 26
                 for sf in planet.subfactions:
-                    if (
-                        sf.faction
-                        != (
+                    if sf.faction not in [
+                        (
                             planet.event.faction
                             if planet.event is not None
                             else planet.faction
-                        )
-                        and sf.faction != Factions.humans
-                    ):
+                        ),
+                        Factions.humans,
+                    ]:
                         continue
                     sf_icon = imread(
                         f"resources/map_icons/{sf.eng_name.lower().replace(' ', '_')}_bordered.png",
@@ -476,19 +485,31 @@ class Maps:
                     )
                     if sf_icon is not None:
                         self.paste_image(
-                            background,
-                            sf_icon,
-                            planet.map_waypoints,
-                            x_offset=(35 if planet.active_campaign else 10) + x_offset,
+                            background=background,
+                            overlay=sf_icon,
+                            coords=planet.map_waypoints,
+                            x_offset=(
+                                allied_horiz_offset
+                                if sf.faction == Factions.humans
+                                else enemy_horiz_offset
+                            ),
                             y_offset=-(
                                 20
                                 + (
                                     (loc_name.count(" ") + 1)
-                                    * (self.TEXT_SIZE if planet.active_campaign else 0)
+                                    * (
+                                        self.TEXT_SIZE
+                                        if planet.active_campaign or planet.dss_in_orbit
+                                        else 0
+                                    )
                                 )
                             ),
                         )
-                        x_offset += sf_icon.shape[0]
+                        if sf.faction == Factions.humans:
+                            allied_horiz_offset -= sf_icon.shape[0] + 1
+                        else:
+                            enemy_horiz_offset += sf_icon.shape[0] + 1
+
             if dss and planet.dss_in_orbit:
                 dss_icon = (
                     imread("resources/map_icons/dss_glow.png", IMREAD_UNCHANGED)
