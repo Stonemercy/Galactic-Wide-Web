@@ -43,13 +43,8 @@ from numpy import (
 from numpy.random import randint, random_sample
 from PIL import Image, ImageDraw, ImageFont
 from utils.api_wrapper.models import Assignment, DSS, Planet
-from utils.dataclasses import Factions, Faction
+from utils.dataclasses import Factions, Faction, Sectors
 from utils.mixins import ReprMixin
-
-DIM_FACTION_COLOURS: dict[str, tuple[int, int, int]] = {
-    faction.full_name: tuple(int(colour / 2.5) for colour in faction.colour)
-    for faction in Factions.all
-}
 
 VONOROI_COLOURS: dict[Faction, dict[str, tuple]] = {
     Factions.automaton: {"tint": (0, 0, 100), "lines": (0, 0, 175)},
@@ -92,21 +87,15 @@ class Maps:
         self.update_planets(planets=planets)
 
     def update_sectors(self, planets: dict[int, Planet]) -> None:
-        sectors: dict[str, list[Faction]] = {}
+        sectors = Sectors()
         for planet in planets.values():
-            faction = planet.faction if not planet.event else planet.event.faction
-            if planet.sector not in sectors:
-                sectors[planet.sector] = [faction]
+            if planet.sector == "UNKNOWN":
+                continue
+            if (planet_sector := sectors.get_sector(planet.sector)) is None:
+                sectors.add_sector(planet)
             else:
-                sectors[planet.sector].append(faction)
-        enemy_sectors = {
-            s: set(l) for s, l in sectors.items() if set(l) != set(["Humans"])
-        }
-        sector_coords: dict[str, tuple[int, int]] = {}
-        for sector in enemy_sectors:
-            sector_coords[sector] = [p for p in planets.values() if p.sector == sector][
-                0
-            ].map_waypoints
+                planet_sector.planets.append(planet)
+
         background = imread(Maps.FileLocations.empty_map, IMREAD_UNCHANGED)
         if background.shape[2] == 4:
             alpha_channel = background[:, :, 3].copy()
@@ -115,32 +104,17 @@ class Maps:
             background_rgb = background.copy()
             alpha_channel = None
 
-        for sector, coords in sector_coords.items():
-            sector_faction = list(enemy_sectors[sector])
-            if len(sector_faction) == 1:
-                if sector_faction[0] == Factions.humans:
-                    continue
-                elif [
-                    p
-                    for p in planets.values()
-                    if p.sector == sector and p.active_campaign
-                ]:
-                    bgr_color = DIM_FACTION_COLOURS[sector_faction[0].full_name]
-                else:
-                    bgr_color = tuple(
-                        int(i / 2)
-                        for i in DIM_FACTION_COLOURS[sector_faction[0].full_name]
-                    )
-            else:
-                bgr_color = DIM_FACTION_COLOURS[sector_faction[1].full_name]
-            bgr_color = tuple(int(i) for i in bgr_color[::-1])
+        for sector in sectors.all_sectors:
+            if sector.map_colour is None:
+                continue
+            bgr_colour = tuple(int(i) for i in sector.map_colour[::-1])
             h, w = background.shape[:2]
             mask = zeros((h + 2, w + 2), uint8)
             floodFill(
                 image=background_rgb,
                 mask=mask,
-                seedPoint=coords,
-                newVal=bgr_color,
+                seedPoint=sector.coordinates,
+                newVal=bgr_colour,
                 loDiff=(50, 50, 50),
                 upDiff=(50, 50, 50),
                 flags=FLOODFILL_FIXED_RANGE | FLOODFILL_MASK_ONLY,
@@ -155,8 +129,8 @@ class Maps:
             stripes = ((xx + yy if 45 == 45 else xx - yy) % (5 * 2)) < 5
             sub_region = region_mask[y : y + bh, x : x + bw]
             sub_bg = background_rgb[y : y + bh, x : x + bw]
-            sub_bg[stripes & sub_region] = bgr_color
-            sub_bg[~stripes & sub_region] = tuple(int(c * 0.5) for c in bgr_color)
+            sub_bg[stripes & sub_region] = bgr_colour
+            sub_bg[~stripes & sub_region] = tuple(int(c * 0.5) for c in bgr_colour)
             background_rgb[y : y + bh, x : x + bw] = sub_bg
 
         if alpha_channel is not None:

@@ -16,6 +16,7 @@ from .region_changes_json import RegionChangesJson
 from .subfactions import Subfactions, Subfaction
 from .VIPs import VIP
 from .warbond_images import WarbondImages
+from .sectors import Sector, Sectors
 
 __all__ = [
     "APIChanges",
@@ -36,6 +37,8 @@ __all__ = [
     "PlanetFeatures",
     "RandomiserData",
     "RegionChangesJson",
+    "Sector",
+    "Sectors",
     "Subfaction",
     "Subfactions",
     "VIP",
