@@ -31,15 +31,15 @@ class Planet(ReprMixin):
     def __init__(
         self,
         raw_planet_info: dict,
-        planets_json: dict[str, dict],
+        planet_json: dict[str,],
         sectors_json: dict[int, str],
     ) -> None:
         """Organise data for a specific planet"""
         self.index: int = raw_planet_info["index"]
         self.settings_hash: int = raw_planet_info["settingsHash"]
-        self.names: dict[str, str] = planets_json.get("names", {})
-        self.description: str = planets_json.get("description", "")
-        self.biome: str = planets_json.get("biome", "")
+        self.names: dict[str, str] = planet_json.get("names", {}).copy()
+        self.description: str = planet_json.get("description", "")
+        self.biome: str = str(planet_json.get("biome", ""))
         self.position: dict = raw_planet_info["position"]
         self.waypoints: list[int] = sorted(raw_planet_info["waypoints"])
         self.nearby: list[int] = self.waypoints.copy()

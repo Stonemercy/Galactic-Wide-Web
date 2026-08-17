@@ -149,16 +149,9 @@ class FormattedData:
             for raw_planet in context.war_info["planetInfos"]:
                 planet = Planet(
                     raw_planet_info=raw_planet,
-                    planets_json=context.json_dict["planets"].get(
-                        str(raw_planet["settingsHash"]),
-                        {
-                            "names": {
-                                lang.long_code: f"UNKNOWN PLANET {raw_planet['index']}"
-                                for lang in Languages.all
-                            },
-                            "description": "",
-                        },
-                    ),
+                    planet_json=context.json_dict["planets"]
+                    .get(str(raw_planet["settingsHash"]), {})
+                    .copy(),
                     sectors_json=context.json_dict["sectors"],
                 )
                 self.planets[planet.index] = planet
