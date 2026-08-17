@@ -9,7 +9,10 @@ class CommunityServersEmbed(Embed, EmbedReprMixin):
         super().__init__(
             title="Community Servers",
             colour=Colour.blue(),
-            description=f"The GWW is in **{len(guilds)}** community servers",
+            description=(
+                f"The GWW is in **{len(guilds)}** community servers"
+                f"\n-# Want your server here? Ensure you have a **Custom Invite Link** (level 3 boost unlock) and have **Community** enabled"
+            ),
         )
         for index, guild in enumerate(
             guilds[(page_number * 10) - 10 : page_number * 10],
