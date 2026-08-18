@@ -19,6 +19,7 @@ class Languages:
     russian: Language = Language("Pусский", "ru", "ru-RU")
     chinese_trad: Language = Language("漢語", "zh-hant", "zh-Hant")
     turkish: Language = Language("Türkçe", "tr", "tr-TR")
+
     all: list[Language] = [
         english,
         french,
@@ -29,6 +30,17 @@ class Languages:
         spanish,
         chinese_trad,
         turkish,
+    ]
+
+    api_languages: list[Language] = [
+        english,
+        french,
+        german,
+        italian,
+        brazilian_portuguese,
+        russian,
+        spanish,
+        chinese_trad,
     ]
 
     @staticmethod
