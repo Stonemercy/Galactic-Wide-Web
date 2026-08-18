@@ -394,8 +394,10 @@ class Maps:
             font = ImageFont.truetype("resources/gww-font.ttf", self.TEXT_SIZE)
         background_draw = ImageDraw.Draw(im=background)
         for planet in planets.values():
-            if (planet.active_campaign and not planet.is_hidden) or planet.dss_in_orbit:
-                if planet.dss_in_orbit:
+            if (planet.active_campaign and not planet.is_hidden) or (
+                planet.dss_in_orbit or 1217 in planet.effect_ids
+            ):
+                if planet.dss_in_orbit or 1217 in planet.effect_ids:
                     border_colour = "deepskyblue"
                 else:
                     border_colour = "black"
@@ -499,7 +501,11 @@ class Maps:
                                     (loc_name.count(" ") + 1)
                                     * (
                                         self.TEXT_SIZE
-                                        if planet.active_campaign or planet.dss_in_orbit
+                                        if planet.active_campaign
+                                        or (
+                                            planet.dss_in_orbit
+                                            or 1217 in planet.effect_ids
+                                        )
                                         else 0
                                     )
                                 )
@@ -527,8 +533,20 @@ class Maps:
                 if loc_name.count(" ") > 0:
                     verti_diff += loc_name.count(" ") * (self.TEXT_SIZE - 5)
                 dss_coords = (
-                    int(dss.planet.map_waypoints[0]) - 17,
-                    int(dss.planet.map_waypoints[1]) - verti_diff,
+                    int(planet.map_waypoints[0]) + 10,
+                    int(planet.map_waypoints[1]) - verti_diff,
+                )
+                self.paste_image(background, dss_icon, dss_coords)
+            elif 1217 in planet.effect_ids:
+                dss_icon = imread(
+                    "resources/map_icons/dss_glow_inactive.png", IMREAD_UNCHANGED
+                )
+                verti_diff = 65
+                if loc_name.count(" ") > 0:
+                    verti_diff += loc_name.count(" ") * (self.TEXT_SIZE - 5)
+                dss_coords = (
+                    int(planet.map_waypoints[0]) + 10,
+                    int(planet.map_waypoints[1]) - verti_diff,
                 )
                 self.paste_image(background, dss_icon, dss_coords)
         imwrite(path, background)
