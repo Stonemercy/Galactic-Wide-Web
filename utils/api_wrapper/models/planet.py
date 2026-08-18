@@ -155,7 +155,7 @@ class Planet(ReprMixin):
 
     @property
     def in_void(self) -> bool:
-        return 1409 in self.effect_ids
+        return 1406 in self.effect_ids
 
     @property
     def in_gloom(self) -> bool:
