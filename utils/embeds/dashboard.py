@@ -2603,8 +2603,10 @@ class Dashboard:
                     factions[0], RECON_EMBED_ICONS["default"]
                 )
             self.set_thumbnail(thumbnail)
-            for c in recon_campaigns:
+            for count, c in enumerate(recon_campaigns, start=1):
                 self.add_recon_campaign(campaign=c)
+                if count % 2 == 0:
+                    self.add_field("", "", inline=False)
 
         def add_recon_campaign(self, campaign: Campaign):
             field_name = ""
@@ -2612,15 +2614,12 @@ class Dashboard:
 
             field_name += f"\n{campaign.planet.names.get(self.language_json['code_long'], campaign.planet.name)} {campaign.planet.exclamations}"
 
-            for sf in campaign.planet.subfactions:
-                field_value += f"\n-# {sf.emoji} {self.language_json['subfactions'].get(sf.eng_name, sf.eng_name)}"
-
             for planet_feature in campaign.planet.planet_features:
                 field_value += f"\n-# {planet_feature.emoji} {planet_feature.name}"
 
             field_value += f"\n{self.language_json['embeds']['Dashboard']['DefenceEmbed']['heroes']}: **{campaign.planet.stats.player_count:,}**"
 
-            self.add_field(field_name, field_value, inline=False)
+            self.add_field(field_name, field_value)
 
     class AttackEmbed(Embed, EmbedReprMixin):
         def __init__(
