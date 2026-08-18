@@ -378,7 +378,7 @@ class DataService(ReprMixin):
                     )
 
         if self.formatted_data.assignments.get("en"):
-            for assignment in self.formatted_data.assignments["en"]:
+            for assignment in self.formatted_data.assignments.get("en", []):
                 for task_index, task in enumerate(assignment.tasks, start=1):
                     if task.type in [
                         AssignmentTaskType.LiberateLocationsSpecific,

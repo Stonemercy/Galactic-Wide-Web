@@ -80,9 +80,12 @@ class DispatchesCog(Cog):
                                 dispatch_json=self.bot.json_dict["languages"][lang][
                                     "containers"
                                 ]["DispatchContainer"],
-                                dispatch=self.bot.data.formatted_data.dispatches[lang][
-                                    index
-                                ],
+                                dispatch=self.bot.data.formatted_data.dispatches.get(
+                                    lang,
+                                    self.bot.data.formatted_data.dispatches.get(
+                                        "en", []
+                                    ),
+                                )[index],
                             )
                         ]
                         for lang in unique_langs
@@ -117,7 +120,7 @@ class DispatchesCog(Cog):
             for d in sorted(
                 [
                     f"{i.id}-{i.title}"[:90]
-                    for i in inter.bot.data.formatted_data.dispatches["en"]
+                    for i in inter.bot.data.formatted_data.dispatches.get("en", [])
                 ],
                 reverse=True,
             )
@@ -162,13 +165,18 @@ class DispatchesCog(Cog):
             dispatch = next(
                 (
                     d
-                    for d in self.bot.data.formatted_data.dispatches[guild.language]
+                    for d in self.bot.data.formatted_data.dispatches.get(
+                        guild.language,
+                        self.bot.data.formatted_data.dispatches.get("en", []),
+                    )
                     if d.id == disp_id
                 ),
                 None,
             )
         else:
-            dispatch = self.bot.data.formatted_data.dispatches[guild.language][-1]
+            dispatch = self.bot.data.formatted_data.dispatches.get(
+                guild.language, self.bot.data.formatted_data.dispatches.get("en", [])
+            )[-1]
         if dispatch is None:
             await inter.send("I couldn't find that dispatch, sorry.", ephemeral=True)
             return
@@ -182,7 +190,10 @@ class DispatchesCog(Cog):
                     with_time=True,
                 ),
                 DispatchStringSelect(
-                    self.bot.data.formatted_data.dispatches[guild.language]
+                    self.bot.data.formatted_data.dispatches.get(
+                        guild.language,
+                        self.bot.data.formatted_data.dispatches.get("en", []),
+                    )
                 ),
             ],
             ephemeral=public != "Yes",
@@ -199,7 +210,9 @@ class DispatchesCog(Cog):
         guild = self.bot.get_guild_from_inter(inter=inter)
         dispatch = [
             d
-            for d in self.bot.data.formatted_data.dispatches[guild.language]
+            for d in self.bot.data.formatted_data.dispatches.get(
+                guild.language, self.bot.data.formatted_data.dispatches.get("en", [])
+            )
             if d.id == int(inter.values[0].split("-")[0])
         ][0]
         container = DispatchContainer(
@@ -213,7 +226,10 @@ class DispatchesCog(Cog):
             components=[
                 container,
                 DispatchStringSelect(
-                    self.bot.data.formatted_data.dispatches[guild.language]
+                    self.bot.data.formatted_data.dispatches.get(
+                        guild.language,
+                        self.bot.data.formatted_data.dispatches.get("en", []),
+                    )
                 ),
             ]
         )

@@ -65,7 +65,11 @@ class Dashboard:
                 )
 
         # Major Order Embeds
-        if assignments := data.assignments.get(language_code):
+        if (
+            assignments := data.assignments.get(
+                language_code, data.assignments.get("en", [])
+            )
+        ) != []:
             for assignment in assignments:
                 self.embeds.append(
                     self.MajorOrderEmbed(

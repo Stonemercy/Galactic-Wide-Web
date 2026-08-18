@@ -147,7 +147,7 @@ class BackendCommandsCog(Cog):
             for gwe in gwe_list:
                 global_events_list = [
                     i
-                    for i in self.bot.data.formatted_data.global_events["en"]
+                    for i in self.bot.data.formatted_data.global_events.get("en", [])
                     if gwe.id in (j.id for j in i.effects)
                 ]
                 if (
@@ -216,7 +216,7 @@ class BackendCommandsCog(Cog):
             return
         ge_list = [
             ge
-            for ge in self.bot.data.formatted_data.global_events["en"]
+            for ge in self.bot.data.formatted_data.global_events.get("en", [])
             if ge.id == ge_id
         ]
         if ge_list != []:
