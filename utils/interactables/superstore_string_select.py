@@ -13,7 +13,11 @@ class SuperstoreStringSelect(StringSelect):
             ) > 1:
                 number = len([c for c in choices if page.name in c.label]) + 1
                 choice_name += f" {number}/{amount}"
-            choice = SelectOption(label=choice_name, value=page.id)
+            choice = SelectOption(
+                label=choice_name,
+                description=f"{len(page.items)} items - total cost: {sum(i.cost for i in page.items):,} SC",
+                value=page.id,
+            )
             choices.append(choice)
         super().__init__(
             placeholder="Choose Superstore Page",

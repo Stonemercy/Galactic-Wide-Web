@@ -9,14 +9,13 @@ class SubfactionsStringSelect(StringSelect):
         options = sorted(
             [
                 SelectOption(
-                    label=f"{sf.eng_name.title()} - {len([p for p in planets.values() if sf in p.subfactions and (p.faction != Factions.humans or p.faction == Factions.humans and p.event)])} Planets",
+                    label=f"{sf.eng_name.title()}",
+                    description=f"{len([p for p in planets.values() if sf in p.subfactions and (p.faction != Factions.humans or p.faction == Factions.humans and p.event)])} Planets - {sum([p.stats.player_count for p in planets.values() if sf in p.subfactions and (p.faction != Factions.humans or p.faction == Factions.humans and p.event)]):,} Heroes",
                     emoji=sf.emoji,
                 )
                 for sf in Subfactions._all
             ],
-            key=lambda x: int(
-                x.label[-9]
-            ),  # this needs updating if any subfactions ever appear on more than 9 planets
+            key=lambda x: int(x.description.split(" ")[-2].replace(",", "")),
             reverse=True,
         )
         super().__init__(

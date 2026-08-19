@@ -9,6 +9,12 @@ class SteamStringSelect(StringSelect):
             placeholder="Choose Steam Post",
             min_values=1,
             max_values=1,
-            options=[SelectOption(label=steam.title) for steam in steam_posts[:25]],
+            options=[
+                SelectOption(
+                    label=steam.title,
+                    description=f"- {steam.author} on {steam.published_at.strftime('%d/%m/%Y')}",
+                )
+                for steam in steam_posts[:25]
+            ],
             custom_id="steam",
         )

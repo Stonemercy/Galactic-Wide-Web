@@ -213,7 +213,7 @@ class DispatchesCog(Cog):
             for d in self.bot.data.formatted_data.dispatches.get(
                 guild.language, self.bot.data.formatted_data.dispatches.get("en", [])
             )
-            if d.id == int(inter.values[0].split("-")[0])
+            if d.id == int(inter.values[0])
         ][0]
         container = DispatchContainer(
             dispatch_json=self.bot.json_dict["languages"][guild.language]["containers"][

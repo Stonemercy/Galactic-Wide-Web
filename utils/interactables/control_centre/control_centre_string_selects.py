@@ -15,6 +15,7 @@ class ControlCentreActiveCampaignsStringSelect(StringSelect):
         options = [
             SelectOption(
                 label=f"{phase.intro_title} - {index}/{max(len(phases), 3)}",  # placeholder until they fix their glitch
+                description=f"{(phase.intro_message or phase.outro_message).replace('*', '').split('. ')[0][:99]}.",
                 value=phase.id,
                 emoji=EMOJIS_DICT.get(phase.status, "❔"),
             )

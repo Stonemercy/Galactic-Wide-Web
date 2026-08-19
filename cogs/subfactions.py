@@ -66,11 +66,7 @@ class SubfactionCog(commands.Cog):
         ):
             return
         subfaction = next(
-            (
-                sf
-                for sf in Subfactions._all
-                if sf.eng_name.title() == inter.values[0].split(" - ")[0]
-            ),
+            (sf for sf in Subfactions._all if sf.eng_name.title() == inter.values[0]),
             None,
         )
         container = SubfactionsContainer(
