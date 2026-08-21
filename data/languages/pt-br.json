@@ -56,7 +56,7 @@
             }
         },
         "GlobalEventsContainer": {
-            "effect": "Effect",
+            "effect": "Efeito",
             "new_event": "Novo Evento Global",
             "all_planets": "todos os planetas",
             "unknown_effect": "EFEITO DESCONHECIDO",
@@ -251,8 +251,8 @@
                 }
             },
             "UrgentLiberationsEmbed": {
-                "title": "Urgent Liberations",
-                "urgency_level": "Urgency Level"
+                "title": "Liberações Urgentes",
+                "urgency_level": "Nível de Urgência"
             },
             "DefenceEmbed": {
                 "title": "Defendendo",
@@ -319,7 +319,7 @@
     "complete": "Completo",
     "failure": "Falha",
     "regions": {
-        "megafactory": "Class {number} Megafábrica",
+        "megafactory": "Megafábrica Classe {number}",
         "4": "Megalópole",
         "3": "Cidade",
         "2": "Povoado",
