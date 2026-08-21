@@ -14,10 +14,10 @@ class WarfrontAllPlanetsEmbed(Embed, EmbedReprMixin):
         super().__init__(
             title=f"All planets for {faction}",
             colour=Colour.from_rgb(*Factions.get_from_identifier(name=faction).colour),
-            description=f"There are **{len(planets_list)}** planets under {faction} control",
+            description=f"There are **{len(set(p.name for p in planets_list))}** planets under {faction} control",
         )
         name = "Planets list"
         value = " - ".join(
-            [f"**{p.names.get('en-GB', p.name)}**" for p in planets_list]
+            set([f"**{p.names.get('en-GB', p.name)}**" for p in planets_list])
         )
         self.add_field(name=name, value=value)
