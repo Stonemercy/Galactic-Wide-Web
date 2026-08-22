@@ -28,24 +28,33 @@ class SubfactionsContainer(Container):
             key=lambda x: x.stats.player_count,
             reverse=True,
         ):
-            for planet in planets_with_sf:
-                self.components.extend(
-                    [
-                        Section(
-                            TextDisplay(
-                                (
-                                    f"\n- {planet.faction.emoji} {planet.name}"
-                                    f"\n-# {planet.stats.player_count:,} Heroes"
-                                )
+            if len(planets_with_sf) > 10:
+                planets_text = ""
+                for planet in planets_with_sf:
+                    planets_text += (
+                        f"\n- {planet.faction.emoji} {planet.name}"
+                        f"\n-# {planet.stats.player_count:,} Heroes"
+                    )
+                self.components.append(TextDisplay(planets_text))
+            else:
+                for planet in planets_with_sf:
+                    self.components.extend(
+                        [
+                            Section(
+                                TextDisplay(
+                                    (
+                                        f"\n- {planet.faction.emoji} {planet.name}"
+                                        f"\n-# {planet.stats.player_count:,} Heroes"
+                                    )
+                                ),
+                                accessory=HDCButton(
+                                    label="HDC",
+                                    link=f"https://helldiverscompanion.com/#hellpad/planets/{planet.index}",
+                                ),
                             ),
-                            accessory=HDCButton(
-                                label="HDC",
-                                link=f"https://helldiverscompanion.com/#hellpad/planets/{planet.index}",
-                            ),
-                        ),
-                        Separator(),
-                    ]
-                )
+                            Separator(),
+                        ]
+                    )
             colour = subfaction.faction.colour
         else:
             self.components.append(TextDisplay(f"- None"))
