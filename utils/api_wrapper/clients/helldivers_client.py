@@ -17,7 +17,7 @@ class HelldiversClient(BaseAPIClient):
         self, war_id: int, time_for_dispatches: int, lang: str = "en-GB"
     ) -> list[dict]:
         return await self.get(
-            endpoint=f"NewsFeed/{war_id}?maxEntries=1024&?fromTimestamp={time_for_dispatches}",
+            endpoint=f"NewsFeed/{war_id}?maxEntries=1024&fromTimestamp={time_for_dispatches}",
             headers={"Accept-Language": lang},
         )
 
