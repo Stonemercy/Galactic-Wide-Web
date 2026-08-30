@@ -29,10 +29,7 @@ class PlanetCog(Cog):
                 key=lambda x: x.stats.player_count,
                 reverse=True,
             )
-            if (
-                user_input.lower() in f"{p.name} {p.sector}".lower()
-                or user_input in str(p.index)
-            )
+            if (user_input.lower() in f"{p.index} {p.name} {p.sector}".lower())
             and 1376 not in p.effect_ids
         ][:25]
 
