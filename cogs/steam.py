@@ -108,11 +108,13 @@ class SteamCog(Cog):
 
     @Cog.listener("on_dropdown")
     async def steam_notes_listener(self, inter: MessageInteraction):
-        if (
-            not self.bot.ready
-            or inter.component.custom_id != "steam"
-            or inter.author != inter.message.interaction_metadata.user
-        ):
+        if inter.component.custom_id != "steam":
+            return
+        if inter.author != inter.message.interaction_metadata.user:
+            await self.bot.not_interaction_author(inter)
+            return
+        if not self.bot.ready:
+            await self.bot.bot_not_ready(inter)
             return
         steam_data = [
             steam

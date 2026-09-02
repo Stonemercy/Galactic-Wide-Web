@@ -59,11 +59,13 @@ class SubfactionCog(commands.Cog):
 
     @commands.Cog.listener("on_dropdown")
     async def subfactions_listener(self, inter: MessageInteraction):
-        if (
-            not self.bot.ready
-            or inter.component.custom_id != "subfactions"
-            or inter.author != inter.message.interaction_metadata.user
-        ):
+        if inter.component.custom_id != "subfactions":
+            return
+        if inter.author != inter.message.interaction_metadata.user:
+            await self.bot.not_interaction_author(inter)
+            return
+        if not self.bot.ready:
+            await self.bot.bot_not_ready(inter)
             return
         subfaction = next(
             (sf for sf in Subfactions._all if sf.eng_name.title() == inter.values[0]),

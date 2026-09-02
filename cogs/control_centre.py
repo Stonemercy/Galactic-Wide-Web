@@ -77,13 +77,15 @@ class ControlCentreCog(Cog):
     @Cog.listener("on_button_click")
     async def on_button_clicks(self, inter: MessageInteraction) -> None:
         if (
-            not self.bot.ready
-            or (
-                inter.component.custom_id not in MAIN_BUTTONS
-                and "control_centre" not in inter.component.custom_id
-            )
-            or inter.author != inter.message.interaction_metadata.user
+            inter.component.custom_id not in MAIN_BUTTONS
+            and "control_centre" not in inter.component.custom_id
         ):
+            return
+        if inter.author != inter.message.interaction_metadata.user:
+            await self.bot.not_interaction_author(inter)
+            return
+        if not self.bot.ready:
+            await self.bot.bot_not_ready(inter)
             return
         await inter.response.defer()
         guild = self.bot.get_guild_from_inter(inter=inter)
@@ -179,11 +181,13 @@ class ControlCentreCog(Cog):
 
     @Cog.listener("on_dropdown")
     async def on_dropdowns(self, inter: MessageInteraction) -> None:
-        if (
-            not self.bot.ready
-            or "cc_active_campaigns_dropdown" not in inter.component.custom_id
-            or inter.author != inter.message.interaction_metadata.user
-        ):
+        if "cc_active_campaigns_dropdown" not in inter.component.custom_id:
+            return
+        if inter.author != inter.message.interaction_metadata.user:
+            await self.bot.not_interaction_author(inter)
+            return
+        if not self.bot.ready:
+            await self.bot.bot_not_ready(inter)
             return
         guild = self.bot.get_guild_from_inter(inter=inter)
         episode_id = int(inter.component.custom_id.split("_")[-1])

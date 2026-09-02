@@ -87,6 +87,23 @@ class GalacticWideWebBot(AutoShardedInteractionBot):
                 self.owner = self.get_user(owner_id) or await self.fetch_user(owner_id)
             retries += 1
 
+    async def not_interaction_author(self, inter: MessageInteraction) -> None:
+        self.logger.error(
+            f"{inter.author.name} | {inter.component.custom_id} | not interaction author: {inter.message.interaction_metadata.user}"
+        )
+        await inter.send(
+            "Only the person who ran this command can use that button.", ephemeral=True
+        )
+
+    async def bot_not_ready(self, inter: MessageInteraction) -> None:
+        self.logger.error(
+            f"{inter.author.name} | {inter.component.custom_id} | bot not ready"
+        )
+        await inter.send(
+            f"The bot is not ready, try again <t:{int(self.ready_time.timestamp())}:R>",
+            ephemeral=True,
+        )
+
     def super_start(self) -> None:
         token_to_use = (
             Config.BOT_TOKEN

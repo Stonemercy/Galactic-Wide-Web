@@ -97,11 +97,13 @@ class SetupCog(Cog):
     @Cog.listener("on_button_click")
     async def on_button_clicks(self, inter: MessageInteraction) -> None:
         if (
-            not self.bot.ready
-            or inter.component.custom_id not in ALLOWED_BUTTONS
+            inter.component.custom_id not in ALLOWED_BUTTONS
             and "set_features_button-" not in inter.component.custom_id
             and "clear_features_button-" not in inter.component.custom_id
         ):
+            return
+        if not self.bot.ready:
+            await self.bot.bot_not_ready(inter)
             return
         await inter.response.defer()
         guild = self.bot.get_guild_from_inter(inter=inter)
@@ -293,10 +295,12 @@ class SetupCog(Cog):
     @Cog.listener("on_dropdown")
     async def on_dropdowns(self, inter: MessageInteraction) -> None:
         if (
-            not self.bot.ready
-            or inter.component.custom_id not in ALLOWED_DROPDOWNS
+            inter.component.custom_id not in ALLOWED_DROPDOWNS
             and "feature_channel_select-" not in inter.component.custom_id
         ):
+            return
+        if not self.bot.ready:
+            await self.bot.bot_not_ready(inter)
             return
         await inter.response.defer()
         guild = self.bot.get_guild_from_inter(inter=inter)

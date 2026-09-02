@@ -201,11 +201,13 @@ class DispatchesCog(Cog):
 
     @Cog.listener("on_dropdown")
     async def dispatches_listener(self, inter: MessageInteraction) -> None:
-        if (
-            not self.bot.ready
-            or inter.component.custom_id != "dispatch"
-            or inter.author != inter.message.interaction_metadata.user
-        ):
+        if inter.component.custom_id != "dispatch":
+            return
+        if inter.author != inter.message.interaction_metadata.user:
+            await self.bot.not_interaction_author(inter)
+            return
+        if not self.bot.ready:
+            await self.bot.bot_not_ready(inter)
             return
         guild = self.bot.get_guild_from_inter(inter=inter)
         dispatch = [

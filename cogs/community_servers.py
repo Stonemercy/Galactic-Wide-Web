@@ -31,7 +31,6 @@ class CommunityServersCog(Cog):
     )
     async def community_servers(self, inter: AppCmdInter) -> None:
         await inter.response.defer(ephemeral=True)
-
         embed = CommunityServersEmbed(
             guilds=self.communities_with_links,
             page_number=1,
@@ -62,11 +61,13 @@ class CommunityServersCog(Cog):
 
     @Cog.listener("on_button_click")
     async def on_button_clicks(self, inter: MessageInteraction) -> None:
-        if (
-            not self.bot.ready
-            or inter.component.custom_id not in ALLOWED_BUTTONS
-            or inter.author != inter.message.interaction_metadata.user
-        ):
+        if inter.component.custom_id not in ALLOWED_BUTTONS:
+            return
+        if inter.author != inter.message.interaction_metadata.user:
+            await self.bot.not_interaction_author(inter)
+            return
+        if not self.bot.ready:
+            await self.bot.bot_not_ready(inter)
             return
         await inter.response.defer()
 
