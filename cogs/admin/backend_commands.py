@@ -10,7 +10,7 @@ from random import choices
 from utils.api_wrapper.models import Assignment
 from utils.bot import GalacticWideWebBot
 from utils.checks import is_whitelisted, wait_for_startup
-from utils.containers import GlobalEventsContainer, GWEContainer
+from utils.containers import GWEContainer
 from utils.embeds import Dashboard
 
 
@@ -185,58 +185,6 @@ class BackendCommandsCog(Cog):
             ]
             if user_input.lower() in ge.split("-")[1].lower()
         ][:25]
-
-    @wait_for_startup()
-    @is_whitelisted()
-    @slash_command(
-        description="Check a global event",
-        install_types=ApplicationInstallTypes.all(),
-        contexts=InteractionContextTypes.all(),
-    )
-    async def global_event(
-        self,
-        inter: AppCmdInter,
-        title: str = Param(
-            autocomplete=global_event_autocomp,
-            description="The event you want to lookup",
-        ),
-        public: str = Param(
-            choices=["Yes", "No"],
-            description="If you want the response to be seen by others",
-            default="No",
-        ),
-    ) -> None:
-        await inter.response.defer(ephemeral=public != "Yes")
-        try:
-            ge_id = int(title.split("-")[0])
-        except ValueError:
-            await inter.send(
-                f"The title you submitted (`{title}`) is not in the correct format. Please choose one from the list provided."
-            )
-            return
-        ge_list = [
-            ge
-            for ge in self.bot.data.formatted_data.global_events.get("en", [])
-            if ge.id == ge_id
-        ]
-        if ge_list != []:
-            components = []
-            for ge in ge_list:
-                container = GlobalEventsContainer(
-                    lang_code="en",
-                    container_json=self.bot.json_dict["languages"]["en"]["containers"][
-                        "GlobalEventsContainer"
-                    ],
-                    global_event=ge,
-                    planets=self.bot.data.formatted_data.planets,
-                    with_expiry_time=True,
-                )
-                components.append(container)
-            await inter.send(components=components, ephemeral=public != "Yes")
-        else:
-            await inter.send(
-                "Couldn't find that event, sorry :pensive:", ephemeral=public != "Yes"
-            )
 
     @wait_for_startup()
     @is_whitelisted()
