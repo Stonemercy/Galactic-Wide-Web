@@ -87,7 +87,7 @@ class ErrorHandlerCog(Cog):
         if hasattr(inter, "guild") and inter.guild:
             embed.add_field(
                 name="Guild",
-                value=f"-# {inter.guild.name} - {inter.guild.approximate_member_count}\n-# {inter.guild.id}",
+                value=f"-# {inter.guild.name}\n-# {inter.guild.id}",
             )
         if hasattr(inter, "author"):
             embed.add_field(
