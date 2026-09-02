@@ -99,11 +99,14 @@ class ControlCentreStatus(Enum):
 
 
 class ItemCategory(Enum):
+    THROWABLE_WEAPON = -4
+    SIDEARM_WEAPON = -3
+    PRIMARY_WEAPON = -2
     UNKNOWN = -1
     UNOBTAINABLE = 0
     WEAPON = 1
     WEAPON_ATTACHMENT = 2
-    ARMOUR = 3
+    ARMOR = 3
     VEHICLE_SKIN = 4
     BOOSTER = 5
     VICTORY_POSE = 7

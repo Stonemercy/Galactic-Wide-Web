@@ -16,6 +16,10 @@ json_dict = {
     "items": {
         "items": {"path": "data/json/items/items.json", "value": None},
         "boosters": {"path": "data/json/items/boosters.json", "value": None},
+        "vehicle_skins": {
+            "path": "data/json/items/vehicle_skins.json",
+            "value": None,
+        },
         "rewards": {
             "path": "data/json/assignments/rewards.json",
             "value": None,
@@ -23,7 +27,7 @@ json_dict = {
     },
     "enemy_ids": {"path": "data/json/enemies/enemy_ids.json", "value": None},
     "galactic_war_effects": {
-        "path": "data/json/effects/galactic_war_effects/effect_types.json",
+        "path": "data/json/effects/effect_types.json",
         "value": None,
     },
     "strings": {"path": "data/json/strings.json", "value": None},

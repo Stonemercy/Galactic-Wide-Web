@@ -4,6 +4,7 @@ from .authed_client import (
     AltDSSVotesAuthedClient,
     AltPOAuthedClient,
     AltSuperstoreAuthedClient,
+    AltWarbondsAuthedClient,
 )
 from .community_clients import ArsenalClient
 from .helldivers_client import HelldiversClient
@@ -15,6 +16,7 @@ __all__ = [
     "AltDSSVotesAuthedClient",
     "AltPOAuthedClient",
     "AltSuperstoreAuthedClient",
+    "AltWarbondsAuthedClient",
     "ArsenalClient",
     "AuthedClient",
     "HelldiversClient",

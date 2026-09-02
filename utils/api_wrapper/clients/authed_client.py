@@ -54,3 +54,18 @@ class AltSuperstoreAuthedClient(BaseAPIClient):
 
     async def get_rotating(self) -> dict:
         return await self.get("/rotation")
+
+
+class AltWarbondsAuthedClient(BaseAPIClient):
+    def __init__(self, logger):
+        super().__init__(
+            base_url=Config.ALT_WARBONDS_ENDPOINT,
+            logger=logger,
+            headers=Config.ALT_AUTHED_API_HEADERS,
+        )
+
+    async def get_warbonds_index(self) -> list[dict]:
+        return await self.get()
+
+    async def get_with_id(self, warbond_id: int):
+        return await self.get(f"/{warbond_id}")

@@ -16,6 +16,7 @@ from utils.api_wrapper.models import (
     SpaceStation,
     SteamNews,
     Superstore,
+    Warbond,
 )
 from utils.dataclasses import Factions, Languages
 from utils.dataclasses.communities import arsenal
@@ -96,6 +97,7 @@ class FormattedDataContext:
     steam_news: list
     control_centre: dict[str, list[dict]]
     superstore: list[dict]
+    warbonds: dict[int, dict]
     items_data: list[dict]
 
     # community targets
@@ -127,6 +129,7 @@ class FormattedData:
         self.steam_news: list[SteamNews] = []
         self.control_centre: dict[str, ControlCentre] = {}
         self.superstore: Superstore | None = None
+        self.warbonds: dict[int, Warbond] = {}
         self.items_data: list[dict] = []
         self.organised_items: list[EndpointItem] = []
         self.personal_order: PersonalOrder = None
@@ -134,7 +137,21 @@ class FormattedData:
         if context.items_data != []:
             self.items_data = context.items_data
             for i in self.items_data:
-                self.organised_items.append(EndpointItem(i))
+                if i.get("progressionCategory") == 0:
+                    continue
+                self.organised_items.append(EndpointItem(i, context.json_dict))
+            for i in self.organised_items:
+                if i.parent_id is not None:
+                    i.parent_item = next(
+                        (
+                            j
+                            for j in self.organised_items.copy()
+                            if j.mix_id == i.parent_id
+                        ),
+                        None,
+                    )
+                    if i.parent_item is not None:
+                        i.parent_item.child_item = i
 
         if context.steam_player_count:
             self.steam_player_count: int = context.steam_player_count
@@ -620,6 +637,12 @@ class FormattedData:
                 context.json_dict["items"]["items"],
                 self.organised_items,
             )
+
+        if context.warbonds != {}:
+            for id, warbond in context.warbonds.items():
+                self.warbonds[id] = Warbond(
+                    items_list=self.organised_items, raw_warbond_data=warbond
+                )
 
         self.formatted_at = datetime.now(tz=timezone.utc)
 

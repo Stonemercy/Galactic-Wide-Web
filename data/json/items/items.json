@@ -1,4 +1,264 @@
 {
+    "4219002488": {
+        "name": "100 SUPER CREDITS",
+        "type": "Super Credits Pack"
+    },
+    "3889850488": {
+        "name": "50 SUPER CREDITS",
+        "type": "Super Credits Pack"
+    },
+    "4693889": {
+        "name": "AT EASE",
+        "type": "Emote/Victory Pose"
+    },
+    "3922925518": {
+        "name": "DIPLOMATIC HANDSHAKE",
+        "type": "Emote"
+    },
+    "1200031688": {
+        "name": "EXPLOSIVE HANDSHAKE",
+        "type": "Emote"
+    },
+    "1498536478": {
+        "name": "FRONT-LEANING REST POSITION",
+        "type": "Emote/Victory Pose"
+    },
+    "2124284534": {
+        "name": "LOCKSTEP",
+        "type": "Emote/Victory Pose"
+    },
+    "3835891472": {
+        "name": "NATURAL GAS EXTRACTION",
+        "type": "Emote"
+    },
+    "2543299044": {
+        "name": "PROTECT EARDRUMS",
+        "type": "Emote/Victory Pose"
+    },
+    "4122507581": {
+        "name": "RAIDER'S CHEER",
+        "type": "Emote/Victory Pose"
+    },
+    "1455517800": {
+        "name": "RAISE WEAPON",
+        "type": "Emote/Victory Pose"
+    },
+    "1508758952": {
+        "name": "SCOUT HANDSHAKE",
+        "type": "Emote"
+    },
+    "4228242356": {
+        "name": "SIGNAL: GROUP UP",
+        "type": "Emote/Victory Pose"
+    },
+    "3844236979": {
+        "name": "SIGNAL: HOLD",
+        "type": "Emote/Victory Pose"
+    },
+    "3082865393": {
+        "name": "SIGNAL: SILENCE",
+        "type": "Emote/Victory Pose"
+    },
+    "4002419096": {
+        "name": "TEST OF CONVICTION",
+        "type": "Emote"
+    },
+    "2947925671": {
+        "name": "THIS IS DEMOCRACY",
+        "type": "Emote"
+    },
+    "1609244204": {
+        "name": "THORACIC COLLISION EXULTATION MANEUVER",
+        "type": "Emote"
+    },
+    "1188162047": {
+        "name": "THUMB OF APPROVAL",
+        "type": "Emote/Victory Pose"
+    },
+    "1680230884": {
+        "name": "BIG WHOOP",
+        "type": "Emote/Victory Pose"
+    },
+    "3702613996": {
+        "name": "BIG STRETCH",
+        "type": "Emote/Victory Pose"
+    },
+    "482071040": {
+        "name": "BOXER",
+        "type": "Emote/Victory Pose"
+    },
+    "1232734620": {
+        "name": "CALL THE HELLDIVERS",
+        "type": "Emote/Victory Pose"
+    },
+    "1964594095": {
+        "name": "CLAPPING",
+        "type": "Victory Pose"
+    },
+    "825115965": {
+        "name": "COURTLY BOW",
+        "type": "Emote/Victory Pose"
+    },
+    "2160784978": {
+        "name": "DEEP REFLECTION",
+        "type": "Emote/Victory Pose"
+    },
+    "3818154189": {
+        "name": "DISPLAY OF BRAWN",
+        "type": "Emote/Victory Pose"
+    },
+    "1227146212": {
+        "name": "DISTRIBUTE BALLOTS",
+        "type": "Emote/Victory Pose"
+    },
+    "1150857575": {
+        "name": "EW",
+        "type": "Emote/Victory Pose"
+    },
+    "4053116626": {
+        "name": "FINGER GUNS",
+        "type": "Emote/Victory Pose"
+    },
+    "2786980659": {
+        "name": "FLEX",
+        "type": "Emote/Victory Pose"
+    },
+    "3576665453": {
+        "name": "GUNS OF LIBERTY",
+        "type": "Emote/Victory Pose"
+    },
+    "2086772989": {
+        "name": "HEAD TAP",
+        "type": "Emote/Victory Pose"
+    },
+    "3748104941": {
+        "name": "LOOSEN UP",
+        "type": "Emote/Victory Pose"
+    },
+    "4184451498": {
+        "name": "MIME INSTRUMENTATION",
+        "type": "Emote/Victory Pose"
+    },
+    "2611571391": {
+        "name": "PRESENTABLE",
+        "type": "Emote/Victory Pose"
+    },
+    "3269065783": {
+        "name": "RANDOM",
+        "type": "Emote/Victory Pose"
+    },
+    "3151461126": {
+        "name": "ROLL 'EM",
+        "type": "Emote/Victory Pose"
+    },
+    "3910328088": {
+        "name": "SALUTE",
+        "type": "Victory Pose"
+    },
+    "1820995838": {
+        "name": "SHOTGUN SHOW",
+        "type": "Emote/Victory Pose"
+    },
+    "1351560655": {
+        "name": "SQUAT",
+        "type": "Emote/Victory Pose"
+    },
+    "4174163718": {
+        "name": "SUPER PERSON",
+        "type": "Emote/Victory Pose"
+    },
+    "3553359872": {
+        "name": "TARGET SIGHTED",
+        "type": "Emote/Victory Pose"
+    },
+    "1419215247": {
+        "name": "WELCOME ADORATION",
+        "type": "Emote/Victory Pose"
+    },
+    "3222355031": {
+        "name": "YOU'RE NEXT",
+        "type": "Emote/Victory Pose"
+    },
+    "4102069932": {
+        "name": "[REDACTED]",
+        "type": "Title"
+    },
+    "2500192754": {
+        "name": "ASSAULT INFANTRY",
+        "type": "Title"
+    },
+    "1702714108": {
+        "name": "BUNKER BUSTER",
+        "type": "Title"
+    },
+    "1809827112": {
+        "name": "BURIER OF HEADS",
+        "type": "Title"
+    },
+    "2668737738": {
+        "name": "DECORATED HERO",
+        "type": "Title"
+    },
+    "811699753": {
+        "name": "EXEMPLARY SUBJECT",
+        "type": "Title"
+    },
+    "3545696840": {
+        "name": "EXOSUIT CERTIFIED",
+        "type": "Title"
+    },
+    "2195045156": {
+        "name": "EXPERT EXTERMINATOR",
+        "type": "Title"
+    },
+    "4109752284": {
+        "name": "EXTRA JUDICIAL",
+        "type": "Title"
+    },
+    "2724145698": {
+        "name": "FIRE SAFETY OFFICER",
+        "type": "Title"
+    },
+    "1301492156": {
+        "name": "FREE OF THOUGHT",
+        "type": "Title"
+    },
+    "3017660157": {
+        "name": "MUDSKIPPER",
+        "type": "Title"
+    },
+    "3626179776": {
+        "name": "PYTHON COMMANDO",
+        "type": "Title"
+    },
+    "2494479670": {
+        "name": "ROOKIE",
+        "type": "Title"
+    },
+    "238241501": {
+        "name": "SERVANT OF FREEDOM",
+        "type": "Title"
+    },
+    "742934263": {
+        "name": "STILL STANDING",
+        "type": "Title"
+    },
+    "131627305": {
+        "name": "SUPER CITIZEN",
+        "type": "Title"
+    },
+    "780190178": {
+        "name": "SUPER PEDESTRIAN",
+        "type": "Title"
+    },
+    "4042829850": {
+        "name": "SUPER SHERIFF",
+        "type": "Title"
+    },
+    "663691115": {
+        "name": "VIPER COMMANDO",
+        "type": "Title"
+    },
     "2671489717": {
         "name": "FS-37 RAVAGER",
         "description": "Contains many small pockets, allowing the user to evenly distribute the weight of ammunition, samples, and cool rocks.",
@@ -2993,20 +3253,8 @@
         "type": "Support Weapon",
         "cost": 0
     },
-    "1455517800": {
-        "name": "CHEER",
-        "description": "",
-        "type": "Emote",
-        "cost": 0
-    },
-    "1200031688": {
-        "name": "HANDSHAKE ENGINEER",
-        "description": "",
-        "type": "Emote",
-        "cost": 0
-    },
-    "1508758952": {
-        "name": "HANDSHAKE RECON",
+    "2521504751": {
+        "name": "TIP HAT",
         "description": "",
         "type": "Emote",
         "cost": 0
@@ -3040,24 +3288,6 @@
         "description": "",
         "type": "Emote",
         "cost": 250
-    },
-    "2124284534": {
-        "name": "MARCH",
-        "description": "",
-        "type": "Emote",
-        "cost": 0
-    },
-    "4693889": {
-        "name": "STOIC",
-        "description": "",
-        "type": "Emote",
-        "cost": 0
-    },
-    "3818154189": {
-        "name": "TAUNT",
-        "description": "",
-        "type": "Emote",
-        "cost": 0
     },
     "2234906439": {
         "name": "ENTHUSIASTIC MIRTH",

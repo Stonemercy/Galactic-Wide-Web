@@ -3,6 +3,7 @@ from utils.api_wrapper.clients import (
     AltDSSVotesAuthedClient,
     AltPOAuthedClient,
     AltSuperstoreAuthedClient,
+    AltWarbondsAuthedClient,
     ArsenalClient,
     AuthedClient,
     HelldiversClient,
@@ -41,6 +42,7 @@ class DataService(ReprMixin):
         self._raw_war_effects: list = []
         self._raw_personal_order: dict = {}
         self._raw_stuperstore: list = {}
+        self._raw_warbonds: dict[int, dict] = {}
         self._raw_steam_news: list = []
         self._raw_control_centre: dict[str, dict] = {}
         self._episode_phase_translations: dict = {
@@ -305,6 +307,7 @@ class DataService(ReprMixin):
             async with ItemsClient(
                 logger=self.logger, base_url=EndpointBase.ITEMS.value
             ) as client:
+                self._raw_api_items.clear()
                 self._raw_api_items = await client.get_items()
 
             async with AltSuperstoreAuthedClient(logger=self.logger) as client:
@@ -313,12 +316,22 @@ class DataService(ReprMixin):
                     (s for s in mother_data if s["id32"] == 2776696735), None
                 )
                 if super_store_pages is not None:
+                    self._raw_stuperstore.clear()
                     self._raw_stuperstore: list = super_store_pages.get("sections", [])
                 rotating_data = await client.get_rotating()
                 if rotating_data is not None:
                     self._raw_stuperstore.insert(
                         0, rotating_data.get("salesPage", {}).get("sections", [{}])[0]
                     )
+
+            async with AltWarbondsAuthedClient(logger=self.logger) as client:
+                self._raw_warbonds.clear()
+                index_data = await client.get_warbonds_index()
+                for warbond in index_data:
+                    specific_data = await client.get_with_id(
+                        warbond_id=warbond.get("id32")
+                    )
+                    self._raw_warbonds[warbond.get("id32")] = specific_data
 
         async with ArsenalClient(logger=self.logger) as client:
             arsenal_target = await client.get_community_target()
@@ -344,6 +357,7 @@ class DataService(ReprMixin):
             steam_news=self._raw_steam_news,
             control_centre=self._raw_control_centre,
             superstore=self._raw_stuperstore,
+            warbonds=self._raw_warbonds,
             items_data=self._raw_api_items,
             arsenal_targets=self._arsenal_targets,
             json_dict=self.json_dict,

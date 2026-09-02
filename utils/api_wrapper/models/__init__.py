@@ -9,6 +9,7 @@ from .planet import Planet
 from .space_stations import DSS, SpaceStation
 from .steam_news import SteamNews
 from .superstore import Superstore
+from .warbond import Warbond
 
 __all__ = [
     "Assignment",
@@ -26,4 +27,5 @@ __all__ = [
     "SpaceStation",
     "SteamNews",
     "Superstore",
+    "Warbond",
 ]

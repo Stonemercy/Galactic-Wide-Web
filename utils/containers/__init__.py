@@ -15,6 +15,7 @@ from .setup import SetupContainer
 from .subfactions import SubfactionsContainer
 from .superstore import SuperstoreContainer
 from .usage_report import UsageContainer
+from .warbonds import WarbondsContainer
 from .welcome import WelcomeContainer
 
 __all__ = [
@@ -35,5 +36,6 @@ __all__ = [
     "SubfactionsContainer",
     "SuperstoreContainer",
     "UsageContainer",
+    "WarbondsContainer",
     "WelcomeContainer",
 ]
