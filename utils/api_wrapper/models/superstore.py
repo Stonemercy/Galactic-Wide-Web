@@ -75,15 +75,6 @@ class Superstore:
                     None,
                 )
                 self.items.append(Superstore.Item(i, items_json, endpoint_item))
-                for i in self.items:
-                    if i.type == "Player Card":
-                        if (
-                            cape := next(
-                                (j for j in self.items if j.type == "Cape"), None
-                            )
-                        ) is not None:
-                            i.name = cape.name
-                            i.description = cape.description
 
         def __repr__(self):
             return (
@@ -105,11 +96,12 @@ class Superstore:
             if endpoint_item is not None:
                 self.id = endpoint_item.mix_id
             self.json_entry: dict = items_json.get(str(self.id or 0), {})
-            self.name: str = self.json_entry.get("name", "Unknown Item")
-            self.description: str = self.json_entry.get(
-                "description",
-                "This item has not been confirmed by GWW yet. Please stand by.",
+            self.name: str = (
+                self.json_entry.get("name")
+                or (endpoint_item.name if endpoint_item else None)
+                or "Unknown Item"
             )
+            self.description: str = self.json_entry.get("description", "")
             self.type: str = self.json_entry.get("type", "Unknown")
             self.cost: int = self.json_entry.get("cost", 0)
             if endpoint_item is not None:

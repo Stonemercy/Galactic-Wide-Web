@@ -20,6 +20,7 @@ json_dict = {
             "path": "data/json/items/vehicle_skins.json",
             "value": None,
         },
+        "player_cards": {"path": "data/json/items/player_cards.json", "value": None},
         "rewards": {
             "path": "data/json/assignments/rewards.json",
             "value": None,

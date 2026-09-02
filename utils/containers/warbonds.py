@@ -43,18 +43,6 @@ class WarbondsContainer(Container, ReprMixin):
         )
         for i in page.items:
             item_name = str(i.name)
-            if i.endpoint_item.category == ItemCategory.PLAYER_CARD:
-                cape = next(
-                    (
-                        ci
-                        for ci in page.items
-                        if ci.endpoint_item.category == ItemCategory.ARMOR
-                        and len([di for di in page.items if di.name == ci.name]) == 1
-                    ),
-                    None,
-                )
-                if cape is not None:
-                    item_name = cape.name
 
             item_type = i.endpoint_item.category.name.replace("_", " ").replace(
                 "EFFECTID MIX ID", "PERMIT"
