@@ -19,7 +19,7 @@ class GWWLogger:
 
             if colored_output:
                 formatter = ColoredFormatter(
-                    "%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+                    "%(asctime)s.%(msecs)03d - %(name)s - %(levelname)s - %(message)s",
                     datefmt="%d/%m/%y - %H:%M:%S",
                 )
             else:
