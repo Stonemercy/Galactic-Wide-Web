@@ -179,9 +179,12 @@ class Maps:
                                 with_attack_arrows = True
                         elif planet.faction == near_planet.faction:
                             colour = near_planet.faction.colour
-                    elif planet.in_assignment:
+                    elif planet.in_assignment and near_planet.faction != planet.faction:
                         distance_div = 0.25
-                    elif near_planet.in_assignment:
+                    elif (
+                        near_planet.in_assignment
+                        and planet.faction != near_planet.faction
+                    ):
                         distance_div = 0.75
 
                 end_point = (
