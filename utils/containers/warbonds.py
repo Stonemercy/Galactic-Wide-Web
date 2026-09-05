@@ -41,15 +41,21 @@ class WarbondsContainer(Container, ReprMixin):
                 f"# **{warbond.name}**\n## Page **{page_index + 1}/{len(warbond.pages)}**"
             )
         )
+        page_player_cards = [
+            i.name
+            for i in page.items
+            if i.endpoint_item is not None
+            and i.endpoint_item.category == ItemCategory.PLAYER_CARD
+        ]
         for i in page.items:
             item_name = str(i.name)
 
             item_type = i.endpoint_item.category.name.replace("_", " ").replace(
                 "EFFECTID MIX ID", "PERMIT"
             )
-            if (
-                item_type == "ARMOR"
-                and len([di for di in page.items if di.name == i.name]) == 1
+            if item_type == "ARMOR" and (
+                item_name in page_player_cards
+                or len([item for item in page.items if item.name == i.name]) == 1
             ):
                 item_type = "CAPE"
             elif (
