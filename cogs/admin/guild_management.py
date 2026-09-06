@@ -127,27 +127,27 @@ class GuildManagementCog(Cog):
 
     @Cog.listener("on_button_click")
     async def ban_listener(self, inter: MessageInteraction) -> None:
-        if not self.bot.ready:
+        if inter.component.custom_id != "guild_remove":
             return
-        if inter.component.custom_id == "guild_remove":
-            if inter.author != self.bot.owner:
-                await inter.send("You arent allowed to do this.")
-                return
-            for guild in self.guilds_to_remove:
-                guild.features.clear()
-                guild.update_features()
-                guild.delete()
-                self.bot.logger.info(
-                    f"{self.qualified_name} | ban_listener | removed {guild.guild_id} from the DB"
-                )
-                await inter.send(
-                    content=f"Deleted guild `{guild.guild_id}` from the DB"
-                )
-            embed = inter.message.embeds[0].add_field(
-                name="", value="# GUILDS DELETED FROM DB", inline=False
+        if not self.bot.ready:
+            await self.bot.bot_not_ready(inter)
+            return
+        if inter.author != self.bot.owner:
+            await inter.send("You arent allowed to do this.")
+            return
+        for guild in self.guilds_to_remove:
+            guild.features.clear()
+            guild.update_features()
+            guild.delete()
+            self.bot.logger.info(
+                f"{self.qualified_name} | ban_listener | removed {guild.guild_id} from the DB"
             )
-            await inter.message.edit(components=None, embed=embed)
-            self.guilds_to_remove.clear()
+            await inter.send(content=f"Deleted guild `{guild.guild_id}` from the DB")
+        embed = inter.message.embeds[0].add_field(
+            name="", value="# GUILDS DELETED FROM DB", inline=False
+        )
+        await inter.message.edit(components=None, embed=embed)
+        self.guilds_to_remove.clear()
 
 
 def setup(bot: GalacticWideWebBot) -> None:
