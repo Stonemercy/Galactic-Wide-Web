@@ -318,12 +318,12 @@ class WarUpdatesCog(Cog):
                 != self.bot.data.formatted_data.dss.planet.index
             ):
                 # if DSS has moved
+                before_planet = self.bot.data.formatted_data.planets.get(
+                    self.bot.databases.dss_info.planet_index
+                )
+                if before_planet is None:
+                    before_planet = self.bot.data.formatted_data.planets.get(0)
                 for container in containers.values():
-                    before_planet = self.bot.data.formatted_data.planets.get(
-                        self.bot.databases.dss_info.planet_index
-                    )
-                    if not before_planet:
-                        return
                     container.dss_moved(
                         before_planet=before_planet,
                         after_planet=self.bot.data.formatted_data.dss.planet,
@@ -341,10 +341,10 @@ class WarUpdatesCog(Cog):
                 if old_status is None or old_status != ta.status:
                     for container in containers.values():
                         container.ta_status_changed(tactical_action=ta)
-                        self.bot.databases.dss_info.tactical_action_statuses[ta.id] = (
-                            ta.status
-                        )
-                        self.bot.databases.dss_info.save_changes()
+                    self.bot.databases.dss_info.tactical_action_statuses[ta.id] = (
+                        ta.status
+                    )
+                    self.bot.databases.dss_info.save_changes()
                     dss_updates = True
 
         if dss_updates:
