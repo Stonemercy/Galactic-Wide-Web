@@ -74,17 +74,13 @@ class WarbondsContainer(Container, ReprMixin):
                     )
                 ) is not None:
                     emoji_str = f"{available_emoji} "
+                item_link = f"https://helldivers.wiki.gg/wiki/Special:Search?search={item_name.lower().replace(' ', '_') if 'Unknown' not in i.name else 'Warbonds'}"
                 self.components.append(
-                    Section(
-                        TextDisplay(
-                            (
-                                f"\n-# **{item_name}** - **{i.cost}**{Emojis.Items.medal}"
-                                f"\n-# {emoji_str} {item_type}"
-                            )
-                        ),
-                        accessory=WikiButton(
-                            link=f"https://helldivers.wiki.gg/wiki/Special:Search?search={item_name.title().replace(' ', '_') if 'Unknown' not in i.name else 'Warbonds'}"
-                        ),
+                    TextDisplay(
+                        (
+                            f"\n-# **[{item_name}](<{item_link}>)** - **{i.cost}**{Emojis.Items.medal}"
+                            f"\n-# {emoji_str} {item_type}"
+                        )
                     )
                 )
             else:
