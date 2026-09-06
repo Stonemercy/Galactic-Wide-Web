@@ -34,14 +34,11 @@ class DataManagementCog(Cog):
         )
         self.bot.logger.info("startup loop completed")
         now = datetime.now()
-        secs_until_pull_from_api = (
-            (
-                now.replace(second=45)
-                if now.second < 45
-                else now.replace(minute=now.minute + 1, second=45)
-            )
-            - now
-        ).total_seconds()
+        if now.second < 45:
+            target = now.replace(second=45, microsecond=0)
+        else:
+            target = now.replace(second=45, microsecond=0) + timedelta(minutes=1)
+        secs_until_pull_from_api = (target - now).total_seconds()
         self.bot.logger.info(
             f"pull_from_api should begin in {secs_until_pull_from_api:.1f} seconds"
         )
