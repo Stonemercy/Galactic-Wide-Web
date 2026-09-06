@@ -28,6 +28,12 @@ class Emojis:
         sidearm_weapon = "<:s:1507054840235294943>"
         throwable_weapon = "<:s:1507054841179013212>"
         player_card = "<:s:1536476364226568312>"
+        victory_pose = "<:s:1546123082324770876>"
+        emote = "<:s:1546123076758933555>"
+        booster = "<:s:1546123233948995624>"
+        stratagem_permit = "<:s:1546123078118146049>"
+        title = "<:s:1546123079690887229>"
+        vehicle_skin = "<:s:1546123080777203772>"
 
     @dataclass
     class DefenceIcons:
