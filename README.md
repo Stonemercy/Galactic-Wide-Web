@@ -2,13 +2,13 @@
 
 <p align="center">
 	<a href="https://discord.gg/Z8Ae5H5DjZ">
-		<img alt="Servers" src="https://img.shields.io/badge/servers-4500+-brightgreen?style=for-the-badge">
+		<img alt="Servers" src="https://img.shields.io/badge/servers-5000+-brightgreen?style=for-the-badge">
 	</a>
   <a href="https://discord.gg/Z8Ae5H5Dj">
-		<img alt="User Installs" src="https://img.shields.io/badge/user installs-1000+-brightgreen?style=for-the-badge">
+		<img alt="User Installs" src="https://img.shields.io/badge/user installs-1300+-brightgreen?style=for-the-badge">
 	</a>
 	<a href="https://discord.gg/Z8Ae5H5Dj">
-		<img alt="Visible Users" src="https://img.shields.io/badge/visible users-550,000+-brightgreen?style=for-the-badge">
+		<img alt="Visible Users" src="https://img.shields.io/badge/visible users-625,000+-brightgreen?style=for-the-badge">
 	</a>
   <br>
 	<img alt="Commits made" src="https://img.shields.io/github/last-commit/Stonemercy/Galactic-Wide-Web?style=for-the-badge">
@@ -21,32 +21,31 @@
 </p>
 
 <p align="center">
-  Galactic Wide Web is a Discord bot for Helldivers 2 that provides real-time information on the Galactic War.
+  Galactic Wide Web is a Discord application/bot for Helldivers 2 players that provides real-time information on the Galactic War.
   <br>
   It pulls live data from the official Helldivers 2 API and the Steam API, and keeps an auto-updating dashboard refreshed every 15 minutes with a strategic overview of the current war effort.<br><br>
   The bot includes slash commands, interactive buttons, dropdowns, and embedded content. All interactions take place in text channels.
   <br>
-  Server administrators (or those with Manage Server permissions) can configure which channels are used for dashboards and map posts.
+  Server administrators (or those with Manage Server permissions) can configure which channels are used for dashboards and announcements.
   <br>
-  Notifications can be enabled for a range of events, including:
-  </p>
-    <ul align="center">
-    New Major Orders
-    <br>
-    Personal Orders
-    <br>
-    Dispatches
-    <br>
-    Global Events
-    <br>
-    DSS movements and Tactical Action changes
-    <br>
-    Planetary Region changes
-    <br>
-    Campaign wins and losses
-    <br>
-    and Steam patch notes.
-    </ul>
+  The bot has a variety of Helldivers 2 data, including:
+</p>
+<div align="center">
+  <ul style="display: inline-block; text-align: left;">
+    <li>Personal Orders<br><b>EXCLUSIVE!</b></li>
+    <li>DSS Vote counts<br><b>EXCLUSIVE!</b></li>
+    <li>Major Orders</li>
+    <li>Control Centre (campaigns)</li>
+    <li>Superstore</li>
+    <li>Warbonds</li>
+    <li>Dispatches</li>
+    <li>Global Events</li>
+    <li>DSS movements and Tactical Action updates</li>
+    <li>Planetary Region changes</li>
+    <li>Campaign wins and losses</li>
+    <li>and Steam patch notes.</li>
+  </ul>
+</div>
   <p align="center">
   <br>
   The bot supports multilingual output, currently offering English, French, German, Italian, Portuguese (BR),
@@ -66,12 +65,16 @@
 Want to try out the GWW on your server or your account? [Invite Link](https://discord.com/oauth2/authorize?client_id=1212535586972369008)
 
 ## Examples
-### `/check_missing_translations language_to_check: pt-br`
+### `/check_missing_translations language_to_check: fr`
 <img src="resources/readme/check_missing_translations.png" width="500">
 <p align="right"><a href="#top">Back to Top ↑</a></p>
 
 ### `/community_servers`
 <img src="resources/readme/community_servers.png" width="500">
+<p align="right"><a href="#top">Back to Top ↑</a></p>
+
+### `/control_centre`
+<img src="resources/readme/control_centre.png" width="500">
 <p align="right"><a href="#top">Back to Top ↑</a></p>
 
 ### `/dispatches`
@@ -82,11 +85,15 @@ Want to try out the GWW on your server or your account? [Invite Link](https://di
 ![dss](resources/readme/dss.png)
 <p align="right"><a href="#top">Back to Top ↑</a></p>
 
+### `/dss_votes`
+<img src="resources/readme/dss_votes.png">
+<p align="right"><a href="#top">Back to Top ↑</a></p>
+
 ### `/global_events`
 <img src="resources/readme/global_events.png" width="500">
 <p align="right"><a href="#top">Back to Top ↑</a></p>
 
-### `/help command: check_missing_translations`
+### `/help command: check_missing_translations` (this needs updating)
 <img src="resources/readme/help.png" width="500">
 <p align="right"><a href="#top">Back to Top ↑</a></p>
 
@@ -99,23 +106,35 @@ Want to try out the GWW on your server or your account? [Invite Link](https://di
 <p align="right"><a href="#top">Back to Top ↑</a></p>
 
 ### `/personal_order`
-![personal_order](resources/readme/personal_order.png)
+<img src="resources/readme/personal_order.png">
 <p align="right"><a href="#top">Back to Top ↑</a></p>
 
-### `/planet planet: 112-VERNEN WELLS`
+### `/planet planet: 124-BORE ROCK`
 <img src="resources/readme/planet.png" width="500">
 <p align="right"><a href="#top">Back to Top ↑</a></p>
 
 ### `/setup`
-![setup](resources/readme/setup.png)
+<img src="resources/readme/setup.png">
 <p align="right"><a href="#top">Back to Top ↑</a></p>
 
 ### `/steam`
 <img src="resources/readme/steam.png" width="500">
 <p align="right"><a href="#top">Back to Top ↑</a></p>
 
-### `/warfront faction: Terminids`
-![warfront](resources/readme/warfront.png)
+### `/subfaction`
+<img src="resources/readme/subfaction.png" width="500">
+<p align="right"><a href="#top">Back to Top ↑</a></p>
+
+### `/superstore`
+<img src="resources/readme/superstore.png" width="500">
+<p align="right"><a href="#top">Back to Top ↑</a></p>
+
+### `/warbonds`
+<img src="resources/readme/warbonds.png" width="500">
+<p align="right"><a href="#top">Back to Top ↑</a></p>
+
+### `/warfront faction: Automaton`
+<img src="resources/readme/warfront.png">
 <p align="right"><a href="#top">Back to Top ↑</a></p>
 
 ## Support
