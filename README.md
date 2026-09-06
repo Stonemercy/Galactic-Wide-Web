@@ -36,35 +36,32 @@
   <br>
   The bot has a variety of Helldivers 2 data, including:
 </p>
-<div align="center">
-  <ul style="display: inline-block; text-align: left;">
-    <li>Personal Orders<br><b>EXCLUSIVE!</b></li>
-    <li>DSS Vote counts<br><b>EXCLUSIVE!</b></li>
-    <li>Major Orders</li>
-    <li>Control Centre (campaigns)</li>
-    <li>Superstore</li>
-    <li>Warbonds</li>
-    <li>Dispatches</li>
-    <li>Global Events</li>
-    <li>DSS movements and Tactical Action updates</li>
-    <li>Planetary Region changes</li>
-    <li>Campaign wins and losses</li>
-    <li>and Steam patch notes.</li>
-  </ul>
-</div>
-  <p align="center">
-  <br>
-  The bot also supports multilingual output, currently offering English, French, German, Italian, Portuguese (BR),
-  <br>
-  Russian, Spanish, Chinese (Traditional), and Turkish, with more languages welcome via contributions.
-  <br><br>
-  Built using Disnake, it stores settings in PostgreSQL and uses Pillow and opencv to generate maps.
+<p align="center">
+    - Personal Orders - <b>EXCLUSIVE!</b><br>
+    - DSS Vote counts - <b>EXCLUSIVE!</b><br>
+    - Major Orders<br>
+    - Control Centre (campaigns)<br>
+    - Superstore<br>
+    - Warbonds<br>
+    - Dispatches<br>
+    - Global Events<br>
+    - DSS movements and Tactical Action updates<br>
+    - Planetary Region changes<br>
+    - Campaign wins and losses<br>
+    - and Steam patch notes.<br>
+    <br>
+    The bot also supports multilingual output, currently offering English, French, German, Italian, Portuguese (BR),
+    <br>
+    Russian, Spanish, Chinese (Traditional), and Turkish, with more languages welcome via contributions.
+    <br><br>
+    Built using Disnake, it stores settings in PostgreSQL and uses Pillow and opencv to generate maps.
 </p>
 
 ## Quick Navigation
 - [Inviting the Bot](#inviting-the-galactic-wide-web)
 - [Examples](#examples)<br>
-| Here are | the bots | commands |
+
+| Here are the bots commands |   |   |
 |---|---|---|
 | [`/check_missing_translations`](#check_missing_translations-language_to_check-fr) | [`/community_servers`](#community_servers) | [`/control_centre`](#control_centre) |
 | [`/dispatches`](#dispatches) | [`/dss`](#dss) | [`/dss_votes`](#dss_votes) |
@@ -72,6 +69,7 @@
 | [`/personal_order`](#personal_order) | [`/planet`](#planet-planet-124-bore-rock) | [`/setup`](#setup) |
 | [`/steam`](#steam) | [`/subfaction`](#subfaction) | [`/superstore`](#superstore) |
 | [`/warbonds`](#warbonds) | [`/warfront`](#warfront-faction-automaton) | |
+
 - [Support](#support)
 - [Contributing](#contributing)
 
@@ -154,8 +152,6 @@ Want to try out the GWW on your server or your account? [Invite Link](https://di
 ## Support
 Available here: [Discord Support Server](https://discord.gg/Z8Ae5H5DjZ)
 <p align="right"><a href="#top">Back to Top ↑</a></p>
-
-<iframe src="https://discord.com/widget?id=1212722266392109088&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
 
 ## Contributing
 Contributions are welcome!
