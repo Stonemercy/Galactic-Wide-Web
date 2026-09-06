@@ -1,5 +1,7 @@
-<h1 align="center">Galactic Wide Web</h1>
-
+<a name="top"></a>
+<div align="center">
+  <img src="resources/gww-banner.png" width="800">
+</div>
 <p align="center">
   <a href="https://discord.gg/Z8Ae5H5DjZ">
     <img alt="Support Server" src="https://img.shields.io/discord/1212722266392109088?style=for-the-badge&logo=discord&label=Support%20Server">
@@ -59,7 +61,7 @@
 
 ## Quick Navigation
 - [Inviting the Bot](#inviting-the-galactic-wide-web)
-- [Examples](#examples)<br>
+- [Examples](#examples)
 
 | Here are the bots commands |   |   |
 |---|---|---|
