@@ -2658,7 +2658,7 @@ class Dashboard:
                 ) and (
                     (
                         campaign.planet.tracker
-                        and campaign.planet.tracker.change_rate_per_hour < 0.0001
+                        and campaign.planet.tracker.change_rate_per_hour < 0.0005
                     )
                     or not campaign.planet.tracker
                 ):
