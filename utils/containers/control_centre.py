@@ -19,7 +19,11 @@ from utils.interactables import (
     OverviewButton,
     PastCampaignsButton,
 )
-from utils.interactables.control_centre import ControlCentreActiveCampaignsStringSelect
+from utils.interactables.control_centre import (
+    ControlCentreActiveCampaignsStringSelect,
+    ArchivePageButton,
+    ControlCenterArchivePageButtonType,
+)
 
 STATUS_DICT = {
     ControlCentreStatus.InProgress: "IN PROGRESS",
@@ -37,12 +41,14 @@ class ControlCentreContainer(Container):
         page: ControlCentrePage,
         phase_id: int = None,
         episode_id: int = None,
+        past_campaigns_page: int = 1,
     ):
         self.control_centre = control_centre
         self.required_images = required_images
         self.dispatches = dispatches
         self.phase_id = phase_id
         self.episode_id = episode_id
+        self.past_campaigns_page = past_campaigns_page
         self.components = []
         self.accent_colour = Colour.from_rgb(*CUSTOM_COLOURS["MO"])
 
@@ -145,14 +151,15 @@ class ControlCentreContainer(Container):
             mo_rewards_text = ""
             for reward in active_phase.rewards:
                 reward_name = (
-                    reward.item_type
+                    reward.item_type.replace("_", " ").replace(
+                        "EFFECTID MIX ID", "PERMIT"
+                    )
                     if active_phase.status == ControlCentreStatus.InProgress
                     else reward.item_name
                 )
                 reward_emoji = (
                     f"[{reward.emoji}](http://{reward.item_name.replace(' ', '-')}.com)"
                     if active_phase.status == ControlCentreStatus.InProgress
-                    and reward_name != "Unknown Item"
                     else reward.emoji
                 )
                 mo_rewards_text += f"{Emojis.Icons.blank}**{reward.amount}** x **{reward_name}** {reward_emoji} {reward_result_emoji}"
@@ -186,14 +193,13 @@ class ControlCentreContainer(Container):
         campaign_rewards_text = ""
         for reward in active_campaign.rewards:
             reward_name = (
-                reward.item_type
+                reward.item_type.replace("_", " ").replace("EFFECTID MIX ID", "PERMIT")
                 if active_campaign.status == ControlCentreStatus.InProgress
                 else reward.item_name
             )
             reward_emoji = (
                 f"[{reward.emoji}](http://{reward.item_name.replace(' ', '-')}.com)"
                 if active_phase.status == ControlCentreStatus.InProgress
-                and reward_name != "Unknown Item"
                 else reward.emoji
             )
             campaign_rewards_text += f"{Emojis.Icons.blank}**{reward.amount}** x **{reward_name}** {reward_emoji} {reward_result_emoji}"
@@ -292,14 +298,13 @@ class ControlCentreContainer(Container):
         mo_rewards_text = ""
         for reward in phase.rewards:
             reward_name = (
-                reward.item_type
+                reward.item_type.replace("_", " ").replace("EFFECTID MIX ID", "PERMIT")
                 if phase.status == ControlCentreStatus.InProgress
                 else reward.item_name
             )
             reward_emoji = (
                 f"[{reward.emoji}](http://{reward.item_name.replace(' ', '-')}.com)"
                 if phase.status == ControlCentreStatus.InProgress
-                and reward_name != "Unknown Item"
                 else reward.emoji
             )
             mo_rewards_text += f"{Emojis.Icons.blank}**{reward.amount}** x **{reward_name}** {reward_emoji} {reward_result_emoji}"
@@ -332,14 +337,13 @@ class ControlCentreContainer(Container):
         campaign_rewards_text = ""
         for reward in campaign.rewards:
             reward_name = (
-                reward.item_type
+                reward.item_type.replace("_", " ").replace("EFFECTID MIX ID", "PERMIT")
                 if campaign.status == ControlCentreStatus.InProgress
                 else reward.item_name
             )
             reward_emoji = (
                 f"[{reward.emoji}](http://{reward.item_name.replace(' ', '-')}.com)"
                 if campaign.status == ControlCentreStatus.InProgress
-                and reward_name != "Unknown Item"
                 else reward.emoji
             )
             campaign_rewards_text += f"{Emojis.Icons.blank}**{reward.amount}** x **{reward_name}** {reward_emoji} {reward_result_emoji}"
@@ -359,15 +363,17 @@ class ControlCentreContainer(Container):
         )
 
     def add_past_campaigns_page(self):
+        start = ((self.past_campaigns_page - 1) * 3) + 1
+        stop = start + 3
         archive_sections = []
-        for campaign in self.control_centre.episodes:
+        for campaign in self.control_centre.episodes[::-1][start:stop]:
             if campaign.status == ControlCentreStatus.InProgress:
                 continue
 
             section = []
             title = TextDisplay(
                 f"-# Archive Data Entry"
-                + " " * 115
+                + " " * 110
                 + f"<t:{int(campaign.end_time_datetime.timestamp())}:R>"
             )
 
@@ -409,5 +415,23 @@ class ControlCentreContainer(Container):
                 )
             section.append(Separator())
             archive_sections.extend(section)
+
+        archive_sections.append(
+            ActionRow(
+                *[
+                    ArchivePageButton(
+                        ControlCenterArchivePageButtonType.PREV_PAGE,
+                        self.past_campaigns_page - 1,
+                        self.past_campaigns_page - 1 <= 0,
+                    ),
+                    ArchivePageButton(
+                        ControlCenterArchivePageButtonType.NEXT_PAGE,
+                        self.past_campaigns_page + 1,
+                        self.past_campaigns_page + 1
+                        > round((len(self.control_centre.episodes) - 1) / 3),
+                    ),
+                ],
+            )
+        )
 
         self.components.extend(archive_sections)

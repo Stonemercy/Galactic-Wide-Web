@@ -7,6 +7,13 @@ WEAPON_CATEGORY_REPLACEMENTS = {
     "Sidearm Weapon": ItemCategory.SIDEARM_WEAPON,
 }
 
+PROPERTIES_TO_SKIP = [
+    "_json",
+    "parent_item",
+    "child_item",
+    "_category",
+]
+
 
 class EndpointItem:
     def __init__(self, raw_endpoint_item_data: dict, json_dict: dict):
@@ -21,6 +28,8 @@ class EndpointItem:
             or json_dict["items"]["player_cards"].get(str(self.item_id))
             or json_dict["items"]["rewards"].get(str(self.item_id))
         )
+        if isinstance(self.item_name, str):
+            self.item_name = self.item_name.upper()
         self.mix_id: int = self._json.get("mixId", 0)
         self.mix_name: str | None = (
             STRATAGEM_ID_DICT.get(self.mix_id)
@@ -31,15 +40,20 @@ class EndpointItem:
             or json_dict["items"]["player_cards"].get(str(self.item_id))
             or json_dict["items"]["rewards"].get(str(self.mix_id))
         )
+        if isinstance(self.mix_name, str):
+            self.mix_name = self.mix_name.upper()
         self.parent_id: int | None = self._json.get("parentId")
         self.parent_item: EndpointItem | None = None
         self.child_item: EndpointItem | None = None
-        self.is_consumable: bool = self._json.get("mixId", 0)
-        self._category: int = self._json.get("progressionCategory", 0)
+        self.is_consumable: bool | None = self._json.get("mixId")
+        self.required_level: int | None = self._json.get("requiredLevel")
+        self._category: int = self._json.get("progressionCategory", -1)
         self.category: ItemCategory = ItemCategory(self._category)
         if self.category == ItemCategory.WEAPON:
             self.category = WEAPON_CATEGORY_REPLACEMENTS.get(
-                json_dict["items"]["items"].get(str(self.mix_id), {}).get("type"),
+                json_dict["items"]["items"]
+                .get(str(self.mix_id), {})
+                .get("type", "unknown"),
                 self.category,
             )
         self.tags: list = self._json.get("tags", [])
@@ -76,10 +90,9 @@ class EndpointItem:
             [
                 f"\n    {k} = {v}"
                 for k, v in self.__dict__.items()
-                if not k.startswith("_") and "child" not in k and "parent" not in k
+                if k not in PROPERTIES_TO_SKIP
             ]
             + [
-                f"\n    parent_id = {self.parent_id}",
                 f"\n    parent_name = {self.parent_name}",
                 f"\n    child_id = {self.child_id}",
                 f"\n    child_name = {self.child_name}",
@@ -96,4 +109,4 @@ class EndpointItem:
         return self.mix_id == value.mix_id
 
     def __hash__(self):
-        return hash((self.mix_id))
+        return hash(self.mix_id)

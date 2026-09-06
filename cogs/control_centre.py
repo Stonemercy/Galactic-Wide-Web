@@ -108,9 +108,6 @@ class ControlCentreCog(Cog):
                     inter.component.custom_id.replace("_", " ").title().split(" ")[:-1]
                 )
             ]
-            cc = self.bot.data.formatted_data.control_centre.get(
-                guild.language, self.bot.data.formatted_data.control_centre.get("en")
-            )
             episode_id = None
             phase_id = None
             need_episode = True
@@ -151,9 +148,33 @@ class ControlCentreCog(Cog):
                 components=container,
                 files=[File(f"resources/news_images/{i}") for i in images_required],
             )
+        elif "past_campaigns_page" in inter.component.custom_id:
+            page_num = int(inter.component.custom_id.split("_")[-1])
+            images_required = [
+                f"{i}.png"
+                for i in cc.images_required(phase_id=0)
+                if f"{i}.png" in self.usable_images
+            ]
+            try:
+                images_required.remove(f"{cc.episodes[-1].image_id}.png")
+            except:
+                pass
+            container = ControlCentreContainer(
+                control_centre=cc,
+                required_images=images_required,
+                dispatches=self.bot.data.formatted_data.dispatches.get(
+                    guild.language,
+                    self.bot.data.formatted_data.dispatches.get("en", []),
+                ),
+                page=ControlCentrePage.PastCampaigns,
+                past_campaigns_page=page_num,
+            )
+            await inter.edit_original_response(
+                components=container,
+                files=[File(f"resources/news_images/{i}") for i in images_required],
+            )
         else:
             episode_id = int(inter.component.custom_id.split("_")[-1])
-            cc = self.bot.data.formatted_data.control_centre.get(guild.language)
             phase_id = (
                 next((e for e in cc.episodes if e.id == episode_id)).phases[-1].id
             )

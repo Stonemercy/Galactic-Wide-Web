@@ -625,8 +625,8 @@ class FormattedData:
             self.control_centre = {
                 lang: ControlCentre(
                     context.control_centre.get(lang),
-                    context.json_dict,
                     self.war_start_timestamp,
+                    self.organised_items,
                 )
                 for lang in context.control_centre
             }
