@@ -1,16 +1,22 @@
 <h1 align="center">Galactic Wide Web</h1>
 
 <p align="center">
+  <a href="https://discord.gg/Z8Ae5H5DjZ">
+    <img alt="Support Server" src="https://img.shields.io/discord/1212722266392109088?style=for-the-badge&logo=discord&label=Support%20Server">
+  </a>
 	<a href="https://discord.gg/Z8Ae5H5DjZ">
-		<img alt="Servers" src="https://img.shields.io/badge/servers-5000+-brightgreen?style=for-the-badge">
+		<img alt="Servers" src="https://img.shields.io/badge/servers-5000+-brightgreen?&logo=discord&style=for-the-badge">
 	</a>
-  <a href="https://discord.gg/Z8Ae5H5Dj">
-		<img alt="User Installs" src="https://img.shields.io/badge/user installs-1300+-brightgreen?style=for-the-badge">
+  <a href="https://discord.gg/Z8Ae5H5DjZ">
+		<img alt="User Installs" src="https://img.shields.io/badge/user installs-1300+-brightgreen?&logo=discord&style=for-the-badge">
 	</a>
-	<a href="https://discord.gg/Z8Ae5H5Dj">
-		<img alt="Visible Users" src="https://img.shields.io/badge/visible users-625,000+-brightgreen?style=for-the-badge">
+	<a href="https://discord.gg/Z8Ae5H5DjZ">
+		<img alt="Visible Users" src="https://img.shields.io/badge/visible users-625,000+-brightgreen?&logo=discord&style=for-the-badge">
 	</a>
   <br>
+  <a href="LICENSE">
+		<img alt="License" src="https://img.shields.io/github/license/Stonemercy/Galactic-Wide-Web?style=for-the-badge">
+	</a>
 	<img alt="Commits made" src="https://img.shields.io/github/last-commit/Stonemercy/Galactic-Wide-Web?style=for-the-badge">
   <img alt="Code Size" src="https://img.shields.io/github/languages/code-size/Stonemercy/Galactic-Wide-Web?style=for-the-badge">
   <img alt="Code Format" src="https://img.shields.io/badge/code%20style-black-000000.svg?style=for-the-badge">
@@ -48,7 +54,7 @@
 </div>
   <p align="center">
   <br>
-  The bot supports multilingual output, currently offering English, French, German, Italian, Portuguese (BR),
+  The bot also supports multilingual output, currently offering English, French, German, Italian, Portuguese (BR),
   <br>
   Russian, Spanish, Chinese (Traditional), and Turkish, with more languages welcome via contributions.
   <br><br>
@@ -57,7 +63,15 @@
 
 ## Quick Navigation
 - [Inviting the Bot](#inviting-the-galactic-wide-web)
-- [Examples](#examples)
+- [Examples](#examples)<br>
+| Here are | the bots | commands |
+|---|---|---|
+| [`/check_missing_translations`](#check_missing_translations-language_to_check-fr) | [`/community_servers`](#community_servers) | [`/control_centre`](#control_centre) |
+| [`/dispatches`](#dispatches) | [`/dss`](#dss) | [`/dss_votes`](#dss_votes) |
+| [`/global_events`](#global_events) | [`/major_order`](#major_order) | [`/map`](#map) |
+| [`/personal_order`](#personal_order) | [`/planet`](#planet-planet-124-bore-rock) | [`/setup`](#setup) |
+| [`/steam`](#steam) | [`/subfaction`](#subfaction) | [`/superstore`](#superstore) |
+| [`/warbonds`](#warbonds) | [`/warfront`](#warfront-faction-automaton) | |
 - [Support](#support)
 - [Contributing](#contributing)
 
@@ -82,7 +96,7 @@ Want to try out the GWW on your server or your account? [Invite Link](https://di
 <p align="right"><a href="#top">Back to Top ↑</a></p>
 
 ### `/dss`
-![dss](resources/readme/dss.png)
+<img src="resources/readme/dss.png">
 <p align="right"><a href="#top">Back to Top ↑</a></p>
 
 ### `/dss_votes`
@@ -93,7 +107,7 @@ Want to try out the GWW on your server or your account? [Invite Link](https://di
 <img src="resources/readme/global_events.png" width="500">
 <p align="right"><a href="#top">Back to Top ↑</a></p>
 
-### `/help command: check_missing_translations` (this needs updating)
+### `/help command: check_missing_translations`
 <img src="resources/readme/help.png" width="500">
 <p align="right"><a href="#top">Back to Top ↑</a></p>
 
@@ -140,6 +154,8 @@ Want to try out the GWW on your server or your account? [Invite Link](https://di
 ## Support
 Available here: [Discord Support Server](https://discord.gg/Z8Ae5H5DjZ)
 <p align="right"><a href="#top">Back to Top ↑</a></p>
+
+<iframe src="https://discord.com/widget?id=1212722266392109088&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
 
 ## Contributing
 Contributions are welcome!
