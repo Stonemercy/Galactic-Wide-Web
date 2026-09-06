@@ -8,6 +8,7 @@ from .control_centre.control_centre_buttons import (
 from .dispatch_string_select import DispatchStringSelect
 from .github_button import GitHubButton
 from .HDC_button import HDCButton
+from .help_string_select import HelpStringSelect
 from .install_buttons import GuildInstallButton, UserInstallButton
 from .ko_fi_button import KoFiButton
 from .steam_string_select import SteamStringSelect
@@ -28,6 +29,7 @@ __all__ = [
     "DispatchStringSelect",
     "GitHubButton",
     "HDCButton",
+    "HelpStringSelect",
     "GuildInstallButton",
     "UserInstallButton",
     "KoFiButton",

@@ -1,8 +1,8 @@
 from disnake import APISlashCommand, Colour, OptionType
-from disnake.ui import ActionRow, Container, Separator, TextDisplay
-from disnake.ext.commands.slash_core import InvokableSlashCommand
+from disnake.ui import ActionRow, Container, TextDisplay
 from utils.interactables import (
     GuildInstallButton,
+    HelpStringSelect,
     SupportServerButton,
     UserInstallButton,
 )
@@ -10,47 +10,29 @@ from utils.interactables import (
 
 # DOESNT NEED LOCALIZATION (YET)
 class HelpContainer(Container):
-    def __init__(
-        self,
-        commands: list[APISlashCommand] = None,
-        command: InvokableSlashCommand = None,
-    ):
+    def __init__(self, command: APISlashCommand, commands: list):
         components = []
-        if commands:
-            for global_command in sorted(commands, key=lambda cmd: cmd.name):
-                options = "*Options:*\n" if global_command.options != [] else ""
-                for option in global_command.options:
-                    if option.type == OptionType.sub_command:
-                        options += f"- </{global_command.name} {option.name}:{global_command.id}>\n"
-                        for sub_option in option.options:
-                            options += f" - **`{sub_option.name}`**: `{sub_option.type.name}` {'**[Required]**' if sub_option.required else '**<Optional>**'}- {sub_option.description} \n"
-                    else:
-                        options += f"- **`{option.name}`**: `{option.type.name}` {'**[Required]**' if option.required else '**<Optional>**'} - {option.description}\n"
-                components.extend(
-                    [
-                        TextDisplay(
-                            f"## </{global_command.name}:{global_command.id}>\n-# {global_command.description if global_command.description != '-' else 'WIP'}\n{options}"
-                        ),
-                        Separator(),
-                    ]
-                )
-        elif command:
-            options = "" if command.options == [] else "**Options:**\n"
-            for option in command.options:
-                if option.type == OptionType.sub_command:
-                    options += f"- /{command.name} {option.name}\n"
-                    for sub_option in option.options:
-                        options += f" - **`{sub_option.name}`** {'**[Required]**' if sub_option.required else '**<Optional>**'}- {sub_option.description}\n"
-                else:
-                    options += f"- **`{option.name}`** {'**[Required]**' if option.required else '**<Optional>**'} - {option.description}\n"
-            components.append(
-                TextDisplay(
-                    f"# /{command.name}\n{command.extras.get('long_description') or 'WIP'}\n{options}\n**Example usage:**\n- {command.extras.get('example_usage') or 'WIP'}"
-                )
-            )
-
+        options = "" if command.options == [] else "**Options:**\n"
+        for option in command.options:
+            if option.type == OptionType.sub_command:
+                options += f"- /{command.name} {option.name}\n"
+                for sub_option in option.options:
+                    options += f" - **`{sub_option.name}`** {'**[Required]**' if sub_option.required else '**<Optional>**'}- {sub_option.description}\n"
+            else:
+                options += f"- **`{option.name}`** {'**[Required]**' if option.required else '**<Optional>**'} - {option.description}\n"
         components.append(
-            ActionRow(SupportServerButton(), GuildInstallButton(), UserInstallButton())
+            TextDisplay(
+                f"# </{command.name}:{command.id}>\n-# {command.description}\n{options}"
+            )
+        )
+
+        components.extend(
+            [
+                ActionRow(HelpStringSelect(commands=commands)),
+                ActionRow(
+                    SupportServerButton(), GuildInstallButton(), UserInstallButton()
+                ),
+            ]
         )
 
         super().__init__(*components, accent_colour=Colour.green())

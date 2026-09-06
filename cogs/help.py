@@ -1,3 +1,4 @@
+from random import choice
 from disnake import (
     AppCmdInter,
     ApplicationInstallTypes,
@@ -9,28 +10,12 @@ from utils.bot import GalacticWideWebBot
 from utils.containers import HelpContainer
 from utils.checks import wait_for_startup
 
-PRIVATE_COMMANDS = ("global_event", "gwe", "pmajor_order")
+PRIVATE_COMMANDS = ("global_event", "gwe", "pmajor_order", "items")
 
 
 class HelpCog(Cog):
     def __init__(self, bot: GalacticWideWebBot) -> None:
         self.bot = bot
-
-    async def help_autocomp(inter: AppCmdInter, user_input: str) -> list[str]:
-        if not inter.bot.ready:
-            return []
-        return [
-            command
-            for command in ["all"]
-            + sorted(
-                [
-                    i.name
-                    for i in inter.bot.global_slash_commands
-                    if i.name not in PRIVATE_COMMANDS
-                ]
-            )
-            if user_input.lower() in command.lower()
-        ][:25]
 
     @wait_for_startup()
     @slash_command(
@@ -45,10 +30,6 @@ class HelpCog(Cog):
     async def help(
         self,
         inter: AppCmdInter,
-        command: str = Param(
-            autocomplete=help_autocomp,
-            description='The command you want to lookup, use "all" for a list of all available commands',
-        ),
         public: str = Param(
             choices=["Yes", "No"],
             default="No",
@@ -56,30 +37,20 @@ class HelpCog(Cog):
         ),
     ) -> None:
         await inter.response.defer(ephemeral=public != "Yes")
-        slash_commands = None
-        slash_command = None
-        if command != "all":
-            slash_command = self.bot.get_slash_command(command)
-        else:
-            slash_commands = [
+        slash_command = choice(
+            [
                 c
                 for c in self.bot.global_application_commands
                 if c.name not in PRIVATE_COMMANDS
             ]
+        )
 
-        if not slash_command and not slash_commands:
-            await inter.send(
-                "That command was not found, please select from the list.",
-                ephemeral=True,
-            )
-        else:
-            await inter.send(
-                components=HelpContainer(
-                    commands=slash_commands,
-                    command=slash_command,
-                ),
-                ephemeral=public != "Yes",
-            )
+        await inter.send(
+            components=HelpContainer(
+                command=slash_command, commands=self.bot.global_application_commands
+            ),
+            ephemeral=public != "Yes",
+        )
 
     @Cog.listener("on_button_click")
     async def on_button_clicks(self, inter: MessageInteraction) -> None:
@@ -98,6 +69,37 @@ class HelpCog(Cog):
             ),
             ephemeral=True,
         )
+
+    @Cog.listener("on_dropdown")
+    async def on_dropdowns(self, inter: MessageInteraction) -> None:
+        if inter.component.custom_id != "help":
+            return
+        if inter.author != inter.message.interaction_metadata.user:
+            await self.bot.not_interaction_author(inter)
+            return
+        if not self.bot.ready:
+            await self.bot.bot_not_ready(inter)
+            return
+
+        command = next(
+            (
+                c
+                for c in self.bot.global_application_commands
+                if c.name == inter.values[0]
+            ),
+            None,
+        )
+        if command is None:
+            print(inter.values)
+            await inter.send(
+                "That command wasn't found, please try again", ephemeral=True
+            )
+            return
+
+        container = HelpContainer(
+            command=command, commands=self.bot.global_application_commands
+        )
+        await inter.response.edit_message(components=container)
 
 
 def setup(bot: GalacticWideWebBot) -> None:
