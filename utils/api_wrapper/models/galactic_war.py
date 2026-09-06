@@ -27,7 +27,7 @@ class GlobalResource(ReprMixin):
         self.max_value: int = raw_global_resource_data["maxValue"]
         self.perc: float = self.current_value / self.max_value
         self.tracker: TrackerEntry | None = None
-        self.name: str = ""
+        self.name: str = f"Unknown Resource #{self.id}"
         self.description: str = ""
         self.embed_colour: Colour = Colour.dark_embed()
         self.health_bar_colour: Faction | str = Factions.humans
