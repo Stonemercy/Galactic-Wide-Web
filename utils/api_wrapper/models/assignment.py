@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta, timezone
+from utils.api_wrapper.models.endpoint_items import EndpointItem
 from utils.dataclasses import Faction, Factions
 from utils.dataclasses.enums import AssignmentTaskType
 from utils.functions import arrowhead_format, health_bar
@@ -6,7 +7,12 @@ from utils.trackers import BaseTrackerEntry
 
 
 class Assignment:
-    def __init__(self, raw_assignment_data: dict, war_start_timestamp: int) -> None:
+    def __init__(
+        self,
+        raw_assignment_data: dict,
+        war_start_timestamp: int,
+        endpoint_items: dict[int, EndpointItem],
+    ) -> None:
         """Organised data of an Assignment or Major Order"""
         self.id: int = raw_assignment_data["id32"]
         self.title: str = raw_assignment_data["setting"].get("overrideTitle", None)
@@ -29,7 +35,10 @@ class Assignment:
                     task=task, current_progress=raw_assignment_data["progress"][index]
                 )
             )
-        self.rewards: list[dict] = raw_assignment_data["setting"]["rewards"]
+        self.rewards: list[Assignment.Reward] = [
+            Assignment.Reward(i, endpoint_items)
+            for i in raw_assignment_data["setting"]["rewards"]
+        ]
         self.starts_at_datetime: datetime = datetime.fromtimestamp(
             raw_assignment_data.get("startTime", 0) + war_start_timestamp,
             tz=timezone.utc,
@@ -135,3 +144,23 @@ class Assignment:
                     )
                 case _:
                     return ""
+
+    class Reward:
+        def __init__(
+            self, raw_reward_data: dict, endpoint_items: dict[int, EndpointItem]
+        ):
+            self.type = raw_reward_data.get("type")
+            self.id = raw_reward_data.get("id32")
+            self.amount = raw_reward_data.get("amount")
+            self.endpoint_item = endpoint_items.get(self.id, None)
+
+        def __repr__(self):
+            return f"Reward({self.amount}x{self.endpoint_item.name})"
+
+        def __hash__(self):
+            return hash((self.id))
+
+        def __eq__(self, target):
+            if not isinstance(target, type(self)):
+                return False
+            return self.id == target.id

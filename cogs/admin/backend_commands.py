@@ -238,6 +238,7 @@ class BackendCommandsCog(Cog):
             Assignment(
                 raw_assignment_data=a,
                 war_start_timestamp=self.bot.data.formatted_data.war_start_timestamp,
+                endpoint_items=self.bot.data.formatted_data.organised_items,
             )
             for a in json_parsed
         ]

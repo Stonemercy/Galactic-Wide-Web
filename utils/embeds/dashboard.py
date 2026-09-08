@@ -1684,30 +1684,18 @@ class Dashboard:
         def _add_rewards(self) -> None:
             rewards_text = ""
             for reward in self.assignment.rewards:
-                rewards_text += f"{reward['amount']:,} "
-                if rewards_entry := self.json_dict["items"]["rewards"].get(
-                    str(reward["id32"])
-                ):
+                rewards_text += f"{reward.amount:,} "
+                if reward.endpoint_item is not None:
                     localized_name = self.language_json["currencies"].get(
-                        rewards_entry, rewards_entry
+                        reward.endpoint_item.name.title(), reward.endpoint_item.name
                     )
-                    if reward["amount"] > 1:
+                    if reward.amount > 1:
                         rewards_text += f"**{self.language_json['embeds']['Dashboard']['MajorOrderEmbed']['reward_pluralized'].format(reward=localized_name)}** "
                     else:
                         rewards_text += f"**{localized_name}**"
-                    rewards_text += f"{getattr(Emojis.Items, rewards_entry.replace(' ', '_').lower(), '')}\n"
+                    rewards_text += f"{getattr(Emojis.Items, reward.endpoint_item.name.replace(' ', '_').lower(), '')}\n"
                 else:
-                    if items_entry := self.json_dict["items"]["items"].get(
-                        str(reward["id32"])
-                    ):
-                        rewards_text += f"**{items_entry['type']}**"
-                        if emoji := getattr(
-                            Emojis.Items,
-                            items_entry["type"].replace(" ", "_").lower(),
-                            None,
-                        ):
-                            rewards_text += f" {emoji}"
-                        rewards_text += f"\n-# {items_entry['name']}"
+                    rewards_text += f"**Item** **[?]**"
             if rewards_text != "":
                 self.add_field(
                     self.language_json["embeds"]["Dashboard"]["MajorOrderEmbed"][
