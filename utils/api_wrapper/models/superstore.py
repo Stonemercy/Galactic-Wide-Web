@@ -35,7 +35,7 @@ class Superstore:
         self,
         raw_superstore_data: dict,
         items_json: dict,
-        endpoint_items: list[EndpointItem],
+        endpoint_items: dict[int, EndpointItem],
     ) -> None:
         self.pages: list[Superstore.Page] = []
         self.pages = [
@@ -52,7 +52,7 @@ class Superstore:
         def __init__(
             self,
             raw_page_dict: dict,
-            endpoint_items: list[EndpointItem],
+            endpoint_items: dict[int, EndpointItem],
             items_json: dict,
         ):
             self.page_json = raw_page_dict
@@ -64,16 +64,7 @@ class Superstore:
             self.items: list[Superstore.Item] = []
 
             for i in raw_page_dict.get("items", []):
-                endpoint_item = next(
-                    (
-                        j
-                        for j in endpoint_items
-                        if (j.parent_id and j.parent_id == i["mixId"])
-                        or j.mix_id == i["mixId"]
-                        or j.item_id == i["mixId"]
-                    ),
-                    None,
-                )
+                endpoint_item = endpoint_items.get(i["mixId"], None)
                 self.items.append(Superstore.Item(i, items_json, endpoint_item))
 
         def __repr__(self):

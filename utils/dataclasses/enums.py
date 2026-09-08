@@ -99,6 +99,8 @@ class ControlCentreStatus(Enum):
 
 
 class ItemCategory(Enum):
+    HELMET = -6
+    CAPE = -5
     THROWABLE_WEAPON = -4
     SIDEARM_WEAPON = -3
     PRIMARY_WEAPON = -2

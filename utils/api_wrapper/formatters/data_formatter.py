@@ -20,7 +20,12 @@ from utils.api_wrapper.models import (
 )
 from utils.dataclasses import Factions, Languages
 from utils.dataclasses.communities import arsenal
-from utils.dataclasses.enums import AssignmentTaskType, EventType, SpaceStationType
+from utils.dataclasses.enums import (
+    AssignmentTaskType,
+    EventType,
+    ItemCategory,
+    SpaceStationType,
+)
 
 CORRECT_SECTORS = {
     "SOL": [0],
@@ -131,7 +136,7 @@ class FormattedData:
         self.superstore: Superstore | None = None
         self.warbonds: dict[int, Warbond] = {}
         self.items_data: list[dict] = []
-        self.organised_items: list[EndpointItem] = []
+        self.organised_items: dict[int, EndpointItem] = {}
         self.personal_order: PersonalOrder = None
 
         if context.items_data != []:
@@ -139,19 +144,29 @@ class FormattedData:
             for i in self.items_data:
                 if i.get("progressionCategory") == 0:
                     continue
-                self.organised_items.append(EndpointItem(i, context.json_dict))
-            for i in self.organised_items:
+                item = EndpointItem(i, context.json_dict)
+                self.organised_items[item.mix_id] = item
+
+            for i in self.organised_items.copy().values():
                 if i.parent_id is not None:
-                    i.parent_item = next(
-                        (
-                            j
-                            for j in self.organised_items.copy()
-                            if j.mix_id == i.parent_id
-                        ),
-                        None,
-                    )
-                    if i.parent_item is not None:
-                        i.parent_item.child_item = i
+                    parent_item = self.organised_items.get(i.parent_id, None)
+                    self.organised_items[i.mix_id].parent_item = parent_item
+                    if parent_item is not None:
+                        self.organised_items[parent_item.mix_id].child_item = (
+                            self.organised_items[i.mix_id]
+                        )
+
+                if i.category == ItemCategory.ARMOR and i.parent_id is None:
+                    self.organised_items[i.mix_id].category = ItemCategory.CAPE
+
+                if i.buy_price != []:
+                    for currency in i.buy_price:
+                        self.organised_items[i.mix_id].currency_items.append(
+                            (
+                                self.organised_items.get(currency["mixId"]),
+                                currency["amount"],
+                            )
+                        )
 
         if context.steam_player_count:
             self.steam_player_count: int = context.steam_player_count
@@ -345,6 +360,7 @@ class FormattedData:
                         Assignment(
                             raw_assignment_data=assignment_data,
                             war_start_timestamp=self.war_start_timestamp,
+                            endpoint_items=self.organised_items,
                         )
                         for assignment_data in assignments
                     ],
@@ -641,7 +657,7 @@ class FormattedData:
         if context.warbonds != {}:
             for id, warbond in context.warbonds.items():
                 self.warbonds[id] = Warbond(
-                    items_list=self.organised_items, raw_warbond_data=warbond
+                    endpoint_items=self.organised_items, raw_warbond_data=warbond
                 )
 
         self.formatted_at = datetime.now(tz=timezone.utc)

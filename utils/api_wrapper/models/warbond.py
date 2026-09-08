@@ -30,54 +30,51 @@ WARBOND_NAMES: dict[int, str] = {
 
 
 class Warbond:
-    def __init__(self, items_list: list[EndpointItem], raw_warbond_data: dict) -> None:
+    def __init__(
+        self, endpoint_items: dict[int, EndpointItem], raw_warbond_data: dict
+    ) -> None:
         self._raw_warbond_data: dict = raw_warbond_data
         self.id: int | None = raw_warbond_data.get("id32")
         self.page_requirements: list[int] = raw_warbond_data.get("pageRequirements", [])
         self.total_cost: int | None = raw_warbond_data.get("totalCost")
         self.name: str = WARBOND_NAMES.get(self.id, f"UNKNOWN WARBOND {self.id}")
         self.pages: list[Warbond.Page] = [
-            Warbond.Page(items_list, p)
+            Warbond.Page(endpoint_items, p)
             for p in raw_warbond_data.get("seasonPassPages", [])
         ]
 
     class Page:
-        def __init__(self, items_list: list[EndpointItem], raw_page_data: dict) -> None:
+        def __init__(
+            self, endpoint_items: dict[int, EndpointItem], raw_page_data: dict
+        ) -> None:
             self.items: list[Warbond.Item] = [
-                Warbond.Item(items_list, i)
+                Warbond.Item(endpoint_items, i)
                 for i in raw_page_data.get("seasonPassItems", [])
             ]
 
     class Item:
         def __init__(
             self,
-            endpoint_items: list[EndpointItem],
+            endpoint_items: dict[int, EndpointItem],
             raw_item_data: dict,
         ) -> None:
             self.is_premium: bool = raw_item_data.get("isPremium")
             self.is_repeatable: bool = raw_item_data.get("isRepeatable")
             self.mix_id: int = raw_item_data.get("itemMixId")
             self.cost: int = raw_item_data.get("medalCost")
-            self.endpoint_item: EndpointItem | None = next(
-                (
-                    i
-                    for i in endpoint_items
-                    if i.parent_id == self.mix_id
-                    or i.mix_id == self.mix_id
-                    or i.item_id == self.mix_id
-                ),
-                None,
+            self.endpoint_item: EndpointItem | None = endpoint_items.get(
+                self.mix_id, None
             )
-            if self.endpoint_item.category == ItemCategory.STRATAGEM:
-                self.endpoint_item = next(
-                    (i for i in endpoint_items if i.parent_id == self.mix_id), None
+            if self.endpoint_item is not None:
+                if self.endpoint_item.category == ItemCategory.STRATAGEM:
+                    self.endpoint_item = (
+                        self.endpoint_item.parent_item or self.endpoint_item
+                    )
+                self.name = (
+                    self.endpoint_item.name.upper()
+                    if self.endpoint_item.name is not None
+                    else f"Unknown Item {self.mix_id}"
                 )
-            self.name = (
-                self.endpoint_item.mix_name
-                or self.endpoint_item.item_name
-                or self.endpoint_item.parent_name
-                or f"Unknown item {self.mix_id}"
-            ).upper()
 
         def __repr__(self):
             return f"WarbondItem(name={self.name}, id={self.mix_id})"

@@ -1933,6 +1933,12 @@
         "type": "Cape",
         "cost": 0
     },
+    "3890208935": {
+        "name": "MESSAGE OF MORALE",
+        "description": "This cape has a visual pattern that when scanned by Automaton sensors translates to \u201cdefile your microwave mother, bot scum.\u201d",
+        "type": "Cape",
+        "cost": 0
+    },
     "1902399433": {
         "name": "INGRESS-81",
         "description": "This cape reminds us that even faced with the abyssal darkness of space, nothing can stand against our human ingenuity, our powers of collaboration, or our sheer overwhelming numbers.",

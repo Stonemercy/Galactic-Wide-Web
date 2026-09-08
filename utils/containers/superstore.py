@@ -30,17 +30,13 @@ class SuperstoreContainer(Container, ReprMixin):
             )
         sorted_items = sorted(self.page.items, key=lambda x: x.name)
         for i in sorted_items:
+            item_link = f"https://helldivers.wiki.gg/wiki/Special:Search?search={i.name.replace(' ', '_')}"
             self.components.append(
-                Section(
-                    TextDisplay(
-                        f"### {i.name} - **{i.cost}**{Emojis.Items.super_credit}"
-                        f"\n-# {getattr(Emojis.Items, i.type.replace(' ', '_').lower(), '')} **{i.type}**"
-                        f"\n{'-# ' + i.description if i.description else ''}"
-                    ),
-                    accessory=WikiButton(
-                        link=f"https://helldivers.wiki.gg/wiki/Special:Search?search={i.name.replace(' ', '_')}"
-                    ),
-                )
+                TextDisplay(
+                    f"### [{i.name}](<{item_link}>) - **{i.cost}**{Emojis.Items.super_credit}"
+                    f"\n-# {getattr(Emojis.Items, i.type.replace(' ', '_').lower(), '')} **{i.type}**"
+                    f"\n{'-# ' + i.description if i.description else ''}"
+                ),
             )
             if i.type == "Emote" and f"{i.id}.png" in usable_images:
                 self.components.append(

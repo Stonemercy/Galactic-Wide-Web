@@ -1,10 +1,11 @@
 from data.lists import STRATAGEM_ID_DICT
 from utils.dataclasses.enums import ItemCategory
 
-WEAPON_CATEGORY_REPLACEMENTS = {
+CATEGORY_REPLACEMENTS = {
     "Primary Weapon": ItemCategory.PRIMARY_WEAPON,
     "Throwable Weapon": ItemCategory.THROWABLE_WEAPON,
     "Sidearm Weapon": ItemCategory.SIDEARM_WEAPON,
+    "Helmet": ItemCategory.HELMET,
 }
 
 PROPERTIES_TO_SKIP = [
@@ -49,11 +50,9 @@ class EndpointItem:
         self.required_level: int | None = self._json.get("requiredLevel")
         self._category: int = self._json.get("progressionCategory", -1)
         self.category: ItemCategory = ItemCategory(self._category)
-        if self.category == ItemCategory.WEAPON:
-            self.category = WEAPON_CATEGORY_REPLACEMENTS.get(
-                json_dict["items"]["items"]
-                .get(str(self.mix_id), {})
-                .get("type", "unknown"),
+        if self.category in (ItemCategory.WEAPON, ItemCategory.ARMOR):
+            self.category = CATEGORY_REPLACEMENTS.get(
+                json_dict["items"]["items"].get(str(self.mix_id), {}).get("type"),
                 self.category,
             )
         self.tags: list = self._json.get("tags", [])
@@ -83,7 +82,9 @@ class EndpointItem:
 
     @property
     def name(self):
-        return self.mix_name or self.item_name or self.child_name or self.parent_name
+        if self.child_item is not None and self.category == ItemCategory.STRATAGEM:
+            return self.child_name
+        return self.mix_name or self.item_name or self.parent_name
 
     def __str__(self):
         fmt_text = "".join(

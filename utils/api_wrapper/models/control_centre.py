@@ -11,7 +11,7 @@ class ControlCentre:
         self,
         raw_control_centre_data: dict,
         war_time: int,
-        endpoint_items: list[EndpointItem],
+        endpoint_items: dict[int, EndpointItem],
     ) -> None:
         self.raw_data = raw_control_centre_data
         self.episodes: list[ControlCentre.Episode] = [
@@ -45,7 +45,7 @@ class ControlCentre:
             self,
             raw_episode_data: dict,
             war_time: int,
-            endpoint_items: list[EndpointItem],
+            endpoint_items: dict[int, EndpointItem],
         ) -> None:
             self.id: int = raw_episode_data.get("id32", 0)
             self.title: str = raw_episode_data.get("title", "Undefined Title")
@@ -84,7 +84,7 @@ class ControlCentre:
             def __init__(
                 self,
                 raw_phase_data: dict,
-                endpoint_items: list[EndpointItem],
+                endpoint_items: dict[int, EndpointItem],
             ) -> None:
                 """Organised data for an Episode's Phase"""
                 self.id: int = raw_phase_data.get("id32", 0)
@@ -113,12 +113,12 @@ class ControlCentre:
             def __init__(
                 self,
                 raw_reward_data: dict,
-                endpoint_items: list[EndpointItem],
+                endpoint_items: dict[int, EndpointItem],
             ) -> None:
                 self.id: int = raw_reward_data.get("mixId", 0)
                 self.amount: int = raw_reward_data.get("amount", 1)
-                self.endpoint_item: EndpointItem | None = next(
-                    (ei for ei in endpoint_items if ei.mix_id == self.id), None
+                self.endpoint_item: EndpointItem | None = endpoint_items.get(
+                    self.id, None
                 )
 
             @property
