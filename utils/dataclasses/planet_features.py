@@ -171,6 +171,10 @@ class PlanetFeatures:
             Emojis.Factions.automaton,
         ),
         1357: PlanetFeature(
+            "HULK SURGE",
+            Emojis.Factions.automaton,
+        ),
+        1359: PlanetFeature(
             "DEVASTATOR SURGE",
             Emojis.Factions.automaton,
         ),
