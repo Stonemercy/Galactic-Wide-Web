@@ -2755,7 +2755,14 @@ class Dashboard:
                                 region.is_available
                                 and region.players > total_players * 0.001
                             ):
-                                skipped_planets_text += f"-# ↳ {region.emoji} {language_json['regions'][str(region.type.value)]} **{region.names.get(language_json['code_long'], region.name)}** - {region.perc:.2%}\n"
+                                region_type = (
+                                    language_json["regions"][str(region.type.value)]
+                                    if not region.is_factory
+                                    else language_json["regions"]["megafactory"].format(
+                                        number=region.size
+                                    )
+                                )
+                                skipped_planets_text += f"-# ↳ {region.emoji} {region_type} **{region.names.get(language_json['code_long'], region.name)}** - {region.perc:.2%}\n"
                 if len(skipped_campaigns) > 5:
                     other_count = sum(
                         [c.planet.stats.player_count for c in skipped_campaigns[5:]]
