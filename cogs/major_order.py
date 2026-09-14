@@ -62,7 +62,15 @@ class MajorOrderCog(Cog):
                 "major_order_check loop returning - english assignments are missing"
             )
             return
-        unique_langs = GWWGuilds.unique_languages()
+
+        if (
+            len(
+                set([len(a) for a in self.bot.data.formatted_data.assignments.values()])
+            )
+            != 1
+        ):
+            return
+
         for index, major_order in enumerate(
             self.bot.data.formatted_data.assignments.get("en")
         ):
