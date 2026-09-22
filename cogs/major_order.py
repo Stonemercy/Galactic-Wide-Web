@@ -75,6 +75,7 @@ class MajorOrderCog(Cog):
             self.bot.data.formatted_data.assignments.get("en")
         ):
             if major_order.id not in self.bot.databases.war_info.major_order_ids:
+                unique_langs = GWWGuilds.unique_languages()
                 mo_briefing_dict = {
                     lang.short_code: ge
                     for lang in [
@@ -98,7 +99,6 @@ class MajorOrderCog(Cog):
                         )
                         return
                 self.mo_briefing_check_dict.pop(major_order.id, None)
-                unique_langs = GWWGuilds.unique_languages()
                 image_url = None
                 if (
                     (briefing := mo_briefing_dict.get("en")) is not None
