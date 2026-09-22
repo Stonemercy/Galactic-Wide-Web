@@ -243,6 +243,8 @@ class DataService(ReprMixin):
                 space_station_info = await client.get_space_station_info(
                     war_id=self.war_id, station_id=space_station["id32"]
                 )
+                if space_station_info is None:
+                    continue
                 self._raw_space_stations.append(space_station_info)
 
             war_stats = await client.get_war_stats(war_id=self.war_id)
