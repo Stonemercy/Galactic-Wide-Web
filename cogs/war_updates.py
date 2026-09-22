@@ -346,6 +346,50 @@ class WarUpdatesCog(Cog):
                     )
                     self.bot.databases.dss_info.save_changes()
                     dss_updates = True
+        elif (
+            planet_with_1217 := next(
+                (
+                    p
+                    for p in self.bot.data.formatted_data.planets.values()
+                    if 1217 in p.effect_ids
+                ),
+                None,
+            )
+        ) is not None:
+            previous_planet = self.bot.data.formatted_data.planets.get(
+                self.bot.databases.dss_info.planet_index,
+                self.bot.data.formatted_data.planets[0],
+            )
+            if previous_planet != planet_with_1217:
+                containers = {
+                    lang: DSSChangesContainer(
+                        json=DSSChangesJson(
+                            lang_code_long=self.bot.json_dict["languages"][lang][
+                                "code_long"
+                            ],
+                            container=self.bot.json_dict["languages"][lang][
+                                "containers"
+                            ]["DSSChangesContainer"],
+                            subfactions=self.bot.json_dict["languages"][lang][
+                                "subfactions"
+                            ],
+                            regions=self.bot.json_dict["languages"][lang]["regions"],
+                            currencies=self.bot.json_dict["languages"][lang][
+                                "currencies"
+                            ],
+                        )
+                    )
+                    for lang in unique_langs
+                }
+                for container in containers.values():
+                    container.dss_moved(
+                        before_planet=previous_planet,
+                        after_planet=planet_with_1217,
+                    )
+                self.bot.databases.dss_info.planet_index = planet_with_1217.index
+                self.bot.databases.dss_info.save_changes()
+                dss_updates = True
+                dss_has_moved = True
 
         if dss_updates:
             await self.bot.interface_handler.send_feature(
