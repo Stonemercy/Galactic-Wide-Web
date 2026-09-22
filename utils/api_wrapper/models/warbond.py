@@ -26,6 +26,7 @@ WARBOND_NAMES: dict[int, str] = {
     3978214801: "ENTRENCHED DIVISION",
     4228295283: "EXO EXPERTS",
     3224975204: "CASTELLAN'S CREED",
+    3884062529: "IRONCLAD DEMOCRACY",
 }
 
 
@@ -66,7 +67,7 @@ class Warbond:
                 self.mix_id, None
             )
             if self.endpoint_item is not None:
-                if self.endpoint_item.category == ItemCategory.STRATAGEM:
+                if self.endpoint_item.category == ItemCategory.STRATAGEM_UNLOCK:
                     self.endpoint_item = (
                         self.endpoint_item.parent_item or self.endpoint_item
                     )

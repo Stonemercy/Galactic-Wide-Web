@@ -83,7 +83,10 @@ class EndpointItem:
 
     @property
     def name(self):
-        if self.child_item is not None and self.category == ItemCategory.STRATAGEM:
+        if (
+            self.child_item is not None
+            and self.category == ItemCategory.STRATAGEM_UNLOCK
+        ):
             return self.child_name
         return self.mix_name or self.item_name or self.parent_name
 

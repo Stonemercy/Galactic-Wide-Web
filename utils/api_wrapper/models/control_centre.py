@@ -130,7 +130,7 @@ class ControlCentre:
                         else None
                     )
                     or "Item"
-                ).replace("EFFECTID MIX ID", "PERMIT")
+                ).replace("UNLOCK", "PERMIT")
 
             @property
             def item_type(self):

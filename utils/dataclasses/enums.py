@@ -89,7 +89,7 @@ class ControlCentrePage(Enum):
 
 class ControlCentreStatus(Enum):
     UNKNOWN = -1
-    InProgress = 0
+    In_Progress = 0
     Success = 2
     Failed = 3
 
@@ -109,15 +109,21 @@ class ItemCategory(Enum):
     WEAPON = 1
     WEAPON_ATTACHMENT = 2
     ARMOR = 3
-    VEHICLE_SKIN = 4
+    SET_ITEM = 4
     BOOSTER = 5
+    ITEM_PACK = 6
     VICTORY_POSE = 7
     EMOTE = 8
     PLAYER_CARD = 9
-    STRATAGEM_EFFECTID_MIX_ID = 10
-    STRATAGEM = 11
+    STRATAGEM_ITEM = 10
+    STRATAGEM_UNLOCK = 11
+    VOICE_PACK = 13
     DIFFICULTY_UNLOCK_PERMIT = 14
-    MEDAL = 18
+    RESOURCE_EXCHANGE = 15
+    UNDERGARMENT = 17
+    CURRENCY = 18
+    MODULE_BUFF = 19
+    MODULE_SHIP = 20
     SUPER_CREDIT_PACK = 21
     TITLE = 23
 

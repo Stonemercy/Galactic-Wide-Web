@@ -4,7 +4,7 @@ from utils.api_wrapper.models import ControlCentre
 from utils.dataclasses.enums import ControlCentreStatus
 
 EMOJIS_DICT = {
-    ControlCentreStatus.InProgress: "🟡",
+    ControlCentreStatus.In_Progress: "🟡",
     ControlCentreStatus.Success: "✅",
     ControlCentreStatus.Failed: "❌",
 }

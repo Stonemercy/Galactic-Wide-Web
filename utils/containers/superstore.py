@@ -10,8 +10,12 @@ from disnake.ui import (
 )
 from utils.api_wrapper.models import Superstore
 from utils.emojis import Emojis
-from utils.interactables import WikiButton, SuperstoreStringSelect
+from utils.interactables import SuperstoreStringSelect
 from utils.mixins import ReprMixin
+
+DROPDOWN_TWO_PAGE_NAMES = [
+    "HELLDIVERS MOBILIZE",
+]
 
 
 class SuperstoreContainer(Container, ReprMixin):
@@ -30,7 +34,7 @@ class SuperstoreContainer(Container, ReprMixin):
             )
         sorted_items = sorted(self.page.items, key=lambda x: x.name)
         for i in sorted_items:
-            item_link = f"https://helldivers.wiki.gg/wiki/Special:Search?search={i.name.replace(' ', '_')}"
+            item_link = f"https://helldivers.wiki.gg/wiki/Special:Search?search={i.name.replace(' ', '_') if 'Unknown' not in i.name else 'Superstore'}"
             self.components.append(
                 TextDisplay(
                     f"### [{i.name}](<{item_link}>) - **{i.cost}**{Emojis.Items.super_credit}"
@@ -53,5 +57,20 @@ class SuperstoreContainer(Container, ReprMixin):
                     )
                 )
             self.components.append(Separator())
-        self.components.extend([ActionRow(SuperstoreStringSelect(superstore.pages))])
+        dropdown_one_pages = [
+            p for p in superstore.pages if p.name not in DROPDOWN_TWO_PAGE_NAMES
+        ]
+        dropdown_two_pages = [
+            p for p in superstore.pages if p.name in DROPDOWN_TWO_PAGE_NAMES
+        ]
+        self.components.extend(
+            [
+                ActionRow(
+                    SuperstoreStringSelect(dropdown_one_pages, dropdown_num=1),
+                ),
+                ActionRow(
+                    SuperstoreStringSelect(dropdown_two_pages, dropdown_num=2),
+                ),
+            ]
+        )
         super().__init__(*self.components, accent_colour=Colour.blue())

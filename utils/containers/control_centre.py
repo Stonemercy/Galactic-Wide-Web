@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta, timezone
+from math import ceil
 from data.lists import CUSTOM_COLOURS
 from disnake import ButtonStyle, Colour, MediaGalleryItem
 from disnake.ui import (
@@ -26,7 +27,7 @@ from utils.interactables.control_centre import (
 )
 
 STATUS_DICT = {
-    ControlCentreStatus.InProgress: "IN PROGRESS",
+    ControlCentreStatus.In_Progress: "IN PROGRESS",
     ControlCentreStatus.Success: "SUCCESS",
     ControlCentreStatus.Failed: "FAILURE",
 }
@@ -123,7 +124,7 @@ class ControlCentreContainer(Container):
         else:
             reward_result_emoji = ""
             match active_phase.status:
-                case ControlCentreStatus.InProgress:
+                case ControlCentreStatus.In_Progress:
                     section2.append(
                         TextDisplay(
                             "**Complete the Major Order to earn the Major Order Reward.**"
@@ -150,18 +151,20 @@ class ControlCentreContainer(Container):
             section2.append(TextDisplay("### **Major Order Reward**"))
             mo_rewards_text = ""
             for reward in active_phase.rewards:
-                reward_name = (
-                    reward.item_type.replace("_", " ").replace(
-                        "EFFECTID MIX ID", "PERMIT"
+                if reward.item_name == "MEDAL":
+                    reward_name = "WARBOND MEDAL"
+                    reward_emoji = Emojis.Items.medal
+                else:
+                    reward_name = (
+                        reward.item_type.replace("_", " ").replace("UNLOCK", "PERMIT")
+                        if active_phase.status == ControlCentreStatus.In_Progress
+                        else reward.item_name
                     )
-                    if active_phase.status == ControlCentreStatus.InProgress
-                    else reward.item_name
-                )
-                reward_emoji = (
-                    f"[{reward.emoji}](http://{reward.item_name.replace(' ', '-')}.com)"
-                    if active_phase.status == ControlCentreStatus.InProgress
-                    else reward.emoji
-                )
+                    reward_emoji = (
+                        f"[{reward.emoji}](http://{reward.item_name.replace(' ', '-')}.com)"
+                        if active_phase.status == ControlCentreStatus.In_Progress
+                        else reward.emoji
+                    )
                 mo_rewards_text += f"{Emojis.Icons.blank}**{reward.amount}** x **{reward_name}** {reward_emoji} {reward_result_emoji}"
 
             if mo_rewards_text != "":
@@ -170,7 +173,7 @@ class ControlCentreContainer(Container):
         section2.append(TextDisplay("### **Campaign Reward**"))
         reward_result_emoji = ""
         match active_campaign.status:
-            case ControlCentreStatus.InProgress:
+            case ControlCentreStatus.In_Progress:
                 section2.append(
                     TextDisplay(
                         "**Complete the majority of the Major Orders in this Campaign to earn the Campaign Reward.**"
@@ -193,13 +196,13 @@ class ControlCentreContainer(Container):
         campaign_rewards_text = ""
         for reward in active_campaign.rewards:
             reward_name = (
-                reward.item_type.replace("_", " ").replace("EFFECTID MIX ID", "PERMIT")
-                if active_campaign.status == ControlCentreStatus.InProgress
+                reward.item_type.replace("_", " ").replace("UNLOCK", "PERMIT")
+                if active_campaign.status == ControlCentreStatus.In_Progress
                 else reward.item_name
             )
             reward_emoji = (
                 f"[{reward.emoji}](http://{reward.item_name.replace(' ', '-')}.com)"
-                if active_phase.status == ControlCentreStatus.InProgress
+                if active_phase.status == ControlCentreStatus.In_Progress
                 else reward.emoji
             )
             campaign_rewards_text += f"{Emojis.Icons.blank}**{reward.amount}** x **{reward_name}** {reward_emoji} {reward_result_emoji}"
@@ -273,7 +276,7 @@ class ControlCentreContainer(Container):
         section2.append(TextDisplay("### **Major Order Reward**"))
         reward_result_emoji = ""
         match phase.status:
-            case ControlCentreStatus.InProgress:
+            case ControlCentreStatus.In_Progress:
                 section2.append(
                     TextDisplay(
                         "**Complete the Major Order to earn the Major Order Reward.**"
@@ -297,16 +300,20 @@ class ControlCentreContainer(Container):
                 )
         mo_rewards_text = ""
         for reward in phase.rewards:
-            reward_name = (
-                reward.item_type.replace("_", " ").replace("EFFECTID MIX ID", "PERMIT")
-                if phase.status == ControlCentreStatus.InProgress
-                else reward.item_name
-            )
-            reward_emoji = (
-                f"[{reward.emoji}](http://{reward.item_name.replace(' ', '-')}.com)"
-                if phase.status == ControlCentreStatus.InProgress
-                else reward.emoji
-            )
+            if reward.item_name == "MEDAL":
+                reward_name = "WARBOND MEDAL"
+                reward_emoji = Emojis.Items.medal
+            else:
+                reward_name = (
+                    reward.item_type.replace("_", " ").replace("UNLOCK", "PERMIT")
+                    if phase.status == ControlCentreStatus.In_Progress
+                    else reward.item_name
+                )
+                reward_emoji = (
+                    f"[{reward.emoji}](http://{reward.item_name.replace(' ', '-')}.com)"
+                    if phase.status == ControlCentreStatus.In_Progress
+                    else reward.emoji
+                )
             mo_rewards_text += f"{Emojis.Icons.blank}**{reward.amount}** x **{reward_name}** {reward_emoji} {reward_result_emoji}"
         if mo_rewards_text != "":
             section2.append(TextDisplay(mo_rewards_text))
@@ -314,7 +321,7 @@ class ControlCentreContainer(Container):
         section2.append(TextDisplay("### **Campaign Reward**"))
         reward_result_emoji = ""
         match campaign.status:
-            case ControlCentreStatus.InProgress:
+            case ControlCentreStatus.In_Progress:
                 section2.append(
                     TextDisplay(
                         "**Complete the majority of the Major Orders in this Campaign to earn the Campaign Reward.**"
@@ -337,13 +344,13 @@ class ControlCentreContainer(Container):
         campaign_rewards_text = ""
         for reward in campaign.rewards:
             reward_name = (
-                reward.item_type.replace("_", " ").replace("EFFECTID MIX ID", "PERMIT")
-                if campaign.status == ControlCentreStatus.InProgress
+                reward.item_type.replace("_", " ").replace("UNLOCK", "PERMIT")
+                if campaign.status == ControlCentreStatus.In_Progress
                 else reward.item_name
             )
             reward_emoji = (
                 f"[{reward.emoji}](http://{reward.item_name.replace(' ', '-')}.com)"
-                if campaign.status == ControlCentreStatus.InProgress
+                if campaign.status == ControlCentreStatus.In_Progress
                 else reward.emoji
             )
             campaign_rewards_text += f"{Emojis.Icons.blank}**{reward.amount}** x **{reward_name}** {reward_emoji} {reward_result_emoji}"
@@ -367,7 +374,7 @@ class ControlCentreContainer(Container):
         stop = start + 3
         archive_sections = []
         for campaign in self.control_centre.episodes[::-1][start:stop]:
-            if campaign.status == ControlCentreStatus.InProgress:
+            if campaign.status == ControlCentreStatus.In_Progress:
                 continue
 
             section = []
@@ -428,7 +435,7 @@ class ControlCentreContainer(Container):
                         ControlCenterArchivePageButtonType.NEXT_PAGE,
                         self.past_campaigns_page + 1,
                         self.past_campaigns_page + 1
-                        > round((len(self.control_centre.episodes) - 1) / 3),
+                        > ceil((len(self.control_centre.episodes) - 1) / 3),
                     ),
                 ],
             )

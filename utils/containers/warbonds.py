@@ -1,17 +1,8 @@
 from disnake import Colour, MediaGalleryItem
-from disnake.ui import (
-    ActionRow,
-    Container,
-    MediaGallery,
-    Section,
-    Separator,
-    TextDisplay,
-    Thumbnail,
-)
+from disnake.ui import ActionRow, Container, MediaGallery, TextDisplay
 from utils.api_wrapper.models import Warbond
-from utils.dataclasses.enums import ItemCategory
 from utils.emojis import Emojis
-from utils.interactables import WikiButton, WarbondsStringSelect, WarbondPageButton
+from utils.interactables import WarbondsStringSelect, WarbondPageButton
 from utils.interactables.warbonds.page_buttons import WarbondButtonType
 from utils.mixins import ReprMixin
 
@@ -44,8 +35,10 @@ class WarbondsContainer(Container, ReprMixin):
         for i in page.items:
             item_name = str(i.name)
 
-            item_type = i.endpoint_item.category.name.replace("_", " ").replace(
-                "EFFECTID MIX ID", "PERMIT"
+            item_type = (
+                i.endpoint_item.category.name.replace("_", " ")
+                .replace("UNLOCK", "PERMIT")
+                .replace("SET ITEM", "VEHICLE SKIN")
             )
             if item_type != "SUPER CREDIT PACK":
                 emoji_str = ""

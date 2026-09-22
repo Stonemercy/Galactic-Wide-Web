@@ -64,7 +64,7 @@ class SuperstoreCog(Cog):
 
     @Cog.listener("on_dropdown")
     async def superstore_dropdown_listener(self, inter: MessageInteraction) -> None:
-        if inter.component.custom_id != "superstore_page":
+        if "superstore_page" not in inter.component.custom_id:
             return
         if inter.author != inter.message.interaction_metadata.user:
             await self.bot.not_interaction_author(inter)

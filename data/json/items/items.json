@@ -7,6 +7,22 @@
         "name": "50 SUPER CREDITS",
         "type": "Super Credits Pack"
     },
+    "3481751602": {
+        "name": "SUPER CREDITS",
+        "type": "Currency"
+    },
+    "2985106497": {
+        "name": "RARE SAMPLE",
+        "type": "Currency"
+    },
+    "3992382197": {
+        "name": "COMMON SAMPLE",
+        "type": "Currency"
+    },
+    "3608481516": {
+        "name": "REQUISITION SLIP",
+        "type": "Currency"
+    },
     "4693889": {
         "name": "AT EASE",
         "type": "Emote/Victory Pose"
@@ -179,6 +195,10 @@
         "name": "YOU'RE NEXT",
         "type": "Emote/Victory Pose"
     },
+    "68245049": {
+        "name": "HELMET DURABILITY CHECK",
+        "type": "Emote"
+    },
     "4102069932": {
         "name": "[REDACTED]",
         "type": "Title"
@@ -257,6 +277,10 @@
     },
     "663691115": {
         "name": "VIPER COMMANDO",
+        "type": "Title"
+    },
+    "3400212265": {
+        "name": "TREADHEAD",
         "type": "Title"
     },
     "2671489717": {
@@ -2404,6 +2428,12 @@
     "16338515": {
         "name": "G-13 INCENDIARY IMPACT",
         "description": "Detonates on impact, covering the immediate vicinity in self-igniting white phosphorus.",
+        "type": "Throwable Weapon",
+        "cost": 0
+    },
+    "3228109421": {
+        "name": "G-8 IMMOLATION",
+        "description": "An incendiary device that shatters on impact, without explosive force, instantly creating a localized and persistent combustion field.",
         "type": "Throwable Weapon",
         "cost": 0
     },

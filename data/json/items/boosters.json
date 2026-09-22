@@ -70,5 +70,13 @@
 	"1602836857": {
 		"name": "CONCEALED INSERTION",
 		"description": "Equips Hellpods to deploy smokescreens on impact, obscuring Helldiver deployment."
+	},
+	"3545987157": {
+		"name": "INTEGRATED EXTINGUISHERS",
+		"description": "Equips Helldiver uniforms with form-fitting, automated, rapid-response fire suppression systems. Significantly reduces the time it takes to naturally extinguish flames without conducting ground-aided smothering manoeuvres."
+	},
+	"1213901450": {
+		"name": "SURPLUS EAT ALLOCATION",
+		"description": "Grants two free uses of the Expendable Anti-Tank (EAT) Stratagem per mission; enough to grand a full squad one single-use rocket launcher each, provided squad members employ to proper equipment distribution protocol."
 	}
 }

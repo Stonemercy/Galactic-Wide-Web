@@ -4,7 +4,7 @@ from utils.api_wrapper.models import Superstore
 
 
 class SuperstoreStringSelect(StringSelect):
-    def __init__(self, super_store_pages: list[Superstore.Page]):
+    def __init__(self, super_store_pages: list[Superstore.Page], dropdown_num: int):
         choices: list[SelectOption] = []
         for page in super_store_pages:
             choice_name = page.name
@@ -24,5 +24,5 @@ class SuperstoreStringSelect(StringSelect):
             min_values=1,
             max_values=1,
             options=choices,
-            custom_id="superstore_page",
+            custom_id=f"superstore_page_{dropdown_num}",
         )
