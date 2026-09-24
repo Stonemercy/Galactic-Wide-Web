@@ -126,6 +126,7 @@ STRATAGEM_ID_DICT = {
     66059712: "B-100 Portable Hellbomb",
     3123380863: "LIFT-182 Warp Pack",
     2686392625: "AX/ARC-3 K-9",
+    548295611: "Resupply",
     2025422424: "Eagle Strafing Run",
     1982351727: "Eagle 500kg Bomb",
     3723465233: "Eagle 110mm Rocket Pods",
@@ -134,6 +135,7 @@ STRATAGEM_ID_DICT = {
     1220665708: "Eagle Cluster Bomb",
     1062482104: "Eagle Smoke Strike",
     2961949068: "Eagle Gas Airstrike",
+    3064457538: "Eagle Rearm",
     1736727415: "E/GL-21 Grenadier Battlement",
     70017975: "FX-12 Shield Generator Relay",
     3827587060: "E/MG-101 HMG Emplacement",
@@ -143,6 +145,7 @@ STRATAGEM_ID_DICT = {
     1326547218: "MD-8 Gas Mines",
     1671728820: "A/ARC-3 Tesla Tower",
     3106925116: "E/AT-12 Anti-Tank Emplacement",
+    2266266587: "Reinforce",
     1788177336: "Dark Fluid Vessel",
     2391781446: "Orbital Precision Strike",
     1134323464: "Orbital Gas Strike",
@@ -206,6 +209,7 @@ STRATAGEM_ID_DICT = {
     1299305542: "EXO-51 Lumberer Exosuit",
     841332828: "EXO-55 Breakthrough Exosuit",
     2437239365: "TD-220 Bastion MK XVI",
+    2237630340: "TD-110 Maelstrom",
 }
 
 CURRENCIES = {

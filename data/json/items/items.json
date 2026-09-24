@@ -969,7 +969,7 @@
     },
     "276679263": {
         "name": "TR-40 GOLD EAGLE",
-        "description": "This high-visibility armor allows it's bearer to be easily seen through smoke, fog, and spewing viscera.",
+        "description": "This high-visibility armor allows its bearer to be easily seen through smoke, fog, and spewing viscera.",
         "type": "Armor",
         "cost": 0
     },
@@ -1071,7 +1071,7 @@
     },
     "3813318023": {
         "name": "TR-40 GOLD EAGLE",
-        "description": "This high-visibility armor allows it's bearer to be easily seen through smoke, fog, and spewing viscera.",
+        "description": "This high-visibility armor allows its bearer to be easily seen through smoke, fog, and spewing viscera.",
         "type": "Helmet",
         "cost": 0
     },
@@ -1312,6 +1312,18 @@
     "2564970677": {
         "name": "RS-100 SANCTIONER",
         "description": "Armor inspired by the legend of the Sanctioner, a figure known only through a bizarrely unanimous patchwork of stifled whispers. As told, this fearsome, covert arbiter of primeval Justice delivered final, state-approved verdicts in the chaotic years before the Federation's founding.",
+        "type": "Helmet",
+        "cost": 125
+    },
+    "835380827": {
+        "name": "BFM-77 REFORMER",
+        "description": "Molded from high-impact synthetic polymers. This sleek, stark white faceless armor both reduces mass manufacturing costs and ensures the wearer is highly visible on almost every battlefield, bravely drawing enemy fire away from considerably more costly vehicular assets.",
+        "type": "Armor",
+        "cost": 250
+    },
+    "1329667678": {
+        "name": "BFM-77 REFORMER",
+        "description": "Molded from high-impact synthetic polymers. This sleek, stark white faceless armor both reduces mass manufacturing costs and ensures the wearer is highly visible on almost every battlefield, bravely drawing enemy fire away from considerably more costly vehicular assets.",
         "type": "Helmet",
         "cost": 125
     },
@@ -1675,6 +1687,30 @@
         "type": "Helmet",
         "cost": 310
     },
+    "3967406947": {
+        "name": "O-3 FREE SPIRIT",
+        "description": "The SteerComfort fit of this armor allows the wearer to feel every curve, bump, and jostle of their Exosuit, as if they were one single being.",
+        "type": "Armor",
+        "cost": 0
+    },
+    "606368587": {
+        "name": "O-3 FREE SPIRIT",
+        "description": "The SteerComfort fit of this armor allows the wearer to feel every curve, bump, and jostle of their Exosuit, as if they were one single being.",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "2917896249": {
+        "name": "O-2 HEAVY OPERATOR",
+        "description": "This armor is the required uniform for many Super Earth Citizens operating heavy machinery. Long-time users will be delighted to learn that as of this year's Efficiency in Machine Operation Symposium and Gala, wearing this armor is no longer itself considered operating heavy machinery.",
+        "type": "Armor",
+        "cost": 0
+    },
+    "941620961": {
+        "name": "O-2 HEAVY OPERATOR",
+        "description": "This armor is the required uniform for many Super Earth Citizens operating heavy machinery. Long-time users will be delighted to learn that as of this year's Efficiency in Machine Operation Symposium and Gala, wearing this armor is no longer itself considered operating heavy machinery.",
+        "type": "Helmet",
+        "cost": 0
+    },
     "2022698159": {
         "name": "TG-8 SHARPSHOOTER",
         "description": "\"Where lesser soldiers break, Helldivers obey. When Tyranny's horrors swarm, Helldivers obey. When death is certain, and hope and sense have fled, Helldivers obey.\" \u2014 Last Lord Governor of Chara.",
@@ -1720,6 +1756,30 @@
     "3157942416": {
         "name": "RS-67 NULL CIPHER",
         "description": "This armor, coated in radar-absorbent polymers and a null-signature heat baffle, reportedly turns its wearer into a sensor ghost\u2014a claim attributed to individuals who, curiously, appear to have never existed.",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "4120395268": {
+        "name": "BFM-16 TANKER",
+        "description": "Inspired by the legendary armored cavalry of the First Galactic War, this lightweight suit features integrated acoustic dampeners to shield the wearer from the deafening roar of Freedom, and the disruptive screams of dissidence.",
+        "type": "Armor",
+        "cost": 0
+    },
+    "1596272942": {
+        "name": "BFM-16 TANKER",
+        "description": "Inspired by the legendary armored cavalry of the First Galactic War, this lightweight suit features integrated acoustic dampeners to shield the wearer from the deafening roar of Freedom, and the disruptive screams of dissidence.",
+        "type": "Helmet",
+        "cost": 0
+    },
+    "1964240160": {
+        "name": "BFM-220 IRONCLAD",
+        "description": "Forged from surplus hull plating, this hulking suit features an integrated servo-bracing system, and a towering blast-shield collar, as favored by Helldiver barbershop quartets throughout the galaxy.",
+        "type": "Armor",
+        "cost": 0
+    },
+    "1274662032": {
+        "name": "BFM-220 IRONCLAD",
+        "description": "Forged from surplus hull plating, this hulking suit features an integrated servo-bracing system, and a towering blast-shield collar, as favored by Helldiver barbershop quartets throughout the galaxy.",
         "type": "Helmet",
         "cost": 0
     },
@@ -2035,6 +2095,12 @@
         "type": "Cape",
         "cost": 100
     },
+    "436377568": {
+        "name": "TREAD OF LIBERTY",
+        "description": "The striking dorsal tread pattern represents the unstoppable, grinding, and uniform march of Managed Democracy. It boldly assures all onlookers that resistance is not merely futile, but also logistically inefficient and statistically disastrous.",
+        "type": "Cape",
+        "cost": 100
+    },
     "3026953460": {
         "name": "TESTAMENT TO ATTRITION",
         "description": "Salvaged from a deep-storage vault, this well-ventilated cape symbolizes tenacious survival. Its visible scars bestow immediate veteran status, reminding all onlookers that the spirit of tireless service is immortal.",
@@ -2272,6 +2338,18 @@
     "114520195": {
         "name": "TRIANGULATION VEIL",
         "description": "This vision-disruptive pattern cloaks the silent crusaders whose untraceable deeds are a pure expression of true Freedom: freedom from accountability.",
+        "type": "Cape",
+        "cost": 0
+    },
+    "1305396035": {
+        "name": "STANDARD OF RAPID EVACUATION",
+        "description": "Adorned with a fearsome armored division crest, this abbreviated cape ensures the wearer's elite status is clearly broadcast to their subordinates, without the hem becoming fatally entangled in their own vehicle's heavy tread mechanisms.",
+        "type": "Cape",
+        "cost": 0
+    },
+    "2317175836": {
+        "name": "SHROUD OF THE JUGGERNAUT",
+        "description": "The sheer weight of this camouflage shroud perfectly complements a Helldiver operating as a walking tank. Astute observers will also note that the shattered woodland pattern conceals a highly classified, morale-boosting message in Morse code.",
         "type": "Cape",
         "cost": 0
     },
@@ -2551,6 +2629,12 @@
         "type": "Sidearm Weapon",
         "cost": 0
     },
+    "2979303494": {
+        "name": "GL-15 EVICTOR",
+        "description": "This pump-action grenade launcher trades precision for devastating area-of-effect capabilities. Its manual single-round reload makes it a highly methodical choice for squads requiring an explosive approach to dispute resolution.",
+        "type": "Primary Weapon",
+        "cost": 0
+    },
     "2088854385": {
         "name": "SG-8 PUNISHER",
         "description": "A powerful dual magazine pump-action shotgun, with limited armor penetration. Ideal for small and fast targets.",
@@ -2669,6 +2753,12 @@
         "name": "P-11 STIM PISTOL",
         "description": "Fires a ballistic dart at near-supersonic speeds, allowing the user to stim allies from a distance. Might sting.",
         "type": "Sidearm Weapon",
+        "cost": 0
+    },
+    "932374702": {
+        "name": "G-60 ANTI-TANK SEEKER",
+        "description": "Equipped with a heavy payload suitable against armored vehicles, this grenade delivery drone follows the user until it detects an enemy nearby, then flies towards it and explodes on impact.",
+        "type": "Throwable Weapon",
         "cost": 0
     },
     "1639574879": {
@@ -2881,6 +2971,12 @@
         "type": "Primary Weapon",
         "cost": 0
     },
+    "1474696864": {
+        "name": "AR-11 ARBITRATOR",
+        "description": "An assault rifle sporting caseless ammunition and a top-mounted magazine. An electrical firing mechanism releases the rounds in rapid succession upon firing. Equipped with an underslung shotgun for added versatility.",
+        "type": "Primary Weapon",
+        "cost": 0
+    },
     "2643754746": {
         "name": "AR-59 SUPPRESSOR",
         "description": "A fully automatic assault rifle featuring a non-removable suppressor and subsonic ammunition. Slower rounds allow low-profile operation.",
@@ -2970,6 +3066,12 @@
         "description": "This time-honored shotgun-like weapon has been improved since the First Galactic War, and now fires six beams instead of three.",
         "type": "Primary Weapon",
         "cost": 0
+    },
+    "4101644410": {
+        "name": "LAS-12 SAI",
+        "description": "A rapid-fire laser submachine gun prioritizing area saturation over pinpoint precision. Its high fire rate makes it effective for close-quarters crowd pacification, provided the user is comfortable with indiscriminate choice of targets.",
+        "type": "Primary Weapon",
+        "cost": 400
     },
     "2104346664": {
         "name": "R-6 DEADEYE",
@@ -3070,6 +3172,12 @@
     "2797735596": {
         "name": "GP-31 GRENADE PISTOL",
         "description": "A pistol that fires grenades. Must be reloaded between shots.",
+        "type": "Sidearm Weapon",
+        "cost": 0
+    },
+    "3997705262": {
+        "name": "P-34 BREACHER",
+        "description": "A missile pistol equipped with sticky projectiles that use phosphorus fuel to burn through an enemy's armor\u2014or any other outer layer\u2014before finally exploding.",
         "type": "Sidearm Weapon",
         "cost": 0
     },

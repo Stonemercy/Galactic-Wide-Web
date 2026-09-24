@@ -8,7 +8,6 @@
             "it-IT": "SUPER TERRA",
             "pt-BR": "SUPERTERRA",
             "ru-RU": "\u0421\u0423\u041f\u0415\u0420-\u0417\u0415\u041c\u041b\u042f",
-            "zh-Hans": "\u8d85\u7ea7\u5730\u7403",
             "zh-Hant": "\u8d85\u7d1a\u5730\u7403"
         },
         "description": "The blinding beacon that illuminates the stars with the light of Democracy. The patriotic paradise for citizens who truly serve their Federation. And the utopian future awaiting the entire galaxy.",
@@ -23,7 +22,6 @@
             "it-IT": "KLEN DAHTH II",
             "pt-BR": "KLEN DAHTH II",
             "ru-RU": "\u041a\u041b\u0415\u041d \u0414\u0410\u0425\u0422 II",
-            "zh-Hans": "\u514b\u4f26\u8fbe\u65afII",
             "zh-Hant": "\u514b\u9023\u9054\u65afII"
         },
         "description": "A blazing-hot desert planet, its rocky mesas are the sole interruptions to the endless sea of dunes.",
@@ -38,7 +36,6 @@
             "it-IT": "PATHFINDER V",
             "pt-BR": "VANGUARDA V",
             "ru-RU": "\u0421\u041b\u0415\u0414\u041e\u041f\u042b\u0422 V",
-            "zh-Hans": "\u5f00\u62d3\u8005V",
             "zh-Hant": "\u63a2\u8def\u8005V"
         },
         "description": "Rocky outcroppings punctuate fields of tall grass in a planet dominated by misty highland terrain.",
@@ -53,7 +50,6 @@
             "it-IT": "PORTO DELLA VEDOVA",
             "pt-BR": "PORTO DA VI\u00daVA",
             "ru-RU": "\u0412\u0414\u041e\u0412\u042c\u042f \u0413\u0410\u0412\u0410\u041d\u042c",
-            "zh-Hans": "\u5be1\u5987\u6e2f",
             "zh-Hant": "\u5be1\u5a66\u6e2f"
         },
         "description": "A rocky, lonely moon with extremely valuable mineral deposits underneath the surface.",
@@ -68,7 +64,6 @@
             "it-IT": "NUOVO RIFUGIO",
             "pt-BR": "NEW HAVEN",
             "ru-RU": "\u041d\u041e\u0412\u0410\u042f \u0413\u0410\u0412\u0410\u041d\u042c",
-            "zh-Hans": "\u7ebd\u9ed1\u6587",
             "zh-Hant": "\u65b0\u907f\u98a8\u6e2f"
         },
         "description": "The strange subversion of photosynthesis that sustains the oddly-hued flora that flourishes on this planet remains an intriguing mystery to Super Earth's greatest exo-biologists.",
@@ -83,7 +78,6 @@
             "it-IT": "PILEN V",
             "pt-BR": "PILEN V",
             "ru-RU": "\u041f\u0418\u041b\u0415\u041d V",
-            "zh-Hans": "\u76ae\u4f26V",
             "zh-Hant": "\u76ae\u502bV"
         },
         "description": "A desert planet prone to unpredictable and dangerous sand twisters.",
@@ -98,7 +92,6 @@
             "it-IT": "MERIDIAN IIa",
             "pt-BR": "MERIDIANO II-A",
             "ru-RU": "\u041c\u0415\u0420\u0418\u0414\u0418\u0410\u041d II\u0430",
-            "zh-Hans": "\u9ed8\u91cc\u8fea\u6069IIa",
             "zh-Hant": "\u6885\u91cc\u8fea\u4e9eIIa"
         },
         "description": "Submerged in eternal winter, this world's frosty peaks glimmer in the light of its too-distant star.",
@@ -113,7 +106,6 @@
             "it-IT": "IDROSCALO PRIME",
             "pt-BR": "HIDROQUEDA PRIME",
             "ru-RU": "\u0413\u0418\u0414\u0420\u041e\u041f\u0410\u0414-\u041f\u0420\u0410\u0419\u041c",
-            "zh-Hans": "\u6c34\u7011\u4e3b\u661f",
             "zh-Hant": "\u7011\u5e03\u4e3b\u661f"
         },
         "description": "The arid, rocky biome covering this world has driven the evolution of exceptionally efficient water usage in its various organisms.",
@@ -128,7 +120,6 @@
             "it-IT": "ZEA RUGOSIA",
             "pt-BR": "ZEA RUGOSIA",
             "ru-RU": "\u0417\u0415\u042f \u0420\u0423\u0413\u041e\u0417\u0418\u042f",
-            "zh-Hans": "\u6cfd\u4e9a\u9c81\u6208\u897f\u4e9a",
             "zh-Hant": "\u6fa4\u4e9e\u9b6f\u54e5\u897f\u4e9e"
         },
         "description": "A desert planet prone to unpredictable and dangerous sand twisters.",
@@ -143,7 +134,6 @@
             "it-IT": "DARROWSPORT",
             "pt-BR": "DARROWSPORT",
             "ru-RU": "\u0414\u0415\u0420\u0420\u041e\u0423\u0421\u041f\u041e\u0420\u0422",
-            "zh-Hans": "\u8fbe\u7f57\u65af\u6ce2\u7279",
             "zh-Hant": "\u9054\u7f85\u65af\u6e2f"
         },
         "description": "Dense, toxic fumes from deep within the planet's crust seep out of cracks in the earth and coat the ground in a sickly haze.",
@@ -158,7 +148,6 @@
             "it-IT": "FORNSKOGUR II",
             "pt-BR": "FORNSKOGUR II",
             "ru-RU": "\u0424\u041e\u0420\u041d\u0421\u041a\u041e\u0413\u0423\u0420 II",
-            "zh-Hans": "\u798f\u6069\u65af\u79d1\u53e4\u5c14II",
             "zh-Hant": "\u4f5b\u6069\u65af\u79d1\u845bII"
         },
         "description": "Tall, gnarled trees flourish across the surface of this forested world. Sunlight filters past dangling vines, to the saturated undergrowth below. ",
@@ -173,7 +162,6 @@
             "it-IT": "MIDASBURG",
             "pt-BR": "MIDASBURGO",
             "ru-RU": "\u041c\u0418\u0414\u0410\u0421\u0411\u0423\u0420\u0413",
-            "zh-Hans": "\u5f25\u8fbe\u65af\u5821",
             "zh-Hant": "\u7c73\u9054\u65af\u5821"
         },
         "description": "A perenially chilly climate has allowed short, colorful shrubs to flourish across this planet's surface.",
@@ -188,7 +176,6 @@
             "it-IT": "CERBERO IIIc",
             "pt-BR": "C\u00c9RBERO III-C",
             "ru-RU": "\u0426\u0415\u0420\u0411\u0415\u0420 IIIc",
-            "zh-Hans": "\u523b\u8033\u67cf\u6d1b\u65afIIIc",
             "zh-Hant": "\u585e\u4f2f\u62c9\u65afIIIc"
         },
         "description": "A desert planet prone to unpredictable and dangerous sand twisters.",
@@ -203,7 +190,6 @@
             "it-IT": "CASCATE DELLA PROSPERIT\u00c0",
             "pt-BR": "CATARATAS DA FORTUNA",
             "ru-RU": "\u0412\u041e\u0414\u041e\u041f\u0410\u0414\u042b \u041f\u0420\u041e\u0426\u0412\u0415\u0422\u0410\u041d\u0418\u042f",
-            "zh-Hans": "\u7e41\u8363\u7011\u5e03",
             "zh-Hant": "\u7e41\u83ef\u7011\u5e03"
         },
         "description": "The strange subversion of photosynthesis that sustains the oddly-hued flora that flourishes on this planet remains an intriguing mystery to Super Earth's greatest exo-biologists.",
@@ -218,7 +204,6 @@
             "it-IT": "OKUL VI",
             "pt-BR": "OKUL VI",
             "ru-RU": "\u041e\u041a\u0423\u041b VI",
-            "zh-Hans": "\u6b27\u5e93VI",
             "zh-Hant": "\u6b50\u5eab\u723eVI"
         },
         "description": "Submerged in eternal winter, this world's frosty peaks glimmer in the light of its too-distant star.",
@@ -233,7 +218,6 @@
             "it-IT": "BAIA DEL MARTIRE",
             "pt-BR": "BA\u00cdA DO M\u00c1RTIR",
             "ru-RU": "\u0417\u0410\u041b\u0418\u0412 \u041c\u0423\u0427\u0415\u041d\u0418\u041a\u041e\u0412",
-            "zh-Hans": "\u70c8\u58eb\u6e7e",
             "zh-Hant": "\u70c8\u58eb\u7063"
         },
         "description": "Ice and moss-covered rock can be found across most of the surface of this planet.",
@@ -248,7 +232,6 @@
             "it-IT": "PICCO DELLA LIBERT\u00c0",
             "pt-BR": "PICO DA LIBERDADE",
             "ru-RU": "\u041f\u0418\u041a \u0421\u0412\u041e\u0411\u041e\u0414\u042b",
-            "zh-Hans": "\u5f17\u91cc\u6566\u5cf0",
             "zh-Hant": "\u81ea\u7531\u5cf0"
         },
         "description": "A crimson algae has propagated wildly across this entire planet, coating its rocky hills with a constant red that masks the spilt blood of the heroes who defend it from tyranny.",
@@ -263,7 +246,6 @@
             "it-IT": "FORT UNION",
             "pt-BR": "FORTE DA UNI\u00c3O",
             "ru-RU": "\u0424\u041e\u0420\u0422 \u0415\u0414\u0418\u041d\u0415\u041d\u0418\u042f",
-            "zh-Hans": "\u8054\u5408\u5821",
             "zh-Hant": "\u806f\u76df\u5821"
         },
         "description": "Rocky outcroppings punctuate fields of tall grass in a planet dominated by misty highland terrain.",
@@ -278,7 +260,6 @@
             "it-IT": "KELVINOR",
             "pt-BR": "KELVINOR",
             "ru-RU": "\u041a\u0415\u041b\u042c\u0412\u0418\u041d\u041e\u0420",
-            "zh-Hans": "\u5f00\u5c14\u6587\u5965\u5c14",
             "zh-Hant": "\u51f1\u6587\u8afe"
         },
         "description": "Submerged in eternal winter, this world's frosty peaks glimmer in the light of its too-distant star.",
@@ -293,7 +274,6 @@
             "it-IT": "WRAITH",
             "pt-BR": "ESPECTRO",
             "ru-RU": "\u041f\u0420\u0418\u0417\u0420\u0410\u041a",
-            "zh-Hans": "\u5e7d\u7075",
             "zh-Hant": "\u5e7d\u9748"
         },
         "description": "Dense, toxic fumes from deep within the planet's crust seep out of cracks in the earth and coat the ground in a sickly haze.",
@@ -308,7 +288,6 @@
             "it-IT": "IGLA",
             "pt-BR": "IGLA",
             "ru-RU": "\u0418\u0413\u041b\u0410",
-            "zh-Hans": "\u4f0a\u683c\u52d2",
             "zh-Hant": "\u4f0a\u683c\u62c9"
         },
         "description": "Ice and moss-covered rock can be found across most of the surface of this planet.",
@@ -323,7 +302,6 @@
             "it-IT": "NUOVA KIRUNA",
             "pt-BR": "NOVA KIRUNA",
             "ru-RU": "\u041d\u041e\u0412\u0410\u042f \u041a\u0418\u0420\u0423\u041d\u0410",
-            "zh-Hans": "\u65b0\u57fa\u9c81\u7eb3",
             "zh-Hant": "\u65b0\u57fa\u9b6f\u7d0d"
         },
         "description": "Submerged in eternal winter, this world's frosty peaks glimmer in the light of its too-distant star.",
@@ -338,7 +316,6 @@
             "it-IT": "FORT JUSTICE",
             "pt-BR": "FORTE DA JUSTI\u00c7A",
             "ru-RU": "\u0424\u041e\u0420\u0422 \u041f\u0420\u0410\u0412\u041e\u0421\u0423\u0414\u0418\u042f",
-            "zh-Hans": "\u6b63\u4e49\u5821",
             "zh-Hant": "\u6b63\u7fa9\u5821"
         },
         "description": "This world teems with ethereal, boundless, and peculiar plant life that spreads silent and uninterrupted across its entire surface.",
@@ -353,7 +330,6 @@
             "it-IT": "QUARANTENA DEGLI INSETTI",
             "pt-BR": "QUARENTENA DE INSETOS",
             "ru-RU": "\u041a\u0410\u0420\u0410\u041d\u0422\u0418\u041d \u0416\u0423\u041a\u041e\u0412",
-            "zh-Hans": "\u9632\u866b",
             "zh-Hant": "\u87f2\u65cf\u9694\u96e2\u5340"
         },
         "description": "Dense, toxic fumes from deep within the planet's crust seep out of cracks in the earth and coat the ground in a sickly haze.",
@@ -368,7 +344,6 @@
             "it-IT": "PARADISO DEI ZEGEMA",
             "pt-BR": "PARA\u00cdSO ZEGEMA",
             "ru-RU": "\u0417\u0415\u0413\u0415\u041c\u0421\u041a\u0418\u0419 \u0420\u0410\u0419",
-            "zh-Hans": "\u6cfd\u683c\u9a6c\u4e50\u571f",
             "zh-Hant": "\u6fa4\u84cb\u746a\u5929\u5802"
         },
         "description": "Abundant with life, this wet planet is covered in deep oceans, thick forests, and tall grasses.",
@@ -383,7 +358,6 @@
             "it-IT": "PROVVIDENZA",
             "pt-BR": "PROVIDENCE",
             "ru-RU": "\u041f\u0420\u041e\u0412\u0418\u0414\u0415\u041d\u0418\u0415",
-            "zh-Hans": "\u666e\u7f57\u7ef4\u767b\u65af",
             "zh-Hant": "\u666e\u7f85\u7dad\u767b\u65af"
         },
         "description": "A crimson algae has propagated wildly across this entire planet, coating its rocky hills with a constant red that masks the spilt blood of the heroes who defend it from tyranny.",
@@ -398,7 +372,6 @@
             "it-IT": "PRIMORDIA",
             "pt-BR": "PRIM\u00d3RDIO",
             "ru-RU": "\u041f\u0420\u0418\u041c\u041e\u0420\u0422\u0418\u042f",
-            "zh-Hans": "\u666e\u83b1\u9ed8\u8fea\u4e9a",
             "zh-Hant": "\u666e\u91cc\u6469\u8fea\u4e9e"
         },
         "description": "Abundant with life, this wet planet is covered in deep oceans, thick forests, and tall grasses.",
@@ -413,7 +386,6 @@
             "it-IT": "SULFURA",
             "pt-BR": "SULFURA",
             "ru-RU": "\u0421\u0423\u041b\u042c\u0424\u0423\u0420\u0410",
-            "zh-Hans": "\u8428\u5c14\u5f17\u62c9",
             "zh-Hant": "\u8607\u798f\u62c9"
         },
         "description": "This world teems with ethereal, boundless, and peculiar plant life that spreads silent and uninterrupted across its entire surface.",
@@ -428,7 +400,6 @@
             "it-IT": "NUBLARIA I",
             "pt-BR": "NUBL\u00c1RIA I",
             "ru-RU": "\u041d\u0423\u0411\u041b\u0410\u0420\u0418\u042f I",
-            "zh-Hans": "\u52aa\u5e03\u62c9\u91cc\u4e9aI",
             "zh-Hant": "\u52aa\u5e03\u62c9\u91cc\u4e9eI"
         },
         "description": "Squelching mud, twisting roots; the odor of rot and anarchy. A teeming, endless morass.",
@@ -443,7 +414,6 @@
             "it-IT": "KRAKATWO",
             "pt-BR": "KRAKADOIS",
             "ru-RU": "\u041a\u0420\u0410\u041a\u0410\u0422\u0423",
-            "zh-Hans": "\u514b\u62c9\u514b\u56fe",
             "zh-Hant": "\u514b\u62c9\u5361\u5716"
         },
         "description": "Ice and moss-covered rock can be found across most of the surface of this planet.",
@@ -458,7 +428,6 @@
             "it-IT": "VOLTERRA",
             "pt-BR": "VOLTERRA",
             "ru-RU": "\u0412\u041e\u041b\u042c\u0422\u0415\u0420\u0420\u0410",
-            "zh-Hans": "\u6c83\u5c14\u6cf0\u62c9",
             "zh-Hant": "\u4f5b\u6cf0\u60f9"
         },
         "description": "Rocky outcroppings punctuate fields of tall grass in a planet dominated by misty highland terrain.",
@@ -473,7 +442,6 @@
             "it-IT": "CROGIOLO",
             "pt-BR": "CRISOL",
             "ru-RU": "\u0413\u041e\u0420\u041d",
-            "zh-Hans": "\u7194\u7089",
             "zh-Hant": "\u5769\u581d"
         },
         "description": "A perenially chilly climate has allowed short, colorful shrubs to flourish across this planet's surface.",
@@ -488,7 +456,6 @@
             "it-IT": "VELO",
             "pt-BR": "VELADO",
             "ru-RU": "\u0412\u0423\u0410\u041b\u042c",
-            "zh-Hans": "\u5e37\u5e55",
             "zh-Hant": "\u5e37\u5e55"
         },
         "description": "The lifeless grey of this planet is interrupted only by the violet flowers that grow from strange, parasitic outcroppings.",
@@ -503,7 +470,6 @@
             "it-IT": "MARRE IV",
             "pt-BR": "MARRE IV",
             "ru-RU": "\u041c\u0410\u0420\u0420 IV",
-            "zh-Hans": "\u9a6c\u5c14IV",
             "zh-Hant": "\u99ac\u723eIV"
         },
         "description": "Scorching temperatures, high winds, and low precipitation cause a near-constant cycle of fires to sweep this planet, punctuated by short bursts of lush rebirth between infernos.",
@@ -518,7 +484,6 @@
             "it-IT": "FORT SANCTUARY",
             "pt-BR": "FORTE DO SANTU\u00c1RIO",
             "ru-RU": "\u0424\u041e\u0420\u0422 \u0411\u0415\u0417\u041e\u041f\u0410\u0421\u041d\u041e\u0421\u0422\u0418",
-            "zh-Hans": "\u5e87\u62a4\u5821",
             "zh-Hant": "\u8056\u6240\u5821"
         },
         "description": "A crimson algae has propagated wildly across this entire planet, coating its rocky hills with a constant red that masks the spilt blood of the heroes who defend it from tyranny.",
@@ -533,7 +498,6 @@
             "it-IT": "SPIAGGE DI SEYSHEL",
             "pt-BR": "PRAIA SEYSHEL",
             "ru-RU": "\u0421\u0415\u0419\u0428\u0415\u041b\u042c\u0421\u041a\u0418\u0419 \u041f\u041b\u042f\u0416",
-            "zh-Hans": "\u585e\u820c\u5c14\u6d77\u6ee9",
             "zh-Hant": "\u585e\u5e2d\u723e\u7058"
         },
         "description": "This world teems with ethereal, boundless, and peculiar plant life that spreads silent and uninterrupted across its entire surface.",
@@ -548,7 +512,6 @@
             "it-IT": "HELLMIRE",
             "pt-BR": "LODOFERNO",
             "ru-RU": "\u0425\u0415\u041b\u041b\u041c\u0415\u0419\u0420",
-            "zh-Hans": "\u6d77\u5c14\u8fc8\u5c14",
             "zh-Hant": "\u9ed1\u9ea5\u723e"
         },
         "description": "Scorching temperatures, high winds, and low precipitation cause a near-constant cycle of fires to sweep this planet, punctuated by short bursts of lush rebirth between infernos.",
@@ -563,7 +526,6 @@
             "it-IT": "EFFLUVIA",
             "pt-BR": "EFL\u00daVIO",
             "ru-RU": "\u042d\u0424\u0424\u041b\u0423\u0412\u0418\u042f",
-            "zh-Hans": "\u827e\u8299\u9c81\u7ef4\u4e9a",
             "zh-Hant": "\u827e\u4f5b\u9732\u7dad\u4e9e"
         },
         "description": "The arid, rocky biome covering this world has driven the evolution of exceptionally efficient water usage in its various organisms.",
@@ -578,7 +540,6 @@
             "it-IT": "SOLGHAST",
             "pt-BR": "MACABRO",
             "ru-RU": "\u0421\u041e\u041b\u0413\u0410\u0421\u0422",
-            "zh-Hans": "\u7d22\u5c14\u52a0\u65af\u7279",
             "zh-Hant": "\u7d22\u5609\u65af\u7279"
         },
         "description": "Squelching mud, twisting roots; the odor of rot and anarchy. A teeming, endless morass.",
@@ -593,7 +554,6 @@
             "it-IT": "DILUVIA",
             "pt-BR": "DIL\u00daVIA",
             "ru-RU": "\u0414\u0418\u041b\u0423\u0412\u0418\u042f",
-            "zh-Hans": "\u8fea\u5362\u7ef4\u4e9a",
             "zh-Hant": "\u8fea\u9732\u7dad\u4e9e"
         },
         "description": "A perenially chilly climate has allowed short, colorful shrubs to flourish across this planet's surface.",
@@ -608,7 +568,6 @@
             "it-IT": "VIRIDIA PRIME",
             "pt-BR": "VIR\u00cdDIA PRIME",
             "ru-RU": "\u0412\u0418\u0420\u0418\u0414\u0418\u042f-\u041f\u0420\u0410\u0419\u041c",
-            "zh-Hans": "\u7ef4\u5c14\u4f0a\u8fea\u4e9a\u4e3b\u661f",
             "zh-Hant": "\u7dad\u91cc\u8fea\u4e9e\u4e3b\u661f"
         },
         "description": "A blazing-hot desert planet, its rocky mesas are the sole interruptions to the endless sea of dunes.",
@@ -623,7 +582,6 @@
             "it-IT": "OBARI",
             "pt-BR": "OBARI",
             "ru-RU": "\u041e\u0411\u0410\u0420\u0418",
-            "zh-Hans": "\u6b27\u5df4\u91cc",
             "zh-Hant": "\u6b50\u5df4\u91cc"
         },
         "description": "Rocky outcroppings punctuate fields of tall grass in a planet dominated by misty highland terrain.",
@@ -638,7 +596,6 @@
             "it-IT": "MYRADESH",
             "pt-BR": "MYRADESH",
             "ru-RU": "\u041c\u0418\u0420\u0410\u0414\u0415\u0428",
-            "zh-Hans": "\u7c73\u62c9\u6234\u4ec0",
             "zh-Hant": "\u7c73\u62c9\u5fb7\u8a31"
         },
         "description": "A desert planet prone to unpredictable and dangerous sand twisters.",
@@ -653,7 +610,6 @@
             "it-IT": "ATRAMA",
             "pt-BR": "ATRAMA",
             "ru-RU": "\u0410\u0422\u0420\u0410\u041c\u0410",
-            "zh-Hans": "\u963f\u7279\u62c9\u739b",
             "zh-Hant": "\u963f\u5353\u746a"
         },
         "description": "Squelching mud, twisting roots; the odor of rot and anarchy. A teeming, endless morass.",
@@ -668,7 +624,6 @@
             "it-IT": "EMERIA",
             "pt-BR": "EM\u00c9RIA",
             "ru-RU": "\u042d\u041c\u0415\u0420\u0418\u042f",
-            "zh-Hans": "\u57c3\u6885\u91cc\u4e9a",
             "zh-Hant": "\u827e\u7f8e\u91cc\u4e9e"
         },
         "description": "The arid, rocky biome covering this world has driven the evolution of exceptionally efficient water usage in its various organisms.",
@@ -683,7 +638,6 @@
             "it-IT": "BARABOS",
             "pt-BR": "B\u00c1RABOS",
             "ru-RU": "\u0411\u0410\u0420\u0410\u0411\u041e\u0421",
-            "zh-Hans": "\u5df4\u52d2\u535a\u65af",
             "zh-Hant": "\u5df4\u62c9\u535a\u65af"
         },
         "description": "Tall, gnarled trees flourish across the surface of this forested world. Sunlight filters past dangling vines, to the saturated undergrowth below. ",
@@ -698,7 +652,6 @@
             "it-IT": "FENMIRE",
             "pt-BR": "LODOCHARCO",
             "ru-RU": "\u0424\u0415\u041d\u041c\u0415\u0419\u0420",
-            "zh-Hans": "\u8303\u8fc8\u5c14",
             "zh-Hant": "\u82ac\u9ea5\u723e"
         },
         "description": "Rocky outcroppings punctuate fields of tall grass in a planet dominated by misty highland terrain.",
@@ -713,7 +666,6 @@
             "it-IT": "MASTIA",
             "pt-BR": "M\u00c1STIA",
             "ru-RU": "\u041c\u0410\u0421\u0422\u0418\u042f",
-            "zh-Hans": "\u739b\u65af\u8482\u4e9a",
             "zh-Hant": "\u99ac\u65af\u63d0\u4e9e"
         },
         "description": "A blazing-hot desert planet, its rocky mesas are the sole interruptions to the endless sea of dunes.",
@@ -728,7 +680,6 @@
             "it-IT": "SHALLUS",
             "pt-BR": "SHALLUS",
             "ru-RU": "\u0428\u0410\u041b\u041b\u0423\u0421",
-            "zh-Hans": "\u6c99\u52d2\u65af",
             "zh-Hant": "\u6c99\u9732\u65af"
         },
         "description": "This world teems with ethereal, boundless, and peculiar plant life that spreads silent and uninterrupted across its entire surface.",
@@ -743,7 +694,6 @@
             "it-IT": "KRAKABOS",
             "pt-BR": "KRAKABOS",
             "ru-RU": "\u041a\u0420\u0410\u041a\u0410\u0411\u041e\u0421",
-            "zh-Hans": "\u514b\u62c9\u514b\u535a\u65af",
             "zh-Hant": "\u5361\u62c9\u5361\u535a"
         },
         "description": "Tall, gnarled trees flourish across the surface of this forested world. Sunlight filters past dangling vines, to the saturated undergrowth below. ",
@@ -758,7 +708,6 @@
             "it-IT": "IRIDICA",
             "pt-BR": "IR\u00cdDICA",
             "ru-RU": "\u0418\u0420\u0418\u0414\u0418\u041a\u0410",
-            "zh-Hans": "\u827e\u4e3d\u8fea\u5361",
             "zh-Hant": "\u4f0a\u68a8\u8fea\u5361"
         },
         "description": "This world teems with ethereal, boundless, and peculiar plant life that spreads silent and uninterrupted across its entire surface.",
@@ -773,7 +722,6 @@
             "it-IT": "AZTERRA",
             "pt-BR": "AZTERRA",
             "ru-RU": "\u0410\u0421\u0422\u0415\u0420\u0420\u0410",
-            "zh-Hans": "\u827e\u5b5c\u6cf0\u62c9",
             "zh-Hant": "\u963f\u8332\u63d0\u62c9"
         },
         "description": "The arid, rocky biome covering this world has driven the evolution of exceptionally efficient water usage in its various organisms.",
@@ -788,7 +736,6 @@
             "it-IT": "AZUR SECUNDUS",
             "pt-BR": "AZUR SECUNDUS",
             "ru-RU": "\u0410\u0417\u0423\u0420 II",
-            "zh-Hans": "\u827e\u70ed\u5c14\u6b21\u661f",
             "zh-Hant": "\u963f\u7956\u723e\u6b21\u661f"
         },
         "description": "A desert planet prone to unpredictable and dangerous sand twisters.",
@@ -803,7 +750,6 @@
             "it-IT": "IVIS",
             "pt-BR": "\u00cdVIS",
             "ru-RU": "\u0410\u0419\u0412\u0418\u0421",
-            "zh-Hans": "\u827e\u7ef4\u65af",
             "zh-Hant": "\u827e\u7dad\u65af"
         },
         "description": "Tall, gnarled trees flourish across the surface of this forested world. Sunlight filters past dangling vines, to the saturated undergrowth below. ",
@@ -818,7 +764,6 @@
             "it-IT": "SLIF",
             "pt-BR": "SLIF",
             "ru-RU": "\u0421\u041b\u0418\u0424",
-            "zh-Hans": "\u65af\u5229\u592b",
             "zh-Hant": "\u53f2\u91cc\u592b"
         },
         "description": "Dense, toxic fumes from deep within the planet's crust seep out of cracks in the earth and coat the ground in a sickly haze.",
@@ -833,7 +778,6 @@
             "it-IT": "CARAMOOR",
             "pt-BR": "CARAMOOR",
             "ru-RU": "\u041a\u0410\u0420\u0410\u041c\u0423\u0420",
-            "zh-Hans": "\u5f00\u52d2\u83ab\u5c14",
             "zh-Hant": "\u51f1\u62c9\u7a46"
         },
         "description": "A blazing-hot desert planet, its rocky mesas are the sole interruptions to the endless sea of dunes.",
@@ -848,7 +792,6 @@
             "it-IT": "ARLIA",
             "pt-BR": "\u00c1RLIA",
             "ru-RU": "\u0410\u0420\u041b\u0418\u042f",
-            "zh-Hans": "\u963f\u5229\u4e9a",
             "zh-Hant": "\u963f\u91cc\u4e9e"
         },
         "description": "The strange subversion of photosynthesis that sustains the oddly-hued flora that flourishes on this planet remains an intriguing mystery to Super Earth's greatest exo-biologists.",
@@ -863,7 +806,6 @@
             "it-IT": "KHARST",
             "pt-BR": "KHARST",
             "ru-RU": "\u041a\u0425\u0410\u0420\u0421\u0422",
-            "zh-Hans": "\u5580\u65af\u7279",
             "zh-Hant": "\u54c8\u65af\u7279"
         },
         "description": "A crimson algae has propagated wildly across this entire planet, coating its rocky hills with a constant red that masks the spilt blood of the heroes who defend it from tyranny.",
@@ -878,7 +820,6 @@
             "it-IT": "EUKORIA",
             "pt-BR": "EUK\u00d3RIA",
             "ru-RU": "\u042e\u041a\u041e\u0420\u0418\u042f",
-            "zh-Hans": "\u6b27\u79d1\u91cc\u4e9a",
             "zh-Hant": "\u6538\u79d1\u91cc\u4e9e"
         },
         "description": "Ice and moss-covered rock can be found across most of the surface of this planet.",
@@ -893,7 +834,6 @@
             "it-IT": "MYRIUM",
             "pt-BR": "MYRIUM",
             "ru-RU": "\u041c\u0418\u0420\u0418\u0423\u041c",
-            "zh-Hans": "\u6885\u91cc\u7fc1",
             "zh-Hant": "\u7c73\u91cc\u70cf"
         },
         "description": "The arid, rocky biome covering this world has driven the evolution of exceptionally efficient water usage in its various organisms.",
@@ -908,7 +848,6 @@
             "it-IT": "KERTH SECUNDUS",
             "pt-BR": "KERTH SECUNDUS",
             "ru-RU": "\u041a\u0415\u0420\u0422 II",
-            "zh-Hans": "\u514b\u65af\u6b21\u661f",
             "zh-Hant": "\u514b\u65af\u6b21\u661f"
         },
         "description": "A perenially chilly climate has allowed short, colorful shrubs to flourish across this planet's surface.",
@@ -923,7 +862,6 @@
             "it-IT": "PARSH",
             "pt-BR": "PARSH",
             "ru-RU": "\u041f\u0410\u0420\u0428",
-            "zh-Hans": "\u5e15\u5c14\u4ec0",
             "zh-Hant": "\u5e15\u8a31"
         },
         "description": "Tall, gnarled trees flourish across the surface of this forested world. Sunlight filters past dangling vines, to the saturated undergrowth below. ",
@@ -938,7 +876,6 @@
             "it-IT": "REAF",
             "pt-BR": "REAF",
             "ru-RU": "\u0420\u0418\u0424",
-            "zh-Hans": "\u5229\u592b",
             "zh-Hant": "\u91cc\u592b"
         },
         "description": "Rocky outcroppings punctuate fields of tall grass in a planet dominated by misty highland terrain.",
@@ -953,7 +890,6 @@
             "it-IT": "IRULTA",
             "pt-BR": "IRULTA",
             "ru-RU": "\u0418\u0420\u0423\u041b\u0422\u0410",
-            "zh-Hans": "\u827e\u9c81\u5c14\u5854",
             "zh-Hant": "\u4f0a\u9b6f\u5854"
         },
         "description": "Abundant with life, this wet planet is covered in deep oceans, thick forests, and tall grasses.",
@@ -968,7 +904,6 @@
             "it-IT": "EMORATH",
             "pt-BR": "EMORATH",
             "ru-RU": "\u042d\u041c\u041e\u0420\u0410\u0422",
-            "zh-Hans": "\u827e\u83ab\u62c9\u65af",
             "zh-Hant": "\u57c3\u6469\u62c9"
         },
         "description": "This world teems with ethereal, boundless, and peculiar plant life that spreads silent and uninterrupted across its entire surface.",
@@ -983,7 +918,6 @@
             "it-IT": "ILDUNA PRIME",
             "pt-BR": "ILDUNA PRIME",
             "ru-RU": "\u0418\u041b\u0414\u0423\u041d\u0410-\u041f\u0420\u0410\u0419\u041c",
-            "zh-Hans": "\u4f0a\u5c14\u90fd\u7eb3\u4e3b\u661f",
             "zh-Hant": "\u4f0a\u675c\u7d0d\u4e3b\u661f"
         },
         "description": "A perenially chilly climate has allowed short, colorful shrubs to flourish across this planet's surface.",
@@ -998,7 +932,6 @@
             "it-IT": "MAW",
             "pt-BR": "VORAZ",
             "ru-RU": "\u0423\u0422\u0420\u041e\u0411\u0410",
-            "zh-Hans": "\u6df1\u6e0a",
             "zh-Hant": "\u5de8\u5634"
         },
         "description": "Scorching temperatures, high winds, and low precipitation cause a near-constant cycle of fires to sweep this planet, punctuated by short bursts of lush rebirth between infernos.",
@@ -1013,7 +946,6 @@
             "it-IT": "MERIDIA",
             "pt-BR": "MER\u00cdDIA",
             "ru-RU": "\u041c\u0415\u0420\u0418\u0414\u0418\u042f",
-            "zh-Hans": "\u9ed8\u91cc\u8fea\u4e9a",
             "zh-Hant": "\u6885\u91cc\u8fea\u4e9e"
         },
         "description": "Entirely unforeseeable mutations from the Termicide led to hyper-accelerated bug growth on this planet, turning it into a Supercolony. It is corrupted beyond saving. The bugs infest every inch of it, down to the mantle, spawning trillions of spores every day.",
@@ -1028,7 +960,6 @@
             "it-IT": "BOREA",
             "pt-BR": "B\u00d3REA",
             "ru-RU": "\u0411\u041e\u0420\u0415\u042f",
-            "zh-Hans": "\u535a\u745e\u4e9a",
             "zh-Hant": "\u535a\u91cc\u4e9e"
         },
         "description": "Submerged in eternal winter, this world's frosty peaks glimmer in the light of its too-distant star.",
@@ -1043,7 +974,6 @@
             "it-IT": "CURIA",
             "pt-BR": "C\u00daRIA",
             "ru-RU": "\u041a\u0423\u0420\u0418\u042f",
-            "zh-Hans": "\u5c45\u91cc\u4e9a",
             "zh-Hant": "\u5eab\u91cc\u4e9e"
         },
         "description": "A rocky, lonely moon with extremely valuable mineral deposits underneath the surface.",
@@ -1058,7 +988,6 @@
             "it-IT": "TARSH",
             "pt-BR": "TARSH",
             "ru-RU": "\u0422\u0410\u0420\u0428",
-            "zh-Hans": "\u5854\u5c14\u4ec0",
             "zh-Hant": "\u5854\u8a31"
         },
         "description": "Squelching mud, twisting roots; the odor of rot and anarchy. A teeming, endless morass.",
@@ -1073,7 +1002,6 @@
             "it-IT": "SHELT",
             "pt-BR": "SHELT",
             "ru-RU": "\u0428\u0415\u041b\u0422",
-            "zh-Hans": "\u8c22\u5c14\u7279",
             "zh-Hant": "\u96ea\u723e\u7279"
         },
         "description": "A perenially chilly climate has allowed short, colorful shrubs to flourish across this planet's surface.",
@@ -1088,7 +1016,6 @@
             "it-IT": "IMBER",
             "pt-BR": "IMBER",
             "ru-RU": "\u0418\u041c\u0411\u0415\u0420",
-            "zh-Hans": "\u56e0\u535a\u5c14",
             "zh-Hant": "\u5370\u535a"
         },
         "description": "Scorching temperatures, high winds, and low precipitation cause a near-constant cycle of fires to sweep this planet, punctuated by short bursts of lush rebirth between infernos.",
@@ -1103,7 +1030,6 @@
             "it-IT": "BLISTICA",
             "pt-BR": "BL\u00cdSTICA",
             "ru-RU": "\u0411\u041b\u0418\u0421\u0422\u0418\u041a\u0410",
-            "zh-Hans": "\u5e03\u91cc\u65af\u63d0\u5361",
             "zh-Hant": "\u5e03\u91cc\u65af\u63d0\u5361"
         },
         "description": "Scorching temperatures, high winds, and low precipitation cause a near-constant cycle of fires to sweep this planet, punctuated by short bursts of lush rebirth between infernos.",
@@ -1118,7 +1044,6 @@
             "it-IT": "RATCH",
             "pt-BR": "RATCH",
             "ru-RU": "\u0420\u0410\u0422\u0427",
-            "zh-Hans": "\u62c9\u5947",
             "zh-Hant": "\u5217\u66f2"
         },
         "description": "Squelching mud, twisting roots; the odor of rot and anarchy. A teeming, endless morass.",
@@ -1133,7 +1058,6 @@
             "it-IT": "JULHEIM",
             "pt-BR": "JULHEIM",
             "ru-RU": "\u042e\u041b\u042c\u0425\u0415\u0419\u041c",
-            "zh-Hans": "\u5c24\u5c14\u6d77\u59c6",
             "zh-Hant": "\u7d04\u6d77\u59c6"
         },
         "description": "Submerged in eternal winter, this world's frosty peaks glimmer in the light of its too-distant star.",
@@ -1148,7 +1072,6 @@
             "it-IT": "VALGAARD",
             "pt-BR": "VALGAARD",
             "ru-RU": "\u0412\u0410\u041b\u0413\u0410\u0410\u0420\u0414",
-            "zh-Hans": "\u74e6\u5c14\u52a0\u5fb7",
             "zh-Hant": "\u74e6\u723e\u52a0\u5fb7"
         },
         "description": "A crimson algae has propagated wildly across this entire planet, coating its rocky hills with a constant red that masks the spilt blood of the heroes who defend it from tyranny.",
@@ -1163,7 +1086,6 @@
             "it-IT": "ARKTURUS",
             "pt-BR": "ARKTURUS",
             "ru-RU": "\u0410\u0420\u041a\u0422\u0423\u0420",
-            "zh-Hans": "\u963f\u514b\u56fe\u52d2\u65af",
             "zh-Hant": "\u4e9e\u514b\u571f\u9b6f\u65af"
         },
         "description": "Submerged in eternal winter, this world's frosty peaks glimmer in the light of its too-distant star.",
@@ -1178,7 +1100,6 @@
             "it-IT": "ESKER",
             "pt-BR": "ESKER",
             "ru-RU": "\u042d\u0421\u041a\u0415\u0420",
-            "zh-Hans": "\u827e\u65af\u514b\u5c14",
             "zh-Hant": "\u57c3\u65af\u79d1"
         },
         "description": "Dense, toxic fumes from deep within the planet's crust seep out of cracks in the earth and coat the ground in a sickly haze.",
@@ -1193,7 +1114,6 @@
             "it-IT": "TERREK",
             "pt-BR": "TERREK",
             "ru-RU": "\u0422\u0415\u0420\u0420\u0415\u041a",
-            "zh-Hans": "\u6cf0\u96f7\u514b",
             "zh-Hant": "\u9435\u745e\u514b"
         },
         "description": "A rocky, lonely moon with extremely valuable mineral deposits underneath the surface.",
@@ -1208,7 +1128,6 @@
             "it-IT": "CIRRUS",
             "pt-BR": "CIRRUS",
             "ru-RU": "\u0421\u0418\u0420\u0420\u0423\u0421",
-            "zh-Hans": "\u5e0c\u52d2\u65af",
             "zh-Hant": "\u932b\u745e\u65af"
         },
         "description": "The lifeless grey of this planet is interrupted only by the violet flowers that grow from strange, parasitic outcroppings.",
@@ -1223,7 +1142,6 @@
             "it-IT": "CRIMSICA",
             "pt-BR": "CRIMSICA",
             "ru-RU": "\u041a\u0420\u0418\u041c\u0421\u0418\u041a\u0410",
-            "zh-Hans": "\u514b\u91cc\u59c6\u897f\u5361",
             "zh-Hant": "\u514b\u91cc\u59c6\u932b\u5361"
         },
         "description": "A crimson algae has propagated wildly across this entire planet, coating its rocky hills with a constant red that masks the spilt blood of the heroes who defend it from tyranny.",
@@ -1238,7 +1156,6 @@
             "it-IT": "HEETH",
             "pt-BR": "HEETH",
             "ru-RU": "\u0425\u0418\u0418\u0422",
-            "zh-Hans": "\u5e0c\u65af",
             "zh-Hant": "\u5e0c\u65af"
         },
         "description": "Submerged in eternal winter, this world's frosty peaks glimmer in the light of its too-distant star.",
@@ -1253,7 +1170,6 @@
             "it-IT": "VELD",
             "pt-BR": "VELD",
             "ru-RU": "\u0412\u0415\u041b\u042c\u0414",
-            "zh-Hans": "\u7ef4\u5c14\u5fb7",
             "zh-Hant": "\u5a01\u723e\u5fb7"
         },
         "description": "The strange subversion of photosynthesis that sustains the oddly-hued flora that flourishes on this planet remains an intriguing mystery to Super Earth's greatest exo-biologists.",
@@ -1268,7 +1184,6 @@
             "it-IT": "ALTA V",
             "pt-BR": "ALTA V",
             "ru-RU": "\u0410\u041b\u042c\u0422\u0410 V",
-            "zh-Hans": "\u5965\u5c14\u5854V",
             "zh-Hant": "\u6b50\u5854V"
         },
         "description": "Abundant with life, this wet planet is covered in deep oceans, thick forests, and tall grasses.",
@@ -1283,7 +1198,6 @@
             "it-IT": "URSICA XI",
             "pt-BR": "\u00daRSICA XI",
             "ru-RU": "\u0423\u0420\u0421\u0418\u041a\u0410 XI",
-            "zh-Hans": "\u5384\u897f\u5361XI",
             "zh-Hant": "\u723e\u897f\u5361XI"
         },
         "description": "This world teems with ethereal, boundless, and peculiar plant life that spreads silent and uninterrupted across its entire surface.",
@@ -1298,7 +1212,6 @@
             "it-IT": "INARI",
             "pt-BR": "INARI",
             "ru-RU": "\u0418\u041d\u0410\u0420\u0418",
-            "zh-Hans": "\u4f0a\u7eb3\u91cc",
             "zh-Hant": "\u4f0a\u90a3\u91cc"
         },
         "description": "Ice and moss-covered rock can be found across most of the surface of this planet.",
@@ -1313,7 +1226,6 @@
             "it-IT": "SKAASH",
             "pt-BR": "SKAASH",
             "ru-RU": "\u0421\u041a\u0410\u0410\u0428",
-            "zh-Hans": "\u65af\u5361\u4ec0",
             "zh-Hant": "\u53f2\u5361\u4ec0"
         },
         "description": "Dense, toxic fumes from deep within the planet's crust seep out of cracks in the earth and coat the ground in a sickly haze.",
@@ -1328,7 +1240,6 @@
             "it-IT": "MORADESH",
             "pt-BR": "MORADESH",
             "ru-RU": "\u041c\u041e\u0420\u0410\u0414\u0415\u0428",
-            "zh-Hans": "\u83ab\u62c9\u6234\u4ec0",
             "zh-Hant": "\u6469\u62c9\u5fb7\u8a31"
         },
         "description": "A blazing-hot desert planet, its rocky mesas are the sole interruptions to the endless sea of dunes.",
@@ -1343,7 +1254,6 @@
             "it-IT": "RASP",
             "pt-BR": "RASP",
             "ru-RU": "\u0420\u0410\u0421\u041f",
-            "zh-Hans": "\u62c9\u65af\u666e",
             "zh-Hant": "\u62c9\u65af\u666e"
         },
         "description": "A rocky, lonely moon with extremely valuable mineral deposits underneath the surface.",
@@ -1358,7 +1268,6 @@
             "it-IT": "BASHYR",
             "pt-BR": "BASHYR",
             "ru-RU": "\u0411\u0410\u0428\u0418\u0420",
-            "zh-Hans": "\u5df4\u5e0c\u5c14",
             "zh-Hant": "\u5df4\u5e0c\u723e"
         },
         "description": "Squelching mud, twisting roots; the odor of rot and anarchy. A teeming, endless morass.",
@@ -1373,7 +1282,6 @@
             "it-IT": "REGNUS",
             "pt-BR": "REGNUS",
             "ru-RU": "\u0420\u0415\u0413\u041d\u0423\u0421",
-            "zh-Hans": "\u96f7\u683c\u52aa\u65af",
             "zh-Hant": "\u96f7\u683c\u7d0d"
         },
         "description": "Abundant with life, this wet planet is covered in deep oceans, thick forests, and tall grasses.",
@@ -1388,7 +1296,6 @@
             "it-IT": "MOG",
             "pt-BR": "MOG",
             "ru-RU": "\u041c\u041e\u0413",
-            "zh-Hans": "\u83ab\u683c",
             "zh-Hant": "\u83ab\u683c"
         },
         "description": "Submerged in eternal winter, this world's frosty peaks glimmer in the light of its too-distant star.",
@@ -1403,7 +1310,6 @@
             "it-IT": "VALMOX",
             "pt-BR": "VALMOX",
             "ru-RU": "\u0412\u0410\u041b\u042c\u041c\u041e\u041a\u0421",
-            "zh-Hans": "\u74e6\u5c14\u83ab\u514b\u65af",
             "zh-Hant": "\u74e6\u723e\u6469\u65af"
         },
         "description": "A crimson algae has propagated wildly across this entire planet, coating its rocky hills with a constant red that masks the spilt blood of the heroes who defend it from tyranny.",
@@ -1418,7 +1324,6 @@
             "it-IT": "IRO",
             "pt-BR": "IRO",
             "ru-RU": "\u0418\u0420\u041e",
-            "zh-Hans": "\u4f0a\u7f57",
             "zh-Hant": "\u4f0a\u7f85"
         },
         "description": "Squelching mud, twisting roots; the odor of rot and anarchy. A teeming, endless morass.",
@@ -1433,7 +1338,6 @@
             "it-IT": "GRAFMERE",
             "pt-BR": "GRAFMERE",
             "ru-RU": "\u0413\u0420\u0410\u0424\u041c\u0415\u0420",
-            "zh-Hans": "\u683c\u62c9\u592b\u7c73\u5c14",
             "zh-Hant": "\u683c\u5217\u592b\u7c73\u723e"
         },
         "description": "Ice and moss-covered rock can be found across most of the surface of this planet.",
@@ -1448,7 +1352,6 @@
             "it-IT": "NUOVA STOCCOLMA",
             "pt-BR": "NOVA ESTOCOLMO",
             "ru-RU": "\u041d\u041e\u0412\u042b\u0419 \u0421\u0422\u041e\u041a\u0413\u041e\u041b\u042c\u041c",
-            "zh-Hans": "\u65b0\u65af\u5fb7\u54e5\u5c14\u6469",
             "zh-Hant": "\u65b0\u65af\u5fb7\u54e5\u723e\u6469"
         },
         "description": "Submerged in eternal winter, this world's frosty peaks glimmer in the light of its too-distant star.",
@@ -1463,7 +1366,6 @@
             "it-IT": "OASIS",
             "pt-BR": "O\u00c1SIS",
             "ru-RU": "\u041e\u0410\u0417\u0418\u0421",
-            "zh-Hans": "\u7eff\u6d32",
             "zh-Hant": "\u7da0\u6d32"
         },
         "description": "Abundant with life, this wet planet is covered in deep oceans, thick forests, and tall grasses.",
@@ -1478,7 +1380,6 @@
             "it-IT": "GENESIS PRIME",
             "pt-BR": "G\u00caNESE PRIME",
             "ru-RU": "\u0413\u0415\u041d\u0415\u0417\u0418\u0421-\u041f\u0420\u0410\u0419\u041c",
-            "zh-Hans": "\u521b\u4e16\u4e3b\u661f",
             "zh-Hant": "\u5275\u4e16\u7d00\u4e3b\u661f"
         },
         "description": "The strange subversion of photosynthesis that sustains the oddly-hued flora that flourishes on this planet remains an intriguing mystery to Super Earth's greatest exo-biologists.",
@@ -1493,7 +1394,6 @@
             "it-IT": "AVAMPOSTO 32",
             "pt-BR": "POSTO AVAN\u00c7ADO 32",
             "ru-RU": "\u0410\u0412\u0410\u041d\u041f\u041e\u0421\u0422 32",
-            "zh-Hans": "32\u53f7\u54e8\u7ad9",
             "zh-Hant": "32\u865f\u54e8\u7ad9"
         },
         "description": "A blazing-hot desert planet, its rocky mesas are the sole interruptions to the endless sea of dunes.",
@@ -1508,7 +1408,6 @@
             "it-IT": "CALYPSO",
             "pt-BR": "CALIPSO",
             "ru-RU": "\u041a\u0410\u041b\u0418\u041f\u0421\u041e",
-            "zh-Hans": "\u5361\u5229\u666e\u7d22",
             "zh-Hant": "\u5361\u5442\u666e\u7d22"
         },
         "description": "The arid, rocky biome covering this world has driven the evolution of exceptionally efficient water usage in its various organisms.",
@@ -1523,7 +1422,6 @@
             "it-IT": "CAMPI ELISI",
             "pt-BR": "PRADOS EL\u00cdSIOS",
             "ru-RU": "\u041b\u0423\u0413\u0410 \u042d\u041b\u0418\u0417\u0418\u042f",
-            "zh-Hans": "\u57c3\u5f8b\u897f\u6602\u8349\u539f",
             "zh-Hant": "\u4f0a\u9ece\u897f\u4e9e\u8349\u539f"
         },
         "description": "A crimson algae has propagated wildly across this entire planet, coating its rocky hills with a constant red that masks the spilt blood of the heroes who defend it from tyranny.",
@@ -1538,7 +1436,6 @@
             "it-IT": "CALA DI ALDERIDGE",
             "pt-BR": "ANGRA DE ALDERIDGE",
             "ru-RU": "\u041f\u0415\u0429\u0415\u0420\u0410 \u0410\u041b\u042c\u0414\u0415\u0420\u0418\u0414\u0416",
-            "zh-Hans": "\u963f\u5c14\u5fb7\u91cc\u5947\u6e7e",
             "zh-Hant": "\u963f\u5f97\u91cc\u6cbb\u7063"
         },
         "description": "The lifeless grey of this planet is interrupted only by the violet flowers that grow from strange, parasitic outcroppings.",
@@ -1553,7 +1450,6 @@
             "it-IT": "TRANDOR",
             "pt-BR": "TRANDOR",
             "ru-RU": "\u0422\u0420\u0410\u041d\u0414\u041e\u0420",
-            "zh-Hans": "\u7279\u5170\u9053\u5c14",
             "zh-Hant": "\u5ddd\u9438"
         },
         "description": "A perenially chilly climate has allowed short, colorful shrubs to flourish across this planet's surface.",
@@ -1568,7 +1464,6 @@
             "it-IT": "BAIA COMMERCIALE IRIDIUM EST",
             "pt-BR": "BA\u00cdA COMERCIAL DE IR\u00cdDIO ORIENTAL",
             "ru-RU": "\u0412\u041e\u0421\u0422\u041e\u0427\u041d\u042b\u0419 \u0418\u0420\u0418\u0414\u0418\u0415\u0412\u042b\u0419 \u0422\u041e\u0420\u0413\u041e\u0412\u042b\u0419 \u0417\u0410\u041b\u0418\u0412",
-            "zh-Hans": "\u4e1c\u94f1\u8d38\u6613\u6e7e",
             "zh-Hant": "\u6771\u92a5\u8cbf\u6613\u7063"
         },
         "description": "Tall, gnarled trees flourish across the surface of this forested world. Sunlight filters past dangling vines, to the saturated undergrowth below. ",
@@ -1583,7 +1478,6 @@
             "it-IT": "CRINALE DELLA LIBERT\u00c0",
             "pt-BR": "CUME DA LIBERDADE",
             "ru-RU": "\u0425\u0420\u0415\u0411\u0415\u0422 \u0421\u0412\u041e\u0411\u041e\u0414\u042b",
-            "zh-Hans": "\u89e3\u653e\u5cad",
             "zh-Hant": "\u81ea\u7531\u5c71\u810a"
         },
         "description": "A crimson algae has propagated wildly across this entire planet, coating its rocky hills with a constant red that masks the spilt blood of the heroes who defend it from tyranny.",
@@ -1598,7 +1492,6 @@
             "it-IT": "BALDRICK PRIME",
             "pt-BR": "BALDRICK PRIME",
             "ru-RU": "\u0411\u041e\u041b\u0414\u0420\u0418\u041a-\u041f\u0420\u0410\u0419\u041c",
-            "zh-Hans": "\u5df4\u5c14\u5fb7\u91cc\u514b\u4e3b\u661f",
             "zh-Hant": "\u67cf\u5fb7\u91cc\u514b\u4e3b\u661f"
         },
         "description": "Abundant with life, this wet planet is covered in deep oceans, thick forests, and tall grasses.",
@@ -1613,7 +1506,6 @@
             "it-IT": "WEIR",
             "pt-BR": "WEIR",
             "ru-RU": "\u0412\u0418\u0420",
-            "zh-Hans": "\u7ef4\u5c14",
             "zh-Hant": "\u5a01\u723e"
         },
         "description": "Rocky outcroppings punctuate fields of tall grass in a planet dominated by misty highland terrain.",
@@ -1628,7 +1520,6 @@
             "it-IT": "KUPER",
             "pt-BR": "KUPER",
             "ru-RU": "\u041a\u0423\u041f\u0415\u0420",
-            "zh-Hans": "\u5e93\u73c0",
             "zh-Hant": "\u5eab\u67cf"
         },
         "description": "The strange subversion of photosynthesis that sustains the oddly-hued flora that flourishes on this planet remains an intriguing mystery to Super Earth's greatest exo-biologists.",
@@ -1643,7 +1534,6 @@
             "it-IT": "STAZIONE OSLO",
             "pt-BR": "ESTA\u00c7\u00c3O OSLO",
             "ru-RU": "\u0421\u0422\u0410\u041d\u0426\u0418\u042f \u00ab\u041e\u0421\u041b\u041e\u00bb",
-            "zh-Hans": "\u5965\u65af\u9646\u7ad9",
             "zh-Hant": "\u5967\u65af\u9678\u592a\u7a7a\u7ad9"
         },
         "description": "Ice and moss-covered rock can be found across most of the surface of this planet.",
@@ -1658,7 +1548,6 @@
             "it-IT": "P\u00d6PLI IX",
             "pt-BR": "P\u00d6PLI IX",
             "ru-RU": "\u041f\u0415\u041f\u041b\u0418 IX",
-            "zh-Hans": "\u73c0\u666e\u5229IX",
             "zh-Hant": "\u6ce2\u666e\u91ccIX"
         },
         "description": "Scorching temperatures, high winds, and low precipitation cause a near-constant cycle of fires to sweep this planet, punctuated by short bursts of lush rebirth between infernos.",
@@ -1673,7 +1562,6 @@
             "it-IT": "GUNVALD",
             "pt-BR": "GUNVALD",
             "ru-RU": "\u0413\u042e\u041d\u0412\u0410\u041b\u042c\u0414",
-            "zh-Hans": "\u53e4\u6069\u74e6\u5c14\u5fb7",
             "zh-Hant": "\u53e4\u6069\u74e6\u5fb7"
         },
         "description": "A crimson algae has propagated wildly across this entire planet, coating its rocky hills with a constant red that masks the spilt blood of the heroes who defend it from tyranny.",
@@ -1688,7 +1576,6 @@
             "it-IT": "DOLPH",
             "pt-BR": "DOLPH",
             "ru-RU": "\u0414\u041e\u041b\u042c\u0424",
-            "zh-Hans": "\u591a\u5c14\u592b",
             "zh-Hant": "\u591a\u592b"
         },
         "description": "A rocky, lonely moon with extremely valuable mineral deposits underneath the surface.",
@@ -1703,7 +1590,6 @@
             "it-IT": "BEKVAM III",
             "pt-BR": "BEKVAM III",
             "ru-RU": "\u0411\u0415\u041a\u0412\u0410\u041c III",
-            "zh-Hans": "\u8d1d\u514b\u6e29III",
             "zh-Hant": "\u5225\u514b\u6587III"
         },
         "description": "This world teems with ethereal, boundless, and peculiar plant life that spreads silent and uninterrupted across its entire surface.",
@@ -1718,7 +1604,6 @@
             "it-IT": "DUMA TYR",
             "pt-BR": "DUMA TYR",
             "ru-RU": "\u0414\u0423\u041c\u0410 \u0422\u042e\u0420",
-            "zh-Hans": "\u675c\u9a6c\u63d0\u5c14",
             "zh-Hant": "\u675c\u99ac\u63d0"
         },
         "description": "A perenially chilly climate has allowed short, colorful shrubs to flourish across this planet's surface.",
@@ -1733,7 +1618,6 @@
             "it-IT": "POZZI DI VERNEN",
             "pt-BR": "VERNEN WELLS",
             "ru-RU": "\u041a\u041e\u041b\u041e\u0414\u0426\u042b \u0412\u0415\u0420\u041d\u0415\u041d\u0410",
-            "zh-Hans": "\u4f5b\u519c\u4e95",
             "zh-Hant": "\u5a01\u8fb2\u4e95"
         },
         "description": "The arid, rocky biome covering this world has driven the evolution of exceptionally efficient water usage in its various organisms.",
@@ -1748,7 +1632,6 @@
             "it-IT": "PASSO DELL'AESIR",
             "pt-BR": "CAMINHO DE AESIR",
             "ru-RU": "\u041f\u0415\u0420\u0415\u0412\u0410\u041b \u0410\u0421\u041e\u0412",
-            "zh-Hans": "\u4e9a\u8428\u5173\u9698",
             "zh-Hant": "\u57c3\u85a9\u9698"
         },
         "description": "The lifeless grey of this planet is interrupted only by the violet flowers that grow from strange, parasitic outcroppings.",
@@ -1763,7 +1646,6 @@
             "it-IT": "BAIA DELL'AURORA",
             "pt-BR": "BA\u00cdA DA AURORA",
             "ru-RU": "\u0417\u0410\u041b\u0418\u0412 \u0410\u0412\u0420\u041e\u0420\u042b",
-            "zh-Hans": "\u6781\u5149\u6e7e",
             "zh-Hant": "\u6975\u5149\u7063"
         },
         "description": "A perenially chilly climate has allowed short, colorful shrubs to flourish across this planet's surface.",
@@ -1778,7 +1660,6 @@
             "it-IT": "PENTA",
             "pt-BR": "PENTA",
             "ru-RU": "\u041f\u0415\u041d\u0422\u0410",
-            "zh-Hans": "\u5f6d\u5854",
             "zh-Hant": "\u4e94\u8292"
         },
         "description": "The lifeless grey of this planet is interrupted only by the violet flowers that grow from strange, parasitic outcroppings.",
@@ -1793,7 +1674,6 @@
             "it-IT": "GAELLIVARE",
             "pt-BR": "GAELLIVARE",
             "ru-RU": "\u0415\u041b\u041b\u0418\u0412\u0410\u0420\u0415",
-            "zh-Hans": "\u8036\u5229\u74e6\u52d2",
             "zh-Hant": "\u8036\u5229\u74e6"
         },
         "description": "Abundant with life, this wet planet is covered in deep oceans, thick forests, and tall grasses.",
@@ -1808,7 +1688,6 @@
             "it-IT": "VOG-SOJOTH",
             "pt-BR": "VOG-SOJOTH",
             "ru-RU": "\u0412\u041e\u0413-\u0421\u041e\u0419\u041e\u0422",
-            "zh-Hans": "\u4f5b\u6208\u7d22\u7ea6\u65af",
             "zh-Hant": "\u6c83\u683c\u68ad\u60a0"
         },
         "description": "Submerged in eternal winter, this world's frosty peaks glimmer in the light of its too-distant star.",
@@ -1823,7 +1702,6 @@
             "it-IT": "KIRRIK",
             "pt-BR": "KIRRIK",
             "ru-RU": "\u041a\u0418\u0420\u0420\u0418\u041a",
-            "zh-Hans": "\u57fa\u91cc\u514b",
             "zh-Hant": "\u5947\u91cc\u514b"
         },
         "description": "Abundant with life, this wet planet is covered in deep oceans, thick forests, and tall grasses.",
@@ -1838,7 +1716,6 @@
             "it-IT": "MORTAX PRIME",
             "pt-BR": "MORTAX PRIME",
             "ru-RU": "\u041c\u041e\u0420\u0422\u0410\u041a\u0421-\u041f\u0420\u0410\u0419\u041c",
-            "zh-Hans": "\u6469\u5c14\u5854\u514b\u65af\u4e3b\u661f",
             "zh-Hant": "\u6469\u723e\u6cf0\u65af\u4e3b\u661f"
         },
         "description": "A desert planet prone to unpredictable and dangerous sand twisters.",
@@ -1853,7 +1730,6 @@
             "it-IT": "STAZIONE WILFORD",
             "pt-BR": "ESTA\u00c7\u00c3O WILFORD",
             "ru-RU": "\u0421\u0422\u0410\u041d\u0426\u0418\u042f \u00ab\u0423\u0418\u041b\u0424\u041e\u0420\u0414\u00bb",
-            "zh-Hans": "\u5a01\u5c14\u798f\u5fb7\u7ad9",
             "zh-Hant": "\u5a01\u798f\u5fb7\u592a\u7a7a\u7ad9"
         },
         "description": "Dense, toxic fumes from deep within the planet's crust seep out of cracks in the earth and coat the ground in a sickly haze.",
@@ -1868,7 +1744,6 @@
             "it-IT": "PIONEER II",
             "pt-BR": "PIONEIRO II",
             "ru-RU": "\u041f\u0415\u0420\u0412\u041e\u041f\u0420\u041e\u0425\u041e\u0414\u0415\u0426 II",
-            "zh-Hans": "\u5148\u9a71II",
             "zh-Hant": "\u5148\u92d2II"
         },
         "description": "The arid, rocky biome covering this world has driven the evolution of exceptionally efficient water usage in its various organisms.",
@@ -1883,7 +1758,6 @@
             "it-IT": "SABBIE DI ERSON",
             "pt-BR": "AREIAS DE ERSON",
             "ru-RU": "\u041f\u0415\u0421\u041a\u0418 \u042d\u0420\u0421\u041e\u041d\u0410",
-            "zh-Hans": "\u5384\u5c14\u68ee\u6851\u5179",
             "zh-Hant": "\u723e\u68ee\u6c99\u5730"
         },
         "description": "A desert planet prone to unpredictable and dangerous sand twisters.",
@@ -1898,7 +1772,6 @@
             "it-IT": "SOCORRO III",
             "pt-BR": "SOCORRO III",
             "ru-RU": "\u0421\u041e\u041a\u041e\u0420\u0420\u041e III",
-            "zh-Hans": "\u7d22\u79d1\u7f57III",
             "zh-Hant": "\u7d22\u79d1\u7f85III"
         },
         "description": "Squelching mud, twisting roots; the odor of rot and anarchy. A teeming, endless morass.",
@@ -1913,7 +1786,6 @@
             "it-IT": "BORE ROCK",
             "pt-BR": "PEDRA FURA",
             "ru-RU": "\u0411\u0423\u0420\u041e\u0412\u041e\u0419 \u041a\u0410\u041c\u0415\u041d\u042c",
-            "zh-Hans": "\u535a\u5c14\u5ca9",
             "zh-Hant": "\u4f2f\u723e\u5ca9"
         },
         "description": "Tall, gnarled trees flourish across the surface of this forested world. Sunlight filters past dangling vines, to the saturated undergrowth below. ",
@@ -1928,7 +1800,6 @@
             "it-IT": "FENRIR III",
             "pt-BR": "FENRIR III",
             "ru-RU": "\u0424\u0415\u041d\u0420\u0418\u0420 III",
-            "zh-Hans": "\u82ac\u91cc\u5c14III",
             "zh-Hant": "\u82ac\u91cc\u723eIII"
         },
         "description": "A rocky, lonely moon with extremely valuable mineral deposits underneath the surface.",
@@ -1943,7 +1814,6 @@
             "it-IT": "TURING",
             "pt-BR": "TURING",
             "ru-RU": "\u0422\u042c\u042e\u0420\u0418\u041d\u0413",
-            "zh-Hans": "\u56fe\u7075",
             "zh-Hant": "\u5716\u9748"
         },
         "description": "This world teems with ethereal, boundless, and peculiar plant life that spreads silent and uninterrupted across its entire surface.",
@@ -1958,7 +1828,6 @@
             "it-IT": "ANGEL'S VENTURE",
             "pt-BR": "VENTURA ANG\u00c9LICA",
             "ru-RU": "\u0410\u041d\u0413\u0415\u041b\u042c\u0421\u041a\u0418\u0419 \u0420\u0418\u0421\u041a",
-            "zh-Hans": "\u5929\u4f7f\u6295\u8d44",
             "zh-Hant": "\u5929\u4f7f\u63a2\u96aa"
         },
         "description": "A perenially chilly climate has allowed short, colorful shrubs to flourish across this planet's surface.",
@@ -1973,7 +1842,6 @@
             "it-IT": "DARIUS II",
             "pt-BR": "D\u00c1RIO II",
             "ru-RU": "\u0414\u0410\u0420\u0418\u0419 II",
-            "zh-Hans": "\u5927\u6d41\u58ebII",
             "zh-Hant": "\u9054\u91cc\u723eII"
         },
         "description": "Dense, toxic fumes from deep within the planet's crust seep out of cracks in the earth and coat the ground in a sickly haze.",
@@ -1988,7 +1856,6 @@
             "it-IT": "ACAMAR IV",
             "pt-BR": "ACAMAR IV",
             "ru-RU": "\u0410\u041a\u0410\u041c\u0410\u0420 IV",
-            "zh-Hans": "\u5929\u56ed\u516dIV",
             "zh-Hant": "\u5929\u5712\u516dIV"
         },
         "description": "Rocky outcroppings punctuate fields of tall grass in a planet dominated by misty highland terrain.",
@@ -2003,7 +1870,6 @@
             "it-IT": "ACHERNAR SECUNDUS",
             "pt-BR": "ACHERNAR SECUNDUS",
             "ru-RU": "\u0410\u0425\u0415\u0420\u041d\u0410\u0420 II",
-            "zh-Hans": "\u6c34\u59d4\u4e00\u6b21\u661f",
             "zh-Hant": "\u6c34\u59d4\u4e00\u6b21\u661f"
         },
         "description": "Rocky outcroppings punctuate fields of tall grass in a planet dominated by misty highland terrain.",
@@ -2018,7 +1884,6 @@
             "it-IT": "ACHIRD III",
             "pt-BR": "ACHIRD III",
             "ru-RU": "\u0410\u0425\u0418\u0420\u0414 III",
-            "zh-Hans": "\u738b\u826f\u4e09III",
             "zh-Hant": "\u738b\u826f\u4e09III"
         },
         "description": "The arid, rocky biome covering this world has driven the evolution of exceptionally efficient water usage in its various organisms.",
@@ -2033,7 +1898,6 @@
             "it-IT": "ACRAB XI",
             "pt-BR": "ACRAB XI",
             "ru-RU": "\u0410\u041a\u0420\u0410\u0411 XI",
-            "zh-Hans": "\u623f\u5bbf\u56dbXI",
             "zh-Hant": "\u623f\u5bbf\u56dbXI"
         },
         "description": "A crimson algae has propagated wildly across this entire planet, coating its rocky hills with a constant red that masks the spilt blood of the heroes who defend it from tyranny.",
@@ -2048,7 +1912,6 @@
             "it-IT": "ACRUX IX",
             "pt-BR": "ACRUX IX",
             "ru-RU": "\u0410\u041a\u0420\u0423\u041a\u0421 IX",
-            "zh-Hans": "\u5341\u5b57\u67b6\u4e8cIX",
             "zh-Hant": "\u5341\u5b57\u67b6\u4e8cIX"
         },
         "description": "Ice and moss-covered rock can be found across most of the surface of this planet.",
@@ -2063,7 +1926,6 @@
             "it-IT": "ACUBENS PRIME",
             "pt-BR": "ACUBENS PRIME",
             "ru-RU": "\u0410\u041a\u0423\u0411\u0415\u041d\u0421-\u041f\u0420\u0410\u0419\u041c",
-            "zh-Hans": "\u67f3\u5bbf\u589e\u4e09\u4e3b\u661f",
             "zh-Hant": "\u67f3\u5bbf\u589e\u4e09\u4e3b\u661f"
         },
         "description": "This world teems with ethereal, boundless, and peculiar plant life that spreads silent and uninterrupted across its entire surface.",
@@ -2078,7 +1940,6 @@
             "it-IT": "ADHAFERA SECUNDUS",
             "pt-BR": "ADHAFERA SECUNDUS",
             "ru-RU": "\u0410\u0414\u0413\u0410\u0424\u0415\u0420\u0410 II",
-            "zh-Hans": "\u8f69\u8f95\u5341\u4e00\u6b21\u661f",
             "zh-Hant": "\u8ed2\u8f45\u5341\u4e00\u6b21\u661f"
         },
         "description": "This world teems with ethereal, boundless, and peculiar plant life that spreads silent and uninterrupted across its entire surface.",
@@ -2093,7 +1954,6 @@
             "it-IT": "ADHARA",
             "pt-BR": "ADHARA",
             "ru-RU": "\u042d\u0414\u0425\u0410\u0420\u0410",
-            "zh-Hans": "\u5f27\u77e2\u4e03",
             "zh-Hant": "\u5f27\u77e2\u4e03"
         },
         "description": "Scorching temperatures, high winds, and low precipitation cause a near-constant cycle of fires to sweep this planet, punctuated by short bursts of lush rebirth between infernos.",
@@ -2108,7 +1968,6 @@
             "it-IT": "BAIA DI AFOYAY",
             "pt-BR": "BA\u00cdA AFOYAY",
             "ru-RU": "\u0410\u0424\u041e\u0419\u042f-\u0411\u042d\u0419",
-            "zh-Hans": "\u827e\u798f\u4e9a\u6e7e",
             "zh-Hant": "\u963f\u4f5b\u8036\u7063"
         },
         "description": "Rocky outcroppings punctuate fields of tall grass in a planet dominated by misty highland terrain.",
@@ -2123,7 +1982,6 @@
             "it-IT": "AIN-5",
             "pt-BR": "AIN-5",
             "ru-RU": "\u0410\u0419\u041d-5",
-            "zh-Hans": "\u6bd5\u5bbf\u4e005",
             "zh-Hant": "\u7562\u5bbf\u4e005"
         },
         "description": "The lifeless grey of this planet is interrupted only by the violet flowers that grow from strange, parasitic outcroppings.",
@@ -2138,7 +1996,6 @@
             "it-IT": "ALADFAR CXI",
             "pt-BR": "ALADFAR CXI",
             "ru-RU": "\u0410\u041b\u0410\u0414\u0424\u0410\u0420 CXI",
-            "zh-Hans": "\u8f87\u9053\u4e8cCXI",
             "zh-Hant": "\u8f26\u9053\u4e8cCXI"
         },
         "description": "Abundant with life, this wet planet is covered in deep oceans, thick forests, and tall grasses.",
@@ -2153,7 +2010,6 @@
             "it-IT": "ALAIRT III",
             "pt-BR": "ALAIRT III",
             "ru-RU": "\u0410\u041b\u0410\u0418\u0420\u0422 III",
-            "zh-Hans": "\u827e\u5217\u5c14\u7279III",
             "zh-Hant": "\u827e\u5217\u723e\u7279III"
         },
         "description": "The strange subversion of photosynthesis that sustains the oddly-hued flora that flourishes on this planet remains an intriguing mystery to Super Earth's greatest exo-biologists.",
@@ -2168,7 +2024,6 @@
             "it-IT": "ALAMAK VII",
             "pt-BR": "ALAMAK VII",
             "ru-RU": "\u0410\u041b\u0410\u041c\u0410\u041a VII",
-            "zh-Hans": "\u5929\u5927\u5c06\u519b\u4e00VII",
             "zh-Hant": "\u5929\u5927\u5c07\u8ecd\u4e00VII"
         },
         "description": "This world teems with ethereal, boundless, and peculiar plant life that spreads silent and uninterrupted across its entire surface.",
@@ -2183,7 +2038,6 @@
             "it-IT": "ALARAPH",
             "pt-BR": "ALARAPH",
             "ru-RU": "\u0410\u041b\u0410\u0420\u0410\u0424",
-            "zh-Hans": "\u53f3\u6267\u6cd5",
             "zh-Hant": "\u53f3\u57f7\u6cd5"
         },
         "description": "The lifeless grey of this planet is interrupted only by the violet flowers that grow from strange, parasitic outcroppings.",
@@ -2198,7 +2052,6 @@
             "it-IT": "ALATHFAR XI",
             "pt-BR": "ALATHFAR XI",
             "ru-RU": "\u0410\u041b\u0410\u0422\u0424\u0410\u0420 XI",
-            "zh-Hans": "\u7ec7\u5973\u589e\u4e09XI",
             "zh-Hant": "\u7e54\u5973\u589e\u4e09XI"
         },
         "description": "Submerged in eternal winter, this world's frosty peaks glimmer in the light of its too-distant star.",
@@ -2213,7 +2066,6 @@
             "it-IT": "ANDAR",
             "pt-BR": "ANDAR",
             "ru-RU": "\u042d\u041d\u0414\u0410\u0420",
-            "zh-Hans": "\u5b89\u8fbe\u5c14",
             "zh-Hant": "\u5b89\u9054\u723e"
         },
         "description": "A perenially chilly climate has allowed short, colorful shrubs to flourish across this planet's surface.",
@@ -2228,7 +2080,6 @@
             "it-IT": "ASPEROTH PRIME",
             "pt-BR": "ASPEROTH PRIME",
             "ru-RU": "\u0410\u0421\u041f\u0415\u0420\u041e\u0422-\u041f\u0420\u0410\u0419\u041c",
-            "zh-Hans": "\u963f\u65af\u4f69\u6d1b\u65af\u4e3b\u661f",
             "zh-Hant": "\u57c3\u65af\u4f69\u52de\u4e3b\u661f"
         },
         "description": "Tall, gnarled trees flourish across the surface of this forested world. Sunlight filters past dangling vines, to the saturated undergrowth below. ",
@@ -2243,7 +2094,6 @@
             "it-IT": "BELLATRIX",
             "pt-BR": "BELLATRIX",
             "ru-RU": "\u0411\u0415\u041b\u041b\u0410\u0422\u0420\u0418\u041a\u0421",
-            "zh-Hans": "\u53c2\u5bbf\u4e94",
             "zh-Hant": "\u53c3\u5bbf\u4e94"
         },
         "description": "Rocky outcroppings punctuate fields of tall grass in a planet dominated by misty highland terrain.",
@@ -2258,7 +2108,6 @@
             "it-IT": "BOTEIN",
             "pt-BR": "BOTEIN",
             "ru-RU": "\u0411\u041e\u0422\u0415\u0419\u041d",
-            "zh-Hans": "\u5929\u9634\u56db",
             "zh-Hant": "\u5929\u9670\u56db"
         },
         "description": "Dense, toxic fumes from deep within the planet's crust seep out of cracks in the earth and coat the ground in a sickly haze.",
@@ -2273,7 +2122,6 @@
             "it-IT": "OSUPSAM",
             "pt-BR": "OSUPSAM",
             "ru-RU": "\u041e\u0421\u0423\u041f\u0421\u0410\u041c",
-            "zh-Hans": "\u6b27\u82cf\u666e\u68ee",
             "zh-Hant": "\u6b50\u8607\u73ca"
         },
         "description": "A blazing-hot desert planet, its rocky mesas are the sole interruptions to the endless sea of dunes.",
@@ -2288,7 +2136,6 @@
             "it-IT": "BRINK-2",
             "pt-BR": "BRINK-2",
             "ru-RU": "\u0411\u0420\u0418\u041d\u041a-2",
-            "zh-Hans": "\u5e03\u6797\u514b2",
             "zh-Hant": "\u5e03\u6797\u514b2"
         },
         "description": "The strange subversion of photosynthesis that sustains the oddly-hued flora that flourishes on this planet remains an intriguing mystery to Super Earth's greatest exo-biologists.",
@@ -2303,7 +2150,6 @@
             "it-IT": "BUNDA SECUNDUS",
             "pt-BR": "BANDU SECUNDUS",
             "ru-RU": "\u0411\u0423\u041d\u0414\u0410 II",
-            "zh-Hans": "\u5929\u5792\u57ce\u4e00\u6b21\u661f",
             "zh-Hant": "\u5929\u58d8\u57ce\u4e00\u6b21\u661f"
         },
         "description": "A perenially chilly climate has allowed short, colorful shrubs to flourish across this planet's surface.",
@@ -2318,7 +2164,6 @@
             "it-IT": "CANOPUS",
             "pt-BR": "CANOPUS",
             "ru-RU": "\u041a\u0410\u041d\u041e\u041f\u0423\u0421",
-            "zh-Hans": "\u8001\u4eba",
             "zh-Hant": "\u5361\u8afe\u666e\u65af"
         },
         "description": "A desert planet prone to unpredictable and dangerous sand twisters.",
@@ -2333,7 +2178,6 @@
             "it-IT": "CAPH",
             "pt-BR": "CAPH",
             "ru-RU": "\u041a\u0410\u0424",
-            "zh-Hans": "\u738b\u826f\u4e00",
             "zh-Hant": "\u738b\u826f\u4e00"
         },
         "description": "Tall, gnarled trees flourish across the surface of this forested world. Sunlight filters past dangling vines, to the saturated undergrowth below. ",
@@ -2348,7 +2192,6 @@
             "it-IT": "CASTORE",
             "pt-BR": "CASTOR",
             "ru-RU": "\u041a\u0410\u0421\u0422\u041e\u0420",
-            "zh-Hans": "\u5317\u6cb3\u4e8c",
             "zh-Hant": "\u5317\u6cb3\u4e8c"
         },
         "description": "The arid, rocky biome covering this world has driven the evolution of exceptionally efficient water usage in its various organisms.",
@@ -2363,7 +2206,6 @@
             "it-IT": "DURGEN",
             "pt-BR": "DURGEN",
             "ru-RU": "\u0414\u0418\u0420\u0413\u0415\u041d",
-            "zh-Hans": "\u5fb7\u5c14\u6839",
             "zh-Hant": "\u8fea\u723e\u91d1"
         },
         "description": "A blazing-hot desert planet, its rocky mesas are the sole interruptions to the endless sea of dunes.",
@@ -2378,7 +2220,6 @@
             "it-IT": "DRAUPNIR",
             "pt-BR": "DRAUPNIR",
             "ru-RU": "\u0414\u0420\u041e\u041f\u041d\u0418\u0420",
-            "zh-Hans": "\u5fb7\u7f57\u666e\u5c3c\u5c14",
             "zh-Hant": "\u5fb7\u52de\u666e\u5c3c"
         },
         "description": "Rocky outcroppings punctuate fields of tall grass in a planet dominated by misty highland terrain.",
@@ -2393,7 +2234,6 @@
             "it-IT": "MORT",
             "pt-BR": "MORT",
             "ru-RU": "\u041c\u041e\u0420\u0422",
-            "zh-Hans": "\u83ab\u7279",
             "zh-Hant": "\u6b7b\u4ea1\u865f\u89d2"
         },
         "description": "The lifeless grey of this planet is interrupted only by the violet flowers that grow from strange, parasitic outcroppings.",
@@ -2408,7 +2248,6 @@
             "it-IT": "INGMAR",
             "pt-BR": "INGMAR",
             "ru-RU": "\u0418\u041d\u0413\u041c\u0410\u0420",
-            "zh-Hans": "\u82f1\u683c\u739b",
             "zh-Hant": "\u56e0\u683c\u746a"
         },
         "description": "A crimson algae has propagated wildly across this entire planet, coating its rocky hills with a constant red that masks the spilt blood of the heroes who defend it from tyranny.",
@@ -2423,7 +2262,6 @@
             "it-IT": "CHARA",
             "pt-BR": "CHARA",
             "ru-RU": "\u041a\u0410\u0420\u0410",
-            "zh-Hans": "\u5e38\u9648\u56db",
             "zh-Hant": "\u51f1\u62c9"
         },
         "description": "A desert planet prone to unpredictable and dangerous sand twisters.",
@@ -2438,7 +2276,6 @@
             "it-IT": "CHARBAL-VII",
             "pt-BR": "CHARBAL-VII",
             "ru-RU": "\u0427\u0410\u0420\u0411\u041e\u041b-VII",
-            "zh-Hans": "\u67e5\u5df4\u5c14VII",
             "zh-Hant": "\u67e5\u723e\u535aVII"
         },
         "description": "Dense, toxic fumes from deep within the planet's crust seep out of cracks in the earth and coat the ground in a sickly haze.",
@@ -2450,10 +2287,9 @@
             "de-DE": "CHARON PRIME",
             "es-ES": "CHARON PRIME",
             "fr-FR": "CHARON PRIME",
-            "it-IT": "CARONTE PRIME",
+            "it-IT": "CHARON PRIME",
             "pt-BR": "CHARON PRIME",
             "ru-RU": "\u0425\u0410\u0420\u041e\u041d-\u041f\u0420\u0410\u0419\u041c",
-            "zh-Hans": "\u5361\u620e\u4e3b\u661f",
             "zh-Hant": "\u859b\u620e\u4e3b\u661f"
         },
         "description": "A crimson algae has propagated wildly across this entire planet, coating its rocky hills with a constant red that masks the spilt blood of the heroes who defend it from tyranny.",
@@ -2468,7 +2304,6 @@
             "it-IT": "CHOEPESSA IV",
             "pt-BR": "CHOEPESSA IV",
             "ru-RU": "\u0425\u0415\u041f\u0415\u0421\u0421\u0410 IV",
-            "zh-Hans": "\u79d1\u57c3\u4f69\u8428IV",
             "zh-Hant": "\u5bc7\u8036\u4f69\u838eIV"
         },
         "description": "Ice and moss-covered rock can be found across most of the surface of this planet.",
@@ -2483,7 +2318,6 @@
             "it-IT": "CHOOHE",
             "pt-BR": "CHOOHE",
             "ru-RU": "\u0427\u0423\u0425\u0418",
-            "zh-Hans": "\u4e18\u4f0a",
             "zh-Hant": "\u4e18\u4f0a"
         },
         "description": "A blazing-hot desert planet, its rocky mesas are the sole interruptions to the endless sea of dunes.",
@@ -2498,7 +2332,6 @@
             "it-IT": "BAIA DI CHORT",
             "pt-BR": "BA\u00cdA CHORT",
             "ru-RU": "\u0425\u041e\u0420\u0422-\u0411\u042d\u0419",
-            "zh-Hans": "\u96c0\u7279\u6e7e",
             "zh-Hant": "\u96c0\u7279\u7063"
         },
         "description": "Dense, toxic fumes from deep within the planet's crust seep out of cracks in the earth and coat the ground in a sickly haze.",
@@ -2513,7 +2346,6 @@
             "it-IT": "CLAORELL",
             "pt-BR": "CLAORELL",
             "ru-RU": "\u041a\u041b\u0410\u041e\u0420\u0415\u041b\u041b",
-            "zh-Hans": "\u53ef\u6d1b\u5c14",
             "zh-Hant": "\u514b\u52de\u745e"
         },
         "description": "A rocky, lonely moon with extremely valuable mineral deposits underneath the surface.",
@@ -2528,7 +2360,6 @@
             "it-IT": "CLASA",
             "pt-BR": "CLASA",
             "ru-RU": "\u041a\u041b\u0410\u0421\u0410",
-            "zh-Hans": "\u514b\u62c9\u8428",
             "zh-Hant": "\u514b\u62c9\u85a9"
         },
         "description": "Tall, gnarled trees flourish across the surface of this forested world. Sunlight filters past dangling vines, to the saturated undergrowth below. ",
@@ -2543,7 +2374,6 @@
             "it-IT": "CURSA",
             "pt-BR": "CURSA",
             "ru-RU": "\u041a\u0423\u0420\u0421\u0410",
-            "zh-Hans": "\u7389\u4e95\u4e09",
             "zh-Hant": "\u7389\u4e95\u4e09"
         },
         "description": "Constant eruptions keep this planet covered in lava flows and utterly inhospitable to Democratic life. It also makes it a treasure trove of rare minerals.",
@@ -2558,7 +2388,6 @@
             "it-IT": "DEMIURG",
             "pt-BR": "DEMIURG",
             "ru-RU": "\u0414\u0415\u041c\u0418\u0423\u0420\u0413",
-            "zh-Hans": "\u6234\u7c73\u5c14\u57fa",
             "zh-Hant": "\u6234\u7c73\u723e\u683c"
         },
         "description": "A perenially chilly climate has allowed short, colorful shrubs to flourish across this planet's surface.",
@@ -2573,7 +2402,6 @@
             "it-IT": "DENEB SECUNDUS",
             "pt-BR": "DENEB SECUNDUS",
             "ru-RU": "\u0414\u0415\u041d\u0415\u0411 II",
-            "zh-Hans": "\u5929\u6d25\u56db\u6b21\u661f",
             "zh-Hant": "\u5929\u6d25\u56db\u6b21\u661f"
         },
         "description": "Ice and moss-covered rock can be found across most of the surface of this planet.",
@@ -2588,7 +2416,6 @@
             "it-IT": "BAIA DI ELECTRA",
             "pt-BR": "BA\u00cdA ELECTRA",
             "ru-RU": "\u042d\u041b\u0415\u041a\u0422\u0420\u0410-\u0411\u042d\u0419",
-            "zh-Hans": "\u6634\u5bbf\u4e00\u6e7e",
             "zh-Hant": "\u6634\u5bbf\u4e00\u7063"
         },
         "description": "Rocky outcroppings punctuate fields of tall grass in a planet dominated by misty highland terrain.",
@@ -2603,7 +2430,6 @@
             "it-IT": "ENULIALE",
             "pt-BR": "ENULIALE",
             "ru-RU": "\u042d\u041d\u0423\u041b\u0418\u0410\u041b\u0415",
-            "zh-Hans": "\u5b89\u52aa\u529b\u4e9a",
             "zh-Hant": "\u57c3\u52aa\u91cc\u963f\u96f7"
         },
         "description": "A crimson algae has propagated wildly across this entire planet, coating its rocky hills with a constant red that masks the spilt blood of the heroes who defend it from tyranny.",
@@ -2618,7 +2444,6 @@
             "it-IT": "EPSILON PHOENCIS VI",
             "pt-BR": "EPSILON PHOENCIS VI",
             "ru-RU": "\u042d\u041f\u0421\u0418\u041b\u041e\u041d-\u0424\u0418\u041d\u0421\u0418\u0421 VI",
-            "zh-Hans": "\u827e\u666e\u65af\u6797\u82ac\u8d5b\u65afVI",
             "zh-Hant": "\u827e\u666e\u65af\u6797\u82ac\u8cfd\u65afVI"
         },
         "description": "Submerged in eternal winter, this world's frosty peaks glimmer in the light of its too-distant star.",
@@ -2633,7 +2458,6 @@
             "it-IT": "ERATA PRIME",
             "pt-BR": "ERATA PRIME",
             "ru-RU": "\u042d\u0420\u0410\u0422\u0410-\u041f\u0420\u0410\u0419\u041c",
-            "zh-Hans": "\u827e\u62c9\u7279\u4e3b\u661f",
             "zh-Hant": "\u57c3\u62c9\u4ed6\u4e3b\u661f"
         },
         "description": "A desert planet prone to unpredictable and dangerous sand twisters.",
@@ -2648,7 +2472,6 @@
             "it-IT": "ERRANTE",
             "pt-BR": "ERRANT",
             "ru-RU": "\u042d\u0420\u0420\u0410\u041d\u0422",
-            "zh-Hans": "\u827e\u4f26\u7279",
             "zh-Hant": "\u827e\u502b\u7279"
         },
         "description": "The strange subversion of photosynthesis that sustains the oddly-hued flora that flourishes on this planet remains an intriguing mystery to Super Earth's greatest exo-biologists.",
@@ -2663,7 +2486,6 @@
             "it-IT": "ESTANU",
             "pt-BR": "ESTANU",
             "ru-RU": "\u042d\u0421\u0422\u0410\u041d\u0423",
-            "zh-Hans": "\u4f0a\u65af\u5854\u52aa",
             "zh-Hant": "\u57c3\u65af\u5854\u52aa"
         },
         "description": "Ice and moss-covered rock can be found across most of the surface of this planet.",
@@ -2678,7 +2500,6 @@
             "it-IT": "FORI PRIME",
             "pt-BR": "FORI PRIME",
             "ru-RU": "\u0424\u041e\u0420\u0418-\u041f\u0420\u0410\u0419\u041c",
-            "zh-Hans": "\u4f5b\u91cc\u4e3b\u661f",
             "zh-Hant": "\u4f5b\u91cc\u4e3b\u661f"
         },
         "description": "The arid, rocky biome covering this world has driven the evolution of exceptionally efficient water usage in its various organisms.",
@@ -2693,7 +2514,6 @@
             "it-IT": "FURY",
             "pt-BR": "F\u00daRIA",
             "ru-RU": "\u0424\u042c\u042e\u0420\u0418",
-            "zh-Hans": "\u8d39\u91cc",
             "zh-Hant": "\u72c2\u6012"
         },
         "description": "Constant eruptions keep this planet covered in lava flows and utterly inhospitable to Democratic life. It also makes it a treasure trove of rare minerals.",
@@ -2708,7 +2528,6 @@
             "it-IT": "GACRUX",
             "pt-BR": "GACRUX",
             "ru-RU": "\u0413\u0410\u041a\u0420\u0423\u041a\u0421",
-            "zh-Hans": "\u5341\u5b57\u67b6\u4e00",
             "zh-Hant": "\u5341\u5b57\u67b6\u4e00"
         },
         "description": "Tall, gnarled trees flourish across the surface of this forested world. Sunlight filters past dangling vines, to the saturated undergrowth below. ",
@@ -2723,7 +2542,6 @@
             "it-IT": "GAR HAREN",
             "pt-BR": "GAR HAREN",
             "ru-RU": "\u0413\u0410\u0420-\u0425\u0410\u0420\u0415\u041d",
-            "zh-Hans": "\u8f67\u5c14\u54c8\u4f26",
             "zh-Hant": "\u8ecb\u723e\u54c8\u502b"
         },
         "description": "Squelching mud, twisting roots; the odor of rot and anarchy. A teeming, endless morass.",
@@ -2738,7 +2556,6 @@
             "it-IT": "GATRIA",
             "pt-BR": "GATRIA",
             "ru-RU": "\u0413\u0410\u0422\u0420\u0418\u042f",
-            "zh-Hans": "\u76d6\u5c14\u5d14\u4e9a",
             "zh-Hant": "\u84cb\u723e\u5d14\u4e9e"
         },
         "description": "A crimson algae has propagated wildly across this entire planet, coating its rocky hills with a constant red that masks the spilt blood of the heroes who defend it from tyranny.",
@@ -2753,7 +2570,6 @@
             "it-IT": "GEMMA",
             "pt-BR": "GEMMA",
             "ru-RU": "\u0413\u0415\u041c\u041c\u0410",
-            "zh-Hans": "\u8d2f\u7d22\u56db",
             "zh-Hant": "\u8cab\u7d22\u56db"
         },
         "description": "The strange subversion of photosynthesis that sustains the oddly-hued flora that flourishes on this planet remains an intriguing mystery to Super Earth's greatest exo-biologists.",
@@ -2768,7 +2584,6 @@
             "it-IT": "GRANDE ERRANTE",
             "pt-BR": "GRAND ERRANT",
             "ru-RU": "\u0413\u0420\u0410\u041d\u0414 \u042d\u0420\u0420\u0410\u041d\u0422",
-            "zh-Hans": "\u5927\u827e\u4f26\u7279",
             "zh-Hant": "\u5927\u827e\u502b\u7279"
         },
         "description": "Scorching temperatures, high winds, and low precipitation cause a near-constant cycle of fires to sweep this planet, punctuated by short bursts of lush rebirth between infernos.",
@@ -2783,7 +2598,6 @@
             "it-IT": "HADAR",
             "pt-BR": "HADAR",
             "ru-RU": "\u0425\u0410\u0414\u0410\u0420",
-            "zh-Hans": "\u9a6c\u8179\u4e00",
             "zh-Hant": "\u99ac\u8179\u4e00"
         },
         "description": "Submerged in eternal winter, this world's frosty peaks glimmer in the light of its too-distant star.",
@@ -2798,7 +2612,6 @@
             "it-IT": "HAKA",
             "pt-BR": "HAKA",
             "ru-RU": "\u0425\u0410\u041a\u0410",
-            "zh-Hans": "\u54c8\u5361",
             "zh-Hant": "\u54c8\u5361"
         },
         "description": "The lifeless grey of this planet is interrupted only by the violet flowers that grow from strange, parasitic outcroppings.",
@@ -2813,7 +2626,6 @@
             "it-IT": "HALDUS",
             "pt-BR": "HALDUS",
             "ru-RU": "\u0425\u0410\u041b\u042c\u0414\u0423\u0421",
-            "zh-Hans": "\u6d77\u5fb7\u65af",
             "zh-Hant": "\u54c8\u90fd\u65af"
         },
         "description": "Tall, gnarled trees flourish across the surface of this forested world. Sunlight filters past dangling vines, to the saturated undergrowth below. ",
@@ -2828,7 +2640,6 @@
             "it-IT": "PORTO DI HALIES",
             "pt-BR": "PORTO HALIES",
             "ru-RU": "\u041f\u041e\u0420\u0422-\u0413\u0410\u041b\u042c\u0415",
-            "zh-Hans": "\u6d77\u5229\u65af\u6e2f",
             "zh-Hant": "\u6d77\u5229\u65af\u6e2f"
         },
         "description": "Ice and moss-covered rock can be found across most of the surface of this planet.",
@@ -2843,7 +2654,6 @@
             "it-IT": "HERTHON SECUNDUS",
             "pt-BR": "HERTHON SECUNDUS",
             "ru-RU": "\u0425\u0410\u0420\u0422\u041e\u041d II",
-            "zh-Hans": "\u8d6b\u5c14\u677e\u6b21\u661f",
             "zh-Hant": "\u8d6b\u677e\u6b21\u661f"
         },
         "description": "Scorching temperatures, high winds, and low precipitation cause a near-constant cycle of fires to sweep this planet, punctuated by short bursts of lush rebirth between infernos.",
@@ -2858,7 +2668,6 @@
             "it-IT": "HESOE PRIME",
             "pt-BR": "HESOE PRIME",
             "ru-RU": "\u0425\u0415\u0421\u041e\u042d-\u041f\u0420\u0410\u0419\u041c",
-            "zh-Hans": "\u6d77\u7d22\u4e3b\u661f",
             "zh-Hant": "\u8d6b\u7d22\u4e3b\u661f"
         },
         "description": "Submerged in eternal winter, this world's frosty peaks glimmer in the light of its too-distant star.",
@@ -2873,7 +2682,6 @@
             "it-IT": "BAIA DI HEZE",
             "pt-BR": "BA\u00cdA HEZE",
             "ru-RU": "\u0425\u0415\u0417\u0415-\u0411\u042d\u0419",
-            "zh-Hans": "\u89d2\u5bbf\u4e8c\u6e7e",
             "zh-Hant": "\u89d2\u5bbf\u4e8c\u7063"
         },
         "description": "A blazing-hot desert planet, its rocky mesas are the sole interruptions to the endless sea of dunes.",
@@ -2888,7 +2696,6 @@
             "it-IT": "HORT",
             "pt-BR": "HORT",
             "ru-RU": "\u0425\u041e\u0420\u0422",
-            "zh-Hans": "\u970d\u5c14\u7279",
             "zh-Hant": "\u970d\u7279"
         },
         "description": "Rocky outcroppings punctuate fields of tall grass in a planet dominated by misty highland terrain.",
@@ -2903,7 +2710,6 @@
             "it-IT": "HYDROBIUS",
             "pt-BR": "HYDROBIUS",
             "ru-RU": "\u0413\u0418\u0414\u0420\u041e\u0411\u0418\u0423\u0421",
-            "zh-Hans": "\u6d77\u5fb7\u7f57\u6bd5\u4e9a\u65af",
             "zh-Hant": "\u54c8\u5353\u7562\u4e9e\u65af"
         },
         "description": "A desert planet prone to unpredictable and dangerous sand twisters.",
@@ -2918,7 +2724,6 @@
             "it-IT": "KARLIA",
             "pt-BR": "KARLIA",
             "ru-RU": "\u041a\u0410\u0420\u041b\u0418\u042f",
-            "zh-Hans": "\u5361\u5229\u4e9a",
             "zh-Hant": "\u5361\u91cc\u4e9e"
         },
         "description": "Scorching temperatures, high winds, and low precipitation cause a near-constant cycle of fires to sweep this planet, punctuated by short bursts of lush rebirth between infernos.",
@@ -2933,7 +2738,6 @@
             "it-IT": "BAIA DI KARON",
             "pt-BR": "BA\u00cdA KARON",
             "ru-RU": "\u041a\u0410\u0420\u041e\u041d-\u0411\u042d\u0419",
-            "zh-Hans": "\u51ef\u4f26\u6e7e",
             "zh-Hant": "\u51f1\u502b\u7063"
         },
         "description": "Constant eruptions keep this planet covered in lava flows and utterly inhospitable to Democratic life. It also makes it a treasure trove of rare minerals.",
@@ -2948,7 +2752,6 @@
             "it-IT": "KEID",
             "pt-BR": "KEID",
             "ru-RU": "\u041a\u0415\u0419\u0414",
-            "zh-Hans": "\u4e5d\u5dde\u6b8a\u53e3\u589e\u4e03",
             "zh-Hant": "\u4e5d\u5dde\u6b8a\u53e3\u589e\u5341\u4e00"
         },
         "description": "A blazing-hot desert planet, its rocky mesas are the sole interruptions to the endless sea of dunes.",
@@ -2963,7 +2766,6 @@
             "it-IT": "KHANDARK",
             "pt-BR": "KHANDARK",
             "ru-RU": "\u0425\u0410\u041d\u0414\u0410\u0420\u041a",
-            "zh-Hans": "\u52d8\u8fbe\u5c14\u514b",
             "zh-Hant": "\u53ef\u6c57\u9054\u514b"
         },
         "description": "Squelching mud, twisting roots; the odor of rot and anarchy. A teeming, endless morass.",
@@ -2978,7 +2780,6 @@
             "it-IT": "K",
             "pt-BR": "K",
             "ru-RU": "\u041a",
-            "zh-Hans": "K",
             "zh-Hant": "K"
         },
         "description": "Constant eruptions keep this planet covered in lava flows and utterly inhospitable to Democratic life. It also makes it a treasure trove of rare minerals.",
@@ -2993,7 +2794,6 @@
             "it-IT": "KLAKA 5",
             "pt-BR": "KLAKA 5",
             "ru-RU": "\u041a\u041b\u0410\u041a\u0410 5",
-            "zh-Hans": "\u514b\u62c9\u53615",
             "zh-Hant": "\u514b\u62c9\u53615\u865f"
         },
         "description": "Squelching mud, twisting roots; the odor of rot and anarchy. A teeming, endless morass.",
@@ -3008,7 +2808,6 @@
             "it-IT": "PORTO DI KNETH",
             "pt-BR": "PORTO KNETH",
             "ru-RU": "\u041f\u041e\u0420\u0422-\u041a\u041d\u0415\u0422",
-            "zh-Hans": "\u514b\u5948\u65af\u6e2f",
             "zh-Hant": "\u514b\u6d85\u65af\u6e2f"
         },
         "description": "Scorching temperatures, high winds, and low precipitation cause a near-constant cycle of fires to sweep this planet, punctuated by short bursts of lush rebirth between infernos.",
@@ -3023,7 +2822,6 @@
             "it-IT": "KRAZ",
             "pt-BR": "KRAZ",
             "ru-RU": "\u041a\u0420\u0410\u0417",
-            "zh-Hans": "\u8f78\u5bbf\u56db",
             "zh-Hant": "\u8eeb\u5bbf\u56db"
         },
         "description": "The arid, rocky biome covering this world has driven the evolution of exceptionally efficient water usage in its various organisms.",
@@ -3038,7 +2836,6 @@
             "it-IT": "KUMA",
             "pt-BR": "KUMA",
             "ru-RU": "\u041a\u0423\u041c\u0410",
-            "zh-Hans": "\u5929\u68d3\u4e8c",
             "zh-Hant": "\u5929\u9f8d\u5ea7"
         },
         "description": "The arid, rocky biome covering this world has driven the evolution of exceptionally efficient water usage in its various organisms.",
@@ -3053,7 +2850,6 @@
             "it-IT": "LASTOFE",
             "pt-BR": "LASTOFE",
             "ru-RU": "\u041b\u0410\u0421\u0422\u041e\u0424",
-            "zh-Hans": "\u8d56\u65af\u6597\u592b",
             "zh-Hant": "\u62c9\u65af\u6258"
         },
         "description": "A blazing-hot desert planet, its rocky mesas are the sole interruptions to the endless sea of dunes.",
@@ -3068,7 +2864,6 @@
             "it-IT": "LENG SECUNDUS",
             "pt-BR": "LENG SECUNDUS",
             "ru-RU": "\u041b\u0415\u041d\u0413 II",
-            "zh-Hans": "\u84dd\u6069\u6b21\u661f",
             "zh-Hant": "\u96f7\u6069\u6b21\u661f"
         },
         "description": "Dense, toxic fumes from deep within the planet's crust seep out of cracks in the earth and coat the ground in a sickly haze.",
@@ -3083,7 +2878,6 @@
             "it-IT": "LESATH",
             "pt-BR": "LESATH",
             "ru-RU": "\u041b\u0415\u0421\u0410\u0422",
-            "zh-Hans": "\u5c3e\u5bbf\u516b",
             "zh-Hant": "\u5c3e\u5bbf\u516b"
         },
         "description": "Ice and moss-covered rock can be found across most of the surface of this planet.",
@@ -3098,7 +2892,6 @@
             "it-IT": "MAIA",
             "pt-BR": "MAIA",
             "ru-RU": "\u041c\u0410\u0419\u042f",
-            "zh-Hans": "\u6634\u5bbf\u56db",
             "zh-Hant": "\u6634\u5bbf\u56db"
         },
         "description": "A rocky, lonely moon with extremely valuable mineral deposits underneath the surface.",
@@ -3113,7 +2906,6 @@
             "it-IT": "MALEVELON CREEK",
             "pt-BR": "MALEVELON CREEK",
             "ru-RU": "\u041c\u0410\u041b\u0415\u0412\u0415\u041b\u041e\u041d-\u041a\u0420\u0418\u041a",
-            "zh-Hans": "\u9ea6\u62c9\u82ac\u8499\u6cb3",
             "zh-Hant": "\u99ac\u52d2\u7dad\u9686\u6eaa"
         },
         "description": "The strange subversion of photosynthesis that sustains the oddly-hued flora that flourishes on this planet remains an intriguing mystery to Super Earth's greatest exo-biologists.",
@@ -3128,7 +2920,6 @@
             "it-IT": "MANTES",
             "pt-BR": "MANTES",
             "ru-RU": "\u041c\u0410\u041d\u0422\u0415\u0421",
-            "zh-Hans": "\u8499\u7279\u65af",
             "zh-Hant": "\u66fc\u63d0\u65af"
         },
         "description": "Abundant with life, this wet planet is covered in deep oceans, thick forests, and tall grasses.",
@@ -3143,7 +2934,6 @@
             "it-IT": "MARFARK",
             "pt-BR": "MARFARK",
             "ru-RU": "\u041c\u0410\u0420\u0424\u0410\u0420\u041a",
-            "zh-Hans": "\u739b\u5c14\u6cd5\u514b",
             "zh-Hant": "\u746a\u723e\u6cd5\u514b"
         },
         "description": "Submerged in eternal winter, this world's frosty peaks glimmer in the light of its too-distant star.",
@@ -3158,7 +2948,6 @@
             "it-IT": "MARTALE",
             "pt-BR": "MARTALE",
             "ru-RU": "\u041c\u0410\u0420\u0422\u0410\u041b\u0415",
-            "zh-Hans": "\u739b\u5c14\u7279",
             "zh-Hant": "\u99ac\u5854\u723e"
         },
         "description": "A perenially chilly climate has allowed short, colorful shrubs to flourish across this planet's surface.",
@@ -3173,7 +2962,6 @@
             "it-IT": "BAIA DI MATAR",
             "pt-BR": "BA\u00cdA MATAR",
             "ru-RU": "\u041c\u0410\u0422\u0410\u0420-\u0411\u042d\u0419",
-            "zh-Hans": "\u739b\u5854",
             "zh-Hant": "\u746a\u5854\u7063"
         },
         "description": "Rocky outcroppings punctuate fields of tall grass in a planet dominated by misty highland terrain.",
@@ -3188,7 +2976,6 @@
             "it-IT": "MEISSA",
             "pt-BR": "MEISSA",
             "ru-RU": "\u041c\u0415\u0419\u0421\u0421\u0410",
-            "zh-Hans": "\u89dc\u5bbf\u4e00",
             "zh-Hant": "\u89dc\u5bbf\u4e00"
         },
         "description": "Abundant with life, this wet planet is covered in deep oceans, thick forests, and tall grasses.",
@@ -3203,7 +2990,6 @@
             "it-IT": "MEKBUDA",
             "pt-BR": "MEKBUDA",
             "ru-RU": "\u041c\u0415\u041a\u0411\u0423\u0414\u0410",
-            "zh-Hans": "\u4e95\u5bbf\u4e03",
             "zh-Hant": "\u4e95\u5bbf\u4e03"
         },
         "description": "The arid, rocky biome covering this world has driven the evolution of exceptionally efficient water usage in its various organisms.",
@@ -3218,7 +3004,6 @@
             "it-IT": "MENKENT",
             "pt-BR": "MENKENT",
             "ru-RU": "\u041c\u0415\u041d\u041a\u0415\u041d\u0422",
-            "zh-Hans": "\u5e93\u697c\u4e09",
             "zh-Hant": "\u5eab\u6a13\u4e09"
         },
         "description": "Scorching temperatures, high winds, and low precipitation cause a near-constant cycle of fires to sweep this planet, punctuated by short bursts of lush rebirth between infernos.",
@@ -3233,7 +3018,6 @@
             "it-IT": "MERAK",
             "pt-BR": "MERAK",
             "ru-RU": "\u041c\u0415\u0420\u0410\u041a",
-            "zh-Hans": "\u5317\u6597\u4e8c",
             "zh-Hant": "\u5317\u6597\u4e8c"
         },
         "description": "The strange subversion of photosynthesis that sustains the oddly-hued flora that flourishes on this planet remains an intriguing mystery to Super Earth's greatest exo-biologists.",
@@ -3248,7 +3032,6 @@
             "it-IT": "MERGA IV",
             "pt-BR": "MERGA IV",
             "ru-RU": "\u041c\u0410\u0420\u0413\u0410 IV",
-            "zh-Hans": "\u7384\u6208\u589e\u4e8cIV",
             "zh-Hant": "\u7384\u6208\u589e\u4e8cIV"
         },
         "description": "Squelching mud, twisting roots; the odor of rot and anarchy. A teeming, endless morass.",
@@ -3263,7 +3046,6 @@
             "it-IT": "MINCHIR",
             "pt-BR": "MINCHIR",
             "ru-RU": "\u041c\u0418\u041d\u0425\u0418\u0420",
-            "zh-Hans": "\u654f\u5207\u5c14",
             "zh-Hant": "\u654f\u96c0\u7279"
         },
         "description": "The strange subversion of photosynthesis that sustains the oddly-hued flora that flourishes on this planet remains an intriguing mystery to Super Earth's greatest exo-biologists.",
@@ -3278,7 +3060,6 @@
             "it-IT": "MINTORIA",
             "pt-BR": "MINTORIA",
             "ru-RU": "\u041c\u0418\u041d\u0422\u041e\u0420\u0418\u042f",
-            "zh-Hans": "\u654f\u6258\u745e\u4e9a",
             "zh-Hant": "\u654f\u6258\u91cc\u4e9e"
         },
         "description": "Rocky outcroppings punctuate fields of tall grass in a planet dominated by misty highland terrain.",
@@ -3293,7 +3074,6 @@
             "it-IT": "MORDIA 9",
             "pt-BR": "MORDIA 9",
             "ru-RU": "\u041c\u041e\u0420\u0414\u0418\u042f-9",
-            "zh-Hans": "\u6469\u5e1d\u4e9a9",
             "zh-Hant": "\u6469\u723e\u8fea\u4e9e9\u865f"
         },
         "description": "This world teems with ethereal, boundless, and peculiar plant life that spreads silent and uninterrupted across its entire surface.",
@@ -3308,7 +3088,6 @@
             "it-IT": "MOX",
             "pt-BR": "MOX",
             "ru-RU": "\u041c\u041e\u041a\u0421",
-            "zh-Hans": "\u83ab\u514b\u65af",
             "zh-Hant": "\u83ab\u514b\u65af"
         },
         "description": "Constant eruptions keep this planet covered in lava flows and utterly inhospitable to Democratic life. It also makes it a treasure trove of rare minerals.",
@@ -3323,7 +3102,6 @@
             "it-IT": "NABATEA SECUNDUS",
             "pt-BR": "NABATEA SECUNDUS",
             "ru-RU": "\u041d\u0410\u041d\u0411\u0410\u0422\u0415\u042f II",
-            "zh-Hans": "\u90a3\u8d1d\u5854\u6b21\u661f",
             "zh-Hant": "\u7d0d\u5df4\u5fd2\u4e9e\u6b21\u661f"
         },
         "description": "Tall, gnarled trees flourish across the surface of this forested world. Sunlight filters past dangling vines, to the saturated undergrowth below. ",
@@ -3338,7 +3116,6 @@
             "it-IT": "NAVI VII",
             "pt-BR": "NAVI VII",
             "ru-RU": "\u041d\u0410\u0412\u0418 VII",
-            "zh-Hans": "\u9601\u9053\u4e8c",
             "zh-Hant": "\u5948\u7dadVII"
         },
         "description": "Abundant with life, this wet planet is covered in deep oceans, thick forests, and tall grasses.",
@@ -3353,7 +3130,6 @@
             "it-IT": "NIVEL 43",
             "pt-BR": "N\u00cdVEL 43",
             "ru-RU": "\u041d\u0418\u0412\u0415\u041b\u042c-43",
-            "zh-Hans": "\u5c3c\u7ef4\u5c1443",
             "zh-Hant": "\u5c3c\u5a01\u723e43\u865f"
         },
         "description": "The lifeless grey of this planet is interrupted only by the violet flowers that grow from strange, parasitic outcroppings.",
@@ -3368,7 +3144,6 @@
             "it-IT": "OROTH",
             "pt-BR": "OROTH",
             "ru-RU": "\u041e\u0420\u041e\u0422",
-            "zh-Hans": "\u6b27\u62c9\u65af",
             "zh-Hant": "\u6b50\u62c9\u65af"
         },
         "description": "Constant eruptions keep this planet covered in lava flows and utterly inhospitable to Democratic life. It also makes it a treasure trove of rare minerals.",
@@ -3383,7 +3158,6 @@
             "it-IT": "OSHAUNE",
             "pt-BR": "OSHAUNE",
             "ru-RU": "\u041e\u0428\u041e\u041d\u0415",
-            "zh-Hans": "\u6b27\u7ecd\u6069",
             "zh-Hant": "\u6b50\u590f\u70cf"
         },
         "description": "",
@@ -3398,7 +3172,6 @@
             "it-IT": "OVERGOE PRIME",
             "pt-BR": "OVERGOE PRIME",
             "ru-RU": "\u041e\u0412\u0415\u0420\u0413\u041e-\u041f\u0420\u0410\u0419\u041c",
-            "zh-Hans": "\u6b27\u7ef4\u679c\u4e3b\u661f",
             "zh-Hant": "\u6b50\u7dad\u52fe\u4e3b\u661f"
         },
         "description": "A crimson algae has propagated wildly across this entire planet, coating its rocky hills with a constant red that masks the spilt blood of the heroes who defend it from tyranny.",
@@ -3413,7 +3186,6 @@
             "it-IT": "PANDION-XXIV",
             "pt-BR": "PANDION XXIV",
             "ru-RU": "\u041f\u0410\u041d\u0414\u0418\u041e\u041d XXIV",
-            "zh-Hans": "\u5e15\u72c4\u6069XXIV",
             "zh-Hant": "\u6f58\u8fea\u6069XXIV"
         },
         "description": "The lifeless grey of this planet is interrupted only by the violet flowers that grow from strange, parasitic outcroppings.",
@@ -3428,7 +3200,6 @@
             "it-IT": "PARTION",
             "pt-BR": "PARTION",
             "ru-RU": "\u041f\u0410\u0420\u0422\u0418\u041e\u041d",
-            "zh-Hans": "\u5e15\u5c14\u6668",
             "zh-Hant": "\u5e15\u4f0a\u6069"
         },
         "description": "Scorching temperatures, high winds, and low precipitation cause a near-constant cycle of fires to sweep this planet, punctuated by short bursts of lush rebirth between infernos.",
@@ -3443,7 +3214,6 @@
             "it-IT": "PAVONE",
             "pt-BR": "PEACOCK",
             "ru-RU": "\u041f\u0418\u041a\u041e\u041a",
-            "zh-Hans": "\u5b54\u96c0\u5341\u4e00",
             "zh-Hant": "\u5b54\u96c0\u5341\u4e00"
         },
         "description": "The strange subversion of photosynthesis that sustains the oddly-hued flora that flourishes on this planet remains an intriguing mystery to Super Earth's greatest exo-biologists.",
@@ -3458,7 +3228,6 @@
             "it-IT": "BAIA DI PHACT",
             "pt-BR": "BA\u00cdA PHACT",
             "ru-RU": "\u0424\u0410\u041a\u0422-\u0411\u042d\u0419",
-            "zh-Hans": "\u4e08\u4eba\u4e00\u6e7e",
             "zh-Hant": "\u4e08\u4eba\u4e00\u7063"
         },
         "description": "A blazing-hot desert planet, its rocky mesas are the sole interruptions to the endless sea of dunes.",
@@ -3473,7 +3242,6 @@
             "it-IT": "PHERKAD SECUNDUS",
             "pt-BR": "PHERKAD SECUNDUS",
             "ru-RU": "\u0424\u0415\u0420\u041a\u0410\u0414 II",
-            "zh-Hans": "\u5317\u6781\u4e00\u6b21\u661f",
             "zh-Hant": "\u5317\u6975\u4e00\u6b21\u661f"
         },
         "description": "Tall, gnarled trees flourish across the surface of this forested world. Sunlight filters past dangling vines, to the saturated undergrowth below. ",
@@ -3488,7 +3256,6 @@
             "it-IT": "POLARIS PRIME",
             "pt-BR": "POLARIS PRIME",
             "ru-RU": "\u041f\u041e\u041b\u042f\u0420\u0418\u0421-\u041f\u0420\u0410\u0419\u041c",
-            "zh-Hans": "\u5317\u6781\u661f\u4e3b\u661f",
             "zh-Hant": "\u5317\u6975\u661f\u4e3b\u661f"
         },
         "description": "A desert planet prone to unpredictable and dangerous sand twisters.",
@@ -3503,7 +3270,6 @@
             "it-IT": "POLLUX 31",
             "pt-BR": "P\u00d3LUX 31",
             "ru-RU": "\u041f\u041e\u041b\u041b\u0423\u041a\u0421-31",
-            "zh-Hans": "\u5317\u6cb3\u4e0931",
             "zh-Hant": "\u5317\u6cb3\u4e0931\u865f"
         },
         "description": "Abundant with life, this wet planet is covered in deep oceans, thick forests, and tall grasses.",
@@ -3518,7 +3284,6 @@
             "it-IT": "PRASA",
             "pt-BR": "PRASA",
             "ru-RU": "\u041f\u0420\u0410\u0421\u0410",
-            "zh-Hans": "\u666e\u62c9\u8428",
             "zh-Hant": "\u666e\u62c9\u85a9"
         },
         "description": "The arid, rocky biome covering this world has driven the evolution of exceptionally efficient water usage in its various organisms.",
@@ -3533,7 +3298,6 @@
             "it-IT": "PROPUS",
             "pt-BR": "PROPUS",
             "ru-RU": "\u041f\u0420\u041e\u041f\u0423\u0421",
-            "zh-Hans": "\u4e94\u8bf8\u4faf\u4e09",
             "zh-Hant": "\u4e94\u8af8\u4faf\u4e09"
         },
         "description": "A blazing-hot desert planet, its rocky mesas are the sole interruptions to the endless sea of dunes.",
@@ -3548,7 +3312,6 @@
             "it-IT": "RAS ALGETHI",
             "pt-BR": "RAS ALGETHI",
             "ru-RU": "\u0420\u0410\u0421-\u0410\u041b\u042c\u0413\u0415\u0422\u0418",
-            "zh-Hans": "\u5e1d\u5ea7",
             "zh-Hant": "\u5e1d\u5ea7"
         },
         "description": "A perenially chilly climate has allowed short, colorful shrubs to flourish across this planet's surface.",
@@ -3563,7 +3326,6 @@
             "it-IT": "RD-4",
             "pt-BR": "RD-4",
             "ru-RU": "\u0410\u0420\u0414\u0418-4",
-            "zh-Hans": "RD4",
             "zh-Hant": "RD-4"
         },
         "description": "A rocky, lonely moon with extremely valuable mineral deposits underneath the surface.",
@@ -3578,7 +3340,6 @@
             "it-IT": "ROGUE 5",
             "pt-BR": "INSURGENTE 5",
             "ru-RU": "\u0420\u041e\u0423\u0413 5",
-            "zh-Hans": "\u7f57\u683c5",
             "zh-Hant": "\u883b\u91ce5\u865f"
         },
         "description": "Abundant with life, this wet planet is covered in deep oceans, thick forests, and tall grasses.",
@@ -3593,7 +3354,6 @@
             "it-IT": "BAIA DI RIRGA",
             "pt-BR": "BA\u00cdA RIRGA",
             "ru-RU": "\u0420\u0418\u0420\u0413\u0410-\u0411\u042d\u0419",
-            "zh-Hans": "\u91cc\u5c14\u52a0\u6e7e",
             "zh-Hant": "\u91cc\u723e\u52a0\u7063"
         },
         "description": "Dense, toxic fumes from deep within the planet's crust seep out of cracks in the earth and coat the ground in a sickly haze.",
@@ -3608,7 +3368,6 @@
             "it-IT": "SEASSE",
             "pt-BR": "SEASSE",
             "ru-RU": "\u0421\u0418\u042d\u0421\u0421",
-            "zh-Hans": "\u897f\u65af",
             "zh-Hant": "\u897f\u5e0c"
         },
         "description": "",
@@ -3623,7 +3382,6 @@
             "it-IT": "SENGE 23",
             "pt-BR": "SENGE 23",
             "ru-RU": "\u0421\u0415\u041d\u0416\u0415-23",
-            "zh-Hans": "\u65b0\u620823",
             "zh-Hant": "\u4ed9\u84cb23\u865f"
         },
         "description": "The arid, rocky biome covering this world has driven the evolution of exceptionally efficient water usage in its various organisms.",
@@ -3638,7 +3396,6 @@
             "it-IT": "SETIA",
             "pt-BR": "SETIA",
             "ru-RU": "\u0421\u0415\u0422\u0418\u042f",
-            "zh-Hans": "\u8d5b\u63d0\u4e9a",
             "zh-Hant": "\u8cfd\u63d0\u4e9e"
         },
         "description": "Squelching mud, twisting roots; the odor of rot and anarchy. A teeming, endless morass.",
@@ -3653,7 +3410,6 @@
             "it-IT": "SHETE",
             "pt-BR": "SHETE",
             "ru-RU": "\u0428\u0415\u0422\u0415",
-            "zh-Hans": "\u8d5b\u7279",
             "zh-Hant": "\u897f\u6cf0"
         },
         "description": "Dense, toxic fumes from deep within the planet's crust seep out of cracks in the earth and coat the ground in a sickly haze.",
@@ -3668,7 +3424,6 @@
             "it-IT": "SIEMNOT",
             "pt-BR": "SIEMNOT",
             "ru-RU": "\u0421\u0418\u041c\u041d\u041e\u0422",
-            "zh-Hans": "\u5e2d\u59c6\u7eb3\u7279",
             "zh-Hant": "\u661f\u7d0d\u7279"
         },
         "description": "The strange subversion of photosynthesis that sustains the oddly-hued flora that flourishes on this planet remains an intriguing mystery to Super Earth's greatest exo-biologists.",
@@ -3683,7 +3438,6 @@
             "it-IT": "SIRIUS",
             "pt-BR": "SIRIUS",
             "ru-RU": "\u0421\u0418\u0420\u0418\u0423\u0421",
-            "zh-Hans": "\u5929\u72fc\u661f",
             "zh-Hant": "\u5929\u72fc\u661f"
         },
         "description": "A rocky, lonely moon with extremely valuable mineral deposits underneath the surface.",
@@ -3698,7 +3452,6 @@
             "it-IT": "BAIA DI SKAT",
             "pt-BR": "BA\u00cdA SKAT",
             "ru-RU": "\u0421\u041a\u0410\u0422-\u0411\u042d\u0419",
-            "zh-Hans": "\u65af\u5361\u7279\u6e7e",
             "zh-Hant": "\u53f2\u5361\u7279\u7063"
         },
         "description": "The lifeless grey of this planet is interrupted only by the violet flowers that grow from strange, parasitic outcroppings.",
@@ -3713,7 +3466,6 @@
             "it-IT": "SPHERION",
             "pt-BR": "SPHERION",
             "ru-RU": "\u0421\u0424\u0415\u0420\u0418\u041e\u041d",
-            "zh-Hans": "\u65af\u98de\u5229\u6602",
             "zh-Hant": "\u53f2\u98db\u91cc\u6602"
         },
         "description": "Abundant with life, this wet planet is covered in deep oceans, thick forests, and tall grasses.",
@@ -3728,7 +3480,6 @@
             "it-IT": "STOR THA PRIME",
             "pt-BR": "STOR THA PRIME",
             "ru-RU": "\u0421\u0422\u041e\u0420 \u0422\u0410-\u041f\u0420\u0410\u0419\u041c",
-            "zh-Hans": "\u65af\u7279\u8428\u4e3b\u661f",
             "zh-Hant": "\u53f2\u6258\u5854\u4e3b\u661f"
         },
         "description": "Ice and moss-covered rock can be found across most of the surface of this planet.",
@@ -3743,7 +3494,6 @@
             "it-IT": "STOUT",
             "pt-BR": "STOUT",
             "ru-RU": "\u0421\u0422\u0410\u0423\u0422",
-            "zh-Hans": "\u65af\u56fe\u5c14\u7279",
             "zh-Hant": "\u65af\u6735\u723e\u7279"
         },
         "description": "A crimson algae has propagated wildly across this entire planet, coating its rocky hills with a constant red that masks the spilt blood of the heroes who defend it from tyranny.",
@@ -3758,7 +3508,6 @@
             "it-IT": "TERMADON",
             "pt-BR": "TERMADON",
             "ru-RU": "\u0422\u0415\u0420\u041c\u041e\u0414\u041e\u041d",
-            "zh-Hans": "\u7279\u5c14\u739b\u767b",
             "zh-Hant": "\u5854\u746a\u767b"
         },
         "description": "Rocky outcroppings punctuate fields of tall grass in a planet dominated by misty highland terrain.",
@@ -3773,7 +3522,6 @@
             "it-IT": "TIBIT",
             "pt-BR": "TIBIT",
             "ru-RU": "\u0422\u0418\u0411\u0418\u0422",
-            "zh-Hans": "\u63d0\u6bd4\u7279",
             "zh-Hant": "\u5824\u6bd4\u7279"
         },
         "description": "This world teems with ethereal, boundless, and peculiar plant life that spreads silent and uninterrupted across its entire surface.",
@@ -3788,11 +3536,10 @@
             "it-IT": "TIEN KWAN",
             "pt-BR": "TIEN KWAN",
             "ru-RU": "\u0422\u042c\u0415\u041d-\u041a\u0412\u0410\u041d",
-            "zh-Hans": "\u5929\u5173",
             "zh-Hant": "\u5929\u95dc"
         },
         "description": "Ice and moss-covered rock can be found across most of the surface of this planet.",
-        "biome": "tien_kwan"
+        "biome": "arctic_glacier_coldrocky"
     },
     "1049999007": {
         "names": {
@@ -3803,7 +3550,6 @@
             "it-IT": "TROOST",
             "pt-BR": "TROOST",
             "ru-RU": "\u0422\u0420\u0423\u0421\u0422",
-            "zh-Hans": "\u7279\u9c81\u65af\u7279",
             "zh-Hant": "\u695a\u65af\u7279"
         },
         "description": "The lifeless grey of this planet is interrupted only by the violet flowers that grow from strange, parasitic outcroppings.",
@@ -3818,7 +3564,6 @@
             "it-IT": "UBANEA",
             "pt-BR": "UBANEA",
             "ru-RU": "\u0423\u0411\u0410\u041d\u0415\u042f",
-            "zh-Hans": "\u4e4c\u5df4\u5c3c\u4e9a",
             "zh-Hant": "\u70cf\u5df4\u5167\u4e9e"
         },
         "description": "A crimson algae has propagated wildly across this entire planet, coating its rocky hills with a constant red that masks the spilt blood of the heroes who defend it from tyranny.",
@@ -3833,7 +3578,6 @@
             "it-IT": "USTOTU",
             "pt-BR": "USTOTU",
             "ru-RU": "\u0423\u0421\u0422\u041e\u0422\u0423",
-            "zh-Hans": "\u4f0d\u65af\u7279\u56fe",
             "zh-Hant": "\u70cf\u65af\u6258\u5716"
         },
         "description": "A desert planet prone to unpredictable and dangerous sand twisters.",
@@ -3848,7 +3592,6 @@
             "it-IT": "VANDALON IV",
             "pt-BR": "VANDALON IV",
             "ru-RU": "\u0412\u0410\u041d\u0414\u0410\u041b\u041e\u041d IV",
-            "zh-Hans": "\u4e07\u8fbe\u9686IV",
             "zh-Hant": "\u51e1\u9054\u502bIV"
         },
         "description": "Submerged in eternal winter, this world's frosty peaks glimmer in the light of its too-distant star.",
@@ -3863,7 +3606,6 @@
             "it-IT": "VARYLIA 5",
             "pt-BR": "VARYLIA 5",
             "ru-RU": "\u0412\u0410\u0420\u0418\u041b\u0418\u042f-5",
-            "zh-Hans": "\u74e6\u745e\u62c9\u4e9a5",
             "zh-Hant": "\u74e6\u91cc\u4e9e5\u865f"
         },
         "description": "Rocky outcroppings punctuate fields of tall grass in a planet dominated by misty highland terrain.",
@@ -3878,7 +3620,6 @@
             "it-IT": "WASAT",
             "pt-BR": "WASAT",
             "ru-RU": "\u0412\u0410\u0421\u0410\u0422",
-            "zh-Hans": "\u5929\u6a3d\u4e8c",
             "zh-Hant": "\u5929\u6a3d\u4e8c"
         },
         "description": "Dense, toxic fumes from deep within the planet's crust seep out of cracks in the earth and coat the ground in a sickly haze.",
@@ -3893,7 +3634,6 @@
             "it-IT": "BAIA DI VEGA",
             "pt-BR": "BA\u00cdA VEGA",
             "ru-RU": "\u0412\u0415\u0413\u0410-\u0411\u042d\u0419",
-            "zh-Hans": "\u7ec7\u5973\u4e00\u6e7e",
             "zh-Hant": "\u7e54\u5973\u4e00\u7063"
         },
         "description": "Submerged in eternal winter, this world's frosty peaks glimmer in the light of its too-distant star.",
@@ -3908,7 +3648,6 @@
             "it-IT": "WEZEN",
             "pt-BR": "WEZEN",
             "ru-RU": "\u0412\u0415\u0417\u0415\u041d",
-            "zh-Hans": "\u5f27\u77e2\u4e00",
             "zh-Hant": "\u5f27\u77e2\u4e00"
         },
         "description": "Scorching temperatures, high winds, and low precipitation cause a near-constant cycle of fires to sweep this planet, punctuated by short bursts of lush rebirth between infernos.",
@@ -3923,7 +3662,6 @@
             "it-IT": "VINDEMITARIX PRIME",
             "pt-BR": "VINDEMITARIX PRIME",
             "ru-RU": "\u0412\u0418\u041d\u0414\u0415\u041c\u0418\u0422\u0410\u0420\u0418\u041a\u0421-\u041f\u0420\u0410\u0419\u041c",
-            "zh-Hans": "\u6587\u5fb7\u7c73\u5854\u91cc\u514b\u65af\u4e3b\u661f",
             "zh-Hant": "\u6eab\u5fb7\u7c73\u5854\u91cc\u4e3b\u661f"
         },
         "description": "This world teems with ethereal, boundless, and peculiar plant life that spreads silent and uninterrupted across its entire surface.",
@@ -3938,7 +3676,6 @@
             "it-IT": "X-45",
             "pt-BR": "X-45",
             "ru-RU": "\u042d\u041a\u0421-45",
-            "zh-Hans": "X45",
             "zh-Hant": "X-45"
         },
         "description": "Tall, gnarled trees flourish across the surface of this forested world. Sunlight filters past dangling vines, to the saturated undergrowth below. ",
@@ -3953,7 +3690,6 @@
             "it-IT": "YED PRIOR",
             "pt-BR": "YED PRIOR",
             "ru-RU": "\u0419\u0415\u0414-\u041f\u0420\u0418\u041e\u0420",
-            "zh-Hans": "\u5929\u5e02\u53f3\u57a3\u4e5d",
             "zh-Hant": "\u5929\u5e02\u53f3\u57a3\u4e5d"
         },
         "description": "A crimson algae has propagated wildly across this entire planet, coating its rocky hills with a constant red that masks the spilt blood of the heroes who defend it from tyranny.",
@@ -3968,7 +3704,6 @@
             "it-IT": "ZEFIA",
             "pt-BR": "ZEFIA",
             "ru-RU": "\u0417\u0415\u0424\u0418\u042f",
-            "zh-Hans": "\u8d5b\u98de\u4e9a",
             "zh-Hant": "\u6fa4\u83f2\u4e9e"
         },
         "description": "This world teems with ethereal, boundless, and peculiar plant life that spreads silent and uninterrupted across its entire surface.",
@@ -3983,7 +3718,6 @@
             "it-IT": "ZOSMA",
             "pt-BR": "ZOSMA",
             "ru-RU": "\u0417\u041e\u0421\u041c\u0410",
-            "zh-Hans": "\u592a\u5fae\u53f3\u57a3\u4e94",
             "zh-Hant": "\u592a\u5fae\u53f3\u57a3\u4e94"
         },
         "description": "A rocky, lonely moon with extremely valuable mineral deposits underneath the surface.",
@@ -3998,7 +3732,6 @@
             "it-IT": "ZZANIAH PRIME",
             "pt-BR": "ZZANIAH PRIME",
             "ru-RU": "\u0417\u0410\u041d\u0418\u042f-\u041f\u0420\u0410\u0419\u041c",
-            "zh-Hans": "\u85cf\u5c3c\u4e9a\u4e3b\u661f",
             "zh-Hant": "\u8d0a\u4f0a\u4e9e\u4e3b\u661f"
         },
         "description": "A blazing-hot desert planet, its rocky mesas are the sole interruptions to the endless sea of dunes.",
@@ -4013,7 +3746,6 @@
             "it-IT": "SKITTER",
             "pt-BR": "SKITTER",
             "ru-RU": "\u0421\u041a\u0418\u0422\u0422\u0415\u0420",
-            "zh-Hans": "\u65af\u57fa\u7279",
             "zh-Hant": "\u65af\u5176\u7279"
         },
         "description": "Squelching mud, twisting roots; the odor of rot and anarchy. A teeming, endless morass.",
@@ -4028,7 +3760,6 @@
             "it-IT": "EUPHORIA III",
             "pt-BR": "EUPHORIA III",
             "ru-RU": "\u042d\u0419\u0424\u041e\u0420\u0418\u042f III",
-            "zh-Hans": "\u6b27\u798f\u5229\u4e9aIII",
             "zh-Hant": "\u6b61\u5febIII"
         },
         "description": "A rocky, lonely moon with extremely valuable mineral deposits underneath the surface.",
@@ -4043,7 +3774,6 @@
             "it-IT": "DIASPORA X",
             "pt-BR": "DI\u00c1SPORA X",
             "ru-RU": "\u0414\u0418\u0410\u0421\u041f\u041e\u0420\u0410 X",
-            "zh-Hans": "\u5927\u6d41\u6563X",
             "zh-Hant": "\u50d1\u5c45X"
         },
         "description": "A blazing-hot desert planet, its rocky mesas are the sole interruptions to the endless sea of dunes.",
@@ -4058,7 +3788,6 @@
             "it-IT": "SCOGLIERE GEMMATE",
             "pt-BR": "PENHASCOS SUNTUOSOS",
             "ru-RU": "\u0421\u0410\u041c\u041e\u0426\u0412\u0415\u0422\u041d\u042b\u0415 \u0423\u0422\u0415\u0421\u042b",
-            "zh-Hans": "\u5b9d\u77f3\u5d16",
             "zh-Hant": "\u5bf6\u77f3\u5d16"
         },
         "description": "Rocky outcroppings punctuate fields of tall grass in a planet dominated by misty highland terrain.",
@@ -4073,7 +3802,6 @@
             "it-IT": "ZAGON PRIME",
             "pt-BR": "ZAGON PRIME",
             "ru-RU": "\u0417\u0410\u0413\u041e\u041d-\u041f\u0420\u0410\u0419\u041c",
-            "zh-Hans": "\u624e\u8d21\u4e3b\u661f",
             "zh-Hant": "\u5091\u8ca2\u4e3b\u661f"
         },
         "description": "",
@@ -4088,7 +3816,6 @@
             "it-IT": "OMICRON",
             "pt-BR": "\u00d4MICRON",
             "ru-RU": "\u041e\u041c\u0418\u041a\u0420\u041e\u041d",
-            "zh-Hans": "\u5965\u5bc6\u514b\u620e",
             "zh-Hant": "\u6b50\u7c73\u514b\u6717"
         },
         "description": "",
@@ -4103,7 +3830,6 @@
             "it-IT": "CYBERSTAN",
             "pt-BR": "CIBERST\u00c2NIA",
             "ru-RU": "\u041a\u0418\u0411\u0415\u0420\u0421\u0422\u0410\u041d",
-            "zh-Hans": "\u751f\u5316\u65af\u5766",
             "zh-Hant": "\u751f\u5316\u65af\u5766"
         },
         "description": "",
@@ -4118,7 +3844,6 @@
             "it-IT": "FRONTERIA",
             "pt-BR": "FRONTERIA",
             "ru-RU": "\u0424\u0420\u041e\u041d\u0422\u0415\u0420\u0418\u042f",
-            "zh-Hans": "\u8fb9\u9672",
             "zh-Hant": "\u4f5b\u9686\u6cf0\u91cc\u4e9e"
         },
         "description": "",
@@ -4133,7 +3858,6 @@
             "it-IT": "HETT",
             "pt-BR": "HETT",
             "ru-RU": "\u0425\u0415\u0422\u0422",
-            "zh-Hans": "\u708e\u6838",
             "zh-Hant": "\u707c\u71b1"
         },
         "description": "",
@@ -4148,7 +3872,6 @@
             "it-IT": "DEGNO I",
             "pt-BR": "DIGNO I",
             "ru-RU": "\u0414\u041e\u0421\u0422\u041e\u0419\u041d\u0410\u042f I",
-            "zh-Hans": "\u82f1\u6770I",
             "zh-Hant": "\u69ae\u8000I"
         },
         "description": "",
@@ -4163,7 +3886,6 @@
             "it-IT": "PECE DI PINO",
             "pt-BR": "PICHE DE PINHO",
             "ru-RU": "\u0421\u041c\u041e\u041b\u0410",
-            "zh-Hans": "\u677e\u7126",
             "zh-Hant": "\u677e\u7126\u6cb9"
         },
         "description": "",
@@ -4178,7 +3900,6 @@
             "it-IT": "SOLITARIO",
             "pt-BR": "SOLIT\u00c1RIO",
             "ru-RU": "\u041e\u0414\u0418\u041d\u041e\u0427\u041a\u0410",
-            "zh-Hans": "\u72ec\u884c\u8005",
             "zh-Hant": "\u5b64\u5bc2"
         },
         "description": "A desert planet prone to unpredictable and dangerous sand twisters.",
@@ -4193,7 +3914,6 @@
             "it-IT": "PEONIA",
             "pt-BR": "PE\u00d4NIA",
             "ru-RU": "\u041f\u0418\u041e\u041d",
-            "zh-Hans": "\u7261\u4e39",
             "zh-Hant": "\u7261\u4e39"
         },
         "description": "Dense, toxic fumes from deep within the planet's crust seep out of cracks in the earth and coat the ground in a sickly haze.",
@@ -4208,7 +3928,6 @@
             "it-IT": "CALEFACTORIA",
             "pt-BR": "CALEFACT\u00d3RIA",
             "ru-RU": "\u041a\u0410\u041b\u0415\u0424\u0410\u041a\u0422\u041e\u0420\u0418\u042f",
-            "zh-Hans": "\u70bd\u5ead",
             "zh-Hant": "\u6696\u70d8"
         },
         "description": "",
@@ -4223,7 +3942,6 @@
             "it-IT": "LUXURIANT",
             "pt-BR": "LUXURIANTE",
             "ru-RU": "\u0420\u041e\u0421\u041a\u041e\u0428\u0415\u0421\u0422\u0412\u041e",
-            "zh-Hans": "\u5bcc\u6e90",
             "zh-Hant": "\u8c50\u8302"
         },
         "description": "",
@@ -4238,7 +3956,6 @@
             "it-IT": "FORTUNA XI",
             "pt-BR": "SERENDIPIDADE XI",
             "ru-RU": "\u041f\u0420\u041e\u0417\u041e\u0420\u041b\u0418\u0412\u041e\u0421\u0422\u042c XI",
-            "zh-Hans": "\u5929\u7f18XI",
             "zh-Hant": "\u6a5f\u7de3XI"
         },
         "description": "",
@@ -4253,7 +3970,6 @@
             "it-IT": "ESIGIBILIT\u00c0",
             "pt-BR": "LUCRO",
             "ru-RU": "\u041f\u0420\u0418\u0411\u042b\u041b\u042c\u041d\u041e\u0421\u0422\u042c",
-            "zh-Hans": "\u91d1\u67a2",
             "zh-Hant": "\u76c8\u5229"
         },
         "description": "The strange subversion of photosynthesis that sustains the oddly-hued flora that flourishes on this planet remains an intriguing mystery to Super Earth's greatest exo-biologists.",
@@ -4268,7 +3984,6 @@
             "it-IT": "ARGENTIS",
             "pt-BR": "ARGENTIS",
             "ru-RU": "\u0410\u0420\u0413\u0415\u041d\u0422\u0418\u0421",
-            "zh-Hans": "\u94f6\u8f89",
             "zh-Hant": "\u963f\u91d1\u63d0\u65af"
         },
         "description": "A rocky, lonely moon with extremely valuable mineral deposits underneath the surface.",
@@ -4283,7 +3998,6 @@
             "it-IT": "PROBARE",
             "pt-BR": "PROBARE",
             "ru-RU": "\u041f\u041e\u0414\u0422\u0412\u0415\u0420\u0416\u0414\u0415\u041d\u0418\u0415",
-            "zh-Hans": "\u7a76\u7406",
             "zh-Hant": "\u666e\u7f85\u5df4\u96f7"
         },
         "description": "Abundant with life, this wet planet is covered in deep oceans, thick forests, and tall grasses.",
@@ -4298,7 +4012,6 @@
             "it-IT": "CYGNIA III",
             "pt-BR": "CYGNIA III",
             "ru-RU": "\u0426\u0418\u0413\u041d\u0418\u042f III",
-            "zh-Hans": "\u897f\u683c\u5c3c\u4e9aIII",
             "zh-Hant": "\u5929\u9d5dIII"
         },
         "description": "This world teems with ethereal, boundless, and peculiar plant life that spreads silent and uninterrupted across its entire surface.",
@@ -4313,7 +4026,6 @@
             "it-IT": "COLUMBIDAE",
             "pt-BR": "COLUMBIDAE",
             "ru-RU": "\u041a\u041e\u041b\u0423\u041c\u0411\u0418\u0414\u0410",
-            "zh-Hans": "\u548c\u5e73\u9e3d",
             "zh-Hant": "\u9ce9\u9d3f\u79d1"
         },
         "description": "Scorching temperatures, high winds, and low precipitation cause a near-constant cycle of fires to sweep this planet, punctuated by short bursts of lush rebirth between infernos.",
@@ -4328,7 +4040,6 @@
             "it-IT": "PIPIONEM",
             "pt-BR": "PIPIONEM",
             "ru-RU": "\u041f\u0418\u041f\u0418\u041e\u041d\u0415\u041c",
-            "zh-Hans": "\u96cf\u9e23",
             "zh-Hant": "\u5541\u557e"
         },
         "description": "Rocky outcroppings punctuate fields of tall grass in a planet dominated by misty highland terrain.",
@@ -4343,7 +4054,6 @@
             "it-IT": "SUPERIORIA LV",
             "pt-BR": "SUPERI\u00d3RIA LV",
             "ru-RU": "\u0421\u0423\u041f\u0415\u0420\u0418\u041e\u0420\u0418\u042f LV",
-            "zh-Hans": "\u5353\u5c0a",
             "zh-Hant": "\u512a\u8d8aLV"
         },
         "description": "",
@@ -4358,7 +4068,6 @@
             "it-IT": "TANDEM",
             "pt-BR": "TANDEM",
             "ru-RU": "\u0422\u0410\u041d\u0414\u0415\u041c",
-            "zh-Hans": "\u5929\u817e",
             "zh-Hant": "\u5354\u529b"
         },
         "description": "Submerged in eternal winter, this world's frosty peaks glimmer in the light of its too-distant star.",
@@ -4373,7 +4082,6 @@
             "it-IT": "CASTIGO",
             "pt-BR": "RETRIBUT\u00c1RIO",
             "ru-RU": "\u0412\u041e\u0417\u0414\u0410\u042f\u041d\u0418\u0415",
-            "zh-Hans": "\u5929\u8c34",
             "zh-Hant": "\u8b74\u8cac"
         },
         "description": "Ice and moss-covered rock can be found across most of the surface of this planet.",
@@ -4388,7 +4096,6 @@
             "it-IT": "BASTIONE",
             "pt-BR": "DEFENS\u00c1VEL",
             "ru-RU": "\u041e\u0411\u041e\u0420\u041e\u041d\u0418\u0422\u0415\u041b\u042c\u041d\u0410\u042f",
-            "zh-Hans": "\u536b\u620d",
             "zh-Hant": "\u4fdd\u885b"
         },
         "description": "A desert planet prone to unpredictable and dangerous sand twisters.",
@@ -4403,7 +4110,6 @@
             "it-IT": "MASTINO 5",
             "pt-BR": "FISCAL 5",
             "ru-RU": "\u041e\u0425\u0420\u0410\u041d\u0418\u0422\u0415\u041b\u042c 5",
-            "zh-Hans": "\u5b88\u72ac5",
             "zh-Hant": "\u770b\u9580\u72ac5"
         },
         "description": "The lifeless grey of this planet is interrupted only by the violet flowers that grow from strange, parasitic outcroppings.",
@@ -4418,7 +4124,6 @@
             "it-IT": "AQUILA XXXII",
             "pt-BR": "\u00c1QUILA XXXII",
             "ru-RU": "\u0410\u041a\u0412\u0418\u041b\u041b\u0410 XXXII",
-            "zh-Hans": "\u5929\u9e70XXXII",
             "zh-Hant": "\u5929\u9df9XXXII"
         },
         "description": "",
@@ -4433,7 +4138,6 @@
             "it-IT": "IDONEO",
             "pt-BR": "ELEG\u00cdVEL",
             "ru-RU": "\u0420\u0410\u0417\u0420\u0415\u0428\u0415\u041d\u041d\u0410\u042f",
-            "zh-Hans": "\u5929\u5951",
             "zh-Hant": "\u5408\u683c"
         },
         "description": "Rocky outcroppings punctuate fields of tall grass in a planet dominated by misty highland terrain.",
@@ -4448,7 +4152,6 @@
             "it-IT": "PROBABILIT\u00c0",
             "pt-BR": "PROBABILIDADE",
             "ru-RU": "\u0412\u0415\u0420\u041e\u042f\u0422\u041d\u041e\u0421\u0422\u042c",
-            "zh-Hans": "\u5929\u673a",
             "zh-Hant": "\u6a5f\u7387"
         },
         "description": "The lifeless grey of this planet is interrupted only by the violet flowers that grow from strange, parasitic outcroppings.",
@@ -4463,7 +4166,6 @@
             "it-IT": "SNODO B",
             "pt-BR": "LINK B",
             "ru-RU": "\u0421\u0412\u042f\u0417\u0410\u041d\u041d\u0410\u042f B",
-            "zh-Hans": "\u94fe\u67a2B",
             "zh-Hant": "\u9023\u7d50B"
         },
         "description": "Scorching temperatures, high winds, and low precipitation cause a near-constant cycle of fires to sweep this planet, punctuated by short bursts of lush rebirth between infernos.",
@@ -4478,7 +4180,6 @@
             "it-IT": "SPERANZA",
             "pt-BR": "ESPERAN\u00c7A",
             "ru-RU": "\u041d\u0410\u0414\u0415\u0416\u0414\u0410",
-            "zh-Hans": "\u5e0c\u671b",
             "zh-Hant": "\u5e0c\u671b"
         },
         "description": "",
@@ -4493,7 +4194,6 @@
             "it-IT": "BICIPITE",
             "pt-BR": "B\u00cdCEPS",
             "ru-RU": "\u0411\u0418\u0426\u0415\u041f\u0421",
-            "zh-Hans": "\u64ce\u7a79",
             "zh-Hant": "\u4e8c\u982d\u808c"
         },
         "description": "Constant eruptions keep this planet covered in lava flows and utterly inhospitable to Democratic life. It also makes it a treasure trove of rare minerals.",
@@ -4508,7 +4208,6 @@
             "it-IT": "ADRENALE 8",
             "pt-BR": "ADRENAL 8",
             "ru-RU": "\u041d\u0410\u0414\u041f\u041e\u0427\u0415\u0427\u041d\u0418\u041a 8",
-            "zh-Hans": "\u8109\u6d8c8",
             "zh-Hant": "\u814e\u4e0a\u817a8"
         },
         "description": "Constant eruptions keep this planet covered in lava flows and utterly inhospitable to Democratic life. It also makes it a treasure trove of rare minerals.",
@@ -4523,7 +4222,6 @@
             "it-IT": "NUOVA SAGGEZZA",
             "pt-BR": "NOVA SABEDORIA",
             "ru-RU": "\u041d\u041e\u0412\u0410\u042f \u041c\u0423\u0414\u0420\u041e\u0421\u0422\u042c",
-            "zh-Hans": "\u65b0\u6167",
             "zh-Hant": "\u65b0\u667a\u6167"
         },
         "description": "Constant eruptions keep this planet covered in lava flows and utterly inhospitable to Democratic life. It also makes it a treasure trove of rare minerals.",
@@ -4538,7 +4236,6 @@
             "it-IT": "NUOVO SGUARDO",
             "pt-BR": "DISCERNIMENTO",
             "ru-RU": "\u041d\u041e\u0412\u041e\u0415 \u041e\u0417\u0410\u0420\u0415\u041d\u0418\u0415",
-            "zh-Hans": "\u65b0\u609f",
             "zh-Hant": "\u65b0\u6d1e\u5bdf"
         },
         "description": "Constant eruptions keep this planet covered in lava flows and utterly inhospitable to Democratic life. It also makes it a treasure trove of rare minerals.",
@@ -4553,7 +4250,6 @@
             "it-IT": "GROSSO MASSO",
             "pt-BR": "ROCHA GRANDE",
             "ru-RU": "\u0411\u041e\u041b\u042c\u0428\u041e\u0419 \u041a\u0410\u041c\u0415\u041d\u042c",
-            "zh-Hans": "\u5de8\u5ca9",
             "zh-Hant": "\u5de8\u77f3"
         },
         "description": "",
@@ -4568,7 +4264,6 @@
             "it-IT": "CAPARBIO",
             "pt-BR": "GENIOSO",
             "ru-RU": "\u041d\u0415\u041f\u041e\u041a\u041e\u0420\u041d\u0410\u042f",
-            "zh-Hans": "\u9038\u6cca",
             "zh-Hant": "\u8ff7\u9014"
         },
         "description": "Constant eruptions keep this planet covered in lava flows and utterly inhospitable to Democratic life. It also makes it a treasure trove of rare minerals.",
@@ -4583,7 +4278,6 @@
             "it-IT": "TERRENO",
             "pt-BR": "TERRENO",
             "ru-RU": "\u0417\u0415\u041c\u041b\u0418\u0421\u0422\u0410\u042f",
-            "zh-Hans": "\u7c7b\u5730",
             "zh-Hant": "\u571f\u58e4"
         },
         "description": "",
@@ -4598,7 +4292,6 @@
             "it-IT": "AGRIMENSORIO",
             "pt-BR": "ARABILIDADE",
             "ru-RU": "\u041f\u0410\u0425\u041e\u0422\u041e\u041f\u0420\u0418\u0413\u041e\u0414\u041d\u0410\u042f",
-            "zh-Hans": "\u6c83\u58e4",
             "zh-Hant": "\u8015\u5730"
         },
         "description": "",
@@ -4613,7 +4306,6 @@
             "it-IT": "PER FAMIGLIE",
             "pt-BR": "FAMILIAR",
             "ru-RU": "\u0414\u0420\u0423\u0413 \u0421\u0415\u041c\u042c\u0418",
-            "zh-Hans": "\u5bb6\u5b9c",
             "zh-Hant": "\u95d4\u5bb6\u6b61"
         },
         "description": "",
@@ -4628,7 +4320,6 @@
             "it-IT": "GENESI",
             "pt-BR": "NASCEN\u00c7A",
             "ru-RU": "\u041f\u041e\u042f\u0412\u041b\u0415\u041d\u0418\u0415",
-            "zh-Hans": "\u592a\u521d",
             "zh-Hant": "\u65b0\u751f"
         },
         "description": "",
@@ -4643,7 +4334,6 @@
             "it-IT": "PIUMATURA",
             "pt-BR": "EMPLUMADO",
             "ru-RU": "\u0412\u0417\u0420\u041e\u0421\u041b\u0415\u041d\u0418\u0415",
-            "zh-Hans": "\u96cf\u7fbd",
             "zh-Hant": "\u96db\u9ce5"
         },
         "description": "",
@@ -4658,7 +4348,6 @@
             "it-IT": "SAMMELSURIUM",
             "pt-BR": "SAMMELSURIUM",
             "ru-RU": "\u041c\u0415\u0428\u0410\u041d\u0418\u041d\u0410",
-            "zh-Hans": "\u55a7\u6c8c",
             "zh-Hant": "\u55a7\u6c8c"
         },
         "description": "The lifeless grey of this planet is interrupted only by the violet flowers that grow from strange, parasitic outcroppings.",
@@ -4673,7 +4362,6 @@
             "it-IT": "BALLOTTAGGIO",
             "pt-BR": "VOTO",
             "ru-RU": "\u0411\u042e\u041b\u041b\u0415\u0422\u0415\u041d\u042c",
-            "zh-Hans": "\u6c11\u671b",
             "zh-Hant": "\u9078\u7968"
         },
         "description": "The arid, rocky biome covering this world has driven the evolution of exceptionally efficient water usage in its various organisms.",
@@ -4688,7 +4376,6 @@
             "it-IT": "RESILIENZA",
             "pt-BR": "RESIST\u00caNCIA",
             "ru-RU": "\u0412\u042b\u041d\u041e\u0421\u041b\u0418\u0412\u041e\u0421\u0422\u042c",
-            "zh-Hans": "\u97e7\u57ce",
             "zh-Hant": "\u5805\u97cc\u57ce"
         },
         "description": "A blazing-hot desert planet, its rocky mesas are the sole interruptions to the endless sea of dunes.",
@@ -4703,7 +4390,6 @@
             "it-IT": "GILE",
             "pt-BR": "GILE",
             "ru-RU": "\u0416\u0418\u041b\u042c",
-            "zh-Hans": "\u5409\u5c14",
             "zh-Hant": "\u5409\u52d2"
         },
         "description": "",
@@ -4718,7 +4404,6 @@
             "it-IT": "LAMB'S PATCH",
             "pt-BR": "REMENDO DO CARNEIRO",
             "ru-RU": "\u041e\u0412\u0415\u0427\u042c\u042f \u041f\u041e\u041b\u042f\u041d\u041a\u0410",
-            "zh-Hans": "\u7f94\u539f",
             "zh-Hant": "\u7f94\u7f8a\u5712\u5730"
         },
         "description": "",
@@ -4733,7 +4418,6 @@
             "it-IT": "FRAKENEERIA",
             "pt-BR": "FRAKENEERIA",
             "ru-RU": "\u0424\u0420\u0410\u041d\u041a\u0415\u041d\u0418\u0420\u0418\u042f",
-            "zh-Hans": "\u5f17\u5170\u79d1\u5c3c\u4e9a",
             "zh-Hant": "\u5f17\u62c9\u80af\u5167\u91cc\u4e9e"
         },
         "description": "Abundant with life, this wet planet is covered in deep oceans, thick forests, and tall grasses.",
@@ -4748,7 +4432,6 @@
             "it-IT": "SHIRAHAMA",
             "pt-BR": "SHIRAHAMA",
             "ru-RU": "\u0428\u0418\u0420\u0410\u0425\u0410\u041c\u0410",
-            "zh-Hans": "\u767d\u6ee8",
             "zh-Hant": "\u767d\u6ff1"
         },
         "description": "A desert planet prone to unpredictable and dangerous sand twisters.",
@@ -4763,7 +4446,6 @@
             "it-IT": "ANDWELL",
             "pt-BR": "ANDWELL",
             "ru-RU": "\u042d\u041d\u0414\u0423\u042d\u041b\u041b",
-            "zh-Hans": "\u5b89\u5f97\u536b",
             "zh-Hant": "\u5b89\u5fb7\u7dad\u723e"
         },
         "description": "",
@@ -4778,7 +4460,6 @@
             "it-IT": "LYNX LYNX",
             "pt-BR": "LINCE-LINCE",
             "ru-RU": "\u0420\u042b\u0421\u042c-\u0420\u042b\u0421\u042c",
-            "zh-Hans": "\u731e\u7301",
             "zh-Hant": "\u731e\u7301"
         },
         "description": "",
@@ -4793,7 +4474,6 @@
             "it-IT": "ALMINA IV",
             "pt-BR": "ALMINA IV",
             "ru-RU": "\u042d\u041b\u041c\u0418\u041d\u0410 IV",
-            "zh-Hans": "\u963f\u5c14\u7c73\u7eb3IV",
             "zh-Hant": "\u963f\u723e\u7c73\u5a1cIV"
         },
         "description": "Scorching temperatures, high winds, and low precipitation cause a near-constant cycle of fires to sweep this planet, punctuated by short bursts of lush rebirth between infernos.",
@@ -4808,7 +4488,6 @@
             "it-IT": "AUSPICIO",
             "pt-BR": "AUSP\u00cdCIO",
             "ru-RU": "\u041f\u0420\u0415\u0414\u0417\u041d\u0410\u041c\u0415\u041d\u041e\u0412\u0410\u041d\u0418\u0415",
-            "zh-Hans": "\u5929\u542f",
             "zh-Hant": "\u5409\u5146"
         },
         "description": "",
@@ -4823,7 +4502,6 @@
             "it-IT": "RAYSTING",
             "pt-BR": "ARRAIA",
             "ru-RU": "\u0420\u0410\u0419\u0421\u0422\u0418\u041d\u0413",
-            "zh-Hans": "\u96f7\u65af\u6c40",
             "zh-Hant": "\u9b5a\u9b5f"
         },
         "description": "The strange subversion of photosynthesis that sustains the oddly-hued flora that flourishes on this planet remains an intriguing mystery to Super Earth's greatest exo-biologists.",
@@ -4838,7 +4516,6 @@
             "it-IT": "NOSSER",
             "pt-BR": "NOSSER",
             "ru-RU": "\u041d\u041e\u0421\u0421\u0415\u0420",
-            "zh-Hans": "\u8bfa\u745f",
             "zh-Hant": "\u8afe\u6c99"
         },
         "description": "A rocky, lonely moon with extremely valuable mineral deposits underneath the surface.",
@@ -4853,7 +4530,6 @@
             "it-IT": "SATELLARIA",
             "pt-BR": "SATEL\u00c1RIA",
             "ru-RU": "\u0421\u0410\u0422\u0415\u041b\u041b\u0410\u0420\u0418\u042f",
-            "zh-Hans": "\u536b\u73af",
             "zh-Hant": "\u85a9\u6cf0\u62c9\u91cc\u4e9e"
         },
         "description": "A crimson algae has propagated wildly across this entire planet, coating its rocky hills with a constant red that masks the spilt blood of the heroes who defend it from tyranny.",
@@ -4868,7 +4544,6 @@
             "it-IT": "FARSETTO II",
             "pt-BR": "DOUBLET II",
             "ru-RU": "\u0414\u0423\u0411\u041b\u0415\u0422 II",
-            "zh-Hans": "\u53cc\u5b50\u88f3II",
             "zh-Hant": "\u96d9\u751fII"
         },
         "description": "Abundant with life, this wet planet is covered in deep oceans, thick forests, and tall grasses.",
@@ -4883,7 +4558,6 @@
             "it-IT": "GENERAZIONE",
             "pt-BR": "GERA\u00c7\u00c3O",
             "ru-RU": "\u041f\u041e\u041a\u041e\u041b\u0415\u041d\u0418\u0415",
-            "zh-Hans": "\u6e90\u4ee3",
             "zh-Hant": "\u4e16\u4ee3"
         },
         "description": "Submerged in eternal winter, this world's frosty peaks glimmer in the light of its too-distant star.",
@@ -4898,7 +4572,6 @@
             "it-IT": "CIVILT\u00c0",
             "pt-BR": "CIVILIDADE",
             "ru-RU": "\u0413\u0420\u0410\u0416\u0414\u0410\u041d\u0421\u0422\u0412\u0415\u041d\u041d\u041e\u0421\u0422\u042c",
-            "zh-Hans": "\u793c\u5e8f",
             "zh-Hant": "\u79ae\u7bc0"
         },
         "description": "",
@@ -4913,7 +4586,6 @@
             "it-IT": "SCUTUM CANIS LUPUS",
             "pt-BR": "SCUTUM CANIS LUPUS",
             "ru-RU": "\u0421\u041a\u0423\u0422\u0423\u041c \u041a\u0410\u041d\u0418\u0421 \u041b\u042e\u041f\u0423\u0421",
-            "zh-Hans": "\u72fc\u76fe",
             "zh-Hant": "\u72fc\u76fe"
         },
         "description": "Rocky outcroppings punctuate fields of tall grass in a planet dominated by misty highland terrain.",
@@ -4928,7 +4600,6 @@
             "it-IT": "LOGISTICAE",
             "pt-BR": "LOGISTICAE",
             "ru-RU": "\u041b\u041e\u0413\u0418\u0421\u0422\u0418\u0427\u0415\u0421\u041a\u0410\u042f",
-            "zh-Hans": "\u540e\u52e4",
             "zh-Hant": "\u5f8c\u52e4"
         },
         "description": "Submerged in eternal winter, this world's frosty peaks glimmer in the light of its too-distant star.",
@@ -4943,7 +4614,6 @@
             "it-IT": "STOLTHET",
             "pt-BR": "STOLTHET",
             "ru-RU": "\u0413\u041e\u0420\u0414\u041e\u0421\u0422\u042c",
-            "zh-Hans": "\u8363\u50b2",
             "zh-Hant": "\u81ea\u8c6a"
         },
         "description": "Ice and moss-covered rock can be found across most of the surface of this planet.",
@@ -4958,7 +4628,6 @@
             "it-IT": "AVILA",
             "pt-BR": "\u00c1VILA",
             "ru-RU": "\u0410\u0412\u0418\u041b\u0418\u042f",
-            "zh-Hans": "\u963f\u7ef4\u62c9",
             "zh-Hant": "\u963f\u7dad\u62c9"
         },
         "description": "",
@@ -4973,7 +4642,6 @@
             "it-IT": "MANDILARIA",
             "pt-BR": "MANDIL\u00c1RIA",
             "ru-RU": "\u041c\u0410\u041d\u0414\u0418\u041b\u0410\u0420\u0418\u042f",
-            "zh-Hans": "\u66fc\u8fea\u62c9\u91cc\u4e9a",
             "zh-Hant": "\u66fc\u8fea\u62c9\u91cc\u4e9e"
         },
         "description": "",
@@ -4988,7 +4656,6 @@
             "it-IT": "EMBOLD",
             "pt-BR": "ENCORAJA",
             "ru-RU": "\u041e\u0411\u041e\u0414\u0420\u042f\u042e\u0429\u0410\u042f",
-            "zh-Hans": "\u65e0\u754f",
             "zh-Hant": "\u52c7\u6c23"
         },
         "description": "A perenially chilly climate has allowed short, colorful shrubs to flourish across this planet's surface.",
@@ -5003,7 +4670,6 @@
             "it-IT": "BASQUINE VIII",
             "pt-BR": "BASQUINE VIII",
             "ru-RU": "\u0411\u0410\u0421\u041a\u0421\u041a\u0410\u042f VIII",
-            "zh-Hans": "\u5df4\u65af\u91d1VIII",
             "zh-Hant": "\u5df4\u65af\u594eVIII"
         },
         "description": "",
@@ -5018,7 +4684,6 @@
             "it-IT": "FLAGELLANTES",
             "pt-BR": "FUSTIGAR",
             "ru-RU": "\u041a\u0420\u0418\u0422\u0418\u041a\u0423\u042e\u0429\u0410\u042f",
-            "zh-Hans": "\u5170\u5df4\u65af\u7279",
             "zh-Hant": "\u75db\u65a5"
         },
         "description": "Rocky outcroppings punctuate fields of tall grass in a planet dominated by misty highland terrain.",
@@ -5033,7 +4698,6 @@
             "it-IT": "BATOSTA IV",
             "pt-BR": "SOVA IV",
             "ru-RU": "\u041c\u0423\u0421\u041e\u0420\u041d\u0410\u042f IV",
-            "zh-Hans": "\u5854\u5c14\u4ec0",
             "zh-Hant": "\u75db\u64caIV"
         },
         "description": "A crimson algae has propagated wildly across this entire planet, coating its rocky hills with a constant red that masks the spilt blood of the heroes who defend it from tyranny.",
@@ -5048,7 +4712,6 @@
             "it-IT": "MIQ\u00c9",
             "pt-BR": "MIQ\u00c9",
             "ru-RU": "\u041c\u0418\u041a\u0415",
-            "zh-Hans": "\u7c73\u57fa",
             "zh-Hant": "\u7c73\u514b"
         },
         "description": "The lifeless grey of this planet is interrupted only by the violet flowers that grow from strange, parasitic outcroppings.",
@@ -5063,7 +4726,6 @@
             "it-IT": "TOR E",
             "pt-BR": "TOR E",
             "ru-RU": "\u0422\u041e\u0420 \u0418",
-            "zh-Hans": "\u6258\u5c14E",
             "zh-Hant": "\u6258\u723eE"
         },
         "description": "",
@@ -5078,7 +4740,6 @@
             "it-IT": "FANTASMA 1",
             "pt-BR": "FANTASMA 1",
             "ru-RU": "\u0424\u0410\u041d\u0422\u041e\u041c 1",
-            "zh-Hans": "\u5e7b\u5f711",
             "zh-Hant": "\u9b45\u5f711"
         },
         "description": "This world teems with ethereal, boundless, and peculiar plant life that spreads silent and uninterrupted across its entire surface.",
@@ -5093,7 +4754,6 @@
             "it-IT": "SPOYLE",
             "pt-BR": "ESP\u00d3LYO",
             "ru-RU": "\u0421\u041f\u041e\u0419\u041b\u0418",
-            "zh-Hans": "\u65af\u73c0\u4f0a\u5c14",
             "zh-Hant": "\u63a0\u596a"
         },
         "description": "Abundant with life, this wet planet is covered in deep oceans, thick forests, and tall grasses.",
@@ -5108,7 +4768,6 @@
             "it-IT": "INSIDIE",
             "pt-BR": "EMBUSTE",
             "ru-RU": "\u041a\u041e\u0412\u0410\u0420\u0421\u0422\u0412\u041e",
-            "zh-Hans": "\u5343\u60d1",
             "zh-Hant": "\u8a6d\u8a08"
         },
         "description": "Submerged in eternal winter, this world's frosty peaks glimmer in the light of its too-distant star.",
@@ -5123,7 +4782,6 @@
             "it-IT": "SPLENDOR",
             "pt-BR": "BRILHANTISMO",
             "ru-RU": "\u0413\u0415\u041d\u0418\u0410\u041b\u042c\u041d\u041e\u0421\u0422\u042c",
-            "zh-Hans": "\u74a8\u5149",
             "zh-Hant": "\u8f1d\u714c"
         },
         "description": "",
@@ -5138,7 +4796,6 @@
             "it-IT": "PIEA",
             "pt-BR": "PIEA",
             "ru-RU": "\u041f\u0418\u0415\u042f",
-            "zh-Hans": "\u76ae\u8036\u963f",
             "zh-Hant": "\u76ae\u8036\u963f"
         },
         "description": "A crimson algae has propagated wildly across this entire planet, coating its rocky hills with a constant red that masks the spilt blood of the heroes who defend it from tyranny.",
@@ -5153,7 +4810,6 @@
             "it-IT": "HUSARIA",
             "pt-BR": "HUSS\u00c1RIA",
             "ru-RU": "\u0413\u0423\u0421\u0410\u0420\u0418\u042f",
-            "zh-Hans": "\u8f7b\u9a91",
             "zh-Hant": "\u9a43\u9a0e\u5175"
         },
         "description": "Rocky outcroppings punctuate fields of tall grass in a planet dominated by misty highland terrain.",
@@ -5168,7 +4824,6 @@
             "it-IT": "OSTEHOVEL",
             "pt-BR": "OSTEHOVEL",
             "ru-RU": "\u041e\u0421\u0422\u0415\u041d\u0425\u041e\u0412\u0415\u041b",
-            "zh-Hans": "\u916a\u6495\u7279\u970d\u7ef4",
             "zh-Hant": "\u8d77\u53f8\u5228\u5200"
         },
         "description": "A blazing-hot desert planet, its rocky mesas are the sole interruptions to the endless sea of dunes.",
@@ -5183,7 +4838,6 @@
             "it-IT": "MINERVA",
             "pt-BR": "MINERVA",
             "ru-RU": "\u041c\u0418\u041d\u0415\u0420\u0412\u0410",
-            "zh-Hans": "\u5bc6\u6d85\u74e6",
             "zh-Hant": "\u5bc6\u6d85\u74e6"
         },
         "description": "",
@@ -5198,7 +4852,6 @@
             "it-IT": "ZYGOS",
             "pt-BR": "ZYGOS",
             "ru-RU": "\u0417\u0418\u0413\u041e\u0421",
-            "zh-Hans": "\u9f50\u6208\u65af",
             "zh-Hant": "\u9f4a\u6208\u65af"
         },
         "description": "",
@@ -5213,7 +4866,6 @@
             "it-IT": "PESTIS",
             "pt-BR": "PESTIS",
             "ru-RU": "\u041f\u0415\u0421\u0422\u0418\u0421",
-            "zh-Hans": "\u761f\u5389",
             "zh-Hant": "\u761f\u75ab"
         },
         "description": "Abundant with life, this wet planet is covered in deep oceans, thick forests, and tall grasses.",
@@ -5228,7 +4880,6 @@
             "it-IT": "AMITTERE",
             "pt-BR": "AMITTERE",
             "ru-RU": "\u0410\u041c\u0418\u0422\u0422\u0415\u0420\u0415",
-            "zh-Hans": "\u4e9a\u7c73\u901d\u5730",
             "zh-Hant": "\u5931\u843d"
         },
         "description": "The arid, rocky biome covering this world has driven the evolution of exceptionally efficient water usage in its various organisms.",
@@ -5243,7 +4894,6 @@
             "it-IT": "VINGE",
             "pt-BR": "VINGA",
             "ru-RU": "\u0412\u0418\u041d\u0413\u0415",
-            "zh-Hans": "\u4e91\u7ffc",
             "zh-Hant": "\u7fc5\u8180"
         },
         "description": "A blazing-hot desert planet, its rocky mesas are the sole interruptions to the endless sea of dunes.",
@@ -5258,7 +4908,6 @@
             "it-IT": "KORV",
             "pt-BR": "KORV",
             "ru-RU": "\u041a\u041e\u0420\u0412",
-            "zh-Hans": "\u79d1\u5c14\u812f",
             "zh-Hant": "\u79d1\u592b"
         },
         "description": "A rocky, lonely moon with extremely valuable mineral deposits underneath the surface.",
@@ -5273,7 +4922,6 @@
             "it-IT": "COLONIA CONLON",
             "pt-BR": "COL\u00d4NIA CONLON",
             "ru-RU": "\u041a\u041e\u041b\u041e\u041d\u0421\u041a\u0410\u042f \u041a\u041e\u041b\u041e\u041d\u0418\u042f",
-            "zh-Hans": "\u5eb7\u4f26\u62d3\u6b96\u5730",
             "zh-Hant": "\u5eb7\u502b\u6b96\u6c11\u5730"
         },
         "description": "The strange subversion of photosynthesis that sustains the oddly-hued flora that flourishes on this planet remains an intriguing mystery to Super Earth's greatest exo-biologists.",
@@ -5288,7 +4936,6 @@
             "it-IT": "DEECON",
             "pt-BR": "DEECON",
             "ru-RU": "\u0414\u0418\u041a\u041e\u041d",
-            "zh-Hans": "\u5723\u4f8d",
             "zh-Hant": "\u57f7\u4e8b"
         },
         "description": "A desert planet prone to unpredictable and dangerous sand twisters.",
@@ -5303,7 +4950,6 @@
             "it-IT": "SVITJOD",
             "pt-BR": "SVITJOD",
             "ru-RU": "\u0421\u0412\u0418\u0422\u0419\u041e\u0420\u0414",
-            "zh-Hans": "\u65af\u7ef4\u7279\u7ea6\u5fb7",
             "zh-Hant": "\u53e4\u745e\u5178"
         },
         "description": "Dense, toxic fumes from deep within the planet's crust seep out of cracks in the earth and coat the ground in a sickly haze.",
@@ -5318,7 +4964,6 @@
             "it-IT": "VICCA",
             "pt-BR": "VACCA",
             "ru-RU": "\u0412\u0410\u041a\u041a\u0410",
-            "zh-Hans": "\u74e6\u5361",
             "zh-Hant": "\u6bcd\u725b"
         },
         "description": "A blazing-hot desert planet, its rocky mesas are the sole interruptions to the endless sea of dunes.",
@@ -5333,7 +4978,6 @@
             "it-IT": "OTUR",
             "pt-BR": "OTUR",
             "ru-RU": "\u041e\u0422\u0423\u0420",
-            "zh-Hans": "\u5384\u56fe\u5c14",
             "zh-Hant": "\u5384\u904b"
         },
         "description": "Dense, toxic fumes from deep within the planet's crust seep out of cracks in the earth and coat the ground in a sickly haze.",
@@ -5348,7 +4992,6 @@
             "it-IT": "SANGIS",
             "pt-BR": "SANGIS",
             "ru-RU": "\u0421\u0410\u041d\u0413\u0418\u0421",
-            "zh-Hans": "\u8d64\u8840",
             "zh-Hant": "\u8840\u8272"
         },
         "description": "",
@@ -5363,7 +5006,6 @@
             "it-IT": "SIRIUS II",
             "pt-BR": "SIRIUS II",
             "ru-RU": "\u0421\u0418\u0420\u0418\u0423\u0421 II",
-            "zh-Hans": "\u5929\u72fc\u661fII",
             "zh-Hant": "\u5929\u72fc\u661fII"
         },
         "description": "A rocky, lonely moon with extremely valuable mineral deposits underneath the surface.",
@@ -5378,7 +5020,6 @@
             "it-IT": "HAMMARBY",
             "pt-BR": "HAMMARBY",
             "ru-RU": "\u0425\u0410\u041c\u041c\u0410\u0420\u0411\u042e",
-            "zh-Hans": "\u54c8\u9a6c\u6bd4",
             "zh-Hant": "\u54c8\u99ac\u6bd4"
         },
         "description": "A rocky, lonely moon with extremely valuable mineral deposits underneath the surface.",
@@ -5393,7 +5034,6 @@
             "it-IT": "MOMO-1",
             "pt-BR": "MOMO-1",
             "ru-RU": "\u041c\u041e\u041c\u041e-1",
-            "zh-Hans": "\u83ab\u83ab-1",
             "zh-Hant": "\u83ab\u83ab-1"
         },
         "description": "Abundant with life, this wet planet is covered in deep oceans, thick forests, and tall grasses.",
@@ -5408,7 +5048,6 @@
             "it-IT": "LINDOME",
             "pt-BR": "LINDOME",
             "ru-RU": "\u041b\u0418\u041d\u0414\u041e\u041c",
-            "zh-Hans": "\u6797\u675c\u9ed8",
             "zh-Hant": "\u6797\u675c\u9ed8"
         },
         "description": "Submerged in eternal winter, this world's frosty peaks glimmer in the light of its too-distant star.",
@@ -5423,7 +5062,6 @@
             "it-IT": "BOHUS",
             "pt-BR": "BOHUS",
             "ru-RU": "\u0411\u041e\u0425\u0423\u0421",
-            "zh-Hans": "\u5e03\u80e1\u65af",
             "zh-Hant": "\u535a\u80e1\u65af"
         },
         "description": "The lifeless grey of this planet is interrupted only by the violet flowers that grow from strange, parasitic outcroppings.",
@@ -5438,7 +5076,6 @@
             "it-IT": "NIBIRU",
             "pt-BR": "NIBIRU",
             "ru-RU": "\u041d\u0418\u0411\u0418\u0420\u0423",
-            "zh-Hans": "\u5c3c\u6bd4\u9c81",
             "zh-Hant": "\u5c3c\u6bd4\u9b6f"
         },
         "description": "Rocky outcroppings punctuate fields of tall grass in a planet dominated by misty highland terrain.",
@@ -5453,7 +5090,6 @@
             "it-IT": "GUNNAR",
             "pt-BR": "GUNNAR",
             "ru-RU": "\u0413\u042e\u041d\u041d\u0410\u0420",
-            "zh-Hans": "\u521a\u7eb3\u5c14",
             "zh-Hant": "\u53e4\u7d0d"
         },
         "description": "A rocky, lonely moon with extremely valuable mineral deposits underneath the surface.",
@@ -5468,7 +5104,6 @@
             "it-IT": "URECTEM",
             "pt-BR": "URETO",
             "ru-RU": "\u0423\u0420\u0415\u041a\u0422\u0415\u041c",
-            "zh-Hans": "\u4e4c\u96f7\u514b\u7279\u59c6",
             "zh-Hant": "\u70cf\u96f7\u514b\u63d0\u59c6"
         },
         "description": "Ice and moss-covered rock can be found across most of the surface of this planet.",
@@ -5483,7 +5118,6 @@
             "it-IT": "M\u00d6NSTER\u00c5S II",
             "pt-BR": "M\u00d6NSTER\u00c5S II",
             "ru-RU": "\u041c\u041e\u041d\u0421\u0422\u0415\u0420\u0410\u0421 II",
-            "zh-Hans": "\u95e8\u65af\u7279\u7f57\u65afII",
             "zh-Hant": "\u8499\u65af\u7279\u7f85\u65afII"
         },
         "description": "Abundant with life, this wet planet is covered in deep oceans, thick forests, and tall grasses.",
@@ -5498,7 +5132,6 @@
             "it-IT": "MONHEIM",
             "pt-BR": "MONHEIM",
             "ru-RU": "\u041c\u041e\u041d\u0425\u0415\u0419\u041c",
-            "zh-Hans": "\u8499\u6d77\u59c6",
             "zh-Hant": "\u8499\u6d77\u59c6"
         },
         "description": "",
@@ -5513,7 +5146,6 @@
             "it-IT": "DUMNONIA",
             "pt-BR": "DUNOONIA",
             "ru-RU": "\u0414\u042e\u041d\u041e\u041e\u041d\u0418\u042f",
-            "zh-Hans": "\u987f\u8bfa\u5c3c\u4e9a",
             "zh-Hant": "\u675c\u59c6\u8afe\u5c3c\u4e9e"
         },
         "description": "",
@@ -5528,7 +5160,6 @@
             "it-IT": "PAYONG",
             "pt-BR": "PAYONG",
             "ru-RU": "\u041f\u0410\u0419\u041e\u041d",
-            "zh-Hans": "\u5e87\u6c38",
             "zh-Hant": "\u96e8\u5098"
         },
         "description": "Rocky outcroppings punctuate fields of tall grass in a planet dominated by misty highland terrain.",
@@ -5543,7 +5174,6 @@
             "it-IT": "PENNYBRIDGE",
             "pt-BR": "PENNYBRIDGE",
             "ru-RU": "\u041f\u0415\u041d\u041d\u0418\u0411\u0420\u0418\u0414\u0416",
-            "zh-Hans": "\u5f6d\u5c3c\u5e03\u91cc\u5947",
             "zh-Hant": "\u4fbf\u58eb\u6a4b"
         },
         "description": "",
@@ -5558,7 +5188,6 @@
             "it-IT": "SISTEMA SCONOSCIUTO",
             "pt-BR": "SISTEMA DESCONHECIDO",
             "ru-RU": "\u041d\u0415\u0418\u0417\u0412\u0415\u0421\u0422\u041d\u0410\u042f \u0421\u0418\u0421\u0422\u0415\u041c\u0410",
-            "zh-Hans": "\u672a\u77e5\u661f\u7cfb",
             "zh-Hant": "\u672a\u77e5\u661f\u7cfb"
         },
         "description": "Abundant with life, this wet planet is covered in deep oceans, thick forests, and tall grasses.",
@@ -5573,7 +5202,6 @@
             "it-IT": "SISTEMA NON REGISTRATO",
             "pt-BR": "SISTEMA N\u00c3O REGISTRADO",
             "ru-RU": "\u041d\u0415\u0417\u0410\u0420\u0415\u0413\u0418\u0421\u0422\u0420\u0418\u0420\u041e\u0412\u0410\u041d\u041d\u0410\u042f \u0421\u0418\u0421\u0422\u0415\u041c\u0410",
-            "zh-Hans": "\u672a\u6ce8\u518c\u661f\u7cfb",
             "zh-Hant": "\u672a\u8a3b\u518a\u661f\u7cfb"
         },
         "description": "This world teems with ethereal, boundless, and peculiar plant life that spreads silent and uninterrupted across its entire surface.",
@@ -5588,7 +5216,6 @@
             "it-IT": "SISTEMA NON MAPPATO",
             "pt-BR": "SISTEMA N\u00c3O MAPEADO",
             "ru-RU": "\u041d\u0415\u041a\u0410\u0420\u0422\u041e\u0413\u0420\u0410\u0424\u0418\u0420\u041e\u0412\u0410\u041d\u041d\u0410\u042f \u0421\u0418\u0421\u0422\u0415\u041c\u0410",
-            "zh-Hans": "\u672a\u6d4b\u7ed8\u661f\u7cfb",
             "zh-Hant": "\u672a\u6e2c\u7e6a\u661f\u7cfb"
         },
         "description": "The lifeless grey of this planet is interrupted only by the violet flowers that grow from strange, parasitic outcroppings.",
@@ -5603,7 +5230,6 @@
             "it-IT": "SISTEMA IN ROVINA",
             "pt-BR": "SISTEMA EM RU\u00cdNAS",
             "ru-RU": "\u0420\u0410\u0417\u0420\u0423\u0428\u0415\u041d\u041d\u0410\u042f \u0421\u0418\u0421\u0422\u0415\u041c\u0410",
-            "zh-Hans": "\u5e9f\u589f\u661f\u7cfb",
             "zh-Hant": "\u5ee2\u589f\u661f\u7cfb"
         },
         "description": "A perenially chilly climate has allowed short, colorful shrubs to flourish across this planet's surface.",
@@ -5618,7 +5244,6 @@
             "it-IT": "SISTEMA ANOMALO",
             "pt-BR": "SISTEMA AN\u00d4MALO",
             "ru-RU": "\u0410\u041d\u041e\u041c\u0410\u041b\u042c\u041d\u0410\u042f \u0421\u0418\u0421\u0422\u0415\u041c\u0410",
-            "zh-Hans": "\u5f02\u5e38\u661f\u7cfb",
             "zh-Hant": "\u7570\u5e38\u661f\u7cfb"
         },
         "description": "Submerged in eternal winter, this world's frosty peaks glimmer in the light of its too-distant star.",
@@ -5633,7 +5258,6 @@
             "it-IT": "SISTEMA OCCULTATO",
             "pt-BR": "SISTEMA OCULTO",
             "ru-RU": "\u0421\u041a\u0420\u042b\u0422\u0410\u042f \u0421\u0418\u0421\u0422\u0415\u041c\u0410",
-            "zh-Hans": "\u9690\u853d\u661f\u7cfb",
             "zh-Hant": "\u96b1\u853d\u661f\u7cfb"
         },
         "description": "Scorching temperatures, high winds, and low precipitation cause a near-constant cycle of fires to sweep this planet, punctuated by short bursts of lush rebirth between infernos.",
@@ -5648,7 +5272,6 @@
             "it-IT": "SISTEMA RICCO DI E-710",
             "pt-BR": "SISTEMA RICO EM E-710",
             "ru-RU": "\u0411\u041e\u0413\u0410\u0422\u0410\u042f \u042d-710 \u0421\u0418\u0421\u0422\u0415\u041c\u0410",
-            "zh-Hans": "710\u5143\u7d20\u5bcc\u96c6\u661f\u7cfb",
             "zh-Hant": "E-710\u5bcc\u85cf\u661f\u7cfb"
         },
         "description": "A perenially chilly climate has allowed short, colorful shrubs to flourish across this planet's surface.",
@@ -5663,7 +5286,6 @@
             "it-IT": "SISTEMA ANNIENTATO",
             "pt-BR": "SISTEMA ANIQUILADO",
             "ru-RU": "\u0423\u041d\u0418\u0427\u0422\u041e\u0416\u0415\u041d\u041d\u0410\u042f \u0421\u0418\u0421\u0422\u0415\u041c\u0410",
-            "zh-Hans": "\u5df2\u6b7c\u706d\u661f\u7cfb",
             "zh-Hant": "\u5df2\u6bb2\u6ec5\u661f\u7cfb"
         },
         "description": "A crimson algae has propagated wildly across this entire planet, coating its rocky hills with a constant red that masks the spilt blood of the heroes who defend it from tyranny.",
@@ -5678,7 +5300,6 @@
             "it-IT": "SISTEMA VITALE",
             "pt-BR": "SISTEMA VITAL",
             "ru-RU": "\u0412\u0410\u0416\u041d\u0410\u042f \u0421\u0418\u0421\u0422\u0415\u041c\u0410",
-            "zh-Hans": "\u5173\u952e\u661f\u7cfb",
             "zh-Hant": "\u95dc\u9375\u661f\u7cfb"
         },
         "description": "Rocky outcroppings punctuate fields of tall grass in a planet dominated by misty highland terrain.",
@@ -5693,7 +5314,6 @@
             "it-IT": "SISTEMA INABITABILE",
             "pt-BR": "SISTEMA INABIT\u00c1VEL",
             "ru-RU": "\u041d\u0415\u041e\u0411\u0418\u0422\u0410\u0415\u041c\u0410\u042f \u0421\u0418\u0421\u0422\u0415\u041c\u0410",
-            "zh-Hans": "\u4e0d\u5b9c\u5c45\u661f\u7cfb",
             "zh-Hant": "\u4e0d\u5b9c\u5c45\u661f\u7cfb"
         },
         "description": "A blazing-hot desert planet, its rocky mesas are the sole interruptions to the endless sea of dunes.",
@@ -5764,7 +5384,6 @@
             "it-IT": "MERIDIA",
             "pt-BR": "MER\u00cdDIA",
             "ru-RU": "\u041c\u0415\u0420\u0418\u0414\u0418\u042f",
-            "zh-Hans": "\u9ed8\u91cc\u8fea\u4e9a",
             "zh-Hant": "\u6885\u91cc\u8fea\u4e9e"
         },
         "description": "Entirely unforeseeable mutations from the Termicide led to hyper-accelerated bug growth on this planet, turning it into a Supercolony. It is corrupted beyond saving. The bugs infest every inch of it, down to the mantle, spawning trillions of spores every day.",
@@ -5790,19 +5409,5 @@
         },
         "description": "Scorching temperatures, high winds, and low precipitation cause a near-constant cycle of fires to sweep this planet, punctuated by short bursts of lush rebirth between infernos.",
         "biome": "forest_moor_arid"
-    },
-    "2822176416": {
-        "names": {
-            "en-GB": "TIEN KWAN",
-            "de-DE": "TIEN KWAN",
-            "es-ES": "TIEN KWAN",
-            "fr-FR": "TIEN KWAN",
-            "it-IT": "TIEN KWAN",
-            "pt-BR": "TIEN KWAN",
-            "ru-RU": "\u0422\u042c\u0415\u041d-\u041a\u0412\u0410\u041d",
-            "zh-Hant": "\u5929\u95dc"
-        },
-        "description": "Ice and moss-covered rock can be found across most of the surface of this planet.",
-        "biome": "arctic_glacier_coldrocky"
     }
 }
