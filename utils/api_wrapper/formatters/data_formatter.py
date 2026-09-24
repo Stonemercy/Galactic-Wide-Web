@@ -18,7 +18,7 @@ from utils.api_wrapper.models import (
     Superstore,
     Warbond,
 )
-from utils.dataclasses import Factions, Languages
+from utils.dataclasses import Factions, Subfactions
 from utils.dataclasses.communities import arsenal
 from utils.dataclasses.enums import (
     AssignmentTaskType,
@@ -161,7 +161,7 @@ class FormattedData:
 
                 if i.buy_price != []:
                     for currency in i.buy_price:
-                        self.organised_items[i.mix_id].currency_items.append(
+                        self.organised_items[i.mix_id].buy_items.append(
                             (
                                 self.organised_items.get(currency["mixId"]),
                                 currency["amount"],
@@ -391,7 +391,6 @@ class FormattedData:
                         case (
                             AssignmentTaskType.ExtractFromLocations
                             | AssignmentTaskType.ExtractWithItem
-                            | AssignmentTaskType.KillEnemies
                             | AssignmentTaskType.CompleteObjectives
                             | AssignmentTaskType.PlayObjectives
                             | AssignmentTaskType.UseItems
@@ -422,6 +421,32 @@ class FormattedData:
                                     and p.event.faction == task.faction
                                 ):
                                     planet.in_assignment = True
+                        case AssignmentTaskType.KillEnemies:
+                            if task.progress_perc >= 1:
+                                continue
+                            if task.faction is None:
+                                for planet in self.planets.values():
+                                    if planet.active_campaign:
+                                        planet.in_assignment = True
+                            if (
+                                subfaction := Subfactions.get_from_enemy_id(
+                                    task.enemy_id
+                                )
+                            ) is not None:
+                                for planet in self.planets.values():
+                                    if subfaction in planet.subfactions:
+                                        planet.in_assignment = True
+                            else:
+                                for planet in self.planets.values():
+                                    if not planet.active_campaign:
+                                        continue
+                                    faction = (
+                                        planet.faction
+                                        if planet.event is None
+                                        else planet.event.faction
+                                    )
+                                    if faction == task.faction:
+                                        planet.in_assignment = True
                         case AssignmentTaskType.DonateItems:
                             if task.progress_perc >= 1:
                                 continue
@@ -639,12 +664,8 @@ class FormattedData:
 
         if context.control_centre.get("en"):
             self.control_centre = {
-                lang: ControlCentre(
-                    context.control_centre.get(lang),
-                    self.war_start_timestamp,
-                    self.organised_items,
-                )
-                for lang in context.control_centre
+                lang: ControlCentre(cc, self.war_start_timestamp, self.organised_items)
+                for lang, cc in context.control_centre.items()
             }
 
         if context.superstore != []:

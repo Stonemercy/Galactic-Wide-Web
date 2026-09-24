@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from utils.dataclasses import Faction, Factions
 from utils.emojis import Emojis
 
@@ -11,6 +11,7 @@ class Subfaction:
     division_effect_id: int
     token_effect_id: int
     faction: Faction
+    enemy_ids: list[int] = field(default_factory=list)
 
     def __hash__(self):
         return hash(self.resource_hash)
@@ -38,6 +39,12 @@ class Subfactions:
         1243,
         1245,
         Factions.terminids,
+        [
+            3029738043,
+            1229149324,
+            4106686024,
+            112786645,
+        ],
     )
     SPORE_BURST_STRAIN = Subfaction(
         2745424799,
@@ -46,6 +53,17 @@ class Subfactions:
         1244,
         1386,
         Factions.terminids,
+        [
+            1210082392,
+            333947844,
+            2842755544,
+            1428114468,
+            2745424799,
+            2115960485,
+            512390556,
+            1939105083,
+            3764892677,
+        ],
     )
     INCINERATION_CORPS = Subfaction(
         1703232728,
@@ -54,6 +72,18 @@ class Subfactions:
         1248,
         1249,
         Factions.automaton,
+        [
+            2861014363,
+            1127649354,
+            585039032,
+            75849082,
+            1262004523,
+            3498181594,
+            1784440447,
+            364931179,
+            2090691137,
+            1181272016,
+        ],
     )
     THE_GREAT_HOST = Subfaction(
         0,  # doesn't have a type 40 effect
@@ -70,6 +100,11 @@ class Subfactions:
         1303,
         1310,
         Factions.terminids,
+        [
+            3903153972,
+            2270698456,
+            953392591,
+        ],
     )
     DRAGONROACHES = Subfaction(
         2681574458,
@@ -78,6 +113,7 @@ class Subfactions:
         1306,
         1309,
         Factions.terminids,
+        [1378841226],
     )
     HIVE_LORDS = Subfaction(
         424440415,
@@ -86,6 +122,7 @@ class Subfactions:
         1307,
         1308,
         Factions.terminids,
+        [3929716830],
     )
     CYBORGS = Subfaction(
         141977090,
@@ -94,6 +131,11 @@ class Subfactions:
         1360,
         1361,
         Factions.automaton,
+        [
+            23741406,
+            1371180916,
+            4066406510,
+        ],
     )
     MINDLESS_MASSES = Subfaction(
         35348659,
@@ -110,6 +152,11 @@ class Subfactions:
         1380,
         1379,
         Factions.illuminate,
+        [
+            3776682558,
+            1870840792,
+            3621116014,
+        ],
     )
     INVASION_FLEET = Subfaction(
         872028856,
@@ -134,6 +181,10 @@ class Subfactions:
         1402,
         1403,
         Factions.illuminate,
+        [
+            2118086817,
+            3922421925,
+        ],
     )
 
     _all: tuple[Subfaction] = (
@@ -162,9 +213,9 @@ class Subfactions:
                 if sf.resource_hash in (ae.resource_hash for ae in active_effects)
             ]
         )
-        return subfactions
 
     @classmethod
-    def get_from_dbsf_list(cls, dbsf_list: list) -> list[Subfaction] | Subfaction:
-        sfs = [sf for sf in cls._all if sf.division_id in (ae.id for ae in dbsf_list)]
-        return sfs if len(sfs) > 1 else sfs[0]
+    def get_from_enemy_id(cls, enemy_id: int | None) -> Subfaction | None:
+        if enemy_id is None:
+            return None
+        return next((sf for sf in cls._all if enemy_id in sf.enemy_ids), None)

@@ -1,4 +1,3 @@
-from .api_changes import APIChangesContainer
 from .bot_dashboard import BotDashboardContainer
 from .campaign_changes import CampaignChangesContainer
 from .control_centre import ControlCentreContainer
@@ -19,7 +18,6 @@ from .warbonds import WarbondsContainer
 from .welcome import WelcomeContainer
 
 __all__ = [
-    "APIChangesContainer",
     "BotDashboardContainer",
     "CampaignChangesContainer",
     "ControlCentreContainer",

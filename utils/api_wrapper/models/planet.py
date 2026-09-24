@@ -117,6 +117,10 @@ class Planet(ReprMixin):
         )
 
     @property
+    def region_indices(self) -> set[int]:
+        return list(sorted(self.regions.keys()))
+
+    @property
     def exclamations(self) -> str:
         result = ""
         if self.event and self.event.type != EventType.UrgentLiberation:
@@ -150,8 +154,8 @@ class Planet(ReprMixin):
         )
 
     @property
-    def effect_ids(self) -> list[int]:
-        return [ae.id for ae in self.active_effects]
+    def effect_ids(self) -> set[int]:
+        return set([ae.id for ae in self.active_effects])
 
     @property
     def in_void(self) -> bool:
@@ -317,6 +321,14 @@ class Planet(ReprMixin):
             )
             self.is_available: bool = raw_region_status_data["isAvailable"]
             self.players: int = raw_region_status_data["players"]
+
+        def __hash__(self):
+            return hash(f"{self.planet_index}-{self.index}")
+
+        def __eq__(self, value):
+            if not isinstance(value, type(self)):
+                return False
+            return (self.planet_index, self.index) == (value.planet_index, value.index)
 
     class Stats:
         def __init__(self) -> None:

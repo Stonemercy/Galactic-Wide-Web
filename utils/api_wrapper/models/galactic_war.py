@@ -40,6 +40,17 @@ class GlobalResource(ReprMixin):
             return False
         return self.id == value.id
 
+    def __str__(self):
+        return (
+            f"Global Resource:"
+            f"\n    name = {self.name}"
+            f"\n    description = {self.description}"
+            f"\n    id = {self.id}"
+            f"\n    current amount = {self.current_value:,}"
+            f"\n    max amount = {self.max_value:,}"
+            f"\n    percent = {self.perc:.2%}"
+        )
+
     @property
     def get_health_bar(self):
         return health_bar(

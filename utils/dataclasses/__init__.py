@@ -1,4 +1,3 @@
-from .api_changes import APIChanges
 from .assignment_images import AssignmentImages
 from .config import Config
 from .bot_channels import BotChannels
@@ -17,7 +16,6 @@ from .VIPs import VIP
 from .sectors import Sector, Sectors
 
 __all__ = [
-    "APIChanges",
     "AssignmentImages",
     "BotChannels",
     "CalculatedEndTime",
