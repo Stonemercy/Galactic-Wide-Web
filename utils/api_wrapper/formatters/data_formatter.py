@@ -185,6 +185,7 @@ class FormattedData:
                     .get(str(raw_planet["settingsHash"]), {})
                     .copy(),
                     sectors_json=context.json_dict["sectors"],
+                    strings_json=context.json_dict["strings"],
                 )
                 self.planets[planet.index] = planet
                 if planet.index not in CORRECT_SECTORS.get(planet.sector, []):
