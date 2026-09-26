@@ -171,7 +171,7 @@ class GalacticWarEffect(GWEReprMixin):
             match value_type:
                 case 1:
                     if (
-                        len([v[0] == 1 for v in self.values_list]) > 1
+                        len([v[0] for v in self.values_list if v[0] == 1]) > 1
                         and self.effect_type == 36
                         and not self.stratagem_category
                     ):
