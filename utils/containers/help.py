@@ -1,5 +1,5 @@
-from disnake import APISlashCommand, Colour, OptionType
-from disnake.ui import ActionRow, Container, TextDisplay
+from disnake import APISlashCommand, Colour, MediaGalleryItem, OptionType
+from disnake.ui import ActionRow, Container, MediaGallery, TextDisplay
 from utils.interactables import (
     GuildInstallButton,
     HelpStringSelect,
@@ -10,8 +10,14 @@ from utils.interactables import (
 
 # DOESNT NEED LOCALIZATION (YET)
 class HelpContainer(Container):
-    def __init__(self, command: APISlashCommand, commands: list):
+    def __init__(self, command: APISlashCommand, commands: list, with_image: bool):
         components = []
+
+        if with_image:
+            components.append(
+                MediaGallery(MediaGalleryItem(f"attachment://{command.name}.png"))
+            )
+
         options = "" if command.options == [] else "**Options:**\n"
         for option in command.options:
             if option.type == OptionType.sub_command:

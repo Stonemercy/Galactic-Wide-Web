@@ -1,7 +1,9 @@
+from os import listdir
 from random import choice
 from disnake import (
     AppCmdInter,
     ApplicationInstallTypes,
+    File,
     InteractionContextTypes,
     MessageInteraction,
 )
@@ -16,6 +18,7 @@ PRIVATE_COMMANDS = ("global_event", "gwe", "pmajor_order", "items")
 class HelpCog(Cog):
     def __init__(self, bot: GalacticWideWebBot) -> None:
         self.bot = bot
+        self.usable_images = listdir("resources/readme")
 
     @wait_for_startup()
     @slash_command(
@@ -45,11 +48,19 @@ class HelpCog(Cog):
             ]
         )
 
+        if f"{slash_command.name}.png" in self.usable_images:
+            file = File(f"resources/readme/{slash_command.name}.png")
+        else:
+            file = None
+
         await inter.send(
             components=HelpContainer(
-                command=slash_command, commands=self.bot.global_application_commands
+                command=slash_command,
+                commands=self.bot.global_application_commands,
+                with_image=file is not None,
             ),
             ephemeral=public != "Yes",
+            file=file,
         )
 
     @Cog.listener("on_button_click")
@@ -59,15 +70,27 @@ class HelpCog(Cog):
         if not self.bot.ready:
             await self.bot.bot_not_ready(inter)
             return
+
+        slash_command = choice(
+            [
+                c
+                for c in self.bot.global_application_commands
+                if c.name not in PRIVATE_COMMANDS
+            ]
+        )
+        if f"{slash_command.name}.png" in self.usable_images:
+            file = File(f"resources/readme/{slash_command.name}.png")
+        else:
+            file = None
+
         await inter.send(
             components=HelpContainer(
-                commands=[
-                    c
-                    for c in self.bot.global_application_commands
-                    if c.name not in PRIVATE_COMMANDS
-                ],
+                command=slash_command,
+                commands=self.bot.global_application_commands,
+                with_image=file is not None,
             ),
             ephemeral=True,
+            file=file,
         )
 
     @Cog.listener("on_dropdown")
@@ -90,16 +113,22 @@ class HelpCog(Cog):
             None,
         )
         if command is None:
-            print(inter.values)
             await inter.send(
                 "That command wasn't found, please try again", ephemeral=True
             )
             return
 
+        if f"{command.name}.png" in self.usable_images:
+            file = File(f"resources/readme/{command.name}.png")
+        else:
+            file = None
+
         container = HelpContainer(
-            command=command, commands=self.bot.global_application_commands
+            command=command,
+            commands=self.bot.global_application_commands,
+            with_image=file is not None,
         )
-        await inter.response.edit_message(components=container)
+        await inter.response.edit_message(components=container, file=file)
 
 
 def setup(bot: GalacticWideWebBot) -> None:
