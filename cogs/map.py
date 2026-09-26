@@ -38,25 +38,22 @@ class MapCog(Cog):
         if not self.bot.ready:
             self.bot.logger.warning("map_poster returning - the bot isn't ready")
             return
+
         unique_langs = GWWGuilds.unique_languages()
         map_embeds = {lang: Embed(colour=Colour.dark_embed()) for lang in unique_langs}
         fifteen_minutes_ago = datetime.now(tz=timezone.utc) - timedelta(minutes=15)
-        need_to_update_maps = any(
-            [
-                lang not in self.bot.maps.latest_maps
-                or (
-                    lang in self.bot.maps.latest_maps
-                    and self.bot.maps.latest_maps[lang].updated_at < fifteen_minutes_ago
-                )
-                for lang in unique_langs
-            ]
-        )
-        if need_to_update_maps:
+        languages_that_need_updating = [
+            lang
+            for lang in unique_langs
+            if (lang not in self.bot.maps.latest_maps)
+            or (self.bot.maps.latest_maps[lang].updated_at < fifteen_minutes_ago)
+        ]
+        if len(languages_that_need_updating) > 0:
             self.bot.maps.update_base_map(
                 planets=self.bot.data.formatted_data.galactic_planets,
                 assignments=self.bot.data.formatted_data.assignments.get("en", []),
             )
-            for language_code, embed in map_embeds.items():
+            for language_code in languages_that_need_updating:
                 language_json = self.bot.json_dict["languages"][language_code]
                 self.bot.maps.localize_map(
                     language_code_short=language_code,
