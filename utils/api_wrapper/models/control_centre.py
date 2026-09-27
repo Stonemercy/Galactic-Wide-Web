@@ -150,3 +150,6 @@ class ControlCentre:
 
             def __eq__(self, value):
                 return self.id == value.id
+
+            def __repr__(self):
+                return f"Reward({self.endpoint_item.name if self.endpoint_item is not None else f'ITEM {self.id}'})x{self.amount}"

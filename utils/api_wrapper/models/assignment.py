@@ -155,7 +155,7 @@ class Assignment:
             self.endpoint_item = endpoint_items.get(self.id, None)
 
         def __repr__(self):
-            return f"Reward({self.amount}x{self.endpoint_item.name})"
+            return f"Reward({self.amount}x{self.endpoint_item.name if self.endpoint_item is not None else f'Item #{self.id}'})"
 
         def __hash__(self):
             return hash((self.id))
