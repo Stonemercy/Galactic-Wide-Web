@@ -11,10 +11,11 @@ class DispatchStringSelect(StringSelect):
             max_values=1,
             options=[
                 SelectOption(
-                    label=str(dispatch.id),
-                    description=(
+                    label=(
                         dispatch.title[:100] if dispatch.title else "Untitled dispatch"
                     ),
+                    description=(dispatch.description.replace("*", "")[:95] + "..."),
+                    value=dispatch.id,
                 )
                 for dispatch in sorted(
                     dispatches[-25:], key=lambda x: x.id, reverse=True

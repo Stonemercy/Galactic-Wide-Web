@@ -10,7 +10,7 @@ class SubfactionsStringSelect(StringSelect):
             [
                 SelectOption(
                     label=f"{sf.eng_name.title()}",
-                    description=f"{len([p for p in planets.values() if sf in p.subfactions and (p.faction != Factions.humans or p.faction == Factions.humans and p.event)])} Planets - {sum([p.stats.player_count for p in planets.values() if sf in p.subfactions and (p.faction != Factions.humans or p.faction == Factions.humans and p.event)]):,} Heroes",
+                    description=f"{len([p for p in planets.values() if sf in p.subfactions and (p.faction != Factions.humans or p.faction == Factions.humans and p.event)])} Planet(s) - {sum([p.stats.player_count for p in planets.values() if sf in p.subfactions and (p.faction != Factions.humans or p.faction == Factions.humans and p.event)]):,} Heroes",
                     emoji=sf.emoji,
                 )
                 for sf in Subfactions._all
