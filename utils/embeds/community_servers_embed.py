@@ -24,9 +24,10 @@ class CommunityServersEmbed(Embed, EmbedReprMixin):
                     name=f"{index}. {guild.name}{emoji}",
                     value=(
                         f"Members: **{guild.member_count:,}**"
-                        f"\nInvite: [Link](<https://discord.com/invite/{guild.vanity_url_code}>)"
                         f"\nLocale: **{guild.preferred_locale}**"
                         f"\nCreated: <t:{int(guild.created_at.timestamp())}:R>"
+                        f"\nBot added: <t:{int(guild.me.joined_at.timestamp())}:R>"
+                        f"\n[Invite](<https://discord.com/invite/{guild.vanity_url_code}>)"
                     ),
                 )
                 if index % 2 == 0:
@@ -34,7 +35,9 @@ class CommunityServersEmbed(Embed, EmbedReprMixin):
             else:
                 break
         try:
-            self.set_image([g for g in guilds if g.banner][0].banner.url)
+            self.set_image(
+                next((g.banner.url for g in guilds if g.banner is not None), None)
+            )
         except:
             pass
         self.set_footer(text=f"Page {page_number}")
