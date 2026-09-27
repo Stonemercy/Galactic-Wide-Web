@@ -107,7 +107,7 @@ class ControlCentreContainer(Container):
         )
         section1.append(
             TextDisplay(
-                f"# {faction_emoji} **{active_campaign.title}** {faction_emoji}"
+                f"# {faction_emoji} **{active_campaign.title.upper()}** {faction_emoji}"
                 f"\n-# {active_campaign.description}"
             )
         )
@@ -263,8 +263,8 @@ class ControlCentreContainer(Container):
         )
         section1.append(
             TextDisplay(
-                f"-# {campaign.title} {index + 1}/{max(len(campaign.phases), 3)}"  # placeholder until AH fix this
-                f"\n# {faction_emoji} **{phase.intro_title}** {faction_emoji}"
+                f"-# {campaign.title.upper()} {index + 1}/{max(len(campaign.phases), 3)}"  # placeholder until AH fix this
+                f"\n# {faction_emoji} **{phase.intro_title.upper()}** {faction_emoji}"
                 f"\n**Outcome - {STATUS_DICT.get(phase.status, 'UNKNOWN')}**"
                 f"\n-# {text_to_use}"
             )
@@ -395,9 +395,7 @@ class ControlCentreContainer(Container):
                 )
                 needs_button = False
 
-            description = (
-                f"## {campaign.faction.emoji} {campaign.title} {campaign.faction.emoji}"
-            )
+            description = f"## {campaign.faction.emoji} {campaign.title.upper()} {campaign.faction.emoji}"
             description += f"\n### {STATUS_DICT[campaign.status]}"
             match campaign.status:
                 case ControlCentreStatus.Failed:
