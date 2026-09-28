@@ -314,26 +314,31 @@ class DataService(ReprMixin):
 
             async with AltSuperstoreAuthedClient(logger=self.logger) as client:
                 mother_data = await client.get_superstore()
-                super_store_pages: dict = next(
-                    (s for s in mother_data if s["id32"] == 2776696735), None
-                )
-                if super_store_pages is not None:
-                    self._raw_stuperstore.clear()
-                    self._raw_stuperstore: list = super_store_pages.get("sections", [])
-                rotating_data = await client.get_rotating()
-                if rotating_data is not None:
-                    self._raw_stuperstore.insert(
-                        0, rotating_data.get("salesPage", {}).get("sections", [{}])[0]
+                if mother_data is not None:
+                    super_store_pages: dict = next(
+                        (s for s in mother_data if s["id32"] == 2776696735), None
                     )
+                    if super_store_pages is not None:
+                        self._raw_stuperstore.clear()
+                        self._raw_stuperstore: list = super_store_pages.get(
+                            "sections", []
+                        )
+                    rotating_data = await client.get_rotating()
+                    if rotating_data is not None:
+                        self._raw_stuperstore.insert(
+                            0,
+                            rotating_data.get("salesPage", {}).get("sections", [{}])[0],
+                        )
 
             async with AltWarbondsAuthedClient(logger=self.logger) as client:
                 self._raw_warbonds.clear()
                 index_data = await client.get_warbonds_index()
-                for warbond in index_data:
-                    specific_data = await client.get_with_id(
-                        warbond_id=warbond.get("id32")
-                    )
-                    self._raw_warbonds[warbond.get("id32")] = specific_data
+                if index_data is not None:
+                    for warbond in index_data:
+                        specific_data = await client.get_with_id(
+                            warbond_id=warbond.get("id32")
+                        )
+                        self._raw_warbonds[warbond.get("id32")] = specific_data
 
         async with ArsenalClient(logger=self.logger) as client:
             arsenal_target = await client.get_community_target()
@@ -343,7 +348,7 @@ class DataService(ReprMixin):
         self.fetching = False
 
     def format_data(self) -> None:
-        if self.formatted_data != None:
+        if self.formatted_data is not None:
             self.previous_data = self.formatted_data.copy()
         formatted_data_context = FormattedDataContext(
             war_id=self.war_id,
