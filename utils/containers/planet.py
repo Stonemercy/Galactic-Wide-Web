@@ -117,7 +117,7 @@ class PlanetContainers(list[Container]):
                         Section(
                             TextDisplay(
                                 (
-                                    f"# {planet.faction.emoji} {planet.names.get(self.lang_code, planet.name)} {planet.exclamations}"
+                                    f"# {planet.faction.emoji} [**{planet.names.get(self.lang_code, planet.name)}**](<https://helldivers.wiki.gg/wiki/Special:Search?search={planet.name.replace(' ', '_')}>) {planet.exclamations}"
                                     f"\n{component_json['sector']}: **{planet.sector}**"
                                     f"\n{component_json['owner']}: **{factions_json[planet.faction.full_name]}**{planet.faction.emoji}"
                                     f"{description}"
@@ -175,18 +175,7 @@ class PlanetContainers(list[Container]):
                     )
                     liberation_text += f"\n**{component_json['liberated']}** <t:{int(end_time_info.end_time.timestamp())}:R>\nIf the following regions are liberated:\n-# {regions_list}"
 
-            self.components.extend(
-                [
-                    Section(
-                        TextDisplay(liberation_text),
-                        accessory=WikiButton(
-                            label=f"Helldivers Wiki",
-                            link=f"https://helldivers.wiki.gg/wiki/{url_name}",
-                        ),
-                    ),
-                    Separator(),
-                ]
-            )
+            self.components.extend([TextDisplay(liberation_text), Separator()])
 
         def add_mission_stats(self, planet: Planet, component_json: dict):
             self.components.append(

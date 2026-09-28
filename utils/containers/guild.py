@@ -74,6 +74,8 @@ class GuildContainer(Container):
         text_display.content += f"👥 Members: **{guild.member_count}**"
         text_display.content += f"\n:hash: Text channels: **{len(guild.text_channels)}**\n:speaking_head: Voice channels: **{len(guild.voice_channels)}**"
         text_display.content += f"\nCreated On <t:{int(guild.created_at.timestamp())}:F>\n(<t:{int(guild.created_at.timestamp())}:R>)"
+        if not joined:
+            text_display.content += f"\nJoined On <t:{int(guild.me.joined_at.timestamp())}:F>\n(<t:{int(guild.me.joined_at.timestamp())}:R>)"
         components.extend([text_display, Separator()])
 
         text_display = TextDisplay("")

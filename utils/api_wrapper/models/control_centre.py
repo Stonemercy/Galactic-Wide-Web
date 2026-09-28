@@ -19,6 +19,9 @@ class ControlCentre:
             for r in raw_control_centre_data.get("episodes", [])
         ]
 
+    def __repr__(self):
+        return f"ControlCentre(episodes={self.episodes})"
+
     def images_required(
         self,
         episode_id: int = None,
@@ -77,6 +80,9 @@ class ControlCentre:
             self.image_id: int = raw_episode_data.get("bannerImageId32", 0)
             """default: 0"""
 
+        def __repr__(self):
+            return f"Episode(id={self.id}, title={self.title}, phases={self.phases})"
+
         def __eq__(self, value):
             return self.id == value.id
 
@@ -105,6 +111,11 @@ class ControlCentre:
                 ]
                 self.intro_image_id: int = raw_phase_data.get("introMediaId32", 0)
                 self.outro_image_id: int = raw_phase_data.get("outroMediaId32", 0)
+
+            def __repr__(self):
+                return (
+                    f"Phase(id={self.id}, title={self.outro_title or self.intro_title})"
+                )
 
             def __eq__(self, value):
                 return self.id == value.id
