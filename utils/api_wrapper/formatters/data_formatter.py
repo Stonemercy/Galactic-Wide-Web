@@ -328,7 +328,11 @@ class FormattedData:
         if context.news_feed.get("en"):
             for lang, dispatches in context.news_feed.items():
                 for dispatch in dispatches:
-                    if dispatch["message"].count("_") > dispatch["message"].count(" "):
+                    if lang == "en":
+                        continue
+                    if (dispatch.get("message") is None) or (
+                        dispatch["message"].count("_") > dispatch["message"].count(" ")
+                    ):
                         if (
                             english_dispatch := next(
                                 (
@@ -339,7 +343,7 @@ class FormattedData:
                                 None,
                             )
                         ) is not None:
-                            dispatch["message"] = english_dispatch["message"]
+                            dispatch["message"] = english_dispatch.get("message", "")
                 self.dispatches[lang] = [
                     Dispatch(
                         raw_dispatch_data=dispatch_data,
