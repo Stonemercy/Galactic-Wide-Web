@@ -43,7 +43,7 @@
                 },
                 "ORBITAL BLOCKADE": {
                     "name": "BLOCUS ORBITAL",
-                    "description": "-# Les **campagnes de défense** ne peuvent pas être lancées depuis cette planète.\n-# Le booster **Optimisation de l'habitacle du Hellpod** est automatiquement actif pour toutes les missions."
+                    "description": "-# Les **campagnes de défense** ne peuvent pas être lancées depuis cette planète.\n-# Le bonus **Optimisation de l'habitacle du Hellpod** est automatiquement actif pour toutes les missions."
                 },
                 "HEAVY ORDNANCE DISTRIBUTION": {
                     "name": "DISTRIBUTION DE MUNITIONS LOURDES",
@@ -51,7 +51,7 @@
                 },
                 "EAGLE BLOCKADE": {
                     "name": "BLOCUS D'AIGLE",
-                    "description": "-# Déploie périodiquement des **Mitraillages de l'Aigle** pendant les missions.\n-# Le booster **Optimisation de l'habitacle du Hellpod** est automatiquement actif pour toutes les missions."
+                    "description": "-# Déploie périodiquement des **Mitraillages de l'Aigle** pendant les missions.\n-# Le bonus **Optimisation de l'habitacle du Hellpod** est automatiquement actif pour toutes les missions."
                 }
             }
         },
@@ -63,7 +63,7 @@
             "active_on_planets": "Actif sur les planètes suivantes ",
             "enemy": "Ennemi identifié",
             "stratagem": "Stratagème identifié",
-            "booster": "Booster identifié",
+            "booster": "Bonus identifié",
             "expires": "Expire",
             "global_event": "Événement mondial"
         },
@@ -238,7 +238,7 @@
                     },
                     "ORBITAL BLOCKADE": {
                         "name": "BLOCUS ORBITAL",
-                        "description": "-# Les **campagnes de défense** ne peuvent pas être lancées depuis cette planète.\n-# Le booster **Optimisation de l'habitacle du Hellpod** est automatiquement actif pour toutes les missions."
+                        "description": "-# Les **campagnes de défense** ne peuvent pas être lancées depuis cette planète.\n-# Le bonus **Optimisation de l'habitacle du Hellpod** est automatiquement actif pour toutes les missions."
                     },
                     "HEAVY ORDNANCE DISTRIBUTION": {
                         "name": "DISTRIBUTION DE MUNITIONS LOURDES",
@@ -246,7 +246,7 @@
                     },
                     "EAGLE BLOCKADE": {
                         "name": "BLOCUS D'AIGLE",
-                        "description": "-# Déploie périodiquement des **Mitraillages de l'Aigle** pendant les missions.\n-# Le booster **Optimisation de l'habitacle du Hellpod** est automatiquement actif pour toutes les missions."
+                        "description": "-# Déploie périodiquement des **Mitraillages de l'Aigle** pendant les missions.\n-# Le bonus **Optimisation de l'habitacle du Hellpod** est automatiquement actif pour toutes les missions."
                     }
                 }
             },
@@ -301,7 +301,7 @@
                 },
                 "ORBITAL BLOCKADE": {
                     "name": "BLOCUS ORBITAL",
-                    "description": "-# Les **campagnes de défense** ne peuvent pas être lancées depuis cette planète.\n-# Le booster **Optimisation de l'habitacle du Hellpod** est automatiquement actif pour toutes les missions."
+                    "description": "-# Les **campagnes de défense** ne peuvent pas être lancées depuis cette planète.\n-# Le bonus **Optimisation de l'habitacle du Hellpod** est automatiquement actif pour toutes les missions."
                 },
                 "HEAVY ORDNANCE DISTRIBUTION": {
                     "name": "DISTRIBUTION DE MUNITIONS LOURDES",
@@ -309,7 +309,7 @@
                 },
                 "EAGLE BLOCKADE": {
                     "name": "BLOCUS D'AIGLE",
-                    "description": "-# Déploie périodiquement des **Mitraillages de l'Aigle** pendant les missions.\n-# Le booster **Optimisation de l'habitacle du Hellpod** est automatiquement actif pour toutes les missions."
+                    "description": "-# Déploie périodiquement des **Mitraillages de l'Aigle** pendant les missions.\n-# Le bonus **Optimisation de l'habitacle du Hellpod** est automatiquement actif pour toutes les missions."
                 }
             }
         }
