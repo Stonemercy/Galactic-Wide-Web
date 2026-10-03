@@ -10,7 +10,7 @@
             "gambit": "Gambit",
             "liberated": "La planète **{planet_name}** a été libérée des **{faction_name}**",
             "defended": "La planète **{planet_name}** a été défendue avec succès contre les **{faction_name}**",
-            "ahead_of_schedule": ", **{hours_remaining} heure(s)** en avance sur les prévisions !",
+            "ahead_of_schedule": ", **{hours_remaining} heure(s)** en avance sur les prévisions",
             "defend": "### DÉFENDRE **{planet_name}** {emojis}",
             "invasion_level": "\n-# Niveau d'invasion : **{level}{emoji}**",
             "ends": "\n-# Se termine <t:{timestamp}:R>",
@@ -72,7 +72,7 @@
                 "planet_info": {
                     "sector": "Secteur",
                     "owner": "Propriétaire",
-                    "hazards": "Danger(s)",
+                    "hazards": "Dangers",
                     "biome": "Biome",
                     "heroes": "Héros",
                     "liberated": "Libérée"
@@ -83,7 +83,7 @@
                     "missions_lost": "Missions échouées",
                     "missions_winrate": "Taux de victoire des missions",
                     "missions_time_spent": "Temps passé en missions",
-                    "years": "années"
+                    "years": "ans"
                 },
                 "hero_stats": {
                     "title": "📈 Statistiques des héros",
