@@ -479,38 +479,43 @@ class Dashboard:
                                     )
                         case AssignmentTaskType.DefendFromAttacks:
                             required_wins = task.target - task.progress
-                            defence_events = [
+                            if required_wins <= 0:
+                                continue
+                            events_to_track = [
                                 p
                                 for p in self.planets.values()
                                 if p.event and p.event.type == EventType.Defence
                             ]
-                            if task.planet_index != None:
-                                defence_events = [
+                            if task.planet_index is not None:
+                                events_to_track = [
                                     p
-                                    for p in defence_events.copy()
+                                    for p in events_to_track.copy()
                                     if p.index == task.planet_index
                                 ]
-                            elif task.sector_index:
-                                defence_events = [
+                            elif task.sector_index is not None:
+                                events_to_track = [
                                     p
-                                    for p in defence_events
-                                    if p._sector == task.sector_index
+                                    for p in events_to_track.copy()
+                                    if p.sector.lower()
+                                    == self.json_dict["sectors"]
+                                    .get(str(task.sector_index), "")
+                                    .lower()
                                 ]
-                            elif task.faction:
-                                defence_events = [
+                            elif task.faction is not None:
+                                events_to_track = [
                                     p
-                                    for p in defence_events.copy()
+                                    for p in events_to_track.copy()
                                     if p.event.faction == task.faction
                                 ]
-                            if len(defence_events) >= required_wins:
+                            if len(events_to_track) >= required_wins:
                                 victory_timestamps = []
-                                for planet in defence_events:
+                                for planet in events_to_track:
                                     end_time_info = get_end_time(
                                         source_planet=planet,
                                         gambit_planets=self.gambit_planets,
                                     )
                                     if (
-                                        end_time_info.end_time
+                                        end_time_info.end_time is not None
                                         and end_time_info.end_time
                                         < self.assignment.ends_at_datetime
                                     ):
