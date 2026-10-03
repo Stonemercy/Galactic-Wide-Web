@@ -8,62 +8,62 @@
             "losses": "DÉFAITES",
             "new_campaigns": "NOUVELLES CAMPAGNES",
             "gambit": "Gambit",
-            "liberated": "**{planet_name}** a été libéré des **{faction_name}**",
-            "defended": "**{planet_name}** a été défendu avec succès contre les **{faction_name}**",
-            "ahead_of_schedule": ", **{hours_remaining} heure(s)** en avance sur le planning!",
+            "liberated": "La planète **{planet_name}** a été libérée des **{faction_name}**",
+            "defended": "La planète **{planet_name}** a été défendue avec succès contre les **{faction_name}**",
+            "ahead_of_schedule": ", **{hours_remaining} heure(s)** en avance sur les prévisions",
             "defend": "### DÉFENDRE **{planet_name}** {emojis}",
-            "invasion_level": "\n-# Niveau d'invasion **{level}{emoji}**",
+            "invasion_level": "\n-# Niveau d'invasion : **{level}{emoji}**",
             "ends": "\n-# Se termine <t:{timestamp}:R>",
             "liberate": "### LIBÉRER **{planet_name}** {emojis}",
-            "resistance": "\n-# Résistance : **{regen}/hr**",
-            "planet_lost": "**{planet_name}** a été perdu au profit des **{faction_name}** {emojis}",
-            "urgently_liberate": "### URGENTLY LIBERATE **{planet_name}** {emojis}",
-            "urgency_level": "\n-# Urgency Level **{level}{emoji}**"
+            "resistance": "\n-# Résistance : **{regen}/h**",
+            "planet_lost": "La planète **{planet_name}** a été perdue au profit des **{faction_name}** {emojis}",
+            "urgently_liberate": "### LIBÉRER D'URGENCE **{planet_name}** {emojis}",
+            "urgency_level": "\n-# Niveau d'urgence : **{level}{emoji}**"
         },
         "DispatchContainer": {
-            "dispatch": "Envoi",
-            "with_time": "\n\n-# Envoyé <t:{timestamp}:R>"
+            "dispatch": "Dépêche",
+            "with_time": "\n\n-# Envoyée <t:{timestamp}:R>"
         },
         "DSSChangesContainer": {
-            "title": "Mises à jour de la DSS",
+            "title": "Mises à jour de la SSD",
             "gambit": "Gambit",
-            "has_moved": "\nLa DSS a déménagée de **{planet_name1}** à **{planet_name2}** {emojis}",
-            "ta_status_change": "\n**{ta_name}** est maintenant **{status}**",
+            "has_moved": "\nLa SSD s'est déplacée de **{planet_name1}** à **{planet_name2}** {emojis}",
+            "ta_status_change": "\nL'action tactique **{ta_name}** est désormais **{status}**",
             "preparing": "en préparation",
-            "active": "actif",
-            "inactive": "inactif",
+            "active": "active",
+            "inactive": "inactive",
             "on_cooldown": "en recharge",
             "prep_starts": "Début de la préparation",
-            "required_cost": "\n-# Nécessite **{amount}** {item_name} pour activer",
+            "required_cost": "\n-# Nécessite **{amount}** {item_name} pour l'activation",
             "expires": "Expire",
             "tactical_actions": {
                 "EAGLE STORM": {
-                    "name": "EAGLE STORM",
-                    "description": "-# Déploie périodiquement les **Eagle Airstrikes** pendant les missions.\n-# Halte la progression ennemie dans les **Campagnes de Défense**."
+                    "name": "TEMPÊTE D'AIGLE",
+                    "description": "-# Déploie périodiquement des **Frappes aériennes Eagle** pendant les missions.\n-# Interrompt la progression ennemie dans les **campagnes de défense**."
                 },
                 "ORBITAL BLOCKADE": {
-                    "name": "ORBITAL BLOCKADE",
-                    "description": "-# Les **Campagnes de Défense** ne peuvent pas partir de cette planète.\n-# Le booster **HELLPOD SPACE OPTIMISATION** est automatiquement actif pour toutes les missions."
+                    "name": "BLOCUS ORBITAL",
+                    "description": "-# Les **campagnes de défense** ne peuvent pas être lancées depuis cette planète.\n-# Le bonus **Optimisation de l'habitacle du Hellpod** est automatiquement actif pour toutes les missions."
                 },
                 "HEAVY ORDNANCE DISTRIBUTION": {
-                    "name": "HEAVY ORDNANCE DISTRIBUTION",
-                    "description": "-# Donne accès au stratagème **Orbital 380mm HE Barrage** pendant les missions.\n-# Accélère la progression dans les **Campagnes de Libération**."
+                    "name": "DISTRIBUTION DE MUNITIONS LOURDES",
+                    "description": "-# Donne accès au stratagème **Barrage orbital HE de 380 mm** pendant les missions.\n-# Accélère la progression dans les **campagnes de libération**."
                 },
                 "EAGLE BLOCKADE": {
-                    "name": "EAGLE BLOCKADE",
-                    "description": "-# Déploie périodiquement les **Eagle Strafing Runs** pendant les missions.\n-# Le booster **HELLPOD SPACE OPTIMIZATION** est automatiquement actif pour toutes les missions."
+                    "name": "BLOCUS D'AIGLE",
+                    "description": "-# Déploie périodiquement des **Mitraillages de l'Aigle** pendant les missions.\n-# Le bonus **Optimisation de l'habitacle du Hellpod** est automatiquement actif pour toutes les missions."
                 }
             }
         },
         "GlobalEventsContainer": {
-            "effect": "Effect",
+            "effect": "Effet",
             "new_event": "Nouvel événement mondial",
-            "all_planets": "toutes les planètes",
+            "all_planets": "Toutes les planètes",
             "unknown_effect": "EFFET INCONNU",
-            "active_on_planets": "Maintenant actif sur les planètes suivantes",
+            "active_on_planets": "Actif sur les planètes suivantes ",
             "enemy": "Ennemi identifié",
             "stratagem": "Stratagème identifié",
-            "booster": "Booster identifié",
+            "booster": "Bonus identifié",
             "expires": "Expire",
             "global_event": "Événement mondial"
         },
@@ -72,15 +72,15 @@
                 "planet_info": {
                     "sector": "Secteur",
                     "owner": "Propriétaire",
-                    "hazards": "Danger(s)",
+                    "hazards": "Dangers",
                     "biome": "Biome",
                     "heroes": "Héros",
-                    "liberated": "Libéré"
+                    "liberated": "Libérée"
                 },
                 "mission_stats": {
                     "title": "📊 Statistiques de mission",
-                    "missions_won": "Missions gagnées",
-                    "missions_lost": "Missions perdues",
+                    "missions_won": "Missions réussies",
+                    "missions_lost": "Missions échouées",
                     "missions_winrate": "Taux de victoire des missions",
                     "missions_time_spent": "Temps passé en missions",
                     "years": "ans"
@@ -89,7 +89,7 @@
                     "title": "📈 Statistiques des héros",
                     "active_heroes": "Héros actifs",
                     "heroes_lost": "Héros perdus",
-                    "accidentals": "Accidentels",
+                    "accidentals": "Pertes accidentelles",
                     "shots_fired": "Tirs effectués",
                     "shots_hit": "Tirs réussis",
                     "accuracy": "Précision"
@@ -100,20 +100,20 @@
             },
             "RegionContainer": {
                 "heroes": "Héros",
-                "boost_when_liberated": "Boost lorsqu'il est libéré",
-                "liberated": "Libéré",
+                "boost_when_liberated": "Bonus à la libération",
+                "liberated": "Libérée",
                 "liberation": "Libération",
                 "defence_duration": "Durée de la défense",
-                "unlocked_when": "\nDéverrouille lorsque **{stat_to_use}** atteint **{av_factor}**"
+                "unlocked_when": "\nSe déverrouille lorsque **{stat_to_use}** atteint **{av_factor}**"
             }
         },
         "RegionChangesContainer": {
             "title": "MISES À JOUR DE RÉGION",
             "victories": "VICTOIRES",
             "new_regions": "NOUVELLES RÉGIONS DISPONIBLES",
-            "region_victory": "\n### {region_emoji} {region_name} sur {planet_name} a été libéré des {faction_name}",
+            "region_victory": "\n### La région {region_emoji} **{region_name}**, sur **{planet_name}**, a été libérée des {faction_name}",
             "new_region": "### {region_emoji} {region_name} est maintenant disponible sur {planet_name}",
-            "resistance": "\n-# Résistance : **{regen}/hr**"
+            "resistance": "\n-# Résistance : **{regen}/h**"
         },
         "SetupContainer": {
             "shard_info": "Votre serveur est sur le fragment #**{shard_id}** - **{latency}ms**",
@@ -127,33 +127,33 @@
             "map_desc": "-# Une carte galactique qui se met à jour chaque heure à **##:05** (ex. 09:05)\n",
             "map_channel_select": "Sélectionnez le canal pour la carte",
             "war_announcements_title": "Annonces de guerre",
-            "war_announcements_desc": "-# Annonces générales concernant la guerre (ex. Nouveaux MO, planètes perdues/gagnées, dispatches générales, etc.)\n",
-            "dss_announcements_title": "Annonces du DSS",
-            "dss_announcements_desc": "-# Annonces concernant le DSS (ex. déplacements du DSS ou changements de statut des actions tactiques)\n",
+            "war_announcements_desc": "-# Annonces générales concernant la guerre (ex. Nouveaux MO, planètes perdues/gagnées, dépêches générales, etc.)\n",
+            "dss_announcements_title": "Annonces de la Station Spatiale Démocratique",
+            "dss_announcements_desc": "-# Annonces concernant la SSD (ex. déplacements de la SSD ou changements de statut des actions tactiques)\n",
             "region_announcements_title": "Annonces de région",
             "region_announcements_desc": "-# Annonces concernant les régions planétaires (ex. nouvelles régions apparues ou régions conquises, etc.)\n",
             "patch_notes_title": "Notes de mise à jour",
             "patch_notes_desc": "-# Fournit des liens vers les annonces Steam du jeu\n",
             "major_order_updates_title": "Mises à jour des Ordres Majeurs",
-            "major_order_updates_desc": "-# Fournit des mises à jour pour les ordres majeurs actifs à <t:1737786000:t> et <t:1737829200:t>\n",
+            "major_order_updates_desc": "-# Fournit des mises à jour pour les ordres majeurs actifs à <t:1783232400:t> et <t:1783275600:t>\n",
             "personal_order_updates_title": "Mises à jour des Ordres Personnels",
             "personal_order_updates_desc": "-# Fournit des mises à jour pour les ordres personnels actifs à <t:1783244100:t>\n",
-            "detailed_dispatches_title": "Dispatches détaillés",
-            "detailed_dispatches_desc": "-# Fournit les dispatches plus détaillés du haut commandement de la Super Terre\n",
+            "detailed_dispatches_title": "Dépêches détaillées",
+            "detailed_dispatches_desc": "-# Fournit les dépêches détaillées du haut commandement de la Super-Terre\n",
             "feature_channel_select": "Sélectionnez le canal pour cette fonctionnalité",
             "language_button": "Langue",
             "language": "{flag_emoji} Langue",
             "language_select": "Sélectionnez la langue souhaitée",
-            "set_feature": "Définir {feature}",
-            "clear_feature": "Effacer {feature}"
+            "set_feature": "Configurer {feature}",
+            "clear_feature": "Supprimer {feature}"
         }
     },
     "embeds": {
         "Dashboard": {
-            "outlook": "Perspective",
+            "outlook": "Prévisions",
             "HomeworldCampaignEmbed": {
                 "battle_for": "BATAILLE POUR",
-                "automaton_description": "-# Tracez un chemin à travers les Méga-usines vers la Capitale Cyborg—la plus grande Méga-usine et le centre de la résistance Cyborg.\n-# Détruisez-la avant que nos **Forces en Réserve** ne soient épuisées pour libérer **CYBERSTAN**",
+                "automaton_description": "-# Tracez un chemin à travers les Méga-usines vers la Capitale Cyborg — la plus grande Méga-usine et le centre de la résistance Cyborg.\n-# Détruisez-la avant que nos **Forces en Réserve** ne soient épuisées pour libérer **CYBERSTAN**",
                 "victory": "Victoire",
                 "heroes": "Héros"
             },
@@ -161,14 +161,14 @@
                 "assignment": "Affectation #{id}",
                 "rewards": "Récompenses",
                 "reward_pluralized": "{reward}s",
-                "ahead_of_schedule": "\n-# **{hours}h {minutes}m** en avance sur le planning",
-                "behind_schedule": "\n-# **{hours}h {minutes}m** en retard sur le planning",
+                "ahead_of_schedule": "\n-# **{hours}h {minutes}m** en avance sur les prévisions",
+                "behind_schedule": "\n-# **{hours}h {minutes}m** en retard sur les prévisions",
                 "avail_thanks_to_wp": "\n-# Disponible **<t:{timestamp}:R>** grâce à la libération de **{planet_name}**",
                 "progress": "Progrès",
-                "complete": "Complété",
+                "complete": "Terminé",
                 "tasks": {
-                    "-1_from_loss": "\n-# **-1** suite à la perte de **{planet}** {timestamp}",
-                    "+1_from_lib": "\n-# **+1** suite à la libération de **{planet}** {timestamp}",
+                    "-1_from_loss": "\n-# **-1** à cause de la perte de **{planet}** {timestamp}",
+                    "+1_from_lib": "\n-# **+1** grâce à la libération de **{planet}** {timestamp}",
                     "option": "Option",
                     "times": "fois",
                     "against": "contre",
@@ -182,8 +182,8 @@
                     "loc_on_any": "sur n'importe quel",
                     "loc_controlled": "planète contrôlée",
                     "in_mp": " en **multijoueur**",
-                    "diff_on": "sur",
-                    "diff_or_higher": "ou plus",
+                    "diff_on": "en difficulté",
+                    "diff_or_higher": "ou supérieure",
                     "on_the_planet": "sur",
                     "on_faction_planet": "sur une planète contrôlée par les",
                     "typeUNK": "{emoji} TÂCHE INCONNUE",
@@ -220,39 +220,39 @@
                 "title": "Station spatiale démocratique",
                 "station_moves": "Mouvements de la station",
                 "current_location": "Emplacement actuel",
-                "next_location": "Prochain emplacement (Vote majoritaire actuel)",
+                "next_location": "Prochain emplacement prévu (vote majoritaire actuel)",
                 "vote_reminder": "DÉPLACEMENT BIENTÔT - RAPPELEZ-VOUS DE VOTER",
-                "voting_mode": "MODE DE VOTE ACTIVÉ",
+                "voting_mode": "VOTES OUVERTS",
                 "select": "Sélectionnez la destination pour ce processus démocratique",
                 "votes": "Votes",
                 "status": "Statut",
                 "preparing": "En préparation",
                 "active": "Actif",
-                "on_cooldown": "En cooldown",
-                "off_cooldown": "Hors cooldown",
+                "on_cooldown": "En recharge",
+                "off_cooldown": "Recharge terminée",
                 "inactive": "Inactif",
                 "tactical_actions": {
                     "EAGLE STORM": {
-                        "name": "EAGLE STORM",
-                        "description": "-# Déploie périodiquement les **Eagle Airstrikes** pendant les missions.\n-# Halte la progression ennemie dans les **Campagnes de Défense**."
+                        "name": "TEMPÊTE D'AIGLE",
+                        "description": "-# Déploie périodiquement des **Frappes aériennes Eagle** pendant les missions.\n-# Interrompt la progression ennemie dans les **campagnes de défense**."
                     },
                     "ORBITAL BLOCKADE": {
-                        "name": "ORBITAL BLOCKADE",
-                        "description": "-# Les **Campagnes de Défense** ne peuvent pas partir de cette planète.\n-# Le booster **HELLPOD SPACE OPTIMISATION** est automatiquement actif pour toutes les missions."
+                        "name": "BLOCUS ORBITAL",
+                        "description": "-# Les **campagnes de défense** ne peuvent pas être lancées depuis cette planète.\n-# Le bonus **Optimisation de l'habitacle du Hellpod** est automatiquement actif pour toutes les missions."
                     },
                     "HEAVY ORDNANCE DISTRIBUTION": {
-                        "name": "HEAVY ORDNANCE DISTRIBUTION",
-                        "description": "-# Donne accès au stratagème **Orbital 380mm HE Barrage** pendant les missions.\n-# Accélère la progression dans les **Campagnes de Libération**."
+                        "name": "DISTRIBUTION DE MUNITIONS LOURDES",
+                        "description": "-# Donne accès au stratagème **Barrage orbital HE de 380 mm** pendant les missions.\n-# Accélère la progression dans les **campagnes de libération**."
                     },
                     "EAGLE BLOCKADE": {
-                        "name": "EAGLE BLOCKADE",
-                        "description": "-# Déploie périodiquement les **Eagle Strafing Runs** pendant les missions.\n-# Le booster **HELLPOD SPACE OPTIMIZATION** est automatiquement actif pour toutes les missions."
+                        "name": "BLOCUS D'AIGLE",
+                        "description": "-# Déploie périodiquement des **Mitraillages de l'Aigle** pendant les missions.\n-# Le bonus **Optimisation de l'habitacle du Hellpod** est automatiquement actif pour toutes les missions."
                     }
                 }
             },
             "UrgentLiberationsEmbed": {
-                "title": "Urgent Liberations",
-                "urgency_level": "Urgency Level"
+                "title": "Libérations urgentes",
+                "urgency_level": "Niveau d'urgence"
             },
             "DefenceEmbed": {
                 "title": "Défense",
@@ -266,14 +266,14 @@
                 "available": "disponible"
             },
             "AttackEmbed": {
-                "title": "Attaque {faction}",
+                "title": "Attaque contre les {faction}",
                 "heroes": "Héros",
                 "victory": "Victoire",
                 "gambit_for": "GAMBIT POUR",
-                "recon_campaign": "Campagne de Reconnaissance",
+                "recon_campaign": "Campagne de reconnaissance",
                 "reg_avail_at": "disponible à",
                 "if_regions": "Si les régions suivantes sont libérées",
-                "low_impact": "Planètes à faible impact/population"
+                "low_impact": "Planètes à faible impact ou à faible population"
             },
             "FooterEmbed": {
                 "other_updated": "Mis à jour le",
@@ -286,47 +286,47 @@
         },
         "DSSEmbed": {
             "title": "Station spatiale démocratique",
-            "stationed_at": "Stationée sur **{planet}** {faction_emoji}\n",
+            "stationed_at": "Stationnée sur **{planet}** {faction_emoji}\n",
             "next_move": "Déplacement dans {timestamp}",
             "preparing": "En préparation",
             "active": "Actif",
             "inactive": "Inactif",
-            "on_cooldown": "En cooldown",
-            "off_cooldown": "Hors cooldown",
+            "on_cooldown": "En recharge",
+            "off_cooldown": "Recharge terminée",
             "status": "Statut",
             "tactical_actions": {
                 "EAGLE STORM": {
-                    "name": "EAGLE STORM",
-                    "description": "-# Déploie périodiquement les **Eagle Airstrikes** pendant les missions.\n-# Halte la progression ennemie dans les **Campagnes de Défense**."
+                    "name": "TEMPÊTE D'AIGLE",
+                    "description": "-# Déploie périodiquement des **Frappes aériennes Eagle** pendant les missions.\n-# Interrompt la progression ennemie dans les **campagnes de défense**."
                 },
                 "ORBITAL BLOCKADE": {
-                    "name": "ORBITAL BLOCKADE",
-                    "description": "-# Les **Campagnes de Défense** ne peuvent pas partir de cette planète.\n-# Le booster **HELLPOD SPACE OPTIMISATION** est automatiquement actif pour toutes les missions."
+                    "name": "BLOCUS ORBITAL",
+                    "description": "-# Les **campagnes de défense** ne peuvent pas être lancées depuis cette planète.\n-# Le bonus **Optimisation de l'habitacle du Hellpod** est automatiquement actif pour toutes les missions."
                 },
                 "HEAVY ORDNANCE DISTRIBUTION": {
-                    "name": "HEAVY ORDNANCE DISTRIBUTION",
-                    "description": "-# Donne accès au stratagème **Orbital 380mm HE Barrage** pendant les missions.\n-# Accélère la progression dans les **Campagnes de Libération**."
+                    "name": "DISTRIBUTION DE MUNITIONS LOURDES",
+                    "description": "-# Donne accès au stratagème **Barrage orbital HE de 380 mm** pendant les missions.\n-# Accélère la progression dans les **campagnes de libération**."
                 },
                 "EAGLE BLOCKADE": {
-                    "name": "EAGLE BLOCKADE",
-                    "description": "-# Déploie périodiquement les **Eagle Strafing Runs** pendant les missions.\n-# Le booster **HELLPOD SPACE OPTIMIZATION** est automatiquement actif pour toutes les missions."
+                    "name": "BLOCUS D'AIGLE",
+                    "description": "-# Déploie périodiquement des **Mitraillages de l'Aigle** pendant les missions.\n-# Le bonus **Optimisation de l'habitacle du Hellpod** est automatiquement actif pour toutes les missions."
                 }
             }
         }
     },
     "ends": "Se termine",
     "message": "Message #{message_id}",
-    "complete": "Complété",
+    "complete": "Terminé",
     "failure": "Échec",
     "regions": {
-        "megafactory": "Class {number} Méga-usine",
-        "4": "Méga-Cité",
+        "megafactory": "Méga-usine de classe {number}",
+        "4": "Méga-cité",
         "3": "Ville",
         "2": "Bourg",
         "1": "Colonie"
     },
     "setup": {
-        "cant_find_channel": "Je ne trouve pas du tout ce canal. Veuillez vous assurer que j'ai les permissions `Voir le canal`",
+        "cant_find_channel": "Je ne trouve pas ce canal. Veuillez vous assurer que j'ai les permissions `Voir le canal`",
         "missing_perm": "Permission manquante pour envoyer dans ce canal.\nVeuillez accorder les permissions suivantes et réessayer :{permissions}"
     },
     "factions": {
@@ -341,13 +341,13 @@
         "Terminids_plural": "Terminides",
         "Automaton_plural": "Automatons",
         "Illuminate_plural": "Illuministes",
-        "the_Terminids_plural": "LES TERMINIDS",
-        "the_Automaton_plural": "L'AUTOMATE",
-        "the_Illuminate_plural": "LES ILLUMINÉS"
+        "the_Terminids_plural": "Terminides",
+        "the_Automaton_plural": "Automatons",
+        "the_Illuminate_plural": "Illuministes"
     },
     "difficulty": {
         "1": "Anecdotique",
-        "2": "Facile ",
+        "2": "Facile",
         "3": "Moyenne",
         "4": "Dangereuse",
         "5": "Difficile",
@@ -363,19 +363,19 @@
         "Requisition Slip": "Bon de réquisition",
         "Common Sample": "Échantillon commun",
         "Rare Sample": "Échantillon rare",
-        "Super Sample": "Super Échantillon"
+        "Super Sample": "Super échantillon"
     },
     "subfactions": {
-        "JET BRIGADE": "BRIGADE AERIENNE",
+        "JET BRIGADE": "BRIGADE AÉRIENNE",
         "PREDATOR STRAIN": "SOUCHE PRÉDATRICE",
-        "SPORE BURST STRAIN": "RUCHE PLANETAIRE",
-        "INCINERATION CORPS": "UNITE D'INCINÉRATION",
+        "SPORE BURST STRAIN": "RUCHE PLANÉTAIRE",
+        "INCINERATION CORPS": "UNITÉ D'INCINÉRATION",
         "THE GREAT HOST": "LE GRAND HÔTE",
         "RUPTURE STRAIN": "SOUCHE DES FOUISSEURS",
         "DRAGONROACHES": "DRACOFARDS",
         "HIVE LORDS": "SEIGNEURS DE LA RUCHE",
         "CYBORGS": "CYBORGS",
-        "MINDLESS MASSES": "MINDLESS MASSES",
-        "APPROPRIATORS": "APPROPRIATORS"
+        "MINDLESS MASSES": "MASSES DÉCÉRÉBRÉES",
+        "APPROPRIATORS": "ACCAPAREURS"
     }
 }
